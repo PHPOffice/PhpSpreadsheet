@@ -77,9 +77,9 @@
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_romanCut">romanCut()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_strSplit">strSplit()</a></th>
                     <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ARABIC">ARABIC()</a></th>
@@ -117,6 +117,11 @@
                     <td class="phpdocumentor-cell">int|string</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_getEven">getEven()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_FACT">FACT()</a></th>
                     <td class="phpdocumentor-cell">FACT.</td>
                     <td class="phpdocumentor-cell">int|string</td>
@@ -147,14 +152,14 @@
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_GCD">GCD()</a></th>
-                    <td class="phpdocumentor-cell">GCD.</td>
-                    <td class="phpdocumentor-cell">int|mixed|string</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_INT">INT()</a></th>
                     <td class="phpdocumentor-cell">INT.</td>
                     <td class="phpdocumentor-cell">int|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_GCD">GCD()</a></th>
+                    <td class="phpdocumentor-cell">GCD.</td>
+                    <td class="phpdocumentor-cell">int|mixed|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_LCM">LCM()</a></th>
@@ -223,8 +228,8 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ROMAN">ROMAN()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">ROMAN.</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ROUNDUP">ROUNDUP()</a></th>
@@ -245,6 +250,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_SIGN">SIGN()</a></th>
                     <td class="phpdocumentor-cell">SIGN.</td>
                     <td class="phpdocumentor-cell">int|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_returnSign">returnSign()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_SQRTPI">SQRTPI()</a></th>
@@ -347,9 +357,124 @@
                     <td class="phpdocumentor-cell">float|string</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_numberOrNan">numberOrNan()</a></th>
+                    <td class="phpdocumentor-cell">Return NAN or value depending on argument.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ACOTH">ACOTH()</a></th>
                     <td class="phpdocumentor-cell">ACOTH.</td>
                     <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinROUND">builtinROUND()</a></th>
+                    <td class="phpdocumentor-cell">ROUND.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinABS">builtinABS()</a></th>
+                    <td class="phpdocumentor-cell">ABS.</td>
+                    <td class="phpdocumentor-cell">float|int|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinACOS">builtinACOS()</a></th>
+                    <td class="phpdocumentor-cell">ACOS.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinACOSH">builtinACOSH()</a></th>
+                    <td class="phpdocumentor-cell">ACOSH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinASIN">builtinASIN()</a></th>
+                    <td class="phpdocumentor-cell">ASIN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinASINH">builtinASINH()</a></th>
+                    <td class="phpdocumentor-cell">ASINH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinATAN">builtinATAN()</a></th>
+                    <td class="phpdocumentor-cell">ASIN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinATANH">builtinATANH()</a></th>
+                    <td class="phpdocumentor-cell">ATANH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinCOS">builtinCOS()</a></th>
+                    <td class="phpdocumentor-cell">COS.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinCOSH">builtinCOSH()</a></th>
+                    <td class="phpdocumentor-cell">COSH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinDEGREES">builtinDEGREES()</a></th>
+                    <td class="phpdocumentor-cell">DEGREES.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinEXP">builtinEXP()</a></th>
+                    <td class="phpdocumentor-cell">EXP.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinLN">builtinLN()</a></th>
+                    <td class="phpdocumentor-cell">LN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinLOG10">builtinLOG10()</a></th>
+                    <td class="phpdocumentor-cell">LOG10.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinRADIANS">builtinRADIANS()</a></th>
+                    <td class="phpdocumentor-cell">RADIANS.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSIN">builtinSIN()</a></th>
+                    <td class="phpdocumentor-cell">SIN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSINH">builtinSINH()</a></th>
+                    <td class="phpdocumentor-cell">SINH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSQRT">builtinSQRT()</a></th>
+                    <td class="phpdocumentor-cell">SQRT.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinTAN">builtinTAN()</a></th>
+                    <td class="phpdocumentor-cell">TAN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinTANH">builtinTANH()</a></th>
+                    <td class="phpdocumentor-cell">TANH.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_verySmallDivisor">verySmallDivisor()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_nullFalseTrueToNumber">nullFalseTrueToNumber()</a></th>
+                    <td class="phpdocumentor-cell">Many functions accept null/false/true argument treated as 0/0/1.</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                                             </table>
 
@@ -396,14 +521,14 @@
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
-                                    <a id="method_romanCut"></a>
+                                    <a id="method_strSplit"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--private
                                     phpdocumentor-element--static                    "
 >
-    <h4 class="phpdocumentor-method__name">romanCut()</h4>
+    <h4 class="phpdocumentor-method__name">strSplit()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
@@ -411,37 +536,28 @@
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">romanCut</span>(
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">strSplit</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$num</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$n</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            <span class="phpdocumentor-signature__argument__name">$roman</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">array</span>
     </code>
 
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$num</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$n</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    <span class="phpdocumentor-signature__argument__name">$roman</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">array</span>
             
 </article>
                                     <a id="method_ARABIC"></a>
@@ -455,7 +571,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">54</span>
+        <span class="phpdocumentor-element-found-in__line">56</span>
     </aside>
         <p class="phpdocumentor-summary">ARABIC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -499,7 +615,7 @@ ARABIC(text)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">89</span>
+        <span class="phpdocumentor-element-found-in__line">91</span>
     </aside>
         <p class="phpdocumentor-summary">Recursively calculate the arabic value of a roman numeral.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -557,7 +673,7 @@ ARABIC(text)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">142</span>
+        <span class="phpdocumentor-element-found-in__line">144</span>
     </aside>
         <p class="phpdocumentor-summary">ATAN2.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -617,7 +733,7 @@ ATAN2(xCoordinate,yCoordinate)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">181</span>
+        <span class="phpdocumentor-element-found-in__line">183</span>
     </aside>
         <p class="phpdocumentor-summary">BASE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -679,7 +795,7 @@ BASE(Number, Radix [Min_length])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">224</span>
+        <span class="phpdocumentor-element-found-in__line">232</span>
     </aside>
         <p class="phpdocumentor-summary">CEILING.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -718,7 +834,22 @@ CEILING(number[,significance])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the multiple to which you want to round</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcCeiling() method in the MathTrig\Ceiling class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -735,7 +866,7 @@ CEILING(number[,significance])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">263</span>
+        <span class="phpdocumentor-element-found-in__line">251</span>
     </aside>
         <p class="phpdocumentor-summary">COMBIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -789,7 +920,7 @@ COMBIN(numObjs,numInSet)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">297</span>
+        <span class="phpdocumentor-element-found-in__line">285</span>
     </aside>
         <p class="phpdocumentor-summary">EVEN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -826,6 +957,45 @@ EVEN(number)</p></section>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
             
 </article>
+                                    <a id="method_getEven"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getEven()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">302</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getEven</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
                                     <a id="method_FACT"></a>
 <article
         class="
@@ -837,7 +1007,7 @@ EVEN(number)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">329</span>
+        <span class="phpdocumentor-element-found-in__line">322</span>
     </aside>
         <p class="phpdocumentor-summary">FACT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -882,7 +1052,7 @@ FACT(factVal)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">368</span>
+        <span class="phpdocumentor-element-found-in__line">361</span>
     </aside>
         <p class="phpdocumentor-summary">FACTDOUBLE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -926,7 +1096,7 @@ FACTDOUBLE(factVal)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">402</span>
+        <span class="phpdocumentor-element-found-in__line">401</span>
     </aside>
         <p class="phpdocumentor-summary">FLOOR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -962,7 +1132,22 @@ FLOOR(number[,significance])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Significance</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcFloor() method in the MathTrig\Floor class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -979,7 +1164,7 @@ FLOOR(number[,significance])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">445</span>
+        <span class="phpdocumentor-element-found-in__line">426</span>
     </aside>
         <p class="phpdocumentor-summary">FLOOR.MATH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1024,7 +1209,22 @@ FLOOR.MATH(number[,significance[,mode]])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>direction to round negative numbers</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcFloorMath() method in the MathTrig\FloorMath class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -1041,7 +1241,7 @@ FLOOR.MATH(number[,significance[,mode]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">483</span>
+        <span class="phpdocumentor-element-found-in__line">450</span>
     </aside>
         <p class="phpdocumentor-summary">FLOOR.PRECISE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1077,7 +1277,22 @@ FLOOR.PRECISE(number[,significance])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Significance</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcFloorPrecise() method in the MathTrig\FloorPrecise class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -1094,7 +1309,7 @@ FLOOR.PRECISE(number[,significance])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">501</span>
+        <span class="phpdocumentor-element-found-in__line">455</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1131,6 +1346,65 @@ FLOOR.PRECISE(number[,significance])</p></section>
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
+                                    <a id="method_INT"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">INT()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">478</span>
+    </aside>
+        <p class="phpdocumentor-summary">INT.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">INT</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Casts a floating point value to an integer</p>
+<p>Excel Function:
+INT(number)</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to cast to an integer</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcInt() method in the MathTrig\IntClass class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Integer value, or a string containing an error</p></span>
+            
+</article>
                                     <a id="method_GCD"></a>
 <article
         class="
@@ -1142,7 +1416,7 @@ FLOOR.PRECISE(number[,significance])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">520</span>
+        <span class="phpdocumentor-element-found-in__line">497</span>
     </aside>
         <p class="phpdocumentor-summary">GCD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1177,50 +1451,6 @@ GCD(number1[,number2[, ...]])</p></section>
                     &mdash; <span class="phpdocumentor-description"><p>Greatest Common Divisor, or a string containing an error</p></span>
             
 </article>
-                                    <a id="method_INT"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">INT()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">552</span>
-    </aside>
-        <p class="phpdocumentor-summary">INT.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">INT</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$number</span> :
-                <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">int|string</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Casts a floating point value to an integer</p>
-<p>Excel Function:
-INT(number)</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$number</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to cast to an integer</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int|string</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Integer value, or a string containing an error</p></span>
-            
-</article>
                                     <a id="method_LCM"></a>
 <article
         class="
@@ -1232,7 +1462,7 @@ INT(number)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">583</span>
+        <span class="phpdocumentor-element-found-in__line">532</span>
     </aside>
         <p class="phpdocumentor-summary">LCM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1279,7 +1509,7 @@ LCM(number1[,number2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">633</span>
+        <span class="phpdocumentor-element-found-in__line">582</span>
     </aside>
         <p class="phpdocumentor-summary">LOG_BASE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1332,7 +1562,7 @@ LOG(number[,base])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">660</span>
+        <span class="phpdocumentor-element-found-in__line">609</span>
     </aside>
         <p class="phpdocumentor-summary">MDETERM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1376,7 +1606,7 @@ MDETERM(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">710</span>
+        <span class="phpdocumentor-element-found-in__line">659</span>
     </aside>
         <p class="phpdocumentor-summary">MINVERSE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1420,7 +1650,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">760</span>
+        <span class="phpdocumentor-element-found-in__line">709</span>
     </aside>
         <p class="phpdocumentor-summary">MMULT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1470,7 +1700,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">822</span>
+        <span class="phpdocumentor-element-found-in__line">771</span>
     </aside>
         <p class="phpdocumentor-summary">MOD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1520,7 +1750,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">848</span>
+        <span class="phpdocumentor-element-found-in__line">803</span>
     </aside>
         <p class="phpdocumentor-summary">MROUND.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1554,7 +1784,22 @@ MINVERSE(array)</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Multiple to which you want to round $number</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcMround() method in the MathTrig\Mround class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -1571,7 +1816,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">878</span>
+        <span class="phpdocumentor-element-found-in__line">817</span>
     </aside>
         <p class="phpdocumentor-summary">MULTINOMIAL.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1613,7 +1858,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">915</span>
+        <span class="phpdocumentor-element-found-in__line">854</span>
     </aside>
         <p class="phpdocumentor-summary">ODD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1655,7 +1900,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">950</span>
+        <span class="phpdocumentor-element-found-in__line">892</span>
     </aside>
         <p class="phpdocumentor-summary">POWER.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1706,7 +1951,7 @@ MINVERSE(array)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">980</span>
+        <span class="phpdocumentor-element-found-in__line">922</span>
     </aside>
         <p class="phpdocumentor-summary">PRODUCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1749,7 +1994,7 @@ PRODUCT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1018</span>
+        <span class="phpdocumentor-element-found-in__line">960</span>
     </aside>
         <p class="phpdocumentor-summary">QUOTIENT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1793,7 +2038,7 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1051</span>
+        <span class="phpdocumentor-element-found-in__line">993</span>
     </aside>
         <p class="phpdocumentor-summary">RAND.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1843,8 +2088,9 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1063</span>
+        <span class="phpdocumentor-element-found-in__line">1021</span>
     </aside>
+        <p class="phpdocumentor-summary">ROMAN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ROMAN</span>(
@@ -1857,9 +2103,10 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">string</span>
     </code>
 
+        <section class="phpdocumentor-description"><p>Converts a number to Roman numeral</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
@@ -1867,17 +2114,33 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
                     <span class="phpdocumentor-signature__argument__name">$aValue</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to convert</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$style</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number indicating one of five possible forms</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcRoman() method in the MathTrig\Roman class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Roman numeral, or a string containing an error</p></span>
             
 </article>
                                     <a id="method_ROUNDUP"></a>
@@ -1891,7 +2154,7 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1105</span>
+        <span class="phpdocumentor-element-found-in__line">1042</span>
     </aside>
         <p class="phpdocumentor-summary">ROUNDUP.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1925,7 +2188,22 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number of digits to which you want to round $number</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcRoundUp() method in the MathTrig\RoundUp class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -1942,7 +2220,7 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1135</span>
+        <span class="phpdocumentor-element-found-in__line">1063</span>
     </aside>
         <p class="phpdocumentor-summary">ROUNDDOWN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1976,7 +2254,22 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number of digits to which you want to round $number</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcRoundDown() method in the MathTrig\RoundDown class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
@@ -1993,7 +2286,7 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1164</span>
+        <span class="phpdocumentor-element-found-in__line">1077</span>
     </aside>
         <p class="phpdocumentor-summary">SERIESSUM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2035,7 +2328,7 @@ QUOTIENT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1203</span>
+        <span class="phpdocumentor-element-found-in__line">1116</span>
     </aside>
         <p class="phpdocumentor-summary">SIGN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2067,6 +2360,45 @@ if the number is 0, and -1 if the number is negative.</p></section>
                     &mdash; <span class="phpdocumentor-description"><p>sign value, or a string containing an error</p></span>
             
 </article>
+                                    <a id="method_returnSign"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">returnSign()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1130</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">returnSign</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
                                     <a id="method_SQRTPI"></a>
 <article
         class="
@@ -2078,7 +2410,7 @@ if the number is 0, and -1 if the number is negative.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1230</span>
+        <span class="phpdocumentor-element-found-in__line">1144</span>
     </aside>
         <p class="phpdocumentor-summary">SQRTPI.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2120,7 +2452,7 @@ if the number is 0, and -1 if the number is negative.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1245</span>
+        <span class="phpdocumentor-element-found-in__line">1159</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
@@ -2168,7 +2500,7 @@ if the number is 0, and -1 if the number is negative.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1259</span>
+        <span class="phpdocumentor-element-found-in__line">1173</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
@@ -2216,7 +2548,7 @@ if the number is 0, and -1 if the number is negative.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1295</span>
+        <span class="phpdocumentor-element-found-in__line">1209</span>
     </aside>
         <p class="phpdocumentor-summary">SUBTOTAL.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2271,7 +2603,7 @@ in hidden rows or columns</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1350</span>
+        <span class="phpdocumentor-element-found-in__line">1264</span>
     </aside>
         <p class="phpdocumentor-summary">SUM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2314,52 +2646,63 @@ SUM(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1381</span>
+        <span class="phpdocumentor-element-found-in__line">1300</span>
     </aside>
         <p class="phpdocumentor-summary">SUMIF.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">SUMIF</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$aArgs</span> :
+                            <span class="phpdocumentor-signature__argument__name">$range</span> :
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$condition</span> :
+            ,                 <span class="phpdocumentor-signature__argument__name">$criteria</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$sumArgs</span> :
+            [,                 <span class="phpdocumentor-signature__argument__name">$sumRange</span> :
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">float</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>Counts the number of cells that contain numbers within the list of arguments</p>
+        <section class="phpdocumentor-description"><p>Totals the values of cells that contain numbers within the list of arguments</p>
 <p>Excel Function:
-SUMIF(value1[,value2[, ...]],condition)</p></section>
+SUMIF(range, criteria, [sum_range])</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$aArgs</span>
+                    <span class="phpdocumentor-signature__argument__name">$range</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Data values</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$condition</span>
+                    <span class="phpdocumentor-signature__argument__name">$criteria</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the criteria that defines which cells will be summed</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$sumArgs</span>
+                    <span class="phpdocumentor-signature__argument__name">$sumRange</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the SUMIF() method in the Statistical\Conditional class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -2375,7 +2718,7 @@ SUMIF(value1[,value2[, ...]],condition)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1425</span>
+        <span class="phpdocumentor-element-found-in__line">1322</span>
     </aside>
         <p class="phpdocumentor-summary">SUMIFS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2389,9 +2732,9 @@ SUMIF(value1[,value2[, ...]],condition)</p></section>
         : <span class="phpdocumentor-signature__response_type">float</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>Counts the number of cells that contain numbers within the list of arguments</p>
+        <section class="phpdocumentor-description"><p>Totals the values of cells that contain numbers within the list of arguments</p>
 <p>Excel Function:
-SUMIFS(value1[,value2[, ...]],condition)</p></section>
+SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
@@ -2402,7 +2745,18 @@ SUMIFS(value1[,value2[, ...]],condition)</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Data values</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the SUMIFS() method in the Statistical\Conditional class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -2418,7 +2772,7 @@ SUMIFS(value1[,value2[, ...]],condition)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1480</span>
+        <span class="phpdocumentor-element-found-in__line">1337</span>
     </aside>
         <p class="phpdocumentor-summary">SUMPRODUCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2461,7 +2815,7 @@ SUMPRODUCT(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1523</span>
+        <span class="phpdocumentor-element-found-in__line">1380</span>
     </aside>
         <p class="phpdocumentor-summary">SUMSQ.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2504,7 +2858,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1546</span>
+        <span class="phpdocumentor-element-found-in__line">1403</span>
     </aside>
         <p class="phpdocumentor-summary">SUMX2MY2.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2553,7 +2907,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1573</span>
+        <span class="phpdocumentor-element-found-in__line">1430</span>
     </aside>
         <p class="phpdocumentor-summary">SUMX2PY2.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2602,7 +2956,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1600</span>
+        <span class="phpdocumentor-element-found-in__line">1457</span>
     </aside>
         <p class="phpdocumentor-summary">SUMXMY2.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2651,7 +3005,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1629</span>
+        <span class="phpdocumentor-element-found-in__line">1492</span>
     </aside>
         <p class="phpdocumentor-summary">TRUNC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2685,7 +3039,22 @@ SUMSQ(value1[,value2[, ...]])</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the funcTrunc() method in the MathTrig\Trunc class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Truncated value, or a string containing an error</p></span>
@@ -2702,7 +3071,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1659</span>
+        <span class="phpdocumentor-element-found-in__line">1506</span>
     </aside>
         <p class="phpdocumentor-summary">SEC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2744,7 +3113,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1681</span>
+        <span class="phpdocumentor-element-found-in__line">1528</span>
     </aside>
         <p class="phpdocumentor-summary">SECH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2786,7 +3155,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1703</span>
+        <span class="phpdocumentor-element-found-in__line">1550</span>
     </aside>
         <p class="phpdocumentor-summary">CSC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2828,7 +3197,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1725</span>
+        <span class="phpdocumentor-element-found-in__line">1572</span>
     </aside>
         <p class="phpdocumentor-summary">CSCH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2870,7 +3239,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1747</span>
+        <span class="phpdocumentor-element-found-in__line">1594</span>
     </aside>
         <p class="phpdocumentor-summary">COT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2912,7 +3281,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1769</span>
+        <span class="phpdocumentor-element-found-in__line">1616</span>
     </aside>
         <p class="phpdocumentor-summary">COTH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2954,7 +3323,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1791</span>
+        <span class="phpdocumentor-element-found-in__line">1638</span>
     </aside>
         <p class="phpdocumentor-summary">ACOT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2985,6 +3354,46 @@ SUMSQ(value1[,value2[, ...]])</p></section>
                     &mdash; <span class="phpdocumentor-description"><p>The arccotangent of the number</p></span>
             
 </article>
+                                    <a id="method_numberOrNan"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">numberOrNan()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1656</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return NAN or value depending on argument.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">numberOrNan</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$result</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$result</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+            
+</article>
                                     <a id="method_ACOTH"></a>
 <article
         class="
@@ -2996,7 +3405,7 @@ SUMSQ(value1[,value2[, ...]])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1811</span>
+        <span class="phpdocumentor-element-found-in__line">1670</span>
     </aside>
         <p class="phpdocumentor-summary">ACOTH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3026,6 +3435,947 @@ SUMSQ(value1[,value2[, ...]])</p></section>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>The hyperbolic arccotangent of the number</p></span>
             
+</article>
+                                    <a id="method_builtinROUND"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinROUND()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1699</span>
+    </aside>
+        <p class="phpdocumentor-summary">ROUND.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinROUND</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$precision</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function round after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$precision</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be int</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the builtinRound() method in the MathTrig\Round class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinABS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinABS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1713</span>
+    </aside>
+        <p class="phpdocumentor-summary">ABS.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinABS</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|int|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function abs after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|int|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinACOS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinACOS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1733</span>
+    </aside>
+        <p class="phpdocumentor-summary">ACOS.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinACOS</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function acos after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinACOSH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinACOSH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1753</span>
+    </aside>
+        <p class="phpdocumentor-summary">ACOSH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinACOSH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function acosh after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinASIN"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinASIN()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1773</span>
+    </aside>
+        <p class="phpdocumentor-summary">ASIN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinASIN</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function asin after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinASINH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinASINH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1793</span>
+    </aside>
+        <p class="phpdocumentor-summary">ASINH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinASINH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function asinh after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinATAN"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinATAN()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1813</span>
+    </aside>
+        <p class="phpdocumentor-summary">ASIN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinATAN</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function atan after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinATANH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinATANH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1833</span>
+    </aside>
+        <p class="phpdocumentor-summary">ATANH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinATANH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function atanh after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinCOS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinCOS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1853</span>
+    </aside>
+        <p class="phpdocumentor-summary">COS.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinCOS</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function cos after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinCOSH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinCOSH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1873</span>
+    </aside>
+        <p class="phpdocumentor-summary">COSH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinCOSH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function cos after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinDEGREES"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinDEGREES()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1893</span>
+    </aside>
+        <p class="phpdocumentor-summary">DEGREES.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinDEGREES</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function rad2deg after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinEXP"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinEXP()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1913</span>
+    </aside>
+        <p class="phpdocumentor-summary">EXP.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinEXP</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function exp after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinLN"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinLN()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1933</span>
+    </aside>
+        <p class="phpdocumentor-summary">LN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinLN</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function log after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinLOG10"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinLOG10()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1953</span>
+    </aside>
+        <p class="phpdocumentor-summary">LOG10.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinLOG10</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function log after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinRADIANS"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinRADIANS()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1973</span>
+    </aside>
+        <p class="phpdocumentor-summary">RADIANS.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinRADIANS</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function deg2rad after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinSIN"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinSIN()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1993</span>
+    </aside>
+        <p class="phpdocumentor-summary">SIN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinSIN</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function sin after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinSINH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinSINH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2013</span>
+    </aside>
+        <p class="phpdocumentor-summary">SINH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinSINH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function sinh after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinSQRT"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinSQRT()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2033</span>
+    </aside>
+        <p class="phpdocumentor-summary">SQRT.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinSQRT</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function sqrt after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinTAN"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinTAN()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2053</span>
+    </aside>
+        <p class="phpdocumentor-summary">TAN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinTAN</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function tan after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_builtinTANH"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">builtinTANH()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2073</span>
+    </aside>
+        <p class="phpdocumentor-summary">TANH.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinTANH</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns the result of builtin function sinh after validating args.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Should be numeric</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_verySmallDivisor"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">verySmallDivisor()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2084</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">verySmallDivisor</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_nullFalseTrueToNumber"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">nullFalseTrueToNumber()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig.php">MathTrig.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">2094</span>
+    </aside>
+        <p class="phpdocumentor-summary">Many functions accept null/false/true argument treated as 0/0/1.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">nullFalseTrueToNumber</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
 </article>
                                                             </section>
             </article>

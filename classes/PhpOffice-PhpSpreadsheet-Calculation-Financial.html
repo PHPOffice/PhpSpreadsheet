@@ -119,12 +119,12 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Financial.html#method_AMORDEGRC">AMORDEGRC()</a></th>
                     <td class="phpdocumentor-cell">AMORDEGRC.</td>
-                    <td class="phpdocumentor-cell">float</td>
+                    <td class="phpdocumentor-cell">float|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Financial.html#method_AMORLINC">AMORLINC()</a></th>
                     <td class="phpdocumentor-cell">AMORLINC.</td>
-                    <td class="phpdocumentor-cell">float</td>
+                    <td class="phpdocumentor-cell">float|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Financial.html#method_COUPDAYBS">COUPDAYBS()</a></th>
@@ -960,7 +960,7 @@ If you omit par, ACCRINT uses $1,000.</p></section></dd>
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">float</span>
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the depreciation for each accounting period.
@@ -1020,7 +1020,8 @@ AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p></section>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float</span>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>(string containing the error type if there is an error)</p></span>
             
 </article>
                                     <a id="method_AMORLINC"></a>
@@ -1034,7 +1035,7 @@ AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">323</span>
+        <span class="phpdocumentor-element-found-in__line">327</span>
     </aside>
         <p class="phpdocumentor-summary">AMORLINC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1069,7 +1070,7 @@ AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p></section>
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">float</span>
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the depreciation for each accounting period.
@@ -1124,7 +1125,8 @@ AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p></section>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float</span>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>(string containing the error type if there is an error)</p></span>
             
 </article>
                                     <a id="method_COUPDAYBS"></a>
@@ -1138,7 +1140,7 @@ AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">384</span>
+        <span class="phpdocumentor-element-found-in__line">391</span>
     </aside>
         <p class="phpdocumentor-summary">COUPDAYBS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1220,7 +1222,7 @@ Valid frequency values are:
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">443</span>
+        <span class="phpdocumentor-element-found-in__line">450</span>
     </aside>
         <p class="phpdocumentor-summary">COUPDAYS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1302,7 +1304,7 @@ Valid frequency values are:
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">513</span>
+        <span class="phpdocumentor-element-found-in__line">520</span>
     </aside>
         <p class="phpdocumentor-summary">COUPDAYSNC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1384,7 +1386,7 @@ Valid frequency values are:
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">569</span>
+        <span class="phpdocumentor-element-found-in__line">576</span>
     </aside>
         <p class="phpdocumentor-summary">COUPNCD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1468,7 +1470,7 @@ depending on the value of the ReturnDateType flag</p></span>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">622</span>
+        <span class="phpdocumentor-element-found-in__line">629</span>
     </aside>
         <p class="phpdocumentor-summary">COUPNUM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1551,7 +1553,7 @@ Valid frequency values are:
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">677</span>
+        <span class="phpdocumentor-element-found-in__line">684</span>
     </aside>
         <p class="phpdocumentor-summary">COUPPCD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1635,7 +1637,7 @@ depending on the value of the ReturnDateType flag</p></span>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">722</span>
+        <span class="phpdocumentor-element-found-in__line">729</span>
     </aside>
         <p class="phpdocumentor-summary">CUMIPMT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1726,7 +1728,7 @@ Payment periods are numbered beginning with 1.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">768</span>
+        <span class="phpdocumentor-element-found-in__line">780</span>
     </aside>
         <p class="phpdocumentor-summary">CUMPRINC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1817,7 +1819,7 @@ Payment periods are numbered beginning with 1.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">819</span>
+        <span class="phpdocumentor-element-found-in__line">836</span>
     </aside>
         <p class="phpdocumentor-summary">DB.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1905,7 +1907,7 @@ it defaults to 12.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">885</span>
+        <span class="phpdocumentor-element-found-in__line">902</span>
     </aside>
         <p class="phpdocumentor-summary">DDB.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1990,7 +1992,7 @@ double-declining balance method).</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">945</span>
+        <span class="phpdocumentor-element-found-in__line">962</span>
     </aside>
         <p class="phpdocumentor-summary">DISC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2077,7 +2079,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">988</span>
+        <span class="phpdocumentor-element-found-in__line">1005</span>
     </aside>
         <p class="phpdocumentor-summary">DOLLARDE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2131,7 +2133,7 @@ DOLLARDE(fractional_dollar,fraction)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1024</span>
+        <span class="phpdocumentor-element-found-in__line">1041</span>
     </aside>
         <p class="phpdocumentor-summary">DOLLARFR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2185,7 +2187,7 @@ DOLLARFR(decimal_dollar,fraction)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1059</span>
+        <span class="phpdocumentor-element-found-in__line">1076</span>
     </aside>
         <p class="phpdocumentor-summary">EFFECT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2238,7 +2240,7 @@ EFFECT(nominal_rate,npery)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1093</span>
+        <span class="phpdocumentor-element-found-in__line">1110</span>
     </aside>
         <p class="phpdocumentor-summary">FV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2322,7 +2324,7 @@ future payments is worth right now</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1128</span>
+        <span class="phpdocumentor-element-found-in__line">1145</span>
     </aside>
         <p class="phpdocumentor-summary">FVSCHEDULE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2375,7 +2377,7 @@ FVSCHEDULE(principal,schedule)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1163</span>
+        <span class="phpdocumentor-element-found-in__line">1180</span>
     </aside>
         <p class="phpdocumentor-summary">INTRATE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2461,7 +2463,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1208</span>
+        <span class="phpdocumentor-element-found-in__line">1225</span>
     </aside>
         <p class="phpdocumentor-summary">IPMT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2549,7 +2551,7 @@ IPMT(rate,per,nper,pv[,fv][,type])</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1251</span>
+        <span class="phpdocumentor-element-found-in__line">1268</span>
     </aside>
         <p class="phpdocumentor-summary">IRR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2608,7 +2610,7 @@ calculate the internal rate of return.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1318</span>
+        <span class="phpdocumentor-element-found-in__line">1335</span>
     </aside>
         <p class="phpdocumentor-summary">ISPMT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2655,7 +2657,7 @@ calculate the internal rate of return.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1361</span>
+        <span class="phpdocumentor-element-found-in__line">1378</span>
     </aside>
         <p class="phpdocumentor-summary">MIRR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2720,7 +2722,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1403</span>
+        <span class="phpdocumentor-element-found-in__line">1420</span>
     </aside>
         <p class="phpdocumentor-summary">NOMINAL.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2771,7 +2773,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1430</span>
+        <span class="phpdocumentor-element-found-in__line">1447</span>
     </aside>
         <p class="phpdocumentor-summary">NPER.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2849,7 +2851,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1465</span>
+        <span class="phpdocumentor-element-found-in__line">1482</span>
     </aside>
         <p class="phpdocumentor-summary">NPV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2890,7 +2892,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1498</span>
+        <span class="phpdocumentor-element-found-in__line">1515</span>
     </aside>
         <p class="phpdocumentor-summary">PDURATION.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2950,7 +2952,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1527</span>
+        <span class="phpdocumentor-element-found-in__line">1544</span>
     </aside>
         <p class="phpdocumentor-summary">PMT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3028,7 +3030,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1562</span>
+        <span class="phpdocumentor-element-found-in__line">1579</span>
     </aside>
         <p class="phpdocumentor-summary">PPMT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3115,7 +3117,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1585</span>
+        <span class="phpdocumentor-element-found-in__line">1602</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -3208,7 +3210,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1612</span>
+        <span class="phpdocumentor-element-found-in__line">1629</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -3301,7 +3303,7 @@ Payments are negative value, income is positive values.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1680</span>
+        <span class="phpdocumentor-element-found-in__line">1697</span>
     </aside>
         <p class="phpdocumentor-summary">PRICEDISC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3386,7 +3388,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1726</span>
+        <span class="phpdocumentor-element-found-in__line">1743</span>
     </aside>
         <p class="phpdocumentor-summary">PRICEMAT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3480,7 +3482,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1784</span>
+        <span class="phpdocumentor-element-found-in__line">1801</span>
     </aside>
         <p class="phpdocumentor-summary">PV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3558,7 +3560,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1834</span>
+        <span class="phpdocumentor-element-found-in__line">1851</span>
     </aside>
         <p class="phpdocumentor-summary">RATE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3658,7 +3660,7 @@ If you omit guess, it is assumed to be 10 percent.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1861</span>
+        <span class="phpdocumentor-element-found-in__line">1878</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -3742,7 +3744,7 @@ If you omit guess, it is assumed to be 10 percent.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1899</span>
+        <span class="phpdocumentor-element-found-in__line">1916</span>
     </aside>
         <p class="phpdocumentor-summary">RECEIVED.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3827,7 +3829,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1935</span>
+        <span class="phpdocumentor-element-found-in__line">1952</span>
     </aside>
         <p class="phpdocumentor-summary">RRI.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3887,7 +3889,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1962</span>
+        <span class="phpdocumentor-element-found-in__line">1979</span>
     </aside>
         <p class="phpdocumentor-summary">SLN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3947,7 +3949,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1992</span>
+        <span class="phpdocumentor-element-found-in__line">2009</span>
     </aside>
         <p class="phpdocumentor-summary">SYD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4016,7 +4018,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2024</span>
+        <span class="phpdocumentor-element-found-in__line">2041</span>
     </aside>
         <p class="phpdocumentor-summary">TBILLEQ.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4078,7 +4080,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2063</span>
+        <span class="phpdocumentor-element-found-in__line">2080</span>
     </aside>
         <p class="phpdocumentor-summary">TBILLPRICE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4140,7 +4142,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2118</span>
+        <span class="phpdocumentor-element-found-in__line">2135</span>
     </aside>
         <p class="phpdocumentor-summary">TBILLYIELD.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4201,7 +4203,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2151</span>
+        <span class="phpdocumentor-element-found-in__line">2168</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4249,7 +4251,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2156</span>
+        <span class="phpdocumentor-element-found-in__line">2173</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4288,7 +4290,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2178</span>
+        <span class="phpdocumentor-element-found-in__line">2195</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4336,7 +4338,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2200</span>
+        <span class="phpdocumentor-element-found-in__line">2217</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4402,7 +4404,7 @@ The maturity date is the date when the Treasury bill expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2246</span>
+        <span class="phpdocumentor-element-found-in__line">2263</span>
     </aside>
         <p class="phpdocumentor-summary">XIRR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4466,7 +4468,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2301</span>
+        <span class="phpdocumentor-element-found-in__line">2318</span>
     </aside>
         <p class="phpdocumentor-summary">XNPV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4533,7 +4535,7 @@ All other dates must be later than this date, but they may occur in any order.</
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2306</span>
+        <span class="phpdocumentor-element-found-in__line">2323</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4590,7 +4592,7 @@ All other dates must be later than this date, but they may occur in any order.</
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2326</span>
+        <span class="phpdocumentor-element-found-in__line">2343</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -4656,7 +4658,7 @@ All other dates must be later than this date, but they may occur in any order.</
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2380</span>
+        <span class="phpdocumentor-element-found-in__line">2397</span>
     </aside>
         <p class="phpdocumentor-summary">YIELDDISC.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -4741,7 +4743,7 @@ The maturity date is the date when the security expires.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial.php"><a href="../files/src-phpspreadsheet-calculation-financial.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial.php">Financial.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2431</span>
+        <span class="phpdocumentor-element-found-in__line">2448</span>
     </aside>
         <p class="phpdocumentor-summary">YIELDMAT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

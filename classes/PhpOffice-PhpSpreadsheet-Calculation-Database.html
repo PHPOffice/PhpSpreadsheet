@@ -63,7 +63,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">5</span>
+            <span class="phpdocumentor-element-found-in__line">8</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -72,24 +72,9 @@
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
                                                                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_fieldExtract">fieldExtract()</a></th>
-                    <td class="phpdocumentor-cell">fieldExtract.</td>
-                    <td class="phpdocumentor-cell">null|string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_filter">filter()</a></th>
-                    <td class="phpdocumentor-cell">filter.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_getFilteredColumn">getFilteredColumn()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_DAVERAGE">DAVERAGE()</a></th>
                     <td class="phpdocumentor-cell">DAVERAGE.</td>
-                    <td class="phpdocumentor-cell">float|string</td>
+                    <td class="phpdocumentor-cell">null|float|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_DCOUNT">DCOUNT()</a></th>
@@ -152,179 +137,6 @@
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_fieldExtract"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">fieldExtract()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">24</span>
-    </aside>
-        <p class="phpdocumentor-summary">fieldExtract.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">fieldExtract</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$database</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$field</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">null|string</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Extracts the column ID to use for the data field.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$database</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The range of cells that makes up the list or database.
-A database is a list of related data in which rows of related
-information are records, and columns of data are fields. The
-first row of the list contains labels for each column.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$field</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Indicates which column is used in the function. Enter the
-column label enclosed between double quotation marks, such as
-&quot;Age&quot; or &quot;Yield,&quot; or a number (without quotation marks) that
-represents the position of the column within the list: 1 for
-the first column, 2 for the second column, and so on.</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">null|string</span>
-            
-</article>
-                                    <a id="method_filter"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">filter()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">57</span>
-    </aside>
-        <p class="phpdocumentor-summary">filter.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">filter</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$database</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$criteria</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Parses the selection criteria, extracts the database rows that match those criteria, and
-returns that subset of rows.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$database</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The range of cells that makes up the list or database.
-A database is a list of related data in which rows of related
-information are records, and columns of data are fields. The
-first row of the list contains labels for each column.</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$criteria</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The range of cells that contains the conditions you specify.
-You can use any range for the criteria argument, as long as it
-includes at least one column label and at least one cell below
-the column label in which you specify a condition for the
-column.</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>of mixed</p></span>
-            
-</article>
-                                    <a id="method_getFilteredColumn"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getFilteredColumn()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">112</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getFilteredColumn</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$database</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$field</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$criteria</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$database</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$field</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$criteria</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
                                     <a id="method_DAVERAGE"></a>
 <article
         class="
@@ -336,7 +148,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">150</span>
+        <span class="phpdocumentor-element-found-in__line">39</span>
     </aside>
         <p class="phpdocumentor-summary">DAVERAGE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -355,7 +167,7 @@ column.</p></section></dd>
                 <span class="phpdocumentor-signature__argument__return-type">array</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">float|string</span>
+        : <span class="phpdocumentor-signature__response_type">null|float|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Averages the values in a column of a list or database that match conditions you specify.</p>
@@ -392,9 +204,20 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DAverage class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|string</span>
+        <span class="phpdocumentor-signature__response_type">null|float|string</span>
             
 </article>
                                     <a id="method_DCOUNT"></a>
@@ -408,7 +231,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">195</span>
+        <span class="phpdocumentor-element-found-in__line">77</span>
     </aside>
         <p class="phpdocumentor-summary">DCOUNT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -420,7 +243,7 @@ column.</p></section></dd>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$field</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int|string</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|int|string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$criteria</span> :
@@ -433,9 +256,7 @@ column.</p></section></dd>
         <section class="phpdocumentor-description"><p>Counts the cells that contain numbers in a column of a list or database that match conditions
 that you specify.</p>
 <p>Excel Function:
-DCOUNT(database,[field],criteria)</p>
-<p>Excel Function:
-DAVERAGE(database,field,criteria)</p></section>
+DCOUNT(database,[field],criteria)</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
@@ -449,7 +270,7 @@ information are records, and columns of data are fields. The
 first row of the list contains labels for each column.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$field</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int|string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|int|string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Indicates which column is used in the function. Enter the
 column label enclosed between double quotation marks, such as
@@ -470,6 +291,14 @@ column.</p></section></dd>
                 <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
         <dl class="phpdocumentor-tag-list">
                                                 <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DCount class instead</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
                         <span class="phpdocumentor-tag__name">TODO</span>
                     </dt>
                     <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>The field argument is optional. If field is omitted, DCOUNT counts all records in the
@@ -491,7 +320,7 @@ database that match the criteria.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">236</span>
+        <span class="phpdocumentor-element-found-in__line">111</span>
     </aside>
         <p class="phpdocumentor-summary">DCOUNTA.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -503,7 +332,7 @@ database that match the criteria.</p></section></dd>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$field</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int|string</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|int|string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$criteria</span> :
@@ -529,7 +358,7 @@ information are records, and columns of data are fields. The
 first row of the list contains labels for each column.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$field</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int|string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|int|string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Indicates which column is used in the function. Enter the
 column label enclosed between double quotation marks, such as
@@ -550,10 +379,13 @@ column.</p></section></dd>
                 <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
         <dl class="phpdocumentor-tag-list">
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">TODO</span>
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
                     </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>The field argument is optional. If field is omitted, DCOUNTA counts all records in the
-database that match the criteria.</p></section></dd>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DCountA class instead</p></section></dd>
                                     </dl>
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -571,7 +403,7 @@ database that match the criteria.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">283</span>
+        <span class="phpdocumentor-element-found-in__line">146</span>
     </aside>
         <p class="phpdocumentor-summary">DGET.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -628,7 +460,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DGet class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
@@ -644,7 +487,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">325</span>
+        <span class="phpdocumentor-element-found-in__line">181</span>
     </aside>
         <p class="phpdocumentor-summary">DMAX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -701,7 +544,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DMax class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -717,7 +571,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">364</span>
+        <span class="phpdocumentor-element-found-in__line">216</span>
     </aside>
         <p class="phpdocumentor-summary">DMIN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -774,7 +628,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DMin class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -790,7 +655,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">402</span>
+        <span class="phpdocumentor-element-found-in__line">250</span>
     </aside>
         <p class="phpdocumentor-summary">DPRODUCT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -846,7 +711,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DProduct class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -862,7 +738,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">441</span>
+        <span class="phpdocumentor-element-found-in__line">285</span>
     </aside>
         <p class="phpdocumentor-summary">DSTDEV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -919,7 +795,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DStDev class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
             
@@ -935,7 +822,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">480</span>
+        <span class="phpdocumentor-element-found-in__line">320</span>
     </aside>
         <p class="phpdocumentor-summary">DSTDEVP.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -992,7 +879,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DStDevP class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
             
@@ -1008,7 +906,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">518</span>
+        <span class="phpdocumentor-element-found-in__line">354</span>
     </aside>
         <p class="phpdocumentor-summary">DSUM.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1064,7 +962,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DSum class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float</span>
             
@@ -1080,7 +989,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">557</span>
+        <span class="phpdocumentor-element-found-in__line">389</span>
     </aside>
         <p class="phpdocumentor-summary">DVAR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1137,7 +1046,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DVar class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>(string if result is an error)</p></span>
@@ -1154,7 +1074,7 @@ column.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Database.php"><a href="../files/src-phpspreadsheet-calculation-database.html"><abbr title="src/PhpSpreadsheet/Calculation/Database.php">Database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">596</span>
+        <span class="phpdocumentor-element-found-in__line">424</span>
     </aside>
         <p class="phpdocumentor-summary">DVARP.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1211,7 +1131,18 @@ the column label in which you specify a condition for the
 column.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.17.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>the evaluate() method in the Database\DVarP class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>(string if result is an error)</p></span>

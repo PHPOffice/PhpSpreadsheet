@@ -226,11 +226,6 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_convertMatrixReferences"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AmkMatrix\u0028\u0029",
-            "name": "mkMatrix",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_mkMatrix"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AinternalParseFormula\u0028\u0029",
             "name": "internalParseFormula",
             "summary": "",
@@ -260,6 +255,11 @@ Search.appendIndex(
             "name": "strcmpLowercaseFirst",
             "summary": "Compare\u0020two\u0020strings\u0020in\u0020the\u0020same\u0020way\u0020as\u0020strcmp\u0028\u0029\u0020except\u0020that\u0020lowercase\u0020come\u0020before\u0020uppercase\u0020letters.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_strcmpLowercaseFirst"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AstrcmpAllowNull\u0028\u0029",
+            "name": "strcmpAllowNull",
+            "summary": "PHP8.1\u0020deprecates\u0020passing\u0020null\u0020to\u0020strcmp.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Calculation.html#method_strcmpAllowNull"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Calculation\u003A\u003AexecuteNumericBinaryOperation\u0028\u0029",
             "name": "executeNumericBinaryOperation",
@@ -631,25 +631,175 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Category.html#constant_CATEGORY_WEB"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract",
+            "name": "DatabaseAbstract",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AfieldExtract\u0028\u0029",
+            "name": "fieldExtract",
+            "summary": "fieldExtract.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_fieldExtract"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003Afilter\u0028\u0029",
+            "name": "filter",
+            "summary": "filter.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_filter"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AgetFilteredColumn\u0028\u0029",
+            "name": "getFilteredColumn",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_getFilteredColumn"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AbuildQuery\u0028\u0029",
+            "name": "buildQuery",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_buildQuery"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AbuildCondition\u0028\u0029",
+            "name": "buildCondition",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_buildCondition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AexecuteQuery\u0028\u0029",
+            "name": "executeQuery",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_executeQuery"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DatabaseAbstract\u003A\u003AprocessCondition\u0028\u0029",
+            "name": "processCondition",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DatabaseAbstract.html#method_processCondition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DAverage",
+            "name": "DAverage",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DAverage.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DAverage\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DAVERAGE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DAverage.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DCount",
+            "name": "DCount",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DCount.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DCount\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DCOUNT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DCount.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DCountA",
+            "name": "DCountA",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DCountA.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DCountA\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DCOUNTA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DCountA.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DGet",
+            "name": "DGet",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DGet.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DGet\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DGET.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DGet.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DMax",
+            "name": "DMax",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DMax.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DMax\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DMAX.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DMax.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DMin",
+            "name": "DMin",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DMin.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DMin\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DMIN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DMin.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DProduct",
+            "name": "DProduct",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DProduct.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DProduct\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DPRODUCT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DProduct.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DStDev",
+            "name": "DStDev",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DStDev.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DStDev\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DSTDEV.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DStDev.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DStDevP",
+            "name": "DStDevP",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DStDevP.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DStDevP\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DSTDEVP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DStDevP.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DSum",
+            "name": "DSum",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DSum.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DSum\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DSUM.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DSum.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DVar",
+            "name": "DVar",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DVar.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DVar\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DVAR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DVar.html#method_evaluate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DVarP",
+            "name": "DVarP",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DVarP.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\\DVarP\u003A\u003Aevaluate\u0028\u0029",
+            "name": "evaluate",
+            "summary": "DVARP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database-DVarP.html#method_evaluate"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database",
             "name": "Database",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\u003A\u003AfieldExtract\u0028\u0029",
-            "name": "fieldExtract",
-            "summary": "fieldExtract.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_fieldExtract"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\u003A\u003Afilter\u0028\u0029",
-            "name": "filter",
-            "summary": "filter.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_filter"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\u003A\u003AgetFilteredColumn\u0028\u0029",
-            "name": "getFilteredColumn",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html#method_getFilteredColumn"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database\u003A\u003ADAVERAGE\u0028\u0029",
             "name": "DAVERAGE",
@@ -766,6 +916,31 @@ Search.appendIndex(
             "summary": "DATEVALUE.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_DATEVALUE"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AreplaceIfEmpty\u0028\u0029",
+            "name": "replaceIfEmpty",
+            "summary": "Help\u0020reduce\u0020perceived\u0020complexity\u0020of\u0020some\u0020tests.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_replaceIfEmpty"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AadjustYear\u0028\u0029",
+            "name": "adjustYear",
+            "summary": "Adjust\u0020year\u0020in\u0020ambiguous\u0020situations.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_adjustYear"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AreturnIn3FormatsArray\u0028\u0029",
+            "name": "returnIn3FormatsArray",
+            "summary": "Return\u0020result\u0020in\u0020one\u0020of\u0020three\u0020formats.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_returnIn3FormatsArray"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AreturnIn3FormatsFloat\u0028\u0029",
+            "name": "returnIn3FormatsFloat",
+            "summary": "Return\u0020result\u0020in\u0020one\u0020of\u0020three\u0020formats.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_returnIn3FormatsFloat"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AreturnIn3FormatsObject\u0028\u0029",
+            "name": "returnIn3FormatsObject",
+            "summary": "Return\u0020result\u0020in\u0020one\u0020of\u0020three\u0020formats.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_returnIn3FormatsObject"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003ATIMEVALUE\u0028\u0029",
             "name": "TIMEVALUE",
             "summary": "TIMEVALUE.",
@@ -816,6 +991,16 @@ Search.appendIndex(
             "summary": "WEEKNUM.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_WEEKNUM"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AbuggyWeekNum1900\u0028\u0029",
+            "name": "buggyWeekNum1900",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_buggyWeekNum1900"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AbuggyWeekNum1904\u0028\u0029",
+            "name": "buggyWeekNum1904",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_buggyWeekNum1904"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AISOWEEKNUM\u0028\u0029",
             "name": "ISOWEEKNUM",
             "summary": "ISOWEEKNUM.",
@@ -855,6 +1040,16 @@ Search.appendIndex(
             "name": "EOMONTH",
             "summary": "EOMONTH.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_EOMONTH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003AnullFalseTrueToNumber\u0028\u0029",
+            "name": "nullFalseTrueToNumber",
+            "summary": "Many\u0020functions\u0020accept\u0020null\/false\/true\u0020argument\u0020treated\u0020as\u00200\/0\/1.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_nullFalseTrueToNumber"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003Asilly1900\u0028\u0029",
+            "name": "silly1900",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html#method_silly1900"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime\u003A\u003ASTARTWEEK_SUNDAY",
             "name": "STARTWEEK_SUNDAY",
@@ -1051,6 +1246,256 @@ Search.appendIndex(
             "summary": "The\u0020calculation\u0020engine\u0020cell\u0020reference\u0020stack.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engine-Logger.html#property_cellStack"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselI",
+            "name": "BesselI",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselI\u003A\u003ABESSELI\u0028\u0029",
+            "name": "BESSELI",
+            "summary": "BESSELI.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html#method_BESSELI"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselI\u003A\u003Acalculate\u0028\u0029",
+            "name": "calculate",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html#method_calculate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselJ",
+            "name": "BesselJ",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselJ.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselJ\u003A\u003ABESSELJ\u0028\u0029",
+            "name": "BESSELJ",
+            "summary": "BESSELJ.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselJ.html#method_BESSELJ"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselJ\u003A\u003Acalculate\u0028\u0029",
+            "name": "calculate",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselJ.html#method_calculate"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselK",
+            "name": "BesselK",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselK.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselK\u003A\u003ABESSELK\u0028\u0029",
+            "name": "BESSELK",
+            "summary": "BESSELK.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselK.html#method_BESSELK"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselK\u003A\u003AbesselK0\u0028\u0029",
+            "name": "besselK0",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselK.html#method_besselK0"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselK\u003A\u003AbesselK1\u0028\u0029",
+            "name": "besselK1",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselK.html#method_besselK1"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselK\u003A\u003AbesselK2\u0028\u0029",
+            "name": "besselK2",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselK.html#method_besselK2"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselY",
+            "name": "BesselY",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselY.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselY\u003A\u003ABESSELY\u0028\u0029",
+            "name": "BESSELY",
+            "summary": "BESSELY.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselY.html#method_BESSELY"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselY\u003A\u003AbesselY0\u0028\u0029",
+            "name": "besselY0",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselY.html#method_besselY0"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselY\u003A\u003AbesselY1\u0028\u0029",
+            "name": "besselY1",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselY.html#method_besselY1"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BesselY\u003A\u003AbesselY2\u0028\u0029",
+            "name": "besselY2",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselY.html#method_besselY2"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise",
+            "name": "BitWise",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003ABITAND\u0028\u0029",
+            "name": "BITAND",
+            "summary": "BITAND.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITAND"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003ABITOR\u0028\u0029",
+            "name": "BITOR",
+            "summary": "BITOR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITOR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003ABITXOR\u0028\u0029",
+            "name": "BITXOR",
+            "summary": "BITXOR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITXOR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003ABITLSHIFT\u0028\u0029",
+            "name": "BITLSHIFT",
+            "summary": "BITLSHIFT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITLSHIFT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003ABITRSHIFT\u0028\u0029",
+            "name": "BITRSHIFT",
+            "summary": "BITRSHIFT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITRSHIFT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\BitWise\u003A\u003AvalidateBitwiseArgument\u0028\u0029",
+            "name": "validateBitwiseArgument",
+            "summary": "Validate\u0020arguments\u0020passed\u0020to\u0020the\u0020bitwise\u0020functions.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_validateBitwiseArgument"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Compare",
+            "name": "Compare",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Compare.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Compare\u003A\u003ADELTA\u0028\u0029",
+            "name": "DELTA",
+            "summary": "DELTA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Compare.html#method_DELTA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Compare\u003A\u003AGESTEP\u0028\u0029",
+            "name": "GESTEP",
+            "summary": "GESTEP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Compare.html#method_GESTEP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBase",
+            "name": "ConvertBase",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBase.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBase\u003A\u003AvalidateValue\u0028\u0029",
+            "name": "validateValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBase.html#method_validateValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBase\u003A\u003AvalidatePlaces\u0028\u0029",
+            "name": "validatePlaces",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBase.html#method_validatePlaces"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBase\u003A\u003AnbrConversionFormat\u0028\u0029",
+            "name": "nbrConversionFormat",
+            "summary": "Formats\u0020a\u0020number\u0020base\u0020string\u0020value\u0020with\u0020leading\u0020zeroes.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBase.html#method_nbrConversionFormat"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBinary",
+            "name": "ConvertBinary",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBinary.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBinary\u003A\u003AtoDecimal\u0028\u0029",
+            "name": "toDecimal",
+            "summary": "toDecimal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBinary.html#method_toDecimal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBinary\u003A\u003AtoHex\u0028\u0029",
+            "name": "toHex",
+            "summary": "toHex.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBinary.html#method_toHex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBinary\u003A\u003AtoOctal\u0028\u0029",
+            "name": "toOctal",
+            "summary": "toOctal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBinary.html#method_toOctal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertBinary\u003A\u003AvalidateBinary\u0028\u0029",
+            "name": "validateBinary",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertBinary.html#method_validateBinary"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertDecimal",
+            "name": "ConvertDecimal",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertDecimal.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertDecimal\u003A\u003AtoBinary\u0028\u0029",
+            "name": "toBinary",
+            "summary": "toBinary.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertDecimal.html#method_toBinary"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertDecimal\u003A\u003AtoHex\u0028\u0029",
+            "name": "toHex",
+            "summary": "toHex.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertDecimal.html#method_toHex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertDecimal\u003A\u003AtoOctal\u0028\u0029",
+            "name": "toOctal",
+            "summary": "toOctal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertDecimal.html#method_toOctal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertDecimal\u003A\u003AvalidateDecimal\u0028\u0029",
+            "name": "validateDecimal",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertDecimal.html#method_validateDecimal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertHex",
+            "name": "ConvertHex",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertHex.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertHex\u003A\u003AtoBinary\u0028\u0029",
+            "name": "toBinary",
+            "summary": "toBinary.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertHex.html#method_toBinary"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertHex\u003A\u003AtoDecimal\u0028\u0029",
+            "name": "toDecimal",
+            "summary": "toDecimal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertHex.html#method_toDecimal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertHex\u003A\u003AtoOctal\u0028\u0029",
+            "name": "toOctal",
+            "summary": "toOctal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertHex.html#method_toOctal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertHex\u003A\u003AvalidateHex\u0028\u0029",
+            "name": "validateHex",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertHex.html#method_validateHex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertOctal",
+            "name": "ConvertOctal",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertOctal.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertOctal\u003A\u003AtoBinary\u0028\u0029",
+            "name": "toBinary",
+            "summary": "toBinary.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertOctal.html#method_toBinary"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertOctal\u003A\u003AtoDecimal\u0028\u0029",
+            "name": "toDecimal",
+            "summary": "toDecimal.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertOctal.html#method_toDecimal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertOctal\u003A\u003AtoHex\u0028\u0029",
+            "name": "toHex",
+            "summary": "toHex.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertOctal.html#method_toHex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertOctal\u003A\u003AvalidateOctal\u0028\u0029",
+            "name": "validateOctal",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertOctal.html#method_validateOctal"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ConvertUOM",
             "name": "ConvertUOM",
             "summary": "",
@@ -1186,6 +1631,51 @@ Search.appendIndex(
             "summary": "Details\u0020of\u0020the\u0020Units\u0020of\u0020measure\u0020conversion\u0020factors,\u0020organised\u0020by\u0020group.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_unitConversions"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Erf",
+            "name": "Erf",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Erf.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Erf\u003A\u003AERF\u0028\u0029",
+            "name": "ERF",
+            "summary": "ERF.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Erf.html#method_ERF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Erf\u003A\u003AERFPRECISE\u0028\u0029",
+            "name": "ERFPRECISE",
+            "summary": "ERFPRECISE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Erf.html#method_ERFPRECISE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Erf\u003A\u003AerfValue\u0028\u0029",
+            "name": "erfValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Erf.html#method_erfValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\Erf\u003A\u003A\u0024twoSqrtPi",
+            "name": "twoSqrtPi",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-Erf.html#property_twoSqrtPi"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ErfC",
+            "name": "ErfC",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ErfC.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ErfC\u003A\u003AERFC\u0028\u0029",
+            "name": "ERFC",
+            "summary": "ERFC.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ErfC.html#method_ERFC"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ErfC\u003A\u003AerfcValue\u0028\u0029",
+            "name": "erfcValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ErfC.html#method_erfcValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\\ErfC\u003A\u003A\u0024oneSqrtPi",
+            "name": "oneSqrtPi",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ErfC.html#property_oneSqrtPi"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering",
             "name": "Engineering",
             "summary": "",
@@ -1195,11 +1685,6 @@ Search.appendIndex(
             "name": "parseComplex",
             "summary": "parseComplex.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_parseComplex"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AnbrConversionFormat\u0028\u0029",
-            "name": "nbrConversionFormat",
-            "summary": "Formats\u0020a\u0020number\u0020base\u0020string\u0020value\u0020with\u0020leading\u0020zeroes.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_nbrConversionFormat"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ABESSELI\u0028\u0029",
             "name": "BESSELI",
@@ -1211,30 +1696,10 @@ Search.appendIndex(
             "summary": "BESSELJ.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_BESSELJ"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AbesselK0\u0028\u0029",
-            "name": "besselK0",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_besselK0"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AbesselK1\u0028\u0029",
-            "name": "besselK1",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_besselK1"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ABESSELK\u0028\u0029",
             "name": "BESSELK",
             "summary": "BESSELK.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_BESSELK"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AbesselY0\u0028\u0029",
-            "name": "besselY0",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_besselY0"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AbesselY1\u0028\u0029",
-            "name": "besselY1",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_besselY1"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ABESSELY\u0028\u0029",
             "name": "BESSELY",
@@ -1441,16 +1906,6 @@ Search.appendIndex(
             "summary": "GESTEP.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_GESTEP"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AerfVal\u0028\u0029",
-            "name": "erfVal",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_erfVal"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AvalidateBitwiseArgument\u0028\u0029",
-            "name": "validateBitwiseArgument",
-            "summary": "Validate\u0020arguments\u0020passed\u0020to\u0020the\u0020bitwise\u0020functions.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_validateBitwiseArgument"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ABITAND\u0028\u0029",
             "name": "BITAND",
             "summary": "BITAND.",
@@ -1486,11 +1941,6 @@ Search.appendIndex(
             "summary": "ERFPRECISE.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_ERFPRECISE"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AerfcVal\u0028\u0029",
-            "name": "erfcVal",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_erfcVal"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AERFC\u0028\u0029",
             "name": "ERFC",
             "summary": "ERFC.",
@@ -1518,7 +1968,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003AgetBinaryConversionMultipliers\u0028\u0029",
             "name": "getBinaryConversionMultipliers",
-            "summary": "getBinaryConversionMultipliers\nReturns\u0020an\u0020array\u0020of\u0020the\u0020additional\u0020Multiplier\u0020prefixes\u0020that\u0020can\u0020be\u0020used\u0020with\u0020Information\u0020Units\u0020of\u0020Measure\u0020in\u0020CONVERTUOM\u0028\u0029.",
+            "summary": "getBinaryConversionMultipliers.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_getBinaryConversionMultipliers"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003ACONVERTUOM\u0028\u0029",
@@ -1530,16 +1980,6 @@ Search.appendIndex(
             "name": "EULER",
             "summary": "EULER.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#constant_EULER"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024twoSqrtPi",
-            "name": "twoSqrtPi",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_twoSqrtPi"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering\u003A\u003A\u0024oneSqrtPi",
-            "name": "oneSqrtPi",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#property_oneSqrtPi"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Exception",
             "name": "Exception",
@@ -2251,6 +2691,11 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#method_ifCondition"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003AoperandSpecialHandling\u0028\u0029",
+            "name": "operandSpecialHandling",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#method_operandSpecialHandling"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003AerrorType\u0028\u0029",
             "name": "errorType",
             "summary": "ERROR_TYPE.",
@@ -2401,6 +2846,116 @@ Search.appendIndex(
             "summary": "List\u0020of\u0020error\u0020codes.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#property_errorCodes"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\MakeMatrix",
+            "name": "MakeMatrix",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-MakeMatrix.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\MakeMatrix\u003A\u003Amake\u0028\u0029",
+            "name": "make",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-MakeMatrix.html#method_make"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\WildcardMatch",
+            "name": "WildcardMatch",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\WildcardMatch\u003A\u003Awildcard\u0028\u0029",
+            "name": "wildcard",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_wildcard"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\WildcardMatch\u003A\u003Acompare\u0028\u0029",
+            "name": "compare",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#method_compare"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\WildcardMatch\u003A\u003ASEARCH_SET",
+            "name": "SEARCH_SET",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_SEARCH_SET"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal\\WildcardMatch\u003A\u003AREPLACEMENT_SET",
+            "name": "REPLACEMENT_SET",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_REPLACEMENT_SET"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Boolean",
+            "name": "Boolean",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Boolean.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Boolean\u003A\u003Atrue\u0028\u0029",
+            "name": "true",
+            "summary": "TRUE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Boolean.html#method_true"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Boolean\u003A\u003Afalse\u0028\u0029",
+            "name": "false",
+            "summary": "FALSE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Boolean.html#method_false"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional",
+            "name": "Conditional",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional\u003A\u003AstatementIf\u0028\u0029",
+            "name": "statementIf",
+            "summary": "STATEMENT_IF.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html#method_statementIf"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional\u003A\u003AstatementSwitch\u0028\u0029",
+            "name": "statementSwitch",
+            "summary": "STATEMENT_SWITCH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html#method_statementSwitch"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional\u003A\u003AIFERROR\u0028\u0029",
+            "name": "IFERROR",
+            "summary": "IFERROR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html#method_IFERROR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional\u003A\u003AIFNA\u0028\u0029",
+            "name": "IFNA",
+            "summary": "IFNA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html#method_IFNA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Conditional\u003A\u003AIFS\u0028\u0029",
+            "name": "IFS",
+            "summary": "IFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Conditional.html#method_IFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations",
+            "name": "Operations",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations\u003A\u003AlogicalAnd\u0028\u0029",
+            "name": "logicalAnd",
+            "summary": "LOGICAL_AND.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html#method_logicalAnd"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations\u003A\u003AlogicalOr\u0028\u0029",
+            "name": "logicalOr",
+            "summary": "LOGICAL_OR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html#method_logicalOr"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations\u003A\u003AlogicalXor\u0028\u0029",
+            "name": "logicalXor",
+            "summary": "LOGICAL_XOR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html#method_logicalXor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations\u003A\u003ANOT\u0028\u0029",
+            "name": "NOT",
+            "summary": "NOT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html#method_NOT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\\Operations\u003A\u003AcountTrueValues\u0028\u0029",
+            "name": "countTrueValues",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical-Operations.html#method_countTrueValues"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical",
             "name": "Logical",
             "summary": "",
@@ -2415,11 +2970,6 @@ Search.appendIndex(
             "name": "false",
             "summary": "FALSE.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical.html#method_false"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\u003A\u003AcountTrueValues\u0028\u0029",
-            "name": "countTrueValues",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical.html#method_countTrueValues"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical\u003A\u003AlogicalAnd\u0028\u0029",
             "name": "logicalAnd",
@@ -2556,6 +3106,236 @@ Search.appendIndex(
             "summary": "FORMULATEXT.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_FORMULATEXT"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Ceiling",
+            "name": "Ceiling",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Ceiling.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Ceiling\u003A\u003AfuncCeiling\u0028\u0029",
+            "name": "funcCeiling",
+            "summary": "CEILING.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Ceiling.html#method_funcCeiling"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Ceiling\u003A\u003AargumentsOk\u0028\u0029",
+            "name": "argumentsOk",
+            "summary": "Avoid\u0020Scrutinizer\u0020problems\u0020concerning\u0020complexity.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Ceiling.html#method_argumentsOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Ceiling\u003A\u003AfloorCheck1Arg\u0028\u0029",
+            "name": "floorCheck1Arg",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Ceiling.html#method_floorCheck1Arg"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\CeilingMath",
+            "name": "CeilingMath",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-CeilingMath.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\CeilingMath\u003A\u003AfuncCeilingMath\u0028\u0029",
+            "name": "funcCeilingMath",
+            "summary": "CEILING.MATH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-CeilingMath.html#method_funcCeilingMath"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\CeilingMath\u003A\u003AceilingMathTest\u0028\u0029",
+            "name": "ceilingMathTest",
+            "summary": "Let\u0020CEILINGMATH\u0020complexity\u0020pass\u0020Scrutinizer.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-CeilingMath.html#method_ceilingMathTest"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\CeilingPrecise",
+            "name": "CeilingPrecise",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-CeilingPrecise.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\CeilingPrecise\u003A\u003AfuncCeilingPrecise\u0028\u0029",
+            "name": "funcCeilingPrecise",
+            "summary": "CEILING.PRECISE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-CeilingPrecise.html#method_funcCeilingPrecise"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Floor",
+            "name": "Floor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Floor.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Floor\u003A\u003AfloorCheck1Arg\u0028\u0029",
+            "name": "floorCheck1Arg",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Floor.html#method_floorCheck1Arg"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Floor\u003A\u003AfuncFloor\u0028\u0029",
+            "name": "funcFloor",
+            "summary": "FLOOR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Floor.html#method_funcFloor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Floor\u003A\u003AargumentsOk\u0028\u0029",
+            "name": "argumentsOk",
+            "summary": "Avoid\u0020Scrutinizer\u0020problems\u0020concerning\u0020complexity.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Floor.html#method_argumentsOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorMath",
+            "name": "FloorMath",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorMath.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorMath\u003A\u003AfuncFloorMath\u0028\u0029",
+            "name": "funcFloorMath",
+            "summary": "FLOOR.MATH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorMath.html#method_funcFloorMath"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorMath\u003A\u003AargsOk\u0028\u0029",
+            "name": "argsOk",
+            "summary": "Avoid\u0020Scrutinizer\u0020complexity\u0020problems.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorMath.html#method_argsOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorMath\u003A\u003AfloorMathTest\u0028\u0029",
+            "name": "floorMathTest",
+            "summary": "Let\u0020FLOORMATH\u0020complexity\u0020pass\u0020Scrutinizer.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorMath.html#method_floorMathTest"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorPrecise",
+            "name": "FloorPrecise",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorPrecise.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorPrecise\u003A\u003AfuncFloorPrecise\u0028\u0029",
+            "name": "funcFloorPrecise",
+            "summary": "FLOOR.PRECISE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorPrecise.html#method_funcFloorPrecise"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\FloorPrecise\u003A\u003AargumentsOk\u0028\u0029",
+            "name": "argumentsOk",
+            "summary": "Avoid\u0020Scrutinizer\u0020problems\u0020concerning\u0020complexity.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-FloorPrecise.html#method_argumentsOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\IntClass",
+            "name": "IntClass",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-IntClass.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\IntClass\u003A\u003AfuncInt\u0028\u0029",
+            "name": "funcInt",
+            "summary": "INT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-IntClass.html#method_funcInt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Mround",
+            "name": "Mround",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Mround.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Mround\u003A\u003AfuncMround\u0028\u0029",
+            "name": "funcMround",
+            "summary": "MROUND.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Mround.html#method_funcMround"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman",
+            "name": "Roman",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AromanCut\u0028\u0029",
+            "name": "romanCut",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_romanCut"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AvalueOk\u0028\u0029",
+            "name": "valueOk",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_valueOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AstyleOk\u0028\u0029",
+            "name": "styleOk",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_styleOk"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AcalculateRoman\u0028\u0029",
+            "name": "calculateRoman",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_calculateRoman"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AfuncRoman\u0028\u0029",
+            "name": "funcRoman",
+            "summary": "ROMAN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_funcRoman"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AnullFalseTrueToNumber\u0028\u0029",
+            "name": "nullFalseTrueToNumber",
+            "summary": "Many\u0020functions\u0020accept\u0020null\/false\/true\u0020argument\u0020treated\u0020as\u00200\/0\/1.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_nullFalseTrueToNumber"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AVALUES",
+            "name": "VALUES",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_VALUES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003ATHOUSANDS",
+            "name": "THOUSANDS",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_THOUSANDS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AHUNDREDS",
+            "name": "HUNDREDS",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_HUNDREDS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003ATENS",
+            "name": "TENS",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_TENS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AONES",
+            "name": "ONES",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_ONES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AMAX_ROMAN_VALUE",
+            "name": "MAX_ROMAN_VALUE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_MAX_ROMAN_VALUE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Roman\u003A\u003AMAX_ROMAN_STYLE",
+            "name": "MAX_ROMAN_STYLE",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_MAX_ROMAN_STYLE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Round",
+            "name": "Round",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Round\u003A\u003AbuiltinROUND\u0028\u0029",
+            "name": "builtinROUND",
+            "summary": "ROUND.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_builtinROUND"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\RoundDown",
+            "name": "RoundDown",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-RoundDown.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\RoundDown\u003A\u003AfuncRoundDown\u0028\u0029",
+            "name": "funcRoundDown",
+            "summary": "ROUNDDOWN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-RoundDown.html#method_funcRoundDown"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\RoundUp",
+            "name": "RoundUp",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-RoundUp.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\RoundUp\u003A\u003AfuncRoundUp\u0028\u0029",
+            "name": "funcRoundUp",
+            "summary": "ROUNDUP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-RoundUp.html#method_funcRoundUp"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Trunc",
+            "name": "Trunc",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Trunc.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\\Trunc\u003A\u003AfuncTrunc\u0028\u0029",
+            "name": "funcTrunc",
+            "summary": "TRUNC.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Trunc.html#method_funcTrunc"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig",
             "name": "MathTrig",
             "summary": "",
@@ -2566,10 +3346,10 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_factors"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AromanCut\u0028\u0029",
-            "name": "romanCut",
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AstrSplit\u0028\u0029",
+            "name": "strSplit",
             "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_romanCut"
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_strSplit"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AARABIC\u0028\u0029",
             "name": "ARABIC",
@@ -2606,6 +3386,11 @@ Search.appendIndex(
             "summary": "EVEN.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_EVEN"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AgetEven\u0028\u0029",
+            "name": "getEven",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_getEven"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AFACT\u0028\u0029",
             "name": "FACT",
             "summary": "FACT.",
@@ -2636,15 +3421,15 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_evaluateGCD"
         },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AGCD\u0028\u0029",
-            "name": "GCD",
-            "summary": "GCD.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_GCD"
-        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AINT\u0028\u0029",
             "name": "INT",
             "summary": "INT.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_INT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AGCD\u0028\u0029",
+            "name": "GCD",
+            "summary": "GCD.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_GCD"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003ALCM\u0028\u0029",
             "name": "LCM",
@@ -2713,7 +3498,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AROMAN\u0028\u0029",
             "name": "ROMAN",
-            "summary": "",
+            "summary": "ROMAN.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ROMAN"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AROUNDUP\u0028\u0029",
@@ -2735,6 +3520,11 @@ Search.appendIndex(
             "name": "SIGN",
             "summary": "SIGN.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_SIGN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AreturnSign\u0028\u0029",
+            "name": "returnSign",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_returnSign"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003ASQRTPI\u0028\u0029",
             "name": "SQRTPI",
@@ -2836,10 +3626,395 @@ Search.appendIndex(
             "summary": "ACOT.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ACOT"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AnumberOrNan\u0028\u0029",
+            "name": "numberOrNan",
+            "summary": "Return\u0020NAN\u0020or\u0020value\u0020depending\u0020on\u0020argument.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_numberOrNan"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AACOTH\u0028\u0029",
             "name": "ACOTH",
             "summary": "ACOTH.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_ACOTH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinROUND\u0028\u0029",
+            "name": "builtinROUND",
+            "summary": "ROUND.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinROUND"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinABS\u0028\u0029",
+            "name": "builtinABS",
+            "summary": "ABS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinABS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinACOS\u0028\u0029",
+            "name": "builtinACOS",
+            "summary": "ACOS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinACOS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinACOSH\u0028\u0029",
+            "name": "builtinACOSH",
+            "summary": "ACOSH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinACOSH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinASIN\u0028\u0029",
+            "name": "builtinASIN",
+            "summary": "ASIN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinASIN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinASINH\u0028\u0029",
+            "name": "builtinASINH",
+            "summary": "ASINH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinASINH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinATAN\u0028\u0029",
+            "name": "builtinATAN",
+            "summary": "ASIN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinATAN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinATANH\u0028\u0029",
+            "name": "builtinATANH",
+            "summary": "ATANH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinATANH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinCOS\u0028\u0029",
+            "name": "builtinCOS",
+            "summary": "COS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinCOS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinCOSH\u0028\u0029",
+            "name": "builtinCOSH",
+            "summary": "COSH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinCOSH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinDEGREES\u0028\u0029",
+            "name": "builtinDEGREES",
+            "summary": "DEGREES.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinDEGREES"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinEXP\u0028\u0029",
+            "name": "builtinEXP",
+            "summary": "EXP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinEXP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinLN\u0028\u0029",
+            "name": "builtinLN",
+            "summary": "LN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinLN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinLOG10\u0028\u0029",
+            "name": "builtinLOG10",
+            "summary": "LOG10.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinLOG10"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinRADIANS\u0028\u0029",
+            "name": "builtinRADIANS",
+            "summary": "RADIANS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinRADIANS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinSIN\u0028\u0029",
+            "name": "builtinSIN",
+            "summary": "SIN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSIN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinSINH\u0028\u0029",
+            "name": "builtinSINH",
+            "summary": "SINH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSINH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinSQRT\u0028\u0029",
+            "name": "builtinSQRT",
+            "summary": "SQRT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinSQRT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinTAN\u0028\u0029",
+            "name": "builtinTAN",
+            "summary": "TAN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinTAN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AbuiltinTANH\u0028\u0029",
+            "name": "builtinTANH",
+            "summary": "TANH.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_builtinTANH"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AverySmallDivisor\u0028\u0029",
+            "name": "verySmallDivisor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_verySmallDivisor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig\u003A\u003AnullFalseTrueToNumber\u0028\u0029",
+            "name": "nullFalseTrueToNumber",
+            "summary": "Many\u0020functions\u0020accept\u0020null\/false\/true\u0020argument\u0020treated\u0020as\u00200\/0\/1.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html#method_nullFalseTrueToNumber"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\AggregateBase",
+            "name": "AggregateBase",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-AggregateBase.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\AggregateBase\u003A\u003AtestAcceptedBoolean\u0028\u0029",
+            "name": "testAcceptedBoolean",
+            "summary": "MS\u0020Excel\u0020does\u0020not\u0020count\u0020Booleans\u0020if\u0020passed\u0020as\u0020cell\u0020values,\u0020but\u0020they\u0020are\u0020counted\u0020if\u0020passed\u0020as\u0020literals.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-AggregateBase.html#method_testAcceptedBoolean"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\AggregateBase\u003A\u003AisAcceptedCountable\u0028\u0029",
+            "name": "isAcceptedCountable",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-AggregateBase.html#method_isAcceptedCountable"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Averages",
+            "name": "Averages",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Averages.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Averages\u003A\u003AAVEDEV\u0028\u0029",
+            "name": "AVEDEV",
+            "summary": "AVEDEV.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Averages.html#method_AVEDEV"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Averages\u003A\u003AAVERAGE\u0028\u0029",
+            "name": "AVERAGE",
+            "summary": "AVERAGE.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Averages.html#method_AVERAGE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Averages\u003A\u003AAVERAGEA\u0028\u0029",
+            "name": "AVERAGEA",
+            "summary": "AVERAGEA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Averages.html#method_AVERAGEA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional",
+            "name": "Conditional",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AAVERAGEIF\u0028\u0029",
+            "name": "AVERAGEIF",
+            "summary": "AVERAGEIF.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_AVERAGEIF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AAVERAGEIFS\u0028\u0029",
+            "name": "AVERAGEIFS",
+            "summary": "AVERAGEIFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_AVERAGEIFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ACOUNTIF\u0028\u0029",
+            "name": "COUNTIF",
+            "summary": "COUNTIF.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_COUNTIF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ACOUNTIFS\u0028\u0029",
+            "name": "COUNTIFS",
+            "summary": "COUNTIFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_COUNTIFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AMAXIFS\u0028\u0029",
+            "name": "MAXIFS",
+            "summary": "MAXIFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_MAXIFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AMINIFS\u0028\u0029",
+            "name": "MINIFS",
+            "summary": "MINIFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_MINIFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ASUMIF\u0028\u0029",
+            "name": "SUMIF",
+            "summary": "SUMIF.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_SUMIF"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ASUMIFS\u0028\u0029",
+            "name": "SUMIFS",
+            "summary": "SUMIFS.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_SUMIFS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildConditionSet\u0028\u0029",
+            "name": "buildConditionSet",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildConditionSet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildConditionSetForValueRange\u0028\u0029",
+            "name": "buildConditionSetForValueRange",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildConditionSetForValueRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildConditions\u0028\u0029",
+            "name": "buildConditions",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildConditions"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildDatabase\u0028\u0029",
+            "name": "buildDatabase",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildDatabase"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildDatabaseWithValueRange\u0028\u0029",
+            "name": "buildDatabaseWithValueRange",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildDatabaseWithValueRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AbuildDataSet\u0028\u0029",
+            "name": "buildDataSet",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_buildDataSet"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AdatabaseFromRangeAndValue\u0028\u0029",
+            "name": "databaseFromRangeAndValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#method_databaseFromRangeAndValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ACONDITION_COLUMN_NAME",
+            "name": "CONDITION_COLUMN_NAME",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#constant_CONDITION_COLUMN_NAME"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003AVALUE_COLUMN_NAME",
+            "name": "VALUE_COLUMN_NAME",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#constant_VALUE_COLUMN_NAME"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Conditional\u003A\u003ACONDITIONAL_COLUMN_NAME",
+            "name": "CONDITIONAL_COLUMN_NAME",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Conditional.html#constant_CONDITIONAL_COLUMN_NAME"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Counts",
+            "name": "Counts",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Counts.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Counts\u003A\u003ACOUNT\u0028\u0029",
+            "name": "COUNT",
+            "summary": "COUNT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Counts.html#method_COUNT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Counts\u003A\u003ACOUNTA\u0028\u0029",
+            "name": "COUNTA",
+            "summary": "COUNTA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Counts.html#method_COUNTA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Counts\u003A\u003ACOUNTBLANK\u0028\u0029",
+            "name": "COUNTBLANK",
+            "summary": "COUNTBLANK.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Counts.html#method_COUNTBLANK"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum",
+            "name": "Maximum",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Maximum.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\u003A\u003AMAX\u0028\u0029",
+            "name": "MAX",
+            "summary": "MAX.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Maximum.html#method_MAX"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Maximum\u003A\u003AMAXA\u0028\u0029",
+            "name": "MAXA",
+            "summary": "MAXA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Maximum.html#method_MAXA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\MaxMinBase",
+            "name": "MaxMinBase",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\MaxMinBase\u003A\u003AdatatypeAdjustmentAllowStrings\u0028\u0029",
+            "name": "datatypeAdjustmentAllowStrings",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-MaxMinBase.html#method_datatypeAdjustmentAllowStrings"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum",
+            "name": "Minimum",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Minimum.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\u003A\u003AMIN\u0028\u0029",
+            "name": "MIN",
+            "summary": "MIN.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Minimum.html#method_MIN"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Minimum\u003A\u003AMINA\u0028\u0029",
+            "name": "MINA",
+            "summary": "MINA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Minimum.html#method_MINA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Permutations",
+            "name": "Permutations",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Permutations.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Permutations\u003A\u003APERMUT\u0028\u0029",
+            "name": "PERMUT",
+            "summary": "PERMUT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Permutations.html#method_PERMUT"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Permutations\u003A\u003APERMUTATIONA\u0028\u0029",
+            "name": "PERMUTATIONA",
+            "summary": "PERMUTATIONA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Permutations.html#method_PERMUTATIONA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\StandardDeviations",
+            "name": "StandardDeviations",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-StandardDeviations.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\StandardDeviations\u003A\u003ASTDEV\u0028\u0029",
+            "name": "STDEV",
+            "summary": "STDEV.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-StandardDeviations.html#method_STDEV"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\StandardDeviations\u003A\u003ASTDEVA\u0028\u0029",
+            "name": "STDEVA",
+            "summary": "STDEVA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-StandardDeviations.html#method_STDEVA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\StandardDeviations\u003A\u003ASTDEVP\u0028\u0029",
+            "name": "STDEVP",
+            "summary": "STDEVP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-StandardDeviations.html#method_STDEVP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\StandardDeviations\u003A\u003ASTDEVPA\u0028\u0029",
+            "name": "STDEVPA",
+            "summary": "STDEVPA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-StandardDeviations.html#method_STDEVPA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\VarianceBase",
+            "name": "VarianceBase",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-VarianceBase.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\VarianceBase\u003A\u003AdatatypeAdjustmentAllowStrings\u0028\u0029",
+            "name": "datatypeAdjustmentAllowStrings",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-VarianceBase.html#method_datatypeAdjustmentAllowStrings"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\VarianceBase\u003A\u003AdatatypeAdjustmentBooleans\u0028\u0029",
+            "name": "datatypeAdjustmentBooleans",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-VarianceBase.html#method_datatypeAdjustmentBooleans"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Variances",
+            "name": "Variances",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Variances.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Variances\u003A\u003AVAR\u0028\u0029",
+            "name": "VAR",
+            "summary": "VAR.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Variances.html#method_VAR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Variances\u003A\u003AVARA\u0028\u0029",
+            "name": "VARA",
+            "summary": "VARA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Variances.html#method_VARA"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Variances\u003A\u003AVARP\u0028\u0029",
+            "name": "VARP",
+            "summary": "VARP.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Variances.html#method_VARP"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\\Variances\u003A\u003AVARPA\u0028\u0029",
+            "name": "VARPA",
+            "summary": "VARPA.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical-Variances.html#method_VARPA"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical",
             "name": "Statistical",
@@ -2885,16 +4060,6 @@ Search.appendIndex(
             "name": "inverseNcdf",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical.html#method_inverseNcdf"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\u003A\u003AtestAcceptedBoolean\u0028\u0029",
-            "name": "testAcceptedBoolean",
-            "summary": "MS\u0020Excel\u0020does\u0020not\u0020count\u0020Booleans\u0020if\u0020passed\u0020as\u0020cell\u0020values,\u0020but\u0020they\u0020are\u0020counted\u0020if\u0020passed\u0020as\u0020literals.",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical.html#method_testAcceptedBoolean"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\u003A\u003AisAcceptedCountable\u0028\u0029",
-            "name": "isAcceptedCountable",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical.html#method_isAcceptedCountable"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical\u003A\u003AAVEDEV\u0028\u0029",
             "name": "AVEDEV",
@@ -3506,6 +4671,11 @@ Search.appendIndex(
             "summary": "TEXTJOIN.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-TextData.html#method_TEXTJOIN"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\u003A\u003AbuiltinREPT\u0028\u0029",
+            "name": "builtinREPT",
+            "summary": "REPT.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Calculation-TextData.html#method_builtinREPT"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\TextData\u003A\u003A\u0024invalidChars",
             "name": "invalidChars",
             "summary": "",
@@ -3595,6 +4765,31 @@ Search.appendIndex(
             "name": "bindValue",
             "summary": "Bind\u0020value\u0020to\u0020a\u0020cell.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_bindValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder\u003A\u003AsetImproperFraction\u0028\u0029",
+            "name": "setImproperFraction",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_setImproperFraction"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder\u003A\u003AsetProperFraction\u0028\u0029",
+            "name": "setProperFraction",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_setProperFraction"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder\u003A\u003AsetPercentage\u0028\u0029",
+            "name": "setPercentage",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_setPercentage"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder\u003A\u003AsetTimeHoursMinutes\u0028\u0029",
+            "name": "setTimeHoursMinutes",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_setTimeHoursMinutes"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\AdvancedValueBinder\u003A\u003AsetTimeHoursMinutesSeconds\u0028\u0029",
+            "name": "setTimeHoursMinutesSeconds",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Cell-AdvancedValueBinder.html#method_setTimeHoursMinutesSeconds"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\Cell",
             "name": "Cell",
@@ -11146,6 +12341,16 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-ConditionalStyles.html#method_readStyleRules"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\ConditionalStyles\u003A\u003AreadDataBarOfConditionalRule\u0028\u0029",
+            "name": "readDataBarOfConditionalRule",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-ConditionalStyles.html#method_readDataBarOfConditionalRule"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\ConditionalStyles\u003A\u003AreadDataBarExtLstOfConditionalRule\u0028\u0029",
+            "name": "readDataBarExtLstOfConditionalRule",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-ConditionalStyles.html#method_readDataBarExtLstOfConditionalRule"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xlsx\\ConditionalStyles\u003A\u003A\u0024worksheet",
             "name": "worksheet",
             "summary": "",
@@ -11850,6 +13055,11 @@ Search.appendIndex(
             "name": "parseStyleBorders",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#method_parseStyleBorders"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xml\u003A\u003AgetAttributes\u0028\u0029",
+            "name": "getAttributes",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#method_getAttributes"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Xml\u003A\u003AparseStyleFontUnderline\u0028\u0029",
             "name": "parseStyleFontUnderline",
@@ -16861,6 +18071,16 @@ Search.appendIndex(
             "summary": "Set\u0020Style.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStyle"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AgetDataBar\u0028\u0029",
+            "name": "getDataBar",
+            "summary": "get\u0020DataBar.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getDataBar"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AsetDataBar\u0028\u0029",
+            "name": "setDataBar",
+            "summary": "set\u0020DataBar.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setDataBar"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AgetHashCode\u0028\u0029",
             "name": "getHashCode",
             "summary": "Get\u0020hash\u0020code.",
@@ -16900,6 +18120,11 @@ Search.appendIndex(
             "name": "CONDITION_NOTCONTAINSBLANKS",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSBLANKS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003ACONDITION_DATABAR",
+            "name": "CONDITION_DATABAR",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_DATABAR"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003AOPERATOR_NONE",
             "name": "OPERATOR_NONE",
@@ -16991,10 +18216,455 @@ Search.appendIndex(
             "summary": "Condition.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_condition"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003A\u0024dataBar",
+            "name": "dataBar",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_dataBar"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Conditional\u003A\u003A\u0024style",
             "name": "style",
             "summary": "Style.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_style"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar",
+            "name": "ConditionalDataBar",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AgetShowValue\u0028\u0029",
+            "name": "getShowValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_getShowValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AsetShowValue\u0028\u0029",
+            "name": "setShowValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_setShowValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AgetMinimumConditionalFormatValueObject\u0028\u0029",
+            "name": "getMinimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_getMinimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AsetMinimumConditionalFormatValueObject\u0028\u0029",
+            "name": "setMinimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_setMinimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AgetMaximumConditionalFormatValueObject\u0028\u0029",
+            "name": "getMaximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_getMaximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AsetMaximumConditionalFormatValueObject\u0028\u0029",
+            "name": "setMaximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_setMaximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AgetColor\u0028\u0029",
+            "name": "getColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_getColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AsetColor\u0028\u0029",
+            "name": "setColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_setColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AgetConditionalFormattingRuleExt\u0028\u0029",
+            "name": "getConditionalFormattingRuleExt",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_getConditionalFormattingRuleExt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003AsetConditionalFormattingRuleExt\u0028\u0029",
+            "name": "setConditionalFormattingRuleExt",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#method_setConditionalFormattingRuleExt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003A\u0024showValue",
+            "name": "showValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#property_showValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003A\u0024minimumConditionalFormatValueObject",
+            "name": "minimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#property_minimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003A\u0024maximumConditionalFormatValueObject",
+            "name": "maximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#property_maximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003A\u0024color",
+            "name": "color",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#property_color"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBar\u003A\u003A\u0024conditionalFormattingRuleExt",
+            "name": "conditionalFormattingRuleExt",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html#property_conditionalFormattingRuleExt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension",
+            "name": "ConditionalDataBarExtension",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetXmlAttributes\u0028\u0029",
+            "name": "getXmlAttributes",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getXmlAttributes"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetXmlElements\u0028\u0029",
+            "name": "getXmlElements",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getXmlElements"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetMinLength\u0028\u0029",
+            "name": "getMinLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getMinLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetMinLength\u0028\u0029",
+            "name": "setMinLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setMinLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetMaxLength\u0028\u0029",
+            "name": "getMaxLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getMaxLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetMaxLength\u0028\u0029",
+            "name": "setMaxLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setMaxLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetBorder\u0028\u0029",
+            "name": "getBorder",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getBorder"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetBorder\u0028\u0029",
+            "name": "setBorder",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setBorder"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetGradient\u0028\u0029",
+            "name": "getGradient",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getGradient"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetGradient\u0028\u0029",
+            "name": "setGradient",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setGradient"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetDirection\u0028\u0029",
+            "name": "getDirection",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getDirection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetDirection\u0028\u0029",
+            "name": "setDirection",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setDirection"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetNegativeBarBorderColorSameAsPositive\u0028\u0029",
+            "name": "getNegativeBarBorderColorSameAsPositive",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getNegativeBarBorderColorSameAsPositive"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetNegativeBarBorderColorSameAsPositive\u0028\u0029",
+            "name": "setNegativeBarBorderColorSameAsPositive",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setNegativeBarBorderColorSameAsPositive"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetAxisPosition\u0028\u0029",
+            "name": "getAxisPosition",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getAxisPosition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetAxisPosition\u0028\u0029",
+            "name": "setAxisPosition",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setAxisPosition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetMaximumConditionalFormatValueObject\u0028\u0029",
+            "name": "getMaximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getMaximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetMaximumConditionalFormatValueObject\u0028\u0029",
+            "name": "setMaximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setMaximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetMinimumConditionalFormatValueObject\u0028\u0029",
+            "name": "getMinimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getMinimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetMinimumConditionalFormatValueObject\u0028\u0029",
+            "name": "setMinimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setMinimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetBorderColor\u0028\u0029",
+            "name": "getBorderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getBorderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetBorderColor\u0028\u0029",
+            "name": "setBorderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setBorderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetNegativeFillColor\u0028\u0029",
+            "name": "getNegativeFillColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getNegativeFillColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetNegativeFillColor\u0028\u0029",
+            "name": "setNegativeFillColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setNegativeFillColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetNegativeBorderColor\u0028\u0029",
+            "name": "getNegativeBorderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getNegativeBorderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetNegativeBorderColor\u0028\u0029",
+            "name": "setNegativeBorderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setNegativeBorderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AgetAxisColor\u0028\u0029",
+            "name": "getAxisColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_getAxisColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003AsetAxisColor\u0028\u0029",
+            "name": "setAxisColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#method_setAxisColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024minLength",
+            "name": "minLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_minLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024maxLength",
+            "name": "maxLength",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_maxLength"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024border",
+            "name": "border",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_border"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024gradient",
+            "name": "gradient",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_gradient"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024direction",
+            "name": "direction",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_direction"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024negativeBarBorderColorSameAsPositive",
+            "name": "negativeBarBorderColorSameAsPositive",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_negativeBarBorderColorSameAsPositive"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024axisPosition",
+            "name": "axisPosition",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_axisPosition"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024maximumConditionalFormatValueObject",
+            "name": "maximumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_maximumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024minimumConditionalFormatValueObject",
+            "name": "minimumConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_minimumConditionalFormatValueObject"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024borderColor",
+            "name": "borderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_borderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024negativeFillColor",
+            "name": "negativeFillColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_negativeFillColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024negativeBorderColor",
+            "name": "negativeBorderColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_negativeBorderColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalDataBarExtension\u003A\u003A\u0024axisColor",
+            "name": "axisColor",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBarExtension.html#property_axisColor"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension",
+            "name": "ConditionalFormattingRuleExtension",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ConditionalFormattingRuleExtension\u0020constructor.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AgenerateUuid\u0028\u0029",
+            "name": "generateUuid",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_generateUuid"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AparseExtLstXml\u0028\u0029",
+            "name": "parseExtLstXml",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_parseExtLstXml"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AparseExtDataBarAttributesFromXml\u0028\u0029",
+            "name": "parseExtDataBarAttributesFromXml",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_parseExtDataBarAttributesFromXml"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AparseExtDataBarElementChildrenFromXml\u0028\u0029",
+            "name": "parseExtDataBarElementChildrenFromXml",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_parseExtDataBarElementChildrenFromXml"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AgetId\u0028\u0029",
+            "name": "getId",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_getId"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AsetId\u0028\u0029",
+            "name": "setId",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_setId"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AgetCfRule\u0028\u0029",
+            "name": "getCfRule",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_getCfRule"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AsetCfRule\u0028\u0029",
+            "name": "setCfRule",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_setCfRule"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AgetDataBarExt\u0028\u0029",
+            "name": "getDataBarExt",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_getDataBarExt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AsetDataBarExt\u0028\u0029",
+            "name": "setDataBarExt",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_setDataBarExt"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AgetSqref\u0028\u0029",
+            "name": "getSqref",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_getSqref"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003AsetSqref\u0028\u0029",
+            "name": "setSqref",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#method_setSqref"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003ACONDITION_EXTENSION_DATABAR",
+            "name": "CONDITION_EXTENSION_DATABAR",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#constant_CONDITION_EXTENSION_DATABAR"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003A\u0024id",
+            "name": "id",
+            "summary": "\u003CconditionalFormatting\u003E\u0020attributes",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#property_id"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003A\u0024cfRule",
+            "name": "cfRule",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#property_cfRule"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003A\u0024dataBar",
+            "name": "dataBar",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#property_dataBar"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormattingRuleExtension\u003A\u003A\u0024sqref",
+            "name": "sqref",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormattingRuleExtension.html#property_sqref"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject",
+            "name": "ConditionalFormatValueObject",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ConditionalFormatValueObject\u0020constructor.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AgetType\u0028\u0029",
+            "name": "getType",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_getType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AsetType\u0028\u0029",
+            "name": "setType",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_setType"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AgetValue\u0028\u0029",
+            "name": "getValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_getValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AsetValue\u0028\u0029",
+            "name": "setValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_setValue"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AgetCellFormula\u0028\u0029",
+            "name": "getCellFormula",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_getCellFormula"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003AsetCellFormula\u0028\u0029",
+            "name": "setCellFormula",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#method_setCellFormula"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#property_type"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003A\u0024value",
+            "name": "value",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#property_value"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting\\ConditionalFormatValueObject\u003A\u003A\u0024cellFormula",
+            "name": "cellFormula",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalFormatValueObject.html#property_cellFormula"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\Fill",
             "name": "Fill",
@@ -22096,6 +23766,11 @@ Search.appendIndex(
             "summary": "Create\u0020array\u0020from\u0020a\u0020range\u0020of\u0020cells.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_rangeToArray"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AvalidateNamedRange\u0028\u0029",
+            "name": "validateNamedRange",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_validateNamedRange"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\Worksheet\u003A\u003AnamedRangeToArray\u0028\u0029",
             "name": "namedRangeToArray",
             "summary": "Create\u0020array\u0020from\u0020a\u0020range\u0020of\u0020cells.",
@@ -23156,6 +24831,61 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Comment.html#method_write"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style",
+            "name": "Style",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AmapHorizontalAlignment\u0028\u0029",
+            "name": "mapHorizontalAlignment",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_mapHorizontalAlignment"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AmapVerticalAlignment\u0028\u0029",
+            "name": "mapVerticalAlignment",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_mapVerticalAlignment"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AwriteFillStyle\u0028\u0029",
+            "name": "writeFillStyle",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_writeFillStyle"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AwriteCellProperties\u0028\u0029",
+            "name": "writeCellProperties",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_writeCellProperties"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AmapUnderlineStyle\u0028\u0029",
+            "name": "mapUnderlineStyle",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_mapUnderlineStyle"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003AwriteTextProperties\u0028\u0029",
+            "name": "writeTextProperties",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_writeTextProperties"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003Awrite\u0028\u0029",
+            "name": "write",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#method_write"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003ACELL_STYLE_PREFIX",
+            "name": "CELL_STYLE_PREFIX",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#constant_CELL_STYLE_PREFIX"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Cell\\Style\u003A\u003A\u0024writer",
+            "name": "writer",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Cell-Style.html#property_writer"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content",
             "name": "Content",
             "summary": "",
@@ -23210,11 +24940,6 @@ Search.appendIndex(
             "name": "NUMBER_ROWS_REPEATED_MAX",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#constant_NUMBER_ROWS_REPEATED_MAX"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003ACELL_STYLE_PREFIX",
-            "name": "CELL_STYLE_PREFIX",
-            "summary": "",
-            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Ods-Content.html#constant_CELL_STYLE_PREFIX"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Ods\\Content\u003A\u003A\u0024formulaConvertor",
             "name": "formulaConvertor",
@@ -24723,13 +26448,23 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003AmapLocked\u0028\u0029",
             "name": "mapLocked",
-            "summary": "Map\u0020locked.",
+            "summary": "Map\u0020locked\u0020values.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Xf.html#method_mapLocked"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003AmapHidden\u0028\u0029",
             "name": "mapHidden",
             "summary": "Map\u0020hidden.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Xf.html#method_mapHidden"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003ALOCK_ARRAY",
+            "name": "LOCK_ARRAY",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Xf.html#constant_LOCK_ARRAY"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003AHIDDEN_ARRAY",
+            "name": "HIDDEN_ARRAY",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Xf.html#constant_HIDDEN_ARRAY"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls\\Xf\u003A\u003A\u0024isStyleXf",
             "name": "isStyleXf",
@@ -25496,6 +27231,16 @@ Search.appendIndex(
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeTextCondElements"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet\u003A\u003AwriteExtConditionalFormattingElements\u0028\u0029",
+            "name": "writeExtConditionalFormattingElements",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeExtConditionalFormattingElements"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet\u003A\u003AwriteDataBarElements\u0028\u0029",
+            "name": "writeDataBarElements",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeDataBarElements"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet\u003A\u003AwriteConditionalFormatting\u0028\u0029",
             "name": "writeConditionalFormatting",
             "summary": "Write\u0020ConditionalFormatting.",
@@ -25610,6 +27355,11 @@ Search.appendIndex(
             "name": "writeAlternateContent",
             "summary": "",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeAlternateContent"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet\u003A\u003AwriteExtLst\u0028\u0029",
+            "name": "writeExtLst",
+            "summary": "write\u0020\u003CExtLst\u003E\nonly\u0020implementation\u0020conditionalFormattings.",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html#method_writeExtLst"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\WriterPart",
             "name": "WriterPart",
@@ -25811,6 +27561,11 @@ Search.appendIndex(
             "summary": "",
             "url": "../namespaces/phpoffice-phpspreadsheet-calculation.html"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database",
+            "name": "Database",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-database.html"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engine",
             "name": "Engine",
             "summary": "",
@@ -25820,6 +27575,26 @@ Search.appendIndex(
             "name": "Engineering",
             "summary": "",
             "url": "../namespaces/phpoffice-phpspreadsheet-calculation-engineering.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Internal",
+            "name": "Internal",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-internal.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Logical",
+            "name": "Logical",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-logical.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\MathTrig",
+            "name": "MathTrig",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-mathtrig.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Statistical",
+            "name": "Statistical",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-calculation-statistical.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Token",
             "name": "Token",
@@ -25975,6 +27750,11 @@ Search.appendIndex(
             "name": "Style",
             "summary": "",
             "url": "../namespaces/phpoffice-phpspreadsheet-style.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Style\\ConditionalFormatting",
+            "name": "ConditionalFormatting",
+            "summary": "",
+            "url": "../namespaces/phpoffice-phpspreadsheet-style-conditionalformatting.html"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\AutoFilter\\Column",
             "name": "Column",

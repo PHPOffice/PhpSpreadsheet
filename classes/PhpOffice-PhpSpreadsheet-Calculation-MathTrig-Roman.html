@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                            </ul>
+            
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
+                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation-mathtrig.html">MathTrig</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            Roman
+                                                        </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">7</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary"></p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_VALUES">VALUES</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">[45 =&gt; [&#039;VL&#039;], 46 =&gt; [&#039;VLI&#039;], 47 =&gt; [&#039;VLII&#039;], 48 =&gt; [&#039;VLIII&#039;], 49 =&gt; [&#039;VLIV&#039;, &#039;IL&#039;], 95 =&gt; [&#039;VC&#039;], 96 =&gt; [&#039;VCI&#039;], 97 =&gt; [&#039;VCII&#039;], 98 =&gt; [&#039;VCIII&#039;], 99 =&gt; [&#039;VCIV&#039;, &#039;IC&#039;], 145 =&gt; [&#039;CVL&#039;], 146 =&gt; [&#039;CVLI&#039;], 147 =&gt; [&#039;CVLII&#039;], 148 =&gt; [&#039;CVLIII&#039;], 149 =&gt; [&#039;CVLIV&#039;, &#039;CIL&#039;], 195 =&gt; [&#039;CVC&#039;], 196 =&gt; [&#039;CVCI&#039;], 197 =&gt; [&#039;CVCII&#039;], 198 =&gt; [&#039;CVCIII&#039;], 199 =&gt; [&#039;CVCIV&#039;, &#039;CIC&#039;], 245 =&gt; [&#039;CCVL&#039;], 246 =&gt; [&#039;CCVLI&#039;], 247 =&gt; [&#039;CCVLII&#039;], 248 =&gt; [&#039;CCVLIII&#039;], 249 =&gt; [&#039;CCVLIV&#039;, &#039;CCIL&#039;], 295 =&gt; [&#039;CCVC&#039;], 296 =&gt; [&#039;CCVCI&#039;], 297 =&gt; [&#039;CCVCII&#039;], 298 =&gt; [&#039;CCVCIII&#039;], 299 =&gt; [&#039;CCVCIV&#039;, &#039;CCIC&#039;], 345 =&gt; [&#039;CCCVL&#039;], 346 =&gt; [&#039;CCCVLI&#039;], 347 =&gt; [&#039;CCCVLII&#039;], 348 =&gt; [&#039;CCCVLIII&#039;], 349 =&gt; [&#039;CCCVLIV&#039;, &#039;CCCIL&#039;], 395 =&gt; [&#039;CCCVC&#039;], 396 =&gt; [&#039;CCCVCI&#039;], 397 =&gt; [&#039;CCCVCII&#039;], 398 =&gt; [&#039;CCCVCIII&#039;], 399 =&gt; [&#039;CCCVCIV&#039;, &#039;CCCIC&#039;], 445 =&gt; [&#039;CDVL&#039;], 446 =&gt; [&#039;CDVLI&#039;], 447 =&gt; [&#039;CDVLII&#039;], 448 =&gt; [&#039;CDVLIII&#039;], 449 =&gt; [&#039;CDVLIV&#039;, &#039;CDIL&#039;], 450 =&gt; [&#039;LD&#039;], 451 =&gt; [&#039;LDI&#039;], 452 =&gt; [&#039;LDII&#039;], 453 =&gt; [&#039;LDIII&#039;], 454 =&gt; [&#039;LDIV&#039;], 455 =&gt; [&#039;LDV&#039;], 456 =&gt; [&#039;LDVI&#039;], 457 =&gt; [&#039;LDVII&#039;], 458 =&gt; [&#039;LDVIII&#039;], 459 =&gt; [&#039;LDIX&#039;], 460 =&gt; [&#039;LDX&#039;], 461 =&gt; [&#039;LDXI&#039;], 462 =&gt; [&#039;LDXII&#039;], 463 =&gt; [&#039;LDXIII&#039;], 464 =&gt; [&#039;LDXIV&#039;], 465 =&gt; [&#039;LDXV&#039;], 466 =&gt; [&#039;LDXVI&#039;], 467 =&gt; [&#039;LDXVII&#039;], 468 =&gt; [&#039;LDXVIII&#039;], 469 =&gt; [&#039;LDXIX&#039;], 470 =&gt; [&#039;LDXX&#039;], 471 =&gt; [&#039;LDXXI&#039;], 472 =&gt; [&#039;LDXXII&#039;], 473 =&gt; [&#039;LDXXIII&#039;], 474 =&gt; [&#039;LDXXIV&#039;], 475 =&gt; [&#039;LDXXV&#039;], 476 =&gt; [&#039;LDXXVI&#039;], 477 =&gt; [&#039;LDXXVII&#039;], 478 =&gt; [&#039;LDXXVIII&#039;], 479 =&gt; [&#039;LDXXIX&#039;], 480 =&gt; [&#039;LDXXX&#039;], 481 =&gt; [&#039;LDXXXI&#039;], 482 =&gt; [&#039;LDXXXII&#039;], 483 =&gt; [&#039;LDXXXIII&#039;], 484 =&gt; [&#039;LDXXXIV&#039;], 485 =&gt; [&#039;LDXXXV&#039;], 486 =&gt; [&#039;LDXXXVI&#039;], 487 =&gt; [&#039;LDXXXVII&#039;], 488 =&gt; [&#039;LDXXXVIII&#039;], 489 =&gt; [&#039;LDXXXIX&#039;], 490 =&gt; [&#039;LDXL&#039;, &#039;XD&#039;], 491 =&gt; [&#039;LDXLI&#039;, &#039;XDI&#039;], 492 =&gt; [&#039;LDXLII&#039;, &#039;XDII&#039;], 493 =&gt; [&#039;LDXLIII&#039;, &#039;XDIII&#039;], 494 =&gt; [&#039;LDXLIV&#039;, &#039;XDIV&#039;], 495 =&gt; [&#039;LDVL&#039;, &#039;XDV&#039;, &#039;VD&#039;], 496 =&gt; [&#039;LDVLI&#039;, &#039;XDVI&#039;, &#039;VDI&#039;], 497 =&gt; [&#039;LDVLII&#039;, &#039;XDVII&#039;, &#039;VDII&#039;], 498 =&gt; [&#039;LDVLIII&#039;, &#039;XDVIII&#039;, &#039;VDIII&#039;], 499 =&gt; [&#039;LDVLIV&#039;, &#039;XDIX&#039;, &#039;VDIV&#039;, &#039;ID&#039;], 545 =&gt; [&#039;DVL&#039;], 546 =&gt; [&#039;DVLI&#039;], 547 =&gt; [&#039;DVLII&#039;], 548 =&gt; [&#039;DVLIII&#039;], 549 =&gt; [&#039;DVLIV&#039;, &#039;DIL&#039;], 595 =&gt; [&#039;DVC&#039;], 596 =&gt; [&#039;DVCI&#039;], 597 =&gt; [&#039;DVCII&#039;], 598 =&gt; [&#039;DVCIII&#039;], 599 =&gt; [&#039;DVCIV&#039;, &#039;DIC&#039;], 645 =&gt; [&#039;DCVL&#039;], 646 =&gt; [&#039;DCVLI&#039;], 647 =&gt; [&#039;DCVLII&#039;], 648 =&gt; [&#039;DCVLIII&#039;], 649 =&gt; [&#039;DCVLIV&#039;, &#039;DCIL&#039;], 695 =&gt; [&#039;DCVC&#039;], 696 =&gt; [&#039;DCVCI&#039;], 697 =&gt; [&#039;DCVCII&#039;], 698 =&gt; [&#039;DCVCIII&#039;], 699 =&gt; [&#039;DCVCIV&#039;, &#039;DCIC&#039;], 745 =&gt; [&#039;DCCVL&#039;], 746 =&gt; [&#039;DCCVLI&#039;], 747 =&gt; [&#039;DCCVLII&#039;], 748 =&gt; [&#039;DCCVLIII&#039;], 749 =&gt; [&#039;DCCVLIV&#039;, &#039;DCCIL&#039;], 795 =&gt; [&#039;DCCVC&#039;], 796 =&gt; [&#039;DCCVCI&#039;], 797 =&gt; [&#039;DCCVCII&#039;], 798 =&gt; [&#039;DCCVCIII&#039;], 799 =&gt; [&#039;DCCVCIV&#039;, &#039;DCCIC&#039;], 845 =&gt; [&#039;DCCCVL&#039;], 846 =&gt; [&#039;DCCCVLI&#039;], 847 =&gt; [&#039;DCCCVLII&#039;], 848 =&gt; [&#039;DCCCVLIII&#039;], 849 =&gt; [&#039;DCCCVLIV&#039;, &#039;DCCCIL&#039;], 895 =&gt; [&#039;DCCCVC&#039;], 896 =&gt; [&#039;DCCCVCI&#039;], 897 =&gt; [&#039;DCCCVCII&#039;], 898 =&gt; [&#039;DCCCVCIII&#039;], 899 =&gt; [&#039;DCCCVCIV&#039;, &#039;DCCCIC&#039;], 945 =&gt; [&#039;CMVL&#039;], 946 =&gt; [&#039;CMVLI&#039;], 947 =&gt; [&#039;CMVLII&#039;], 948 =&gt; [&#039;CMVLIII&#039;], 949 =&gt; [&#039;CMVLIV&#039;, &#039;CMIL&#039;], 950 =&gt; [&#039;LM&#039;], 951 =&gt; [&#039;LMI&#039;], 952 =&gt; [&#039;LMII&#039;], 953 =&gt; [&#039;LMIII&#039;], 954 =&gt; [&#039;LMIV&#039;], 955 =&gt; [&#039;LMV&#039;], 956 =&gt; [&#039;LMVI&#039;], 957 =&gt; [&#039;LMVII&#039;], 958 =&gt; [&#039;LMVIII&#039;], 959 =&gt; [&#039;LMIX&#039;], 960 =&gt; [&#039;LMX&#039;], 961 =&gt; [&#039;LMXI&#039;], 962 =&gt; [&#039;LMXII&#039;], 963 =&gt; [&#039;LMXIII&#039;], 964 =&gt; [&#039;LMXIV&#039;], 965 =&gt; [&#039;LMXV&#039;], 966 =&gt; [&#039;LMXVI&#039;], 967 =&gt; [&#039;LMXVII&#039;], 968 =&gt; [&#039;LMXVIII&#039;], 969 =&gt; [&#039;LMXIX&#039;], 970 =&gt; [&#039;LMXX&#039;], 971 =&gt; [&#039;LMXXI&#039;], 972 =&gt; [&#039;LMXXII&#039;], 973 =&gt; [&#039;LMXXIII&#039;], 974 =&gt; [&#039;LMXXIV&#039;], 975 =&gt; [&#039;LMXXV&#039;], 976 =&gt; [&#039;LMXXVI&#039;], 977 =&gt; [&#039;LMXXVII&#039;], 978 =&gt; [&#039;LMXXVIII&#039;], 979 =&gt; [&#039;LMXXIX&#039;], 980 =&gt; [&#039;LMXXX&#039;], 981 =&gt; [&#039;LMXXXI&#039;], 982 =&gt; [&#039;LMXXXII&#039;], 983 =&gt; [&#039;LMXXXIII&#039;], 984 =&gt; [&#039;LMXXXIV&#039;], 985 =&gt; [&#039;LMXXXV&#039;], 986 =&gt; [&#039;LMXXXVI&#039;], 987 =&gt; [&#039;LMXXXVII&#039;], 988 =&gt; [&#039;LMXXXVIII&#039;], 989 =&gt; [&#039;LMXXXIX&#039;], 990 =&gt; [&#039;LMXL&#039;, &#039;XM&#039;], 991 =&gt; [&#039;LMXLI&#039;, &#039;XMI&#039;], 992 =&gt; [&#039;LMXLII&#039;, &#039;XMII&#039;], 993 =&gt; [&#039;LMXLIII&#039;, &#039;XMIII&#039;], 994 =&gt; [&#039;LMXLIV&#039;, &#039;XMIV&#039;], 995 =&gt; [&#039;LMVL&#039;, &#039;XMV&#039;, &#039;VM&#039;], 996 =&gt; [&#039;LMVLI&#039;, &#039;XMVI&#039;, &#039;VMI&#039;], 997 =&gt; [&#039;LMVLII&#039;, &#039;XMVII&#039;, &#039;VMII&#039;], 998 =&gt; [&#039;LMVLIII&#039;, &#039;XMVIII&#039;, &#039;VMIII&#039;], 999 =&gt; [&#039;LMVLIV&#039;, &#039;XMIX&#039;, &#039;VMIV&#039;, &#039;IM&#039;], 1045 =&gt; [&#039;MVL&#039;], 1046 =&gt; [&#039;MVLI&#039;], 1047 =&gt; [&#039;MVLII&#039;], 1048 =&gt; [&#039;MVLIII&#039;], 1049 =&gt; [&#039;MVLIV&#039;, &#039;MIL&#039;], 1095 =&gt; [&#039;MVC&#039;], 1096 =&gt; [&#039;MVCI&#039;], 1097 =&gt; [&#039;MVCII&#039;], 1098 =&gt; [&#039;MVCIII&#039;], 1099 =&gt; [&#039;MVCIV&#039;, &#039;MIC&#039;], 1145 =&gt; [&#039;MCVL&#039;], 1146 =&gt; [&#039;MCVLI&#039;], 1147 =&gt; [&#039;MCVLII&#039;], 1148 =&gt; [&#039;MCVLIII&#039;], 1149 =&gt; [&#039;MCVLIV&#039;, &#039;MCIL&#039;], 1195 =&gt; [&#039;MCVC&#039;], 1196 =&gt; [&#039;MCVCI&#039;], 1197 =&gt; [&#039;MCVCII&#039;], 1198 =&gt; [&#039;MCVCIII&#039;], 1199 =&gt; [&#039;MCVCIV&#039;, &#039;MCIC&#039;], 1245 =&gt; [&#039;MCCVL&#039;], 1246 =&gt; [&#039;MCCVLI&#039;], 1247 =&gt; [&#039;MCCVLII&#039;], 1248 =&gt; [&#039;MCCVLIII&#039;], 1249 =&gt; [&#039;MCCVLIV&#039;, &#039;MCCIL&#039;], 1295 =&gt; [&#039;MCCVC&#039;], 1296 =&gt; [&#039;MCCVCI&#039;], 1297 =&gt; [&#039;MCCVCII&#039;], 1298 =&gt; [&#039;MCCVCIII&#039;], 1299 =&gt; [&#039;MCCVCIV&#039;, &#039;MCCIC&#039;], 1345 =&gt; [&#039;MCCCVL&#039;], 1346 =&gt; [&#039;MCCCVLI&#039;], 1347 =&gt; [&#039;MCCCVLII&#039;], 1348 =&gt; [&#039;MCCCVLIII&#039;], 1349 =&gt; [&#039;MCCCVLIV&#039;, &#039;MCCCIL&#039;], 1395 =&gt; [&#039;MCCCVC&#039;], 1396 =&gt; [&#039;MCCCVCI&#039;], 1397 =&gt; [&#039;MCCCVCII&#039;], 1398 =&gt; [&#039;MCCCVCIII&#039;], 1399 =&gt; [&#039;MCCCVCIV&#039;, &#039;MCCCIC&#039;], 1445 =&gt; [&#039;MCDVL&#039;], 1446 =&gt; [&#039;MCDVLI&#039;], 1447 =&gt; [&#039;MCDVLII&#039;], 1448 =&gt; [&#039;MCDVLIII&#039;], 1449 =&gt; [&#039;MCDVLIV&#039;, &#039;MCDIL&#039;], 1450 =&gt; [&#039;MLD&#039;], 1451 =&gt; [&#039;MLDI&#039;], 1452 =&gt; [&#039;MLDII&#039;], 1453 =&gt; [&#039;MLDIII&#039;], 1454 =&gt; [&#039;MLDIV&#039;], 1455 =&gt; [&#039;MLDV&#039;], 1456 =&gt; [&#039;MLDVI&#039;], 1457 =&gt; [&#039;MLDVII&#039;], 1458 =&gt; [&#039;MLDVIII&#039;], 1459 =&gt; [&#039;MLDIX&#039;], 1460 =&gt; [&#039;MLDX&#039;], 1461 =&gt; [&#039;MLDXI&#039;], 1462 =&gt; [&#039;MLDXII&#039;], 1463 =&gt; [&#039;MLDXIII&#039;], 1464 =&gt; [&#039;MLDXIV&#039;], 1465 =&gt; [&#039;MLDXV&#039;], 1466 =&gt; [&#039;MLDXVI&#039;], 1467 =&gt; [&#039;MLDXVII&#039;], 1468 =&gt; [&#039;MLDXVIII&#039;], 1469 =&gt; [&#039;MLDXIX&#039;], 1470 =&gt; [&#039;MLDXX&#039;], 1471 =&gt; [&#039;MLDXXI&#039;], 1472 =&gt; [&#039;MLDXXII&#039;], 1473 =&gt; [&#039;MLDXXIII&#039;], 1474 =&gt; [&#039;MLDXXIV&#039;], 1475 =&gt; [&#039;MLDXXV&#039;], 1476 =&gt; [&#039;MLDXXVI&#039;], 1477 =&gt; [&#039;MLDXXVII&#039;], 1478 =&gt; [&#039;MLDXXVIII&#039;], 1479 =&gt; [&#039;MLDXXIX&#039;], 1480 =&gt; [&#039;MLDXXX&#039;], 1481 =&gt; [&#039;MLDXXXI&#039;], 1482 =&gt; [&#039;MLDXXXII&#039;], 1483 =&gt; [&#039;MLDXXXIII&#039;], 1484 =&gt; [&#039;MLDXXXIV&#039;], 1485 =&gt; [&#039;MLDXXXV&#039;], 1486 =&gt; [&#039;MLDXXXVI&#039;], 1487 =&gt; [&#039;MLDXXXVII&#039;], 1488 =&gt; [&#039;MLDXXXVIII&#039;], 1489 =&gt; [&#039;MLDXXXIX&#039;], 1490 =&gt; [&#039;MLDXL&#039;, &#039;MXD&#039;], 1491 =&gt; [&#039;MLDXLI&#039;, &#039;MXDI&#039;], 1492 =&gt; [&#039;MLDXLII&#039;, &#039;MXDII&#039;], 1493 =&gt; [&#039;MLDXLIII&#039;, &#039;MXDIII&#039;], 1494 =&gt; [&#039;MLDXLIV&#039;, &#039;MXDIV&#039;], 1495 =&gt; [&#039;MLDVL&#039;, &#039;MXDV&#039;, &#039;MVD&#039;], 1496 =&gt; [&#039;MLDVLI&#039;, &#039;MXDVI&#039;, &#039;MVDI&#039;], 1497 =&gt; [&#039;MLDVLII&#039;, &#039;MXDVII&#039;, &#039;MVDII&#039;], 1498 =&gt; [&#039;MLDVLIII&#039;, &#039;MXDVIII&#039;, &#039;MVDIII&#039;], 1499 =&gt; [&#039;MLDVLIV&#039;, &#039;MXDIX&#039;, &#039;MVDIV&#039;, &#039;MID&#039;], 1545 =&gt; [&#039;MDVL&#039;], 1546 =&gt; [&#039;MDVLI&#039;], 1547 =&gt; [&#039;MDVLII&#039;], 1548 =&gt; [&#039;MDVLIII&#039;], 1549 =&gt; [&#039;MDVLIV&#039;, &#039;MDIL&#039;], 1595 =&gt; [&#039;MDVC&#039;], 1596 =&gt; [&#039;MDVCI&#039;], 1597 =&gt; [&#039;MDVCII&#039;], 1598 =&gt; [&#039;MDVCIII&#039;], 1599 =&gt; [&#039;MDVCIV&#039;, &#039;MDIC&#039;], 1645 =&gt; [&#039;MDCVL&#039;], 1646 =&gt; [&#039;MDCVLI&#039;], 1647 =&gt; [&#039;MDCVLII&#039;], 1648 =&gt; [&#039;MDCVLIII&#039;], 1649 =&gt; [&#039;MDCVLIV&#039;, &#039;MDCIL&#039;], 1695 =&gt; [&#039;MDCVC&#039;], 1696 =&gt; [&#039;MDCVCI&#039;], 1697 =&gt; [&#039;MDCVCII&#039;], 1698 =&gt; [&#039;MDCVCIII&#039;], 1699 =&gt; [&#039;MDCVCIV&#039;, &#039;MDCIC&#039;], 1745 =&gt; [&#039;MDCCVL&#039;], 1746 =&gt; [&#039;MDCCVLI&#039;], 1747 =&gt; [&#039;MDCCVLII&#039;], 1748 =&gt; [&#039;MDCCVLIII&#039;], 1749 =&gt; [&#039;MDCCVLIV&#039;, &#039;MDCCIL&#039;], 1795 =&gt; [&#039;MDCCVC&#039;], 1796 =&gt; [&#039;MDCCVCI&#039;], 1797 =&gt; [&#039;MDCCVCII&#039;], 1798 =&gt; [&#039;MDCCVCIII&#039;], 1799 =&gt; [&#039;MDCCVCIV&#039;, &#039;MDCCIC&#039;], 1845 =&gt; [&#039;MDCCCVL&#039;], 1846 =&gt; [&#039;MDCCCVLI&#039;], 1847 =&gt; [&#039;MDCCCVLII&#039;], 1848 =&gt; [&#039;MDCCCVLIII&#039;], 1849 =&gt; [&#039;MDCCCVLIV&#039;, &#039;MDCCCIL&#039;], 1895 =&gt; [&#039;MDCCCVC&#039;], 1896 =&gt; [&#039;MDCCCVCI&#039;], 1897 =&gt; [&#039;MDCCCVCII&#039;], 1898 =&gt; [&#039;MDCCCVCIII&#039;], 1899 =&gt; [&#039;MDCCCVCIV&#039;, &#039;MDCCCIC&#039;], 1945 =&gt; [&#039;MCMVL&#039;], 1946 =&gt; [&#039;MCMVLI&#039;], 1947 =&gt; [&#039;MCMVLII&#039;], 1948 =&gt; [&#039;MCMVLIII&#039;], 1949 =&gt; [&#039;MCMVLIV&#039;, &#039;MCMIL&#039;], 1950 =&gt; [&#039;MLM&#039;], 1951 =&gt; [&#039;MLMI&#039;], 1952 =&gt; [&#039;MLMII&#039;], 1953 =&gt; [&#039;MLMIII&#039;], 1954 =&gt; [&#039;MLMIV&#039;], 1955 =&gt; [&#039;MLMV&#039;], 1956 =&gt; [&#039;MLMVI&#039;], 1957 =&gt; [&#039;MLMVII&#039;], 1958 =&gt; [&#039;MLMVIII&#039;], 1959 =&gt; [&#039;MLMIX&#039;], 1960 =&gt; [&#039;MLMX&#039;], 1961 =&gt; [&#039;MLMXI&#039;], 1962 =&gt; [&#039;MLMXII&#039;], 1963 =&gt; [&#039;MLMXIII&#039;], 1964 =&gt; [&#039;MLMXIV&#039;], 1965 =&gt; [&#039;MLMXV&#039;], 1966 =&gt; [&#039;MLMXVI&#039;], 1967 =&gt; [&#039;MLMXVII&#039;], 1968 =&gt; [&#039;MLMXVIII&#039;], 1969 =&gt; [&#039;MLMXIX&#039;], 1970 =&gt; [&#039;MLMXX&#039;], 1971 =&gt; [&#039;MLMXXI&#039;], 1972 =&gt; [&#039;MLMXXII&#039;], 1973 =&gt; [&#039;MLMXXIII&#039;], 1974 =&gt; [&#039;MLMXXIV&#039;], 1975 =&gt; [&#039;MLMXXV&#039;], 1976 =&gt; [&#039;MLMXXVI&#039;], 1977 =&gt; [&#039;MLMXXVII&#039;], 1978 =&gt; [&#039;MLMXXVIII&#039;], 1979 =&gt; [&#039;MLMXXIX&#039;], 1980 =&gt; [&#039;MLMXXX&#039;], 1981 =&gt; [&#039;MLMXXXI&#039;], 1982 =&gt; [&#039;MLMXXXII&#039;], 1983 =&gt; [&#039;MLMXXXIII&#039;], 1984 =&gt; [&#039;MLMXXXIV&#039;], 1985 =&gt; [&#039;MLMXXXV&#039;], 1986 =&gt; [&#039;MLMXXXVI&#039;], 1987 =&gt; [&#039;MLMXXXVII&#039;], 1988 =&gt; [&#039;MLMXXXVIII&#039;], 1989 =&gt; [&#039;MLMXXXIX&#039;], 1990 =&gt; [&#039;MLMXL&#039;, &#039;MXM&#039;], 1991 =&gt; [&#039;MLMXLI&#039;, &#039;MXMI&#039;], 1992 =&gt; [&#039;MLMXLII&#039;, &#039;MXMII&#039;], 1993 =&gt; [&#039;MLMXLIII&#039;, &#039;MXMIII&#039;], 1994 =&gt; [&#039;MLMXLIV&#039;, &#039;MXMIV&#039;], 1995 =&gt; [&#039;MLMVL&#039;, &#039;MXMV&#039;, &#039;MVM&#039;], 1996 =&gt; [&#039;MLMVLI&#039;, &#039;MXMVI&#039;, &#039;MVMI&#039;], 1997 =&gt; [&#039;MLMVLII&#039;, &#039;MXMVII&#039;, &#039;MVMII&#039;], 1998 =&gt; [&#039;MLMVLIII&#039;, &#039;MXMVIII&#039;, &#039;MVMIII&#039;], 1999 =&gt; [&#039;MLMVLIV&#039;, &#039;MXMIX&#039;, &#039;MVMIV&#039;, &#039;MIM&#039;], 2045 =&gt; [&#039;MMVL&#039;], 2046 =&gt; [&#039;MMVLI&#039;], 2047 =&gt; [&#039;MMVLII&#039;], 2048 =&gt; [&#039;MMVLIII&#039;], 2049 =&gt; [&#039;MMVLIV&#039;, &#039;MMIL&#039;], 2095 =&gt; [&#039;MMVC&#039;], 2096 =&gt; [&#039;MMVCI&#039;], 2097 =&gt; [&#039;MMVCII&#039;], 2098 =&gt; [&#039;MMVCIII&#039;], 2099 =&gt; [&#039;MMVCIV&#039;, &#039;MMIC&#039;], 2145 =&gt; [&#039;MMCVL&#039;], 2146 =&gt; [&#039;MMCVLI&#039;], 2147 =&gt; [&#039;MMCVLII&#039;], 2148 =&gt; [&#039;MMCVLIII&#039;], 2149 =&gt; [&#039;MMCVLIV&#039;, &#039;MMCIL&#039;], 2195 =&gt; [&#039;MMCVC&#039;], 2196 =&gt; [&#039;MMCVCI&#039;], 2197 =&gt; [&#039;MMCVCII&#039;], 2198 =&gt; [&#039;MMCVCIII&#039;], 2199 =&gt; [&#039;MMCVCIV&#039;, &#039;MMCIC&#039;], 2245 =&gt; [&#039;MMCCVL&#039;], 2246 =&gt; [&#039;MMCCVLI&#039;], 2247 =&gt; [&#039;MMCCVLII&#039;], 2248 =&gt; [&#039;MMCCVLIII&#039;], 2249 =&gt; [&#039;MMCCVLIV&#039;, &#039;MMCCIL&#039;], 2295 =&gt; [&#039;MMCCVC&#039;], 2296 =&gt; [&#039;MMCCVCI&#039;], 2297 =&gt; [&#039;MMCCVCII&#039;], 2298 =&gt; [&#039;MMCCVCIII&#039;], 2299 =&gt; [&#039;MMCCVCIV&#039;, &#039;MMCCIC&#039;], 2345 =&gt; [&#039;MMCCCVL&#039;], 2346 =&gt; [&#039;MMCCCVLI&#039;], 2347 =&gt; [&#039;MMCCCVLII&#039;], 2348 =&gt; [&#039;MMCCCVLIII&#039;], 2349 =&gt; [&#039;MMCCCVLIV&#039;, &#039;MMCCCIL&#039;], 2395 =&gt; [&#039;MMCCCVC&#039;], 2396 =&gt; [&#039;MMCCCVCI&#039;], 2397 =&gt; [&#039;MMCCCVCII&#039;], 2398 =&gt; [&#039;MMCCCVCIII&#039;], 2399 =&gt; [&#039;MMCCCVCIV&#039;, &#039;MMCCCIC&#039;], 2445 =&gt; [&#039;MMCDVL&#039;], 2446 =&gt; [&#039;MMCDVLI&#039;], 2447 =&gt; [&#039;MMCDVLII&#039;], 2448 =&gt; [&#039;MMCDVLIII&#039;], 2449 =&gt; [&#039;MMCDVLIV&#039;, &#039;MMCDIL&#039;], 2450 =&gt; [&#039;MMLD&#039;], 2451 =&gt; [&#039;MMLDI&#039;], 2452 =&gt; [&#039;MMLDII&#039;], 2453 =&gt; [&#039;MMLDIII&#039;], 2454 =&gt; [&#039;MMLDIV&#039;], 2455 =&gt; [&#039;MMLDV&#039;], 2456 =&gt; [&#039;MMLDVI&#039;], 2457 =&gt; [&#039;MMLDVII&#039;], 2458 =&gt; [&#039;MMLDVIII&#039;], 2459 =&gt; [&#039;MMLDIX&#039;], 2460 =&gt; [&#039;MMLDX&#039;], 2461 =&gt; [&#039;MMLDXI&#039;], 2462 =&gt; [&#039;MMLDXII&#039;], 2463 =&gt; [&#039;MMLDXIII&#039;], 2464 =&gt; [&#039;MMLDXIV&#039;], 2465 =&gt; [&#039;MMLDXV&#039;], 2466 =&gt; [&#039;MMLDXVI&#039;], 2467 =&gt; [&#039;MMLDXVII&#039;], 2468 =&gt; [&#039;MMLDXVIII&#039;], 2469 =&gt; [&#039;MMLDXIX&#039;], 2470 =&gt; [&#039;MMLDXX&#039;], 2471 =&gt; [&#039;MMLDXXI&#039;], 2472 =&gt; [&#039;MMLDXXII&#039;], 2473 =&gt; [&#039;MMLDXXIII&#039;], 2474 =&gt; [&#039;MMLDXXIV&#039;], 2475 =&gt; [&#039;MMLDXXV&#039;], 2476 =&gt; [&#039;MMLDXXVI&#039;], 2477 =&gt; [&#039;MMLDXXVII&#039;], 2478 =&gt; [&#039;MMLDXXVIII&#039;], 2479 =&gt; [&#039;MMLDXXIX&#039;], 2480 =&gt; [&#039;MMLDXXX&#039;], 2481 =&gt; [&#039;MMLDXXXI&#039;], 2482 =&gt; [&#039;MMLDXXXII&#039;], 2483 =&gt; [&#039;MMLDXXXIII&#039;], 2484 =&gt; [&#039;MMLDXXXIV&#039;], 2485 =&gt; [&#039;MMLDXXXV&#039;], 2486 =&gt; [&#039;MMLDXXXVI&#039;], 2487 =&gt; [&#039;MMLDXXXVII&#039;], 2488 =&gt; [&#039;MMLDXXXVIII&#039;], 2489 =&gt; [&#039;MMLDXXXIX&#039;], 2490 =&gt; [&#039;MMLDXL&#039;, &#039;MMXD&#039;], 2491 =&gt; [&#039;MMLDXLI&#039;, &#039;MMXDI&#039;], 2492 =&gt; [&#039;MMLDXLII&#039;, &#039;MMXDII&#039;], 2493 =&gt; [&#039;MMLDXLIII&#039;, &#039;MMXDIII&#039;], 2494 =&gt; [&#039;MMLDXLIV&#039;, &#039;MMXDIV&#039;], 2495 =&gt; [&#039;MMLDVL&#039;, &#039;MMXDV&#039;, &#039;MMVD&#039;], 2496 =&gt; [&#039;MMLDVLI&#039;, &#039;MMXDVI&#039;, &#039;MMVDI&#039;], 2497 =&gt; [&#039;MMLDVLII&#039;, &#039;MMXDVII&#039;, &#039;MMVDII&#039;], 2498 =&gt; [&#039;MMLDVLIII&#039;, &#039;MMXDVIII&#039;, &#039;MMVDIII&#039;], 2499 =&gt; [&#039;MMLDVLIV&#039;, &#039;MMXDIX&#039;, &#039;MMVDIV&#039;, &#039;MMID&#039;], 2545 =&gt; [&#039;MMDVL&#039;], 2546 =&gt; [&#039;MMDVLI&#039;], 2547 =&gt; [&#039;MMDVLII&#039;], 2548 =&gt; [&#039;MMDVLIII&#039;], 2549 =&gt; [&#039;MMDVLIV&#039;, &#039;MMDIL&#039;], 2595 =&gt; [&#039;MMDVC&#039;], 2596 =&gt; [&#039;MMDVCI&#039;], 2597 =&gt; [&#039;MMDVCII&#039;], 2598 =&gt; [&#039;MMDVCIII&#039;], 2599 =&gt; [&#039;MMDVCIV&#039;, &#039;MMDIC&#039;], 2645 =&gt; [&#039;MMDCVL&#039;], 2646 =&gt; [&#039;MMDCVLI&#039;], 2647 =&gt; [&#039;MMDCVLII&#039;], 2648 =&gt; [&#039;MMDCVLIII&#039;], 2649 =&gt; [&#039;MMDCVLIV&#039;, &#039;MMDCIL&#039;], 2695 =&gt; [&#039;MMDCVC&#039;], 2696 =&gt; [&#039;MMDCVCI&#039;], 2697 =&gt; [&#039;MMDCVCII&#039;], 2698 =&gt; [&#039;MMDCVCIII&#039;], 2699 =&gt; [&#039;MMDCVCIV&#039;, &#039;MMDCIC&#039;], 2745 =&gt; [&#039;MMDCCVL&#039;], 2746 =&gt; [&#039;MMDCCVLI&#039;], 2747 =&gt; [&#039;MMDCCVLII&#039;], 2748 =&gt; [&#039;MMDCCVLIII&#039;], 2749 =&gt; [&#039;MMDCCVLIV&#039;, &#039;MMDCCIL&#039;], 2795 =&gt; [&#039;MMDCCVC&#039;], 2796 =&gt; [&#039;MMDCCVCI&#039;], 2797 =&gt; [&#039;MMDCCVCII&#039;], 2798 =&gt; [&#039;MMDCCVCIII&#039;], 2799 =&gt; [&#039;MMDCCVCIV&#039;, &#039;MMDCCIC&#039;], 2845 =&gt; [&#039;MMDCCCVL&#039;], 2846 =&gt; [&#039;MMDCCCVLI&#039;], 2847 =&gt; [&#039;MMDCCCVLII&#039;], 2848 =&gt; [&#039;MMDCCCVLIII&#039;], 2849 =&gt; [&#039;MMDCCCVLIV&#039;, &#039;MMDCCCIL&#039;], 2895 =&gt; [&#039;MMDCCCVC&#039;], 2896 =&gt; [&#039;MMDCCCVCI&#039;], 2897 =&gt; [&#039;MMDCCCVCII&#039;], 2898 =&gt; [&#039;MMDCCCVCIII&#039;], 2899 =&gt; [&#039;MMDCCCVCIV&#039;, &#039;MMDCCCIC&#039;], 2945 =&gt; [&#039;MMCMVL&#039;], 2946 =&gt; [&#039;MMCMVLI&#039;], 2947 =&gt; [&#039;MMCMVLII&#039;], 2948 =&gt; [&#039;MMCMVLIII&#039;], 2949 =&gt; [&#039;MMCMVLIV&#039;, &#039;MMCMIL&#039;], 2950 =&gt; [&#039;MMLM&#039;], 2951 =&gt; [&#039;MMLMI&#039;], 2952 =&gt; [&#039;MMLMII&#039;], 2953 =&gt; [&#039;MMLMIII&#039;], 2954 =&gt; [&#039;MMLMIV&#039;], 2955 =&gt; [&#039;MMLMV&#039;], 2956 =&gt; [&#039;MMLMVI&#039;], 2957 =&gt; [&#039;MMLMVII&#039;], 2958 =&gt; [&#039;MMLMVIII&#039;], 2959 =&gt; [&#039;MMLMIX&#039;], 2960 =&gt; [&#039;MMLMX&#039;], 2961 =&gt; [&#039;MMLMXI&#039;], 2962 =&gt; [&#039;MMLMXII&#039;], 2963 =&gt; [&#039;MMLMXIII&#039;], 2964 =&gt; [&#039;MMLMXIV&#039;], 2965 =&gt; [&#039;MMLMXV&#039;], 2966 =&gt; [&#039;MMLMXVI&#039;], 2967 =&gt; [&#039;MMLMXVII&#039;], 2968 =&gt; [&#039;MMLMXVIII&#039;], 2969 =&gt; [&#039;MMLMXIX&#039;], 2970 =&gt; [&#039;MMLMXX&#039;], 2971 =&gt; [&#039;MMLMXXI&#039;], 2972 =&gt; [&#039;MMLMXXII&#039;], 2973 =&gt; [&#039;MMLMXXIII&#039;], 2974 =&gt; [&#039;MMLMXXIV&#039;], 2975 =&gt; [&#039;MMLMXXV&#039;], 2976 =&gt; [&#039;MMLMXXVI&#039;], 2977 =&gt; [&#039;MMLMXXVII&#039;], 2978 =&gt; [&#039;MMLMXXVIII&#039;], 2979 =&gt; [&#039;MMLMXXIX&#039;], 2980 =&gt; [&#039;MMLMXXX&#039;], 2981 =&gt; [&#039;MMLMXXXI&#039;], 2982 =&gt; [&#039;MMLMXXXII&#039;], 2983 =&gt; [&#039;MMLMXXXIII&#039;], 2984 =&gt; [&#039;MMLMXXXIV&#039;], 2985 =&gt; [&#039;MMLMXXXV&#039;], 2986 =&gt; [&#039;MMLMXXXVI&#039;], 2987 =&gt; [&#039;MMLMXXXVII&#039;], 2988 =&gt; [&#039;MMLMXXXVIII&#039;], 2989 =&gt; [&#039;MMLMXXXIX&#039;], 2990 =&gt; [&#039;MMLMXL&#039;, &#039;MMXM&#039;], 2991 =&gt; [&#039;MMLMXLI&#039;, &#039;MMXMI&#039;], 2992 =&gt; [&#039;MMLMXLII&#039;, &#039;MMXMII&#039;], 2993 =&gt; [&#039;MMLMXLIII&#039;, &#039;MMXMIII&#039;], 2994 =&gt; [&#039;MMLMXLIV&#039;, &#039;MMXMIV&#039;], 2995 =&gt; [&#039;MMLMVL&#039;, &#039;MMXMV&#039;, &#039;MMVM&#039;], 2996 =&gt; [&#039;MMLMVLI&#039;, &#039;MMXMVI&#039;, &#039;MMVMI&#039;], 2997 =&gt; [&#039;MMLMVLII&#039;, &#039;MMXMVII&#039;, &#039;MMVMII&#039;], 2998 =&gt; [&#039;MMLMVLIII&#039;, &#039;MMXMVIII&#039;, &#039;MMVMIII&#039;], 2999 =&gt; [&#039;MMLMVLIV&#039;, &#039;MMXMIX&#039;, &#039;MMVMIV&#039;, &#039;MMIM&#039;], 3045 =&gt; [&#039;MMMVL&#039;], 3046 =&gt; [&#039;MMMVLI&#039;], 3047 =&gt; [&#039;MMMVLII&#039;], 3048 =&gt; [&#039;MMMVLIII&#039;], 3049 =&gt; [&#039;MMMVLIV&#039;, &#039;MMMIL&#039;], 3095 =&gt; [&#039;MMMVC&#039;], 3096 =&gt; [&#039;MMMVCI&#039;], 3097 =&gt; [&#039;MMMVCII&#039;], 3098 =&gt; [&#039;MMMVCIII&#039;], 3099 =&gt; [&#039;MMMVCIV&#039;, &#039;MMMIC&#039;], 3145 =&gt; [&#039;MMMCVL&#039;], 3146 =&gt; [&#039;MMMCVLI&#039;], 3147 =&gt; [&#039;MMMCVLII&#039;], 3148 =&gt; [&#039;MMMCVLIII&#039;], 3149 =&gt; [&#039;MMMCVLIV&#039;, &#039;MMMCIL&#039;], 3195 =&gt; [&#039;MMMCVC&#039;], 3196 =&gt; [&#039;MMMCVCI&#039;], 3197 =&gt; [&#039;MMMCVCII&#039;], 3198 =&gt; [&#039;MMMCVCIII&#039;], 3199 =&gt; [&#039;MMMCVCIV&#039;, &#039;MMMCIC&#039;], 3245 =&gt; [&#039;MMMCCVL&#039;], 3246 =&gt; [&#039;MMMCCVLI&#039;], 3247 =&gt; [&#039;MMMCCVLII&#039;], 3248 =&gt; [&#039;MMMCCVLIII&#039;], 3249 =&gt; [&#039;MMMCCVLIV&#039;, &#039;MMMCCIL&#039;], 3295 =&gt; [&#039;MMMCCVC&#039;], 3296 =&gt; [&#039;MMMCCVCI&#039;], 3297 =&gt; [&#039;MMMCCVCII&#039;], 3298 =&gt; [&#039;MMMCCVCIII&#039;], 3299 =&gt; [&#039;MMMCCVCIV&#039;, &#039;MMMCCIC&#039;], 3345 =&gt; [&#039;MMMCCCVL&#039;], 3346 =&gt; [&#039;MMMCCCVLI&#039;], 3347 =&gt; [&#039;MMMCCCVLII&#039;], 3348 =&gt; [&#039;MMMCCCVLIII&#039;], 3349 =&gt; [&#039;MMMCCCVLIV&#039;, &#039;MMMCCCIL&#039;], 3395 =&gt; [&#039;MMMCCCVC&#039;], 3396 =&gt; [&#039;MMMCCCVCI&#039;], 3397 =&gt; [&#039;MMMCCCVCII&#039;], 3398 =&gt; [&#039;MMMCCCVCIII&#039;], 3399 =&gt; [&#039;MMMCCCVCIV&#039;, &#039;MMMCCCIC&#039;], 3445 =&gt; [&#039;MMMCDVL&#039;], 3446 =&gt; [&#039;MMMCDVLI&#039;], 3447 =&gt; [&#039;MMMCDVLII&#039;], 3448 =&gt; [&#039;MMMCDVLIII&#039;], 3449 =&gt; [&#039;MMMCDVLIV&#039;, &#039;MMMCDIL&#039;], 3450 =&gt; [&#039;MMMLD&#039;], 3451 =&gt; [&#039;MMMLDI&#039;], 3452 =&gt; [&#039;MMMLDII&#039;], 3453 =&gt; [&#039;MMMLDIII&#039;], 3454 =&gt; [&#039;MMMLDIV&#039;], 3455 =&gt; [&#039;MMMLDV&#039;], 3456 =&gt; [&#039;MMMLDVI&#039;], 3457 =&gt; [&#039;MMMLDVII&#039;], 3458 =&gt; [&#039;MMMLDVIII&#039;], 3459 =&gt; [&#039;MMMLDIX&#039;], 3460 =&gt; [&#039;MMMLDX&#039;], 3461 =&gt; [&#039;MMMLDXI&#039;], 3462 =&gt; [&#039;MMMLDXII&#039;], 3463 =&gt; [&#039;MMMLDXIII&#039;], 3464 =&gt; [&#039;MMMLDXIV&#039;], 3465 =&gt; [&#039;MMMLDXV&#039;], 3466 =&gt; [&#039;MMMLDXVI&#039;], 3467 =&gt; [&#039;MMMLDXVII&#039;], 3468 =&gt; [&#039;MMMLDXVIII&#039;], 3469 =&gt; [&#039;MMMLDXIX&#039;], 3470 =&gt; [&#039;MMMLDXX&#039;], 3471 =&gt; [&#039;MMMLDXXI&#039;], 3472 =&gt; [&#039;MMMLDXXII&#039;], 3473 =&gt; [&#039;MMMLDXXIII&#039;], 3474 =&gt; [&#039;MMMLDXXIV&#039;], 3475 =&gt; [&#039;MMMLDXXV&#039;], 3476 =&gt; [&#039;MMMLDXXVI&#039;], 3477 =&gt; [&#039;MMMLDXXVII&#039;], 3478 =&gt; [&#039;MMMLDXXVIII&#039;], 3479 =&gt; [&#039;MMMLDXXIX&#039;], 3480 =&gt; [&#039;MMMLDXXX&#039;], 3481 =&gt; [&#039;MMMLDXXXI&#039;], 3482 =&gt; [&#039;MMMLDXXXII&#039;], 3483 =&gt; [&#039;MMMLDXXXIII&#039;], 3484 =&gt; [&#039;MMMLDXXXIV&#039;], 3485 =&gt; [&#039;MMMLDXXXV&#039;], 3486 =&gt; [&#039;MMMLDXXXVI&#039;], 3487 =&gt; [&#039;MMMLDXXXVII&#039;], 3488 =&gt; [&#039;MMMLDXXXVIII&#039;], 3489 =&gt; [&#039;MMMLDXXXIX&#039;], 3490 =&gt; [&#039;MMMLDXL&#039;, &#039;MMMXD&#039;], 3491 =&gt; [&#039;MMMLDXLI&#039;, &#039;MMMXDI&#039;], 3492 =&gt; [&#039;MMMLDXLII&#039;, &#039;MMMXDII&#039;], 3493 =&gt; [&#039;MMMLDXLIII&#039;, &#039;MMMXDIII&#039;], 3494 =&gt; [&#039;MMMLDXLIV&#039;, &#039;MMMXDIV&#039;], 3495 =&gt; [&#039;MMMLDVL&#039;, &#039;MMMXDV&#039;, &#039;MMMVD&#039;], 3496 =&gt; [&#039;MMMLDVLI&#039;, &#039;MMMXDVI&#039;, &#039;MMMVDI&#039;], 3497 =&gt; [&#039;MMMLDVLII&#039;, &#039;MMMXDVII&#039;, &#039;MMMVDII&#039;], 3498 =&gt; [&#039;MMMLDVLIII&#039;, &#039;MMMXDVIII&#039;, &#039;MMMVDIII&#039;], 3499 =&gt; [&#039;MMMLDVLIV&#039;, &#039;MMMXDIX&#039;, &#039;MMMVDIV&#039;, &#039;MMMID&#039;], 3545 =&gt; [&#039;MMMDVL&#039;], 3546 =&gt; [&#039;MMMDVLI&#039;], 3547 =&gt; [&#039;MMMDVLII&#039;], 3548 =&gt; [&#039;MMMDVLIII&#039;], 3549 =&gt; [&#039;MMMDVLIV&#039;, &#039;MMMDIL&#039;], 3595 =&gt; [&#039;MMMDVC&#039;], 3596 =&gt; [&#039;MMMDVCI&#039;], 3597 =&gt; [&#039;MMMDVCII&#039;], 3598 =&gt; [&#039;MMMDVCIII&#039;], 3599 =&gt; [&#039;MMMDVCIV&#039;, &#039;MMMDIC&#039;], 3645 =&gt; [&#039;MMMDCVL&#039;], 3646 =&gt; [&#039;MMMDCVLI&#039;], 3647 =&gt; [&#039;MMMDCVLII&#039;], 3648 =&gt; [&#039;MMMDCVLIII&#039;], 3649 =&gt; [&#039;MMMDCVLIV&#039;, &#039;MMMDCIL&#039;], 3695 =&gt; [&#039;MMMDCVC&#039;], 3696 =&gt; [&#039;MMMDCVCI&#039;], 3697 =&gt; [&#039;MMMDCVCII&#039;], 3698 =&gt; [&#039;MMMDCVCIII&#039;], 3699 =&gt; [&#039;MMMDCVCIV&#039;, &#039;MMMDCIC&#039;], 3745 =&gt; [&#039;MMMDCCVL&#039;], 3746 =&gt; [&#039;MMMDCCVLI&#039;], 3747 =&gt; [&#039;MMMDCCVLII&#039;], 3748 =&gt; [&#039;MMMDCCVLIII&#039;], 3749 =&gt; [&#039;MMMDCCVLIV&#039;, &#039;MMMDCCIL&#039;], 3795 =&gt; [&#039;MMMDCCVC&#039;], 3796 =&gt; [&#039;MMMDCCVCI&#039;], 3797 =&gt; [&#039;MMMDCCVCII&#039;], 3798 =&gt; [&#039;MMMDCCVCIII&#039;], 3799 =&gt; [&#039;MMMDCCVCIV&#039;, &#039;MMMDCCIC&#039;], 3845 =&gt; [&#039;MMMDCCCVL&#039;], 3846 =&gt; [&#039;MMMDCCCVLI&#039;], 3847 =&gt; [&#039;MMMDCCCVLII&#039;], 3848 =&gt; [&#039;MMMDCCCVLIII&#039;], 3849 =&gt; [&#039;MMMDCCCVLIV&#039;, &#039;MMMDCCCIL&#039;], 3895 =&gt; [&#039;MMMDCCCVC&#039;], 3896 =&gt; [&#039;MMMDCCCVCI&#039;], 3897 =&gt; [&#039;MMMDCCCVCII&#039;], 3898 =&gt; [&#039;MMMDCCCVCIII&#039;], 3899 =&gt; [&#039;MMMDCCCVCIV&#039;, &#039;MMMDCCCIC&#039;], 3945 =&gt; [&#039;MMMCMVL&#039;], 3946 =&gt; [&#039;MMMCMVLI&#039;], 3947 =&gt; [&#039;MMMCMVLII&#039;], 3948 =&gt; [&#039;MMMCMVLIII&#039;], 3949 =&gt; [&#039;MMMCMVLIV&#039;, &#039;MMMCMIL&#039;], 3950 =&gt; [&#039;MMMLM&#039;], 3951 =&gt; [&#039;MMMLMI&#039;], 3952 =&gt; [&#039;MMMLMII&#039;], 3953 =&gt; [&#039;MMMLMIII&#039;], 3954 =&gt; [&#039;MMMLMIV&#039;], 3955 =&gt; [&#039;MMMLMV&#039;], 3956 =&gt; [&#039;MMMLMVI&#039;], 3957 =&gt; [&#039;MMMLMVII&#039;], 3958 =&gt; [&#039;MMMLMVIII&#039;], 3959 =&gt; [&#039;MMMLMIX&#039;], 3960 =&gt; [&#039;MMMLMX&#039;], 3961 =&gt; [&#039;MMMLMXI&#039;], 3962 =&gt; [&#039;MMMLMXII&#039;], 3963 =&gt; [&#039;MMMLMXIII&#039;], 3964 =&gt; [&#039;MMMLMXIV&#039;], 3965 =&gt; [&#039;MMMLMXV&#039;], 3966 =&gt; [&#039;MMMLMXVI&#039;], 3967 =&gt; [&#039;MMMLMXVII&#039;], 3968 =&gt; [&#039;MMMLMXVIII&#039;], 3969 =&gt; [&#039;MMMLMXIX&#039;], 3970 =&gt; [&#039;MMMLMXX&#039;], 3971 =&gt; [&#039;MMMLMXXI&#039;], 3972 =&gt; [&#039;MMMLMXXII&#039;], 3973 =&gt; [&#039;MMMLMXXIII&#039;], 3974 =&gt; [&#039;MMMLMXXIV&#039;], 3975 =&gt; [&#039;MMMLMXXV&#039;], 3976 =&gt; [&#039;MMMLMXXVI&#039;], 3977 =&gt; [&#039;MMMLMXXVII&#039;], 3978 =&gt; [&#039;MMMLMXXVIII&#039;], 3979 =&gt; [&#039;MMMLMXXIX&#039;], 3980 =&gt; [&#039;MMMLMXXX&#039;], 3981 =&gt; [&#039;MMMLMXXXI&#039;], 3982 =&gt; [&#039;MMMLMXXXII&#039;], 3983 =&gt; [&#039;MMMLMXXXIII&#039;], 3984 =&gt; [&#039;MMMLMXXXIV&#039;], 3985 =&gt; [&#039;MMMLMXXXV&#039;], 3986 =&gt; [&#039;MMMLMXXXVI&#039;], 3987 =&gt; [&#039;MMMLMXXXVII&#039;], 3988 =&gt; [&#039;MMMLMXXXVIII&#039;], 3989 =&gt; [&#039;MMMLMXXXIX&#039;], 3990 =&gt; [&#039;MMMLMXL&#039;, &#039;MMMXM&#039;], 3991 =&gt; [&#039;MMMLMXLI&#039;, &#039;MMMXMI&#039;], 3992 =&gt; [&#039;MMMLMXLII&#039;, &#039;MMMXMII&#039;], 3993 =&gt; [&#039;MMMLMXLIII&#039;, &#039;MMMXMIII&#039;], 3994 =&gt; [&#039;MMMLMXLIV&#039;, &#039;MMMXMIV&#039;], 3995 =&gt; [&#039;MMMLMVL&#039;, &#039;MMMXMV&#039;, &#039;MMMVM&#039;], 3996 =&gt; [&#039;MMMLMVLI&#039;, &#039;MMMXMVI&#039;, &#039;MMMVMI&#039;], 3997 =&gt; [&#039;MMMLMVLII&#039;, &#039;MMMXMVII&#039;, &#039;MMMVMII&#039;], 3998 =&gt; [&#039;MMMLMVLIII&#039;, &#039;MMMXMVIII&#039;, &#039;MMMVMIII&#039;], 3999 =&gt; [&#039;MMMLMVLIV&#039;, &#039;MMMXMIX&#039;, &#039;MMMVMIV&#039;, &#039;MMMIM&#039;]]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_THOUSANDS">THOUSANDS</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">[&#039;&#039;, &#039;M&#039;, &#039;MM&#039;, &#039;MMM&#039;]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_HUNDREDS">HUNDREDS</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">[&#039;&#039;, &#039;C&#039;, &#039;CC&#039;, &#039;CCC&#039;, &#039;CD&#039;, &#039;D&#039;, &#039;DC&#039;, &#039;DCC&#039;, &#039;DCCC&#039;, &#039;CM&#039;]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_TENS">TENS</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">[&#039;&#039;, &#039;X&#039;, &#039;XX&#039;, &#039;XXX&#039;, &#039;XL&#039;, &#039;L&#039;, &#039;LX&#039;, &#039;LXX&#039;, &#039;LXXX&#039;, &#039;XC&#039;]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_ONES">ONES</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">[&#039;&#039;, &#039;I&#039;, &#039;II&#039;, &#039;III&#039;, &#039;IV&#039;, &#039;V&#039;, &#039;VI&#039;, &#039;VII&#039;, &#039;VIII&#039;, &#039;IX&#039;]</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_MAX_ROMAN_VALUE">MAX_ROMAN_VALUE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">3999</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#constant_MAX_ROMAN_STYLE">MAX_ROMAN_STYLE</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">4</td>
+                </tr>
+                                                                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_romanCut">romanCut()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_valueOk">valueOk()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_styleOk">styleOk()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_calculateRoman">calculateRoman()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_funcRoman">funcRoman()</a></th>
+                    <td class="phpdocumentor-cell">ROMAN.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Roman.html#method_nullFalseTrueToNumber">nullFalseTrueToNumber()</a></th>
+                    <td class="phpdocumentor-cell">Many functions accept null/false/true argument treated as 0/0/1.</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_VALUES"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">VALUES</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">9</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$VALUES</span>
+        = <span class="phpdocumentor-signature__default-value">[45 =&gt; [&#039;VL&#039;], 46 =&gt; [&#039;VLI&#039;], 47 =&gt; [&#039;VLII&#039;], 48 =&gt; [&#039;VLIII&#039;], 49 =&gt; [&#039;VLIV&#039;, &#039;IL&#039;], 95 =&gt; [&#039;VC&#039;], 96 =&gt; [&#039;VCI&#039;], 97 =&gt; [&#039;VCII&#039;], 98 =&gt; [&#039;VCIII&#039;], 99 =&gt; [&#039;VCIV&#039;, &#039;IC&#039;], 145 =&gt; [&#039;CVL&#039;], 146 =&gt; [&#039;CVLI&#039;], 147 =&gt; [&#039;CVLII&#039;], 148 =&gt; [&#039;CVLIII&#039;], 149 =&gt; [&#039;CVLIV&#039;, &#039;CIL&#039;], 195 =&gt; [&#039;CVC&#039;], 196 =&gt; [&#039;CVCI&#039;], 197 =&gt; [&#039;CVCII&#039;], 198 =&gt; [&#039;CVCIII&#039;], 199 =&gt; [&#039;CVCIV&#039;, &#039;CIC&#039;], 245 =&gt; [&#039;CCVL&#039;], 246 =&gt; [&#039;CCVLI&#039;], 247 =&gt; [&#039;CCVLII&#039;], 248 =&gt; [&#039;CCVLIII&#039;], 249 =&gt; [&#039;CCVLIV&#039;, &#039;CCIL&#039;], 295 =&gt; [&#039;CCVC&#039;], 296 =&gt; [&#039;CCVCI&#039;], 297 =&gt; [&#039;CCVCII&#039;], 298 =&gt; [&#039;CCVCIII&#039;], 299 =&gt; [&#039;CCVCIV&#039;, &#039;CCIC&#039;], 345 =&gt; [&#039;CCCVL&#039;], 346 =&gt; [&#039;CCCVLI&#039;], 347 =&gt; [&#039;CCCVLII&#039;], 348 =&gt; [&#039;CCCVLIII&#039;], 349 =&gt; [&#039;CCCVLIV&#039;, &#039;CCCIL&#039;], 395 =&gt; [&#039;CCCVC&#039;], 396 =&gt; [&#039;CCCVCI&#039;], 397 =&gt; [&#039;CCCVCII&#039;], 398 =&gt; [&#039;CCCVCIII&#039;], 399 =&gt; [&#039;CCCVCIV&#039;, &#039;CCCIC&#039;], 445 =&gt; [&#039;CDVL&#039;], 446 =&gt; [&#039;CDVLI&#039;], 447 =&gt; [&#039;CDVLII&#039;], 448 =&gt; [&#039;CDVLIII&#039;], 449 =&gt; [&#039;CDVLIV&#039;, &#039;CDIL&#039;], 450 =&gt; [&#039;LD&#039;], 451 =&gt; [&#039;LDI&#039;], 452 =&gt; [&#039;LDII&#039;], 453 =&gt; [&#039;LDIII&#039;], 454 =&gt; [&#039;LDIV&#039;], 455 =&gt; [&#039;LDV&#039;], 456 =&gt; [&#039;LDVI&#039;], 457 =&gt; [&#039;LDVII&#039;], 458 =&gt; [&#039;LDVIII&#039;], 459 =&gt; [&#039;LDIX&#039;], 460 =&gt; [&#039;LDX&#039;], 461 =&gt; [&#039;LDXI&#039;], 462 =&gt; [&#039;LDXII&#039;], 463 =&gt; [&#039;LDXIII&#039;], 464 =&gt; [&#039;LDXIV&#039;], 465 =&gt; [&#039;LDXV&#039;], 466 =&gt; [&#039;LDXVI&#039;], 467 =&gt; [&#039;LDXVII&#039;], 468 =&gt; [&#039;LDXVIII&#039;], 469 =&gt; [&#039;LDXIX&#039;], 470 =&gt; [&#039;LDXX&#039;], 471 =&gt; [&#039;LDXXI&#039;], 472 =&gt; [&#039;LDXXII&#039;], 473 =&gt; [&#039;LDXXIII&#039;], 474 =&gt; [&#039;LDXXIV&#039;], 475 =&gt; [&#039;LDXXV&#039;], 476 =&gt; [&#039;LDXXVI&#039;], 477 =&gt; [&#039;LDXXVII&#039;], 478 =&gt; [&#039;LDXXVIII&#039;], 479 =&gt; [&#039;LDXXIX&#039;], 480 =&gt; [&#039;LDXXX&#039;], 481 =&gt; [&#039;LDXXXI&#039;], 482 =&gt; [&#039;LDXXXII&#039;], 483 =&gt; [&#039;LDXXXIII&#039;], 484 =&gt; [&#039;LDXXXIV&#039;], 485 =&gt; [&#039;LDXXXV&#039;], 486 =&gt; [&#039;LDXXXVI&#039;], 487 =&gt; [&#039;LDXXXVII&#039;], 488 =&gt; [&#039;LDXXXVIII&#039;], 489 =&gt; [&#039;LDXXXIX&#039;], 490 =&gt; [&#039;LDXL&#039;, &#039;XD&#039;], 491 =&gt; [&#039;LDXLI&#039;, &#039;XDI&#039;], 492 =&gt; [&#039;LDXLII&#039;, &#039;XDII&#039;], 493 =&gt; [&#039;LDXLIII&#039;, &#039;XDIII&#039;], 494 =&gt; [&#039;LDXLIV&#039;, &#039;XDIV&#039;], 495 =&gt; [&#039;LDVL&#039;, &#039;XDV&#039;, &#039;VD&#039;], 496 =&gt; [&#039;LDVLI&#039;, &#039;XDVI&#039;, &#039;VDI&#039;], 497 =&gt; [&#039;LDVLII&#039;, &#039;XDVII&#039;, &#039;VDII&#039;], 498 =&gt; [&#039;LDVLIII&#039;, &#039;XDVIII&#039;, &#039;VDIII&#039;], 499 =&gt; [&#039;LDVLIV&#039;, &#039;XDIX&#039;, &#039;VDIV&#039;, &#039;ID&#039;], 545 =&gt; [&#039;DVL&#039;], 546 =&gt; [&#039;DVLI&#039;], 547 =&gt; [&#039;DVLII&#039;], 548 =&gt; [&#039;DVLIII&#039;], 549 =&gt; [&#039;DVLIV&#039;, &#039;DIL&#039;], 595 =&gt; [&#039;DVC&#039;], 596 =&gt; [&#039;DVCI&#039;], 597 =&gt; [&#039;DVCII&#039;], 598 =&gt; [&#039;DVCIII&#039;], 599 =&gt; [&#039;DVCIV&#039;, &#039;DIC&#039;], 645 =&gt; [&#039;DCVL&#039;], 646 =&gt; [&#039;DCVLI&#039;], 647 =&gt; [&#039;DCVLII&#039;], 648 =&gt; [&#039;DCVLIII&#039;], 649 =&gt; [&#039;DCVLIV&#039;, &#039;DCIL&#039;], 695 =&gt; [&#039;DCVC&#039;], 696 =&gt; [&#039;DCVCI&#039;], 697 =&gt; [&#039;DCVCII&#039;], 698 =&gt; [&#039;DCVCIII&#039;], 699 =&gt; [&#039;DCVCIV&#039;, &#039;DCIC&#039;], 745 =&gt; [&#039;DCCVL&#039;], 746 =&gt; [&#039;DCCVLI&#039;], 747 =&gt; [&#039;DCCVLII&#039;], 748 =&gt; [&#039;DCCVLIII&#039;], 749 =&gt; [&#039;DCCVLIV&#039;, &#039;DCCIL&#039;], 795 =&gt; [&#039;DCCVC&#039;], 796 =&gt; [&#039;DCCVCI&#039;], 797 =&gt; [&#039;DCCVCII&#039;], 798 =&gt; [&#039;DCCVCIII&#039;], 799 =&gt; [&#039;DCCVCIV&#039;, &#039;DCCIC&#039;], 845 =&gt; [&#039;DCCCVL&#039;], 846 =&gt; [&#039;DCCCVLI&#039;], 847 =&gt; [&#039;DCCCVLII&#039;], 848 =&gt; [&#039;DCCCVLIII&#039;], 849 =&gt; [&#039;DCCCVLIV&#039;, &#039;DCCCIL&#039;], 895 =&gt; [&#039;DCCCVC&#039;], 896 =&gt; [&#039;DCCCVCI&#039;], 897 =&gt; [&#039;DCCCVCII&#039;], 898 =&gt; [&#039;DCCCVCIII&#039;], 899 =&gt; [&#039;DCCCVCIV&#039;, &#039;DCCCIC&#039;], 945 =&gt; [&#039;CMVL&#039;], 946 =&gt; [&#039;CMVLI&#039;], 947 =&gt; [&#039;CMVLII&#039;], 948 =&gt; [&#039;CMVLIII&#039;], 949 =&gt; [&#039;CMVLIV&#039;, &#039;CMIL&#039;], 950 =&gt; [&#039;LM&#039;], 951 =&gt; [&#039;LMI&#039;], 952 =&gt; [&#039;LMII&#039;], 953 =&gt; [&#039;LMIII&#039;], 954 =&gt; [&#039;LMIV&#039;], 955 =&gt; [&#039;LMV&#039;], 956 =&gt; [&#039;LMVI&#039;], 957 =&gt; [&#039;LMVII&#039;], 958 =&gt; [&#039;LMVIII&#039;], 959 =&gt; [&#039;LMIX&#039;], 960 =&gt; [&#039;LMX&#039;], 961 =&gt; [&#039;LMXI&#039;], 962 =&gt; [&#039;LMXII&#039;], 963 =&gt; [&#039;LMXIII&#039;], 964 =&gt; [&#039;LMXIV&#039;], 965 =&gt; [&#039;LMXV&#039;], 966 =&gt; [&#039;LMXVI&#039;], 967 =&gt; [&#039;LMXVII&#039;], 968 =&gt; [&#039;LMXVIII&#039;], 969 =&gt; [&#039;LMXIX&#039;], 970 =&gt; [&#039;LMXX&#039;], 971 =&gt; [&#039;LMXXI&#039;], 972 =&gt; [&#039;LMXXII&#039;], 973 =&gt; [&#039;LMXXIII&#039;], 974 =&gt; [&#039;LMXXIV&#039;], 975 =&gt; [&#039;LMXXV&#039;], 976 =&gt; [&#039;LMXXVI&#039;], 977 =&gt; [&#039;LMXXVII&#039;], 978 =&gt; [&#039;LMXXVIII&#039;], 979 =&gt; [&#039;LMXXIX&#039;], 980 =&gt; [&#039;LMXXX&#039;], 981 =&gt; [&#039;LMXXXI&#039;], 982 =&gt; [&#039;LMXXXII&#039;], 983 =&gt; [&#039;LMXXXIII&#039;], 984 =&gt; [&#039;LMXXXIV&#039;], 985 =&gt; [&#039;LMXXXV&#039;], 986 =&gt; [&#039;LMXXXVI&#039;], 987 =&gt; [&#039;LMXXXVII&#039;], 988 =&gt; [&#039;LMXXXVIII&#039;], 989 =&gt; [&#039;LMXXXIX&#039;], 990 =&gt; [&#039;LMXL&#039;, &#039;XM&#039;], 991 =&gt; [&#039;LMXLI&#039;, &#039;XMI&#039;], 992 =&gt; [&#039;LMXLII&#039;, &#039;XMII&#039;], 993 =&gt; [&#039;LMXLIII&#039;, &#039;XMIII&#039;], 994 =&gt; [&#039;LMXLIV&#039;, &#039;XMIV&#039;], 995 =&gt; [&#039;LMVL&#039;, &#039;XMV&#039;, &#039;VM&#039;], 996 =&gt; [&#039;LMVLI&#039;, &#039;XMVI&#039;, &#039;VMI&#039;], 997 =&gt; [&#039;LMVLII&#039;, &#039;XMVII&#039;, &#039;VMII&#039;], 998 =&gt; [&#039;LMVLIII&#039;, &#039;XMVIII&#039;, &#039;VMIII&#039;], 999 =&gt; [&#039;LMVLIV&#039;, &#039;XMIX&#039;, &#039;VMIV&#039;, &#039;IM&#039;], 1045 =&gt; [&#039;MVL&#039;], 1046 =&gt; [&#039;MVLI&#039;], 1047 =&gt; [&#039;MVLII&#039;], 1048 =&gt; [&#039;MVLIII&#039;], 1049 =&gt; [&#039;MVLIV&#039;, &#039;MIL&#039;], 1095 =&gt; [&#039;MVC&#039;], 1096 =&gt; [&#039;MVCI&#039;], 1097 =&gt; [&#039;MVCII&#039;], 1098 =&gt; [&#039;MVCIII&#039;], 1099 =&gt; [&#039;MVCIV&#039;, &#039;MIC&#039;], 1145 =&gt; [&#039;MCVL&#039;], 1146 =&gt; [&#039;MCVLI&#039;], 1147 =&gt; [&#039;MCVLII&#039;], 1148 =&gt; [&#039;MCVLIII&#039;], 1149 =&gt; [&#039;MCVLIV&#039;, &#039;MCIL&#039;], 1195 =&gt; [&#039;MCVC&#039;], 1196 =&gt; [&#039;MCVCI&#039;], 1197 =&gt; [&#039;MCVCII&#039;], 1198 =&gt; [&#039;MCVCIII&#039;], 1199 =&gt; [&#039;MCVCIV&#039;, &#039;MCIC&#039;], 1245 =&gt; [&#039;MCCVL&#039;], 1246 =&gt; [&#039;MCCVLI&#039;], 1247 =&gt; [&#039;MCCVLII&#039;], 1248 =&gt; [&#039;MCCVLIII&#039;], 1249 =&gt; [&#039;MCCVLIV&#039;, &#039;MCCIL&#039;], 1295 =&gt; [&#039;MCCVC&#039;], 1296 =&gt; [&#039;MCCVCI&#039;], 1297 =&gt; [&#039;MCCVCII&#039;], 1298 =&gt; [&#039;MCCVCIII&#039;], 1299 =&gt; [&#039;MCCVCIV&#039;, &#039;MCCIC&#039;], 1345 =&gt; [&#039;MCCCVL&#039;], 1346 =&gt; [&#039;MCCCVLI&#039;], 1347 =&gt; [&#039;MCCCVLII&#039;], 1348 =&gt; [&#039;MCCCVLIII&#039;], 1349 =&gt; [&#039;MCCCVLIV&#039;, &#039;MCCCIL&#039;], 1395 =&gt; [&#039;MCCCVC&#039;], 1396 =&gt; [&#039;MCCCVCI&#039;], 1397 =&gt; [&#039;MCCCVCII&#039;], 1398 =&gt; [&#039;MCCCVCIII&#039;], 1399 =&gt; [&#039;MCCCVCIV&#039;, &#039;MCCCIC&#039;], 1445 =&gt; [&#039;MCDVL&#039;], 1446 =&gt; [&#039;MCDVLI&#039;], 1447 =&gt; [&#039;MCDVLII&#039;], 1448 =&gt; [&#039;MCDVLIII&#039;], 1449 =&gt; [&#039;MCDVLIV&#039;, &#039;MCDIL&#039;], 1450 =&gt; [&#039;MLD&#039;], 1451 =&gt; [&#039;MLDI&#039;], 1452 =&gt; [&#039;MLDII&#039;], 1453 =&gt; [&#039;MLDIII&#039;], 1454 =&gt; [&#039;MLDIV&#039;], 1455 =&gt; [&#039;MLDV&#039;], 1456 =&gt; [&#039;MLDVI&#039;], 1457 =&gt; [&#039;MLDVII&#039;], 1458 =&gt; [&#039;MLDVIII&#039;], 1459 =&gt; [&#039;MLDIX&#039;], 1460 =&gt; [&#039;MLDX&#039;], 1461 =&gt; [&#039;MLDXI&#039;], 1462 =&gt; [&#039;MLDXII&#039;], 1463 =&gt; [&#039;MLDXIII&#039;], 1464 =&gt; [&#039;MLDXIV&#039;], 1465 =&gt; [&#039;MLDXV&#039;], 1466 =&gt; [&#039;MLDXVI&#039;], 1467 =&gt; [&#039;MLDXVII&#039;], 1468 =&gt; [&#039;MLDXVIII&#039;], 1469 =&gt; [&#039;MLDXIX&#039;], 1470 =&gt; [&#039;MLDXX&#039;], 1471 =&gt; [&#039;MLDXXI&#039;], 1472 =&gt; [&#039;MLDXXII&#039;], 1473 =&gt; [&#039;MLDXXIII&#039;], 1474 =&gt; [&#039;MLDXXIV&#039;], 1475 =&gt; [&#039;MLDXXV&#039;], 1476 =&gt; [&#039;MLDXXVI&#039;], 1477 =&gt; [&#039;MLDXXVII&#039;], 1478 =&gt; [&#039;MLDXXVIII&#039;], 1479 =&gt; [&#039;MLDXXIX&#039;], 1480 =&gt; [&#039;MLDXXX&#039;], 1481 =&gt; [&#039;MLDXXXI&#039;], 1482 =&gt; [&#039;MLDXXXII&#039;], 1483 =&gt; [&#039;MLDXXXIII&#039;], 1484 =&gt; [&#039;MLDXXXIV&#039;], 1485 =&gt; [&#039;MLDXXXV&#039;], 1486 =&gt; [&#039;MLDXXXVI&#039;], 1487 =&gt; [&#039;MLDXXXVII&#039;], 1488 =&gt; [&#039;MLDXXXVIII&#039;], 1489 =&gt; [&#039;MLDXXXIX&#039;], 1490 =&gt; [&#039;MLDXL&#039;, &#039;MXD&#039;], 1491 =&gt; [&#039;MLDXLI&#039;, &#039;MXDI&#039;], 1492 =&gt; [&#039;MLDXLII&#039;, &#039;MXDII&#039;], 1493 =&gt; [&#039;MLDXLIII&#039;, &#039;MXDIII&#039;], 1494 =&gt; [&#039;MLDXLIV&#039;, &#039;MXDIV&#039;], 1495 =&gt; [&#039;MLDVL&#039;, &#039;MXDV&#039;, &#039;MVD&#039;], 1496 =&gt; [&#039;MLDVLI&#039;, &#039;MXDVI&#039;, &#039;MVDI&#039;], 1497 =&gt; [&#039;MLDVLII&#039;, &#039;MXDVII&#039;, &#039;MVDII&#039;], 1498 =&gt; [&#039;MLDVLIII&#039;, &#039;MXDVIII&#039;, &#039;MVDIII&#039;], 1499 =&gt; [&#039;MLDVLIV&#039;, &#039;MXDIX&#039;, &#039;MVDIV&#039;, &#039;MID&#039;], 1545 =&gt; [&#039;MDVL&#039;], 1546 =&gt; [&#039;MDVLI&#039;], 1547 =&gt; [&#039;MDVLII&#039;], 1548 =&gt; [&#039;MDVLIII&#039;], 1549 =&gt; [&#039;MDVLIV&#039;, &#039;MDIL&#039;], 1595 =&gt; [&#039;MDVC&#039;], 1596 =&gt; [&#039;MDVCI&#039;], 1597 =&gt; [&#039;MDVCII&#039;], 1598 =&gt; [&#039;MDVCIII&#039;], 1599 =&gt; [&#039;MDVCIV&#039;, &#039;MDIC&#039;], 1645 =&gt; [&#039;MDCVL&#039;], 1646 =&gt; [&#039;MDCVLI&#039;], 1647 =&gt; [&#039;MDCVLII&#039;], 1648 =&gt; [&#039;MDCVLIII&#039;], 1649 =&gt; [&#039;MDCVLIV&#039;, &#039;MDCIL&#039;], 1695 =&gt; [&#039;MDCVC&#039;], 1696 =&gt; [&#039;MDCVCI&#039;], 1697 =&gt; [&#039;MDCVCII&#039;], 1698 =&gt; [&#039;MDCVCIII&#039;], 1699 =&gt; [&#039;MDCVCIV&#039;, &#039;MDCIC&#039;], 1745 =&gt; [&#039;MDCCVL&#039;], 1746 =&gt; [&#039;MDCCVLI&#039;], 1747 =&gt; [&#039;MDCCVLII&#039;], 1748 =&gt; [&#039;MDCCVLIII&#039;], 1749 =&gt; [&#039;MDCCVLIV&#039;, &#039;MDCCIL&#039;], 1795 =&gt; [&#039;MDCCVC&#039;], 1796 =&gt; [&#039;MDCCVCI&#039;], 1797 =&gt; [&#039;MDCCVCII&#039;], 1798 =&gt; [&#039;MDCCVCIII&#039;], 1799 =&gt; [&#039;MDCCVCIV&#039;, &#039;MDCCIC&#039;], 1845 =&gt; [&#039;MDCCCVL&#039;], 1846 =&gt; [&#039;MDCCCVLI&#039;], 1847 =&gt; [&#039;MDCCCVLII&#039;], 1848 =&gt; [&#039;MDCCCVLIII&#039;], 1849 =&gt; [&#039;MDCCCVLIV&#039;, &#039;MDCCCIL&#039;], 1895 =&gt; [&#039;MDCCCVC&#039;], 1896 =&gt; [&#039;MDCCCVCI&#039;], 1897 =&gt; [&#039;MDCCCVCII&#039;], 1898 =&gt; [&#039;MDCCCVCIII&#039;], 1899 =&gt; [&#039;MDCCCVCIV&#039;, &#039;MDCCCIC&#039;], 1945 =&gt; [&#039;MCMVL&#039;], 1946 =&gt; [&#039;MCMVLI&#039;], 1947 =&gt; [&#039;MCMVLII&#039;], 1948 =&gt; [&#039;MCMVLIII&#039;], 1949 =&gt; [&#039;MCMVLIV&#039;, &#039;MCMIL&#039;], 1950 =&gt; [&#039;MLM&#039;], 1951 =&gt; [&#039;MLMI&#039;], 1952 =&gt; [&#039;MLMII&#039;], 1953 =&gt; [&#039;MLMIII&#039;], 1954 =&gt; [&#039;MLMIV&#039;], 1955 =&gt; [&#039;MLMV&#039;], 1956 =&gt; [&#039;MLMVI&#039;], 1957 =&gt; [&#039;MLMVII&#039;], 1958 =&gt; [&#039;MLMVIII&#039;], 1959 =&gt; [&#039;MLMIX&#039;], 1960 =&gt; [&#039;MLMX&#039;], 1961 =&gt; [&#039;MLMXI&#039;], 1962 =&gt; [&#039;MLMXII&#039;], 1963 =&gt; [&#039;MLMXIII&#039;], 1964 =&gt; [&#039;MLMXIV&#039;], 1965 =&gt; [&#039;MLMXV&#039;], 1966 =&gt; [&#039;MLMXVI&#039;], 1967 =&gt; [&#039;MLMXVII&#039;], 1968 =&gt; [&#039;MLMXVIII&#039;], 1969 =&gt; [&#039;MLMXIX&#039;], 1970 =&gt; [&#039;MLMXX&#039;], 1971 =&gt; [&#039;MLMXXI&#039;], 1972 =&gt; [&#039;MLMXXII&#039;], 1973 =&gt; [&#039;MLMXXIII&#039;], 1974 =&gt; [&#039;MLMXXIV&#039;], 1975 =&gt; [&#039;MLMXXV&#039;], 1976 =&gt; [&#039;MLMXXVI&#039;], 1977 =&gt; [&#039;MLMXXVII&#039;], 1978 =&gt; [&#039;MLMXXVIII&#039;], 1979 =&gt; [&#039;MLMXXIX&#039;], 1980 =&gt; [&#039;MLMXXX&#039;], 1981 =&gt; [&#039;MLMXXXI&#039;], 1982 =&gt; [&#039;MLMXXXII&#039;], 1983 =&gt; [&#039;MLMXXXIII&#039;], 1984 =&gt; [&#039;MLMXXXIV&#039;], 1985 =&gt; [&#039;MLMXXXV&#039;], 1986 =&gt; [&#039;MLMXXXVI&#039;], 1987 =&gt; [&#039;MLMXXXVII&#039;], 1988 =&gt; [&#039;MLMXXXVIII&#039;], 1989 =&gt; [&#039;MLMXXXIX&#039;], 1990 =&gt; [&#039;MLMXL&#039;, &#039;MXM&#039;], 1991 =&gt; [&#039;MLMXLI&#039;, &#039;MXMI&#039;], 1992 =&gt; [&#039;MLMXLII&#039;, &#039;MXMII&#039;], 1993 =&gt; [&#039;MLMXLIII&#039;, &#039;MXMIII&#039;], 1994 =&gt; [&#039;MLMXLIV&#039;, &#039;MXMIV&#039;], 1995 =&gt; [&#039;MLMVL&#039;, &#039;MXMV&#039;, &#039;MVM&#039;], 1996 =&gt; [&#039;MLMVLI&#039;, &#039;MXMVI&#039;, &#039;MVMI&#039;], 1997 =&gt; [&#039;MLMVLII&#039;, &#039;MXMVII&#039;, &#039;MVMII&#039;], 1998 =&gt; [&#039;MLMVLIII&#039;, &#039;MXMVIII&#039;, &#039;MVMIII&#039;], 1999 =&gt; [&#039;MLMVLIV&#039;, &#039;MXMIX&#039;, &#039;MVMIV&#039;, &#039;MIM&#039;], 2045 =&gt; [&#039;MMVL&#039;], 2046 =&gt; [&#039;MMVLI&#039;], 2047 =&gt; [&#039;MMVLII&#039;], 2048 =&gt; [&#039;MMVLIII&#039;], 2049 =&gt; [&#039;MMVLIV&#039;, &#039;MMIL&#039;], 2095 =&gt; [&#039;MMVC&#039;], 2096 =&gt; [&#039;MMVCI&#039;], 2097 =&gt; [&#039;MMVCII&#039;], 2098 =&gt; [&#039;MMVCIII&#039;], 2099 =&gt; [&#039;MMVCIV&#039;, &#039;MMIC&#039;], 2145 =&gt; [&#039;MMCVL&#039;], 2146 =&gt; [&#039;MMCVLI&#039;], 2147 =&gt; [&#039;MMCVLII&#039;], 2148 =&gt; [&#039;MMCVLIII&#039;], 2149 =&gt; [&#039;MMCVLIV&#039;, &#039;MMCIL&#039;], 2195 =&gt; [&#039;MMCVC&#039;], 2196 =&gt; [&#039;MMCVCI&#039;], 2197 =&gt; [&#039;MMCVCII&#039;], 2198 =&gt; [&#039;MMCVCIII&#039;], 2199 =&gt; [&#039;MMCVCIV&#039;, &#039;MMCIC&#039;], 2245 =&gt; [&#039;MMCCVL&#039;], 2246 =&gt; [&#039;MMCCVLI&#039;], 2247 =&gt; [&#039;MMCCVLII&#039;], 2248 =&gt; [&#039;MMCCVLIII&#039;], 2249 =&gt; [&#039;MMCCVLIV&#039;, &#039;MMCCIL&#039;], 2295 =&gt; [&#039;MMCCVC&#039;], 2296 =&gt; [&#039;MMCCVCI&#039;], 2297 =&gt; [&#039;MMCCVCII&#039;], 2298 =&gt; [&#039;MMCCVCIII&#039;], 2299 =&gt; [&#039;MMCCVCIV&#039;, &#039;MMCCIC&#039;], 2345 =&gt; [&#039;MMCCCVL&#039;], 2346 =&gt; [&#039;MMCCCVLI&#039;], 2347 =&gt; [&#039;MMCCCVLII&#039;], 2348 =&gt; [&#039;MMCCCVLIII&#039;], 2349 =&gt; [&#039;MMCCCVLIV&#039;, &#039;MMCCCIL&#039;], 2395 =&gt; [&#039;MMCCCVC&#039;], 2396 =&gt; [&#039;MMCCCVCI&#039;], 2397 =&gt; [&#039;MMCCCVCII&#039;], 2398 =&gt; [&#039;MMCCCVCIII&#039;], 2399 =&gt; [&#039;MMCCCVCIV&#039;, &#039;MMCCCIC&#039;], 2445 =&gt; [&#039;MMCDVL&#039;], 2446 =&gt; [&#039;MMCDVLI&#039;], 2447 =&gt; [&#039;MMCDVLII&#039;], 2448 =&gt; [&#039;MMCDVLIII&#039;], 2449 =&gt; [&#039;MMCDVLIV&#039;, &#039;MMCDIL&#039;], 2450 =&gt; [&#039;MMLD&#039;], 2451 =&gt; [&#039;MMLDI&#039;], 2452 =&gt; [&#039;MMLDII&#039;], 2453 =&gt; [&#039;MMLDIII&#039;], 2454 =&gt; [&#039;MMLDIV&#039;], 2455 =&gt; [&#039;MMLDV&#039;], 2456 =&gt; [&#039;MMLDVI&#039;], 2457 =&gt; [&#039;MMLDVII&#039;], 2458 =&gt; [&#039;MMLDVIII&#039;], 2459 =&gt; [&#039;MMLDIX&#039;], 2460 =&gt; [&#039;MMLDX&#039;], 2461 =&gt; [&#039;MMLDXI&#039;], 2462 =&gt; [&#039;MMLDXII&#039;], 2463 =&gt; [&#039;MMLDXIII&#039;], 2464 =&gt; [&#039;MMLDXIV&#039;], 2465 =&gt; [&#039;MMLDXV&#039;], 2466 =&gt; [&#039;MMLDXVI&#039;], 2467 =&gt; [&#039;MMLDXVII&#039;], 2468 =&gt; [&#039;MMLDXVIII&#039;], 2469 =&gt; [&#039;MMLDXIX&#039;], 2470 =&gt; [&#039;MMLDXX&#039;], 2471 =&gt; [&#039;MMLDXXI&#039;], 2472 =&gt; [&#039;MMLDXXII&#039;], 2473 =&gt; [&#039;MMLDXXIII&#039;], 2474 =&gt; [&#039;MMLDXXIV&#039;], 2475 =&gt; [&#039;MMLDXXV&#039;], 2476 =&gt; [&#039;MMLDXXVI&#039;], 2477 =&gt; [&#039;MMLDXXVII&#039;], 2478 =&gt; [&#039;MMLDXXVIII&#039;], 2479 =&gt; [&#039;MMLDXXIX&#039;], 2480 =&gt; [&#039;MMLDXXX&#039;], 2481 =&gt; [&#039;MMLDXXXI&#039;], 2482 =&gt; [&#039;MMLDXXXII&#039;], 2483 =&gt; [&#039;MMLDXXXIII&#039;], 2484 =&gt; [&#039;MMLDXXXIV&#039;], 2485 =&gt; [&#039;MMLDXXXV&#039;], 2486 =&gt; [&#039;MMLDXXXVI&#039;], 2487 =&gt; [&#039;MMLDXXXVII&#039;], 2488 =&gt; [&#039;MMLDXXXVIII&#039;], 2489 =&gt; [&#039;MMLDXXXIX&#039;], 2490 =&gt; [&#039;MMLDXL&#039;, &#039;MMXD&#039;], 2491 =&gt; [&#039;MMLDXLI&#039;, &#039;MMXDI&#039;], 2492 =&gt; [&#039;MMLDXLII&#039;, &#039;MMXDII&#039;], 2493 =&gt; [&#039;MMLDXLIII&#039;, &#039;MMXDIII&#039;], 2494 =&gt; [&#039;MMLDXLIV&#039;, &#039;MMXDIV&#039;], 2495 =&gt; [&#039;MMLDVL&#039;, &#039;MMXDV&#039;, &#039;MMVD&#039;], 2496 =&gt; [&#039;MMLDVLI&#039;, &#039;MMXDVI&#039;, &#039;MMVDI&#039;], 2497 =&gt; [&#039;MMLDVLII&#039;, &#039;MMXDVII&#039;, &#039;MMVDII&#039;], 2498 =&gt; [&#039;MMLDVLIII&#039;, &#039;MMXDVIII&#039;, &#039;MMVDIII&#039;], 2499 =&gt; [&#039;MMLDVLIV&#039;, &#039;MMXDIX&#039;, &#039;MMVDIV&#039;, &#039;MMID&#039;], 2545 =&gt; [&#039;MMDVL&#039;], 2546 =&gt; [&#039;MMDVLI&#039;], 2547 =&gt; [&#039;MMDVLII&#039;], 2548 =&gt; [&#039;MMDVLIII&#039;], 2549 =&gt; [&#039;MMDVLIV&#039;, &#039;MMDIL&#039;], 2595 =&gt; [&#039;MMDVC&#039;], 2596 =&gt; [&#039;MMDVCI&#039;], 2597 =&gt; [&#039;MMDVCII&#039;], 2598 =&gt; [&#039;MMDVCIII&#039;], 2599 =&gt; [&#039;MMDVCIV&#039;, &#039;MMDIC&#039;], 2645 =&gt; [&#039;MMDCVL&#039;], 2646 =&gt; [&#039;MMDCVLI&#039;], 2647 =&gt; [&#039;MMDCVLII&#039;], 2648 =&gt; [&#039;MMDCVLIII&#039;], 2649 =&gt; [&#039;MMDCVLIV&#039;, &#039;MMDCIL&#039;], 2695 =&gt; [&#039;MMDCVC&#039;], 2696 =&gt; [&#039;MMDCVCI&#039;], 2697 =&gt; [&#039;MMDCVCII&#039;], 2698 =&gt; [&#039;MMDCVCIII&#039;], 2699 =&gt; [&#039;MMDCVCIV&#039;, &#039;MMDCIC&#039;], 2745 =&gt; [&#039;MMDCCVL&#039;], 2746 =&gt; [&#039;MMDCCVLI&#039;], 2747 =&gt; [&#039;MMDCCVLII&#039;], 2748 =&gt; [&#039;MMDCCVLIII&#039;], 2749 =&gt; [&#039;MMDCCVLIV&#039;, &#039;MMDCCIL&#039;], 2795 =&gt; [&#039;MMDCCVC&#039;], 2796 =&gt; [&#039;MMDCCVCI&#039;], 2797 =&gt; [&#039;MMDCCVCII&#039;], 2798 =&gt; [&#039;MMDCCVCIII&#039;], 2799 =&gt; [&#039;MMDCCVCIV&#039;, &#039;MMDCCIC&#039;], 2845 =&gt; [&#039;MMDCCCVL&#039;], 2846 =&gt; [&#039;MMDCCCVLI&#039;], 2847 =&gt; [&#039;MMDCCCVLII&#039;], 2848 =&gt; [&#039;MMDCCCVLIII&#039;], 2849 =&gt; [&#039;MMDCCCVLIV&#039;, &#039;MMDCCCIL&#039;], 2895 =&gt; [&#039;MMDCCCVC&#039;], 2896 =&gt; [&#039;MMDCCCVCI&#039;], 2897 =&gt; [&#039;MMDCCCVCII&#039;], 2898 =&gt; [&#039;MMDCCCVCIII&#039;], 2899 =&gt; [&#039;MMDCCCVCIV&#039;, &#039;MMDCCCIC&#039;], 2945 =&gt; [&#039;MMCMVL&#039;], 2946 =&gt; [&#039;MMCMVLI&#039;], 2947 =&gt; [&#039;MMCMVLII&#039;], 2948 =&gt; [&#039;MMCMVLIII&#039;], 2949 =&gt; [&#039;MMCMVLIV&#039;, &#039;MMCMIL&#039;], 2950 =&gt; [&#039;MMLM&#039;], 2951 =&gt; [&#039;MMLMI&#039;], 2952 =&gt; [&#039;MMLMII&#039;], 2953 =&gt; [&#039;MMLMIII&#039;], 2954 =&gt; [&#039;MMLMIV&#039;], 2955 =&gt; [&#039;MMLMV&#039;], 2956 =&gt; [&#039;MMLMVI&#039;], 2957 =&gt; [&#039;MMLMVII&#039;], 2958 =&gt; [&#039;MMLMVIII&#039;], 2959 =&gt; [&#039;MMLMIX&#039;], 2960 =&gt; [&#039;MMLMX&#039;], 2961 =&gt; [&#039;MMLMXI&#039;], 2962 =&gt; [&#039;MMLMXII&#039;], 2963 =&gt; [&#039;MMLMXIII&#039;], 2964 =&gt; [&#039;MMLMXIV&#039;], 2965 =&gt; [&#039;MMLMXV&#039;], 2966 =&gt; [&#039;MMLMXVI&#039;], 2967 =&gt; [&#039;MMLMXVII&#039;], 2968 =&gt; [&#039;MMLMXVIII&#039;], 2969 =&gt; [&#039;MMLMXIX&#039;], 2970 =&gt; [&#039;MMLMXX&#039;], 2971 =&gt; [&#039;MMLMXXI&#039;], 2972 =&gt; [&#039;MMLMXXII&#039;], 2973 =&gt; [&#039;MMLMXXIII&#039;], 2974 =&gt; [&#039;MMLMXXIV&#039;], 2975 =&gt; [&#039;MMLMXXV&#039;], 2976 =&gt; [&#039;MMLMXXVI&#039;], 2977 =&gt; [&#039;MMLMXXVII&#039;], 2978 =&gt; [&#039;MMLMXXVIII&#039;], 2979 =&gt; [&#039;MMLMXXIX&#039;], 2980 =&gt; [&#039;MMLMXXX&#039;], 2981 =&gt; [&#039;MMLMXXXI&#039;], 2982 =&gt; [&#039;MMLMXXXII&#039;], 2983 =&gt; [&#039;MMLMXXXIII&#039;], 2984 =&gt; [&#039;MMLMXXXIV&#039;], 2985 =&gt; [&#039;MMLMXXXV&#039;], 2986 =&gt; [&#039;MMLMXXXVI&#039;], 2987 =&gt; [&#039;MMLMXXXVII&#039;], 2988 =&gt; [&#039;MMLMXXXVIII&#039;], 2989 =&gt; [&#039;MMLMXXXIX&#039;], 2990 =&gt; [&#039;MMLMXL&#039;, &#039;MMXM&#039;], 2991 =&gt; [&#039;MMLMXLI&#039;, &#039;MMXMI&#039;], 2992 =&gt; [&#039;MMLMXLII&#039;, &#039;MMXMII&#039;], 2993 =&gt; [&#039;MMLMXLIII&#039;, &#039;MMXMIII&#039;], 2994 =&gt; [&#039;MMLMXLIV&#039;, &#039;MMXMIV&#039;], 2995 =&gt; [&#039;MMLMVL&#039;, &#039;MMXMV&#039;, &#039;MMVM&#039;], 2996 =&gt; [&#039;MMLMVLI&#039;, &#039;MMXMVI&#039;, &#039;MMVMI&#039;], 2997 =&gt; [&#039;MMLMVLII&#039;, &#039;MMXMVII&#039;, &#039;MMVMII&#039;], 2998 =&gt; [&#039;MMLMVLIII&#039;, &#039;MMXMVIII&#039;, &#039;MMVMIII&#039;], 2999 =&gt; [&#039;MMLMVLIV&#039;, &#039;MMXMIX&#039;, &#039;MMVMIV&#039;, &#039;MMIM&#039;], 3045 =&gt; [&#039;MMMVL&#039;], 3046 =&gt; [&#039;MMMVLI&#039;], 3047 =&gt; [&#039;MMMVLII&#039;], 3048 =&gt; [&#039;MMMVLIII&#039;], 3049 =&gt; [&#039;MMMVLIV&#039;, &#039;MMMIL&#039;], 3095 =&gt; [&#039;MMMVC&#039;], 3096 =&gt; [&#039;MMMVCI&#039;], 3097 =&gt; [&#039;MMMVCII&#039;], 3098 =&gt; [&#039;MMMVCIII&#039;], 3099 =&gt; [&#039;MMMVCIV&#039;, &#039;MMMIC&#039;], 3145 =&gt; [&#039;MMMCVL&#039;], 3146 =&gt; [&#039;MMMCVLI&#039;], 3147 =&gt; [&#039;MMMCVLII&#039;], 3148 =&gt; [&#039;MMMCVLIII&#039;], 3149 =&gt; [&#039;MMMCVLIV&#039;, &#039;MMMCIL&#039;], 3195 =&gt; [&#039;MMMCVC&#039;], 3196 =&gt; [&#039;MMMCVCI&#039;], 3197 =&gt; [&#039;MMMCVCII&#039;], 3198 =&gt; [&#039;MMMCVCIII&#039;], 3199 =&gt; [&#039;MMMCVCIV&#039;, &#039;MMMCIC&#039;], 3245 =&gt; [&#039;MMMCCVL&#039;], 3246 =&gt; [&#039;MMMCCVLI&#039;], 3247 =&gt; [&#039;MMMCCVLII&#039;], 3248 =&gt; [&#039;MMMCCVLIII&#039;], 3249 =&gt; [&#039;MMMCCVLIV&#039;, &#039;MMMCCIL&#039;], 3295 =&gt; [&#039;MMMCCVC&#039;], 3296 =&gt; [&#039;MMMCCVCI&#039;], 3297 =&gt; [&#039;MMMCCVCII&#039;], 3298 =&gt; [&#039;MMMCCVCIII&#039;], 3299 =&gt; [&#039;MMMCCVCIV&#039;, &#039;MMMCCIC&#039;], 3345 =&gt; [&#039;MMMCCCVL&#039;], 3346 =&gt; [&#039;MMMCCCVLI&#039;], 3347 =&gt; [&#039;MMMCCCVLII&#039;], 3348 =&gt; [&#039;MMMCCCVLIII&#039;], 3349 =&gt; [&#039;MMMCCCVLIV&#039;, &#039;MMMCCCIL&#039;], 3395 =&gt; [&#039;MMMCCCVC&#039;], 3396 =&gt; [&#039;MMMCCCVCI&#039;], 3397 =&gt; [&#039;MMMCCCVCII&#039;], 3398 =&gt; [&#039;MMMCCCVCIII&#039;], 3399 =&gt; [&#039;MMMCCCVCIV&#039;, &#039;MMMCCCIC&#039;], 3445 =&gt; [&#039;MMMCDVL&#039;], 3446 =&gt; [&#039;MMMCDVLI&#039;], 3447 =&gt; [&#039;MMMCDVLII&#039;], 3448 =&gt; [&#039;MMMCDVLIII&#039;], 3449 =&gt; [&#039;MMMCDVLIV&#039;, &#039;MMMCDIL&#039;], 3450 =&gt; [&#039;MMMLD&#039;], 3451 =&gt; [&#039;MMMLDI&#039;], 3452 =&gt; [&#039;MMMLDII&#039;], 3453 =&gt; [&#039;MMMLDIII&#039;], 3454 =&gt; [&#039;MMMLDIV&#039;], 3455 =&gt; [&#039;MMMLDV&#039;], 3456 =&gt; [&#039;MMMLDVI&#039;], 3457 =&gt; [&#039;MMMLDVII&#039;], 3458 =&gt; [&#039;MMMLDVIII&#039;], 3459 =&gt; [&#039;MMMLDIX&#039;], 3460 =&gt; [&#039;MMMLDX&#039;], 3461 =&gt; [&#039;MMMLDXI&#039;], 3462 =&gt; [&#039;MMMLDXII&#039;], 3463 =&gt; [&#039;MMMLDXIII&#039;], 3464 =&gt; [&#039;MMMLDXIV&#039;], 3465 =&gt; [&#039;MMMLDXV&#039;], 3466 =&gt; [&#039;MMMLDXVI&#039;], 3467 =&gt; [&#039;MMMLDXVII&#039;], 3468 =&gt; [&#039;MMMLDXVIII&#039;], 3469 =&gt; [&#039;MMMLDXIX&#039;], 3470 =&gt; [&#039;MMMLDXX&#039;], 3471 =&gt; [&#039;MMMLDXXI&#039;], 3472 =&gt; [&#039;MMMLDXXII&#039;], 3473 =&gt; [&#039;MMMLDXXIII&#039;], 3474 =&gt; [&#039;MMMLDXXIV&#039;], 3475 =&gt; [&#039;MMMLDXXV&#039;], 3476 =&gt; [&#039;MMMLDXXVI&#039;], 3477 =&gt; [&#039;MMMLDXXVII&#039;], 3478 =&gt; [&#039;MMMLDXXVIII&#039;], 3479 =&gt; [&#039;MMMLDXXIX&#039;], 3480 =&gt; [&#039;MMMLDXXX&#039;], 3481 =&gt; [&#039;MMMLDXXXI&#039;], 3482 =&gt; [&#039;MMMLDXXXII&#039;], 3483 =&gt; [&#039;MMMLDXXXIII&#039;], 3484 =&gt; [&#039;MMMLDXXXIV&#039;], 3485 =&gt; [&#039;MMMLDXXXV&#039;], 3486 =&gt; [&#039;MMMLDXXXVI&#039;], 3487 =&gt; [&#039;MMMLDXXXVII&#039;], 3488 =&gt; [&#039;MMMLDXXXVIII&#039;], 3489 =&gt; [&#039;MMMLDXXXIX&#039;], 3490 =&gt; [&#039;MMMLDXL&#039;, &#039;MMMXD&#039;], 3491 =&gt; [&#039;MMMLDXLI&#039;, &#039;MMMXDI&#039;], 3492 =&gt; [&#039;MMMLDXLII&#039;, &#039;MMMXDII&#039;], 3493 =&gt; [&#039;MMMLDXLIII&#039;, &#039;MMMXDIII&#039;], 3494 =&gt; [&#039;MMMLDXLIV&#039;, &#039;MMMXDIV&#039;], 3495 =&gt; [&#039;MMMLDVL&#039;, &#039;MMMXDV&#039;, &#039;MMMVD&#039;], 3496 =&gt; [&#039;MMMLDVLI&#039;, &#039;MMMXDVI&#039;, &#039;MMMVDI&#039;], 3497 =&gt; [&#039;MMMLDVLII&#039;, &#039;MMMXDVII&#039;, &#039;MMMVDII&#039;], 3498 =&gt; [&#039;MMMLDVLIII&#039;, &#039;MMMXDVIII&#039;, &#039;MMMVDIII&#039;], 3499 =&gt; [&#039;MMMLDVLIV&#039;, &#039;MMMXDIX&#039;, &#039;MMMVDIV&#039;, &#039;MMMID&#039;], 3545 =&gt; [&#039;MMMDVL&#039;], 3546 =&gt; [&#039;MMMDVLI&#039;], 3547 =&gt; [&#039;MMMDVLII&#039;], 3548 =&gt; [&#039;MMMDVLIII&#039;], 3549 =&gt; [&#039;MMMDVLIV&#039;, &#039;MMMDIL&#039;], 3595 =&gt; [&#039;MMMDVC&#039;], 3596 =&gt; [&#039;MMMDVCI&#039;], 3597 =&gt; [&#039;MMMDVCII&#039;], 3598 =&gt; [&#039;MMMDVCIII&#039;], 3599 =&gt; [&#039;MMMDVCIV&#039;, &#039;MMMDIC&#039;], 3645 =&gt; [&#039;MMMDCVL&#039;], 3646 =&gt; [&#039;MMMDCVLI&#039;], 3647 =&gt; [&#039;MMMDCVLII&#039;], 3648 =&gt; [&#039;MMMDCVLIII&#039;], 3649 =&gt; [&#039;MMMDCVLIV&#039;, &#039;MMMDCIL&#039;], 3695 =&gt; [&#039;MMMDCVC&#039;], 3696 =&gt; [&#039;MMMDCVCI&#039;], 3697 =&gt; [&#039;MMMDCVCII&#039;], 3698 =&gt; [&#039;MMMDCVCIII&#039;], 3699 =&gt; [&#039;MMMDCVCIV&#039;, &#039;MMMDCIC&#039;], 3745 =&gt; [&#039;MMMDCCVL&#039;], 3746 =&gt; [&#039;MMMDCCVLI&#039;], 3747 =&gt; [&#039;MMMDCCVLII&#039;], 3748 =&gt; [&#039;MMMDCCVLIII&#039;], 3749 =&gt; [&#039;MMMDCCVLIV&#039;, &#039;MMMDCCIL&#039;], 3795 =&gt; [&#039;MMMDCCVC&#039;], 3796 =&gt; [&#039;MMMDCCVCI&#039;], 3797 =&gt; [&#039;MMMDCCVCII&#039;], 3798 =&gt; [&#039;MMMDCCVCIII&#039;], 3799 =&gt; [&#039;MMMDCCVCIV&#039;, &#039;MMMDCCIC&#039;], 3845 =&gt; [&#039;MMMDCCCVL&#039;], 3846 =&gt; [&#039;MMMDCCCVLI&#039;], 3847 =&gt; [&#039;MMMDCCCVLII&#039;], 3848 =&gt; [&#039;MMMDCCCVLIII&#039;], 3849 =&gt; [&#039;MMMDCCCVLIV&#039;, &#039;MMMDCCCIL&#039;], 3895 =&gt; [&#039;MMMDCCCVC&#039;], 3896 =&gt; [&#039;MMMDCCCVCI&#039;], 3897 =&gt; [&#039;MMMDCCCVCII&#039;], 3898 =&gt; [&#039;MMMDCCCVCIII&#039;], 3899 =&gt; [&#039;MMMDCCCVCIV&#039;, &#039;MMMDCCCIC&#039;], 3945 =&gt; [&#039;MMMCMVL&#039;], 3946 =&gt; [&#039;MMMCMVLI&#039;], 3947 =&gt; [&#039;MMMCMVLII&#039;], 3948 =&gt; [&#039;MMMCMVLIII&#039;], 3949 =&gt; [&#039;MMMCMVLIV&#039;, &#039;MMMCMIL&#039;], 3950 =&gt; [&#039;MMMLM&#039;], 3951 =&gt; [&#039;MMMLMI&#039;], 3952 =&gt; [&#039;MMMLMII&#039;], 3953 =&gt; [&#039;MMMLMIII&#039;], 3954 =&gt; [&#039;MMMLMIV&#039;], 3955 =&gt; [&#039;MMMLMV&#039;], 3956 =&gt; [&#039;MMMLMVI&#039;], 3957 =&gt; [&#039;MMMLMVII&#039;], 3958 =&gt; [&#039;MMMLMVIII&#039;], 3959 =&gt; [&#039;MMMLMIX&#039;], 3960 =&gt; [&#039;MMMLMX&#039;], 3961 =&gt; [&#039;MMMLMXI&#039;], 3962 =&gt; [&#039;MMMLMXII&#039;], 3963 =&gt; [&#039;MMMLMXIII&#039;], 3964 =&gt; [&#039;MMMLMXIV&#039;], 3965 =&gt; [&#039;MMMLMXV&#039;], 3966 =&gt; [&#039;MMMLMXVI&#039;], 3967 =&gt; [&#039;MMMLMXVII&#039;], 3968 =&gt; [&#039;MMMLMXVIII&#039;], 3969 =&gt; [&#039;MMMLMXIX&#039;], 3970 =&gt; [&#039;MMMLMXX&#039;], 3971 =&gt; [&#039;MMMLMXXI&#039;], 3972 =&gt; [&#039;MMMLMXXII&#039;], 3973 =&gt; [&#039;MMMLMXXIII&#039;], 3974 =&gt; [&#039;MMMLMXXIV&#039;], 3975 =&gt; [&#039;MMMLMXXV&#039;], 3976 =&gt; [&#039;MMMLMXXVI&#039;], 3977 =&gt; [&#039;MMMLMXXVII&#039;], 3978 =&gt; [&#039;MMMLMXXVIII&#039;], 3979 =&gt; [&#039;MMMLMXXIX&#039;], 3980 =&gt; [&#039;MMMLMXXX&#039;], 3981 =&gt; [&#039;MMMLMXXXI&#039;], 3982 =&gt; [&#039;MMMLMXXXII&#039;], 3983 =&gt; [&#039;MMMLMXXXIII&#039;], 3984 =&gt; [&#039;MMMLMXXXIV&#039;], 3985 =&gt; [&#039;MMMLMXXXV&#039;], 3986 =&gt; [&#039;MMMLMXXXVI&#039;], 3987 =&gt; [&#039;MMMLMXXXVII&#039;], 3988 =&gt; [&#039;MMMLMXXXVIII&#039;], 3989 =&gt; [&#039;MMMLMXXXIX&#039;], 3990 =&gt; [&#039;MMMLMXL&#039;, &#039;MMMXM&#039;], 3991 =&gt; [&#039;MMMLMXLI&#039;, &#039;MMMXMI&#039;], 3992 =&gt; [&#039;MMMLMXLII&#039;, &#039;MMMXMII&#039;], 3993 =&gt; [&#039;MMMLMXLIII&#039;, &#039;MMMXMIII&#039;], 3994 =&gt; [&#039;MMMLMXLIV&#039;, &#039;MMMXMIV&#039;], 3995 =&gt; [&#039;MMMLMVL&#039;, &#039;MMMXMV&#039;, &#039;MMMVM&#039;], 3996 =&gt; [&#039;MMMLMVLI&#039;, &#039;MMMXMVI&#039;, &#039;MMMVMI&#039;], 3997 =&gt; [&#039;MMMLMVLII&#039;, &#039;MMMXMVII&#039;, &#039;MMMVMII&#039;], 3998 =&gt; [&#039;MMMLMVLIII&#039;, &#039;MMMXMVIII&#039;, &#039;MMMVMIII&#039;], 3999 =&gt; [&#039;MMMLMVLIV&#039;, &#039;MMMXMIX&#039;, &#039;MMMVMIV&#039;, &#039;MMMIM&#039;]]</span>
+    </code>
+    </article>
+                                    <a id="constant_THOUSANDS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">THOUSANDS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">771</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$THOUSANDS</span>
+        = <span class="phpdocumentor-signature__default-value">[&#039;&#039;, &#039;M&#039;, &#039;MM&#039;, &#039;MMM&#039;]</span>
+    </code>
+    </article>
+                                    <a id="constant_HUNDREDS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">HUNDREDS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">772</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$HUNDREDS</span>
+        = <span class="phpdocumentor-signature__default-value">[&#039;&#039;, &#039;C&#039;, &#039;CC&#039;, &#039;CCC&#039;, &#039;CD&#039;, &#039;D&#039;, &#039;DC&#039;, &#039;DCC&#039;, &#039;DCCC&#039;, &#039;CM&#039;]</span>
+    </code>
+    </article>
+                                    <a id="constant_TENS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">TENS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">773</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$TENS</span>
+        = <span class="phpdocumentor-signature__default-value">[&#039;&#039;, &#039;X&#039;, &#039;XX&#039;, &#039;XXX&#039;, &#039;XL&#039;, &#039;L&#039;, &#039;LX&#039;, &#039;LXX&#039;, &#039;LXXX&#039;, &#039;XC&#039;]</span>
+    </code>
+    </article>
+                                    <a id="constant_ONES"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ONES</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">774</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ONES</span>
+        = <span class="phpdocumentor-signature__default-value">[&#039;&#039;, &#039;I&#039;, &#039;II&#039;, &#039;III&#039;, &#039;IV&#039;, &#039;V&#039;, &#039;VI&#039;, &#039;VII&#039;, &#039;VIII&#039;, &#039;IX&#039;]</span>
+    </code>
+    </article>
+                                    <a id="constant_MAX_ROMAN_VALUE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MAX_ROMAN_VALUE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">775</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MAX_ROMAN_VALUE</span>
+        = <span class="phpdocumentor-signature__default-value">3999</span>
+    </code>
+    </article>
+                                    <a id="constant_MAX_ROMAN_STYLE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">MAX_ROMAN_STYLE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">776</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$MAX_ROMAN_STYLE</span>
+        = <span class="phpdocumentor-signature__default-value">4</span>
+    </code>
+    </article>
+                                            </section>
+        
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_romanCut"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">romanCut()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">778</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">romanCut</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$num</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$n</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$num</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$n</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_valueOk"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">valueOk()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">783</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">valueOk</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$aValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$style</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$aValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$style</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_styleOk"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">styleOk()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">804</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">styleOk</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$aValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$style</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$aValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$style</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_calculateRoman"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">calculateRoman()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">809</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculateRoman</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$aValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$style</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$aValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$style</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_funcRoman"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">funcRoman()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">824</span>
+    </aside>
+        <p class="phpdocumentor-summary">ROMAN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">funcRoman</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$aValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$style</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Converts a number to Roman numeral</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$aValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to convert</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$style</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number indicating one of five possible forms</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Roman numeral, or a string containing an error</p></span>
+            
+</article>
+                                    <a id="method_nullFalseTrueToNumber"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">nullFalseTrueToNumber()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-roman.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Roman.php">Roman.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">844</span>
+    </aside>
+        <p class="phpdocumentor-summary">Many functions accept null/false/true argument treated as 0/0/1.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">nullFalseTrueToNumber</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
