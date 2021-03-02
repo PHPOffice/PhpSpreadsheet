@@ -2753,7 +2753,7 @@ class Statistical
         $mean = Averages::AVERAGE($aArgs);
         $stdDev = StandardDeviations::STDEV($aArgs);
 
-        if ($stdDev === 0.0) {
+        if ($stdDev === 0.0 || is_string($stdDev)) {
             return Functions::DIV0();
         }
 

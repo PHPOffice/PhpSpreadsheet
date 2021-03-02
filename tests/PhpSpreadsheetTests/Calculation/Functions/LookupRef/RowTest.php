@@ -18,9 +18,9 @@ class RowTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testROW($expectedResult, ...$args): void
+    public function testROW($expectedResult, $cellReference): void
     {
-        $result = LookupRef::ROW(...$args);
+        $result = LookupRef::ROW($cellReference);
         self::assertSame($expectedResult, $result);
     }
 
