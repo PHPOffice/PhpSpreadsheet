@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 1.17.0 - 2021-03-01
+
+### Added
+
 - Implementation of the Excel `AVERAGEIFS()` functions as part of a restructuring of Database functions and Conditional Statistical functions.
 - Support for date values and percentages in query parameters for Database functions, and the IF expressions in functions like COUNTIF() and AVERAGEIF(). [#1875](https://github.com/PHPOffice/PhpSpreadsheet/pull/1875)
 - Support for booleans, and for wildcard text search in query parameters for Database functions, and the IF expressions in functions like COUNTIF() and AVERAGEIF(). [#1876](https://github.com/PHPOffice/PhpSpreadsheet/pull/1876)
@@ -46,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Nothing.
 
 ### Fixed
+
 - Avoid Duplicate Titles When Reading Multiple HTML Files.[Issue #1823](https://github.com/PHPOffice/PhpSpreadsheet/issues/1823) [PR #1829](https://github.com/PHPOffice/PhpSpreadsheet/pull/1829)
 - Fixed issue with Worksheet's `getCell()` method when trying to get a cell by defined name. [#1858](https://github.com/PHPOffice/PhpSpreadsheet/issues/1858)
 - Fix possible endless loop in NumberFormat Masks [#1792](https://github.com/PHPOffice/PhpSpreadsheet/issues/1792)
