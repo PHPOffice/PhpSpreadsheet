@@ -2753,13 +2753,16 @@ class Statistical
         $mean = Averages::AVERAGE($aArgs);
         $stdDev = StandardDeviations::STDEV($aArgs);
 
+        if ($stdDev === 0.0 || is_string($stdDev)) {
+            return Functions::DIV0();
+        }
+
         $count = $summer = 0;
         // Loop through arguments
         foreach ($aArgs as $k => $arg) {
-            if (
-                (is_bool($arg)) &&
-                (!Functions::isMatrixValue($k))
-            ) {
+            if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
+            } elseif (!is_numeric($arg)) {
+                return Functions::VALUE();
             } else {
                 // Is it a numeric value?
                 if ((is_numeric($arg)) && (!is_string($arg))) {
@@ -3173,6 +3176,7 @@ class Statistical
             if (($percent < 0) || ($percent > 1)) {
                 return Functions::NAN();
             }
+
             $mArgs = [];
             foreach ($aArgs as $arg) {
                 // Is it a numeric value?
@@ -3180,8 +3184,10 @@ class Statistical
                     $mArgs[] = $arg;
                 }
             }
+
             $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
             sort($mArgs);
+
             for ($i = 0; $i < $discard; ++$i) {
                 array_pop($mArgs);
                 array_shift($mArgs);
