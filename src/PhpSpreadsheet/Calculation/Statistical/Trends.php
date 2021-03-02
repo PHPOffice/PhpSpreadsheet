@@ -17,7 +17,7 @@ class Trends
         }
     }
 
-    private static function checkTrendArrays(&$array1, &$array2)
+    private static function checkTrendArrays(&$array1, &$array2): void
     {
         if (!is_array($array1)) {
             $array1 = [$array1];
@@ -35,11 +35,9 @@ class Trends
         // Reset the array indexes
         $array1 = array_merge($array1);
         $array2 = array_merge($array2);
-
-        return true;
     }
 
-    protected static function validateArrays(array $yValues, array $xValues): void
+    protected static function validateTrendArrays(array $yValues, array $xValues): void
     {
         $yValueCount = count($yValues);
         $xValueCount = count($xValues);
@@ -66,12 +64,10 @@ class Trends
         if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return Functions::VALUE();
         }
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
 
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -93,12 +89,9 @@ class Trends
      */
     public static function COVAR($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -111,7 +104,8 @@ class Trends
     /**
      * FORECAST.
      *
-     * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
+     * Calculates, or predicts, a future value by using existing values.
+     * The predicted value is a y-value for a given x-value.
      *
      * @param float $xValue Value of X for which we want to find Y
      * @param mixed $yValues array of mixed Data Series Y
@@ -124,12 +118,11 @@ class Trends
         $xValue = Functions::flattenSingleValue($xValue);
         if (!is_numeric($xValue)) {
             return Functions::VALUE();
-        } elseif (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
         }
 
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -151,12 +144,9 @@ class Trends
      */
     public static function INTERCEPT($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -169,8 +159,8 @@ class Trends
     /**
      * LINEST.
      *
-     * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
-     *        and then returns an array that describes the line.
+     * Calculates the statistics for a line by using the "least squares" method to calculate a straight line
+     *     that best fits your data, and then returns an array that describes the line.
      *
      * @param mixed[] $yValues Data Series Y
      * @param null|mixed[] $xValues Data Series X
@@ -187,12 +177,9 @@ class Trends
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -244,20 +231,17 @@ class Trends
             $xValues = range(1, count(Functions::flattenArray($yValues)));
         }
 
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         foreach ($yValues as $value) {
             if ($value <= 0.0) {
                 return Functions::NAN();
             }
-        }
-
-        try {
-            self::validateArrays($yValues, $xValues);
-        } catch (Exception $e) {
-            return $e->getMessage();
         }
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
@@ -289,7 +273,8 @@ class Trends
     /**
      * RSQ.
      *
-     * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
+     * Returns the square of the Pearson product moment correlation coefficient through data points
+     *     in known_y's and known_x's.
      *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
@@ -298,12 +283,9 @@ class Trends
      */
     public static function RSQ($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -325,12 +307,9 @@ class Trends
      */
     public static function SLOPE($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -352,12 +331,9 @@ class Trends
      */
     public static function STEYX($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-
         try {
-            self::validateArrays($yValues, $xValues);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
             return $e->getMessage();
         }
