@@ -17,6 +17,7 @@ class TrimMeanTest extends TestCase
      * @dataProvider providerTRIMMEAN
      *
      * @param mixed $expectedResult
+     * @param mixed $percentage
      */
     public function testTRIMMEAN($expectedResult, array $args, $percentage): void
     {
