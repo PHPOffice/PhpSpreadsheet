@@ -69,7 +69,10 @@ class DefinedNames
         $this->objWriter->startElement('definedName');
         $this->objWriter->writeAttribute('name', $pDefinedName->getName());
         if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
-            $this->objWriter->writeAttribute('localSheetId', $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope()));
+            $this->objWriter->writeAttribute(
+                'localSheetId',
+                $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope())
+            );
         }
 
         $definedRange = $this->getDefinedRange($pDefinedName);
@@ -207,16 +210,11 @@ class DefinedNames
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
             }
+
             if (!empty($worksheet)) {
                 $newRange = "'" . str_replace("'", "''", $worksheet) . "'!";
             }
-
-            if (!empty($column)) {
-                $newRange .= $column;
-            }
-            if (!empty($row)) {
-                $newRange .= $row;
-            }
+            $newRange = "{$newRange}{$column}{$row}";
 
             $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
         }
