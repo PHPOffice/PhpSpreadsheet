@@ -1206,7 +1206,7 @@ class Calculation
         ],
         'GROWTH' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GROWTH'],
+            'functionCall' => [Statistical\Trends::class, 'GROWTH'],
             'argumentCount' => '1-4',
         ],
         'HARMEAN' => [
@@ -1897,7 +1897,7 @@ class Calculation
         ],
         'PEARSON' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CORREL'],
+            'functionCall' => [Statistical\Trends::class, 'CORREL'],
             'argumentCount' => '2',
         ],
         'PERCENTILE' => [
