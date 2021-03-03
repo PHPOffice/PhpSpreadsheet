@@ -502,6 +502,10 @@ class NumberFormat extends Supervisor
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
         $dateObj = Date::excelToDateTimeObject($value);
+        // If the colon preceding minute had been quoted, as happens in
+        // Excel 2003 XML formats, m will not have been changed to i above.
+        // Change it now.
+        $format = \preg_replace('/\\\\:m/', ':i', $format);
         $value = $dateObj->format($format);
     }
 

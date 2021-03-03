@@ -36,6 +36,10 @@ class XmlLoadTest extends TestCase
         self::assertEquals('# ?0/??0', $sheet->getCell('A11')->getStyle()->getNumberFormat()->getFormatCode());
         // Same pattern, same value, different display in Gnumeric vs Excel
         //self::assertEquals('1 1/2', $sheet->getCell('A11')->getFormattedValue());
+        self::assertEquals('hh":"mm":"ss', $sheet->getCell('A13')->getStyle()->getNumberFormat()->getFormatCode());
+        self::assertEquals('02:30:00', $sheet->getCell('A13')->getFormattedValue());
+        self::assertEquals('d/m/yy hh":"mm', $sheet->getCell('A15')->getStyle()->getNumberFormat()->getFormatCode());
+        self::assertEquals('19/12/60 01:30', $sheet->getCell('A15')->getFormattedValue());
 
         self::assertEquals('=B1+C1', $sheet->getCell('H1')->getValue());
         self::assertEquals('=E2&F2', $sheet->getCell('J2')->getValue());

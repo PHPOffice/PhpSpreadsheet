@@ -8,16 +8,20 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
+    private $excelCalendar;
+
     private $dttimezone;
 
     protected function setUp(): void
     {
         $this->dttimezone = Date::getDefaultTimeZone();
+        $this->excelCalendar = Date::getExcelCalendar();
     }
 
     protected function tearDown(): void
     {
         Date::setDefaultTimeZone($this->dttimezone);
+        Date::setExcelCalendar($this->excelCalendar);
     }
 
     public function testSetExcelCalendar(): void
@@ -47,6 +51,9 @@ class DateTest extends TestCase
      */
     public function testDateTimeExcelToTimestamp1900($expectedResult, ...$args): void
     {
+        if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
+            self::markTestSkipped('Test invalid on 32-bit system.');
+        }
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
         $result = Date::excelToTimestamp(...$args);
@@ -119,6 +126,9 @@ class DateTest extends TestCase
      */
     public function testDateTimeExcelToTimestamp1904($expectedResult, ...$args): void
     {
+        if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
+            self::markTestSkipped('Test invalid on 32-bit system.');
+        }
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
         $result = Date::excelToTimestamp(...$args);
@@ -171,6 +181,9 @@ class DateTest extends TestCase
      */
     public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, ...$args): void
     {
+        if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
+            self::markTestSkipped('Test invalid on 32-bit system.');
+        }
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
         $result = Date::excelToTimestamp(...$args);

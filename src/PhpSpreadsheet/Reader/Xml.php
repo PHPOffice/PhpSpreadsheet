@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DateTime;
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -557,7 +559,8 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $cellValue = Date::PHPToExcel(strtotime($cellValue . ' UTC'));
+                                        $dateTime = new DateTime($cellValue, new DateTimeZone('UTC'));
+                                        $cellValue = Date::PHPToExcel($dateTime);
 
                                         break;
                                     case 'Error':
