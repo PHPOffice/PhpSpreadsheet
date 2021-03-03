@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing.
+- Fixed issue with Xlsx@listWorksheetInfo not returning any data
 
 ## 1.17.1 - 2021-03-01
 
