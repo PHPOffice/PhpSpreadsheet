@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
@@ -20,33 +21,6 @@ class Statistical
     const MAX_VALUE = 1.2e308;
     const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
-
-    private static function checkTrendArrays(&$array1, &$array2)
-    {
-        if (!is_array($array1)) {
-            $array1 = [$array1];
-        }
-        if (!is_array($array2)) {
-            $array2 = [$array2];
-        }
-
-        $array1 = Functions::flattenArray($array1);
-        $array2 = Functions::flattenArray($array2);
-        foreach ($array1 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
-                unset($array1[$key], $array2[$key]);
-            }
-        }
-        foreach ($array2 as $key => $value) {
-            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
-                unset($array1[$key], $array2[$key]);
-            }
-        }
-        $array1 = array_merge($array1);
-        $array2 = array_merge($array2);
-
-        return true;
-    }
 
     /**
      * Incomplete beta function.
@@ -890,6 +864,11 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::CORREL()
+     *      Use the CORREL() method in the Statistical\Trends class instead
+     *
      * @param mixed $yValues array of mixed Data Series Y
      * @param null|mixed $xValues array of mixed Data Series X
      *
@@ -897,24 +876,7 @@ class Statistical
      */
     public static function CORREL($yValues, $xValues = null)
     {
-        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
-            return Functions::VALUE();
-        }
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getCorrelation();
+        return Trends::CORREL($xValues, $yValues);
     }
 
     /**
@@ -1033,6 +995,11 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::COVAR()
+     *      Use the COVAR() method in the Statistical\Trends class instead
+     *
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues array of mixed Data Series X
      *
@@ -1040,21 +1007,7 @@ class Statistical
      */
     public static function COVAR($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getCovariance();
+        return Trends::COVAR($yValues, $xValues);
     }
 
     /**
@@ -1380,6 +1333,11 @@ class Statistical
      *
      * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::FORECAST()
+     *      Use the FORECAST() method in the Statistical\Trends class instead
+     *
      * @param float $xValue Value of X for which we want to find Y
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
@@ -1388,24 +1346,7 @@ class Statistical
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
-        $xValue = Functions::flattenSingleValue($xValue);
-        if (!is_numeric($xValue)) {
-            return Functions::VALUE();
-        } elseif (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getValueOfYForX($xValue);
+        return Trends::FORECAST($xValue, $yValues, $xValues);
     }
 
     /**
@@ -1722,6 +1663,11 @@ class Statistical
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::INTERCEPT()
+     *      Use the INTERCEPT() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
@@ -1729,21 +1675,7 @@ class Statistical
      */
     public static function INTERCEPT($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getIntersect();
+        return Trends::INTERCEPT($yValues, $xValues);
     }
 
     /**
@@ -1838,6 +1770,11 @@ class Statistical
      * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
      *        and then returns an array that describes the line.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::LINEST()
+     *      Use the LINEST() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param null|mixed[] $xValues Data Series X
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
@@ -1847,48 +1784,7 @@ class Statistical
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
-        if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
-        }
-
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return 0;
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
-        if ($stats) {
-            return [
-                [
-                    $bestFitLinear->getSlope(),
-                    $bestFitLinear->getSlopeSE(),
-                    $bestFitLinear->getGoodnessOfFit(),
-                    $bestFitLinear->getF(),
-                    $bestFitLinear->getSSRegression(),
-                ],
-                [
-                    $bestFitLinear->getIntersect(),
-                    $bestFitLinear->getIntersectSE(),
-                    $bestFitLinear->getStdevOfResiduals(),
-                    $bestFitLinear->getDFResiduals(),
-                    $bestFitLinear->getSSResiduals(),
-                ],
-            ];
-        }
-
-        return [
-            $bestFitLinear->getSlope(),
-            $bestFitLinear->getIntersect(),
-        ];
+        return Trends::LINEST($yValues, $xValues, $const, $stats);
     }
 
     /**
@@ -1896,6 +1792,11 @@ class Statistical
      *
      * Calculates an exponential curve that best fits the X and Y data series,
      *        and then returns an array that describes the line.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::LOGEST()
+     *      Use the LOGEST() method in the Statistical\Trends class instead
      *
      * @param mixed[] $yValues Data Series Y
      * @param null|mixed[] $xValues Data Series X
@@ -1906,54 +1807,7 @@ class Statistical
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
-        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
-        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
-        if ($xValues === null) {
-            $xValues = range(1, count(Functions::flattenArray($yValues)));
-        }
-
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        foreach ($yValues as $value) {
-            if ($value <= 0.0) {
-                return Functions::NAN();
-            }
-        }
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return 1;
-        }
-
-        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
-        if ($stats) {
-            return [
-                [
-                    $bestFitExponential->getSlope(),
-                    $bestFitExponential->getSlopeSE(),
-                    $bestFitExponential->getGoodnessOfFit(),
-                    $bestFitExponential->getF(),
-                    $bestFitExponential->getSSRegression(),
-                ],
-                [
-                    $bestFitExponential->getIntersect(),
-                    $bestFitExponential->getIntersectSE(),
-                    $bestFitExponential->getStdevOfResiduals(),
-                    $bestFitExponential->getDFResiduals(),
-                    $bestFitExponential->getSSResiduals(),
-                ],
-            ];
-        }
-
-        return [
-            $bestFitExponential->getSlope(),
-            $bestFitExponential->getIntersect(),
-        ];
+        return Trends::LOGEST($yValues, $xValues, $const, $stats);
     }
 
     /**
@@ -2711,6 +2565,11 @@ class Statistical
      *
      * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::RSQ()
+     *      Use the RSQ() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
@@ -2718,21 +2577,7 @@ class Statistical
      */
     public static function RSQ($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getGoodnessOfFit();
+        return Trends::RSQ($yValues, $xValues);
     }
 
     /**
@@ -2784,6 +2629,11 @@ class Statistical
      *
      * Returns the slope of the linear regression line through data points in known_y's and known_x's.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::SLOPE()
+     *      Use the SLOPE() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      *
@@ -2791,21 +2641,7 @@ class Statistical
      */
     public static function SLOPE($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getSlope();
+        return Trends::SLOPE($yValues, $xValues);
     }
 
     /**
@@ -2971,6 +2807,11 @@ class Statistical
     /**
      * STEYX.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::STEYX()
+     *      Use the STEYX() method in the Statistical\Trends class instead
+     *
      * Returns the standard error of the predicted y-value for each x in the regression.
      *
      * @param mixed[] $yValues Data Series Y
@@ -2980,21 +2821,7 @@ class Statistical
      */
     public static function STEYX($yValues, $xValues)
     {
-        if (!self::checkTrendArrays($yValues, $xValues)) {
-            return Functions::VALUE();
-        }
-        $yValueCount = count($yValues);
-        $xValueCount = count($xValues);
-
-        if (($yValueCount == 0) || ($yValueCount != $xValueCount)) {
-            return Functions::NA();
-        } elseif ($yValueCount == 1) {
-            return Functions::DIV0();
-        }
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
-
-        return $bestFitLinear->getStdevOfResiduals();
+        return Trends::STEYX($yValues, $xValues);
     }
 
     /**

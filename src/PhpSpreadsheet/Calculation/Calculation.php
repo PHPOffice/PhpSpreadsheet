@@ -599,7 +599,7 @@ class Calculation
         ],
         'CORREL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CORREL'],
+            'functionCall' => [Statistical\Trends::class, 'CORREL'],
             'argumentCount' => '2',
         ],
         'COS' => [
@@ -679,12 +679,12 @@ class Calculation
         ],
         'COVAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COVAR'],
+            'functionCall' => [Statistical\Trends::class, 'COVAR'],
             'argumentCount' => '2',
         ],
         'COVARIANCE.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'COVAR'],
+            'functionCall' => [Statistical\Trends::class, 'COVAR'],
             'argumentCount' => '2',
         ],
         'COVARIANCE.S' => [
@@ -1084,7 +1084,7 @@ class Calculation
         ],
         'FORECAST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FORECAST'],
+            'functionCall' => [Statistical\Trends::class, 'FORECAST'],
             'argumentCount' => '3',
         ],
         'FORECAST.ETS' => [
@@ -1109,7 +1109,7 @@ class Calculation
         ],
         'FORECAST.LINEAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FORECAST'],
+            'functionCall' => [Statistical\Trends::class, 'FORECAST'],
             'argumentCount' => '3',
         ],
         'FORMULATEXT' => [
@@ -1423,7 +1423,7 @@ class Calculation
         ],
         'INTERCEPT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'INTERCEPT'],
+            'functionCall' => [Statistical\Trends::class, 'INTERCEPT'],
             'argumentCount' => '2',
         ],
         'INTRATE' => [
@@ -1560,7 +1560,7 @@ class Calculation
         ],
         'LINEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LINEST'],
+            'functionCall' => [Statistical\Trends::class, 'LINEST'],
             'argumentCount' => '1-4',
         ],
         'LN' => [
@@ -1580,7 +1580,7 @@ class Calculation
         ],
         'LOGEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGEST'],
+            'functionCall' => [Statistical\Trends::class, 'LOGEST'],
             'argumentCount' => '1-4',
         ],
         'LOGINV' => [
@@ -2143,7 +2143,7 @@ class Calculation
         ],
         'RSQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RSQ'],
+            'functionCall' => [Statistical\Trends::class, 'RSQ'],
             'argumentCount' => '2',
         ],
         'RTD' => [
@@ -2228,7 +2228,7 @@ class Calculation
         ],
         'SLOPE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'SLOPE'],
+            'functionCall' => [Statistical\Trends::class, 'SLOPE'],
             'argumentCount' => '2',
         ],
         'SMALL' => [
@@ -2293,7 +2293,7 @@ class Calculation
         ],
         'STEYX' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STEYX'],
+            'functionCall' => [Statistical\Trends::class, 'STEYX'],
             'argumentCount' => '2',
         ],
         'SUBSTITUTE' => [
