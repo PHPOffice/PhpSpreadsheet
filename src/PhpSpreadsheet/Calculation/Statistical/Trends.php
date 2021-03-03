@@ -186,7 +186,7 @@ class Trends
 
         $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
 
-        if ($stats) {
+        if ($stats === true) {
             return [
                 [
                     $bestFitLinear->getSlope(),
@@ -246,14 +246,14 @@ class Trends
         }
 
         foreach ($yValues as $value) {
-            if ($value <= 0.0) {
+            if ($value < 0.0) {
                 return Functions::NAN();
             }
         }
 
         $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
 
-        if ($stats) {
+        if ($stats === true) {
             return [
                 [
                     $bestFitExponential->getSlope(),
