@@ -42,4 +42,9 @@ return [
         gmmktime(13, 02, 13, 1, 1, 1904), // 32-bit safe - no Y2038 problem
         0.54321,
     ],
+    // 29-Apr-2038 00:00:00 beyond PHP 32-bit Latest Date
+    [
+        2156112000,
+        49062,
+    ],
 ];
