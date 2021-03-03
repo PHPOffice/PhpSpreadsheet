@@ -187,7 +187,8 @@ class Xlsx extends BaseReader
                 );
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($rel['Target']);
-                    foreach ($xmlWorkbook->sheets->sheet->children() as $eleSheet) {
+                    /** @var SimpleXMLElement $eleSheet */
+                    foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) $eleSheet['name'],
                             'lastColumnLetter' => 'A',
