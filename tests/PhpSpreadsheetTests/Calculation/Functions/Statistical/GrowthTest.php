@@ -21,7 +21,7 @@ class GrowthTest extends TestCase
     public function testGROWTH($expectedResult, ...$args): void
     {
         $result = Statistical::GROWTH(...$args);
-        var_dump($expectedResult, $result);
+
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }
 

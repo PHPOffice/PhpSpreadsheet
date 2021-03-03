@@ -1544,6 +1544,11 @@ class Statistical
      *
      * Returns values along a predicted exponential Trend
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::GROWTH()
+     *      Use the GROWTH() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      * @param mixed[] $newValues Values of X for which we want to find Y
@@ -1553,22 +1558,7 @@ class Statistical
      */
     public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
     {
-        $yValues = Functions::flattenArray($yValues);
-        $xValues = Functions::flattenArray($xValues);
-        $newValues = Functions::flattenArray($newValues);
-        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
-
-        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
-        if (empty($newValues)) {
-            $newValues = $bestFitExponential->getXValues();
-        }
-
-        $returnArray = [];
-        foreach ($newValues as $xValue) {
-            $returnArray[0][] = $bestFitExponential->getValueOfYForX($xValue);
-        }
-
-        return $returnArray;
+        return Trends::GROWTH($yValues, $xValues, $newValues, $const);
     }
 
     /**

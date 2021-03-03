@@ -133,6 +133,38 @@ class Trends
     }
 
     /**
+     * GROWTH.
+     *
+     * Returns values along a predicted exponential Trend
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     *
+     * @return array of float
+     */
+    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
+    {
+        $yValues = Functions::flattenArray($yValues);
+        $xValues = Functions::flattenArray($xValues);
+        $newValues = Functions::flattenArray($newValues);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+
+        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        if (empty($newValues)) {
+            $newValues = $bestFitExponential->getXValues();
+        }
+
+        $returnArray = [];
+        foreach ($newValues as $xValue) {
+            $returnArray[0][] = [$bestFitExponential->getValueOfYForX($xValue)];
+        }
+
+        return $returnArray;
+    }
+
+    /**
      * INTERCEPT.
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
