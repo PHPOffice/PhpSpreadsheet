@@ -17,10 +17,11 @@ class TrendTest extends TestCase
      * @dataProvider providerGROWTH
      *
      * @param mixed $expectedResult
+     * @param mixed $yValues
      */
-    public function testTREND($expectedResult, ...$args): void
+    public function testTREND($expectedResult, $yValues, ...$args): void
     {
-        $result = Statistical::TREND(...$args);
+        $result = Statistical::TREND($yValues, ...$args);
 
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }
