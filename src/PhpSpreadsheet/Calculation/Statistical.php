@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum;
@@ -832,6 +833,11 @@ class Statistical
      *
      * Returns the confidence interval for a population mean
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Confidence::CONFIDENCE()
+     *      Use the CONFIDENCE() method in the Statistical\Confidence class instead
+     *
      * @param float $alpha
      * @param float $stdDev Standard Deviation
      * @param float $size
@@ -840,23 +846,7 @@ class Statistical
      */
     public static function CONFIDENCE($alpha, $stdDev, $size)
     {
-        $alpha = Functions::flattenSingleValue($alpha);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-        $size = Functions::flattenSingleValue($size);
-
-        if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
-            $size = floor($size);
-            if (($alpha <= 0) || ($alpha >= 1)) {
-                return Functions::NAN();
-            }
-            if (($stdDev <= 0) || ($size < 1)) {
-                return Functions::NAN();
-            }
-
-            return self::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
-        }
-
-        return Functions::VALUE();
+        return Confidence::CONFIDENCE($alpha, $stdDev, $size);
     }
 
     /**
