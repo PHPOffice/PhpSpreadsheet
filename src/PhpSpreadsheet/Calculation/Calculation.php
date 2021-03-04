@@ -579,12 +579,12 @@ class Calculation
         ],
         'CONFIDENCE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CONFIDENCE'],
+            'functionCall' => [Statistical\Confidence::class, 'CONFIDENCE'],
             'argumentCount' => '3',
         ],
         'CONFIDENCE.NORM' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CONFIDENCE'],
+            'functionCall' => [Statistical\Confidence::class, 'CONFIDENCE'],
             'argumentCount' => '3',
         ],
         'CONFIDENCE.T' => [
@@ -2454,7 +2454,7 @@ class Calculation
         ],
         'TREND' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TREND'],
+            'functionCall' => [Statistical\Trends::class, 'TREND'],
             'argumentCount' => '1-4',
         ],
         'TRIM' => [

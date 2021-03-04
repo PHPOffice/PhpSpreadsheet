@@ -2941,6 +2941,11 @@ class Statistical
      *
      * Returns values along a linear Trend
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Trends::TREND()
+     *      Use the TREND() method in the Statistical\Trends class instead
+     *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      * @param mixed[] $newValues Values of X for which we want to find Y
@@ -2950,22 +2955,7 @@ class Statistical
      */
     public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
     {
-        $yValues = Functions::flattenArray($yValues);
-        $xValues = Functions::flattenArray($xValues);
-        $newValues = Functions::flattenArray($newValues);
-        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
-
-        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
-        if (empty($newValues)) {
-            $newValues = $bestFitLinear->getXValues();
-        }
-
-        $returnArray = [];
-        foreach ($newValues as $xValue) {
-            $returnArray[0][] = $bestFitLinear->getValueOfYForX($xValue);
-        }
-
-        return $returnArray;
+        return Trends::TREND($yValues, $xValues, $newValues, $const);
     }
 
     /**
