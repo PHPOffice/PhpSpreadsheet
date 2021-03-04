@@ -11,10 +11,11 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetRed
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetRed($expectedResult, ...$args): void
+    public function testGetRed($expectedResult, $color, ...$args): void
     {
-        $result = Color::getRed(...$args);
+        $result = Color::getRed($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -27,10 +28,11 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetGreen
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetGreen($expectedResult, ...$args): void
+    public function testGetGreen($expectedResult, $color, ...$args): void
     {
-        $result = Color::getGreen(...$args);
+        $result = Color::getGreen($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -43,10 +45,11 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetBlue
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetBlue($expectedResult, ...$args): void
+    public function testGetBlue($expectedResult, $color, ...$args): void
     {
-        $result = Color::getBlue(...$args);
+        $result = Color::getBlue($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
