@@ -451,7 +451,7 @@ class BestFit
         //    Define X Values if necessary
         if ($nX == 0) {
             $xValues = range(1, $nY);
-        } elseif ($nY != $nX) {
+        } elseif ($nY !== $nX) {
             //    Ensure both arrays of points are the same size
             $this->error = true;
         }
