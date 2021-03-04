@@ -388,4 +388,36 @@ class Trends
 
         return $bestFitLinear->getStdevOfResiduals();
     }
+
+    /**
+     * TREND.
+     *
+     * Returns values along a linear Trend
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param bool $const a logical value specifying whether to force the intersect to equal 0
+     *
+     * @return array of float
+     */
+    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
+    {
+        $yValues = Functions::flattenArray($yValues);
+        $xValues = Functions::flattenArray($xValues);
+        $newValues = Functions::flattenArray($newValues);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
+        if (empty($newValues)) {
+            $newValues = $bestFitLinear->getXValues();
+        }
+
+        $returnArray = [];
+        foreach ($newValues as $xValue) {
+            $returnArray[0][] = [$bestFitLinear->getValueOfYForX($xValue)];
+        }
+
+        return $returnArray;
+    }
 }
