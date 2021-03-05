@@ -90,7 +90,7 @@ class ExponentialBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function exponentialRegression($yValues, $xValues, $const): void
+    private function exponentialRegression(array $yValues, array $xValues, bool $const): void
     {
         $adjustedYValues = array_map(
             function ($value) {
@@ -114,7 +114,7 @@ class ExponentialBestFit extends BestFit
         parent::__construct($yValues, $xValues);
 
         if (!$this->error) {
-            $this->exponentialRegression($yValues, $xValues, $const);
+            $this->exponentialRegression($yValues, $xValues, (bool) $const);
         }
     }
 }

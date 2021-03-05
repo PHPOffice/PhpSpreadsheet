@@ -74,7 +74,7 @@ class PowerBestFit extends BestFit
      * @param float[] $xValues The set of X-values for this regression
      * @param bool $const
      */
-    private function powerRegression($yValues, $xValues, $const): void
+    private function powerRegression(array $yValues, array $xValues, bool $const): void
     {
         $adjustedYValues = array_map(
             function ($value) {
@@ -104,7 +104,7 @@ class PowerBestFit extends BestFit
         parent::__construct($yValues, $xValues);
 
         if (!$this->error) {
-            $this->powerRegression($yValues, $xValues, $const);
+            $this->powerRegression($yValues, $xValues, (bool) $const);
         }
     }
 }
