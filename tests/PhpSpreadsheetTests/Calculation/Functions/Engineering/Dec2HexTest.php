@@ -91,8 +91,8 @@ class Dec2HexTest extends TestCase
 
     public function test32bitHex(): void
     {
-        self::assertEquals('A2DE246000', Engineering\ConvertDecimal::hex32bit('-400000000000', 'DE246000', true));
-        self::assertEquals('7FFFFFFFFF', Engineering\ConvertDecimal::hex32bit('549755813887', 'FFFFFFFF', true));
-        self::assertEquals('FFFFFFFFFF', Engineering\ConvertDecimal::hex32bit('-1', 'FFFFFFFF', true));
+        self::assertEquals('A2DE246000', Engineering\ConvertDecimal::hex32bit(-400000000000, 'DE246000', true));
+        self::assertEquals('7FFFFFFFFF', Engineering\ConvertDecimal::hex32bit(549755813887, 'FFFFFFFF', true));
+        self::assertEquals('FFFFFFFFFF', Engineering\ConvertDecimal::hex32bit(-1, 'FFFFFFFF', true));
     }
 }
