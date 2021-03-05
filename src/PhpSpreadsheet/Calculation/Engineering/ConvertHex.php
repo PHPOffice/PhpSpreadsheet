@@ -42,7 +42,9 @@ class ConvertHex extends ConvertBase
             return $e->getMessage();
         }
 
-        return ConvertDecimal::toBinary(self::toDecimal($value), $places);
+        $dec = self::toDecimal($value);
+
+        return ConvertDecimal::toBinary($dec, $places);
     }
 
     /**
@@ -129,9 +131,6 @@ class ConvertHex extends ConvertBase
         }
 
         $decimal = self::toDecimal($value);
-        if ($decimal < -536870912 || $decimal > 536870911) {
-            return Functions::NAN();
-        }
 
         return ConvertDecimal::toOctal($decimal, $places);
     }
