@@ -93,19 +93,18 @@ class BitWise
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return float|int|string
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
+            $shiftAmount = self::validateShiftAmount($shiftAmount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
-
-        $result = $number << $shiftAmount;
+        $result = floor($number * (2 ** $shiftAmount));
         if ($result > 2 ** 48 - 1) {
             return Functions::NAN();
         }
@@ -124,19 +123,49 @@ class BitWise
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return float|int|string
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
         try {
             $number = self::validateBitwiseArgument($number);
+            $shiftAmount = self::validateShiftAmount($shiftAmount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $shiftAmount = Functions::flattenSingleValue($shiftAmount);
+        $result = floor($number / (2 ** $shiftAmount));
+        if ($result > 2 ** 48 - 1) { // possible because shiftAmount can be negative
+            return Functions::NAN();
+        }
 
-        return $number >> $shiftAmount;
+        return $result;
+    }
+
+    /**
+     * Validate arguments passed to the bitwise functions.
+     *
+     * @param mixed $value
+     *
+     * @return float|int
+     */
+    private static function validateBitwiseArgument($value)
+    {
+        self::nullFalseTrueToNumber($value);
+
+        if (is_numeric($value)) {
+            if ($value == floor($value)) {
+                if (($value > 2 ** 48 - 1) || ($value < 0)) {
+                    throw new Exception(Functions::NAN());
+                }
+
+                return floor($value);
+            }
+
+            throw new Exception(Functions::NAN());
+        }
+
+        throw new Exception(Functions::VALUE());
     }
 
     /**
@@ -146,25 +175,33 @@ class BitWise
      *
      * @return int
      */
-    private static function validateBitwiseArgument($value)
+    private static function validateShiftAmount($value)
     {
-        $value = Functions::flattenSingleValue($value);
+        self::nullFalseTrueToNumber($value);
 
-        if (is_int($value)) {
-            return $value;
-        } elseif (is_numeric($value)) {
-            if ($value == (int) ($value)) {
-                $value = (int) ($value);
-                if (($value > 2 ** 48 - 1) || ($value < 0)) {
-                    throw new Exception(Functions::NAN());
-                }
-
-                return $value;
+        if (is_numeric($value)) {
+            if (abs($value) > 53) {
+                throw new Exception(Functions::NAN());
             }
 
-            throw new Exception(Functions::NAN());
+            return (int) $value;
         }
 
         throw new Exception(Functions::VALUE());
+    }
+
+    /**
+     * Many functions accept null/false/true argument treated as 0/0/1.
+     *
+     * @param mixed $number
+     */
+    public static function nullFalseTrueToNumber(&$number): void
+    {
+        $number = Functions::flattenSingleValue($number);
+        if ($number === null) {
+            $number = 0;
+        } elseif (is_bool($number)) {
+            $number = (int) $number;
+        }
     }
 }
