@@ -13,11 +13,8 @@ class BitXorTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBITXOR($expectedResult, string $formula, bool $skip32 = false): void
+    public function testBITXOR($expectedResult, string $formula): void
     {
-        if ($skip32 && PHP_INT_SIZE === 4) {
-            self::markTestSkipped('Test invalid on 32-bit system.');
-        }
         if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
         }

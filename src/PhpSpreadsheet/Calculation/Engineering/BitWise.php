@@ -7,6 +7,18 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BitWise
 {
+    const SPLIT_DIVISOR = 2 ** 24;
+
+    /**
+     * Split a number into upper and lower portions for full 32-bit support.
+     *
+     * @param float|int $number
+     */
+    private static function splitNumber($number): array
+    {
+        return [floor($number / self::SPLIT_DIVISOR), fmod($number, self::SPLIT_DIVISOR)];
+    }
+
     /**
      * BITAND.
      *
@@ -28,8 +40,10 @@ class BitWise
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        $split1 = self::splitNumber($number1);
+        $split2 = self::splitNumber($number2);
 
-        return $number1 & $number2;
+        return  self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
     }
 
     /**
@@ -54,7 +68,10 @@ class BitWise
             return $e->getMessage();
         }
 
-        return $number1 | $number2;
+        $split1 = self::splitNumber($number1);
+        $split2 = self::splitNumber($number2);
+
+        return  self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
     }
 
     /**
@@ -79,7 +96,10 @@ class BitWise
             return $e->getMessage();
         }
 
-        return $number1 ^ $number2;
+        $split1 = self::splitNumber($number1);
+        $split2 = self::splitNumber($number2);
+
+        return  self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
     }
 
     /**

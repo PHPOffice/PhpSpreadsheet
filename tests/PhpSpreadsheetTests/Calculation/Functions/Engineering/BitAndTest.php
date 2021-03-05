@@ -13,11 +13,8 @@ class BitAndTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBITAND($expectedResult, string $formula, bool $skip32 = false): void
+    public function testBITAND($expectedResult, string $formula): void
     {
-        if ($skip32 && PHP_INT_SIZE === 4) {
-            self::markTestSkipped('Test invalid on 32-bit system.');
-        }
         if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
         }
