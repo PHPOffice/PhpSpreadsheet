@@ -48,7 +48,7 @@ class LogarithmicBestFit extends BestFit
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
-        return 'Y = ' . $intersect . ' + ' . $slope . ' * log(X)';
+        return 'Y = ' . $slope . ' * log(' . $intersect . ' * X)';
     }
 
     /**
@@ -60,16 +60,14 @@ class LogarithmicBestFit extends BestFit
      */
     private function logarithmicRegression($yValues, $xValues, $const): void
     {
-        foreach ($xValues as &$value) {
-            if ($value < 0.0) {
-                $value = 0 - log(abs($value));
-            } elseif ($value > 0.0) {
-                $value = log($value);
-            }
-        }
-        unset($value);
+        $adjustedYValues = array_map(
+            function ($value) {
+                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
+            },
+            $yValues
+        );
 
-        $this->leastSquareFit($yValues, $xValues, $const);
+        $this->leastSquareFit($adjustedYValues, $xValues, $const);
     }
 
     /**

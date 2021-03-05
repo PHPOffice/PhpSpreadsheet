@@ -92,16 +92,14 @@ class ExponentialBestFit extends BestFit
      */
     private function exponentialRegression($yValues, $xValues, $const): void
     {
-        foreach ($yValues as &$value) {
-            if ($value < 0.0) {
-                $value = 0 - log(abs($value));
-            } elseif ($value > 0.0) {
-                $value = log($value);
-            }
-        }
-        unset($value);
+        $adjustedYValues = array_map(
+            function ($value) {
+                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
+            },
+            $yValues
+        );
 
-        $this->leastSquareFit($yValues, $xValues, $const);
+        $this->leastSquareFit($adjustedYValues, $xValues, $const);
     }
 
     /**

@@ -76,24 +76,20 @@ class PowerBestFit extends BestFit
      */
     private function powerRegression($yValues, $xValues, $const): void
     {
-        foreach ($xValues as &$value) {
-            if ($value < 0.0) {
-                $value = 0 - log(abs($value));
-            } elseif ($value > 0.0) {
-                $value = log($value);
-            }
-        }
-        unset($value);
-        foreach ($yValues as &$value) {
-            if ($value < 0.0) {
-                $value = 0 - log(abs($value));
-            } elseif ($value > 0.0) {
-                $value = log($value);
-            }
-        }
-        unset($value);
+        $adjustedYValues = array_map(
+            function ($value) {
+                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
+            },
+            $yValues
+        );
+        $adjustedXValues = array_map(
+            function ($value) {
+                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
+            },
+            $xValues
+        );
 
-        $this->leastSquareFit($yValues, $xValues, $const);
+        $this->leastSquareFit($adjustedYValues, $adjustedXValues, $const);
     }
 
     /**
