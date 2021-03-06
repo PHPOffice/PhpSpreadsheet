@@ -226,7 +226,7 @@ class Trends
                 ],
                 [
                     $bestFitLinear->getSlopeSE(),
-                    $bestFitLinear->getIntersectSE(),
+                    ($const === false) ? Functions::NA() : $bestFitLinear->getIntersectSE(),
                 ],
                 [
                     $bestFitLinear->getGoodnessOfFit(),
@@ -293,7 +293,7 @@ class Trends
                 ],
                 [
                     $bestFitExponential->getSlopeSE(),
-                    $bestFitExponential->getIntersectSE(),
+                    ($const === false) ? Functions::NA() : $bestFitExponential->getIntersectSE(),
                 ],
                 [
                     $bestFitExponential->getGoodnessOfFit(),

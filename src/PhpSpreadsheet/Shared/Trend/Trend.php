@@ -55,10 +55,9 @@ class Trend
         $nX = count($xValues);
 
         //    Define X Values if necessary
-        if ($nX == 0) {
+        if ($nX === 0) {
             $xValues = range(1, $nY);
-            $nX = $nY;
-        } elseif ($nY != $nX) {
+        } elseif ($nY !== $nX) {
             //    Ensure both arrays of points are the same size
             trigger_error('Trend(): Number of elements in coordinate arrays do not match.', E_USER_ERROR);
         }
@@ -84,7 +83,7 @@ class Trend
             case self::TREND_POLYNOMIAL_6:
                 if (!isset(self::$trendCache[$key])) {
                     $order = substr($trendType, -1);
-                    self::$trendCache[$key] = new PolynomialBestFit($order, $yValues, $xValues, $const);
+                    self::$trendCache[$key] = new PolynomialBestFit($order, $yValues, $xValues);
                 }
 
                 return self::$trendCache[$key];
@@ -100,7 +99,7 @@ class Trend
                 if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
                         $order = substr($trendMethod, -1);
-                        $bestFit[$trendMethod] = new PolynomialBestFit($order, $yValues, $xValues, $const);
+                        $bestFit[$trendMethod] = new PolynomialBestFit($order, $yValues, $xValues);
                         if ($bestFit[$trendMethod]->getError()) {
                             unset($bestFit[$trendMethod]);
                         } else {

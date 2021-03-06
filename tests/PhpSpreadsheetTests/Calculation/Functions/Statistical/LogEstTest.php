@@ -19,7 +19,7 @@ class LogEstTest extends TestCase
     public function testLOGEST($expectedResult, $yValues, $xValues, $const, $stats): void
     {
         $result = Statistical::LOGEST($yValues, $xValues, $const, $stats);
-
+        //var_dump($result);
         $elements = count($expectedResult);
         for ($element = 0; $element < $elements; ++$element) {
             self::assertEqualsWithDelta($expectedResult[$element], $result[$element], 1E-12);
