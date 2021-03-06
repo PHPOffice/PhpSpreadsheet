@@ -40,13 +40,6 @@ class BestFit
     protected $yValues = [];
 
     /**
-     * Flag indicating whether values should be adjusted to Y=0.
-     *
-     * @var bool
-     */
-    protected $adjustToZero = false;
-
-    /**
      * Y-value series of best-fit values.
      *
      * @var float[]
