@@ -362,7 +362,7 @@ class BestFit
         }
 
         $this->SSResiduals = $SSres;
-        $this->DFResiduals = $this->valueCount - 1 - $const;
+        $this->DFResiduals = $this->valueCount - 1 - ($const === true ? 1 : 0);
 
         if ($this->DFResiduals == 0.0) {
             $this->stdevOfResiduals = 0.0;
@@ -395,6 +395,18 @@ class BestFit
         }
     }
 
+    private function sumSquares(array $values)
+    {
+        return array_sum(
+            array_map(
+                function ($value) {
+                    return $value ** 2;
+                },
+                $values
+            )
+        );
+    }
+
     /**
      * @param float[] $yValues
      * @param float[] $xValues
@@ -402,19 +414,20 @@ class BestFit
     protected function leastSquareFit(array $yValues, array $xValues, bool $const): void
     {
         // calculate sums
-        $x_sum = array_sum($xValues);
-        $y_sum = array_sum($yValues);
-        $meanX = $x_sum / $this->valueCount;
-        $meanY = $y_sum / $this->valueCount;
-        $mBase = $mDivisor = $xx_sum = $xy_sum = $yy_sum = 0.0;
+        $sumValuesX = array_sum($xValues);
+        $sumValuesY = array_sum($yValues);
+        $meanValueX = $sumValuesX / $this->valueCount;
+        $meanValueY = $sumValuesY / $this->valueCount;
+        $sumSquaresX = $this->sumSquares($xValues);
+        $sumSquaresY = $this->sumSquares($yValues);
+        $mBase = $mDivisor = 0.0;
+        $xy_sum = 0.0;
         for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
-            $xx_sum += $xValues[$i] * $xValues[$i];
-            $yy_sum += $yValues[$i] * $yValues[$i];
 
             if ($const === true) {
-                $mBase += ($xValues[$i] - $meanX) * ($yValues[$i] - $meanY);
-                $mDivisor += ($xValues[$i] - $meanX) * ($xValues[$i] - $meanX);
+                $mBase += ($xValues[$i] - $meanValueX) * ($yValues[$i] - $meanValueY);
+                $mDivisor += ($xValues[$i] - $meanValueX) * ($xValues[$i] - $meanValueX);
             } else {
                 $mBase += $xValues[$i] * $yValues[$i];
                 $mDivisor += $xValues[$i] * $xValues[$i];
@@ -425,9 +438,9 @@ class BestFit
         $this->slope = $mBase / $mDivisor;
 
         // calculate intersect
-        $this->intersect = ($const === true) ? $meanY - ($this->slope * $meanX) : 0.0;
+        $this->intersect = ($const === true) ? $meanValueY - ($this->slope * $meanValueX) : 0.0;
 
-        $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, $meanX, $meanY, $const);
+        $this->calculateGoodnessOfFit($sumValuesX, $sumValuesY, $sumSquaresX, $sumSquaresY, $xy_sum, $meanValueX, $meanValueY, $const);
     }
 
     /**
