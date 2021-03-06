@@ -4,6 +4,13 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 return [
     [
+        [1.0, 0.0],
+        [1, 2, 3, 4, 5],
+        [1, 2, 3, 4, 5],
+        false,
+        false,
+    ],
+    [
         [2.310344827586207, 0.0],
         [1, 9, 5, 7],
         [0, 4, 2, 3],
