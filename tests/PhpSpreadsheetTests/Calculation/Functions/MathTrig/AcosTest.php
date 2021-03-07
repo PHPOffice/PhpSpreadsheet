@@ -12,19 +12,16 @@ class AcosTest extends TestCase
      * @dataProvider providerAcos
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testAcos($expectedResult, $val = null): void
+    public function testAcos($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=ACOS()';
-        } else {
-            $formula = "=ACOS($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->getCell('A2')->setValue(0.5);
+        $sheet->getCell('A1')->setValue("=ACOS($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

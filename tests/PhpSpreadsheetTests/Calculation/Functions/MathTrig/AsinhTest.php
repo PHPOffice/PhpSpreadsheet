@@ -12,19 +12,16 @@ class AsinhTest extends TestCase
      * @dataProvider providerAsinh
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testAsinh($expectedResult, $val = null): void
+    public function testAsinh($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=ASINH()';
-        } else {
-            $formula = "=ASINH($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->getCell('A2')->setValue(0.5);
+        $sheet->getCell('A1')->setValue("=ASINH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

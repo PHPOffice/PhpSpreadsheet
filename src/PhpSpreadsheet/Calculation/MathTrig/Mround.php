@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Mround
 {
@@ -19,24 +19,22 @@ class Mround
      */
     public static function funcMround($number, $multiple)
     {
-        $number = Functions::flattenSingleValue($number);
-        $number = $number ?? 0;
-
-        $multiple = Functions::flattenSingleValue($multiple);
-
-        if ((is_numeric($number)) && (is_numeric($multiple))) {
-            if ($number == 0 || $multiple == 0) {
-                return 0;
-            }
-            if ((MathTrig::SIGN($number)) == (MathTrig::SIGN($multiple))) {
-                $multiplier = 1 / $multiple;
-
-                return round($number * $multiplier) / $multiplier;
-            }
-
-            return Functions::NAN();
+        try {
+            $number = Helpers::validateNumericNullSubstitution($number, 0);
+            $multiple = Helpers::validateNumericNullSubstitution($multiple, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($number == 0 || $multiple == 0) {
+            return 0;
+        }
+        if ((Helpers::returnSign($number)) == (Helpers::returnSign($multiple))) {
+            $multiplier = 1 / $multiple;
+
+            return round($number * $multiplier) / $multiplier;
+        }
+
+        return Functions::NAN();
     }
 }

@@ -2,8 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use Exception;
 
 class IntClass
 {
@@ -21,11 +20,12 @@ class IntClass
      */
     public static function funcInt($number)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        if (is_numeric($number)) {
-            return (int) floor($number);
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        return (int) floor($number);
     }
 }

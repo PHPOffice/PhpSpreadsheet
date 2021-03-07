@@ -12,19 +12,16 @@ class SinhTest extends TestCase
      * @dataProvider providerCosh
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testSinh($expectedResult, $val = null): void
+    public function testSinh($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=SINH()';
-        } else {
-            $formula = "=SINH($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->setCellValue('A2', 2);
+        $sheet->getCell('A1')->setValue("=SINH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

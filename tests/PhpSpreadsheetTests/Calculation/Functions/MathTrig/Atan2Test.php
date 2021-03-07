@@ -2,28 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class Atan2Test extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerATAN2
      *
      * @param mixed $expectedResult
-     * @param mixed $x
-     * @param mixed $y
      */
-    public function testATAN2($expectedResult, $x, $y): void
+    public function testATAN2($expectedResult, string $formula): void
     {
-        $result = MathTrig::ATAN2($x, $y);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        if ($expectedResult === 'exception') {
+            $this->expectException(CalcExp::class);
+        }
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A2')->setValue(5);
+        $sheet->getCell('A3')->setValue(6);
+        $sheet->getCell('A1')->setValue("=ATAN2($formula)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
     public function providerATAN2()

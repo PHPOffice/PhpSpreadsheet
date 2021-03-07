@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class FloorMath
 {
@@ -23,19 +23,15 @@ class FloorMath
      */
     public static function funcFloorMath($number, $significance = null, $mode = 0)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        $significance = Functions::flattenSingleValue($significance);
-        $mode = Functions::flattenSingleValue($mode);
-
-        if ($significance === null) {
-            $significance = ((float) $number < 0) ? -1 : 1;
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $significance = Helpers::validateNumericNullSubstitution($significance, ($number < 0) ? -1 : 1);
+            $mode = Helpers::validateNumericNullSubstitution($mode, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        if (is_numeric($number) && is_numeric($significance) && is_numeric($mode)) {
-            return self::argsOk((float) $number, (float) $significance, (int) $mode);
-        }
-
-        return Functions::VALUE();
+        return self::argsOk((float) $number, (float) $significance, (int) $mode);
     }
 
     /**
@@ -63,6 +59,6 @@ class FloorMath
      */
     private static function floorMathTest(float $number, float $significance, int $mode): bool
     {
-        return mathTrig::returnSign($significance) == -1 || (mathTrig::returnSign($number) == -1 && !empty($mode));
+        return Helpers::returnSign($significance) == -1 || (Helpers::returnSign($number) == -1 && !empty($mode));
     }
 }
