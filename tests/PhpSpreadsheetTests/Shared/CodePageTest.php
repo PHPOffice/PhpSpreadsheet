@@ -12,6 +12,7 @@ class CodePageTest extends TestCase
      * @dataProvider providerCodePage
      *
      * @param mixed $expectedResult
+     * @param mixed $codePageIndex
      */
     public function testCodePageNumberToName($expectedResult, $codePageIndex): void
     {

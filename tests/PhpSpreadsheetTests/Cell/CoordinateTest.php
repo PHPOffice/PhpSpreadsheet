@@ -232,6 +232,7 @@ class CoordinateTest extends TestCase
      * @dataProvider providerBuildRange
      *
      * @param mixed $expectedResult
+     * @param mixed $rangeSets
      */
     public function testBuildRange($expectedResult, $rangeSets): void
     {
@@ -351,6 +352,7 @@ class CoordinateTest extends TestCase
      * @dataProvider providerMergeRangesInCollection
      *
      * @param mixed $expectedResult
+     * @param mixed $rangeSets
      */
     public function testMergeRangesInCollection($expectedResult, $rangeSets): void
     {
