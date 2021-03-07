@@ -3389,9 +3389,17 @@ class Calculation
     {
         $cellValue = null;
 
+        $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
         //  Quote-Prefixed cell values cannot be formulae, but are treated as strings
-        if ($pCell !== null && $pCell->getStyle()->getQuotePrefix() === true) {
-            return self::wrapResult((string) $formula);
+        if ($pCell !== null) {
+            $selected = isset($pCellParent) ? $pCellParent->getSelectedCells() : '';
+            $quoted = $pCell->getStyle()->getQuotePrefix();
+            if ($pCellParent !== null) {
+                $pCellParent->setSelectedCells($selected);
+            }
+            if ($quoted === true) {
+                return self::wrapResult((string) $formula);
+            }
         }
 
         if (preg_match('/^=\s*cmd\s*\|/miu', $formula) !== 0) {
@@ -3409,7 +3417,6 @@ class Calculation
             return self::wrapResult($formula);
         }
 
-        $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
         $wsTitle = ($pCellParent !== null) ? $pCellParent->getTitle() : "\x00Wrk";
         $wsCellReference = $wsTitle . '!' . $cellID;
 
