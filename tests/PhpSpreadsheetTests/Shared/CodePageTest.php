@@ -13,9 +13,9 @@ class CodePageTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testCodePageNumberToName($expectedResult, ...$args): void
+    public function testCodePageNumberToName($expectedResult, $codePageIndex): void
     {
-        $result = CodePage::numberToName(...$args);
+        $result = CodePage::numberToName($codePageIndex);
         self::assertEquals($expectedResult, $result);
     }
 
