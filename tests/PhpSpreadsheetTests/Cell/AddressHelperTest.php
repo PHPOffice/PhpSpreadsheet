@@ -26,9 +26,13 @@ class AddressHelperTest extends TestCase
     /**
      * @dataProvider providerR1C1ConversionToA1Relative
      */
-    public function testR1C1ConversionToA1Relative(string $expectedValue, string $address, ?int $row = null, ?int $column = null): void
-    {
-        $args = [$address];
+    public function testR1C1ConversionToA1Relative(
+        string $expectedValue,
+        string $address,
+        ?int $row = null,
+        ?int $column = null
+    ): void {
+        $args = [];
         if ($row !== null) {
             $args[] = $row;
         }
@@ -36,7 +40,7 @@ class AddressHelperTest extends TestCase
             $args[] = $column;
         }
 
-        $actualValue = AddressHelper::convertToA1(...$args);
+        $actualValue = AddressHelper::convertToA1($address, ...$args);
 
         self::assertSame($expectedValue, $actualValue);
     }
