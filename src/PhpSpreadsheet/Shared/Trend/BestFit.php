@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
-class BestFit
+abstract class BestFit
 {
     /**
      * Indicator flag for a calculation error.
@@ -89,24 +89,18 @@ class BestFit
      *
      * @param float $xValue X-Value
      *
-     * @return bool Y-Value
+     * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
-    {
-        return false;
-    }
+    abstract public function getValueOfYForX($xValue);
 
     /**
      * Return the X-Value for a specified value of Y.
      *
      * @param float $yValue Y-Value
      *
-     * @return bool X-Value
+     * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
-    {
-        return false;
-    }
+    abstract public function getValueOfXForY($yValue);
 
     /**
      * Return the original set of X-Values.
@@ -123,12 +117,9 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return bool
+     * @return string
      */
-    public function getEquation($dp = 0)
-    {
-        return false;
-    }
+    abstract public function getEquation($dp = 0);
 
     /**
      * Return the Slope of the line.
@@ -271,16 +262,10 @@ class BestFit
     }
 
     /**
-     * @param int $dp Number of places of decimal precision to return
-     *
-     * @return float
+     * @return int
      */
-    public function getDFResiduals($dp = 0)
+    public function getDFResiduals()
     {
-        if ($dp != 0) {
-            return round($this->DFResiduals, $dp);
-        }
-
         return $this->DFResiduals;
     }
 
@@ -336,55 +321,37 @@ class BestFit
 
     protected function calculateGoodnessOfFit($sumX, $sumY, $sumX2, $sumY2, $sumXY, $meanX, $meanY, $const): void
     {
-        $SSres = $SScov = $SScor = $SStot = $SSsex = 0.0;
+        $SSresiduals = $SScovariance = $SScorrelation = $SStot = $SSsex = 0.0;
         foreach ($this->xValues as $xKey => $xValue) {
             $bestFitY = $this->yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
 
-            $SSres += ($this->yValues[$xKey] - $bestFitY) * ($this->yValues[$xKey] - $bestFitY);
-            if ($const === true) {
-                $SStot += ($this->yValues[$xKey] - $meanY) * ($this->yValues[$xKey] - $meanY);
-            } else {
-                $SStot += $this->yValues[$xKey] * $this->yValues[$xKey];
-            }
-            $SScov += ($this->xValues[$xKey] - $meanX) * ($this->yValues[$xKey] - $meanY);
-            if ($const === true) {
-                $SSsex += ($this->xValues[$xKey] - $meanX) * ($this->xValues[$xKey] - $meanX);
-            } else {
-                $SSsex += $this->xValues[$xKey] * $this->xValues[$xKey];
-            }
+            $SSresiduals += ($this->yValues[$xKey] - $bestFitY) * ($this->yValues[$xKey] - $bestFitY);
+            $SStot += ($const === true)
+                ? ($this->yValues[$xKey] - $meanY) * ($this->yValues[$xKey] - $meanY)
+                : $this->yValues[$xKey] * $this->yValues[$xKey];
+            $SScovariance += ($this->xValues[$xKey] - $meanX) * ($this->yValues[$xKey] - $meanY);
+            $SSsex += ($const === true)
+                ? ($this->xValues[$xKey] - $meanX) * ($this->xValues[$xKey] - $meanX)
+                : $this->xValues[$xKey] * $this->xValues[$xKey];
         }
 
-        $this->SSResiduals = $SSres;
+        $this->SSResiduals = $SSresiduals;
         $this->DFResiduals = $this->valueCount - 1 - ($const === true ? 1 : 0);
-
-        if ($this->DFResiduals == 0.0) {
-            $this->stdevOfResiduals = 0.0;
-        } else {
-            $this->stdevOfResiduals = sqrt($SSres / $this->DFResiduals);
-        }
-        if (($SStot == 0.0) || ($SSres == $SStot)) {
-            $this->goodnessOfFit = 1;
-        } else {
-            $this->goodnessOfFit = 1 - ($SSres / $SStot);
-        }
+        $this->stdevOfResiduals = ($this->DFResiduals == 0.0) ? 0.0 : sqrt($SSresiduals / $this->DFResiduals);
+        $this->goodnessOfFit = (($SStot == 0.0) || ($SSresiduals == $SStot)) ? 1.0 : 1.0 - ($SSresiduals / $SStot);
 
         $this->SSRegression = $this->goodnessOfFit * $SStot;
-        $this->covariance = $SScov / $this->valueCount;
+        $this->covariance = $SScovariance / $this->valueCount;
         $this->correlation = ($this->valueCount * $sumXY - $sumX * $sumY) / sqrt(($this->valueCount * $sumX2 - $sumX ** 2) * ($this->valueCount * $sumY2 - $sumY ** 2));
         $this->slopeSE = $this->stdevOfResiduals / sqrt($SSsex);
         $this->intersectSE = $this->stdevOfResiduals * sqrt(1 / ($this->valueCount - ($sumX * $sumX) / $sumX2));
+
         if ($this->SSResiduals != 0.0) {
-            if ($this->DFResiduals == 0.0) {
-                $this->f = 0.0;
-            } else {
-                $this->f = $this->SSRegression / ($this->SSResiduals / $this->DFResiduals);
-            }
+            $this->f = ($this->DFResiduals == 0.0)
+                ? 0.0
+                : $this->SSRegression / ($this->SSResiduals / $this->DFResiduals);
         } else {
-            if ($this->DFResiduals == 0.0) {
-                $this->f = 0.0;
-            } else {
-                $this->f = $this->SSRegression / $this->DFResiduals;
-            }
+            $this->f = ($this->DFResiduals == 0.0) ? 0.0 : $this->SSRegression / $this->DFResiduals;
         }
     }
 
@@ -413,18 +380,18 @@ class BestFit
         $meanValueY = $sumValuesY / $this->valueCount;
         $sumSquaresX = $this->sumSquares($xValues);
         $sumSquaresY = $this->sumSquares($yValues);
+
         $mBase = $mDivisor = 0.0;
         $xy_sum = 0.0;
         for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
 
-            if ($const === true) {
-                $mBase += ($xValues[$i] - $meanValueX) * ($yValues[$i] - $meanValueY);
-                $mDivisor += ($xValues[$i] - $meanValueX) * ($xValues[$i] - $meanValueX);
-            } else {
-                $mBase += $xValues[$i] * $yValues[$i];
-                $mDivisor += $xValues[$i] * $xValues[$i];
-            }
+            $mBase += ($const === true)
+                ? ($xValues[$i] - $meanValueX) * ($yValues[$i] - $meanValueY)
+                : $xValues[$i] * $yValues[$i];
+            $mDivisor += ($const === true)
+                ? ($xValues[$i] - $meanValueX) * ($xValues[$i] - $meanValueX)
+                : $xValues[$i] * $xValues[$i];
         }
 
         // calculate slope
