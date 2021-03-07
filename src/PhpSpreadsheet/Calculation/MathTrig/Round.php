@@ -25,6 +25,6 @@ class Round
             return $e->getMessage();
         }
 
-        return round($number, $precision);
+        return round($number, (int) $precision);
     }
 }

@@ -276,7 +276,7 @@ class MathTrig
      */
     public static function getEven(float $number): int
     {
-        return MathTrig\Helpers::getEven($number);
+        return (int) MathTrig\Helpers::getEven($number);
     }
 
     /**

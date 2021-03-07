@@ -70,7 +70,7 @@ class Helpers
     {
         $significance = 2 * self::returnSign($number);
 
-        return Ceiling::funcCeiling($number, $significance);
+        return $significance ? (ceil($number / $significance) * $significance) : 0;
     }
 
     /**
