@@ -1,7 +1,7 @@
 <?php
 
 return [
-    ['exception',  ''],
+    ['exception', ''],
     ['#VALUE!', '"ABC"'],
     [1, '0'],
     [0, 'PI() / 2'],
