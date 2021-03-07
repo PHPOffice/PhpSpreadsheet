@@ -367,6 +367,18 @@ abstract class BestFit
         );
     }
 
+    private function sumSquares(array $values)
+    {
+        return array_sum(
+            array_map(
+                function ($value) {
+                    return $value ** 2;
+                },
+                $values
+            )
+        );
+    }
+
     /**
      * @param float[] $yValues
      * @param float[] $xValues
