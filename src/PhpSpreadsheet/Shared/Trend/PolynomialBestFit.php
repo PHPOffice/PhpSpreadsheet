@@ -166,7 +166,7 @@ class PolynomialBestFit extends BestFit
         $this->intersect = array_shift($coefficients);
         $this->slope = $coefficients;
 
-        $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, 0, 0, 0);
+        $this->calculateResiduals($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum, 0, 0, 0);
         foreach ($this->xValues as $xKey => $xValue) {
             $this->yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
         }
