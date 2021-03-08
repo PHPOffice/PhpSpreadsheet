@@ -299,7 +299,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
         $chars = Functions::flattenSingleValue($chars);
 
-        if ($chars < 0) {
+        if (!is_numeric($chars) || $chars < 0) {
             return Functions::VALUE();
         }
 
@@ -325,16 +325,12 @@ class TextData
         $start = Functions::flattenSingleValue($start);
         $chars = Functions::flattenSingleValue($chars);
 
-        if (($start < 1) || ($chars < 0)) {
+        if (!is_numeric($start) || $start < 1 || !is_numeric($chars) || $chars < 0) {
             return Functions::VALUE();
         }
 
         if (is_bool($value)) {
             $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        if (empty($chars)) {
-            return '';
         }
 
         return mb_substr($value, --$start, $chars, 'UTF-8');
@@ -353,7 +349,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
         $chars = Functions::flattenSingleValue($chars);
 
-        if ($chars < 0) {
+        if (!is_numeric($chars) || $chars < 0) {
             return Functions::VALUE();
         }
 

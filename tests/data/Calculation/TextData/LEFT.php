@@ -17,6 +17,16 @@ return [
         -1,
     ],
     [
+        '#VALUE!',
+        'QWERTYUIOP',
+        'NaN',
+    ],
+    [
+        '#VALUE!',
+        'QWERTYUIOP',
+        null,
+    ],
+    [
         'ABC',
         'ABCDEFGHI',
         3,
