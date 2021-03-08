@@ -333,10 +333,6 @@ class TextData
             $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        if (empty($chars)) {
-            return '';
-        }
-
         return mb_substr($value, --$start, $chars, 'UTF-8');
     }
 
