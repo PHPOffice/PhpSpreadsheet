@@ -26,7 +26,19 @@ return [
         -1,
     ],
     [
-        '',
+        '#VALUE!',
+        'QWERTYUIOP',
+        'NaN',
+        1,
+    ],
+    [
+        '#VALUE!',
+        'QWERTYUIOP',
+        2,
+        'NaN',
+    ],
+    [
+        '#VALUE!',
         'QWERTYUIOP',
         5,
     ],

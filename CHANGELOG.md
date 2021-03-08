@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fixed issue with Xlsx@listWorksheetInfo not returning any data
+- Fixed invalid arguments triggering mb_substr() error in LEFT(), MID() and RIGHT() text functions. [Issue #640](https://github.com/PHPOffice/PhpSpreadsheet/issues/640)
 
 ## 1.17.1 - 2021-03-01
 
