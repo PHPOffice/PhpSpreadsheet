@@ -543,13 +543,14 @@ class Calculation
         ],
         'COLUMN' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'COLUMN'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMN'],
             'argumentCount' => '-1',
+            'passCellReference' => true,
             'passByReference' => [true],
         ],
         'COLUMNS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'COLUMNS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMNS'],
             'argumentCount' => '1',
         ],
         'COMBIN' => [
@@ -2127,13 +2128,14 @@ class Calculation
         ],
         'ROW' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'ROW'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROW'],
             'argumentCount' => '-1',
+            'passCellReference' => true,
             'passByReference' => [true],
         ],
         'ROWS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'ROWS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROWS'],
             'argumentCount' => '1',
         ],
         'RRI' => [

@@ -65,10 +65,11 @@ class DefaultValueBinderTest extends TestCase
      * @dataProvider providerDataTypeForValue
      *
      * @param mixed $expectedResult
+     * @param mixed $value
      */
-    public function testDataTypeForValue($expectedResult, ...$args): void
+    public function testDataTypeForValue($expectedResult, $value): void
     {
-        $result = DefaultValueBinder::dataTypeForValue(...$args);
+        $result = DefaultValueBinder::dataTypeForValue($value);
         self::assertEquals($expectedResult, $result);
     }
 
