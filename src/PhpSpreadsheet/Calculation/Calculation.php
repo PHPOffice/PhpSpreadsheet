@@ -1232,7 +1232,7 @@ class Calculation
         ],
         'HLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'HLOOKUP'],
+            'functionCall' => [LookupRef\Lookup::class, 'HLOOKUP'],
             'argumentCount' => '3,4',
         ],
         'HOUR' => [
@@ -1606,7 +1606,7 @@ class Calculation
         ],
         'LOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'LOOKUP'],
+            'functionCall' => [LookupRef\Lookup::class, 'LOOKUP'],
             'argumentCount' => '2,3',
         ],
         'LOWER' => [
@@ -2561,7 +2561,7 @@ class Calculation
         ],
         'VLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'VLOOKUP'],
+            'functionCall' => [LookupRef\Lookup::class, 'VLOOKUP'],
             'argumentCount' => '3,4',
         ],
         'WEBSERVICE' => [
