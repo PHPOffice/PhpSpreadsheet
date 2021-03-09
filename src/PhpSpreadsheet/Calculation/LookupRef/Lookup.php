@@ -2,12 +2,28 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Lookup
 {
+    private static function validateIndexLookup($lookup_array, $index_number)
+    {
+        // index_number must be a number greater than or equal to 1
+        if (!is_numeric($index_number) || $index_number < 1) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        // index_number must be less than or equal to the number of columns in lookup_array
+        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
+            throw new Exception(Functions::REF());
+        }
+
+        return (int) $index_number;
+    }
+
     /**
      * VLOOKUP
      * The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value
@@ -27,15 +43,12 @@ class Lookup
         $index_number = Functions::flattenSingleValue($index_number);
         $not_exact_match = Functions::flattenSingleValue($not_exact_match);
 
-        // index_number must be greater than or equal to 1
-        if ($index_number < 1) {
-            return Functions::VALUE();
+        try {
+            $index_number = self::validateIndexLookup($lookup_array, $index_number);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        // index_number must be less than or equal to the number of columns in lookup_array
-        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
-            return Functions::REF();
-        }
         $f = array_keys($lookup_array);
         $firstRow = array_pop($f);
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array[$firstRow]))) {
@@ -109,15 +122,12 @@ class Lookup
         $index_number = Functions::flattenSingleValue($index_number);
         $not_exact_match = Functions::flattenSingleValue($not_exact_match);
 
-        // index_number must be greater than or equal to 1
-        if ($index_number < 1) {
-            return Functions::VALUE();
+        try {
+            $index_number = self::validateIndexLookup($lookup_array, $index_number);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        // index_number must be less than or equal to the number of columns in lookup_array
-        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
-            return Functions::REF();
-        }
         $f = array_keys($lookup_array);
         $firstRow = reset($f);
         if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array))) {
