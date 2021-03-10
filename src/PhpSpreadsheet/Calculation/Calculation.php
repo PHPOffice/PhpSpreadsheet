@@ -263,7 +263,7 @@ class Calculation
         ],
         'ADDRESS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'cellAddress'],
+            'functionCall' => [LookupRef\Address::class, 'cell'],
             'argumentCount' => '2-5',
         ],
         'AGGREGATE' => [

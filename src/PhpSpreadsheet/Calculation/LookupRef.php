@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Cell as CellAddress;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
@@ -25,17 +25,17 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the address() method in the LookupRef\Cell class instead
+     * @see Use the cell() method in the LookupRef\Address class instead
      *
      * @param mixed $row Row number to use in the cell reference
      * @param mixed $column Column number to use in the cell reference
      * @param int $relativity Flag indicating the type of reference to return
      *                                1 or omitted    Absolute
-     *                                2                Absolute row; relative column
-     *                                3                Relative row; absolute column
-     *                                4                Relative
+     *                                2               Absolute row; relative column
+     *                                3               Relative row; absolute column
+     *                                4               Relative
      * @param bool $referenceStyle A logical value that specifies the A1 or R1C1 reference style.
-     *                                TRUE or omitted        CELL_ADDRESS returns an A1-style reference
+     *                                TRUE or omitted      CELL_ADDRESS returns an A1-style reference
      *                                FALSE                CELL_ADDRESS returns an R1C1-style reference
      * @param string $sheetText Optional Name of worksheet to use
      *
@@ -43,7 +43,7 @@ class LookupRef
      */
     public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
     {
-        return CellAddress::address($row, $column, $relativity, $referenceStyle, $sheetText);
+        return Address::cell($row, $column, $relativity, $referenceStyle, $sheetText);
     }
 
     /**

@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
-class Cell
+class Address
 {
     /**
      * ADDRESS.
@@ -33,7 +33,7 @@ class Cell
      *
      * @return string
      */
-    public static function address($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
+    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
     {
         $row = Functions::flattenSingleValue($row);
         $column = Functions::flattenSingleValue($column);
