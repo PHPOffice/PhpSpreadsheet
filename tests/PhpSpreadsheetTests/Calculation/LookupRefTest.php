@@ -74,7 +74,7 @@ class LookupRefTest extends TestCase
         return require 'tests/data/Calculation/LookupRef/FORMULATEXT.php';
     }
 
-    public function testFormulaTextWithoutCell()
+    public function testFormulaTextWithoutCell(): void
     {
         $result = LookupRef::FORMULATEXT('A1');
         self::assertEquals(Functions::REF(), $result);
