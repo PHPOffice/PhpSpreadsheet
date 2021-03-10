@@ -7,6 +7,11 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class Address
 {
+    public const ADDRESS_ABSOLUTE = 1;
+    public const ADDRESS_COLUMN_RELATIVE = 2;
+    public const ADDRESS_ROW_RELATIVE = 3;
+    public const ADDRESS_RELATIVE = 4;
+
     /**
      * ADDRESS.
      *
@@ -14,10 +19,6 @@ class Address
      *
      * Excel Function:
      *        =ADDRESS(row, column, [relativity], [referenceStyle], [sheetText])
-     *
-     * @Deprecated 1.18.0
-     *
-     * @see Use the address() method in the LookupRef\Cell class instead
      *
      * @param mixed $row Row number to use in the cell reference
      * @param mixed $column Column number to use in the cell reference
@@ -29,46 +30,65 @@ class Address
      * @param bool $referenceStyle A logical value that specifies the A1 or R1C1 reference style.
      *                                TRUE or omitted      ADDRESS returns an A1-style reference
      *                                FALSE                ADDRESS returns an R1C1-style reference
-     * @param string $sheetText Optional Name of worksheet to use
+     * @param string $sheetName Optional Name of worksheet to use
      *
      * @return string
      */
-    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
+    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetName = '')
     {
         $row = Functions::flattenSingleValue($row);
         $column = Functions::flattenSingleValue($column);
         $relativity = Functions::flattenSingleValue($relativity);
-        $sheetText = Functions::flattenSingleValue($sheetText);
+        $sheetName = Functions::flattenSingleValue($sheetName);
 
         if (($row < 1) || ($column < 1)) {
             return Functions::VALUE();
         }
 
-        if ($sheetText > '') {
-            if (strpos($sheetText, ' ') !== false || strpos($sheetText, '[') !== false) {
-                $sheetText = "'{$sheetText}'";
-            }
-            $sheetText .= '!';
-        }
-        if ((!is_bool($referenceStyle)) || $referenceStyle) {
-            $rowRelative = $columnRelative = '$';
-            $column = Coordinate::stringFromColumnIndex($column);
-            if (($relativity == 2) || ($relativity == 4)) {
-                $columnRelative = '';
-            }
-            if (($relativity == 3) || ($relativity == 4)) {
-                $rowRelative = '';
-            }
+        $sheetName = self::sheetName($sheetName);
 
-            return "{$sheetText}{$columnRelative}{$column}{$rowRelative}{$row}";
+        if ((!is_bool($referenceStyle)) || $referenceStyle === true) {
+            return self::formatAsA1($row, $column, $relativity, $sheetName);
         }
-        if (($relativity == 2) || ($relativity == 4)) {
+
+        return self::formatAsR1C1($row, $column, $relativity, $sheetName);
+    }
+
+    private static function sheetName(string $sheetName)
+    {
+        if ($sheetName > '') {
+            if (strpos($sheetName, ' ') !== false || strpos($sheetName, '[') !== false) {
+                $sheetName = "'{$sheetName}'";
+            }
+            $sheetName .= '!';
+        }
+
+        return $sheetName;
+    }
+
+    private static function formatAsA1(int $row, int $column, int $relativity, string $sheetName): string
+    {
+        $rowRelative = $columnRelative = '$';
+        if (($relativity == self::ADDRESS_COLUMN_RELATIVE) || ($relativity == self::ADDRESS_RELATIVE)) {
+            $columnRelative = '';
+        }
+        if (($relativity == self::ADDRESS_ROW_RELATIVE) || ($relativity == self::ADDRESS_RELATIVE)) {
+            $rowRelative = '';
+        }
+        $column = Coordinate::stringFromColumnIndex($column);
+
+        return "{$sheetName}{$columnRelative}{$column}{$rowRelative}{$row}";
+    }
+
+    private static function formatAsR1C1(int $row, int $column, int $relativity, string $sheetName): string
+    {
+        if (($relativity == self::ADDRESS_COLUMN_RELATIVE) || ($relativity == self::ADDRESS_RELATIVE)) {
             $column = "[{$column}]";
         }
-        if (($relativity == 3) || ($relativity == 4)) {
+        if (($relativity == self::ADDRESS_ROW_RELATIVE) || ($relativity == self::ADDRESS_RELATIVE)) {
             $row = "[{$row}]";
         }
 
-        return "{$sheetText}R{$row}C{$column}";
+        return "{$sheetName}R{$row}C{$column}";
     }
 }
