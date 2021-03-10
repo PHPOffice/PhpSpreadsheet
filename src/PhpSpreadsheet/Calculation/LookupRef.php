@@ -619,7 +619,8 @@ class LookupRef
      *
      * @return array
      *
-     * Unlike the Excel TRANSPOSE function, which will only work on a single row or column, this function will transpose a full matrix
+     * Unlike the Excel TRANSPOSE function, which will only work on a single row or column,
+     *     this function will transpose a full matrix
      */
     public static function TRANSPOSE($matrixData)
     {

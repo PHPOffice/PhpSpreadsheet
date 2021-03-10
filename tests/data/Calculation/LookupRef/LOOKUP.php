@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     [ // Office reference example #1
         'orange',
         4.19,

@@ -90,6 +90,7 @@ class Lookup
     {
         $rowKeys = array_keys($dataArray);
         $row = array_shift($rowKeys);
+
         return count($dataArray[$row]);
     }
 }
