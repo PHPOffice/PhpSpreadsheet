@@ -208,27 +208,25 @@ class Lookup
         foreach ($lookupArray as $rowKey => $rowData) {
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData[$column]);
             $bothNotNumeric = !is_numeric($lookupValue) && !is_numeric($rowData[$column]);
-            $firstLower = StringHelper::strToLower($rowData[$column]);
+            $cellDataLower = StringHelper::strToLower($rowData[$column]);
 
             // break if we have passed possible keys
-            if (
-                (is_numeric($lookupValue) && is_numeric($rowData[$column]) && ($rowData[$column] > $lookupValue)) ||
-                (!is_numeric($lookupValue) && !is_numeric($rowData[$column]) && ($firstLower > $lookupLower))
+            if ($notExactMatch &&
+                ($bothNumeric && ($rowData[$column] > $lookupValue)) ||
+                ($bothNotNumeric && ($cellDataLower > $lookupLower))
             ) {
                 break;
             }
 
-            // remember the last key, but only if datatypes match
-            if ($bothNumeric || $bothNotNumeric) {
-                // Spreadsheets software returns first exact match,
-                // we have sorted and we might have broken key orders
-                // we want the first one (by its initial index)
-                if ($notExactMatch) {
-                    $rowNumber = $rowKey;
-                } elseif (($firstLower == $lookupLower) && (($rowNumber == false) || ($rowKey < $rowNumber))) {
-                    $rowNumber = $rowKey;
-                }
-            }
+            $rowNumber = self::checkMatch(
+                $bothNumeric,
+                $bothNotNumeric,
+                $notExactMatch,
+                $rowKey,
+                $cellDataLower,
+                $lookupLower,
+                $rowNumber
+            );
         }
 
         return $rowNumber;
@@ -243,21 +241,46 @@ class Lookup
             // break if we have passed possible keys
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData);
             $bothNotNumeric = !is_numeric($lookupValue) && !is_numeric($rowData);
-            $rowDataLower = StringHelper::strToLower($rowData);
+            $cellDataLower = StringHelper::strToLower($rowData);
 
             if ($notExactMatch &&
-                (($bothNumeric && $rowData > $lookupValue) || ($bothNotNumeric && $rowDataLower > $lookupLower))
+                (($bothNumeric && $rowData > $lookupValue) || ($bothNotNumeric && $cellDataLower > $lookupLower))
             ) {
                 break;
             }
 
-            // Remember the last key, but only if datatypes match (as in VLOOKUP)
-            if ($bothNumeric || $bothNotNumeric) {
-                if ($notExactMatch) {
-                    $rowNumber = $rowKey;
-                } elseif ($rowDataLower === $lookupLower && ($rowNumber === null || $rowKey < $rowNumber)) {
-                    $rowNumber = $rowKey;
-                }
+            $rowNumber = self::checkMatch(
+                $bothNumeric,
+                $bothNotNumeric,
+                $notExactMatch,
+                $rowKey,
+                $cellDataLower,
+                $lookupLower,
+                $rowNumber
+            );
+        }
+
+        return $rowNumber;
+    }
+
+    private static function checkMatch(
+        bool $bothNumeric,
+        bool $bothNotNumeric,
+        $notExactMatch,
+        int $rowKey,
+        string $cellDataLower,
+        string $lookupLower,
+        ?int $rowNumber
+    ): ?int {
+        // remember the last key, but only if datatypes match
+        if ($bothNumeric || $bothNotNumeric) {
+            // Spreadsheets software returns first exact match,
+            // we have sorted and we might have broken key orders
+            // we want the first one (by its initial index)
+            if ($notExactMatch) {
+                $rowNumber = $rowKey;
+            } elseif (($cellDataLower == $lookupLower) && (($rowNumber === null) || ($rowKey < $rowNumber))) {
+                $rowNumber = $rowKey;
             }
         }
 
