@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
-class TransposeTest extends TestCase
+class AddressTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -14,19 +14,18 @@ class TransposeTest extends TestCase
     }
 
     /**
-     * @dataProvider providerTRANSPOSE
+     * @dataProvider providerADDRESS
      *
      * @param mixed $expectedResult
-     * @param mixed $matrix
      */
-    public function testTRANSPOSE($expectedResult, $matrix): void
+    public function testADDRESS($expectedResult, ...$args): void
     {
-        $result = LookupRef::TRANSPOSE($matrix);
+        $result = LookupRef::cellAddress(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTRANSPOSE()
+    public function providerADDRESS()
     {
-        return require 'tests/data/Calculation/LookupRef/TRANSPOSE.php';
+        return require 'tests/data/Calculation/LookupRef/ADDRESS.php';
     }
 }

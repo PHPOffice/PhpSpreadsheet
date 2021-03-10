@@ -47,8 +47,8 @@ class LookupRef
         }
 
         if ($sheetText > '') {
-            if (strpos($sheetText, ' ') !== false) {
-                $sheetText = "'" . $sheetText . "'";
+            if (strpos($sheetText, ' ') !== false || strpos($sheetText, '[') !== false) {
+                $sheetText = "'{$sheetText}'";
             }
             $sheetText .= '!';
         }
@@ -62,16 +62,16 @@ class LookupRef
                 $rowRelative = '';
             }
 
-            return $sheetText . $columnRelative . $column . $rowRelative . $row;
+            return "{$sheetText}{$columnRelative}{$column}{$rowRelative}{$row}";
         }
         if (($relativity == 2) || ($relativity == 4)) {
-            $column = '[' . $column . ']';
+            $column = "[{$column}]";
         }
         if (($relativity == 3) || ($relativity == 4)) {
-            $row = '[' . $row . ']';
+            $row = "[{$row}]";
         }
 
-        return $sheetText . 'R' . $row . 'C' . $column;
+        return "{$sheetText}R{$row}C{$column}";
     }
 
     /**
