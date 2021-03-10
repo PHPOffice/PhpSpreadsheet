@@ -1363,7 +1363,7 @@ class Worksheet implements IComparable
      * @param string $pColumn String index of the column eg: 'A'
      * @param bool $create
      *
-     * @return ColumnDimension
+     * @return ColumnDimension|null
      */
     public function getColumnDimension($pColumn, $create = true)
     {
