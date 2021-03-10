@@ -252,9 +252,11 @@ class Cell
         if ($this->dataType == DataType::TYPE_FORMULA) {
             try {
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
+                $selected = $this->getWorksheet()->getSelectedCells();
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
+                $this->getWorksheet()->setSelectedCells($selected);
                 $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
                 //    We don't yet handle array returns
                 if (is_array($result)) {

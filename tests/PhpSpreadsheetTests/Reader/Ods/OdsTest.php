@@ -101,6 +101,20 @@ class OdsTest extends TestCase
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
     }
 
+    public function testLoadOneWorksheetNotActive(): void
+    {
+        $filename = 'tests/data/Reader/Ods/data.ods';
+
+        // Load into this instance
+        $reader = new Ods();
+        $reader->setLoadSheetsOnly(['Second Sheet']);
+        $spreadsheet = $reader->load($filename);
+
+        self::assertEquals(1, $spreadsheet->getSheetCount());
+
+        self::assertEquals('Second Sheet', $spreadsheet->getSheet(0)->getTitle());
+    }
+
     public function testLoadBadFile(): void
     {
         $this->expectException(ReaderException::class);

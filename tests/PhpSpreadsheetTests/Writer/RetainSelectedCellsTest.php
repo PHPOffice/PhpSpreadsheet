@@ -67,8 +67,7 @@ class RetainSelectedCellsTest extends AbstractFunctional
         self::assertEquals('C2', $spreadsheet->getSheet(2)->getSelectedCells());
         self::assertEquals(1, $spreadsheet->getActiveSheetIndex());
         // SelectedCells and ActiveSheet don't make sense for Html, Csv.
-        // They make sense for Ods, but are not yet implemented in Reader/Writer.
-        if ($format === 'Xlsx' || $format === 'Xls') {
+        if ($format === 'Xlsx' || $format === 'Xls' || $format === 'Ods') {
             self::assertEquals('A3', $reloaded->getSheet(0)->getSelectedCells());
             self::assertEquals('B1', $reloaded->getSheet(1)->getSelectedCells());
             self::assertEquals('C2', $reloaded->getSheet(2)->getSelectedCells());
