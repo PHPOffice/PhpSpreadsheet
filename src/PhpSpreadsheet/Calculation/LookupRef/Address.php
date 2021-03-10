@@ -12,6 +12,9 @@ class Address
     public const ADDRESS_ROW_RELATIVE = 3;
     public const ADDRESS_RELATIVE = 4;
 
+    public const REFERENCE_STYLE_A1 = true;
+    public const REFERENCE_STYLE_R1C1 = false;
+
     /**
      * ADDRESS.
      *
@@ -47,7 +50,7 @@ class Address
 
         $sheetName = self::sheetName($sheetName);
 
-        if ((!is_bool($referenceStyle)) || $referenceStyle === true) {
+        if ((!is_bool($referenceStyle)) || $referenceStyle === self::REFERENCE_STYLE_A1) {
             return self::formatAsA1($row, $column, $relativity, $sheetName);
         }
 
