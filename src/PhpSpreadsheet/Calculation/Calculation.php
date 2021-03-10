@@ -263,7 +263,7 @@ class Calculation
         ],
         'ADDRESS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'cellAddress'],
+            'functionCall' => [LookupRef\Address::class, 'cell'],
             'argumentCount' => '2-5',
         ],
         'AGGREGATE' => [
@@ -543,13 +543,14 @@ class Calculation
         ],
         'COLUMN' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'COLUMN'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMN'],
             'argumentCount' => '-1',
+            'passCellReference' => true,
             'passByReference' => [true],
         ],
         'COLUMNS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'COLUMNS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMNS'],
             'argumentCount' => '1',
         ],
         'COMBIN' => [
@@ -1231,7 +1232,7 @@ class Calculation
         ],
         'HLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'HLOOKUP'],
+            'functionCall' => [LookupRef\HLookup::class, 'lookup'],
             'argumentCount' => '3,4',
         ],
         'HOUR' => [
@@ -1605,7 +1606,7 @@ class Calculation
         ],
         'LOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'LOOKUP'],
+            'functionCall' => [LookupRef\Lookup::class, 'lookup'],
             'argumentCount' => '2,3',
         ],
         'LOWER' => [
@@ -2127,13 +2128,14 @@ class Calculation
         ],
         'ROW' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'ROW'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROW'],
             'argumentCount' => '-1',
+            'passCellReference' => true,
             'passByReference' => [true],
         ],
         'ROWS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'ROWS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROWS'],
             'argumentCount' => '1',
         ],
         'RRI' => [
@@ -2449,7 +2451,7 @@ class Calculation
         ],
         'TRANSPOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'TRANSPOSE'],
+            'functionCall' => [LookupRef\Matrix::class, 'transpose'],
             'argumentCount' => '1',
         ],
         'TREND' => [
@@ -2559,7 +2561,7 @@ class Calculation
         ],
         'VLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'VLOOKUP'],
+            'functionCall' => [LookupRef\VLookup::class, 'lookup'],
             'argumentCount' => '3,4',
         ],
         'WEBSERVICE' => [
