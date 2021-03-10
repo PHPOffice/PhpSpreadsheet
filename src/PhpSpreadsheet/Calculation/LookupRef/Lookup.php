@@ -55,26 +55,33 @@ class Lookup
         }
 
         if ($lookupColumns !== 2) {
-            foreach ($lookupVector as &$value) {
-                if (is_array($value)) {
-                    $k = array_keys($value);
-                    $key1 = $key2 = array_shift($k);
-                    ++$key2;
-                    $dataValue1 = $value[$key1];
-                } else {
-                    $key1 = 0;
-                    $key2 = 1;
-                    $dataValue1 = $value;
-                }
-                $dataValue2 = array_shift($resultVector);
-                if (is_array($dataValue2)) {
-                    $dataValue2 = array_shift($dataValue2);
-                }
-                $value = [$key1 => $dataValue1, $key2 => $dataValue2];
-            }
-            unset($value);
+            $lookupVector = self::verifyLookupValues($lookupVector, $resultVector);
         }
 
         return VLookup::lookup($lookupValue, $lookupVector, 2);
+    }
+
+    private static function verifyLookupValues(array $lookupVector, array $resultVector): array
+    {
+        foreach ($lookupVector as &$value) {
+            if (is_array($value)) {
+                $k = array_keys($value);
+                $key1 = $key2 = array_shift($k);
+                ++$key2;
+                $dataValue1 = $value[$key1];
+            } else {
+                $key1 = 0;
+                $key2 = 1;
+                $dataValue1 = $value;
+            }
+            $dataValue2 = array_shift($resultVector);
+            if (is_array($dataValue2)) {
+                $dataValue2 = array_shift($dataValue2);
+            }
+            $value = [$key1 => $dataValue1, $key2 => $dataValue2];
+        }
+        unset($value);
+
+        return $lookupVector;
     }
 }
