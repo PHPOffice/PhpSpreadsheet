@@ -2451,7 +2451,7 @@ class Calculation
         ],
         'TRANSPOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'TRANSPOSE'],
+            'functionCall' => [LookupRef\Matrix::class, 'transpose'],
             'argumentCount' => '1',
         ],
         'TREND' => [

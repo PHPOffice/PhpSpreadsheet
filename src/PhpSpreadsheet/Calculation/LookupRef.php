@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Cell as CellAddress;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -21,6 +23,10 @@ class LookupRef
      * Excel Function:
      *        =ADDRESS(row, column, [relativity], [referenceStyle], [sheetText])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the address() method in the LookupRef\Cell class instead
+     *
      * @param mixed $row Row number to use in the cell reference
      * @param mixed $column Column number to use in the cell reference
      * @param int $relativity Flag indicating the type of reference to return
@@ -37,41 +43,7 @@ class LookupRef
      */
     public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
     {
-        $row = Functions::flattenSingleValue($row);
-        $column = Functions::flattenSingleValue($column);
-        $relativity = Functions::flattenSingleValue($relativity);
-        $sheetText = Functions::flattenSingleValue($sheetText);
-
-        if (($row < 1) || ($column < 1)) {
-            return Functions::VALUE();
-        }
-
-        if ($sheetText > '') {
-            if (strpos($sheetText, ' ') !== false || strpos($sheetText, '[') !== false) {
-                $sheetText = "'{$sheetText}'";
-            }
-            $sheetText .= '!';
-        }
-        if ((!is_bool($referenceStyle)) || $referenceStyle) {
-            $rowRelative = $columnRelative = '$';
-            $column = Coordinate::stringFromColumnIndex($column);
-            if (($relativity == 2) || ($relativity == 4)) {
-                $columnRelative = '';
-            }
-            if (($relativity == 3) || ($relativity == 4)) {
-                $rowRelative = '';
-            }
-
-            return "{$sheetText}{$columnRelative}{$column}{$rowRelative}{$row}";
-        }
-        if (($relativity == 2) || ($relativity == 4)) {
-            $column = "[{$column}]";
-        }
-        if (($relativity == 3) || ($relativity == 4)) {
-            $row = "[{$row}]";
-        }
-
-        return "{$sheetText}R{$row}C{$column}";
+        return CellAddress::address($row, $column, $relativity, $referenceStyle, $sheetText);
     }
 
     /**
@@ -615,6 +587,10 @@ class LookupRef
     /**
      * TRANSPOSE.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the transpose() method in the LookupRef\Matrix class instead
+     *
      * @param array $matrixData A matrix of values
      *
      * @return array
@@ -624,22 +600,7 @@ class LookupRef
      */
     public static function TRANSPOSE($matrixData)
     {
-        $returnMatrix = [];
-        if (!is_array($matrixData)) {
-            $matrixData = [[$matrixData]];
-        }
-
-        $column = 0;
-        foreach ($matrixData as $matrixRow) {
-            $row = 0;
-            foreach ($matrixRow as $matrixCell) {
-                $returnMatrix[$row][$column] = $matrixCell;
-                ++$row;
-            }
-            ++$column;
-        }
-
-        return $returnMatrix;
+        return Matrix::transpose($matrixData);
     }
 
     /**
