@@ -25,25 +25,20 @@ class Lookup
             return Functions::NA();
         }
         $hasResultVector = isset($resultVector);
-        $lookupRows = count($lookupVector);
-        $l = array_keys($lookupVector);
-        $l = array_shift($l);
-        $lookupColumns = count($lookupVector[$l]);
+        $lookupRows = self::rowCount($lookupVector);
+        $lookupColumns = self::columnCount($lookupVector);
         // we correctly orient our results
         if (($lookupRows === 1 && $lookupColumns > 1) || (!$hasResultVector && $lookupRows === 2 && $lookupColumns !== 2)) {
             $lookupVector = LookupRef::TRANSPOSE($lookupVector);
-            $lookupRows = count($lookupVector);
-            $l = array_keys($lookupVector);
-            $lookupColumns = count($lookupVector[array_shift($l)]);
+            $lookupRows = self::rowCount($lookupVector);
+            $lookupColumns = self::columnCount($lookupVector);
         }
 
         if ($resultVector === null) {
             $resultVector = $lookupVector;
         }
-        $resultRows = count($resultVector);
-        $l = array_keys($resultVector);
-        $l = array_shift($l);
-        $resultColumns = count($resultVector[$l]);
+        $resultRows = self::rowCount($resultVector);
+        $resultColumns = self::columnCount($resultVector);
         // we correctly orient our results
         if ($resultRows === 1 && $resultColumns > 1) {
             $resultVector = LookupRef::TRANSPOSE($resultVector);
@@ -74,6 +69,7 @@ class Lookup
                 $key2 = 1;
                 $dataValue1 = $value;
             }
+
             $dataValue2 = array_shift($resultVector);
             if (is_array($dataValue2)) {
                 $dataValue2 = array_shift($dataValue2);
@@ -83,5 +79,17 @@ class Lookup
         unset($value);
 
         return $lookupVector;
+    }
+
+    private static function rowCount(array $dataArray): int
+    {
+        return count($dataArray);
+    }
+
+    private static function columnCount(array $dataArray): int
+    {
+        $rowKeys = array_keys($dataArray);
+        $row = array_shift($rowKeys);
+        return count($dataArray[$row]);
     }
 }
