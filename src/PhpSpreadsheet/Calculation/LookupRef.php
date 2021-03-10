@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -646,7 +648,7 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the VLOOKUP() method in the LookupRef\Lookup class instead
+     * @see Use the lookup() method in the LookupRef\VLookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_array The range of cells being searched
@@ -658,7 +660,7 @@ class LookupRef
      */
     public static function VLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
     {
-        return Lookup::VLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match);
+        return VLookup::lookup($lookup_value, $lookup_array, $index_number, $not_exact_match);
     }
 
     /**
@@ -668,7 +670,7 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the HLOOKUP() method in the LookupRef\Lookup class instead
+     * @see Use the lookup() method in the LookupRef\HLookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_array The range of cells being searched
@@ -680,7 +682,7 @@ class LookupRef
      */
     public static function HLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
     {
-        return Lookup::HLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match);
+        return HLookup::lookup($lookup_value, $lookup_array, $index_number, $not_exact_match);
     }
 
     /**
@@ -689,7 +691,7 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the LOOKUP() method in the LookupRef\Lookup class instead
+     * @see Use the lookup() method in the LookupRef\Lookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_vector The range of cells being searched
@@ -699,7 +701,7 @@ class LookupRef
      */
     public static function LOOKUP($lookup_value, $lookup_vector, $result_vector = null)
     {
-        return Lookup::LOOKUP($lookup_value, $lookup_vector, $result_vector);
+        return Lookup::lookup($lookup_value, $lookup_vector, $result_vector);
     }
 
     /**
