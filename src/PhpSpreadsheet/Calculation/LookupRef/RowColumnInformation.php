@@ -39,22 +39,23 @@ class RowColumnInformation
 
                 return (int) Coordinate::columnIndexFromString($columnKey);
             }
-        } else {
-            [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
-                $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
-                $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
-
-                return range(
-                    (int) Coordinate::columnIndexFromString($startAddress),
-                    (int) Coordinate::columnIndexFromString($endAddress)
-                );
-            }
-            $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
-
-            return (int) Coordinate::columnIndexFromString($cellAddress);
         }
+
+        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
+        if (strpos($cellAddress, ':') !== false) {
+            [$startAddress, $endAddress] = explode(':', $cellAddress);
+            $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
+            $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
+
+            return range(
+                (int) Coordinate::columnIndexFromString($startAddress),
+                (int) Coordinate::columnIndexFromString($endAddress)
+            );
+        }
+
+        $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
+
+        return (int) Coordinate::columnIndexFromString($cellAddress);
     }
 
     /**
@@ -118,23 +119,23 @@ class RowColumnInformation
                     return (int) preg_replace('/\D/', '', $rowKey);
                 }
             }
-        } else {
-            [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            if (strpos($cellAddress, ':') !== false) {
-                [$startAddress, $endAddress] = explode(':', $cellAddress);
-                $startAddress = preg_replace('/\D/', '', $startAddress);
-                $endAddress = preg_replace('/\D/', '', $endAddress);
-                $returnValue = [];
-                do {
-                    $returnValue[][] = (int) $startAddress;
-                } while ($startAddress++ != $endAddress);
-
-                return $returnValue;
-            }
-            [$cellAddress] = explode(':', $cellAddress);
-
-            return (int) preg_replace('/\D/', '', $cellAddress);
         }
+
+        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
+        if (strpos($cellAddress, ':') !== false) {
+            [$startAddress, $endAddress] = explode(':', $cellAddress);
+            $startAddress = preg_replace('/\D/', '', $startAddress);
+            $endAddress = preg_replace('/\D/', '', $endAddress);
+            $returnValue = [];
+            do {
+                $returnValue[][] = (int) $startAddress;
+            } while ($startAddress++ != $endAddress);
+
+            return $returnValue;
+        }
+        [$cellAddress] = explode(':', $cellAddress);
+
+        return (int) preg_replace('/\D/', '', $cellAddress);
     }
 
     /**
