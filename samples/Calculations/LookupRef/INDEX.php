@@ -23,8 +23,8 @@ $data2 = [
     [8, 3],
 ];
 
-$worksheet->fromArray($data1,null, 'A1');
-$worksheet->fromArray($data2,null, 'C1');
+$worksheet->fromArray($data1, null, 'A1');
+$worksheet->fromArray($data2, null, 'C1');
 
 $worksheet->getCell('A11')->setValue('=INDEX(A1:B2, 2, 2)');
 $worksheet->getCell('A12')->setValue('=INDEX(A1:B2, 2, 1)');

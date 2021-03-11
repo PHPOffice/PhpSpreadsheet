@@ -42,9 +42,9 @@ class Matrix
      *        =INDEX(range_array, row_num, [column_num])
      *
      * @param mixed $matrix A range of cells or an array constant
-     * @param mixed $rowNum The row in array from which to return a value.
+     * @param mixed $rowNum The row in the array or range from which to return a value.
      *                          If row_num is omitted, column_num is required.
-     * @param mixed $columnNum The column in array from which to return a value.
+     * @param mixed $columnNum The column in the array or range from which to return a value.
      *                          If column_num is omitted, row_num is required.
      *
      * @return mixed the value of a specified cell or array of cells
@@ -54,7 +54,7 @@ class Matrix
         $rowNum = Functions::flattenSingleValue($rowNum);
         $columnNum = Functions::flattenSingleValue($columnNum);
 
-        if (!is_numeric($rowNum) || !is_numeric($columnNum) ||( $rowNum < 0) || ($columnNum < 0)) {
+        if (!is_numeric($rowNum) || !is_numeric($columnNum) || ($rowNum < 0) || ($columnNum < 0)) {
             return Functions::VALUE();
         }
 

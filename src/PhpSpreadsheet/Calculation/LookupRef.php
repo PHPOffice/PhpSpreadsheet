@@ -533,9 +533,11 @@ class LookupRef
      *
      * @see Use the index() method in the LookupRef\Matrix class instead
      *
-     * @param mixed $arrayValues A range of cells or an array constant
-     * @param mixed $rowNum The row in array from which to return a value. If row_num is omitted, column_num is required.
-     * @param mixed $columnNum The column in array from which to return a value. If column_num is omitted, row_num is required.
+     * @param mixed $rowNum The row in the array or range from which to return a value.
+     *                          If row_num is omitted, column_num is required.
+     * @param mixed $columnNum The column in the array or range from which to return a value.
+     *                             If column_num is omitted, row_num is required.
+     * @param mixed $matrix
      *
      * @return mixed the value of a specified cell or array of cells
      */
