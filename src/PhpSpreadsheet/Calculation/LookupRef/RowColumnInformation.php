@@ -45,12 +45,11 @@ class RowColumnInformation
                 [$startAddress, $endAddress] = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
-                $returnValue = [];
-                do {
-                    $returnValue[] = (int) Coordinate::columnIndexFromString($startAddress);
-                } while ($startAddress++ != $endAddress);
 
-                return $returnValue;
+                return range(
+                    (int) Coordinate::columnIndexFromString($startAddress),
+                    (int) Coordinate::columnIndexFromString($endAddress)
+                );
             }
             $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
 
@@ -114,8 +113,8 @@ class RowColumnInformation
         }
 
         if (is_array($cellAddress)) {
-            foreach ($cellAddress as $columnKey => $rowValue) {
-                foreach ($rowValue as $rowKey => $cellValue) {
+            foreach ($cellAddress as $rowKey => $rowValue) {
+                foreach ($rowValue as $columnKey => $cellValue) {
                     return (int) preg_replace('/\D/', '', $rowKey);
                 }
             }

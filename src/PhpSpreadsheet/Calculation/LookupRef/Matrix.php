@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 class Matrix
 {
     /**
@@ -29,5 +31,71 @@ class Matrix
         }
 
         return $returnMatrix;
+    }
+
+    /**
+     * INDEX.
+     *
+     * Uses an index to choose a value from a reference or array
+     *
+     * Excel Function:
+     *        =INDEX(range_array, row_num, [column_num])
+     *
+     * @param mixed $matrix A range of cells or an array constant
+     * @param mixed $rowNum The row in array from which to return a value.
+     *                          If row_num is omitted, column_num is required.
+     * @param mixed $columnNum The column in array from which to return a value.
+     *                          If column_num is omitted, row_num is required.
+     *
+     * @return mixed the value of a specified cell or array of cells
+     */
+    public static function index($matrix, $rowNum = 0, $columnNum = 0)
+    {
+        $rowNum = Functions::flattenSingleValue($rowNum);
+        $columnNum = Functions::flattenSingleValue($columnNum);
+
+        if (!is_numeric($rowNum) || !is_numeric($columnNum) ||( $rowNum < 0) || ($columnNum < 0)) {
+            return Functions::VALUE();
+        }
+
+        if (!is_array($matrix) || ($rowNum > count($matrix))) {
+            return Functions::REF();
+        }
+
+        $rowKeys = array_keys($matrix);
+        $columnKeys = @array_keys($matrix[$rowKeys[0]]);
+
+        if ($columnNum > count($columnKeys)) {
+            return Functions::VALUE();
+        } elseif ($columnNum == 0) {
+            if ($rowNum == 0) {
+                return $matrix;
+            }
+            $rowNum = $rowKeys[--$rowNum];
+            $returnArray = [];
+            foreach ($matrix as $arrayColumn) {
+                if (is_array($arrayColumn)) {
+                    if (isset($arrayColumn[$rowNum])) {
+                        $returnArray[] = $arrayColumn[$rowNum];
+                    } else {
+                        return [$rowNum => $matrix[$rowNum]];
+                    }
+                } else {
+                    return $matrix[$rowNum];
+                }
+            }
+
+            return $returnArray;
+        }
+
+        $columnNum = $columnKeys[--$columnNum];
+        if ($rowNum > count($rowKeys)) {
+            return Functions::VALUE();
+        } elseif ($rowNum == 0) {
+            return $matrix[$columnNum];
+        }
+        $rowNum = $rowKeys[--$rowNum];
+
+        return $matrix[$rowNum][$columnNum];
     }
 }
