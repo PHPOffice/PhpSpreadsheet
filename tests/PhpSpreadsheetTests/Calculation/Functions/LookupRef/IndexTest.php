@@ -21,6 +21,7 @@ class IndexTest extends TestCase
     public function testINDEX($expectedResult, ...$args): void
     {
         $result = LookupRef::INDEX(...$args);
+//        var_dump($result);
         self::assertEquals($expectedResult, $result);
     }
 

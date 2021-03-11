@@ -66,7 +66,7 @@ class Matrix
         $columnKeys = @array_keys($matrix[$rowKeys[0]]);
 
         if ($columnNum > count($columnKeys)) {
-            return Functions::VALUE();
+            return Functions::REF();
         } elseif ($columnNum == 0) {
             if ($rowNum == 0) {
                 return $matrix;
@@ -92,7 +92,12 @@ class Matrix
         if ($rowNum > count($rowKeys)) {
             return Functions::VALUE();
         } elseif ($rowNum == 0) {
-            return $matrix[$columnNum];
+            return array_map(
+                function ($value) {
+                    return [$value];
+                },
+                array_column($matrix, $columnNum)
+            );
         }
         $rowNum = $rowKeys[--$rowNum];
 
