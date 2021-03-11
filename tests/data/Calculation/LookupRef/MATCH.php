@@ -233,7 +233,7 @@ return [
     [
         2, // Expected
         'a*~*c',
-        ['aAAAAA', 'a123456*c', 'az'],
+        ['aAAAAA', 'a123456*c', 'az', 'alembic'],
         0,
     ],
     [

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
@@ -443,37 +444,8 @@ class LookupRef
 
                 if ($matchType === 0) {
                     if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
-                        $splitString = $lookupValue;
-                        $chars = array_map(function ($i) use ($splitString) {
-                            return mb_substr($splitString, $i, 1);
-                        }, range(0, mb_strlen($splitString) - 1));
-
-                        $length = count($chars);
-                        $pattern = '/^';
-                        for ($j = 0; $j < $length; ++$j) {
-                            if ($chars[$j] === '~') {
-                                if (isset($chars[$j + 1])) {
-                                    if ($chars[$j + 1] === '*') {
-                                        $pattern .= preg_quote($chars[$j + 1], '/');
-                                        ++$j;
-                                    } elseif ($chars[$j + 1] === '?') {
-                                        $pattern .= preg_quote($chars[$j + 1], '/');
-                                        ++$j;
-                                    }
-                                } else {
-                                    $pattern .= preg_quote($chars[$j], '/');
-                                }
-                            } elseif ($chars[$j] === '*') {
-                                $pattern .= '.*';
-                            } elseif ($chars[$j] === '?') {
-                                $pattern .= '.{1}';
-                            } else {
-                                $pattern .= preg_quote($chars[$j], '/');
-                            }
-                        }
-
-                        $pattern .= '$/';
-                        if ((bool) preg_match($pattern, $lookupArrayValue)) {
+                        $wildcard = WildcardMatch::wildcard($lookupValue);
+                        if (WildcardMatch::compare($lookupArrayValue, $wildcard)) {
                             // exact match
                             return $i + 1;
                         }
