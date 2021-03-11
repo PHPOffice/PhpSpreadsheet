@@ -41,7 +41,7 @@ class RowColumnInformation
             }
         }
 
-        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
+        [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
@@ -121,17 +121,18 @@ class RowColumnInformation
             }
         }
 
-        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
+        [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = preg_replace('/\D/', '', $startAddress);
             $endAddress = preg_replace('/\D/', '', $endAddress);
-            $returnValue = [];
-            do {
-                $returnValue[][] = (int) $startAddress;
-            } while ($startAddress++ != $endAddress);
 
-            return $returnValue;
+            return array_map(
+                function ($value) {
+                    return [$value];
+                },
+                range($startAddress, $endAddress)
+            );
         }
         [$cellAddress] = explode(':', $cellAddress);
 
