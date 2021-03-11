@@ -116,7 +116,7 @@ class Xml extends BaseReader
 
         $signature = [
             '<?xml version="1.0"',
-            '<?mso-application progid="Excel.Sheet"?>',
+            'xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet',
         ];
 
         // Open file
