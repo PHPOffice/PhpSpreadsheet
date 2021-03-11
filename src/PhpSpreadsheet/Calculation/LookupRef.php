@@ -529,59 +529,21 @@ class LookupRef
      * Excel Function:
      *        =INDEX(range_array, row_num, [column_num])
      *
-     * @param mixed $arrayValues A range of cells or an array constant
-     * @param mixed $rowNum The row in array from which to return a value. If row_num is omitted, column_num is required.
-     * @param mixed $columnNum The column in array from which to return a value. If column_num is omitted, row_num is required.
+     * @Deprecated 1.18.0
+     *
+     * @see Use the index() method in the LookupRef\Matrix class instead
+     *
+     * @param mixed $rowNum The row in the array or range from which to return a value.
+     *                          If row_num is omitted, column_num is required.
+     * @param mixed $columnNum The column in the array or range from which to return a value.
+     *                             If column_num is omitted, row_num is required.
+     * @param mixed $matrix
      *
      * @return mixed the value of a specified cell or array of cells
      */
-    public static function INDEX($arrayValues, $rowNum = 0, $columnNum = 0)
+    public static function INDEX($matrix, $rowNum = 0, $columnNum = 0)
     {
-        $rowNum = Functions::flattenSingleValue($rowNum);
-        $columnNum = Functions::flattenSingleValue($columnNum);
-
-        if (($rowNum < 0) || ($columnNum < 0)) {
-            return Functions::VALUE();
-        }
-
-        if (!is_array($arrayValues) || ($rowNum > count($arrayValues))) {
-            return Functions::REF();
-        }
-
-        $rowKeys = array_keys($arrayValues);
-        $columnKeys = @array_keys($arrayValues[$rowKeys[0]]);
-
-        if ($columnNum > count($columnKeys)) {
-            return Functions::VALUE();
-        } elseif ($columnNum == 0) {
-            if ($rowNum == 0) {
-                return $arrayValues;
-            }
-            $rowNum = $rowKeys[--$rowNum];
-            $returnArray = [];
-            foreach ($arrayValues as $arrayColumn) {
-                if (is_array($arrayColumn)) {
-                    if (isset($arrayColumn[$rowNum])) {
-                        $returnArray[] = $arrayColumn[$rowNum];
-                    } else {
-                        return [$rowNum => $arrayValues[$rowNum]];
-                    }
-                } else {
-                    return $arrayValues[$rowNum];
-                }
-            }
-
-            return $returnArray;
-        }
-        $columnNum = $columnKeys[--$columnNum];
-        if ($rowNum > count($rowKeys)) {
-            return Functions::VALUE();
-        } elseif ($rowNum == 0) {
-            return $arrayValues[$columnNum];
-        }
-        $rowNum = $rowKeys[--$rowNum];
-
-        return $arrayValues[$rowNum][$columnNum];
+        return Matrix::index($matrix, $rowNum, $columnNum);
     }
 
     /**
