@@ -73,7 +73,7 @@ class RowColumnInformation
      */
     public static function COLUMNS($cellAddress = null)
     {
-        if ($cellAddress === null || $cellAddress === '') {
+        if ($cellAddress === null || (is_string($cellAddress) && trim($cellAddress) === '')) {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();
@@ -153,7 +153,7 @@ class RowColumnInformation
      */
     public static function ROWS($cellAddress = null)
     {
-        if ($cellAddress === null || $cellAddress === '') {
+        if ($cellAddress === null || (is_string($cellAddress) && trim($cellAddress) === '')) {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return Functions::VALUE();

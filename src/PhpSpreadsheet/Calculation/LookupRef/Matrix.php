@@ -73,21 +73,14 @@ class Matrix
             if ($rowNum == 0) {
                 return $matrix;
             }
+
             $rowNum = $rowKeys[--$rowNum];
-            $returnArray = [];
-            foreach ($matrix as $arrayColumn) {
-                if (is_array($arrayColumn)) {
-                    if (isset($arrayColumn[$rowNum])) {
-                        $returnArray[] = $arrayColumn[$rowNum];
-                    } else {
-                        return [$rowNum => $matrix[$rowNum]];
-                    }
-                } else {
-                    return $matrix[$rowNum];
-                }
+            $row = $matrix[$rowNum];
+            if (is_array($row)) {
+                return [$rowNum => $row];
             }
 
-            return $returnArray;
+            return $row;
         }
 
         $columnNum = $columnKeys[--$columnNum];
