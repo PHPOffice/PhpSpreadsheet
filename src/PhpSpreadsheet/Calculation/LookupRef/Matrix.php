@@ -70,17 +70,7 @@ class Matrix
         }
 
         if ($columnNum == 0) {
-            if ($rowNum == 0) {
-                return $matrix;
-            }
-
-            $rowNum = $rowKeys[--$rowNum];
-            $row = $matrix[$rowNum];
-            if (is_array($row)) {
-                return [$rowNum => $row];
-            }
-
-            return $row;
+            return self::extractRowValue($matrix, $rowKeys, $rowNum);
         }
 
         $columnNum = $columnKeys[--$columnNum];
@@ -95,5 +85,20 @@ class Matrix
         $rowNum = $rowKeys[--$rowNum];
 
         return $matrix[$rowNum][$columnNum];
+    }
+
+    private static function extractRowValue(array $matrix, array $rowKeys, int $rowNum)
+    {
+        if ($rowNum == 0) {
+            return $matrix;
+        }
+
+        $rowNum = $rowKeys[--$rowNum];
+        $row = $matrix[$rowNum];
+        if (is_array($row)) {
+            return [$rowNum => $row];
+        }
+
+        return $row;
     }
 }
