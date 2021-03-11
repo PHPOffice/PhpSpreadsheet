@@ -272,4 +272,22 @@ return [
         [1, 22, 'aaa'],
         0,
     ],
+    [
+        '#N/A', // Expected
+        'abc',
+        [1, 22, 'aaa'],
+        0,
+    ],
+    [
+        '#N/A', // Expected (Invalid lookup value)
+        new DateTime('2021-03-11'),
+        [],
+        1,
+    ],
+    [
+        '#N/A', // Expected (Invalid match type)
+        'abc',
+        [],
+        123,
+    ],
 ];
