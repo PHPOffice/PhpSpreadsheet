@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
@@ -11,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LookupRef
@@ -381,7 +379,7 @@ class LookupRef
      */
     public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
     {
-        return LookupRef\Match::MATCH($lookupValue, $lookupArray, $matchType);
+        return LookupRef\ExcelMatch::MATCH($lookupValue, $lookupArray, $matchType);
     }
 
     /**

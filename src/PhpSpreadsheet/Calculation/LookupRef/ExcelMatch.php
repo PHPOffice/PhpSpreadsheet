@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-class Match
+class ExcelMatch
 {
     public const MATCHTYPE_SMALLEST_VALUE = -1;
     public const MATCHTYPE_FIRST_VALUE = 0;
@@ -33,11 +33,6 @@ class Match
         $lookupValue = Functions::flattenSingleValue($lookupValue);
         $matchType = ($matchType === null) ? self::MATCHTYPE_LARGEST_VALUE : (int) Functions::flattenSingleValue($matchType);
 
-        // MATCH is not case sensitive, so we convert lookup value to be lower cased in case it's string type.
-        if (is_string($lookupValue)) {
-            $lookupValue = StringHelper::strToLower($lookupValue);
-        }
-
         // Lookup_value type has to be number, text, or logical values
         if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
             return Functions::NA();
@@ -52,6 +47,11 @@ class Match
         $lookupArraySize = count($lookupArray);
         if ($lookupArraySize <= 0) {
             return Functions::NA();
+        }
+
+        // MATCH is not case sensitive, so we convert lookup value to be lower cased in case it's string type.
+        if (is_string($lookupValue)) {
+            $lookupValue = StringHelper::strToLower($lookupValue);
         }
 
         if ($matchType == self::MATCHTYPE_LARGEST_VALUE) {
