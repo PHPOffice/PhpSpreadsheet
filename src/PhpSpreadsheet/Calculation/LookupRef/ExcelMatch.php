@@ -128,11 +128,8 @@ class ExcelMatch
         // Return immediately if perfect match is found
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
-            $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
-            $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
-            $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
 
-            if ($exactMatch) {
+            if ($lookupArrayValue === $lookupValue) {
                 // Another "special" case. If a perfect match is found,
                 // the algorithm gives up immediately
                 return $i;
