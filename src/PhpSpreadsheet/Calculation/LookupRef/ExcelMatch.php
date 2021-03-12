@@ -76,7 +76,7 @@ class ExcelMatch
         }
 
         if ($valueKey !== null) {
-            return $valueKey;
+            return ++$valueKey;
         }
 
         // Unsuccessful in finding a match, return #N/A error value
@@ -99,10 +99,10 @@ class ExcelMatch
                 $wildcardLookup && WildcardMatch::compare($lookupArrayValue, $wildcard)
             ) {
                 // exact match
-                return $i + 1;
+                return $i;
             } elseif ($exactMatch) {
                 // exact match
-                return $i + 1;
+                return $i;
             }
         }
 
@@ -114,12 +114,8 @@ class ExcelMatch
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
                 (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
-
             if ($typeMatch && ($lookupArrayValue <= $lookupValue)) {
-                $i = array_search($i, $keySet);
-
-                // The current value is the (first) match
-                return $i + 1;
+                return array_search($i, $keySet);
             }
         }
 
@@ -142,9 +138,9 @@ class ExcelMatch
             if ($exactMatch) {
                 // Another "special" case. If a perfect match is found,
                 // the algorithm gives up immediately
-                return $i + 1;
+                return $i;
             } elseif ($typeMatch && $lookupArrayValue >= $lookupValue) {
-                $valueKey = $i + 1;
+                $valueKey = $i;
             } elseif ($typeMatch && $lookupArrayValue < $lookupValue) {
                 //Excel algorithm gives up immediately if the first element is smaller than the searched value
                 break;
