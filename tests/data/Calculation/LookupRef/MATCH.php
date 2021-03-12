@@ -281,13 +281,19 @@ return [
     [
         '#N/A', // Expected (Invalid lookup value)
         new DateTime('2021-03-11'),
-        [],
+        [1, 22, 'aaa'],
         1,
     ],
     [
         '#N/A', // Expected (Invalid match type)
         'abc',
-        [],
+        [1, 22, 'aaa'],
         123,
+    ],
+    [
+        '#N/A', // Expected (Empty lookup array)
+        'abc',
+        [],
+        1,
     ],
 ];
