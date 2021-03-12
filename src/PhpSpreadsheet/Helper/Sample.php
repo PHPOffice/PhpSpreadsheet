@@ -71,7 +71,7 @@ class Sample
     /**
      * Returns an array of all known samples.
      *
-     * @return string[] [$name => $path]
+     * @return string[][] [$name => $path]
      */
     public function getSamples()
     {

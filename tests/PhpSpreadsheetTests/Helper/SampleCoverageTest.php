@@ -25,7 +25,7 @@ class SampleCoverageTest extends TestCase
         $this->expectException(RuntimeException::class);
 
         $helper = $this->getMockBuilder(Sample::class)
-            ->setMethods(['isDirOrMkdir'])
+            ->onlyMethods(['isDirOrMkdir'])
             ->getMock();
         $helper->expects(self::atMost(1))->method('isDirOrMkdir')->willReturn(false);
         self::assertEquals('', $helper->getFilename('a.xlsx'));
