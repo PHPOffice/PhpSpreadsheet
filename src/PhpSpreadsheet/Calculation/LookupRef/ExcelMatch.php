@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -31,22 +32,17 @@ class ExcelMatch
     {
         $lookupArray = Functions::flattenArray($lookupArray);
         $lookupValue = Functions::flattenSingleValue($lookupValue);
-        $matchType = ($matchType === null) ? self::MATCHTYPE_LARGEST_VALUE : (int) Functions::flattenSingleValue($matchType);
+        $matchType = ($matchType === null)
+            ? self::MATCHTYPE_LARGEST_VALUE
+            : (int) Functions::flattenSingleValue($matchType);
 
-        // Lookup_value type has to be number, text, or logical values
-        if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
-            return Functions::NA();
-        }
-
-        // Match_type is 0, 1 or -1
-        if (($matchType !== self::MATCHTYPE_FIRST_VALUE) && ($matchType !== self::MATCHTYPE_LARGEST_VALUE) && ($matchType !== self::MATCHTYPE_SMALLEST_VALUE)) {
-            return Functions::NA();
-        }
-
-        // Lookup_array should not be empty
-        $lookupArraySize = count($lookupArray);
-        if ($lookupArraySize <= 0) {
-            return Functions::NA();
+        try {
+            // Input validation
+            self::validateLookupValue($lookupValue);
+            self::validateMatchType($matchType);
+            self::validateLookupArray($lookupArray);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         // MATCH is not case sensitive, so we convert lookup value to be lower cased in case it's string type.
@@ -54,11 +50,12 @@ class ExcelMatch
             $lookupValue = StringHelper::strToLower($lookupValue);
         }
 
+        $keySet = array_keys($lookupArray);
         if ($matchType == self::MATCHTYPE_LARGEST_VALUE) {
             // If match_type is 1 the list has to be processed from last to first
 
             $lookupArray = array_reverse($lookupArray);
-            $keySet = array_reverse(array_keys($lookupArray));
+            $keySet = array_reverse($keySet);
         }
 
         $lookupArray = self::prepareLookupArray($lookupArray, $matchType);
@@ -72,7 +69,8 @@ class ExcelMatch
 
         if ($matchType === self::MATCHTYPE_FIRST_VALUE || $matchType === self::MATCHTYPE_LARGEST_VALUE) {
             foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) || (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
+                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
+                    (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
                 $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
                 $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
                 $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
@@ -88,7 +86,8 @@ class ExcelMatch
                         // exact match
                         return $i + 1;
                     }
-                } elseif (($matchType === self::MATCHTYPE_LARGEST_VALUE) && $typeMatch && ($lookupArrayValue <= $lookupValue)) {
+                } elseif (($matchType === self::MATCHTYPE_LARGEST_VALUE) &&
+                    $typeMatch && ($lookupArrayValue <= $lookupValue)) {
                     $i = array_search($i, $keySet);
 
                     // The current value is the (first) match
@@ -128,6 +127,34 @@ class ExcelMatch
         return Functions::NA();
     }
 
+    private static function validateLookupValue($lookupValue): void
+    {
+        // Lookup_value type has to be number, text, or logical values
+        if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
+            throw new Exception(Functions::NA());
+        }
+    }
+
+    private static function validateMatchType($matchType): void
+    {
+        // Match_type is 0, 1 or -1
+        if (
+            ($matchType !== self::MATCHTYPE_FIRST_VALUE) &&
+            ($matchType !== self::MATCHTYPE_LARGEST_VALUE) && ($matchType !== self::MATCHTYPE_SMALLEST_VALUE)
+        ) {
+            throw new Exception(Functions::NA());
+        }
+    }
+
+    private static function validateLookupArray($lookupArray): void
+    {
+        // Lookup_array should not be empty
+        $lookupArraySize = count($lookupArray);
+        if ($lookupArraySize <= 0) {
+            throw new Exception(Functions::NA());
+        }
+    }
+
     private static function prepareLookupArray($lookupArray, $matchType)
     {
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
@@ -140,7 +167,10 @@ class ExcelMatch
             if (is_string($value)) {
                 $lookupArray[$i] = StringHelper::strToLower($value);
             }
-            if (($value === null) && (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))) {
+            if (
+                ($value === null) && (($matchType == self::MATCHTYPE_LARGEST_VALUE) ||
+                    ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
+            ) {
                 unset($lookupArray[$i]);
             }
         }
