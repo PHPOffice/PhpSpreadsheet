@@ -66,65 +66,79 @@ class ExcelMatch
         // **
         // find the match
         // **
-
+        $valueKey = null;
         if ($matchType === self::MATCHTYPE_FIRST_VALUE || $matchType === self::MATCHTYPE_LARGEST_VALUE) {
-            foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
-                    (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
-                $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
-                $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
-                $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
-
-                if ($matchType === self::MATCHTYPE_FIRST_VALUE) {
-                    if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
-                        $wildcard = WildcardMatch::wildcard($lookupValue);
-                        if (WildcardMatch::compare($lookupArrayValue, $wildcard)) {
-                            // exact match
-                            return $i + 1;
-                        }
-                    } elseif ($exactMatch) {
-                        // exact match
-                        return $i + 1;
-                    }
-                } elseif (($matchType === self::MATCHTYPE_LARGEST_VALUE) &&
-                    $typeMatch && ($lookupArrayValue <= $lookupValue)) {
-                    $i = array_search($i, $keySet);
-
-                    // The current value is the (first) match
-                    return $i + 1;
-                }
-            }
+            $valueKey = self::matchValue($lookupArray, $lookupValue, $matchType, $keySet);
         } else {
-            $maxValueKey = null;
+            $valueKey = self::matchSmallestValue($lookupArray, $lookupValue);
+        }
 
-            // The basic algorithm is:
-            // Iterate and keep the highest match until the next element is smaller than the searched value.
-            // Return immediately if perfect match is found
-            foreach ($lookupArray as $i => $lookupArrayValue) {
-                $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
-                $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
-                $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
-                $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
-
-                if ($exactMatch) {
-                    // Another "special" case. If a perfect match is found,
-                    // the algorithm gives up immediately
-                    return $i + 1;
-                } elseif ($typeMatch & $lookupArrayValue >= $lookupValue) {
-                    $maxValueKey = $i + 1;
-                } elseif ($typeMatch & $lookupArrayValue < $lookupValue) {
-                    //Excel algorithm gives up immediately if the first element is smaller than the searched value
-                    break;
-                }
-            }
-
-            if ($maxValueKey !== null) {
-                return $maxValueKey;
-            }
+        if ($valueKey !== null) {
+            return $valueKey;
         }
 
         // Unsuccessful in finding a match, return #N/A error value
         return Functions::NA();
+    }
+
+    private static function matchValue($lookupArray, $lookupValue, $matchType, $keySet)
+    {
+        foreach ($lookupArray as $i => $lookupArrayValue) {
+            $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
+                (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
+            $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
+            $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
+            $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
+
+            if ($matchType === self::MATCHTYPE_FIRST_VALUE) {
+                if ($typeMatch && is_string($lookupValue) && (bool) preg_match('/([\?\*])/', $lookupValue)) {
+                    $wildcard = WildcardMatch::wildcard($lookupValue);
+                    if (WildcardMatch::compare($lookupArrayValue, $wildcard)) {
+                        // exact match
+                        return $i + 1;
+                    }
+                } elseif ($exactMatch) {
+                    // exact match
+                    return $i + 1;
+                }
+            } elseif (($matchType === self::MATCHTYPE_LARGEST_VALUE) &&
+                $typeMatch && ($lookupArrayValue <= $lookupValue)) {
+                $i = array_search($i, $keySet);
+
+                // The current value is the (first) match
+                return $i + 1;
+            }
+        }
+
+        return null;
+    }
+
+    private static function matchSmallestValue($lookupArray, $lookupValue)
+    {
+        $valueKey = null;
+
+        // The basic algorithm is:
+        // Iterate and keep the highest match until the next element is smaller than the searched value.
+        // Return immediately if perfect match is found
+        foreach ($lookupArray as $i => $lookupArrayValue) {
+            $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+            $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
+            $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
+            $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
+
+            if ($exactMatch) {
+                // Another "special" case. If a perfect match is found,
+                // the algorithm gives up immediately
+                return $i + 1;
+            } elseif ($typeMatch & $lookupArrayValue >= $lookupValue) {
+                $valueKey = $i + 1;
+            } elseif ($typeMatch & $lookupArrayValue < $lookupValue) {
+                //Excel algorithm gives up immediately if the first element is smaller than the searched value
+                break;
+            }
+        }
+
+        return $valueKey;
     }
 
     private static function validateLookupValue($lookupValue): void
@@ -168,8 +182,8 @@ class ExcelMatch
                 $lookupArray[$i] = StringHelper::strToLower($value);
             }
             if (
-                ($value === null) && (($matchType == self::MATCHTYPE_LARGEST_VALUE) ||
-                    ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
+                ($value === null) &&
+                (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
             ) {
                 unset($lookupArray[$i]);
             }
