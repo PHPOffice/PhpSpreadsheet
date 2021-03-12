@@ -118,9 +118,6 @@ class ExcelMatch
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
                 (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
-            $exactTypeMatch = $typeMatch && $lookupArrayValue === $lookupValue;
-            $nonOnlyNumericExactMatch = !$typeMatch && $lookupArrayValue === $lookupValue;
-            $exactMatch = $exactTypeMatch || $nonOnlyNumericExactMatch;
 
             if ($typeMatch && ($lookupArrayValue <= $lookupValue)) {
                 $i = array_search($i, $keySet);
