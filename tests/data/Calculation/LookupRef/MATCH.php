@@ -26,7 +26,6 @@ return [
         [2, 0, 0, 3],
         0,
     ],
-
     // Third argument = 1
     [
         1, // Expected
@@ -52,7 +51,6 @@ return [
         [2, 0, 0, 3],
         1,
     ],
-
     // Third argument = -1
     [
         1, // Expected
@@ -96,7 +94,11 @@ return [
         [8, 8, 3, 2],
         -1,
     ],
-
+    [ // Default matchtype
+        4, // Expected
+        4, // Input
+        [2, 0, 0, 3],
+    ],
     // match on ranges with empty cells
     [
         3, // Expected
@@ -110,7 +112,6 @@ return [
         [1, null, 4, null, null],
         1,
     ],
-
     // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
     [
         3,
