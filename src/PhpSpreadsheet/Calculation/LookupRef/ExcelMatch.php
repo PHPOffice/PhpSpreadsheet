@@ -58,7 +58,6 @@ class ExcelMatch
         if (is_string($lookupValue)) {
             $lookupValue = StringHelper::strToLower($lookupValue);
         }
-        $wildcardLookup = ((bool) preg_match('/([\?\*])/', $lookupValue));
 
         $valueKey = null;
         switch ($matchType) {
@@ -67,7 +66,7 @@ class ExcelMatch
 
                 break;
             case self::MATCHTYPE_FIRST_VALUE:
-                $valueKey = self::matchFirstValue($lookupArray, $lookupValue, $wildcardLookup);
+                $valueKey = self::matchFirstValue($lookupArray, $lookupValue);
 
                 break;
             case self::MATCHTYPE_SMALLEST_VALUE:
@@ -83,8 +82,9 @@ class ExcelMatch
         return Functions::NA();
     }
 
-    private static function matchFirstValue($lookupArray, $lookupValue, $wildcardLookup)
+    private static function matchFirstValue($lookupArray, $lookupValue)
     {
+        $wildcardLookup = ((bool) preg_match('/([\?\*])/', $lookupValue));
         $wildcard = WildcardMatch::wildcard($lookupValue);
 
         foreach ($lookupArray as $i => $lookupArrayValue) {
@@ -111,6 +111,7 @@ class ExcelMatch
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
                 (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
+
             if ($typeMatch && ($lookupArrayValue <= $lookupValue)) {
                 return array_search($i, $keySet);
             }
