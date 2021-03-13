@@ -20,21 +20,25 @@ class Offset
      * Excel Function:
      *        =OFFSET(cellAddress, rows, cols, [height], [width])
      *
-     * @param null|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
-     *                                range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.
+     * @param null|string $cellAddress The reference from which you want to base the offset.
+     *                                     Reference must refer to a cell or range of adjacent cells;
+     *                                     otherwise, OFFSET returns the #VALUE! error value.
      * @param mixed $rows The number of rows, up or down, that you want the upper-left cell to refer to.
-     *                                Using 5 as the rows argument specifies that the upper-left cell in the reference is
-     *                                five rows below reference. Rows can be positive (which means below the starting reference)
-     *                                or negative (which means above the starting reference).
-     * @param mixed $columns The number of columns, to the left or right, that you want the upper-left cell of the result
-     *                                to refer to. Using 5 as the cols argument specifies that the upper-left cell in the
-     *                                reference is five columns to the right of reference. Cols can be positive (which means
-     *                                to the right of the starting reference) or negative (which means to the left of the
-     *                                starting reference).
-     * @param mixed $height The height, in number of rows, that you want the returned reference to be. Height must be a positive number.
-     * @param mixed $width The width, in number of columns, that you want the returned reference to be. Width must be a positive number.
+     *                        Using 5 as the rows argument specifies that the upper-left cell in the
+     *                        reference is five rows below reference. Rows can be positive (which means
+     *                        below the starting reference) or negative (which means above the starting
+     *                        reference).
+     * @param mixed $columns The number of columns, to the left or right, that you want the upper-left cell
+     *                           of the result to refer to. Using 5 as the cols argument specifies that the
+     *                           upper-left cell in the reference is five columns to the right of reference.
+     *                           Cols can be positive (which means to the right of the starting reference)
+     *                           or negative (which means to the left of the starting reference).
+     * @param mixed $height The height, in number of rows, that you want the returned reference to be.
+     *                          Height must be a positive number.
+     * @param mixed $width The width, in number of columns, that you want the returned reference to be.
+     *                         Width must be a positive number.
      *
-     * @return string A reference to a cell or range of cells
+     * @return array|string An array containing a cell or range of cells, or a string on error
      */
     public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
     {

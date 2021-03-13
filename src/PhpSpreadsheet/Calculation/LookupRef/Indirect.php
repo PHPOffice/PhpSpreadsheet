@@ -23,7 +23,7 @@ class Indirect
      * @param null|array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param Cell $pCell The current cell (containing this formula)
      *
-     * @return mixed The cells referenced by cellAddress
+     * @return array|string An array containing a cell or range of cells, or a string on error
      *
      * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
