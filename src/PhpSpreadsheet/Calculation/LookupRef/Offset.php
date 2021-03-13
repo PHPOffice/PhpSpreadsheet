@@ -75,14 +75,14 @@ class Offset
             return Functions::REF();
         }
         $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
-        if (($width != null) && (!is_object($width))) {
+        if (($width !== null) && (!is_object($width))) {
             $endCellColumn = $startCellColumn + $width - 1;
         } else {
             $endCellColumn += $columns;
         }
         $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
 
-        if (($height != null) && (!is_object($height))) {
+        if (($height !== null) && (!is_object($height))) {
             $endCellRow = $startCellRow + $height - 1;
         } else {
             $endCellRow += $rows;
@@ -93,17 +93,15 @@ class Offset
         }
         $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn + 1);
 
-        $cellAddress = $startCellColumn . $startCellRow;
+        $cellAddress = "{$startCellColumn}{$startCellRow}";
         if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {
-            $cellAddress .= ':' . $endCellColumn . $endCellRow;
+            $cellAddress .= ":{$endCellColumn}{$endCellRow}";
         }
 
-        if ($sheetName !== null) {
-            $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-        } else {
-            $pSheet = $pCell->getWorksheet();
-        }
+        $pSheet = ($sheetName !== null)
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $pCell->getWorksheet();
 
-        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance($pSheet->getParent())->extractCellRange($cellAddress, $pSheet, false);
     }
 }

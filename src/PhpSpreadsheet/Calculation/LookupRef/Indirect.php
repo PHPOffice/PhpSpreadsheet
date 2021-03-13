@@ -55,6 +55,6 @@ class Indirect
             $pSheet = $pCell->getWorksheet();
         }
 
-        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance($pSheet->getParent())->extractCellRange($cellAddress, $pSheet, false);
     }
 }

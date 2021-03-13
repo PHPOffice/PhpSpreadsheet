@@ -2702,7 +2702,7 @@ class Calculation
      * Get an instance of this class.
      *
      * @param ?Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
-     *                                    or NULL to create a standalone claculation engine
+     *                                    or NULL to create a standalone calculation engine
      */
     public static function getInstance(?Spreadsheet $spreadsheet = null): self
     {
