@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix for [Issue #1887](https://github.com/PHPOffice/PhpSpreadsheet/issues/1887) - Lose Track of Selected Cells After Save
 - Fixed issue with Xlsx@listWorksheetInfo not returning any data
 - Fixed invalid arguments triggering mb_substr() error in LEFT(), MID() and RIGHT() text functions. [Issue #640](https://github.com/PHPOffice/PhpSpreadsheet/issues/640)
+- Fix for [Issue #1916](https://github.com/PHPOffice/PhpSpreadsheet/issues/1916) - Invalid signature check for XML files
 
 ## 1.17.1 - 2021-03-01
 
