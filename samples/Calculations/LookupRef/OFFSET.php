@@ -22,7 +22,6 @@ $data = [
 ];
 $worksheet->fromArray($data, null, 'A3');
 
-
 $worksheet->getCell('H1')->setValue('=OFFSET(A3, 3, 1)');
 $worksheet->getCell('H2')->setValue('=SUM(OFFSET(A3, 3, 1, 1, 4))');
 $worksheet->getCell('H3')->setValue('=SUM(OFFSET(B3:E3, 3, 0))');

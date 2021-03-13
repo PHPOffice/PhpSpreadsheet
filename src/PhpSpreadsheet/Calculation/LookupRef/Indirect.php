@@ -44,19 +44,7 @@ class Indirect
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
             (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
         ) {
-            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
-            }
-
-            if (strpos($cellAddress, '!') !== false) {
-                [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-                $sheetName = trim($sheetName, "'");
-                $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-            } else {
-                $pSheet = $pCell->getWorksheet();
-            }
-
-            return Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, false);
         }
 
         if (strpos($cellAddress, '!') !== false) {
