@@ -133,6 +133,8 @@ class MathTrig
      * Note that the Excel ATAN2() function accepts its arguments in the reverse order to the standard
      *        PHP atan2() function, so we need to reverse them here before calling the PHP atan() function.
      *
+     * @Deprecated 2.0.0 Use the funcAtan2 method in the MathTrig\Atan2 class instead
+     *
      * Excel Function:
      *        ATAN2(xCoordinate,yCoordinate)
      *
@@ -143,27 +145,7 @@ class MathTrig
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
-        $xCoordinate = Functions::flattenSingleValue($xCoordinate);
-        $yCoordinate = Functions::flattenSingleValue($yCoordinate);
-
-        $xCoordinate = $xCoordinate ?? 0.0;
-        $yCoordinate = $yCoordinate ?? 0.0;
-
-        if (
-            ((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&
-            ((is_numeric($yCoordinate))) || (is_bool($yCoordinate))
-        ) {
-            $xCoordinate = (float) $xCoordinate;
-            $yCoordinate = (float) $yCoordinate;
-
-            if (($xCoordinate == 0) && ($yCoordinate == 0)) {
-                return Functions::DIV0();
-            }
-
-            return atan2($yCoordinate, $xCoordinate);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Atan2::funcAtan2($xCoordinate, $yCoordinate);
     }
 
     /**
@@ -226,8 +208,6 @@ class MathTrig
      * @param float $significance the multiple to which you want to round
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function CEILING($number, $significance = null)
     {
@@ -269,6 +249,8 @@ class MathTrig
     /**
      * EVEN.
      *
+     * @Deprecated 2.0.0 Use the funcEven method in the MathTrig\Even class instead
+     *
      * Returns number rounded up to the nearest even integer.
      * You can use this function for processing items that come in twos. For example,
      *        a packing crate accepts rows of one or two items. The crate is full when
@@ -284,26 +266,17 @@ class MathTrig
      */
     public static function EVEN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if ($number === null) {
-            return 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
-
-        if (is_numeric($number)) {
-            return self::getEven((float) $number);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Even::funcEven($number);
     }
 
+    /**
+     * Helper function for Even.
+     *
+     * @Deprecated 2.0.0 Use the getEven method in the MathTrig\Helpers class instead
+     */
     public static function getEven(float $number): int
     {
-        $significance = 2 * self::returnSign($number);
-
-        return (int) MathTrig\Ceiling::funcCeiling($number, $significance);
+        return (int) MathTrig\Helpers::getEven($number);
     }
 
     /**
@@ -395,8 +368,6 @@ class MathTrig
      * @param float $significance Significance
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function FLOOR($number, $significance = null)
     {
@@ -420,8 +391,6 @@ class MathTrig
      * @param int $mode direction to round negative numbers
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
@@ -444,8 +413,6 @@ class MathTrig
      * @param float $significance Significance
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function FLOORPRECISE($number, $significance = 1)
     {
@@ -472,8 +439,6 @@ class MathTrig
      * @param float $number Number to cast to an integer
      *
      * @return int|string Integer value, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function INT($number)
     {
@@ -797,8 +762,6 @@ class MathTrig
      * @param int $multiple Multiple to which you want to round $number
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function MROUND($number, $multiple)
     {
@@ -847,36 +810,15 @@ class MathTrig
      *
      * Returns number rounded up to the nearest odd integer.
      *
+     * @Deprecated 2.0.0 Use the funcOdd method in the MathTrig\Odd class instead
+     *
      * @param float $number Number to round
      *
      * @return int|string Rounded Number, or a string containing an error
      */
     public static function ODD($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if ($number === null) {
-            return 1;
-        } elseif (is_bool($number)) {
-            return 1;
-        } elseif (is_numeric($number)) {
-            $significance = self::returnSign($number);
-            if ($significance == 0) {
-                return 1;
-            }
-
-            $result = MathTrig\Ceiling::funcCeiling($number, $significance);
-            if (is_string($result)) {
-                return $result;
-            }
-            if ($result == self::getEven((float) $result)) {
-                $result += $significance;
-            }
-
-            return (int) $result;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Odd::funcOdd($number);
     }
 
     /**
@@ -1015,8 +957,6 @@ class MathTrig
      * @param mixed $style Number indicating one of five possible forms
      *
      * @return string Roman numeral, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function ROMAN($aValue, $style = 0)
     {
@@ -1036,8 +976,6 @@ class MathTrig
      * @param int $digits Number of digits to which you want to round $number
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function ROUNDUP($number, $digits)
     {
@@ -1057,8 +995,6 @@ class MathTrig
      * @param int $digits Number of digits to which you want to round $number
      *
      * @return float|string Rounded Number, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function ROUNDDOWN($number, $digits)
     {
@@ -1109,27 +1045,25 @@ class MathTrig
      * Determines the sign of a number. Returns 1 if the number is positive, zero (0)
      *        if the number is 0, and -1 if the number is negative.
      *
+     * @Deprecated 2.0.0 Use the funcSign method in the MathTrig\Sign class instead
+     *
      * @param float $number Number to round
      *
      * @return int|string sign value, or a string containing an error
      */
     public static function SIGN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (is_bool($number)) {
-            return (int) $number;
-        }
-        if (is_numeric($number)) {
-            return self::returnSign($number);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Sign::funcSign($number);
     }
 
+    /**
+     * returnSign = returns 0/-1/+1.
+     *
+     * @Deprecated 2.0.0 Use the returnSign method in the MathTrig\Helpers class instead
+     */
     public static function returnSign(float $number): int
     {
-        return $number ? (($number > 0) ? 1 : -1) : 0;
+        return MathTrig\Helpers::returnSign($number);
     }
 
     /**
@@ -1486,8 +1420,6 @@ class MathTrig
      * @param int $digits
      *
      * @return float|string Truncated value, or a string containing an error
-     *
-     * @codeCoverageIgnore
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
@@ -1499,21 +1431,15 @@ class MathTrig
      *
      * Returns the secant of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcSec method in the MathTrig\Sec class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The secant of the angle
      */
     public static function SEC($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = cos($angle);
-
-        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
+        return MathTrig\Sec::funcSec($angle);
     }
 
     /**
@@ -1521,21 +1447,15 @@ class MathTrig
      *
      * Returns the hyperbolic secant of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcSech method in the MathTrig\Sech class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The hyperbolic secant of the angle
      */
     public static function SECH($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = cosh($angle);
-
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return MathTrig\Sech::funcSech($angle);
     }
 
     /**
@@ -1543,21 +1463,15 @@ class MathTrig
      *
      * Returns the cosecant of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcCsc method in the MathTrig\Csc class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The cosecant of the angle
      */
     public static function CSC($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = sin($angle);
-
-        return self::verySmallDivisor($result) ? Functions::DIV0() : (1 / $result);
+        return MathTrig\Csc::funcCsc($angle);
     }
 
     /**
@@ -1565,21 +1479,15 @@ class MathTrig
      *
      * Returns the hyperbolic cosecant of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcCsch method in the MathTrig\Csch class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The hyperbolic cosecant of the angle
      */
     public static function CSCH($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = sinh($angle);
-
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return MathTrig\Csch::funcCsch($angle);
     }
 
     /**
@@ -1587,21 +1495,15 @@ class MathTrig
      *
      * Returns the cotangent of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcCot method in the MathTrig\Cot class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The cotangent of the angle
      */
     public static function COT($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = sin($angle);
-
-        return self::verySmallDivisor($result) ? Functions::DIV0() : (cos($angle) / $result);
+        return MathTrig\Cot::funcCot($angle);
     }
 
     /**
@@ -1609,21 +1511,15 @@ class MathTrig
      *
      * Returns the hyperbolic cotangent of an angle.
      *
+     * @Deprecated 2.0.0 Use the funcCoth method in the MathTrig\Coth class instead
+     *
      * @param float $angle Number
      *
      * @return float|string The hyperbolic cotangent of the angle
      */
     public static function COTH($angle)
     {
-        $angle = Functions::flattenSingleValue($angle);
-
-        if (!is_numeric($angle)) {
-            return Functions::VALUE();
-        }
-
-        $result = tanh($angle);
-
-        return ($result == 0.0) ? Functions::DIV0() : 1 / $result;
+        return MathTrig\Coth::funcCoth($angle);
     }
 
     /**
@@ -1631,23 +1527,21 @@ class MathTrig
      *
      * Returns the arccotangent of a number.
      *
+     * @Deprecated 2.0.0 Use the funcAcot method in the MathTrig\Acot class instead
+     *
      * @param float $number Number
      *
      * @return float|string The arccotangent of the number
      */
     public static function ACOT($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return (M_PI / 2) - atan($number);
+        return MathTrig\Acot::funcAcot($number);
     }
 
     /**
      * Return NAN or value depending on argument.
+     *
+     * @Deprecated 2.0.0 Use the numberOrNan method in the MathTrig\Helpers class instead
      *
      * @param float $result Number
      *
@@ -1655,7 +1549,7 @@ class MathTrig
      */
     public static function numberOrNan($result)
     {
-        return is_nan($result) ? Functions::NAN() : $result;
+        return MathTrig\Helpers::numberOrNan($result);
     }
 
     /**
@@ -1663,21 +1557,15 @@ class MathTrig
      *
      * Returns the hyperbolic arccotangent of a number.
      *
+     * @Deprecated 2.0.0 Use the funcAcoth method in the MathTrig\Acoth class instead
+     *
      * @param float $number Number
      *
      * @return float|string The hyperbolic arccotangent of the number
      */
     public static function ACOTH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        $result = log(($number + 1) / ($number - 1)) / 2;
-
-        return self::numberOrNan($result);
+        return MathTrig\Acoth::funcAcoth($number);
     }
 
     /**
@@ -1693,8 +1581,6 @@ class MathTrig
      * @param mixed $precision Should be int
      *
      * @return float|string Rounded number
-     *
-     * @codeCoverageIgnore
      */
     public static function builtinROUND($number, $precision)
     {
@@ -1724,6 +1610,8 @@ class MathTrig
     /**
      * ACOS.
      *
+     * @Deprecated 2.0.0 Use the funcAcos method in the MathTrig\Acos class instead
+     *
      * Returns the result of builtin function acos after validating args.
      *
      * @param mixed $number Should be numeric
@@ -1732,13 +1620,7 @@ class MathTrig
      */
     public static function builtinACOS($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::numberOrNan(acos($number));
+        return MathTrig\Acos::funcAcos($number);
     }
 
     /**
@@ -1746,19 +1628,15 @@ class MathTrig
      *
      * Returns the result of builtin function acosh after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcAcosh method in the MathTrig\Acosh class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinACOSH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::numberOrNan(acosh($number));
+        return MathTrig\Acosh::funcAcosh($number);
     }
 
     /**
@@ -1766,19 +1644,15 @@ class MathTrig
      *
      * Returns the result of builtin function asin after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcAsin method in the MathTrig\Asin class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinASIN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::numberOrNan(asin($number));
+        return MathTrig\Asin::funcAsin($number);
     }
 
     /**
@@ -1786,25 +1660,23 @@ class MathTrig
      *
      * Returns the result of builtin function asinh after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcAsinh method in the MathTrig\Asinh class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinASINH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return asinh($number);
+        return MathTrig\Asinh::funcAsinh($number);
     }
 
     /**
-     * ASIN.
+     * ATAN.
      *
      * Returns the result of builtin function atan after validating args.
+     *
+     * @Deprecated 2.0.0 Use the funcAtan method in the MathTrig\Atan class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1812,13 +1684,7 @@ class MathTrig
      */
     public static function builtinATAN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::numberOrNan(atan($number));
+        return MathTrig\Atan::funcAtan($number);
     }
 
     /**
@@ -1826,19 +1692,15 @@ class MathTrig
      *
      * Returns the result of builtin function atanh after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcAtanh method in the MathTrig\Atanh class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinATANH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return atanh($number);
+        return MathTrig\Atanh::funcAtanh($number);
     }
 
     /**
@@ -1846,19 +1708,15 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcCos method in the MathTrig\Cos class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinCOS($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return cos($number);
+        return MathTrig\Cos::funcCos($number);
     }
 
     /**
@@ -1866,19 +1724,15 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcCosh method in the MathTrig\Cosh class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinCOSH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return cosh($number);
+        return MathTrig\Cosh::funcCosh($number);
     }
 
     /**
@@ -1984,6 +1838,8 @@ class MathTrig
     /**
      * SIN.
      *
+     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
+     *
      * Returns the result of builtin function sin after validating args.
      *
      * @param mixed $number Should be numeric
@@ -1992,17 +1848,13 @@ class MathTrig
      */
     public static function builtinSIN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return sin($number);
+        return MathTrig\Sin::funcSin($number);
     }
 
     /**
      * SINH.
+     *
+     * @Deprecated 2.0.0 Use the funcSinh method in the MathTrig\Sinh class instead
      *
      * Returns the result of builtin function sinh after validating args.
      *
@@ -2012,13 +1864,7 @@ class MathTrig
      */
     public static function builtinSINH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return sinh($number);
+        return MathTrig\Sinh::funcSinh($number);
     }
 
     /**
@@ -2046,19 +1892,15 @@ class MathTrig
      *
      * Returns the result of builtin function tan after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcTan method in the MathTrig\Tan class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinTAN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::verySmallDivisor(cos($number)) ? Functions::DIV0() : tan($number);
+        return MathTrig\Tan::funcTan($number);
     }
 
     /**
@@ -2066,28 +1908,21 @@ class MathTrig
      *
      * Returns the result of builtin function sinh after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcTanh method in the MathTrig\Tanh class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinTANH($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return tanh($number);
-    }
-
-    private static function verySmallDivisor(float $number): bool
-    {
-        return abs($number) < 1.0E-12;
+        return MathTrig\Tanh::funcTanh($number);
     }
 
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
+     *
+     * @Deprecated 2.0.0 Use the validateNumericNullBool method in the MathTrig\Helpers class instead
      *
      * @param mixed $number
      */

@@ -12,19 +12,16 @@ class SinTest extends TestCase
      * @dataProvider providerSin
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testSin($expectedResult, $val = null): void
+    public function testSin($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=SIN()';
-        } else {
-            $formula = "=SIN($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->setCellValue('A2', 2);
+        $sheet->getCell('A1')->setValue("=SIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

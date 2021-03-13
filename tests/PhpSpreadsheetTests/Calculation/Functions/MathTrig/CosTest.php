@@ -12,19 +12,16 @@ class CosTest extends TestCase
      * @dataProvider providerCos
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testCos($expectedResult, $val = null): void
+    public function testCos($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=COS()';
-        } else {
-            $formula = "=COS($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->setCellValue('A2', 2);
+        $sheet->getCell('A1')->setValue("=COS($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

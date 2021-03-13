@@ -2,17 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class EvenTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerEVEN
      *
@@ -21,8 +16,14 @@ class EvenTest extends TestCase
      */
     public function testEVEN($expectedResult, $value): void
     {
-        $result = MathTrig::EVEN($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        if ($expectedResult === 'exception') {
+            $this->expectException(CalcExp::class);
+        }
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue("=EVEN($value)");
+        $sheet->getCell('A2')->setValue(3.7);
+        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
     public function providerEVEN()

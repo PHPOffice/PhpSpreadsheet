@@ -243,22 +243,22 @@ class Calculation
         ],
         'ACOS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinACOS'],
+            'functionCall' => [MathTrig\Acos::class, 'funcAcos'],
             'argumentCount' => '1',
         ],
         'ACOSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinACOSH'],
+            'functionCall' => [MathTrig\Acosh::class, 'funcAcosh'],
             'argumentCount' => '1',
         ],
         'ACOT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ACOT'],
+            'functionCall' => [MathTrig\Acot::class, 'funcAcot'],
             'argumentCount' => '1',
         ],
         'ACOTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ACOTH'],
+            'functionCall' => [MathTrig\Acoth::class, 'funcAcoth'],
             'argumentCount' => '1',
         ],
         'ADDRESS' => [
@@ -303,27 +303,27 @@ class Calculation
         ],
         'ASIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinASIN'],
+            'functionCall' => [MathTrig\Asin::class, 'funcAsin'],
             'argumentCount' => '1',
         ],
         'ASINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinASINH'],
+            'functionCall' => [MathTrig\Asinh::class, 'funcAsinh'],
             'argumentCount' => '1',
         ],
         'ATAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinATAN'],
+            'functionCall' => [MathTrig\Atan::class, 'funcAtan'],
             'argumentCount' => '1',
         ],
         'ATAN2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ATAN2'],
+            'functionCall' => [MathTrig\Atan2::class, 'funcAtan2'],
             'argumentCount' => '2',
         ],
         'ATANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinATANH'],
+            'functionCall' => [MathTrig\Atanh::class, 'funcAtanh'],
             'argumentCount' => '1',
         ],
         'AVEDEV' => [
@@ -605,22 +605,22 @@ class Calculation
         ],
         'COS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinCOS'],
+            'functionCall' => [MathTrig\Cos::class, 'funcCos'],
             'argumentCount' => '1',
         ],
         'COSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinCOSH'],
+            'functionCall' => [MathTrig\Cosh::class, 'funcCosh'],
             'argumentCount' => '1',
         ],
         'COT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'COT'],
+            'functionCall' => [MathTrig\Cot::class, 'funcCot'],
             'argumentCount' => '1',
         ],
         'COTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'COTH'],
+            'functionCall' => [MathTrig\Coth::class, 'funcCoth'],
             'argumentCount' => '1',
         ],
         'COUNT' => [
@@ -700,12 +700,12 @@ class Calculation
         ],
         'CSC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'CSC'],
+            'functionCall' => [MathTrig\Csc::class, 'funcCsc'],
             'argumentCount' => '1',
         ],
         'CSCH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'CSCH'],
+            'functionCall' => [MathTrig\Csch::class, 'funcCsch'],
             'argumentCount' => '1',
         ],
         'CUBEKPIMEMBER' => [
@@ -965,7 +965,7 @@ class Calculation
         ],
         'EVEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'EVEN'],
+            'functionCall' => [MathTrig\Even::class, 'funcEven'],
             'argumentCount' => '1',
         ],
         'EXACT' => [
@@ -1856,7 +1856,7 @@ class Calculation
         ],
         'ODD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ODD'],
+            'functionCall' => [MathTrig\Odd::class, 'funcOdd'],
             'argumentCount' => '1',
         ],
         'ODDFPRICE' => [
@@ -2165,12 +2165,12 @@ class Calculation
         ],
         'SEC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SEC'],
+            'functionCall' => [MathTrig\Sec::class, 'funcSec'],
             'argumentCount' => '1',
         ],
         'SECH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SECH'],
+            'functionCall' => [MathTrig\Sech::class, 'funcSech'],
             'argumentCount' => '1',
         ],
         'SECOND' => [
@@ -2200,7 +2200,7 @@ class Calculation
         ],
         'SIGN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SIGN'],
+            'functionCall' => [MathTrig\Sign::class, 'funcSign'],
             'argumentCount' => '1',
         ],
         'SIN' => [
@@ -2210,7 +2210,7 @@ class Calculation
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinSINH'],
+            'functionCall' => [MathTrig\Sinh::class, 'funcSinh'],
             'argumentCount' => '1',
         ],
         'SKEW' => [
@@ -2366,12 +2366,12 @@ class Calculation
         ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinTAN'],
+            'functionCall' => [MathTrig\Tan::class, 'funcTan'],
             'argumentCount' => '1',
         ],
         'TANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinTANH'],
+            'functionCall' => [MathTrig\Tanh::class, 'funcTanh'],
             'argumentCount' => '1',
         ],
         'TBILLEQ' => [

@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Floor
 {
@@ -31,19 +30,18 @@ class Floor
      */
     public static function funcFloor($number, $significance = null)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        $significance = Functions::flattenSingleValue($significance);
-
         if ($significance === null) {
             self::floorCheck1Arg();
-            $significance = MathTrig::returnSign((float) $number);
         }
 
-        if ((is_numeric($number)) && (is_numeric($significance))) {
-            return self::argumentsOk((float) $number, (float) $significance);
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $significance = Helpers::validateNumericNullSubstitution($significance, ($number < 0) ? -1 : 1);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        return self::argumentsOk((float) $number, (float) $significance);
     }
 
     /**
@@ -59,10 +57,10 @@ class Floor
         if ($number == 0.0) {
             return 0.0;
         }
-        if (MathTrig::returnSign($significance) == 1) {
+        if (Helpers::returnSign($significance) == 1) {
             return floor($number / $significance) * $significance;
         }
-        if (MathTrig::returnSign($number) == -1 && MathTrig::returnSign($significance) == -1) {
+        if (Helpers::returnSign($number) == -1 && Helpers::returnSign($significance) == -1) {
             return floor($number / $significance) * $significance;
         }
 
