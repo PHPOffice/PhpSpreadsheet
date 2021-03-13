@@ -44,7 +44,7 @@ class Indirect
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
             (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
         ) {
-                return Functions::REF();
+            return Functions::REF();
         }
 
         if (strpos($cellAddress, '!') !== false) {

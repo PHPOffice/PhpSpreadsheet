@@ -19,7 +19,7 @@ $data = [
 ];
 $worksheet->fromArray($data, null, 'C1');
 
-$spreadsheet->addNamedRange( new NamedRange('NAMED_RANGE_FOR_CELL_D4', $worksheet, '="$D$4"') );
+$spreadsheet->addNamedRange(new NamedRange('NAMED_RANGE_FOR_CELL_D4', $worksheet, '="$D$4"'));
 
 $worksheet->getCell('A1')->setValue('=INDIRECT("C1")');
 $worksheet->getCell('A2')->setValue('=INDIRECT("D"&4)');
