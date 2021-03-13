@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
+/**
+ * @covers \PhpOffice\PhpSpreadsheet\Helper\Sample
+ */
 class SampleCoverageTest extends TestCase
 {
     public function testSample(): void
@@ -15,9 +18,9 @@ class SampleCoverageTest extends TestCase
         self::assertArrayHasKey('Basic', $samples);
         $basic = $samples['Basic'];
         self::assertArrayHasKey('02 Types', $basic);
-        self::assertEquals('Basic/02_Types.php', $basic['02 Types']);
-        self::assertEquals('phpunit', $helper->getPageTitle());
-        self::assertEquals('<h1>phpunit</h1>', $helper->getPageHeading());
+        self::assertSame('Basic/02_Types.php', $basic['02 Types']);
+        self::assertSame('phpunit', $helper->getPageTitle());
+        self::assertSame('<h1>phpunit</h1>', $helper->getPageHeading());
     }
 
     public function testDirectoryFail(): void
@@ -27,7 +30,10 @@ class SampleCoverageTest extends TestCase
         $helper = $this->getMockBuilder(Sample::class)
             ->onlyMethods(['isDirOrMkdir'])
             ->getMock();
-        $helper->expects(self::atMost(1))->method('isDirOrMkdir')->willReturn(false);
-        self::assertEquals('', $helper->getFilename('a.xlsx'));
+        $helper->expects(self::once())
+            ->method('isDirOrMkdir')
+            ->with(self::isType('string'))
+            ->willReturn(false);
+        self::assertSame('', $helper->getFilename('a.xlsx'));
     }
 }
