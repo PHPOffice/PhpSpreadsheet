@@ -1337,7 +1337,7 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric index of the row
      * @param bool $create
      *
-     * @return RowDimension
+     * @return null|RowDimension
      */
     public function getRowDimension($pRow, $create = true)
     {
@@ -1363,7 +1363,7 @@ class Worksheet implements IComparable
      * @param string $pColumn String index of the column eg: 'A'
      * @param bool $create
      *
-     * @return ColumnDimension
+     * @return null|ColumnDimension
      */
     public function getColumnDimension($pColumn, $create = true)
     {
@@ -1390,7 +1390,7 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      *
-     * @return ColumnDimension
+     * @return null|ColumnDimension
      */
     public function getColumnDimensionByColumn($columnIndex)
     {
