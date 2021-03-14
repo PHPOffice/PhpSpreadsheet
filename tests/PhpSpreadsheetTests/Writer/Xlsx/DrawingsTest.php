@@ -42,4 +42,26 @@ class DrawingsTest extends AbstractFunctional
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
     }
+
+    /**
+     * Test save and load XLSX file with drawing with the same file name.
+     */
+    public function testSaveLoadWithDrawingWithSamePath(): void
+    {
+        // Read spreadsheet from file
+        $filePath = 'tests/data/Writer/XLSX/saving_drawing_with_same_path.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filePath);
+
+        $spreadsheet->getActiveSheet()->setCellValue('D5', 'foo');
+        // Save spreadsheet to file to the same path. Success test case won't
+        // throw exception here
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save($filePath);
+
+        $reloadedSpreadsheet = $reader->load($filePath);
+
+        // Fake assert. The only thing we need is to ensure the file is loaded without exception
+        self::assertNotNull($reloadedSpreadsheet);
+    }
 }
