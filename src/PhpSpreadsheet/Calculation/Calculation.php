@@ -448,7 +448,7 @@ class Calculation
         ],
         'BITXOR' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITOR'],
+            'functionCall' => [Engineering\BitWise::class, 'BITXOR'],
             'argumentCount' => '2',
         ],
         'BITLSHIFT' => [

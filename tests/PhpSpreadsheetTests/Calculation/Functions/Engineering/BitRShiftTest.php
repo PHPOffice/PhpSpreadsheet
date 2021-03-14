@@ -2,26 +2,27 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class BitRShiftTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerBITRSHIFT
      *
      * @param mixed $expectedResult
-     * @param mixed[] $args
      */
-    public function testBITRSHIFT($expectedResult, array $args): void
+    public function testBITRSHIFT($expectedResult, string $formula): void
     {
-        $result = Engineering::BITRSHIFT(...$args);
+        if ($expectedResult === 'exception') {
+            $this->expectException(CalcExp::class);
+        }
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A2', 8);
+        $sheet->getCell('A1')->setValue("=BITRSHIFT($formula)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
