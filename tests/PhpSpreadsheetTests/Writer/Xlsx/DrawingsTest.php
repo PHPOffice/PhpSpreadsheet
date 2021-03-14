@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;

@@ -108,7 +108,7 @@ abstract class BaseWriter implements IWriter
             return;
         }
 
-        $fileHandle = $filename ? fopen($filename, 'wb') : false;
+        $fileHandle = $filename ? fopen($filename, 'wb+') : false;
         if ($fileHandle === false) {
             throw new Exception('Could not open file "' . $filename . '" for writing.');
         }
