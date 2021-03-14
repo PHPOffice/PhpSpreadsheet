@@ -551,8 +551,7 @@ class Xlsx extends BaseWriter
 
     private function addZipFiles(array $zipContent): void
     {
-        foreach ($zipContent as $path => $content)
-        {
+        foreach ($zipContent as $path => $content) {
             $this->addZipFile($path, $content);
         }
     }
