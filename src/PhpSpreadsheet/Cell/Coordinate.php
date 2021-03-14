@@ -339,7 +339,8 @@ abstract class Coordinate
 
     private static function processRangeSetOperators(array $operators, array $cells): array
     {
-        for ($offset = 0; $offset < count($operators); ++$offset) {
+        $operatorCount = count($operators);
+        for ($offset = 0; $offset < $operatorCount; ++$offset) {
             $operator = $operators[$offset];
             if ($operator !== ' ') {
                 continue;
@@ -350,6 +351,7 @@ abstract class Coordinate
             $operators = array_values($operators);
             $cells = array_values($cells);
             --$offset;
+            --$operatorCount;
         }
 
         return $cells;
