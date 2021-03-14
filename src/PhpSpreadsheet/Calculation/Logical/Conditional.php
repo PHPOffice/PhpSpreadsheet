@@ -83,11 +83,11 @@ class Conditional
             $targetValue = Functions::flattenSingleValue($arguments[0]);
             $argc = count($arguments) - 1;
             $switchCount = floor($argc / 2);
-            $switchSatisfied = false;
             $hasDefaultClause = $argc % 2 !== 0;
-            $defaultClause = $argc % 2 === 0 ? null : $arguments[count($arguments) - 1];
+            $defaultClause = $argc % 2 === 0 ? null : $arguments[$argc];
 
-            if ($switchCount) {
+            $switchSatisfied = false;
+            if ($switchCount > 0) {
                 for ($index = 0; $index < $switchCount; ++$index) {
                     if ($targetValue == $arguments[$index * 2 + 1]) {
                         $result = $arguments[$index * 2 + 2];
@@ -98,7 +98,7 @@ class Conditional
                 }
             }
 
-            if (!$switchSatisfied) {
+            if ($switchSatisfied !== true) {
                 $result = $hasDefaultClause ? $defaultClause : Functions::NA();
             }
         }
