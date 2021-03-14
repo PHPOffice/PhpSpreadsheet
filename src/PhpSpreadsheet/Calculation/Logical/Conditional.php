@@ -83,11 +83,11 @@ class Conditional
             $targetValue = Functions::flattenSingleValue($arguments[0]);
             $argc = count($arguments) - 1;
             $switchCount = floor($argc / 2);
-            $switchSatisfied = false;
             $hasDefaultClause = $argc % 2 !== 0;
-            $defaultClause = $argc % 2 === 0 ? null : $arguments[count($arguments) - 1];
+            $defaultClause = $argc % 2 === 0 ? null : $arguments[$argc];
 
-            if ($switchCount) {
+            $switchSatisfied = false;
+            if ($switchCount > 0) {
                 for ($index = 0; $index < $switchCount; ++$index) {
                     if ($targetValue == $arguments[$index * 2 + 1]) {
                         $result = $arguments[$index * 2 + 2];
@@ -98,7 +98,7 @@ class Conditional
                 }
             }
 
-            if (!$switchSatisfied) {
+            if ($switchSatisfied !== true) {
                 $result = $hasDefaultClause ? $defaultClause : Functions::NA();
             }
         }
@@ -161,12 +161,14 @@ class Conditional
      */
     public static function IFS(...$arguments)
     {
-        if (count($arguments) % 2 != 0) {
+        $argumentCount = count($arguments);
+
+        if ($argumentCount % 2 != 0) {
             return Functions::NA();
         }
         // We use instance of Exception as a falseValue in order to prevent string collision with value in cell
         $falseValueException = new Exception();
-        for ($i = 0; $i < count($arguments); $i += 2) {
+        for ($i = 0; $i < $argumentCount; $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);
             $returnIfTrue = ($arguments[$i + 1] === null) ? '' : Functions::flattenSingleValue($arguments[$i + 1]);
             $result = self::statementIf($testValue, $returnIfTrue, $falseValueException);

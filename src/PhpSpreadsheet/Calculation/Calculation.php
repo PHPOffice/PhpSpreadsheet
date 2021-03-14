@@ -3345,18 +3345,15 @@ class Calculation
     }
 
     /**
-     * @param string $cellReference
      * @param mixed $cellValue
-     *
-     * @return bool
      */
-    public function getValueFromCache($cellReference, &$cellValue)
+    public function getValueFromCache(string $cellReference, &$cellValue): bool
     {
+        $this->debugLog->writeDebugLog("Testing cache value for cell {$cellReference}");
         // Is calculation cacheing enabled?
-        // Is the value present in calculation cache?
-        $this->debugLog->writeDebugLog('Testing cache value for cell ', $cellReference);
+        // If so, is the required value present in calculation cache?
         if (($this->calculationCacheEnabled) && (isset($this->calculationCache[$cellReference]))) {
-            $this->debugLog->writeDebugLog('Retrieving value for cell ', $cellReference, ' from cache');
+            $this->debugLog->writeDebugLog("Retrieving value for cell {$cellReference} from cache");
             // Return the cached result
 
             $cellValue = $this->calculationCache[$cellReference];
@@ -3418,7 +3415,7 @@ class Calculation
         if (($cellID !== null) && ($this->getValueFromCache($wsCellReference, $cellValue))) {
             return $cellValue;
         }
-        $this->debugLog->writeDebugLog('Evaluating formula for cell ', $wsCellReference);
+        $this->debugLog->writeDebugLog("Evaluating formula for cell {$wsCellReference}");
 
         if (($wsTitle[0] !== "\x00") && ($this->cyclicReferenceStack->onStack($wsCellReference))) {
             if ($this->cyclicFormulaCount <= 0) {
@@ -3440,7 +3437,7 @@ class Calculation
             }
         }
 
-        $this->debugLog->writeDebugLog('Formula for cell ', $wsCellReference, ' is ', $formula);
+        $this->debugLog->writeDebugLog("Formula for cell {$wsCellReference} is {$formula}");
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
 
@@ -4810,6 +4807,53 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
+     *
+     * @return array
+     */
+    private function executeArrayComparison($cellID, $operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays)
+    {
+        $result = [];
+        if (!is_array($operand2)) {
+            // Operand 1 is an array, Operand 2 is a scalar
+            foreach ($operand1 as $x => $operandData) {
+                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2));
+                $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2, $operation, $stack);
+                $r = $stack->pop();
+                $result[$x] = $r['value'];
+            }
+        } elseif (!is_array($operand1)) {
+            // Operand 1 is a scalar, Operand 2 is an array
+            foreach ($operand2 as $x => $operandData) {
+                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operand1), ' ', $operation, ' ', $this->showValue($operandData));
+                $this->executeBinaryComparisonOperation($cellID, $operand1, $operandData, $operation, $stack);
+                $r = $stack->pop();
+                $result[$x] = $r['value'];
+            }
+        } else {
+            // Operand 1 and Operand 2 are both arrays
+            if (!$recursingArrays) {
+                self::checkMatrixOperands($operand1, $operand2, 2);
+            }
+            foreach ($operand1 as $x => $operandData) {
+                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2[$x]));
+                $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2[$x], $operation, $stack, true);
+                $r = $stack->pop();
+                $result[$x] = $r['value'];
+            }
+        }
+        //    Log the result details
+        $this->debugLog->writeDebugLog('Comparison Evaluation Result is ', $this->showTypeDetails($result));
+        //    And push the result onto the stack
+        $stack->push('Array', $result);
+
+        return $result;
+    }
+
+    /**
+     * @param null|string $cellID
+     * @param mixed $operand1
+     * @param mixed $operand2
+     * @param string $operation
      * @param bool $recursingArrays
      *
      * @return mixed
@@ -4818,38 +4862,7 @@ class Calculation
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
-            $result = [];
-            if ((is_array($operand1)) && (!is_array($operand2))) {
-                foreach ($operand1 as $x => $operandData) {
-                    $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2));
-                    $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2, $operation, $stack);
-                    $r = $stack->pop();
-                    $result[$x] = $r['value'];
-                }
-            } elseif ((!is_array($operand1)) && (is_array($operand2))) {
-                foreach ($operand2 as $x => $operandData) {
-                    $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operand1), ' ', $operation, ' ', $this->showValue($operandData));
-                    $this->executeBinaryComparisonOperation($cellID, $operand1, $operandData, $operation, $stack);
-                    $r = $stack->pop();
-                    $result[$x] = $r['value'];
-                }
-            } else {
-                if (!$recursingArrays) {
-                    self::checkMatrixOperands($operand1, $operand2, 2);
-                }
-                foreach ($operand1 as $x => $operandData) {
-                    $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2[$x]));
-                    $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2[$x], $operation, $stack, true);
-                    $r = $stack->pop();
-                    $result[$x] = $r['value'];
-                }
-            }
-            //    Log the result details
-            $this->debugLog->writeDebugLog('Comparison Evaluation Result is ', $this->showTypeDetails($result));
-            //    And push the result onto the stack
-            $stack->push('Array', $result);
-
-            return $result;
+            return $this->executeArrayComparison($cellID, $operand1, $operand2, $operation, $stack, $recursingArrays);
         }
 
         //    Simple validate the two operands if they are string values
@@ -4863,10 +4876,10 @@ class Calculation
         // Use case insensitive comparaison if not OpenOffice mode
         if (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) {
             if (is_string($operand1)) {
-                $operand1 = strtoupper($operand1);
+                $operand1 = Shared\StringHelper::strToUpper($operand1);
             }
             if (is_string($operand2)) {
-                $operand2 = strtoupper($operand2);
+                $operand2 = Shared\StringHelper::strToUpper($operand2);
             }
         }
 
