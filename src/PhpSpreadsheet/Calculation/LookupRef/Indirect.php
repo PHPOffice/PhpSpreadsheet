@@ -30,9 +30,11 @@ class Indirect
     public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
-        if ($cellAddress === null || $cellAddress === '') {
+        if ($cellAddress === null || $cellAddress === '' || !is_object($pCell)) {
             return Functions::REF();
         }
+
+        [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
 
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
@@ -47,14 +49,27 @@ class Indirect
             return Functions::REF();
         }
 
+        return self::extractRequiredCells($pSheet, $cellAddress);
+    }
+
+    private static function extractRequiredCells(?Worksheet $pSheet, string $cellAddress)
+    {
+        return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
+            ->extractCellRange($cellAddress, $pSheet, false);
+    }
+
+    private static function extractWorksheet($cellAddress, Cell $pCell): array
+    {
+        $sheetName = null;
         if (strpos($cellAddress, '!') !== false) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
-            $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-        } else {
-            $pSheet = $pCell->getWorksheet();
         }
 
-        return Calculation::getInstance($pSheet->getParent())->extractCellRange($cellAddress, $pSheet, false);
+        $pSheet = ($sheetName !== null)
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $pCell->getWorksheet();
+
+        return [$cellAddress, $pSheet];
     }
 }

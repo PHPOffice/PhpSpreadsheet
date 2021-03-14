@@ -46,7 +46,8 @@ class Offset
         $columns = Functions::flattenSingleValue($columns);
         $height = Functions::flattenSingleValue($height);
         $width = Functions::flattenSingleValue($width);
-        if ($cellAddress === null) {
+
+        if ($cellAddress === null || $cellAddress === '') {
             return 0;
         }
 
@@ -59,6 +60,7 @@ class Offset
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }
+
         if (strpos($cellAddress, ':')) {
             [$startCell, $endCell] = explode(':', $cellAddress);
         } else {
@@ -102,6 +104,12 @@ class Offset
             ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
             : $pCell->getWorksheet();
 
-        return Calculation::getInstance($pSheet->getParent())->extractCellRange($cellAddress, $pSheet, false);
+        return self::extractRequiredCells($pSheet, $cellAddress);
+    }
+
+    private static function extractRequiredCells(?Worksheet $pSheet, string $cellAddress)
+    {
+        return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
+            ->extractCellRange($cellAddress, $pSheet, false);
     }
 }
