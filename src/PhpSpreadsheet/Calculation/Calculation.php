@@ -1408,7 +1408,7 @@ class Calculation
         ],
         'INDIRECT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'INDIRECT'],
+            'functionCall' => [LookupRef\Indirect::class, 'INDIRECT'],
             'argumentCount' => '1,2',
             'passCellReference' => true,
         ],
@@ -1881,7 +1881,7 @@ class Calculation
         ],
         'OFFSET' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'OFFSET'],
+            'functionCall' => [LookupRef\Offset::class, 'OFFSET'],
             'argumentCount' => '3-5',
             'passCellReference' => true,
             'passByReference' => [true],
@@ -2702,7 +2702,7 @@ class Calculation
      * Get an instance of this class.
      *
      * @param ?Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
-     *                                    or NULL to create a standalone claculation engine
+     *                                    or NULL to create a standalone calculation engine
      */
     public static function getInstance(?Spreadsheet $spreadsheet = null): self
     {
