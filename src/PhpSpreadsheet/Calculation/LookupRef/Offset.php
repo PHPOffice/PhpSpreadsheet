@@ -57,10 +57,9 @@ class Offset
 
         [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
 
+        $startCell = $endCell = $cellAddress;
         if (strpos($cellAddress, ':')) {
             [$startCell, $endCell] = explode(':', $cellAddress);
-        } else {
-            $startCell = $endCell = $cellAddress;
         }
         [$startCellColumn, $startCellRow] = Coordinate::coordinateFromString($startCell);
         [$endCellColumn, $endCellRow] = Coordinate::coordinateFromString($endCell);
@@ -72,19 +71,11 @@ class Offset
         if (($startCellRow <= 0) || ($startCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
-        if (($width !== null) && (!is_object($width))) {
-            $endCellColumn = $startCellColumn + $width - 1;
-        } else {
-            $endCellColumn += $columns;
-        }
+
+        $endCellColumn = self::adjustEndCellColumnForWidth($endCellColumn, $width, $startCellColumn, $columns);
         $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
 
-        if (($height !== null) && (!is_object($height))) {
-            $endCellRow = $startCellRow + $height - 1;
-        } else {
-            $endCellRow += $rows;
-        }
+        $endCellRow = self::adustEndCellRowForHeight($height, $startCellRow, $rows, $endCellRow);
 
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
             return Functions::REF();
@@ -107,16 +98,39 @@ class Offset
 
     private static function extractWorksheet($cellAddress, Cell $pCell): array
     {
-        $sheetName = null;
+        $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }
 
-        $pSheet = ($sheetName !== null)
+        $pSheet = ($sheetName !== '')
             ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
             : $pCell->getWorksheet();
 
         return [$cellAddress, $pSheet];
+    }
+
+    private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns)
+    {
+        $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
+        if (($width !== null) && (!is_object($width))) {
+            $endCellColumn = $startCellColumn + (int) $width - 1;
+        } else {
+            $endCellColumn += (int) $columns;
+        }
+
+        return $endCellColumn;
+    }
+
+    private static function adustEndCellRowForHeight($height, int $startCellRow, $rows, $endCellRow): int
+    {
+        if (($height !== null) && (!is_object($height))) {
+            $endCellRow = $startCellRow + (int) $height - 1;
+        } else {
+            $endCellRow += (int) $rows;
+        }
+
+        return $endCellRow;
     }
 }

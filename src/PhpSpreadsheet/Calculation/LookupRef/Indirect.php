@@ -60,13 +60,13 @@ class Indirect
 
     private static function extractWorksheet($cellAddress, Cell $pCell): array
     {
-        $sheetName = null;
+        $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }
 
-        $pSheet = ($sheetName !== null)
+        $pSheet = ($sheetName !== '')
             ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
             : $pCell->getWorksheet();
 
