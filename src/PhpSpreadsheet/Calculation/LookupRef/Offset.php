@@ -55,11 +55,7 @@ class Offset
             return Functions::REF();
         }
 
-        $sheetName = null;
-        if (strpos($cellAddress, '!')) {
-            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            $sheetName = trim($sheetName, "'");
-        }
+        [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
 
         if (strpos($cellAddress, ':')) {
             [$startCell, $endCell] = explode(':', $cellAddress);
@@ -100,10 +96,6 @@ class Offset
             $cellAddress .= ":{$endCellColumn}{$endCellRow}";
         }
 
-        $pSheet = ($sheetName !== null)
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
-            : $pCell->getWorksheet();
-
         return self::extractRequiredCells($pSheet, $cellAddress);
     }
 
@@ -111,5 +103,20 @@ class Offset
     {
         return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
             ->extractCellRange($cellAddress, $pSheet, false);
+    }
+
+    private static function extractWorksheet($cellAddress, Cell $pCell): array
+    {
+        $sheetName = null;
+        if (strpos($cellAddress, '!') !== false) {
+            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
+            $sheetName = trim($sheetName, "'");
+        }
+
+        $pSheet = ($sheetName !== null)
+            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $pCell->getWorksheet();
+
+        return [$cellAddress, $pSheet];
     }
 }
