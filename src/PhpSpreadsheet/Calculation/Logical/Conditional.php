@@ -161,12 +161,14 @@ class Conditional
      */
     public static function IFS(...$arguments)
     {
-        if (count($arguments) % 2 != 0) {
+        $argumentCount = count($arguments);
+
+        if ($argumentCount % 2 != 0) {
             return Functions::NA();
         }
         // We use instance of Exception as a falseValue in order to prevent string collision with value in cell
         $falseValueException = new Exception();
-        for ($i = 0; $i < count($arguments); $i += 2) {
+        for ($i = 0; $i < $argumentCount; $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);
             $returnIfTrue = ($arguments[$i + 1] === null) ? '' : Functions::flattenSingleValue($arguments[$i + 1]);
             $result = self::statementIf($testValue, $returnIfTrue, $falseValueException);
