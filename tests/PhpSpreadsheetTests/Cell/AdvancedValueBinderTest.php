@@ -46,7 +46,8 @@ class AdvancedValueBinderTest extends TestCase
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->onlyMethods(['getStyle', 'getCellCollection'])
+            ->addMethods(['getNumberFormat', 'setFormatCode'])
             ->getMock();
         $cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()
@@ -106,7 +107,8 @@ class AdvancedValueBinderTest extends TestCase
     public function testFractions($value, $valueBinded, $format): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->onlyMethods(['getStyle', 'getCellCollection'])
+            ->addMethods(['getNumberFormat', 'setFormatCode'])
             ->getMock();
 
         $cellCollection = $this->getMockBuilder(Cells::class)
@@ -164,7 +166,8 @@ class AdvancedValueBinderTest extends TestCase
     public function testPercentages($value, $valueBinded, $format): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->onlyMethods(['getStyle', 'getCellCollection'])
+            ->addMethods(['getNumberFormat', 'setFormatCode'])
             ->getMock();
         $cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()
@@ -214,7 +217,8 @@ class AdvancedValueBinderTest extends TestCase
     public function testTimes($value, $valueBinded, $format): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCollection'])
+            ->onlyMethods(['getStyle', 'getCellCollection'])
+            ->addMethods(['getNumberFormat', 'setFormatCode'])
             ->getMock();
 
         $cellCollection = $this->getMockBuilder(Cells::class)
@@ -265,7 +269,8 @@ class AdvancedValueBinderTest extends TestCase
     public function testStringWrapping(string $value, bool $wrapped): void
     {
         $sheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['getStyle', 'getAlignment', 'setWrapText', 'getCellCollection'])
+            ->onlyMethods(['getStyle', 'getCellCollection'])
+            ->addMethods(['getAlignment', 'setWrapText'])
             ->getMock();
         $cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()

@@ -25,7 +25,7 @@ class SubTotalTest extends TestCase
     public function testSUBTOTAL($expectedResult, ...$args): void
     {
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue', 'isFormula'])
+            ->onlyMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
@@ -33,7 +33,7 @@ class SubTotalTest extends TestCase
         $cell->method('getValue')
             ->willReturn(false);
         $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['cellExists', 'getCell'])
+            ->onlyMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
             ->getMock();
         $worksheet->method('cellExists')
@@ -41,7 +41,7 @@ class SubTotalTest extends TestCase
         $worksheet->method('getCell')
             ->willReturn($cell);
         $cellReference = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getWorksheet'])
+            ->onlyMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();
         $cellReference->method('getWorksheet')
@@ -75,7 +75,7 @@ class SubTotalTest extends TestCase
         $visibilityGenerator = $this->rowVisibility($hiddenRows);
 
         $rowDimension = $this->getMockBuilder(RowDimension::class)
-            ->setMethods(['getVisible'])
+            ->onlyMethods(['getVisible'])
             ->disableOriginalConstructor()
             ->getMock();
         $rowDimension->method('getVisible')
@@ -86,13 +86,13 @@ class SubTotalTest extends TestCase
                 return $result;
             });
         $columnDimension = $this->getMockBuilder(ColumnDimension::class)
-            ->setMethods(['getVisible'])
+            ->onlyMethods(['getVisible'])
             ->disableOriginalConstructor()
             ->getMock();
         $columnDimension->method('getVisible')
             ->willReturn(true);
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue', 'isFormula'])
+            ->onlyMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
@@ -100,7 +100,7 @@ class SubTotalTest extends TestCase
         $cell->method('getValue')
             ->willReturn(false);
         $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
+            ->onlyMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
             ->disableOriginalConstructor()
             ->getMock();
         $worksheet->method('cellExists')
@@ -112,7 +112,7 @@ class SubTotalTest extends TestCase
         $worksheet->method('getColumnDimension')
             ->willReturn($columnDimension);
         $cellReference = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getWorksheet'])
+            ->onlyMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();
         $cellReference->method('getWorksheet')
@@ -153,7 +153,7 @@ class SubTotalTest extends TestCase
         $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
 
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getValue', 'isFormula'])
+            ->onlyMethods(['getValue', 'isFormula'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getValue')
@@ -171,7 +171,7 @@ class SubTotalTest extends TestCase
                 return $result;
             });
         $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->setMethods(['cellExists', 'getCell'])
+            ->onlyMethods(['cellExists', 'getCell'])
             ->disableOriginalConstructor()
             ->getMock();
         $worksheet->method('cellExists')
@@ -179,7 +179,7 @@ class SubTotalTest extends TestCase
         $worksheet->method('getCell')
             ->willReturn($cell);
         $cellReference = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getWorksheet'])
+            ->onlyMethods(['getWorksheet'])
             ->disableOriginalConstructor()
             ->getMock();
         $cellReference->method('getWorksheet')
