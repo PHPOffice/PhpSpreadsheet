@@ -5,6 +5,11 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
+if (PHP_VERSION_ID >= 80000) {
+    $helper->log('Jpgraph no longer runs against PHP8');
+    exit;
+}
+
 // Change these values to select the Rendering library that you wish to use
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 
