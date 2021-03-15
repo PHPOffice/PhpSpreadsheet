@@ -34,7 +34,7 @@ class RowTest extends TestCase
     public function testROWwithNull(): void
     {
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getRow'])
+            ->onlyMethods(['getRow'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getRow')

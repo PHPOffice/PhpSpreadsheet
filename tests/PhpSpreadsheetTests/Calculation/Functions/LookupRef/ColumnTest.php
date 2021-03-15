@@ -34,7 +34,7 @@ class ColumnTest extends TestCase
     public function testCOLUMNwithNull(): void
     {
         $cell = $this->getMockBuilder(Cell::class)
-            ->setMethods(['getColumn'])
+            ->onlyMethods(['getColumn'])
             ->disableOriginalConstructor()
             ->getMock();
         $cell->method('getColumn')
