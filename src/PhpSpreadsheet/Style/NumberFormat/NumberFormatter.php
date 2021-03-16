@@ -36,14 +36,11 @@ class NumberFormatter
             $maskingBlocks = array_reverse($maskingBlocks[0]);
 
             foreach ($maskingBlocks as $block) {
-                $divisor = 1 . $block[0];
                 $size = strlen($block[0]);
+                $divisor = 10 ** $size;
                 $offset = $block[1];
 
-                $blockValue = sprintf(
-                    "%0{$size}d",
-                    fmod($number, $divisor)
-                );
+                $blockValue = sprintf("%0{$size}d", fmod($number, $divisor));
                 $number = floor($number / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
