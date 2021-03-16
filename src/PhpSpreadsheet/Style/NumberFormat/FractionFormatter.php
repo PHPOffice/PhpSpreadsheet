@@ -4,10 +4,12 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-class FractionFormatter
+class FractionFormatter extends BaseFormatter
 {
     public static function format($value, string $format): string
     {
+        $format = self::stripQuotes($format);
+
         $sign = ($value < 0.0) ? '-' : '';
 
         $integerPart = floor(abs($value));

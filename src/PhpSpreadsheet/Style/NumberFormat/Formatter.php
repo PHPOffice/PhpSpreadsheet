@@ -130,7 +130,7 @@ class Formatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        $format = preg_replace('/_(.)/ui', ' ${1}', $format);
+        $format = preg_replace('/_/ui', ' ', $format);
 
         // Let's begin inspecting the format and converting the value to a formatted string
 
@@ -141,7 +141,7 @@ class Formatter
         } else {
             if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"') {
                 $value = substr($format, 1, -1);
-            } elseif (preg_match('/%$/', $format)) {
+            } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format
                 $value = PercentageFormatter::format($value, $format);
             } else {
