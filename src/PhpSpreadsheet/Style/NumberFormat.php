@@ -2,10 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-
 class NumberFormat extends Supervisor
 {
     // Pre-defined formats
