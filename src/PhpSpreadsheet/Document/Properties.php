@@ -92,7 +92,7 @@ class Properties
     /**
      * Custom Properties.
      *
-     * @var string
+     * @var string[]
      */
     private $customProperties = [];
 
@@ -354,33 +354,27 @@ class Properties
     /**
      * Get a List of Custom Property Names.
      *
-     * @return array of string
+     * @return string[]
      */
-    public function getCustomProperties()
+    public function getCustomProperties(): array
     {
         return array_keys($this->customProperties);
     }
 
     /**
      * Check if a Custom Property is defined.
-     *
-     * @param string $propertyName
-     *
-     * @return bool
      */
-    public function isCustomPropertySet($propertyName)
+    public function isCustomPropertySet(string $propertyName): bool
     {
-        return isset($this->customProperties[$propertyName]);
+        return array_key_exists($propertyName, $this->customProperties);
     }
 
     /**
      * Get a Custom Property Value.
      *
-     * @param string $propertyName
-     *
      * @return mixed
      */
-    public function getCustomPropertyValue($propertyName)
+    public function getCustomPropertyValue(string $propertyName)
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
@@ -390,11 +384,9 @@ class Properties
     /**
      * Get a Custom Property Type.
      *
-     * @param string $propertyName
-     *
      * @return string
      */
-    public function getCustomPropertyType($propertyName)
+    public function getCustomPropertyType(string $propertyName)
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['type'];
@@ -404,7 +396,6 @@ class Properties
     /**
      * Set a Custom Property.
      *
-     * @param string $propertyName
      * @param mixed $propertyValue
      * @param string $propertyType
      *      'i'    : Integer
@@ -415,7 +406,7 @@ class Properties
      *
      * @return $this
      */
-    public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
+    public function setCustomProperty(string $propertyName, $propertyValue = '', $propertyType = null): self
     {
         if (
             ($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
@@ -461,7 +452,7 @@ class Properties
         }
     }
 
-    public static function convertProperty($propertyValue, $propertyType)
+    public static function convertProperty($propertyValue, string $propertyType)
     {
         switch ($propertyType) {
             case 'empty':     //    Empty
@@ -512,7 +503,7 @@ class Properties
         return $propertyValue;
     }
 
-    public static function convertPropertyType($propertyType)
+    public static function convertPropertyType(string $propertyType): string
     {
         switch ($propertyType) {
             case 'i1':       //    1-Byte Signed Integer
