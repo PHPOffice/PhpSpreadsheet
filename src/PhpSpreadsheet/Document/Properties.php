@@ -406,9 +406,9 @@ class Properties
         if ($propertyValue === null) {
             return self::PROPERTY_TYPE_STRING;
         } elseif (is_float($propertyValue)) {
-            return $propertyType = self::PROPERTY_TYPE_FLOAT;
+            return self::PROPERTY_TYPE_FLOAT;
         } elseif (is_int($propertyValue)) {
-            return $propertyType = self::PROPERTY_TYPE_INTEGER;
+            return self::PROPERTY_TYPE_INTEGER;
         } elseif (is_bool($propertyValue)) {
             return self::PROPERTY_TYPE_BOOLEAN;
         }
@@ -421,7 +421,7 @@ class Properties
      *
      * @param mixed $propertyValue
      * @param string $propertyType
-     *   'i'    : Integer
+     *   'i' : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time
