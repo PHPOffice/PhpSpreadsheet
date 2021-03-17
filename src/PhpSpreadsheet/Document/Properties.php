@@ -109,10 +109,8 @@ class Properties
 
     /**
      * Get Creator.
-     *
-     * @return string
      */
-    public function getCreator()
+    public function getCreator(): string
     {
         return $this->creator;
     }
@@ -120,11 +118,9 @@ class Properties
     /**
      * Set Creator.
      *
-     * @param string $creator
-     *
      * @return $this
      */
-    public function setCreator($creator)
+    public function setCreator(string $creator): self
     {
         $this->creator = $creator;
 
@@ -133,10 +129,8 @@ class Properties
 
     /**
      * Get Last Modified By.
-     *
-     * @return string
      */
-    public function getLastModifiedBy()
+    public function getLastModifiedBy(): string
     {
         return $this->lastModifiedBy;
     }
@@ -144,23 +138,19 @@ class Properties
     /**
      * Set Last Modified By.
      *
-     * @param string $pValue
-     *
      * @return $this
      */
-    public function setLastModifiedBy($pValue)
+    public function setLastModifiedBy(string $modifier): self
     {
-        $this->lastModifiedBy = $pValue;
+        $this->lastModifiedBy = $modifier;
 
         return $this;
     }
 
     /**
      * Get Created.
-     *
-     * @return int
      */
-    public function getCreated()
+    public function getCreated(): int
     {
         return $this->created;
     }
@@ -168,33 +158,31 @@ class Properties
     /**
      * Set Created.
      *
-     * @param int|string $time
+     * @param null|int|string $timestamp
      *
      * @return $this
      */
-    public function setCreated($time)
+    public function setCreated($timestamp): self
     {
-        if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
-                $time = (int) $time;
+        if ($timestamp === null) {
+            $timestamp = time();
+        } elseif (is_string($timestamp)) {
+            if (is_numeric($timestamp)) {
+                $timestamp = (int) $timestamp;
             } else {
-                $time = strtotime($time);
+                $timestamp = strtotime($timestamp);
             }
         }
 
-        $this->created = $time;
+        $this->created = $timestamp;
 
         return $this;
     }
 
     /**
      * Get Modified.
-     *
-     * @return int
      */
-    public function getModified()
+    public function getModified(): int
     {
         return $this->modified;
     }
@@ -202,33 +190,31 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param int|string $time
+     * @param null|int|string $timestamp
      *
      * @return $this
      */
-    public function setModified($time)
+    public function setModified($timestamp): self
     {
-        if ($time === null) {
-            $time = time();
-        } elseif (is_string($time)) {
-            if (is_numeric($time)) {
-                $time = (int) $time;
+        if ($timestamp === null) {
+            $timestamp = time();
+        } elseif (is_string($timestamp)) {
+            if (is_numeric($timestamp)) {
+                $timestamp = (int) $timestamp;
             } else {
-                $time = strtotime($time);
+                $timestamp = strtotime($timestamp);
             }
         }
 
-        $this->modified = $time;
+        $this->modified = $timestamp;
 
         return $this;
     }
 
     /**
      * Get Title.
-     *
-     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -236,11 +222,9 @@ class Properties
     /**
      * Set Title.
      *
-     * @param string $title
-     *
      * @return $this
      */
-    public function setTitle($title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -249,10 +233,8 @@ class Properties
 
     /**
      * Get Description.
-     *
-     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -260,11 +242,9 @@ class Properties
     /**
      * Set Description.
      *
-     * @param string $description
-     *
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -273,10 +253,8 @@ class Properties
 
     /**
      * Get Subject.
-     *
-     * @return string
      */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->subject;
     }
@@ -284,11 +262,9 @@ class Properties
     /**
      * Set Subject.
      *
-     * @param string $subject
-     *
      * @return $this
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): self
     {
         $this->subject = $subject;
 
@@ -297,10 +273,8 @@ class Properties
 
     /**
      * Get Keywords.
-     *
-     * @return string
      */
-    public function getKeywords()
+    public function getKeywords(): string
     {
         return $this->keywords;
     }
@@ -308,11 +282,9 @@ class Properties
     /**
      * Set Keywords.
      *
-     * @param string $keywords
-     *
      * @return $this
      */
-    public function setKeywords($keywords)
+    public function setKeywords(string $keywords): self
     {
         $this->keywords = $keywords;
 
@@ -321,10 +293,8 @@ class Properties
 
     /**
      * Get Category.
-     *
-     * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return $this->category;
     }
@@ -332,11 +302,9 @@ class Properties
     /**
      * Set Category.
      *
-     * @param string $category
-     *
      * @return $this
      */
-    public function setCategory($category)
+    public function setCategory(string $category): self
     {
         $this->category = $category;
 
@@ -345,10 +313,8 @@ class Properties
 
     /**
      * Get Company.
-     *
-     * @return string
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->company;
     }
@@ -356,11 +322,9 @@ class Properties
     /**
      * Set Company.
      *
-     * @param string $company
-     *
      * @return $this
      */
-    public function setCompany($company)
+    public function setCompany(string $company): self
     {
         $this->company = $company;
 
@@ -369,10 +333,8 @@ class Properties
 
     /**
      * Get Manager.
-     *
-     * @return string
      */
-    public function getManager()
+    public function getManager(): string
     {
         return $this->manager;
     }
@@ -380,11 +342,9 @@ class Properties
     /**
      * Set Manager.
      *
-     * @param string $manager
-     *
      * @return $this
      */
-    public function setManager($manager)
+    public function setManager(string $manager): self
     {
         $this->manager = $manager;
 
