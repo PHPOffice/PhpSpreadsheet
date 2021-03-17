@@ -5,12 +5,20 @@ namespace PhpOffice\PhpSpreadsheet\Document;
 class Properties
 {
     /** constants */
-    const PROPERTY_TYPE_BOOLEAN = 'b';
-    const PROPERTY_TYPE_INTEGER = 'i';
-    const PROPERTY_TYPE_FLOAT = 'f';
-    const PROPERTY_TYPE_DATE = 'd';
-    const PROPERTY_TYPE_STRING = 's';
-    const PROPERTY_TYPE_UNKNOWN = 'u';
+    public const PROPERTY_TYPE_BOOLEAN = 'b';
+    public const PROPERTY_TYPE_INTEGER = 'i';
+    public const PROPERTY_TYPE_FLOAT = 'f';
+    public const PROPERTY_TYPE_DATE = 'd';
+    public const PROPERTY_TYPE_STRING = 's';
+    public const PROPERTY_TYPE_UNKNOWN = 'u';
+
+    private const VALID_PROPERTY_TYPE_LIST = [
+        self::PROPERTY_TYPE_BOOLEAN,
+        self::PROPERTY_TYPE_INTEGER,
+        self::PROPERTY_TYPE_FLOAT,
+        self::PROPERTY_TYPE_DATE,
+        self::PROPERTY_TYPE_STRING,
+    ];
 
     /**
      * Creator.
@@ -393,12 +401,27 @@ class Properties
         }
     }
 
+    private function identifyPropertyType($propertyValue)
+    {
+        if ($propertyValue === null) {
+            return self::PROPERTY_TYPE_STRING;
+        } elseif (is_float($propertyValue)) {
+            return $propertyType = self::PROPERTY_TYPE_FLOAT;
+        } elseif (is_int($propertyValue)) {
+            return $propertyType = self::PROPERTY_TYPE_INTEGER;
+        } elseif (is_bool($propertyValue)) {
+            return self::PROPERTY_TYPE_BOOLEAN;
+        }
+
+        return self::PROPERTY_TYPE_STRING;
+    }
+
     /**
      * Set a Custom Property.
      *
      * @param mixed $propertyValue
      * @param string $propertyType
-     *      'i'    : Integer
+     *   'i'    : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time
@@ -408,25 +431,8 @@ class Properties
      */
     public function setCustomProperty(string $propertyName, $propertyValue = '', $propertyType = null): self
     {
-        if (
-            ($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
-                self::PROPERTY_TYPE_FLOAT,
-                self::PROPERTY_TYPE_STRING,
-                self::PROPERTY_TYPE_DATE,
-                self::PROPERTY_TYPE_BOOLEAN,
-            ]))
-        ) {
-            if ($propertyValue === null) {
-                $propertyType = self::PROPERTY_TYPE_STRING;
-            } elseif (is_float($propertyValue)) {
-                $propertyType = self::PROPERTY_TYPE_FLOAT;
-            } elseif (is_int($propertyValue)) {
-                $propertyType = self::PROPERTY_TYPE_INTEGER;
-            } elseif (is_bool($propertyValue)) {
-                $propertyType = self::PROPERTY_TYPE_BOOLEAN;
-            } else {
-                $propertyType = self::PROPERTY_TYPE_STRING;
-            }
+        if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
+            $propertyType = $this->identifyPropertyType($propertyValue);
         }
 
         $this->customProperties[$propertyName] = [
