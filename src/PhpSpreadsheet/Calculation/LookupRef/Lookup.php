@@ -29,7 +29,7 @@ class Lookup
         $lookupColumns = self::columnCount($lookupVector);
         // we correctly orient our results
         if (($lookupRows === 1 && $lookupColumns > 1) || (!$hasResultVector && $lookupRows === 2 && $lookupColumns !== 2)) {
-            $lookupVector = LookupRef::TRANSPOSE($lookupVector);
+            $lookupVector = LookupRef\Matrix::transpose($lookupVector);
             $lookupRows = self::rowCount($lookupVector);
             $lookupColumns = self::columnCount($lookupVector);
         }
@@ -84,7 +84,7 @@ class Lookup
 
         // we correctly orient our results
         if ($resultRows === 1 && $resultColumns > 1) {
-            $resultVector = LookupRef::TRANSPOSE($resultVector);
+            $resultVector = LookupRef\Matrix::transpose($resultVector);
         }
 
         return $resultVector;
