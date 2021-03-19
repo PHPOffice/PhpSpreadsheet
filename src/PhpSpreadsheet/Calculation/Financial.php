@@ -997,6 +997,10 @@ class Financial
      * Excel Function:
      *        DOLLARDE(fractional_dollar,fraction)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the decimal() method in the Financial\Dollar class instead
+     *
      * @param float $fractional_dollar Fractional Dollar
      * @param int $fraction Fraction
      *
@@ -1004,23 +1008,7 @@ class Financial
      */
     public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
     {
-        $fractional_dollar = Functions::flattenSingleValue($fractional_dollar);
-        $fraction = (int) Functions::flattenSingleValue($fraction);
-
-        // Validate parameters
-        if ($fractional_dollar === null || $fraction < 0) {
-            return Functions::NAN();
-        }
-        if ($fraction == 0) {
-            return Functions::DIV0();
-        }
-
-        $dollars = floor($fractional_dollar);
-        $cents = fmod($fractional_dollar, 1);
-        $cents /= $fraction;
-        $cents *= 10 ** ceil(log10($fraction));
-
-        return $dollars + $cents;
+        return Financial\Dollar::decimal($fractional_dollar, $fraction);
     }
 
     /**
@@ -1033,6 +1021,10 @@ class Financial
      * Excel Function:
      *        DOLLARFR(decimal_dollar,fraction)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the fractional() method in the Financial\Dollar class instead
+     *
      * @param float $decimal_dollar Decimal Dollar
      * @param int $fraction Fraction
      *
@@ -1040,23 +1032,7 @@ class Financial
      */
     public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
     {
-        $decimal_dollar = Functions::flattenSingleValue($decimal_dollar);
-        $fraction = (int) Functions::flattenSingleValue($fraction);
-
-        // Validate parameters
-        if ($decimal_dollar === null || $fraction < 0) {
-            return Functions::NAN();
-        }
-        if ($fraction == 0) {
-            return Functions::DIV0();
-        }
-
-        $dollars = floor($decimal_dollar);
-        $cents = fmod($decimal_dollar, 1);
-        $cents *= $fraction;
-        $cents *= 10 ** (-ceil(log10($fraction)));
-
-        return $dollars + $cents;
+        return Financial\Dollar::fractional($decimal_dollar, $fraction);
     }
 
     /**
