@@ -18,7 +18,7 @@ class ComplexFunctions
      *
      * @param string $complexNumber the complex number for which you want the absolute value
      *
-     * @return float
+     * @return float|string
      */
     public static function IMABS($complexNumber)
     {
