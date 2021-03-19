@@ -113,7 +113,7 @@ class Weeknum
      *
      * @param mixed $dateValue
      */
-    private static function validateDateValue($dateValue): int
+    private static function validateDateValue($dateValue): float
     {
         if (is_bool($dateValue)) {
             throw new Exception(Functions::VALUE());

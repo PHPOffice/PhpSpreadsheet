@@ -34,14 +34,14 @@ class Datedif
 
         // Execute function
         $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
-        $startDays = $PHPStartDateObject->format('j');
-        $startMonths = $PHPStartDateObject->format('n');
-        $startYears = $PHPStartDateObject->format('Y');
+        $startDays = (int) $PHPStartDateObject->format('j');
+        $startMonths = (int) $PHPStartDateObject->format('n');
+        $startYears = (int) $PHPStartDateObject->format('Y');
 
         $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
-        $endDays = $PHPEndDateObject->format('j');
-        $endMonths = $PHPEndDateObject->format('n');
-        $endYears = $PHPEndDateObject->format('Y');
+        $endDays = (int) $PHPEndDateObject->format('j');
+        $endMonths = (int) $PHPEndDateObject->format('n');
+        $endYears = (int) $PHPEndDateObject->format('Y');
 
         $PHPDiffDateObject = $PHPEndDateObject->diff($PHPStartDateObject);
 
@@ -72,7 +72,7 @@ class Datedif
      *
      * @param bool|int $retVal
      *
-     * @return null|int
+     * @return null|bool|int
      */
     private static function replaceRetValue($retVal, string $unit, string $compare)
     {
@@ -93,12 +93,12 @@ class Datedif
         return (int) 12 * $PHPDiffDateObject->format('%y') + $PHPDiffDateObject->format('%m');
     }
 
-    private static function datedifMD(float $startDays, float $endDays, DateTime $PHPEndDateObject, DateInterval $PHPDiffDateObject): int
+    private static function datedifMD(int $startDays, int $endDays, DateTime $PHPEndDateObject, DateInterval $PHPDiffDateObject): int
     {
         if ($endDays < $startDays) {
             $retVal = $endDays;
             $PHPEndDateObject->modify('-' . $endDays . ' days');
-            $adjustDays = $PHPEndDateObject->format('j');
+            $adjustDays = (int) $PHPEndDateObject->format('j');
             $retVal += ($adjustDays - $startDays);
         } else {
             $retVal = (int) $PHPDiffDateObject->format('%d');
@@ -109,10 +109,10 @@ class Datedif
 
     private static function datedifY(DateInterval $PHPDiffDateObject): int
     {
-        return $PHPDiffDateObject->format('%y');
+        return (int) $PHPDiffDateObject->format('%y');
     }
 
-    private static function datedifYD(float $difference, float $startYears, float $endYears, DateTime $PHPStartDateObject, DateTime $PHPEndDateObject): int
+    private static function datedifYD(float $difference, int $startYears, int $endYears, DateTime $PHPStartDateObject, DateTime $PHPEndDateObject): int
     {
         $retVal = (int) $difference;
         if ($endYears > $startYears) {
@@ -137,12 +137,12 @@ class Datedif
             }
         }
 
-        return $retVal;
+        return (int) $retVal;
     }
 
     private static function datedifYM(DateInterval $PHPDiffDateObject): int
     {
-        return $PHPDiffDateObject->format('%m');
+        return (int) $PHPDiffDateObject->format('%m');
     }
 
     private static function datedifInvalid(): string

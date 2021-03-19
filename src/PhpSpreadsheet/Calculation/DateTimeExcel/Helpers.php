@@ -32,7 +32,12 @@ class Helpers
     public static function getDateValue($dateValue, bool $allowBool = true)
     {
         if ($dateValue instanceof DateTimeInterface) {
-            return Date::PHPToExcel($dateValue);
+            $retval = Date::PHPToExcel($dateValue);
+            if (is_bool($retval)) {
+                throw new Exception(Functions::VALUE());
+            }
+
+            return $retval;
         }
 
         self::nullFalseTrueToNumber($dateValue, $allowBool);

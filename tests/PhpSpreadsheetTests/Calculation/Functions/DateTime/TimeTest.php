@@ -13,7 +13,7 @@ class TimeTest extends AllSetupTeardown
      */
     public function testTIME($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('15');
         $sheet->getCell('B2')->setValue('32');

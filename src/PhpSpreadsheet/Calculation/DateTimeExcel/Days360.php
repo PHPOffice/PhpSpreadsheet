@@ -60,7 +60,7 @@ class Days360
         $endMonth = $PHPEndDateObject->format('n');
         $endYear = $PHPEndDateObject->format('Y');
 
-        return self::dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, !$method);
+        return self::dateDiff360((int) $startDay, (int) $startMonth, (int) $startYear, (int) $endDay, (int) $endMonth, (int) $endYear, !$method);
     }
 
     /**

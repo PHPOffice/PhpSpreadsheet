@@ -18,7 +18,7 @@ class IsoWeeknum
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int Week Number
+     * @return int|string Week Number
      */
     public static function funcIsoWeeknum($dateValue)
     {

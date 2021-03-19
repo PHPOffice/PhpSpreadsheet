@@ -15,7 +15,7 @@ class DaysTest extends AllSetupTeardown
      */
     public function testDAYS($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('C1')->setValue('1954-11-30');

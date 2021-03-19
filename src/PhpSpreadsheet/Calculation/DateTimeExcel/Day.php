@@ -44,7 +44,6 @@ class Day
     private static function weirdCondition($dateValue): int
     {
         // Excel does not treat 0 consistently for DAY vs. (MONTH or YEAR)
-        $retval = -1;
         if (Date::getExcelCalendar() === DATE::CALENDAR_WINDOWS_1900 && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
             if (is_bool($dateValue)) {
                 return (int) $dateValue;

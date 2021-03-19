@@ -12,7 +12,7 @@ class IsoWeekNumTest extends AllSetupTeardown
      */
     public function testISOWEEKNUM($expectedResult, $dateValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');
@@ -32,7 +32,7 @@ class IsoWeekNumTest extends AllSetupTeardown
      */
     public function testISOWEEKNUM1904($expectedResult, $dateValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         self::setMac1904();
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");

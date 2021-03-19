@@ -48,7 +48,7 @@ class Networkdays
         // Execute function
         $startDow = self::calcStartDow($startDate);
         $endDow = self::calcEndDow($endDate);
-        $wholeWeekDays = floor(($endDate - $startDate) / 7) * 5;
+        $wholeWeekDays = (int) floor(($endDate - $startDate) / 7) * 5;
         $partWeekDays = self::calcPartWeekDays($startDow, $endDow);
 
         //    Test any extra holiday parameters
@@ -67,7 +67,7 @@ class Networkdays
 
     private static function calcStartDow(float $startDate): int
     {
-        $startDow = 6 - Weekday::funcWeekday($startDate, 2);
+        $startDow = 6 - (int) Weekday::funcWeekday($startDate, 2);
         if ($startDow < 0) {
             $startDow = 5;
         }
@@ -95,7 +95,7 @@ class Networkdays
         return $partWeekDays;
     }
 
-    private static function applySign(int $result, int $sDate, int $eDate)
+    private static function applySign(int $result, float $sDate, float $eDate)
     {
         return ($sDate > $eDate) ? -$result : $result;
     }

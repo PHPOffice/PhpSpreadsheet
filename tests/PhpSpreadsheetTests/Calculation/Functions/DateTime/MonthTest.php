@@ -11,7 +11,7 @@ class MonthTest extends AllSetupTeardown
      */
     public function testMONTH($expectedResult, string $dateTimeValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=MONTH($dateTimeValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');

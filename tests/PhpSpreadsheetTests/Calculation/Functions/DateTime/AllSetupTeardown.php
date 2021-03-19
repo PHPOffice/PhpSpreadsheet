@@ -39,22 +39,22 @@ class AllSetupTeardown extends TestCase
         $this->sheet = null;
     }
 
-    protected function setMac1904(): void
+    protected static function setMac1904(): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
     }
 
-    protected function setUnixReturn(): void
+    protected static function setUnixReturn(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
     }
 
-    protected function setObjectReturn(): void
+    protected static function setObjectReturn(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
     }
 
-    protected function setOpenOffice(): void
+    protected static function setOpenOffice(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
     }

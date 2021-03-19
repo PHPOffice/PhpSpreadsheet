@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTimeInterface;
 use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Days
@@ -37,12 +38,15 @@ class Days
         $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
 
         $diff = $PHPStartDateObject->diff($PHPEndDateObject);
-        $days = $diff->days;
+        if ($diff !== false && $diff->days !== false) {
+            $days = $diff->days;
+            if ($diff->invert) {
+                $days = -$days;
+            }
 
-        if ($diff->invert) {
-            $days = -$days;
+            return $days;
         }
 
-        return $days;
+        return Functions::VALUE();
     }
 }

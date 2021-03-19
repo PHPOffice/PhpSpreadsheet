@@ -13,7 +13,7 @@ class EoMonthTest extends AllSetupTeardown
      */
     public function testEOMONTH($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=EOMONTH($formula)");
         $sheet->getCell('B1')->setValue('1954-11-23');

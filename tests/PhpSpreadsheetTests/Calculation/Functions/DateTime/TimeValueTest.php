@@ -14,7 +14,7 @@ class TimeValueTest extends AllSetupTeardown
      */
     public function testTIMEVALUE($expectedResult, $timeValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('03:45:52');
         $sheet->getCell('A1')->setValue("=TIMEVALUE($timeValue)");

@@ -13,7 +13,7 @@ class EDateTest extends AllSetupTeardown
      */
     public function testEDATE($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=EDATE($formula)");
         $sheet->getCell('B1')->setValue('1954-11-23');

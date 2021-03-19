@@ -11,7 +11,7 @@ class DayTest extends AllSetupTeardown
      */
     public function testDAY($expectedResultExcel, string $dateTimeValue): void
     {
-        self::mightHaveException($expectedResultExcel);
+        $this->mightHaveException($expectedResultExcel);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('A1')->setValue("=DAY($dateTimeValue)");
@@ -31,7 +31,7 @@ class DayTest extends AllSetupTeardown
     public function testDAYOpenOffice($expectedResultOpenOffice, string $dateTimeValue): void
     {
         self::setOpenOffice();
-        self::mightHaveException($expectedResultOpenOffice);
+        $this->mightHaveException($expectedResultOpenOffice);
         $sheet = $this->sheet;
         $sheet->getCell('A2')->setValue("=DAY($dateTimeValue)");
         self::assertSame($expectedResultOpenOffice, $sheet->getCell('A2')->getCalculatedValue());

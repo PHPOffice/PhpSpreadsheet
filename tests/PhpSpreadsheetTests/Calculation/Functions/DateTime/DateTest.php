@@ -13,7 +13,7 @@ class DateTest extends AllSetupTeardown
      */
     public function testDATE($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('A1')->setValue("=DATE($formula)");

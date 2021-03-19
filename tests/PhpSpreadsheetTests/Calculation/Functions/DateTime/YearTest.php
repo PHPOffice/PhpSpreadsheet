@@ -11,7 +11,7 @@ class YearTest extends AllSetupTeardown
      */
     public function testYEAR($expectedResult, string $dateTimeValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=YEAR($dateTimeValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');

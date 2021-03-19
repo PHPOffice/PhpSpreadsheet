@@ -11,7 +11,7 @@ class WeekNumTest extends AllSetupTeardown
      */
     public function testWEEKNUM($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('A1')->setValue("=WEEKNUM($formula)");
@@ -30,7 +30,7 @@ class WeekNumTest extends AllSetupTeardown
      */
     public function testWEEKNUM1904($expectedResult, string $formula): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         self::setMac1904();
         $sheet = $this->sheet;
         $sheet->getCell('B1')->setValue('1954-11-23');

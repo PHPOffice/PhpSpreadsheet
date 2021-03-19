@@ -11,7 +11,7 @@ class SecondTest extends AllSetupTeardown
      */
     public function testSECOND($expectedResult, string $dateTimeValue): void
     {
-        self::mightHaveException($expectedResult);
+        $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=SECOND($dateTimeValue)");
         $sheet->getCell('B1')->setValue('1954-11-23 2:23:46');

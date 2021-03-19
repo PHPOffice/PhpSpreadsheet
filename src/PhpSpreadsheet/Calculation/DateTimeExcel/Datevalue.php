@@ -93,7 +93,7 @@ class Datevalue
     /**
      * Parse date.
      *
-     * @return array|false
+     * @return array|bool
      */
     private static function setUpArray(string $dateValue, DateTimeImmutable $dti)
     {
@@ -143,7 +143,7 @@ class Datevalue
             if (!checkdate($month, $day, $year)) {
                 return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0) : Functions::VALUE();
             }
-            $retValue = is_array($PHPDateArray) ? Helpers::returnIn3FormatsArray($PHPDateArray, true) : Functions::VALUE();
+            $retValue = Helpers::returnIn3FormatsArray($PHPDateArray, true);
         }
 
         return $retValue;
