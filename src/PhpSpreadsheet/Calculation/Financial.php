@@ -59,6 +59,10 @@ class Financial
      *
      * Returns the number of days in a specified year, as defined by the "basis" value
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the daysPerYear() method in the Financial\Helpers class instead
+     *
      * @param int|string $year The year against which we're testing
      * @param int|string $basis The type of day count:
      *                                    0 or omitted US (NASD)    360

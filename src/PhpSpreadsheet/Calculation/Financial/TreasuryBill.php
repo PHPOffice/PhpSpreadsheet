@@ -27,24 +27,37 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        //    Use TBILLPRICE for validation
-        $testValue = self::price($settlement, $maturity, $discount);
-        if (is_string($testValue)) {
-            return $testValue;
-        }
-
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (
+            is_string($maturity = DateTime::getDateValue($maturity)) ||
+            is_string($settlement = DateTime::getDateValue($settlement))
+        ) {
             return Functions::VALUE();
         }
 
-        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
-            ++$maturity;
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-        } else {
-            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+        //    Validate
+        if (is_numeric($discount)) {
+            if ($discount <= 0) {
+                return Functions::NAN();
+            }
+
+            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
+                ++$maturity;
+                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
+            } else {
+                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+            }
+
+            if (
+                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
+                $daysBetweenSettlementAndMaturity < 0
+            ) {
+                return Functions::NAN();
+            }
+
+            return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
         }
 
-        return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
+        return Functions::VALUE();
     }
 
     /**
@@ -67,7 +80,10 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
+        if (
+            is_string($maturity = DateTime::getDateValue($maturity)) ||
+            is_string($settlement = DateTime::getDateValue($settlement))
+        ) {
             return Functions::VALUE();
         }
 
@@ -88,7 +104,10 @@ class TreasuryBill
                 $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
             }
 
-            if ($daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), 1)) {
+            if (
+                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
+                $daysBetweenSettlementAndMaturity < 0
+            ) {
                 return Functions::NAN();
             }
 
@@ -123,6 +142,13 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $price = Functions::flattenSingleValue($price);
 
+        if (
+            is_string($maturity = DateTime::getDateValue($maturity)) ||
+            is_string($settlement = DateTime::getDateValue($settlement))
+        ) {
+            return Functions::VALUE();
+        }
+
         //    Validate
         if (is_numeric($price)) {
             if ($price <= 0) {
@@ -140,7 +166,7 @@ class TreasuryBill
                 $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
             }
 
-            if ($daysBetweenSettlementAndMaturity > 360) {
+            if ($daysBetweenSettlementAndMaturity > 360 || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
             }
 

@@ -1,9 +1,35 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 return [
     [
         0.09415149356594302,
         '31-Mar-2008', '1-Jun-2008', 0.0914,
+    ],
+    [
+        Functions::VALUE(),
+        'Not a Valid Date', '1-Jun-2008', 0.09,
+    ],
+    [
+        Functions::VALUE(),
+        '31-Mar-2008', 'Not a Valid Date', 0.09,
+    ],
+    [
+        Functions::VALUE(),
+        '31-Mar-2008', '1-Jun-2008', 'NaN',
+    ],
+    [
+        Functions::NAN(),
+        '31-Mar-2008', '1-Jun-2008', -0.09,
+    ],
+    [
+        Functions::NAN(),
+        '31-Mar-2000', '1-Jun-2021', 0.09,
+    ],
+    [
+        Functions::NAN(),
+        '1-Jun-2008', '31-Mar-2008', 0.09,
     ],
     [
         0.025465926064094112,
