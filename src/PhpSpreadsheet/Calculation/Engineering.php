@@ -590,7 +590,7 @@ class Engineering
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
      *
-     * @return float
+     * @return float|string
      */
     public static function IMAGINARY($complexNumber)
     {
@@ -611,7 +611,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
-     * @return float
+     * @return float|string
      */
     public static function IMREAL($complexNumber)
     {
@@ -632,7 +632,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the absolute value
      *
-     * @return float
+     * @return float|string
      */
     public static function IMABS($complexNumber)
     {
