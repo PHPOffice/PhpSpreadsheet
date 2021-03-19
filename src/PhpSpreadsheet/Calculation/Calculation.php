@@ -2629,7 +2629,7 @@ class Calculation
         ],
         'YEARFRAC' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\YearFrac::class, 'funcYearfrac'],
+            'functionCall' => [DateTimeExcel\Yearfrac::class, 'funcYearfrac'],
             'argumentCount' => '2,3',
         ],
         'YIELD' => [
