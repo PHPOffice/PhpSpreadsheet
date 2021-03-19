@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use Complex\Complex as ComplexObject;
+use Complex\Exception as ComplexException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Complex
@@ -57,7 +58,13 @@ class Complex
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (new ComplexObject($complexNumber))->getImaginary();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return $complex->getImaginary();
     }
 
     /**
@@ -76,6 +83,12 @@ class Complex
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (new ComplexObject($complexNumber))->getReal();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return $complex->getReal();
     }
 }

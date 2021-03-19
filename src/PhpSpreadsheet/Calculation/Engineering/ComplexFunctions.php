@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use Complex\Complex as ComplexObject;
+use Complex\Exception as ComplexException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ComplexFunctions
@@ -23,7 +24,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (new ComplexObject($complexNumber))->abs();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return $complex->abs();
     }
 
     /**
@@ -43,7 +50,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new ComplexObject($complexNumber);
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::DIV0();
         }
@@ -67,7 +79,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->conjugate();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->conjugate();
     }
 
     /**
@@ -86,7 +104,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->cos();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->cos();
     }
 
     /**
@@ -105,7 +129,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->cosh();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->cosh();
     }
 
     /**
@@ -124,7 +154,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->cot();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->cot();
     }
 
     /**
@@ -143,7 +179,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->csc();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->csc();
     }
 
     /**
@@ -162,7 +204,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->csch();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->csch();
     }
 
     /**
@@ -181,7 +229,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->sin();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->sin();
     }
 
     /**
@@ -200,7 +254,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->sinh();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->sinh();
     }
 
     /**
@@ -219,7 +279,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->sec();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->sec();
     }
 
     /**
@@ -238,7 +304,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->sech();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->sech();
     }
 
     /**
@@ -257,7 +329,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->tan();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->tan();
     }
 
     /**
@@ -276,12 +354,18 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         $theta = self::IMARGUMENT($complexNumber);
         if ($theta === Functions::DIV0()) {
             return '0';
         }
 
-        return (string) (new ComplexObject($complexNumber))->sqrt();
+        return (string) $complex->sqrt();
     }
 
     /**
@@ -300,7 +384,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new ComplexObject($complexNumber);
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
@@ -324,7 +413,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new ComplexObject($complexNumber);
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
@@ -348,7 +442,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new ComplexObject($complexNumber);
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
@@ -372,7 +471,13 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new ComplexObject($complexNumber))->exp();
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
+        return (string) $complex->exp();
     }
 
     /**
@@ -393,10 +498,16 @@ class ComplexFunctions
         $complexNumber = Functions::flattenSingleValue($complexNumber);
         $realNumber = Functions::flattenSingleValue($realNumber);
 
+        try {
+            $complex = new ComplexObject($complexNumber);
+        } catch (ComplexException $e) {
+            return Functions::NAN();
+        }
+
         if (!is_numeric($realNumber)) {
             return Functions::VALUE();
         }
 
-        return (string) (new ComplexObject($complexNumber))->pow($realNumber);
+        return (string) $complex->pow($realNumber);
     }
 }
