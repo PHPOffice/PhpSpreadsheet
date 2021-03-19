@@ -40,12 +40,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
-                ++$maturity;
-                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-            } else {
-                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
-            }
+            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
 
             if (
                 $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
@@ -93,16 +88,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
-                ++$maturity;
-                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-                if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                    //    return date error
-                    return $daysBetweenSettlementAndMaturity;
-                }
-            } else {
-                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
-            }
+            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
 
             if (
                 $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
@@ -155,16 +141,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
-                ++$maturity;
-                $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
-                if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                    //    return date error
-                    return $daysBetweenSettlementAndMaturity;
-                }
-            } else {
-                $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
-            }
+            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
 
             if ($daysBetweenSettlementAndMaturity > 360 || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
