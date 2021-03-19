@@ -134,7 +134,7 @@ class TreasuryBill
      *                                The maturity date is the date when the Treasury bill expires.
      * @param int $price The Treasury bill's price per $100 face value
      *
-     * @return float|mixed|string
+     * @return float|string
      */
     public static function yield($settlement, $maturity, $price)
     {
