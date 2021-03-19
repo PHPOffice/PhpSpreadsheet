@@ -96,9 +96,8 @@ class TreasuryBill
             ) {
                 return Functions::NAN();
             }
-
             $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
-            if ($price <= 0) {
+            if ($price < 0.0) {
                 return Functions::NAN();
             }
 
