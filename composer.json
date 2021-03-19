@@ -63,7 +63,7 @@
     },
     "require-dev": {
         "dompdf/dompdf": "^0.8.5",
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.18",
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "^8.0",
         "phpcompatibility/php-compatibility": "^9.3",

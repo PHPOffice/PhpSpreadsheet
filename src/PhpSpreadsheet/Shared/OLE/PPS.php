@@ -189,7 +189,7 @@ class PPS
             . "\x00\x00\x00\x00"                  // 100
             . OLE::localDateToOLE($this->Time1st)          // 108
             . OLE::localDateToOLE($this->Time2nd)          // 116
-            . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
+            . pack('V', $this->startBlock ?? 0)  // 120
             . pack('V', $this->Size)               // 124
             . pack('V', 0); // 128
 

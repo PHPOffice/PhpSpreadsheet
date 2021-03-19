@@ -240,11 +240,11 @@ class LUDecomposition
     /**
      * Solve A*X = B.
      *
-     * @param mixed $B a Matrix with as many rows as A and any number of columns
+     * @param Matrix $B a Matrix with as many rows as A and any number of columns
      *
      * @return Matrix X so that L*U*X = B(piv,:)
      */
-    public function solve($B)
+    public function solve(Matrix $B)
     {
         if ($B->getRowDimension() == $this->m) {
             if ($this->isNonsingular()) {

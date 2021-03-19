@@ -47,10 +47,8 @@ abstract class Dimension
 
     /**
      * Get Visible.
-     *
-     * @return bool
      */
-    public function getVisible()
+    public function getVisible(): bool
     {
         return $this->visible;
     }
@@ -58,23 +56,19 @@ abstract class Dimension
     /**
      * Set Visible.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setVisible($pValue)
+    public function setVisible(bool $visible)
     {
-        $this->visible = (bool) $pValue;
+        $this->visible = $visible;
 
         return $this;
     }
 
     /**
      * Get Outline Level.
-     *
-     * @return int
      */
-    public function getOutlineLevel()
+    public function getOutlineLevel(): int
     {
         return $this->outlineLevel;
     }
@@ -83,27 +77,23 @@ abstract class Dimension
      * Set Outline Level.
      * Value must be between 0 and 7.
      *
-     * @param int $pValue
-     *
      * @return $this
      */
-    public function setOutlineLevel($pValue)
+    public function setOutlineLevel(int $level)
     {
-        if ($pValue < 0 || $pValue > 7) {
+        if ($level < 0 || $level > 7) {
             throw new PhpSpreadsheetException('Outline level must range between 0 and 7.');
         }
 
-        $this->outlineLevel = $pValue;
+        $this->outlineLevel = $level;
 
         return $this;
     }
 
     /**
      * Get Collapsed.
-     *
-     * @return bool
      */
-    public function getCollapsed()
+    public function getCollapsed(): bool
     {
         return $this->collapsed;
     }
@@ -111,13 +101,11 @@ abstract class Dimension
     /**
      * Set Collapsed.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setCollapsed($pValue)
+    public function setCollapsed(bool $collapsed)
     {
-        $this->collapsed = (bool) $pValue;
+        $this->collapsed = $collapsed;
 
         return $this;
     }
@@ -127,7 +115,7 @@ abstract class Dimension
      *
      * @return int
      */
-    public function getXfIndex()
+    public function getXfIndex(): ?int
     {
         return $this->xfIndex;
     }
@@ -135,11 +123,9 @@ abstract class Dimension
     /**
      * Set index to cellXf.
      *
-     * @param int $pValue
-     *
      * @return $this
      */
-    public function setXfIndex($pValue)
+    public function setXfIndex(int $pValue)
     {
         $this->xfIndex = $pValue;
 

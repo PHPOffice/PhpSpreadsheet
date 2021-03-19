@@ -320,7 +320,7 @@ class Html extends BaseReader
     {
         if ($child->nodeName === 'title') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-            $sheet->setTitle($cellContent, true, false);
+            $sheet->setTitle($cellContent, true, true);
             $cellContent = '';
         } else {
             $this->processDomElementSpanEtc($sheet, $row, $column, $cellContent, $child, $attributeArray);
@@ -656,7 +656,7 @@ class Html extends BaseReader
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document');
+            throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document', 0, $e ?? null);
         }
 
         return $this->loadDocument($dom, $spreadsheet);
@@ -678,7 +678,7 @@ class Html extends BaseReader
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load content as a DOM Document');
+            throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
 
         return $this->loadDocument($dom, $spreadsheet ?? new Spreadsheet());

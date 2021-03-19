@@ -53,4 +53,19 @@ return [
         30, // Result for OpenOffice
         0,
     ],
+    [
+        0, // Result for Excel
+        0, // Result for OpenOffice
+        null,
+    ],
+    [
+        1, // Result for Excel
+        1, // Result for OpenOffice
+        true,
+    ],
+    [
+        0, // Result for Excel
+        0, // Result for OpenOffice
+        false,
+    ],
 ];

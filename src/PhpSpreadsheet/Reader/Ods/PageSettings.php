@@ -54,10 +54,10 @@ class PageSettings
             $marginBottom = $pageLayoutProperties->getAttributeNS($this->stylesFo, 'margin-bottom');
             $header = $styleSet->getElementsByTagNameNS($this->stylesNs, 'header-style')[0];
             $headerProperties = $header->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
-            $marginHeader = $headerProperties->getAttributeNS($this->stylesFo, 'min-height');
+            $marginHeader = isset($headerProperties) ? $headerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
             $footer = $styleSet->getElementsByTagNameNS($this->stylesNs, 'footer-style')[0];
             $footerProperties = $footer->getElementsByTagNameNS($this->stylesNs, 'header-footer-properties')[0];
-            $marginFooter = $footerProperties->getAttributeNS($this->stylesFo, 'min-height');
+            $marginFooter = isset($footerProperties) ? $footerProperties->getAttributeNS($this->stylesFo, 'min-height') : null;
 
             $this->pageLayoutStyles[$styleName] = (object) [
                 'orientation' => $styleOrientation ?: PageSetup::ORIENTATION_DEFAULT,

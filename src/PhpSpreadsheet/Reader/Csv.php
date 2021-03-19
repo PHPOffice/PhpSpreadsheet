@@ -334,7 +334,7 @@ class Csv extends BaseReader
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         $lineEnding = ini_get('auto_detect_line_endings');
-        ini_set('auto_detect_line_endings', true);
+        ini_set('auto_detect_line_endings', '1');
 
         // Open file
         $this->openFileOrMemory($pFilename);
@@ -528,7 +528,8 @@ class Csv extends BaseReader
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = strtolower(pathinfo($pFilename, PATHINFO_EXTENSION));
+        $extension = pathinfo($pFilename, PATHINFO_EXTENSION);
+        $extension = is_array($extension) ? '' : strtolower($extension);
         if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }

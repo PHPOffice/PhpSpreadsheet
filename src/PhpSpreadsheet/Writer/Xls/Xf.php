@@ -165,9 +165,9 @@ class Xf
                         self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) ||
                         self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) ||
                         self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())) ? 1 : 0;
-        $atr_pat = (($this->foregroundColor != 0x40) ||
-                        ($this->backgroundColor != 0x41) ||
-                        self::mapFillType($this->_style->getFill()->getFillType())) ? 1 : 0;
+        $atr_pat = ($this->foregroundColor != 0x40) ? 1 : 0;
+        $atr_pat = ($this->backgroundColor != 0x41) ? 1 : $atr_pat;
+        $atr_pat = self::mapFillType($this->_style->getFill()->getFillType()) ? 1 : $atr_pat;
         $atr_prot = self::mapLocked($this->_style->getProtection()->getLocked())
                         | self::mapHidden($this->_style->getProtection()->getHidden());
 
@@ -375,11 +375,7 @@ class Xf
      */
     private static function mapBorderStyle($borderStyle)
     {
-        if (isset(self::$mapBorderStyles[$borderStyle])) {
-            return self::$mapBorderStyles[$borderStyle];
-        }
-
-        return 0x00;
+        return self::$mapBorderStyles[$borderStyle] ?? 0;
     }
 
     /**
@@ -420,11 +416,7 @@ class Xf
      */
     private static function mapFillType($fillType)
     {
-        if (isset(self::$mapFillTypes[$fillType])) {
-            return self::$mapFillTypes[$fillType];
-        }
-
-        return 0x00;
+        return self::$mapFillTypes[$fillType] ?? 0;
     }
 
     /**
@@ -451,11 +443,7 @@ class Xf
      */
     private function mapHAlign($hAlign)
     {
-        if (isset(self::$mapHAlignments[$hAlign])) {
-            return self::$mapHAlignments[$hAlign];
-        }
-
-        return 0;
+        return self::$mapHAlignments[$hAlign] ?? 0;
     }
 
     /**
@@ -479,11 +467,7 @@ class Xf
      */
     private static function mapVAlign($vAlign)
     {
-        if (isset(self::$mapVAlignments[$vAlign])) {
-            return self::$mapVAlignments[$vAlign];
-        }
-
-        return 2;
+        return self::$mapVAlignments[$vAlign] ?? 2;
     }
 
     /**
@@ -497,15 +481,22 @@ class Xf
     {
         if ($textRotation >= 0) {
             return $textRotation;
-        } elseif ($textRotation == -165) {
-            return 255;
-        } elseif ($textRotation < 0) {
-            return 90 - $textRotation;
         }
+        if ($textRotation == Alignment::TEXTROTATION_STACK_PHPSPREADSHEET) {
+            return Alignment::TEXTROTATION_STACK_EXCEL;
+        }
+
+        return 90 - $textRotation;
     }
 
+    private const LOCK_ARRAY = [
+        Protection::PROTECTION_INHERIT => 1,
+        Protection::PROTECTION_PROTECTED => 1,
+        Protection::PROTECTION_UNPROTECTED => 0,
+    ];
+
     /**
-     * Map locked.
+     * Map locked values.
      *
      * @param string $locked
      *
@@ -513,17 +504,14 @@ class Xf
      */
     private static function mapLocked($locked)
     {
-        switch ($locked) {
-            case Protection::PROTECTION_INHERIT:
-                return 1;
-            case Protection::PROTECTION_PROTECTED:
-                return 1;
-            case Protection::PROTECTION_UNPROTECTED:
-                return 0;
-            default:
-                return 1;
-        }
+        return array_key_exists($locked, self::LOCK_ARRAY) ? self::LOCK_ARRAY[$locked] : 1;
     }
+
+    private const HIDDEN_ARRAY = [
+        Protection::PROTECTION_INHERIT => 0,
+        Protection::PROTECTION_PROTECTED => 1,
+        Protection::PROTECTION_UNPROTECTED => 0,
+    ];
 
     /**
      * Map hidden.
@@ -534,15 +522,6 @@ class Xf
      */
     private static function mapHidden($hidden)
     {
-        switch ($hidden) {
-            case Protection::PROTECTION_INHERIT:
-                return 0;
-            case Protection::PROTECTION_PROTECTED:
-                return 1;
-            case Protection::PROTECTION_UNPROTECTED:
-                return 0;
-            default:
-                return 0;
-        }
+        return array_key_exists($hidden, self::HIDDEN_ARRAY) ? self::HIDDEN_ARRAY[$hidden] : 0;
     }
 }

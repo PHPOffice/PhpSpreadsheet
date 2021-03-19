@@ -139,6 +139,18 @@ return [
         'K',
         'Reau',
     ],
+    'Melting Point of Titanium (Rankine to K)' => [
+        1941,
+        3493.8,
+        'Rank',
+        'K',
+    ],
+    'Melting Point of Titanium (Réaumur to K)' => [
+        1941,
+        1334.28,
+        'Reau',
+        'K',
+    ],
     'Temperature synonyms (K)' => [
         123.45,
         123.45,
@@ -157,11 +169,17 @@ return [
         'F',
         'fah',
     ],
-    'Invalid value to conver' => [
+    'Invalid value to convert' => [
         '#VALUE!',
         'three',
         'ft',
         'yds',
+    ],
+    'Imperial to 2-character prefixed imperial, same unit' => [
+        '#N/A',
+        100.0,
+        'pt',
+        'dapt',
     ],
     'Prefixed metric to binary prefixed metric' => [
         '#N/A',
@@ -175,17 +193,41 @@ return [
         'ft',
         'day',
     ],
-    'From Prefixed imperial (Invalid)' => [
+    'From prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'kpt',
         'lt',
     ],
-    'To prefixed imperial (Invalid)' => [
+    'To prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'lt',
         'kpt',
+    ],
+    'From binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'kiqt',
+        'pt',
+    ],
+    'To binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'pt',
+        'kiqt',
+    ],
+    'From prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'baton',
+        'cwt',
+    ],
+    'To prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'cwt',
+        'baton',
     ],
     'Invalid from unit' => [
         '#N/A',

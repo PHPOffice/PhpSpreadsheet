@@ -464,7 +464,7 @@ class StringHelper
      */
     public static function countCharacters($value, $enc = 'UTF-8')
     {
-        return mb_strlen($value, $enc);
+        return mb_strlen($value ?? '', $enc);
     }
 
     /**

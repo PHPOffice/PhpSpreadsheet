@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -186,8 +187,7 @@ class Xlsx extends BaseReader
                 );
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($rel['Target']);
-                    /** @var SimpleXMLElement $eleSheet */
-                    foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
+                    foreach ($xmlWorkbook->sheets->sheet->children() as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) $eleSheet['name'],
                             'lastColumnLetter' => 'A',
@@ -488,7 +488,7 @@ class Xlsx extends BaseReader
                     }
                     if (!$this->readDataOnly && $xmlStyles) {
                         foreach ($xmlStyles->cellXfs->xf as $xf) {
-                            $numFmt = NumberFormat::FORMAT_GENERAL;
+                            $numFmt = null;
 
                             if ($xf['numFmtId']) {
                                 if (isset($numFmts)) {
@@ -503,6 +503,7 @@ class Xlsx extends BaseReader
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
                                 if (
+                                    $numFmt === null &&
                                     (int) $xf['numFmtId'] < 164 &&
                                     NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
                                 ) {
@@ -515,7 +516,7 @@ class Xlsx extends BaseReader
                             }
 
                             $style = (object) [
-                                'numFmt' => $numFmt,
+                                'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
                                 'font' => $xmlStyles->fonts->font[(int) ($xf['fontId'])],
                                 'fill' => $xmlStyles->fills->fill[(int) ($xf['fillId'])],
                                 'border' => $xmlStyles->borders->border[(int) ($xf['borderId'])],
@@ -531,7 +532,7 @@ class Xlsx extends BaseReader
                             $excel->addCellXf($objStyle);
                         }
 
-                        foreach (isset($xmlStyles->cellStyleXfs->xf) ? $xmlStyles->cellStyleXfs->xf : [] as $xf) {
+                        foreach ($xmlStyles->cellStyleXfs->xf ?? [] as $xf) {
                             $numFmt = NumberFormat::FORMAT_GENERAL;
                             if ($numFmts && $xf['numFmtId']) {
                                 $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
@@ -720,6 +721,10 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
+                                                    if (isset($c->f['t'])) {
+                                                        $attributes = $c->f['t'];
+                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);
+                                                    }
                                                 }
 
                                                 break;
@@ -735,6 +740,10 @@ class Xlsx extends BaseReader
                                             $cell = $docSheet->getCell($r);
                                             // Assign value
                                             if ($cellDataType != '') {
+                                                // it is possible, that datatype is numeric but with an empty string, which result in an error
+                                                if ($cellDataType === DataType::TYPE_NUMERIC && $value === '') {
+                                                    $cellDataType = DataType::TYPE_STRING;
+                                                }
                                                 $cell->setValueExplicit($value, $cellDataType);
                                             } else {
                                                 $cell->setValue($value);
@@ -1147,7 +1156,7 @@ class Xlsx extends BaseReader
                                                         $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
                                                         $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
-                                                        $clr = isset($outerShdw->srgbClr) ? $outerShdw->srgbClr : $outerShdw->prstClr;
+                                                        $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItem($clr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($clr->alpha->attributes(), 'val') / 1000);
                                                     }
@@ -1155,13 +1164,27 @@ class Xlsx extends BaseReader
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
 
                                                     $objDrawing->setWorksheet($docSheet);
-                                                } else {
-                                                    //    ? Can charts be positioned with a oneCellAnchor ?
+                                                } elseif ($this->includeCharts && $oneCellAnchor->graphicFrame) {
+                                                    // Exported XLSX from Google Sheets positions charts with a oneCellAnchor
                                                     $coordinates = Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
                                                     $offsetX = Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
                                                     $width = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
                                                     $height = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cy'));
+
+                                                    $graphic = $oneCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
+                                                    /** @var SimpleXMLElement $chartRef */
+                                                    $chartRef = $graphic->graphicData->children('http://schemas.openxmlformats.org/drawingml/2006/chart')->chart;
+                                                    $thisChart = (string) $chartRef->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+
+                                                    $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
+                                                        'fromCoordinate' => $coordinates,
+                                                        'fromOffsetX' => $offsetX,
+                                                        'fromOffsetY' => $offsetY,
+                                                        'width' => $width,
+                                                        'height' => $height,
+                                                        'worksheetTitle' => $docSheet->getTitle(),
+                                                    ];
                                                 }
                                             }
                                         }
@@ -1200,7 +1223,7 @@ class Xlsx extends BaseReader
                                                         $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
                                                         $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
-                                                        $clr = isset($outerShdw->srgbClr) ? $outerShdw->srgbClr : $outerShdw->prstClr;
+                                                        $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
                                                         $shadow->getColor()->setRGB(self::getArrayItem($clr->attributes(), 'val'));
                                                         $shadow->setAlpha(self::getArrayItem($clr->alpha->attributes(), 'val') / 1000);
                                                     }
@@ -1508,7 +1531,10 @@ class Xlsx extends BaseReader
                                     $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
-                                    $objChart->setBottomRightPosition($chartDetails[$chartPositionRef]['toCoordinate'], $chartDetails[$chartPositionRef]['toOffsetX'], $chartDetails[$chartPositionRef]['toOffsetY']);
+                                    if (array_key_exists('toCoordinate', $chartDetails[$chartPositionRef])) {
+                                        // For oneCellAnchor positioned charts, toCoordinate is not in the data. Does it need to be calculated?
+                                        $objChart->setBottomRightPosition($chartDetails[$chartPositionRef]['toCoordinate'], $chartDetails[$chartPositionRef]['toOffsetX'], $chartDetails[$chartPositionRef]['toOffsetY']);
+                                    }
                                 }
                             }
                         }

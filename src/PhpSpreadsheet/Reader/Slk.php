@@ -419,14 +419,14 @@ class Slk extends BaseReader
         if ($columnWidth > '') {
             if ($startCol == $endCol) {
                 $startCol = Coordinate::stringFromColumnIndex((int) $startCol);
-                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
+                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
             } else {
                 $startCol = Coordinate::stringFromColumnIndex($startCol);
                 $endCol = Coordinate::stringFromColumnIndex($endCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);
-                } while ($startCol != $endCol);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth((float) $columnWidth);
+                } while ($startCol !== $endCol);
             }
         }
     }

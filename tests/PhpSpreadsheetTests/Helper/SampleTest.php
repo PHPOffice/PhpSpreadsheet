@@ -57,6 +57,9 @@ class SampleTest extends TestCase
         $result = [];
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $sample) {
+//                if (array_pop(explode('/', $sample)) !== 'DGET.php') {
+//                    continue;
+//                }
                 if (!in_array($sample, $skipped)) {
                     $file = 'samples/' . $sample;
                     $result[] = [$file];

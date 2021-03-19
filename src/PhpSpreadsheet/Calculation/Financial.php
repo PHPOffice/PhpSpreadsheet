@@ -242,7 +242,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
@@ -253,6 +253,10 @@ class Financial
         $period = floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        if (is_string($yearFrac)) {
+            return $yearFrac;
+        }
 
         //    The depreciation coefficients are:
         //    Life of assets (1/rate)        Depreciation coefficient
@@ -272,7 +276,7 @@ class Financial
         }
 
         $rate *= $amortiseCoeff;
-        $fNRate = round(DateTime::YEARFRAC($purchased, $firstPeriod, $basis) * $rate * $cost, 0);
+        $fNRate = round($yearFrac * $rate * $cost, 0);
         $cost -= $fNRate;
         $fRest = $cost - $salvage;
 
@@ -318,7 +322,7 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float
+     * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
@@ -335,6 +339,9 @@ class Financial
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTime::YEAR($purchased);
         $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        if (is_string($yearFrac)) {
+            return $yearFrac;
+        }
 
         if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
             $yearFrac *= 365 / 366;
@@ -739,7 +746,12 @@ class Financial
         // Calculate
         $interest = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $interest += self::IPMT($rate, $per, $nper, $pv, 0, $type);
+            $ipmt = self::IPMT($rate, $per, $nper, $pv, 0, $type);
+            if (is_string($ipmt)) {
+                return $ipmt;
+            }
+
+            $interest += $ipmt;
         }
 
         return $interest;
@@ -785,7 +797,12 @@ class Financial
         // Calculate
         $principal = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $principal += self::PPMT($rate, $per, $nper, $pv, 0, $type);
+            $ppmt = self::PPMT($rate, $per, $nper, $pv, 0, $type);
+            if (is_string($ppmt)) {
+                return $ppmt;
+            }
+
+            $principal += $ppmt;
         }
 
         return $principal;
@@ -1219,7 +1236,7 @@ class Financial
             return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1573,7 +1590,7 @@ class Financial
             return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -2037,7 +2054,7 @@ class Financial
             return Functions::VALUE();
         }
 
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
             ++$maturity;
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
         } else {
@@ -2076,7 +2093,7 @@ class Financial
                 return Functions::NAN();
             }
 
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
                 ++$maturity;
                 $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity) * 360;
                 if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -2087,7 +2104,7 @@ class Financial
                 $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
             }
 
-            if ($daysBetweenSettlementAndMaturity > 360) {
+            if ($daysBetweenSettlementAndMaturity > self::daysPerYear(DateTime::YEAR($maturity), 1)) {
                 return Functions::NAN();
             }
 
@@ -2253,7 +2270,7 @@ class Financial
         // create an initial range, with a root somewhere between 0 and guess
         $guess = Functions::flattenSingleValue($guess);
         $x1 = 0.0;
-        $x2 = $guess ? $guess : 0.1;
+        $x2 = $guess ?: 0.1;
         $f1 = self::xnpvOrdered($x1, $values, $dates, false);
         $f2 = self::xnpvOrdered($x2, $values, $dates, false);
         $found = false;
@@ -2289,12 +2306,12 @@ class Financial
      *
      * @param float $rate the discount rate to apply to the cash flows
      * @param float[] $values     A series of cash flows that corresponds to a schedule of payments in dates.
-     *                                         The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment.
-     *                                         If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year.
-     *                                         The series of values must contain at least one positive value and one negative value.
+     *                                 The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment.
+     *                                 If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year.
+     *                                 The series of values must contain at least one positive value and one negative value.
      * @param mixed[] $dates      A schedule of payment dates that corresponds to the cash flow payments.
-     *                                         The first payment date indicates the beginning of the schedule of payments.
-     *                                         All other dates must be later than this date, but they may occur in any order.
+     *                                 The first payment date indicates the beginning of the schedule of payments.
+     *                                 All other dates must be later than this date, but they may occur in any order.
      *
      * @return float|mixed|string
      */

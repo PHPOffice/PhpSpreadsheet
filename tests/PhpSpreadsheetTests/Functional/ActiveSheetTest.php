@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 class ActiveSheetTest extends AbstractFunctional
 {
@@ -46,6 +47,12 @@ class ActiveSheetTest extends AbstractFunctional
 
         $spreadsheet->createSheet(2);
 
+        $spreadsheet->setActiveSheetIndex(2)
+            ->setCellValue('F1', 2)
+            ->getCell('F1')
+            ->getStyle()
+            ->getProtection()
+            ->setHidden(Protection::PROTECTION_PROTECTED);
         $spreadsheet->setActiveSheetIndex(2)
             ->setTitle('Test3')
             ->setCellValue('A1', 4)

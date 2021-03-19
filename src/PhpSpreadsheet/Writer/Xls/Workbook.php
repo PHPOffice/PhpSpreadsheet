@@ -757,7 +757,7 @@ class Workbook extends BIFFwriter
      *
      * @param string $name
      * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
-     * @param integer[][] $rangeBounds range boundaries
+     * @param int[][] $rangeBounds range boundaries
      * @param bool $isHidden
      *
      * @return string Complete binary record data

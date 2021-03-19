@@ -205,7 +205,7 @@ class QRDecomposition
      *
      * @return Matrix matrix that minimizes the two norm of Q*R*X-B
      */
-    public function solve($B)
+    public function solve(Matrix $B)
     {
         if ($B->getRowDimension() == $this->m) {
             if ($this->isFullRank()) {
