@@ -565,7 +565,7 @@ class Calculation
         ],
         'COMPLEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'COMPLEX'],
+            'functionCall' => [Engineering\Complex::class, 'COMPLEX'],
             'argumentCount' => '2,3',
         ],
         'CONCAT' => [
@@ -1283,7 +1283,7 @@ class Calculation
         ],
         'IMAGINARY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'IMAGINARY'],
+            'functionCall' => [Engineering\Complex::class, 'IMAGINARY'],
             'argumentCount' => '1',
         ],
         'IMARGUMENT' => [
@@ -1358,7 +1358,7 @@ class Calculation
         ],
         'IMREAL' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering::class, 'IMREAL'],
+            'functionCall' => [Engineering\Complex::class, 'IMREAL'],
             'argumentCount' => '1',
         ],
         'IMSEC' => [

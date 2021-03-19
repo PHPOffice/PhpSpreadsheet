@@ -9,8 +9,11 @@ class Engineering
 {
     /**
      * EULER.
+     *
+     * @deprecated 1.18.0
+     * @see Use Engineering\Constants\EULER instead
      */
-    const EULER = 2.71828182845904523536;
+    public const EULER = 2.71828182845904523536;
 
     /**
      * parseComplex.
@@ -552,6 +555,10 @@ class Engineering
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COMPLEX() method in the Engineering\Complex class instead
+     *
      * @param float $realNumber the real coefficient of the complex number
      * @param float $imaginary the imaginary coefficient of the complex number
      * @param string $suffix The suffix for the imaginary component of the complex number.
@@ -561,20 +568,7 @@ class Engineering
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
-        $realNumber = ($realNumber === null) ? 0.0 : Functions::flattenSingleValue($realNumber);
-        $imaginary = ($imaginary === null) ? 0.0 : Functions::flattenSingleValue($imaginary);
-        $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
-
-        if (
-            ((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
-            (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
-        ) {
-            $complex = new Complex($realNumber, $imaginary, $suffix);
-
-            return (string) $complex;
-        }
-
-        return Functions::VALUE();
+        return Engineering\Complex::COMPLEX($realNumber, $imaginary, $suffix);
     }
 
     /**
@@ -585,6 +579,10 @@ class Engineering
      * Excel Function:
      *        IMAGINARY(complexNumber)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the IMAGINARY() method in the Engineering\Complex class instead
+     *
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
      *
@@ -592,9 +590,7 @@ class Engineering
      */
     public static function IMAGINARY($complexNumber)
     {
-        $complexNumber = Functions::flattenSingleValue($complexNumber);
-
-        return (new Complex($complexNumber))->getImaginary();
+        return Engineering\Complex::IMAGINARY($complexNumber);
     }
 
     /**
@@ -605,15 +601,17 @@ class Engineering
      * Excel Function:
      *        IMREAL(complexNumber)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the IMREAL() method in the Engineering\Complex class instead
+     *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
      * @return float
      */
     public static function IMREAL($complexNumber)
     {
-        $complexNumber = Functions::flattenSingleValue($complexNumber);
-
-        return (new Complex($complexNumber))->getReal();
+        return Engineering\Complex::IMREAL($complexNumber);
     }
 
     /**
