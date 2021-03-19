@@ -52,9 +52,8 @@ class Datedif
         $retVal = self::replaceRetValue($retVal, $unit, 'Y') ?? self::datedifY($PHPDiffDateObject);
         $retVal = self::replaceRetValue($retVal, $unit, 'YD') ?? self::datedifYD($difference, $startYears, $endYears, $PHPStartDateObject, $PHPEndDateObject);
         $retVal = self::replaceRetValue($retVal, $unit, 'YM') ?? self::datedifYM($PHPDiffDateObject);
-        $retVal = self::replaceRetValue($retVal, 'D', 'D') ?? self::datedifInvalid();
 
-        return $retVal;
+        return is_bool($retVal) ? Functions::VALUE() : $retVal;
     }
 
     private static function initialDiff(float $startDate, float $endDate): float
@@ -143,10 +142,5 @@ class Datedif
     private static function datedifYM(DateInterval $PHPDiffDateObject): int
     {
         return (int) $PHPDiffDateObject->format('%m');
-    }
-
-    private static function datedifInvalid(): string
-    {
-        return Functions::VALUE();
     }
 }

@@ -77,7 +77,7 @@ class Networkdays
 
     private static function calcEndDow(float $endDate): int
     {
-        $endDow = Weekday::funcWeekday($endDate, 2);
+        $endDow = (int) Weekday::funcWeekday($endDate, 2);
         if ($endDow >= 6) {
             $endDow = 0;
         }

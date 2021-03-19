@@ -38,7 +38,7 @@ class Days
         $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
 
         $diff = $PHPStartDateObject->diff($PHPEndDateObject);
-        if ($diff !== false && $diff->days !== false) {
+        if ($diff !== false && !is_bool($diff->days)) {
             $days = $diff->days;
             if ($diff->invert) {
                 $days = -$days;
