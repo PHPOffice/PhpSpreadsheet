@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
-use Complex\Complex;
+use Complex\Complex as ComplexObject;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ComplexFunctions
@@ -23,7 +23,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (new Complex($complexNumber))->abs();
+        return (new ComplexObject($complexNumber))->abs();
     }
 
     /**
@@ -43,7 +43,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new Complex($complexNumber);
+        $complex = new ComplexObject($complexNumber);
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::DIV0();
         }
@@ -67,7 +67,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->conjugate();
+        return (string) (new ComplexObject($complexNumber))->conjugate();
     }
 
     /**
@@ -86,7 +86,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->cos();
+        return (string) (new ComplexObject($complexNumber))->cos();
     }
 
     /**
@@ -105,7 +105,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->cosh();
+        return (string) (new ComplexObject($complexNumber))->cosh();
     }
 
     /**
@@ -124,7 +124,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->cot();
+        return (string) (new ComplexObject($complexNumber))->cot();
     }
 
     /**
@@ -143,7 +143,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->csc();
+        return (string) (new ComplexObject($complexNumber))->csc();
     }
 
     /**
@@ -162,7 +162,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->csch();
+        return (string) (new ComplexObject($complexNumber))->csch();
     }
 
     /**
@@ -181,7 +181,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->sin();
+        return (string) (new ComplexObject($complexNumber))->sin();
     }
 
     /**
@@ -200,7 +200,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->sinh();
+        return (string) (new ComplexObject($complexNumber))->sinh();
     }
 
     /**
@@ -219,7 +219,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->sec();
+        return (string) (new ComplexObject($complexNumber))->sec();
     }
 
     /**
@@ -238,7 +238,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->sech();
+        return (string) (new ComplexObject($complexNumber))->sech();
     }
 
     /**
@@ -257,7 +257,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->tan();
+        return (string) (new ComplexObject($complexNumber))->tan();
     }
 
     /**
@@ -281,7 +281,7 @@ class ComplexFunctions
             return '0';
         }
 
-        return (string) (new Complex($complexNumber))->sqrt();
+        return (string) (new ComplexObject($complexNumber))->sqrt();
     }
 
     /**
@@ -300,12 +300,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new Complex($complexNumber);
+        $complex = new ComplexObject($complexNumber);
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
 
-        return (string) (new Complex($complexNumber))->ln();
+        return (string) $complex->ln();
     }
 
     /**
@@ -324,12 +324,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new Complex($complexNumber);
+        $complex = new ComplexObject($complexNumber);
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
 
-        return (string) (new Complex($complexNumber))->log10();
+        return (string) $complex->log10();
     }
 
     /**
@@ -348,12 +348,12 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        $complex = new Complex($complexNumber);
+        $complex = new ComplexObject($complexNumber);
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
             return Functions::NAN();
         }
 
-        return (string) (new Complex($complexNumber))->log2();
+        return (string) $complex->log2();
     }
 
     /**
@@ -372,7 +372,7 @@ class ComplexFunctions
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
-        return (string) (new Complex($complexNumber))->exp();
+        return (string) (new ComplexObject($complexNumber))->exp();
     }
 
     /**
@@ -397,6 +397,6 @@ class ComplexFunctions
             return Functions::VALUE();
         }
 
-        return (string) (new Complex($complexNumber))->pow($realNumber);
+        return (string) (new ComplexObject($complexNumber))->pow($realNumber);
     }
 }

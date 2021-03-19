@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
-use Complex\Complex;
+use Complex\Complex as ComplexObject;
 use Complex\Exception as ComplexException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
@@ -27,7 +27,7 @@ class ComplexOperations
         $complexDivisor = Functions::flattenSingleValue($complexDivisor);
 
         try {
-            return (string) (new Complex($complexDividend))->divideby(new Complex($complexDivisor));
+            return (string) (new ComplexObject($complexDividend))->divideby(new ComplexObject($complexDivisor));
         } catch (ComplexException $e) {
             return Functions::NAN();
         }
@@ -52,7 +52,7 @@ class ComplexOperations
         $complexNumber2 = Functions::flattenSingleValue($complexNumber2);
 
         try {
-            return (string) (new Complex($complexNumber1))->subtract(new Complex($complexNumber2));
+            return (string) (new ComplexObject($complexNumber1))->subtract(new ComplexObject($complexNumber2));
         } catch (ComplexException $e) {
             return Functions::NAN();
         }
@@ -73,13 +73,13 @@ class ComplexOperations
     public static function IMSUM(...$complexNumbers)
     {
         // Return value
-        $returnValue = new Complex(0.0);
+        $returnValue = new ComplexObject(0.0);
         $aArgs = Functions::flattenArray($complexNumbers);
 
         try {
             // Loop through the arguments
             foreach ($aArgs as $complex) {
-                $returnValue = $returnValue->add(new Complex($complex));
+                $returnValue = $returnValue->add(new ComplexObject($complex));
             }
         } catch (ComplexException $e) {
             return Functions::NAN();
@@ -103,13 +103,13 @@ class ComplexOperations
     public static function IMPRODUCT(...$complexNumbers)
     {
         // Return value
-        $returnValue = new Complex(1.0);
+        $returnValue = new ComplexObject(1.0);
         $aArgs = Functions::flattenArray($complexNumbers);
 
         try {
             // Loop through the arguments
             foreach ($aArgs as $complex) {
-                $returnValue = $returnValue->multiply(new Complex($complex));
+                $returnValue = $returnValue->multiply(new ComplexObject($complex));
             }
         } catch (ComplexException $e) {
             return Functions::NAN();
