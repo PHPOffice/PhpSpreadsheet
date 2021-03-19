@@ -6,7 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Networkdays
+class ZYXNetworkDays
 {
     /**
      * NETWORKDAYS.
@@ -26,7 +26,7 @@ class Networkdays
      *
      * @return int|string Interval between the dates
      */
-    public static function funcNetworkdays($startDate, $endDate, ...$dateArgs)
+    public static function funcNetworkDays($startDate, $endDate, ...$dateArgs)
     {
         try {
             //    Retrieve the mandatory start and end date that are referenced in the function definition
@@ -55,7 +55,7 @@ class Networkdays
         $holidayCountedArray = [];
         foreach ($holidayArray as $holidayDate) {
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
-                if ((Weekday::funcWeekday($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
+                if ((ZYXWeekDay::funcWeekDay($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
                     --$partWeekDays;
                     $holidayCountedArray[] = $holidayDate;
                 }
@@ -67,7 +67,7 @@ class Networkdays
 
     private static function calcStartDow(float $startDate): int
     {
-        $startDow = 6 - (int) Weekday::funcWeekday($startDate, 2);
+        $startDow = 6 - (int) ZYXWeekDay::funcWeekDay($startDate, 2);
         if ($startDow < 0) {
             $startDow = 5;
         }
@@ -77,7 +77,7 @@ class Networkdays
 
     private static function calcEndDow(float $endDate): int
     {
-        $endDow = (int) Weekday::funcWeekday($endDate, 2);
+        $endDow = (int) ZYXWeekDay::funcWeekDay($endDate, 2);
         if ($endDow >= 6) {
             $endDow = 0;
         }

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Timevalue;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\ZYXTimeValue;
 
 class TimeValueTest extends AllSetupTeardown
 {
@@ -31,7 +31,7 @@ class TimeValueTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = Timevalue::funcTimevalue('7:30:20');
+        $result = ZYXTimeValue::funcTimeValue('7:30:20');
         self::assertEquals(23420, $result);
         self::assertEqualsWithDelta(23420, $result, 1E-8);
     }
@@ -40,7 +40,7 @@ class TimeValueTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = Timevalue::funcTimevalue('7:30:20');
+        $result = ZYXTimeValue::funcTimeValue('7:30:20');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type

@@ -44,7 +44,7 @@ class Helpers
         if (!is_numeric($dateValue)) {
             $saveReturnDateType = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-            $dateValue = Datevalue::funcDatevalue($dateValue);
+            $dateValue = ZYXDateValue::funcDateValue($dateValue);
             Functions::setReturnDateType($saveReturnDateType);
             if (!is_numeric($dateValue)) {
                 throw new Exception(Functions::VALUE());
@@ -84,7 +84,7 @@ class Helpers
     {
         $saveReturnDateType = Functions::getReturnDateType();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        $timeValue = Timevalue::funcTimeValue($timeValue);
+        $timeValue = ZYXTimeValue::funcTimeValue($timeValue);
         Functions::setReturnDateType($saveReturnDateType);
 
         return $timeValue;

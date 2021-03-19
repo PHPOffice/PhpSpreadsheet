@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Networkdays;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\ZYXNetworkDays;
 
 class NetworkDaysTest extends AllSetupTeardown
 {
@@ -13,7 +13,7 @@ class NetworkDaysTest extends AllSetupTeardown
      */
     public function testNETWORKDAYS($expectedResult, ...$args): void
     {
-        $result = Networkdays::funcNetworkdays(...$args);
+        $result = ZYXNetworkDays::funcNetworkDays(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

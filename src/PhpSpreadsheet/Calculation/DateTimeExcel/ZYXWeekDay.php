@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Weekday
+class ZYXWeekDay
 {
     /**
      * WEEKDAY.
@@ -26,7 +26,7 @@ class Weekday
      *
      * @return int|string Day of the week value
      */
-    public static function funcWeekday($dateValue, $style = 1)
+    public static function funcWeekDay($dateValue, $style = 1)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue);

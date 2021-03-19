@@ -5,18 +5,17 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Edate
+class ZYXEoMonth
 {
     /**
-     * EDATE.
+     * EOMONTH.
      *
-     * Returns the serial number that represents the date that is the indicated number of months
-     * before or after a specified date (the start_date).
-     * Use EDATE to calculate maturity dates or due dates that fall on the same day of the month
-     * as the date of issue.
+     * Returns the date value for the last day of the month that is the indicated number of months
+     * before or after start_date.
+     * Use EOMONTH to calculate maturity dates or due dates that fall on the last day of the month.
      *
      * Excel Function:
-     *        EDATE(dateValue,adjustmentMonths)
+     *        EOMONTH(dateValue,adjustmentMonths)
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
@@ -27,7 +26,7 @@ class Edate
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcEdate($dateValue, $adjustmentMonths)
+    public static function funcEoMonth($dateValue, $adjustmentMonths)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue, false);
@@ -38,7 +37,10 @@ class Edate
         $adjustmentMonths = floor($adjustmentMonths);
 
         // Execute function
-        $PHPDateObject = Helpers::adjustDateByMonths($dateValue, $adjustmentMonths);
+        $PHPDateObject = Helpers::adjustDateByMonths($dateValue, $adjustmentMonths + 1);
+        $adjustDays = (int) $PHPDateObject->format('d');
+        $adjustDaysString = '-' . $adjustDays . ' days';
+        $PHPDateObject->modify($adjustDaysString);
 
         return Helpers::returnIn3FormatsObject($PHPDateObject);
     }

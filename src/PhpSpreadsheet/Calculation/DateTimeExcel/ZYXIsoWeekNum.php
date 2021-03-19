@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class IsoWeeknum
+class ZYXIsoWeekNum
 {
     /**
      * ISOWEEKNUM.
@@ -20,7 +20,7 @@ class IsoWeeknum
      *
      * @return int|string Week Number
      */
-    public static function funcIsoWeeknum($dateValue)
+    public static function funcIsoWeekNum($dateValue)
     {
         if (self::apparentBug($dateValue)) {
             return 52;

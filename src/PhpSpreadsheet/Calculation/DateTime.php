@@ -181,7 +181,7 @@ class DateTime
      * NOTE: When used in a Cell Formula, MS Excel changes the cell format so that it matches the date
      * format of your regional settings. PhpSpreadsheet does not change cell formatting in this way.
      *
-     * @Deprecated 2.0.0 Use the funcDatevalue method in the DateTimeExcel\DateValue class instead
+     * @Deprecated 2.0.0 Use the funcDateValue method in the DateTimeExcel\DateValue class instead
      *
      * Excel Function:
      *        DATEVALUE(dateValue)
@@ -200,7 +200,7 @@ class DateTime
      */
     public static function DATEVALUE($dateValue = 1)
     {
-        return DateTimeExcel\Datevalue::funcDatevalue($dateValue);
+        return DateTimeExcel\ZYXDateValue::funcDateValue($dateValue);
     }
 
     /**
@@ -213,7 +213,7 @@ class DateTime
      * NOTE: When used in a Cell Formula, MS Excel changes the cell format so that it matches the time
      * format of your regional settings. PhpSpreadsheet does not change cell formatting in this way.
      *
-     * @Deprecated 2.0.0 Use the funcTimevalue method in the DateTimeExcel\TimeValue class instead
+     * @Deprecated 2.0.0 Use the funcTimeValue method in the DateTimeExcel\TimeValue class instead
      *
      * Excel Function:
      *        TIMEVALUE(timeValue)
@@ -228,7 +228,7 @@ class DateTime
      */
     public static function TIMEVALUE($timeValue)
     {
-        return DateTimeExcel\Timevalue::funcTimevalue($timeValue);
+        return DateTimeExcel\ZYXTimeValue::funcTimeValue($timeValue);
     }
 
     /**
@@ -314,7 +314,7 @@ class DateTime
      * Use the YEARFRAC worksheet function to identify the proportion of a whole year's benefits or
      * obligations to assign to a specific term.
      *
-     * @Deprecated 2.0.0 Use the funcYearfrac method in the DateTimeExcel\YearFrac class instead
+     * @Deprecated 2.0.0 Use the funcYearFrac method in the DateTimeExcel\YearFrac class instead
      *
      * Excel Function:
      *        YEARFRAC(startDate,endDate[,method])
@@ -336,7 +336,7 @@ class DateTime
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
-        return DateTimeExcel\YearFrac::funcYearfrac($startDate, $endDate, $method);
+        return DateTimeExcel\ZYXYearFrac::funcYearFrac($startDate, $endDate, $method);
     }
 
     /**
@@ -347,7 +347,7 @@ class DateTime
      * Use NETWORKDAYS to calculate employee benefits that accrue based on the number of days
      * worked during a specific term.
      *
-     * @Deprecated 2.0.0 Use the funcNetworkdays method in the DateTimeExcel\Networkdays class instead
+     * @Deprecated 2.0.0 Use the funcNetworkDays method in the DateTimeExcel\NetworkDays class instead
      *
      * Excel Function:
      *        NETWORKDAYS(startDate,endDate[,holidays[,holiday[,...]]])
@@ -361,7 +361,7 @@ class DateTime
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
-        return DateTimeExcel\Networkdays::funcNetworkdays($startDate, $endDate, ...$dateArgs);
+        return DateTimeExcel\ZYXNetworkDays::funcNetworkDays($startDate, $endDate, ...$dateArgs);
     }
 
     /**
@@ -372,7 +372,7 @@ class DateTime
      * Use WORKDAY to exclude weekends or holidays when you calculate invoice due dates, expected
      * delivery times, or the number of days of work performed.
      *
-     * @Deprecated 2.0.0 Use the funcWorkday method in the DateTimeExcel\Workday class instead
+     * @Deprecated 2.0.0 Use the funcWorkDay method in the DateTimeExcel\WorkDay class instead
      *
      * Excel Function:
      *        WORKDAY(startDate,endDays[,holidays[,holiday[,...]]])
@@ -388,7 +388,7 @@ class DateTime
      */
     public static function WORKDAY($startDate, $endDays, ...$dateArgs)
     {
-        return DateTimeExcel\Workday::funcWorkday($startDate, $endDays, ...$dateArgs);
+        return DateTimeExcel\ZYXWorkDay::funcWorkDay($startDate, $endDays, ...$dateArgs);
     }
 
     /**
@@ -418,7 +418,7 @@ class DateTime
      * Returns the day of the week for a specified date. The day is given as an integer
      * ranging from 0 to 7 (dependent on the requested style).
      *
-     * @Deprecated 2.0.0 Use the funcWeekday method in the DateTimeExcel\Weekday class instead
+     * @Deprecated 2.0.0 Use the funcWeekDay method in the DateTimeExcel\WeekDay class instead
      *
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
@@ -434,7 +434,7 @@ class DateTime
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
-        return DateTimeExcel\Weekday::funcWeekday($dateValue, $style);
+        return DateTimeExcel\ZYXWeekDay::funcWeekDay($dateValue, $style);
     }
 
     const STARTWEEK_SUNDAY = 1;
@@ -477,7 +477,7 @@ class DateTime
      * three days or less in the first week of January, the WEEKNUM function returns week numbers
      * that are incorrect according to the European standard.
      *
-     * @Deprecated 2.0.0 Use the funcWeeknum method in the DateTimeExcel\Weeknum class instead
+     * @Deprecated 2.0.0 Use the funcWeekNum method in the DateTimeExcel\WeekNum class instead
      *
      * Excel Function:
      *        WEEKNUM(dateValue[,style])
@@ -500,7 +500,7 @@ class DateTime
      */
     public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
-        return DateTimeExcel\Weeknum::funcWeeknum($dateValue, $method);
+        return DateTimeExcel\ZYXWeekNum::funcWeekNum($dateValue, $method);
     }
 
     /**
@@ -520,7 +520,7 @@ class DateTime
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
-        return DateTimeExcel\Isoweeknum::funcIsoWeeknum($dateValue);
+        return DateTimeExcel\ZYXIsoweekNum::funcIsoWeekNum($dateValue);
     }
 
     /**
@@ -636,7 +636,7 @@ class DateTime
      * Use EDATE to calculate maturity dates or due dates that fall on the same day of the month
      * as the date of issue.
      *
-     * @Deprecated 2.0.0 Use the funcEdate method in the DateTimeExcel\Edate class instead
+     * @Deprecated 2.0.0 Use the funcEDate method in the DateTimeExcel\EDate class instead
      *
      * Excel Function:
      *        EDATE(dateValue,adjustmentMonths)
@@ -652,7 +652,7 @@ class DateTime
      */
     public static function EDATE($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\Edate::funcEdate($dateValue, $adjustmentMonths);
+        return DateTimeExcel\ZYXEDate::funcEDate($dateValue, $adjustmentMonths);
     }
 
     /**
@@ -662,7 +662,7 @@ class DateTime
      * before or after start_date.
      * Use EOMONTH to calculate maturity dates or due dates that fall on the last day of the month.
      *
-     * @Deprecated 2.0.0 Use the funcEomonth method in the DateTimeExcel\Eomonth class instead
+     * @Deprecated 2.0.0 Use the funcEoMonth method in the DateTimeExcel\EoMonth class instead
      *
      * Excel Function:
      *        EOMONTH(dateValue,adjustmentMonths)
@@ -678,6 +678,6 @@ class DateTime
      */
     public static function EOMONTH($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\Eomonth::funcEomonth($dateValue, $adjustmentMonths);
+        return DateTimeExcel\ZYXEoMonth::funcEoMonth($dateValue, $adjustmentMonths);
     }
 }

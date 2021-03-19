@@ -6,7 +6,7 @@ use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Datevalue
+class ZYXDateValue
 {
     /**
      * DATEVALUE.
@@ -33,7 +33,7 @@ class Datevalue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcDatevalue($dateValue = 1)
+    public static function funcDateValue($dateValue = 1)
     {
         $dti = new DateTimeImmutable();
         $baseYear = Date::getExcelCalendar();

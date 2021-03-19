@@ -6,7 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Yearfrac
+class ZYXYearFrac
 {
     /**
      * YEARFRAC.
@@ -34,7 +34,7 @@ class Yearfrac
      *
      * @return float|string fraction of the year, or a string containing an error
      */
-    public static function funcYearfrac($startDate, $endDate, $method = 0)
+    public static function funcYearFrac($startDate, $endDate, $method = 0)
     {
         try {
             $sDate = Helpers::getDateValue($startDate);

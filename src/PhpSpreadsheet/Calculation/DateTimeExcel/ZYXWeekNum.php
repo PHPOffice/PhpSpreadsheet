@@ -7,7 +7,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Weeknum
+class ZYXWeekNum
 {
     const STARTWEEK_SUNDAY = 1;
     const STARTWEEK_MONDAY = 2;
@@ -68,7 +68,7 @@ class Weeknum
      *
      * @return int|string Week Number
      */
-    public static function funcWeeknum($dateValue, $method = self::STARTWEEK_SUNDAY)
+    public static function funcWeekNum($dateValue, $method = self::STARTWEEK_SUNDAY)
     {
         $origDateValueNull = empty($dateValue);
 
