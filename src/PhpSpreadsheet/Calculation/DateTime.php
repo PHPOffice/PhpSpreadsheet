@@ -234,7 +234,7 @@ class DateTime
     /**
      * DATEDIF.
      *
-     * @Deprecated 2.0.0 Use the funcDatedif method in the DateTimeExcel\Datedif class instead
+     * @Deprecated 2.0.0 Use the funcDateDif method in the DateTimeExcel\DateDif class instead
      *
      * @param mixed $startDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
@@ -246,7 +246,7 @@ class DateTime
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
-        return DateTimeExcel\Datedif::funcDatedif($startDate, $endDate, $unit);
+        return DateTimeExcel\DateDif::funcDateDif($startDate, $endDate, $unit);
     }
 
     /**

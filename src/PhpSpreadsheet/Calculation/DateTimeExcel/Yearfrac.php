@@ -52,9 +52,9 @@ class Yearfrac
             case 1:
                 return self::method1($startDate, $endDate);
             case 2:
-                return Datedif::funcDatedif($startDate, $endDate) / 360;
+                return DateDif::funcDateDif($startDate, $endDate) / 360;
             case 3:
-                return Datedif::funcDatedif($startDate, $endDate) / 365;
+                return DateDif::funcDateDif($startDate, $endDate) / 365;
             case 4:
                 return Days360::funcDays360($startDate, $endDate, true) / 360;
         }
@@ -64,7 +64,7 @@ class Yearfrac
 
     private static function method1(float $startDate, float $endDate): float
     {
-        $days = Datedif::funcDatedif($startDate, $endDate);
+        $days = DateDif::funcDateDif($startDate, $endDate);
         $startYear = Year::funcYear($startDate);
         $endYear = Year::funcYear($endDate);
         $years = $endYear - $startYear + 1;
