@@ -262,8 +262,7 @@ class Date
             return false;
         }
 
-        //return self::dateTimeToExcel(new \DateTime('@' . $dateValue));
-        return self::dateTimeToExcel((new \DateTime())->setTimestamp($dateValue));
+        return self::dateTimeToExcel(new \DateTime('@' . $dateValue));
     }
 
     /**
