@@ -759,7 +759,7 @@ class Calculation
         ],
         'DATEDIF' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateDif::class, 'funcDateDif'],
+            'functionCall' => [DateTimeExcel\XDateDif::class, 'funcDateDif'],
             'argumentCount' => '2,3',
         ],
         'DATEVALUE' => [
