@@ -3,19 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
 
-class WorkDayTest extends TestCase
+class WorkDayTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerWORKDAY
      *

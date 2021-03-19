@@ -754,17 +754,17 @@ class Calculation
         ],
         'DATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DATE'],
+            'functionCall' => [DateTimeExcel\Datefunc::class, 'funcDate'],
             'argumentCount' => '3',
         ],
         'DATEDIF' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DATEDIF'],
+            'functionCall' => [DateTimeExcel\Datedif::class, 'funcDatedif'],
             'argumentCount' => '2,3',
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DATEVALUE'],
+            'functionCall' => [DateTimeExcel\DateValue::class, 'funcDateValue'],
             'argumentCount' => '1',
         ],
         'DAVERAGE' => [
@@ -774,17 +774,17 @@ class Calculation
         ],
         'DAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DAYOFMONTH'],
+            'functionCall' => [DateTimeExcel\Day::class, 'funcDay'],
             'argumentCount' => '1',
         ],
         'DAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DAYS'],
+            'functionCall' => [DateTimeExcel\Days::class, 'funcDays'],
             'argumentCount' => '2',
         ],
         'DAYS360' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DAYS360'],
+            'functionCall' => [DateTimeExcel\Days360::class, 'funcDays360'],
             'argumentCount' => '2,3',
         ],
         'DB' => [
@@ -919,7 +919,7 @@ class Calculation
         ],
         'EDATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'EDATE'],
+            'functionCall' => [DateTimeExcel\Edate::class, 'funcEdate'],
             'argumentCount' => '2',
         ],
         'EFFECT' => [
@@ -934,7 +934,7 @@ class Calculation
         ],
         'EOMONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'EOMONTH'],
+            'functionCall' => [DateTimeExcel\Eomonth::class, 'funcEomonth'],
             'argumentCount' => '2',
         ],
         'ERF' => [
@@ -1236,7 +1236,7 @@ class Calculation
         ],
         'HOUR' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'HOUROFDAY'],
+            'functionCall' => [DateTimeExcel\Hour::class, 'funcHour'],
             'argumentCount' => '1',
         ],
         'HYPERLINK' => [
@@ -1500,7 +1500,7 @@ class Calculation
         ],
         'ISOWEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'ISOWEEKNUM'],
+            'functionCall' => [DateTimeExcel\IsoWeeknum::class, 'funcIsoWeeknum'],
             'argumentCount' => '1',
         ],
         'ISPMT' => [
@@ -1680,7 +1680,7 @@ class Calculation
         ],
         'MINUTE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'MINUTE'],
+            'functionCall' => [DateTimeExcel\Minute::class, 'funcMinute'],
             'argumentCount' => '1',
         ],
         'MINVERSE' => [
@@ -1720,7 +1720,7 @@ class Calculation
         ],
         'MONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'MONTHOFYEAR'],
+            'functionCall' => [DateTimeExcel\Month::class, 'funcMonth'],
             'argumentCount' => '1',
         ],
         'MROUND' => [
@@ -1760,7 +1760,7 @@ class Calculation
         ],
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'NETWORKDAYS'],
+            'functionCall' => [DateTimeExcel\Networkdays::class, 'funcNetworkdays'],
             'argumentCount' => '2-3',
         ],
         'NETWORKDAYS.INTL' => [
@@ -1820,7 +1820,7 @@ class Calculation
         ],
         'NOW' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DATETIMENOW'],
+            'functionCall' => [DateTimeExcel\Now::class, 'funcNow'],
             'argumentCount' => '0',
         ],
         'NPER' => [
@@ -2173,7 +2173,7 @@ class Calculation
         ],
         'SECOND' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'SECOND'],
+            'functionCall' => [DateTimeExcel\Second::class, 'funcSecond'],
             'argumentCount' => '1',
         ],
         'SEQUENCE' => [
@@ -2419,12 +2419,12 @@ class Calculation
         ],
         'TIME' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'TIME'],
+            'functionCall' => [DateTimeExcel\Time::class, 'funcTime'],
             'argumentCount' => '3',
         ],
         'TIMEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'TIMEVALUE'],
+            'functionCall' => [DateTimeExcel\Timevalue::class, 'funcTimevalue'],
             'argumentCount' => '1',
         ],
         'TINV' => [
@@ -2444,7 +2444,7 @@ class Calculation
         ],
         'TODAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'DATENOW'],
+            'functionCall' => [DateTimeExcel\Today::class, 'funcToday'],
             'argumentCount' => '0',
         ],
         'TRANSPOSE' => [
@@ -2569,12 +2569,12 @@ class Calculation
         ],
         'WEEKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'WEEKDAY'],
+            'functionCall' => [DateTimeExcel\Weekday::class, 'funcWeekday'],
             'argumentCount' => '1,2',
         ],
         'WEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'WEEKNUM'],
+            'functionCall' => [DateTimeExcel\Weeknum::class, 'funcWeeknum'],
             'argumentCount' => '1,2',
         ],
         'WEIBULL' => [
@@ -2589,7 +2589,7 @@ class Calculation
         ],
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'WORKDAY'],
+            'functionCall' => [DateTimeExcel\Workday::class, 'funcWorkday'],
             'argumentCount' => '2-3',
         ],
         'WORKDAY.INTL' => [
@@ -2624,12 +2624,12 @@ class Calculation
         ],
         'YEAR' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'YEAR'],
+            'functionCall' => [DateTimeExcel\Year::class, 'funcYear'],
             'argumentCount' => '1',
         ],
         'YEARFRAC' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTime::class, 'YEARFRAC'],
+            'functionCall' => [DateTimeExcel\YearFrac::class, 'funcYearfrac'],
             'argumentCount' => '2,3',
         ],
         'YIELD' => [

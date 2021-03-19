@@ -2,20 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Networkdays;
 
-class NetworkDaysTest extends TestCase
+class NetworkDaysTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerNETWORKDAYS
      *
@@ -23,7 +13,7 @@ class NetworkDaysTest extends TestCase
      */
     public function testNETWORKDAYS($expectedResult, ...$args): void
     {
-        $result = DateTime::NETWORKDAYS(...$args);
+        $result = Networkdays::funcNetworkdays(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
