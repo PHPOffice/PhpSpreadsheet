@@ -30,6 +30,10 @@ class Helpers
      */
     public static function daysPerYear($year, $basis = 0)
     {
+        if (!is_numeric($basis)) {
+            return Functions::NAN();
+        }
+
         switch ($basis) {
             case self::DAYS_PER_YEAR_NASD:
             case self::DAYS_PER_YEAR_360:
