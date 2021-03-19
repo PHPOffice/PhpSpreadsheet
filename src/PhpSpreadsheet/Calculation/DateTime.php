@@ -246,7 +246,7 @@ class DateTime
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
-        return DateTimeExcel\XDateDif::funcDateDif($startDate, $endDate, $unit);
+        return DateTimeExcel\DateDif::funcDateDif($startDate, $endDate, $unit);
     }
 
     /**
