@@ -40,7 +40,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
 
             if (
                 $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
@@ -88,7 +88,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
 
             if (
                 $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
@@ -141,7 +141,7 @@ class TreasuryBill
                 return Functions::NAN();
             }
 
-            $daysBetweenSettlementAndMaturity = (DateTime::getDateValue($maturity) - DateTime::getDateValue($settlement));
+            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
 
             if ($daysBetweenSettlementAndMaturity > 360 || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
