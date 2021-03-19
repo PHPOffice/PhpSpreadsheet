@@ -764,7 +764,7 @@ class Calculation
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateValue::class, 'funcDateValue'],
+            'functionCall' => [DateTimeExcel\Datevalue::class, 'funcDatevalue'],
             'argumentCount' => '1',
         ],
         'DAVERAGE' => [
