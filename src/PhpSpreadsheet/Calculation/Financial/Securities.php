@@ -12,6 +12,32 @@ class Securities
     public const FREQUENCY_SEMI_ANNUAL = 2;
     public const FREQUENCY_QUARTERLY = 4;
 
+    /**
+     * PRICE.
+     *
+     * Returns the price per $100 face value of a security that pays periodic interest.
+     *
+     * @param mixed $settlement The security's settlement date.
+     *                              The security settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
+     * @param mixed $maturity The security's maturity date.
+     *                                The maturity date is the date when the security expires.
+     * @param float $rate the security's annual coupon rate
+     * @param float $yield the security's annual yield
+     * @param float $redemption The number of coupon payments per year.
+     *                              For annual payments, frequency = 1;
+     *                              for semiannual, frequency = 2;
+     *                              for quarterly, frequency = 4.
+     * @param int $frequency
+     * @param int $basis The type of day count to use.
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1                Actual/actual
+     *                       2                Actual/360
+     *                       3                Actual/365
+     *                       4                European 30/360
+     *
+     * @return float|string Result, or a string containing an error
+     */
     public static function price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
         $settlement = Functions::flattenSingleValue($settlement);
@@ -212,7 +238,7 @@ class Securities
         }
 
         $rate = (float) $rate;
-        if ($rate <= 0.0) {
+        if ($rate < 0.0) {
             throw new Exception(Functions::NAN());
         }
 
@@ -226,7 +252,7 @@ class Securities
         }
 
         $yield = (float) $yield;
-        if ($yield <= 0.0) {
+        if ($yield < 0.0) {
             throw new Exception(Functions::NAN());
         }
 
