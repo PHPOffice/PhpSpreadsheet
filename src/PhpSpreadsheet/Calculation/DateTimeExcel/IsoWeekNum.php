@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXIsoWeekNum
+class IsoWeekNum
 {
     /**
      * ISOWEEKNUM.

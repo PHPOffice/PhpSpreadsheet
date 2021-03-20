@@ -7,7 +7,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXWeekNum
+class WeekNum
 {
     const STARTWEEK_SUNDAY = 1;
     const STARTWEEK_MONDAY = 2;

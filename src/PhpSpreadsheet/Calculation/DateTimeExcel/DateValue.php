@@ -6,7 +6,7 @@ use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXDateValue
+class DateValue
 {
     /**
      * DATEVALUE.

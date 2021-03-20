@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\ZYXDateValue;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue;
 
 class DateValueTest extends AllSetupTeardown
 {
@@ -26,7 +26,7 @@ class DateValueTest extends AllSetupTeardown
             if (is_string($expectedResult)) {
                 $replYMD = str_replace('Y', date('Y'), $expectedResult);
                 if ($replYMD !== $expectedResult) {
-                    $expectedResult = ZYXDateValue::funcDateValue($replYMD);
+                    $expectedResult = DateValue::funcDateValue($replYMD);
                 }
             }
             $this->sheet->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
@@ -46,7 +46,7 @@ class DateValueTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = ZYXDateValue::funcDateValue('2012-1-31');
+        $result = DateValue::funcDateValue('2012-1-31');
         self::assertEquals(1327968000, $result);
         self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
@@ -55,7 +55,7 @@ class DateValueTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = ZYXDateValue::funcDateValue('2012-1-31');
+        $result = DateValue::funcDateValue('2012-1-31');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -67,9 +67,9 @@ class DateValueTest extends AllSetupTeardown
     public function testDATEVALUEwith1904Calendar(): void
     {
         self::setMac1904();
-        self::assertEquals(5428, ZYXDateValue::funcDateValue('1918-11-11'));
-        self::assertEquals(0, ZYXDateValue::funcDateValue('1904-01-01'));
-        self::assertEquals('#VALUE!', ZYXDateValue::funcDateValue('1903-12-31'));
-        self::assertEquals('#VALUE!', ZYXDateValue::funcDateValue('1900-02-29'));
+        self::assertEquals(5428, DateValue::funcDateValue('1918-11-11'));
+        self::assertEquals(0, DateValue::funcDateValue('1904-01-01'));
+        self::assertEquals('#VALUE!', DateValue::funcDateValue('1903-12-31'));
+        self::assertEquals('#VALUE!', DateValue::funcDateValue('1900-02-29'));
     }
 }

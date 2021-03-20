@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\ZYXYearFrac;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 
 class YearFracTest extends AllSetupTeardown
 {
@@ -13,7 +13,7 @@ class YearFracTest extends AllSetupTeardown
      */
     public function testYEARFRAC($expectedResult, ...$args): void
     {
-        $result = ZYXYearFrac::funcYearFrac(...$args);
+        $result = YearFrac::funcYearFrac(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

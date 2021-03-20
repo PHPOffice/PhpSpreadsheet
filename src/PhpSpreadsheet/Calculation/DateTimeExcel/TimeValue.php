@@ -6,7 +6,7 @@ use Datetime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXTimeValue
+class TimeValue
 {
     /**
      * TIMEVALUE.

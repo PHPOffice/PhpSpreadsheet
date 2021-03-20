@@ -200,7 +200,7 @@ class DateTime
      */
     public static function DATEVALUE($dateValue = 1)
     {
-        return DateTimeExcel\ZYXDateValue::funcDateValue($dateValue);
+        return DateTimeExcel\DateValue::funcDateValue($dateValue);
     }
 
     /**
@@ -228,7 +228,7 @@ class DateTime
      */
     public static function TIMEVALUE($timeValue)
     {
-        return DateTimeExcel\ZYXTimeValue::funcTimeValue($timeValue);
+        return DateTimeExcel\TimeValue::funcTimeValue($timeValue);
     }
 
     /**
@@ -336,7 +336,7 @@ class DateTime
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
-        return DateTimeExcel\ZYXYearFrac::funcYearFrac($startDate, $endDate, $method);
+        return DateTimeExcel\YearFrac::funcYearFrac($startDate, $endDate, $method);
     }
 
     /**
@@ -361,7 +361,7 @@ class DateTime
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
-        return DateTimeExcel\ZYXNetworkDays::funcNetworkDays($startDate, $endDate, ...$dateArgs);
+        return DateTimeExcel\NetworkDays::funcNetworkDays($startDate, $endDate, ...$dateArgs);
     }
 
     /**
@@ -388,7 +388,7 @@ class DateTime
      */
     public static function WORKDAY($startDate, $endDays, ...$dateArgs)
     {
-        return DateTimeExcel\ZYXWorkDay::funcWorkDay($startDate, $endDays, ...$dateArgs);
+        return DateTimeExcel\WorkDay::funcWorkDay($startDate, $endDays, ...$dateArgs);
     }
 
     /**
@@ -434,7 +434,7 @@ class DateTime
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
-        return DateTimeExcel\ZYXWeekDay::funcWeekDay($dateValue, $style);
+        return DateTimeExcel\WeekDay::funcWeekDay($dateValue, $style);
     }
 
     const STARTWEEK_SUNDAY = 1;
@@ -500,7 +500,7 @@ class DateTime
      */
     public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
-        return DateTimeExcel\ZYXWeekNum::funcWeekNum($dateValue, $method);
+        return DateTimeExcel\WeekNum::funcWeekNum($dateValue, $method);
     }
 
     /**
@@ -520,7 +520,7 @@ class DateTime
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
-        return DateTimeExcel\ZYXIsoweekNum::funcIsoWeekNum($dateValue);
+        return DateTimeExcel\IsoweekNum::funcIsoWeekNum($dateValue);
     }
 
     /**
@@ -652,7 +652,7 @@ class DateTime
      */
     public static function EDATE($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\ZYXEDate::funcEDate($dateValue, $adjustmentMonths);
+        return DateTimeExcel\EDate::funcEDate($dateValue, $adjustmentMonths);
     }
 
     /**
@@ -678,6 +678,6 @@ class DateTime
      */
     public static function EOMONTH($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\ZYXEoMonth::funcEoMonth($dateValue, $adjustmentMonths);
+        return DateTimeExcel\EoMonth::funcEoMonth($dateValue, $adjustmentMonths);
     }
 }

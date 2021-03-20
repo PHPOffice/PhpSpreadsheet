@@ -6,7 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXWorkDay
+class WorkDay
 {
     /**
      * WORKDAY.
@@ -65,8 +65,8 @@ class ZYXWorkDay
     {
         //    Adjust the start date if it falls over a weekend
 
-        $startDoW = ZYXWeekDay::funcWeekDay($startDate, 3);
-        if (ZYXWeekDay::funcWeekDay($startDate, 3) >= 5) {
+        $startDoW = WeekDay::funcWeekDay($startDate, 3);
+        if (WeekDay::funcWeekDay($startDate, 3) >= 5) {
             $startDate += 7 - $startDoW;
             --$endDays;
         }
@@ -77,7 +77,7 @@ class ZYXWorkDay
         while ($endDays > 0) {
             ++$endDate;
             //    Adjust the calculated end date if it falls over a weekend
-            $endDow = ZYXWeekDay::funcWeekDay($endDate, 3);
+            $endDow = WeekDay::funcWeekDay($endDate, 3);
             if ($endDow >= 5) {
                 $endDate += 7 - $endDow;
             }
@@ -96,7 +96,7 @@ class ZYXWorkDay
     {
         $holidayCountedArray = $holidayDates = [];
         foreach ($holidayArray as $holidayDate) {
-            if (ZYXWeekDay::funcWeekDay($holidayDate, 3) < 5) {
+            if (WeekDay::funcWeekDay($holidayDate, 3) < 5) {
                 $holidayDates[] = $holidayDate;
             }
         }
@@ -109,7 +109,7 @@ class ZYXWorkDay
                 }
             }
             //    Adjust the calculated end date if it falls over a weekend
-            $endDoW = ZYXWeekDay::funcWeekDay($endDate, 3);
+            $endDoW = WeekDay::funcWeekDay($endDate, 3);
             if ($endDoW >= 5) {
                 $endDate += 7 - $endDoW;
             }
@@ -127,8 +127,8 @@ class ZYXWorkDay
     {
         //    Adjust the start date if it falls over a weekend
 
-        $startDoW = ZYXWeekDay::funcWeekDay($startDate, 3);
-        if (ZYXWeekDay::funcWeekDay($startDate, 3) >= 5) {
+        $startDoW = WeekDay::funcWeekDay($startDate, 3);
+        if (WeekDay::funcWeekDay($startDate, 3) >= 5) {
             $startDate += -$startDoW + 4;
             ++$endDays;
         }
@@ -139,7 +139,7 @@ class ZYXWorkDay
         while ($endDays < 0) {
             --$endDate;
             //    Adjust the calculated end date if it falls over a weekend
-            $endDow = ZYXWeekDay::funcWeekDay($endDate, 3);
+            $endDow = WeekDay::funcWeekDay($endDate, 3);
             if ($endDow >= 5) {
                 $endDate += 4 - $endDow;
             }
@@ -158,7 +158,7 @@ class ZYXWorkDay
     {
         $holidayCountedArray = $holidayDates = [];
         foreach ($holidayArray as $holidayDate) {
-            if (ZYXWeekDay::funcWeekDay($holidayDate, 3) < 5) {
+            if (WeekDay::funcWeekDay($holidayDate, 3) < 5) {
                 $holidayDates[] = $holidayDate;
             }
         }
@@ -171,7 +171,7 @@ class ZYXWorkDay
                 }
             }
             //    Adjust the calculated end date if it falls over a weekend
-            $endDoW = ZYXWeekDay::funcWeekDay($endDate, 3);
+            $endDoW = WeekDay::funcWeekDay($endDate, 3);
             if ($endDoW >= 5) {
                 $endDate += -$endDoW + 4;
             }

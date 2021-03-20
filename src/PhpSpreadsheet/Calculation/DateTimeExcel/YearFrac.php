@@ -6,7 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXYearFrac
+class YearFrac
 {
     /**
      * YEARFRAC.

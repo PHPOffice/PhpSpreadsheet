@@ -6,7 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ZYXNetworkDays
+class NetworkDays
 {
     /**
      * NETWORKDAYS.
@@ -55,7 +55,7 @@ class ZYXNetworkDays
         $holidayCountedArray = [];
         foreach ($holidayArray as $holidayDate) {
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
-                if ((ZYXWeekDay::funcWeekDay($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
+                if ((WeekDay::funcWeekDay($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
                     --$partWeekDays;
                     $holidayCountedArray[] = $holidayDate;
                 }
@@ -67,7 +67,7 @@ class ZYXNetworkDays
 
     private static function calcStartDow(float $startDate): int
     {
-        $startDow = 6 - (int) ZYXWeekDay::funcWeekDay($startDate, 2);
+        $startDow = 6 - (int) WeekDay::funcWeekDay($startDate, 2);
         if ($startDow < 0) {
             $startDow = 5;
         }
@@ -77,7 +77,7 @@ class ZYXNetworkDays
 
     private static function calcEndDow(float $endDate): int
     {
-        $endDow = (int) ZYXWeekDay::funcWeekDay($endDate, 2);
+        $endDow = (int) WeekDay::funcWeekDay($endDate, 2);
         if ($endDow >= 6) {
             $endDow = 0;
         }

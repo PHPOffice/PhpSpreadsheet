@@ -764,7 +764,7 @@ class Calculation
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXDateValue::class, 'funcDateValue'],
+            'functionCall' => [DateTimeExcel\DateValue::class, 'funcDateValue'],
             'argumentCount' => '1',
         ],
         'DAVERAGE' => [
@@ -919,7 +919,7 @@ class Calculation
         ],
         'EDATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXEDate::class, 'funcEDate'],
+            'functionCall' => [DateTimeExcel\EDate::class, 'funcEDate'],
             'argumentCount' => '2',
         ],
         'EFFECT' => [
@@ -934,7 +934,7 @@ class Calculation
         ],
         'EOMONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXEoMonth::class, 'funcEoMonth'],
+            'functionCall' => [DateTimeExcel\EoMonth::class, 'funcEoMonth'],
             'argumentCount' => '2',
         ],
         'ERF' => [
@@ -1500,7 +1500,7 @@ class Calculation
         ],
         'ISOWEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXIsoWeekNum::class, 'funcIsoWeekNum'],
+            'functionCall' => [DateTimeExcel\IsoWeekNum::class, 'funcIsoWeekNum'],
             'argumentCount' => '1',
         ],
         'ISPMT' => [
@@ -1760,7 +1760,7 @@ class Calculation
         ],
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXNetworkDays::class, 'funcNetworkDays'],
+            'functionCall' => [DateTimeExcel\NetworkDays::class, 'funcNetworkDays'],
             'argumentCount' => '2-3',
         ],
         'NETWORKDAYS.INTL' => [
@@ -2424,7 +2424,7 @@ class Calculation
         ],
         'TIMEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXTimeValue::class, 'funcTimeValue'],
+            'functionCall' => [DateTimeExcel\TimeValue::class, 'funcTimeValue'],
             'argumentCount' => '1',
         ],
         'TINV' => [
@@ -2569,12 +2569,12 @@ class Calculation
         ],
         'WEEKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXWeekDay::class, 'funcWeekDay'],
+            'functionCall' => [DateTimeExcel\WeekDay::class, 'funcWeekDay'],
             'argumentCount' => '1,2',
         ],
         'WEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXWeekNum::class, 'funcWeekNum'],
+            'functionCall' => [DateTimeExcel\WeekNum::class, 'funcWeekNum'],
             'argumentCount' => '1,2',
         ],
         'WEIBULL' => [
@@ -2589,7 +2589,7 @@ class Calculation
         ],
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXWorkDay::class, 'funcWorkDay'],
+            'functionCall' => [DateTimeExcel\WorkDay::class, 'funcWorkDay'],
             'argumentCount' => '2-3',
         ],
         'WORKDAY.INTL' => [
@@ -2629,7 +2629,7 @@ class Calculation
         ],
         'YEARFRAC' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\ZYXYearFrac::class, 'funcYearFrac'],
+            'functionCall' => [DateTimeExcel\YearFrac::class, 'funcYearFrac'],
             'argumentCount' => '2,3',
         ],
         'YIELD' => [
