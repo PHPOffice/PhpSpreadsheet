@@ -650,32 +650,32 @@ class Calculation
         ],
         'COUPDAYBS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPDAYBS'],
+            'functionCall' => [Financial\Coupons::class, 'COUPDAYBS'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPDAYS'],
+            'functionCall' => [Financial\Coupons::class, 'COUPDAYS'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYSNC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPDAYSNC'],
+            'functionCall' => [Financial\Coupons::class, 'COUPDAYSNC'],
             'argumentCount' => '3,4',
         ],
         'COUPNCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPNCD'],
+            'functionCall' => [Financial\Coupons::class, 'COUPNCD'],
             'argumentCount' => '3,4',
         ],
         'COUPNUM' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPNUM'],
+            'functionCall' => [Financial\Coupons::class, 'COUPNUM'],
             'argumentCount' => '3,4',
         ],
         'COUPPCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'COUPPCD'],
+            'functionCall' => [Financial\Coupons::class, 'COUPPCD'],
             'argumentCount' => '3,4',
         ],
         'COVAR' => [
@@ -875,12 +875,12 @@ class Calculation
         ],
         'DOLLARDE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DOLLARDE'],
+            'functionCall' => [Financial\Dollar::class, 'decimal'],
             'argumentCount' => '2',
         ],
         'DOLLARFR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DOLLARFR'],
+            'functionCall' => [Financial\Dollar::class, 'fractional'],
             'argumentCount' => '2',
         ],
         'DPRODUCT' => [
@@ -925,7 +925,7 @@ class Calculation
         ],
         'EFFECT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'EFFECT'],
+            'functionCall' => [Financial\InterestRate::class, 'effective'],
             'argumentCount' => '2',
         ],
         'ENCODEURL' => [
@@ -1771,7 +1771,7 @@ class Calculation
         ],
         'NOMINAL' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'NOMINAL'],
+            'functionCall' => [Financial\InterestRate::class, 'nominal'],
             'argumentCount' => '2',
         ],
         'NORMDIST' => [
@@ -2376,17 +2376,17 @@ class Calculation
         ],
         'TBILLEQ' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLEQ'],
+            'functionCall' => [Financial\TreasuryBill::class, 'bondEquivalentYield'],
             'argumentCount' => '3',
         ],
         'TBILLPRICE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLPRICE'],
+            'functionCall' => [Financial\TreasuryBill::class, 'price'],
             'argumentCount' => '3',
         ],
         'TBILLYIELD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLYIELD'],
+            'functionCall' => [Financial\TreasuryBill::class, 'yield'],
             'argumentCount' => '3',
         ],
         'TDIST' => [
