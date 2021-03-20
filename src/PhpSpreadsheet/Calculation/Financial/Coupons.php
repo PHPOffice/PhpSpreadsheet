@@ -182,6 +182,14 @@ class Coupons
         $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
+        if ($basis === Helpers::DAYS_PER_YEAR_NASD) {
+            $settlementDate = Date::excelToDateTimeObject($settlement);
+            $settlementEoM = self::isLastDayOfMonth($settlementDate);
+            if ($settlementEoM) {
+                ++$settlement;
+            }
+        }
+
         return DateTime::YEARFRAC($settlement, $next, $basis) * $daysPerYear;
     }
 
@@ -278,7 +286,6 @@ class Coupons
             return $e->getMessage();
         }
 
-        // TODO Should the method be $basis; need to verify against MS Excel
         $yearsBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, 0);
 
         return ceil($yearsBetweenSettlementAndMaturity * $frequency);
@@ -351,16 +358,16 @@ class Coupons
         $months = 12 / $frequency;
 
         $result = Date::excelToDateTimeObject($maturity);
-        $eom = self::isLastDayOfMonth($result);
+        $maturityEoM = self::isLastDayOfMonth($result);
 
         while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
         }
-        if ($next) {
+        if ($next === true) {
             $result->modify('+' . $months . ' months');
         }
 
-        if ($eom) {
+        if ($maturityEoM === true) {
             $result->modify('-1 day');
         }
 
