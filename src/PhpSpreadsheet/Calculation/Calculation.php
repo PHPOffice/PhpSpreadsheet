@@ -1983,17 +1983,17 @@ class Calculation
         ],
         'PRICE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PRICE'],
+            'functionCall' => [Financial\Securities::class, 'price'],
             'argumentCount' => '6,7',
         ],
         'PRICEDISC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PRICEDISC'],
+            'functionCall' => [Financial\Securities::class, 'discounted'],
             'argumentCount' => '4,5',
         ],
         'PRICEMAT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PRICEMAT'],
+            'functionCall' => [Financial\Securities::class, 'maturity'],
             'argumentCount' => '5,6',
         ],
         'PROB' => [
