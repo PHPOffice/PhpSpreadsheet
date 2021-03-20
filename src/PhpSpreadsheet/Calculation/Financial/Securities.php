@@ -59,7 +59,8 @@ class Securities
      * Returns the price per $100 face value of a discounted security.
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
      * @param float $discount The security's discount rate
@@ -107,7 +108,8 @@ class Securities
      * Returns the price per $100 face value of a security that pays interest at maturity.
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security's settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security's settlement date is the date after the issue date when the
+     *                              security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
