@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Financial
@@ -1048,22 +1049,18 @@ class Financial
      * Excel Function:
      *        EFFECT(nominal_rate,npery)
      *
-     * @param float $nominal_rate Nominal interest rate
-     * @param int $npery Number of compounding payments per year
+     * @Deprecated 1.18.0
+     *
+     * @see Use the effective() method in the Financial\InterestRate class instead
+     *
+     * @param float $nominalRate Nominal interest rate
+     * @param int $periodsPerYear Number of compounding payments per year
      *
      * @return float|string
      */
-    public static function EFFECT($nominal_rate = 0, $npery = 0)
+    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0)
     {
-        $nominal_rate = Functions::flattenSingleValue($nominal_rate);
-        $npery = (int) Functions::flattenSingleValue($npery);
-
-        // Validate parameters
-        if ($nominal_rate <= 0 || $npery < 1) {
-            return Functions::NAN();
-        }
-
-        return (1 + $nominal_rate / $npery) ** $npery - 1;
+        return Financial\InterestRate::effective($nominalRate, $periodsPerYear);
     }
 
     /**
@@ -1392,23 +1389,21 @@ class Financial
      *
      * Returns the nominal interest rate given the effective rate and the number of compounding payments per year.
      *
-     * @param float $effect_rate Effective interest rate
-     * @param int $npery Number of compounding payments per year
+     * Excel Function:
+     *        NOMINAL(effect_rate, npery)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the nominal() method in the Financial\InterestRate class instead
+     *
+     * @param float $effectiveRate Effective interest rate
+     * @param int $periodsPerYear Number of compounding payments per year
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function NOMINAL($effect_rate = 0, $npery = 0)
+    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0)
     {
-        $effect_rate = Functions::flattenSingleValue($effect_rate);
-        $npery = (int) Functions::flattenSingleValue($npery);
-
-        // Validate parameters
-        if ($effect_rate <= 0 || $npery < 1) {
-            return Functions::NAN();
-        }
-
-        // Calculate
-        return $npery * (($effect_rate + 1) ** (1 / $npery) - 1);
+        return InterestRate::nominal($effectiveRate, $periodsPerYear);
     }
 
     /**

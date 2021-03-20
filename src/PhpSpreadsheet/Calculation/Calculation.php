@@ -925,7 +925,7 @@ class Calculation
         ],
         'EFFECT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'EFFECT'],
+            'functionCall' => [Financial\InterestRate::class, 'effective'],
             'argumentCount' => '2',
         ],
         'ENCODEURL' => [
@@ -1771,7 +1771,7 @@ class Calculation
         ],
         'NOMINAL' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'NOMINAL'],
+            'functionCall' => [Financial\InterestRate::class, 'nominal'],
             'argumentCount' => '2',
         ],
         'NORMDIST' => [
@@ -2376,17 +2376,17 @@ class Calculation
         ],
         'TBILLEQ' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLEQ'],
+            'functionCall' => [Financial\TreasuryBill::class, 'bondEquivalentYield'],
             'argumentCount' => '3',
         ],
         'TBILLPRICE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLPRICE'],
+            'functionCall' => [Financial\TreasuryBill::class, 'price'],
             'argumentCount' => '3',
         ],
         'TBILLYIELD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'TBILLYIELD'],
+            'functionCall' => [Financial\TreasuryBill::class, 'yield'],
             'argumentCount' => '3',
         ],
         'TDIST' => [
