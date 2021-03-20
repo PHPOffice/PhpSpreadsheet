@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
@@ -13,8 +12,9 @@ class HelpersTest extends TestCase
      *
      * @param mixed $expectedResult
      * @param mixed $year
+     * @param mixed $basis
      */
-    public function testDaysPerYear($expectedResult, $year, $basis)
+    public function testDaysPerYear($expectedResult, $year, $basis): void
     {
         $result = Helpers::daysPerYear($year, $basis);
         self::assertSame($expectedResult, $result, 1E-8);
