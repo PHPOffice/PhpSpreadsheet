@@ -11,15 +11,6 @@ class Financial
 
     const FINANCIAL_PRECISION = 1.0e-08;
 
-    private static function isValidFrequency($frequency)
-    {
-        if (($frequency == 1) || ($frequency == 2) || ($frequency == 4)) {
-            return true;
-        }
-
-        return false;
-    }
-
     private static function interestAndPrincipal($rate = 0, $per = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
         $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
@@ -1374,6 +1365,14 @@ class Financial
      * @Deprecated 1.18.0
      *
      * @see Use the price() method in the Financial\Securities class instead
+     *
+     * @param mixed $settlement
+     * @param mixed $maturity
+     * @param mixed $rate
+     * @param mixed $yield
+     * @param mixed $redemption
+     * @param mixed $frequency
+     * @param mixed $basis
      */
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {

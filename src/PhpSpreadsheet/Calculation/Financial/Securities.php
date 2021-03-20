@@ -129,12 +129,13 @@ class Securities
         $issue = Functions::flattenSingleValue($issue);
         $rate = Functions::flattenSingleValue($rate);
         $yield = Functions::flattenSingleValue($yield);
-        $basis = (int) Functions::flattenSingleValue($basis);
+        $basis = Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
             $maturity = self::validateMaturityDate($maturity);
             self::validateSecurityPeriod($settlement, $maturity);
+            $issue = self::validateIssueDate($issue);
             $rate = self::validateRate($rate);
             $yield = self::validateYield($yield);
             $basis = self::validateBasis($basis);
@@ -188,6 +189,11 @@ class Securities
     private static function validateMaturityDate($maturity)
     {
         return self::validateInputDate($maturity);
+    }
+
+    private static function validateIssueDate($issue)
+    {
+        return self::validateInputDate($issue);
     }
 
     private static function validateSecurityPeriod($settlement, $maturity): void
