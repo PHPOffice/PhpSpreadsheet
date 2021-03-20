@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -11,6 +12,9 @@ class Coupons
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
     public const FREQUENCY_QUARTERLY = 4;
+
+    private const PERIOD_DATE_PREVIOUS = false;
+    private const PERIOD_DATE_NEXT = true;
 
     /**
      * COUPDAYBS.
@@ -43,26 +47,21 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
+        $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis == 1) {
             return abs(DateTime::DAYS($prev, $settlement));
@@ -102,37 +101,32 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         switch ($basis) {
-            case 3:
+            case Helpers::DAYS_PER_YEAR_365:
                 // Actual/365
                 return 365 / $frequency;
-            case 1:
+            case Helpers::DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
-                if ($frequency == 1) {
+                if ($frequency == self::FREQUENCY_ANNUAL) {
                     $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
-                $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
-                $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
+                $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
+                $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
                 return $next - $prev;
             default:
@@ -172,26 +166,21 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
+        $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
         return DateTime::YEARFRAC($settlement, $next, $basis) * $daysPerYear;
     }
@@ -228,25 +217,20 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
+        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
     }
 
     /**
@@ -281,24 +265,20 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
+        // TODO Should the method be $basis; need to verify against MS Excel
         $yearsBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, 0);
 
         return ceil($yearsBetweenSettlementAndMaturity * $frequency);
@@ -336,25 +316,20 @@ class Coupons
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $frequency = Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
 
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
+        try {
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
+            self::validateCouponPeriod($settlement, $maturity);
+            $frequency = self::validateFrequency($frequency);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
+        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
     }
 
     /**
@@ -392,16 +367,62 @@ class Coupons
         return Date::PHPToExcel($result);
     }
 
-    private static function isValidFrequency(int $frequency)
+    private static function validateInputDate($date)
     {
-        if (
-            ($frequency === self::FREQUENCY_ANNUAL) ||
-            ($frequency === self::FREQUENCY_SEMI_ANNUAL) ||
-            ($frequency === self::FREQUENCY_QUARTERLY)
-        ) {
-            return true;
+        $date = DateTime::getDateValue($date);
+        if (is_string($date)) {
+            throw new Exception(Functions::VALUE());
         }
 
-        return false;
+        return $date;
+    }
+
+    private static function validateSettlementDate($settlement)
+    {
+        return self::validateInputDate($settlement);
+    }
+
+    private static function validateMaturityDate($maturity)
+    {
+        return self::validateInputDate($maturity);
+    }
+
+    private static function validateCouponPeriod($settlement, $maturity): void
+    {
+        if ($settlement >= $maturity) {
+            throw new Exception(Functions::NAN());
+        }
+    }
+
+    private static function validateFrequency($frequency): int
+    {
+        if (!is_numeric($frequency)) {
+            throw new Exception(Functions::NAN());
+        }
+
+        $frequency = (int) $frequency;
+        if (
+            ($frequency !== self::FREQUENCY_ANNUAL) &&
+            ($frequency !== self::FREQUENCY_SEMI_ANNUAL) &&
+            ($frequency !== self::FREQUENCY_QUARTERLY)
+        ) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $frequency;
+    }
+
+    private static function validateBasis($basis)
+    {
+        if (!is_numeric($basis)) {
+            throw new Exception(Functions::NAN());
+        }
+
+        $basis = (int) $basis;
+        if (($basis < 0) || ($basis > 4)) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $basis;
     }
 }
