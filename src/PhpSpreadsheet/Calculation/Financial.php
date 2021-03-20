@@ -11,15 +11,6 @@ class Financial
 
     const FINANCIAL_PRECISION = 1.0e-08;
 
-    private static function isValidFrequency($frequency)
-    {
-        if (($frequency == 1) || ($frequency == 2) || ($frequency == 4)) {
-            return true;
-        }
-
-        return false;
-    }
-
     private static function interestAndPrincipal($rate = 0, $per = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
         $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
@@ -1370,85 +1361,49 @@ class Financial
         return $interestAndPrincipal[1];
     }
 
-    private static function validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis)
-    {
-        if (is_string($settlement)) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity)) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($rate)) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($yield)) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($redemption)) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($frequency)) {
-            return Functions::VALUE();
-        }
-        if (!is_numeric($basis)) {
-            return Functions::VALUE();
-        }
-
-        return '';
-    }
-
+    /**
+     * PRICE.
+     *
+     * Returns the price per $100 face value of a security that pays periodic interest.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the price() method in the Financial\Securities class instead
+     *
+     * @param mixed $settlement The security's settlement date.
+     *                              The security settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
+     * @param mixed $maturity The security's maturity date.
+     *                                The maturity date is the date when the security expires.
+     * @param float $rate the security's annual coupon rate
+     * @param float $yield the security's annual yield
+     * @param float $redemption The number of coupon payments per year.
+     *                              For annual payments, frequency = 1;
+     *                              for semiannual, frequency = 2;
+     *                              for quarterly, frequency = 4.
+     * @param int $frequency
+     * @param int $basis The type of day count to use.
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1                Actual/actual
+     *                       2                Actual/360
+     *                       3                Actual/365
+     *                       4                European 30/360
+     *
+     * @return float|string Result, or a string containing an error
+     */
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $rate = Functions::flattenSingleValue($rate);
-        $yield = Functions::flattenSingleValue($yield);
-        $redemption = Functions::flattenSingleValue($redemption);
-        $frequency = Functions::flattenSingleValue($frequency);
-        $basis = Functions::flattenSingleValue($basis);
-
-        $settlement = DateTime::getDateValue($settlement);
-        $maturity = DateTime::getDateValue($maturity);
-        $rslt = self::validatePrice($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
-        if ($rslt) {
-            return $rslt;
-        }
-        $rate = (float) $rate;
-        $yield = (float) $yield;
-        $redemption = (float) $redemption;
-        $frequency = (int) $frequency;
-        $basis = (int) $basis;
-
-        if (
-            ($settlement > $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        $dsc = self::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
-        $e = self::COUPDAYS($settlement, $maturity, $frequency, $basis);
-        $n = self::COUPNUM($settlement, $maturity, $frequency, $basis);
-        $a = self::COUPDAYBS($settlement, $maturity, $frequency, $basis);
-
-        $baseYF = 1.0 + ($yield / $frequency);
-        $rfp = 100 * ($rate / $frequency);
-        $de = $dsc / $e;
-
-        $result = $redemption / $baseYF ** (--$n + $de);
-        for ($k = 0; $k <= $n; ++$k) {
-            $result += $rfp / ($baseYF ** ($k + $de));
-        }
-        $result -= $rfp * ($a / $e);
-
-        return $result;
+        return Financial\Securities::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
 
     /**
      * PRICEDISC.
      *
      * Returns the price per $100 face value of a discounted security.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the discounted() method in the Financial\Securities class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
@@ -1467,33 +1422,17 @@ class Financial
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $discount = (float) Functions::flattenSingleValue($discount);
-        $redemption = (float) Functions::flattenSingleValue($redemption);
-        $basis = (int) Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($discount)) && (is_numeric($redemption)) && (is_numeric($basis))) {
-            if (($discount <= 0) || ($redemption <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-
-            return $redemption * (1 - $discount * $daysBetweenSettlementAndMaturity);
-        }
-
-        return Functions::VALUE();
+        return Financial\Securities::discounted($settlement, $maturity, $discount, $redemption, $basis);
     }
 
     /**
      * PRICEMAT.
      *
      * Returns the price per $100 face value of a security that pays interest at maturity.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the maturity() method in the Financial\Securities class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security's settlement date is the date after the issue date when the security is traded to the buyer.
@@ -1513,47 +1452,7 @@ class Financial
      */
     public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $issue = Functions::flattenSingleValue($issue);
-        $rate = Functions::flattenSingleValue($rate);
-        $yield = Functions::flattenSingleValue($yield);
-        $basis = (int) Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if (is_numeric($rate) && is_numeric($yield)) {
-            if (($rate <= 0) || ($yield <= 0)) {
-                return Functions::NAN();
-            }
-            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
-                return $daysPerYear;
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-            $daysBetweenIssueAndSettlement *= $daysPerYear;
-            $daysBetweenIssueAndMaturity = DateTime::YEARFRAC($issue, $maturity, $basis);
-            if (!is_numeric($daysBetweenIssueAndMaturity)) {
-                //    return date error
-                return $daysBetweenIssueAndMaturity;
-            }
-            $daysBetweenIssueAndMaturity *= $daysPerYear;
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-            $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return (100 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate * 100)) /
-                   (1 + (($daysBetweenSettlementAndMaturity / $daysPerYear) * $yield)) -
-                   (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate * 100);
-        }
-
-        return Functions::VALUE();
+        return Financial\Securities::maturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
 
     /**

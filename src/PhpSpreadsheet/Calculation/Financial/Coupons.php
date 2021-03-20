@@ -419,7 +419,7 @@ class Coupons
         return $frequency;
     }
 
-    private static function validateBasis($basis)
+    private static function validateBasis($basis): int
     {
         if (!is_numeric($basis)) {
             throw new Exception(Functions::NAN());
