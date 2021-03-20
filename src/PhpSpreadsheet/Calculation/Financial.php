@@ -21,49 +21,6 @@ class Financial
         return false;
     }
 
-    /**
-     * daysPerYear.
-     *
-     * Returns the number of days in a specified year, as defined by the "basis" value
-     *
-     * @Deprecated 1.18.0
-     *
-     * @see Use the daysPerYear() method in the Financial\Helpers class instead
-     *
-     * @param int|string $year The year against which we're testing
-     * @param int|string $basis The type of day count:
-     *                                    0 or omitted US (NASD)    360
-     *                                    1                        Actual (365 or 366 in a leap year)
-     *                                    2                        360
-     *                                    3                        365
-     *                                    4                        European 360
-     *
-     * @return int|string Result, or a string containing an error
-     */
-    private static function daysPerYear($year, $basis = 0)
-    {
-        switch ($basis) {
-            case 0:
-            case 2:
-            case 4:
-                $daysPerYear = 360;
-
-                break;
-            case 3:
-                $daysPerYear = 365;
-
-                break;
-            case 1:
-                $daysPerYear = (DateTime::isLeapYear($year)) ? 366 : 365;
-
-                break;
-            default:
-                return Functions::NAN();
-        }
-
-        return $daysPerYear;
-    }
-
     private static function interestAndPrincipal($rate = 0, $per = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
         $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
@@ -1569,7 +1526,7 @@ class Financial
             if (($rate <= 0) || ($yield <= 0)) {
                 return Functions::NAN();
             }
-            $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
+            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
@@ -2150,7 +2107,7 @@ class Financial
             if (($price <= 0) || ($redemption <= 0)) {
                 return Functions::NAN();
             }
-            $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
+            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
@@ -2202,7 +2159,7 @@ class Financial
             if (($rate <= 0) || ($price <= 0)) {
                 return Functions::NAN();
             }
-            $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
+            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {
                 return $daysPerYear;
             }
