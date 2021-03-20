@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Financial
 {

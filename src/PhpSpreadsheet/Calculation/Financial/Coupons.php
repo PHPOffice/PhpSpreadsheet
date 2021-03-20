@@ -63,7 +63,7 @@ class Coupons
         $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
-        if ($basis == 1) {
+        if ($basis === Helpers::DAYS_PER_YEAR_ACTUAL) {
             return abs(DateTime::DAYS($prev, $settlement));
         }
 
@@ -350,7 +350,7 @@ class Coupons
      */
     private static function isLastDayOfMonth(\DateTime $testDate)
     {
-        return $testDate->format('d') == $testDate->format('t');
+        return $testDate->format('d') === $testDate->format('t');
     }
 
     private static function couponFirstPeriodDate($settlement, $maturity, int $frequency, $next)
