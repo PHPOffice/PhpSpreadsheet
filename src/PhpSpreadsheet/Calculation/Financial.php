@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -10,41 +11,6 @@ class Financial
     const FINANCIAL_MAX_ITERATIONS = 128;
 
     const FINANCIAL_PRECISION = 1.0e-08;
-
-    /**
-     * isLastDayOfMonth.
-     *
-     * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
-     *
-     * @param \DateTime $testDate The date for testing
-     *
-     * @return bool
-     */
-    private static function isLastDayOfMonth(\DateTime $testDate)
-    {
-        return $testDate->format('d') == $testDate->format('t');
-    }
-
-    private static function couponFirstPeriodDate($settlement, $maturity, $frequency, $next)
-    {
-        $months = 12 / $frequency;
-
-        $result = Date::excelToDateTimeObject($maturity);
-        $eom = self::isLastDayOfMonth($result);
-
-        while ($settlement < Date::PHPToExcel($result)) {
-            $result->modify('-' . $months . ' months');
-        }
-        if ($next) {
-            $result->modify('+' . $months . ' months');
-        }
-
-        if ($eom) {
-            $result->modify('-1 day');
-        }
-
-        return Date::PHPToExcel($result);
-    }
 
     private static function isValidFrequency($frequency)
     {
@@ -374,6 +340,10 @@ class Financial
      * Excel Function:
      *        COUPDAYBS(settlement,maturity,frequency[,basis])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPDAYBS() method in the Financial\Coupons class instead
+     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -395,34 +365,7 @@ class Financial
      */
     public static function COUPDAYBS($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
-
-        if ($basis == 1) {
-            return abs(DateTime::DAYS($prev, $settlement));
-        }
-
-        return DateTime::YEARFRAC($prev, $settlement, $basis) * $daysPerYear;
+        return Coupons::COUPDAYBS($settlement, $maturity, $frequency, $basis);
     }
 
     /**
@@ -432,6 +375,10 @@ class Financial
      *
      * Excel Function:
      *        COUPDAYS(settlement,maturity,frequency[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPDAYS() method in the Financial\Coupons class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -454,45 +401,7 @@ class Financial
      */
     public static function COUPDAYS($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        switch ($basis) {
-            case 3:
-                // Actual/365
-                return 365 / $frequency;
-            case 1:
-                // Actual/actual
-                if ($frequency == 1) {
-                    $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-
-                    return $daysPerYear / $frequency;
-                }
-                $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
-                $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
-
-                return $next - $prev;
-            default:
-                // US (NASD) 30/360, Actual/360 or European 30/360
-                return 360 / $frequency;
-        }
+        return Coupons::COUPDAYS($settlement, $maturity, $frequency, $basis);
     }
 
     /**
@@ -502,6 +411,10 @@ class Financial
      *
      * Excel Function:
      *        COUPDAYSNC(settlement,maturity,frequency[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPDAYSNC() method in the Financial\Coupons class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -524,30 +437,7 @@ class Financial
      */
     public static function COUPDAYSNC($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
-        $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
-
-        return DateTime::YEARFRAC($settlement, $next, $basis) * $daysPerYear;
+        return Coupons::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
     }
 
     /**
@@ -557,6 +447,10 @@ class Financial
      *
      * Excel Function:
      *        COUPNCD(settlement,maturity,frequency[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPNCD() method in the Financial\Coupons class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -580,27 +474,7 @@ class Financial
      */
     public static function COUPNCD($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
+        return Coupons::COUPNCD($settlement, $maturity, $frequency, $basis);
     }
 
     /**
@@ -611,6 +485,10 @@ class Financial
      *
      * Excel Function:
      *        COUPNUM(settlement,maturity,frequency[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPNUM() method in the Financial\Coupons class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -633,29 +511,7 @@ class Financial
      */
     public static function COUPNUM($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        $yearsBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, 0);
-
-        return ceil($yearsBetweenSettlementAndMaturity * $frequency);
+        return Coupons::COUPNUM($settlement, $maturity, $frequency, $basis);
     }
 
     /**
@@ -665,6 +521,10 @@ class Financial
      *
      * Excel Function:
      *        COUPPCD(settlement,maturity,frequency[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the COUPPCD() method in the Financial\Coupons class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -688,27 +548,7 @@ class Financial
      */
     public static function COUPPCD($settlement, $maturity, $frequency, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $frequency = (int) Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        if (is_string($settlement = DateTime::getDateValue($settlement))) {
-            return Functions::VALUE();
-        }
-        if (is_string($maturity = DateTime::getDateValue($maturity))) {
-            return Functions::VALUE();
-        }
-
-        if (
-            ($settlement >= $maturity) ||
-            (!self::isValidFrequency($frequency)) ||
-            (($basis < 0) || ($basis > 4))
-        ) {
-            return Functions::NAN();
-        }
-
-        return self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
+        return Coupons::COUPPCD($settlement, $maturity, $frequency, $basis);
     }
 
     /**
