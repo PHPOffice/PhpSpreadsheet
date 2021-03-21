@@ -122,15 +122,15 @@ return [
         2,
         0.5,
     ],
-//  Code does not yet handle fractional period values for DDB, only integer
-//    [
-//        1024.58,
-//        12000,
-//        1000,
-//        5,
-//        2.5,
-//        0.5,
-//    ],
+    //  Code does not yet handle fractional period values for DDB, only integer
+    //    [
+    //        1024.58,
+    //        12000,
+    //        1000,
+    //        5,
+    //        2.5,
+    //        0.5,
+    //    ],
     [
         '#NUM!',
         -2400,
