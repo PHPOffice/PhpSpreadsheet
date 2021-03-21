@@ -46,8 +46,8 @@ class Amortization
         $period = floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
 
+        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }

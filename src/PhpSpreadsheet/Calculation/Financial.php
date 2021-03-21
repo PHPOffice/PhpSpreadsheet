@@ -1272,12 +1272,13 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the discounted() method in the Financial\Securities class instead
+     * @see Use the priceDiscounted() method in the Financial\Securities class instead
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
+     *                            The maturity date is the date when the security expires.
      * @param int $discount The security's discount rate
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
@@ -1291,7 +1292,7 @@ class Financial
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
-        return Securities::discounted($settlement, $maturity, $discount, $redemption, $basis);
+        return Securities::priceDiscounted($settlement, $maturity, $discount, $redemption, $basis);
     }
 
     /**
@@ -1301,12 +1302,13 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the maturity() method in the Financial\Securities class instead
+     * @see Use the priceAtMaturity() method in the Financial\Securities class instead
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security's settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security's settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
+     *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
      * @param int $rate The security's interest rate at date of issue
      * @param int $yield The security's annual yield
@@ -1321,7 +1323,7 @@ class Financial
      */
     public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
     {
-        return Securities::maturity($settlement, $maturity, $issue, $rate, $yield, $basis);
+        return Securities::priceAtMaturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
 
     /**
@@ -1827,10 +1829,13 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
+     * @see Use the yieldDiscounted() method in the Financial\Securities class instead
+     *
      * @param mixed $settlement The security's settlement date.
-     *                                    The security's settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security's settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                    The maturity date is the date when the security expires.
+     *                            The maturity date is the date when the security expires.
      * @param int $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
@@ -1844,32 +1849,7 @@ class Financial
      */
     public static function YIELDDISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $price = Functions::flattenSingleValue($price);
-        $redemption = Functions::flattenSingleValue($redemption);
-        $basis = (int) Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if (is_numeric($price) && is_numeric($redemption)) {
-            if (($price <= 0) || ($redemption <= 0)) {
-                return Functions::NAN();
-            }
-            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
-                return $daysPerYear;
-            }
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-            $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return (($redemption - $price) / $price) * ($daysPerYear / $daysBetweenSettlementAndMaturity);
-        }
-
-        return Functions::VALUE();
+        return Securities::yieldDiscounted($settlement, $maturity, $price, $redemption, $basis);
     }
 
     /**
@@ -1877,10 +1857,15 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the yieldAtMaturity() method in the Financial\Securities class instead
+     *
      * @param mixed $settlement The security's settlement date.
-     *                                   The security's settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security's settlement date is the date after the issue date when the security
+     *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                   The maturity date is the date when the security expires.
+     *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
      * @param int $rate The security's interest rate at date of issue
      * @param int $price The security's price per $100 face value
@@ -1895,46 +1880,6 @@ class Financial
      */
     public static function YIELDMAT($settlement, $maturity, $issue, $rate, $price, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $issue = Functions::flattenSingleValue($issue);
-        $rate = Functions::flattenSingleValue($rate);
-        $price = Functions::flattenSingleValue($price);
-        $basis = (int) Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if (is_numeric($rate) && is_numeric($price)) {
-            if (($rate <= 0) || ($price <= 0)) {
-                return Functions::NAN();
-            }
-            $daysPerYear = Financial\Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
-            if (!is_numeric($daysPerYear)) {
-                return $daysPerYear;
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-            $daysBetweenIssueAndSettlement *= $daysPerYear;
-            $daysBetweenIssueAndMaturity = DateTime::YEARFRAC($issue, $maturity, $basis);
-            if (!is_numeric($daysBetweenIssueAndMaturity)) {
-                //    return date error
-                return $daysBetweenIssueAndMaturity;
-            }
-            $daysBetweenIssueAndMaturity *= $daysPerYear;
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-            $daysBetweenSettlementAndMaturity *= $daysPerYear;
-
-            return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) - (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
-                   (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
-                   ($daysPerYear / $daysBetweenSettlementAndMaturity);
-        }
-
-        return Functions::VALUE();
+        return Securities::yieldAtMaturity($settlement, $maturity, $issue, $rate, $price, $basis);
     }
 }
