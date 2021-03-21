@@ -45,40 +45,36 @@ class Depreciation
             $salvage = self::validateSalvage($salvage);
             $life = self::validateLife($life);
             $period = self::validatePeriod($period);
+            $month = self::validateMonth($month);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($month)) {
-            $month = (int) $month;
-            if ($cost == 0) {
-                return 0.0;
-            } elseif (($cost < 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
-                return Functions::NAN();
-            }
-            //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
-            //    Loop through each period calculating the depreciation
-            $previousDepreciation = 0;
-            $depreciation = 0;
-            for ($per = 1; $per <= $period; ++$per) {
-                if ($per == 1) {
-                    $depreciation = $cost * $fixedDepreciationRate * $month / 12;
-                } elseif ($per == ($life + 1)) {
-                    $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate * (12 - $month) / 12;
-                } else {
-                    $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate;
-                }
-                $previousDepreciation += $depreciation;
-            }
-
-            return $depreciation;
+        if ($cost === 0.0) {
+            return 0.0;
+        } elseif ((($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        //    Set Fixed Depreciation Rate
+        $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
+        $fixedDepreciationRate = round($fixedDepreciationRate, 3);
+
+        //    Loop through each period calculating the depreciation
+        $previousDepreciation = 0;
+        $depreciation = 0;
+        for ($per = 1; $per <= $period; ++$per) {
+            if ($per == 1) {
+                $depreciation = $cost * $fixedDepreciationRate * $month / 12;
+            } elseif ($per == ($life + 1)) {
+                $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate * (12 - $month) / 12;
+            } else {
+                $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate;
+            }
+            $previousDepreciation += $depreciation;
+        }
+
+        return $depreciation;
     }
 
     /**
@@ -116,31 +112,24 @@ class Depreciation
             $salvage = self::validateSalvage($salvage);
             $life = self::validateLife($life);
             $period = self::validatePeriod($period);
+            $factor = self::validateFactor($factor);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (is_numeric($factor)) {
-            $factor = (float) $factor;
-            if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
-                return Functions::NAN();
-            }
-            //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
-            //    Loop through each period calculating the depreciation
-            $previousDepreciation = 0;
-            $depreciation = 0;
-            for ($per = 1; $per <= $period; ++$per) {
-                $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
-                $previousDepreciation += $depreciation;
-            }
-
-            return $depreciation;
+        if ((($salvage / $cost) < 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        //    Loop through each period calculating the depreciation
+        $previousDepreciation = 0;
+        $depreciation = 0;
+        for ($per = 1; $per <= $period; ++$per) {
+            $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
+            $previousDepreciation += $depreciation;
+        }
+
+        return $depreciation;
     }
 
     /**
@@ -161,16 +150,15 @@ class Depreciation
         $life = Functions::flattenSingleValue($life);
 
         try {
-            $cost = self::validateCost($cost);
-            $salvage = self::validateSalvage($salvage);
-            $life = self::validateLife($life);
+            $cost = self::validateCost($cost, true);
+            $salvage = self::validateSalvage($salvage, true);
+            $life = self::validateLife($life, true);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        // Calculate
-        if ($life < 0) {
-            return Functions::NAN();
+        if ($life === 0.0) {
+            return Functions::DIV0();
         }
 
         return ($cost - $salvage) / $life;
@@ -196,7 +184,7 @@ class Depreciation
         $period = Functions::flattenSingleValue($period);
 
         try {
-            $cost = self::validateCost($cost);
+            $cost = self::validateCost($cost, true);
             $salvage = self::validateSalvage($salvage);
             $life = self::validateLife($life);
             $period = self::validatePeriod($period);
@@ -204,39 +192,54 @@ class Depreciation
             return $e->getMessage();
         }
 
-        // Calculate
-        if (($life < 1) || ($period > $life)) {
+        if ($period > $life) {
             return Functions::NAN();
         }
 
         return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
     }
 
-    private static function validateCost($cost)
+    private static function validateCost($cost, bool $negativeValueAllowed = false)
     {
         if (!is_numeric($cost)) {
             throw new Exception(Functions::VALUE());
         }
 
-        return (float) $cost;
+        $cost = (float) $cost;
+        if ($cost < 0.0 && $negativeValueAllowed === false) {
+            throw new Exception(Functions::NAN());
+        }
+
+
+        return $cost;
     }
 
-    private static function validateSalvage($salvage)
+    private static function validateSalvage($salvage, bool $negativeValueAllowed = false)
     {
         if (!is_numeric($salvage)) {
             throw new Exception(Functions::VALUE());
         }
 
-        return (float) $salvage;
+        $salvage = (float) $salvage;
+        if ($salvage < 0.0 && $negativeValueAllowed === false) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $salvage;
     }
 
-    private static function validateLife($life)
+    private static function validateLife($life, bool $negativeValueAllowed = false)
     {
         if (!is_numeric($life)) {
             throw new Exception(Functions::VALUE());
         }
 
-        return (int) $life;
+        $life = (float) $life;
+        if ($life < 0.0 && $negativeValueAllowed === false) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $life;
     }
 
     private static function validatePeriod($period)
@@ -246,5 +249,23 @@ class Depreciation
         }
 
         return (int) $period;
+    }
+
+    private static function validateMonth($month)
+    {
+        if (!is_numeric($month)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (int) $month;
+    }
+
+    private static function validateFactor($factor)
+    {
+        if (!is_numeric($factor)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (float) $factor;
     }
 }
