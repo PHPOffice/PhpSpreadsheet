@@ -273,12 +273,12 @@ class Calculation
         ],
         'AMORDEGRC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'AMORDEGRC'],
+            'functionCall' => [Financial\Amortization::class, 'AMORDEGRC'],
             'argumentCount' => '6,7',
         ],
         'AMORLINC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'AMORLINC'],
+            'functionCall' => [Financial\Amortization::class, 'AMORLINC'],
             'argumentCount' => '6,7',
         ],
         'AND' => [
@@ -2225,7 +2225,7 @@ class Calculation
         ],
         'SLN' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'SLN'],
+            'functionCall' => [Financial\Depreciation::class, 'SLN'],
             'argumentCount' => '3',
         ],
         'SLOPE' => [
@@ -2356,7 +2356,7 @@ class Calculation
         ],
         'SYD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'SYD'],
+            'functionCall' => [Financial\Depreciation::class, 'SYD'],
             'argumentCount' => '4',
         ],
         'T' => [

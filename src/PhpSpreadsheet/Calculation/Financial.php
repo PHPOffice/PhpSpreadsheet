@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
@@ -150,6 +152,10 @@ class Financial
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the AMORDEGRC() method in the Financial\Amortization class instead
+     *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
@@ -167,57 +173,7 @@ class Financial
      */
     public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $purchased = Functions::flattenSingleValue($purchased);
-        $firstPeriod = Functions::flattenSingleValue($firstPeriod);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $period = floor(Functions::flattenSingleValue($period));
-        $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
-        if (is_string($yearFrac)) {
-            return $yearFrac;
-        }
-
-        //    The depreciation coefficients are:
-        //    Life of assets (1/rate)        Depreciation coefficient
-        //    Less than 3 years            1
-        //    Between 3 and 4 years        1.5
-        //    Between 5 and 6 years        2
-        //    More than 6 years            2.5
-        $fUsePer = 1.0 / $rate;
-        if ($fUsePer < 3.0) {
-            $amortiseCoeff = 1.0;
-        } elseif ($fUsePer < 5.0) {
-            $amortiseCoeff = 1.5;
-        } elseif ($fUsePer <= 6.0) {
-            $amortiseCoeff = 2.0;
-        } else {
-            $amortiseCoeff = 2.5;
-        }
-
-        $rate *= $amortiseCoeff;
-        $fNRate = round($yearFrac * $rate * $cost, 0);
-        $cost -= $fNRate;
-        $fRest = $cost - $salvage;
-
-        for ($n = 0; $n < $period; ++$n) {
-            $fNRate = round($rate * $cost, 0);
-            $fRest -= $fNRate;
-
-            if ($fRest < 0.0) {
-                switch ($period - $n) {
-                    case 0:
-                    case 1:
-                        return round($cost * 0.5, 0);
-                    default:
-                        return 0.0;
-                }
-            }
-            $cost -= $fNRate;
-        }
-
-        return $fNRate;
+        return Amortization::AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
 
     /**
@@ -229,6 +185,10 @@ class Financial
      *
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the AMORLINC() method in the Financial\Amortization class instead
      *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
@@ -247,39 +207,7 @@ class Financial
      */
     public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $purchased = Functions::flattenSingleValue($purchased);
-        $firstPeriod = Functions::flattenSingleValue($firstPeriod);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $period = Functions::flattenSingleValue($period);
-        $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
-
-        $fOneRate = $cost * $rate;
-        $fCostDelta = $cost - $salvage;
-        //    Note, quirky variation for leap years on the YEARFRAC for this function
-        $purchasedYear = DateTime::YEAR($purchased);
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
-        if (is_string($yearFrac)) {
-            return $yearFrac;
-        }
-
-        if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
-            $yearFrac *= 365 / 366;
-        }
-
-        $f0Rate = $yearFrac * $rate * $cost;
-        $nNumOfFullPeriods = (int) (($cost - $salvage - $f0Rate) / $fOneRate);
-
-        if ($period == 0) {
-            return $f0Rate;
-        } elseif ($period <= $nNumOfFullPeriods) {
-            return $fOneRate;
-        } elseif ($period == ($nNumOfFullPeriods + 1)) {
-            return $fCostDelta - $fOneRate * $nNumOfFullPeriods - $f0Rate;
-        }
-
-        return 0.0;
+        return Amortization::AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
 
     /**
@@ -616,6 +544,10 @@ class Financial
      * Excel Function:
      *        DB(cost,salvage,life,period[,month])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the DB() method in the Financial\Depreciation class instead
+     *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
@@ -630,46 +562,7 @@ class Financial
      */
     public static function DB($cost, $salvage, $life, $period, $month = 12)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $life = Functions::flattenSingleValue($life);
-        $period = Functions::flattenSingleValue($period);
-        $month = Functions::flattenSingleValue($month);
-
-        //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($month))) {
-            $cost = (float) $cost;
-            $salvage = (float) $salvage;
-            $life = (int) $life;
-            $period = (int) $period;
-            $month = (int) $month;
-            if ($cost == 0) {
-                return 0.0;
-            } elseif (($cost < 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
-                return Functions::NAN();
-            }
-            //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
-            //    Loop through each period calculating the depreciation
-            $previousDepreciation = 0;
-            $depreciation = 0;
-            for ($per = 1; $per <= $period; ++$per) {
-                if ($per == 1) {
-                    $depreciation = $cost * $fixedDepreciationRate * $month / 12;
-                } elseif ($per == ($life + 1)) {
-                    $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate * (12 - $month) / 12;
-                } else {
-                    $depreciation = ($cost - $previousDepreciation) * $fixedDepreciationRate;
-                }
-                $previousDepreciation += $depreciation;
-            }
-
-            return $depreciation;
-        }
-
-        return Functions::VALUE();
+        return Depreciation::DB($cost, $salvage, $life, $period, $month);
     }
 
     /**
@@ -680,6 +573,10 @@ class Financial
      *
      * Excel Function:
      *        DDB(cost,salvage,life,period[,factor])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the DDB() method in the Financial\Depreciation class instead
      *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
@@ -696,38 +593,7 @@ class Financial
      */
     public static function DDB($cost, $salvage, $life, $period, $factor = 2.0)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $life = Functions::flattenSingleValue($life);
-        $period = Functions::flattenSingleValue($period);
-        $factor = Functions::flattenSingleValue($factor);
-
-        //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($factor))) {
-            $cost = (float) $cost;
-            $salvage = (float) $salvage;
-            $life = (int) $life;
-            $period = (int) $period;
-            $factor = (float) $factor;
-            if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
-                return Functions::NAN();
-            }
-            //    Set Fixed Depreciation Rate
-            $fixedDepreciationRate = 1 - ($salvage / $cost) ** (1 / $life);
-            $fixedDepreciationRate = round($fixedDepreciationRate, 3);
-
-            //    Loop through each period calculating the depreciation
-            $previousDepreciation = 0;
-            $depreciation = 0;
-            for ($per = 1; $per <= $period; ++$per) {
-                $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
-                $previousDepreciation += $depreciation;
-            }
-
-            return $depreciation;
-        }
-
-        return Functions::VALUE();
+        return Depreciation::DDB($cost, $salvage, $life, $period, $factor);
     }
 
     /**
@@ -1643,6 +1509,10 @@ class Financial
      *
      * Returns the straight-line depreciation of an asset for one period
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the SLN() method in the Financial\Depreciation class instead
+     *
      * @param mixed $cost Initial cost of the asset
      * @param mixed $salvage Value at the end of the depreciation
      * @param mixed $life Number of periods over which the asset is depreciated
@@ -1651,26 +1521,17 @@ class Financial
      */
     public static function SLN($cost, $salvage, $life)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $life = Functions::flattenSingleValue($life);
-
-        // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life))) {
-            if ($life < 0) {
-                return Functions::NAN();
-            }
-
-            return ($cost - $salvage) / $life;
-        }
-
-        return Functions::VALUE();
+        return Depreciation::SLN($cost, $salvage, $life);
     }
 
     /**
      * SYD.
      *
      * Returns the sum-of-years' digits depreciation of an asset for a specified period.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the SYD() method in the Financial\Depreciation class instead
      *
      * @param mixed $cost Initial cost of the asset
      * @param mixed $salvage Value at the end of the depreciation
@@ -1681,21 +1542,7 @@ class Financial
      */
     public static function SYD($cost, $salvage, $life, $period)
     {
-        $cost = Functions::flattenSingleValue($cost);
-        $salvage = Functions::flattenSingleValue($salvage);
-        $life = Functions::flattenSingleValue($life);
-        $period = Functions::flattenSingleValue($period);
-
-        // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period))) {
-            if (($life < 1) || ($period > $life)) {
-                return Functions::NAN();
-            }
-
-            return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
-        }
-
-        return Functions::VALUE();
+        return Depreciation::SYD($cost, $salvage, $life, $period);
     }
 
     /**
