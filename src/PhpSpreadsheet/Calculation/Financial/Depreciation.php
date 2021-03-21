@@ -199,7 +199,7 @@ class Depreciation
         return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
     }
 
-    private static function validateCost($cost, bool $negativeValueAllowed = false)
+    private static function validateCost($cost, bool $negativeValueAllowed = false): float
     {
         if (!is_numeric($cost)) {
             throw new Exception(Functions::VALUE());
@@ -213,7 +213,7 @@ class Depreciation
         return $cost;
     }
 
-    private static function validateSalvage($salvage, bool $negativeValueAllowed = false)
+    private static function validateSalvage($salvage, bool $negativeValueAllowed = false): float
     {
         if (!is_numeric($salvage)) {
             throw new Exception(Functions::VALUE());
@@ -227,7 +227,7 @@ class Depreciation
         return $salvage;
     }
 
-    private static function validateLife($life, bool $negativeValueAllowed = false)
+    private static function validateLife($life, bool $negativeValueAllowed = false): float
     {
         if (!is_numeric($life)) {
             throw new Exception(Functions::VALUE());
@@ -241,7 +241,7 @@ class Depreciation
         return $life;
     }
 
-    private static function validatePeriod($period)
+    private static function validatePeriod($period): float
     {
         if (!is_numeric($period)) {
             throw new Exception(Functions::VALUE());
@@ -250,7 +250,7 @@ class Depreciation
         return (float) $period;
     }
 
-    private static function validateMonth($month)
+    private static function validateMonth($month): int
     {
         if (!is_numeric($month)) {
             throw new Exception(Functions::VALUE());
@@ -264,7 +264,7 @@ class Depreciation
         return $month;
     }
 
-    private static function validateFactor($factor)
+    private static function validateFactor($factor): float
     {
         if (!is_numeric($factor)) {
             throw new Exception(Functions::VALUE());
