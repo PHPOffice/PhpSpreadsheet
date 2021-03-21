@@ -52,7 +52,7 @@ class Depreciation
 
         if ($cost === 0.0) {
             return 0.0;
-        } elseif ((($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
+        } elseif ((($salvage / $cost) < 0) || ($life <= 0) || ($period < 1)) {
             return Functions::NAN();
         }
 
@@ -117,7 +117,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ((($salvage / $cost) < 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
+        if ((($salvage / $cost) < 0) || ($period < 1) || ($period > $life)) {
             return Functions::NAN();
         }
 
@@ -210,7 +210,6 @@ class Depreciation
             throw new Exception(Functions::NAN());
         }
 
-
         return $cost;
     }
 
@@ -248,7 +247,7 @@ class Depreciation
             throw new Exception(Functions::VALUE());
         }
 
-        return (int) $period;
+        return (float) $period;
     }
 
     private static function validateMonth($month)
@@ -257,7 +256,12 @@ class Depreciation
             throw new Exception(Functions::VALUE());
         }
 
-        return (int) $month;
+        $month = (int) $month;
+        if ($month < 1) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $month;
     }
 
     private static function validateFactor($factor)
@@ -266,6 +270,11 @@ class Depreciation
             throw new Exception(Functions::VALUE());
         }
 
-        return (float) $factor;
+        $factor = (float) $factor;
+        if ($factor <= 0.0) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $factor;
     }
 }
