@@ -52,7 +52,7 @@ class Depreciation
 
         if ($cost === 0.0) {
             return 0.0;
-        } elseif ((($salvage / $cost) < 0) || ($life <= 0) || ($period < 1)) {
+        } elseif ((($salvage / $cost) < 0.0) || ($life <= 0) || ($period < 1)) {
             return Functions::NAN();
         }
 
@@ -241,13 +241,18 @@ class Depreciation
         return $life;
     }
 
-    private static function validatePeriod($period): float
+    private static function validatePeriod($period, bool $negativeValueAllowed = false): float
     {
         if (!is_numeric($period)) {
             throw new Exception(Functions::VALUE());
         }
 
-        return (float) $period;
+        $period = (float) $period;
+        if ($period <= 0.0 && $negativeValueAllowed === false) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $period;
     }
 
     private static function validateMonth($month): int
