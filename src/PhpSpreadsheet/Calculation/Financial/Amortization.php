@@ -60,7 +60,7 @@ class Amortization
         $fUsePer = 1.0 / $rate;
         if ($fUsePer < 3.0) {
             $amortiseCoeff = 1.0;
-        } elseif ($fUsePer < 5.0) {
+        } elseif ($fUsePer < 4.0) {
             $amortiseCoeff = 1.5;
         } elseif ($fUsePer <= 6.0) {
             $amortiseCoeff = 2.0;
