@@ -52,7 +52,7 @@ class Depreciation
 
         if ($cost === 0.0) {
             return 0.0;
-        } elseif ((($salvage / $cost) < 0.0) || ($life <= 0) || ($period < 1)) {
+        } elseif ((($salvage / $cost) < 0.0) || ($period < 1)) {
             return Functions::NAN();
         }
 
@@ -117,7 +117,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ((($salvage / $cost) < 0) || ($period < 0.0) || ($period > $life)) {
+        if ((($salvage / $cost) < 0) || ($period > $life)) {
             return Functions::NAN();
         }
 
@@ -197,7 +197,9 @@ class Depreciation
             return Functions::NAN();
         }
 
-        return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
+        $syd = (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
+
+        return $syd;
     }
 
     private static function validateCost($cost, bool $negativeValueAllowed = false): float
