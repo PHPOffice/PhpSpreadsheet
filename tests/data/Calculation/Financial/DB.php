@@ -139,6 +139,15 @@ return [
         2.5,
         1.2,
     ],
+// Period value between 0 and 1 not yet handled in code
+//    [
+//        301.0,
+//        12000,
+//        2000,
+//        5,
+//        0.5,
+//        1,
+//    ],
     [
         -554.116,
         12000,

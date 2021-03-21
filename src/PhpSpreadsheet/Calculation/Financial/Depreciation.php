@@ -52,8 +52,6 @@ class Depreciation
 
         if ($cost === 0.0) {
             return 0.0;
-        } elseif ((($salvage / $cost) < 0.0) || ($period < 1)) {
-            return Functions::NAN();
         }
 
         //    Set Fixed Depreciation Rate
@@ -61,6 +59,7 @@ class Depreciation
         $fixedDepreciationRate = round($fixedDepreciationRate, 3);
 
         //    Loop through each period calculating the depreciation
+        // TODO Handle period value between 0 and 1 (e.g. 0.5)
         $previousDepreciation = 0;
         $depreciation = 0;
         for ($per = 1; $per <= $period; ++$per) {
@@ -117,7 +116,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ((($salvage / $cost) < 0) || ($period > $life)) {
+        if ($period > $life) {
             return Functions::NAN();
         }
 
