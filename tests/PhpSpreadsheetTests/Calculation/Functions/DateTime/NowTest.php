@@ -3,15 +3,12 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
 
-class NowTest extends TestCase
+class NowTest extends AllSetupTeardown
 {
     public function testNow(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $sheet = $this->sheet;
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same second.
         do {
@@ -21,7 +18,6 @@ class NowTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endSecond = $dtEnd->format('s');
         } while ($startSecond !== $endSecond);
-        //echo("\n"); var_dump($sheet->getCell('A1')->getCalculatedValue()); echo ("\n");
         $sheet->setCellValue('B1', '=YEAR(A1)');
         $sheet->setCellValue('C1', '=MONTH(A1)');
         $sheet->setCellValue('D1', '=DAY(A1)');
