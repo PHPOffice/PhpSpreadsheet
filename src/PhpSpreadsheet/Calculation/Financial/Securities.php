@@ -4,9 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Securities
+class Securities extends SecuritiesBase
 {
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
@@ -322,139 +324,5 @@ class Securities
         return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) - (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
                 (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
             ($daysPerYear / $daysBetweenSettlementAndMaturity);
-    }
-
-    private static function validateInputDate($date)
-    {
-        $date = DateTime::getDateValue($date);
-        if (is_string($date)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return $date;
-    }
-
-    private static function validateSettlementDate($settlement)
-    {
-        return self::validateInputDate($settlement);
-    }
-
-    private static function validateMaturityDate($maturity)
-    {
-        return self::validateInputDate($maturity);
-    }
-
-    private static function validateIssueDate($issue)
-    {
-        return self::validateInputDate($issue);
-    }
-
-    private static function validateSecurityPeriod($settlement, $maturity): void
-    {
-        if ($settlement >= $maturity) {
-            throw new Exception(Functions::NAN());
-        }
-    }
-
-    private static function validateRate($rate): float
-    {
-        if (!is_numeric($rate)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $rate = (float) $rate;
-        if ($rate < 0.0) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $rate;
-    }
-
-    private static function validatePrice($price): float
-    {
-        if (!is_numeric($price)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $price = (float) $price;
-        if ($price < 0.0) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $price;
-    }
-
-    private static function validateYield($yield): float
-    {
-        if (!is_numeric($yield)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $yield = (float) $yield;
-        if ($yield < 0.0) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $yield;
-    }
-
-    private static function validateRedemption($redemption): float
-    {
-        if (!is_numeric($redemption)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $redemption = (float) $redemption;
-        if ($redemption <= 0.0) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $redemption;
-    }
-
-    private static function validateDiscount($discount): float
-    {
-        if (!is_numeric($discount)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $discount = (float) $discount;
-        if ($discount <= 0.0) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $discount;
-    }
-
-    private static function validateFrequency($frequency): int
-    {
-        if (!is_numeric($frequency)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $frequency = (int) $frequency;
-        if (
-            ($frequency !== self::FREQUENCY_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_QUARTERLY)
-        ) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $frequency;
-    }
-
-    private static function validateBasis($basis): int
-    {
-        if (!is_numeric($basis)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $basis = (int) $basis;
-        if (($basis < 0) || ($basis > 4)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $basis;
     }
 }
