@@ -117,11 +117,12 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ((($salvage / $cost) < 0) || ($period < 1) || ($period > $life)) {
+        if ((($salvage / $cost) < 0) || ($period < 0.0) || ($period > $life)) {
             return Functions::NAN();
         }
 
-        //    Loop through each period calculating the depreciation
+        // Loop through each period calculating the depreciation
+        // TODO Handling for fractional $period values
         $previousDepreciation = 0;
         $depreciation = 0;
         for ($per = 1; $per <= $period; ++$per) {
