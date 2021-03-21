@@ -9,36 +9,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class WeekNum
 {
-    const STARTWEEK_SUNDAY = 1;
-    const STARTWEEK_MONDAY = 2;
-    const STARTWEEK_MONDAY_ALT = 11;
-    const STARTWEEK_TUESDAY = 12;
-    const STARTWEEK_WEDNESDAY = 13;
-    const STARTWEEK_THURSDAY = 14;
-    const STARTWEEK_FRIDAY = 15;
-    const STARTWEEK_SATURDAY = 16;
-    const STARTWEEK_SUNDAY_ALT = 17;
-    const DOW_SUNDAY = 1;
-    const DOW_MONDAY = 2;
-    const DOW_TUESDAY = 3;
-    const DOW_WEDNESDAY = 4;
-    const DOW_THURSDAY = 5;
-    const DOW_FRIDAY = 6;
-    const DOW_SATURDAY = 7;
-    const STARTWEEK_MONDAY_ISO = 21;
-    const METHODARR = [
-        self::STARTWEEK_SUNDAY => self::DOW_SUNDAY,
-        self::DOW_MONDAY,
-        self::STARTWEEK_MONDAY_ALT => self::DOW_MONDAY,
-        self::DOW_TUESDAY,
-        self::DOW_WEDNESDAY,
-        self::DOW_THURSDAY,
-        self::DOW_FRIDAY,
-        self::DOW_SATURDAY,
-        self::DOW_SUNDAY,
-        self::STARTWEEK_MONDAY_ISO => self::STARTWEEK_MONDAY_ISO,
-    ];
-
     /**
      * WEEKNUM.
      *
@@ -68,14 +38,14 @@ class WeekNum
      *
      * @return int|string Week Number
      */
-    public static function funcWeekNum($dateValue, $method = self::STARTWEEK_SUNDAY)
+    public static function funcWeekNum($dateValue, $method = Constants::STARTWEEK_SUNDAY)
     {
         $origDateValueNull = empty($dateValue);
 
         try {
             $method = self::validateMethod($method);
             if ($dateValue === null) { // boolean not allowed
-                $dateValue = (Date::getExcelCalendar() === DATE::CALENDAR_MAC_1904 || $method === self::DOW_SUNDAY) ? 0 : 1;
+                $dateValue = (Date::getExcelCalendar() === DATE::CALENDAR_MAC_1904 || $method === Constants::DOW_SUNDAY) ? 0 : 1;
             }
             $dateValue = self::validateDateValue($dateValue);
             if (!$dateValue && self::buggyWeekNum1900($method)) {
@@ -88,7 +58,7 @@ class WeekNum
 
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
-        if ($method == self::STARTWEEK_MONDAY_ISO) {
+        if ($method == Constants::STARTWEEK_MONDAY_ISO) {
             Helpers::silly1900($PHPDateObject);
 
             return (int) $PHPDateObject->format('W');
@@ -130,7 +100,7 @@ class WeekNum
     private static function validateMethod($method): int
     {
         if ($method === null) {
-            $method = self::STARTWEEK_SUNDAY;
+            $method = Constants::STARTWEEK_SUNDAY;
         }
         $method = Functions::flattenSingleValue($method);
         if (!is_numeric($method)) {
@@ -138,23 +108,23 @@ class WeekNum
         }
 
         $method = (int) $method;
-        if (!array_key_exists($method, self::METHODARR)) {
+        if (!array_key_exists($method, Constants::METHODARR)) {
             throw new Exception(Functions::NAN());
         }
-        $method = self::METHODARR[$method];
+        $method = Constants::METHODARR[$method];
 
         return $method;
     }
 
     private static function buggyWeekNum1900(int $method): bool
     {
-        return $method === self::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_WINDOWS_1900;
+        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_WINDOWS_1900;
     }
 
     private static function buggyWeekNum1904(int $method, bool $origNull, DateTime $dateObject): bool
     {
         // This appears to be another Excel bug.
 
-        return $method === self::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_MAC_1904 && !$origNull && $dateObject->format('Y-m-d') === '1904-01-01';
+        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_MAC_1904 && !$origNull && $dateObject->format('Y-m-d') === '1904-01-01';
     }
 }

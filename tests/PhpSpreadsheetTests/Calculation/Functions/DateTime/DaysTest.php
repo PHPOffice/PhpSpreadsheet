@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
 use DateTimeImmutable;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 
 class DaysTest extends AllSetupTeardown
@@ -33,5 +34,12 @@ class DaysTest extends AllSetupTeardown
         $obj1 = new DateTime('2000-3-31');
         $obj2 = new DateTimeImmutable('2000-2-29');
         self::assertSame(31, Days::funcDays($obj1, $obj2));
+    }
+
+    public function testNonDateObject(): void
+    {
+        $obj1 = new Exception();
+        $obj2 = new DateTimeImmutable('2000-2-29');
+        self::assertSame('#VALUE!', Days::funcDays($obj1, $obj2));
     }
 }

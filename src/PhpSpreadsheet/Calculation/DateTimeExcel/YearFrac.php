@@ -37,11 +37,13 @@ class YearFrac
     public static function funcYearFrac($startDate, $endDate, $method = 0)
     {
         try {
+            $method = (int) Helpers::validateNumericNull($method);
             $sDate = Helpers::getDateValue($startDate);
             $eDate = Helpers::getDateValue($endDate);
+            $sDate = self::excelBug($sDate, $startDate, $endDate, $method);
+            $eDate = self::excelBug($eDate, $endDate, $startDate, $method);
             $startDate = min($sDate, $eDate);
             $endDate = max($sDate, $eDate);
-            $method = (int) Helpers::validateNumericNull($method);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -60,6 +62,27 @@ class YearFrac
         }
 
         return Functions::NAN();
+    }
+
+    /**
+     * Excel 1900 calendar treats date argument of null as 1900-01-00. Really.
+     *
+     * @param mixed $startDate
+     * @param mixed $endDate
+     */
+    private static function excelBug(float $sDate, $startDate, $endDate, int $method): float
+    {
+        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && Date::getExcelCalendar() !== Date::CALENDAR_MAC_1904) {
+            if ($endDate === null && $startDate !== null) {
+                if (Month::funcMonth($sDate) == 12 && Day::funcDay($sDate) === 31 && $method === 0) {
+                    $sDate += 2;
+                } else {
+                    ++$sDate;
+                }
+            }
+        }
+
+        return $sDate;
     }
 
     private static function method1(float $startDate, float $endDate): float

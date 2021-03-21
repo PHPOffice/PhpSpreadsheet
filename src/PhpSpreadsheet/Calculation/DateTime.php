@@ -437,23 +437,166 @@ class DateTime
         return DateTimeExcel\WeekDay::funcWeekDay($dateValue, $style);
     }
 
+    /**
+     * STARTWEEK_SUNDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_SUNDAY instead
+     */
     const STARTWEEK_SUNDAY = 1;
+
+    /**
+     * STARTWEEK_MONDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_MONDAY instead
+     */
     const STARTWEEK_MONDAY = 2;
+
+    /**
+     * STARTWEEK_MONDAY_ALT.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_MONDAY_ALT instead
+     */
     const STARTWEEK_MONDAY_ALT = 11;
+
+    /**
+     * STARTWEEK_TUESDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_TUESDAY instead
+     */
     const STARTWEEK_TUESDAY = 12;
+
+    /**
+     * STARTWEEK_WEDNESDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_WEDNESDAY instead
+     */
     const STARTWEEK_WEDNESDAY = 13;
+
+    /**
+     * STARTWEEK_THURSDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_THURSDAY instead
+     */
     const STARTWEEK_THURSDAY = 14;
+
+    /**
+     * STARTWEEK_FRIDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_FRIDAY instead
+     */
     const STARTWEEK_FRIDAY = 15;
+
+    /**
+     * STARTWEEK_SATURDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_SATURDAY instead
+     */
     const STARTWEEK_SATURDAY = 16;
+
+    /**
+     * STARTWEEK_SUNDAY_ALT.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_SUNDAY_ALT instead
+     */
     const STARTWEEK_SUNDAY_ALT = 17;
+
+    /**
+     * DOW_SUNDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_SUNDAY instead
+     */
     const DOW_SUNDAY = 1;
+
+    /**
+     * DOW_MONDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_MONDAY instead
+     */
     const DOW_MONDAY = 2;
+
+    /**
+     * DOW_TUESDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_TUESDAY instead
+     */
     const DOW_TUESDAY = 3;
+
+    /**
+     * DOW_WEDNESDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_WEDNESDAY instead
+     */
     const DOW_WEDNESDAY = 4;
+
+    /**
+     * DOW_THURSDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_THURSDAY instead
+     */
     const DOW_THURSDAY = 5;
+
+    /**
+     * DOW_FRIDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_FRIDAY instead
+     */
     const DOW_FRIDAY = 6;
+
+    /**
+     * DOW_SATURDAY.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\DOW_SATURDAY instead
+     */
     const DOW_SATURDAY = 7;
+
+    /**
+     * STARTWEEK_MONDAY_ISO.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\STARTWEEK_MONDAY_ISO instead
+     */
     const STARTWEEK_MONDAY_ISO = 21;
+
+    /**
+     * METHODARR.
+     *
+     * @Deprecated 2.0.0
+     *
+     * @see Use DateTimeExcel\Constants\METHODARR instead
+     */
     const METHODARR = [
         self::STARTWEEK_SUNDAY => self::DOW_SUNDAY,
         self::DOW_MONDAY,

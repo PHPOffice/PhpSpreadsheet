@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTime;
-use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -31,7 +30,7 @@ class Helpers
      */
     public static function getDateValue($dateValue, bool $allowBool = true)
     {
-        if ($dateValue instanceof DateTimeInterface) {
+        if (is_object($dateValue)) {
             $retval = Date::PHPToExcel($dateValue);
             if (is_bool($retval)) {
                 throw new Exception(Functions::VALUE());
