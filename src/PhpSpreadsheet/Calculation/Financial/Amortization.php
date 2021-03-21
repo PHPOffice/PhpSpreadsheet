@@ -47,26 +47,12 @@ class Amortization
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
         $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
 
-        //    The depreciation coefficients are:
-        //    Life of assets (1/rate)        Depreciation coefficient
-        //    Less than 3 years            1
-        //    Between 3 and 4 years        1.5
-        //    Between 5 and 6 years        2
-        //    More than 6 years            2.5
-        $fUsePer = 1.0 / $rate;
-        if ($fUsePer < 3.0) {
-            $amortiseCoeff = 1.0;
-        } elseif ($fUsePer < 4.0) {
-            $amortiseCoeff = 1.5;
-        } elseif ($fUsePer <= 6.0) {
-            $amortiseCoeff = 2.0;
-        } else {
-            $amortiseCoeff = 2.5;
-        }
+        $amortiseCoeff = self::getAmortizationCoefficient($rate);
 
         $rate *= $amortiseCoeff;
         $fNRate = round($yearFrac * $rate * $cost, 0);
@@ -152,5 +138,26 @@ class Amortization
         }
 
         return 0.0;
+    }
+
+    private static function getAmortizationCoefficient(float $rate): float
+    {
+        //    The depreciation coefficients are:
+        //    Life of assets (1/rate)        Depreciation coefficient
+        //    Less than 3 years            1
+        //    Between 3 and 4 years        1.5
+        //    Between 5 and 6 years        2
+        //    More than 6 years            2.5
+        $fUsePer = 1.0 / $rate;
+
+        if ($fUsePer < 3.0) {
+            return 1.0;
+        } elseif ($fUsePer < 4.0) {
+            return 1.5;
+        } elseif ($fUsePer <= 6.0) {
+            return 2.0;
+        }
+
+        return 2.5;
     }
 }
