@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Depreciation
@@ -39,12 +40,17 @@ class Depreciation
         $period = Functions::flattenSingleValue($period);
         $month = Functions::flattenSingleValue($month);
 
+        try {
+            $cost = self::validateCost($cost);
+            $salvage = self::validateSalvage($salvage);
+            $life = self::validateLife($life);
+            $period = self::validatePeriod($period);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
         //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($month))) {
-            $cost = (float) $cost;
-            $salvage = (float) $salvage;
-            $life = (int) $life;
-            $period = (int) $period;
+        if (is_numeric($month)) {
             $month = (int) $month;
             if ($cost == 0) {
                 return 0.0;
@@ -105,12 +111,16 @@ class Depreciation
         $period = Functions::flattenSingleValue($period);
         $factor = Functions::flattenSingleValue($factor);
 
-        //    Validate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($factor))) {
-            $cost = (float) $cost;
-            $salvage = (float) $salvage;
-            $life = (int) $life;
-            $period = (int) $period;
+        try {
+            $cost = self::validateCost($cost);
+            $salvage = self::validateSalvage($salvage);
+            $life = self::validateLife($life);
+            $period = self::validatePeriod($period);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if (is_numeric($factor)) {
             $factor = (float) $factor;
             if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
                 return Functions::NAN();
@@ -150,16 +160,20 @@ class Depreciation
         $salvage = Functions::flattenSingleValue($salvage);
         $life = Functions::flattenSingleValue($life);
 
-        // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life))) {
-            if ($life < 0) {
-                return Functions::NAN();
-            }
-
-            return ($cost - $salvage) / $life;
+        try {
+            $cost = self::validateCost($cost);
+            $salvage = self::validateSalvage($salvage);
+            $life = self::validateLife($life);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        // Calculate
+        if ($life < 0) {
+            return Functions::NAN();
+        }
+
+        return ($cost - $salvage) / $life;
     }
 
     /**
@@ -181,15 +195,56 @@ class Depreciation
         $life = Functions::flattenSingleValue($life);
         $period = Functions::flattenSingleValue($period);
 
-        // Calculate
-        if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period))) {
-            if (($life < 1) || ($period > $life)) {
-                return Functions::NAN();
-            }
-
-            return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
+        try {
+            $cost = self::validateCost($cost);
+            $salvage = self::validateSalvage($salvage);
+            $life = self::validateLife($life);
+            $period = self::validatePeriod($period);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        // Calculate
+        if (($life < 1) || ($period > $life)) {
+            return Functions::NAN();
+        }
+
+        return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
+    }
+
+    private static function validateCost($cost)
+    {
+        if (!is_numeric($cost)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (float) $cost;
+    }
+
+    private static function validateSalvage($salvage)
+    {
+        if (!is_numeric($salvage)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (float) $salvage;
+    }
+
+    private static function validateLife($life)
+    {
+        if (!is_numeric($life)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (int) $life;
+    }
+
+    private static function validatePeriod($period)
+    {
+        if (!is_numeric($period)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (int) $period;
     }
 }
