@@ -1237,7 +1237,7 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the price() method in the Financial\Securities class instead
+     * @see Use the price() method in the Financial\Securities\Price class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -1262,7 +1262,7 @@ class Financial
      */
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
-        return Securities::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
+        return Securities\Price::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
 
     /**
@@ -1272,7 +1272,7 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the priceDiscounted() method in the Financial\Securities class instead
+     * @see Use the priceDiscounted() method in the Financial\Securities\Price class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -1292,7 +1292,7 @@ class Financial
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
-        return Securities::priceDiscounted($settlement, $maturity, $discount, $redemption, $basis);
+        return Securities\Price::priceDiscounted($settlement, $maturity, $discount, $redemption, $basis);
     }
 
     /**
@@ -1302,7 +1302,7 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the priceAtMaturity() method in the Financial\Securities class instead
+     * @see Use the priceAtMaturity() method in the Financial\Securities\Price class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1323,7 +1323,7 @@ class Financial
      */
     public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
     {
-        return Securities::priceAtMaturity($settlement, $maturity, $issue, $rate, $yield, $basis);
+        return Securities\Price::priceAtMaturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
 
     /**
@@ -1829,7 +1829,7 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
-     * @see Use the yieldDiscounted() method in the Financial\Securities class instead
+     * @see Use the yieldDiscounted() method in the Financial\Securities\Yields class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1849,7 +1849,7 @@ class Financial
      */
     public static function YIELDDISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
-        return Securities::yieldDiscounted($settlement, $maturity, $price, $redemption, $basis);
+        return Securities\Yields::yieldDiscounted($settlement, $maturity, $price, $redemption, $basis);
     }
 
     /**
@@ -1859,7 +1859,7 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the yieldAtMaturity() method in the Financial\Securities class instead
+     * @see Use the yieldAtMaturity() method in the Financial\Securities\Yields class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1880,6 +1880,6 @@ class Financial
      */
     public static function YIELDMAT($settlement, $maturity, $issue, $rate, $price, $basis = 0)
     {
-        return Securities::yieldAtMaturity($settlement, $maturity, $issue, $rate, $price, $basis);
+        return Securities\Yields::yieldAtMaturity($settlement, $maturity, $issue, $rate, $price, $basis);
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
+namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-abstract class SecuritiesBase
+abstract class BaseValidations
 {
     protected static function validateInputDate($date)
     {
@@ -118,9 +119,9 @@ abstract class SecuritiesBase
 
         $frequency = (int) $frequency;
         if (
-            ($frequency !== Securities::FREQUENCY_ANNUAL) &&
-            ($frequency !== Securities::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== Securities::FREQUENCY_QUARTERLY)
+            ($frequency !== SecuritiesConstants::FREQUENCY_ANNUAL) &&
+            ($frequency !== SecuritiesConstants::FREQUENCY_SEMI_ANNUAL) &&
+            ($frequency !== SecuritiesConstants::FREQUENCY_QUARTERLY)
         ) {
             throw new Exception(Functions::NAN());
         }

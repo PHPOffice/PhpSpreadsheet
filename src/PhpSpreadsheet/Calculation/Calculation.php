@@ -1983,17 +1983,17 @@ class Calculation
         ],
         'PRICE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Securities::class, 'price'],
+            'functionCall' => [Financial\Securities\Price::class, 'price'],
             'argumentCount' => '6,7',
         ],
         'PRICEDISC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Securities::class, 'priceDiscounted'],
+            'functionCall' => [Financial\Securities\Price::class, 'priceDiscounted'],
             'argumentCount' => '4,5',
         ],
         'PRICEMAT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Securities::class, 'priceAtMaturity'],
+            'functionCall' => [Financial\Securities\Price::class, 'priceAtMaturity'],
             'argumentCount' => '5,6',
         ],
         'PROB' => [
@@ -2641,12 +2641,12 @@ class Calculation
         ],
         'YIELDDISC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Securities::class, 'yieldDiscounted'],
+            'functionCall' => [Financial\Securities\Yields::class, 'yieldDiscounted'],
             'argumentCount' => '4,5',
         ],
         'YIELDMAT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Securities::class, 'yieldAtMaturity'],
+            'functionCall' => [Financial\Securities\Yields::class, 'yieldAtMaturity'],
             'argumentCount' => '5,6',
         ],
         'ZTEST' => [
