@@ -4,50 +4,33 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue;
 
-class DateValueTest extends TestCase
+class DateValueTest extends AllSetupTeardown
 {
-    private $returnDateType;
-
-    private $excelCalendar;
-
-    protected function setUp(): void
-    {
-        $this->returnDateType = Functions::getReturnDateType();
-        $this->excelCalendar = Date::getExcelCalendar();
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-    }
-
-    protected function tearDown(): void
-    {
-        Functions::setReturnDateType($this->returnDateType);
-        Date::setExcelCalendar($this->excelCalendar);
-    }
-
     /**
      * @dataProvider providerDATEVALUE
      *
      * @param mixed $expectedResult
-     * @param $dateValue
      */
-    public function testDATEVALUE($expectedResult, $dateValue): void
+    public function testDATEVALUE($expectedResult, string $dateValue): void
     {
+        $this->sheet->getCell('B1')->setValue('1954-07-20');
         // Loop to avoid extraordinarily rare edge case where first calculation
         // and second do not take place on same day.
+        $row = 0;
         do {
+            ++$row;
             $dtStart = new DateTimeImmutable();
             $startDay = $dtStart->format('d');
             if (is_string($expectedResult)) {
                 $replYMD = str_replace('Y', date('Y'), $expectedResult);
                 if ($replYMD !== $expectedResult) {
-                    $expectedResult = DateTime::DATEVALUE($replYMD);
+                    $expectedResult = DateValue::funcDateValue($replYMD);
                 }
             }
-            $result = DateTime::DATEVALUE($dateValue);
+            $this->sheet->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
+            $result = $this->sheet->getCell("A$row")->getCalculatedValue();
             $dtEnd = new DateTimeImmutable();
             $endDay = $dtEnd->format('d');
         } while ($startDay !== $endDay);
@@ -61,18 +44,18 @@ class DateValueTest extends TestCase
 
     public function testDATEVALUEtoUnixTimestamp(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
+        self::setUnixReturn();
 
-        $result = DateTime::DATEVALUE('2012-1-31');
+        $result = DateValue::funcDateValue('2012-1-31');
         self::assertEquals(1327968000, $result);
         self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
 
     public function testDATEVALUEtoDateTimeObject(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
+        self::setObjectReturn();
 
-        $result = DateTime::DATEVALUE('2012-1-31');
+        $result = DateValue::funcDateValue('2012-1-31');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -83,10 +66,10 @@ class DateValueTest extends TestCase
 
     public function testDATEVALUEwith1904Calendar(): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
-        self::assertEquals(5428, DateTime::DATEVALUE('1918-11-11'));
-        self::assertEquals(0, DateTime::DATEVALUE('1904-01-01'));
-        self::assertEquals('#VALUE!', DateTime::DATEVALUE('1903-12-31'));
-        self::assertEquals('#VALUE!', DateTime::DATEVALUE('1900-02-29'));
+        self::setMac1904();
+        self::assertEquals(5428, DateValue::funcDateValue('1918-11-11'));
+        self::assertEquals(0, DateValue::funcDateValue('1904-01-01'));
+        self::assertEquals('#VALUE!', DateValue::funcDateValue('1903-12-31'));
+        self::assertEquals('#VALUE!', DateValue::funcDateValue('1900-02-29'));
     }
 }
