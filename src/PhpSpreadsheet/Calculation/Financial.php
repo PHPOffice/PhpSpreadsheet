@@ -3,7 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 
 class Financial
 {
@@ -800,7 +803,7 @@ class Financial
      */
     public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
     {
-        return Financial\Dollar::decimal($fractional_dollar, $fraction);
+        return Dollar::decimal($fractional_dollar, $fraction);
     }
 
     /**
@@ -824,7 +827,7 @@ class Financial
      */
     public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
     {
-        return Financial\Dollar::fractional($decimal_dollar, $fraction);
+        return Dollar::fractional($decimal_dollar, $fraction);
     }
 
     /**
@@ -1393,7 +1396,7 @@ class Financial
      */
     public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
     {
-        return Financial\Securities::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
+        return Securities::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
 
     /**
@@ -1422,7 +1425,7 @@ class Financial
      */
     public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
     {
-        return Financial\Securities::discounted($settlement, $maturity, $discount, $redemption, $basis);
+        return Securities::discounted($settlement, $maturity, $discount, $redemption, $basis);
     }
 
     /**
@@ -1452,7 +1455,7 @@ class Financial
      */
     public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
     {
-        return Financial\Securities::maturity($settlement, $maturity, $issue, $rate, $yield, $basis);
+        return Securities::maturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
 
     /**
@@ -1714,7 +1717,7 @@ class Financial
      */
     public static function TBILLEQ($settlement, $maturity, $discount)
     {
-        return Financial\TreasuryBill::bondEquivalentYield($settlement, $maturity, $discount);
+        return TreasuryBill::bondEquivalentYield($settlement, $maturity, $discount);
     }
 
     /**
@@ -1737,7 +1740,7 @@ class Financial
      */
     public static function TBILLPRICE($settlement, $maturity, $discount)
     {
-        return Financial\TreasuryBill::price($settlement, $maturity, $discount);
+        return TreasuryBill::price($settlement, $maturity, $discount);
     }
 
     /**
@@ -1760,7 +1763,7 @@ class Financial
      */
     public static function TBILLYIELD($settlement, $maturity, $price)
     {
-        return Financial\TreasuryBill::yield($settlement, $maturity, $price);
+        return TreasuryBill::yield($settlement, $maturity, $price);
     }
 
     private static function bothNegAndPos($neg, $pos)
