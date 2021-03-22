@@ -231,19 +231,17 @@ class TextData
     /**
      * STRINGLENGTH.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the length() method in the TextData\Text class instead
+     *
      * @param string $value Value
      *
      * @return int
      */
     public static function STRINGLENGTH($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
-
-        if (is_bool($value)) {
-            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return mb_strlen($value, 'UTF-8');
+        return TextData\Text::length($value);
     }
 
     /**
@@ -341,19 +339,17 @@ class TextData
     /**
      * RETURNSTRING.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the test() method in the TextData\Text class instead
+     *
      * @param mixed $testValue Value to check
      *
      * @return null|string
      */
     public static function RETURNSTRING($testValue = '')
     {
-        $testValue = Functions::flattenSingleValue($testValue);
-
-        if (is_string($testValue)) {
-            return $testValue;
-        }
-
-        return null;
+        return TextData\Text::test($testValue);
     }
 
     /**
@@ -412,6 +408,10 @@ class TextData
      * EXACT is case-sensitive but ignores formatting differences.
      * Use EXACT to test text being entered into a document.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the exact() method in the TextData\Text class instead
+     *
      * @param $value1
      * @param $value2
      *
@@ -419,10 +419,7 @@ class TextData
      */
     public static function EXACT($value1, $value2)
     {
-        $value1 = Functions::flattenSingleValue($value1);
-        $value2 = Functions::flattenSingleValue($value2);
-
-        return (string) $value2 === (string) $value1;
+        return TextData\Text::exact($value1, $value2);
     }
 
     /**
