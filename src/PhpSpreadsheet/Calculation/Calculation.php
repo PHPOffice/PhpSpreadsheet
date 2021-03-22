@@ -2083,12 +2083,12 @@ class Calculation
         ],
         'REPLACE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'REPLACE'],
+            'functionCall' => [TextData\Replace::class, 'replace'],
             'argumentCount' => '4',
         ],
         'REPLACEB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'REPLACE'],
+            'functionCall' => [TextData\Replace::class, 'replace'],
             'argumentCount' => '4',
         ],
         'REPT' => [
@@ -2300,7 +2300,7 @@ class Calculation
         ],
         'SUBSTITUTE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SUBSTITUTE'],
+            'functionCall' => [TextData\Replace::class, 'substitute'],
             'argumentCount' => '3,4',
         ],
         'SUBTOTAL' => [

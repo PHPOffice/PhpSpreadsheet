@@ -190,7 +190,7 @@ class TextData
      */
     public static function LEFT($value = '', $chars = 1)
     {
-        return TextData\Extract::LEFT($value, $chars);
+        return TextData\Extract::left($value, $chars);
     }
 
     /**
@@ -208,7 +208,7 @@ class TextData
      */
     public static function MID($value = '', $start = 1, $chars = null)
     {
-        return TextData\Extract::MID($value, $start, $chars);
+        return TextData\Extract::mid($value, $start, $chars);
     }
 
     /**
@@ -225,7 +225,7 @@ class TextData
      */
     public static function RIGHT($value = '', $chars = 1)
     {
-        return TextData\Extract::RIGHT($value, $chars);
+        return TextData\Extract::right($value, $chars);
     }
 
     /**
@@ -303,6 +303,10 @@ class TextData
     /**
      * REPLACE.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the replace() method in the TextData\Replace class instead
+     *
      * @param string $oldText String to modify
      * @param int $start Start character
      * @param int $chars Number of characters
@@ -312,19 +316,15 @@ class TextData
      */
     public static function REPLACE($oldText, $start, $chars, $newText)
     {
-        $oldText = Functions::flattenSingleValue($oldText);
-        $start = Functions::flattenSingleValue($start);
-        $chars = Functions::flattenSingleValue($chars);
-        $newText = Functions::flattenSingleValue($newText);
-
-        $left = self::LEFT($oldText, $start - 1);
-        $right = self::RIGHT($oldText, self::STRINGLENGTH($oldText) - ($start + $chars) + 1);
-
-        return $left . $newText . $right;
+        return TextData\Replace::replace($oldText, $start, $chars, $newText);
     }
 
     /**
      * SUBSTITUTE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the substitute() method in the TextData\Replace class instead
      *
      * @param string $text Value
      * @param string $fromText From Value
@@ -335,29 +335,7 @@ class TextData
      */
     public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
     {
-        $text = Functions::flattenSingleValue($text);
-        $fromText = Functions::flattenSingleValue($fromText);
-        $toText = Functions::flattenSingleValue($toText);
-        $instance = floor(Functions::flattenSingleValue($instance));
-
-        if ($instance == 0) {
-            return str_replace($fromText, $toText, $text);
-        }
-
-        $pos = -1;
-        while ($instance > 0) {
-            $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
-            if ($pos === false) {
-                break;
-            }
-            --$instance;
-        }
-
-        if ($pos !== false) {
-            return self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText);
-        }
-
-        return $text;
+        return TextData\Replace::substitute($text, $fromText, $toText, $instance);
     }
 
     /**

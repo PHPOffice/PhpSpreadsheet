@@ -15,7 +15,7 @@ class Extract
      *
      * @return string
      */
-    public static function LEFT($value = '', $chars = 1)
+    public static function left($value = '', $chars = 1)
     {
         $value = Functions::flattenSingleValue($value);
         $chars = Functions::flattenSingleValue($chars);
@@ -40,7 +40,7 @@ class Extract
      *
      * @return string
      */
-    public static function MID($value = '', $start = 1, $chars = null)
+    public static function mid($value = '', $start = 1, $chars = null)
     {
         $value = Functions::flattenSingleValue($value);
         $start = Functions::flattenSingleValue($start);
@@ -65,7 +65,7 @@ class Extract
      *
      * @return string
      */
-    public static function RIGHT($value = '', $chars = 1)
+    public static function right($value = '', $chars = 1)
     {
         $value = Functions::flattenSingleValue($value);
         $chars = Functions::flattenSingleValue($chars);
