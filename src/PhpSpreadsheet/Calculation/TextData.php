@@ -3,21 +3,15 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use DateTimeInterface;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class TextData
 {
-    private static $invalidChars;
-
-    private static function unicodeToOrd($character)
-    {
-        return unpack('V', iconv('UTF-8', 'UCS-4LE', $character))[1];
-    }
-
     /**
      * CHARACTER.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the character() method in the TextData\CharacterConvert class instead
      *
      * @param string $character Value
      *
@@ -25,21 +19,15 @@ class TextData
      */
     public static function CHARACTER($character)
     {
-        $character = Functions::flattenSingleValue($character);
-
-        if (!is_numeric($character)) {
-            return Functions::VALUE();
-        }
-        $character = (int) $character;
-        if ($character < 1 || $character > 255) {
-            return Functions::VALUE();
-        }
-
-        return iconv('UCS-4LE', 'UTF-8', pack('V', $character));
+        return TextData\CharacterConvert::character($character);
     }
 
     /**
      * TRIMNONPRINTABLE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the nonPrintable() method in the TextData\Trim class instead
      *
      * @param mixed $stringValue Value to check
      *
@@ -47,25 +35,15 @@ class TextData
      */
     public static function TRIMNONPRINTABLE($stringValue = '')
     {
-        $stringValue = Functions::flattenSingleValue($stringValue);
-
-        if (is_bool($stringValue)) {
-            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        if (self::$invalidChars === null) {
-            self::$invalidChars = range(chr(0), chr(31));
-        }
-
-        if (is_string($stringValue) || is_numeric($stringValue)) {
-            return str_replace(self::$invalidChars, '', trim($stringValue, "\x00..\x1F"));
-        }
-
-        return null;
+        return TextData\Trim::nonPrintable($stringValue);
     }
 
     /**
      * TRIMSPACES.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the spaces() method in the TextData\Trim class instead
      *
      * @param mixed $stringValue Value to check
      *
@@ -73,16 +51,7 @@ class TextData
      */
     public static function TRIMSPACES($stringValue = '')
     {
-        $stringValue = Functions::flattenSingleValue($stringValue);
-        if (is_bool($stringValue)) {
-            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        if (is_string($stringValue) || is_numeric($stringValue)) {
-            return trim(preg_replace('/ +/', ' ', trim($stringValue, ' ')), ' ');
-        }
-
-        return null;
+        return TextData\Trim::spaces($stringValue);
     }
 
     private static function convertBooleanValue($value)
@@ -97,26 +66,17 @@ class TextData
     /**
      * ASCIICODE.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the code() method in the TextData\CharacterConvert class instead
+     *
      * @param string $characters Value
      *
      * @return int|string A string if arguments are invalid
      */
     public static function ASCIICODE($characters)
     {
-        if (($characters === null) || ($characters === '')) {
-            return Functions::VALUE();
-        }
-        $characters = Functions::flattenSingleValue($characters);
-        if (is_bool($characters)) {
-            $characters = self::convertBooleanValue($characters);
-        }
-
-        $character = $characters;
-        if (mb_strlen($characters, 'UTF-8') > 1) {
-            $character = mb_substr($characters, 0, 1, 'UTF-8');
-        }
-
-        return self::unicodeToOrd($character);
+        return TextData\CharacterConvert::code($characters);
     }
 
     /**
@@ -146,6 +106,10 @@ class TextData
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the DOLLAR() method in the TextData\Format class instead
+     *
      * @param float $value The value to format
      * @param int $decimals The number of digits to display to the right of the decimal point.
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
@@ -155,32 +119,15 @@ class TextData
      */
     public static function DOLLAR($value = 0, $decimals = 2)
     {
-        $value = Functions::flattenSingleValue($value);
-        $decimals = $decimals === null ? 0 : Functions::flattenSingleValue($decimals);
-
-        // Validate parameters
-        if (!is_numeric($value) || !is_numeric($decimals)) {
-            return Functions::VALUE();
-        }
-        $decimals = (int) $decimals;
-
-        $mask = '$#,##0';
-        if ($decimals > 0) {
-            $mask .= '.' . str_repeat('0', $decimals);
-        } else {
-            $round = 10 ** abs($decimals);
-            if ($value < 0) {
-                $round = 0 - $round;
-            }
-            $value = MathTrig\Mround::funcMround($value, $round);
-        }
-        $mask = "$mask;($mask)";
-
-        return NumberFormat::toFormattedString($value, $mask);
+        return TextData\Format::DOLLAR($value, $decimals);
     }
 
     /**
      * SEARCHSENSITIVE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the sensitive() method in the TextData\Search class instead
      *
      * @param string $needle The string to look for
      * @param string $haystack The string in which to look
@@ -190,32 +137,15 @@ class TextData
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
-        $needle = Functions::flattenSingleValue($needle);
-        $haystack = Functions::flattenSingleValue($haystack);
-        $offset = Functions::flattenSingleValue($offset);
-
-        if (!is_bool($needle)) {
-            if (is_bool($haystack)) {
-                $haystack = ($haystack) ? Calculation::getTRUE() : Calculation::getFALSE();
-            }
-
-            if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
-                if (StringHelper::countCharacters($needle) === 0) {
-                    return $offset;
-                }
-
-                $pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
-                if ($pos !== false) {
-                    return ++$pos;
-                }
-            }
-        }
-
-        return Functions::VALUE();
+        return TextData\Search::sensitive($needle, $haystack, $offset);
     }
 
     /**
      * SEARCHINSENSITIVE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the insensitive() method in the TextData\Search class instead
      *
      * @param string $needle The string to look for
      * @param string $haystack The string in which to look
@@ -225,32 +155,15 @@ class TextData
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
-        $needle = Functions::flattenSingleValue($needle);
-        $haystack = Functions::flattenSingleValue($haystack);
-        $offset = Functions::flattenSingleValue($offset);
-
-        if (!is_bool($needle)) {
-            if (is_bool($haystack)) {
-                $haystack = ($haystack) ? Calculation::getTRUE() : Calculation::getFALSE();
-            }
-
-            if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
-                if (StringHelper::countCharacters($needle) === 0) {
-                    return $offset;
-                }
-
-                $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
-                if ($pos !== false) {
-                    return ++$pos;
-                }
-            }
-        }
-
-        return Functions::VALUE();
+        return TextData\Search::insensitive($needle, $haystack, $offset);
     }
 
     /**
      * FIXEDFORMAT.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the FIXEDFORMAT() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
      * @param int $decimals
@@ -260,34 +173,15 @@ class TextData
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
-        $value = Functions::flattenSingleValue($value);
-        $decimals = Functions::flattenSingleValue($decimals);
-        $no_commas = Functions::flattenSingleValue($no_commas);
-
-        // Validate parameters
-        if (!is_numeric($value) || !is_numeric($decimals)) {
-            return Functions::VALUE();
-        }
-        $decimals = (int) floor($decimals);
-
-        $valueResult = round($value, $decimals);
-        if ($decimals < 0) {
-            $decimals = 0;
-        }
-        if (!$no_commas) {
-            $valueResult = number_format(
-                $valueResult,
-                $decimals,
-                StringHelper::getDecimalSeparator(),
-                StringHelper::getThousandsSeparator()
-            );
-        }
-
-        return (string) $valueResult;
+        return TextData\Format::FIXEDFORMAT($value, $decimals, $no_commas);
     }
 
     /**
      * LEFT.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the left() method in the TextData\Extract class instead
      *
      * @param string $value Value
      * @param int $chars Number of characters
@@ -296,22 +190,15 @@ class TextData
      */
     public static function LEFT($value = '', $chars = 1)
     {
-        $value = Functions::flattenSingleValue($value);
-        $chars = Functions::flattenSingleValue($chars);
-
-        if (!is_numeric($chars) || $chars < 0) {
-            return Functions::VALUE();
-        }
-
-        if (is_bool($value)) {
-            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return mb_substr($value, 0, $chars, 'UTF-8');
+        return TextData\Extract::LEFT($value, $chars);
     }
 
     /**
      * MID.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the mid() method in the TextData\Extract class instead
      *
      * @param string $value Value
      * @param int $start Start character
@@ -321,23 +208,15 @@ class TextData
      */
     public static function MID($value = '', $start = 1, $chars = null)
     {
-        $value = Functions::flattenSingleValue($value);
-        $start = Functions::flattenSingleValue($start);
-        $chars = Functions::flattenSingleValue($chars);
-
-        if (!is_numeric($start) || $start < 1 || !is_numeric($chars) || $chars < 0) {
-            return Functions::VALUE();
-        }
-
-        if (is_bool($value)) {
-            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return mb_substr($value, --$start, $chars, 'UTF-8');
+        return TextData\Extract::MID($value, $start, $chars);
     }
 
     /**
      * RIGHT.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the right() method in the TextData\Extract class instead
      *
      * @param string $value Value
      * @param int $chars Number of characters
@@ -346,18 +225,7 @@ class TextData
      */
     public static function RIGHT($value = '', $chars = 1)
     {
-        $value = Functions::flattenSingleValue($value);
-        $chars = Functions::flattenSingleValue($chars);
-
-        if (!is_numeric($chars) || $chars < 0) {
-            return Functions::VALUE();
-        }
-
-        if (is_bool($value)) {
-            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
+        return TextData\Extract::RIGHT($value, $chars);
     }
 
     /**
@@ -383,19 +251,17 @@ class TextData
      *
      * Converts a string value to upper case.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the lower() method in the TextData\CaseConvert class instead
+     *
      * @param string $mixedCaseString
      *
      * @return string
      */
     public static function LOWERCASE($mixedCaseString)
     {
-        $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
-
-        if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return StringHelper::strToLower($mixedCaseString);
+        return TextData\CaseConvert::lower($mixedCaseString);
     }
 
     /**
@@ -403,19 +269,17 @@ class TextData
      *
      * Converts a string value to upper case.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the upper() method in the TextData\CaseConvert class instead
+     *
      * @param string $mixedCaseString
      *
      * @return string
      */
     public static function UPPERCASE($mixedCaseString)
     {
-        $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
-
-        if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return StringHelper::strToUpper($mixedCaseString);
+        return TextData\CaseConvert::upper($mixedCaseString);
     }
 
     /**
@@ -423,19 +287,17 @@ class TextData
      *
      * Converts a string value to upper case.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the proper() method in the TextData\CaseConvert class instead
+     *
      * @param string $mixedCaseString
      *
      * @return string
      */
     public static function PROPERCASE($mixedCaseString)
     {
-        $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
-
-        if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return StringHelper::strToTitle($mixedCaseString);
+        return TextData\CaseConvert::proper($mixedCaseString);
     }
 
     /**
@@ -519,6 +381,10 @@ class TextData
     /**
      * TEXTFORMAT.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the TEXTFORMAT() method in the TextData\Format class instead
+     *
      * @param mixed $value Value to check
      * @param string $format Format mask to use
      *
@@ -526,18 +392,15 @@ class TextData
      */
     public static function TEXTFORMAT($value, $format)
     {
-        $value = Functions::flattenSingleValue($value);
-        $format = Functions::flattenSingleValue($format);
-
-        if ((is_string($value)) && (!is_numeric($value)) && Date::isDateTimeFormatCode($format)) {
-            $value = DateTime::DATEVALUE($value);
-        }
-
-        return (string) NumberFormat::toFormattedString($value, $format);
+        return TextData\Format::TEXTFORMAT($value, $format);
     }
 
     /**
      * VALUE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the VALUE() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
      *
@@ -545,45 +408,15 @@ class TextData
      */
     public static function VALUE($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
-
-        if (!is_numeric($value)) {
-            $numberValue = str_replace(
-                StringHelper::getThousandsSeparator(),
-                '',
-                trim($value, " \t\n\r\0\x0B" . StringHelper::getCurrencyCode())
-            );
-            if (is_numeric($numberValue)) {
-                return (float) $numberValue;
-            }
-
-            $dateSetting = Functions::getReturnDateType();
-            Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-
-            if (strpos($value, ':') !== false) {
-                $timeValue = DateTime::TIMEVALUE($value);
-                if ($timeValue !== Functions::VALUE()) {
-                    Functions::setReturnDateType($dateSetting);
-
-                    return $timeValue;
-                }
-            }
-            $dateValue = DateTime::DATEVALUE($value);
-            if ($dateValue !== Functions::VALUE()) {
-                Functions::setReturnDateType($dateSetting);
-
-                return $dateValue;
-            }
-            Functions::setReturnDateType($dateSetting);
-
-            return Functions::VALUE();
-        }
-
-        return (float) $value;
+        return TextData\Format::VALUE($value);
     }
 
     /**
      * NUMBERVALUE.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the NUMBERVALUE() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
      * @param string $decimalSeparator decimal separator, defaults to locale defined value
@@ -593,39 +426,7 @@ class TextData
      */
     public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
     {
-        $value = Functions::flattenSingleValue($value);
-        $decimalSeparator = Functions::flattenSingleValue($decimalSeparator);
-        $groupSeparator = Functions::flattenSingleValue($groupSeparator);
-
-        if (!is_numeric($value)) {
-            $decimalSeparator = empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : $decimalSeparator;
-            $groupSeparator = empty($groupSeparator) ? StringHelper::getThousandsSeparator() : $groupSeparator;
-
-            $decimalPositions = preg_match_all('/' . preg_quote($decimalSeparator) . '/', $value, $matches, PREG_OFFSET_CAPTURE);
-            if ($decimalPositions > 1) {
-                return Functions::VALUE();
-            }
-            $decimalOffset = array_pop($matches[0])[1];
-            if (strpos($value, $groupSeparator, $decimalOffset) !== false) {
-                return Functions::VALUE();
-            }
-
-            $value = str_replace([$groupSeparator, $decimalSeparator], ['', '.'], $value);
-
-            // Handle the special case of trailing % signs
-            $percentageString = rtrim($value, '%');
-            if (!is_numeric($percentageString)) {
-                return Functions::VALUE();
-            }
-
-            $percentageAdjustment = strlen($value) - strlen($percentageString);
-            if ($percentageAdjustment) {
-                $value = (float) $percentageString;
-                $value /= 10 ** ($percentageAdjustment * 2);
-            }
-        }
-
-        return (float) $value;
+        return TextData\Format::NUMBERVALUE($value, $decimalSeparator, $groupSeparator);
     }
 
     /**
