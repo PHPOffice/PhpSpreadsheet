@@ -25,7 +25,7 @@ class Format
      *
      * @return string
      */
-    public static function DOLLAR($value = 0, $decimals = 2)
+    public static function DOLLAR($value = 0, $decimals = 2): string
     {
         $value = Functions::flattenSingleValue($value);
         $decimals = $decimals === null ? 2 : Functions::flattenSingleValue($decimals);
@@ -60,7 +60,7 @@ class Format
      *
      * @return string
      */
-    public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
+    public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false): string
     {
         $value = Functions::flattenSingleValue($value);
         $decimals = $decimals === null ? 2 : Functions::flattenSingleValue($decimals);
@@ -96,7 +96,7 @@ class Format
      *
      * @return string
      */
-    public static function TEXTFORMAT($value, $format)
+    public static function TEXTFORMAT($value, $format): string
     {
         $value = Functions::flattenSingleValue($value);
         $format = Functions::flattenSingleValue($format);

@@ -14,7 +14,7 @@ class Text
      *
      * @return int
      */
-    public static function length($value = '')
+    public static function length($value = ''): int
     {
         $value = Functions::flattenSingleValue($value);
 
@@ -35,7 +35,7 @@ class Text
      *
      * @return bool
      */
-    public static function exact($value1, $value2)
+    public static function exact($value1, $value2): bool
     {
         $value1 = Functions::flattenSingleValue($value1);
         $value2 = Functions::flattenSingleValue($value2);

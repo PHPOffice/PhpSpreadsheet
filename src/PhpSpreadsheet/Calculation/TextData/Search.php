@@ -15,7 +15,7 @@ class Search
      * @param string $haystack The string in which to look
      * @param int $offset Offset within $haystack
      *
-     * @return string
+     * @return int|string
      */
     public static function sensitive($needle, $haystack, $offset = 1)
     {
@@ -50,7 +50,7 @@ class Search
      * @param string $haystack The string in which to look
      * @param int $offset Offset within $haystack
      *
-     * @return string
+     * @return int|string
      */
     public static function insensitive($needle, $haystack, $offset = 1)
     {

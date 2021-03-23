@@ -14,7 +14,7 @@ class Trim
      *
      * @param mixed $stringValue Value to check
      *
-     * @return string
+     * @return null|string
      */
     public static function nonPrintable($stringValue = '')
     {
@@ -40,7 +40,7 @@ class Trim
      *
      * @param mixed $stringValue Value to check
      *
-     * @return string
+     * @return null|string
      */
     public static function spaces($stringValue = '')
     {

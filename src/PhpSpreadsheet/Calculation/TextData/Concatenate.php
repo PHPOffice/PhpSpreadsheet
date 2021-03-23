@@ -12,7 +12,7 @@ class Concatenate
      *
      * @return string
      */
-    public static function CONCATENATE(...$args)
+    public static function CONCATENATE(...$args): string
     {
         $returnValue = '';
 
@@ -37,7 +37,7 @@ class Concatenate
      *
      * @return string
      */
-    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args): string
     {
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
@@ -57,12 +57,12 @@ class Concatenate
      *
      * Returns the result of builtin function round after validating args.
      *
-     * @param string $stringValue The value to repeat
+     * @param mixed $stringValue The value to repeat
      * @param mixed $repeatCount The number of times the string value should be repeated
      *
      * @return string
      */
-    public static function builtinREPT($stringValue, $repeatCount)
+    public static function builtinREPT($stringValue, $repeatCount): string
     {
         $repeatCount = Functions::flattenSingleValue($repeatCount);
 

@@ -17,7 +17,7 @@ class CaseConvert
      *
      * @return string
      */
-    public static function lower($mixedCaseValue)
+    public static function lower($mixedCaseValue): string
     {
         $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
 
@@ -37,7 +37,7 @@ class CaseConvert
      *
      * @return string
      */
-    public static function upper($mixedCaseValue)
+    public static function upper($mixedCaseValue): string
     {
         $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
 
@@ -57,7 +57,7 @@ class CaseConvert
      *
      * @return string
      */
-    public static function proper($mixedCaseValue)
+    public static function proper($mixedCaseValue): string
     {
         $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
 

@@ -17,7 +17,7 @@ class Replace
      *
      * @return string
      */
-    public static function replace($oldText, $start, $chars, $newText)
+    public static function replace($oldText, $start, $chars, $newText): string
     {
         $oldText = Functions::flattenSingleValue($oldText);
         $start = Functions::flattenSingleValue($start);
@@ -40,7 +40,7 @@ class Replace
      *
      * @return string
      */
-    public static function substitute($text = '', $fromText = '', $toText = '', $instance = 0)
+    public static function substitute($text = '', $fromText = '', $toText = '', $instance = 0): string
     {
         $text = Functions::flattenSingleValue($text);
         $fromText = Functions::flattenSingleValue($fromText);

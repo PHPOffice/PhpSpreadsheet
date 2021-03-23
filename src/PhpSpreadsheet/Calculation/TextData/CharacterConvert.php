@@ -14,7 +14,7 @@ class CharacterConvert
      *
      * @return string
      */
-    public static function character($character)
+    public static function character($character): string
     {
         $character = Functions::flattenSingleValue($character);
 
