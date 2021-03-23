@@ -42,7 +42,7 @@ class Concatenate
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $key => &$arg) {
-            if ($ignoreEmpty && trim($arg) == '') {
+            if ($ignoreEmpty === true && is_string($arg) && trim($arg) === '') {
                 unset($aArgs[$key]);
             } elseif (is_bool($arg)) {
                 $arg = self::convertBooleanValue($arg);
@@ -57,25 +57,29 @@ class Concatenate
      *
      * Returns the result of builtin function round after validating args.
      *
-     * @param string $str Should be numeric
-     * @param mixed $number Should be int
+     * @param string $stringValue The value to repeat
+     * @param mixed $repeatCount The number of times the string value should be repeated
      *
      * @return string
      */
-    public static function builtinREPT($str, $number)
+    public static function builtinREPT($stringValue, $repeatCount)
     {
-        $number = Functions::flattenSingleValue($number);
+        $repeatCount = Functions::flattenSingleValue($repeatCount);
 
-        if (!is_numeric($number) || $number < 0) {
+        if (!is_numeric($repeatCount) || $repeatCount < 0) {
             return Functions::VALUE();
         }
 
-        return str_repeat($str, $number);
+        if (is_bool($stringValue)) {
+            $stringValue = self::convertBooleanValue($stringValue);
+        }
+
+        return str_repeat($stringValue, (int) $repeatCount);
     }
 
     private static function convertBooleanValue($value)
     {
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
             return (int) $value;
         }
 

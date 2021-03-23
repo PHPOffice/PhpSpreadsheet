@@ -12,6 +12,11 @@ return [
         1,
     ],
     [
+        '',
+        'ABC',
+        0,
+    ],
+    [
         '#VALUE!',
         'QWERTYUIOP',
         -1,

@@ -16,7 +16,7 @@ return [
     [
         '#VALUE!',
         'QWERTYUIOP',
-        -1,
+        0,
         1,
     ],
     [
@@ -47,6 +47,12 @@ return [
         'QWERTYUIOP',
         8,
         20,
+    ],
+    [
+        '',
+        'QWERTYUIOP',
+        999,
+        2,
     ],
     [
         'DEF',
