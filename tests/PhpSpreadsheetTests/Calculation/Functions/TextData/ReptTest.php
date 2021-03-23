@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +17,20 @@ class ReptTest extends TestCase
      * @param mixed $val
      * @param mixed $rpt
      */
-    public function testRound($expectedResult, $val = null, $rpt = null): void
+    public function testReptDirect($expectedResult, $val = null, $rpt = null): void
+    {
+        $result = Concatenate::builtinREPT(is_string($val) ? trim($val, '"') : $val, $rpt);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerREPT
+     *
+     * @param mixed $expectedResult
+     * @param mixed $val
+     * @param mixed $rpt
+     */
+    public function testReptThroughEngine($expectedResult, $val = null, $rpt = null): void
     {
         if ($val === null) {
             $this->expectException(CalcExp::class);
@@ -24,6 +39,9 @@ class ReptTest extends TestCase
             $this->expectException(CalcExp::class);
             $formula = "=REPT($val)";
         } else {
+            if (is_bool($val)) {
+                $val = ($val) ? Calculation::getTRUE() : Calculation::getFALSE();
+            }
             $formula = "=REPT($val, $rpt)";
         }
         $spreadsheet = new Spreadsheet();

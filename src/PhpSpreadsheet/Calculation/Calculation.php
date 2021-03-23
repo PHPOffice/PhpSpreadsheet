@@ -483,7 +483,7 @@ class Calculation
         ],
         'CHAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CHARACTER'],
+            'functionCall' => [TextData\CharacterConvert::class, 'character'],
             'argumentCount' => '1',
         ],
         'CHIDIST' => [
@@ -533,12 +533,12 @@ class Calculation
         ],
         'CLEAN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'TRIMNONPRINTABLE'],
+            'functionCall' => [TextData\Trim::class, 'nonPrintable'],
             'argumentCount' => '1',
         ],
         'CODE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'ASCIICODE'],
+            'functionCall' => [TextData\CharacterConvert::class, 'code'],
             'argumentCount' => '1',
         ],
         'COLUMN' => [
@@ -570,12 +570,12 @@ class Calculation
         ],
         'CONCAT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONFIDENCE' => [
@@ -870,7 +870,7 @@ class Calculation
         ],
         'DOLLAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'DOLLAR'],
+            'functionCall' => [TextData\Format::class, 'DOLLAR'],
             'argumentCount' => '1,2',
         ],
         'DOLLARDE' => [
@@ -970,7 +970,7 @@ class Calculation
         ],
         'EXACT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'EXACT'],
+            'functionCall' => [TextData\Text::class, 'exact'],
             'argumentCount' => '2',
         ],
         'EXP' => [
@@ -1030,12 +1030,12 @@ class Calculation
         ],
         'FIND' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SEARCHSENSITIVE'],
+            'functionCall' => [TextData\Search::class, 'sensitive'],
             'argumentCount' => '2,3',
         ],
         'FINDB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SEARCHSENSITIVE'],
+            'functionCall' => [TextData\Search::class, 'sensitive'],
             'argumentCount' => '2,3',
         ],
         'FINV' => [
@@ -1065,7 +1065,7 @@ class Calculation
         ],
         'FIXED' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'FIXEDFORMAT'],
+            'functionCall' => [TextData\Format::class, 'FIXEDFORMAT'],
             'argumentCount' => '1-3',
         ],
         'FLOOR' => [
@@ -1541,22 +1541,22 @@ class Calculation
         ],
         'LEFT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'LEFT'],
+            'functionCall' => [TextData\Extract::class, 'left'],
             'argumentCount' => '1,2',
         ],
         'LEFTB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'LEFT'],
+            'functionCall' => [TextData\Extract::class, 'left'],
             'argumentCount' => '1,2',
         ],
         'LEN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'STRINGLENGTH'],
+            'functionCall' => [TextData\Text::class, 'length'],
             'argumentCount' => '1',
         ],
         'LENB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'STRINGLENGTH'],
+            'functionCall' => [TextData\Text::class, 'length'],
             'argumentCount' => '1',
         ],
         'LINEST' => [
@@ -1611,7 +1611,7 @@ class Calculation
         ],
         'LOWER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'LOWERCASE'],
+            'functionCall' => [TextData\CaseConvert::class, 'lower'],
             'argumentCount' => '1',
         ],
         'MATCH' => [
@@ -1656,12 +1656,12 @@ class Calculation
         ],
         'MID' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'MID'],
+            'functionCall' => [TextData\Extract::class, 'mid'],
             'argumentCount' => '3',
         ],
         'MIDB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'MID'],
+            'functionCall' => [TextData\Extract::class, 'mid'],
             'argumentCount' => '3',
         ],
         'MIN' => [
@@ -1836,7 +1836,7 @@ class Calculation
         ],
         'NUMBERVALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'NUMBERVALUE'],
+            'functionCall' => [TextData\Format::class, 'NUMBERVALUE'],
             'argumentCount' => '1+',
         ],
         'OCT2BIN' => [
@@ -2008,7 +2008,7 @@ class Calculation
         ],
         'PROPER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'PROPERCASE'],
+            'functionCall' => [TextData\CaseConvert::class, 'proper'],
             'argumentCount' => '1',
         ],
         'PV' => [
@@ -2083,27 +2083,27 @@ class Calculation
         ],
         'REPLACE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'REPLACE'],
+            'functionCall' => [TextData\Replace::class, 'replace'],
             'argumentCount' => '4',
         ],
         'REPLACEB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'REPLACE'],
+            'functionCall' => [TextData\Replace::class, 'replace'],
             'argumentCount' => '4',
         ],
         'REPT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'builtinREPT'],
+            'functionCall' => [TextData\Concatenate::class, 'builtinREPT'],
             'argumentCount' => '2',
         ],
         'RIGHT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'RIGHT'],
+            'functionCall' => [TextData\Extract::class, 'right'],
             'argumentCount' => '1,2',
         ],
         'RIGHTB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'RIGHT'],
+            'functionCall' => [TextData\Extract::class, 'right'],
             'argumentCount' => '1,2',
         ],
         'ROMAN' => [
@@ -2155,12 +2155,12 @@ class Calculation
         ],
         'SEARCH' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SEARCHINSENSITIVE'],
+            'functionCall' => [TextData\Search::class, 'insensitive'],
             'argumentCount' => '2,3',
         ],
         'SEARCHB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SEARCHINSENSITIVE'],
+            'functionCall' => [TextData\Search::class, 'insensitive'],
             'argumentCount' => '2,3',
         ],
         'SEC' => [
@@ -2300,7 +2300,7 @@ class Calculation
         ],
         'SUBSTITUTE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'SUBSTITUTE'],
+            'functionCall' => [TextData\Replace::class, 'substitute'],
             'argumentCount' => '3,4',
         ],
         'SUBTOTAL' => [
@@ -2361,7 +2361,7 @@ class Calculation
         ],
         'T' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'RETURNSTRING'],
+            'functionCall' => [TextData\Text::class, 'test'],
             'argumentCount' => '1',
         ],
         'TAN' => [
@@ -2411,7 +2411,7 @@ class Calculation
         ],
         'TEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'TEXTFORMAT'],
+            'functionCall' => [TextData\Format::class, 'TEXTFORMAT'],
             'argumentCount' => '2',
         ],
         'TEXTJOIN' => [
@@ -2461,7 +2461,7 @@ class Calculation
         ],
         'TRIM' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'TRIMSPACES'],
+            'functionCall' => [TextData\Trim::class, 'spaces'],
             'argumentCount' => '1',
         ],
         'TRIMMEAN' => [
@@ -2496,12 +2496,12 @@ class Calculation
         ],
         'UNICHAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CHARACTER'],
+            'functionCall' => [TextData\CharacterConvert::class, 'character'],
             'argumentCount' => '1',
         ],
         'UNICODE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'ASCIICODE'],
+            'functionCall' => [TextData\CharacterConvert::class, 'code'],
             'argumentCount' => '1',
         ],
         'UNIQUE' => [
@@ -2511,7 +2511,7 @@ class Calculation
         ],
         'UPPER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'UPPERCASE'],
+            'functionCall' => [TextData\CaseConvert::class, 'upper'],
             'argumentCount' => '1',
         ],
         'USDOLLAR' => [
@@ -2521,7 +2521,7 @@ class Calculation
         ],
         'VALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'VALUE'],
+            'functionCall' => [TextData\Format::class, 'VALUE'],
             'argumentCount' => '1',
         ],
         'VAR' => [
