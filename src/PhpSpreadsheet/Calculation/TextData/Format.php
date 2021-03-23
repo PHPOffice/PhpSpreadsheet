@@ -53,14 +53,14 @@ class Format
      * FIXEDFORMAT.
      *
      * @param mixed $value Value to check
-     * @param int $decimals
-     * @param bool $no_commas
+     * @param mixed $decimals
+     * @param bool $noCommas
      */
-    public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false): string
+    public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false): string
     {
         $value = Functions::flattenSingleValue($value);
         $decimals = $decimals === null ? 2 : Functions::flattenSingleValue($decimals);
-        $no_commas = Functions::flattenSingleValue($no_commas);
+        $noCommas = Functions::flattenSingleValue($noCommas);
 
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
@@ -72,7 +72,7 @@ class Format
         if ($decimals < 0) {
             $decimals = 0;
         }
-        if (!$no_commas) {
+        if (!$noCommas) {
             $valueResult = number_format(
                 $valueResult,
                 $decimals,
