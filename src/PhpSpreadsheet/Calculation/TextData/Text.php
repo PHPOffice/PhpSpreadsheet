@@ -11,8 +11,6 @@ class Text
      * STRINGLENGTH.
      *
      * @param string $value Value
-     *
-     * @return int
      */
     public static function length($value = ''): int
     {
@@ -32,8 +30,6 @@ class Text
      *
      * @param $value1
      * @param $value2
-     *
-     * @return bool
      */
     public static function exact($value1, $value2): bool
     {

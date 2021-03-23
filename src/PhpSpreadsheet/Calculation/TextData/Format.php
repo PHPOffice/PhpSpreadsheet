@@ -22,8 +22,6 @@ class Format
      * @param int $decimals The number of digits to display to the right of the decimal point.
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
      *                                    If you omit decimals, it is assumed to be 2
-     *
-     * @return string
      */
     public static function DOLLAR($value = 0, $decimals = 2): string
     {
@@ -57,8 +55,6 @@ class Format
      * @param mixed $value Value to check
      * @param int $decimals
      * @param bool $no_commas
-     *
-     * @return string
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false): string
     {
@@ -93,8 +89,6 @@ class Format
      *
      * @param mixed $value Value to check
      * @param string $format Format mask to use
-     *
-     * @return string
      */
     public static function TEXTFORMAT($value, $format): string
     {

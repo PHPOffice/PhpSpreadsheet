@@ -11,8 +11,6 @@ class CharacterConvert
      * CHARACTER.
      *
      * @param string $character Value
-     *
-     * @return string
      */
     public static function character($character): string
     {

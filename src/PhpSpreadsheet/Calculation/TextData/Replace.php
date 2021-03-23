@@ -14,8 +14,6 @@ class Replace
      * @param int $start Start character
      * @param int $chars Number of characters
      * @param string $newText String to replace in defined position
-     *
-     * @return string
      */
     public static function replace($oldText, $start, $chars, $newText): string
     {
@@ -37,8 +35,6 @@ class Replace
      * @param string $fromText From Value
      * @param string $toText To Value
      * @param int $instance Instance Number
-     *
-     * @return string
      */
     public static function substitute($text = '', $fromText = '', $toText = '', $instance = 0): string
     {

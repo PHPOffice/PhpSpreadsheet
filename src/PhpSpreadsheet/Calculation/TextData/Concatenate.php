@@ -9,8 +9,6 @@ class Concatenate
 {
     /**
      * CONCATENATE.
-     *
-     * @return string
      */
     public static function CONCATENATE(...$args): string
     {
@@ -34,8 +32,6 @@ class Concatenate
      * @param mixed $delimiter
      * @param mixed $ignoreEmpty
      * @param mixed $args
-     *
-     * @return string
      */
     public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args): string
     {
@@ -59,8 +55,6 @@ class Concatenate
      *
      * @param mixed $stringValue The value to repeat
      * @param mixed $repeatCount The number of times the string value should be repeated
-     *
-     * @return string
      */
     public static function builtinREPT($stringValue, $repeatCount): string
     {

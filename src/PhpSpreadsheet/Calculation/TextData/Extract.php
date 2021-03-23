@@ -12,8 +12,6 @@ class Extract
      *
      * @param string $value Value
      * @param int $chars Number of characters
-     *
-     * @return string
      */
     public static function left($value = '', $chars = 1): string
     {
@@ -37,8 +35,6 @@ class Extract
      * @param string $value Value
      * @param int $start Start character
      * @param int $chars Number of characters
-     *
-     * @return string
      */
     public static function mid($value = '', $start = 1, $chars = null): string
     {
@@ -62,8 +58,6 @@ class Extract
      *
      * @param string $value Value
      * @param int $chars Number of characters
-     *
-     * @return string
      */
     public static function right($value = '', $chars = 1): string
     {
