@@ -54,15 +54,6 @@ class TextData
         return TextData\Trim::spaces($stringValue);
     }
 
-    private static function convertBooleanValue($value)
-    {
-        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-            return (int) $value;
-        }
-
-        return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-    }
-
     /**
      * ASCIICODE.
      *
@@ -82,22 +73,15 @@ class TextData
     /**
      * CONCATENATE.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the CONCATENATE() method in the TextData\Concatenate class instead
+     *
      * @return string
      */
     public static function CONCATENATE(...$args)
     {
-        $returnValue = '';
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
-                $arg = self::convertBooleanValue($arg);
-            }
-            $returnValue .= $arg;
-        }
-
-        return $returnValue;
+        return TextData\Concatenate::CONCATENATE(...$args);
     }
 
     /**
@@ -425,6 +409,10 @@ class TextData
     /**
      * TEXTJOIN.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the TEXTJOIN() method in the TextData\Concatenate class instead
+     *
      * @param mixed $delimiter
      * @param mixed $ignoreEmpty
      * @param mixed $args
@@ -433,23 +421,17 @@ class TextData
      */
     public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
     {
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $key => &$arg) {
-            if ($ignoreEmpty && trim($arg) == '') {
-                unset($aArgs[$key]);
-            } elseif (is_bool($arg)) {
-                $arg = self::convertBooleanValue($arg);
-            }
-        }
-
-        return implode($delimiter, $aArgs);
+        return TextData\Concatenate::TEXTJOIN($delimiter, $ignoreEmpty, ...$args);
     }
 
     /**
      * REPT.
      *
-     * Returns the result of builtin function round after validating args.
+     * Returns the result of builtin function repeat after validating args.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the builtinREPT() method in the TextData\Concatenate class instead
      *
      * @param string $str Should be numeric
      * @param mixed $number Should be int
@@ -458,12 +440,6 @@ class TextData
      */
     public static function builtinREPT($str, $number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number) || $number < 0) {
-            return Functions::VALUE();
-        }
-
-        return str_repeat($str, $number);
+        return TextData\Concatenate::builtinREPT($str, $number);
     }
 }

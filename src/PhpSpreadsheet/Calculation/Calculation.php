@@ -570,12 +570,12 @@ class Calculation
         ],
         'CONCAT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONFIDENCE' => [
@@ -2093,7 +2093,7 @@ class Calculation
         ],
         'REPT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'builtinREPT'],
+            'functionCall' => [TextData\Concatenate::class, 'builtinREPT'],
             'argumentCount' => '2',
         ],
         'RIGHT' => [
