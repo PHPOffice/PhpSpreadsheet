@@ -15,6 +15,9 @@ class BesselI
      *    Excel Function:
      *        BESSELI(x,ord)
      *
+     * NOTE: The MS Excel implementation of the BESSELI function is still not accurate.
+     *       This code provides a more accurate calculation
+     *
      * @param mixed (float) $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
      * @param mixed (int) $ord The order of the Bessel function.
@@ -99,7 +102,7 @@ class BesselI
 
     private static function besselI2(float $x, int $ord): float
     {
-        if ($x == 0.0) {
+        if ($x === 0.0) {
             return 0.0;
         }
 
@@ -113,19 +116,19 @@ class BesselI
             $bip = $bi;
             $bi = $bim;
 
-            if (abs($bi) > 1.0e+10) {
-                $ans *= 1.0e-10;
-                $bi *= 1.0e-10;
-                $bip *= 1.0e-10;
+            if (abs($bi) > 1.0e+12) {
+                $ans *= 1.0e-12;
+                $bi *= 1.0e-12;
+                $bip *= 1.0e-12;
             }
 
-            if ($j == $ord) {
+            if ($j === $ord) {
                 $ans = $bip;
             }
         }
 
         $ans *= self::besselI0($x) / $bi;
 
-        return ($x < 0.0 && (($ord % 2) == 1)) ? -$ans : $ans;
+        return ($x < 0.0 && (($ord % 2) === 1)) ? -$ans : $ans;
     }
 }
