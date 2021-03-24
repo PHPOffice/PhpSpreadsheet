@@ -115,19 +115,29 @@ class BesselJ
         }
 
         if ($ax > $ord) {
-            $tox = 2.0 / $ax;
-            $bjm = self::besselJ0($ax);
-            $bj = self::besselJ1($ax);
-            for ($j = 1; $j < $ord; ++$j) {
-                $bjp = $j * $tox * $bj - $bjm;
-                $bjm = $bj;
-                $bj = $bjp;
-            }
-            $ans = $bj;
-
-            return ($x < 0.0 && ($ord % 2) == 1) ? -$ans : $ans;
+            return self::besselj2a($ax, $ord, $x);
         }
 
+        return self::besselj2b($ax, $ord, $x);
+    }
+
+    private static function besselj2a(float $ax, int $ord, float $x)
+    {
+        $tox = 2.0 / $ax;
+        $bjm = self::besselJ0($ax);
+        $bj = self::besselJ1($ax);
+        for ($j = 1; $j < $ord; ++$j) {
+            $bjp = $j * $tox * $bj - $bjm;
+            $bjm = $bj;
+            $bj = $bjp;
+        }
+        $ans = $bj;
+
+        return ($x < 0.0 && ($ord % 2) == 1) ? -$ans : $ans;
+    }
+
+    private static function besselj2b(float $ax, int $ord, float $x)
+    {
         $tox = 2.0 / $ax;
         $jsum = false;
         $bjp = $ans = $sum = 0.0;
