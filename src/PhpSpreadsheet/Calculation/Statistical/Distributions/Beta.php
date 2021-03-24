@@ -17,11 +17,11 @@ class Beta
      *
      * Returns the beta distribution.
      *
-     * @param float $value Value at which you want to evaluate the distribution
-     * @param float $alpha Parameter to the distribution
-     * @param float $beta Parameter to the distribution
-     * @param mixed $rMin
-     * @param mixed $rMax
+     * @param mixed (float) $value Value at which you want to evaluate the distribution
+     * @param mixed (float) $alpha Parameter to the distribution
+     * @param mixed (float) $beta Parameter to the distribution
+     * @param mixed (float) $rMin
+     * @param mixed (float) $rMax
      *
      * @return float|string
      */
@@ -56,11 +56,11 @@ class Beta
      *
      * Returns the inverse of the Beta distribution.
      *
-     * @param float $probability Probability at which you want to evaluate the distribution
-     * @param float $alpha Parameter to the distribution
-     * @param float $beta Parameter to the distribution
-     * @param float $rMin Minimum value
-     * @param float $rMax Maximum value
+     * @param mixed (float) $probability Probability at which you want to evaluate the distribution
+     * @param mixed (float) $alpha Parameter to the distribution
+     * @param mixed (float) $beta Parameter to the distribution
+     * @param mixed (float) $rMin Minimum value
+     * @param mixed (float) $rMax Maximum value
      *
      * @return float|string
      */
@@ -120,7 +120,7 @@ class Beta
      *
      * @return float 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
      */
-    public static function incompleteBeta($x, $p, $q): float
+    public static function incompleteBeta(float $x, float $p, float $q): float
     {
         if ($x <= 0.0) {
             return 0.0;
@@ -155,7 +155,7 @@ class Beta
      *
      * @author Jaco van Kooten
      */
-    private static function logBeta($p, $q): float
+    private static function logBeta(float $p, float $q): float
     {
         if ($p != self::$logBetaCacheP || $q != self::$logBetaCacheQ) {
             self::$logBetaCacheP = $p;
@@ -180,7 +180,7 @@ class Beta
      * @param mixed $p
      * @param mixed $q
      */
-    private static function betaFraction($x, $p, $q): float
+    private static function betaFraction(float $x, float $p, float $q): float
     {
         $c = 1.0;
         $sum_pq = $p + $q;
@@ -227,13 +227,13 @@ class Beta
         return $frac;
     }
 
-    private static function betaValue($a, $b): float
+    private static function betaValue(float $a, float $b): float
     {
         return (Gamma::gammaValue($a) * Gamma::gammaValue($b)) /
             Gamma::gammaValue($a + $b);
     }
 
-    private static function regularizedIncompleteBeta($value, $a, $b): float
+    private static function regularizedIncompleteBeta(float $value, float $a, float $b): float
     {
         return self::incompleteBeta($value, $a, $b) / self::betaValue($a, $b);
     }
