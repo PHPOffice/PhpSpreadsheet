@@ -7,10 +7,13 @@ class Delimiter
     protected const POTENTIAL_DELIMETERS = [',', ';', "\t", '|', ':', ' ', '~'];
 
     protected $fileHandle;
+
     protected $escapeCharacter;
+
     protected $enclosure;
 
     protected $counts = [];
+
     protected $numberLines = 0;
 
     protected $delimiter;
