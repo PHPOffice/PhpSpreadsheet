@@ -27,7 +27,7 @@ class Delimiter
         $this->countPotentialDelimiters();
     }
 
-    public function getDefaultDelimiter()
+    public function getDefaultDelimiter(): string
     {
         return self::POTENTIAL_DELIMETERS[0];
     }
@@ -45,13 +45,23 @@ class Delimiter
         // Count how many times each of the potential delimiters appears in each line
         $this->numberLines = 0;
         while (($line = $this->getNextLine()) !== false && (++$this->numberLines < 1000)) {
-            $distribution = array_count_values(str_split($line, 1));
-            $countLine = array_intersect_key($distribution, $delimiterKeys);
+            $this->countDelimiterValues($line, $delimiterKeys);
+        }
+    }
 
-            foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
-                $this->counts[$delimiter][] = $countLine[$delimiter]
-                    ?? 0;
-            }
+    protected function countDelimiterValues(string $line, array $delimiterKeys): void
+    {
+        $splitString = str_split($line, 1);
+        if ($splitString === false) {
+            return;
+        }
+
+        $distribution = array_count_values($splitString);
+        $countLine = array_intersect_key($distribution, $delimiterKeys);
+
+        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+            $this->counts[$delimiter][] = $countLine[$delimiter]
+                ?? 0;
         }
     }
 
