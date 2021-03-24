@@ -383,7 +383,7 @@ class Calculation
         ],
         'BETADIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETADIST'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'distribution'],
             'argumentCount' => '3-5',
         ],
         'BETA.DIST' => [
@@ -393,12 +393,12 @@ class Calculation
         ],
         'BETAINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETAINV'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'inverse'],
             'argumentCount' => '3-5',
         ],
         'BETA.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETAINV'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'inverse'],
             'argumentCount' => '3-5',
         ],
         'BIN2DEC' => [
@@ -1147,37 +1147,37 @@ class Calculation
         ],
         'GAMMA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAFunction'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'gamma'],
             'argumentCount' => '1',
         ],
         'GAMMADIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMADIST'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'GAMMA.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMADIST'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'GAMMAINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAINV'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'GAMMA.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAINV'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'GAMMALN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMALN'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'ln'],
             'argumentCount' => '1',
         ],
         'GAMMALN.PRECISE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMALN'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'ln'],
             'argumentCount' => '1',
         ],
         'GAUSS' => [
