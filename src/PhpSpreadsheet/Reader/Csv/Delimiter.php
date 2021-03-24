@@ -52,7 +52,7 @@ class Delimiter
     protected function countDelimiterValues(string $line, array $delimiterKeys): void
     {
         $splitString = str_split($line, 1);
-        if ($splitString === false) {
+        if (!is_array($splitString)) {
             return;
         }
 
@@ -60,8 +60,7 @@ class Delimiter
         $countLine = array_intersect_key($distribution, $delimiterKeys);
 
         foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
-            $this->counts[$delimiter][] = $countLine[$delimiter]
-                ?? 0;
+            $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
         }
     }
 
