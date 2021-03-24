@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ class ReptTest extends TestCase
      */
     public function testReptDirect($expectedResult, $val = null, $rpt = null): void
     {
-        $result = Concatenate::builtinREPT(is_string($val) ? trim($val, '"') : $val, $rpt);
+        $result = TextData::builtinREPT(is_string($val) ? trim($val, '"') : $val, $rpt);
         self::assertEquals($expectedResult, $result);
     }
 
