@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Gamma
@@ -16,6 +17,15 @@ class Gamma
 
     private const MAX_ITERATIONS = 256;
 
+    private static function validateFloat($value)
+    {
+        if (!is_numeric($value)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (float) $value;
+    }
+
     /**
      * GAMMA.
      *
@@ -29,9 +39,13 @@ class Gamma
     {
         $value = Functions::flattenSingleValue($value);
 
-        if (!is_numeric($value)) {
-            return Functions::VALUE();
-        } elseif ((((int) $value) == ((float) $value)) && $value <= 0.0) {
+        try {
+            self::validateFloat($value);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ((((int) $value) == ((float) $value)) && $value <= 0.0) {
             return Functions::NAN();
         }
 
@@ -46,7 +60,7 @@ class Gamma
      * @param mixed (float) $value Value at which you want to evaluate the distribution
      * @param mixed (float) $a Parameter to the distribution
      * @param mixed (float) $b Parameter to the distribution
-     * @param bool $cumulative
+     * @param mixed (bool) $cumulative
      *
      * @return float|string
      */
