@@ -149,27 +149,20 @@ class Averages extends AggregateBase
      */
     public static function median(...$args)
     {
+        $aArgs = Functions::flattenArray($args);
+
         $returnValue = Functions::NAN();
 
-        $mArgs = [];
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $mArgs[] = $arg;
-            }
-        }
-
-        $mValueCount = count($mArgs);
-        if ($mValueCount > 0) {
-            sort($mArgs, SORT_NUMERIC);
-            $mValueCount = $mValueCount / 2;
-            if ($mValueCount == floor($mValueCount)) {
-                $returnValue = ($mArgs[$mValueCount--] + $mArgs[$mValueCount]) / 2;
+        $aArgs = self::filterArguments($aArgs);
+        $valueCount = count($aArgs);
+        if ($valueCount > 0) {
+            sort($aArgs, SORT_NUMERIC);
+            $valueCount = $valueCount / 2;
+            if ($valueCount == floor($valueCount)) {
+                $returnValue = ($aArgs[$valueCount--] + $aArgs[$valueCount]) / 2;
             } else {
-                $mValueCount = floor($mValueCount);
-                $returnValue = $mArgs[$mValueCount];
+                $valueCount = floor($valueCount);
+                $returnValue = $aArgs[$valueCount];
             }
         }
 
@@ -194,20 +187,24 @@ class Averages extends AggregateBase
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
+        $aArgs = self::filterArguments($aArgs);
 
-        $mArgs = [];
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $mArgs[] = $arg;
-            }
-        }
-
-        if (!empty($mArgs)) {
-            return self::modeCalc($mArgs);
+        if (!empty($aArgs)) {
+            return self::modeCalc($aArgs);
         }
 
         return $returnValue;
+    }
+
+    protected static function filterArguments($args)
+    {
+        return array_filter(
+            $args,
+            function ($value) {
+                // Is it a numeric value?
+                return  (is_numeric($value)) && (!is_string($value));
+            }
+        );
     }
 
     //
