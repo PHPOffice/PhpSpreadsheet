@@ -16,6 +16,15 @@ abstract class GammaBase
 
     private const MAX_ITERATIONS = 256;
 
+    protected static function calculateDistribution(float $value, float $a, float $b, bool $cumulative)
+    {
+        if ($cumulative) {
+            return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
+        }
+
+        return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
+    }
+
     protected static function calculateInverse(float $probability, float $alpha, float $beta)
     {
         $xLo = 0;
@@ -27,14 +36,14 @@ abstract class GammaBase
 
         while ((abs($dx) > Functions::PRECISION) && (++$i < self::MAX_ITERATIONS)) {
             // Apply Newton-Raphson step
-            $error = static::distribution($x, $alpha, $beta, true) - $probability;
+            $error = self::calculateDistribution($x, $alpha, $beta, true) - $probability;
             if ($error < 0.0) {
                 $xLo = $x;
             } else {
                 $xHi = $x;
             }
 
-            $pdf = static::distribution($x, $alpha, $beta, false);
+            $pdf = self::calculateDistribution($x, $alpha, $beta, false);
             // Avoid division by zero
             if ($pdf !== 0.0) {
                 $dx = $error / $pdf;

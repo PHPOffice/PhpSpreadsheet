@@ -66,11 +66,7 @@ class Gamma extends GammaBase
             return Functions::NAN();
         }
 
-        if ($cumulative) {
-            return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
-        }
-
-        return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
+        return self::calculateDistribution($value, $a, $b, $cumulative);
     }
 
     /**
