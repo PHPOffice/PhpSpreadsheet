@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Beta
@@ -11,6 +12,15 @@ class Beta
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
 
     private const XMININ = 2.23e-308;
+
+    private static function validateFloat($value): float
+    {
+        if (!is_numeric($value)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (float) $value;
+    }
 
     /**
      * BETADIST.
@@ -33,22 +43,29 @@ class Beta
         $rMin = Functions::flattenSingleValue($rMin);
         $rMax = Functions::flattenSingleValue($rMax);
 
-        if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if ($rMin > $rMax) {
-                $tmp = $rMin;
-                $rMin = $rMax;
-                $rMax = $tmp;
-            }
-            if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
-                return Functions::NAN();
-            }
-            $value -= $rMin;
-            $value /= ($rMax - $rMin);
-
-            return self::incompleteBeta($value, $alpha, $beta);
+        try {
+            $value = self::validateFloat($value);
+            $alpha = self::validateFloat($alpha);
+            $beta = self::validateFloat($beta);
+            $rMax = self::validateFloat($rMax);
+            $rMin = self::validateFloat($rMin);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($rMin > $rMax) {
+            $tmp = $rMin;
+            $rMin = $rMax;
+            $rMax = $tmp;
+        }
+        if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
+            return Functions::NAN();
+        }
+
+        $value -= $rMin;
+        $value /= ($rMax - $rMin);
+
+        return self::incompleteBeta($value, $alpha, $beta);
     }
 
     /**
@@ -72,38 +89,45 @@ class Beta
         $rMin = Functions::flattenSingleValue($rMin);
         $rMax = Functions::flattenSingleValue($rMax);
 
-        if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta)) && (is_numeric($rMin)) && (is_numeric($rMax))) {
-            if ($rMin > $rMax) {
-                $tmp = $rMin;
-                $rMin = $rMax;
-                $rMax = $tmp;
-            }
-            if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-            $a = 0;
-            $b = 2;
-
-            $i = 0;
-            while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
-                $guess = ($a + $b) / 2;
-                $result = self::distribution($guess, $alpha, $beta);
-                if (($result == $probability) || ($result == 0)) {
-                    $b = $a;
-                } elseif ($result > $probability) {
-                    $b = $guess;
-                } else {
-                    $a = $guess;
-                }
-            }
-            if ($i == self::MAX_ITERATIONS) {
-                return Functions::NA();
-            }
-
-            return round($rMin + $guess * ($rMax - $rMin), 12);
+        try {
+            $probability = self::validateFloat($probability);
+            $alpha = self::validateFloat($alpha);
+            $beta = self::validateFloat($beta);
+            $rMax = self::validateFloat($rMax);
+            $rMin = self::validateFloat($rMin);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($rMin > $rMax) {
+            $tmp = $rMin;
+            $rMin = $rMax;
+            $rMax = $tmp;
+        }
+        if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
+            return Functions::NAN();
+        }
+
+        $a = 0;
+        $b = 2;
+
+        $i = 0;
+        while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+            $guess = ($a + $b) / 2;
+            $result = self::distribution($guess, $alpha, $beta);
+            if (($result == $probability) || ($result == 0)) {
+                $b = $a;
+            } elseif ($result > $probability) {
+                $b = $guess;
+            } else {
+                $a = $guess;
+            }
+        }
+        if ($i == self::MAX_ITERATIONS) {
+            return Functions::NA();
+        }
+
+        return round($rMin + $guess * ($rMax - $rMin), 12);
     }
 
     /**

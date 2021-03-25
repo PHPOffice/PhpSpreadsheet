@@ -17,13 +17,22 @@ class Gamma
 
     private const MAX_ITERATIONS = 256;
 
-    private static function validateFloat($value)
+    private static function validateFloat($value): float
     {
         if (!is_numeric($value)) {
             throw new Exception(Functions::VALUE());
         }
 
         return (float) $value;
+    }
+
+    private static function validateBool($value): bool
+    {
+        if (!is_bool($value) || !is_numeric($value)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (bool) $value;
     }
 
     /**
@@ -40,7 +49,7 @@ class Gamma
         $value = Functions::flattenSingleValue($value);
 
         try {
-            self::validateFloat($value);
+            $value = self::validateFloat($value);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -70,20 +79,24 @@ class Gamma
         $a = Functions::flattenSingleValue($a);
         $b = Functions::flattenSingleValue($b);
 
-        if ((is_numeric($value)) && (is_numeric($a)) && (is_numeric($b))) {
-            if (($value < 0) || ($a <= 0) || ($b <= 0)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
-                }
-
-                return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
-            }
+        try {
+            $value = self::validateFloat($value);
+            $a = self::validateFloat($a);
+            $b = self::validateFloat($b);
+            $cumulative = self::validateBool($cumulative);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (($value < 0) || ($a <= 0) || ($b <= 0)) {
+            return Functions::NAN();
+        }
+
+        if ($cumulative) {
+            return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
+        }
+
+        return (1 / ($b ** $a * self::gammaValue($a))) * $value ** ($a - 1) * exp(0 - ($value / $b));
     }
 
     /**
@@ -103,49 +116,53 @@ class Gamma
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
 
-        if ((is_numeric($probability)) && (is_numeric($alpha)) && (is_numeric($beta))) {
-            if (($alpha <= 0) || ($beta <= 0) || ($probability < 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-
-            $xLo = 0;
-            $xHi = $alpha * $beta * 5;
-
-            $x = $xNew = 1;
-            $dx = 1024;
-            $i = 0;
-
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
-                // Apply Newton-Raphson step
-                $error = self::distribution($x, $alpha, $beta, true) - $probability;
-                if ($error < 0.0) {
-                    $xLo = $x;
-                } else {
-                    $xHi = $x;
-                }
-                $pdf = self::distribution($x, $alpha, $beta, false);
-                // Avoid division by zero
-                if ($pdf != 0.0) {
-                    $dx = $error / $pdf;
-                    $xNew = $x - $dx;
-                }
-                // If the NR fails to converge (which for example may be the
-                // case if the initial guess is too rough) we apply a bisection
-                // step to determine a more narrow interval around the root.
-                if (($xNew < $xLo) || ($xNew > $xHi) || ($pdf == 0.0)) {
-                    $xNew = ($xLo + $xHi) / 2;
-                    $dx = $xNew - $x;
-                }
-                $x = $xNew;
-            }
-            if ($i == self::MAX_ITERATIONS) {
-                return Functions::NA();
-            }
-
-            return $x;
+        try {
+            $probability = self::validateFloat($probability);
+            $alpha = self::validateFloat($alpha);
+            $beta = self::validateFloat($beta);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (($alpha <= 0) || ($beta <= 0) || ($probability < 0) || ($probability > 1)) {
+            return Functions::NAN();
+        }
+
+        $xLo = 0;
+        $xHi = $alpha * $beta * 5;
+
+        $x = $xNew = 1;
+        $dx = 1024;
+        $i = 0;
+
+        while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+            // Apply Newton-Raphson step
+            $error = self::distribution($x, $alpha, $beta, true) - $probability;
+            if ($error < 0.0) {
+                $xLo = $x;
+            } else {
+                $xHi = $x;
+            }
+            $pdf = self::distribution($x, $alpha, $beta, false);
+            // Avoid division by zero
+            if ($pdf != 0.0) {
+                $dx = $error / $pdf;
+                $xNew = $x - $dx;
+            }
+            // If the NR fails to converge (which for example may be the
+            // case if the initial guess is too rough) we apply a bisection
+            // step to determine a more narrow interval around the root.
+            if (($xNew < $xLo) || ($xNew > $xHi) || ($pdf == 0.0)) {
+                $xNew = ($xLo + $xHi) / 2;
+                $dx = $xNew - $x;
+            }
+            $x = $xNew;
+        }
+        if ($i == self::MAX_ITERATIONS) {
+            return Functions::NA();
+        }
+
+        return $x;
     }
 
     /**
