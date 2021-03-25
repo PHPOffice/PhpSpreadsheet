@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-abstract class BaseValidations
+trait BaseValidations
 {
     protected static function validateFloat($value): float
     {

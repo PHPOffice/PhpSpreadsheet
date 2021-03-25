@@ -5,8 +5,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Beta extends BaseValidations
+class Beta
 {
+    use BaseValidations;
+
     private const MAX_ITERATIONS = 256;
 
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
