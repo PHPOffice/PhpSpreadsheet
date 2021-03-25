@@ -1963,12 +1963,12 @@ class Calculation
         ],
         'POISSON' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'POISSON'],
+            'functionCall' => [Statistical\Distributions\Poisson::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'POISSON.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'POISSON'],
+            'functionCall' => [Statistical\Distributions\Poisson::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'POWER' => [

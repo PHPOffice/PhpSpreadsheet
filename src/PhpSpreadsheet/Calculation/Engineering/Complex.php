@@ -16,9 +16,9 @@ class Complex
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
-     * @param float $realNumber the real coefficient of the complex number
-     * @param float $imaginary the imaginary coefficient of the complex number
-     * @param string $suffix The suffix for the imaginary component of the complex number.
+     * @param mixed (float) $realNumber the real coefficient of the complex number
+     * @param mixed (float) $imaginary the imaginary coefficient of the complex number
+     * @param mixed (string) $suffix The suffix for the imaginary component of the complex number.
      *                                        If omitted, the suffix is assumed to be "i".
      *
      * @return string

@@ -137,9 +137,9 @@ class Depreciation
      *
      * Returns the straight-line depreciation of an asset for one period
      *
-     * @param mixed $cost Initial cost of the asset
-     * @param mixed $salvage Value at the end of the depreciation
-     * @param mixed $life Number of periods over which the asset is depreciated
+     * @param mixed (float) $cost Initial cost of the asset
+     * @param mixed (float) $salvage Value at the end of the depreciation
+     * @param mixed (float) $life Number of periods over which the asset is depreciated
      *
      * @return float|string Result, or a string containing an error
      */
@@ -169,10 +169,10 @@ class Depreciation
      *
      * Returns the sum-of-years' digits depreciation of an asset for a specified period.
      *
-     * @param mixed $cost Initial cost of the asset
-     * @param mixed $salvage Value at the end of the depreciation
-     * @param mixed $life Number of periods over which the asset is depreciated
-     * @param mixed $period Period
+     * @param mixed (float) $cost Initial cost of the asset
+     * @param mixed (float) $salvage Value at the end of the depreciation
+     * @param mixed (float) $life Number of periods over which the asset is depreciated
+     * @param mixed (float) $period Period
      *
      * @return float|string Result, or a string containing an error
      */

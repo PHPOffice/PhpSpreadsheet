@@ -18,11 +18,23 @@ return [
         35, 40, true,
     ],
     [
-        '#NUM!',
-        35, -40, true,
+        '#VALUE!',
+        'Nan', 40, true,
     ],
     [
         '#VALUE!',
         35, 'Nan', true,
+    ],
+    [
+        '#VALUE!',
+        35, 40, 'Nan',
+    ],
+    'Value < 0' => [
+        '#NUM!',
+        -35, 40, true,
+    ],
+    'Mean < 0' => [
+        '#NUM!',
+        35, -40, true,
     ],
 ];
