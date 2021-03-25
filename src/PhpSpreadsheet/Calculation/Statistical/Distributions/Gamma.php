@@ -28,7 +28,7 @@ class Gamma
 
     private static function validateBool($value): bool
     {
-        if (!is_bool($value) || !is_numeric($value)) {
+        if (!is_bool($value) && !is_numeric($value)) {
             throw new Exception(Functions::VALUE());
         }
 
@@ -124,7 +124,7 @@ class Gamma
             return $e->getMessage();
         }
 
-        if (($alpha <= 0) || ($beta <= 0) || ($probability < 0) || ($probability > 1)) {
+        if (($alpha <= 0.0) || ($beta <= 0.0) || ($probability < 0.0) || ($probability > 1.0)) {
             return Functions::NAN();
         }
 
