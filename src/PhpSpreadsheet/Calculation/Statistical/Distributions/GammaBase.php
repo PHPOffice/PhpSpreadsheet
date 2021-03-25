@@ -34,7 +34,7 @@ abstract class GammaBase
         $dx = 1024;
         $i = 0;
 
-        while ((abs($dx) > Functions::PRECISION) && (++$i < self::MAX_ITERATIONS)) {
+        while ((abs($dx) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
             // Apply Newton-Raphson step
             $error = self::calculateDistribution($x, $alpha, $beta, true) - $probability;
             if ($error < 0.0) {

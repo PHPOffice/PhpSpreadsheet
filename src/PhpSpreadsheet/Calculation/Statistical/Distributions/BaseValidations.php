@@ -16,6 +16,15 @@ trait BaseValidations
         return (float) $value;
     }
 
+    protected static function validateInt($value): int
+    {
+        if (!is_numeric($value)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (int) floor($value);
+    }
+
     protected static function validateBool($value): bool
     {
         if (!is_bool($value) && !is_numeric($value)) {

@@ -110,7 +110,7 @@ class Beta
         $b = 2;
 
         $i = 0;
-        while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+        while ((($b - $a) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
             $guess = ($a + $b) / 2;
             $result = self::distribution($guess, $alpha, $beta);
             if (($result === $probability) || ($result === 0.0)) {
@@ -122,7 +122,7 @@ class Beta
             }
         }
 
-        if ($i == self::MAX_ITERATIONS) {
+        if ($i === self::MAX_ITERATIONS) {
             return Functions::NA();
         }
 

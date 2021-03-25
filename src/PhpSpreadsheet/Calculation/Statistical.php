@@ -295,6 +295,11 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\ChiSquared::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\ChiSquared class instead
+     *
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
      *
@@ -302,33 +307,18 @@ class Statistical
      */
     public static function CHIDIST($value, $degrees)
     {
-        $value = Functions::flattenSingleValue($value);
-        $degrees = Functions::flattenSingleValue($degrees);
-
-        if ((is_numeric($value)) && (is_numeric($degrees))) {
-            $degrees = floor($degrees);
-            if ($degrees < 1) {
-                return Functions::NAN();
-            }
-            if ($value < 0) {
-                if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                    return 1;
-                }
-
-                return Functions::NAN();
-            }
-
-            return 1 - (Statistical\Distributions\Gamma::incompleteGamma($degrees / 2, $value / 2) /
-                    Statistical\Distributions\Gamma::gammaValue($degrees / 2));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\ChiSquared::distribution($value, $degrees);
     }
 
     /**
      * CHIINV.
      *
      * Returns the one-tailed probability of the chi-squared distribution.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\ChiSquared::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\ChiSquared class instead
      *
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
@@ -337,53 +327,7 @@ class Statistical
      */
     public static function CHIINV($probability, $degrees)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $degrees = Functions::flattenSingleValue($degrees);
-
-        if ((is_numeric($probability)) && (is_numeric($degrees))) {
-            $degrees = floor($degrees);
-
-            $xLo = 100;
-            $xHi = 0;
-
-            $x = $xNew = 1;
-            $dx = 1;
-            $i = 0;
-
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
-                // Apply Newton-Raphson step
-                $result = 1 - (Statistical\Distributions\Gamma::incompleteGamma($degrees / 2, $x / 2)
-                        / Statistical\Distributions\Gamma::gammaValue($degrees / 2));
-                $error = $result - $probability;
-                if ($error == 0.0) {
-                    $dx = 0;
-                } elseif ($error < 0.0) {
-                    $xLo = $x;
-                } else {
-                    $xHi = $x;
-                }
-                // Avoid division by zero
-                if ($result != 0.0) {
-                    $dx = $error / $result;
-                    $xNew = $x - $dx;
-                }
-                // If the NR fails to converge (which for example may be the
-                // case if the initial guess is too rough) we apply a bisection
-                // step to determine a more narrow interval around the root.
-                if (($xNew < $xLo) || ($xNew > $xHi) || ($result == 0.0)) {
-                    $xNew = ($xLo + $xHi) / 2;
-                    $dx = $xNew - $x;
-                }
-                $x = $xNew;
-            }
-            if ($i == self::MAX_ITERATIONS) {
-                return Functions::NA();
-            }
-
-            return round($x, 12);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\ChiSquared::inverse($probability, $degrees);
     }
 
     /**

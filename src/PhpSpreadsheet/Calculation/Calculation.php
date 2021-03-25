@@ -488,7 +488,7 @@ class Calculation
         ],
         'CHIDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIDIST'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
             'argumentCount' => '2',
         ],
         'CHISQ.DIST' => [
@@ -498,12 +498,12 @@ class Calculation
         ],
         'CHISQ.DIST.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIDIST'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
             'argumentCount' => '2',
         ],
         'CHIINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIINV'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'CHISQ.INV' => [
@@ -513,7 +513,7 @@ class Calculation
         ],
         'CHISQ.INV.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIINV'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'CHITEST' => [
