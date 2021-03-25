@@ -99,6 +99,11 @@ class Beta extends BaseValidations
             return Functions::NAN();
         }
 
+        return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
+    }
+
+    private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax)
+    {
         $a = 0;
         $b = 2;
 
@@ -114,6 +119,7 @@ class Beta extends BaseValidations
                 $a = $guess;
             }
         }
+
         if ($i == self::MAX_ITERATIONS) {
             return Functions::NA();
         }
