@@ -116,16 +116,16 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Statistical\Averages::AVEDEV()
-     *      Use the AVEDEV() method in the Statistical\Averages class instead
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
+     *
+     *@see Statistical\Averages::averageDeviations()
+     *      Use the averageDeviations() method in the Statistical\Averages class instead
      */
     public static function AVEDEV(...$args)
     {
-        return Averages::AVEDEV(...$args);
+        return Averages::averageDeviations(...$args);
     }
 
     /**
@@ -138,8 +138,8 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Statistical\Averages::AVERAGE()
-     *      Use the AVERAGE() method in the Statistical\Averages class instead
+     * @see Statistical\Averages::average()
+     *      Use the average() method in the Statistical\Averages class instead
      *
      * @param mixed ...$args Data values
      *
@@ -147,7 +147,7 @@ class Statistical
      */
     public static function AVERAGE(...$args)
     {
-        return Averages::AVERAGE(...$args);
+        return Averages::average(...$args);
     }
 
     /**
@@ -160,16 +160,16 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Statistical\Averages::AVERAGEA()
-     *      Use the AVERAGEA() method in the Statistical\Averages class instead
-     *
      * @param mixed ...$args Data values
      *
      * @return float|string
+     *
+     *@see Statistical\Averages::averageA()
+     *      Use the averageA() method in the Statistical\Averages class instead
      */
     public static function AVERAGEA(...$args)
     {
-        return Averages::AVERAGEA(...$args);
+        return Averages::averageA(...$args);
     }
 
     /**
@@ -648,7 +648,7 @@ class Statistical
         // Return value
         $returnValue = null;
 
-        $aMean = Averages::AVERAGE($aArgs);
+        $aMean = Averages::average($aArgs);
         if ($aMean != Functions::DIV0()) {
             $aCount = -1;
             foreach ($aArgs as $k => $arg) {
@@ -1101,7 +1101,7 @@ class Statistical
     public static function KURT(...$args)
     {
         $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::AVERAGE($aArgs);
+        $mean = Averages::average($aArgs);
         $stdDev = StandardDeviations::STDEV($aArgs);
 
         if ($stdDev > 0) {
@@ -1390,37 +1390,18 @@ class Statistical
      * Excel Function:
      *        MEDIAN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages::median()
+     *      Use the median() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function MEDIAN(...$args)
     {
-        $returnValue = Functions::NAN();
-
-        $mArgs = [];
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $mArgs[] = $arg;
-            }
-        }
-
-        $mValueCount = count($mArgs);
-        if ($mValueCount > 0) {
-            sort($mArgs, SORT_NUMERIC);
-            $mValueCount = $mValueCount / 2;
-            if ($mValueCount == floor($mValueCount)) {
-                $returnValue = ($mArgs[$mValueCount--] + $mArgs[$mValueCount]) / 2;
-            } else {
-                $mValueCount = floor($mValueCount);
-                $returnValue = $mArgs[$mValueCount];
-            }
-        }
-
-        return $returnValue;
+        return Statistical\Averages::median(...$args);
     }
 
     /**
@@ -1490,55 +1471,6 @@ class Statistical
         return Conditional::MINIFS(...$args);
     }
 
-    //
-    //    Special variant of array_count_values that isn't limited to strings and integers,
-    //        but can work with floating point numbers as values
-    //
-    private static function modeCalc($data)
-    {
-        $frequencyArray = [];
-        $index = 0;
-        $maxfreq = 0;
-        $maxfreqkey = '';
-        $maxfreqdatum = '';
-        foreach ($data as $datum) {
-            $found = false;
-            ++$index;
-            foreach ($frequencyArray as $key => $value) {
-                if ((string) $value['value'] == (string) $datum) {
-                    ++$frequencyArray[$key]['frequency'];
-                    $freq = $frequencyArray[$key]['frequency'];
-                    if ($freq > $maxfreq) {
-                        $maxfreq = $freq;
-                        $maxfreqkey = $key;
-                        $maxfreqdatum = $datum;
-                    } elseif ($freq == $maxfreq) {
-                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) {
-                            $maxfreqkey = $key;
-                            $maxfreqdatum = $datum;
-                        }
-                    }
-                    $found = true;
-
-                    break;
-                }
-            }
-            if (!$found) {
-                $frequencyArray[] = [
-                    'value' => $datum,
-                    'frequency' => 1,
-                    'index' => $index,
-                ];
-            }
-        }
-
-        if ($maxfreq <= 1) {
-            return Functions::NA();
-        }
-
-        return $maxfreqdatum;
-    }
-
     /**
      * MODE.
      *
@@ -1547,30 +1479,18 @@ class Statistical
      * Excel Function:
      *        MODE(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages::mode()
+     *      Use the mode() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function MODE(...$args)
     {
-        $returnValue = Functions::NA();
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-
-        $mArgs = [];
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $mArgs[] = $arg;
-            }
-        }
-
-        if (!empty($mArgs)) {
-            return self::modeCalc($mArgs);
-        }
-
-        return $returnValue;
+        return Statistical\Averages::mode(...$args);
     }
 
     /**
@@ -2003,7 +1923,7 @@ class Statistical
     public static function SKEW(...$args)
     {
         $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::AVERAGE($aArgs);
+        $mean = Averages::average($aArgs);
         $stdDev = StandardDeviations::STDEV($aArgs);
 
         if ($stdDev === 0.0 || is_string($stdDev)) {
@@ -2418,7 +2338,7 @@ class Statistical
                 array_shift($mArgs);
             }
 
-            return Averages::AVERAGE($mArgs);
+            return Averages::average($mArgs);
         }
 
         return Functions::VALUE();
@@ -2570,6 +2490,6 @@ class Statistical
         }
         $n = count($dataSet);
 
-        return 1 - self::NORMSDIST((Averages::AVERAGE($dataSet) - $m0) / ($sigma / sqrt($n)));
+        return 1 - self::NORMSDIST((Averages::average($dataSet) - $m0) / ($sigma / sqrt($n)));
     }
 }

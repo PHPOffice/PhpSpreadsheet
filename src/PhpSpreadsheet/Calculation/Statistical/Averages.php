@@ -19,14 +19,14 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function AVEDEV(...$args)
+    public static function averageDeviations(...$args)
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
         $returnValue = 0;
 
-        $aMean = self::AVERAGE(...$args);
+        $aMean = self::average(...$args);
         if ($aMean === Functions::DIV0()) {
             return Functions::NAN();
         } elseif ($aMean === Functions::VALUE()) {
@@ -68,7 +68,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function AVERAGE(...$args)
+    public static function average(...$args)
     {
         $returnValue = $aCount = 0;
 
@@ -107,7 +107,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function AVERAGEA(...$args)
+    public static function averageA(...$args)
     {
         $returnValue = null;
 
@@ -133,5 +133,130 @@ class Averages extends AggregateBase
         }
 
         return Functions::DIV0();
+    }
+
+    /**
+     * MEDIAN.
+     *
+     * Returns the median of the given numbers. The median is the number in the middle of a set of numbers.
+     *
+     * Excel Function:
+     *        MEDIAN(value1[,value2[, ...]])
+     *
+     * @param mixed ...$args Data values
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function median(...$args)
+    {
+        $returnValue = Functions::NAN();
+
+        $mArgs = [];
+        // Loop through arguments
+        $aArgs = Functions::flattenArray($args);
+        foreach ($aArgs as $arg) {
+            // Is it a numeric value?
+            if ((is_numeric($arg)) && (!is_string($arg))) {
+                $mArgs[] = $arg;
+            }
+        }
+
+        $mValueCount = count($mArgs);
+        if ($mValueCount > 0) {
+            sort($mArgs, SORT_NUMERIC);
+            $mValueCount = $mValueCount / 2;
+            if ($mValueCount == floor($mValueCount)) {
+                $returnValue = ($mArgs[$mValueCount--] + $mArgs[$mValueCount]) / 2;
+            } else {
+                $mValueCount = floor($mValueCount);
+                $returnValue = $mArgs[$mValueCount];
+            }
+        }
+
+        return $returnValue;
+    }
+
+    /**
+     * MODE.
+     *
+     * Returns the most frequently occurring, or repetitive, value in an array or range of data
+     *
+     * Excel Function:
+     *        MODE(value1[,value2[, ...]])
+     *
+     * @param mixed ...$args Data values
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function mode(...$args)
+    {
+        $returnValue = Functions::NA();
+
+        // Loop through arguments
+        $aArgs = Functions::flattenArray($args);
+
+        $mArgs = [];
+        foreach ($aArgs as $arg) {
+            // Is it a numeric value?
+            if ((is_numeric($arg)) && (!is_string($arg))) {
+                $mArgs[] = $arg;
+            }
+        }
+
+        if (!empty($mArgs)) {
+            return self::modeCalc($mArgs);
+        }
+
+        return $returnValue;
+    }
+
+    //
+    //    Special variant of array_count_values that isn't limited to strings and integers,
+    //        but can work with floating point numbers as values
+    //
+    private static function modeCalc($data)
+    {
+        $frequencyArray = [];
+        $index = 0;
+        $maxfreq = 0;
+        $maxfreqkey = '';
+        $maxfreqdatum = '';
+        foreach ($data as $datum) {
+            $found = false;
+            ++$index;
+            foreach ($frequencyArray as $key => $value) {
+                if ((string) $value['value'] == (string) $datum) {
+                    ++$frequencyArray[$key]['frequency'];
+                    $freq = $frequencyArray[$key]['frequency'];
+                    if ($freq > $maxfreq) {
+                        $maxfreq = $freq;
+                        $maxfreqkey = $key;
+                        $maxfreqdatum = $datum;
+                    } elseif ($freq == $maxfreq) {
+                        if ($frequencyArray[$key]['index'] < $frequencyArray[$maxfreqkey]['index']) {
+                            $maxfreqkey = $key;
+                            $maxfreqdatum = $datum;
+                        }
+                    }
+                    $found = true;
+
+                    break;
+                }
+            }
+
+            if (!$found) {
+                $frequencyArray[] = [
+                    'value' => $datum,
+                    'frequency' => 1,
+                    'index' => $index,
+                ];
+            }
+        }
+
+        if ($maxfreq <= 1) {
+            return Functions::NA();
+        }
+
+        return $maxfreqdatum;
     }
 }

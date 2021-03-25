@@ -328,17 +328,17 @@ class Calculation
         ],
         'AVEDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVEDEV'],
+            'functionCall' => [Statistical\Averages::class, 'averageDeviations'],
             'argumentCount' => '1+',
         ],
         'AVERAGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVERAGE'],
+            'functionCall' => [Statistical\Averages::class, 'average'],
             'argumentCount' => '1+',
         ],
         'AVERAGEA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVERAGEA'],
+            'functionCall' => [Statistical\Averages::class, 'averageA'],
             'argumentCount' => '1+',
         ],
         'AVERAGEIF' => [
@@ -1646,7 +1646,7 @@ class Calculation
         ],
         'MEDIAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MEDIAN'],
+            'functionCall' => [Statistical\Averages::class, 'median'],
             'argumentCount' => '1+',
         ],
         'MEDIANIF' => [
@@ -1706,7 +1706,7 @@ class Calculation
         ],
         'MODE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MODE'],
+            'functionCall' => [Statistical\Averages::class, 'mode'],
             'argumentCount' => '1+',
         ],
         'MODE.MULT' => [
@@ -1716,7 +1716,7 @@ class Calculation
         ],
         'MODE.SNGL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MODE'],
+            'functionCall' => [Statistical\Averages::class, 'mode'],
             'argumentCount' => '1+',
         ],
         'MONTH' => [
