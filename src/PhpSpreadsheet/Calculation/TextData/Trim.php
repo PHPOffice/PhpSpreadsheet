@@ -12,7 +12,7 @@ class Trim
     /**
      * TRIMNONPRINTABLE.
      *
-     * @param mixed $stringValue Value to check
+     * @param mixed (string) $stringValue Value to check
      *
      * @return null|string
      */
@@ -38,7 +38,7 @@ class Trim
     /**
      * TRIMSPACES.
      *
-     * @param mixed $stringValue Value to check
+     * @param mixed (string) $stringValue Value to check
      *
      * @return null|string
      */

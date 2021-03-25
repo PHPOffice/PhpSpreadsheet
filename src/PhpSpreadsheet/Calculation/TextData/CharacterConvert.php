@@ -10,7 +10,7 @@ class CharacterConvert
     /**
      * CHARACTER.
      *
-     * @param string $character Value
+     * @param mixed (int) $character Value
      */
     public static function character($character): string
     {
@@ -31,7 +31,7 @@ class CharacterConvert
     /**
      * ASCIICODE.
      *
-     * @param string $characters Value
+     * @param mixed (string) $characters Value
      *
      * @return int|string A string if arguments are invalid
      */

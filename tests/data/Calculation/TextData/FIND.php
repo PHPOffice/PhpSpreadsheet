@@ -101,4 +101,9 @@ return [
         'Mark Baker',
         8,
     ],
+    'Boolean Needle' => [
+        '#VALUE!',
+        true,
+        'Mark Baker',
+    ],
 ];

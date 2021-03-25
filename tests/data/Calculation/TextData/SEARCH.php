@@ -94,4 +94,9 @@ return [
         'BITE',
         'BIT',
     ],
+    'Boolean Needle' => [
+        '#VALUE!',
+        true,
+        'Mark Baker',
+    ],
 ];
