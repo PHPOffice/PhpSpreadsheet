@@ -542,6 +542,17 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Delete collection of drawings.
+     * Luis Macayo 25-Marzo-2021
+     *
+     * @return BaseDrawing[]
+     */
+    public function cleanDrawingCollection()
+    {
+        return $this->drawingCollection = [];
+    }
+
+    /**
      * Get collection of charts.
      *
      * @return Chart[]
