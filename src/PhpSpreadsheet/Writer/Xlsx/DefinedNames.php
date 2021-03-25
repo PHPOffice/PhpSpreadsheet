@@ -99,7 +99,7 @@ class DefinedNames
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
                     // We should have a worksheet
-                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
+                    $worksheet = $pDefinedName->getWorksheet() ? $pDefinedName->getWorksheet()->getTitle() : null;
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));

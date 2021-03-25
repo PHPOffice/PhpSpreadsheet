@@ -12,19 +12,16 @@ class AsinTest extends TestCase
      * @dataProvider providerAsin
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testAsin($expectedResult, $val = null): void
+    public function testAsin($expectedResult, string $formula): void
     {
-        if ($val === null) {
+        if ($expectedResult === 'exception') {
             $this->expectException(CalcExp::class);
-            $formula = '=ASIN()';
-        } else {
-            $formula = "=ASIN($val)";
         }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $sheet->getCell('A2')->setValue(0.5);
+        $sheet->getCell('A1')->setValue("=ASIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

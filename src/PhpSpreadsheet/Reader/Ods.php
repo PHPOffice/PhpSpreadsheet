@@ -23,6 +23,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
 use XMLReader;
 use ZipArchive;
 
@@ -646,8 +647,79 @@ class Ods extends BaseReader
             $this->readDefinedExpressions($spreadsheet, $workbookData, $tableNs);
         }
         $spreadsheet->setActiveSheetIndex(0);
+
+        if ($zip->locateName('settings.xml') !== false) {
+            $this->processSettings($zip, $spreadsheet);
+        }
         // Return
         return $spreadsheet;
+    }
+
+    private function processSettings(ZipArchive $zip, Spreadsheet $spreadsheet): void
+    {
+        $dom = new DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
+            $this->securityScanner->scan($zip->getFromName('settings.xml')),
+            Settings::getLibXmlLoaderOptions()
+        );
+        //$xlinkNs = $dom->lookupNamespaceUri('xlink');
+        $configNs = $dom->lookupNamespaceUri('config');
+        //$oooNs = $dom->lookupNamespaceUri('ooo');
+        $officeNs = $dom->lookupNamespaceUri('office');
+        $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
+            ->item(0);
+        $this->lookForActiveSheet($settings, $spreadsheet, $configNs);
+        $this->lookForSelectedCells($settings, $spreadsheet, $configNs);
+    }
+
+    private function lookForActiveSheet(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
+    {
+        foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
+            if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
+                try {
+                    $spreadsheet->setActiveSheetIndexByName($t->nodeValue);
+                } catch (Throwable $e) {
+                    // do nothing
+                }
+
+                break;
+            }
+        }
+    }
+
+    private function lookForSelectedCells(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
+    {
+        foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {
+            if ($t->getAttributeNs($configNs, 'name') === 'Tables') {
+                foreach ($t->getElementsByTagNameNS($configNs, 'config-item-map-entry') as $ws) {
+                    $setRow = $setCol = '';
+                    $wsname = $ws->getAttributeNs($configNs, 'name');
+                    foreach ($ws->getElementsByTagNameNS($configNs, 'config-item') as $configItem) {
+                        $attrName = $configItem->getAttributeNs($configNs, 'name');
+                        if ($attrName === 'CursorPositionX') {
+                            $setCol = $configItem->nodeValue;
+                        }
+                        if ($attrName === 'CursorPositionY') {
+                            $setRow = $configItem->nodeValue;
+                        }
+                    }
+                    $this->setSelected($spreadsheet, $wsname, $setCol, $setRow);
+                }
+
+                break;
+            }
+        }
+    }
+
+    private function setSelected(Spreadsheet $spreadsheet, string $wsname, string $setCol, string $setRow): void
+    {
+        if (is_numeric($setCol) && is_numeric($setRow)) {
+            try {
+                $spreadsheet->getSheetByName($wsname)->setSelectedCellByColumnAndRow($setCol + 1, $setRow + 1);
+            } catch (Throwable $e) {
+                // do nothing
+            }
+        }
     }
 
     /**

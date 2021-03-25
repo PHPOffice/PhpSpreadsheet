@@ -232,10 +232,11 @@ class CoordinateTest extends TestCase
      * @dataProvider providerBuildRange
      *
      * @param mixed $expectedResult
+     * @param mixed $rangeSets
      */
-    public function testBuildRange($expectedResult, ...$args): void
+    public function testBuildRange($expectedResult, $rangeSets): void
     {
-        $result = Coordinate::buildRange(...$args);
+        $result = Coordinate::buildRange($rangeSets);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -248,7 +249,16 @@ class CoordinateTest extends TestCase
     {
         $this->expectException(TypeError::class);
 
-        $cellRange = '';
+        $cellRange = null;
+        Coordinate::buildRange($cellRange);
+    }
+
+    public function testBuildRangeInvalid2(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Range does not contain any information');
+
+        $cellRange = [];
         Coordinate::buildRange($cellRange);
     }
 
@@ -342,10 +352,11 @@ class CoordinateTest extends TestCase
      * @dataProvider providerMergeRangesInCollection
      *
      * @param mixed $expectedResult
+     * @param mixed $rangeSets
      */
-    public function testMergeRangesInCollection($expectedResult, ...$args): void
+    public function testMergeRangesInCollection($expectedResult, $rangeSets): void
     {
-        $result = Coordinate::mergeRangesInCollection(...$args);
+        $result = Coordinate::mergeRangesInCollection($rangeSets);
         self::assertEquals($expectedResult, $result);
     }
 

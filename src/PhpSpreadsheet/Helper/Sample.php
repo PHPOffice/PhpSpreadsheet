@@ -71,7 +71,7 @@ class Sample
     /**
      * Returns an array of all known samples.
      *
-     * @return string[] [$name => $path]
+     * @return string[][] [$name => $path]
      */
     public function getSamples()
     {
@@ -132,6 +132,11 @@ class Sample
         $this->logEndingNotes();
     }
 
+    protected function isDirOrMkdir(string $folder): bool
+    {
+        return \is_dir($folder) || \mkdir($folder);
+    }
+
     /**
      * Returns the temporary directory and make sure it exists.
      *
@@ -140,10 +145,8 @@ class Sample
     private function getTemporaryFolder()
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
-        if (!is_dir($tempFolder)) {
-            if (!mkdir($tempFolder) && !is_dir($tempFolder)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
-            }
+        if (!$this->isDirOrMkdir($tempFolder)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
         }
 
         return $tempFolder;

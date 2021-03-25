@@ -2,8 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use Exception;
 
 class CeilingPrecise
 {
@@ -22,18 +21,18 @@ class CeilingPrecise
      */
     public static function funcCeilingPrecise($number, $significance = 1)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        $significance = Functions::flattenSingleValue($significance);
-
-        if ((is_numeric($number)) && (is_numeric($significance))) {
-            if ($significance == 0.0) {
-                return 0.0;
-            }
-            $result = $number / abs($significance);
-
-            return ceil($result) * $significance * (($significance < 0) ? -1 : 1);
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $significance = Helpers::validateNumericNullSubstitution($significance, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (!$significance) {
+            return 0.0;
+        }
+        $result = $number / abs($significance);
+
+        return ceil($result) * $significance * (($significance < 0) ? -1 : 1);
     }
 }

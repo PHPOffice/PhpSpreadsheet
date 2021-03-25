@@ -2,8 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use Exception;
 
 class Round
 {
@@ -19,12 +18,13 @@ class Round
      */
     public static function builtinROUND($number, $precision)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-
-        if (!is_numeric($number) || !is_numeric($precision)) {
-            return Functions::VALUE();
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $precision = Helpers::validateNumericNullBool($precision);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return round($number, $precision);
+        return round($number, (int) $precision);
     }
 }
