@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Gamma
+class Gamma extends BaseValidations
 {
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
 
@@ -16,24 +16,6 @@ class Gamma
     private const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
     private const MAX_ITERATIONS = 256;
-
-    private static function validateFloat($value): float
-    {
-        if (!is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return (float) $value;
-    }
-
-    private static function validateBool($value): bool
-    {
-        if (!is_bool($value) && !is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return (bool) $value;
-    }
 
     /**
      * GAMMA.
@@ -135,7 +117,7 @@ class Gamma
         $dx = 1024;
         $i = 0;
 
-        while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
+        while ((abs($dx) > Functions::PRECISION) && (++$i < self::MAX_ITERATIONS)) {
             // Apply Newton-Raphson step
             $error = self::distribution($x, $alpha, $beta, true) - $probability;
             if ($error < 0.0) {
@@ -145,7 +127,7 @@ class Gamma
             }
             $pdf = self::distribution($x, $alpha, $beta, false);
             // Avoid division by zero
-            if ($pdf != 0.0) {
+            if ($pdf !== 0.0) {
                 $dx = $error / $pdf;
                 $xNew = $x - $dx;
             }
@@ -158,7 +140,7 @@ class Gamma
             }
             $x = $xNew;
         }
-        if ($i == self::MAX_ITERATIONS) {
+        if ($i === self::MAX_ITERATIONS) {
             return Functions::NA();
         }
 
@@ -371,13 +353,14 @@ class Gamma
         0.0057083835261,
     ];
 
+    // Rough estimate of the fourth root of logGamma_xBig
+    private const LG_FRTBIG = 2.25e76;
+
+    private const PNT68 = 0.6796875;
+
     public static function logGamma(float $x): float
     {
-        // Rough estimate of the fourth root of logGamma_xBig
-        static $lg_frtbig = 2.25e76;
-        static $pnt68 = 0.6796875;
-
-        if ($x == self::$logGammaCacheX) {
+        if ($x === self::$logGammaCacheX) {
             return self::$logGammaCacheResult;
         }
 
@@ -386,74 +369,13 @@ class Gamma
             if ($y <= self::EPS) {
                 $res = -log($y);
             } elseif ($y <= 1.5) {
-                // ---------------------
-                //    EPS .LT. X .LE. 1.5
-                // ---------------------
-                if ($y < $pnt68) {
-                    $corr = -log($y);
-                    $xm1 = $y;
-                } else {
-                    $corr = 0.0;
-                    $xm1 = $y - 1.0;
-                }
-                if ($y <= 0.5 || $y >= $pnt68) {
-                    $xden = 1.0;
-                    $xnum = 0.0;
-                    for ($i = 0; $i < 8; ++$i) {
-                        $xnum = $xnum * $xm1 + self::LG_P1[$i];
-                        $xden = $xden * $xm1 + self::LG_Q1[$i];
-                    }
-                    $res = $corr + $xm1 * (self::LG_D1 + $xm1 * ($xnum / $xden));
-                } else {
-                    $xm2 = $y - 1.0;
-                    $xden = 1.0;
-                    $xnum = 0.0;
-                    for ($i = 0; $i < 8; ++$i) {
-                        $xnum = $xnum * $xm2 + self::LG_P2[$i];
-                        $xden = $xden * $xm2 + self::LG_Q2[$i];
-                    }
-                    $res = $corr + $xm2 * (self::LG_D2 + $xm2 * ($xnum / $xden));
-                }
+                $res = self::logGamma1($y);
             } elseif ($y <= 4.0) {
-                // ---------------------
-                //    1.5 .LT. X .LE. 4.0
-                // ---------------------
-                $xm2 = $y - 2.0;
-                $xden = 1.0;
-                $xnum = 0.0;
-                for ($i = 0; $i < 8; ++$i) {
-                    $xnum = $xnum * $xm2 + self::LG_P2[$i];
-                    $xden = $xden * $xm2 + self::LG_Q2[$i];
-                }
-                $res = $xm2 * (self::LG_D2 + $xm2 * ($xnum / $xden));
+                $res = self::logGamma2($y);
             } elseif ($y <= 12.0) {
-                // ----------------------
-                //    4.0 .LT. X .LE. 12.0
-                // ----------------------
-                $xm4 = $y - 4.0;
-                $xden = -1.0;
-                $xnum = 0.0;
-                for ($i = 0; $i < 8; ++$i) {
-                    $xnum = $xnum * $xm4 + self::LG_P4[$i];
-                    $xden = $xden * $xm4 + self::LG_Q4[$i];
-                }
-                $res = self::LG_D4 + $xm4 * ($xnum / $xden);
+                $res = self::logGamma3($y);
             } else {
-                // ---------------------------------
-                //    Evaluate for argument .GE. 12.0
-                // ---------------------------------
-                $res = 0.0;
-                if ($y <= $lg_frtbig) {
-                    $res = self::LG_C[6];
-                    $ysq = $y * $y;
-                    for ($i = 0; $i < 6; ++$i) {
-                        $res = $res / $ysq + self::LG_C[$i];
-                    }
-                    $res /= $y;
-                    $corr = log($y);
-                    $res = $res + log(self::SQRT2PI) - 0.5 * $corr;
-                    $res += $y * ($corr - 1.0);
-                }
+                $res = self::logGamma4($y);
             }
         } else {
             // --------------------------
@@ -461,11 +383,98 @@ class Gamma
             // --------------------------
             $res = self::MAX_VALUE;
         }
+
         // ------------------------------
         //    Final adjustments and return
         // ------------------------------
         self::$logGammaCacheX = $x;
         self::$logGammaCacheResult = $res;
+
+        return $res;
+    }
+
+    private static function logGamma1(float $y)
+    {
+        // ---------------------
+        //    EPS .LT. X .LE. 1.5
+        // ---------------------
+        if ($y < self::PNT68) {
+            $corr = -log($y);
+            $xm1 = $y;
+        } else {
+            $corr = 0.0;
+            $xm1 = $y - 1.0;
+        }
+
+        $xden = 1.0;
+        $xnum = 0.0;
+        if ($y <= 0.5 || $y >= self::PNT68) {
+            for ($i = 0; $i < 8; ++$i) {
+                $xnum = $xnum * $xm1 + self::LG_P1[$i];
+                $xden = $xden * $xm1 + self::LG_Q1[$i];
+            }
+
+            return $corr + $xm1 * (self::LG_D1 + $xm1 * ($xnum / $xden));
+        }
+
+        $xm2 = $y - 1.0;
+        for ($i = 0; $i < 8; ++$i) {
+            $xnum = $xnum * $xm2 + self::LG_P2[$i];
+            $xden = $xden * $xm2 + self::LG_Q2[$i];
+        }
+
+        return $corr + $xm2 * (self::LG_D2 + $xm2 * ($xnum / $xden));
+    }
+
+    private static function logGamma2(float $y)
+    {
+        // ---------------------
+        //    1.5 .LT. X .LE. 4.0
+        // ---------------------
+        $xm2 = $y - 2.0;
+        $xden = 1.0;
+        $xnum = 0.0;
+        for ($i = 0; $i < 8; ++$i) {
+            $xnum = $xnum * $xm2 + self::LG_P2[$i];
+            $xden = $xden * $xm2 + self::LG_Q2[$i];
+        }
+
+        return $xm2 * (self::LG_D2 + $xm2 * ($xnum / $xden));
+    }
+
+    protected static function logGamma3(float $y)
+    {
+        // ----------------------
+        //    4.0 .LT. X .LE. 12.0
+        // ----------------------
+        $xm4 = $y - 4.0;
+        $xden = -1.0;
+        $xnum = 0.0;
+        for ($i = 0; $i < 8; ++$i) {
+            $xnum = $xnum * $xm4 + self::LG_P4[$i];
+            $xden = $xden * $xm4 + self::LG_Q4[$i];
+        }
+
+        return self::LG_D4 + $xm4 * ($xnum / $xden);
+    }
+
+    protected static function logGamma4(float $y)
+    {
+        // ---------------------------------
+        //    Evaluate for argument .GE. 12.0
+        // ---------------------------------
+        $res = 0.0;
+        if ($y <= self::LG_FRTBIG) {
+            $res = self::LG_C[6];
+            $ysq = $y * $y;
+            for ($i = 0; $i < 6; ++$i) {
+                $res = $res / $ysq + self::LG_C[$i];
+            }
+            $res /= $y;
+            $corr = log($y);
+            $res = $res + log(self::SQRT2PI) - 0.5 * $corr;
+            $res += $y * ($corr - 1.0);
+        }
 
         return $res;
     }

@@ -5,22 +5,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Beta
+class Beta extends BaseValidations
 {
     private const MAX_ITERATIONS = 256;
 
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
 
     private const XMININ = 2.23e-308;
-
-    private static function validateFloat($value): float
-    {
-        if (!is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return (float) $value;
-    }
 
     /**
      * BETADIST.
@@ -115,7 +106,7 @@ class Beta
         while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
             $guess = ($a + $b) / 2;
             $result = self::distribution($guess, $alpha, $beta);
-            if (($result == $probability) || ($result == 0)) {
+            if (($result === $probability) || ($result === 0.0)) {
                 $b = $a;
             } elseif ($result > $probability) {
                 $b = $guess;
