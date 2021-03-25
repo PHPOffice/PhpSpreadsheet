@@ -110,41 +110,7 @@ class Gamma extends BaseValidations
             return Functions::NAN();
         }
 
-        $xLo = 0;
-        $xHi = $alpha * $beta * 5;
-
-        $x = $xNew = 1;
-        $dx = 1024;
-        $i = 0;
-
-        while ((abs($dx) > Functions::PRECISION) && (++$i < self::MAX_ITERATIONS)) {
-            // Apply Newton-Raphson step
-            $error = self::distribution($x, $alpha, $beta, true) - $probability;
-            if ($error < 0.0) {
-                $xLo = $x;
-            } else {
-                $xHi = $x;
-            }
-            $pdf = self::distribution($x, $alpha, $beta, false);
-            // Avoid division by zero
-            if ($pdf !== 0.0) {
-                $dx = $error / $pdf;
-                $xNew = $x - $dx;
-            }
-            // If the NR fails to converge (which for example may be the
-            // case if the initial guess is too rough) we apply a bisection
-            // step to determine a more narrow interval around the root.
-            if (($xNew < $xLo) || ($xNew > $xHi) || ($pdf == 0.0)) {
-                $xNew = ($xLo + $xHi) / 2;
-                $dx = $xNew - $x;
-            }
-            $x = $xNew;
-        }
-        if ($i === self::MAX_ITERATIONS) {
-            return Functions::NA();
-        }
-
-        return $x;
+        return self::calculateInverse($probability, $alpha, $beta);
     }
 
     /**
@@ -169,6 +135,48 @@ class Gamma extends BaseValidations
         }
 
         return Functions::VALUE();
+    }
+
+    protected static function calculateInverse(float $probability, float $alpha, float $beta)
+    {
+        $xLo = 0;
+        $xHi = $alpha * $beta * 5;
+
+        $x = $xNew = 1;
+        $dx = 1024;
+        $i = 0;
+
+        while ((abs($dx) > Functions::PRECISION) && (++$i < self::MAX_ITERATIONS)) {
+            // Apply Newton-Raphson step
+            $error = self::distribution($x, $alpha, $beta, true) - $probability;
+            if ($error < 0.0) {
+                $xLo = $x;
+            } else {
+                $xHi = $x;
+            }
+
+            $pdf = self::distribution($x, $alpha, $beta, false);
+            // Avoid division by zero
+            if ($pdf !== 0.0) {
+                $dx = $error / $pdf;
+                $xNew = $x - $dx;
+            }
+
+            // If the NR fails to converge (which for example may be the
+            // case if the initial guess is too rough) we apply a bisection
+            // step to determine a more narrow interval around the root.
+            if (($xNew < $xLo) || ($xNew > $xHi) || ($pdf == 0.0)) {
+                $xNew = ($xLo + $xHi) / 2;
+                $dx = $xNew - $x;
+            }
+            $x = $xNew;
+        }
+
+        if ($i === self::MAX_ITERATIONS) {
+            return Functions::NA();
+        }
+
+        return $x;
     }
 
     //
@@ -265,11 +273,6 @@ class Gamma extends BaseValidations
      * @return float MAX_VALUE for x < 0.0 or when overflow would occur, i.e. x > 2.55E305
      */
 
-    // Function cache for logGamma
-    private static $logGammaCacheResult = 0.0;
-
-    private static $logGammaCacheX = 0.0;
-
     // Log Gamma related constants
     private const  LG_D1 = -0.5772156649015328605195174;
 
@@ -358,9 +361,14 @@ class Gamma extends BaseValidations
 
     private const PNT68 = 0.6796875;
 
+    // Function cache for logGamma
+    private static $logGammaCacheResult = 0.0;
+
+    private static $logGammaCacheX = 0.0;
+
     public static function logGamma(float $x): float
     {
-        if ($x === self::$logGammaCacheX) {
+        if ($x == self::$logGammaCacheX) {
             return self::$logGammaCacheResult;
         }
 
