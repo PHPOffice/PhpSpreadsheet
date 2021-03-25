@@ -20,14 +20,14 @@ class Price extends BaseValidations
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param float $rate the security's annual coupon rate
-     * @param float $yield the security's annual yield
-     * @param float $redemption The number of coupon payments per year.
+     * @param mixed (float) $rate the security's annual coupon rate
+     * @param mixed (float) $yield the security's annual yield
+     * @param mixed (float) $redemption The number of coupon payments per year.
      *                              For annual payments, frequency = 1;
      *                              for semiannual, frequency = 2;
      *                              for quarterly, frequency = 4.
-     * @param int $frequency
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $frequency
+     * @param mixed (int) $basis The type of day count to use.
      *                       0 or omitted    US (NASD) 30/360
      *                       1                Actual/actual
      *                       2                Actual/360
@@ -87,9 +87,9 @@ class Price extends BaseValidations
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param float $discount The security's discount rate
-     * @param float $redemption The security's redemption value per $100 face value
-     * @param int $basis The type of day count to use.
+     * @param mixed (float) $discount The security's discount rate
+     * @param mixed (float) $redemption The security's redemption value per $100 face value
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -137,9 +137,9 @@ class Price extends BaseValidations
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
-     * @param float $rate The security's interest rate at date of issue
-     * @param float $yield The security's annual yield
-     * @param int $basis The type of day count to use.
+     * @param mixed (float) $rate The security's interest rate at date of issue
+     * @param mixed (float) $yield The security's annual yield
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360

@@ -16,8 +16,8 @@ class Dollar
      * Excel Function:
      *        DOLLARDE(fractional_dollar,fraction)
      *
-     * @param float $fractionalDollar Fractional Dollar
-     * @param int $fraction Fraction
+     * @param mixed (float) $fractionalDollar Fractional Dollar
+     * @param mixed (int) $fraction Fraction
      *
      * @return float|string
      */
@@ -52,8 +52,8 @@ class Dollar
      * Excel Function:
      *        DOLLARFR(decimal_dollar,fraction)
      *
-     * @param float $decimalDollar Decimal Dollar
-     * @param int $fraction Fraction
+     * @param mixed (float) $decimalDollar Decimal Dollar
+     * @param mixed (int) $fraction Fraction
      *
      * @return float|string
      */

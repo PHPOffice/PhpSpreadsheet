@@ -1156,7 +1156,7 @@ class MathTrig
             $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
             switch ($subtotal) {
                 case 1:
-                    return Statistical\Averages::AVERAGE($aArgs);
+                    return Statistical\Averages::average($aArgs);
                 case 2:
                     return Statistical\Counts::COUNT($aArgs);
                 case 3:

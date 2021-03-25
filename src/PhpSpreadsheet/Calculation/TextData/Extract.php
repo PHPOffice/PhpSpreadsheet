@@ -10,8 +10,8 @@ class Extract
     /**
      * LEFT.
      *
-     * @param string $value Value
-     * @param int $chars Number of characters
+     * @param mixed (string) $value Value
+     * @param mixed (int) $chars Number of characters
      */
     public static function left($value = '', $chars = 1): string
     {
@@ -32,9 +32,9 @@ class Extract
     /**
      * MID.
      *
-     * @param string $value Value
-     * @param int $start Start character
-     * @param int $chars Number of characters
+     * @param mixed (string) $value Value
+     * @param mixed (int) $start Start character
+     * @param mixed (int) $chars Number of characters
      */
     public static function mid($value = '', $start = 1, $chars = null): string
     {
@@ -56,8 +56,8 @@ class Extract
     /**
      * RIGHT.
      *
-     * @param string $value Value
-     * @param int $chars Number of characters
+     * @param mixed (string) $value Value
+     * @param mixed (int) $chars Number of characters
      */
     public static function right($value = '', $chars = 1): string
     {

@@ -29,12 +29,12 @@ class Coupons
      *                                date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int $frequency the number of coupon payments per year.
+     * @param mixed (int) $frequency the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -88,7 +88,7 @@ class Coupons
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -153,7 +153,7 @@ class Coupons
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -211,7 +211,7 @@ class Coupons
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -260,7 +260,7 @@ class Coupons
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -309,7 +309,7 @@ class Coupons
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param int $basis The type of day count to use.
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360

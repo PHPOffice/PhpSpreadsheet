@@ -328,17 +328,17 @@ class Calculation
         ],
         'AVEDEV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVEDEV'],
+            'functionCall' => [Statistical\Averages::class, 'averageDeviations'],
             'argumentCount' => '1+',
         ],
         'AVERAGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVERAGE'],
+            'functionCall' => [Statistical\Averages::class, 'average'],
             'argumentCount' => '1+',
         ],
         'AVERAGEA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'AVERAGEA'],
+            'functionCall' => [Statistical\Averages::class, 'averageA'],
             'argumentCount' => '1+',
         ],
         'AVERAGEIF' => [
@@ -383,7 +383,7 @@ class Calculation
         ],
         'BETADIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETADIST'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'distribution'],
             'argumentCount' => '3-5',
         ],
         'BETA.DIST' => [
@@ -393,12 +393,12 @@ class Calculation
         ],
         'BETAINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETAINV'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'inverse'],
             'argumentCount' => '3-5',
         ],
         'BETA.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BETAINV'],
+            'functionCall' => [Statistical\Distributions\Beta::class, 'inverse'],
             'argumentCount' => '3-5',
         ],
         'BIN2DEC' => [
@@ -488,7 +488,7 @@ class Calculation
         ],
         'CHIDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIDIST'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
             'argumentCount' => '2',
         ],
         'CHISQ.DIST' => [
@@ -498,12 +498,12 @@ class Calculation
         ],
         'CHISQ.DIST.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIDIST'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
             'argumentCount' => '2',
         ],
         'CHIINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIINV'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'CHISQ.INV' => [
@@ -513,7 +513,7 @@ class Calculation
         ],
         'CHISQ.INV.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CHIINV'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'CHITEST' => [
@@ -1055,12 +1055,12 @@ class Calculation
         ],
         'FISHER' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FISHER'],
+            'functionCall' => [Statistical\Distributions\Fisher::class, 'distribution'],
             'argumentCount' => '1',
         ],
         'FISHERINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FISHERINV'],
+            'functionCall' => [Statistical\Distributions\Fisher::class, 'inverse'],
             'argumentCount' => '1',
         ],
         'FIXED' => [
@@ -1147,37 +1147,37 @@ class Calculation
         ],
         'GAMMA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAFunction'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'gamma'],
             'argumentCount' => '1',
         ],
         'GAMMADIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMADIST'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'GAMMA.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMADIST'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'GAMMAINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAINV'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'GAMMA.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMAINV'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'GAMMALN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMALN'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'ln'],
             'argumentCount' => '1',
         ],
         'GAMMALN.PRECISE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAMMALN'],
+            'functionCall' => [Statistical\Distributions\Gamma::class, 'ln'],
             'argumentCount' => '1',
         ],
         'GAUSS' => [
@@ -1646,7 +1646,7 @@ class Calculation
         ],
         'MEDIAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MEDIAN'],
+            'functionCall' => [Statistical\Averages::class, 'median'],
             'argumentCount' => '1+',
         ],
         'MEDIANIF' => [
@@ -1706,7 +1706,7 @@ class Calculation
         ],
         'MODE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MODE'],
+            'functionCall' => [Statistical\Averages::class, 'mode'],
             'argumentCount' => '1+',
         ],
         'MODE.MULT' => [
@@ -1716,7 +1716,7 @@ class Calculation
         ],
         'MODE.SNGL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'MODE'],
+            'functionCall' => [Statistical\Averages::class, 'mode'],
             'argumentCount' => '1+',
         ],
         'MONTH' => [
