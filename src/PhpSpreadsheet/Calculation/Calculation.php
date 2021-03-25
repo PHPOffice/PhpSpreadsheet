@@ -1055,12 +1055,12 @@ class Calculation
         ],
         'FISHER' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FISHER'],
+            'functionCall' => [Statistical\Distributions\Fisher::class, 'distribution'],
             'argumentCount' => '1',
         ],
         'FISHERINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FISHERINV'],
+            'functionCall' => [Statistical\Distributions\Fisher::class, 'inverse'],
             'argumentCount' => '1',
         ],
         'FIXED' => [

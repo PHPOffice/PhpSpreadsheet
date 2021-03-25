@@ -77,8 +77,6 @@ class ChiSquared
     }
 
     /**
-     * @param int $degrees
-     * @param float $probability
      * @return float|string
      */
     protected static function calculateInverse(int $degrees, float $probability)

@@ -771,23 +771,18 @@ class Statistical
      *        is normally distributed rather than skewed. Use this function to perform hypothesis
      *        testing on the correlation coefficient.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Fisher::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Fisher class instead
+     *
      * @param float $value
      *
      * @return float|string
      */
     public static function FISHER($value)
     {
-        $value = Functions::flattenSingleValue($value);
-
-        if (is_numeric($value)) {
-            if (($value <= -1) || ($value >= 1)) {
-                return Functions::NAN();
-            }
-
-            return 0.5 * log((1 + $value) / (1 - $value));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Fisher::distribution($value);
     }
 
     /**
@@ -797,19 +792,18 @@ class Statistical
      *        analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
      *        FISHERINV(y) = x.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Fisher::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\Fisher class instead
+     *
      * @param float $value
      *
      * @return float|string
      */
     public static function FISHERINV($value)
     {
-        $value = Functions::flattenSingleValue($value);
-
-        if (is_numeric($value)) {
-            return (exp(2 * $value) - 1) / (exp(2 * $value) + 1);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Fisher::inverse($value);
     }
 
     /**
