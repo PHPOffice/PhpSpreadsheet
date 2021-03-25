@@ -69,6 +69,10 @@ class ChiSquared
             return $e->getMessage();
         }
 
+        if ($probability < 0.0 || $probability > 1.0 || $degrees < 1) {
+            return Functions::NAN();
+        }
+
         return self::calculateInverse($degrees, $probability);
     }
 
@@ -120,6 +124,6 @@ class ChiSquared
             return Functions::NA();
         }
 
-        return round($x, 12);
+        return $x;
     }
 }

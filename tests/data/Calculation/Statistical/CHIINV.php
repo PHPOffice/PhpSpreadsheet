@@ -35,6 +35,22 @@ return [
     ],
     [
         '#VALUE!',
-        0.25, 'NAN',
+        'NaN', 3,
+    ],
+    [
+        '#VALUE!',
+        0.25, 'NaN',
+    ],
+    'Probability < 0' => [
+        '#NUM!',
+        -0.1, 3,
+    ],
+    'Probability > 1' => [
+        '#NUM!',
+        1.1, 3,
+    ],
+    'Freedom > 1' => [
+        '#NUM!',
+        0.1, 0.5,
     ],
 ];
