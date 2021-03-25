@@ -244,7 +244,7 @@ class Averages extends AggregateBase
                 }
             }
 
-            if (!$found) {
+            if ($found === false) {
                 $frequencyArray[] = [
                     'value' => $datum,
                     'frequency' => 1,
