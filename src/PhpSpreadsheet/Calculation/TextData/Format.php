@@ -18,8 +18,8 @@ class Format
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param float $value The value to format
-     * @param int $decimals The number of digits to display to the right of the decimal point.
+     * @param mixed (float) $value The value to format
+     * @param mixed (int) $decimals The number of digits to display to the right of the decimal point.
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
      *                                    If you omit decimals, it is assumed to be 2
      */
@@ -54,7 +54,7 @@ class Format
      *
      * @param mixed $value Value to check
      * @param mixed $decimals
-     * @param bool $noCommas
+     * @param mixed (bool) $noCommas
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false): string
     {
@@ -72,7 +72,7 @@ class Format
         if ($decimals < 0) {
             $decimals = 0;
         }
-        if (!$noCommas) {
+        if ($noCommas === false) {
             $valueResult = number_format(
                 $valueResult,
                 $decimals,
@@ -88,7 +88,7 @@ class Format
      * TEXTFORMAT.
      *
      * @param mixed $value Value to check
-     * @param string $format Format mask to use
+     * @param mixed (string) $format Format mask to use
      */
     public static function TEXTFORMAT($value, $format): string
     {
@@ -152,8 +152,8 @@ class Format
      * NUMBERVALUE.
      *
      * @param mixed $value Value to check
-     * @param string $decimalSeparator decimal separator, defaults to locale defined value
-     * @param string $groupSeparator group/thosands separator, defaults to locale defined value
+     * @param mixed (string) $decimalSeparator decimal separator, defaults to locale defined value
+     * @param mixed (string) $groupSeparator group/thosands separator, defaults to locale defined value
      *
      * @return float|string
      */

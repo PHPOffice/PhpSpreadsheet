@@ -12,9 +12,9 @@ class Confidence
      *
      * Returns the confidence interval for a population mean
      *
-     * @param float $alpha
-     * @param float $stdDev Standard Deviation
-     * @param float $size
+     * @param mixed (float) $alpha
+     * @param mixed (float) $stdDev Standard Deviation
+     * @param mixed (float) $size
      *
      * @return float|string
      */

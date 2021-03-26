@@ -13,7 +13,7 @@ class CaseConvert
      *
      * Converts a string value to upper case.
      *
-     * @param string $mixedCaseValue
+     * @param mixed (string) $mixedCaseValue
      */
     public static function lower($mixedCaseValue): string
     {
@@ -31,7 +31,7 @@ class CaseConvert
      *
      * Converts a string value to upper case.
      *
-     * @param string $mixedCaseValue
+     * @param mixed (string) $mixedCaseValue
      */
     public static function upper($mixedCaseValue): string
     {
@@ -49,7 +49,7 @@ class CaseConvert
      *
      * Converts a string value to upper case.
      *
-     * @param string $mixedCaseValue
+     * @param mixed (string) $mixedCaseValue
      */
     public static function proper($mixedCaseValue): string
     {

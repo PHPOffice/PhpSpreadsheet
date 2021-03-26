@@ -22,13 +22,13 @@ class Amortization
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param float $cost The cost of the asset
+     * @param mixed (float) $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param float $period The period
-     * @param float $rate Rate of depreciation
-     * @param int $basis The type of day count to use.
+     * @param mixed (float) $period The period
+     * @param mixed (float) $rate Rate of depreciation
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -88,13 +88,13 @@ class Amortization
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param float $cost The cost of the asset
+     * @param mixed (float) $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param float $period The period
-     * @param float $rate Rate of depreciation
-     * @param int $basis The type of day count to use.
+     * @param mixed (float) $period The period
+     * @param mixed (float) $rate Rate of depreciation
+     * @param mixed (int) $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360

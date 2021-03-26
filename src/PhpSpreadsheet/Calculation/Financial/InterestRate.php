@@ -15,8 +15,8 @@ class InterestRate
      * Excel Function:
      *        EFFECT(nominal_rate,npery)
      *
-     * @param float $nominalRate Nominal interest rate
-     * @param int $periodsPerYear Number of compounding payments per year
+     * @param mixed (float) $nominalRate Nominal interest rate
+     * @param mixed (int) $periodsPerYear Number of compounding payments per year
      *
      * @return float|string
      */
@@ -43,8 +43,8 @@ class InterestRate
      *
      * Returns the nominal interest rate given the effective rate and the number of compounding payments per year.
      *
-     * @param float $effectiveRate Effective interest rate
-     * @param int $periodsPerYear Number of compounding payments per year
+     * @param mixed (float) $effectiveRate Effective interest rate
+     * @param mixed (int) $periodsPerYear Number of compounding payments per year
      *
      * @return float|string Result, or a string containing an error
      */
