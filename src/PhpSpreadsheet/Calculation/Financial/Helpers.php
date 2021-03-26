@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Helpers
@@ -42,7 +42,7 @@ class Helpers
             case self::DAYS_PER_YEAR_365:
                 return 365;
             case self::DAYS_PER_YEAR_ACTUAL:
-                return (DateTime::isLeapYear($year)) ? 366 : 365;
+                return (DateTimeExcel\Helpers::isLeapYear($year)) ? 366 : 365;
         }
 
         return Functions::NAN();

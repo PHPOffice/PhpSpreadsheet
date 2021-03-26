@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
@@ -117,7 +117,7 @@ class Price extends BaseValidations
             return $e->getMessage();
         }
 
-        $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;
@@ -169,23 +169,23 @@ class Price extends BaseValidations
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
         if (!is_numeric($daysPerYear)) {
             return $daysPerYear;
         }
-        $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = DateTimeExcel\YearFrac::funcYearFrac($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;
         }
         $daysBetweenIssueAndSettlement *= $daysPerYear;
-        $daysBetweenIssueAndMaturity = DateTime::YEARFRAC($issue, $maturity, $basis);
+        $daysBetweenIssueAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($issue, $maturity, $basis);
         if (!is_numeric($daysBetweenIssueAndMaturity)) {
             //    return date error
             return $daysBetweenIssueAndMaturity;
         }
         $daysBetweenIssueAndMaturity *= $daysPerYear;
-        $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;

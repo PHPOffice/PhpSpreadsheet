@@ -33,7 +33,7 @@ class Fact
         $factLoop = floor($factVal);
         if ($factVal > $factLoop) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                return Statistical::GAMMAFunction($factVal + 1);
+                return Statistical\Distributions\Gamma::gammaValue($factVal + 1);
             }
         }
 

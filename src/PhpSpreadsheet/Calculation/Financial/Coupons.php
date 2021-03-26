@@ -2,7 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -60,14 +61,14 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === Helpers::DAYS_PER_YEAR_ACTUAL) {
-            return abs(DateTime::DAYS($prev, $settlement));
+            return abs(DateTimeExcel\Days::funcDays($prev, $settlement));
         }
 
-        return DateTime::YEARFRAC($prev, $settlement, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::funcYearFrac($prev, $settlement, $basis) * $daysPerYear;
     }
 
     /**
@@ -121,7 +122,7 @@ class Coupons
             case Helpers::DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
                 if ($frequency == self::FREQUENCY_ANNUAL) {
-                    $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
+                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
@@ -179,7 +180,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTime::YEAR($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
         if ($basis === Helpers::DAYS_PER_YEAR_NASD) {
@@ -190,7 +191,7 @@ class Coupons
             }
         }
 
-        return DateTime::YEARFRAC($settlement, $next, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::funcYearFrac($settlement, $next, $basis) * $daysPerYear;
     }
 
     /**
@@ -286,7 +287,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $yearsBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, 0);
+        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, 0);
 
         return ceil($yearsBetweenSettlementAndMaturity * $frequency);
     }
@@ -344,11 +345,11 @@ class Coupons
      *
      * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
      *
-     * @param \DateTime $testDate The date for testing
+     * @param DateTime $testDate The date for testing
      *
      * @return bool
      */
-    private static function isLastDayOfMonth(\DateTime $testDate)
+    private static function isLastDayOfMonth(DateTime $testDate)
     {
         return $testDate->format('d') === $testDate->format('t');
     }
@@ -376,7 +377,7 @@ class Coupons
 
     private static function validateInputDate($date)
     {
-        $date = DateTime::getDateValue($date);
+        $date = DateTimeExcel\Helpers::getDateValue($date);
         if (is_string($date)) {
             throw new Exception(Functions::VALUE());
         }
