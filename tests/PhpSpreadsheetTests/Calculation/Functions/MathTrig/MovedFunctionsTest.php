@@ -40,7 +40,7 @@ class MovedFunctionsTest extends TestCase
         self::assertEquals(-4, MathTrig::FLOORPRECISE(-2.5, 2));
         self::assertEquals(-9, MathTrig::INT(-8.3));
         self::assertEquals(12, MathTrig::LCM(4, 6));
-        self::assertEquals(1, MathTrig::MDETERM(1));
+        self::assertEquals(1, MathTrig::MDETERM([1]));
         self::assertEquals(
             [[2, 2], [2, 1]],
             MathTrig::MINVERSE([[-0.5,  1.0], [1.0, -1.0]])
