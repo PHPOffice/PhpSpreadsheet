@@ -627,7 +627,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function PRODUCT(...$args)
     {
@@ -837,7 +837,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUM(...$args)
     {
