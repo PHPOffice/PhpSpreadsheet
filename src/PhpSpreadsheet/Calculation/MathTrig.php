@@ -861,7 +861,7 @@ class MathTrig
      * @param string $criteria the criteria that defines which cells will be summed
      * @param mixed $sumRange
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMIF($range, $criteria, $sumRange = [])
     {
