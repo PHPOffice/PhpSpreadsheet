@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Depreciation
 {
+    use BaseValidations;
+
     /**
      * DB.
      *
@@ -203,11 +205,7 @@ class Depreciation
 
     private static function validateCost($cost, bool $negativeValueAllowed = false): float
     {
-        if (!is_numeric($cost)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $cost = (float) $cost;
+        $cost = self::validateFloat($cost);
         if ($cost < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -217,11 +215,7 @@ class Depreciation
 
     private static function validateSalvage($salvage, bool $negativeValueAllowed = false): float
     {
-        if (!is_numeric($salvage)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $salvage = (float) $salvage;
+        $salvage = self::validateFloat($salvage);
         if ($salvage < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -231,11 +225,7 @@ class Depreciation
 
     private static function validateLife($life, bool $negativeValueAllowed = false): float
     {
-        if (!is_numeric($life)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $life = (float) $life;
+        $life = self::validateFloat($life);
         if ($life < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -245,11 +235,7 @@ class Depreciation
 
     private static function validatePeriod($period, bool $negativeValueAllowed = false): float
     {
-        if (!is_numeric($period)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $period = (float) $period;
+        $period = self::validateFloat($period);
         if ($period <= 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -259,11 +245,7 @@ class Depreciation
 
     private static function validateMonth($month): int
     {
-        if (!is_numeric($month)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $month = (int) $month;
+        $month = self::validateInt($month);
         if ($month < 1) {
             throw new Exception(Functions::NAN());
         }
@@ -273,11 +255,7 @@ class Depreciation
 
     private static function validateFactor($factor): float
     {
-        if (!is_numeric($factor)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $factor = (float) $factor;
+        $factor = self::validateFloat($factor);
         if ($factor <= 0.0) {
             throw new Exception(Functions::NAN());
         }

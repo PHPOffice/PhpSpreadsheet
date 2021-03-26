@@ -8,8 +8,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Coupons extends Securities\BaseValidations
+class Coupons
 {
+    use BaseValidations;
+
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
     public const FREQUENCY_QUARTERLY = 4;
@@ -383,37 +385,5 @@ class Coupons extends Securities\BaseValidations
         if ($settlement >= $maturity) {
             throw new Exception(Functions::NAN());
         }
-    }
-
-    protected static function validateFrequency($frequency): int
-    {
-        if (!is_numeric($frequency)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        $frequency = (int) $frequency;
-        if (
-            ($frequency !== self::FREQUENCY_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_QUARTERLY)
-        ) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $frequency;
-    }
-
-    protected static function validateBasis($basis): int
-    {
-        if (!is_numeric($basis)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        $basis = (int) $basis;
-        if (($basis < 0) || ($basis > 4)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $basis;
     }
 }

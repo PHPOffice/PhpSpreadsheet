@@ -2,7 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -11,7 +12,17 @@ trait BaseValidations
 {
     protected static function validateDate($date)
     {
-        return DateTime::getDateValue($date);
+        return DateTimeExcel\Helpers::getDateValue($date);
+    }
+
+    protected static function validateSettlementDate($settlement)
+    {
+        return self::validateDate($settlement);
+    }
+
+    protected static function validateMaturityDate($maturity)
+    {
+        return self::validateDate($maturity);
     }
 
     protected static function validateFloat($value): float
@@ -23,13 +34,18 @@ trait BaseValidations
         return (float) $value;
     }
 
-    protected static function validateFrequency($frequency): int
+    protected static function validateInt($value): int
     {
-        if (!is_numeric($frequency)) {
+        if (!is_numeric($value)) {
             throw new Exception(Functions::VALUE());
         }
 
-        $frequency = (int) $frequency;
+        return (int) floor($value);
+    }
+
+    protected static function validateFrequency($frequency): int
+    {
+        $frequency = self::validateInt($frequency);
         if (
             ($frequency !== SecuritiesConstants::FREQUENCY_ANNUAL) &&
             ($frequency !== SecuritiesConstants::FREQUENCY_SEMI_ANNUAL) &&

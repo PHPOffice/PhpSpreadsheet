@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-abstract class BaseValidations
+trait BaseValidations
 {
     protected static function validateDate($date)
     {

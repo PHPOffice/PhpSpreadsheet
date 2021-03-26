@@ -6,8 +6,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class AccruedInterest extends BaseValidations
+class AccruedInterest
 {
+    use BaseValidations;
+
     public const ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT = true;
 
     public const ACCRINT_CALCMODE_FIRST_INTEREST_TO_SETTLEMENT = false;
