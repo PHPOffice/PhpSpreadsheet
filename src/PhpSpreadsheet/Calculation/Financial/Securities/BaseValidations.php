@@ -7,31 +7,35 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-abstract class BaseValidations
+trait BaseValidations
 {
-    protected static function validateInputDate($date)
+    protected static function validateDate($date)
     {
-        $date = DateTimeExcel\Helpers::getDateValue($date);
-        if (is_string($date)) {
+        return DateTimeExcel\Helpers::getDateValue($date);
+    }
+
+    protected static function validateFloat($value): float
+    {
+        if (!is_numeric($value)) {
             throw new Exception(Functions::VALUE());
         }
 
-        return $date;
+        return (float) $value;
     }
 
     protected static function validateSettlementDate($settlement)
     {
-        return self::validateInputDate($settlement);
+        return self::validateDate($settlement);
     }
 
     protected static function validateMaturityDate($maturity)
     {
-        return self::validateInputDate($maturity);
+        return self::validateDate($maturity);
     }
 
     protected static function validateIssueDate($issue)
     {
-        return self::validateInputDate($issue);
+        return self::validateDate($issue);
     }
 
     protected static function validateSecurityPeriod($settlement, $maturity): void
@@ -43,11 +47,7 @@ abstract class BaseValidations
 
     protected static function validateRate($rate): float
     {
-        if (!is_numeric($rate)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $rate = (float) $rate;
+        $rate = self::validateFloat($rate);
         if ($rate < 0.0) {
             throw new Exception(Functions::NAN());
         }
@@ -55,13 +55,19 @@ abstract class BaseValidations
         return $rate;
     }
 
-    protected static function validatePrice($price): float
+    protected static function validateParValue($parValue): float
     {
-        if (!is_numeric($price)) {
-            throw new Exception(Functions::VALUE());
+        $parValue = self::validateFloat($parValue);
+        if ($parValue < 0.0) {
+            throw new Exception(Functions::NAN());
         }
 
-        $price = (float) $price;
+        return $parValue;
+    }
+
+    protected static function validatePrice($price): float
+    {
+        $price = self::validateFloat($price);
         if ($price < 0.0) {
             throw new Exception(Functions::NAN());
         }
@@ -71,11 +77,7 @@ abstract class BaseValidations
 
     protected static function validateYield($yield): float
     {
-        if (!is_numeric($yield)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $yield = (float) $yield;
+        $yield = self::validateFloat($yield);
         if ($yield < 0.0) {
             throw new Exception(Functions::NAN());
         }
@@ -85,11 +87,7 @@ abstract class BaseValidations
 
     protected static function validateRedemption($redemption): float
     {
-        if (!is_numeric($redemption)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $redemption = (float) $redemption;
+        $redemption = self::validateFloat($redemption);
         if ($redemption <= 0.0) {
             throw new Exception(Functions::NAN());
         }
@@ -99,11 +97,7 @@ abstract class BaseValidations
 
     protected static function validateDiscount($discount): float
     {
-        if (!is_numeric($discount)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        $discount = (float) $discount;
+        $discount = self::validateFloat($discount);
         if ($discount <= 0.0) {
             throw new Exception(Functions::NAN());
         }

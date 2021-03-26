@@ -8,8 +8,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Price extends BaseValidations
+class Price
 {
+    use BaseValidations;
+
     /**
      * PRICE.
      *

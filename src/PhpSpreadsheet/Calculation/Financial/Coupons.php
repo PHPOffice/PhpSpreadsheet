@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -10,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Coupons
 {
+    use BaseValidations;
+
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
     public const FREQUENCY_QUARTERLY = 4;
@@ -62,6 +63,9 @@ class Coupons
         }
 
         $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        if (is_string($daysPerYear)) {
+            return Functions::VALUE();
+        }
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === Helpers::DAYS_PER_YEAR_ACTUAL) {
@@ -185,7 +189,7 @@ class Coupons
 
         if ($basis === Helpers::DAYS_PER_YEAR_NASD) {
             $settlementDate = Date::excelToDateTimeObject($settlement);
-            $settlementEoM = self::isLastDayOfMonth($settlementDate);
+            $settlementEoM = Helpers::isLastDayOfMonth($settlementDate);
             if ($settlementEoM) {
                 ++$settlement;
             }
@@ -340,26 +344,12 @@ class Coupons
         return self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
     }
 
-    /**
-     * isLastDayOfMonth.
-     *
-     * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
-     *
-     * @param DateTime $testDate The date for testing
-     *
-     * @return bool
-     */
-    private static function isLastDayOfMonth(DateTime $testDate)
-    {
-        return $testDate->format('d') === $testDate->format('t');
-    }
-
     private static function couponFirstPeriodDate($settlement, $maturity, int $frequency, $next)
     {
         $months = 12 / $frequency;
 
         $result = Date::excelToDateTimeObject($maturity);
-        $maturityEoM = self::isLastDayOfMonth($result);
+        $maturityEoM = Helpers::isLastDayOfMonth($result);
 
         while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
@@ -375,62 +365,10 @@ class Coupons
         return Date::PHPToExcel($result);
     }
 
-    private static function validateInputDate($date)
-    {
-        $date = DateTimeExcel\Helpers::getDateValue($date);
-        if (is_string($date)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return $date;
-    }
-
-    private static function validateSettlementDate($settlement)
-    {
-        return self::validateInputDate($settlement);
-    }
-
-    private static function validateMaturityDate($maturity)
-    {
-        return self::validateInputDate($maturity);
-    }
-
     private static function validateCouponPeriod($settlement, $maturity): void
     {
         if ($settlement >= $maturity) {
             throw new Exception(Functions::NAN());
         }
-    }
-
-    private static function validateFrequency($frequency): int
-    {
-        if (!is_numeric($frequency)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        $frequency = (int) $frequency;
-        if (
-            ($frequency !== self::FREQUENCY_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== self::FREQUENCY_QUARTERLY)
-        ) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $frequency;
-    }
-
-    private static function validateBasis($basis): int
-    {
-        if (!is_numeric($basis)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        $basis = (int) $basis;
-        if (($basis < 0) || ($basis > 4)) {
-            throw new Exception(Functions::NAN());
-        }
-
-        return $basis;
     }
 }

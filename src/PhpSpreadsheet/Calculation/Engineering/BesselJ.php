@@ -2,10 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BesselJ
 {
+    use BaseValidations;
+
     /**
      * BESSELJ.
      *
@@ -30,18 +33,20 @@ class BesselJ
         $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
         $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
 
-        if ((is_numeric($x)) && (is_numeric($ord))) {
-            $ord = (int) floor($ord);
-            if ($ord < 0) {
-                return Functions::NAN();
-            }
-
-            $fResult = self::calculate((float) $x, $ord);
-
-            return (is_nan($fResult)) ? Functions::NAN() : $fResult;
+        try {
+            $x = self::validateFloat($x);
+            $ord = self::validateInt($ord);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($ord < 0) {
+            return Functions::NAN();
+        }
+
+        $fResult = self::calculate($x, $ord);
+
+        return (is_nan($fResult)) ? Functions::NAN() : $fResult;
     }
 
     private static function calculate(float $x, int $ord): float

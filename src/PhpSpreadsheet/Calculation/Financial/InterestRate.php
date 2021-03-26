@@ -2,10 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class InterestRate
 {
+    use BaseValidations;
+
     /**
      * EFFECT.
      *
@@ -25,15 +28,16 @@ class InterestRate
         $nominalRate = Functions::flattenSingleValue($nominalRate);
         $periodsPerYear = Functions::flattenSingleValue($periodsPerYear);
 
-        // Validate parameters
-        if (!is_numeric($nominalRate) || !is_numeric($periodsPerYear)) {
-            return Functions::VALUE();
+        try {
+            $nominalRate = self::validateFloat($nominalRate);
+            $periodsPerYear = self::validateInt($periodsPerYear);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
+
         if ($nominalRate <= 0 || $periodsPerYear < 1) {
             return Functions::NAN();
         }
-
-        $periodsPerYear = (int) $periodsPerYear;
 
         return ((1 + $nominalRate / $periodsPerYear) ** $periodsPerYear) - 1;
     }
@@ -53,15 +57,16 @@ class InterestRate
         $effectiveRate = Functions::flattenSingleValue($effectiveRate);
         $periodsPerYear = Functions::flattenSingleValue($periodsPerYear);
 
-        // Validate parameters
-        if (!is_numeric($effectiveRate) || !is_numeric($periodsPerYear)) {
-            return Functions::VALUE();
+        try {
+            $effectiveRate = self::validateFloat($effectiveRate);
+            $periodsPerYear = self::validateInt($periodsPerYear);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
+
         if ($effectiveRate <= 0 || $periodsPerYear < 1) {
             return Functions::NAN();
         }
-
-        $periodsPerYear = (int) $periodsPerYear;
 
         // Calculate
         return $periodsPerYear * (($effectiveRate + 1) ** (1 / $periodsPerYear) - 1);

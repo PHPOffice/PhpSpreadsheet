@@ -7,8 +7,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Yields extends BaseValidations
+class Yields
 {
+    use BaseValidations;
+
     /**
      * YIELDDISC.
      *

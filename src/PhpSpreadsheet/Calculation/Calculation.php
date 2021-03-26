@@ -233,12 +233,12 @@ class Calculation
         ],
         'ACCRINT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'ACCRINT'],
-            'argumentCount' => '4-7',
+            'functionCall' => [Financial\Securities\AccruedInterest::class, 'periodic'],
+            'argumentCount' => '4-8',
         ],
         'ACCRINTM' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'ACCRINTM'],
+            'functionCall' => [Financial\Securities\AccruedInterest::class, 'atMaturity'],
             'argumentCount' => '3-5',
         ],
         'ACOS' => [

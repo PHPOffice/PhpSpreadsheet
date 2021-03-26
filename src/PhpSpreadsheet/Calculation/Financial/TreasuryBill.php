@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class TreasuryBill
 {
+    use BaseValidations;
+
     /**
      * TBILLEQ.
      *
@@ -29,8 +31,8 @@ class TreasuryBill
         $discount = Functions::flattenSingleValue($discount);
 
         try {
-            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
-            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -75,8 +77,8 @@ class TreasuryBill
         $discount = Functions::flattenSingleValue($discount);
 
         try {
-            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
-            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -126,8 +128,8 @@ class TreasuryBill
         $price = Functions::flattenSingleValue($price);
 
         try {
-            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
-            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+            $settlement = self::validateSettlementDate($settlement);
+            $maturity = self::validateMaturityDate($maturity);
         } catch (Exception $e) {
             return $e->getMessage();
         }

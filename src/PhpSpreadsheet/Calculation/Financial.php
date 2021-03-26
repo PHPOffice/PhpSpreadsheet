@@ -35,57 +35,58 @@ class Financial
      * Returns the accrued interest for a security that pays periodic interest.
      *
      * Excel Function:
-     *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis])
+     *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis][,calc_method])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\AccruedInterest::periodic()
+     *      Use the periodic() method in the Financial\Securities\AccruedInterest class instead
      *
      * @param mixed $issue the security's issue date
      * @param mixed $firstinterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
-     *                                    The security settlement date is the date after the issue date
-     *                                    when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue date
+     *                                  when the security is traded to the buyer.
      * @param mixed (float) $rate the security's annual coupon rate
      * @param mixed (float) $par The security's par value.
-     *                                    If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $frequency the number of coupon payments per year.
+     *                               If you omit par, ACCRINT uses $1,000.
+     * @param mixed (int) $frequency The number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
      * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                               0 or omitted    US (NASD) 30/360
+     *                               1                Actual/actual
+     *                               2                Actual/360
+     *                               3                Actual/365
+     *                               4                European 30/360
+     * @param mixed (bool) $calcMethod
+     *                          If true, use Issue to Settlement
+     *                          If false, use FirstInterest to Settlement
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par = 1000, $frequency = 1, $basis = 0)
-    {
-        $issue = Functions::flattenSingleValue($issue);
-        $firstinterest = Functions::flattenSingleValue($firstinterest);
-        $settlement = Functions::flattenSingleValue($settlement);
-        $rate = Functions::flattenSingleValue($rate);
-        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
-        $frequency = ($frequency === null) ? 1 : Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($rate)) && (is_numeric($par))) {
-            $rate = (float) $rate;
-            $par = (float) $par;
-            if (($rate <= 0) || ($par <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-
-            return $par * $rate * $daysBetweenIssueAndSettlement;
-        }
-
-        return Functions::VALUE();
+    public static function ACCRINT(
+        $issue,
+        $firstinterest,
+        $settlement,
+        $rate,
+        $par = 1000,
+        $frequency = 1,
+        $basis = 0,
+        $calcMethod = true
+    ) {
+        return Securities\AccruedInterest::periodic(
+            $issue,
+            $firstinterest,
+            $settlement,
+            $rate,
+            $par,
+            $frequency,
+            $basis,
+            $calcMethod
+        );
     }
 
     /**
@@ -96,45 +97,28 @@ class Financial
      * Excel Function:
      *        ACCRINTM(issue,settlement,rate[,par[,basis]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\AccruedInterest::atMaturity()
+     *      Use the atMaturity() method in the Financial\Securities\AccruedInterest class instead
+     *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param mixed (float) $rate The security's annual coupon rate
      * @param mixed (float) $par The security's par value.
-     *                                    If you omit par, ACCRINT uses $1,000.
+     *                               If you omit par, ACCRINT uses $1,000.
      * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                               0 or omitted    US (NASD) 30/360
+     *                               1                Actual/actual
+     *                               2                Actual/360
+     *                               3                Actual/365
+     *                               4                European 30/360
      *
      * @return float|string Result, or a string containing an error
      */
     public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
     {
-        $issue = Functions::flattenSingleValue($issue);
-        $settlement = Functions::flattenSingleValue($settlement);
-        $rate = Functions::flattenSingleValue($rate);
-        $par = ($par === null) ? 1000 : Functions::flattenSingleValue($par);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($rate)) && (is_numeric($par))) {
-            $rate = (float) $rate;
-            $par = (float) $par;
-            if (($rate <= 0) || ($par <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-
-            return $par * $rate * $daysBetweenIssueAndSettlement;
-        }
-
-        return Functions::VALUE();
+        return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $par, $basis);
     }
 
     /**
@@ -163,11 +147,11 @@ class Financial
      * @param float $period The period
      * @param float $rate Rate of depreciation
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1                Actual/actual
+     *                       2                Actual/360
+     *                       3                Actual/365
+     *                       4                European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */

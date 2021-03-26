@@ -3,10 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
 {
+    use BaseValidations;
+
     /**
      * AMORDEGRC.
      *
@@ -46,6 +49,18 @@ class Amortization
         $period = floor(Functions::flattenSingleValue($period));
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+
+        try {
+            $cost = self::validateFloat($cost);
+            $purchased = self::validateDate($purchased);
+            $firstPeriod = self::validateDate($firstPeriod);
+            $salvage = self::validateFloat($salvage);
+            $period = self::validateFloat($period);
+            $rate = self::validateFloat($rate);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
         $yearFrac = DateTimeExcel\YearFrac::funcYearFrac($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
@@ -112,6 +127,18 @@ class Amortization
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+
+        try {
+            $cost = self::validateFloat($cost);
+            $purchased = self::validateDate($purchased);
+            $firstPeriod = self::validateDate($firstPeriod);
+            $salvage = self::validateFloat($salvage);
+            $period = self::validateFloat($period);
+            $rate = self::validateFloat($rate);
+            $basis = self::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;

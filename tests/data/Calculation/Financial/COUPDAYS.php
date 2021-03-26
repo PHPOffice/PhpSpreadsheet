@@ -59,7 +59,7 @@ return [
         1,
     ],
     'Non-Numeric Frequency' => [
-        '#NUM!',
+        '#VALUE!',
         '25-Jan-2007',
         '15-Nov-2008',
         'NaN',
@@ -73,7 +73,7 @@ return [
         -1,
     ],
     'Non-Numeric Basis' => [
-        '#NUM!',
+        '#VALUE!',
         '25-Jan-2007',
         '15-Nov-2008',
         4,
