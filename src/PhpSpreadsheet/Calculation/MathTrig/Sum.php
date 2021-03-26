@@ -16,7 +16,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function funcSum(...$args)
     {
@@ -45,7 +45,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function funcSumNoStrings(...$args)
     {
