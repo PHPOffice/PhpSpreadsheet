@@ -67,6 +67,7 @@ class AccruedInterest extends BaseValidations
             $settlement = self::validateSettlementDate($settlement);
             self::validateSecurityPeriod($issue, $settlement);
             $rate = self::validateRate($rate);
+            $parValue = self::validateParValue($parValue);
             $frequency = self::validateFrequency($frequency);
             $basis = self::validateBasis($basis);
         } catch (Exception $e) {
@@ -90,10 +91,7 @@ class AccruedInterest extends BaseValidations
                 return $daysBetweenFirstInterestAndSettlement;
             }
 
-            return $parValue * $rate *
-                (($calcMethod === self::ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT)
-                    ? $daysBetweenIssueAndSettlement
-                    : $daysBetweenFirstInterestAndSettlement);
+            return $parValue * $rate *  $daysBetweenIssueAndSettlement;
         }
 
         return Functions::VALUE();
@@ -135,6 +133,7 @@ class AccruedInterest extends BaseValidations
             $settlement = self::validateSettlementDate($settlement);
             self::validateSecurityPeriod($issue, $settlement);
             $rate = self::validateRate($rate);
+            $parValue = self::validateParValue($parValue);
             $basis = self::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();

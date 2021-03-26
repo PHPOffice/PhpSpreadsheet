@@ -24,13 +24,4 @@ trait BaseValidations
 
         return (int) floor($value);
     }
-
-    protected static function validateBool($value): bool
-    {
-        if (!is_bool($value) && !is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return (bool) $value;
-    }
 }
