@@ -16,7 +16,7 @@ class Product
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function funcProduct(...$args)
     {
