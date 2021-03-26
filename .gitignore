@@ -11,3 +11,7 @@
 
 ## mkdocs output
 /site
+
+
+## sublime settings
+*.sublime-project
