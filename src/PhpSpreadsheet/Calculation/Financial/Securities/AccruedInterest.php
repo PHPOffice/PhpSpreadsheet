@@ -76,27 +76,21 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($parValue)) {
-            $parValue = (float) $parValue;
-            if ($parValue <= 0) {
-                return Functions::NAN();
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-            $daysBetweenFirstInterestAndSettlement = DateTime::YEARFRAC($firstinterest, $settlement, $basis);
-            if (!is_numeric($daysBetweenFirstInterestAndSettlement)) {
-                //    return date error
-                return $daysBetweenFirstInterestAndSettlement;
-            }
-
-            return $parValue * $rate * $daysBetweenIssueAndSettlement;
+        if ($parValue <= 0) {
+            return Functions::NAN();
+        }
+        $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
+        if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            //    return date error
+            return $daysBetweenIssueAndSettlement;
+        }
+        $daysBetweenFirstInterestAndSettlement = DateTime::YEARFRAC($firstinterest, $settlement, $basis);
+        if (!is_numeric($daysBetweenFirstInterestAndSettlement)) {
+            //    return date error
+            return $daysBetweenFirstInterestAndSettlement;
         }
 
-        return Functions::VALUE();
+        return $parValue * $rate * $daysBetweenIssueAndSettlement;
     }
 
     /**
@@ -141,21 +135,15 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($parValue)) {
-            $parValue = (float) $parValue;
-            if ($parValue <= 0) {
-                return Functions::NAN();
-            }
-            $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
-            if (!is_numeric($daysBetweenIssueAndSettlement)) {
-                //    return date error
-                return $daysBetweenIssueAndSettlement;
-            }
-
-            return $parValue * $rate * $daysBetweenIssueAndSettlement;
+        if ($parValue <= 0) {
+            return Functions::NAN();
+        }
+        $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
+        if (!is_numeric($daysBetweenIssueAndSettlement)) {
+            //    return date error
+            return $daysBetweenIssueAndSettlement;
         }
 
-        return Functions::VALUE();
+        return $parValue * $rate * $daysBetweenIssueAndSettlement;
     }
 }

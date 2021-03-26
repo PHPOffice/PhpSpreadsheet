@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
