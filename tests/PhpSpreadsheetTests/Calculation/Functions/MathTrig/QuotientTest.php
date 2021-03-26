@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-class QuotientTest extends AllSetupTearDown
+class QuotientTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerQUOTIENT
