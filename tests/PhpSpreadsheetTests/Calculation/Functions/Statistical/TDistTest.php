@@ -5,23 +5,23 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class TinvTest extends TestCase
+class TDistTest extends TestCase
 {
     /**
-     * @dataProvider providerTINV
+     * @dataProvider providerTDIST
      *
      * @param mixed $expectedResult
      * @param mixed $probability
      * @param mixed $degrees
      */
-    public function testTINV($expectedResult, $probability, $degrees): void
+    public function testTDIST($expectedResult, $value, $degrees, $tails): void
     {
-        $result = Statistical::TINV($probability, $degrees);
+        $result = Statistical::TDIST($value, $degrees, $tails);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerTINV()
+    public function providerTDIST()
     {
-        return require 'tests/data/Calculation/Statistical/TINV.php';
+        return require 'tests/data/Calculation/Statistical/TDIST.php';
     }
 }

@@ -25,12 +25,12 @@ class StudentT
     public static function distribution($value, $degrees, $tails)
     {
         $value = Functions::flattenSingleValue($value);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
-        $tails = floor(Functions::flattenSingleValue($tails));
+        $degrees = Functions::flattenSingleValue($degrees);
+        $tails = Functions::flattenSingleValue($tails);
 
         try {
             $value = self::validateFloat($value);
-            $degrees = self::validateFloat($degrees);
+            $degrees = self::validateInt($degrees);
             $tails = self::validateInt($tails);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -93,11 +93,11 @@ class StudentT
     public static function inverse($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
+        $degrees = Functions::flattenSingleValue($degrees);
 
         try {
             $probability = self::validateFloat($probability);
-            $degrees = self::validateFloat($degrees);
+            $degrees = self::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
