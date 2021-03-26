@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class EvenTest extends TestCase
+class EvenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEVEN
@@ -16,11 +12,8 @@ class EvenTest extends TestCase
      */
     public function testEVEN($expectedResult, $value): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->getCell('A1')->setValue("=EVEN($value)");
         $sheet->getCell('A2')->setValue(3.7);
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());

@@ -358,7 +358,7 @@ class Calculation
         ],
         'BASE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'BASE'],
+            'functionCall' => [MathTrig\Base::class, 'funcBase'],
             'argumentCount' => '2,3',
         ],
         'BESSELI' => [
@@ -990,7 +990,7 @@ class Calculation
         ],
         'FACT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'FACT'],
+            'functionCall' => [MathTrig\Fact::class, 'funcFact'],
             'argumentCount' => '1',
         ],
         'FACTDOUBLE' => [
@@ -1536,7 +1536,7 @@ class Calculation
         ],
         'LCM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'LCM'],
+            'functionCall' => [MathTrig\Lcm::class, 'funcLcm'],
             'argumentCount' => '1+',
         ],
         'LEFT' => [
@@ -1636,7 +1636,7 @@ class Calculation
         ],
         'MDETERM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'MDETERM'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMDeterm'],
             'argumentCount' => '1',
         ],
         'MDURATION' => [
@@ -1686,7 +1686,7 @@ class Calculation
         ],
         'MINVERSE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'MINVERSE'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMinverse'],
             'argumentCount' => '1',
         ],
         'MIRR' => [
@@ -1696,7 +1696,7 @@ class Calculation
         ],
         'MMULT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'MMULT'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMMult'],
             'argumentCount' => '2',
         ],
         'MOD' => [
@@ -1731,7 +1731,7 @@ class Calculation
         ],
         'MULTINOMIAL' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'MULTINOMIAL'],
+            'functionCall' => [MathTrig\Multinomial::class, 'funcMultinomial'],
             'argumentCount' => '1+',
         ],
         'MUNIT' => [
@@ -2003,7 +2003,7 @@ class Calculation
         ],
         'PRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'PRODUCT'],
+            'functionCall' => [MathTrig\Product::class, 'funcProduct'],
             'argumentCount' => '1+',
         ],
         'PROPER' => [
@@ -2033,7 +2033,7 @@ class Calculation
         ],
         'QUOTIENT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'QUOTIENT'],
+            'functionCall' => [MathTrig\Quotient::class, 'funcQuotient'],
             'argumentCount' => '2',
         ],
         'RADIANS' => [
@@ -2305,13 +2305,13 @@ class Calculation
         ],
         'SUBTOTAL' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUBTOTAL'],
+            'functionCall' => [MathTrig\Subtotal::class, 'funcSubtotal'],
             'argumentCount' => '2+',
             'passCellReference' => true,
         ],
         'SUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUM'],
+            'functionCall' => [MathTrig\Sum::class, 'funcSumNoStrings'],
             'argumentCount' => '1+',
         ],
         'SUMIF' => [
@@ -2326,7 +2326,7 @@ class Calculation
         ],
         'SUMPRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUMPRODUCT'],
+            'functionCall' => [MathTrig\SumProduct::class, 'funcSumProduct'],
             'argumentCount' => '1+',
         ],
         'SUMSQ' => [

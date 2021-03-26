@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class SinhTest extends TestCase
+class SinhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCosh
@@ -15,11 +11,8 @@ class SinhTest extends TestCase
      */
     public function testSinh($expectedResult, string $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->setCellValue('A2', 2);
         $sheet->getCell('A1')->setValue("=SINH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

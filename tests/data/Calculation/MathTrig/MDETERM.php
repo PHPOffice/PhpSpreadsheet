@@ -95,7 +95,14 @@ return [
         ],
     ],
     [
-        '#VALUE!',
+        -3,
+        [
+            [3, '=6'],
+            [1, 1],
+        ],
+    ],
+    [
+        '#VALUE!', // null in array
         [
             [0.20,  1.00, -0.90],
             [0.35, 10.80,  4.00],
@@ -103,10 +110,33 @@ return [
         ],
     ],
     [
-        '#VALUE!',
+        '#VALUE!', // string in array
+        [
+            [0.20,  1.00, -0.90],
+            [0.35, 10.80,  '="4.00"'],
+            [-3.15,  5.00, 6.00],
+        ],
+    ],
+    [
+        '#VALUE!', // string in array
+        [
+            [0.20,  1.00, -0.90],
+            [0.35, 10.80,  'Y'],
+            [-3.15,  5.00, 6.00],
+        ],
+    ],
+    [
+        '#VALUE!', // not square
         [
             [1, 3, 8, 5],
             [1, 3, 6, 1],
         ],
     ],
+    [1, '{3,6,1;1,1,0;3,10,2}'], // bracket notation
+    [2, 2], // scalar treated as 1x1
+    ['#VALUE!', '"y"'], // invalid scalar treated as 1x1
+    ['#VALUE!', '"2"'], // invalid scalar treated as 1x1
+    ['#VALUE!', '{3,6,1;1,1,0}'], // not square
+    ['#VALUE!', '{3,6, "y";1,1,0;3,10,2}'], // first row has string entry
+    ['exception', ''],
 ];
