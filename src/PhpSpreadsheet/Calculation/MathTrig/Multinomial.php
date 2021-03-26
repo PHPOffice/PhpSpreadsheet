@@ -20,7 +20,6 @@ class Multinomial
     {
         $summer = 0;
         $divisor = 1;
-        $argArray = [];
 
         try {
             // Loop through arguments
