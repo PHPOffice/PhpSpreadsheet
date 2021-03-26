@@ -2,7 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class TreasuryBill
@@ -27,11 +28,11 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
+            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         //    Validate
@@ -41,11 +42,9 @@ class TreasuryBill
             }
 
             $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
 
-            if (
-                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
-                $daysBetweenSettlementAndMaturity < 0
-            ) {
+            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
             }
 
@@ -75,11 +74,11 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
+            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         //    Validate
@@ -89,13 +88,12 @@ class TreasuryBill
             }
 
             $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
 
-            if (
-                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
-                $daysBetweenSettlementAndMaturity < 0
-            ) {
+            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
             }
+
             $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
             if ($price < 0.0) {
                 return Functions::NAN();
@@ -127,11 +125,11 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $price = Functions::flattenSingleValue($price);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $maturity = DateTimeExcel\Helpers::getDateValue($maturity);
+            $settlement = DateTimeExcel\Helpers::getDateValue($settlement);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         //    Validate
@@ -141,8 +139,9 @@ class TreasuryBill
             }
 
             $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
 
-            if ($daysBetweenSettlementAndMaturity > 360 || $daysBetweenSettlementAndMaturity < 0) {
+            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
                 return Functions::NAN();
             }
 

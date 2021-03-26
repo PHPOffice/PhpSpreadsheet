@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -11,7 +11,7 @@ abstract class BaseValidations
 {
     protected static function validateInputDate($date)
     {
-        $date = DateTime::getDateValue($date);
+        $date = DateTimeExcel\Helpers::getDateValue($date);
         if (is_string($date)) {
             throw new Exception(Functions::VALUE());
         }

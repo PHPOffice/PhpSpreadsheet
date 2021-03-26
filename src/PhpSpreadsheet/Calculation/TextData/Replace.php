@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 class Replace
 {
@@ -23,7 +22,7 @@ class Replace
         $newText = Functions::flattenSingleValue($newText);
 
         $left = Extract::left($oldText, $start - 1);
-        $right = Extract::right($oldText, TextData::STRINGLENGTH($oldText) - ($start + $chars) + 1);
+        $right = Extract::right($oldText, Text::length($oldText) - ($start + $chars) + 1);
 
         return $left . $newText . $right;
     }
