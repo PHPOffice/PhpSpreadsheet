@@ -32,7 +32,7 @@ class Permutations
                 return Functions::NAN();
             }
 
-            return round(MathTrig::FACT($numObjs) / MathTrig::FACT($numObjs - $numInSet));
+            return round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet));
         }
 
         return Functions::VALUE();

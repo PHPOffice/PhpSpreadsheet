@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
@@ -47,7 +47,7 @@ class Amortization
         $rate = Functions::flattenSingleValue($rate);
         $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
 
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        $yearFrac = DateTimeExcel\YearFrac::funcYearFrac($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
@@ -116,13 +116,13 @@ class Amortization
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
-        $purchasedYear = DateTime::YEAR($purchased);
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        $purchasedYear = DateTimeExcel\Year::funcYear($purchased);
+        $yearFrac = DateTimeExcel\YearFrac::funcYearFrac($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
 
-        if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
+        if (($basis == 1) && ($yearFrac < 1) && (DateTimeExcel\Helpers::isLeapYear($purchasedYear))) {
             $yearFrac *= 365 / 366;
         }
 

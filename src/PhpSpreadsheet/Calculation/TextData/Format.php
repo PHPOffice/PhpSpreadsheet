@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use DateTimeInterface;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -96,7 +96,7 @@ class Format
         $format = Functions::flattenSingleValue($format);
 
         if ((is_string($value)) && (!is_numeric($value)) && Date::isDateTimeFormatCode($format)) {
-            $value = DateTime::DATEVALUE($value);
+            $value = DateTimeExcel\DateValue::funcDateValue($value);
         }
 
         return (string) NumberFormat::toFormattedString($value, $format);
@@ -127,14 +127,14 @@ class Format
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             if (strpos($value, ':') !== false) {
-                $timeValue = DateTime::TIMEVALUE($value);
+                $timeValue = DateTimeExcel\TimeValue::funcTimeValue($value);
                 if ($timeValue !== Functions::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
 
                     return $timeValue;
                 }
             }
-            $dateValue = DateTime::DATEVALUE($value);
+            $dateValue = DateTimeExcel\DateValue::funcDateValue($value);
             if ($dateValue !== Functions::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
 

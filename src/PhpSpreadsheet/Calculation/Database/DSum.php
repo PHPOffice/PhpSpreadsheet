@@ -38,7 +38,7 @@ class DSum extends DatabaseAbstract
             return null;
         }
 
-        return MathTrig::SUM(
+        return MathTrig\Sum::funcSum(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
