@@ -4,10 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use Complex\Complex as ComplexObject;
 use Complex\Exception as ComplexException;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Complex
 {
+    use BaseValidations;
+
     /**
      * COMPLEX.
      *
@@ -29,10 +32,14 @@ class Complex
         $imaginary = ($imaginary === null) ? 0.0 : Functions::flattenSingleValue($imaginary);
         $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
 
-        if (
-            ((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
-            (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
-        ) {
+        try {
+            $realNumber = self::validateFloat($realNumber);
+            $imaginary = self::validateFloat($imaginary);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if (($suffix == 'i') || ($suffix == 'j') || ($suffix == '')) {
             $complex = new ComplexObject($realNumber, $imaginary, $suffix);
 
             return (string) $complex;

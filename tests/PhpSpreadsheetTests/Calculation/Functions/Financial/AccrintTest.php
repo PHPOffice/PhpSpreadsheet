@@ -21,7 +21,7 @@ class AccrintTest extends TestCase
     public function testACCRINT($expectedResult, ...$args): void
     {
         $result = Financial::ACCRINT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerACCRINT()
