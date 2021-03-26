@@ -883,7 +883,7 @@ class MathTrig
      *
      * @param mixed $args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMIFS(...$args)
     {
