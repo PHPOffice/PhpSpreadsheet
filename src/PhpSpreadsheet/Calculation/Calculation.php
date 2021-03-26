@@ -2391,7 +2391,7 @@ class Calculation
         ],
         'TDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TDIST'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'T.DIST' => [
@@ -2431,12 +2431,12 @@ class Calculation
         ],
         'TINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TINV'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'T.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TINV'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'T.INV.2T' => [
