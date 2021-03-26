@@ -251,10 +251,10 @@ class Statistical
      *        experiment. For example, BINOMDIST can calculate the probability that two of the next three
      *        babies born are male.
      *
-     * @param float $value Number of successes in trials
-     * @param float $trials Number of trials
-     * @param float $probability Probability of success on each trial
-     * @param bool $cumulative
+     * @param mixed (float) $value Number of successes in trials
+     * @param mixed (float) $trials Number of trials
+     * @param mixed (float) $probability Probability of success on each trial
+     * @param mixed (bool) $cumulative
      *
      * @return float|string
      */
@@ -1502,9 +1502,9 @@ class Statistical
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
-     * @param float $failures Number of Failures
-     * @param float $successes Threshold number of Successes
-     * @param float $probability Probability of success on each trial
+     * @param mixed (float) $failures Number of Failures
+     * @param mixed (float) $successes Threshold number of Successes
+     * @param mixed (float) $probability Probability of success on each trial
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1539,10 +1539,10 @@ class Statistical
      * function has a very wide range of applications in statistics, including hypothesis
      * testing.
      *
-     * @param float $value
-     * @param float $mean Mean Value
-     * @param float $stdDev Standard Deviation
-     * @param bool $cumulative
+     * @param mixed (float) $value
+     * @param mixed (float) $mean Mean Value
+     * @param mixed (float) $stdDev Standard Deviation
+     * @param mixed (bool) $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1573,9 +1573,9 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @param float $probability
-     * @param float $mean Mean Value
-     * @param float $stdDev Standard Deviation
+     * @param mixed (float) $probability
+     * @param mixed (float) $mean Mean Value
+     * @param mixed (float) $stdDev Standard Deviation
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1606,7 +1606,7 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param float $value
+     * @param mixed (float) $value
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1627,8 +1627,8 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param float $value
-     * @param bool $cumulative
+     * @param mixed (float) $value
+     * @param mixed (bool) $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1648,7 +1648,7 @@ class Statistical
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param float $value
+     * @param mixed (float) $value
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1714,9 +1714,9 @@ class Statistical
      *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
      *      0.667 rather than 0.666
      *
-     * @param float[] $valueSet An array of, or a reference to, a list of numbers
-     * @param int $value the number whose rank you want to find
-     * @param int $significance the number of significant digits for the returned percentage value
+     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed (int) $value the number whose rank you want to find
+     * @param mixed (int) $significance the number of significant digits for the returned percentage value
      *
      * @return float|string (string if result is an error)
      */
@@ -1787,37 +1787,20 @@ class Statistical
      * is predicting the number of events over a specific time, such as the number of
      * cars arriving at a toll plaza in 1 minute.
      *
-     * @param float $value
-     * @param float $mean Mean Value
-     * @param bool $cumulative
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Poisson::distribution()
+     * Use the distribution() method in the Statistical\Distributions\Poisson class instead
+     *
+     * @param mixed (float) $value
+     * @param mixed (float) $mean Mean Value
+     * @param mixed (bool) $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
     public static function POISSON($value, $mean, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-
-        if ((is_numeric($value)) && (is_numeric($mean))) {
-            if (($value < 0) || ($mean <= 0)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    $summer = 0;
-                    $floor = floor($value);
-                    for ($i = 0; $i <= $floor; ++$i) {
-                        $summer += $mean ** $i / MathTrig::FACT($i);
-                    }
-
-                    return exp(0 - $mean) * $summer;
-                }
-
-                return (exp(0 - $mean) * $mean ** $value) / MathTrig::FACT($value);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Poisson::distribution($value, $mean, $cumulative);
     }
 
     /**

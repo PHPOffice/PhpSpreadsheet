@@ -148,8 +148,8 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @param string $linkURL Value to check, is also the value returned when no error
-     * @param string $displayName Value to return when testValue is an error condition
+     * @param mixed (string) $linkURL Value to check, is also the value returned when no error
+     * @param mixed (string) $displayName Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
