@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class Coupons
+class Coupons extends Securities\BaseValidations
 {
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
@@ -62,6 +62,9 @@ class Coupons
         }
 
         $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        if (is_string($daysPerYear)) {
+            return Functions::VALUE();
+        }
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === Helpers::DAYS_PER_YEAR_ACTUAL) {
@@ -375,26 +378,6 @@ class Coupons
         return Date::PHPToExcel($result);
     }
 
-    private static function validateInputDate($date)
-    {
-        $date = DateTimeExcel\Helpers::getDateValue($date);
-        if (is_string($date)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return $date;
-    }
-
-    private static function validateSettlementDate($settlement)
-    {
-        return self::validateInputDate($settlement);
-    }
-
-    private static function validateMaturityDate($maturity)
-    {
-        return self::validateInputDate($maturity);
-    }
-
     private static function validateCouponPeriod($settlement, $maturity): void
     {
         if ($settlement >= $maturity) {
@@ -402,7 +385,7 @@ class Coupons
         }
     }
 
-    private static function validateFrequency($frequency): int
+    protected static function validateFrequency($frequency): int
     {
         if (!is_numeric($frequency)) {
             throw new Exception(Functions::NAN());
@@ -420,7 +403,7 @@ class Coupons
         return $frequency;
     }
 
-    private static function validateBasis($basis): int
+    protected static function validateBasis($basis): int
     {
         if (!is_numeric($basis)) {
             throw new Exception(Functions::NAN());

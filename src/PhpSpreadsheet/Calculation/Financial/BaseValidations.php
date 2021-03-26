@@ -11,12 +11,7 @@ trait BaseValidations
 {
     protected static function validateDate($date)
     {
-        $date = DateTime::getDateValue($date);
-        if (is_string($date)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return $date;
+        return DateTime::getDateValue($date);
     }
 
     protected static function validateFloat($value): float

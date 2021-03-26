@@ -11,12 +11,7 @@ abstract class BaseValidations
 {
     protected static function validateDate($date)
     {
-        $date = DateTimeExcel\Helpers::getDateValue($date);
-        if (is_string($date)) {
-            throw new Exception(Functions::VALUE());
-        }
-
-        return $date;
+        return DateTimeExcel\Helpers::getDateValue($date);
     }
 
     protected static function validateFloat($value): float
