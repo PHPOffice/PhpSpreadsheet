@@ -76,9 +76,6 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        if ($parValue <= 0) {
-            return Functions::NAN();
-        }
         $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
@@ -135,9 +132,6 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        if ($parValue <= 0) {
-            return Functions::NAN();
-        }
         $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error

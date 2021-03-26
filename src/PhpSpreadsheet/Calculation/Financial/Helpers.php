@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
@@ -46,5 +47,19 @@ class Helpers
         }
 
         return Functions::NAN();
+    }
+
+    /**
+     * isLastDayOfMonth.
+     *
+     * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
+     *
+     * @param DateTimeInterface $date The date for testing
+     *
+     * @return bool
+     */
+    public static function isLastDayOfMonth(DateTimeInterface $date)
+    {
+        return $date->format('d') === $date->format('t');
     }
 }

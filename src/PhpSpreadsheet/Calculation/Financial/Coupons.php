@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -190,7 +189,7 @@ class Coupons
 
         if ($basis === Helpers::DAYS_PER_YEAR_NASD) {
             $settlementDate = Date::excelToDateTimeObject($settlement);
-            $settlementEoM = self::isLastDayOfMonth($settlementDate);
+            $settlementEoM = Helpers::isLastDayOfMonth($settlementDate);
             if ($settlementEoM) {
                 ++$settlement;
             }
@@ -345,26 +344,12 @@ class Coupons
         return self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
     }
 
-    /**
-     * isLastDayOfMonth.
-     *
-     * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
-     *
-     * @param DateTime $testDate The date for testing
-     *
-     * @return bool
-     */
-    private static function isLastDayOfMonth(DateTime $testDate)
-    {
-        return $testDate->format('d') === $testDate->format('t');
-    }
-
     private static function couponFirstPeriodDate($settlement, $maturity, int $frequency, $next)
     {
         $months = 12 / $frequency;
 
         $result = Date::excelToDateTimeObject($maturity);
-        $maturityEoM = self::isLastDayOfMonth($result);
+        $maturityEoM = Helpers::isLastDayOfMonth($result);
 
         while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
