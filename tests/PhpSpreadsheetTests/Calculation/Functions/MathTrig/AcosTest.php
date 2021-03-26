@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-class AcosTest extends AllSetupTearDown
+class AcosTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAcos
