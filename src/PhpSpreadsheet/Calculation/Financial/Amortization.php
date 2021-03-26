@@ -2,9 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
@@ -63,7 +62,7 @@ class Amortization
             return $e->getMessage();
         }
 
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        $yearFrac = DateTimeExcel\YearFrac::funcYearFrac($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }

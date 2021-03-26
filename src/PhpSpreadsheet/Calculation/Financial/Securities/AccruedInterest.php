@@ -91,7 +91,7 @@ class AccruedInterest extends BaseValidations
                 return $daysBetweenFirstInterestAndSettlement;
             }
 
-            return $parValue * $rate *  $daysBetweenIssueAndSettlement;
+            return $parValue * $rate * $daysBetweenIssueAndSettlement;
         }
 
         return Functions::VALUE();
