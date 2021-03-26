@@ -2,17 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
 
-class MInverseTest extends TestCase
+class MInverseTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMINVERSE
      *
@@ -27,5 +20,13 @@ class MInverseTest extends TestCase
     public function providerMINVERSE()
     {
         return require 'tests/data/Calculation/MathTrig/MINVERSE.php';
+    }
+
+    public function testOnSpreadsheet(): void
+    {
+        // very limited ability to test this in the absence of dynamic arrays
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue('=MINVERSE({1,2,3})'); // not square
+        self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
     }
 }

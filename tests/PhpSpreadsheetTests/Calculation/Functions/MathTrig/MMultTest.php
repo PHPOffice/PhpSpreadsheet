@@ -2,17 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
 
-class MMultTest extends TestCase
+class MMultTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMMULT
      *
@@ -27,5 +20,13 @@ class MMultTest extends TestCase
     public function providerMMULT()
     {
         return require 'tests/data/Calculation/MathTrig/MMULT.php';
+    }
+
+    public function testOnSpreadsheet(): void
+    {
+        // very limited ability to test this in the absence of dynamic arrays
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue('=MMULT({1,2,3}, {1,2,3})'); // incompatible dimensions
+        self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
     }
 }
