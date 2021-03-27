@@ -24,7 +24,7 @@ class StandardDeviations
             return $result;
         }
 
-        return sqrt($result);
+        return sqrt((float) $result);
     }
 
     /**
@@ -46,7 +46,7 @@ class StandardDeviations
             return $result;
         }
 
-        return sqrt($result);
+        return sqrt((float) $result);
     }
 
     /**
@@ -68,7 +68,7 @@ class StandardDeviations
             return $result;
         }
 
-        return sqrt($result);
+        return sqrt((float) $result);
     }
 
     /**
@@ -90,6 +90,6 @@ class StandardDeviations
             return $result;
         }
 
-        return sqrt($result);
+        return sqrt((float) $result);
     }
 }
