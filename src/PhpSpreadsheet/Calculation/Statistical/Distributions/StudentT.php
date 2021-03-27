@@ -102,13 +102,16 @@ class StudentT
             return $e->getMessage();
         }
 
+        if ($probability < 0.0 || $probability > 1.0 || $degrees <= 0) {
+            return Functions::NAN();
+        }
+
         $callback = function ($value) use ($degrees) {
             return self::distribution($value, $degrees, 2);
         };
 
         $newtonRaphson = new NewtonRaphson($callback);
-        $result = $newtonRaphson->execute($probability);
 
-        return $result;
+        return $newtonRaphson->execute($probability);
     }
 }

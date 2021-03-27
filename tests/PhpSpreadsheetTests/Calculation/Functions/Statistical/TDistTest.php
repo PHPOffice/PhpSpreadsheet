@@ -11,8 +11,9 @@ class TDistTest extends TestCase
      * @dataProvider providerTDIST
      *
      * @param mixed $expectedResult
-     * @param mixed $probability
      * @param mixed $degrees
+     * @param mixed $value
+     * @param mixed $tails
      */
     public function testTDIST($expectedResult, $value, $degrees, $tails): void
     {
