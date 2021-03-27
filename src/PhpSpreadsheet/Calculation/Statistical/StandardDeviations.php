@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-class StandardDeviations extends VarianceBase
+class StandardDeviations
 {
     /**
      * STDEV.
@@ -20,7 +20,7 @@ class StandardDeviations extends VarianceBase
     public static function STDEV(...$args)
     {
         $result = Variances::VAR(...$args);
-        if (is_string($result)) {
+        if (!is_numeric($result)) {
             return $result;
         }
 
@@ -42,7 +42,7 @@ class StandardDeviations extends VarianceBase
     public static function STDEVA(...$args)
     {
         $result = Variances::VARA(...$args);
-        if (is_string($result)) {
+        if (!is_numeric($result)) {
             return $result;
         }
 
@@ -64,7 +64,7 @@ class StandardDeviations extends VarianceBase
     public static function STDEVP(...$args)
     {
         $result = Variances::VARP(...$args);
-        if (is_string($result)) {
+        if (!is_numeric($result)) {
             return $result;
         }
 
@@ -86,7 +86,7 @@ class StandardDeviations extends VarianceBase
     public static function STDEVPA(...$args)
     {
         $result = Variances::VARPA(...$args);
-        if (is_string($result)) {
+        if (!is_numeric($result)) {
             return $result;
         }
 
