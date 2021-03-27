@@ -100,7 +100,7 @@ class ChiSquared
         for ($i = 0; $i < $countActuals; ++$i) {
             if ($expected[$i] == 0.0) {
                 return Functions::DIV0();
-            } elseif($expected[$i] < 0.0) {
+            } elseif ($expected[$i] < 0.0) {
                 return Functions::NAN();
             }
             $result += (($actual[$i] - $expected[$i]) ** 2) / $expected[$i];

@@ -11,6 +11,8 @@ class ChiTestTest extends TestCase
      * @dataProvider providerCHITEST
      *
      * @param mixed $expectedResult
+     * @param mixed $actual
+     * @param mixed $expected
      */
     public function testCHITEST($expectedResult, $actual, $expected): void
     {
