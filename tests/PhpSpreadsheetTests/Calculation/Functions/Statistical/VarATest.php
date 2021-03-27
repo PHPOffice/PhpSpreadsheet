@@ -2,11 +2,18 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
 
 class VarATest extends TestCase
 {
+    public function tearDown(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+    }
+
     /**
      * @dataProvider providerVARA
      *
@@ -22,5 +29,24 @@ class VarATest extends TestCase
     public function providerVARA()
     {
         return require 'tests/data/Calculation/Statistical/VARA.php';
+    }
+
+    /**
+     * @dataProvider providerOdsVARA
+     *
+     * @param mixed $expectedResult
+     * @param mixed $values
+     */
+    public function testOdsVARA($expectedResult, $values): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
+        $result = Statistical::VARA($values);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+    }
+
+    public function providerOdsVARA()
+    {
+        return require 'tests/data/Calculation/Statistical/VARA_ODS.php';
     }
 }
