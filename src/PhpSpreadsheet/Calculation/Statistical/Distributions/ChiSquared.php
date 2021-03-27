@@ -48,6 +48,50 @@ class ChiSquared
     }
 
     /**
+     * CHIDIST.
+     *
+     * Returns the one-tailed probability of the chi-squared distribution.
+     *
+     * @param mixed (float) $value Value for the function
+     * @param mixed (int) $degrees degrees of freedom
+     * @param mixed $cumulative
+     *
+     * @return float|string
+     */
+    public static function distributionLeftTail($value, $degrees, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $degrees = Functions::flattenSingleValue($degrees);
+        $cumulative = Functions::flattenSingleValue($cumulative);
+
+        try {
+            $value = self::validateFloat($value);
+            $degrees = self::validateInt($degrees);
+            $cumulative = self::validateBool($cumulative);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ($degrees < 1) {
+            return Functions::NAN();
+        }
+        if ($value < 0) {
+            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
+                return 1;
+            }
+
+            return Functions::NAN();
+        }
+
+        if ($cumulative === true) {
+            return 1 - self::distribution($value, $degrees);
+        }
+
+        return (($value ** (($degrees / 2) - 1) * exp(-$value / 2))) /
+            ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
+    }
+
+    /**
      * CHIINV.
      *
      * Returns the one-tailed probability of the chi-squared distribution.
