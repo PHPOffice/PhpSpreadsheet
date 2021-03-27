@@ -82,4 +82,45 @@ class ChiSquared
 
         return $newtonRaphson->execute($probability);
     }
+
+    public static function test($actual, $expected)
+    {
+        $rows = count($actual);
+        $actual = Functions::flattenArray($actual);
+        $expected = Functions::flattenArray($expected);
+        $columns = count($actual) / $rows;
+
+        $countActuals = count($actual);
+        $countExpected = count($expected);
+        if ($countActuals !== $countExpected || $countActuals === 1) {
+            return Functions::NAN();
+        }
+
+        $result = 0.0;
+        for ($i = 0; $i < $countActuals; ++$i) {
+            if ($expected[$i] == 0.0) {
+                return Functions::DIV0();
+            } elseif ($expected[$i] < 0.0) {
+                return Functions::NAN();
+            }
+            $result += (($actual[$i] - $expected[$i]) ** 2) / $expected[$i];
+        }
+
+        $degrees = self::degrees($rows, $columns);
+
+        $result = self::distribution($result, $degrees);
+
+        return $result;
+    }
+
+    protected static function degrees(int $rows, int $columns): int
+    {
+        if ($rows === 1) {
+            return $columns - 1;
+        } elseif ($columns === 1) {
+            return $rows - 1;
+        }
+
+        return ($columns - 1) * ($rows - 1);
+    }
 }

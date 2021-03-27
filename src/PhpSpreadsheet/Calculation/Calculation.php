@@ -518,12 +518,12 @@ class Calculation
         ],
         'CHITEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'test'],
             'argumentCount' => '2',
         ],
         'CHISQ.TEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'test'],
             'argumentCount' => '2',
         ],
         'CHOOSE' => [
