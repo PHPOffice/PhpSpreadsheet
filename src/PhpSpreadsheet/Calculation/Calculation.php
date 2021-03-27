@@ -2581,12 +2581,12 @@ class Calculation
         ],
         'WEIBULL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'WEIBULL'],
+            'functionCall' => [Statistical\Distributions\Weibull::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'WEIBULL.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'WEIBULL'],
+            'functionCall' => [Statistical\Distributions\Weibull::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'WORKDAY' => [

@@ -2340,6 +2340,11 @@ class Statistical
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Weibull::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Weibull class instead
+     *
      * @param float $value
      * @param float $alpha Alpha Parameter
      * @param float $beta Beta Parameter
@@ -2349,24 +2354,7 @@ class Statistical
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $alpha = Functions::flattenSingleValue($alpha);
-        $beta = Functions::flattenSingleValue($beta);
-
-        if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta))) {
-            if (($value < 0) || ($alpha <= 0) || ($beta <= 0)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    return 1 - exp(0 - ($value / $beta) ** $alpha);
-                }
-
-                return ($alpha / $beta ** $alpha) * $value ** ($alpha - 1) * exp(0 - ($value / $beta) ** $alpha);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Weibull::distribution($value, $alpha, $beta, $cumulative);
     }
 
     /**
