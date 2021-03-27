@@ -2140,6 +2140,11 @@ class Statistical
      *
      * Returns the probability of Student's T distribution.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StudentT::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\StudentT class instead
+     *
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
      * @param float $tails number of tails (1 or 2)
@@ -2148,61 +2153,18 @@ class Statistical
      */
     public static function TDIST($value, $degrees, $tails)
     {
-        $value = Functions::flattenSingleValue($value);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
-        $tails = floor(Functions::flattenSingleValue($tails));
-
-        if ((is_numeric($value)) && (is_numeric($degrees)) && (is_numeric($tails))) {
-            if (($value < 0) || ($degrees < 1) || ($tails < 1) || ($tails > 2)) {
-                return Functions::NAN();
-            }
-            //    tdist, which finds the probability that corresponds to a given value
-            //    of t with k degrees of freedom. This algorithm is translated from a
-            //    pascal function on p81 of "Statistical Computing in Pascal" by D
-            //    Cooke, A H Craven & G M Clark (1985: Edward Arnold (Pubs.) Ltd:
-            //    London). The above Pascal algorithm is itself a translation of the
-            //    fortran algoritm "AS 3" by B E Cooper of the Atlas Computer
-            //    Laboratory as reported in (among other places) "Applied Statistics
-            //    Algorithms", editied by P Griffiths and I D Hill (1985; Ellis
-            //    Horwood Ltd.; W. Sussex, England).
-            $tterm = $degrees;
-            $ttheta = atan2($value, sqrt($tterm));
-            $tc = cos($ttheta);
-            $ts = sin($ttheta);
-
-            if (($degrees % 2) == 1) {
-                $ti = 3;
-                $tterm = $tc;
-            } else {
-                $ti = 2;
-                $tterm = 1;
-            }
-
-            $tsum = $tterm;
-            while ($ti < $degrees) {
-                $tterm *= $tc * $tc * ($ti - 1) / $ti;
-                $tsum += $tterm;
-                $ti += 2;
-            }
-            $tsum *= $ts;
-            if (($degrees % 2) == 1) {
-                $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
-            }
-            $tValue = 0.5 * (1 + $tsum);
-            if ($tails == 1) {
-                return 1 - abs($tValue);
-            }
-
-            return 1 - abs((1 - $tValue) - $tValue);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\StudentT::distribution($value, $degrees, $tails);
     }
 
     /**
      * TINV.
      *
      * Returns the one-tailed probability of the chi-squared distribution.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StudentT::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\StudentT class instead
      *
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
@@ -2211,50 +2173,7 @@ class Statistical
      */
     public static function TINV($probability, $degrees)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $degrees = floor(Functions::flattenSingleValue($degrees));
-
-        if ((is_numeric($probability)) && (is_numeric($degrees))) {
-            $xLo = 100;
-            $xHi = 0;
-
-            $x = $xNew = 1;
-            $dx = 1;
-            $i = 0;
-
-            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
-                // Apply Newton-Raphson step
-                $result = self::TDIST($x, $degrees, 2);
-                $error = $result - $probability;
-                if ($error == 0.0) {
-                    $dx = 0;
-                } elseif ($error < 0.0) {
-                    $xLo = $x;
-                } else {
-                    $xHi = $x;
-                }
-                // Avoid division by zero
-                if ($result != 0.0) {
-                    $dx = $error / $result;
-                    $xNew = $x - $dx;
-                }
-                // If the NR fails to converge (which for example may be the
-                // case if the initial guess is too rough) we apply a bisection
-                // step to determine a more narrow interval around the root.
-                if (($xNew < $xLo) || ($xNew > $xHi) || ($result == 0.0)) {
-                    $xNew = ($xLo + $xHi) / 2;
-                    $dx = $xNew - $x;
-                }
-                $x = $xNew;
-            }
-            if ($i == self::MAX_ITERATIONS) {
-                return Functions::NA();
-            }
-
-            return round($x, 12);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\StudentT::inverse($probability, $degrees);
     }
 
     /**
@@ -2421,6 +2340,11 @@ class Statistical
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Weibull::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Weibull class instead
+     *
      * @param float $value
      * @param float $alpha Alpha Parameter
      * @param float $beta Beta Parameter
@@ -2430,24 +2354,7 @@ class Statistical
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $alpha = Functions::flattenSingleValue($alpha);
-        $beta = Functions::flattenSingleValue($beta);
-
-        if ((is_numeric($value)) && (is_numeric($alpha)) && (is_numeric($beta))) {
-            if (($value < 0) || ($alpha <= 0) || ($beta <= 0)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    return 1 - exp(0 - ($value / $beta) ** $alpha);
-                }
-
-                return ($alpha / $beta ** $alpha) * $value ** ($alpha - 1) * exp(0 - ($value / $beta) ** $alpha);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Weibull::distribution($value, $alpha, $beta, $cumulative);
     }
 
     /**
