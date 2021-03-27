@@ -36,8 +36,11 @@ abstract class GammaBase
 
         while ((abs($dx) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
             // Apply Newton-Raphson step
-            $error = self::calculateDistribution($x, $alpha, $beta, true) - $probability;
-            if ($error < 0.0) {
+            $result = self::calculateDistribution($x, $alpha, $beta, true);
+            $error = $result - $probability;
+            if ($error == 0.0) {
+                $dx = 0;
+            } elseif ($error < 0.0) {
                 $xLo = $x;
             } else {
                 $xHi = $x;

@@ -40,44 +40,7 @@ class StudentT
             return Functions::NAN();
         }
 
-        //    tdist, which finds the probability that corresponds to a given value
-        //    of t with k degrees of freedom. This algorithm is translated from a
-        //    pascal function on p81 of "Statistical Computing in Pascal" by D
-        //    Cooke, A H Craven & G M Clark (1985: Edward Arnold (Pubs.) Ltd:
-        //    London). The above Pascal algorithm is itself a translation of the
-        //    fortran algoritm "AS 3" by B E Cooper of the Atlas Computer
-        //    Laboratory as reported in (among other places) "Applied Statistics
-        //    Algorithms", editied by P Griffiths and I D Hill (1985; Ellis
-        //    Horwood Ltd.; W. Sussex, England).
-        $tterm = $degrees;
-        $ttheta = atan2($value, sqrt($tterm));
-        $tc = cos($ttheta);
-        $ts = sin($ttheta);
-
-        if (($degrees % 2) == 1) {
-            $ti = 3;
-            $tterm = $tc;
-        } else {
-            $ti = 2;
-            $tterm = 1;
-        }
-
-        $tsum = $tterm;
-        while ($ti < $degrees) {
-            $tterm *= $tc * $tc * ($ti - 1) / $ti;
-            $tsum += $tterm;
-            $ti += 2;
-        }
-        $tsum *= $ts;
-        if (($degrees % 2) == 1) {
-            $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
-        }
-        $tValue = 0.5 * (1 + $tsum);
-        if ($tails == 1) {
-            return 1 - abs($tValue);
-        }
-
-        return 1 - abs((1 - $tValue) - $tValue);
+        return self::calculateDistribution($value, $degrees, $tails);
     }
 
     /**
@@ -113,5 +76,52 @@ class StudentT
         $newtonRaphson = new NewtonRaphson($callback);
 
         return $newtonRaphson->execute($probability);
+    }
+
+    /**
+     * @return float|int
+     */
+    private static function calculateDistribution(float $value, int $degrees, int $tails)
+    {
+        //    tdist, which finds the probability that corresponds to a given value
+        //    of t with k degrees of freedom. This algorithm is translated from a
+        //    pascal function on p81 of "Statistical Computing in Pascal" by D
+        //    Cooke, A H Craven & G M Clark (1985: Edward Arnold (Pubs.) Ltd:
+        //    London). The above Pascal algorithm is itself a translation of the
+        //    fortran algoritm "AS 3" by B E Cooper of the Atlas Computer
+        //    Laboratory as reported in (among other places) "Applied Statistics
+        //    Algorithms", editied by P Griffiths and I D Hill (1985; Ellis
+        //    Horwood Ltd.; W. Sussex, England).
+        $tterm = $degrees;
+        $ttheta = atan2($value, sqrt($tterm));
+        $tc = cos($ttheta);
+        $ts = sin($ttheta);
+
+        if (($degrees % 2) === 1) {
+            $ti = 3;
+            $tterm = $tc;
+        } else {
+            $ti = 2;
+            $tterm = 1;
+        }
+
+        $tsum = $tterm;
+        while ($ti < $degrees) {
+            $tterm *= $tc * $tc * ($ti - 1) / $ti;
+            $tsum += $tterm;
+            $ti += 2;
+        }
+
+        $tsum *= $ts;
+        if (($degrees % 2) == 1) {
+            $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
+        }
+
+        $tValue = 0.5 * (1 + $tsum);
+        if ($tails == 1) {
+            return 1 - abs($tValue);
+        }
+
+        return 1 - abs((1 - $tValue) - $tValue);
     }
 }

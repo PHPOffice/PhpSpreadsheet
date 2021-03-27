@@ -28,6 +28,7 @@ class NewtonRaphson
             // Apply Newton-Raphson step
             $result = call_user_func($this->callback, $x);
             $error = $result - $probability;
+
             if ($error == 0.0) {
                 $dx = 0;
             } elseif ($error < 0.0) {
