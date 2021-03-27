@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class VarTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
