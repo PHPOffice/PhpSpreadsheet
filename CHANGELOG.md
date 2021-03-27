@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implemented the CHITEST() Statistical function.
+- Implemented the CHITEST() and CHISQ.DIST() Statistical function.
 - Support for ActiveSheet and SelectedCells in the ODS Reader and Writer. [PR #1908](https://github.com/PHPOffice/PhpSpreadsheet/pull/1908)
 
 ### Changed
