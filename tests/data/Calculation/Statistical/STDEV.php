@@ -9,4 +9,12 @@ return [
         '#DIV/0!',
         ['A', 'B', 'C'],
     ],
+    [
+        '#DIV/0!',
+        [true, false],
+    ],
+    [
+        '#DIV/0!',
+        [true, false, 1],
+    ],
 ];
