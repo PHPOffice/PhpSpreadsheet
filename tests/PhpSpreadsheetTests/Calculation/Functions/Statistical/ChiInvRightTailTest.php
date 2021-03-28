@@ -17,6 +17,8 @@ class ChiInvRightTailTest extends TestCase
      * @dataProvider providerCHIINV
      *
      * @param mixed $expectedResult
+     * @param mixed $probability
+     * @param mixed $degrees
      */
     public function testCHIINV($expectedResult, $probability, $degrees): void
     {
