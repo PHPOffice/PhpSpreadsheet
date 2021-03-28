@@ -127,6 +127,42 @@ class ChiSquared
         return $newtonRaphson->execute($probability);
     }
 
+    /**
+     * CHIINV.
+     *
+     * Returns the inverse of the left-tailed probability of the chi-squared distribution.
+     *
+     * @param mixed (float) $probability Probability for the function
+     * @param mixed (int) $degrees degrees of freedom
+     *
+     * @return float|string
+     */
+    public static function inverseLeftTail($probability, $degrees)
+    {
+        $probability = Functions::flattenSingleValue($probability);
+        $degrees = Functions::flattenSingleValue($degrees);
+
+        try {
+            $probability = self::validateFloat($probability);
+            $degrees = self::validateInt($degrees);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ($probability < 0.0 || $probability > 1.0 || $degrees < 1) {
+            return Functions::NAN();
+        }
+
+        $callback = function ($value) use ($degrees) {
+            return (Gamma::incompleteGamma($degrees / 2, $value / 2)
+                    / Gamma::gammaValue($degrees / 2));
+        };
+
+        $newtonRaphson = new NewtonRaphson($callback);
+
+        return $newtonRaphson->execute($probability);
+    }
+
     public static function test($actual, $expected)
     {
         $rows = count($actual);
