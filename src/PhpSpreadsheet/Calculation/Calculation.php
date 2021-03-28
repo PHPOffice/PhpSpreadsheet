@@ -508,7 +508,7 @@ class Calculation
         ],
         'CHISQ.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverseLeftTail'],
             'argumentCount' => '2',
         ],
         'CHISQ.INV.RT' => [
