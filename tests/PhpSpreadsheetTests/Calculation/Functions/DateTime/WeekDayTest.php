@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Weekday;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\WeekDay;
 
 class WeekDayTest extends AllSetupTeardown
 {
@@ -28,8 +28,8 @@ class WeekDayTest extends AllSetupTeardown
     public function testWEEKDAYwith1904Calendar(): void
     {
         self::setMac1904();
-        self::assertEquals(7, Weekday::funcWeekDay('1904-01-02'));
-        self::assertEquals(6, Weekday::funcWeekDay('1904-01-01'));
-        self::assertEquals(6, Weekday::funcWeekDay(null));
+        self::assertEquals(7, WeekDay::funcWeekDay('1904-01-02'));
+        self::assertEquals(6, WeekDay::funcWeekDay('1904-01-01'));
+        self::assertEquals(6, WeekDay::funcWeekDay(null));
     }
 }

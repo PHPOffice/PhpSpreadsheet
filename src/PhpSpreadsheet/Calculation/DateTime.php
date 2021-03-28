@@ -651,7 +651,7 @@ class DateTime
      *
      * Returns the ISO 8601 week number of the year for a specified date.
      *
-     * @Deprecated 2.0.0 Use the funcIsoWeeknum method in the DateTimeExcel\Isoweeknum class instead
+     * @Deprecated 2.0.0 Use the funcIsoWeeknum method in the DateTimeExcel\IsoWeekNum class instead
      *
      * Excel Function:
      *        ISOWEEKNUM(dateValue)
@@ -663,7 +663,7 @@ class DateTime
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
-        return DateTimeExcel\IsoweekNum::funcIsoWeekNum($dateValue);
+        return DateTimeExcel\IsoWeekNum::funcIsoWeekNum($dateValue);
     }
 
     /**

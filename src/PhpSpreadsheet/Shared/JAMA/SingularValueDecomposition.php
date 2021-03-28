@@ -476,6 +476,7 @@ class SingularValueDecomposition
      */
     public function getS()
     {
+        $S = [];
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 $S[$i][$j] = 0.0;

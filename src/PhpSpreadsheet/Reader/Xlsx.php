@@ -430,7 +430,7 @@ class Xlsx extends BaseReader
                             'SimpleXMLElement',
                             Settings::getLibXmlLoaderOptions()
                         );
-                        if (isset($xmlStrings, $xmlStrings->si)) {
+                        if (isset($xmlStrings->si)) {
                             foreach ($xmlStrings->si as $val) {
                                 if (isset($val->t)) {
                                     $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
@@ -511,10 +511,7 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
-                            $quotePrefix = false;
-                            if (isset($xf['quotePrefix'])) {
-                                $quotePrefix = (bool) $xf['quotePrefix'];
-                            }
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
 
                             $style = (object) [
                                 'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
@@ -543,6 +540,8 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
+
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
 
                             $cellStyle = (object) [
                                 'numFmt' => $numFmt,
@@ -1081,6 +1080,7 @@ class Xlsx extends BaseReader
                                 }
                                 if ($xmlSheet->drawing && !$this->readDataOnly) {
                                     $unparsedDrawings = [];
+                                    $fileDrawing = null;
                                     foreach ($xmlSheet->drawing as $drawing) {
                                         $drawingRelId = (string) self::getArrayItem($drawing->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];

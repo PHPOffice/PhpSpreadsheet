@@ -747,7 +747,7 @@ class Parser
         return pack('C', 0xFF);
     }
 
-    private function convertDefinedName(string $name): void
+    private function convertDefinedName(string $name): string
     {
         if (strlen($name) > 255) {
             throw new WriterException('Defined Name is too long');
@@ -764,7 +764,8 @@ class Parser
         $ptgRef = pack('Cvxx', $this->ptg['ptgName'], $nameReference);
 
         throw new WriterException('Cannot yet write formulae with defined names to Xls');
-//        return $ptgRef;
+
+        return $ptgRef;
     }
 
     /**
@@ -968,6 +969,7 @@ class Parser
      */
     private function advance()
     {
+        $token = '';
         $i = $this->currentCharacter;
         $formula_length = strlen($this->formula);
         // eat up white spaces
