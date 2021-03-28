@@ -10,44 +10,17 @@ class NewtonRaphson
 
     protected $callback;
 
-    protected $low = 100.0;
-
-    protected $high = 0.0;
-
-    protected $dx = 1;
-
     public function __construct(callable $callback)
     {
         $this->callback = $callback;
     }
 
-    public function setLow(float $lowValue): self
-    {
-        $this->low = $lowValue;
-
-        return $this;
-    }
-
-    public function setHigh(float $highValue): self
-    {
-        $this->low = $highValue;
-
-        return $this;
-    }
-
-    public function setDx(float $dxValue): self
-    {
-        $this->dx = $dxValue;
-
-        return $this;
-    }
-
     public function execute($probability)
     {
-        $xLo = $this->low;
-        $xHi = $this->high;
+        $xLo = 100;
+        $xHi = 0;
 
-        $dx = $this->dx;
+        $dx = 1;
         $x = $xNew = 1;
         $i = 0;
 
