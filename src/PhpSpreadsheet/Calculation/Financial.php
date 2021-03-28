@@ -1639,9 +1639,10 @@ class Financial
 
         $datesCount = count($dates);
         for ($i = 0; $i < $datesCount; ++$i) {
-            $dates[$i] = DateTimeExcel\Helpers::getDateValue($dates[$i]);
-            if (!is_numeric($dates[$i])) {
-                return Functions::VALUE();
+            try {
+                $dates[$i] = DateTimeExcel\Helpers::getDateValue($dates[$i]);
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         }
 
@@ -1780,7 +1781,11 @@ class Financial
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
         $valCount = count($values);
-        $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
+        try {
+            $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
         $rslt = self::validateXnpv($rate, $values, $dates);
         if ($rslt) {
             return $rslt;
@@ -1790,9 +1795,10 @@ class Financial
             if (!is_numeric($values[$i])) {
                 return Functions::VALUE();
             }
-            $datei = DateTimeExcel\Helpers::getDateValue($dates[$i]);
-            if (is_string($datei)) {
-                return Functions::VALUE();
+            try {
+                $datei = DateTimeExcel\Helpers::getDateValue($dates[$i]);
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
             if ($date0 > $datei) {
                 $dif = $ordered ? Functions::NAN() : -DateTimeExcel\DateDif::funcDateDif($datei, $date0, 'd');
