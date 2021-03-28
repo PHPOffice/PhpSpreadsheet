@@ -20,8 +20,8 @@ class NewtonRaphson
         $xLo = 100;
         $xHi = 0;
 
-        $x = $xNew = 1;
         $dx = 1;
+        $x = $xNew = 1;
         $i = 0;
 
         while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {

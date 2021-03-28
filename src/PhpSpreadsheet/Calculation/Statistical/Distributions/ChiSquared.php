@@ -21,7 +21,7 @@ class ChiSquared
      *
      * @return float|string
      */
-    public static function distribution($value, $degrees)
+    public static function distributionRightTail($value, $degrees)
     {
         $value = Functions::flattenSingleValue($value);
         $degrees = Functions::flattenSingleValue($degrees);
@@ -48,16 +48,60 @@ class ChiSquared
     }
 
     /**
-     * CHIINV.
+     * CHIDIST.
      *
      * Returns the one-tailed probability of the chi-squared distribution.
+     *
+     * @param mixed (float) $value Value for the function
+     * @param mixed (int) $degrees degrees of freedom
+     * @param mixed $cumulative
+     *
+     * @return float|string
+     */
+    public static function distributionLeftTail($value, $degrees, $cumulative)
+    {
+        $value = Functions::flattenSingleValue($value);
+        $degrees = Functions::flattenSingleValue($degrees);
+        $cumulative = Functions::flattenSingleValue($cumulative);
+
+        try {
+            $value = self::validateFloat($value);
+            $degrees = self::validateInt($degrees);
+            $cumulative = self::validateBool($cumulative);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ($degrees < 1) {
+            return Functions::NAN();
+        }
+        if ($value < 0) {
+            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
+                return 1;
+            }
+
+            return Functions::NAN();
+        }
+
+        if ($cumulative === true) {
+            return 1 - self::distributionRightTail($value, $degrees);
+        }
+
+        return (($value ** (($degrees / 2) - 1) * exp(-$value / 2))) /
+            ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
+    }
+
+    /**
+     * CHIINV.
+     *
+     * Returns the inverse of the right-tailed probability of the chi-squared distribution.
      *
      * @param mixed (float) $probability Probability for the function
      * @param mixed (int) $degrees degrees of freedom
      *
      * @return float|string
      */
-    public static function inverse($probability, $degrees)
+    public static function inverseRightTail($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
         $degrees = Functions::flattenSingleValue($degrees);
@@ -108,7 +152,7 @@ class ChiSquared
 
         $degrees = self::degrees($rows, $columns);
 
-        $result = self::distribution($result, $degrees);
+        $result = self::distributionRightTail($result, $degrees);
 
         return $result;
     }

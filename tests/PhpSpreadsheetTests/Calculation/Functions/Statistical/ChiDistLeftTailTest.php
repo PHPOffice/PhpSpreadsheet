@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class ChiDistTest extends TestCase
+class ChiDistLeftTailTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -20,12 +20,12 @@ class ChiDistTest extends TestCase
      */
     public function testCHIDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::CHIDIST(...$args);
+        $result = Statistical\Distributions\ChiSquared::distributionLeftTail(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCHIDIST()
     {
-        return require 'tests/data/Calculation/Statistical/CHIDIST.php';
+        return require 'tests/data/Calculation/Statistical/CHIDISTLeftTail.php';
     }
 }

@@ -488,22 +488,22 @@ class Calculation
         ],
         'CHIDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distributionRightTail'],
             'argumentCount' => '2',
         ],
         'CHISQ.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distributionLeftTail'],
             'argumentCount' => '3',
         ],
         'CHISQ.DIST.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distribution'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'distributionRightTail'],
             'argumentCount' => '2',
         ],
         'CHIINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverseRightTail'],
             'argumentCount' => '2',
         ],
         'CHISQ.INV' => [
@@ -513,7 +513,7 @@ class Calculation
         ],
         'CHISQ.INV.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverse'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverseRightTail'],
             'argumentCount' => '2',
         ],
         'CHITEST' => [
