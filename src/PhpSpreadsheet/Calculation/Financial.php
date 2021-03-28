@@ -1781,6 +1781,7 @@ class Financial
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
         $valCount = count($values);
+
         try {
             $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
         } catch (Exception $e) {
@@ -1795,6 +1796,7 @@ class Financial
             if (!is_numeric($values[$i])) {
                 return Functions::VALUE();
             }
+
             try {
                 $datei = DateTimeExcel\Helpers::getDateValue($dates[$i]);
             } catch (Exception $e) {
