@@ -42,7 +42,6 @@
         "php": "^7.2||^8.0",
         "ext-ctype": "*",
         "ext-dom": "*",
-        "ext-gd": "*",
         "ext-iconv": "*",
         "ext-fileinfo": "*",
         "ext-libxml": "*",
@@ -62,6 +61,8 @@
         "ezyang/htmlpurifier": "^4.13"
     },
     "require-dev": {
+        "ext-intl": "*",
+        "ext-gd": "*",
         "dompdf/dompdf": "^0.8.5",
         "friendsofphp/php-cs-fixer": "^2.18",
         "jpgraph/jpgraph": "^4.0",
@@ -72,6 +73,8 @@
         "tecnickcom/tcpdf": "^6.3"
     },
     "suggest": {
+        "ext-intl": "For locale-specific number masks using the NumberFormat helper classes",
+        "ext-gd": "Used for render charts for HTML/PDF Writers, or exact auto-column sizing",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
         "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
