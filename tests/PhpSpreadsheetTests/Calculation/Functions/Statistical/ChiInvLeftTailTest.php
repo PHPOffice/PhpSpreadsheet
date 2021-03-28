@@ -22,15 +22,12 @@ class ChiInvLeftTailTest extends TestCase
      */
     public function testCHIINV($expectedResult, $probability, $degrees): void
     {
-        var_dump($probability, $degrees, $expectedResult);
         $result = Statistical\Distributions\ChiSquared::inverseLeftTail($probability, $degrees);
-        var_dump($result);
         if (!is_string($expectedResult)) {
             $reverse = Statistical\Distributions\ChiSquared::distributionLeftTail($result, $degrees, true);
-            var_dump($reverse);
-            self::assertEqualsWithDelta($probability, $reverse, 1E-6);
+            self::assertEqualsWithDelta($probability, $reverse, 1E-12);
         }
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     public function providerCHIINV()

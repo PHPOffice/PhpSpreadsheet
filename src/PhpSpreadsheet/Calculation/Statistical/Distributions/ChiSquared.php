@@ -11,6 +11,8 @@ class ChiSquared
 
     private const MAX_ITERATIONS = 256;
 
+    private const EPS = 2.22e-16;
+
     /**
      * CHIDIST.
      *
@@ -153,14 +155,7 @@ class ChiSquared
             return Functions::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
-            return (Gamma::incompleteGamma($degrees / 2, $value / 2)
-                    / Gamma::gammaValue($degrees / 2));
-        };
-
-        $newtonRaphson = new NewtonRaphson($callback);
-
-        return $newtonRaphson->execute($probability);
+        return self::inverseLeftTailCalculation($probability, $degrees);
     }
 
     public static function test($actual, $expected)
@@ -202,5 +197,105 @@ class ChiSquared
         }
 
         return ($columns - 1) * ($rows - 1);
+    }
+
+    private static function inverseLeftTailCalculation($probability, $degrees)
+    {
+        // bracket the root
+        $min = 0;
+        $sd = sqrt(2.0 * $degrees);
+        $max = 2 * $sd;
+        $s = -1;
+
+        while ($s * self::pchisq($max, $degrees) > $probability * $s) {
+            $min = $max;
+            $max += 2 * $sd;
+        }
+
+        // Find root using bisection
+        $chi2 = 0.5 * ($min + $max);
+
+        while (($max - $min) > self::EPS * $chi2) {
+            if ($s * self::pchisq($chi2, $degrees) > $probability * $s) {
+                $min = $chi2;
+            } else {
+                $max = $chi2;
+            }
+            $chi2 = 0.5 * ($min + $max);
+        }
+
+        return $chi2;
+    }
+
+    private static function pchisq($chi2, $degrees)
+    {
+        return self::gammp($degrees, 0.5 * $chi2);
+    }
+
+    private static function gammp($n, $x)
+    {
+        if ($x < 0.5 * $n + 1) {
+            return self::gser($n, $x);
+        }
+
+        return 1 - self::gcf($n, $x);
+    }
+
+    // Return the incomplete gamma function P(n/2,x) evaluated by
+    // series representation. Algorithm from numerical recipe.
+    // Assume that n is a positive integer and x>0, won't check arguments.
+    // Relative error controlled by the eps parameter
+    private static function gser($n, $x)
+    {
+        $gln = Gamma::ln($n / 2);
+        $a = 0.5 * $n;
+        $ap = $a;
+        $sum = 1.0 / $a;
+        $del = $sum;
+        for ($i = 1; $i < 101; ++$i) {
+            ++$ap;
+            $del = $del * $x / $ap;
+            $sum += $del;
+            if ($del < $sum * self::EPS) {
+                break;
+            }
+        }
+
+        return $sum * exp(-$x + $a * log($x) - $gln);
+    }
+
+    // Return the incomplete gamma function Q(n/2,x) evaluated by
+    // its continued fraction representation. Algorithm from numerical recipe.
+    // Assume that n is a postive integer and x>0, won't check arguments.
+    // Relative error controlled by the eps parameter
+    private static function gcf($n, $x)
+    {
+        $gln = Gamma::ln($n / 2);
+        $a = 0.5 * $n;
+        $b = $x + 1 - $a;
+        $fpmin = 1.e-300;
+        $c = 1 / $fpmin;
+        $d = 1 / $b;
+        $h = $d;
+        for ($i = 1; $i < 101; ++$i) {
+            $an = -$i * ($i - $a);
+            $b += 2;
+            $d = $an * $d + $b;
+            if (abs($d) < $fpmin) {
+                $d = $fpmin;
+            }
+            $c = $b + $an / $c;
+            if (abs($c) < $fpmin) {
+                $c = $fpmin;
+            }
+            $d = 1 / $d;
+            $del = $d * $c;
+            $h = $h * $del;
+            if (abs($del - 1) < self::EPS) {
+                break;
+            }
+        }
+
+        return $h * exp(-$x + $a * log($x) - $gln);
     }
 }
