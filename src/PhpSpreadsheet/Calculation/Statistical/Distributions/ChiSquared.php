@@ -21,7 +21,7 @@ class ChiSquared
      *
      * @return float|string
      */
-    public static function distribution($value, $degrees)
+    public static function distributionRightTail($value, $degrees)
     {
         $value = Functions::flattenSingleValue($value);
         $degrees = Functions::flattenSingleValue($degrees);
@@ -84,7 +84,7 @@ class ChiSquared
         }
 
         if ($cumulative === true) {
-            return 1 - self::distribution($value, $degrees);
+            return 1 - self::distributionRightTail($value, $degrees);
         }
 
         return (($value ** (($degrees / 2) - 1) * exp(-$value / 2))) /
@@ -94,14 +94,14 @@ class ChiSquared
     /**
      * CHIINV.
      *
-     * Returns the one-tailed probability of the chi-squared distribution.
+     * Returns the inverse of the right-tailed probability of the chi-squared distribution.
      *
      * @param mixed (float) $probability Probability for the function
      * @param mixed (int) $degrees degrees of freedom
      *
      * @return float|string
      */
-    public static function inverse($probability, $degrees)
+    public static function inverseRightTail($probability, $degrees)
     {
         $probability = Functions::flattenSingleValue($probability);
         $degrees = Functions::flattenSingleValue($degrees);
@@ -152,7 +152,7 @@ class ChiSquared
 
         $degrees = self::degrees($rows, $columns);
 
-        $result = self::distribution($result, $degrees);
+        $result = self::distributionRightTail($result, $degrees);
 
         return $result;
     }

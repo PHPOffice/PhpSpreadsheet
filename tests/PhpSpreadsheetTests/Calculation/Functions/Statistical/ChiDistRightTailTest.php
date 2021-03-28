@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
-class ChiInvTest extends TestCase
+class ChiDistRightTailTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -14,18 +14,18 @@ class ChiInvTest extends TestCase
     }
 
     /**
-     * @dataProvider providerCHIINV
+     * @dataProvider providerCHIDIST
      *
      * @param mixed $expectedResult
      */
-    public function testCHIINV($expectedResult, ...$args): void
+    public function testCHIDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::CHIINV(...$args);
+        $result = Statistical::CHIDIST(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCHIINV()
+    public function providerCHIDIST()
     {
-        return require 'tests/data/Calculation/Statistical/CHIINV.php';
+        return require 'tests/data/Calculation/Statistical/CHIDISTRightTail.php';
     }
 }

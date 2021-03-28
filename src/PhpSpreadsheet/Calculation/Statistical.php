@@ -297,8 +297,8 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     * @see Statistical\Distributions\ChiSquared::distribution()
-     *      Use the distribution() method in the Statistical\Distributions\ChiSquared class instead
+     * @see Statistical\Distributions\ChiSquared::distributionRightTail()
+     *      Use the distributionRightTail() method in the Statistical\Distributions\ChiSquared class instead
      *
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
@@ -307,7 +307,7 @@ class Statistical
      */
     public static function CHIDIST($value, $degrees)
     {
-        return Statistical\Distributions\ChiSquared::distribution($value, $degrees);
+        return Statistical\Distributions\ChiSquared::distributionRightTail($value, $degrees);
     }
 
     /**
@@ -317,8 +317,8 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     * @see Statistical\Distributions\ChiSquared::inverse()
-     *      Use the inverse() method in the Statistical\Distributions\ChiSquared class instead
+     * @see Statistical\Distributions\ChiSquared::inverseRightTail()
+     *      Use the inverseRightTail() method in the Statistical\Distributions\ChiSquared class instead
      *
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
@@ -327,7 +327,7 @@ class Statistical
      */
     public static function CHIINV($probability, $degrees)
     {
-        return Statistical\Distributions\ChiSquared::inverse($probability, $degrees);
+        return Statistical\Distributions\ChiSquared::inverseRightTail($probability, $degrees);
     }
 
     /**
@@ -2159,7 +2159,7 @@ class Statistical
     /**
      * TINV.
      *
-     * Returns the one-tailed probability of the chi-squared distribution.
+     * Returns the one-tailed probability of the Student-T distribution.
      *
      * @Deprecated 1.18.0
      *
