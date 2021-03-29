@@ -9,9 +9,9 @@ class Percentiles
 {
     use BaseValidations;
 
-    public const RANK_SORT_ASCENDING = 0;
+    public const RANK_SORT_DESCENDING = 0;
 
-    public const RANK_SORT_DESCENDING = 1;
+    public const RANK_SORT_ASCENDING = 1;
 
     /**
      * PERCENTILE.
@@ -41,13 +41,8 @@ class Percentiles
         if (($entry < 0) || ($entry > 1)) {
             return Functions::NAN();
         }
-        $mArgs = [];
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $mArgs[] = $arg;
-            }
-        }
+
+        $mArgs = self::percentileFilterValues($aArgs);
         $mValueCount = count($mArgs);
         if ($mValueCount > 0) {
             sort($mArgs);
@@ -91,16 +86,12 @@ class Percentiles
             return $e->getMessage();
         }
 
-        foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
-                unset($valueSet[$key]);
-            }
-        }
-        sort($valueSet, SORT_NUMERIC);
+        $valueSet = self::rankFilterValues($valueSet);
         $valueCount = count($valueSet);
         if ($valueCount == 0) {
             return Functions::NA();
         }
+        sort($valueSet, SORT_NUMERIC);
 
         $valueAdjustor = $valueCount - 1;
         if (($value < $valueSet[0]) || ($value > $valueSet[$valueAdjustor])) {
@@ -164,11 +155,11 @@ class Percentiles
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function RANK($value, $valueSet, $order = self::RANK_SORT_ASCENDING)
+    public static function RANK($value, $valueSet, $order = self::RANK_SORT_DESCENDING)
     {
         $value = Functions::flattenSingleValue($value);
         $valueSet = Functions::flattenArray($valueSet);
-        $order = ($order === null) ? self::RANK_SORT_ASCENDING : Functions::flattenSingleValue($order);
+        $order = ($order === null) ? self::RANK_SORT_DESCENDING : Functions::flattenSingleValue($order);
 
         try {
             $value = self::validateFloat($value);
@@ -177,16 +168,11 @@ class Percentiles
             return $e->getMessage();
         }
 
-        foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
-                unset($valueSet[$key]);
-            }
-        }
-
-        if ($order === self::RANK_SORT_ASCENDING) {
-            sort($valueSet, SORT_NUMERIC);
-        } else {
+        $valueSet = self::rankFilterValues($valueSet);
+        if ($order === self::RANK_SORT_DESCENDING) {
             rsort($valueSet, SORT_NUMERIC);
+        } else {
+            sort($valueSet, SORT_NUMERIC);
         }
 
         $pos = array_search($value, $valueSet);
@@ -195,5 +181,25 @@ class Percentiles
         }
 
         return ++$pos;
+    }
+
+    protected static function percentileFilterValues(array $dataSet)
+    {
+        return array_filter(
+            $dataSet,
+            function ($value): bool {
+                return is_numeric($value) && !is_string($value);
+            }
+        );
+    }
+
+    protected static function rankFilterValues(array $dataSet)
+    {
+        return array_filter(
+            $dataSet,
+            function ($value): bool {
+                return is_numeric($value);
+            }
+        );
     }
 }
