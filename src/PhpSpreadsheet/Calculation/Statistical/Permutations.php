@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Permutations
 {
+    use BaseValidations;
+
     /**
      * PERMUT.
      *
@@ -26,16 +29,18 @@ class Permutations
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            $numInSet = floor($numInSet);
-            if ($numObjs < $numInSet) {
-                return Functions::NAN();
-            }
-
-            return round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet));
+        try {
+            $numObjs = self::validateInt($numObjs);
+            $numInSet = self::validateInt($numInSet);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($numObjs < $numInSet) {
+            return Functions::NAN();
+        }
+
+        return round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet));
     }
 
     /**
@@ -54,16 +59,17 @@ class Permutations
         $numObjs = Functions::flattenSingleValue($numObjs);
         $numInSet = Functions::flattenSingleValue($numInSet);
 
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            $numObjs = floor($numObjs);
-            $numInSet = floor($numInSet);
-            if ($numObjs < 0 || $numInSet < 0) {
-                return Functions::NAN();
-            }
-
-            return $numObjs ** $numInSet;
+        try {
+            $numObjs = self::validateInt($numObjs);
+            $numInSet = self::validateInt($numInSet);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($numObjs < 0 || $numInSet < 0) {
+            return Functions::NAN();
+        }
+
+        return $numObjs ** $numInSet;
     }
 }

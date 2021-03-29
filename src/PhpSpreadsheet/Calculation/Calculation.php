@@ -1903,7 +1903,7 @@ class Calculation
         ],
         'PERCENTILE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTILE'],
             'argumentCount' => '2',
         ],
         'PERCENTILE.EXC' => [
@@ -1913,12 +1913,12 @@ class Calculation
         ],
         'PERCENTILE.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTILE'],
             'argumentCount' => '2',
         ],
         'PERCENTRANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTRANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTRANK'],
             'argumentCount' => '2,3',
         ],
         'PERCENTRANK.EXC' => [
@@ -1928,7 +1928,7 @@ class Calculation
         ],
         'PERCENTRANK.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTRANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTRANK'],
             'argumentCount' => '2,3',
         ],
         'PERMUT' => [
@@ -2018,7 +2018,7 @@ class Calculation
         ],
         'QUARTILE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'QUARTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'QUARTILE'],
             'argumentCount' => '2',
         ],
         'QUARTILE.EXC' => [
@@ -2028,7 +2028,7 @@ class Calculation
         ],
         'QUARTILE.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'QUARTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'QUARTILE'],
             'argumentCount' => '2',
         ],
         'QUOTIENT' => [
@@ -2058,7 +2058,7 @@ class Calculation
         ],
         'RANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'RANK'],
             'argumentCount' => '2,3',
         ],
         'RANK.AVG' => [

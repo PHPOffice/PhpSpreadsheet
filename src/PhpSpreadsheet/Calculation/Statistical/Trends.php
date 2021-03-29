@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 class Trends
 {
+    use BaseValidations;
+
     private static function filterTrendValues(array &$array1, array &$array2): void
     {
         foreach ($array1 as $key => $value) {
@@ -116,11 +118,9 @@ class Trends
     public static function FORECAST($xValue, $yValues, $xValues)
     {
         $xValue = Functions::flattenSingleValue($xValue);
-        if (!is_numeric($xValue)) {
-            return Functions::VALUE();
-        }
 
         try {
+            $xValue = self::validateFloat($xValue);
             self::checkTrendArrays($yValues, $xValues);
             self::validateTrendArrays($yValues, $xValues);
         } catch (Exception $e) {
