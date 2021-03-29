@@ -57,6 +57,8 @@ class Percentiles
 
             return $mArgs[$iBase] + (($mArgs[$iNext] - $mArgs[$iBase]) * $iProportion);
         }
+
+        return Functions::NAN();
     }
 
     /**
