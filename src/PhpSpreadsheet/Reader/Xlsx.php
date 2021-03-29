@@ -1199,14 +1199,17 @@ class Xlsx extends BaseReader
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
-                                                    $objDrawing->setPath(
-                                                        'zip://' . File::realpath($pFilename) . '#' .
-                                                        $images[(string) self::getArrayItem(
-                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
-                                                            'embed'
-                                                        )],
-                                                        false
+                                                    $imageKey = (string) self::getArrayItem(
+                                                        $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                        'embed'
                                                     );
+                                                    if (isset($images[$imageKey])) {
+                                                        $objDrawing->setPath(
+                                                            'zip://' . File::realpath($pFilename) . '#' .
+                                                            $images[$imageKey],
+                                                            false
+                                                        );
+                                                    }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
