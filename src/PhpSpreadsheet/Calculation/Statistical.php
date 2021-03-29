@@ -1665,45 +1665,18 @@ class Statistical
      * Excel Function:
      *        PERCENTILE(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Percentiles::PERCENTILE()
+     * Use the PERCENTILE() method in the Statistical\Percentiles class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function PERCENTILE(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $entry = array_pop($aArgs);
-
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            if (($entry < 0) || ($entry > 1)) {
-                return Functions::NAN();
-            }
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-            $mValueCount = count($mArgs);
-            if ($mValueCount > 0) {
-                sort($mArgs);
-                $count = Counts::COUNT($mArgs);
-                $index = $entry * ($count - 1);
-                $iBase = floor($index);
-                if ($index == $iBase) {
-                    return $mArgs[$index];
-                }
-                $iNext = $iBase + 1;
-                $iProportion = $index - $iBase;
-
-                return $mArgs[$iBase] + (($mArgs[$iNext] - $mArgs[$iBase]) * $iProportion);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Percentiles::PERCENTILE(...$args);
     }
 
     /**
@@ -1714,6 +1687,11 @@ class Statistical
      *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
      *      0.667 rather than 0.666
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Percentiles::PERCENTRANK()
+     * Use the PERCENTRANK() method in the Statistical\Percentiles class instead
+     *
      * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
      * @param mixed (int) $value the number whose rank you want to find
      * @param mixed (int) $significance the number of significant digits for the returned percentage value
@@ -1722,38 +1700,7 @@ class Statistical
      */
     public static function PERCENTRANK($valueSet, $value, $significance = 3)
     {
-        $valueSet = Functions::flattenArray($valueSet);
-        $value = Functions::flattenSingleValue($value);
-        $significance = ($significance === null) ? 3 : (int) Functions::flattenSingleValue($significance);
-
-        foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
-                unset($valueSet[$key]);
-            }
-        }
-        sort($valueSet, SORT_NUMERIC);
-        $valueCount = count($valueSet);
-        if ($valueCount == 0) {
-            return Functions::NAN();
-        }
-
-        $valueAdjustor = $valueCount - 1;
-        if (($value < $valueSet[0]) || ($value > $valueSet[$valueAdjustor])) {
-            return Functions::NA();
-        }
-
-        $pos = array_search($value, $valueSet);
-        if ($pos === false) {
-            $pos = 0;
-            $testValue = $valueSet[0];
-            while ($testValue < $value) {
-                $testValue = $valueSet[++$pos];
-            }
-            --$pos;
-            $pos += (($value - $valueSet[$pos]) / ($testValue - $valueSet[$pos]));
-        }
-
-        return round($pos / $valueAdjustor, $significance);
+        return Statistical\Percentiles::PERCENTRANK($valueSet, $value, $significance);
     }
 
     /**
@@ -1811,27 +1758,18 @@ class Statistical
      * Excel Function:
      *        QUARTILE(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Percentiles::QUARTILE()
+     * Use the QUARTILE() method in the Statistical\Percentiles class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function QUARTILE(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-        $entry = array_pop($aArgs);
-
-        // Calculate
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry = floor($entry);
-            $entry /= 4;
-            if (($entry < 0) || ($entry > 1)) {
-                return Functions::NAN();
-            }
-
-            return self::PERCENTILE($aArgs, $entry);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Percentiles::QUARTILE(...$args);
     }
 
     /**
@@ -1839,36 +1777,20 @@ class Statistical
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @param int $value the number whose rank you want to find
-     * @param float[] $valueSet An array of, or a reference to, a list of numbers
-     * @param int $order Order to sort the values in the value set
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Percentiles::RANK()
+     * Use the RANK() method in the Statistical\Percentiles class instead
+     *
+     * @param mixed (float) $value the number whose rank you want to find
+     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed (int) $order Order to sort the values in the value set
      *
      * @return float|string The result, or a string containing an error
      */
     public static function RANK($value, $valueSet, $order = 0)
     {
-        $value = Functions::flattenSingleValue($value);
-        $valueSet = Functions::flattenArray($valueSet);
-        $order = ($order === null) ? 0 : (int) Functions::flattenSingleValue($order);
-
-        foreach ($valueSet as $key => $valueEntry) {
-            if (!is_numeric($valueEntry)) {
-                unset($valueSet[$key]);
-            }
-        }
-
-        if ($order == 0) {
-            sort($valueSet, SORT_NUMERIC);
-        } else {
-            rsort($valueSet, SORT_NUMERIC);
-        }
-
-        $pos = array_search($value, $valueSet);
-        if ($pos === false) {
-            return Functions::NA();
-        }
-
-        return ++$pos;
+        return Statistical\Percentiles::RANK($value, $valueSet, $order);
     }
 
     /**
