@@ -1134,9 +1134,9 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $imageKey = (string) self::getArrayItem(
-                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
-                                                            'embed'
-                                                        );
+                                                        $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                        'embed'
+                                                    );
                                                     if (isset($images[$imageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
