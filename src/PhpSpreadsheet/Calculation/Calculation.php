@@ -433,7 +433,7 @@ class Calculation
         ],
         'BINOM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CRITBINOM'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'BITAND' => [
@@ -695,7 +695,7 @@ class Calculation
         ],
         'CRITBINOM' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CRITBINOM'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'CSC' => [
@@ -1751,7 +1751,7 @@ class Calculation
         ],
         'NEGBINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NEGBINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'negative'],
             'argumentCount' => '3',
         ],
         'NEGBINOM.DIST' => [

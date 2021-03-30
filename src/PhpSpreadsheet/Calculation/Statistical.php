@@ -1382,6 +1382,11 @@ class Statistical
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Binomial::negative::mode()
+     *      Use the negative() method in the Statistical\Distributions\Binomial class instead
+     *
      * @param mixed (float) $failures Number of Failures
      * @param mixed (float) $successes Threshold number of Successes
      * @param mixed (float) $probability Probability of success on each trial
@@ -1390,26 +1395,7 @@ class Statistical
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
-        $failures = floor(Functions::flattenSingleValue($failures));
-        $successes = floor(Functions::flattenSingleValue($successes));
-        $probability = Functions::flattenSingleValue($probability);
-
-        if ((is_numeric($failures)) && (is_numeric($successes)) && (is_numeric($probability))) {
-            if (($failures < 0) || ($successes < 1)) {
-                return Functions::NAN();
-            } elseif (($probability < 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                if (($failures + $successes - 1) <= 0) {
-                    return Functions::NAN();
-                }
-            }
-
-            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * ($probability ** $successes) * ((1 - $probability) ** $failures);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Binomial::negative($failures, $successes, $probability);
     }
 
     /**

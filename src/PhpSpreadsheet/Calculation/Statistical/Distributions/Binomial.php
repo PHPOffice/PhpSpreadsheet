@@ -103,6 +103,53 @@ class Binomial
     }
 
     /**
+     * NEGBINOMDIST.
+     *
+     * Returns the negative binomial distribution. NEGBINOMDIST returns the probability that
+     *        there will be number_f failures before the number_s-th success, when the constant
+     *        probability of a success is probability_s. This function is similar to the binomial
+     *        distribution, except that the number of successes is fixed, and the number of trials is
+     *        variable. Like the binomial, trials are assumed to be independent.
+     *
+     * @param mixed (float) $failures Number of Failures
+     * @param mixed (float) $successes Threshold number of Successes
+     * @param mixed (float) $probability Probability of success on each trial
+     *
+     * @return float|string The result, or a string containing an error
+     *
+     * TODO Add support for the cumulative flag not present for NEGBINOMDIST, but introduced for NEGBINOM.DIST
+     *      The cumulative default should be false to reflect the behaviour of NEGBINOMDIST
+     */
+    public static function negative($failures, $successes, $probability)
+    {
+        $failures = Functions::flattenSingleValue($failures);
+        $successes = Functions::flattenSingleValue($successes);
+        $probability = Functions::flattenSingleValue($probability);
+
+        try {
+            $failures = self::validateInt($failures);
+            $successes = self::validateInt($successes);
+            $probability = self::validateFloat($probability);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if (($failures < 0) || ($successes < 1)) {
+            return Functions::NAN();
+        } elseif (($probability < 0) || ($probability > 1)) {
+            return Functions::NAN();
+        }
+        if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
+            if (($failures + $successes - 1) <= 0) {
+                return Functions::NAN();
+            }
+        }
+
+        return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) *
+            ($probability ** $successes) * ((1 - $probability) ** $failures);
+    }
+
+    /**
      * CRITBINOM.
      *
      * Returns the smallest value for which the cumulative binomial distribution is greater
