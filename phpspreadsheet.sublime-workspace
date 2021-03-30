@@ -619,6 +619,7 @@
 	],
 	"file_history":
 	[
+		"/C/xampp/htdocs/PhpSpreadsheet/.gitignore",
 		"/C/xampp/htdocs/PhpSpreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php",
 		"/C/xampp/htdocs/mailing/resources/views/papeletas/create.blade.php",
 		"/C/xampp/htdocs/mailing/app/Batch.php",
@@ -745,8 +746,7 @@
 		"/C/xampp/htdocs/filtrop/app/Http/Controllers/ContactController.php",
 		"/C/xampp/htdocs/filtrop/resources/views/contacts/create.blade.php",
 		"/C/xampp/htdocs/filtrop/app/Exports/ContactsExport.php",
-		"/C/xampp/htdocs/filtrop/resources/views/batches/show.blade.php",
-		"/C/xampp/htdocs/filtrop/app/Account.php"
+		"/C/xampp/htdocs/filtrop/resources/views/batches/show.blade.php"
 	],
 	"find":
 	{

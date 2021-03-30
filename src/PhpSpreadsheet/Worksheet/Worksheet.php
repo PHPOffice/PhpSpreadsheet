@@ -548,7 +548,7 @@ class Worksheet implements IComparable
      */
     public function cleanDrawingCollection()
     {
-        return $this->drawingCollection = [];
+        return $this->drawingCollection = new \ArrayObject();
     }
 
     /**
