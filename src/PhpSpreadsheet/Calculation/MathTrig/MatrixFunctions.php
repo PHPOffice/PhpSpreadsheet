@@ -123,7 +123,7 @@ class MatrixFunctions
     public static function funcMUnit($dimension)
     {
         try {
-            $dimension = Helpers::validateNumericNullBool($dimension);
+            $dimension = (int) Helpers::validateNumericNullBool($dimension);
             Helpers::validatePositive($dimension, Functions::VALUE());
             $matrix = Builder::createFilledMatrix(0, $dimension)->toArray();
             for ($x = 0; $x < $dimension; ++$x) {

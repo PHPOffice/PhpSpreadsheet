@@ -101,7 +101,7 @@ class Lcm
         }
     }
 
-    private static function testNonNulls(bool $anyNonNulls): void
+    private static function testNonNulls(int $anyNonNulls): void
     {
         if (!$anyNonNulls) {
             throw new Exception(Functions::VALUE());

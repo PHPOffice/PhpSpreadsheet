@@ -27,8 +27,8 @@ class Random
     public static function randBetween($min, $max)
     {
         try {
-            $min = Helpers::validateNumericNullBool($min);
-            $max = Helpers::validateNumericNullBool($max);
+            $min = (int) Helpers::validateNumericNullBool($min);
+            $max = (int) Helpers::validateNumericNullBool($max);
             Helpers::validateNotNegative($max - $min);
         } catch (Exception $e) {
             return $e->getMessage();
