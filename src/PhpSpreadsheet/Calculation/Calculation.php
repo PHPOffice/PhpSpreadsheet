@@ -418,22 +418,22 @@ class Calculation
         ],
         'BINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST.RANGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'range'],
             'argumentCount' => '3,4',
         ],
         'BINOM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'BITAND' => [
@@ -695,7 +695,7 @@ class Calculation
         ],
         'CRITBINOM' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CRITBINOM'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'CSC' => [
@@ -1751,7 +1751,7 @@ class Calculation
         ],
         'NEGBINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NEGBINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'negative'],
             'argumentCount' => '3',
         ],
         'NEGBINOM.DIST' => [

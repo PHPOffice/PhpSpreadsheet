@@ -109,13 +109,13 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $degrees = self::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if ($probability < 0.0 || $probability > 1.0 || $degrees < 1) {
+        if ($degrees < 1) {
             return Functions::NAN();
         }
 
@@ -145,13 +145,13 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $degrees = self::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if ($probability < 0.0 || $probability > 1.0 || $degrees < 1) {
+        if ($degrees < 1) {
             return Functions::NAN();
         }
 

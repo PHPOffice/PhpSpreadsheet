@@ -251,6 +251,11 @@ class Statistical
      *        experiment. For example, BINOMDIST can calculate the probability that two of the next three
      *        babies born are male.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Binomial::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Binomial class instead
+     *
      * @param mixed (float) $value Number of successes in trials
      * @param mixed (float) $trials Number of trials
      * @param mixed (float) $probability Probability of success on each trial
@@ -260,34 +265,7 @@ class Statistical
      */
     public static function BINOMDIST($value, $trials, $probability, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $trials = Functions::flattenSingleValue($trials);
-        $probability = Functions::flattenSingleValue($probability);
-
-        if ((is_numeric($value)) && (is_numeric($trials)) && (is_numeric($probability))) {
-            $value = floor($value);
-            $trials = floor($trials);
-            if (($value < 0) || ($value > $trials)) {
-                return Functions::NAN();
-            }
-            if (($probability < 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    $summer = 0;
-                    for ($i = 0; $i <= $value; ++$i) {
-                        $summer += MathTrig::COMBIN($trials, $i) * $probability ** $i * (1 - $probability) ** ($trials - $i);
-                    }
-
-                    return $summer;
-                }
-
-                return MathTrig::COMBIN($trials, $value) * $probability ** $value * (1 - $probability) ** ($trials - $value);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Binomial::distribution($value, $trials, $probability, $cumulative);
     }
 
     /**
@@ -510,6 +488,11 @@ class Statistical
      *
      * See https://support.microsoft.com/en-us/help/828117/ for details of the algorithm used
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Binomial::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\Binomial class instead
+     *
      * @param float $trials number of Bernoulli trials
      * @param float $probability probability of a success on each trial
      * @param float $alpha criterion value
@@ -523,110 +506,7 @@ class Statistical
      */
     public static function CRITBINOM($trials, $probability, $alpha)
     {
-        $trials = floor(Functions::flattenSingleValue($trials));
-        $probability = Functions::flattenSingleValue($probability);
-        $alpha = Functions::flattenSingleValue($alpha);
-
-        if ((is_numeric($trials)) && (is_numeric($probability)) && (is_numeric($alpha))) {
-            $trials = (int) $trials;
-            if ($trials < 0) {
-                return Functions::NAN();
-            } elseif (($probability < 0.0) || ($probability > 1.0)) {
-                return Functions::NAN();
-            } elseif (($alpha < 0.0) || ($alpha > 1.0)) {
-                return Functions::NAN();
-            }
-
-            if ($alpha <= 0.5) {
-                $t = sqrt(log(1 / ($alpha * $alpha)));
-                $trialsApprox = 0 - ($t + (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t));
-            } else {
-                $t = sqrt(log(1 / (1 - $alpha) ** 2));
-                $trialsApprox = $t - (2.515517 + 0.802853 * $t + 0.010328 * $t * $t) / (1 + 1.432788 * $t + 0.189269 * $t * $t + 0.001308 * $t * $t * $t);
-            }
-
-            $Guess = floor($trials * $probability + $trialsApprox * sqrt($trials * $probability * (1 - $probability)));
-            if ($Guess < 0) {
-                $Guess = 0;
-            } elseif ($Guess > $trials) {
-                $Guess = $trials;
-            }
-
-            $TotalUnscaledProbability = $UnscaledPGuess = $UnscaledCumPGuess = 0.0;
-            $EssentiallyZero = 10e-12;
-
-            $m = floor($trials * $probability);
-            ++$TotalUnscaledProbability;
-            if ($m == $Guess) {
-                ++$UnscaledPGuess;
-            }
-            if ($m <= $Guess) {
-                ++$UnscaledCumPGuess;
-            }
-
-            $PreviousValue = 1;
-            $Done = false;
-            $k = $m + 1;
-            while ((!$Done) && ($k <= $trials)) {
-                $CurrentValue = $PreviousValue * ($trials - $k + 1) * $probability / ($k * (1 - $probability));
-                $TotalUnscaledProbability += $CurrentValue;
-                if ($k == $Guess) {
-                    $UnscaledPGuess += $CurrentValue;
-                }
-                if ($k <= $Guess) {
-                    $UnscaledCumPGuess += $CurrentValue;
-                }
-                if ($CurrentValue <= $EssentiallyZero) {
-                    $Done = true;
-                }
-                $PreviousValue = $CurrentValue;
-                ++$k;
-            }
-
-            $PreviousValue = 1;
-            $Done = false;
-            $k = $m - 1;
-            while ((!$Done) && ($k >= 0)) {
-                $CurrentValue = $PreviousValue * $k + 1 * (1 - $probability) / (($trials - $k) * $probability);
-                $TotalUnscaledProbability += $CurrentValue;
-                if ($k == $Guess) {
-                    $UnscaledPGuess += $CurrentValue;
-                }
-                if ($k <= $Guess) {
-                    $UnscaledCumPGuess += $CurrentValue;
-                }
-                if ($CurrentValue <= $EssentiallyZero) {
-                    $Done = true;
-                }
-                $PreviousValue = $CurrentValue;
-                --$k;
-            }
-
-            $PGuess = $UnscaledPGuess / $TotalUnscaledProbability;
-            $CumPGuess = $UnscaledCumPGuess / $TotalUnscaledProbability;
-
-            $CumPGuessMinus1 = $CumPGuess - 1;
-
-            while (true) {
-                if (($CumPGuessMinus1 < $alpha) && ($CumPGuess >= $alpha)) {
-                    return $Guess;
-                } elseif (($CumPGuessMinus1 < $alpha) && ($CumPGuess < $alpha)) {
-                    $PGuessPlus1 = $PGuess * ($trials - $Guess) * $probability / $Guess / (1 - $probability);
-                    $CumPGuessMinus1 = $CumPGuess;
-                    $CumPGuess = $CumPGuess + $PGuessPlus1;
-                    $PGuess = $PGuessPlus1;
-                    ++$Guess;
-                } elseif (($CumPGuessMinus1 >= $alpha) && ($CumPGuess >= $alpha)) {
-                    $PGuessMinus1 = $PGuess * $Guess * (1 - $probability) / ($trials - $Guess + 1) / $probability;
-                    $CumPGuess = $CumPGuessMinus1;
-                    $CumPGuessMinus1 = $CumPGuessMinus1 - $PGuess;
-                    $PGuess = $PGuessMinus1;
-                    --$Guess;
-                }
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Binomial::inverse($trials, $probability, $alpha);
     }
 
     /**
@@ -1502,6 +1382,11 @@ class Statistical
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Binomial::negative::mode()
+     *      Use the negative() method in the Statistical\Distributions\Binomial class instead
+     *
      * @param mixed (float) $failures Number of Failures
      * @param mixed (float) $successes Threshold number of Successes
      * @param mixed (float) $probability Probability of success on each trial
@@ -1510,26 +1395,7 @@ class Statistical
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
-        $failures = floor(Functions::flattenSingleValue($failures));
-        $successes = floor(Functions::flattenSingleValue($successes));
-        $probability = Functions::flattenSingleValue($probability);
-
-        if ((is_numeric($failures)) && (is_numeric($successes)) && (is_numeric($probability))) {
-            if (($failures < 0) || ($successes < 1)) {
-                return Functions::NAN();
-            } elseif (($probability < 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-            if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
-                if (($failures + $successes - 1) <= 0) {
-                    return Functions::NAN();
-                }
-            }
-
-            return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) * ($probability ** $successes) * ((1 - $probability) ** $failures);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Binomial::negative($failures, $successes, $probability);
     }
 
     /**

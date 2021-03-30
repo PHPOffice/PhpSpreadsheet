@@ -83,7 +83,7 @@ class Beta
         $rMax = Functions::flattenSingleValue($rMax);
 
         try {
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $alpha = self::validateFloat($alpha);
             $beta = self::validateFloat($beta);
             $rMax = self::validateFloat($rMax);
@@ -97,7 +97,7 @@ class Beta
             $rMin = $rMax;
             $rMax = $tmp;
         }
-        if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
+        if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0.0)) {
             return Functions::NAN();
         }
 
