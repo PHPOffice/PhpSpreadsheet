@@ -35,16 +35,13 @@ class Binomial
         try {
             $value = self::validateInt($value);
             $trials = self::validateInt($trials);
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $cumulative = self::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         if (($value < 0) || ($value > $trials)) {
-            return Functions::NAN();
-        }
-        if (($probability < 0.0) || ($probability > 1.0)) {
             return Functions::NAN();
         }
 
@@ -77,16 +74,13 @@ class Binomial
 
         try {
             $trials = self::validateInt($trials);
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $successes = self::validateInt($successes);
             $limit = self::validateInt($limit);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (($probability < 0.0) || ($probability > 1.0)) {
-            return Functions::NAN();
-        }
         if (($successes < 0) || ($successes > $trials)) {
             return Functions::NAN();
         }
@@ -129,14 +123,12 @@ class Binomial
         try {
             $failures = self::validateInt($failures);
             $successes = self::validateInt($successes);
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         if (($failures < 0) || ($successes < 1)) {
-            return Functions::NAN();
-        } elseif (($probability < 0) || ($probability > 1)) {
             return Functions::NAN();
         }
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
@@ -169,15 +161,13 @@ class Binomial
 
         try {
             $trials = self::validateInt($trials);
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $alpha = self::validateFloat($alpha);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         if ($trials < 0) {
-            return Functions::NAN();
-        } elseif (($probability < 0.0) || ($probability > 1.0)) {
             return Functions::NAN();
         } elseif (($alpha < 0.0) || ($alpha > 1.0)) {
             return Functions::NAN();

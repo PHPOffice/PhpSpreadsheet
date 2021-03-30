@@ -33,4 +33,15 @@ trait BaseValidations
 
         return (bool) $value;
     }
+
+    protected static function validateProbability($probability)
+    {
+        $probability = self::validateFloat($probability);
+
+        if ($probability < 0.0 || $probability > 1.0) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $probability;
+    }
 }
