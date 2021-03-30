@@ -66,13 +66,27 @@ class Helpers
      *
      * @param float|int $number
      */
-    public static function validateNotNegative($number): void
+    public static function validateNotNegative($number, ?string $except = null): void
     {
         if ($number >= 0) {
             return;
         }
 
-        throw new Exception(Functions::NAN());
+        throw new Exception($except ?? Functions::NAN());
+    }
+
+    /**
+     * Confirm number > 0.
+     *
+     * @param float|int $number
+     */
+    public static function validatePositive($number, ?string $except = null): void
+    {
+        if ($number > 0) {
+            return;
+        }
+
+        throw new Exception($except ?? Functions::NAN());
     }
 
     /**
