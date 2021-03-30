@@ -418,22 +418,22 @@ class Calculation
         ],
         'BINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST.RANGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'range'],
             'argumentCount' => '3,4',
         ],
         'BINOM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical::class, 'CRITBINOM'],
             'argumentCount' => '3',
         ],
         'BITAND' => [
