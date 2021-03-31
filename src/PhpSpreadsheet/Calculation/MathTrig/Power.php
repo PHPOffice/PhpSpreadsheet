@@ -17,7 +17,7 @@ class Power
      *
      * @return float|int|string The result, or a string containing an error
      */
-    public static function execute($x, $y)
+    public static function evaluate($x, $y)
     {
         try {
             $x = Helpers::validateNumericNullBool($x);

@@ -14,7 +14,7 @@ class Mod
      *
      * @return float|int|string Remainder, or a string containing an error
      */
-    public static function execute($a, $b)
+    public static function evaluate($a, $b)
     {
         try {
             $a = Helpers::validateNumericNullBool($a);

@@ -9,7 +9,7 @@ class MathTrig
      *
      * Converts a Roman numeral to an Arabic numeral.
      *
-     * @Deprecated 2.0.0 Use the execute method in the MathTrig\Arabic class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Arabic class instead
      *
      * Excel Function:
      *        ARABIC(text)
@@ -20,7 +20,7 @@ class MathTrig
      */
     public static function ARABIC($roman)
     {
-        return MathTrig\Arabic::execute($roman);
+        return MathTrig\Arabic::evaluate($roman);
     }
 
     /**
@@ -176,7 +176,7 @@ class MathTrig
      *
      * Returns the double factorial of a number.
      *
-     * @Deprecated 2.0.0 Use the execute method in the MathTrig\FactDouble class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\FactDouble class instead
      *
      * Excel Function:
      *        FACTDOUBLE(factVal)
@@ -187,7 +187,7 @@ class MathTrig
      */
     public static function FACTDOUBLE($factVal)
     {
-        return MathTrig\FactDouble::execute($factVal);
+        return MathTrig\FactDouble::evaluate($factVal);
     }
 
     /**
@@ -285,7 +285,7 @@ class MathTrig
      * The greatest common divisor is the largest integer that divides both
      *        number1 and number2 without a remainder.
      *
-     * @Deprecated 2.0.0 Use the execute method in the MathTrig\Gcd class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Gcd class instead
      *
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
@@ -296,7 +296,7 @@ class MathTrig
      */
     public static function GCD(...$args)
     {
-        return MathTrig\Gcd::execute(...$args);
+        return MathTrig\Gcd::evaluate(...$args);
     }
 
     /**
@@ -397,7 +397,7 @@ class MathTrig
     /**
      * MOD.
      *
-     * @Deprecated 2.0.0 Use the execute method in the MathTrig\Mod class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Mod class instead
      *
      * @param int $a Dividend
      * @param int $b Divisor
@@ -406,7 +406,7 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        return MathTrig\Mod::execute($a, $b);
+        return MathTrig\Mod::evaluate($a, $b);
     }
 
     /**
@@ -465,7 +465,7 @@ class MathTrig
      *
      * Computes x raised to the power y.
      *
-     * @Deprecated 2.0.0 Use the execute method in the MathTrig\Power class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Power class instead
      *
      * @param float $x
      * @param float $y
@@ -474,7 +474,7 @@ class MathTrig
      */
     public static function POWER($x = 0, $y = 2)
     {
-        return MathTrig\Power::execute($x, $y);
+        return MathTrig\Power::evaluate($x, $y);
     }
 
     /**

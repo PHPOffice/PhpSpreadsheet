@@ -66,7 +66,7 @@ class Arabic
      *
      * @return int|string the arabic numberal contrived from the roman numeral
      */
-    public static function execute($roman)
+    public static function evaluate($roman)
     {
         // An empty string should return 0
         $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);

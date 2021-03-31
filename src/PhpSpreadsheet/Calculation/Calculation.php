@@ -288,7 +288,7 @@ class Calculation
         ],
         'ARABIC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Arabic::class, 'execute'],
+            'functionCall' => [MathTrig\Arabic::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'AREAS' => [
@@ -995,7 +995,7 @@ class Calculation
         ],
         'FACTDOUBLE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FactDouble::class, 'execute'],
+            'functionCall' => [MathTrig\FactDouble::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'FALSE' => [
@@ -1187,7 +1187,7 @@ class Calculation
         ],
         'GCD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Gcd::class, 'execute'],
+            'functionCall' => [MathTrig\Gcd::class, 'evaluate'],
             'argumentCount' => '1+',
         ],
         'GEOMEAN' => [
@@ -1701,7 +1701,7 @@ class Calculation
         ],
         'MOD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mod::class, 'execute'],
+            'functionCall' => [MathTrig\Mod::class, 'evaluate'],
             'argumentCount' => '2',
         ],
         'MODE' => [
@@ -1973,7 +1973,7 @@ class Calculation
         ],
         'POWER' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Power::class, 'execute'],
+            'functionCall' => [MathTrig\Power::class, 'evaluate'],
             'argumentCount' => '2',
         ],
         'PPMT' => [

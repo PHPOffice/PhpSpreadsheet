@@ -18,7 +18,7 @@ class FactDouble
      *
      * @return float|int|string Double Factorial, or a string containing an error
      */
-    public static function execute($factVal)
+    public static function evaluate($factVal)
     {
         try {
             $factVal = Helpers::validateNumericNullSubstitution($factVal, 0);
