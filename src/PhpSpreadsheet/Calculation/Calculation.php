@@ -1010,7 +1010,7 @@ class Calculation
         ],
         'F.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FDIST2'],
+            'functionCall' => [Statistical\Distributions\F::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'F.DIST.RT' => [

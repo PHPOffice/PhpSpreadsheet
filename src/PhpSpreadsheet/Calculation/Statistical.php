@@ -587,6 +587,11 @@ class Statistical
      *    For example, you can examine the test scores of men and women entering high school, and determine
      *        if the variability in the females is different from that found in the males.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\F::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Exponential class instead
+     *
      * @param float $value Value of the function
      * @param int $u The numerator degrees of freedom
      * @param int $v The denominator degrees of freedom
@@ -597,34 +602,7 @@ class Statistical
      */
     public static function FDIST2($value, $u, $v, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $u = Functions::flattenSingleValue($u);
-        $v = Functions::flattenSingleValue($v);
-        $cumulative = Functions::flattenSingleValue($cumulative);
-
-        if (is_numeric($value) && is_numeric($u) && is_numeric($v)) {
-            if ($value < 0 || $u < 1 || $v < 1) {
-                return Functions::NAN();
-            }
-
-            $cumulative = (bool) $cumulative;
-            $u = (int) $u;
-            $v = (int) $v;
-
-            if ($cumulative) {
-                $adjustedValue = ($u * $value) / ($u * $value + $v);
-
-                return Statistical\Distributions\Beta::incompleteBeta($adjustedValue, $u / 2, $v / 2);
-            }
-
-            return (Statistical\Distributions\Gamma::gammaValue(($v + $u) / 2) /
-                    (Statistical\Distributions\Gamma::gammaValue($u / 2) *
-                        Statistical\Distributions\Gamma::gammaValue($v / 2))) *
-                (($u / $v) ** ($u / 2)) *
-                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\F::distribution($value, $u, $v, $cumulative);
     }
 
     /**
