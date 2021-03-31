@@ -980,12 +980,12 @@ class Calculation
         ],
         'EXPONDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'EXPONDIST'],
+            'functionCall' => [Statistical\Distributions\Exponential::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'EXPON.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'EXPONDIST'],
+            'functionCall' => [Statistical\Distributions\Exponential::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'FACT' => [
@@ -1248,7 +1248,7 @@ class Calculation
         ],
         'HYPGEOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'HYPGEOMDIST'],
+            'functionCall' => [Statistical\Distributions\HyperGeometric::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'HYPGEOM.DIST' => [
