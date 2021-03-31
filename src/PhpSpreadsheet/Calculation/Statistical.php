@@ -2093,8 +2093,10 @@ class Statistical
     /**
      * ZTEST.
      *
-     * Returns the Weibull distribution. Use this distribution in reliability
-     * analysis, such as calculating a device's mean time to failure.
+     * Returns the one-tailed P-value of a z-test.
+     *
+     * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
+     *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
      * @param float $dataSet
      * @param float $m0 Alpha Parameter
