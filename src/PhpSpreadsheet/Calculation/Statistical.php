@@ -116,12 +116,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     * @see Statistical\Averages::averageDeviations()
+     *      Use the averageDeviations() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
-     *
-     *@see Statistical\Averages::averageDeviations()
-     *      Use the averageDeviations() method in the Statistical\Averages class instead
      */
     public static function AVEDEV(...$args)
     {
@@ -160,12 +160,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     * @see Statistical\Averages::averageA()
+     *      Use the averageA() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
-     *
-     *@see Statistical\Averages::averageA()
-     *      Use the averageA() method in the Statistical\Averages class instead
      */
     public static function AVERAGEA(...$args)
     {
@@ -203,7 +203,7 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     *@see Statistical\Distributions\Beta::distribution()
+     * @see Statistical\Distributions\Beta::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Beta class instead
      *
      * @param float $value Value at which you want to evaluate the distribution
@@ -498,11 +498,6 @@ class Statistical
      * @param float $alpha criterion value
      *
      * @return int|string
-     *
-     * @TODO    Warning. This implementation differs from the algorithm detailed on the MS
-     *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
-     *            This eliminates a potential endless loop error, but may have an adverse affect on the
-     *            accuracy of the function (although all my tests have so far returned correct results).
      */
     public static function CRITBINOM($trials, $probability, $alpha)
     {
@@ -568,6 +563,11 @@ class Statistical
      *        such as how long an automated bank teller takes to deliver cash. For example, you can
      *        use EXPONDIST to determine the probability that the process takes at most 1 minute.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Exponential::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Exponential class instead
+     *
      * @param float $value Value of the function
      * @param float $lambda The parameter value
      * @param bool $cumulative
@@ -576,24 +576,7 @@ class Statistical
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $lambda = Functions::flattenSingleValue($lambda);
-        $cumulative = Functions::flattenSingleValue($cumulative);
-
-        if ((is_numeric($value)) && (is_numeric($lambda))) {
-            if (($value < 0) || ($lambda < 0)) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    return 1 - exp(0 - $value * $lambda);
-                }
-
-                return $lambda * exp(0 - $value * $lambda);
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Exponential::distribution($value, $lambda, $cumulative);
     }
 
     /**
@@ -603,6 +586,11 @@ class Statistical
      *    You can use this function to determine whether two data sets have different degrees of diversity.
      *    For example, you can examine the test scores of men and women entering high school, and determine
      *        if the variability in the females is different from that found in the males.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\F::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Exponential class instead
      *
      * @param float $value Value of the function
      * @param int $u The numerator degrees of freedom
@@ -614,34 +602,7 @@ class Statistical
      */
     public static function FDIST2($value, $u, $v, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $u = Functions::flattenSingleValue($u);
-        $v = Functions::flattenSingleValue($v);
-        $cumulative = Functions::flattenSingleValue($cumulative);
-
-        if (is_numeric($value) && is_numeric($u) && is_numeric($v)) {
-            if ($value < 0 || $u < 1 || $v < 1) {
-                return Functions::NAN();
-            }
-
-            $cumulative = (bool) $cumulative;
-            $u = (int) $u;
-            $v = (int) $v;
-
-            if ($cumulative) {
-                $adjustedValue = ($u * $value) / ($u * $value + $v);
-
-                return Statistical\Distributions\Beta::incompleteBeta($adjustedValue, $u / 2, $v / 2);
-            }
-
-            return (Statistical\Distributions\Gamma::gammaValue(($v + $u) / 2) /
-                    (Statistical\Distributions\Gamma::gammaValue($u / 2) *
-                        Statistical\Distributions\Gamma::gammaValue($v / 2))) *
-                (($u / $v) ** ($u / 2)) *
-                (($value ** (($u - 2) / 2)) / ((1 + ($u / $v) * $value) ** (($u + $v) / 2)));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\F::distribution($value, $u, $v, $cumulative);
     }
 
     /**
@@ -908,42 +869,26 @@ class Statistical
      * Returns the hypergeometric distribution. HYPGEOMDIST returns the probability of a given number of
      * sample successes, given the sample size, population successes, and population size.
      *
-     * @param float $sampleSuccesses Number of successes in the sample
-     * @param float $sampleNumber Size of the sample
-     * @param float $populationSuccesses Number of successes in the population
-     * @param float $populationNumber Population size
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\HyperGeometric::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\HyperGeometric class instead
+     *
+     * @param mixed (int) $sampleSuccesses Number of successes in the sample
+     * @param mixed (int) $sampleNumber Size of the sample
+     * @param mixed (int) $populationSuccesses Number of successes in the population
+     * @param mixed (int) $populationNumber Population size
      *
      * @return float|string
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
-        $sampleSuccesses = Functions::flattenSingleValue($sampleSuccesses);
-        $sampleNumber = Functions::flattenSingleValue($sampleNumber);
-        $populationSuccesses = Functions::flattenSingleValue($populationSuccesses);
-        $populationNumber = Functions::flattenSingleValue($populationNumber);
-
-        if ((is_numeric($sampleSuccesses)) && (is_numeric($sampleNumber)) && (is_numeric($populationSuccesses)) && (is_numeric($populationNumber))) {
-            $sampleSuccesses = floor($sampleSuccesses);
-            $sampleNumber = floor($sampleNumber);
-            $populationSuccesses = floor($populationSuccesses);
-            $populationNumber = floor($populationNumber);
-
-            if (($sampleSuccesses < 0) || ($sampleSuccesses > $sampleNumber) || ($sampleSuccesses > $populationSuccesses)) {
-                return Functions::NAN();
-            }
-            if (($sampleNumber <= 0) || ($sampleNumber > $populationNumber)) {
-                return Functions::NAN();
-            }
-            if (($populationSuccesses <= 0) || ($populationSuccesses > $populationNumber)) {
-                return Functions::NAN();
-            }
-
-            return MathTrig::COMBIN($populationSuccesses, $sampleSuccesses) *
-                   MathTrig::COMBIN($populationNumber - $populationSuccesses, $sampleNumber - $sampleSuccesses) /
-                   MathTrig::COMBIN($populationNumber, $sampleNumber);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\HyperGeometric::distribution(
+            $sampleSuccesses,
+            $sampleNumber,
+            $populationSuccesses,
+            $populationNumber
+        );
     }
 
     /**
@@ -2148,8 +2093,10 @@ class Statistical
     /**
      * ZTEST.
      *
-     * Returns the Weibull distribution. Use this distribution in reliability
-     * analysis, such as calculating a device's mean time to failure.
+     * Returns the one-tailed P-value of a z-test.
+     *
+     * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
+     *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
      * @param float $dataSet
      * @param float $m0 Alpha Parameter
