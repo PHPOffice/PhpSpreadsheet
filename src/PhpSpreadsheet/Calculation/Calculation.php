@@ -225,7 +225,7 @@ class Calculation
     ];
 
     // PhpSpreadsheet functions
-    private static $phpSpreadsheetFunctions = [
+    protected static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'builtinABS'],
