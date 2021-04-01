@@ -391,6 +391,11 @@ return [
         '[Green]General',
     ],
     [
+        '12345',
+        12345,
+        '[GrEeN]General',
+    ],
+    [
         '-70',
         -70,
         '#,##0;[Red]-#,##0',
@@ -404,14 +409,24 @@ return [
     [
         '12345',
         12345,
-        '[Blue]0;[Red]0',
+        '[Blue]0;[Red]0-',
     ],
+    [
+        '12345-',
+        -12345,
+        '[BLUE]0;[red]0-',
+    ],
+    [
+        '12345-',
+        -12345,
+        '[blue]0;[RED]0-',
+    ],
+    // Multiple colors with text substitution
     [
         'Positive',
         12,
         '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
     ],
-    // Multiple colors with text substitution
     [
         'Zero',
         0,
@@ -422,6 +437,7 @@ return [
         -2,
         '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
     ],
+    // Value break points
     [
         '<=3500 red',
         3500,
@@ -441,6 +457,17 @@ return [
         'else red',
         25,
         '[Green][<>25]"<>25 green";[Red]"else red"',
+    ],
+    // Leading/trailing quotes in mask
+    [
+        '$12.34 ',
+        12.34,
+        '$#,##0.00_;[RED]"($"#,##0.00")"',
+    ],
+    [
+        '($12.34)',
+        -12.34,
+        '$#,##0.00_;[RED]"($"#,##0.00")"',
     ],
     [
         'pfx. 25.00',
