@@ -385,4 +385,26 @@ class CalculationTest extends TestCase
         self::assertEquals('#NAME?', $sheet->getCell('A3')->getCalculatedValue());
         self::assertEquals('#NAME?', $sheet->getCell('A4')->getCalculatedValue());
     }
+
+    /**
+     * @dataProvider dataProviderBasicMath
+     */
+    public function testBasicMathOperations($expectedResult, $operand1, $operand2, $operator)
+    {
+        $workbook = new Spreadsheet();
+        $sheet = $workbook->getActiveSheet();
+        $sheet->setCellValue('A1', $operand1);
+        $sheet->setCellValue('A2', $operand2);
+        $formula = "=A1 {$operator} A2";
+        $sheet->setCellValue('A3', $formula);
+
+        $result = $sheet->getCell('A3')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1e-12);
+    }
+
+    public function dataProviderBasicMath()
+    {
+        return require 'tests/data/Calculation/CalculationBasicMath.php';
+    }
+
 }
