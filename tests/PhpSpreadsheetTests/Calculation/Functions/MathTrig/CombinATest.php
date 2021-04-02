@@ -2,16 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-class CombinTest extends AllSetupTeardown
+class CombinATest extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerCOMBIN
+     * @dataProvider providerCOMBINA
      *
      * @param mixed $expectedResult
      * @param mixed $numObjs
      * @param mixed $numInSet
      */
-    public function testCOMBIN($expectedResult, $numObjs, $numInSet): void
+    public function testCOMBINA($expectedResult, $numObjs, $numInSet): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->sheet;
@@ -21,13 +21,13 @@ class CombinTest extends AllSetupTeardown
         if ($numInSet !== null) {
             $sheet->getCell('A2')->setValue($numInSet);
         }
-        $sheet->getCell('B1')->setValue('=COMBIN(A1,A2)');
+        $sheet->getCell('B1')->setValue('=COMBINA(A1,A2)');
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBIN()
+    public function providerCOMBINA()
     {
-        return require 'tests/data/Calculation/MathTrig/COMBIN.php';
+        return require 'tests/data/Calculation/MathTrig/COMBINA.php';
     }
 }

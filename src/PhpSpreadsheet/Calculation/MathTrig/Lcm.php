@@ -53,12 +53,15 @@ class Lcm
         try {
             $arrayArgs = [];
             $anyZeros = 0;
+            $anyNonNulls = 0;
             foreach (Functions::flattenArray($args) as $value1) {
+                $anyNonNulls += (int) ($value1 !== null);
                 $value = Helpers::validateNumericNullSubstitution($value1, 1);
                 Helpers::validateNotNegative($value);
                 $arrayArgs[] = (int) $value;
                 $anyZeros += (int) !((bool) $value);
             }
+            self::testNonNulls($anyNonNulls);
             if ($anyZeros) {
                 return 0;
             }
@@ -76,20 +79,32 @@ class Lcm
             foreach ($myCountedFactors as $myCountedFactor => $myCountedPower) {
                 $myPoweredFactors[$myCountedFactor] = $myCountedFactor ** $myCountedPower;
             }
-            foreach ($myPoweredFactors as $myPoweredValue => $myPoweredFactor) {
-                if (isset($allPoweredFactors[$myPoweredValue])) {
-                    if ($allPoweredFactors[$myPoweredValue] < $myPoweredFactor) {
-                        $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
-                    }
-                } else {
-                    $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
-                }
-            }
+            self::processPoweredFactors($allPoweredFactors, $myPoweredFactors);
         }
         foreach ($allPoweredFactors as $allPoweredFactor) {
             $returnValue *= (int) $allPoweredFactor;
         }
 
         return $returnValue;
+    }
+
+    private static function processPoweredFactors(array &$allPoweredFactors, array &$myPoweredFactors): void
+    {
+        foreach ($myPoweredFactors as $myPoweredValue => $myPoweredFactor) {
+            if (isset($allPoweredFactors[$myPoweredValue])) {
+                if ($allPoweredFactors[$myPoweredValue] < $myPoweredFactor) {
+                    $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
+                }
+            } else {
+                $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
+            }
+        }
+    }
+
+    private static function testNonNulls(int $anyNonNulls): void
+    {
+        if (!$anyNonNulls) {
+            throw new Exception(Functions::VALUE());
+        }
     }
 }

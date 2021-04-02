@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use Exception;
+use Matrix\Builder;
 use Matrix\Exception as MatrixException;
 use Matrix\Matrix;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -107,6 +108,29 @@ class MatrixFunctions
             return $matrixA->multiply($matrixB)->toArray();
         } catch (MatrixException $ex) {
             return Functions::VALUE();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * MUnit.
+     *
+     * @param mixed $dimension Number of rows and columns
+     *
+     * @return array|string The result, or a string containing an error
+     */
+    public static function funcMUnit($dimension)
+    {
+        try {
+            $dimension = (int) Helpers::validateNumericNullBool($dimension);
+            Helpers::validatePositive($dimension, Functions::VALUE());
+            $matrix = Builder::createFilledMatrix(0, $dimension)->toArray();
+            for ($x = 0; $x < $dimension; ++$x) {
+                $matrix[$x][$x] = 1;
+            }
+
+            return $matrix;
         } catch (Exception $e) {
             return $e->getMessage();
         }

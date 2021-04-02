@@ -288,7 +288,7 @@ class Calculation
         ],
         'ARABIC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'ARABIC'],
+            'functionCall' => [MathTrig\Arabic::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'AREAS' => [
@@ -555,12 +555,12 @@ class Calculation
         ],
         'COMBIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'COMBIN'],
+            'functionCall' => [MathTrig\Combinations::class, 'withoutRepetition'],
             'argumentCount' => '2',
         ],
         'COMBINA' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [MathTrig\Combinations::class, 'withRepetition'],
             'argumentCount' => '2',
         ],
         'COMPLEX' => [
@@ -995,7 +995,7 @@ class Calculation
         ],
         'FACTDOUBLE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'FACTDOUBLE'],
+            'functionCall' => [MathTrig\FactDouble::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'FALSE' => [
@@ -1187,7 +1187,7 @@ class Calculation
         ],
         'GCD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'GCD'],
+            'functionCall' => [MathTrig\Gcd::class, 'evaluate'],
             'argumentCount' => '1+',
         ],
         'GEOMEAN' => [
@@ -1566,17 +1566,17 @@ class Calculation
         ],
         'LN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinLN'],
+            'functionCall' => [MathTrig\Logarithms::class, 'natural'],
             'argumentCount' => '1',
         ],
         'LOG' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'logBase'],
+            'functionCall' => [MathTrig\Logarithms::class, 'withBase'],
             'argumentCount' => '1,2',
         ],
         'LOG10' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinLOG10'],
+            'functionCall' => [MathTrig\Logarithms::class, 'base10'],
             'argumentCount' => '1',
         ],
         'LOGEST' => [
@@ -1701,7 +1701,7 @@ class Calculation
         ],
         'MOD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'MOD'],
+            'functionCall' => [MathTrig\Mod::class, 'evaluate'],
             'argumentCount' => '2',
         ],
         'MODE' => [
@@ -1736,7 +1736,7 @@ class Calculation
         ],
         'MUNIT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMUnit'],
             'argumentCount' => '1',
         ],
         'N' => [
@@ -1973,7 +1973,7 @@ class Calculation
         ],
         'POWER' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'POWER'],
+            'functionCall' => [MathTrig\Power::class, 'evaluate'],
             'argumentCount' => '2',
         ],
         'PPMT' => [
@@ -2043,7 +2043,7 @@ class Calculation
         ],
         'RAND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'RAND'],
+            'functionCall' => [MathTrig\Random::class, 'randNoArgs'],
             'argumentCount' => '0',
         ],
         'RANDARRAY' => [
@@ -2053,7 +2053,7 @@ class Calculation
         ],
         'RANDBETWEEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'RAND'],
+            'functionCall' => [MathTrig\Random::class, 'randBetween'],
             'argumentCount' => '2',
         ],
         'RANK' => [
