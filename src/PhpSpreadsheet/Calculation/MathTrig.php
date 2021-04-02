@@ -2,21 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use Exception;
-
 class MathTrig
 {
-    private static function strSplit(string $roman): array
-    {
-        $rslt = str_split($roman);
-
-        return is_array($rslt) ? $rslt : [];
-    }
-
     /**
      * ARABIC.
      *
      * Converts a Roman numeral to an Arabic numeral.
+     *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Arabic class instead
      *
      * Excel Function:
      *        ARABIC(text)
@@ -27,69 +20,7 @@ class MathTrig
      */
     public static function ARABIC($roman)
     {
-        // An empty string should return 0
-        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
-        if ($roman === '') {
-            return 0;
-        }
-
-        // Convert the roman numeral to an arabic number
-        $negativeNumber = $roman[0] === '-';
-        if ($negativeNumber) {
-            $roman = substr($roman, 1);
-        }
-
-        try {
-            $arabic = self::calculateArabic(self::strSplit($roman));
-        } catch (Exception $e) {
-            return Functions::VALUE(); // Invalid character detected
-        }
-
-        if ($negativeNumber) {
-            $arabic *= -1; // The number should be negative
-        }
-
-        return $arabic;
-    }
-
-    /**
-     * Recursively calculate the arabic value of a roman numeral.
-     *
-     * @param int $sum
-     * @param int $subtract
-     *
-     * @return int
-     */
-    protected static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
-    {
-        $lookup = [
-            'M' => 1000,
-            'D' => 500,
-            'C' => 100,
-            'L' => 50,
-            'X' => 10,
-            'V' => 5,
-            'I' => 1,
-        ];
-
-        $numeral = array_shift($roman);
-        if (!isset($lookup[$numeral])) {
-            throw new Exception('Invalid character detected');
-        }
-
-        $arabic = $lookup[$numeral];
-        if (count($roman) > 0 && isset($lookup[$roman[0]]) && $arabic < $lookup[$roman[0]]) {
-            $subtract += $arabic;
-        } else {
-            $sum += ($arabic - $subtract);
-            $subtract = 0;
-        }
-
-        if (count($roman) > 0) {
-            self::calculateArabic($roman, $sum, $subtract);
-        }
-
-        return $sum;
+        return MathTrig\Arabic::evaluate($roman);
     }
 
     /**
@@ -172,6 +103,8 @@ class MathTrig
      * Returns the number of combinations for a given number of items. Use COMBIN to
      *        determine the total possible number of groups for a given number of items.
      *
+     * @Deprecated 2.0.0 Use the without method in the MathTrig\Combinations class instead
+     *
      * Excel Function:
      *        COMBIN(numObjs,numInSet)
      *
@@ -182,20 +115,7 @@ class MathTrig
      */
     public static function COMBIN($numObjs, $numInSet)
     {
-        $numObjs = Functions::flattenSingleValue($numObjs);
-        $numInSet = Functions::flattenSingleValue($numInSet);
-
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            if ($numObjs < $numInSet) {
-                return Functions::NAN();
-            } elseif ($numInSet < 0) {
-                return Functions::NAN();
-            }
-
-            return round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet)) / MathTrig\Fact::funcFact($numInSet);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Combinations::withoutRepetition($numObjs, $numInSet);
     }
 
     /**
@@ -256,6 +176,8 @@ class MathTrig
      *
      * Returns the double factorial of a number.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\FactDouble class instead
+     *
      * Excel Function:
      *        FACTDOUBLE(factVal)
      *
@@ -265,23 +187,7 @@ class MathTrig
      */
     public static function FACTDOUBLE($factVal)
     {
-        $factLoop = Functions::flattenSingleValue($factVal);
-
-        if (is_numeric($factLoop)) {
-            $factLoop = floor($factLoop);
-            if ($factVal < 0) {
-                return Functions::NAN();
-            }
-            $factorial = 1;
-            while ($factLoop > 1) {
-                $factorial *= $factLoop--;
-                --$factLoop;
-            }
-
-            return $factorial;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\FactDouble::evaluate($factVal);
     }
 
     /**
@@ -351,11 +257,6 @@ class MathTrig
         return MathTrig\FloorPrecise::funcFloorPrecise($number, $significance);
     }
 
-    private static function evaluateGCD($a, $b)
-    {
-        return $b ? self::evaluateGCD($b, $a % $b) : $a;
-    }
-
     /**
      * INT.
      *
@@ -384,6 +285,8 @@ class MathTrig
      * The greatest common divisor is the largest integer that divides both
      *        number1 and number2 without a remainder.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Gcd class instead
+     *
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
      *
@@ -393,22 +296,7 @@ class MathTrig
      */
     public static function GCD(...$args)
     {
-        $args = Functions::flattenArray($args);
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $value) {
-            if (!is_numeric($value)) {
-                return Functions::VALUE();
-            } elseif ($value < 0) {
-                return Functions::NAN();
-            }
-        }
-
-        $gcd = (int) array_pop($args);
-        do {
-            $gcd = self::evaluateGCD($gcd, (int) array_pop($args));
-        } while (!empty($args));
-
-        return $gcd;
+        return MathTrig\Gcd::evaluate(...$args);
     }
 
     /**
@@ -438,6 +326,8 @@ class MathTrig
      *
      * Returns the logarithm of a number to a specified base. The default base is 10.
      *
+     * @Deprecated 2.0.0 Use the withBase method in the MathTrig\Logarithms class instead
+     *
      * Excel Function:
      *        LOG(number[,base])
      *
@@ -446,19 +336,9 @@ class MathTrig
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function logBase($number = null, $base = 10)
+    public static function logBase($number, $base = 10)
     {
-        $number = Functions::flattenSingleValue($number);
-        $base = ($base === null) ? 10 : (float) Functions::flattenSingleValue($base);
-
-        if ((!is_numeric($base)) || (!is_numeric($number))) {
-            return Functions::VALUE();
-        }
-        if (($base <= 0) || ($number <= 0)) {
-            return Functions::NAN();
-        }
-
-        return log($number, $base);
+        return MathTrig\Logarithms::withBase($number, $base);
     }
 
     /**
@@ -517,6 +397,8 @@ class MathTrig
     /**
      * MOD.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Mod class instead
+     *
      * @param int $a Dividend
      * @param int $b Divisor
      *
@@ -524,18 +406,7 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        $a = (float) Functions::flattenSingleValue($a);
-        $b = (float) Functions::flattenSingleValue($b);
-
-        if ($b == 0.0) {
-            return Functions::DIV0();
-        } elseif (($a < 0.0) && ($b > 0.0)) {
-            return $b - fmod(abs($a), $b);
-        } elseif (($a > 0.0) && ($b < 0.0)) {
-            return $b + fmod($a, abs($b));
-        }
-
-        return fmod($a, $b);
+        return MathTrig\Mod::evaluate($a, $b);
     }
 
     /**
@@ -561,6 +432,8 @@ class MathTrig
      * MULTINOMIAL.
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
+     *
+     * @Deprecated 2.0.0 Use the funcMultinomial method in the MathTrig\Multinomial class instead
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
@@ -592,27 +465,16 @@ class MathTrig
      *
      * Computes x raised to the power y.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Power class instead
+     *
      * @param float $x
      * @param float $y
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
-        $x = Functions::flattenSingleValue($x);
-        $y = Functions::flattenSingleValue($y);
-
-        // Validate parameters
-        if ($x == 0.0 && $y == 0.0) {
-            return Functions::NAN();
-        } elseif ($x == 0.0 && $y < 0.0) {
-            return Functions::DIV0();
-        }
-
-        // Return
-        $result = $x ** $y;
-
-        return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
+        return MathTrig\Power::evaluate($x, $y);
     }
 
     /**
@@ -656,23 +518,18 @@ class MathTrig
     }
 
     /**
-     * RAND.
+     * RAND/RANDBETWEEN.
+     *
+     * @Deprecated 2.0.0 Use the randNoArg or randBetween method in the MathTrig\Random class instead
      *
      * @param int $min Minimal value
      * @param int $max Maximal value
      *
-     * @return int Random number
+     * @return float|int|string Random number
      */
     public static function RAND($min = 0, $max = 0)
     {
-        $min = Functions::flattenSingleValue($min);
-        $max = Functions::flattenSingleValue($max);
-
-        if ($min == 0 && $max == 0) {
-            return (mt_rand(0, 10000000)) / 10000000;
-        }
-
-        return mt_rand($min, $max);
+        return MathTrig\Random::randBetween($min, $max);
     }
 
     /**
@@ -1388,19 +1245,15 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
+     * @Deprecated 2.0.0 Use the natural method in the MathTrig\Logarithms class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinLN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return log($number);
+        return MathTrig\Logarithms::natural($number);
     }
 
     /**
@@ -1408,19 +1261,15 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
+     * @Deprecated 2.0.0 Use the base10 method in the MathTrig\Logarithms class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinLOG10($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return log10($number);
+        return MathTrig\Logarithms::base10($number);
     }
 
     /**

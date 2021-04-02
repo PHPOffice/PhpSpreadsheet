@@ -87,14 +87,14 @@ class Gamma extends GammaBase
         $beta = Functions::flattenSingleValue($beta);
 
         try {
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $alpha = self::validateFloat($alpha);
             $beta = self::validateFloat($beta);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (($alpha <= 0.0) || ($beta <= 0.0) || ($probability < 0.0) || ($probability > 1.0)) {
+        if (($alpha <= 0.0) || ($beta <= 0.0)) {
             return Functions::NAN();
         }
 
