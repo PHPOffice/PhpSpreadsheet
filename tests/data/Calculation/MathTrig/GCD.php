@@ -129,4 +129,8 @@ return [
         481,
         143,
     ],
+    [13, 182, 481, null, 143],
+    ['#VALUE!', null, null, null, null],
+    ['#VALUE!', null],
+    ['exception'],
 ];

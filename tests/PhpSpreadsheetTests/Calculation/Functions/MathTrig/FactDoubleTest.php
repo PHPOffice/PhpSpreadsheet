@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class FactDoubleTest extends TestCase
+class FactDoubleTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerFACTDOUBLE
      *
@@ -21,8 +12,12 @@ class FactDoubleTest extends TestCase
      */
     public function testFACTDOUBLE($expectedResult, $value): void
     {
-        $result = MathTrig::FACTDOUBLE($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue($value);
+        $sheet->getCell('B1')->setValue('=FACTDOUBLE(A1)');
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerFACTDOUBLE()
