@@ -682,7 +682,7 @@ class Statistical
             return Functions::VALUE();
         }
 
-        return self::NORMDIST($value, 0, 1, true) - 0.5;
+        return Statistical\Distributions\Normal::distribution($value, 0, 1, true) - 0.5;
     }
 
     /**
@@ -964,6 +964,11 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\LogNormal class instead
+     *
      * @param float $probability
      * @param float $mean
      * @param float $stdDev
@@ -976,19 +981,7 @@ class Statistical
      */
     public static function LOGINV($probability, $mean, $stdDev)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($probability)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($probability < 0) || ($probability > 1) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            return exp($mean + $stdDev * self::NORMSINV($probability));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::inverse($probability, $mean, $stdDev);
     }
 
     /**
@@ -996,6 +989,11 @@ class Statistical
      *
      * Returns the cumulative lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::cumulative()
+     *      Use the cumulative() method in the Statistical\Distributions\LogNormal class instead
      *
      * @param float $value
      * @param float $mean
@@ -1005,19 +1003,7 @@ class Statistical
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($value <= 0) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            return self::NORMSDIST((log($value) - $mean) / $stdDev);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::cumulative($value, $mean, $stdDev);
     }
 
     /**
@@ -1025,6 +1011,11 @@ class Statistical
      *
      * Returns the lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\LogNormal class instead
      *
      * @param float $value
      * @param float $mean
@@ -1035,25 +1026,7 @@ class Statistical
      */
     public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($value <= 0) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            if ($cumulative === true) {
-                return self::NORMSDIST2((log($value) - $mean) / $stdDev, true);
-            }
-
-            return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-                exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::distribution($value, $mean, $stdDev, $cumulative);
     }
 
     /**
@@ -1311,6 +1284,11 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::cumulative()
+     *      Use the cumulative() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param mixed (float) $value
      *
      * @return float|string The result, or a string containing an error
@@ -1327,6 +1305,11 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param mixed (float) $value
      * @param mixed (bool) $cumulative
      *
@@ -1341,6 +1324,11 @@ class Statistical
      * NORMSINV.
      *
      * Returns the inverse of the standard normal cumulative distribution
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\StandardNormal class instead
      *
      * @param mixed (float) $value
      *

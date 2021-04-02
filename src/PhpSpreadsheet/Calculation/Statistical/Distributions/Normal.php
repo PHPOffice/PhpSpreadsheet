@@ -70,16 +70,13 @@ class Normal
         $stdDev = Functions::flattenSingleValue($stdDev);
 
         try {
-            $probability = self::validateFloat($probability);
+            $probability = self::validateProbability($probability);
             $mean = self::validateFloat($mean);
             $stdDev = self::validateFloat($stdDev);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (($probability < 0) || ($probability > 1)) {
-            return Functions::NAN();
-        }
         if ($stdDev < 0) {
             return Functions::NAN();
         }
@@ -153,13 +150,6 @@ class Normal
 
             return ((((($c[1] * $q + $c[2]) * $q + $c[3]) * $q + $c[4]) * $q + $c[5]) * $q + $c[6]) /
                 (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
-        } elseif ($p_low <= $p && $p <= $p_high) {
-            //    Rational approximation for central region.
-            $q = $p - 0.5;
-            $r = $q * $q;
-
-            return ((((($a[1] * $r + $a[2]) * $r + $a[3]) * $r + $a[4]) * $r + $a[5]) * $r + $a[6]) * $q /
-                ((((($b[1] * $r + $b[2]) * $r + $b[3]) * $r + $b[4]) * $r + $b[5]) * $r + 1);
         } elseif ($p_high < $p && $p < 1) {
             //    Rational approximation for upper region.
             $q = sqrt(-2 * log(1 - $p));
@@ -168,7 +158,11 @@ class Normal
                 (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
         }
 
-        //    If 0 < p < 1, return a null value
-        return Functions::NULL();
+        //    Rational approximation for central region.
+        $q = $p - 0.5;
+        $r = $q * $q;
+
+        return ((((($a[1] * $r + $a[2]) * $r + $a[3]) * $r + $a[4]) * $r + $a[5]) * $r + $a[6]) * $q /
+                ((((($b[1] * $r + $b[2]) * $r + $b[3]) * $r + $b[4]) * $r + $b[5]) * $r + 1);
     }
 }
