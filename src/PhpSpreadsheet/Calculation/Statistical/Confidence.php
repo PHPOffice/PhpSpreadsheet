@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Confidence
 {
+    use BaseValidations;
+
     /**
      * CONFIDENCE.
      *
@@ -24,18 +27,18 @@ class Confidence
         $stdDev = Functions::flattenSingleValue($stdDev);
         $size = Functions::flattenSingleValue($size);
 
-        if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
-            $size = floor($size);
-            if (($alpha <= 0) || ($alpha >= 1)) {
-                return Functions::NAN();
-            }
-            if (($stdDev <= 0) || ($size < 1)) {
-                return Functions::NAN();
-            }
-
-            return Statistical::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
+        try {
+            $alpha = self::validateFloat($alpha);
+            $stdDev = self::validateFloat($stdDev);
+            $size = self::validateInt($size);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (($alpha <= 0) || ($alpha >= 1) || ($stdDev <= 0) || ($size < 1)) {
+            return Functions::NAN();
+        }
+
+        return Statistical::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
     }
 }

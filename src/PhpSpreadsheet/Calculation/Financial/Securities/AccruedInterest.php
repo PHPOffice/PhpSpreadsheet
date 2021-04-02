@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
@@ -76,12 +76,12 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = YearFrac::funcYearFrac($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;
         }
-        $daysBetweenFirstInterestAndSettlement = DateTime::YEARFRAC($firstinterest, $settlement, $basis);
+        $daysBetweenFirstInterestAndSettlement = YearFrac::funcYearFrac($firstinterest, $settlement, $basis);
         if (!is_numeric($daysBetweenFirstInterestAndSettlement)) {
             //    return date error
             return $daysBetweenFirstInterestAndSettlement;
@@ -132,7 +132,7 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = YearFrac::funcYearFrac($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;

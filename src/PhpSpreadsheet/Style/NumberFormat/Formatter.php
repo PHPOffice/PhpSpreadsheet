@@ -43,7 +43,7 @@ class Formatter
         //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
         //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
         $cnt = count($sections);
-        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/';
+        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/mui';
         $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
         $colors = ['', '', '', '', ''];
         $condops = ['', '', '', '', ''];
@@ -139,7 +139,7 @@ class Formatter
             // datetime format
             $value = DateFormatter::format($value, $format);
         } else {
-            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"') {
+            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"' && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format

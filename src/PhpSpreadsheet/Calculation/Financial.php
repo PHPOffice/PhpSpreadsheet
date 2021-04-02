@@ -620,7 +620,7 @@ class Financial
             if (($price <= 0) || ($redemption <= 0)) {
                 return Functions::NAN();
             }
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
+            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
@@ -810,7 +810,7 @@ class Financial
             if (($investment <= 0) || ($redemption <= 0)) {
                 return Functions::NAN();
             }
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
+            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
@@ -1451,7 +1451,7 @@ class Financial
             if (($investment <= 0) || ($discount <= 0)) {
                 return Functions::NAN();
             }
-            $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
+            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
                 //    return date error
                 return $daysBetweenSettlementAndMaturity;
@@ -1639,9 +1639,10 @@ class Financial
 
         $datesCount = count($dates);
         for ($i = 0; $i < $datesCount; ++$i) {
-            $dates[$i] = DateTime::getDateValue($dates[$i]);
-            if (!is_numeric($dates[$i])) {
-                return Functions::VALUE();
+            try {
+                $dates[$i] = DateTimeExcel\Helpers::getDateValue($dates[$i]);
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
         }
 
@@ -1766,7 +1767,7 @@ class Financial
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
             return Functions::NAN();
         }
-        $date0 = DateTime::getDateValue($dates[0]);
+        $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
         if (is_string($date0)) {
             return Functions::VALUE();
         }
@@ -1780,7 +1781,12 @@ class Financial
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
         $valCount = count($values);
-        $date0 = DateTime::getDateValue($dates[0]);
+
+        try {
+            $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
         $rslt = self::validateXnpv($rate, $values, $dates);
         if ($rslt) {
             return $rslt;
@@ -1790,14 +1796,16 @@ class Financial
             if (!is_numeric($values[$i])) {
                 return Functions::VALUE();
             }
-            $datei = DateTime::getDateValue($dates[$i]);
-            if (is_string($datei)) {
-                return Functions::VALUE();
+
+            try {
+                $datei = DateTimeExcel\Helpers::getDateValue($dates[$i]);
+            } catch (Exception $e) {
+                return $e->getMessage();
             }
             if ($date0 > $datei) {
-                $dif = $ordered ? Functions::NAN() : -DateTime::DATEDIF($datei, $date0, 'd');
+                $dif = $ordered ? Functions::NAN() : -DateTimeExcel\DateDif::funcDateDif($datei, $date0, 'd');
             } else {
-                $dif = DateTime::DATEDIF($date0, $datei, 'd');
+                $dif = DateTimeExcel\DateDif::funcDateDif($date0, $datei, 'd');
             }
             if (!is_numeric($dif)) {
                 return $dif;

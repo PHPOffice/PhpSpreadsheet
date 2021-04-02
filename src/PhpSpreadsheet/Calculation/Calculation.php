@@ -418,22 +418,22 @@ class Calculation
         ],
         'BINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'BINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'BINOM.DIST.RANGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'range'],
             'argumentCount' => '3,4',
         ],
         'BINOM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'BITAND' => [
@@ -508,7 +508,7 @@ class Calculation
         ],
         'CHISQ.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\ChiSquared::class, 'inverseLeftTail'],
             'argumentCount' => '2',
         ],
         'CHISQ.INV.RT' => [
@@ -695,7 +695,7 @@ class Calculation
         ],
         'CRITBINOM' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'CRITBINOM'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'CSC' => [
@@ -980,12 +980,12 @@ class Calculation
         ],
         'EXPONDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'EXPONDIST'],
+            'functionCall' => [Statistical\Distributions\Exponential::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'EXPON.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'EXPONDIST'],
+            'functionCall' => [Statistical\Distributions\Exponential::class, 'distribution'],
             'argumentCount' => '3',
         ],
         'FACT' => [
@@ -1010,7 +1010,7 @@ class Calculation
         ],
         'F.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'FDIST2'],
+            'functionCall' => [Statistical\Distributions\F::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'F.DIST.RT' => [
@@ -1248,7 +1248,7 @@ class Calculation
         ],
         'HYPGEOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'HYPGEOMDIST'],
+            'functionCall' => [Statistical\Distributions\HyperGeometric::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'HYPGEOM.DIST' => [
@@ -1751,7 +1751,7 @@ class Calculation
         ],
         'NEGBINOMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NEGBINOMDIST'],
+            'functionCall' => [Statistical\Distributions\Binomial::class, 'negative'],
             'argumentCount' => '3',
         ],
         'NEGBINOM.DIST' => [
@@ -1903,7 +1903,7 @@ class Calculation
         ],
         'PERCENTILE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTILE'],
             'argumentCount' => '2',
         ],
         'PERCENTILE.EXC' => [
@@ -1913,12 +1913,12 @@ class Calculation
         ],
         'PERCENTILE.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTILE'],
             'argumentCount' => '2',
         ],
         'PERCENTRANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTRANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTRANK'],
             'argumentCount' => '2,3',
         ],
         'PERCENTRANK.EXC' => [
@@ -1928,7 +1928,7 @@ class Calculation
         ],
         'PERCENTRANK.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'PERCENTRANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'PERCENTRANK'],
             'argumentCount' => '2,3',
         ],
         'PERMUT' => [
@@ -2018,7 +2018,7 @@ class Calculation
         ],
         'QUARTILE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'QUARTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'QUARTILE'],
             'argumentCount' => '2',
         ],
         'QUARTILE.EXC' => [
@@ -2028,7 +2028,7 @@ class Calculation
         ],
         'QUARTILE.INC' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'QUARTILE'],
+            'functionCall' => [Statistical\Percentiles::class, 'QUARTILE'],
             'argumentCount' => '2',
         ],
         'QUOTIENT' => [
@@ -2058,7 +2058,7 @@ class Calculation
         ],
         'RANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'RANK'],
             'argumentCount' => '2,3',
         ],
         'RANK.AVG' => [
