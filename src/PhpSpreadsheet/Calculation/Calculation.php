@@ -1586,22 +1586,22 @@ class Calculation
         ],
         'LOGINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGINV'],
+            'functionCall' => [Statistical\Distributions\LogNormal::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'LOGNORMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGNORMDIST'],
+            'functionCall' => [Statistical\Distributions\LogNormal::class, 'cumulative'],
             'argumentCount' => '3',
         ],
         'LOGNORM.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGNORMDIST2'],
+            'functionCall' => [Statistical\Distributions\LogNormal::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'LOGNORM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LOGINV'],
+            'functionCall' => [Statistical\Distributions\LogNormal::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'LOOKUP' => [
@@ -1776,42 +1776,42 @@ class Calculation
         ],
         'NORMDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMDIST'],
+            'functionCall' => [Statistical\Distributions\Normal::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'NORM.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMDIST'],
+            'functionCall' => [Statistical\Distributions\Normal::class, 'distribution'],
             'argumentCount' => '4',
         ],
         'NORMINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMINV'],
+            'functionCall' => [Statistical\Distributions\Normal::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'NORM.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMINV'],
+            'functionCall' => [Statistical\Distributions\Normal::class, 'inverse'],
             'argumentCount' => '3',
         ],
         'NORMSDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMSDIST'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'cumulative'],
             'argumentCount' => '1',
         ],
         'NORM.S.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMSDIST2'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'distribution'],
             'argumentCount' => '1,2',
         ],
         'NORMSINV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMSINV'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'inverse'],
             'argumentCount' => '1',
         ],
         'NORM.S.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'NORMSINV'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'inverse'],
             'argumentCount' => '1',
         ],
         'NOT' => [
@@ -2651,12 +2651,12 @@ class Calculation
         ],
         'ZTEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'ZTEST'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'zTest'],
             'argumentCount' => '2-3',
         ],
         'Z.TEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'ZTEST'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'zTest'],
             'argumentCount' => '2-3',
         ],
     ];
