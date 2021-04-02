@@ -1981,6 +1981,11 @@ class Statistical
      * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
      *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::zTest()
+     *      Use the zTest() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param float $dataSet
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
@@ -1989,19 +1994,6 @@ class Statistical
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {
-        $dataSet = Functions::flattenArrayIndexed($dataSet);
-        $m0 = Functions::flattenSingleValue($m0);
-        $sigma = Functions::flattenSingleValue($sigma);
-
-        if (!is_numeric($m0) || ($sigma !== null && !is_numeric($sigma))) {
-            return Functions::VALUE();
-        }
-
-        if ($sigma === null) {
-            $sigma = StandardDeviations::STDEV($dataSet);
-        }
-        $n = count($dataSet);
-
-        return 1 - self::NORMSDIST((Averages::average($dataSet) - $m0) / ($sigma / sqrt($n)));
+        return Statistical\Distributions\StandardNormal::zTest($dataSet, $m0, $sigma);
     }
 }
