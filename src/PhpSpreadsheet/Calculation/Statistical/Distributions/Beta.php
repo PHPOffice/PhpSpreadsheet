@@ -198,10 +198,6 @@ class Beta
      * Based on an idea from Numerical Recipes (W.H. Press et al, 1992).
      *
      * @author Jaco van Kooten
-     *
-     * @param float $x
-     * @param float $p
-     * @param float $q
      */
     private static function betaFraction(float $x, float $p, float $q): float
     {
