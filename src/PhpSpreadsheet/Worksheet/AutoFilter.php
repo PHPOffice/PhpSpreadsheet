@@ -780,7 +780,7 @@ class AutoFilter
                     $ruleValues = [];
                     $dataRowCount = $rangeEnd[1] - $rangeStart[1];
                     $toptenRuleType = null;
-                    $ruleValue = null;
+                    $ruleValue = 0;
                     $ruleOperator = null;
                     foreach ($rules as $rule) {
                         //    We should only ever have one Dynamic Filter Rule anyway

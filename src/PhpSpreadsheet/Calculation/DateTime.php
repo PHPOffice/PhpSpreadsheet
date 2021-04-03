@@ -198,7 +198,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATEVALUE($dateValue = 1)
+    public static function DATEVALUE($dateValue)
     {
         return DateTimeExcel\DateValue::funcDateValue($dateValue);
     }

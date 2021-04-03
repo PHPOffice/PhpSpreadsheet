@@ -67,9 +67,9 @@ class WeekNum
             return 0;
         }
         Helpers::silly1900($PHPDateObject, '+ 5 years'); // 1905 calendar matches
-        $dayOfYear = $PHPDateObject->format('z');
+        $dayOfYear = (int) $PHPDateObject->format('z');
         $PHPDateObject->modify('-' . $dayOfYear . ' days');
-        $firstDayOfFirstWeek = $PHPDateObject->format('w');
+        $firstDayOfFirstWeek = (int) $PHPDateObject->format('w');
         $daysInFirstWeek = (6 - $firstDayOfFirstWeek + $method) % 7;
         $daysInFirstWeek += 7 * !$daysInFirstWeek;
         $endFirstWeek = $daysInFirstWeek - 1;

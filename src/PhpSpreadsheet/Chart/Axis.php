@@ -135,10 +135,8 @@ class Axis extends Properties
      * Get Series Data Type.
      *
      * @param mixed $format_code
-     *
-     * @return string
      */
-    public function setAxisNumberProperties($format_code)
+    public function setAxisNumberProperties($format_code): void
     {
         $this->axisNumber['format'] = (string) $format_code;
         $this->axisNumber['source_linked'] = 0;
@@ -367,7 +365,7 @@ class Axis extends Properties
     /**
      * Set Shadow Properties from Mapped Values.
      *
-     * @param mixed &$reference
+     * @param mixed $reference
      *
      * @return $this
      */

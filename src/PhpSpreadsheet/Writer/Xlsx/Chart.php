@@ -129,7 +129,7 @@ class Chart extends WriterPart
         if ((is_array($caption)) && (count($caption) > 0)) {
             $caption = $caption[0];
         }
-        $this->getParentWriter()->getWriterPart('stringtable')->writeRichTextForCharts($objWriter, $caption, 'a');
+        $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
         $objWriter->endElement();
         $objWriter->endElement();
@@ -1040,9 +1040,9 @@ class Chart extends WriterPart
      * @param DataSeries $plotGroup
      * @param string $groupType Type of plot for dataseries
      * @param XMLWriter $objWriter XML Writer
-     * @param bool &$catIsMultiLevelSeries Is category a multi-series category
-     * @param bool &$valIsMultiLevelSeries Is value set a multi-series set
-     * @param string &$plotGroupingType Type of grouping for multi-series values
+     * @param bool $catIsMultiLevelSeries Is category a multi-series category
+     * @param bool $valIsMultiLevelSeries Is value set a multi-series set
+     * @param string $plotGroupingType Type of grouping for multi-series values
      */
     private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
     {

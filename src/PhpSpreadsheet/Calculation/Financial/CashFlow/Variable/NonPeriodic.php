@@ -198,6 +198,7 @@ class NonPeriodic
                 return $e->getMessage();
             }
             if ($date0 > $datei) {
+                /** @phpstan-ignore-next-line */
                 $dif = $ordered ? Functions::NAN() : -DateTimeExcel\DateDif::funcDateDif($datei, $date0, 'd');
             } else {
                 $dif = DateTimeExcel\DateDif::funcDateDif($date0, $datei, 'd');

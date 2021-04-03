@@ -19,10 +19,10 @@ class BesselK
      *        BESSELK(x,ord)
      *
      * @param mixed $x A float value at which to evaluate the function.
-     *                   If x is nonnumeric, BESSELK returns the #VALUE! error value.
+     *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
      * @param mixed $ord The integer order of the Bessel function.
      *                       If ord is not an integer, it is truncated.
-     *                       If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
+     *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                       If $ord < 0, BESSELKI returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error

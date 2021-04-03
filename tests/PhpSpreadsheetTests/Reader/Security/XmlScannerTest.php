@@ -23,7 +23,6 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      * @param mixed $expectedResult
-     * @param $libxmlDisableEntityLoader
      */
     public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader): void
     {
@@ -59,7 +58,6 @@ class XmlScannerTest extends TestCase
      * @dataProvider providerInvalidXML
      *
      * @param mixed $filename
-     * @param $libxmlDisableEntityLoader
      */
     public function testInvalidXML($filename, $libxmlDisableEntityLoader): void
     {

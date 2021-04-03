@@ -392,13 +392,11 @@ class Properties
     /**
      * Get a Custom Property Type.
      *
-     * @return string
+     * @return null|string
      */
     public function getCustomPropertyType(string $propertyName)
     {
-        if (isset($this->customProperties[$propertyName])) {
-            return $this->customProperties[$propertyName]['type'];
-        }
+        return $this->customProperties[$propertyName]['type'] ?? null;
     }
 
     private function identifyPropertyType($propertyValue)

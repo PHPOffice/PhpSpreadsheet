@@ -318,7 +318,7 @@ class GridLines extends Properties
     /**
      * Set Shadow Properties Values.
      *
-     * @param mixed &$reference
+     * @param mixed $reference
      *
      * @return $this
      */

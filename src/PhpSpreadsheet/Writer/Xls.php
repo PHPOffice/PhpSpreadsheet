@@ -23,6 +23,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Parser;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet;
 
 class Xls extends BaseWriter
 {
@@ -64,7 +67,7 @@ class Xls extends BaseWriter
     /**
      * Formula parser.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
+     * @var Parser
      */
     private $parser;
 
@@ -90,12 +93,12 @@ class Xls extends BaseWriter
     private $documentSummaryInformation;
 
     /**
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook
+     * @var Workbook
      */
     private $writerWorkbook;
 
     /**
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet[]
+     * @var Worksheet[]
      */
     private $writerWorksheets;
 
@@ -388,7 +391,7 @@ class Xls extends BaseWriter
         }
     }
 
-    private function processMemoryDrawing(BstoreContainer &$bstoreContainer, BaseDrawing $drawing, string $renderingFunctionx): void
+    private function processMemoryDrawing(BstoreContainer &$bstoreContainer, MemoryDrawing $drawing, string $renderingFunctionx): void
     {
         switch ($renderingFunctionx) {
             case MemoryDrawing::RENDERING_JPEG:
@@ -418,7 +421,7 @@ class Xls extends BaseWriter
         $bstoreContainer->addBSE($BSE);
     }
 
-    private function processDrawing(BstoreContainer &$bstoreContainer, BaseDrawing $drawing): void
+    private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
     {
         $blipType = null;
         $blipData = '';
