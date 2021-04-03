@@ -293,7 +293,7 @@ class Coupons
 
         $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, 0);
 
-        return ceil($yearsBetweenSettlementAndMaturity * $frequency);
+        return (int) ceil($yearsBetweenSettlementAndMaturity * $frequency);
     }
 
     /**
