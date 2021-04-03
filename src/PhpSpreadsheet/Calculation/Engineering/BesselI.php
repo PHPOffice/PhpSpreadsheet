@@ -21,12 +21,12 @@ class BesselI
      * NOTE: The MS Excel implementation of the BESSELI function is still not accurate.
      *       This code provides a more accurate calculation
      *
-     * @param mixed (float) $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
-     * @param mixed (int) $ord The order of the Bessel function.
-     *                                If ord is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELI returns the #NUM! error value.
+     * @param mixed $x A float value at which to evaluate the function.
+     *                   If x is nonnumeric, BESSELI returns the #VALUE! error value.
+     * @param mixed $ord The integer order of the Bessel function.
+     *                       If ord is not an integer, it is truncated.
+     *                       If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
+     *                       If $ord < 0, BESSELI returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
      */

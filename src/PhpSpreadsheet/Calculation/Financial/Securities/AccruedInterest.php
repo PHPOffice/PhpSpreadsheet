@@ -27,21 +27,20 @@ class AccruedInterest
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
-     * @param mixed (float) $rate The security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $frequency The number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
-     * @param mixed $parValue
+     * @param mixed $rate The security's annual coupon rate
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use.
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      * @param mixed $calcMethod
      *
      * @return float|string Result, or a string containing an error
@@ -100,16 +99,15 @@ class AccruedInterest
      *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
-     * @param mixed (float) $rate The security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
-     * @param mixed $parValue
+     * @param mixed $rate The security's annual coupon rate
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
+     * @param mixed $basis The type of day count to use.
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string Result, or a string containing an error
      */

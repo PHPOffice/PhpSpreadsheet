@@ -109,7 +109,7 @@ class Trends
      * Calculates, or predicts, a future value by using existing values.
      * The predicted value is a y-value for a given x-value.
      *
-     * @param mixed (float) $xValue Value of X for which we want to find Y
+     * @param mixed $xValue Float value of X for which we want to find Y
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
@@ -140,7 +140,7 @@ class Trends
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      * @param mixed[] $newValues Values of X for which we want to find Y
-     * @param mixed (bool) $const a logical value specifying whether to force the intersect to equal 0
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      *
      * @return array of float
      */
@@ -196,8 +196,8 @@ class Trends
      *
      * @param mixed[] $yValues Data Series Y
      * @param null|mixed[] $xValues Data Series X
-     * @param mixed (bool) $const a logical value specifying whether to force the intersect to equal 0
-     * @param mixed (bool) $stats a logical value specifying whether to return additional regression statistics
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
      * @return array|int|string The result, or a string containing an error
      */
@@ -257,8 +257,8 @@ class Trends
      *
      * @param mixed[] $yValues Data Series Y
      * @param null|mixed[] $xValues Data Series X
-     * @param mixed (bool) $const a logical value specifying whether to force the intersect to equal 0
-     * @param mixed (bool) $stats a logical value specifying whether to return additional regression statistics
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
      * @return array|int|string The result, or a string containing an error
      */
@@ -397,7 +397,7 @@ class Trends
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
      * @param mixed[] $newValues Values of X for which we want to find Y
-     * @param mixed (bool) $const a logical value specifying whether to force the intersect to equal 0
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      *
      * @return array of float
      */

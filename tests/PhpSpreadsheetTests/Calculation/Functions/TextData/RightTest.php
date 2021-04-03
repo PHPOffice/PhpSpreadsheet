@@ -33,7 +33,7 @@ class RightTest extends TestCase
      * @dataProvider providerLocaleRIGHT
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      * @param mixed $characters
      */

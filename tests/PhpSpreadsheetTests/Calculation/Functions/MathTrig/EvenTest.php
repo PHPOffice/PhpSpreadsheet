@@ -8,7 +8,7 @@ class EvenTest extends AllSetupTeardown
      * @dataProvider providerEVEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testEVEN($expectedResult, $value): void
     {

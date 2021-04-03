@@ -15,10 +15,10 @@ class Weibull
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $alpha Alpha Parameter
-     * @param mixed (float) $beta Beta Parameter
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for the distribution
+     * @param mixed $alpha Float alpha Parameter
+     * @param mixed $beta Float beta Parameter
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string (string if result is an error)
      */

@@ -17,7 +17,7 @@ class FisherInvTest extends TestCase
      * @dataProvider providerFISHERINV
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testFISHERINV($expectedResult, $value): void
     {

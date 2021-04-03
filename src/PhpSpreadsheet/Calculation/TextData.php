@@ -399,8 +399,8 @@ class TextData
      *
      * @see Use the exact() method in the TextData\Text class instead
      *
-     * @param $value1
-     * @param $value2
+     * @param mixed $value1
+     * @param mixed $value2
      *
      * @return bool
      */

@@ -17,7 +17,7 @@ class UpperTest extends TestCase
      * @dataProvider providerUPPER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testUPPER($expectedResult, $value): void
     {
@@ -34,7 +34,7 @@ class UpperTest extends TestCase
      * @dataProvider providerLocaleLOWER
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      */
     public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void

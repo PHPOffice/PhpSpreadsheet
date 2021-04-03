@@ -17,11 +17,10 @@ class F
      *    For example, you can examine the test scores of men and women entering high school, and determine
      *        if the variability in the females is different from that found in the males.
      *
-     * @param mixed(float) $value Value of the function
-     * @param mixed(int) $u The numerator degrees of freedom
-     * @param mixed(int) $v The denominator degrees of freedom
-     * @param mixed(bool) $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
-     *                         if FALSE, it returns the probability density function.
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $u The numerator degrees of freedom as an integer
+     * @param mixed $v The denominator degrees of freedom as an integer
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string
      */

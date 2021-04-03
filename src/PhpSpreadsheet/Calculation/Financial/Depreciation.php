@@ -22,15 +22,15 @@ class Depreciation
      * Excel Function:
      *        DB(cost,salvage,life,period[,month])
      *
-     * @param mixed (float) $cost Initial cost of the asset
-     * @param mixed (float) $salvage Value at the end of the depreciation.
-     *                                (Sometimes called the salvage value of the asset)
-     * @param mixed (int) $life Number of periods over which the asset is depreciated.
-     *                                (Sometimes called the useful life of the asset)
-     * @param mixed (int) $period The period for which you want to calculate the
-     *                                depreciation. Period must use the same units as life.
-     * @param mixed (int) $month Number of months in the first year. If month is omitted,
-     *                                it defaults to 12.
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation.
+     *                             (Sometimes called the salvage value of the asset)
+     * @param mixed $life Number of periods over which the asset is depreciated.
+     *                           (Sometimes called the useful life of the asset)
+     * @param mixed $period The period for which you want to calculate the
+     *                          depreciation. Period must use the same units as life.
+     * @param mixed $month Number of months in the first year. If month is omitted,
+     *                         it defaults to 12.
      *
      * @return float|string
      */
@@ -87,14 +87,14 @@ class Depreciation
      * Excel Function:
      *        DDB(cost,salvage,life,period[,factor])
      *
-     * @param mixed (float) $cost Initial cost of the asset
-     * @param mixed (float) $salvage Value at the end of the depreciation.
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation.
      *                                (Sometimes called the salvage value of the asset)
-     * @param mixed (int) $life Number of periods over which the asset is depreciated.
+     * @param mixed $life Number of periods over which the asset is depreciated.
      *                                (Sometimes called the useful life of the asset)
-     * @param mixed (int) $period The period for which you want to calculate the
+     * @param mixed $period The period for which you want to calculate the
      *                                depreciation. Period must use the same units as life.
-     * @param mixed (float) $factor The rate at which the balance declines.
+     * @param mixed $factor The rate at which the balance declines.
      *                                If factor is omitted, it is assumed to be 2 (the
      *                                double-declining balance method).
      *
@@ -139,9 +139,9 @@ class Depreciation
      *
      * Returns the straight-line depreciation of an asset for one period
      *
-     * @param mixed (float) $cost Initial cost of the asset
-     * @param mixed (float) $salvage Value at the end of the depreciation
-     * @param mixed (float) $life Number of periods over which the asset is depreciated
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation
+     * @param mixed $life Number of periods over which the asset is depreciated
      *
      * @return float|string Result, or a string containing an error
      */
@@ -171,10 +171,10 @@ class Depreciation
      *
      * Returns the sum-of-years' digits depreciation of an asset for a specified period.
      *
-     * @param mixed (float) $cost Initial cost of the asset
-     * @param mixed (float) $salvage Value at the end of the depreciation
-     * @param mixed (float) $life Number of periods over which the asset is depreciated
-     * @param mixed (float) $period Period
+     * @param mixed $cost Initial cost of the asset
+     * @param mixed $salvage Value at the end of the depreciation
+     * @param mixed $life Number of periods over which the asset is depreciated
+     * @param mixed $period Period
      *
      * @return float|string Result, or a string containing an error
      */

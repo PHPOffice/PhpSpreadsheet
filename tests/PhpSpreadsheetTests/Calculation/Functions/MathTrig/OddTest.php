@@ -8,7 +8,7 @@ class OddTest extends AllSetupTeardown
      * @dataProvider providerODD
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testODD($expectedResult, $value): void
     {
