@@ -21,9 +21,9 @@ class Erf
      *    Excel Function:
      *        ERF(lower[,upper])
      *
-     * @param mixed (float) $lower lower bound for integrating ERF
-     * @param mixed (float) $upper upper bound for integrating ERF.
-     *                                If omitted, ERF integrates between zero and lower_limit
+     * @param mixed $lower lower bound float for integrating ERF
+     * @param mixed $upper upper bound float for integrating ERF.
+     *                           If omitted, ERF integrates between zero and lower_limit
      *
      * @return float|string
      */
