@@ -40,7 +40,7 @@ class Permutations
             return Functions::NAN();
         }
 
-        return round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet));
+        return (int) round(MathTrig\Fact::funcFact($numObjs) / MathTrig\Fact::funcFact($numObjs - $numInSet));
     }
 
     /**
@@ -70,6 +70,6 @@ class Permutations
             return Functions::NAN();
         }
 
-        return $numObjs ** $numInSet;
+        return (int) ($numObjs ** $numInSet);
     }
 }

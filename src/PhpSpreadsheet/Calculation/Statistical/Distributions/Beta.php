@@ -20,11 +20,11 @@ class Beta
      *
      * Returns the beta distribution.
      *
-     * @param mixed (float) $value Value at which you want to evaluate the distribution
-     * @param mixed (float) $alpha Parameter to the distribution
-     * @param mixed (float) $beta Parameter to the distribution
-     * @param mixed (float) $rMin
-     * @param mixed (float) $rMax
+     * @param mixed $value Float value at which you want to evaluate the distribution
+     * @param mixed $alpha Parameter to the distribution as a float
+     * @param mixed $beta Parameter to the distribution as a float
+     * @param mixed $rMin as an float
+     * @param mixed $rMax as an float
      *
      * @return float|string
      */
@@ -66,11 +66,11 @@ class Beta
      *
      * Returns the inverse of the Beta distribution.
      *
-     * @param mixed (float) $probability Probability at which you want to evaluate the distribution
-     * @param mixed (float) $alpha Parameter to the distribution
-     * @param mixed (float) $beta Parameter to the distribution
-     * @param mixed (float) $rMin Minimum value
-     * @param mixed (float) $rMax Maximum value
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
+     * @param mixed $alpha Parameter to the distribution as a float
+     * @param mixed $beta Parameter to the distribution as a float
+     * @param mixed $rMin Minimum value as a float
+     * @param mixed $rMax Maximum value as a float
      *
      * @return float|string
      */

@@ -14,7 +14,7 @@ class Gamma extends GammaBase
      *
      * Return the gamma function value.
      *
-     * @param mixed (float) $value
+     * @param mixed $value Float value for which we want the probability
      *
      * @return float|string The result, or a string containing an error
      */
@@ -40,10 +40,10 @@ class Gamma extends GammaBase
      *
      * Returns the gamma distribution.
      *
-     * @param mixed (float) $value Value at which you want to evaluate the distribution
-     * @param mixed (float) $a Parameter to the distribution
-     * @param mixed (float) $b Parameter to the distribution
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float Value at which you want to evaluate the distribution
+     * @param mixed $a Parameter to the distribution as a float
+     * @param mixed $b Parameter to the distribution as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string
      */
@@ -74,9 +74,9 @@ class Gamma extends GammaBase
      *
      * Returns the inverse of the Gamma distribution.
      *
-     * @param mixed (float) $probability Probability at which you want to evaluate the distribution
-     * @param mixed (float) $alpha Parameter to the distribution
-     * @param mixed (float) $beta Parameter to the distribution
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
+     * @param mixed $alpha Parameter to the distribution as a float
+     * @param mixed $beta Parameter to the distribution as a float
      *
      * @return float|string
      */
@@ -106,7 +106,7 @@ class Gamma extends GammaBase
      *
      * Returns the natural logarithm of the gamma function.
      *
-     * @param mixed (float) $value
+     * @param mixed $value Float Value at which you want to evaluate the distribution
      *
      * @return float|string
      */
