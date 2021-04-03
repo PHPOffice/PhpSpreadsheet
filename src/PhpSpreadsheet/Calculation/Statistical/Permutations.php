@@ -19,8 +19,8 @@ class Permutations
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
-     * @param mixed (int) $numObjs Number of different objects
-     * @param mixed (int) $numInSet Number of objects in each permutation
+     * @param mixed $numObjs Integer number of different objects
+     * @param mixed $numInSet Integer number of objects in each permutation
      *
      * @return int|string Number of permutations, or a string containing an error
      */
@@ -49,8 +49,8 @@ class Permutations
      * Returns the number of permutations for a given number of objects (with repetitions)
      *     that can be selected from the total objects.
      *
-     * @param int $numObjs Number of different objects
-     * @param int $numInSet Number of objects in each permutation
+     * @param mixed $numObjs Integer number of different objects
+     * @param mixed $numInSet Integer number of objects in each permutation
      *
      * @return int|string Number of permutations, or a string containing an error
      */

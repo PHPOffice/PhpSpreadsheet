@@ -17,7 +17,7 @@ class GammaLnTest extends TestCase
      * @dataProvider providerGAMMALN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testGAMMALN($expectedResult, $value): void
     {

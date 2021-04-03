@@ -69,9 +69,9 @@ class Percentiles
      *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
      *      0.667 rather than 0.666
      *
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $value the number whose rank you want to find
-     * @param mixed (int) $significance the number of significant digits for the returned percentage value
+     * @param mixed $valueSet An array of (float) values, or a reference to, a list of numbers
+     * @param mixed $value The number whose rank you want to find
+     * @param mixed $significance The (integer) number of significant digits for the returned percentage value
      *
      * @return float|string (string if result is an error)
      */
@@ -151,11 +151,11 @@ class Percentiles
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @param mixed (float) $value the number whose rank you want to find
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $order Order to sort the values in the value set
+     * @param mixed $value The number whose rank you want to find
+     * @param mixed $valueSet An array of float values, or a reference to, a list of numbers
+     * @param mixed $order Order to sort the values in the value set
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|string The result, or a string containing an error (0 = Descending, 1 = Ascending)
      */
     public static function RANK($value, $valueSet, $order = self::RANK_SORT_DESCENDING)
     {

@@ -29,8 +29,8 @@ class Amortization
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param mixed $period The period (float).
-     * @param mixed $rate Rate of depreciation (float).
+     * @param mixed $period the period (float)
+     * @param mixed $rate rate of depreciation (float)
      * @param mixed $basis The type of day count to use (int).
      *                         0 or omitted    US (NASD) 30/360
      *                         1               Actual/actual
