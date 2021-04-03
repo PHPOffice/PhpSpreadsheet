@@ -392,7 +392,8 @@ class Alignment extends Supervisor
             if (
                 $this->getHorizontal() != self::HORIZONTAL_GENERAL &&
                 $this->getHorizontal() != self::HORIZONTAL_LEFT &&
-                $this->getHorizontal() != self::HORIZONTAL_RIGHT
+                $this->getHorizontal() != self::HORIZONTAL_RIGHT &&
+                $this->getHorizontal() != self::HORIZONTAL_DISTRIBUTED
             ) {
                 $pValue = 0; // indent not supported
             }
