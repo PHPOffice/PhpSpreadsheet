@@ -156,7 +156,7 @@ class Engineering
      *
      * @see Use the toDecimal() method in the Engineering\ConvertBinary class instead
      *
-     * @param string $x The binary number (as a string) that you want to convert. The number
+     * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
@@ -182,13 +182,13 @@ class Engineering
      *
      * @see Use the toHex() method in the Engineering\ConvertBinary class instead
      *
-     * @param string $x The binary number (as a string) that you want to convert. The number
+     * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2HEX returns the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, BIN2HEX uses the
+     * @param mixed $places The number of characters to use. If places is omitted, BIN2HEX uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -214,13 +214,13 @@ class Engineering
      *
      * @see Use the toOctal() method in the Engineering\ConvertBinary class instead
      *
-     * @param string $x The binary number (as a string) that you want to convert. The number
+     * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
      *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2OCT returns the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, BIN2OCT uses the
+     * @param mixed $places The number of characters to use. If places is omitted, BIN2OCT uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -246,7 +246,7 @@ class Engineering
      *
      * @see Use the toBinary() method in the Engineering\ConvertDecimal class instead
      *
-     * @param string $x The decimal integer you want to convert. If number is negative,
+     * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
      *                                (10-bit) binary number in which the most significant bit is the sign
      *                                bit. The remaining 9 bits are magnitude bits. Negative numbers are
@@ -256,7 +256,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If DEC2BIN requires more than places characters, it returns the #NUM!
      *                                error value.
-     * @param int $places The number of characters to use. If places is omitted, DEC2BIN uses
+     * @param mixed $places The number of characters to use. If places is omitted, DEC2BIN uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -282,7 +282,7 @@ class Engineering
      *
      * @see Use the toHex() method in the Engineering\ConvertDecimal class instead
      *
-     * @param string $x The decimal integer you want to convert. If number is negative,
+     * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
      *                                hexadecimal number in which the most significant bit is the sign
      *                                bit. The remaining 39 bits are magnitude bits. Negative numbers
@@ -292,7 +292,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If DEC2HEX requires more than places characters, it returns the
      *                                #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, DEC2HEX uses
+     * @param mixed $places The number of characters to use. If places is omitted, DEC2HEX uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -318,7 +318,7 @@ class Engineering
      *
      * @see Use the toOctal() method in the Engineering\ConvertDecimal class instead
      *
-     * @param string $x The decimal integer you want to convert. If number is negative,
+     * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
      *                                octal number in which the most significant bit is the sign bit.
      *                                The remaining 29 bits are magnitude bits. Negative numbers are
@@ -328,7 +328,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If DEC2OCT requires more than places characters, it returns the
      *                                #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, DEC2OCT uses
+     * @param mixed $places The number of characters to use. If places is omitted, DEC2OCT uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -354,7 +354,7 @@ class Engineering
      *
      * @see Use the toBinary() method in the Engineering\ConvertHex class instead
      *
-     * @param string $x the hexadecimal number you want to convert.
+     * @param mixed $x the hexadecimal number (as a string) that you want to convert.
      *                  Number cannot contain more than 10 characters.
      *                  The most significant bit of number is the sign bit (40th bit from the right).
      *                  The remaining 9 bits are magnitude bits.
@@ -364,7 +364,7 @@ class Engineering
      *                      and if number is positive, it cannot be greater than 1FF.
      *                  If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
      *                  If HEX2BIN requires more than places characters, it returns the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted,
+     * @param mixed $places The number of characters to use. If places is omitted,
      *                                    HEX2BIN uses the minimum number of characters necessary. Places
      *                                    is useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -390,7 +390,7 @@ class Engineering
      *
      * @see Use the toDecimal() method in the Engineering\ConvertHex class instead
      *
-     * @param string $x The hexadecimal number you want to convert. This number cannot
+     * @param mixed $x The hexadecimal number (as a string) that you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
      *                                bit of number is the sign bit. The remaining 39 bits are magnitude
      *                                bits. Negative numbers are represented using two's-complement
@@ -417,7 +417,7 @@ class Engineering
      *
      * @see Use the toOctal() method in the Engineering\ConvertHex class instead
      *
-     * @param string $x The hexadecimal number you want to convert. Number cannot
+     * @param mixed $x The hexadecimal number (as a string) that you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
      *                                    number is the sign bit. The remaining 39 bits are magnitude
      *                                    bits. Negative numbers are represented using two's-complement
@@ -430,7 +430,7 @@ class Engineering
      *                                    the #NUM! error value.
      *                                    If HEX2OCT requires more than places characters, it returns
      *                                    the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, HEX2OCT
+     * @param mixed $places The number of characters to use. If places is omitted, HEX2OCT
      *                                    uses the minimum number of characters necessary. Places is
      *                                    useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -457,7 +457,7 @@ class Engineering
      *
      * @see Use the toBinary() method in the Engineering\ConvertOctal class instead
      *
-     * @param string $x The octal number you want to convert. Number may not
+     * @param mixed $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
      *                                    bit of number is the sign bit. The remaining 29 bits
      *                                    are magnitude bits. Negative numbers are represented
@@ -470,7 +470,7 @@ class Engineering
      *                                    the #NUM! error value.
      *                                    If OCT2BIN requires more than places characters, it
      *                                    returns the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted,
+     * @param mixed $places The number of characters to use. If places is omitted,
      *                                    OCT2BIN uses the minimum number of characters necessary.
      *                                    Places is useful for padding the return value with
      *                                    leading 0s (zeros).
@@ -499,7 +499,7 @@ class Engineering
      *
      * @see Use the toDecimal() method in the Engineering\ConvertOctal class instead
      *
-     * @param string $x The octal number you want to convert. Number may not contain
+     * @param mixed $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
      *                                bit of number is the sign bit. The remaining 29 bits are
      *                                magnitude bits. Negative numbers are represented using
@@ -526,7 +526,7 @@ class Engineering
      *
      * @see Use the toHex() method in the Engineering\ConvertOctal class instead
      *
-     * @param string $x The octal number you want to convert. Number may not contain
+     * @param mixed $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
      *                                    bit of number is the sign bit. The remaining 29 bits are
      *                                    magnitude bits. Negative numbers are represented using
@@ -537,7 +537,7 @@ class Engineering
      *                                    #NUM! error value.
      *                                    If OCT2HEX requires more than places characters, it returns
      *                                    the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, OCT2HEX
+     * @param mixed $places The number of characters to use. If places is omitted, OCT2HEX
      *                                    uses the minimum number of characters necessary. Places is useful
      *                                    for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.

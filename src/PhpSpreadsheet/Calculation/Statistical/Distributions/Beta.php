@@ -137,9 +137,9 @@ class Beta
      *
      * The computation is based on formulas from Numerical Recipes, Chapter 6.4 (W.H. Press et al, 1992).
      *
-     * @param mixed $x require 0<=x<=1
-     * @param mixed $p require p>0
-     * @param mixed $q require q>0
+     * @param float $x require 0<=x<=1
+     * @param float $p require p>0
+     * @param float $q require q>0
      *
      * @return float 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
      */
@@ -171,8 +171,8 @@ class Beta
     /**
      * The natural logarithm of the beta function.
      *
-     * @param mixed $p require p>0
-     * @param mixed $q require q>0
+     * @param float $p require p>0
+     * @param float $q require q>0
      *
      * @return float 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
      *
@@ -199,9 +199,9 @@ class Beta
      *
      * @author Jaco van Kooten
      *
-     * @param mixed $x
-     * @param mixed $p
-     * @param mixed $q
+     * @param float $x
+     * @param float $p
+     * @param float $q
      */
     private static function betaFraction(float $x, float $p, float $q): float
     {

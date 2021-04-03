@@ -49,21 +49,21 @@ class Financial
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
-     * @param mixed (float) $rate the security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
+     * @param mixed $rate the security's annual coupon rate
+     * @param mixed $par The security's par value.
      *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $frequency The number of coupon payments per year.
+     * @param mixed $frequency The number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $basis The type of day count to use.
      *                               0 or omitted    US (NASD) 30/360
      *                               1                Actual/actual
      *                               2                Actual/360
      *                               3                Actual/365
      *                               4                European 30/360
-     * @param mixed (bool) $calcMethod
+     * @param mixed $calcMethod
      *                          If true, use Issue to Settlement
      *                          If false, use FirstInterest to Settlement
      *
@@ -106,10 +106,10 @@ class Financial
      *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
-     * @param mixed (float) $rate The security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
+     * @param mixed $rate The security's annual coupon rate
+     * @param mixed $par The security's par value.
      *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $basis The type of day count to use.
      *                               0 or omitted    US (NASD) 30/360
      *                               1                Actual/actual
      *                               2                Actual/360
@@ -876,11 +876,11 @@ class Financial
      * Excel Function:
      *        IRR(values[,guess])
      *
-     * @param mixed (float[]) $values An array or a reference to cells that contain numbers for which you want
+     * @param mixed $values An array or a reference to cells that contain numbers for which you want
      *                                    to calculate the internal rate of return.
      *                                Values must contain at least one positive value and one negative value to
      *                                    calculate the internal rate of return.
-     * @param mixed (float) $guess A number that you guess is close to the result of IRR
+     * @param mixed $guess A number that you guess is close to the result of IRR
      *
      * @return float|string
      */
@@ -986,11 +986,11 @@ class Financial
      * Excel Function:
      *        MIRR(values,finance_rate, reinvestment_rate)
      *
-     * @param mixed (float[]) $values An array or a reference to cells that contain a series of payments and
-     *                                            income occurring at regular intervals.
-     *                                        Payments are negative value, income is positive values.
-     * @param mixed (float) $finance_rate The interest rate you pay on the money used in the cash flows
-     * @param mixed (float) $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
+     * @param mixed $values An array or a reference to cells that contain a series of payments and
+     *                         income occurring at regular intervals.
+     *                      Payments are negative value, income is positive values.
+     * @param mixed $finance_rate The interest rate you pay on the money used in the cash flows
+     * @param mixed $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
      *
      * @return float|string Result, or a string containing an error
      */
@@ -1357,20 +1357,20 @@ class Financial
      * Excel Function:
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
      *
-     * @param mixed (float) $nper The total number of payment periods in an annuity
-     * @param mixed (float) $pmt The payment made each period and cannot change over the life
+     * @param mixed $nper The total number of payment periods in an annuity
+     * @param mixed $pmt The payment made each period and cannot change over the life
      *                                    of the annuity.
      *                                Typically, pmt includes principal and interest but no other
      *                                    fees or taxes.
-     * @param mixed (float) $pv The present value - the total amount that a series of future
+     * @param mixed $pv The present value - the total amount that a series of future
      *                                    payments is worth now
-     * @param mixed (float) $fv The future value, or a cash balance you want to attain after
+     * @param mixed $fv The future value, or a cash balance you want to attain after
      *                                    the last payment is made. If fv is omitted, it is assumed
      *                                    to be 0 (the future value of a loan, for example, is 0).
-     * @param mixed (int) $type A number 0 or 1 and indicates when payments are due:
+     * @param mixed $type A number 0 or 1 and indicates when payments are due:
      *                                        0 or omitted    At the end of the period.
      *                                        1                At the beginning of the period.
-     * @param mixed (float) $guess Your guess for what the rate will be.
+     * @param mixed $guess Your guess for what the rate will be.
      *                                    If you omit guess, it is assumed to be 10 percent.
      *
      * @return float|string
@@ -1429,9 +1429,9 @@ class Financial
      *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed (int) $investment The amount invested in the security
-     * @param mixed (int) $discount The security's discount rate
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $investment The amount invested in the security
+     * @param mixed $discount The security's discount rate
+     * @param mixed $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
