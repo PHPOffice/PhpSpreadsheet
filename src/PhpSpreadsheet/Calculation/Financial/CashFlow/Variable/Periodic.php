@@ -120,7 +120,7 @@ class Periodic
             }
         }
 
-        if (($npvNeg == 0) || ($npvPos == 0) || ($reinvestmentRate <= -1)) {
+        if (($npvNeg === 0.0) || ($npvPos === 0.0) || ($reinvestmentRate <= -1.0)) {
             return Functions::VALUE();
         }
 
