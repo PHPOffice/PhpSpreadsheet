@@ -2255,7 +2255,7 @@ class Calculation
         ],
         'SQRTPI' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SQRTPI::class, 'evaluate'],
+            'functionCall' => [MathTrig\SqrtPi::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'STANDARDIZE' => [
