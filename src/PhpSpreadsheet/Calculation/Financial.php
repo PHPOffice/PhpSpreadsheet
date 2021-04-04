@@ -764,7 +764,7 @@ class Financial
      * @param float $principal the present value
      * @param float[] $schedule an array of interest rates to apply
      *
-     * @return float
+     * @return float|string
      */
     public static function FVSCHEDULE($principal, $schedule)
     {
