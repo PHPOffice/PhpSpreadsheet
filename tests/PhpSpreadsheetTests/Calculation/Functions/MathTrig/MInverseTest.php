@@ -13,7 +13,7 @@ class MInverseTest extends AllSetupTeardown
      */
     public function testMINVERSE($expectedResult, ...$args): void
     {
-        $result = MathTrig::MINVERSE(...$args);
+        $result = MathTrig\MatrixFunctions::funcMInverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
