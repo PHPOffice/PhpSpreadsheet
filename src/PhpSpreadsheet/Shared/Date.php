@@ -255,7 +255,7 @@ class Date
      *
      * @param int $dateValue Unix Timestamp
      *
-     * @return float MS Excel serialized date/time value
+     * @return false|float MS Excel serialized date/time value
      */
     public static function timestampToExcel($dateValue)
     {

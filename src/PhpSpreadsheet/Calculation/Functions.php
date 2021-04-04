@@ -303,7 +303,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @return bool
+     * @return int|string
      */
     public static function errorType($value = '')
     {

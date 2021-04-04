@@ -78,6 +78,7 @@ class Cell
 
     public function detach(): void
     {
+        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 
@@ -201,7 +202,7 @@ class Cell
                 break;
             case DataType::TYPE_STRING2:
                 $pDataType = DataType::TYPE_STRING;
-                // no break
+            // no break
             case DataType::TYPE_STRING:
                 // Synonym for string
             case DataType::TYPE_INLINE:
@@ -563,7 +564,7 @@ class Cell
 
         // Verify if cell is in range
         return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn) &&
-                ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
+            ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
     }
 
     /**

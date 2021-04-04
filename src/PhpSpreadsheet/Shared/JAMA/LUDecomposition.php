@@ -221,7 +221,7 @@ class LUDecomposition
     /**
      * Count determinants.
      *
-     * @return array d matrix deterninat
+     * @return float
      */
     public function det()
     {

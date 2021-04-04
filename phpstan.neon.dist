@@ -1,8 +1,10 @@
 parameters:
-    level: 2
+    level: 3
     paths:
         - src/
         - tests/
+    parallel:
+        processTimeout: 300.0
     ignoreErrors:
         - '~^Class GdImage not found\.$~'
         - '~^Return typehint of method .* has invalid type GdImage\.$~'

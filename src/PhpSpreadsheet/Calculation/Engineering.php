@@ -1395,7 +1395,7 @@ class Engineering
      *
      * @see Use the getConversionMultipliers() method in the ConvertUOM class instead
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     public static function getConversionMultipliers()
     {
@@ -1412,7 +1412,7 @@ class Engineering
      *
      * @see Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     public static function getBinaryConversionMultipliers()
     {

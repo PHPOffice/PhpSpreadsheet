@@ -217,7 +217,7 @@ class Rule
     /**
      * Autofilter Rule Value.
      *
-     * @var string
+     * @var string|string[]
      */
     private $value = '';
 
@@ -276,7 +276,7 @@ class Rule
     /**
      * Get AutoFilter Rule Value.
      *
-     * @return string
+     * @return string|string[]
      */
     public function getValue()
     {

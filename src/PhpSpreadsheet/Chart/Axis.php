@@ -13,7 +13,7 @@ class Axis extends Properties
     /**
      * Axis Number.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $axisNumber = [
         'format' => self::FORMAT_CODE_GENERAL,
@@ -23,7 +23,7 @@ class Axis extends Properties
     /**
      * Axis Options.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $axisOptions = [
         'minimum' => null,
@@ -41,7 +41,7 @@ class Axis extends Properties
     /**
      * Fill Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $fillProperties = [
         'type' => self::EXCEL_COLOR_TYPE_ARGB,
@@ -52,7 +52,7 @@ class Axis extends Properties
     /**
      * Line Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $lineProperties = [
         'type' => self::EXCEL_COLOR_TYPE_ARGB,
@@ -63,7 +63,7 @@ class Axis extends Properties
     /**
      * Line Style Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $lineStyleProperties = [
         'width' => '9525',
@@ -86,7 +86,7 @@ class Axis extends Properties
     /**
      * Shadow Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $shadowProperties = [
         'presets' => self::SHADOW_PRESETS_NOSHADOW,
@@ -111,7 +111,7 @@ class Axis extends Properties
     /**
      * Glow Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $glowProperties = [
         'size' => null,
@@ -125,7 +125,7 @@ class Axis extends Properties
     /**
      * Soft Edge Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $softEdges = [
         'size' => null,

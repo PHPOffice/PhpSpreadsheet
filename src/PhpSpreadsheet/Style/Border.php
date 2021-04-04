@@ -37,7 +37,7 @@ class Border extends Supervisor
     protected $color;
 
     /**
-     * @var int
+     * @var null|int
      */
     public $colorIndex;
 

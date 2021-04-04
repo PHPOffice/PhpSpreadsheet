@@ -19,21 +19,21 @@ class Cells
     /**
      * Parent worksheet.
      *
-     * @var Worksheet
+     * @var null|Worksheet
      */
     private $parent;
 
     /**
      * The currently active Cell.
      *
-     * @var Cell
+     * @var null|Cell
      */
     private $currentCell;
 
     /**
      * Coordinate of the currently active Cell.
      *
-     * @var string
+     * @var null|string
      */
     private $currentCoordinate;
 

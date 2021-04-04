@@ -118,7 +118,7 @@ class Settings
         if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
         } elseif (self::$libXmlLoaderOptions === null) {
-            self::$libXmlLoaderOptions = true;
+            self::$libXmlLoaderOptions = 0;
         }
 
         return self::$libXmlLoaderOptions;

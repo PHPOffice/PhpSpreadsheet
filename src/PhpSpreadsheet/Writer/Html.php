@@ -37,7 +37,7 @@ class Html extends BaseWriter
     /**
      * Sheet index to write.
      *
-     * @var int
+     * @var null|int
      */
     private $sheetIndex = 0;
 
@@ -735,7 +735,7 @@ class Html extends BaseWriter
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
-                        return;
+                        return '';
                     }
 
                     $html .= PHP_EOL;

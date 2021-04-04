@@ -75,21 +75,21 @@ class DataSeries
     /**
      * Order of plots in Series.
      *
-     * @var array of integer
+     * @var int[]
      */
     private $plotOrder = [];
 
     /**
      * Plot Label.
      *
-     * @var array of DataSeriesValues
+     * @var DataSeriesValues[]
      */
     private $plotLabel = [];
 
     /**
      * Plot Category.
      *
-     * @var array of DataSeriesValues
+     * @var DataSeriesValues[]
      */
     private $plotCategory = [];
 
@@ -103,7 +103,7 @@ class DataSeries
     /**
      * Plot Values.
      *
-     * @var array of DataSeriesValues
+     * @var DataSeriesValues[]
      */
     private $plotValues = [];
 
@@ -231,7 +231,7 @@ class DataSeries
     /**
      * Get Plot Labels.
      *
-     * @return array of DataSeriesValues
+     * @return DataSeriesValues[]
      */
     public function getPlotLabels()
     {
@@ -243,7 +243,7 @@ class DataSeries
      *
      * @param mixed $index
      *
-     * @return DataSeriesValues
+     * @return DataSeriesValues|false
      */
     public function getPlotLabelByIndex($index)
     {
@@ -260,7 +260,7 @@ class DataSeries
     /**
      * Get Plot Categories.
      *
-     * @return array of DataSeriesValues
+     * @return DataSeriesValues[]
      */
     public function getPlotCategories()
     {
@@ -272,7 +272,7 @@ class DataSeries
      *
      * @param mixed $index
      *
-     * @return DataSeriesValues
+     * @return DataSeriesValues|false
      */
     public function getPlotCategoryByIndex($index)
     {
@@ -313,7 +313,7 @@ class DataSeries
     /**
      * Get Plot Values.
      *
-     * @return array of DataSeriesValues
+     * @return DataSeriesValues[]
      */
     public function getPlotValues()
     {
@@ -325,7 +325,7 @@ class DataSeries
      *
      * @param mixed $index
      *
-     * @return DataSeriesValues
+     * @return DataSeriesValues|false
      */
     public function getPlotValuesByIndex($index)
     {

@@ -9,7 +9,7 @@ class ChainedBlockStream
     /**
      * The OLE container of the file that is being read.
      *
-     * @var OLE
+     * @var null|OLE
      */
     public $ole;
 
@@ -112,7 +112,7 @@ class ChainedBlockStream
      *
      * @param int $count maximum number of bytes to read
      *
-     * @return string
+     * @return false|string
      */
     public function stream_read($count) // @codingStandardsIgnoreLine
     {
