@@ -228,7 +228,7 @@ class Calculation
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Abs::class, 'evaluate'],
+            'functionCall' => [MathTrig\Absolute::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'ACCRINT' => [
