@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use Exception;
 
-class Abs
+class Absolute
 {
     /**
      * ABS.
