@@ -768,7 +768,7 @@ class MathTrig
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMSQ(...$args)
     {
@@ -783,7 +783,7 @@ class MathTrig
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMX2MY2($matrixData1, $matrixData2)
     {
@@ -798,7 +798,7 @@ class MathTrig
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMX2PY2($matrixData1, $matrixData2)
     {
@@ -813,7 +813,7 @@ class MathTrig
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMXMY2($matrixData1, $matrixData2)
     {
