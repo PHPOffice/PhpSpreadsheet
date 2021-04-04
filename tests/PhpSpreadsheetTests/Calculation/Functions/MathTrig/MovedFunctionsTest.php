@@ -89,7 +89,7 @@ class MovedFunctionsTest extends TestCase
             [['Y'], ['Y'], ['N']],
             '=Y',
             [['H'], ['H'], ['H']],
-            '=H',
+            '=H'
         ));
         self::assertEquals(17, MathTrig::SUMPRODUCT([1, 2, 3], [5, 0, 4]));
         self::assertEquals(21, MathTrig::SUMSQ(1, 2, 4));
