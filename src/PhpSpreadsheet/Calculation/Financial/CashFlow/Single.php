@@ -22,7 +22,7 @@ class Single
      * @param mixed $principal the present value
      * @param float[] $schedule an array of interest rates to apply
      *
-     * @return float
+     * @return float|string
      */
     public static function futureValue($principal, $schedule)
     {
@@ -31,12 +31,13 @@ class Single
 
         try {
             $principal = self::validateFloat($principal);
+
+            foreach ($schedule as $rate) {
+                $rate = self::validateFloat($rate);
+                $principal *= 1 + $rate;
+            }
         } catch (Exception $e) {
             return $e->getMessage();
-        }
-
-        foreach ($schedule as $rate) {
-            $principal *= 1 + $rate;
         }
 
         return $principal;
