@@ -1005,7 +1005,7 @@ class MathTrig
      *
      * Returns the result of builtin function abs after validating args.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Abs class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Absolute class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1013,7 +1013,7 @@ class MathTrig
      */
     public static function builtinABS($number)
     {
-        return MathTrig\Abs::evaluate($number);
+        return MathTrig\Absolute::evaluate($number);
     }
 
     /**
