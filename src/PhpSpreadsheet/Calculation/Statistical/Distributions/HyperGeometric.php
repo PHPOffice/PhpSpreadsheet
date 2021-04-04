@@ -16,10 +16,10 @@ class HyperGeometric
      * Returns the hypergeometric distribution. HYPGEOMDIST returns the probability of a given number of
      * sample successes, given the sample size, population successes, and population size.
      *
-     * @param mixed (int) $sampleSuccesses Number of successes in the sample
-     * @param mixed (int) $sampleNumber Size of the sample
-     * @param mixed (int) $populationSuccesses Number of successes in the population
-     * @param mixed (int) $populationNumber Population size
+     * @param mixed $sampleSuccesses Integer number of successes in the sample
+     * @param mixed $sampleNumber Integer size of the sample
+     * @param mixed $populationSuccesses Integer number of successes in the population
+     * @param mixed $populationNumber Integer population size
      *
      * @return float|string
      */

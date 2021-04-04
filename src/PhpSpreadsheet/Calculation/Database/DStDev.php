@@ -30,7 +30,7 @@ class DStDev extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function evaluate($database, $field, $criteria)
     {

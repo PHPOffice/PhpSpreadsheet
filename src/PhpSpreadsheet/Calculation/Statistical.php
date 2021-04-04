@@ -172,10 +172,10 @@ class Statistical
      * @see Statistical\Distributions\Binomial::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Binomial class instead
      *
-     * @param mixed (float) $value Number of successes in trials
-     * @param mixed (float) $trials Number of trials
-     * @param mixed (float) $probability Probability of success on each trial
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Number of successes in trials
+     * @param mixed $trials Number of trials
+     * @param mixed $probability Probability of success on each trial
+     * @param mixed $cumulative
      *
      * @return float|string
      */
@@ -790,10 +790,10 @@ class Statistical
      * @see Statistical\Distributions\HyperGeometric::distribution()
      *      Use the distribution() method in the Statistical\Distributions\HyperGeometric class instead
      *
-     * @param mixed (int) $sampleSuccesses Number of successes in the sample
-     * @param mixed (int) $sampleNumber Size of the sample
-     * @param mixed (int) $populationSuccesses Number of successes in the population
-     * @param mixed (int) $populationNumber Population size
+     * @param mixed $sampleSuccesses Number of successes in the sample
+     * @param mixed $sampleNumber Size of the sample
+     * @param mixed $populationSuccesses Number of successes in the population
+     * @param mixed $populationNumber Population size
      *
      * @return float|string
      */
@@ -1221,9 +1221,9 @@ class Statistical
      * @see Statistical\Distributions\Binomial::negative()
      *      Use the negative() method in the Statistical\Distributions\Binomial class instead
      *
-     * @param mixed (float) $failures Number of Failures
-     * @param mixed (float) $successes Threshold number of Successes
-     * @param mixed (float) $probability Probability of success on each trial
+     * @param mixed $failures Number of Failures
+     * @param mixed $successes Threshold number of Successes
+     * @param mixed $probability Probability of success on each trial
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1244,10 +1244,10 @@ class Statistical
      * @see Statistical\Distributions\Normal::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Normal class instead
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
-     * @param mixed (bool) $cumulative
+     * @param mixed $value
+     * @param mixed $mean Mean Value
+     * @param mixed $stdDev Standard Deviation
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1266,9 +1266,9 @@ class Statistical
      * @see Statistical\Distributions\Normal::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Normal class instead
      *
-     * @param mixed (float) $probability
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
+     * @param mixed $probability
+     * @param mixed $mean Mean Value
+     * @param mixed $stdDev Standard Deviation
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1289,7 +1289,7 @@ class Statistical
      * @see Statistical\Distributions\StandardNormal::cumulative()
      *      Use the cumulative() method in the Statistical\Distributions\StandardNormal class instead
      *
-     * @param mixed (float) $value
+     * @param mixed $value
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1310,8 +1310,8 @@ class Statistical
      * @see Statistical\Distributions\StandardNormal::distribution()
      *      Use the distribution() method in the Statistical\Distributions\StandardNormal class instead
      *
-     * @param mixed (float) $value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1330,7 +1330,7 @@ class Statistical
      * @see Statistical\Distributions\StandardNormal::inverse()
      *      Use the inverse() method in the Statistical\Distributions\StandardNormal class instead
      *
-     * @param mixed (float) $value
+     * @param mixed $value
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1374,9 +1374,9 @@ class Statistical
      * @see Statistical\Percentiles::PERCENTRANK()
      * Use the PERCENTRANK() method in the Statistical\Percentiles class instead
      *
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $value the number whose rank you want to find
-     * @param mixed (int) $significance the number of significant digits for the returned percentage value
+     * @param mixed $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed $value the number whose rank you want to find
+     * @param mixed $significance the number of significant digits for the returned percentage value
      *
      * @return float|string (string if result is an error)
      */
@@ -1421,9 +1421,9 @@ class Statistical
      * @see Statistical\Distributions\Poisson::distribution()
      * Use the distribution() method in the Statistical\Distributions\Poisson class instead
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value
+     * @param mixed $mean Mean Value
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1464,9 +1464,9 @@ class Statistical
      * @see Statistical\Percentiles::RANK()
      * Use the RANK() method in the Statistical\Percentiles class instead
      *
-     * @param mixed (float) $value the number whose rank you want to find
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $order Order to sort the values in the value set
+     * @param mixed $value the number whose rank you want to find
+     * @param mixed $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed $order Order to sort the values in the value set
      *
      * @return float|string The result, or a string containing an error
      */

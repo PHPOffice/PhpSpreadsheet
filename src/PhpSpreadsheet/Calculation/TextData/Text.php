@@ -10,7 +10,7 @@ class Text
     /**
      * STRINGLENGTH.
      *
-     * @param mixed (string) $value Value
+     * @param mixed $value String Value
      */
     public static function length($value = ''): int
     {
@@ -28,8 +28,8 @@ class Text
      * EXACT is case-sensitive but ignores formatting differences.
      * Use EXACT to test text being entered into a document.
      *
-     * @param mixed (string) $value1
-     * @param mixed (string) $value2
+     * @param mixed $value1 String Value
+     * @param mixed $value2 String Value
      */
     public static function exact($value1, $value2): bool
     {

@@ -10,7 +10,7 @@ class TimeValueTest extends AllSetupTeardown
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
-     * @param $timeValue
+     * @param mixed $timeValue
      */
     public function testTIMEVALUE($expectedResult, $timeValue): void
     {

@@ -16,9 +16,9 @@ class StudentT
      *
      * Returns the probability of Student's T distribution.
      *
-     * @param mixed (float) $value Value for the function
-     * @param mixed (float) $degrees degrees of freedom
-     * @param mixed (int) $tails number of tails (1 or 2)
+     * @param mixed $value Float value for the distribution
+     * @param mixed $degrees Integer value for degrees of freedom
+     * @param mixed $tails Integer value for the number of tails (1 or 2)
      *
      * @return float|string The result, or a string containing an error
      */
@@ -48,8 +48,8 @@ class StudentT
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param mixed (float) $probability Probability for the function
-     * @param mixed (float) $degrees degrees of freedom
+     * @param mixed $probability Float probability for the function
+     * @param mixed $degrees Integer value for degrees of freedom
      *
      * @return float|string The result, or a string containing an error
      */
@@ -79,7 +79,7 @@ class StudentT
     }
 
     /**
-     * @return float|int
+     * @return float
      */
     private static function calculateDistribution(float $value, int $degrees, int $tails)
     {

@@ -15,7 +15,7 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed (float) $value
+     * @param mixed $value Float value for which we want the probability
      *
      * @return float|string The result, or a string containing an error
      */
@@ -31,8 +31,8 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed (float) $value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string The result, or a string containing an error
      */
@@ -46,7 +46,7 @@ class StandardNormal
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param mixed (float) $value
+     * @param mixed $value Float probability for which we want the value
      *
      * @return float|string The result, or a string containing an error
      */
@@ -63,9 +63,10 @@ class StandardNormal
      * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
      *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
-     * @param mixed (float) $dataSet
-     * @param mixed (float) $m0 Alpha Parameter
-     * @param mixed (null|float) $sigma Beta Parameter
+     * @param mixed $dataSet The dataset should be an array of float values for the observations
+     * @param mixed $m0 Alpha Parameter
+     * @param mixed $sigma A null or float value for the Beta (Standard Deviation) Parameter;
+     *                       if null, we use the standard deviation of the dataset
      *
      * @return float|string (string if result is an error)
      */

@@ -19,10 +19,10 @@ class Normal
      * function has a very wide range of applications in statistics, including hypothesis
      * testing.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $mean Mean value as a float
+     * @param mixed $stdDev Standard Deviation as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string The result, or a string containing an error
      */
@@ -57,9 +57,9 @@ class Normal
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @param mixed (float) $probability
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
+     * @param mixed $probability Float probability for which we want the value
+     * @param mixed $mean Mean Value as a float
+     * @param mixed $stdDev Standard Deviation as a float
      *
      * @return float|string The result, or a string containing an error
      */

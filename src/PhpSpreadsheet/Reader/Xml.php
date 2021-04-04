@@ -436,6 +436,7 @@ class Xml extends BaseReader
             // Create new Worksheet
             $spreadsheet->createSheet();
             $spreadsheet->setActiveSheetIndex($worksheetID);
+            $worksheetName = '';
             if (isset($worksheet_ss['Name'])) {
                 $worksheetName = (string) $worksheet_ss['Name'];
                 //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in

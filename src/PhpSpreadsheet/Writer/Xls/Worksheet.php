@@ -1344,32 +1344,13 @@ class Worksheet extends BIFFwriter
      */
     private function writeColinfo($col_array): void
     {
-        if (isset($col_array[0])) {
-            $colFirst = $col_array[0];
-        }
-        if (isset($col_array[1])) {
-            $colLast = $col_array[1];
-        }
-        if (isset($col_array[2])) {
-            $coldx = $col_array[2];
-        } else {
-            $coldx = 8.43;
-        }
-        if (isset($col_array[3])) {
-            $xfIndex = $col_array[3];
-        } else {
-            $xfIndex = 15;
-        }
-        if (isset($col_array[4])) {
-            $grbit = $col_array[4];
-        } else {
-            $grbit = 0;
-        }
-        if (isset($col_array[5])) {
-            $level = $col_array[5];
-        } else {
-            $level = 0;
-        }
+        $colFirst = $col_array[0] ?? null;
+        $colLast = $col_array[1] ?? null;
+        $coldx = $col_array[2] ?? 8.43;
+        $xfIndex = $col_array[3] ?? 15;
+        $grbit = $col_array[4] ?? 0;
+        $level = $col_array[5] ?? 0;
+
         $record = 0x007D; // Record identifier
         $length = 0x000C; // Number of bytes to follow
 
@@ -1424,13 +1405,6 @@ class Worksheet extends BIFFwriter
         $colAct = $colFirst; // Active column
         $irefAct = 0; // Active cell ref
         $cref = 1; // Number of refs
-
-        if (!isset($rwLast)) {
-            $rwLast = $rwFirst; // Last  row in reference
-        }
-        if (!isset($colLast)) {
-            $colLast = $colFirst; // Last  col in reference
-        }
 
         // Swap last row/col for first row/col as necessary
         if ($rwFirst > $rwLast) {
@@ -1660,7 +1634,7 @@ class Worksheet extends BIFFwriter
             if (!isset($rwTop)) {
                 $rwTop = $y;
             }
-            if (!isset($colLeft)) {
+            if (!$colLeft) {
                 $colLeft = $x;
             }
         } else {
@@ -1668,7 +1642,7 @@ class Worksheet extends BIFFwriter
             if (!isset($rwTop)) {
                 $rwTop = 0;
             }
-            if (!isset($colLeft)) {
+            if (!$colLeft) {
                 $colLeft = 0;
             }
 
@@ -1684,7 +1658,7 @@ class Worksheet extends BIFFwriter
         // Determine which pane should be active. There is also the undocumented
         // option to override this should it be necessary: may be removed later.
         //
-        if (!isset($pnnAct)) {
+        if (!$pnnAct) {
             if ($x != 0 && $y != 0) {
                 $pnnAct = 0; // Bottom right
             }
@@ -2974,9 +2948,9 @@ class Worksheet extends BIFFwriter
     private function writeCFRule(Conditional $conditional): void
     {
         $record = 0x01B1; // Record identifier
+        $type = null;  //  Type of the CF
+        $operatorType = null;   //  Comparison operator
 
-        // $type : Type of the CF
-        // $operatorType : Comparison operator
         if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;
             $operatorType = 0x00;
@@ -3140,6 +3114,11 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
         $flags |= (1 == 0 ? 0x80000000 : 0);
+
+        $dataBlockFont = null;
+        $dataBlockAlign = null;
+        $dataBlockBorder = null;
+        $dataBlockFill = null;
 
         // Data Blocks
         if ($bFormatFont == 1) {
@@ -4398,15 +4377,6 @@ class Worksheet extends BIFFwriter
             $dataBlockFill = pack('v', $blockFillPatternStyle);
             $dataBlockFill .= pack('v', $colorIdxFg | ($colorIdxBg << 7));
         }
-        if ($bFormatProt == 1) {
-            $dataBlockProtection = 0;
-            if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
-                $dataBlockProtection = 1;
-            }
-            if ($conditional->getStyle()->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED) {
-                $dataBlockProtection = 1 << 1;
-            }
-        }
 
         $data = pack('CCvvVv', $type, $operatorType, $szValue1, $szValue2, $flags, 0x0000);
         if ($bFormatFont == 1) { // Block Formatting : OK
@@ -4422,7 +4392,7 @@ class Worksheet extends BIFFwriter
             $data .= $dataBlockFill;
         }
         if ($bFormatProt == 1) {
-            $data .= $dataBlockProtection;
+            $data .= $this->getDataBlockProtection($conditional);
         }
         if ($operand1 !== null) {
             $data .= $operand1;
@@ -4485,5 +4455,18 @@ class Worksheet extends BIFFwriter
         $data .= pack('v', 0x0001);
         $data .= $cellRange;
         $this->append($header . $data);
+    }
+
+    private function getDataBlockProtection(Conditional $conditional): int
+    {
+        $dataBlockProtection = 0;
+        if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
+            $dataBlockProtection = 1;
+        }
+        if ($conditional->getStyle()->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED) {
+            $dataBlockProtection = 1 << 1;
+        }
+
+        return $dataBlockProtection;
     }
 }

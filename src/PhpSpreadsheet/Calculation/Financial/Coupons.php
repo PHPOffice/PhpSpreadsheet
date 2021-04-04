@@ -27,21 +27,21 @@ class Coupons
      *        COUPDAYBS(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed (int) $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year (int).
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string
      */
@@ -84,21 +84,21 @@ class Coupons
      *        COUPDAYS(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string
      */
@@ -149,21 +149,21 @@ class Coupons
      *        COUPDAYSNC(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int) .
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string
      */
@@ -207,24 +207,24 @@ class Coupons
      *        COUPNCD(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *                     depending on the value of the ReturnDateType flag
      */
     public static function COUPNCD($settlement, $maturity, $frequency, $basis = Helpers::DAYS_PER_YEAR_NASD)
     {
@@ -256,21 +256,21 @@ class Coupons
      *        COUPNUM(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return int|string
      */
@@ -293,7 +293,7 @@ class Coupons
 
         $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, 0);
 
-        return ceil($yearsBetweenSettlementAndMaturity * $frequency);
+        return (int) ceil($yearsBetweenSettlementAndMaturity * $frequency);
     }
 
     /**
@@ -305,24 +305,24 @@ class Coupons
      *        COUPPCD(settlement,maturity,frequency[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue
-     *                                date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                              date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
-     * @param mixed $frequency the number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                            The maturity date is the date when the security expires.
+     * @param mixed $frequency The number of coupon payments per year.
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *                     depending on the value of the ReturnDateType flag
      */
     public static function COUPPCD($settlement, $maturity, $frequency, $basis = Helpers::DAYS_PER_YEAR_NASD)
     {

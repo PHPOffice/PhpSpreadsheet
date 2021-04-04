@@ -80,7 +80,7 @@ class Style extends Supervisor
         // Initialise values
         $this->font = new Font($isSupervisor, $isConditional);
         $this->fill = new Fill($isSupervisor, $isConditional);
-        $this->borders = new Borders($isSupervisor, $isConditional);
+        $this->borders = new Borders($isSupervisor);
         $this->alignment = new Alignment($isSupervisor, $isConditional);
         $this->numberFormat = new NumberFormat($isSupervisor, $isConditional);
         $this->protection = new Protection($isSupervisor, $isConditional);
@@ -257,11 +257,11 @@ class Style extends Supervisor
                     // start column index for region
                     $colStart = ($x == 3) ?
                         Coordinate::stringFromColumnIndex($rangeEnd[0])
-                            : Coordinate::stringFromColumnIndex($rangeStart[0] + $x - 1);
+                        : Coordinate::stringFromColumnIndex($rangeStart[0] + $x - 1);
                     // end column index for region
                     $colEnd = ($x == 1) ?
                         Coordinate::stringFromColumnIndex($rangeStart[0])
-                            : Coordinate::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
+                        : Coordinate::stringFromColumnIndex($rangeEnd[0] - $xMax + $x);
 
                     for ($y = 1; $y <= $yMax; ++$y) {
                         // which edges are touching the region
@@ -349,56 +349,11 @@ class Style extends Supervisor
             }
 
             // First loop through columns, rows, or cells to find out which styles are affected by this operation
-            switch ($selectionType) {
-                case 'COLUMN':
-                    $oldXfIndexes = [];
-                    for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
-                        $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
-                    }
-                    foreach ($this->getActiveSheet()->getColumnIterator($rangeStart0, $rangeEnd0) as $columnIterator) {
-                        $cellIterator = $columnIterator->getCellIterator();
-                        $cellIterator->setIterateOnlyExistingCells(true);
-                        foreach ($cellIterator as $columnCell) {
-                            if ($columnCell !== null) {
-                                $columnCell->getStyle()->applyFromArray($pStyles);
-                            }
-                        }
-                    }
-
-                    break;
-                case 'ROW':
-                    $oldXfIndexes = [];
-                    for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                        if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() === null) {
-                            $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
-                        } else {
-                            $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
-                        }
-                    }
-                    foreach ($this->getActiveSheet()->getRowIterator((int) $rangeStart[1], (int) $rangeEnd[1]) as $rowIterator) {
-                        $cellIterator = $rowIterator->getCellIterator();
-                        $cellIterator->setIterateOnlyExistingCells(true);
-                        foreach ($cellIterator as $rowCell) {
-                            if ($rowCell !== null) {
-                                $rowCell->getStyle()->applyFromArray($pStyles);
-                            }
-                        }
-                    }
-
-                    break;
-                case 'CELL':
-                    $oldXfIndexes = [];
-                    for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
-                        for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                            $oldXfIndexes[$this->getActiveSheet()->getCellByColumnAndRow($col, $row)->getXfIndex()] = true;
-                        }
-                    }
-
-                    break;
-            }
+            $oldXfIndexes = $this->getOldXfIndexes($selectionType, $rangeStart, $rangeEnd, $rangeStart0, $rangeEnd0, $pStyles);
 
             // clone each of the affected styles, apply the style array, and add the new styles to the workbook
             $workbook = $this->getActiveSheet()->getParent();
+            $newXfIndexes = [];
             foreach ($oldXfIndexes as $oldXfIndex => $dummy) {
                 $style = $workbook->getCellXfByIndex($oldXfIndex);
                 $newStyle = clone $style;
@@ -470,6 +425,57 @@ class Style extends Supervisor
         }
 
         return $this;
+    }
+
+    private function getOldXfIndexes(string $selectionType, array $rangeStart, array $rangeEnd, string $rangeStart0, string $rangeEnd0, array $pStyles): array
+    {
+        $oldXfIndexes = [];
+        switch ($selectionType) {
+            case 'COLUMN':
+                for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
+                    $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
+                }
+                foreach ($this->getActiveSheet()->getColumnIterator($rangeStart0, $rangeEnd0) as $columnIterator) {
+                    $cellIterator = $columnIterator->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(true);
+                    foreach ($cellIterator as $columnCell) {
+                        if ($columnCell !== null) {
+                            $columnCell->getStyle()->applyFromArray($pStyles);
+                        }
+                    }
+                }
+
+                break;
+            case 'ROW':
+                for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
+                    if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() === null) {
+                        $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
+                    } else {
+                        $oldXfIndexes[$this->getActiveSheet()->getRowDimension($row)->getXfIndex()] = true;
+                    }
+                }
+                foreach ($this->getActiveSheet()->getRowIterator((int) $rangeStart[1], (int) $rangeEnd[1]) as $rowIterator) {
+                    $cellIterator = $rowIterator->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(true);
+                    foreach ($cellIterator as $rowCell) {
+                        if ($rowCell !== null) {
+                            $rowCell->getStyle()->applyFromArray($pStyles);
+                        }
+                    }
+                }
+
+                break;
+            case 'CELL':
+                for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
+                    for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
+                        $oldXfIndexes[$this->getActiveSheet()->getCellByColumnAndRow($col, $row)->getXfIndex()] = true;
+                    }
+                }
+
+                break;
+        }
+
+        return $oldXfIndexes;
     }
 
     /**

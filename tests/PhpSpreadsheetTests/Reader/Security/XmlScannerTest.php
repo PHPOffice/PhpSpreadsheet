@@ -37,7 +37,7 @@ class XmlScannerTest extends TestCase
         self::assertEquals($expectedResult, $result);
 
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
+        if (isset($oldDisableEntityLoaderState)) {
             libxml_disable_entity_loader($oldDisableEntityLoaderState);
         }
     }

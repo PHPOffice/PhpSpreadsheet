@@ -18,8 +18,8 @@ class ChiSquared
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param mixed (float) $value Value for the function
-     * @param mixed (int) $degrees degrees of freedom
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $degrees Integer degrees of freedom
      *
      * @return float|string
      */
@@ -54,9 +54,9 @@ class ChiSquared
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param mixed (float) $value Value for the function
-     * @param mixed (int) $degrees degrees of freedom
-     * @param mixed $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $degrees Integer degrees of freedom
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string
      */
@@ -98,8 +98,8 @@ class ChiSquared
      *
      * Returns the inverse of the right-tailed probability of the chi-squared distribution.
      *
-     * @param mixed (float) $probability Probability for the function
-     * @param mixed (int) $degrees degrees of freedom
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
+     * @param mixed $degrees Integer degrees of freedom
      *
      * @return float|string
      */
@@ -134,8 +134,8 @@ class ChiSquared
      *
      * Returns the inverse of the left-tailed probability of the chi-squared distribution.
      *
-     * @param mixed (float) $probability Probability for the function
-     * @param mixed (int) $degrees degrees of freedom
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
+     * @param mixed $degrees Integer degrees of freedom
      *
      * @return float|string
      */

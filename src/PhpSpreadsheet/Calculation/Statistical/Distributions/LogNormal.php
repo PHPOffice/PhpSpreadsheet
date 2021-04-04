@@ -15,9 +15,9 @@ class LogNormal
      * Returns the cumulative lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean
-     * @param mixed (float) $stdDev
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $mean Mean value as a float
+     * @param mixed $stdDev Standard Deviation as a float
      *
      * @return float|string The result, or a string containing an error
      */
@@ -48,10 +48,10 @@ class LogNormal
      * Returns the lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean
-     * @param mixed (float) $stdDev
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $mean Mean value as a float
+     * @param mixed $stdDev Standard Deviation as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string The result, or a string containing an error
      */
@@ -86,11 +86,11 @@ class LogNormal
     /**
      * LOGINV.
      *
-     * Returns the inverse of the normal cumulative distribution
+     * Returns the inverse of the lognormal cumulative distribution
      *
-     * @param mixed (float) $probability
-     * @param mixed (float) $mean
-     * @param mixed (float) $stdDev
+     * @param mixed $probability Float probability for which we want the value
+     * @param mixed $mean Mean Value as a float
+     * @param mixed $stdDev Standard Deviation as a float
      *
      * @return float|string The result, or a string containing an error
      *

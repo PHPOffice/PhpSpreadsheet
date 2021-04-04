@@ -17,7 +17,7 @@ class LowerTest extends TestCase
      * @dataProvider providerLOWER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testLOWER($expectedResult, $value): void
     {
@@ -34,7 +34,7 @@ class LowerTest extends TestCase
      * @dataProvider providerLocaleLOWER
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      */
     public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void

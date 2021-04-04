@@ -219,10 +219,12 @@ class Chart extends WriterPart
         $chartTypes = self::getChartType($plotArea);
         $catIsMultiLevelSeries = $valIsMultiLevelSeries = false;
         $plotGroupingType = '';
+        $chartType = null;
         foreach ($chartTypes as $chartType) {
             $objWriter->startElement('c:' . $chartType);
 
             $groupCount = $plotArea->getPlotGroupCount();
+            $plotGroup = null;
             for ($i = 0; $i < $groupCount; ++$i) {
                 $plotGroup = $plotArea->getPlotGroupByIndex($i);
                 $groupType = $plotGroup->getPlotType();
@@ -244,7 +246,7 @@ class Chart extends WriterPart
 
             $this->writeDataLabels($objWriter, $layout);
 
-            if ($chartType === DataSeries::TYPE_LINECHART) {
+            if ($chartType === DataSeries::TYPE_LINECHART && $plotGroup) {
                 //    Line only, Line3D can't be smoothed
                 $objWriter->startElement('c:smooth');
                 $objWriter->writeAttribute('val', (int) $plotGroup->getSmoothLine());
@@ -1079,6 +1081,7 @@ class Chart extends WriterPart
             }
         }
 
+        $plotSeriesIdx = 0;
         foreach ($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
             $objWriter->startElement('c:ser');
 

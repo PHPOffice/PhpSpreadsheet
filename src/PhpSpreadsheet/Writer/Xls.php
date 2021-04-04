@@ -420,6 +420,7 @@ class Xls extends BaseWriter
 
     private function processDrawing(BstoreContainer &$bstoreContainer, BaseDrawing $drawing): void
     {
+        $blipType = null;
         $blipData = '';
         $filename = $drawing->getPath();
 

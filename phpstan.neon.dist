@@ -1,0 +1,11 @@
+parameters:
+    level: 1
+    paths:
+        - src/
+        - tests/
+    ignoreErrors:
+        - '~^Class GdImage not found\.$~'
+
+        # Ignore all JpGraph issues
+        - '~^Constant (MARK_CIRCLE|MARK_CROSS|MARK_DIAMOND|MARK_DTRIANGLE|MARK_FILLEDCIRCLE|MARK_SQUARE|MARK_STAR|MARK_UTRIANGLE|MARK_X|SIDE_RIGHT) not found\.$~'
+        - '~^Instantiated class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot) not found\.$~'

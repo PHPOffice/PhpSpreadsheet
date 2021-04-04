@@ -33,7 +33,7 @@ class MidTest extends TestCase
      * @dataProvider providerLocaleMID
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      * @param mixed $offset
      * @param mixed $characters

@@ -11,7 +11,7 @@ class TrimTest extends TestCase
      * @dataProvider providerTRIM
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
     public function testTRIM($expectedResult, $character): void
     {

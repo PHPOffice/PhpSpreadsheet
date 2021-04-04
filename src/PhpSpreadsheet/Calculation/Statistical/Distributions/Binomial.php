@@ -19,10 +19,10 @@ class Binomial
      *        experiment. For example, BINOMDIST can calculate the probability that two of the next three
      *        babies born are male.
      *
-     * @param mixed (int) $value Number of successes in trials
-     * @param mixed (int) $trials Number of trials
-     * @param mixed (float) $probability Probability of success on each trial
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Integer number of successes in trials
+     * @param mixed $trials Integer umber of trials
+     * @param mixed $probability Probability of success on each trial as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string
      */
@@ -58,10 +58,11 @@ class Binomial
      * Returns returns the Binomial Distribution probability for the number of successes from a specified number
      *     of trials falling into a specified range.
      *
-     * @param mixed (int) $trials Number of trials
-     * @param mixed (float) $probability Probability of success on each trial
-     * @param mixed (int) $successes The number of successes in trials
-     * @param mixed (int) $limit Upper limit for successes in trials
+     * @param mixed $trials Integer number of trials
+     * @param mixed $probability Probability of success on each trial as a float
+     * @param mixed $successes The integer number of successes in trials
+     * @param mixed $limit Upper limit for successes in trials as null, or an integer
+     *                           If null, then this will indicate the same as the number of Successes
      *
      * @return float|string
      */
@@ -105,9 +106,9 @@ class Binomial
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
-     * @param mixed (float) $failures Number of Failures
-     * @param mixed (float) $successes Threshold number of Successes
-     * @param mixed (float) $probability Probability of success on each trial
+     * @param mixed $failures Number of Failures as an integer
+     * @param mixed $successes Threshold number of Successes as an integer
+     * @param mixed $probability Probability of success on each trial as a float
      *
      * @return float|string The result, or a string containing an error
      *
@@ -147,9 +148,9 @@ class Binomial
      * Returns the smallest value for which the cumulative binomial distribution is greater
      *        than or equal to a criterion value
      *
-     * @param float $trials number of Bernoulli trials
-     * @param float $probability probability of a success on each trial
-     * @param float $alpha criterion value
+     * @param mixed $trials number of Bernoulli trials as an integer
+     * @param mixed $probability probability of a success on each trial as a float
+     * @param mixed $alpha criterion value as a float
      *
      * @return int|string
      */
@@ -174,7 +175,7 @@ class Binomial
         }
 
         $successes = 0;
-        while (true && $successes <= $trials) {
+        while ($successes <= $trials) {
             $result = self::calculateCumulativeBinomial($successes, $trials, $probability);
             if ($result >= $alpha) {
                 break;

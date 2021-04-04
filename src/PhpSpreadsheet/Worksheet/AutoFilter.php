@@ -779,6 +779,9 @@ class AutoFilter
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER:
                     $ruleValues = [];
                     $dataRowCount = $rangeEnd[1] - $rangeStart[1];
+                    $toptenRuleType = null;
+                    $ruleValue = null;
+                    $ruleOperator = null;
                     foreach ($rules as $rule) {
                         //    We should only ever have one Dynamic Filter Rule anyway
                         $toptenRuleType = $rule->getGrouping();

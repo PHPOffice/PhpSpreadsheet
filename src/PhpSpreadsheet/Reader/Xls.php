@@ -801,9 +801,10 @@ class Xls extends BaseReader
         }
 
         // treat MSODRAWINGGROUP records, workbook-level Escher
+        $escherWorkbook = null;
         if (!$this->readDataOnly && $this->drawingGroupData) {
-            $escherWorkbook = new Escher();
-            $reader = new Xls\Escher($escherWorkbook);
+            $escher = new Escher();
+            $reader = new Xls\Escher($escher);
             $escherWorkbook = $reader->load($this->drawingGroupData);
         }
 
@@ -1133,38 +1134,40 @@ class Xls extends BaseReader
                                 continue 2;
                             }
 
-                            $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
-                            $BSE = $BSECollection[$BSEindex - 1];
-                            $blipType = $BSE->getBlipType();
+                            if ($escherWorkbook) {
+                                $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
+                                $BSE = $BSECollection[$BSEindex - 1];
+                                $blipType = $BSE->getBlipType();
 
-                            // need check because some blip types are not supported by Escher reader such as EMF
-                            if ($blip = $BSE->getBlip()) {
-                                $ih = imagecreatefromstring($blip->getData());
-                                $drawing = new MemoryDrawing();
-                                $drawing->setImageResource($ih);
+                                // need check because some blip types are not supported by Escher reader such as EMF
+                                if ($blip = $BSE->getBlip()) {
+                                    $ih = imagecreatefromstring($blip->getData());
+                                    $drawing = new MemoryDrawing();
+                                    $drawing->setImageResource($ih);
 
-                                // width, height, offsetX, offsetY
-                                $drawing->setResizeProportional(false);
-                                $drawing->setWidth($width);
-                                $drawing->setHeight($height);
-                                $drawing->setOffsetX($offsetX);
-                                $drawing->setOffsetY($offsetY);
+                                    // width, height, offsetX, offsetY
+                                    $drawing->setResizeProportional(false);
+                                    $drawing->setWidth($width);
+                                    $drawing->setHeight($height);
+                                    $drawing->setOffsetX($offsetX);
+                                    $drawing->setOffsetY($offsetY);
 
-                                switch ($blipType) {
-                                    case BSE::BLIPTYPE_JPEG:
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                    switch ($blipType) {
+                                        case BSE::BLIPTYPE_JPEG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                        break;
-                                    case BSE::BLIPTYPE_PNG:
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                            break;
+                                        case BSE::BLIPTYPE_PNG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                        break;
+                                            break;
+                                    }
+
+                                    $drawing->setWorksheet($this->phpSheet);
+                                    $drawing->setCoordinates($spContainer->getStartCoordinates());
                                 }
-
-                                $drawing->setWorksheet($this->phpSheet);
-                                $drawing->setCoordinates($spContainer->getStartCoordinates());
                             }
 
                             break;
@@ -2742,6 +2745,7 @@ class Xls extends BaseReader
         $sheetType = ord($recordData[5]);
 
         // offset: 6; size: var; sheet name
+        $rec_name = null;
         if ($this->version == self::XLS_BIFF8) {
             $string = self::readUnicodeStringShort(substr($recordData, 6));
             $rec_name = $string['value'];
@@ -3018,12 +3022,14 @@ class Xls extends BaseReader
             // bit: 3; mask: 0x03; 0 = ordinary; 1 = Rich-Text
             $hasRichText = (($optionFlags & 0x08) != 0);
 
+            $formattingRuns = 0;
             if ($hasRichText) {
                 // number of Rich-Text formatting runs
                 $formattingRuns = self::getUInt2d($recordData, $pos);
                 $pos += 2;
             }
 
+            $extendedRunLength = 0;
             if ($hasAsian) {
                 // size of Asian phonetic setting
                 $extendedRunLength = self::getInt4d($recordData, $pos);
@@ -3034,6 +3040,7 @@ class Xls extends BaseReader
             $len = ($isCompressed) ? $numChars : $numChars * 2;
 
             // look up limit position - Check it again to be sure that no error occurs when parsing SST structure
+            $limitpos = null;
             foreach ($spliceOffsets as $spliceOffset) {
                 // it can happen that the string is empty, therefore we need
                 // <= and not just <
@@ -4385,6 +4392,8 @@ class Xls extends BaseReader
 
         // offset: 4; size: 2; index to first visible colum
         $firstVisibleColumn = self::getUInt2d($recordData, 4);
+        $zoomscaleInPageBreakPreview = 0;
+        $zoomscaleInNormalView = 0;
         if ($this->version === self::XLS_BIFF8) {
             // offset:  8; size: 2; not used
             // offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
@@ -7636,6 +7645,8 @@ class Xls extends BaseReader
                 $size = 9;
 
                 break;
+            default:
+                throw new PhpSpreadsheetException('Unsupported BIFF8 constant');
         }
 
         return [
