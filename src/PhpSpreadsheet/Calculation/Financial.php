@@ -756,6 +756,11 @@ class Financial
      * Excel Function:
      *        FVSCHEDULE(principal,schedule)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::futureValue()
+     *      Use the futureValue() method in the Financial\CashFlow\Single class instead
+     *
      * @param float $principal the present value
      * @param float[] $schedule an array of interest rates to apply
      *
@@ -763,14 +768,7 @@ class Financial
      */
     public static function FVSCHEDULE($principal, $schedule)
     {
-        $principal = Functions::flattenSingleValue($principal);
-        $schedule = Functions::flattenArray($schedule);
-
-        foreach ($schedule as $rate) {
-            $principal *= 1 + $rate;
-        }
-
-        return $principal;
+        return Financial\CashFlow\Single::futureValue($principal, $schedule);
     }
 
     /**
@@ -1123,6 +1121,11 @@ class Financial
      *
      * Calculates the number of periods required for an investment to reach a specified value.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::periods()
+     *      Use the periods() method in the Financial\CashFlow\Single class instead
+     *
      * @param float $rate Interest rate per period
      * @param float $pv Present Value
      * @param float $fv Future Value
@@ -1131,18 +1134,7 @@ class Financial
      */
     public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
     {
-        $rate = Functions::flattenSingleValue($rate);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-
-        // Validate parameters
-        if (!is_numeric($rate) || !is_numeric($pv) || !is_numeric($fv)) {
-            return Functions::VALUE();
-        } elseif ($rate <= 0.0 || $pv <= 0.0 || $fv <= 0.0) {
-            return Functions::NAN();
-        }
-
-        return (log($fv) - log($pv)) / log(1 + $rate);
+        return Financial\CashFlow\Single::periods($rate, $pv, $fv);
     }
 
     /**
@@ -1470,6 +1462,11 @@ class Financial
      *
      * Calculates the interest rate required for an investment to grow to a specified future value .
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::interestRate()
+     *      Use the interestRate() method in the Financial\CashFlow\Single class instead
+     *
      * @param float $nper The number of periods over which the investment is made
      * @param float $pv Present Value
      * @param float $fv Future Value
@@ -1478,18 +1475,7 @@ class Financial
      */
     public static function RRI($nper = 0, $pv = 0, $fv = 0)
     {
-        $nper = Functions::flattenSingleValue($nper);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-
-        // Validate parameters
-        if (!is_numeric($nper) || !is_numeric($pv) || !is_numeric($fv)) {
-            return Functions::VALUE();
-        } elseif ($nper <= 0.0 || $pv <= 0.0 || $fv < 0.0) {
-            return Functions::NAN();
-        }
-
-        return ($fv / $pv) ** (1 / $nper) - 1;
+        return Financial\CashFlow\Single::interestRate($nper, $pv, $fv);
     }
 
     /**
