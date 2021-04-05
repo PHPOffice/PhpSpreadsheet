@@ -17,15 +17,17 @@ class CsvOutputEncodingTest extends Functional\AbstractFunctional
         $sheet->setCellValue('A1', 'こんにちは！');
         $sheet->setCellValue('B1', 'Hello!');
 
+        $write = new CsvWriter($spreadsheet);
+        
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-UTF-8');
-        $writer->useBOM(false);
+        $writer->setUseBOM(false);
         $writer->setOutputEncoding('');
         $writer->save($filename);
         $a = file_get_contents($filename);
         unlink($filename);
         
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-SJIS-win');
-        $writer->useBOM(false);
+        $writer->setUseBOM(false);
         $writer->setOutputEncoding('SJIS-win');
         $writer->save($filename);
         $b = file_get_contents($filename);
