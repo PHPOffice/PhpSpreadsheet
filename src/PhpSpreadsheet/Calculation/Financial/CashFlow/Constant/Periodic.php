@@ -54,7 +54,7 @@ class Periodic
             return Functions::NAN();
         }
 
-        return self::calculateFutureValue($rate, $presentValue, $periods, $payment, $type);
+        return self::calculateFutureValue($rate, $periods, $payment, $presentValue, $type);
     }
 
     /**
@@ -93,7 +93,7 @@ class Periodic
             return Functions::NAN();
         }
 
-        return self::calculatePresentValue($rate, $payment, $type, $periods, $futureValue);
+        return self::calculatePresentValue($rate, $periods, $payment, $futureValue, $type);
     }
 
     /**
@@ -132,7 +132,37 @@ class Periodic
             return Functions::NAN();
         }
 
-        return self::calculatePeriods($rate, $presentValue, $payment, $type, $futureValue);
+        return self::calculatePeriods($rate, $payment, $presentValue, $futureValue, $type);
+    }
+
+    private static function calculateFutureValue(
+        float $rate,
+        int $periods,
+        float $payment,
+        float $presentValue,
+        int $type
+    ): float {
+        if ($rate !== null && $rate != 0) {
+            return -$presentValue *
+                (1 + $rate) ** $periods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $periods - 1) / $rate;
+        }
+
+        return -$presentValue - $payment * $periods;
+    }
+
+    private static function calculatePresentValue(
+        float $rate,
+        int $periods,
+        float $payment,
+        float $futureValue,
+        int $type
+    ): float {
+        if ($rate != 0.0) {
+            return (-$payment * (1 + $rate * $type)
+                    * (((1 + $rate) ** $periods - 1) / $rate) - $futureValue) / (1 + $rate) ** $periods;
+        }
+
+        return -$futureValue - $payment * $periods;
     }
 
     /**
@@ -140,10 +170,10 @@ class Periodic
      */
     private static function calculatePeriods(
         float $rate,
-        float $presentValue,
         float $payment,
-        int $type,
-        float $futureValue
+        float $presentValue,
+        float $futureValue,
+        int $type
     ) {
         if ($rate != 0.0) {
             if ($presentValue == 0.0) {
@@ -155,41 +185,5 @@ class Periodic
         }
 
         return (-$presentValue - $futureValue) / $payment;
-    }
-
-    /**
-     * @return float
-     */
-    private static function calculatePresentValue(
-        float $rate,
-        float $payment,
-        int $type,
-        int $periods,
-        float $futureValue
-    ) {
-        if ($rate != 0.0) {
-            return (-$payment * (1 + $rate * $type)
-                    * (((1 + $rate) ** $periods - 1) / $rate) - $futureValue) / (1 + $rate) ** $periods;
-        }
-
-        return -$futureValue - $payment * $periods;
-    }
-
-    /**
-     * @return float
-     */
-    private static function calculateFutureValue(
-        float $rate,
-        float $presentValue,
-        int $periods,
-        float $payment,
-        int $type
-    ) {
-        if ($rate !== null && $rate != 0) {
-            return -$presentValue *
-                (1 + $rate) ** $periods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $periods - 1) / $rate;
-        }
-
-        return -$presentValue - $payment * $periods;
     }
 }
