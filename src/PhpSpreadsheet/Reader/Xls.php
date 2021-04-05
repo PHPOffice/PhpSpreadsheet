@@ -224,7 +224,7 @@ class Xls extends BaseReader
     /**
      * Shared fonts.
      *
-     * @var array
+     * @var Font[]
      */
     private $objFonts;
 
@@ -1293,7 +1293,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                    //    TODO Provide support for named values
+                //    TODO Provide support for named values
             }
         }
         $this->data = null;
@@ -3105,7 +3105,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                            . chr(0);
+                                . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -7191,6 +7191,7 @@ class Xls extends BaseReader
     {
         [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
         $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
+        $baseRow = (int) $baseRow;
 
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $rowIndex = self::getUInt2d($cellAddressStructure, 0);
@@ -7368,8 +7369,8 @@ class Xls extends BaseReader
      */
     private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
     {
-        [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
-        $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
+        [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
+        $baseCol = $baseCol - 1;
 
         // TODO: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?

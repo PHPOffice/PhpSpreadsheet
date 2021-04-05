@@ -527,11 +527,11 @@ class Parser
         } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $token) && $this->spreadsheet->getDefinedName($token) !== null) {
             return $this->convertDefinedName($token);
         // commented so argument number can be processed correctly. See toReversePolish().
-        /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
-        {
-            return($this->convertFunction($token, $this->_func_args));
-        }*/
-        // if it's an argument, ignore the token (the argument remains)
+            /*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/", $token))
+            {
+                return($this->convertFunction($token, $this->_func_args));
+            }*/
+            // if it's an argument, ignore the token (the argument remains)
         } elseif ($token == 'arg') {
             return '';
         }
@@ -597,10 +597,9 @@ class Parser
         if ($args >= 0) {
             return pack('Cv', $this->ptg['ptgFuncV'], $this->functions[$token][0]);
         }
+
         // Variable number of args eg. SUM($i, $j, $k, ..).
-        if ($args == -1) {
-            return pack('CCv', $this->ptg['ptgFuncVarV'], $num_args, $this->functions[$token][0]);
-        }
+        return pack('CCv', $this->ptg['ptgFuncVarV'], $num_args, $this->functions[$token][0]);
     }
 
     /**
@@ -852,10 +851,10 @@ class Parser
      * called by the addWorksheet() method of the
      * \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook class.
      *
-     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()
-     *
      * @param string $name The name of the worksheet being added
      * @param int $index The index of the worksheet being added
+     *
+     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()
      */
     public function setExtSheet($name, $index): void
     {
@@ -1231,9 +1230,9 @@ class Parser
      * This function just introduces a ptgParen element in the tree, so that Excel
      * doesn't get confused when working with a parenthesized formula afterwards.
      *
-     * @see fact()
-     *
      * @return array The parsed ptg'd tree
+     *
+     * @see fact()
      */
     private function parenthesizedExpression()
     {
@@ -1475,6 +1474,7 @@ class Parser
             } else {
                 $left_tree = '';
             }
+
             // add it's left subtree and return.
             return $left_tree . $this->convertFunction($tree['value'], $tree['right']);
         }

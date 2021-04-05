@@ -250,7 +250,6 @@ class XlsxTest extends TestCase
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
      *
-     * @param $string
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
     public function testStripsWhiteSpaceFromStyleString($string): void

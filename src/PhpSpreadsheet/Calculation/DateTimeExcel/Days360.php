@@ -19,20 +19,20 @@ class Days360
      *        DAYS360(startDate,endDate[,method])
      *
      * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
-     *                               PHP DateTime object, or a standard date string
+     *                                        PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
-     *                             PHP DateTime object, or a standard date string
+     *                                        PHP DateTime object, or a standard date string
      * @param mixed $method US or European Method as a bool
-     *                         FALSE or omitted: U.S. (NASD) method. If the starting date is
-     *                               the last day of a month, it becomes equal to the 30th of the
-     *                               same month. If the ending date is the last day of a month and
-     *                               the starting date is earlier than the 30th of a month, the
-     *                               ending date becomes equal to the 1st of the next month;
-     *                               otherwise the ending date becomes equal to the 30th of the
-     *                               same month.
-     *                         TRUE: European method. Starting dates and ending dates that
-     *                               occur on the 31st of a month become equal to the 30th of the
-     *                               same month.
+     *                                        FALSE or omitted: U.S. (NASD) method. If the starting date is
+     *                                        the last day of a month, it becomes equal to the 30th of the
+     *                                        same month. If the ending date is the last day of a month and
+     *                                        the starting date is earlier than the 30th of a month, the
+     *                                        ending date becomes equal to the 1st of the next month;
+     *                                        otherwise the ending date becomes equal to the 30th of the
+     *                                        same month.
+     *                                        TRUE: European method. Starting dates and ending dates that
+     *                                        occur on the 31st of a month become equal to the 30th of the
+     *                                        same month.
      *
      * @return int|string Number of days between start date and end date
      */

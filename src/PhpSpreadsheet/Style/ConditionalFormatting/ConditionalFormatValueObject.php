@@ -13,8 +13,6 @@ class ConditionalFormatValueObject
     /**
      * ConditionalFormatValueObject constructor.
      *
-     * @param $type
-     * @param $value
      * @param null|mixed $cellFormula
      */
     public function __construct($type, $value = null, $cellFormula = null)

@@ -21,8 +21,6 @@ class CommentsTest extends AbstractFunctional
      * count of comments in correct coords.
      *
      * @dataProvider providerFormats
-     *
-     * @param $format
      */
     public function testComments($format): void
     {

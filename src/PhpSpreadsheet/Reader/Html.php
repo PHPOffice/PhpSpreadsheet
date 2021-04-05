@@ -910,8 +910,6 @@ class Html extends BaseReader
     /**
      * Check if has #, so we can get clean hex.
      *
-     * @param $value
-     *
      * @return null|string
      */
     public function getStyleColor($value)

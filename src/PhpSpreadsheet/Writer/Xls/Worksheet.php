@@ -217,8 +217,8 @@ class Worksheet extends BIFFwriter
      *
      * @param int $str_total Total number of strings
      * @param int $str_unique Total number of unique strings
-     * @param array &$str_table String Table
-     * @param array &$colors Colour Table
+     * @param array $str_table String Table
+     * @param array $colors Colour Table
      * @param Parser $parser The formula parser created for the Workbook
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
@@ -512,7 +512,7 @@ class Worksheet extends BIFFwriter
 
         // Hyperlinks
         foreach ($phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
-            [$column, $row] = Coordinate::coordinateFromString($coordinate);
+            [$column, $row] = Coordinate::indexesFromString($coordinate);
 
             $url = $hyperlink->getUrl();
 
@@ -526,7 +526,7 @@ class Worksheet extends BIFFwriter
                 $url = 'external:' . $url;
             }
 
-            $this->writeUrl($row - 1, Coordinate::columnIndexFromString($column) - 1, $url);
+            $this->writeUrl($row - 1, $column - 1, $url);
         }
 
         $this->writeDataValidity();
@@ -587,10 +587,10 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
 
-        $firstCellCoordinates = Coordinate::coordinateFromString($firstCell); // e.g. [0, 1]
-        $lastCellCoordinates = Coordinate::coordinateFromString($lastCell); // e.g. [1, 6]
+        $firstCellCoordinates = Coordinate::indexesFromString($firstCell); // e.g. [0, 1]
+        $lastCellCoordinates = Coordinate::indexesFromString($lastCell); // e.g. [1, 6]
 
-        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Coordinate::columnIndexFromString($firstCellCoordinates[0]) - 1, Coordinate::columnIndexFromString($lastCellCoordinates[0]) - 1);
+        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, $firstCellCoordinates[0] - 1, $lastCellCoordinates[0] - 1);
     }
 
     /**
@@ -1455,10 +1455,10 @@ class Worksheet extends BIFFwriter
             // extract the row and column indexes
             $range = Coordinate::splitRange($mergeCell);
             [$first, $last] = $range[0];
-            [$firstColumn, $firstRow] = Coordinate::coordinateFromString($first);
-            [$lastColumn, $lastRow] = Coordinate::coordinateFromString($last);
+            [$firstColumn, $firstRow] = Coordinate::indexesFromString($first);
+            [$lastColumn, $lastRow] = Coordinate::indexesFromString($last);
 
-            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, Coordinate::columnIndexFromString($firstColumn) - 1, Coordinate::columnIndexFromString($lastColumn) - 1);
+            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, $firstColumn - 1, $lastColumn - 1);
 
             // flush record if we have reached limit for number of merged cells, or reached final merged cell
             if ($j == $maxCountMergeCellsPerRecord || $i == $countMergeCells) {
@@ -1601,76 +1601,37 @@ class Worksheet extends BIFFwriter
      */
     private function writePanes(): void
     {
-        $panes = [];
-        if ($this->phpSheet->getFreezePane()) {
-            [$column, $row] = Coordinate::coordinateFromString($this->phpSheet->getFreezePane());
-            $panes[0] = Coordinate::columnIndexFromString($column) - 1;
-            $panes[1] = $row - 1;
-
-            [$leftMostColumn, $topRow] = Coordinate::coordinateFromString($this->phpSheet->getTopLeftCell());
-            //Coordinates are zero-based in xls files
-            $panes[2] = $topRow - 1;
-            $panes[3] = Coordinate::columnIndexFromString($leftMostColumn) - 1;
-        } else {
+        if (!$this->phpSheet->getFreezePane()) {
             // thaw panes
             return;
         }
 
-        $x = $panes[0] ?? null;
-        $y = $panes[1] ?? null;
-        $rwTop = $panes[2] ?? null;
-        $colLeft = $panes[3] ?? null;
-        if (count($panes) > 4) { // if Active pane was received
-            $pnnAct = $panes[4];
-        } else {
-            $pnnAct = null;
-        }
+        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane());
+        $x = $column - 1;
+        $y = $row - 1;
+
+        [$leftMostColumn, $topRow] = Coordinate::indexesFromString($this->phpSheet->getTopLeftCell());
+        //Coordinates are zero-based in xls files
+        $rwTop = $topRow - 1;
+        $colLeft = $leftMostColumn - 1;
+
         $record = 0x0041; // Record identifier
         $length = 0x000A; // Number of bytes to follow
 
-        // Code specific to frozen or thawed panes.
-        if ($this->phpSheet->getFreezePane()) {
-            // Set default values for $rwTop and $colLeft
-            if (!isset($rwTop)) {
-                $rwTop = $y;
-            }
-            if (!$colLeft) {
-                $colLeft = $x;
-            }
-        } else {
-            // Set default values for $rwTop and $colLeft
-            if (!isset($rwTop)) {
-                $rwTop = 0;
-            }
-            if (!$colLeft) {
-                $colLeft = 0;
-            }
-
-            // Convert Excel's row and column units to the internal units.
-            // The default row height is 12.75
-            // The default column width is 8.43
-            // The following slope and intersection values were interpolated.
-            //
-            $y = 20 * $y + 255;
-            $x = 113.879 * $x + 390;
-        }
-
         // Determine which pane should be active. There is also the undocumented
         // option to override this should it be necessary: may be removed later.
-        //
-        if (!$pnnAct) {
-            if ($x != 0 && $y != 0) {
-                $pnnAct = 0; // Bottom right
-            }
-            if ($x != 0 && $y == 0) {
-                $pnnAct = 1; // Top right
-            }
-            if ($x == 0 && $y != 0) {
-                $pnnAct = 2; // Bottom left
-            }
-            if ($x == 0 && $y == 0) {
-                $pnnAct = 3; // Top left
-            }
+        $pnnAct = null;
+        if ($x != 0 && $y != 0) {
+            $pnnAct = 0; // Bottom right
+        }
+        if ($x != 0 && $y == 0) {
+            $pnnAct = 1; // Top right
+        }
+        if ($x == 0 && $y != 0) {
+            $pnnAct = 2; // Bottom left
+        }
+        if ($x == 0 && $y == 0) {
+            $pnnAct = 3; // Top left
         }
 
         $this->activePane = $pnnAct; // Used in writeSelection
@@ -4427,10 +4388,7 @@ class Worksheet extends BIFFwriter
                         $arrConditional[] = $conditional->getHashCode();
                     }
                     // Cells
-                    $arrCoord = Coordinate::coordinateFromString($cellCoordinate);
-                    if (!is_numeric($arrCoord[0])) {
-                        $arrCoord[0] = Coordinate::columnIndexFromString($arrCoord[0]);
-                    }
+                    $arrCoord = Coordinate::indexesFromString($cellCoordinate);
                     if ($numColumnMin === null || ($numColumnMin > $arrCoord[0])) {
                         $numColumnMin = $arrCoord[0];
                     }

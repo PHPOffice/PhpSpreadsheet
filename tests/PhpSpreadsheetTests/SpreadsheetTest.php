@@ -44,9 +44,6 @@ class SpreadsheetTest extends TestCase
     }
 
     /**
-     * @param $index
-     * @param $sheetName
-     *
      * @dataProvider dataProviderForSheetNames
      */
     public function testGetSheetByName($index, $sheetName): void

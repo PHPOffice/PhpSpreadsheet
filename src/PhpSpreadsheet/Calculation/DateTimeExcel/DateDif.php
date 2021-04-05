@@ -89,7 +89,7 @@ class DateDif
 
     private static function datedifM(DateInterval $PHPDiffDateObject): int
     {
-        return (int) 12 * $PHPDiffDateObject->format('%y') + $PHPDiffDateObject->format('%m');
+        return 12 * (int) $PHPDiffDateObject->format('%y') + (int) $PHPDiffDateObject->format('%m');
     }
 
     private static function datedifMD(int $startDays, int $endDays, DateTime $PHPEndDateObject, DateInterval $PHPDiffDateObject): int

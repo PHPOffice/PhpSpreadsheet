@@ -44,7 +44,7 @@ class Trend
     /**
      * Cached results for each method when trying to identify which provides the best fit.
      *
-     * @var bestFit[]
+     * @var BestFit[]
      */
     private static $trendCache = [];
 

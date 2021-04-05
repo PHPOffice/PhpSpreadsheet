@@ -1,11 +1,16 @@
 parameters:
-    level: 1
+    level: 2
     paths:
         - src/
         - tests/
     ignoreErrors:
         - '~^Class GdImage not found\.$~'
+        - '~^Return typehint of method .* has invalid type GdImage\.$~'
+        - '~^Property .* has unknown class GdImage as its type\.$~'
+        - '~^Parameter .* of method .* has invalid typehint type GdImage\.$~'
 
         # Ignore all JpGraph issues
         - '~^Constant (MARK_CIRCLE|MARK_CROSS|MARK_DIAMOND|MARK_DTRIANGLE|MARK_FILLEDCIRCLE|MARK_SQUARE|MARK_STAR|MARK_UTRIANGLE|MARK_X|SIDE_RIGHT) not found\.$~'
         - '~^Instantiated class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot) not found\.$~'
+        - '~^Call to method .*\(\) on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
+        - '~^Access to property .* on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
