@@ -100,7 +100,7 @@ class Periodic
         }
 
         // Calculate
-        if ($rate !== null && $rate != 0) {
+        if ($rate != 0.0) {
             return (-$payment * (1 + $rate * $type)
                     * (((1 + $rate) ** $periods - 1) / $rate) - $futureValue) / (1 + $rate) ** $periods;
         }
@@ -140,13 +140,13 @@ class Periodic
         }
 
         // Validate parameters
-        if ($type !== 0 && $type !== 1) {
+        if ($type != 0 && $type != 1) {
             return Functions::NAN();
         }
 
         // Calculate
-        if ($rate !== 0.0) {
-            if ($payment === 0.0 && $presentValue === 0.0) {
+        if ($rate != 0.0) {
+            if ($payment == 0.0 && $presentValue == 0.0) {
                 return Functions::NAN();
             }
 
@@ -154,7 +154,7 @@ class Periodic
                     ($presentValue + $payment * (1 + $rate * $type) / $rate)) / log(1 + $rate);
         }
 
-        if ($payment === 0.0) {
+        if ($payment == 0.0) {
             return Functions::NAN();
         }
 

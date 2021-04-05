@@ -55,7 +55,7 @@ class Cumulative
             return Functions::NAN();
         }
         if ($start < 1 || $start > $end) {
-            return Functions::VALUE();
+            return Functions::NAN();
         }
 
         // Calculate
