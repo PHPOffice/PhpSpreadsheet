@@ -17,7 +17,7 @@ class CsvOutputEncodingTest extends Functional\AbstractFunctional
         $sheet->setCellValue('A1', 'こんにちは！');
         $sheet->setCellValue('B1', 'Hello!');
 
-        $write = new CsvWriter($spreadsheet);
+        $writer = new CsvWriter($spreadsheet);
         
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-UTF-8');
         $writer->setUseBOM(false);
