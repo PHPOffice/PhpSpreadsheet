@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Csv;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class CsvOutputEncodingTest extends Functional\AbstractFunctional
