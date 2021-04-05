@@ -171,6 +171,8 @@ class Drawing
 
         //    Process the header
         //    Structure: http://www.fastgraph.com/help/bmp_header_format.html
+        $width = 0;
+        $height = 0;
         if (substr($header, 0, 4) == '424d') {
             //    Cut it in parts of 2 bytes
             $header_parts = str_split($header, 2);

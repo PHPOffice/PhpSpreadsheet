@@ -92,10 +92,8 @@ class OLERead
 
     /**
      * Read the file.
-     *
-     * @param $pFilename string Filename
      */
-    public function read($pFilename): void
+    public function read(string $pFilename): void
     {
         File::assertFile($pFilename);
 

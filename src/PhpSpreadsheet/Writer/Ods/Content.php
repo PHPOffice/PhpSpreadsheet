@@ -39,7 +39,7 @@ class Content extends WriterPart
      *
      * @return string XML Output
      */
-    public function write()
+    public function write(): string
     {
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {

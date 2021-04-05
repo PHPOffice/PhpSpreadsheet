@@ -35,6 +35,7 @@ class NumberFormatter
         if ($maskingBlockCount > 1) {
             $maskingBlocks = array_reverse($maskingBlocks[0]);
 
+            $offset = 0;
             foreach ($maskingBlocks as $block) {
                 $size = strlen($block[0]);
                 $divisor = 10 ** $size;

@@ -420,8 +420,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    [$column, $row] = Coordinate::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = Coordinate::columnIndexFromString($column) - 1;
+                    [$column, $row] = Coordinate::indexesFromString($this->object->getStartCoordinates());
+                    $c1 = $column - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -431,8 +431,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    [$column, $row] = Coordinate::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = Coordinate::columnIndexFromString($column) - 1;
+                    [$column, $row] = Coordinate::indexesFromString($this->object->getEndCoordinates());
+                    $c2 = $column - 1;
                     $r2 = $row - 1;
 
                     // end offsetX

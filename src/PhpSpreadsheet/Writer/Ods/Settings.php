@@ -4,18 +4,15 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Settings extends WriterPart
 {
     /**
      * Write settings.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
-    public function write(?Spreadsheet $spreadsheet = null)
+    public function write(): string
     {
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
@@ -40,7 +37,7 @@ class Settings extends WriterPart
         $objWriter->startElement('config:config-item-map-indexed');
         $objWriter->writeAttribute('config:name', 'Views');
         $objWriter->startElement('config:config-item-map-entry');
-        $spreadsheet = $spreadsheet ?? $this->getParentWriter()->getSpreadsheet();
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet();
 
         $objWriter->startElement('config:config-item');
         $objWriter->writeAttribute('config:name', 'ViewId');

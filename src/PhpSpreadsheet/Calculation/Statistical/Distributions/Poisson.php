@@ -17,9 +17,9 @@ class Poisson
      * is predicting the number of events over a specific time, such as the number of
      * cars arriving at a toll plaza in 1 minute.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $mean Mean value as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string The result, or a string containing an error
      */

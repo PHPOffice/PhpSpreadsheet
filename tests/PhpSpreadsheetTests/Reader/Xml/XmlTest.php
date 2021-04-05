@@ -10,8 +10,6 @@ class XmlTest extends TestCase
 {
     /**
      * @dataProvider providerInvalidSimpleXML
-     *
-     * @param $filename
      */
     public function testInvalidSimpleXML($filename): void
     {

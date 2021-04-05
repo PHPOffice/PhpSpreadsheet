@@ -457,17 +457,6 @@ class Matrix
     }
 
     /**
-     * uminus.
-     *
-     *    Unary minus matrix -A
-     *
-     * @return Matrix Unary minus matrix
-     */
-    public function uminus()
-    {
-    }
-
-    /**
      * plus.
      *
      *    A + B

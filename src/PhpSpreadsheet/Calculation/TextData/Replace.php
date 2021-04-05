@@ -9,10 +9,10 @@ class Replace
     /**
      * REPLACE.
      *
-     * @param mixed (string) $oldText String to modify
-     * @param mixed (int) $start Start character
-     * @param mixed (int) $chars Number of characters
-     * @param mixed (string) $newText String to replace in defined position
+     * @param mixed $oldText The text string value to modify
+     * @param mixed $start Integer offset for start character of the replacement
+     * @param mixed $chars Integer number of characters to replace from the start offset
+     * @param mixed $newText String to replace in the defined position
      */
     public static function replace($oldText, $start, $chars, $newText): string
     {
@@ -30,10 +30,10 @@ class Replace
     /**
      * SUBSTITUTE.
      *
-     * @param mixed (string) $text Value
-     * @param mixed (string) $fromText From Value
-     * @param mixed (string) $toText To Value
-     * @param mixed (int) $instance Instance Number
+     * @param mixed $text The text string value to modify
+     * @param mixed $fromText The string value that we want to replace in $text
+     * @param mixed $toText The string value that we want to replace with in $text
+     * @param mixed $instance Integer instance Number for the occurrence of frmText to change
      */
     public static function substitute($text = '', $fromText = '', $toText = '', $instance = 0): string
     {

@@ -262,9 +262,6 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider stringProvider
-     *
-     * @param mixed $value
-     * @param mixed $wrapped
      */
     public function testStringWrapping(string $value, bool $wrapped): void
     {

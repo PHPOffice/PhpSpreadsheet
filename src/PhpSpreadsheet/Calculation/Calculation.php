@@ -130,7 +130,7 @@ class Calculation
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
      *
-     * @var string
+     * @var null|string
      */
     public $formulaError;
 
@@ -204,7 +204,7 @@ class Calculation
     /**
      * Locale-specific translations for Excel constants (True, False and Null).
      *
-     * @var string[]
+     * @var array<string, string>
      */
     public static $localeBoolean = [
         'TRUE' => 'TRUE',
@@ -216,7 +216,7 @@ class Calculation
      * Excel constant string translations to their PHP equivalents
      * Constant conversion from text name/value to actual (datatyped) value.
      *
-     * @var string[]
+     * @var array<string, mixed>
      */
     private static $excelConstants = [
         'TRUE' => true,
@@ -3154,6 +3154,7 @@ class Calculation
                 //    Return Excel errors "as is"
                 return $value;
             }
+
             //    Return strings wrapped in quotes
             return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
@@ -3456,8 +3457,8 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices and of the same size.
      *
-     * @param mixed &$operand1 First matrix operand
-     * @param mixed &$operand2 Second matrix operand
+     * @param mixed $operand1 First matrix operand
+     * @param mixed $operand2 Second matrix operand
      * @param int $resize Flag indicating whether the matrices should be resized to match
      *                                        and (if so), whether the smaller dimension should grow or the
      *                                        larger should shrink.
@@ -3501,7 +3502,7 @@ class Calculation
     /**
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0.
      *
-     * @param array &$matrix matrix operand
+     * @param array $matrix matrix operand
      *
      * @return int[] An array comprising the number of rows, and number of columns
      */
@@ -3526,8 +3527,8 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param mixed &$matrix1 First matrix operand
-     * @param mixed &$matrix2 Second matrix operand
+     * @param mixed $matrix1 First matrix operand
+     * @param mixed $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
@@ -3569,8 +3570,8 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param mixed &$matrix1 First matrix operand
-     * @param mixed &$matrix2 Second matrix operand
+     * @param mixed $matrix1 First matrix operand
+     * @param mixed $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
@@ -3687,6 +3688,8 @@ class Calculation
 
             return $typeString . ' with a value of ' . $this->showValue($value);
         }
+
+        return null;
     }
 
     /**
@@ -3781,7 +3784,7 @@ class Calculation
     /**
      * @param string $formula
      *
-     * @return bool
+     * @return array<int, mixed>|false
      */
     private function internalParseFormula($formula, ?Cell $pCell = null)
     {
@@ -3794,13 +3797,13 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-                                '|' . self::CALCULATION_REGEXP_CELLREF .
-                                '|' . self::CALCULATION_REGEXP_NUMBER .
-                                '|' . self::CALCULATION_REGEXP_STRING .
-                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
-                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
-                                '|' . self::CALCULATION_REGEXP_ERROR .
-                                ')/sui';
+            '|' . self::CALCULATION_REGEXP_CELLREF .
+            '|' . self::CALCULATION_REGEXP_NUMBER .
+            '|' . self::CALCULATION_REGEXP_STRING .
+            '|' . self::CALCULATION_REGEXP_OPENBRACE .
+            '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
+            '|' . self::CALCULATION_REGEXP_ERROR .
+            ')/sui';
 
         //    Start with initialisation
         $index = 0;
@@ -3939,6 +3942,7 @@ class Calculation
                     }
                     //    Check the argument count
                     $argumentCountError = false;
+                    $expectedArgumentCountString = null;
                     if (is_numeric($expectedArgumentCount)) {
                         if ($expectedArgumentCount < 0) {
                             if ($argumentCount > abs($expectedArgumentCount)) {
@@ -4203,7 +4207,7 @@ class Calculation
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
+                        ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )
                 ) {
                     while (
@@ -4252,7 +4256,7 @@ class Calculation
      * @param mixed $tokens
      * @param null|string $cellID
      *
-     * @return bool
+     * @return array<int, mixed>|false
      */
     private function processTokenStack($tokens, $cellID = null, ?Cell $pCell = null)
     {
@@ -4645,6 +4649,9 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluating Function ', self::localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
                 }
                 if ((isset(self::$phpSpreadsheetFunctions[$functionName])) || (isset(self::$controlFunctions[$functionName]))) {    // function
+                    $passByReference = false;
+                    $passCellReference = false;
+                    $functionCall = null;
                     if (isset(self::$phpSpreadsheetFunctions[$functionName])) {
                         $functionCall = self::$phpSpreadsheetFunctions[$functionName]['functionCall'];
                         $passByReference = isset(self::$phpSpreadsheetFunctions[$functionName]['passByReference']);
@@ -4945,6 +4952,9 @@ class Calculation
                 }
 
                 break;
+
+            default:
+                throw new Exception('Unsupported binary comparison operation');
         }
 
         //    Log the result details
@@ -5062,6 +5072,9 @@ class Calculation
                         $result = $operand1 ** $operand2;
 
                         break;
+
+                    default:
+                        throw new Exception('Unsupported numeric binary operation');
                 }
             }
         }
@@ -5090,7 +5103,7 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string &$pRange String based range representation
+     * @param string $pRange String based range representation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
@@ -5143,7 +5156,7 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string &$pRange String based range representation
+     * @param string $pRange String based range representation
      * @param Worksheet $pSheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *

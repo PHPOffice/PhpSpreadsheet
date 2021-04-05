@@ -19,7 +19,7 @@ class ErfC
      *    Excel Function:
      *        ERFC(x)
      *
-     * @param float $value The lower bound for integrating ERFC
+     * @param mixed $value The float lower bound for integrating ERFC
      *
      * @return float|string
      */

@@ -20,6 +20,8 @@ class Financial
     {
         $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
         $capital = $pv;
+        $interest = 0;
+        $principal = 0;
         for ($i = 1; $i <= $per; ++$i) {
             $interest = ($type && $i == 1) ? 0 : -$capital * $rate;
             $principal = $pmt - $interest;
@@ -47,21 +49,21 @@ class Financial
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
-     * @param mixed (float) $rate the security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
+     * @param mixed $rate the security's annual coupon rate
+     * @param mixed $par The security's par value.
      *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $frequency The number of coupon payments per year.
+     * @param mixed $frequency The number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
      *                                        4    Quarterly
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $basis The type of day count to use.
      *                               0 or omitted    US (NASD) 30/360
      *                               1                Actual/actual
      *                               2                Actual/360
      *                               3                Actual/365
      *                               4                European 30/360
-     * @param mixed (bool) $calcMethod
+     * @param mixed $calcMethod
      *                          If true, use Issue to Settlement
      *                          If false, use FirstInterest to Settlement
      *
@@ -104,10 +106,10 @@ class Financial
      *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
-     * @param mixed (float) $rate The security's annual coupon rate
-     * @param mixed (float) $par The security's par value.
+     * @param mixed $rate The security's annual coupon rate
+     * @param mixed $par The security's par value.
      *                               If you omit par, ACCRINT uses $1,000.
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $basis The type of day count to use.
      *                               0 or omitted    US (NASD) 30/360
      *                               1                Actual/actual
      *                               2                Actual/360
@@ -754,21 +756,19 @@ class Financial
      * Excel Function:
      *        FVSCHEDULE(principal,schedule)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::futureValue()
+     *      Use the futureValue() method in the Financial\CashFlow\Single class instead
+     *
      * @param float $principal the present value
      * @param float[] $schedule an array of interest rates to apply
      *
-     * @return float
+     * @return float|string
      */
     public static function FVSCHEDULE($principal, $schedule)
     {
-        $principal = Functions::flattenSingleValue($principal);
-        $schedule = Functions::flattenArray($schedule);
-
-        foreach ($schedule as $rate) {
-            $principal *= 1 + $rate;
-        }
-
-        return $principal;
+        return Financial\CashFlow\Single::futureValue($principal, $schedule);
     }
 
     /**
@@ -874,63 +874,22 @@ class Financial
      * Excel Function:
      *        IRR(values[,guess])
      *
-     * @param mixed (float[]) $values An array or a reference to cells that contain numbers for which you want
+     * @Deprecated 1.18.0
+     *
+     * @param mixed $values An array or a reference to cells that contain numbers for which you want
      *                                    to calculate the internal rate of return.
      *                                Values must contain at least one positive value and one negative value to
      *                                    calculate the internal rate of return.
-     * @param mixed (float) $guess A number that you guess is close to the result of IRR
+     * @param mixed $guess A number that you guess is close to the result of IRR
      *
      * @return float|string
+     *
+     *@see Financial\CashFlow\Variable\Periodic::rate()
+     *      Use the IRR() method in the Financial\CashFlow\Variable\Periodic class instead
      */
     public static function IRR($values, $guess = 0.1)
     {
-        if (!is_array($values)) {
-            return Functions::VALUE();
-        }
-        $values = Functions::flattenArray($values);
-        $guess = Functions::flattenSingleValue($guess);
-
-        // create an initial range, with a root somewhere between 0 and guess
-        $x1 = 0.0;
-        $x2 = $guess;
-        $f1 = self::NPV($x1, $values);
-        $f2 = self::NPV($x2, $values);
-        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            if (($f1 * $f2) < 0.0) {
-                break;
-            }
-            if (abs($f1) < abs($f2)) {
-                $f1 = self::NPV($x1 += 1.6 * ($x1 - $x2), $values);
-            } else {
-                $f2 = self::NPV($x2 += 1.6 * ($x2 - $x1), $values);
-            }
-        }
-        if (($f1 * $f2) > 0.0) {
-            return Functions::VALUE();
-        }
-
-        $f = self::NPV($x1, $values);
-        if ($f < 0.0) {
-            $rtb = $x1;
-            $dx = $x2 - $x1;
-        } else {
-            $rtb = $x2;
-            $dx = $x1 - $x2;
-        }
-
-        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            $dx *= 0.5;
-            $x_mid = $rtb + $dx;
-            $f_mid = self::NPV($x_mid, $values);
-            if ($f_mid <= 0.0) {
-                $rtb = $x_mid;
-            }
-            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
-                return $x_mid;
-            }
-        }
-
-        return Functions::VALUE();
+        return Financial\CashFlow\Variable\Periodic::rate($values, $guess);
     }
 
     /**
@@ -984,44 +943,22 @@ class Financial
      * Excel Function:
      *        MIRR(values,finance_rate, reinvestment_rate)
      *
-     * @param mixed (float[]) $values An array or a reference to cells that contain a series of payments and
-     *                                            income occurring at regular intervals.
-     *                                        Payments are negative value, income is positive values.
-     * @param mixed (float) $finance_rate The interest rate you pay on the money used in the cash flows
-     * @param mixed (float) $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Variable\Periodic::modifiedRate()
+     *      Use the MIRR() method in the Financial\CashFlow\Variable\Periodic class instead
+     *
+     * @param mixed $values An array or a reference to cells that contain a series of payments and
+     *                         income occurring at regular intervals.
+     *                      Payments are negative value, income is positive values.
+     * @param mixed $finance_rate The interest rate you pay on the money used in the cash flows
+     * @param mixed $reinvestment_rate The interest rate you receive on the cash flows as you reinvest them
      *
      * @return float|string Result, or a string containing an error
      */
     public static function MIRR($values, $finance_rate, $reinvestment_rate)
     {
-        if (!is_array($values)) {
-            return Functions::VALUE();
-        }
-        $values = Functions::flattenArray($values);
-        $finance_rate = Functions::flattenSingleValue($finance_rate);
-        $reinvestment_rate = Functions::flattenSingleValue($reinvestment_rate);
-        $n = count($values);
-
-        $rr = 1.0 + $reinvestment_rate;
-        $fr = 1.0 + $finance_rate;
-
-        $npv_pos = $npv_neg = 0.0;
-        foreach ($values as $i => $v) {
-            if ($v >= 0) {
-                $npv_pos += $v / $rr ** $i;
-            } else {
-                $npv_neg += $v / $fr ** $i;
-            }
-        }
-
-        if (($npv_neg == 0) || ($npv_pos == 0) || ($reinvestment_rate <= -1)) {
-            return Functions::VALUE();
-        }
-
-        $mirr = ((-$npv_pos * $rr ** $n)
-                / ($npv_neg * ($rr))) ** (1.0 / ($n - 1)) - 1.0;
-
-        return is_finite($mirr) ? $mirr : Functions::VALUE();
+        return Financial\CashFlow\Variable\Periodic::modifiedRate($values, $finance_rate, $reinvestment_rate);
     }
 
     /**
@@ -1092,34 +1029,27 @@ class Financial
      *
      * Returns the Net Present Value of a cash flow series given a discount rate.
      *
+     * @Deprecated 1.18.0
+     *
      * @return float
+     *
+     *@see Financial\CashFlow\Variable\Periodic::presentValue()
+     *      Use the NPV() method in the Financial\CashFlow\Variable\Periodic class instead
      */
     public static function NPV(...$args)
     {
-        // Return value
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $rate = array_shift($aArgs);
-        $countArgs = count($aArgs);
-        for ($i = 1; $i <= $countArgs; ++$i) {
-            // Is it a numeric value?
-            if (is_numeric($aArgs[$i - 1])) {
-                $returnValue += $aArgs[$i - 1] / (1 + $rate) ** $i;
-            }
-        }
-
-        // Return
-        return $returnValue;
+        return Financial\CashFlow\Variable\Periodic::presentValue(...$args);
     }
 
     /**
      * PDURATION.
      *
      * Calculates the number of periods required for an investment to reach a specified value.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::periods()
+     *      Use the periods() method in the Financial\CashFlow\Single class instead
      *
      * @param float $rate Interest rate per period
      * @param float $pv Present Value
@@ -1129,18 +1059,7 @@ class Financial
      */
     public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
     {
-        $rate = Functions::flattenSingleValue($rate);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-
-        // Validate parameters
-        if (!is_numeric($rate) || !is_numeric($pv) || !is_numeric($fv)) {
-            return Functions::VALUE();
-        } elseif ($rate <= 0.0 || $pv <= 0.0 || $fv <= 0.0) {
-            return Functions::NAN();
-        }
-
-        return (log($fv) - log($pv)) / log(1 + $rate);
+        return Financial\CashFlow\Single::periods($rate, $pv, $fv);
     }
 
     /**
@@ -1355,20 +1274,20 @@ class Financial
      * Excel Function:
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
      *
-     * @param mixed (float) $nper The total number of payment periods in an annuity
-     * @param mixed (float) $pmt The payment made each period and cannot change over the life
+     * @param mixed $nper The total number of payment periods in an annuity
+     * @param mixed $pmt The payment made each period and cannot change over the life
      *                                    of the annuity.
      *                                Typically, pmt includes principal and interest but no other
      *                                    fees or taxes.
-     * @param mixed (float) $pv The present value - the total amount that a series of future
+     * @param mixed $pv The present value - the total amount that a series of future
      *                                    payments is worth now
-     * @param mixed (float) $fv The future value, or a cash balance you want to attain after
+     * @param mixed $fv The future value, or a cash balance you want to attain after
      *                                    the last payment is made. If fv is omitted, it is assumed
      *                                    to be 0 (the future value of a loan, for example, is 0).
-     * @param mixed (int) $type A number 0 or 1 and indicates when payments are due:
+     * @param mixed $type A number 0 or 1 and indicates when payments are due:
      *                                        0 or omitted    At the end of the period.
      *                                        1                At the beginning of the period.
-     * @param mixed (float) $guess Your guess for what the rate will be.
+     * @param mixed $guess Your guess for what the rate will be.
      *                                    If you omit guess, it is assumed to be 10 percent.
      *
      * @return float|string
@@ -1427,9 +1346,9 @@ class Financial
      *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param mixed (int) $investment The amount invested in the security
-     * @param mixed (int) $discount The security's discount rate
-     * @param mixed (int) $basis The type of day count to use.
+     * @param mixed $investment The amount invested in the security
+     * @param mixed $discount The security's discount rate
+     * @param mixed $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
@@ -1468,6 +1387,11 @@ class Financial
      *
      * Calculates the interest rate required for an investment to grow to a specified future value .
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Single::interestRate()
+     *      Use the interestRate() method in the Financial\CashFlow\Single class instead
+     *
      * @param float $nper The number of periods over which the investment is made
      * @param float $pv Present Value
      * @param float $fv Future Value
@@ -1476,18 +1400,7 @@ class Financial
      */
     public static function RRI($nper = 0, $pv = 0, $fv = 0)
     {
-        $nper = Functions::flattenSingleValue($nper);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-
-        // Validate parameters
-        if (!is_numeric($nper) || !is_numeric($pv) || !is_numeric($fv)) {
-            return Functions::VALUE();
-        } elseif ($nper <= 0.0 || $pv <= 0.0 || $fv < 0.0) {
-            return Functions::NAN();
-        }
-
-        return ($fv / $pv) ** (1 / $nper) - 1;
+        return Financial\CashFlow\Single::interestRate($nper, $pv, $fv);
     }
 
     /**
@@ -1599,85 +1512,6 @@ class Financial
         return TreasuryBill::yield($settlement, $maturity, $price);
     }
 
-    private static function bothNegAndPos($neg, $pos)
-    {
-        return $neg && $pos;
-    }
-
-    private static function xirrPart2(&$values)
-    {
-        $valCount = count($values);
-        $foundpos = false;
-        $foundneg = false;
-        for ($i = 0; $i < $valCount; ++$i) {
-            $fld = $values[$i];
-            if (!is_numeric($fld)) {
-                return Functions::VALUE();
-            } elseif ($fld > 0) {
-                $foundpos = true;
-            } elseif ($fld < 0) {
-                $foundneg = true;
-            }
-        }
-        if (!self::bothNegAndPos($foundneg, $foundpos)) {
-            return Functions::NAN();
-        }
-
-        return '';
-    }
-
-    private static function xirrPart1(&$values, &$dates)
-    {
-        if ((!is_array($values)) && (!is_array($dates))) {
-            return Functions::NA();
-        }
-        $values = Functions::flattenArray($values);
-        $dates = Functions::flattenArray($dates);
-        if (count($values) != count($dates)) {
-            return Functions::NAN();
-        }
-
-        $datesCount = count($dates);
-        for ($i = 0; $i < $datesCount; ++$i) {
-            try {
-                $dates[$i] = DateTimeExcel\Helpers::getDateValue($dates[$i]);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        return self::xirrPart2($values);
-    }
-
-    private static function xirrPart3($values, $dates, $x1, $x2)
-    {
-        $f = self::xnpvOrdered($x1, $values, $dates, false);
-        if ($f < 0.0) {
-            $rtb = $x1;
-            $dx = $x2 - $x1;
-        } else {
-            $rtb = $x2;
-            $dx = $x1 - $x2;
-        }
-
-        $rslt = Functions::VALUE();
-        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            $dx *= 0.5;
-            $x_mid = $rtb + $dx;
-            $f_mid = self::xnpvOrdered($x_mid, $values, $dates, false);
-            if ($f_mid <= 0.0) {
-                $rtb = $x_mid;
-            }
-            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
-                $rslt = $x_mid;
-
-                break;
-            }
-        }
-
-        return $rslt;
-    }
-
     /**
      * XIRR.
      *
@@ -1685,6 +1519,11 @@ class Financial
      *
      * Excel Function:
      *        =XIRR(values,dates,guess)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Variable\NonPeriodic::rate()
+     *      Use the rate() method in the Financial\CashFlow\Variable\NonPeriodic class instead
      *
      * @param float[] $values     A series of cash flow payments
      *                                The series of values must contain at least one positive value & one negative value
@@ -1697,37 +1536,7 @@ class Financial
      */
     public static function XIRR($values, $dates, $guess = 0.1)
     {
-        $rslt = self::xirrPart1($values, $dates);
-        if ($rslt) {
-            return $rslt;
-        }
-
-        // create an initial range, with a root somewhere between 0 and guess
-        $guess = Functions::flattenSingleValue($guess);
-        $x1 = 0.0;
-        $x2 = $guess ?: 0.1;
-        $f1 = self::xnpvOrdered($x1, $values, $dates, false);
-        $f2 = self::xnpvOrdered($x2, $values, $dates, false);
-        $found = false;
-        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
-            if (!is_numeric($f1) || !is_numeric($f2)) {
-                break;
-            }
-            if (($f1 * $f2) < 0.0) {
-                $found = true;
-
-                break;
-            } elseif (abs($f1) < abs($f2)) {
-                $f1 = self::xnpvOrdered($x1 += 1.6 * ($x1 - $x2), $values, $dates, false);
-            } else {
-                $f2 = self::xnpvOrdered($x2 += 1.6 * ($x2 - $x1), $values, $dates, false);
-            }
-        }
-        if (!$found) {
-            return Functions::NAN();
-        }
-
-        return self::xirrPart3($values, $dates, $x1, $x2);
+        return Financial\CashFlow\Variable\NonPeriodic::rate($values, $dates, $guess);
     }
 
     /**
@@ -1738,6 +1547,11 @@ class Financial
      *
      * Excel Function:
      *        =XNPV(rate,values,dates)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Variable\NonPeriodic::presentValue()
+     *      Use the presentValue() method in the Financial\CashFlow\Variable\NonPeriodic class instead
      *
      * @param float $rate the discount rate to apply to the cash flows
      * @param float[] $values     A series of cash flows that corresponds to a schedule of payments in dates.
@@ -1752,68 +1566,7 @@ class Financial
      */
     public static function XNPV($rate, $values, $dates)
     {
-        return self::xnpvOrdered($rate, $values, $dates, true);
-    }
-
-    private static function validateXnpv($rate, $values, $dates)
-    {
-        if (!is_numeric($rate)) {
-            return Functions::VALUE();
-        }
-        $valCount = count($values);
-        if ($valCount != count($dates)) {
-            return Functions::NAN();
-        }
-        if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
-            return Functions::NAN();
-        }
-        $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
-        if (is_string($date0)) {
-            return Functions::VALUE();
-        }
-
-        return '';
-    }
-
-    private static function xnpvOrdered($rate, $values, $dates, $ordered = true)
-    {
-        $rate = Functions::flattenSingleValue($rate);
-        $values = Functions::flattenArray($values);
-        $dates = Functions::flattenArray($dates);
-        $valCount = count($values);
-
-        try {
-            $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        $rslt = self::validateXnpv($rate, $values, $dates);
-        if ($rslt) {
-            return $rslt;
-        }
-        $xnpv = 0.0;
-        for ($i = 0; $i < $valCount; ++$i) {
-            if (!is_numeric($values[$i])) {
-                return Functions::VALUE();
-            }
-
-            try {
-                $datei = DateTimeExcel\Helpers::getDateValue($dates[$i]);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-            if ($date0 > $datei) {
-                $dif = $ordered ? Functions::NAN() : -DateTimeExcel\DateDif::funcDateDif($datei, $date0, 'd');
-            } else {
-                $dif = DateTimeExcel\DateDif::funcDateDif($date0, $datei, 'd');
-            }
-            if (!is_numeric($dif)) {
-                return $dif;
-            }
-            $xnpv += $values[$i] / (1 + $rate) ** ($dif / 365);
-        }
-
-        return is_finite($xnpv) ? $xnpv : Functions::VALUE();
+        return Financial\CashFlow\Variable\NonPeriodic::presentValue($rate, $values, $dates);
     }
 
     /**
@@ -1821,7 +1574,10 @@ class Financial
      *
      * Returns the annual yield of a security that pays interest at maturity.
      *
-     * @see Use the yieldDiscounted() method in the Financial\Securities\Yields class instead
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\Yields::yieldDiscounted()
+     *      Use the yieldDiscounted() method in the Financial\Securities\Yields class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1851,7 +1607,8 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the yieldAtMaturity() method in the Financial\Securities\Yields class instead
+     * @see Financial\Securities\Yields::yieldAtMaturity()
+     *      Use the yieldAtMaturity() method in the Financial\Securities\Yields class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security

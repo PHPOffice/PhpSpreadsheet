@@ -576,7 +576,7 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
-     * @param mixed (array) $array Array to be flattened
+     * @param array|mixed $array Array to be flattened
      *
      * @return array Flattened array
      */
@@ -609,7 +609,7 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
-     * @param mixed (array) $array Array to be flattened
+     * @param array|mixed $array Array to be flattened
      *
      * @return array Flattened array
      */

@@ -18,10 +18,10 @@ class Format
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param mixed (float) $value The value to format
-     * @param mixed (int) $decimals The number of digits to display to the right of the decimal point.
-     *                                    If decimals is negative, number is rounded to the left of the decimal point.
-     *                                    If you omit decimals, it is assumed to be 2
+     * @param mixed $value The value to format
+     * @param mixed $decimals The number of digits to display to the right of the decimal point (as an integer).
+     *                            If decimals is negative, number is rounded to the left of the decimal point.
+     *                            If you omit decimals, it is assumed to be 2
      */
     public static function DOLLAR($value = 0, $decimals = 2): string
     {
@@ -52,9 +52,9 @@ class Format
     /**
      * FIXEDFORMAT.
      *
-     * @param mixed $value Value to check
-     * @param mixed $decimals
-     * @param mixed (bool) $noCommas
+     * @param mixed $value The value to format
+     * @param mixed $decimals Integer value for the number of decimal places that should be formatted
+     * @param mixed $noCommas Boolean value indicating whether the value should have thousands separators or not
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false): string
     {
@@ -87,8 +87,8 @@ class Format
     /**
      * TEXTFORMAT.
      *
-     * @param mixed $value Value to check
-     * @param mixed (string) $format Format mask to use
+     * @param mixed $value The value to format
+     * @param mixed $format A string with the Format mask that should be used
      */
     public static function TEXTFORMAT($value, $format): string
     {
@@ -151,9 +151,9 @@ class Format
     /**
      * NUMBERVALUE.
      *
-     * @param mixed $value Value to check
-     * @param mixed (string) $decimalSeparator decimal separator, defaults to locale defined value
-     * @param mixed (string) $groupSeparator group/thosands separator, defaults to locale defined value
+     * @param mixed $value The value to format
+     * @param mixed $decimalSeparator A string with the decimal separator to use, defaults to locale defined value
+     * @param mixed $groupSeparator A string with the group/thousands separator to use, defaults to locale defined value
      *
      * @return float|string
      */

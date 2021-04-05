@@ -96,14 +96,14 @@ class Worksheet implements IComparable
     /**
      * Collection of drawings.
      *
-     * @var BaseDrawing[]
+     * @var ArrayObject<BaseDrawing>
      */
     private $drawingCollection;
 
     /**
      * Collection of Chart objects.
      *
-     * @var Chart[]
+     * @var ArrayObject<Chart>
      */
     private $chartCollection = [];
 
@@ -180,7 +180,7 @@ class Worksheet implements IComparable
     /**
      * Collection of breaks.
      *
-     * @var array
+     * @var int[]
      */
     private $breaks = [];
 
@@ -534,7 +534,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of drawings.
      *
-     * @return BaseDrawing[]
+     * @return ArrayObject<BaseDrawing>
      */
     public function getDrawingCollection()
     {
@@ -544,7 +544,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of charts.
      *
-     * @return Chart[]
+     * @return ArrayObject<Chart>
      */
     public function getChartCollection()
     {
@@ -1482,7 +1482,7 @@ class Worksheet implements IComparable
      * Set conditional styles.
      *
      * @param string $pCoordinate eg: 'A1'
-     * @param $pValue Conditional[]
+     * @param Conditional[] $pValue
      *
      * @return $this
      */
@@ -1640,7 +1640,7 @@ class Worksheet implements IComparable
     /**
      * Get breaks.
      *
-     * @return array[]
+     * @return int[]
      */
     public function getBreaks()
     {

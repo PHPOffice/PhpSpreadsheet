@@ -25,18 +25,18 @@ class Amortization
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param mixed (float) $cost The cost of the asset
+     * @param mixed $cost The float cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param mixed (float) $period The period
-     * @param mixed (float) $rate Rate of depreciation
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     * @param mixed $period the period (float)
+     * @param mixed $rate rate of depreciation (float)
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */
@@ -103,18 +103,18 @@ class Amortization
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param mixed (float) $cost The cost of the asset
+     * @param mixed $cost The cost of the asset as a float
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param mixed (float) $period The period
-     * @param mixed (float) $rate Rate of depreciation
-     * @param mixed (int) $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     * @param mixed $period The period as a float
+     * @param mixed $rate Rate of depreciation as  float
+     * @param mixed $basis Integer indicating the type of day count to use.
+     *                             0 or omitted    US (NASD) 30/360
+     *                             1               Actual/actual
+     *                             2               Actual/360
+     *                             3               Actual/365
+     *                             4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */

@@ -96,6 +96,20 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellCoordinates.php';
     }
 
+    /**
+     * @dataProvider providerIndexesFromString
+     */
+    public function testIndexesFromString(array $expectedResult, string $rangeSet): void
+    {
+        $result = Coordinate::indexesFromString($rangeSet);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function providerIndexesFromString(): array
+    {
+        return require 'tests/data/Cell/IndexesFromString.php';
+    }
+
     public function testCoordinateFromStringWithRangeAddress(): void
     {
         $cellAddress = 'A1:AI2012';
