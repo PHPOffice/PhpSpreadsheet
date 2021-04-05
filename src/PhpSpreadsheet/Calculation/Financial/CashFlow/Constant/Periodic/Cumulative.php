@@ -18,13 +18,13 @@ class Cumulative
      * Excel Function:
      *        CUMIPMT(rate,nper,pv,start,end[,type])
      *
-     * @param float $rate The Interest rate
-     * @param int $periods The total number of payment periods
-     * @param float $presentValue Present Value
-     * @param int $start The first period in the calculation.
+     * @param mixed $rate The Interest rate
+     * @param mixed $periods The total number of payment periods
+     * @param mixed $presentValue Present Value
+     * @param mixed $start The first period in the calculation.
      *                       Payment periods are numbered beginning with 1.
-     * @param int $end the last period in the calculation
-     * @param int $type A number 0 or 1 and indicates when payments are due:
+     * @param mixed $end the last period in the calculation
+     * @param mixed $type A number 0 or 1 and indicates when payments are due:
      *                    0 or omitted    At the end of the period.
      *                    1               At the beginning of the period.
      *
