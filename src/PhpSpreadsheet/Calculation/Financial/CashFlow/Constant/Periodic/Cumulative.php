@@ -123,7 +123,7 @@ class Cumulative
         // Calculate
         $principal = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $ppmt = Financial::PPMT($rate, $per, $periods, $presentValue, 0, $type);
+            $ppmt = Payments::PPMT($rate, $per, $periods, $presentValue, 0, $type);
             if (is_string($ppmt)) {
                 return $ppmt;
             }

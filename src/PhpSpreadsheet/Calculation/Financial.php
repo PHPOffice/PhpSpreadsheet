@@ -16,21 +16,6 @@ class Financial
 
     const FINANCIAL_PRECISION = 1.0e-08;
 
-    private static function interestAndPrincipal($rate = 0, $per = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
-    {
-        $pmt = self::PMT($rate, $nper, $pv, $fv, $type);
-        $capital = $pv;
-        $interest = 0;
-        $principal = 0;
-        for ($i = 1; $i <= $per; ++$i) {
-            $interest = ($type && $i == 1) ? 0 : -$capital * $rate;
-            $principal = $pmt - $interest;
-            $capital += $principal;
-        }
-
-        return [$interest, $principal];
-    }
-
     /**
      * ACCRINT.
      *
@@ -785,7 +770,8 @@ class Financial
     /**
      * IPMT.
      *
-     * Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
+     * Returns the interest payment for a given period for an investment based on periodic, constant payments
+     *         and a constant interest rate.
      *
      * Excel Function:
      *        IPMT(rate,per,nper,pv[,fv][,type])
@@ -801,25 +787,7 @@ class Financial
      */
     public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
-        $rate = Functions::flattenSingleValue($rate);
-        $per = (int) Functions::flattenSingleValue($per);
-        $nper = (int) Functions::flattenSingleValue($nper);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-        $type = (int) Functions::flattenSingleValue($type);
-
-        // Validate parameters
-        if ($type != 0 && $type != 1) {
-            return Functions::NAN();
-        }
-        if ($per <= 0 || $per > $nper) {
-            return Functions::NAN();
-        }
-
-        // Calculate
-        $interestAndPrincipal = self::interestAndPrincipal($rate, $per, $nper, $pv, $fv, $type);
-
-        return $interestAndPrincipal[0];
+        return Financial\CashFlow\Constant\Periodic\Interest::IPMT($rate, $per, $nper, $pv, $fv, $type);
     }
 
     /**
@@ -870,28 +838,7 @@ class Financial
      */
     public static function ISPMT(...$args)
     {
-        // Return value
-        $returnValue = 0;
-
-        // Get the parameters
-        $aArgs = Functions::flattenArray($args);
-        $interestRate = array_shift($aArgs);
-        $period = array_shift($aArgs);
-        $numberPeriods = array_shift($aArgs);
-        $principleRemaining = array_shift($aArgs);
-
-        // Calculate
-        $principlePayment = ($principleRemaining * 1.0) / ($numberPeriods * 1.0);
-        for ($i = 0; $i <= $period; ++$i) {
-            $returnValue = $interestRate * $principleRemaining * -1;
-            $principleRemaining -= $principlePayment;
-            // principle needs to be 0 after the last payment, don't let floating point screw it up
-            if ($i == $numberPeriods) {
-                $returnValue = 0;
-            }
-        }
-
-        return $returnValue;
+        return Financial\CashFlow\Constant\Periodic\Interest::ISPMT(...$args);
     }
 
     /**
@@ -1020,29 +967,14 @@ class Financial
      */
     public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
-        $rate = Functions::flattenSingleValue($rate);
-        $nper = Functions::flattenSingleValue($nper);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-        $type = Functions::flattenSingleValue($type);
-
-        // Validate parameters
-        if ($type != 0 && $type != 1) {
-            return Functions::NAN();
-        }
-
-        // Calculate
-        if ($rate !== null && $rate != 0) {
-            return (-$fv - $pv * (1 + $rate) ** $nper) / (1 + $rate * $type) / (((1 + $rate) ** $nper - 1) / $rate);
-        }
-
-        return (-$pv - $fv) / $nper;
+        return Financial\CashFlow\Constant\Periodic\Payments::PMT($rate, $nper, $pv, $fv, $type);
     }
 
     /**
      * PPMT.
      *
-     * Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
+     * Returns the interest payment for a given period for an investment based on periodic, constant payments
+     *         and a constant interest rate.
      *
      * @param float $rate Interest rate per period
      * @param int $per Period for which we want to find the interest
@@ -1055,25 +987,7 @@ class Financial
      */
     public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
-        $rate = Functions::flattenSingleValue($rate);
-        $per = (int) Functions::flattenSingleValue($per);
-        $nper = (int) Functions::flattenSingleValue($nper);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = Functions::flattenSingleValue($fv);
-        $type = (int) Functions::flattenSingleValue($type);
-
-        // Validate parameters
-        if ($type != 0 && $type != 1) {
-            return Functions::NAN();
-        }
-        if ($per <= 0 || $per > $nper) {
-            return Functions::NAN();
-        }
-
-        // Calculate
-        $interestAndPrincipal = self::interestAndPrincipal($rate, $per, $nper, $pv, $fv, $type);
-
-        return $interestAndPrincipal[1];
+        return Financial\CashFlow\Constant\Periodic\Payments::PPMT($rate, $per, $pv, $fv, $type);
     }
 
     /**
@@ -1229,47 +1143,7 @@ class Financial
      */
     public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
     {
-        $nper = (int) Functions::flattenSingleValue($nper);
-        $pmt = Functions::flattenSingleValue($pmt);
-        $pv = Functions::flattenSingleValue($pv);
-        $fv = ($fv === null) ? 0.0 : Functions::flattenSingleValue($fv);
-        $type = ($type === null) ? 0 : (int) Functions::flattenSingleValue($type);
-        $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
-
-        $rate = $guess;
-        // rest of code adapted from python/numpy
-        $close = false;
-        $iter = 0;
-        while (!$close && $iter < self::FINANCIAL_MAX_ITERATIONS) {
-            $nextdiff = self::rateNextGuess($rate, $nper, $pmt, $pv, $fv, $type);
-            if (!is_numeric($nextdiff)) {
-                break;
-            }
-            $rate1 = $rate - $nextdiff;
-            $close = abs($rate1 - $rate) < self::FINANCIAL_PRECISION;
-            ++$iter;
-            $rate = $rate1;
-        }
-
-        return $close ? $rate : Functions::NAN();
-    }
-
-    private static function rateNextGuess($rate, $nper, $pmt, $pv, $fv, $type)
-    {
-        if ($rate == 0) {
-            return Functions::NAN();
-        }
-        $tt1 = ($rate + 1) ** $nper;
-        $tt2 = ($rate + 1) ** ($nper - 1);
-        $numerator = $fv + $tt1 * $pv + $pmt * ($tt1 - 1) * ($rate * $type + 1) / $rate;
-        $denominator = $nper * $tt2 * $pv - $pmt * ($tt1 - 1) * ($rate * $type + 1) / ($rate * $rate)
-             + $nper * $pmt * $tt2 * ($rate * $type + 1) / $rate
-             + $pmt * ($tt1 - 1) * $type / $rate;
-        if ($denominator == 0) {
-            return Functions::NAN();
-        }
-
-        return $numerator / $denominator;
+        return Financial\CashFlow\Constant\Periodic\Interest::RATE($nper, $pmt, $pv, $fv, $type, $guess);
     }
 
     /**
