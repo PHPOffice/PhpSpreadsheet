@@ -140,22 +140,18 @@ class Periodic
         }
 
         // Validate parameters
-        if ($type != 0 && $type != 1) {
+        if ($payment == 0.0 || ($type != 0 && $type != 1)) {
             return Functions::NAN();
         }
 
         // Calculate
         if ($rate != 0.0) {
-            if ($payment == 0.0 && $presentValue == 0.0) {
+            if ($presentValue == 0.0) {
                 return Functions::NAN();
             }
 
             return log(($payment * (1 + $rate * $type) / $rate - $futureValue) /
                     ($presentValue + $payment * (1 + $rate * $type) / $rate)) / log(1 + $rate);
-        }
-
-        if ($payment == 0.0) {
-            return Functions::NAN();
         }
 
         return (-$presentValue - $futureValue) / $payment;
