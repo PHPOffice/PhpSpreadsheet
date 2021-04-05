@@ -136,7 +136,7 @@ class Periodic
     }
 
     /**
-     * @return float|int|string
+     * @return float|string
      */
     private static function calculatePeriods(
         float $rate,
@@ -158,7 +158,7 @@ class Periodic
     }
 
     /**
-     * @return float|int
+     * @return float
      */
     private static function calculatePresentValue(
         float $rate,
@@ -176,7 +176,7 @@ class Periodic
     }
 
     /**
-     * @return float|int
+     * @return float
      */
     private static function calculateFutureValue(
         float $rate,
