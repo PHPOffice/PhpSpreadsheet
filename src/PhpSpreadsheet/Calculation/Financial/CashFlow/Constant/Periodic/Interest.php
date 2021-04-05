@@ -86,7 +86,7 @@ class Interest
             $principleRemaining -= $principlePayment;
             // principle needs to be 0 after the last payment, don't let floating point screw it up
             if ($i == $numberPeriods) {
-                $returnValue = 0;
+                $returnValue = 0.0;
             }
         }
 

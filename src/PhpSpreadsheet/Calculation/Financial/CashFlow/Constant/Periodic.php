@@ -19,7 +19,7 @@ class Periodic
      *        FV(rate,nper,pmt[,pv[,type]])
      *
      * @param mixed $rate The interest rate per period
-     * @param mixed $periods Total number of payment periods in an annuity as an integer
+     * @param mixed $numberOfPeriods Total number of payment periods in an annuity as an integer
      * @param mixed $payment The payment made each period: it cannot change over the
      *                            life of the annuity. Typically, pmt contains principal
      *                            and interest but no other fees or taxes.
@@ -31,17 +31,17 @@ class Periodic
      *
      * @return float|string
      */
-    public static function futureValue($rate = 0, $periods = 0, $payment = 0, $presentValue = 0, $type = 0)
+    public static function futureValue($rate, $numberOfPeriods, $payment = 0, $presentValue = 0, $type = 0)
     {
-        $rate = ($rate === null) ? 0.0 : Functions::flattenSingleValue($rate);
-        $periods = ($periods === null) ? 0.0 : Functions::flattenSingleValue($periods);
+        $rate = Functions::flattenSingleValue($rate);
+        $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
         $presentValue = ($presentValue === null) ? 0.0 : Functions::flattenSingleValue($presentValue);
         $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
 
         try {
             $rate = self::validateFloat($rate);
-            $periods = self::validateInt($periods);
+            $numberOfPeriods = self::validateInt($numberOfPeriods);
             $payment = self::validateFloat($payment);
             $presentValue = self::validateFloat($presentValue);
             $type = self::validateInt($type);
@@ -50,11 +50,11 @@ class Periodic
         }
 
         // Validate parameters
-        if ($periods < 0 || ($type !== 0 && $type !== 1)) {
+        if ($numberOfPeriods < 0 || ($type !== 0 && $type !== 1)) {
             return Functions::NAN();
         }
 
-        return self::calculateFutureValue($rate, $periods, $payment, $presentValue, $type);
+        return self::calculateFutureValue($rate, $numberOfPeriods, $payment, $presentValue, $type);
     }
 
     /**
@@ -63,24 +63,24 @@ class Periodic
      * Returns the Present Value of a cash flow with constant payments and interest rate (annuities).
      *
      * @param mixed $rate Interest rate per period
-     * @param mixed $periods Number of periods as an integer
+     * @param mixed $numberOfPeriods Number of periods as an integer
      * @param mixed $payment Periodic payment (annuity)
      * @param mixed $futureValue Future Value
      * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function presentValue($rate = 0, $periods = 0, $payment = 0, $futureValue = 0, $type = 0)
+    public static function presentValue($rate, $numberOfPeriods, $payment = 0, $futureValue = 0, $type = 0)
     {
-        $rate = ($rate === null) ? 0.0 : Functions::flattenSingleValue($rate);
-        $periods = ($periods === null) ? 0.0 : Functions::flattenSingleValue($periods);
+        $rate = Functions::flattenSingleValue($rate);
+        $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
         $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
 
         try {
             $rate = self::validateFloat($rate);
-            $periods = self::validateInt($periods);
+            $numberOfPeriods = self::validateInt($numberOfPeriods);
             $payment = self::validateFloat($payment);
             $futureValue = self::validateFloat($futureValue);
             $type = self::validateInt($type);
@@ -89,11 +89,11 @@ class Periodic
         }
 
         // Validate parameters
-        if ($periods < 0 || ($type !== 0 && $type !== 1)) {
+        if ($numberOfPeriods < 0 || ($type !== 0 && $type !== 1)) {
             return Functions::NAN();
         }
 
-        return self::calculatePresentValue($rate, $periods, $payment, $futureValue, $type);
+        return self::calculatePresentValue($rate, $numberOfPeriods, $payment, $futureValue, $type);
     }
 
     /**
@@ -109,11 +109,11 @@ class Periodic
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function periods($rate = 0, $payment = 0, $presentValue = 0, $futureValue = 0, $type = 0)
+    public static function periods($rate, $payment, $presentValue, $futureValue = 0, $type = 0)
     {
-        $rate = ($rate === null) ? 0.0 : Functions::flattenSingleValue($rate);
-        $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
-        $presentValue = ($presentValue === null) ? 0.0 : Functions::flattenSingleValue($presentValue);
+        $rate = Functions::flattenSingleValue($rate);
+        $payment = Functions::flattenSingleValue($payment);
+        $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
         $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
 
@@ -137,32 +137,33 @@ class Periodic
 
     private static function calculateFutureValue(
         float $rate,
-        int $periods,
+        int $numberOfPeriods,
         float $payment,
         float $presentValue,
         int $type
     ): float {
         if ($rate !== null && $rate != 0) {
             return -$presentValue *
-                (1 + $rate) ** $periods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $periods - 1) / $rate;
+                (1 + $rate) ** $numberOfPeriods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $numberOfPeriods - 1)
+                    / $rate;
         }
 
-        return -$presentValue - $payment * $periods;
+        return -$presentValue - $payment * $numberOfPeriods;
     }
 
     private static function calculatePresentValue(
         float $rate,
-        int $periods,
+        int $numberOfPeriods,
         float $payment,
         float $futureValue,
         int $type
     ): float {
         if ($rate != 0.0) {
             return (-$payment * (1 + $rate * $type)
-                    * (((1 + $rate) ** $periods - 1) / $rate) - $futureValue) / (1 + $rate) ** $periods;
+                    * (((1 + $rate) ** $numberOfPeriods - 1) / $rate) - $futureValue) / (1 + $rate) ** $numberOfPeriods;
         }
 
-        return -$futureValue - $payment * $periods;
+        return -$futureValue - $payment * $numberOfPeriods;
     }
 
     /**
