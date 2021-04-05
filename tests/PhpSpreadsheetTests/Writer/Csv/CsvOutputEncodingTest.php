@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheetTests\Functional;
 
-class CsvWriteTest extends Functional\AbstractFunctional
+class CsvOutputEncodingTest extends Functional\AbstractFunctional
 {
     public function testEncoding(): void
     {
