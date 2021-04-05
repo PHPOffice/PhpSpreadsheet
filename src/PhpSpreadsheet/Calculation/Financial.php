@@ -958,9 +958,9 @@ class Financial
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
      * @return float|string Result, or a string containing an error
+     *
      *@see Financial\CashFlow\Constant\Periodic::periods()
      *      Use the periods() method in the Financial\CashFlow\Constant\Periodic class instead
-     *
      */
     public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
     {

@@ -745,12 +745,12 @@ class Calculation
         ],
         'CUMIPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'CUMIPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Cumulative::class, 'CUMIPMT'],
             'argumentCount' => '6',
         ],
         'CUMPRINC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'CUMPRINC'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Cumulative::class, 'CUMPRINC'],
             'argumentCount' => '6',
         ],
         'DATE' => [
@@ -1137,7 +1137,7 @@ class Calculation
         ],
         'FV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'FV'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'futureValue'],
             'argumentCount' => '3-5',
         ],
         'FVSCHEDULE' => [
@@ -1826,7 +1826,7 @@ class Calculation
         ],
         'NPER' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'NPER'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'periods'],
             'argumentCount' => '3-5',
         ],
         'NPV' => [
@@ -2013,7 +2013,7 @@ class Calculation
         ],
         'PV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PV'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'presentValue'],
             'argumentCount' => '3-5',
         ],
         'QUARTILE' => [

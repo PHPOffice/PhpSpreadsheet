@@ -18,14 +18,14 @@ class Periodic
      * Excel Function:
      *        FV(rate,nper,pmt[,pv[,type]])
      *
-     * @param float $rate The interest rate per period
-     * @param int $periods Total number of payment periods in an annuity
-     * @param float $payment The payment made each period: it cannot change over the
+     * @param mixed $rate The interest rate per period
+     * @param mixed $periods Total number of payment periods in an annuity as an integer
+     * @param mixed $payment The payment made each period: it cannot change over the
      *                            life of the annuity. Typically, pmt contains principal
      *                            and interest but no other fees or taxes.
-     * @param float $presentValue present Value, or the lump-sum amount that a series of
+     * @param mixed $presentValue present Value, or the lump-sum amount that a series of
      *                            future payments is worth right now
-     * @param int $type A number 0 or 1 and indicates when payments are due:
+     * @param mixed $type A number 0 or 1 and indicates when payments are due:
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      *
@@ -68,11 +68,11 @@ class Periodic
      *
      * Returns the Present Value of a cash flow with constant payments and interest rate (annuities).
      *
-     * @param float $rate Interest rate per period
-     * @param int $periods Number of periods
-     * @param float $payment Periodic payment (annuity)
-     * @param float $futureValue Future Value
-     * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+     * @param mixed $rate Interest rate per period
+     * @param mixed $periods Number of periods as an integer
+     * @param mixed $payment Periodic payment (annuity)
+     * @param mixed $futureValue Future Value
+     * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
      * @return float|string Result, or a string containing an error
      */
@@ -113,11 +113,11 @@ class Periodic
      *
      * Returns the number of periods for a cash flow with constant periodic payments (annuities), and interest rate.
      *
-     * @param float $rate Interest rate per period
-     * @param int $payment Periodic payment (annuity)
-     * @param float $presentValue Present Value
-     * @param float $futureValue Future Value
-     * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+     * @param mixed $rate Interest rate per period
+     * @param mixed $payment Periodic payment (annuity)
+     * @param mixed $presentValue Present Value
+     * @param mixed $futureValue Future Value
+     * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      *
      * @return float|string Result, or a string containing an error
      */

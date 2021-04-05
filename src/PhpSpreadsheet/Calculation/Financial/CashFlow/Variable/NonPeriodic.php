@@ -224,8 +224,10 @@ class NonPeriodic
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
             return Functions::NAN();
         }
-        $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
-        if (is_string($date0)) {
+
+        try {
+            $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
+        } catch (Exception $e) {
             return Functions::VALUE();
         }
 
