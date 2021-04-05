@@ -987,7 +987,7 @@ class Financial
      */
     public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Payments::PPMT($rate, $per, $pv, $fv, $type);
+        return Financial\CashFlow\Constant\Periodic\Payments::PPMT($rate, $per, $nper, $pv, $fv, $type);
     }
 
     /**
