@@ -8,6 +8,7 @@ class Comment implements IComparable
 {
     /**
      * Author.
+     * This is a meaningless added comment.
      *
      * @var string
      */
