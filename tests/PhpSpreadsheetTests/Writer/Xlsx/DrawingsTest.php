@@ -51,24 +51,26 @@ class DrawingsTest extends AbstractFunctional
     public function testSaveLoadWithDrawingWithSamePath(): void
     {
         // Read spreadsheet from file
-        $originalFilePath = 'tests/data/Writer/XLSX/saving_drawing_with_same_path.xlsx';
+        $originalFileName = 'tests/data/Writer/XLSX/saving_drawing_with_same_path.xlsx';
 
-        $originalFile = file_get_contents($originalFilePath);
+        $originalFile = file_get_contents($originalFileName);
 
-        $tempFilePath = File::sysGetTempDir() . '/saving_drawing_with_same_path';
+        $tempFileName = File::sysGetTempDir() . '/saving_drawing_with_same_path';
 
-        file_put_contents($tempFilePath, $originalFile);
+        file_put_contents($tempFileName, $originalFile);
 
         $reader = new Xlsx();
-        $spreadsheet = $reader->load($tempFilePath);
+        $spreadsheet = $reader->load($tempFileName);
 
         $spreadsheet->getActiveSheet()->setCellValue('D5', 'foo');
         // Save spreadsheet to file to the same path. Success test case won't
         // throw exception here
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $writer->save($tempFilePath);
+        $writer->save($tempFileName);
 
-        $reloadedSpreadsheet = $reader->load($tempFilePath);
+        $reloadedSpreadsheet = $reader->load($tempFileName);
+
+        unlink($tempFileName);
 
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
