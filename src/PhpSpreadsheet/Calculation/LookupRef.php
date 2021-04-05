@@ -4,12 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Offset;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class LookupRef
@@ -147,8 +148,8 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @param string $linkURL Value to check, is also the value returned when no error
-     * @param string $displayName Value to return when testValue is an error condition
+     * @param mixed $linkURL URL Value to check, is also the value returned when no error
+     * @param mixed $displayName String Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
@@ -181,56 +182,22 @@ class LookupRef
      * Excel Function:
      *        =INDIRECT(cellAddress)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the INDIRECT() method in the LookupRef\Indirect class instead
+     *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      *
      * @param null|array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param Cell $pCell The current cell (containing this formula)
      *
-     * @return mixed The cells referenced by cellAddress
+     * @return array|string An array containing a cell or range of cells, or a string on error
      *
      * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
     public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
     {
-        $cellAddress = Functions::flattenSingleValue($cellAddress);
-        if ($cellAddress === null || $cellAddress === '') {
-            return Functions::REF();
-        }
-
-        $cellAddress1 = $cellAddress;
-        $cellAddress2 = null;
-        if (strpos($cellAddress, ':') !== false) {
-            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
-        }
-
-        if (
-            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
-        ) {
-            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $cellAddress1, $matches)) {
-                return Functions::REF();
-            }
-
-            if (strpos($cellAddress, '!') !== false) {
-                [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-                $sheetName = trim($sheetName, "'");
-                $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-            } else {
-                $pSheet = $pCell->getWorksheet();
-            }
-
-            return Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, false);
-        }
-
-        if (strpos($cellAddress, '!') !== false) {
-            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            $sheetName = trim($sheetName, "'");
-            $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-        } else {
-            $pSheet = $pCell->getWorksheet();
-        }
-
-        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Indirect::INDIRECT($cellAddress, $pCell);
     }
 
     /**
@@ -243,87 +210,33 @@ class LookupRef
      * Excel Function:
      *        =OFFSET(cellAddress, rows, cols, [height], [width])
      *
-     * @param null|string $cellAddress The reference from which you want to base the offset. Reference must refer to a cell or
-     *                                range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.
-     * @param mixed $rows The number of rows, up or down, that you want the upper-left cell to refer to.
-     *                                Using 5 as the rows argument specifies that the upper-left cell in the reference is
-     *                                five rows below reference. Rows can be positive (which means below the starting reference)
-     *                                or negative (which means above the starting reference).
-     * @param mixed $columns The number of columns, to the left or right, that you want the upper-left cell of the result
-     *                                to refer to. Using 5 as the cols argument specifies that the upper-left cell in the
-     *                                reference is five columns to the right of reference. Cols can be positive (which means
-     *                                to the right of the starting reference) or negative (which means to the left of the
-     *                                starting reference).
-     * @param mixed $height The height, in number of rows, that you want the returned reference to be. Height must be a positive number.
-     * @param mixed $width The width, in number of columns, that you want the returned reference to be. Width must be a positive number.
+     * @Deprecated 1.18.0
      *
-     * @return string A reference to a cell or range of cells
+     * @see Use the OFFSET() method in the LookupRef\Offset class instead
+     *
+     * @param null|string $cellAddress The reference from which you want to base the offset.
+     *                                     Reference must refer to a cell or range of adjacent cells;
+     *                                     otherwise, OFFSET returns the #VALUE! error value.
+     * @param mixed $rows The number of rows, up or down, that you want the upper-left cell to refer to.
+     *                        Using 5 as the rows argument specifies that the upper-left cell in the
+     *                        reference is five rows below reference. Rows can be positive (which means
+     *                        below the starting reference) or negative (which means above the starting
+     *                        reference).
+     * @param mixed $columns The number of columns, to the left or right, that you want the upper-left cell
+     *                           of the result to refer to. Using 5 as the cols argument specifies that the
+     *                           upper-left cell in the reference is five columns to the right of reference.
+     *                           Cols can be positive (which means to the right of the starting reference)
+     *                           or negative (which means to the left of the starting reference).
+     * @param mixed $height The height, in number of rows, that you want the returned reference to be.
+     *                          Height must be a positive number.
+     * @param mixed $width The width, in number of columns, that you want the returned reference to be.
+     *                         Width must be a positive number.
+     *
+     * @return array|string An array containing a cell or range of cells, or a string on error
      */
     public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
     {
-        $rows = Functions::flattenSingleValue($rows);
-        $columns = Functions::flattenSingleValue($columns);
-        $height = Functions::flattenSingleValue($height);
-        $width = Functions::flattenSingleValue($width);
-        if ($cellAddress === null) {
-            return 0;
-        }
-
-        if (!is_object($pCell)) {
-            return Functions::REF();
-        }
-
-        $sheetName = null;
-        if (strpos($cellAddress, '!')) {
-            [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
-            $sheetName = trim($sheetName, "'");
-        }
-        if (strpos($cellAddress, ':')) {
-            [$startCell, $endCell] = explode(':', $cellAddress);
-        } else {
-            $startCell = $endCell = $cellAddress;
-        }
-        [$startCellColumn, $startCellRow] = Coordinate::coordinateFromString($startCell);
-        [$endCellColumn, $endCellRow] = Coordinate::coordinateFromString($endCell);
-
-        $startCellRow += $rows;
-        $startCellColumn = Coordinate::columnIndexFromString($startCellColumn) - 1;
-        $startCellColumn += $columns;
-
-        if (($startCellRow <= 0) || ($startCellColumn < 0)) {
-            return Functions::REF();
-        }
-        $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
-        if (($width != null) && (!is_object($width))) {
-            $endCellColumn = $startCellColumn + $width - 1;
-        } else {
-            $endCellColumn += $columns;
-        }
-        $startCellColumn = Coordinate::stringFromColumnIndex($startCellColumn + 1);
-
-        if (($height != null) && (!is_object($height))) {
-            $endCellRow = $startCellRow + $height - 1;
-        } else {
-            $endCellRow += $rows;
-        }
-
-        if (($endCellRow <= 0) || ($endCellColumn < 0)) {
-            return Functions::REF();
-        }
-        $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn + 1);
-
-        $cellAddress = $startCellColumn . $startCellRow;
-        if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {
-            $cellAddress .= ':' . $endCellColumn . $endCellRow;
-        }
-
-        if ($sheetName !== null) {
-            $pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
-        } else {
-            $pSheet = $pCell->getWorksheet();
-        }
-
-        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Offset::OFFSET($cellAddress, $rows, $columns, $height, $width, $pCell);
     }
 
     /**
@@ -369,6 +282,10 @@ class LookupRef
      *
      * Excel Function:
      *        =MATCH(lookup_value, lookup_array, [match_type])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Use the MATCH() method in the LookupRef\ExcelMatch class instead
      *
      * @param mixed $lookupValue The value that you want to match in lookup_array
      * @param mixed $lookupArray The range of cells being searched

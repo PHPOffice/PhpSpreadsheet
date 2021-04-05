@@ -2,49 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use Exception;
-use Matrix\Exception as MatrixException;
-use Matrix\Matrix;
-
 class MathTrig
 {
-    //
-    //    Private method to return an array of the factors of the input value
-    //
-    private static function factors($value)
-    {
-        $startVal = floor(sqrt($value));
-
-        $factorArray = [];
-        for ($i = $startVal; $i > 1; --$i) {
-            if (($value % $i) == 0) {
-                $factorArray = array_merge($factorArray, self::factors($value / $i));
-                $factorArray = array_merge($factorArray, self::factors($i));
-                if ($i <= sqrt($value)) {
-                    break;
-                }
-            }
-        }
-        if (!empty($factorArray)) {
-            rsort($factorArray);
-
-            return $factorArray;
-        }
-
-        return [(int) $value];
-    }
-
-    private static function strSplit(string $roman): array
-    {
-        $rslt = str_split($roman);
-
-        return is_array($rslt) ? $rslt : [];
-    }
-
     /**
      * ARABIC.
      *
      * Converts a Roman numeral to an Arabic numeral.
+     *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Arabic class instead
      *
      * Excel Function:
      *        ARABIC(text)
@@ -55,69 +20,7 @@ class MathTrig
      */
     public static function ARABIC($roman)
     {
-        // An empty string should return 0
-        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
-        if ($roman === '') {
-            return 0;
-        }
-
-        // Convert the roman numeral to an arabic number
-        $negativeNumber = $roman[0] === '-';
-        if ($negativeNumber) {
-            $roman = substr($roman, 1);
-        }
-
-        try {
-            $arabic = self::calculateArabic(self::strSplit($roman));
-        } catch (Exception $e) {
-            return Functions::VALUE(); // Invalid character detected
-        }
-
-        if ($negativeNumber) {
-            $arabic *= -1; // The number should be negative
-        }
-
-        return $arabic;
-    }
-
-    /**
-     * Recursively calculate the arabic value of a roman numeral.
-     *
-     * @param int $sum
-     * @param int $subtract
-     *
-     * @return int
-     */
-    protected static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
-    {
-        $lookup = [
-            'M' => 1000,
-            'D' => 500,
-            'C' => 100,
-            'L' => 50,
-            'X' => 10,
-            'V' => 5,
-            'I' => 1,
-        ];
-
-        $numeral = array_shift($roman);
-        if (!isset($lookup[$numeral])) {
-            throw new Exception('Invalid character detected');
-        }
-
-        $arabic = $lookup[$numeral];
-        if (count($roman) > 0 && isset($lookup[$roman[0]]) && $arabic < $lookup[$roman[0]]) {
-            $subtract += $arabic;
-        } else {
-            $sum += ($arabic - $subtract);
-            $subtract = 0;
-        }
-
-        if (count($roman) > 0) {
-            self::calculateArabic($roman, $sum, $subtract);
-        }
-
-        return $sum;
+        return MathTrig\Arabic::evaluate($roman);
     }
 
     /**
@@ -153,6 +56,8 @@ class MathTrig
      *
      * Converts a number into a text representation with the given radix (base).
      *
+     * @Deprecated 2.0.0 Use the funcBase method in the MathTrig\Base class instead
+     *
      * Excel Function:
      *        BASE(Number, Radix [Min_length])
      *
@@ -164,29 +69,7 @@ class MathTrig
      */
     public static function BASE($number, $radix, $minLength = null)
     {
-        $number = Functions::flattenSingleValue($number);
-        $radix = Functions::flattenSingleValue($radix);
-        $minLength = Functions::flattenSingleValue($minLength);
-
-        if (is_numeric($number) && is_numeric($radix) && ($minLength === null || is_numeric($minLength))) {
-            // Truncate to an integer
-            $number = (int) $number;
-            $radix = (int) $radix;
-            $minLength = (int) $minLength;
-
-            if ($number < 0 || $number >= 2 ** 53 || $radix < 2 || $radix > 36) {
-                return Functions::NAN(); // Numeric range constraints
-            }
-
-            $outcome = strtoupper((string) base_convert($number, 10, $radix));
-            if ($minLength !== null) {
-                $outcome = str_pad($outcome, $minLength, '0', STR_PAD_LEFT); // String padding
-            }
-
-            return $outcome;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Base::funcBase($number, $radix, $minLength);
     }
 
     /**
@@ -220,6 +103,8 @@ class MathTrig
      * Returns the number of combinations for a given number of items. Use COMBIN to
      *        determine the total possible number of groups for a given number of items.
      *
+     * @Deprecated 2.0.0 Use the without method in the MathTrig\Combinations class instead
+     *
      * Excel Function:
      *        COMBIN(numObjs,numInSet)
      *
@@ -230,20 +115,7 @@ class MathTrig
      */
     public static function COMBIN($numObjs, $numInSet)
     {
-        $numObjs = Functions::flattenSingleValue($numObjs);
-        $numInSet = Functions::flattenSingleValue($numInSet);
-
-        if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
-            if ($numObjs < $numInSet) {
-                return Functions::NAN();
-            } elseif ($numInSet < 0) {
-                return Functions::NAN();
-            }
-
-            return round(self::FACT($numObjs) / self::FACT($numObjs - $numInSet)) / self::FACT($numInSet);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Combinations::withoutRepetition($numObjs, $numInSet);
     }
 
     /**
@@ -285,6 +157,8 @@ class MathTrig
      * Returns the factorial of a number.
      * The factorial of a number is equal to 1*2*3*...* number.
      *
+     * @Deprecated 2.0.0 Use the funcFact method in the MathTrig\Fact class instead
+     *
      * Excel Function:
      *        FACT(factVal)
      *
@@ -294,35 +168,15 @@ class MathTrig
      */
     public static function FACT($factVal)
     {
-        $factVal = Functions::flattenSingleValue($factVal);
-
-        if (is_numeric($factVal)) {
-            if ($factVal < 0) {
-                return Functions::NAN();
-            }
-            $factLoop = floor($factVal);
-            if (
-                (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) &&
-                ($factVal > $factLoop)
-            ) {
-                return Functions::NAN();
-            }
-
-            $factorial = 1;
-            while ($factLoop > 1) {
-                $factorial *= $factLoop--;
-            }
-
-            return $factorial;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Fact::funcFact($factVal);
     }
 
     /**
      * FACTDOUBLE.
      *
      * Returns the double factorial of a number.
+     *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\FactDouble class instead
      *
      * Excel Function:
      *        FACTDOUBLE(factVal)
@@ -333,23 +187,7 @@ class MathTrig
      */
     public static function FACTDOUBLE($factVal)
     {
-        $factLoop = Functions::flattenSingleValue($factVal);
-
-        if (is_numeric($factLoop)) {
-            $factLoop = floor($factLoop);
-            if ($factVal < 0) {
-                return Functions::NAN();
-            }
-            $factorial = 1;
-            while ($factLoop > 1) {
-                $factorial *= $factLoop--;
-                --$factLoop;
-            }
-
-            return $factorial;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\FactDouble::evaluate($factVal);
     }
 
     /**
@@ -419,11 +257,6 @@ class MathTrig
         return MathTrig\FloorPrecise::funcFloorPrecise($number, $significance);
     }
 
-    private static function evaluateGCD($a, $b)
-    {
-        return $b ? self::evaluateGCD($b, $a % $b) : $a;
-    }
-
     /**
      * INT.
      *
@@ -452,6 +285,8 @@ class MathTrig
      * The greatest common divisor is the largest integer that divides both
      *        number1 and number2 without a remainder.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Gcd class instead
+     *
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
      *
@@ -461,22 +296,7 @@ class MathTrig
      */
     public static function GCD(...$args)
     {
-        $args = Functions::flattenArray($args);
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $value) {
-            if (!is_numeric($value)) {
-                return Functions::VALUE();
-            } elseif ($value < 0) {
-                return Functions::NAN();
-            }
-        }
-
-        $gcd = (int) array_pop($args);
-        do {
-            $gcd = self::evaluateGCD($gcd, (int) array_pop($args));
-        } while (!empty($args));
-
-        return $gcd;
+        return MathTrig\Gcd::evaluate(...$args);
     }
 
     /**
@@ -487,6 +307,8 @@ class MathTrig
      * of all integer arguments number1, number2, and so on. Use LCM to add fractions
      * with different denominators.
      *
+     * @Deprecated 2.0.0 Use the funcLcm method in the MathTrig\Lcm class instead
+     *
      * Excel Function:
      *        LCM(number1[,number2[, ...]])
      *
@@ -496,45 +318,15 @@ class MathTrig
      */
     public static function LCM(...$args)
     {
-        $returnValue = 1;
-        $allPoweredFactors = [];
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $value) {
-            if (!is_numeric($value)) {
-                return Functions::VALUE();
-            }
-            if ($value == 0) {
-                return 0;
-            } elseif ($value < 0) {
-                return Functions::NAN();
-            }
-            $myFactors = self::factors(floor($value));
-            $myCountedFactors = array_count_values($myFactors);
-            $myPoweredFactors = [];
-            foreach ($myCountedFactors as $myCountedFactor => $myCountedPower) {
-                $myPoweredFactors[$myCountedFactor] = $myCountedFactor ** $myCountedPower;
-            }
-            foreach ($myPoweredFactors as $myPoweredValue => $myPoweredFactor) {
-                if (isset($allPoweredFactors[$myPoweredValue])) {
-                    if ($allPoweredFactors[$myPoweredValue] < $myPoweredFactor) {
-                        $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
-                    }
-                } else {
-                    $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
-                }
-            }
-        }
-        foreach ($allPoweredFactors as $allPoweredFactor) {
-            $returnValue *= (int) $allPoweredFactor;
-        }
-
-        return $returnValue;
+        return MathTrig\Lcm::funcLcm(...$args);
     }
 
     /**
      * LOG_BASE.
      *
      * Returns the logarithm of a number to a specified base. The default base is 10.
+     *
+     * @Deprecated 2.0.0 Use the withBase method in the MathTrig\Logarithms class instead
      *
      * Excel Function:
      *        LOG(number[,base])
@@ -544,25 +336,17 @@ class MathTrig
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function logBase($number = null, $base = 10)
+    public static function logBase($number, $base = 10)
     {
-        $number = Functions::flattenSingleValue($number);
-        $base = ($base === null) ? 10 : (float) Functions::flattenSingleValue($base);
-
-        if ((!is_numeric($base)) || (!is_numeric($number))) {
-            return Functions::VALUE();
-        }
-        if (($base <= 0) || ($number <= 0)) {
-            return Functions::NAN();
-        }
-
-        return log($number, $base);
+        return MathTrig\Logarithms::withBase($number, $base);
     }
 
     /**
      * MDETERM.
      *
      * Returns the matrix determinant of an array.
+     *
+     * @Deprecated 2.0.0 Use the funcMDeterm method in the MathTrig\MatrixFuncs class instead
      *
      * Excel Function:
      *        MDETERM(array)
@@ -573,46 +357,15 @@ class MathTrig
      */
     public static function MDETERM($matrixValues)
     {
-        $matrixData = [];
-        if (!is_array($matrixValues)) {
-            $matrixValues = [[$matrixValues]];
-        }
-
-        $row = $maxColumn = 0;
-        foreach ($matrixValues as $matrixRow) {
-            if (!is_array($matrixRow)) {
-                $matrixRow = [$matrixRow];
-            }
-            $column = 0;
-            foreach ($matrixRow as $matrixCell) {
-                if ((is_string($matrixCell)) || ($matrixCell === null)) {
-                    return Functions::VALUE();
-                }
-                $matrixData[$row][$column] = $matrixCell;
-                ++$column;
-            }
-            if ($column > $maxColumn) {
-                $maxColumn = $column;
-            }
-            ++$row;
-        }
-
-        $matrix = new Matrix($matrixData);
-        if (!$matrix->isSquare()) {
-            return Functions::VALUE();
-        }
-
-        try {
-            return $matrix->determinant();
-        } catch (MatrixException $ex) {
-            return Functions::VALUE();
-        }
+        return MathTrig\MatrixFunctions::funcMDeterm($matrixValues);
     }
 
     /**
      * MINVERSE.
      *
      * Returns the inverse matrix for the matrix stored in an array.
+     *
+     * @Deprecated 2.0.0 Use the funcMInverse method in the MathTrig\MatrixFuncs class instead
      *
      * Excel Function:
      *        MINVERSE(array)
@@ -623,48 +376,13 @@ class MathTrig
      */
     public static function MINVERSE($matrixValues)
     {
-        $matrixData = [];
-        if (!is_array($matrixValues)) {
-            $matrixValues = [[$matrixValues]];
-        }
-
-        $row = $maxColumn = 0;
-        foreach ($matrixValues as $matrixRow) {
-            if (!is_array($matrixRow)) {
-                $matrixRow = [$matrixRow];
-            }
-            $column = 0;
-            foreach ($matrixRow as $matrixCell) {
-                if ((is_string($matrixCell)) || ($matrixCell === null)) {
-                    return Functions::VALUE();
-                }
-                $matrixData[$row][$column] = $matrixCell;
-                ++$column;
-            }
-            if ($column > $maxColumn) {
-                $maxColumn = $column;
-            }
-            ++$row;
-        }
-
-        $matrix = new Matrix($matrixData);
-        if (!$matrix->isSquare()) {
-            return Functions::VALUE();
-        }
-
-        if ($matrix->determinant() == 0.0) {
-            return Functions::NAN();
-        }
-
-        try {
-            return $matrix->inverse()->toArray();
-        } catch (MatrixException $ex) {
-            return Functions::VALUE();
-        }
+        return MathTrig\MatrixFunctions::funcMInverse($matrixValues);
     }
 
     /**
      * MMULT.
+     *
+     * @Deprecated 2.0.0 Use the funcMMult method in the MathTrig\MatrixFuncs class instead
      *
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
@@ -673,60 +391,13 @@ class MathTrig
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
-        $matrixAData = $matrixBData = [];
-        if (!is_array($matrixData1)) {
-            $matrixData1 = [[$matrixData1]];
-        }
-        if (!is_array($matrixData2)) {
-            $matrixData2 = [[$matrixData2]];
-        }
-
-        try {
-            $rowA = 0;
-            foreach ($matrixData1 as $matrixRow) {
-                if (!is_array($matrixRow)) {
-                    $matrixRow = [$matrixRow];
-                }
-                $columnA = 0;
-                foreach ($matrixRow as $matrixCell) {
-                    if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
-                        return Functions::VALUE();
-                    }
-                    $matrixAData[$rowA][$columnA] = $matrixCell;
-                    ++$columnA;
-                }
-                ++$rowA;
-            }
-            $matrixA = new Matrix($matrixAData);
-            $rowB = 0;
-            foreach ($matrixData2 as $matrixRow) {
-                if (!is_array($matrixRow)) {
-                    $matrixRow = [$matrixRow];
-                }
-                $columnB = 0;
-                foreach ($matrixRow as $matrixCell) {
-                    if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
-                        return Functions::VALUE();
-                    }
-                    $matrixBData[$rowB][$columnB] = $matrixCell;
-                    ++$columnB;
-                }
-                ++$rowB;
-            }
-            $matrixB = new Matrix($matrixBData);
-
-            if ($columnA != $rowB) {
-                return Functions::VALUE();
-            }
-
-            return $matrixA->multiply($matrixB)->toArray();
-        } catch (MatrixException $ex) {
-            return Functions::VALUE();
-        }
+        return MathTrig\MatrixFunctions::funcMMult($matrixData1, $matrixData2);
     }
 
     /**
      * MOD.
+     *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Mod class instead
      *
      * @param int $a Dividend
      * @param int $b Divisor
@@ -735,18 +406,7 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        $a = (float) Functions::flattenSingleValue($a);
-        $b = (float) Functions::flattenSingleValue($b);
-
-        if ($b == 0.0) {
-            return Functions::DIV0();
-        } elseif (($a < 0.0) && ($b > 0.0)) {
-            return $b - fmod(abs($a), $b);
-        } elseif (($a > 0.0) && ($b < 0.0)) {
-            return $b + fmod($a, abs($b));
-        }
-
-        return fmod($a, $b);
+        return MathTrig\Mod::evaluate($a, $b);
     }
 
     /**
@@ -773,36 +433,15 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
+     * @Deprecated 2.0.0 Use the funcMultinomial method in the MathTrig\Multinomial class instead
+     *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
     public static function MULTINOMIAL(...$args)
     {
-        $summer = 0;
-        $divisor = 1;
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $arg) {
-            // Is it a numeric value?
-            if (is_numeric($arg)) {
-                if ($arg < 1) {
-                    return Functions::NAN();
-                }
-                $summer += floor($arg);
-                $divisor *= self::FACT($arg);
-            } else {
-                return Functions::VALUE();
-            }
-        }
-
-        // Return
-        if ($summer > 0) {
-            $summer = self::FACT($summer);
-
-            return $summer / $divisor;
-        }
-
-        return 0;
+        return MathTrig\Multinomial::funcMultinomial(...$args);
     }
 
     /**
@@ -826,27 +465,16 @@ class MathTrig
      *
      * Computes x raised to the power y.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Power class instead
+     *
      * @param float $x
      * @param float $y
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
-        $x = Functions::flattenSingleValue($x);
-        $y = Functions::flattenSingleValue($y);
-
-        // Validate parameters
-        if ($x == 0.0 && $y == 0.0) {
-            return Functions::NAN();
-        } elseif ($x == 0.0 && $y < 0.0) {
-            return Functions::DIV0();
-        }
-
-        // Return
-        $result = $x ** $y;
-
-        return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
+        return MathTrig\Power::evaluate($x, $y);
     }
 
     /**
@@ -854,36 +482,18 @@ class MathTrig
      *
      * PRODUCT returns the product of all the values and cells referenced in the argument list.
      *
+     * @Deprecated 2.0.0 Use the funcProduct method in the MathTrig\Product class instead
+     *
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function PRODUCT(...$args)
     {
-        // Return value
-        $returnValue = null;
-
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($returnValue === null) {
-                    $returnValue = $arg;
-                } else {
-                    $returnValue *= $arg;
-                }
-            }
-        }
-
-        // Return
-        if ($returnValue === null) {
-            return 0;
-        }
-
-        return $returnValue;
+        return MathTrig\Product::funcProduct(...$args);
     }
 
     /**
@@ -892,56 +502,34 @@ class MathTrig
      * QUOTIENT function returns the integer portion of a division. Numerator is the divided number
      *        and denominator is the divisor.
      *
+     * @Deprecated 2.0.0 Use the funcQuotient method in the MathTrig\Quotient class instead
+     *
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
      *
-     * @param mixed ...$args Data values
+     * @param mixed $numerator
+     * @param mixed $denominator
      *
-     * @return float
+     * @return int|string
      */
-    public static function QUOTIENT(...$args)
+    public static function QUOTIENT($numerator, $denominator)
     {
-        // Return value
-        $returnValue = null;
-
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($returnValue === null) {
-                    $returnValue = ($arg == 0) ? 0 : $arg;
-                } else {
-                    if (($returnValue == 0) || ($arg == 0)) {
-                        $returnValue = 0;
-                    } else {
-                        $returnValue /= $arg;
-                    }
-                }
-            }
-        }
-
-        // Return
-        return (int) $returnValue;
+        return MathTrig\Quotient::funcQuotient($numerator, $denominator);
     }
 
     /**
-     * RAND.
+     * RAND/RANDBETWEEN.
+     *
+     * @Deprecated 2.0.0 Use the randNoArg or randBetween method in the MathTrig\Random class instead
      *
      * @param int $min Minimal value
      * @param int $max Maximal value
      *
-     * @return int Random number
+     * @return float|int|string Random number
      */
     public static function RAND($min = 0, $max = 0)
     {
-        $min = Functions::flattenSingleValue($min);
-        $max = Functions::flattenSingleValue($max);
-
-        if ($min == 0 && $max == 0) {
-            return (mt_rand(0, 10000000)) / 10000000;
-        }
-
-        return mt_rand($min, $max);
+        return MathTrig\Random::randBetween($min, $max);
     }
 
     /**
@@ -1006,37 +594,18 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @param mixed[] $args An array of mixed values for the Data Series
+     * @Deprecated 2.0.0 Use the funcSeriesSum method in the MathTrig\SeriesSum class instead
+     *
+     * @param mixed $x Input value
+     * @param mixed $n Initial power
+     * @param mixed $m Step
+     * @param mixed[] $args An array of coefficients for the Data Series
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SERIESSUM(...$args)
+    public static function SERIESSUM($x, $n, $m, ...$args)
     {
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-
-        $x = array_shift($aArgs);
-        $n = array_shift($aArgs);
-        $m = array_shift($aArgs);
-
-        if ((is_numeric($x)) && (is_numeric($n)) && (is_numeric($m))) {
-            // Calculate
-            $i = 0;
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $returnValue += $arg * $x ** ($n + ($m * $i++));
-                } else {
-                    return Functions::VALUE();
-                }
-            }
-
-            return $returnValue;
-        }
-
-        return Functions::VALUE();
+        return MathTrig\SeriesSum::funcSeriesSum($x, $n, $m, ...$args);
     }
 
     /**
@@ -1090,44 +659,12 @@ class MathTrig
         return Functions::VALUE();
     }
 
-    protected static function filterHiddenArgs($cellReference, $args)
-    {
-        return array_filter(
-            $args,
-            function ($index) use ($cellReference) {
-                [, $row, $column] = explode('.', $index);
-
-                return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
-                    $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-    }
-
-    protected static function filterFormulaArgs($cellReference, $args)
-    {
-        return array_filter(
-            $args,
-            function ($index) use ($cellReference) {
-                [, $row, $column] = explode('.', $index);
-                if ($cellReference->getWorksheet()->cellExists($column . $row)) {
-                    //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
-                    $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
-                    $cellFormula = !preg_match('/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
-
-                    return !$isFormula || $cellFormula;
-                }
-
-                return true;
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-    }
-
     /**
      * SUBTOTAL.
      *
      * Returns a subtotal in a list or database.
+     *
+     * @Deprecated 2.0.0 Use the funcSubtotal method in the MathTrig\Subtotal class instead
      *
      * @param int $functionType
      *            A number 1 to 11 that specifies which function to
@@ -1142,45 +679,7 @@ class MathTrig
      */
     public static function SUBTOTAL($functionType, ...$args)
     {
-        $cellReference = array_pop($args);
-        $aArgs = Functions::flattenArrayIndexed($args);
-        $subtotal = Functions::flattenSingleValue($functionType);
-
-        // Calculate
-        if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
-            if ($subtotal > 100) {
-                $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
-                $subtotal -= 100;
-            }
-
-            $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
-            switch ($subtotal) {
-                case 1:
-                    return Statistical\Averages::AVERAGE($aArgs);
-                case 2:
-                    return Statistical\Counts::COUNT($aArgs);
-                case 3:
-                    return Statistical\Counts::COUNTA($aArgs);
-                case 4:
-                    return Statistical\Maximum::MAX($aArgs);
-                case 5:
-                    return Statistical\Minimum::MIN($aArgs);
-                case 6:
-                    return self::PRODUCT($aArgs);
-                case 7:
-                    return Statistical\StandardDeviations::STDEV($aArgs);
-                case 8:
-                    return Statistical\StandardDeviations::STDEVP($aArgs);
-                case 9:
-                    return self::SUM($aArgs);
-                case 10:
-                    return Statistical\Variances::VAR($aArgs);
-                case 11:
-                    return Statistical\Variances::VARP($aArgs);
-            }
-        }
-
-        return Functions::VALUE();
+        return MathTrig\Subtotal::funcSubtotal($functionType, ...$args);
     }
 
     /**
@@ -1188,28 +687,18 @@ class MathTrig
      *
      * SUM computes the sum of all the values and cells referenced in the argument list.
      *
+     * @Deprecated 2.0.0 Use the funcSumNoStrings method in the MathTrig\Sum class instead
+     *
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUM(...$args)
     {
-        $returnValue = 0;
-
-        // Loop through the arguments
-        foreach (Functions::flattenArray($args) as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += $arg;
-            } elseif (Functions::isError($arg)) {
-                return $arg;
-            }
-        }
-
-        return $returnValue;
+        return MathTrig\Sum::funcSum(...$args);
     }
 
     /**
@@ -1229,7 +718,7 @@ class MathTrig
      * @param string $criteria the criteria that defines which cells will be summed
      * @param mixed $sumRange
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMIF($range, $criteria, $sumRange = [])
     {
@@ -1251,7 +740,7 @@ class MathTrig
      *
      * @param mixed $args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMIFS(...$args)
     {
@@ -1264,39 +753,15 @@ class MathTrig
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
+     * @Deprecated 2.0.0 Use the funcSumProduct method in the MathTrig\SumProduct class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function SUMPRODUCT(...$args)
     {
-        $arrayList = $args;
-
-        $wrkArray = Functions::flattenArray(array_shift($arrayList));
-        $wrkCellCount = count($wrkArray);
-
-        for ($i = 0; $i < $wrkCellCount; ++$i) {
-            if ((!is_numeric($wrkArray[$i])) || (is_string($wrkArray[$i]))) {
-                $wrkArray[$i] = 0;
-            }
-        }
-
-        foreach ($arrayList as $matrixData) {
-            $array2 = Functions::flattenArray($matrixData);
-            $count = count($array2);
-            if ($wrkCellCount != $count) {
-                return Functions::VALUE();
-            }
-
-            foreach ($array2 as $i => $val) {
-                if ((!is_numeric($val)) || (is_string($val))) {
-                    $val = 0;
-                }
-                $wrkArray[$i] *= $val;
-            }
-        }
-
-        return array_sum($wrkArray);
+        return MathTrig\SumProduct::funcSumProduct(...$args);
     }
 
     /**
@@ -1780,19 +1245,15 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
+     * @Deprecated 2.0.0 Use the natural method in the MathTrig\Logarithms class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinLN($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return log($number);
+        return MathTrig\Logarithms::natural($number);
     }
 
     /**
@@ -1800,19 +1261,15 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
+     * @Deprecated 2.0.0 Use the base10 method in the MathTrig\Logarithms class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinLOG10($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return log10($number);
+        return MathTrig\Logarithms::base10($number);
     }
 
     /**

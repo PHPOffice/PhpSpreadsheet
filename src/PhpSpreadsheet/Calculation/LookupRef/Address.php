@@ -23,17 +23,17 @@ class Address
      * Excel Function:
      *        =ADDRESS(row, column, [relativity], [referenceStyle], [sheetText])
      *
-     * @param mixed $row Row number to use in the cell reference
-     * @param mixed $column Column number to use in the cell reference
-     * @param int $relativity Flag indicating the type of reference to return
-     *                                1 or omitted     Absolute
-     *                                2                Absolute row; relative column
-     *                                3                Relative row; absolute column
-     *                                4                Relative
-     * @param bool $referenceStyle A logical value that specifies the A1 or R1C1 reference style.
-     *                                TRUE or omitted      ADDRESS returns an A1-style reference
-     *                                FALSE                ADDRESS returns an R1C1-style reference
-     * @param string $sheetName Optional Name of worksheet to use
+     * @param mixed $row Row number (integer) to use in the cell reference
+     * @param mixed $column Column number (integer) to use in the cell reference
+     * @param mixed $relativity Integer flag indicating the type of reference to return
+     *                             1 or omitted    Absolute
+     *                             2               Absolute row; relative column
+     *                             3               Relative row; absolute column
+     *                             4               Relative
+     * @param mixed $referenceStyle A logical (boolean) value that specifies the A1 or R1C1 reference style.
+     *                                TRUE or omitted    ADDRESS returns an A1-style reference
+     *                                FALSE              ADDRESS returns an R1C1-style reference
+     * @param mixed $sheetName Optional Name of worksheet to use
      *
      * @return string
      */

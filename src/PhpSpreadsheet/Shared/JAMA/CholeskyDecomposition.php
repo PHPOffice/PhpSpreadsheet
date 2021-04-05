@@ -103,7 +103,7 @@ class CholeskyDecomposition
     /**
      * Solve A*X = B.
      *
-     * @param $B Row-equal matrix
+     * @param Matrix $B Row-equal matrix
      *
      * @return Matrix L * L' * X = B
      */
@@ -111,7 +111,7 @@ class CholeskyDecomposition
     {
         if ($B->getRowDimension() == $this->m) {
             if ($this->isspd) {
-                $X = $B->getArrayCopy();
+                $X = $B->getArray();
                 $nx = $B->getColumnDimension();
 
                 for ($k = 0; $k < $this->m; ++$k) {

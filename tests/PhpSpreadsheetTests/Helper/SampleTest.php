@@ -38,6 +38,7 @@ class SampleTest extends TestCase
                 [
                     'Pdf/21_Pdf_Domdf.php',
                     'Pdf/21_Pdf_TCPDF.php',
+                    'Chart/35_Chart_render.php', // idem
                 ]
             );
         }

@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
@@ -15,7 +16,7 @@ class DefaultValueBinderTest extends TestCase
     private function createCellStub()
     {
         // Create a stub for the Cell class.
-        /** @var Cell $cellStub */
+        /** @var Cell&MockObject $cellStub */
         $cellStub = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()
             ->getMock();

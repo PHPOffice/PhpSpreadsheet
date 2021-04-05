@@ -24,8 +24,6 @@ class ConditionalFormattingRuleExtension
 
     /**
      * ConditionalFormattingRuleExtension constructor.
-     *
-     * @param $id
      */
     public function __construct($id = null, string $cfRule = self::CONDITION_EXTENSION_DATABAR)
     {

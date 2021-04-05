@@ -2,29 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue;
 
-class TimeValueTest extends TestCase
+class TimeValueTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
-     * @param $timeValue
+     * @param mixed $timeValue
      */
     public function testTIMEVALUE($expectedResult, $timeValue): void
     {
-        $result = DateTime::TIMEVALUE($timeValue);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('B1')->setValue('03:45:52');
+        $sheet->getCell('A1')->setValue("=TIMEVALUE($timeValue)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
@@ -35,18 +29,18 @@ class TimeValueTest extends TestCase
 
     public function testTIMEVALUEtoUnixTimestamp(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
+        self::setUnixReturn();
 
-        $result = DateTime::TIMEVALUE('7:30:20');
+        $result = TimeValue::funcTimeValue('7:30:20');
         self::assertEquals(23420, $result);
         self::assertEqualsWithDelta(23420, $result, 1E-8);
     }
 
     public function testTIMEVALUEtoDateTimeObject(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
+        self::setObjectReturn();
 
-        $result = DateTime::TIMEVALUE('7:30:20');
+        $result = TimeValue::funcTimeValue('7:30:20');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type

@@ -380,9 +380,8 @@ class Ods extends BaseReader
                             }
 
                             $columnID = 'A';
-                            foreach ($childNode->childNodes as $key => $cellData) {
-                                // @var \DOMElement $cellData
-
+                            /** @var DOMElement $cellData */
+                            foreach ($childNode->childNodes as $cellData) {
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         ++$columnID;
@@ -672,8 +671,9 @@ class Ods extends BaseReader
         $this->lookForSelectedCells($settings, $spreadsheet, $configNs);
     }
 
-    private function lookForActiveSheet(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function lookForActiveSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
+        /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
             if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
                 try {
@@ -687,8 +687,9 @@ class Ods extends BaseReader
         }
     }
 
-    private function lookForSelectedCells(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function lookForSelectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
+        /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {
             if ($t->getAttributeNs($configNs, 'name') === 'Tables') {
                 foreach ($t->getElementsByTagNameNS($configNs, 'config-item-map-entry') as $ws) {

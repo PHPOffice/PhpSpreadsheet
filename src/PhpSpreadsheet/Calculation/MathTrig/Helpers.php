@@ -61,6 +61,48 @@ class Helpers
         throw new Exception(Functions::VALUE());
     }
 
+    /**
+     * Confirm number >= 0.
+     *
+     * @param float|int $number
+     */
+    public static function validateNotNegative($number, ?string $except = null): void
+    {
+        if ($number >= 0) {
+            return;
+        }
+
+        throw new Exception($except ?? Functions::NAN());
+    }
+
+    /**
+     * Confirm number > 0.
+     *
+     * @param float|int $number
+     */
+    public static function validatePositive($number, ?string $except = null): void
+    {
+        if ($number > 0) {
+            return;
+        }
+
+        throw new Exception($except ?? Functions::NAN());
+    }
+
+    /**
+     * Confirm number != 0.
+     *
+     * @param float|int $number
+     */
+    public static function validateNotZero($number): void
+    {
+        if ($number) {
+            return;
+        }
+
+        throw new Exception(Functions::DIV0());
+    }
+
     public static function returnSign(float $number): int
     {
         return $number ? (($number > 0) ? 1 : -1) : 0;

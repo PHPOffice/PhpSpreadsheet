@@ -44,7 +44,7 @@ class Trend
     /**
      * Cached results for each method when trying to identify which provides the best fit.
      *
-     * @var bestFit[]
+     * @var BestFit[]
      */
     private static $trendCache = [];
 
@@ -91,6 +91,8 @@ class Trend
             case self::TREND_BEST_FIT_NO_POLY:
                 //    If the request is to determine the best fit regression, then we test each Trend line in turn
                 //    Start by generating an instance of each available Trend method
+                $bestFit = [];
+                $bestFitValue = [];
                 foreach (self::$trendTypes as $trendMethod) {
                     $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
