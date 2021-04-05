@@ -18,13 +18,6 @@ use ZipStream\ZipStream;
 class Ods extends BaseWriter
 {
     /**
-     * Private writer parts.
-     *
-     * @var Ods\WriterPart[]
-     */
-    private $writerParts = [];
-
-    /**
      * Private PhpSpreadsheet.
      *
      * @var Spreadsheet

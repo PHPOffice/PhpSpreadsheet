@@ -57,22 +57,6 @@ class Helpers
     }
 
     /**
-     * getDateValueNoThrow.
-     *
-     * @param mixed $dateValue
-     *
-     * @return mixed Excel date/time serial value, or string if error
-     */
-    public static function getDateValueNoThrow($dateValue)
-    {
-        try {
-            return self::getDateValue($dateValue);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
      * getTimeValue.
      *
      * @param string $timeValue
