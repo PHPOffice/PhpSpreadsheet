@@ -228,7 +228,7 @@ class Calculation
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinABS'],
+            'functionCall' => [MathTrig\Absolute::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'ACCRINT' => [
@@ -835,7 +835,7 @@ class Calculation
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinDEGREES'],
+            'functionCall' => [MathTrig\Degrees::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'DELTA' => [
@@ -975,7 +975,7 @@ class Calculation
         ],
         'EXP' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinEXP'],
+            'functionCall' => [MathTrig\Exp::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'EXPONDIST' => [
@@ -2038,7 +2038,7 @@ class Calculation
         ],
         'RADIANS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinRADIANS'],
+            'functionCall' => [MathTrig\Radians::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'RAND' => [
@@ -2185,7 +2185,7 @@ class Calculation
         ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SERIESSUM'],
+            'functionCall' => [MathTrig\SeriesSum::class, 'funcSeriesSum'],
             'argumentCount' => '4',
         ],
         'SHEET' => [
@@ -2205,7 +2205,7 @@ class Calculation
         ],
         'SIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinSIN'],
+            'functionCall' => [MathTrig\Sin::class, 'funcSin'],
             'argumentCount' => '1',
         ],
         'SINH' => [
@@ -2250,12 +2250,12 @@ class Calculation
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'builtinSQRT'],
+            'functionCall' => [MathTrig\Sqrt::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'SQRTPI' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SQRTPI'],
+            'functionCall' => [MathTrig\SqrtPi::class, 'evaluate'],
             'argumentCount' => '1',
         ],
         'STANDARDIZE' => [
@@ -2331,22 +2331,22 @@ class Calculation
         ],
         'SUMSQ' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUMSQ'],
+            'functionCall' => [MathTrig\SumSquares::class, 'sumSquare'],
             'argumentCount' => '1+',
         ],
         'SUMX2MY2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUMX2MY2'],
+            'functionCall' => [MathTrig\SumSquares::class, 'sumXSquaredMinusYSquared'],
             'argumentCount' => '2',
         ],
         'SUMX2PY2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUMX2PY2'],
+            'functionCall' => [MathTrig\SumSquares::class, 'sumXSquaredPlusYSquared'],
             'argumentCount' => '2',
         ],
         'SUMXMY2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig::class, 'SUMXMY2'],
+            'functionCall' => [MathTrig\SumSquares::class, 'sumXMinusYSquared'],
             'argumentCount' => '2',
         ],
         'SWITCH' => [
