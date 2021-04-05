@@ -2,17 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
-class SumIfsTest extends TestCase
+class SumIfsTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSUMIFS
      *
@@ -20,7 +13,7 @@ class SumIfsTest extends TestCase
      */
     public function testSUMIFS($expectedResult, ...$args): void
     {
-        $result = MathTrig::SUMIFS(...$args);
+        $result = Statistical\Conditional::SUMIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -13,7 +13,7 @@ class MMultTest extends AllSetupTeardown
      */
     public function testMMULT($expectedResult, ...$args): void
     {
-        $result = MathTrig::MMULT(...$args);
+        $result = MathTrig\MatrixFunctions::funcMMult(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -23,7 +23,7 @@ class DateTime
     /**
      * getDateValue.
      *
-     * @Deprecated 2.0.0 Use the method getDateValueNoThrow in the DateTimeExcel\Helpers class instead
+     * @Deprecated 2.0.0 Use the method getDateValue in the DateTimeExcel\Helpers class instead
      *
      * @param mixed $dateValue
      *
@@ -31,7 +31,11 @@ class DateTime
      */
     public static function getDateValue($dateValue)
     {
-        return DateTimeExcel\Helpers::getDateValueNoThrow($dateValue);
+        try {
+            return DateTimeExcel\Helpers::getDateValue($dateValue);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
