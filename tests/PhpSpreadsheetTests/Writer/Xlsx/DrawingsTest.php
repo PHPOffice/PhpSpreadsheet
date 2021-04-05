@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class DrawingsTest extends AbstractFunctional
@@ -50,17 +51,24 @@ class DrawingsTest extends AbstractFunctional
     public function testSaveLoadWithDrawingWithSamePath(): void
     {
         // Read spreadsheet from file
-        $filePath = 'tests/data/Writer/XLSX/saving_drawing_with_same_path.xlsx';
+        $originalFilePath = 'tests/data/Writer/XLSX/saving_drawing_with_same_path.xlsx';
+
+        $originalFile = file_get_contents($originalFilePath);
+
+        $tempFilePath = File::sysGetTempDir() . '/saving_drawing_with_same_path';
+
+        file_put_contents($tempFilePath, $originalFile);
+
         $reader = new Xlsx();
-        $spreadsheet = $reader->load($filePath);
+        $spreadsheet = $reader->load($tempFilePath);
 
         $spreadsheet->getActiveSheet()->setCellValue('D5', 'foo');
         // Save spreadsheet to file to the same path. Success test case won't
         // throw exception here
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $writer->save($filePath);
+        $writer->save($tempFilePath);
 
-        $reloadedSpreadsheet = $reader->load($filePath);
+        $reloadedSpreadsheet = $reader->load($tempFilePath);
 
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
