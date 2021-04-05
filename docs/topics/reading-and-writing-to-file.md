@@ -580,7 +580,7 @@ $writer->setUseBOM(true);
 $writer->save("05featuredemo.csv");
 ```
 
-#### Writeing CSV files with desired encoding
+#### Writing CSV files with desired encoding
 
 It can be set to output with the encoding that can be specified by PHP's mb_convert_encoding.
 This looks like the following code:
