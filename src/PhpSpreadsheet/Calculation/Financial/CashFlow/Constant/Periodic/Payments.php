@@ -70,8 +70,14 @@ class Payments
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function interestPayment($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
-    {
+    public static function interestPayment(
+        $interestRate,
+        $period,
+        $numberOfPeriods,
+        $presentValue,
+        $futureValue = 0,
+        $type = 0
+    ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);

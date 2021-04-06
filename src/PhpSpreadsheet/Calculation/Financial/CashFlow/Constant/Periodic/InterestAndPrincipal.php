@@ -16,13 +16,13 @@ class InterestAndPrincipal
         float $futureValue = 0,
         int $type = 0
     ) {
-        $pmt = Payments::annuity($rate, $numberOfPeriods, $presentValue, $futureValue, $type);
+        $payment = Payments::annuity($rate, $numberOfPeriods, $presentValue, $futureValue, $type);
         $capital = $presentValue;
         $interest = 0.0;
         $principal = 0.0;
         for ($i = 1; $i <= $period; ++$i) {
             $interest = ($type && $i == 1) ? 0 : -$capital * $rate;
-            $principal = $pmt - $interest;
+            $principal = $payment - $interest;
             $capital += $principal;
         }
 

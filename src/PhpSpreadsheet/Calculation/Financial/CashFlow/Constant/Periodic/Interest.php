@@ -2,10 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\BaseValidations;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Interest
 {
+    use BaseValidations;
+
     private const FINANCIAL_MAX_ITERATIONS = 128;
 
     private const FINANCIAL_PRECISION = 1.0e-08;
@@ -31,11 +35,22 @@ class Interest
     public static function IPMT($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
-        $period = (int) Functions::flattenSingleValue($period);
-        $numberOfPeriods = (int) Functions::flattenSingleValue($numberOfPeriods);
+        $period = Functions::flattenSingleValue($period);
+        $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = Functions::flattenSingleValue($futureValue);
-        $type = (int) Functions::flattenSingleValue($type);
+        $type = Functions::flattenSingleValue($type);
+
+        try {
+            $interestRate = self::validateFloat($interestRate);
+            $period = self::validateInt($period);
+            $numberOfPeriods = self::validateInt($numberOfPeriods);
+            $presentValue = self::validateFloat($presentValue);
+            $futureValue = self::validateFloat($futureValue);
+            $type = self::validateInt($type);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
@@ -74,18 +89,35 @@ class Interest
      *
      * pv is the loan amount or present value of the payments
      */
-    public static function ISPMT($interestRate, $period, $numberPeriods, $principleRemaining)
+    public static function ISPMT($interestRate, $period, $numberOfPeriods, $principleRemaining)
     {
+        $interestRate = Functions::flattenSingleValue($interestRate);
+        $period = Functions::flattenSingleValue($period);
+        $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
+        $principleRemaining = Functions::flattenSingleValue($principleRemaining);
+
+        try {
+            $interestRate = self::validateFloat($interestRate);
+            $period = self::validateInt($period);
+            $numberOfPeriods = self::validateInt($numberOfPeriods);
+            $principleRemaining = self::validateFloat($principleRemaining);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ($period <= 0 || $period > $numberOfPeriods) {
+            return Functions::NAN();
+        }
         // Return value
         $returnValue = 0;
 
         // Calculate
-        $principlePayment = ($principleRemaining * 1.0) / ($numberPeriods * 1.0);
+        $principlePayment = ($principleRemaining * 1.0) / ($numberOfPeriods * 1.0);
         for ($i = 0; $i <= $period; ++$i) {
             $returnValue = $interestRate * $principleRemaining * -1;
             $principleRemaining -= $principlePayment;
             // principle needs to be 0 after the last payment, don't let floating point screw it up
-            if ($i == $numberPeriods) {
+            if ($i == $numberOfPeriods) {
                 $returnValue = 0.0;
             }
         }
@@ -121,12 +153,23 @@ class Interest
      */
     public static function RATE($numberOfPeriods, $payment, $presentValue, $futureValue = 0.0, $type = 0, $guess = 0.1)
     {
-        $numberOfPeriods = (int) Functions::flattenSingleValue($numberOfPeriods);
+        $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? 0 : (int) Functions::flattenSingleValue($type);
+        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
         $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
+
+        try {
+            $numberOfPeriods = self::validateInt($numberOfPeriods);
+            $payment = self::validateFloat($payment);
+            $presentValue = self::validateFloat($presentValue);
+            $futureValue = self::validateFloat($futureValue);
+            $type = self::validateInt($type);
+            $guess = self::validateFloat($guess);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
         $rate = $guess;
         // rest of code adapted from python/numpy
