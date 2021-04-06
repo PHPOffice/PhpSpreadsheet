@@ -86,7 +86,6 @@ class Amortization
             $fRest -= $fNRate;
 
             if ($fRest < 0.0) {
-                var_dump('AWOOGA', $period);
                 switch ($period - $n) {
                     case 0:
                     case 1:
