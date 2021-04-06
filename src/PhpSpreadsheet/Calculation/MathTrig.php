@@ -640,23 +640,15 @@ class MathTrig
      *
      * Returns the square root of (number * pi).
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\SqrtPi class instead
+     *
      * @param float $number Number
      *
      * @return float|string Square Root of Number * Pi, or a string containing an error
      */
     public static function SQRTPI($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (is_numeric($number)) {
-            if ($number < 0) {
-                return Functions::NAN();
-            }
-
-            return sqrt($number * M_PI);
-        }
-
-        return Functions::VALUE();
+        return MathTrig\SqrtPi::evaluate($number);
     }
 
     /**
@@ -769,107 +761,63 @@ class MathTrig
      *
      * SUMSQ returns the sum of the squares of the arguments
      *
+     * @Deprecated 2.0.0 Use the sumSquare method in the MathTrig\SumSquares class instead
+     *
      * Excel Function:
      *        SUMSQ(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMSQ(...$args)
     {
-        $returnValue = 0;
-
-        // Loop through arguments
-        foreach (Functions::flattenArray($args) as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                $returnValue += ($arg * $arg);
-            }
-        }
-
-        return $returnValue;
+        return MathTrig\SumSquares::sumSquare(...$args);
     }
 
     /**
      * SUMX2MY2.
      *
+     * @Deprecated 2.0.0 Use the sumXSquaredMinusYSquared method in the MathTrig\SumSquares class instead
+     *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMX2MY2($matrixData1, $matrixData2)
     {
-        $array1 = Functions::flattenArray($matrixData1);
-        $array2 = Functions::flattenArray($matrixData2);
-        $count = min(count($array1), count($array2));
-
-        $result = 0;
-        for ($i = 0; $i < $count; ++$i) {
-            if (
-                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
-            ) {
-                $result += ($array1[$i] * $array1[$i]) - ($array2[$i] * $array2[$i]);
-            }
-        }
-
-        return $result;
+        return MathTrig\SumSquares::sumXSquaredMinusYSquared($matrixData1, $matrixData2);
     }
 
     /**
      * SUMX2PY2.
      *
+     * @Deprecated 2.0.0 Use the sumXSquaredPlusYSquared method in the MathTrig\SumSquares class instead
+     *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMX2PY2($matrixData1, $matrixData2)
     {
-        $array1 = Functions::flattenArray($matrixData1);
-        $array2 = Functions::flattenArray($matrixData2);
-        $count = min(count($array1), count($array2));
-
-        $result = 0;
-        for ($i = 0; $i < $count; ++$i) {
-            if (
-                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
-            ) {
-                $result += ($array1[$i] * $array1[$i]) + ($array2[$i] * $array2[$i]);
-            }
-        }
-
-        return $result;
+        return MathTrig\SumSquares::sumXSquaredPlusYSquared($matrixData1, $matrixData2);
     }
 
     /**
      * SUMXMY2.
      *
+     * @Deprecated 2.0.0 Use the sumXMinusYSquared method in the MathTrig\SumSquares class instead
+     *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMXMY2($matrixData1, $matrixData2)
     {
-        $array1 = Functions::flattenArray($matrixData1);
-        $array2 = Functions::flattenArray($matrixData2);
-        $count = min(count($array1), count($array2));
-
-        $result = 0;
-        for ($i = 0; $i < $count; ++$i) {
-            if (
-                ((is_numeric($array1[$i])) && (!is_string($array1[$i]))) &&
-                ((is_numeric($array2[$i])) && (!is_string($array2[$i])))
-            ) {
-                $result += ($array1[$i] - $array2[$i]) * ($array1[$i] - $array2[$i]);
-            }
-        }
-
-        return $result;
+        return MathTrig\SumSquares::sumXMinusYSquared($matrixData1, $matrixData2);
     }
 
     /**
@@ -1057,19 +1005,15 @@ class MathTrig
      *
      * Returns the result of builtin function abs after validating args.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Absolute class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|int|string Rounded number
      */
     public static function builtinABS($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return abs($number);
+        return MathTrig\Absolute::evaluate($number);
     }
 
     /**
@@ -1205,19 +1149,15 @@ class MathTrig
      *
      * Returns the result of builtin function rad2deg after validating args.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Degrees class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinDEGREES($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return rad2deg($number);
+        return MathTrig\Degrees::evaluate($number);
     }
 
     /**
@@ -1225,19 +1165,15 @@ class MathTrig
      *
      * Returns the result of builtin function exp after validating args.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Exp class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinEXP($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return exp($number);
+        return MathTrig\Exp::evaluate($number);
     }
 
     /**
@@ -1277,19 +1213,15 @@ class MathTrig
      *
      * Returns the result of builtin function deg2rad after validating args.
      *
+     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinRADIANS($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return deg2rad($number);
+        return MathTrig\Radians::evaluate($number);
     }
 
     /**
@@ -1329,19 +1261,15 @@ class MathTrig
      *
      * Returns the result of builtin function sqrt after validating args.
      *
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sqrt class instead
+     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number
      */
     public static function builtinSQRT($number)
     {
-        $number = Functions::flattenSingleValue($number);
-
-        if (!is_numeric($number)) {
-            return Functions::VALUE();
-        }
-
-        return self::numberOrNan(sqrt($number));
+        return MathTrig\Sqrt::evaluate($number);
     }
 
     /**

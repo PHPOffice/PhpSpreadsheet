@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -47,6 +48,20 @@ class AllSetupTeardown extends TestCase
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     */
+    protected function setCell(string $cell, $value): void
+    {
+        if ($value !== null) {
+            if (is_string($value) && is_numeric($value)) {
+                $this->sheet->getCell($cell)->setValueExplicit($value, DataType::TYPE_STRING);
+            } else {
+                $this->sheet->getCell($cell)->setValue($value);
+            }
         }
     }
 }
