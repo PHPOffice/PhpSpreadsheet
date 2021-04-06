@@ -957,6 +957,11 @@ class Financial
      *
      * Returns the constant payment (annuity) for a cash flow with a constant interest rate.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Constant\Periodic\Payments::annuity()
+     *      Use the annuity() method in the Financial\CashFlow\Constant\Periodic\Payments class instead
+     *
      * @param float $rate Interest rate per period
      * @param int $nper Number of periods
      * @param float $pv Present Value
@@ -967,7 +972,7 @@ class Financial
      */
     public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Payments::PMT($rate, $nper, $pv, $fv, $type);
+        return Financial\CashFlow\Constant\Periodic\Payments::annuity($rate, $nper, $pv, $fv, $type);
     }
 
     /**
@@ -975,6 +980,11 @@ class Financial
      *
      * Returns the interest payment for a given period for an investment based on periodic, constant payments
      *         and a constant interest rate.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Constant\Periodic\Payments::interestPayment()
+     *      Use the interestPayment() method in the Financial\CashFlow\Constant\Periodic\Payments class instead
      *
      * @param float $rate Interest rate per period
      * @param int $per Period for which we want to find the interest
@@ -987,7 +997,7 @@ class Financial
      */
     public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Payments::PPMT($rate, $per, $nper, $pv, $fv, $type);
+        return Financial\CashFlow\Constant\Periodic\Payments::interestPayment($rate, $per, $nper, $pv, $fv, $type);
     }
 
     /**

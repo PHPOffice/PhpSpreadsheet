@@ -1958,7 +1958,7 @@ class Calculation
         ],
         'PMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Payments::class, 'annuity'],
             'argumentCount' => '3-5',
         ],
         'POISSON' => [
@@ -1978,7 +1978,7 @@ class Calculation
         ],
         'PPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Payments::class, 'interestPayment'],
             'argumentCount' => '4-6',
         ],
         'PRICE' => [

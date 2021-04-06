@@ -23,13 +23,13 @@ class Payments
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PMT($interestRate = 0, $numberOfPeriods = 0, $presentValue = 0, $futureValue = 0, $type = 0)
+    public static function annuity($interestRate, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
-        $futureValue = Functions::flattenSingleValue($futureValue);
-        $type = Functions::flattenSingleValue($type);
+        $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
+        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
 
         try {
             $interestRate = self::validateFloat($interestRate);
@@ -70,7 +70,7 @@ class Payments
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PPMT($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
+    public static function interestPayment($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);

@@ -16,7 +16,7 @@ class InterestAndPrincipal
         float $futureValue = 0,
         int $type = 0
     ) {
-        $pmt = Payments::PMT($rate, $numberOfPeriods, $presentValue, $futureValue, $type);
+        $pmt = Payments::annuity($rate, $numberOfPeriods, $presentValue, $futureValue, $type);
         $capital = $presentValue;
         $interest = 0.0;
         $principal = 0.0;
