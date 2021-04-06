@@ -30,24 +30,24 @@ class Financial
      *      Use the periodic() method in the Financial\Securities\AccruedInterest class instead
      *
      * @param mixed $issue the security's issue date
-     * @param mixed $firstinterest the security's first interest date
+     * @param mixed $firstInterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
      * @param mixed $rate the security's annual coupon rate
-     * @param mixed $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
      * @param mixed $frequency The number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
      * @param mixed $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      * @param mixed $calcMethod
      *                          If true, use Issue to Settlement
      *                          If false, use FirstInterest to Settlement
@@ -56,20 +56,20 @@ class Financial
      */
     public static function ACCRINT(
         $issue,
-        $firstinterest,
+        $firstInterest,
         $settlement,
         $rate,
-        $par = 1000,
+        $parValue = 1000,
         $frequency = 1,
         $basis = 0,
         $calcMethod = true
     ) {
         return Securities\AccruedInterest::periodic(
             $issue,
-            $firstinterest,
+            $firstInterest,
             $settlement,
             $rate,
-            $par,
+            $parValue,
             $frequency,
             $basis,
             $calcMethod
@@ -92,20 +92,20 @@ class Financial
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param mixed $rate The security's annual coupon rate
-     * @param mixed $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
      * @param mixed $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
+     *                            0 or omitted    US (NASD) 30/360
+     *                            1               Actual/actual
+     *                            2               Actual/360
+     *                            3               Actual/365
+     *                            4               European 30/360
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
+    public static function ACCRINTM($issue, $settlement, $rate, $parValue = 1000, $basis = 0)
     {
-        return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $par, $basis);
+        return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $parValue, $basis);
     }
 
     /**
@@ -170,11 +170,11 @@ class Financial
      * @param float $period The period
      * @param float $rate Rate of depreciation
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1               Actual/actual
+     *                       2               Actual/360
+     *                       3               Actual/365
+     *                       4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */

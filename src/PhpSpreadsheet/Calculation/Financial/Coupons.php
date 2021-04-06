@@ -50,7 +50,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
@@ -107,7 +107,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
@@ -172,7 +172,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
@@ -231,7 +231,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
@@ -279,7 +279,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
@@ -333,7 +333,7 @@ class Coupons
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
             $settlement = self::validateSettlementDate($settlement);
