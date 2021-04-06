@@ -178,14 +178,12 @@ class NonPeriodic
         $valCount = count($values);
 
         try {
+            self::validateXnpv($rate, $values, $dates);
             $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        $rslt = self::validateXnpv($rate, $values, $dates);
-        if ($rslt) {
-            return $rslt;
-        }
+
         $xnpv = 0.0;
         for ($i = 0; $i < $valCount; ++$i) {
             if (!is_numeric($values[$i])) {
@@ -212,23 +210,17 @@ class NonPeriodic
         return is_finite($xnpv) ? $xnpv : Functions::VALUE();
     }
 
-    private static function validateXnpv($rate, $values, $dates)
+    private static function validateXnpv($rate, $values, $dates): void
     {
         if (!is_numeric($rate)) {
-            return Functions::VALUE();
+            throw new Exception(Functions::VALUE());
         }
         $valCount = count($values);
         if ($valCount != count($dates)) {
-            return Functions::NAN();
+            throw new Exception(Functions::NAN());
         }
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
-            return Functions::NAN();
+            throw new Exception(Functions::NAN());
         }
-        $date0 = DateTimeExcel\Helpers::getDateValue($dates[0]);
-        if (is_string($date0)) {
-            return Functions::VALUE();
-        }
-
-        return '';
     }
 }

@@ -745,12 +745,12 @@ class Calculation
         ],
         'CUMIPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'CUMIPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Cumulative::class, 'interest'],
             'argumentCount' => '6',
         ],
         'CUMPRINC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'CUMPRINC'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Cumulative::class, 'principal'],
             'argumentCount' => '6',
         ],
         'DATE' => [
@@ -1137,12 +1137,12 @@ class Calculation
         ],
         'FV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'FV'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'futureValue'],
             'argumentCount' => '3-5',
         ],
         'FVSCHEDULE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'FVSCHEDULE'],
+            'functionCall' => [Financial\CashFlow\Single::class, 'futureValue'],
             'argumentCount' => '2',
         ],
         'GAMMA' => [
@@ -1434,12 +1434,12 @@ class Calculation
         ],
         'IPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'IPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Interest::class, 'payment'],
             'argumentCount' => '4-6',
         ],
         'IRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'IRR'],
+            'functionCall' => [Financial\CashFlow\Variable\Periodic::class, 'rate'],
             'argumentCount' => '1,2',
         ],
         'ISBLANK' => [
@@ -1506,7 +1506,7 @@ class Calculation
         ],
         'ISPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'ISPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Interest::class, 'schedulePayment'],
             'argumentCount' => '4',
         ],
         'ISREF' => [
@@ -1691,7 +1691,7 @@ class Calculation
         ],
         'MIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'MIRR'],
+            'functionCall' => [Financial\CashFlow\Variable\Periodic::class, 'modifiedRate'],
             'argumentCount' => '3',
         ],
         'MMULT' => [
@@ -1826,12 +1826,12 @@ class Calculation
         ],
         'NPER' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'NPER'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'periods'],
             'argumentCount' => '3-5',
         ],
         'NPV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'NPV'],
+            'functionCall' => [Financial\CashFlow\Variable\Periodic::class, 'presentValue'],
             'argumentCount' => '2+',
         ],
         'NUMBERVALUE' => [
@@ -1893,7 +1893,7 @@ class Calculation
         ],
         'PDURATION' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PDURATION'],
+            'functionCall' => [Financial\CashFlow\Single::class, 'periods'],
             'argumentCount' => '3',
         ],
         'PEARSON' => [
@@ -1958,7 +1958,7 @@ class Calculation
         ],
         'PMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Payments::class, 'annuity'],
             'argumentCount' => '3-5',
         ],
         'POISSON' => [
@@ -1978,7 +1978,7 @@ class Calculation
         ],
         'PPMT' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PPMT'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Payments::class, 'interestPayment'],
             'argumentCount' => '4-6',
         ],
         'PRICE' => [
@@ -2013,7 +2013,7 @@ class Calculation
         ],
         'PV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'PV'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic::class, 'presentValue'],
             'argumentCount' => '3-5',
         ],
         'QUARTILE' => [
@@ -2073,7 +2073,7 @@ class Calculation
         ],
         'RATE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'RATE'],
+            'functionCall' => [Financial\CashFlow\Constant\Periodic\Interest::class, 'rate'],
             'argumentCount' => '3-6',
         ],
         'RECEIVED' => [
@@ -2140,7 +2140,7 @@ class Calculation
         ],
         'RRI' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'RRI'],
+            'functionCall' => [Financial\CashFlow\Single::class, 'interestRate'],
             'argumentCount' => '3',
         ],
         'RSQ' => [
