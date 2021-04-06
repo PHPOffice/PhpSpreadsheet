@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Perio
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Cumulative
@@ -30,7 +31,7 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function interest($rate, $periods, $presentValue, $start, $end, $type = 0)
+    public static function interest($rate, $periods, $presentValue, $start, $end, $type = Constants::END_OF_PERIOD)
     {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
@@ -51,7 +52,7 @@ class Cumulative
         }
 
         // Validate parameters
-        if ($type !== 0 && $type !== 1) {
+        if ($type !== Constants::END_OF_PERIOD && $type !== Constants::BEGINNING_OF_PERIOD) {
             return Functions::NAN();
         }
         if ($start < 1 || $start > $end) {
@@ -61,7 +62,7 @@ class Cumulative
         // Calculate
         $interest = 0;
         for ($per = $start; $per <= $end; ++$per) {
-            $ipmt = Financial::IPMT($rate, $per, $periods, $presentValue, 0, $type);
+            $ipmt = Interest::payment($rate, $per, $periods, $presentValue, 0, $type);
             if (is_string($ipmt)) {
                 return $ipmt;
             }

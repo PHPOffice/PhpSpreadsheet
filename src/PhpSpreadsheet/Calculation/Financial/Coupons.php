@@ -291,7 +291,11 @@ class Coupons
             return $e->getMessage();
         }
 
-        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, 0);
+        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac(
+            $settlement,
+            $maturity,
+            Helpers::DAYS_PER_YEAR_NASD
+        );
 
         return (int) ceil($yearsBetweenSettlementAndMaturity * $frequency);
     }
