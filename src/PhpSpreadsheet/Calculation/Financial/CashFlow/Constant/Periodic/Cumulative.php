@@ -30,7 +30,7 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function CUMIPMT($rate, $periods, $presentValue, $start, $end, $type = 0)
+    public static function interest($rate, $periods, $presentValue, $start, $end, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
@@ -92,7 +92,7 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function CUMPRINC($rate, $periods, $presentValue, $start, $end, $type = 0)
+    public static function principal($rate, $periods, $presentValue, $start, $end, $type = 0)
     {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);

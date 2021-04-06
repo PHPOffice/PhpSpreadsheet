@@ -20,7 +20,10 @@ class PmtTest extends TestCase
      */
     public function testPMT($expectedResult, array $args): void
     {
-        $result = Financial::PMT(...$args);
+        $interestRate = array_shift($args);
+        $numberOfPeriods = array_shift($args);
+        $presentValue = array_shift($args);
+        $result = Financial::PMT($interestRate, $numberOfPeriods, $presentValue, ...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

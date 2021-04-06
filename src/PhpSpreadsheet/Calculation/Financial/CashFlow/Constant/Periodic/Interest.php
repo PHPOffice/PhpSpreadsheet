@@ -32,7 +32,7 @@ class Interest
      *
      * @return float|string
      */
-    public static function IPMT($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
+    public static function payment($interestRate, $period, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
@@ -89,7 +89,7 @@ class Interest
      *
      * pv is the loan amount or present value of the payments
      */
-    public static function ISPMT($interestRate, $period, $numberOfPeriods, $principleRemaining)
+    public static function schedulePayment($interestRate, $period, $numberOfPeriods, $principleRemaining)
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
@@ -151,7 +151,7 @@ class Interest
      *
      * @return float|string
      */
-    public static function RATE($numberOfPeriods, $payment, $presentValue, $futureValue = 0.0, $type = 0, $guess = 0.1)
+    public static function rate($numberOfPeriods, $payment, $presentValue, $futureValue = 0.0, $type = 0, $guess = 0.1)
     {
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);

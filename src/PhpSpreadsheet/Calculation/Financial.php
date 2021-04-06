@@ -418,8 +418,8 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Financial\CashFlow\Constant\Periodic\Cumulative::CUMIPMT()
-     *      Use the CUMIPMT() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
+     * @see Financial\CashFlow\Constant\Periodic\Cumulative::interest()
+     *      Use the interest() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -435,7 +435,7 @@ class Financial
      */
     public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Cumulative::CUMIPMT($rate, $nper, $pv, $start, $end, $type);
+        return Financial\CashFlow\Constant\Periodic\Cumulative::interest($rate, $nper, $pv, $start, $end, $type);
     }
 
     /**
@@ -448,8 +448,8 @@ class Financial
      *
      * @Deprecated 1.18.0
      *
-     * @see Financial\CashFlow\Constant\Periodic\Cumulative::CUMPRINC()
-     *      Use the CUMPRINC() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
+     * @see Financial\CashFlow\Constant\Periodic\Cumulative::principal()
+     *      Use the principal() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -465,7 +465,7 @@ class Financial
      */
     public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Cumulative::CUMPRINC($rate, $nper, $pv, $start, $end, $type);
+        return Financial\CashFlow\Constant\Periodic\Cumulative::principal($rate, $nper, $pv, $start, $end, $type);
     }
 
     /**
@@ -776,6 +776,11 @@ class Financial
      * Excel Function:
      *        IPMT(rate,per,nper,pv[,fv][,type])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Constant\Periodic\Interest::payment()
+     *      Use the payment() method in the Financial\CashFlow\Constant\Periodic class instead
+     *
      * @param float $rate Interest rate per period
      * @param int $per Period for which we want to find the interest
      * @param int $nper Number of periods
@@ -787,7 +792,7 @@ class Financial
      */
     public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
     {
-        return Financial\CashFlow\Constant\Periodic\Interest::IPMT($rate, $per, $nper, $pv, $fv, $type);
+        return Financial\CashFlow\Constant\Periodic\Interest::payment($rate, $per, $nper, $pv, $fv, $type);
     }
 
     /**
@@ -828,6 +833,11 @@ class Financial
      * Excel Function:
      *     =ISPMT(interest_rate, period, number_payments, pv)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Constant\Periodic\Interest::schedulePayment()
+     *      Use the schedulePayment() method in the Financial\CashFlow\Constant\Periodic class instead
+     *
      * interest_rate is the interest rate for the investment
      *
      * period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
@@ -838,7 +848,7 @@ class Financial
      */
     public static function ISPMT(...$args)
     {
-        return Financial\CashFlow\Constant\Periodic\Interest::ISPMT(...$args);
+        return Financial\CashFlow\Constant\Periodic\Interest::schedulePayment(...$args);
     }
 
     /**
@@ -1133,6 +1143,11 @@ class Financial
      * Excel Function:
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\CashFlow\Constant\Periodic\Interest::rate()
+     *      Use the rate() method in the Financial\CashFlow\Constant\Periodic class instead
+     *
      * @param mixed $nper The total number of payment periods in an annuity
      * @param mixed $pmt The payment made each period and cannot change over the life
      *                                    of the annuity.
@@ -1153,7 +1168,7 @@ class Financial
      */
     public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
     {
-        return Financial\CashFlow\Constant\Periodic\Interest::RATE($nper, $pmt, $pv, $fv, $type, $guess);
+        return Financial\CashFlow\Constant\Periodic\Interest::rate($nper, $pmt, $pv, $fv, $type, $guess);
     }
 
     /**
