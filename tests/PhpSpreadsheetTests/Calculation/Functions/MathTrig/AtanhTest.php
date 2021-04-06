@@ -2,29 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class AtanhTest extends TestCase
+class AtanhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAtanh
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testAtan($expectedResult, $val = null): void
+    public function testAtanh($expectedResult, string $formula): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=ATANH()';
-        } else {
-            $formula = "=ATANH($val)";
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A2')->setValue(0.8);
+        $sheet->getCell('A1')->setValue("=ATANH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

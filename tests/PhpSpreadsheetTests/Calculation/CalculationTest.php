@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -159,6 +160,14 @@ class CalculationTest extends TestCase
         $cell->getStyle()->setQuotePrefix(true);
 
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+
+        $cell2 = $workSheet->getCell('A2');
+        $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
+        self::assertEquals('ABC', $cell2->getCalculatedValue());
+
+        $cell3 = $workSheet->getCell('A3');
+        $cell3->setValueExplicit('=', DataType::TYPE_FORMULA);
+        self::assertEquals('', $cell3->getCalculatedValue());
     }
 
     public function testCellWithDdeExpresion(): void
@@ -310,8 +319,8 @@ class CalculationTest extends TestCase
     }
 
     /**
-     * @param $expectedResult
-     * @param $dataArray
+     * @param mixed $expectedResult
+     * @param mixed $dataArray
      * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must

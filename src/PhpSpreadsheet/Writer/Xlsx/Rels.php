@@ -291,7 +291,7 @@ class Rels extends WriterPart
     /**
      * Write drawing relationships to XML format.
      *
-     * @param int &$chartRef Chart ID
+     * @param int $chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should write charts
      *
      * @return string XML Output
@@ -425,9 +425,7 @@ class Rels extends WriterPart
     }
 
     /**
-     * @param $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $drawing
-     * @param $i
      *
      * @return int
      */

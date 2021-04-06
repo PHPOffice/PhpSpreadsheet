@@ -55,6 +55,25 @@ class XlsxTest extends TestCase
         }
     }
 
+    public function testListWorksheetInfo(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
+        $reader = new Xlsx();
+        $actual = $reader->listWorksheetInfo($filename);
+
+        $expected = [
+            [
+                'worksheetName' => 'Sheet1',
+                'lastColumnLetter' => 'F',
+                'lastColumnIndex' => 5,
+                'totalRows' => '6',
+                'totalColumns' => 6,
+            ],
+        ];
+
+        self::assertEquals($expected, $actual);
+    }
+
     public function testLoadXlsxRowColumnAttributes(): void
     {
         $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
@@ -231,7 +250,6 @@ class XlsxTest extends TestCase
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
      *
-     * @param $string
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
     public function testStripsWhiteSpaceFromStyleString($string): void

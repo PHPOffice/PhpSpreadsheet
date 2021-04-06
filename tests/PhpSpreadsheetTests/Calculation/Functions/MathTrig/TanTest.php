@@ -2,29 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class TanTest extends TestCase
+class TanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTan
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testTan($expectedResult, $val = null): void
+    public function testTan($expectedResult, string $formula): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=TAN()';
-        } else {
-            $formula = "=TAN($val)";
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->setCellValue('A2', 1);
+        $sheet->getCell('A1')->setValue("=TAN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

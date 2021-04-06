@@ -11,7 +11,7 @@ class LenTest extends TestCase
      * @dataProvider providerLEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testLEN($expectedResult, $value): void
     {

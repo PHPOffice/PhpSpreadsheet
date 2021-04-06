@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -138,116 +139,24 @@ class Csv extends BaseReader
             return;
         }
 
-        $potentialDelimiters = [',', ';', "\t", '|', ':', ' ', '~'];
-        $counts = [];
-        foreach ($potentialDelimiters as $delimiter) {
-            $counts[$delimiter] = [];
-        }
-
-        // Count how many times each of the potential delimiters appears in each line
-        $numberLines = 0;
-        while (($line = $this->getNextLine()) !== false && (++$numberLines < 1000)) {
-            $countLine = [];
-            for ($i = strlen($line) - 1; $i >= 0; --$i) {
-                $char = $line[$i];
-                if (isset($counts[$char])) {
-                    if (!isset($countLine[$char])) {
-                        $countLine[$char] = 0;
-                    }
-                    ++$countLine[$char];
-                }
-            }
-            foreach ($potentialDelimiters as $delimiter) {
-                $counts[$delimiter][] = $countLine[$delimiter]
-                    ?? 0;
-            }
-        }
+        $inferenceEngine = new Delimiter($this->fileHandle, $this->escapeCharacter, $this->enclosure);
 
         // If number of lines is 0, nothing to infer : fall back to the default
-        if ($numberLines === 0) {
-            $this->delimiter = reset($potentialDelimiters);
+        if ($inferenceEngine->linesCounted() === 0) {
+            $this->delimiter = $inferenceEngine->getDefaultDelimiter();
             $this->skipBOM();
 
             return;
         }
 
-        // Calculate the mean square deviations for each delimiter (ignoring delimiters that haven't been found consistently)
-        $meanSquareDeviations = [];
-        $middleIdx = floor(($numberLines - 1) / 2);
-
-        foreach ($potentialDelimiters as $delimiter) {
-            $series = $counts[$delimiter];
-            sort($series);
-
-            $median = ($numberLines % 2)
-                ? $series[$middleIdx]
-                : ($series[$middleIdx] + $series[$middleIdx + 1]) / 2;
-
-            if ($median === 0) {
-                continue;
-            }
-
-            $meanSquareDeviations[$delimiter] = array_reduce(
-                $series,
-                function ($sum, $value) use ($median) {
-                    return $sum + ($value - $median) ** 2;
-                }
-            ) / count($series);
-        }
-
-        // ... and pick the delimiter with the smallest mean square deviation (in case of ties, the order in potentialDelimiters is respected)
-        $min = INF;
-        foreach ($potentialDelimiters as $delimiter) {
-            if (!isset($meanSquareDeviations[$delimiter])) {
-                continue;
-            }
-
-            if ($meanSquareDeviations[$delimiter] < $min) {
-                $min = $meanSquareDeviations[$delimiter];
-                $this->delimiter = $delimiter;
-            }
-        }
+        $this->delimiter = $inferenceEngine->infer();
 
         // If no delimiter could be detected, fall back to the default
         if ($this->delimiter === null) {
-            $this->delimiter = reset($potentialDelimiters);
+            $this->delimiter = $inferenceEngine->getDefaultDelimiter();
         }
 
         $this->skipBOM();
-    }
-
-    /**
-     * Get the next full line from the file.
-     *
-     * @return false|string
-     */
-    private function getNextLine()
-    {
-        $line = '';
-        $enclosure = ($this->escapeCharacter === '' ? ''
-            : ('(?<!' . preg_quote($this->escapeCharacter, '/') . ')'))
-            . preg_quote($this->enclosure, '/');
-
-        do {
-            // Get the next line in the file
-            $newLine = fgets($this->fileHandle);
-
-            // Return false if there is no next line
-            if ($newLine === false) {
-                return false;
-            }
-
-            // Add the new line to the line passed in
-            $line = $line . $newLine;
-
-            // Drop everything that is enclosed to avoid counting false positives in enclosures
-            $line = preg_replace('/(' . $enclosure . '.*' . $enclosure . ')/Us', '', $line);
-
-            // See if we have any enclosures left in the line
-            // if we still have an enclosure then we need to read the next line as well
-        } while (preg_match('/(' . $enclosure . ')/', $line) > 0);
-
-        return $line;
     }
 
     /**

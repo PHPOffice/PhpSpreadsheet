@@ -42,7 +42,7 @@ class ChainedBlockStream
      *                                    ole-chainedblockstream://oleInstanceId=1
      * @param string $mode only "r" is supported
      * @param int $options mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
-     * @param string &$openedPath absolute path of the opened stream (out parameter)
+     * @param string $openedPath absolute path of the opened stream (out parameter)
      *
      * @return bool true on success
      */

@@ -65,4 +65,11 @@ return [
         7,
         2,
     ],
+    ['#NUM!', 7, 0, -1],
+    ['#VALUE!', 7, 0, 'X'],
+    [18, 9.1, 6.7],
+    [12, 6, null, 4],
+    ['#VALUE!', null, null, null],
+    ['#VALUE!', null],
+    ['#VALUE!', 6, false, 4],
 ];

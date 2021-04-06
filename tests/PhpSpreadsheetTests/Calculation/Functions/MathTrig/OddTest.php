@@ -2,27 +2,21 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class OddTest extends TestCase
+class OddTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerODD
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testODD($expectedResult, $value): void
     {
-        $result = MathTrig::ODD($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=ODD($value)");
+        $sheet->getCell('A2')->setValue(3.7);
+        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
     public function providerODD()

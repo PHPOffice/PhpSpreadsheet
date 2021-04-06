@@ -2,9 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -154,26 +155,26 @@ class Date
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
      *
-     * @return \DateTime PHP date/time object
+     * @return DateTime PHP date/time object
      */
     public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
-            if ($excelTimestamp < 1.0) {
+            if ($excelTimestamp < 1 && self::$excelCalendar === self::CALENDAR_WINDOWS_1900) {
                 // Unix timestamp base date
-                $baseDate = new \DateTime('1970-01-01', $timeZone);
+                $baseDate = new DateTime('1970-01-01', $timeZone);
             } else {
                 // MS Excel calendar base dates
                 if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
                     // Allow adjustment for 1900 Leap Year in MS Excel
-                    $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+                    $baseDate = ($excelTimestamp < 60) ? new DateTime('1899-12-31', $timeZone) : new DateTime('1899-12-30', $timeZone);
                 } else {
-                    $baseDate = new \DateTime('1904-01-01', $timeZone);
+                    $baseDate = new DateTime('1904-01-01', $timeZone);
                 }
             }
         } else {
-            $baseDate = new \DateTime('1899-12-30', $timeZone);
+            $baseDate = new DateTime('1899-12-30', $timeZone);
         }
 
         $days = floor($excelTimestamp);
@@ -262,7 +263,7 @@ class Date
             return false;
         }
 
-        return self::dateTimeToExcel(new \DateTime('@' . $dateValue));
+        return self::dateTimeToExcel(new DateTime('@' . $dateValue));
     }
 
     /**
@@ -303,8 +304,8 @@ class Date
         }
 
         //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
-        $century = substr($year, 0, 2);
-        $decade = substr($year, 2, 2);
+        $century = (int) substr($year, 0, 2);
+        $decade = (int) substr($year, 2, 2);
         $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
 
         $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
@@ -436,14 +437,14 @@ class Date
             return false;
         }
 
-        $dateValueNew = DateTime::DATEVALUE($dateValue);
+        $dateValueNew = DateTimeExcel\DateValue::funcDateValue($dateValue);
 
         if ($dateValueNew === Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = DateTime::TIMEVALUE($dateValue);
+            $timeValue = DateTimeExcel\TimeValue::funcTimeValue($dateValue);
             if ($timeValue === Functions::VALUE()) {
                 return false;
             }

@@ -96,14 +96,14 @@ class Worksheet implements IComparable
     /**
      * Collection of drawings.
      *
-     * @var BaseDrawing[]
+     * @var ArrayObject<BaseDrawing>
      */
     private $drawingCollection;
 
     /**
      * Collection of Chart objects.
      *
-     * @var Chart[]
+     * @var ArrayObject<Chart>
      */
     private $chartCollection = [];
 
@@ -180,7 +180,7 @@ class Worksheet implements IComparable
     /**
      * Collection of breaks.
      *
-     * @var array
+     * @var int[]
      */
     private $breaks = [];
 
@@ -534,7 +534,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of drawings.
      *
-     * @return BaseDrawing[]
+     * @return ArrayObject<BaseDrawing>
      */
     public function getDrawingCollection()
     {
@@ -544,7 +544,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of charts.
      *
-     * @return Chart[]
+     * @return ArrayObject<Chart>
      */
     public function getChartCollection()
     {
@@ -824,7 +824,7 @@ class Worksheet implements IComparable
     /**
      * Set title.
      *
-     * @param string $pValue String containing the dimension of this worksheet
+     * @param string $title String containing the dimension of this worksheet
      * @param bool $updateFormulaCellReferences Flag indicating whether cell references in formulae should
      *            be updated to reflect the new sheet name.
      *          This should be left as the default true, unless you are
@@ -835,10 +835,10 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setTitle($pValue, $updateFormulaCellReferences = true, $validate = true)
+    public function setTitle($title, $updateFormulaCellReferences = true, $validate = true)
     {
         // Is this a 'rename' or not?
-        if ($this->getTitle() == $pValue) {
+        if ($this->getTitle() == $title) {
             return $this;
         }
 
@@ -847,37 +847,37 @@ class Worksheet implements IComparable
 
         if ($validate) {
             // Syntax check
-            self::checkSheetTitle($pValue);
+            self::checkSheetTitle($title);
 
             if ($this->parent) {
                 // Is there already such sheet name?
-                if ($this->parent->sheetNameExists($pValue)) {
+                if ($this->parent->sheetNameExists($title)) {
                     // Use name, but append with lowest possible integer
 
-                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    if (Shared\StringHelper::countCharacters($title) > 29) {
+                        $title = Shared\StringHelper::substring($title, 0, 29);
                     }
                     $i = 1;
-                    while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
+                    while ($this->parent->sheetNameExists($title . ' ' . $i)) {
                         ++$i;
                         if ($i == 10) {
-                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            if (Shared\StringHelper::countCharacters($title) > 28) {
+                                $title = Shared\StringHelper::substring($title, 0, 28);
                             }
                         } elseif ($i == 100) {
-                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            if (Shared\StringHelper::countCharacters($title) > 27) {
+                                $title = Shared\StringHelper::substring($title, 0, 27);
                             }
                         }
                     }
 
-                    $pValue .= " $i";
+                    $title .= " $i";
                 }
             }
         }
 
         // Set title
-        $this->title = $pValue;
+        $this->title = $title;
         $this->dirty = true;
 
         if ($this->parent && $this->parent->getCalculationEngine()) {
@@ -1337,7 +1337,7 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric index of the row
      * @param bool $create
      *
-     * @return RowDimension
+     * @return null|RowDimension
      */
     public function getRowDimension($pRow, $create = true)
     {
@@ -1363,7 +1363,7 @@ class Worksheet implements IComparable
      * @param string $pColumn String index of the column eg: 'A'
      * @param bool $create
      *
-     * @return ColumnDimension
+     * @return null|ColumnDimension
      */
     public function getColumnDimension($pColumn, $create = true)
     {
@@ -1390,7 +1390,7 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      *
-     * @return ColumnDimension
+     * @return null|ColumnDimension
      */
     public function getColumnDimensionByColumn($columnIndex)
     {
@@ -1482,7 +1482,7 @@ class Worksheet implements IComparable
      * Set conditional styles.
      *
      * @param string $pCoordinate eg: 'A1'
-     * @param $pValue Conditional[]
+     * @param Conditional[] $pValue
      *
      * @return $this
      */
@@ -1640,7 +1640,7 @@ class Worksheet implements IComparable
     /**
      * Get breaks.
      *
-     * @return array[]
+     * @return int[]
      */
     public function getBreaks()
     {

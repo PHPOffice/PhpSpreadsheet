@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Ceiling
 {
@@ -26,19 +25,18 @@ class Ceiling
      */
     public static function funcCeiling($number, $significance = null)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        $significance = Functions::flattenSingleValue($significance);
-
         if ($significance === null) {
             self::floorCheck1Arg();
-            $significance = ((float) $number < 0) ? -1 : 1;
         }
 
-        if ((is_numeric($number)) && (is_numeric($significance))) {
-            return self::argumentsOk((float) $number, (float) $significance);
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $significance = Helpers::validateNumericNullSubstitution($significance, ($number < 0) ? -1 : 1);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        return self::argumentsOk((float) $number, (float) $significance);
     }
 
     /**
@@ -51,7 +49,7 @@ class Ceiling
         if (empty($number * $significance)) {
             return 0.0;
         }
-        if (MathTrig::returnSign($number) == MathTrig::returnSign($significance)) {
+        if (Helpers::returnSign($number) == Helpers::returnSign($significance)) {
             return ceil($number / $significance) * $significance;
         }
 

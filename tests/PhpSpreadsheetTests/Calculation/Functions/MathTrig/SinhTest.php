@@ -2,29 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class SinhTest extends TestCase
+class SinhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCosh
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testSinh($expectedResult, $val = null): void
+    public function testSinh($expectedResult, string $formula): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=SINH()';
-        } else {
-            $formula = "=SINH($val)";
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->setCellValue('A2', 2);
+        $sheet->getCell('A1')->setValue("=SINH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }

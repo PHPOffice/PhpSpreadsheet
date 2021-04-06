@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class FloorPrecise
 {
@@ -22,14 +22,14 @@ class FloorPrecise
      */
     public static function funcFloorPrecise($number, $significance = 1)
     {
-        MathTrig::nullFalseTrueToNumber($number);
-        $significance = Functions::flattenSingleValue($significance);
-
-        if ((is_numeric($number)) && (is_numeric($significance))) {
-            return self::argumentsOk((float) $number, (float) $significance);
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+            $significance = Helpers::validateNumericNullSubstitution($significance, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        return self::argumentsOk((float) $number, (float) $significance);
     }
 
     /**

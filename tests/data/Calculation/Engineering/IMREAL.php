@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 return [
     [
         12.34,
@@ -120,5 +122,9 @@ return [
     [
         -3.5,
         '-3.5-2.5i',
+    ],
+    [
+        Functions::NAN(),
+        'Invalid Complex Number',
     ],
 ];

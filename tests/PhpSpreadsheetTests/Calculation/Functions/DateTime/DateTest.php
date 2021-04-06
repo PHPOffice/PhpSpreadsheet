@@ -2,32 +2,22 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Datefunc;
 
-class DateTest extends TestCase
+class DateTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
-     * @param $year
-     * @param $month
-     * @param $day
      */
-    public function testDATE($expectedResult, $year, $month, $day): void
+    public function testDATE($expectedResult, string $formula): void
     {
-        $result = DateTime::DATE($year, $month, $day);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=DATE($formula)");
+        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
     public function providerDATE()
@@ -37,18 +27,17 @@ class DateTest extends TestCase
 
     public function testDATEtoUnixTimestamp(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
+        self::setUnixReturn();
 
-        $result = DateTime::DATE(2012, 1, 31);
+        $result = Datefunc::funcDate(2012, 1, 31); // 32-bit safe
         self::assertEquals(1327968000, $result);
-        self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
 
     public function testDATEtoDateTimeObject(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
+        self::setObjectReturn();
 
-        $result = DateTime::DATE(2012, 1, 31);
+        $result = Datefunc::funcDate(2012, 1, 31);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -59,17 +48,12 @@ class DateTest extends TestCase
 
     public function testDATEwith1904Calendar(): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+        self::setMac1904();
 
-        $result = DateTime::DATE(1918, 11, 11);
+        $result = Datefunc::funcDate(1918, 11, 11);
         self::assertEquals($result, 5428);
-    }
 
-    public function testDATEwith1904CalendarError(): void
-    {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
-
-        $result = DateTime::DATE(1901, 1, 31);
+        $result = Datefunc::funcDate(1901, 1, 31);
         self::assertEquals($result, '#NUM!');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DateTime;
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -114,7 +116,7 @@ class Xml extends BaseReader
 
         $signature = [
             '<?xml version="1.0"',
-            '<?mso-application progid="Excel.Sheet"?>',
+            'xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet',
         ];
 
         // Open file
@@ -420,6 +422,7 @@ class Xml extends BaseReader
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
 
+        /** @var null|SimpleXMLElement $worksheetx */
         foreach ($xml_ss->Worksheet as $worksheetx) {
             $worksheet = $worksheetx ?? new SimpleXMLElement('<xml></xml>');
             $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
@@ -434,6 +437,7 @@ class Xml extends BaseReader
             // Create new Worksheet
             $spreadsheet->createSheet();
             $spreadsheet->setActiveSheetIndex($worksheetID);
+            $worksheetName = '';
             if (isset($worksheet_ss['Name'])) {
                 $worksheetName = (string) $worksheet_ss['Name'];
                 //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
@@ -557,7 +561,8 @@ class Xml extends BaseReader
                                         break;
                                     case 'DateTime':
                                         $type = DataType::TYPE_NUMERIC;
-                                        $cellValue = Date::PHPToExcel(strtotime($cellValue . ' UTC'));
+                                        $dateTime = new DateTime($cellValue, new DateTimeZone('UTC'));
+                                        $cellValue = Date::PHPToExcel($dateTime);
 
                                         break;
                                     case 'Error':
@@ -744,9 +749,6 @@ class Xml extends BaseReader
 
     private static $borderPositions = ['top', 'left', 'bottom', 'right'];
 
-    /**
-     * @param $styleID
-     */
     private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces): void
     {
         $diagonalDirection = '';
@@ -817,9 +819,6 @@ class Xml extends BaseReader
         }
     }
 
-    /**
-     * @param $styleID
-     */
     private function parseStyleFont(string $styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
@@ -857,9 +856,6 @@ class Xml extends BaseReader
         }
     }
 
-    /**
-     * @param $styleID
-     */
     private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValuex) {
@@ -883,9 +879,6 @@ class Xml extends BaseReader
         }
     }
 
-    /**
-     * @param $styleID
-     */
     private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes): void
     {
         $fromFormats = ['\-', '\ '];

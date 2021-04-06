@@ -55,7 +55,7 @@ class Spreadsheet
     /**
      * Calculation Engine.
      *
-     * @var Calculation
+     * @var null|Calculation
      */
     private $calculationEngine;
 
@@ -505,8 +505,8 @@ class Spreadsheet
      */
     public function __destruct()
     {
-        $this->calculationEngine = null;
         $this->disconnectWorksheets();
+        $this->calculationEngine = null;
     }
 
     /**
@@ -527,7 +527,7 @@ class Spreadsheet
     /**
      * Return the calculation engine for this worksheet.
      *
-     * @return Calculation
+     * @return null|Calculation
      */
     public function getCalculationEngine()
     {
@@ -1343,6 +1343,7 @@ class Spreadsheet
         // remove cellXfs without references and create mapping so we can update xfIndex
         // for all cells and columns
         $countNeededCellXfs = 0;
+        $map = [];
         foreach ($this->cellXfCollection as $index => $cellXf) {
             if ($countReferencesCellXf[$index] > 0 || $index == 0) { // we must never remove the first cellXf
                 ++$countNeededCellXfs;

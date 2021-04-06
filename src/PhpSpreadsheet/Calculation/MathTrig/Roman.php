@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Roman
@@ -823,31 +824,16 @@ class Roman
      */
     public static function funcRoman($aValue, $style = 0)
     {
-        $aValue = Functions::flattenSingleValue($aValue);
-        self::nullFalseTrueToNumber($aValue);
-        $style = Functions::flattenSingleValue($style);
-        if (is_bool($style)) {
-            $style = $style ? 0 : 4;
-        }
-        if (!is_numeric($aValue) || !is_numeric($style)) {
-            return Functions::VALUE();
+        try {
+            $aValue = Helpers::validateNumericNullBool($aValue);
+            if (is_bool($style)) {
+                $style = $style ? 0 : 4;
+            }
+            $style = Helpers::validateNumericNullSubstitution($style, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         return self::calculateRoman((int) $aValue, (int) $style);
-    }
-
-    /**
-     * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @param mixed $number
-     */
-    private static function nullFalseTrueToNumber(&$number): void
-    {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
     }
 }
