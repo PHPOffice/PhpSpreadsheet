@@ -18,20 +18,14 @@ class CsvOutputEncodingTest extends Functional\AbstractFunctional
 
         $writer = new CsvWriter($spreadsheet);
 
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-UTF-8');
-        $writer->setUseBOM(false);
-        $writer->setOutputEncoding('');
-        $writer->save($filename);
-        $a = file_get_contents($filename);
-        unlink($filename);
-
         $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-SJIS-win');
         $writer->setUseBOM(false);
         $writer->setOutputEncoding('SJIS-win');
         $writer->save($filename);
-        $b = file_get_contents($filename);
+        $contents = file_get_contents($filename);
         unlink($filename);
 
-        self::assertEquals(mb_convert_encoding($a, 'SJIS-win'), $b);
+        // self::assertStringContainsString(mb_convert_encoding('こんにちは！', 'SJIS-win'), $contents);
+        self::assertStringContainsString("\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd\x81\x49", $contents);
     }
 }
