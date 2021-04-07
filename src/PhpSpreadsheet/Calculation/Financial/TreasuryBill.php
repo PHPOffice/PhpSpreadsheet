@@ -125,10 +125,6 @@ class TreasuryBill
             return $e->getMessage();
         }
 
-        if ($price <= 0) {
-            return Functions::NAN();
-        }
-
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
         $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
 
