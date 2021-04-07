@@ -44,17 +44,13 @@ class Periodic
         $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $rate = CashFlowValidations::validateRate($rate);
+            $rate = CashFlowValidations::validateFloat($rate);
             $numberOfPeriods = CashFlowValidations::validateInt($numberOfPeriods);
             $payment = CashFlowValidations::validateFloat($payment);
             $presentValue = CashFlowValidations::validatePresentValue($presentValue);
             $type = CashFlowValidations::validatePeriodType($type);
         } catch (Exception $e) {
             return $e->getMessage();
-        }
-
-        if ($numberOfPeriods < 0) {
-            return Functions::NAN();
         }
 
         return self::calculateFutureValue($rate, $numberOfPeriods, $payment, $presentValue, $type);
