@@ -120,7 +120,7 @@ class TreasuryBill
         try {
             $settlement = FinancialValidations::validateSettlementDate($settlement);
             $maturity = FinancialValidations::validateMaturityDate($maturity);
-            $price = FinancialValidations::validateFloat($price);
+            $price = FinancialValidations::validatePrice($price);
         } catch (Exception $e) {
             return $e->getMessage();
         }
