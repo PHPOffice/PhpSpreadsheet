@@ -3,13 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\BaseValidations;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Single
 {
-    use BaseValidations;
-
     /**
      * FVSCHEDULE.
      *
@@ -30,10 +27,10 @@ class Single
         $schedule = Functions::flattenArray($schedule);
 
         try {
-            $principal = self::validateFloat($principal);
+            $principal = CashFlowValidations::validateFloat($principal);
 
             foreach ($schedule as $rate) {
-                $rate = self::validateFloat($rate);
+                $rate = CashFlowValidations::validateFloat($rate);
                 $principal *= 1 + $rate;
             }
         } catch (Exception $e) {
@@ -61,9 +58,9 @@ class Single
         $futureValue = Functions::flattenSingleValue($futureValue);
 
         try {
-            $rate = self::validateFloat($rate);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
+            $rate = CashFlowValidations::validateRate($rate);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -94,9 +91,9 @@ class Single
         $futureValue = Functions::flattenSingleValue($futureValue);
 
         try {
-            $periods = self::validateFloat($periods);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
+            $periods = CashFlowValidations::validateFloat($periods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
         } catch (Exception $e) {
             return $e->getMessage();
         }

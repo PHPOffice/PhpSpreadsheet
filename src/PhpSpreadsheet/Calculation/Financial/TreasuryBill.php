@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class TreasuryBill
 {
-    use BaseValidations;
-
     /**
      * TBILLEQ.
      *
@@ -31,29 +29,25 @@ class TreasuryBill
         $discount = Functions::flattenSingleValue($discount);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $discount = FinancialValidations::validateFloat($discount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($discount)) {
-            if ($discount <= 0) {
-                return Functions::NAN();
-            }
-
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
-
-            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
-                return Functions::NAN();
-            }
-
-            return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
+        if ($discount <= 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
+        }
+
+        return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
     }
 
     /**
@@ -77,34 +71,30 @@ class TreasuryBill
         $discount = Functions::flattenSingleValue($discount);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $discount = FinancialValidations::validateFloat($discount);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($discount)) {
-            if ($discount <= 0) {
-                return Functions::NAN();
-            }
-
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
-
-            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
-                return Functions::NAN();
-            }
-
-            $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
-            if ($price < 0.0) {
-                return Functions::NAN();
-            }
-
-            return $price;
+        if ($discount <= 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
+        }
+
+        $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
+        if ($price < 0.0) {
+            return Functions::NAN();
+        }
+
+        return $price;
     }
 
     /**
@@ -128,28 +118,24 @@ class TreasuryBill
         $price = Functions::flattenSingleValue($price);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $price = FinancialValidations::validateFloat($price);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($price)) {
-            if ($price <= 0) {
-                return Functions::NAN();
-            }
-
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-            $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
-
-            if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
-                return Functions::NAN();
-            }
-
-            return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
+        if ($price <= 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
+        }
+
+        return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
     }
 }

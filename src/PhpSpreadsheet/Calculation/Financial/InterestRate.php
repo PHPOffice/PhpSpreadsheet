@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class InterestRate
 {
-    use BaseValidations;
-
     /**
      * EFFECT.
      *
@@ -29,8 +27,8 @@ class InterestRate
         $periodsPerYear = Functions::flattenSingleValue($periodsPerYear);
 
         try {
-            $nominalRate = self::validateFloat($nominalRate);
-            $periodsPerYear = self::validateInt($periodsPerYear);
+            $nominalRate = FinancialValidations::validateFloat($nominalRate);
+            $periodsPerYear = FinancialValidations::validateInt($periodsPerYear);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -58,8 +56,8 @@ class InterestRate
         $periodsPerYear = Functions::flattenSingleValue($periodsPerYear);
 
         try {
-            $effectiveRate = self::validateFloat($effectiveRate);
-            $periodsPerYear = self::validateInt($periodsPerYear);
+            $effectiveRate = FinancialValidations::validateFloat($effectiveRate);
+            $periodsPerYear = FinancialValidations::validateInt($periodsPerYear);
         } catch (Exception $e) {
             return $e->getMessage();
         }

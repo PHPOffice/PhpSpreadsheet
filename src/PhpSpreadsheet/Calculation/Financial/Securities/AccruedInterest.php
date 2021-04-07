@@ -9,8 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class AccruedInterest
 {
-    use BaseValidations;
-
     public const ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT = true;
 
     public const ACCRINT_CALCMODE_FIRST_INTEREST_TO_SETTLEMENT = false;
@@ -65,13 +63,13 @@ class AccruedInterest
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $issue = self::validateIssueDate($issue);
-            $settlement = self::validateSettlementDate($settlement);
-            self::validateSecurityPeriod($issue, $settlement);
-            $rate = self::validateRate($rate);
-            $parValue = self::validateParValue($parValue);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            SecurityValidations::validateSecurityPeriod($issue, $settlement);
+            $rate = SecurityValidations::validateRate($rate);
+            $parValue = SecurityValidations::validateParValue($parValue);
+            $frequency = SecurityValidations::validateFrequency($frequency);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -126,12 +124,12 @@ class AccruedInterest
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $issue = self::validateIssueDate($issue);
-            $settlement = self::validateSettlementDate($settlement);
-            self::validateSecurityPeriod($issue, $settlement);
-            $rate = self::validateRate($rate);
-            $parValue = self::validateParValue($parValue);
-            $basis = self::validateBasis($basis);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            SecurityValidations::validateSecurityPeriod($issue, $settlement);
+            $rate = SecurityValidations::validateRate($rate);
+            $parValue = SecurityValidations::validateParValue($parValue);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }

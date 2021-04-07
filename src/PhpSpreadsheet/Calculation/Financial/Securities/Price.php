@@ -10,8 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Price
 {
-    use BaseValidations;
-
     /**
      * PRICE.
      *
@@ -49,14 +47,14 @@ class Price
         $basis = Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
-            self::validateSecurityPeriod($settlement, $maturity);
-            $rate = self::validateRate($rate);
-            $yield = self::validateYield($yield);
-            $redemption = self::validateRedemption($redemption);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            $maturity = SecurityValidations::validateMaturityDate($maturity);
+            SecurityValidations::validateSecurityPeriod($settlement, $maturity);
+            $rate = SecurityValidations::validateRate($rate);
+            $yield = SecurityValidations::validateYield($yield);
+            $redemption = SecurityValidations::validateRedemption($redemption);
+            $frequency = SecurityValidations::validateFrequency($frequency);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -109,12 +107,12 @@ class Price
         $basis = Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
-            self::validateSecurityPeriod($settlement, $maturity);
-            $discount = self::validateDiscount($discount);
-            $redemption = self::validateRedemption($redemption);
-            $basis = self::validateBasis($basis);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            $maturity = SecurityValidations::validateMaturityDate($maturity);
+            SecurityValidations::validateSecurityPeriod($settlement, $maturity);
+            $discount = SecurityValidations::validateDiscount($discount);
+            $redemption = SecurityValidations::validateRedemption($redemption);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -160,13 +158,13 @@ class Price
         $basis = Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
-            self::validateSecurityPeriod($settlement, $maturity);
-            $issue = self::validateIssueDate($issue);
-            $rate = self::validateRate($rate);
-            $yield = self::validateYield($yield);
-            $basis = self::validateBasis($basis);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            $maturity = SecurityValidations::validateMaturityDate($maturity);
+            SecurityValidations::validateSecurityPeriod($settlement, $maturity);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $rate = SecurityValidations::validateRate($rate);
+            $yield = SecurityValidations::validateYield($yield);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }

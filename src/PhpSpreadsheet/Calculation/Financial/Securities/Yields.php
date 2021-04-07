@@ -9,8 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Yields
 {
-    use BaseValidations;
-
     /**
      * YIELDDISC.
      *
@@ -24,11 +22,11 @@ class Yields
      * @param int $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1               Actual/actual
+     *                       2               Actual/360
+     *                       3               Actual/365
+     *                       4               European 30/360
      *
      * @return float|string Result, or a string containing an error
      */
@@ -41,12 +39,12 @@ class Yields
         $basis = (int) Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
-            self::validateSecurityPeriod($settlement, $maturity);
-            $price = self::validatePrice($price);
-            $redemption = self::validateRedemption($redemption);
-            $basis = self::validateBasis($basis);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            $maturity = SecurityValidations::validateMaturityDate($maturity);
+            SecurityValidations::validateSecurityPeriod($settlement, $maturity);
+            $price = SecurityValidations::validatePrice($price);
+            $redemption = SecurityValidations::validateRedemption($redemption);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -79,11 +77,11 @@ class Yields
      * @param int $rate The security's interest rate at date of issue
      * @param int $price The security's price per $100 face value
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1               Actual/actual
+     *                       2               Actual/360
+     *                       3               Actual/365
+     *                       4               European 30/360
      *
      * @return float|string Result, or a string containing an error
      */
@@ -97,13 +95,13 @@ class Yields
         $basis = Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
-            self::validateSecurityPeriod($settlement, $maturity);
-            $issue = self::validateIssueDate($issue);
-            $rate = self::validateRate($rate);
-            $price = self::validatePrice($price);
-            $basis = self::validateBasis($basis);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            $maturity = SecurityValidations::validateMaturityDate($maturity);
+            SecurityValidations::validateSecurityPeriod($settlement, $maturity);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $rate = SecurityValidations::validateRate($rate);
+            $price = SecurityValidations::validatePrice($price);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -131,7 +129,8 @@ class Yields
         }
         $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
-        return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) - (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
+        return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) -
+                    (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
                 (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
             ($daysPerYear / $daysBetweenSettlementAndMaturity);
     }
