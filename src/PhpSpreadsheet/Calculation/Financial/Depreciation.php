@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Depreciation
 {
-    use BaseValidations;
-
     /**
      * DB.
      *
@@ -127,7 +125,10 @@ class Depreciation
         $previousDepreciation = 0;
         $depreciation = 0;
         for ($per = 1; $per <= $period; ++$per) {
-            $depreciation = min(($cost - $previousDepreciation) * ($factor / $life), ($cost - $salvage - $previousDepreciation));
+            $depreciation = min(
+                ($cost - $previousDepreciation) * ($factor / $life),
+                ($cost - $salvage - $previousDepreciation)
+            );
             $previousDepreciation += $depreciation;
         }
 
@@ -205,7 +206,7 @@ class Depreciation
 
     private static function validateCost($cost, bool $negativeValueAllowed = false): float
     {
-        $cost = self::validateFloat($cost);
+        $cost = FinancialValidations::validateFloat($cost);
         if ($cost < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -215,7 +216,7 @@ class Depreciation
 
     private static function validateSalvage($salvage, bool $negativeValueAllowed = false): float
     {
-        $salvage = self::validateFloat($salvage);
+        $salvage = FinancialValidations::validateFloat($salvage);
         if ($salvage < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -225,7 +226,7 @@ class Depreciation
 
     private static function validateLife($life, bool $negativeValueAllowed = false): float
     {
-        $life = self::validateFloat($life);
+        $life = FinancialValidations::validateFloat($life);
         if ($life < 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -235,7 +236,7 @@ class Depreciation
 
     private static function validatePeriod($period, bool $negativeValueAllowed = false): float
     {
-        $period = self::validateFloat($period);
+        $period = FinancialValidations::validateFloat($period);
         if ($period <= 0.0 && $negativeValueAllowed === false) {
             throw new Exception(Functions::NAN());
         }
@@ -245,7 +246,7 @@ class Depreciation
 
     private static function validateMonth($month): int
     {
-        $month = self::validateInt($month);
+        $month = FinancialValidations::validateInt($month);
         if ($month < 1) {
             throw new Exception(Functions::NAN());
         }
@@ -255,7 +256,7 @@ class Depreciation
 
     private static function validateFactor($factor): float
     {
-        $factor = self::validateFloat($factor);
+        $factor = FinancialValidations::validateFloat($factor);
         if ($factor <= 0.0) {
             throw new Exception(Functions::NAN());
         }

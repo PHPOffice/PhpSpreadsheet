@@ -9,8 +9,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Coupons
 {
-    use BaseValidations;
-
     public const FREQUENCY_ANNUAL = 1;
     public const FREQUENCY_SEMI_ANNUAL = 2;
     public const FREQUENCY_QUARTERLY = 4;
@@ -53,11 +51,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -110,11 +108,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -175,11 +173,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -234,11 +232,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -282,11 +280,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -336,11 +334,11 @@ class Coupons
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $settlement = self::validateSettlementDate($settlement);
-            $maturity = self::validateMaturityDate($maturity);
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $frequency = FinancialValidations::validateFrequency($frequency);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }

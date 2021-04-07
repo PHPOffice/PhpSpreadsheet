@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
 {
-    use BaseValidations;
-
     /**
      * AMORDEGRC.
      *
@@ -58,13 +56,13 @@ class Amortization
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $cost = self::validateFloat($cost);
-            $purchased = self::validateDate($purchased);
-            $firstPeriod = self::validateDate($firstPeriod);
-            $salvage = self::validateFloat($salvage);
-            $period = self::validateInt($period);
-            $rate = self::validateFloat($rate);
-            $basis = self::validateBasis($basis);
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateInt($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -143,13 +141,13 @@ class Amortization
         $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
 
         try {
-            $cost = self::validateFloat($cost);
-            $purchased = self::validateDate($purchased);
-            $firstPeriod = self::validateDate($firstPeriod);
-            $salvage = self::validateFloat($salvage);
-            $period = self::validateFloat($period);
-            $rate = self::validateFloat($rate);
-            $basis = self::validateBasis($basis);
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateFloat($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
