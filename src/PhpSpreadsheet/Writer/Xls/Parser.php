@@ -1149,8 +1149,9 @@ class Parser
             $result2 = $this->expression();
             $result = $this->createTree('ptgNE', $result, $result2);
         } elseif ($this->currentToken == '&') {
+            $result = $this->term();
             $this->advance();
-            $result2 = $this->expression();
+            $result2 = $this->term();
             $result = $this->createTree('ptgConcat', $result, $result2);
         }
 
