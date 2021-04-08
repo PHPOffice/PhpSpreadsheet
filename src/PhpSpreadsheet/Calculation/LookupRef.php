@@ -195,7 +195,7 @@ class LookupRef
      *
      * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
-    public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
+    public static function INDIRECT($cellAddress, Cell $pCell)
     {
         return Indirect::INDIRECT($cellAddress, true, $pCell);
     }

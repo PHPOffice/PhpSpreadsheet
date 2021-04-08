@@ -38,7 +38,7 @@ class Indirect
     private static function validateAddress($cellAddress): string
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
-        if (!$cellAddress) {
+        if (!is_string($cellAddress) || !$cellAddress) {
             throw new Exception(Functions::REF());
         }
 
