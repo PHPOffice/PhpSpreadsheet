@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -36,8 +37,14 @@ class Indirect
             return Functions::REF();
         }
 
-        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $cellAddress, $matches)) {
-            return self::evaluateDefinedName($matches[6], $pCell);
+        if (
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress, $matches)) &&
+            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $cellAddress, $matches))
+        ) {
+            try {
+                return self::evaluateDefinedName($matches[6], $pCell);
+            } catch (Exception $e) {
+            }
         }
 
         [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
@@ -84,7 +91,7 @@ class Indirect
         $workSheet = $pCell->getWorksheet();
         $namedRange = DefinedName::resolveName($definedName, $workSheet);
         if ($namedRange === null) {
-            return Functions::REF();
+            throw new Exception(Functions::REF());
         }
 
         $calculationEngine = Calculation::getInstance($workSheet->getParent());
