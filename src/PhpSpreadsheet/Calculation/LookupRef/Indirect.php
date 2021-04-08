@@ -4,7 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Indirect
@@ -32,6 +34,10 @@ class Indirect
         $cellAddress = Functions::flattenSingleValue($cellAddress);
         if ($cellAddress === null || $cellAddress === '' || !is_object($pCell)) {
             return Functions::REF();
+        }
+
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $cellAddress, $matches)) {
+            return self::evaluateDefinedName($matches[6], $pCell);
         }
 
         [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
@@ -71,5 +77,18 @@ class Indirect
             : $pCell->getWorksheet();
 
         return [$cellAddress, $pSheet];
+    }
+
+    private static function evaluateDefinedName(string $definedName, Cell $pCell)
+    {
+        $workSheet = $pCell->getWorksheet();
+        $namedRange = DefinedName::resolveName($definedName, $workSheet);
+        if ($namedRange === null) {
+            return Functions::REF();
+        }
+
+        $calculationEngine = Calculation::getInstance($workSheet->getParent());
+
+        return $calculationEngine->evaluateDefinedName($pCell, $namedRange, $workSheet, new Stack());
     }
 }
