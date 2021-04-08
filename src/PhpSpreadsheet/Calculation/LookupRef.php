@@ -197,7 +197,7 @@ class LookupRef
      */
     public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
     {
-        return Indirect::INDIRECT($cellAddress, $pCell);
+        return Indirect::INDIRECT($cellAddress, true, $pCell);
     }
 
     /**

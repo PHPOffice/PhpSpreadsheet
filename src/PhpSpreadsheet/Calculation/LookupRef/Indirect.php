@@ -92,7 +92,7 @@ class Indirect
      *
      * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param null|bool|float|int|string $a1fmt
-     * @param null|Cell $pCell The current cell (containing this formula)
+     * @param Cell $pCell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
