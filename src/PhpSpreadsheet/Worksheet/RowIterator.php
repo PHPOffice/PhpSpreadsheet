@@ -51,14 +51,6 @@ class RowIterator implements Iterator
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->subject = null;
-    }
-
-    /**
      * (Re)Set the start row and the current row pointer.
      *
      * @param int $startRow The row number at which to start iterating

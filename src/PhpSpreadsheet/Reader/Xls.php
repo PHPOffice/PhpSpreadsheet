@@ -374,7 +374,7 @@ class Xls extends BaseReader
      *
      * @var int
      */
-    private $encryptionStartPos = false;
+    private $encryptionStartPos = 0;
 
     /**
      * The current RC4 decryption object.
@@ -659,7 +659,7 @@ class Xls extends BaseReader
         $this->definedname = [];
         $this->sst = [];
         $this->drawingGroupData = '';
-        $this->xfIndex = '';
+        $this->xfIndex = 0;
         $this->mapCellXfIndex = [];
         $this->mapCellStyleXfIndex = [];
 
@@ -1296,7 +1296,7 @@ class Xls extends BaseReader
                 //    TODO Provide support for named values
             }
         }
-        $this->data = null;
+        $this->data = '';
 
         return $this->spreadsheet;
     }

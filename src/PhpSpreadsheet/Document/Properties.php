@@ -100,7 +100,7 @@ class Properties
     /**
      * Custom Properties.
      *
-     * @var string[]
+     * @var array{value: mixed, type: string}[]
      */
     private $customProperties = [];
 

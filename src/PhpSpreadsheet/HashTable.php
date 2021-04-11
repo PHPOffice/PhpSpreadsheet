@@ -126,7 +126,7 @@ class HashTable
      *
      * @param int $pIndex
      *
-     * @return T
+     * @return null|T
      */
     public function getByIndex($pIndex)
     {
@@ -142,7 +142,7 @@ class HashTable
      *
      * @param string $pHashCode
      *
-     * @return T
+     * @return null|T
      */
     public function getByHashCode($pHashCode)
     {

@@ -105,7 +105,7 @@ class Worksheet implements IComparable
      *
      * @var ArrayObject<Chart>
      */
-    private $chartCollection = [];
+    private $chartCollection;
 
     /**
      * Worksheet title.
@@ -278,9 +278,9 @@ class Worksheet implements IComparable
     /**
      * Cached highest column.
      *
-     * @var string
+     * @var int
      */
-    private $cachedHighestColumn = 'A';
+    private $cachedHighestColumn = 1;
 
     /**
      * Cached highest row.
@@ -313,7 +313,7 @@ class Worksheet implements IComparable
     /**
      * Tab color.
      *
-     * @var Color
+     * @var null|Color
      */
     private $tabColor;
 
@@ -383,9 +383,11 @@ class Worksheet implements IComparable
     {
         if ($this->cellCollection !== null) {
             $this->cellCollection->unsetWorksheetCells();
+            // @phpstan-ignore-next-line
             $this->cellCollection = null;
         }
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
+        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 
@@ -1039,7 +1041,7 @@ class Worksheet implements IComparable
     public function getHighestColumn($row = null)
     {
         if ($row == null) {
-            return $this->cachedHighestColumn;
+            return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
         }
 
         return $this->getHighestDataColumn($row);
@@ -1252,11 +1254,12 @@ class Worksheet implements IComparable
 
         // Coordinates
         $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
-        if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
-            $this->cachedHighestColumn = $aCoordinates[0];
+        $aIndexes = Coordinate::indexesFromString($pCoordinate);
+        if ($this->cachedHighestColumn < $aIndexes[0]) {
+            $this->cachedHighestColumn = $aIndexes[0];
         }
-        if ($aCoordinates[1] > $this->cachedHighestRow) {
-            $this->cachedHighestRow = $aCoordinates[1];
+        if ($aIndexes[1] > $this->cachedHighestRow) {
+            $this->cachedHighestRow = $aIndexes[1];
         }
 
         // Cell needs appropriate xfIndex from dimensions records
@@ -1377,8 +1380,9 @@ class Worksheet implements IComparable
             }
             $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
-            if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($pColumn)) {
-                $this->cachedHighestColumn = $pColumn;
+            $columnIndex = Coordinate::columnIndexFromString($pColumn);
+            if ($this->cachedHighestColumn < $columnIndex) {
+                $this->cachedHighestColumn = $columnIndex;
             }
         }
 
@@ -1987,7 +1991,7 @@ class Worksheet implements IComparable
     /**
      * Get the default position of the right bottom pane.
      *
-     * @return int
+     * @return null|string
      */
     public function getTopLeftCell()
     {
@@ -2677,9 +2681,9 @@ class Worksheet implements IComparable
 
         // Cache values
         if ($highestColumn < 1) {
-            $this->cachedHighestColumn = 'A';
+            $this->cachedHighestColumn = 1;
         } else {
-            $this->cachedHighestColumn = Coordinate::stringFromColumnIndex($highestColumn);
+            $this->cachedHighestColumn = $highestColumn;
         }
         $this->cachedHighestRow = $highestRow;
 
@@ -2905,7 +2909,6 @@ class Worksheet implements IComparable
     public function resetTabColor()
     {
         $this->tabColor = null;
-        $this->tabColor = null;
 
         return $this;
     }
@@ -2935,6 +2938,7 @@ class Worksheet implements IComparable
      */
     public function __clone()
     {
+        // @phpstan-ignore-next-line
         foreach ($this as $key => $val) {
             if ($key == 'parent') {
                 continue;

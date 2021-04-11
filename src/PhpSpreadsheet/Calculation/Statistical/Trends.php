@@ -142,7 +142,7 @@ class Trends
      * @param mixed[] $newValues Values of X for which we want to find Y
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      *
-     * @return array of float
+     * @return float[]
      */
     public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
     {
@@ -399,7 +399,7 @@ class Trends
      * @param mixed[] $newValues Values of X for which we want to find Y
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      *
-     * @return array of float
+     * @return float[]
      */
     public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
     {

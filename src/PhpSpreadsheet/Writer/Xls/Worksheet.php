@@ -95,7 +95,7 @@ class Worksheet extends BIFFwriter
     /**
      * Whether to use outline.
      *
-     * @var int
+     * @var bool
      */
     private $outlineOn;
 
@@ -244,10 +244,10 @@ class Worksheet extends BIFFwriter
 
         $this->printHeaders = 0;
 
-        $this->outlineStyle = 0;
-        $this->outlineBelow = 1;
-        $this->outlineRight = 1;
-        $this->outlineOn = 1;
+        $this->outlineStyle = false;
+        $this->outlineBelow = true;
+        $this->outlineRight = true;
+        $this->outlineOn = true;
 
         $this->fontHashIndex = [];
 
@@ -594,15 +594,13 @@ class Worksheet extends BIFFwriter
     }
 
     /**
-     * Retrieves data from memory in one chunk, or from disk in $buffer
+     * Retrieves data from memory in one chunk, or from disk
      * sized chunks.
      *
      * @return string The data
      */
     public function getData()
     {
-        $buffer = 4096;
-
         // Return data stored in memory
         if (isset($this->_data)) {
             $tmp = $this->_data;
@@ -612,7 +610,7 @@ class Worksheet extends BIFFwriter
         }
 
         // No data to return
-        return false;
+        return '';
     }
 
     /**
@@ -640,11 +638,6 @@ class Worksheet extends BIFFwriter
         $this->outlineBelow = $symbols_below;
         $this->outlineRight = $symbols_right;
         $this->outlineStyle = $auto_style;
-
-        // Ensure this is a boolean vale for Window2
-        if ($this->outlineOn) {
-            $this->outlineOn = 1;
-        }
     }
 
     /**
@@ -926,20 +919,14 @@ class Worksheet extends BIFFwriter
      * The hyperlink can be to a http, ftp, mail, internal sheet (not yet), or external
      * directory url.
      *
-     * Returns  0 : normal termination
-     *         -2 : row or column out of range
-     *         -3 : long string truncated to 255 chars
-     *
      * @param int $row Row
      * @param int $col Column
      * @param string $url URL string
-     *
-     * @return int
      */
-    private function writeUrl($row, $col, $url)
+    private function writeUrl($row, $col, $url): void
     {
         // Add start row and col to arg list
-        return $this->writeUrlRange($row, $col, $row, $col, $url);
+        $this->writeUrlRange($row, $col, $row, $col, $url);
     }
 
     /**
@@ -954,21 +941,19 @@ class Worksheet extends BIFFwriter
      * @param int $col2 End column
      * @param string $url URL string
      *
-     * @return int
-     *
      * @see writeUrl()
      */
-    public function writeUrlRange($row1, $col1, $row2, $col2, $url)
+    private function writeUrlRange($row1, $col1, $row2, $col2, $url): void
     {
         // Check for internal/external sheet links or default to web link
         if (preg_match('[^internal:]', $url)) {
-            return $this->writeUrlInternal($row1, $col1, $row2, $col2, $url);
+            $this->writeUrlInternal($row1, $col1, $row2, $col2, $url);
         }
         if (preg_match('[^external:]', $url)) {
-            return $this->writeUrlExternal($row1, $col1, $row2, $col2, $url);
+            $this->writeUrlExternal($row1, $col1, $row2, $col2, $url);
         }
 
-        return $this->writeUrlWeb($row1, $col1, $row2, $col2, $url);
+        $this->writeUrlWeb($row1, $col1, $row2, $col2, $url);
     }
 
     /**
@@ -982,14 +967,11 @@ class Worksheet extends BIFFwriter
      * @param int $col2 End column
      * @param string $url URL string
      *
-     * @return int
-     *
      * @see writeUrl()
      */
-    public function writeUrlWeb($row1, $col1, $row2, $col2, $url)
+    public function writeUrlWeb($row1, $col1, $row2, $col2, $url): void
     {
         $record = 0x01B8; // Record identifier
-        $length = 0x00000; // Bytes to follow
 
         // Pack the undocumented parts of the hyperlink stream
         $unknown1 = pack('H*', 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
@@ -1014,8 +996,6 @@ class Worksheet extends BIFFwriter
 
         // Write the packed data
         $this->append($header . $data . $unknown1 . $options . $unknown2 . $url_len . $url);
-
-        return 0;
     }
 
     /**
@@ -1027,14 +1007,11 @@ class Worksheet extends BIFFwriter
      * @param int $col2 End column
      * @param string $url URL string
      *
-     * @return int
-     *
      * @see writeUrl()
      */
-    public function writeUrlInternal($row1, $col1, $row2, $col2, $url)
+    private function writeUrlInternal($row1, $col1, $row2, $col2, $url): void
     {
         $record = 0x01B8; // Record identifier
-        $length = 0x00000; // Bytes to follow
 
         // Strip URL type
         $url = preg_replace('/^internal:/', '', $url);
@@ -1063,8 +1040,6 @@ class Worksheet extends BIFFwriter
 
         // Write the packed data
         $this->append($header . $data . $unknown1 . $options . $url_len . $url);
-
-        return 0;
     }
 
     /**
@@ -1080,16 +1055,14 @@ class Worksheet extends BIFFwriter
      * @param int $col2 End column
      * @param string $url URL string
      *
-     * @return int
-     *
      * @see writeUrl()
      */
-    public function writeUrlExternal($row1, $col1, $row2, $col2, $url)
+    private function writeUrlExternal($row1, $col1, $row2, $col2, $url): void
     {
         // Network drives are different. We will handle them separately
         // MS/Novell network drives and shares start with \\
         if (preg_match('[^external:\\\\]', $url)) {
-            return; //($this->writeUrlExternal_net($row1, $col1, $row2, $col2, $url, $str, $format));
+            return;
         }
 
         $record = 0x01B8; // Record identifier
@@ -1165,8 +1138,6 @@ class Worksheet extends BIFFwriter
 
         // Write the packed data
         $this->append($header . $data);
-
-        return 0;
     }
 
     /**

@@ -1,8 +1,13 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
-    level: 2
+    level: max
     paths:
         - src/
         - tests/
+    parallel:
+        processTimeout: 300.0
     ignoreErrors:
         - '~^Class GdImage not found\.$~'
         - '~^Return typehint of method .* has invalid type GdImage\.$~'

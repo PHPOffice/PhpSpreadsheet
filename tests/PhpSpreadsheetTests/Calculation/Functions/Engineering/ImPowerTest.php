@@ -22,11 +22,6 @@ class ImPowerTest extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
-    }
-
     /**
      * @dataProvider providerIMPOWER
      *

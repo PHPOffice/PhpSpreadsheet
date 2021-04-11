@@ -188,7 +188,7 @@ class OLERead
      *
      * @param int $stream
      *
-     * @return string
+     * @return null|string
      */
     public function getStream($stream)
     {

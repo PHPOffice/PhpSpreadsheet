@@ -19,7 +19,7 @@ class Fact
      *
      * @param float $factVal Factorial Value
      *
-     * @return int|string Factorial, or a string containing an error
+     * @return float|int|string Factorial, or a string containing an error
      */
     public static function funcFact($factVal)
     {

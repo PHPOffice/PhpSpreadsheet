@@ -362,7 +362,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for border styles.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapBorderStyles = [
         Border::BORDER_NONE => 0x00,
@@ -396,7 +396,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for fill types.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapFillTypes = [
         Fill::FILL_NONE => 0x00,
@@ -437,7 +437,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for horizontal alignment.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapHAlignments = [
         Alignment::HORIZONTAL_GENERAL => 0,
@@ -464,7 +464,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for vertical alignment.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapVAlignments = [
         Alignment::VERTICAL_TOP => 0,

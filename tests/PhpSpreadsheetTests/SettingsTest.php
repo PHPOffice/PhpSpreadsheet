@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class SettingsTest extends TestCase
 {
     /**
-     * @var string
+     * @var bool
      */
     protected $prevValue;
 

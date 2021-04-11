@@ -85,10 +85,10 @@ class ConvertHex extends ConvertBase
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
 
-            return (bindec($binX) + 1) * -1;
+            return (string) ((bindec($binX) + 1) * -1);
         }
 
-        return bindec($binX);
+        return (string) bindec($binX);
     }
 
     /**

@@ -81,14 +81,14 @@ class Xls extends BaseWriter
     /**
      * Basic OLE object summary information.
      *
-     * @var array
+     * @var string
      */
     private $summaryInformation;
 
     /**
      * Extended OLE object document summary information.
      *
-     * @var array
+     * @var string
      */
     private $documentSummaryInformation;
 
@@ -727,6 +727,7 @@ class Xls extends BaseWriter
             } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
                 $dataProp['data']['data'] .= chr(0);
+                // @phpstan-ignore-next-line
                 ++$dataProp['data']['length'];
                 // Complete the string with null string for being a %4
                 $dataProp['data']['length'] = $dataProp['data']['length'] + ((4 - $dataProp['data']['length'] % 4) == 4 ? 0 : (4 - $dataProp['data']['length'] % 4));
@@ -744,6 +745,7 @@ class Xls extends BaseWriter
             } else {
                 $dataSection_Content .= $dataProp['data']['data'];
 
+                // @phpstan-ignore-next-line
                 $dataSection_Content_Offset += 4 + $dataProp['data']['length'];
             }
         }

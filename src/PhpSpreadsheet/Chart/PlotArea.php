@@ -67,7 +67,7 @@ class PlotArea
     /**
      * Get Plot Series.
      *
-     * @return array of DataSeries
+     * @return DataSeries[]
      */
     public function getPlotGroup()
     {

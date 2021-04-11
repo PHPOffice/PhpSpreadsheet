@@ -5234,10 +5234,8 @@ class Calculation
 
     /**
      * Get a list of all implemented functions as an array of function objects.
-     *
-     * @return array of Category
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return self::$phpSpreadsheetFunctions;
     }

@@ -35,21 +35,21 @@ class Alignment extends Supervisor
     /**
      * Horizontal alignment.
      *
-     * @var string
+     * @var null|string
      */
     protected $horizontal = self::HORIZONTAL_GENERAL;
 
     /**
      * Vertical alignment.
      *
-     * @var string
+     * @var null|string
      */
     protected $vertical = self::VERTICAL_BOTTOM;
 
     /**
      * Text rotation.
      *
-     * @var int
+     * @var null|int
      */
     protected $textRotation = 0;
 
@@ -179,7 +179,7 @@ class Alignment extends Supervisor
     /**
      * Get Horizontal.
      *
-     * @return string
+     * @return null|string
      */
     public function getHorizontal()
     {
@@ -216,7 +216,7 @@ class Alignment extends Supervisor
     /**
      * Get Vertical.
      *
-     * @return string
+     * @return null|string
      */
     public function getVertical()
     {
@@ -253,7 +253,7 @@ class Alignment extends Supervisor
     /**
      * Get TextRotation.
      *
-     * @return int
+     * @return null|int
      */
     public function getTextRotation()
     {

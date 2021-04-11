@@ -22,11 +22,6 @@ class ImLog10Test extends TestCase
         $this->complexAssert = new ComplexAssert();
     }
 
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
-    }
-
     /**
      * @dataProvider providerIMLOG10
      *
