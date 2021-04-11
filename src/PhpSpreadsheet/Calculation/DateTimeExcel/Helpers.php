@@ -16,7 +16,7 @@ class Helpers
      *
      * @return bool TRUE if the year is a leap year, otherwise FALSE
      */
-    public static function isLeapYear($year)
+    public static function isLeapYear($year): bool
     {
         return (($year % 4) === 0) && (($year % 100) !== 0) || (($year % 400) === 0);
     }
@@ -28,7 +28,7 @@ class Helpers
      *
      * @return float Excel date/time serial value
      */
-    public static function getDateValue($dateValue, bool $allowBool = true)
+    public static function getDateValue($dateValue, bool $allowBool = true): float
     {
         if (is_object($dateValue)) {
             $retval = Date::PHPToExcel($dateValue);

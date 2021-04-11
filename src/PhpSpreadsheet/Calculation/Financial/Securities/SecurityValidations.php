@@ -10,9 +10,8 @@ class SecurityValidations extends FinancialValidations
 {
     /**
      * @param mixed $issue
-     * @throws Exception
      */
-    public static function validateIssueDate($issue)
+    public static function validateIssueDate($issue): float
     {
         return self::validateDate($issue);
     }
@@ -20,7 +19,6 @@ class SecurityValidations extends FinancialValidations
     /**
      * @param mixed $settlement
      * @param mixed $maturity
-     * @throws Exception
      */
     public static function validateSecurityPeriod($settlement, $maturity): void
     {
@@ -31,7 +29,6 @@ class SecurityValidations extends FinancialValidations
 
     /**
      * @param mixed $redemption
-     * @throws Exception
      */
     public static function validateRedemption($redemption): float
     {
