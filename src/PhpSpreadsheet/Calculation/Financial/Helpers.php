@@ -55,10 +55,8 @@ class Helpers
      * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
      *
      * @param DateTimeInterface $date The date for testing
-     *
-     * @return bool
      */
-    public static function isLastDayOfMonth(DateTimeInterface $date)
+    public static function isLastDayOfMonth(DateTimeInterface $date): bool
     {
         return $date->format('d') === $date->format('t');
     }
