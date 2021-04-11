@@ -19,7 +19,6 @@ $arguments = [
     [1.12, 32],
 ];
 
-// Some basic formatting for the data
 $worksheet->fromArray($arguments, null, 'A1');
 
 // Now the formula

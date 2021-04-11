@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
 
-$helper->log('Returns the dollar value in fractional notation, into a dollar value expressed as a decimal.');
+$helper->log('Returns the dollar value expressed as a decimal number, into a dollar price, expressed as a fraction.');
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -19,7 +19,6 @@ $arguments = [
     [1.375, 32],
 ];
 
-// Some basic formatting for the data
 $worksheet->fromArray($arguments, null, 'A1');
 
 // Now the formula
