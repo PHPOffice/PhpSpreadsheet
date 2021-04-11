@@ -8,11 +8,20 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class SecurityValidations extends FinancialValidations
 {
+    /**
+     * @param mixed $issue
+     * @throws Exception
+     */
     public static function validateIssueDate($issue)
     {
         return self::validateDate($issue);
     }
 
+    /**
+     * @param mixed $settlement
+     * @param mixed $maturity
+     * @throws Exception
+     */
     public static function validateSecurityPeriod($settlement, $maturity): void
     {
         if ($settlement >= $maturity) {
@@ -20,6 +29,10 @@ class SecurityValidations extends FinancialValidations
         }
     }
 
+    /**
+     * @param mixed $redemption
+     * @throws Exception
+     */
     public static function validateRedemption($redemption): float
     {
         $redemption = self::validateFloat($redemption);

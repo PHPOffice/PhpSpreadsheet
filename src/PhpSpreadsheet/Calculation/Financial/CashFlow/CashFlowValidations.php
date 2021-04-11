@@ -9,6 +9,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class CashFlowValidations extends FinancialValidations
 {
+    /**
+     * @param mixed $rate
+     * @throws Exception
+     */
     public static function validateRate($rate): float
     {
         $rate = self::validateFloat($rate);
@@ -19,6 +23,10 @@ class CashFlowValidations extends FinancialValidations
         return $rate;
     }
 
+    /**
+     * @param mixed $type
+     * @throws Exception
+     */
     public static function validatePeriodType($type): int
     {
         $rate = self::validateInt($type);
@@ -29,13 +37,21 @@ class CashFlowValidations extends FinancialValidations
         return $rate;
     }
 
+    /**
+     * @param mixed $presentValue
+     * @throws Exception
+     */
     public static function validatePresentValue($presentValue): float
     {
         return self::validateFloat($presentValue);
     }
 
-    public static function validateFutureValue($presentValue): float
+    /**
+     * @param mixed $futureValue
+     * @throws Exception
+     */
+    public static function validateFutureValue($futureValue): float
     {
-        return self::validateFloat($presentValue);
+        return self::validateFloat($futureValue);
     }
 }
