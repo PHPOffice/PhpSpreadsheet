@@ -11,34 +11,30 @@ class FinancialValidations
 {
     /**
      * @param mixed $date
-     * @throws Exception
      */
-    public static function validateDate($date)
+    public static function validateDate($date): float
     {
         return DateTimeExcel\Helpers::getDateValue($date);
     }
 
     /**
      * @param mixed $settlement
-     * @throws Exception
      */
-    public static function validateSettlementDate($settlement)
+    public static function validateSettlementDate($settlement): float
     {
         return self::validateDate($settlement);
     }
 
     /**
      * @param mixed $maturity
-     * @throws Exception
      */
-    public static function validateMaturityDate($maturity)
+    public static function validateMaturityDate($maturity): float
     {
         return self::validateDate($maturity);
     }
 
     /**
      * @param mixed $value
-     * @throws Exception
      */
     public static function validateFloat($value): float
     {
@@ -51,7 +47,6 @@ class FinancialValidations
 
     /**
      * @param mixed $value
-     * @throws Exception
      */
     public static function validateInt($value): int
     {
@@ -59,12 +54,11 @@ class FinancialValidations
             throw new Exception(Functions::VALUE());
         }
 
-        return (int) floor($value);
+        return (int) floor((float) $value);
     }
 
     /**
      * @param mixed $rate
-     * @throws Exception
      */
     public static function validateRate($rate): float
     {
@@ -78,7 +72,6 @@ class FinancialValidations
 
     /**
      * @param mixed $frequency
-     * @throws Exception
      */
     public static function validateFrequency($frequency): int
     {
@@ -96,7 +89,6 @@ class FinancialValidations
 
     /**
      * @param mixed $basis
-     * @throws Exception
      */
     public static function validateBasis($basis): int
     {
@@ -114,7 +106,6 @@ class FinancialValidations
 
     /**
      * @param mixed $price
-     * @throws Exception
      */
     public static function validatePrice($price): float
     {
@@ -128,7 +119,6 @@ class FinancialValidations
 
     /**
      * @param mixed $parValue
-     * @throws Exception
      */
     public static function validateParValue($parValue): float
     {
@@ -142,7 +132,6 @@ class FinancialValidations
 
     /**
      * @param mixed $yield
-     * @throws Exception
      */
     public static function validateYield($yield): float
     {
@@ -156,7 +145,6 @@ class FinancialValidations
 
     /**
      * @param mixed $discount
-     * @throws Exception
      */
     public static function validateDiscount($discount): float
     {

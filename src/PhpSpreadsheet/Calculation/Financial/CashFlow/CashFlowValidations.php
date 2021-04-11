@@ -11,7 +11,6 @@ class CashFlowValidations extends FinancialValidations
 {
     /**
      * @param mixed $rate
-     * @throws Exception
      */
     public static function validateRate($rate): float
     {
@@ -25,7 +24,6 @@ class CashFlowValidations extends FinancialValidations
 
     /**
      * @param mixed $type
-     * @throws Exception
      */
     public static function validatePeriodType($type): int
     {
@@ -39,7 +37,6 @@ class CashFlowValidations extends FinancialValidations
 
     /**
      * @param mixed $presentValue
-     * @throws Exception
      */
     public static function validatePresentValue($presentValue): float
     {
@@ -48,7 +45,6 @@ class CashFlowValidations extends FinancialValidations
 
     /**
      * @param mixed $futureValue
-     * @throws Exception
      */
     public static function validateFutureValue($futureValue): float
     {
