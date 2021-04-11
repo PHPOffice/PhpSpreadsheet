@@ -1,6 +1,5 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
@@ -17,7 +16,7 @@ $arguments = [
     ['Pament Frequency', 12, 4],
     ['Duration (Years)', 5, 4],
     ['Investment', -1000.00, -2000.00],
-    ['Payment Type', 0, 1]
+    ['Payment Type', 0, 1],
 ];
 
 // Some basic formatting for the data
