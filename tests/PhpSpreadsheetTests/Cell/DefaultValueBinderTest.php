@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    private function createCellStub()
+    private function createCellStub(): Cell
     {
         // Create a stub for the Cell class.
         /** @var Cell&MockObject $cellStub */
@@ -42,7 +42,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertTrue($result);
     }
 
-    public function binderProvider()
+    public function binderProvider(): array
     {
         return [
             [null],
@@ -74,7 +74,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDataTypeForValue()
+    public function providerDataTypeForValue(): array
     {
         return require 'tests/data/Cell/DefaultValueBinder.php';
     }

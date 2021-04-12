@@ -26,7 +26,7 @@ class RowTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROW()
+    public function providerROW(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROW.php';
     }

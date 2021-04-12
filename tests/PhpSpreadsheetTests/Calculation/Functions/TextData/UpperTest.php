@@ -25,7 +25,7 @@ class UpperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerUPPER()
+    public function providerUPPER(): array
     {
         return require 'tests/data/Calculation/TextData/UPPER.php';
     }
@@ -51,7 +51,7 @@ class UpperTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleLOWER()
+    public function providerLocaleLOWER(): array
     {
         return [
             ['VRAI', 'fr_FR', true],

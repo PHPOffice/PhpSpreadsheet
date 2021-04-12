@@ -24,7 +24,7 @@ class SqrtTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerSqrt()
+    public function providerSqrt(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRT.php';
     }

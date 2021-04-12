@@ -26,7 +26,7 @@ class ExpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerEXP()
+    public function providerEXP(): array
     {
         return require 'tests/data/Calculation/MathTrig/EXP.php';
     }

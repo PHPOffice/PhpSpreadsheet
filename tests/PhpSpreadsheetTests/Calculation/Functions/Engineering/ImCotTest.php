@@ -14,7 +14,7 @@ class ImCotTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImCotTest extends TestCase
         );
     }
 
-    public function providerIMCOT()
+    public function providerIMCOT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCOT.php';
     }

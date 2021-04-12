@@ -24,7 +24,7 @@ class FvTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerFV()
+    public function providerFV(): array
     {
         return require 'tests/data/Calculation/Financial/FV.php';
     }

@@ -22,7 +22,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTAL()
+    public function providerSUBTOTAL(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
@@ -98,7 +98,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTALHIDDEN()
+    public function providerSUBTOTALHIDDEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }

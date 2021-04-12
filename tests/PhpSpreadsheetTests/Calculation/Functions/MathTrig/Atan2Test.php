@@ -20,7 +20,7 @@ class Atan2Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerATAN2()
+    public function providerATAN2(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATAN2.php';
     }

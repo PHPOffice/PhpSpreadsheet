@@ -14,7 +14,7 @@ class ImProductTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -36,7 +36,7 @@ class ImProductTest extends TestCase
         );
     }
 
-    public function providerIMPRODUCT()
+    public function providerIMPRODUCT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMPRODUCT.php';
     }

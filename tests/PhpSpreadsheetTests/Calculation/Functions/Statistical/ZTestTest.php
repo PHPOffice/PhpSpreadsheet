@@ -21,7 +21,7 @@ class ZTestTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerZTEST()
+    public function providerZTEST(): array
     {
         return require 'tests/data/Calculation/Statistical/ZTEST.php';
     }

@@ -18,7 +18,7 @@ class NormInvTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerNORMINV()
+    public function providerNORMINV(): array
     {
         return require 'tests/data/Calculation/Statistical/NORMINV.php';
     }

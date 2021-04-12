@@ -18,7 +18,7 @@ class YearTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerYEAR()
+    public function providerYEAR(): array
     {
         return require 'tests/data/Calculation/DateTime/YEAR.php';
     }

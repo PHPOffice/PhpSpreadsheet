@@ -37,7 +37,7 @@ class YearFracTest extends AllSetupTeardown
         self::assertEqualswithDelta($expectedResult, $sheet->getCell('B1')->getCalculatedValue(), 1E-6);
     }
 
-    public function providerYEARFRAC()
+    public function providerYEARFRAC(): array
     {
         return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
     }

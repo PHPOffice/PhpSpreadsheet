@@ -48,7 +48,7 @@ class IndirectTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerINDIRECT()
+    public function providerINDIRECT(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDIRECT.php';
     }

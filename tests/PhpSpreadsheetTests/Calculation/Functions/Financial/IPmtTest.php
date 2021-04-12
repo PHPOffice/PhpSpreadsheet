@@ -24,7 +24,7 @@ class IPmtTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIPMT()
+    public function providerIPMT(): array
     {
         return require 'tests/data/Calculation/Financial/IPMT.php';
     }

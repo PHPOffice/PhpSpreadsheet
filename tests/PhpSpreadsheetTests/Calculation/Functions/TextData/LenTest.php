@@ -19,7 +19,7 @@ class LenTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEN()
+    public function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
     }

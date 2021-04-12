@@ -19,7 +19,7 @@ class Days360Test extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDAYS360()
+    public function providerDAYS360(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }

@@ -14,7 +14,7 @@ class ImSubTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -36,7 +36,7 @@ class ImSubTest extends TestCase
         );
     }
 
-    public function providerIMSUB()
+    public function providerIMSUB(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSUB.php';
     }

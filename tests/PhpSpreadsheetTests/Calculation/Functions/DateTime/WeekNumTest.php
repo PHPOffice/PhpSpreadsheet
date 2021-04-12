@@ -18,7 +18,7 @@ class WeekNumTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKNUM()
+    public function providerWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
@@ -38,7 +38,7 @@ class WeekNumTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKNUM1904()
+    public function providerWEEKNUM1904(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKNUM1904.php';
     }

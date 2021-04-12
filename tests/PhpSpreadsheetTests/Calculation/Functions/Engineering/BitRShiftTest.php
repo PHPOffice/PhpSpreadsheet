@@ -26,7 +26,7 @@ class BitRShiftTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITRSHIFT()
+    public function providerBITRSHIFT(): array
     {
         return require 'tests/data/Calculation/Engineering/BITRSHIFT.php';
     }

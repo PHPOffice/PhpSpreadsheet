@@ -24,7 +24,7 @@ class AndTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerAND()
+    public function providerAND(): array
     {
         return require 'tests/data/Calculation/Logical/AND.php';
     }

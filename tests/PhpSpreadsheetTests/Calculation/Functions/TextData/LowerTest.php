@@ -25,7 +25,7 @@ class LowerTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOWER()
+    public function providerLOWER(): array
     {
         return require 'tests/data/Calculation/TextData/LOWER.php';
     }
@@ -51,7 +51,7 @@ class LowerTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleLOWER()
+    public function providerLocaleLOWER(): array
     {
         return [
             ['vrai', 'fr_FR', true],

@@ -26,7 +26,7 @@ class Log10Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerLN()
+    public function providerLN(): array
     {
         return require 'tests/data/Calculation/MathTrig/LOG10.php';
     }

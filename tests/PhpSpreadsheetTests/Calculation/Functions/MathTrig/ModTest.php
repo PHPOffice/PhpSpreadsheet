@@ -32,7 +32,7 @@ class ModTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMOD()
+    public function providerMOD(): array
     {
         return require 'tests/data/Calculation/MathTrig/MOD.php';
     }

@@ -19,7 +19,7 @@ class CleanTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCLEAN()
+    public function providerCLEAN(): array
     {
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }

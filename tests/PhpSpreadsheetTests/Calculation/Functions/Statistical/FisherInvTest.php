@@ -25,7 +25,7 @@ class FisherInvTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFISHERINV()
+    public function providerFISHERINV(): array
     {
         return require 'tests/data/Calculation/Statistical/FISHERINV.php';
     }

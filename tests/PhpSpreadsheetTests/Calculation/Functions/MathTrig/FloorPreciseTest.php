@@ -23,7 +23,7 @@ class FloorPreciseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFLOORPRECISE()
+    public function providerFLOORPRECISE(): array
     {
         return require 'tests/data/Calculation/MathTrig/FLOORPRECISE.php';
     }

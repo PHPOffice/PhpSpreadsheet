@@ -20,7 +20,7 @@ class WeekDayTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKDAY()
+    public function providerWEEKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }

@@ -20,7 +20,7 @@ class CodePageTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCodePage()
+    public function providerCodePage(): array
     {
         return require 'tests/data/Shared/CodePage.php';
     }

@@ -26,7 +26,7 @@ class SqrtPiTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSQRTPI()
+    public function providerSQRTPI(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }

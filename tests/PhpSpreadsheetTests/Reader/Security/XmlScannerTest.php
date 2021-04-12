@@ -41,7 +41,7 @@ class XmlScannerTest extends TestCase
         }
     }
 
-    public function providerValidXML()
+    public function providerValidXML(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/XEETestValid*.xml') as $file) {
@@ -78,7 +78,7 @@ class XmlScannerTest extends TestCase
         }
     }
 
-    public function providerInvalidXML()
+    public function providerInvalidXML(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
@@ -125,7 +125,7 @@ class XmlScannerTest extends TestCase
         self::assertEquals(strrev($expectedResult), $xml);
     }
 
-    public function providerValidXMLForCallback()
+    public function providerValidXMLForCallback(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {

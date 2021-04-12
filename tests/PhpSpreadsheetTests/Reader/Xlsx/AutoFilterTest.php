@@ -36,7 +36,7 @@ class AutoFilterTest extends TestCase
         return $instance;
     }
 
-    public function loadDataProvider()
+    public function loadDataProvider(): array
     {
         return [
             ['$B3$E8', 0, 'B3E8'],

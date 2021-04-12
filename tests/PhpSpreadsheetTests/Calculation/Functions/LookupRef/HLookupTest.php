@@ -24,7 +24,7 @@ class HLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHLOOKUP()
+    public function providerHLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }

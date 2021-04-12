@@ -19,7 +19,7 @@ class AsinhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAsinh()
+    public function providerAsinh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASINH.php';
     }

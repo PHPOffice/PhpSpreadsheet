@@ -22,7 +22,7 @@ class TimeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $sheet->getCell('A1')->getCalculatedValue(), 1E-8);
     }
 
-    public function providerTIME()
+    public function providerTIME(): array
     {
         return require 'tests/data/Calculation/DateTime/TIME.php';
     }

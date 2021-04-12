@@ -24,7 +24,7 @@ class RadiansTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerRADIANS()
+    public function providerRADIANS(): array
     {
         return require 'tests/data/Calculation/MathTrig/RADIANS.php';
     }

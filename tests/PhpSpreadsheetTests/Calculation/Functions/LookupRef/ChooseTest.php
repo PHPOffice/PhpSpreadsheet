@@ -24,7 +24,7 @@ class ChooseTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCHOOSE()
+    public function providerCHOOSE(): array
     {
         return require 'tests/data/Calculation/LookupRef/CHOOSE.php';
     }

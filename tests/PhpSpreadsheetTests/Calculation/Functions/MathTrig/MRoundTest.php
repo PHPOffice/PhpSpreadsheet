@@ -23,7 +23,7 @@ class MRoundTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMROUND()
+    public function providerMROUND(): array
     {
         return require 'tests/data/Calculation/MathTrig/MROUND.php';
     }

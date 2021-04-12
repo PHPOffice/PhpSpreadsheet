@@ -18,7 +18,7 @@ class FixedTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIXED()
+    public function providerFIXED(): array
     {
         return require 'tests/data/Calculation/TextData/FIXED.php';
     }

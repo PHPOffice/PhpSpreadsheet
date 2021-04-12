@@ -14,7 +14,7 @@ class ImSinhTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImSinhTest extends TestCase
         );
     }
 
-    public function providerIMSINH()
+    public function providerIMSINH(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSINH.php';
     }

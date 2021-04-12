@@ -19,7 +19,7 @@ class CodeTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCODE()
+    public function providerCODE(): array
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }

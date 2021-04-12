@@ -18,7 +18,7 @@ class CsvOutputEncodingTest extends Functional\AbstractFunctional
 
         $writer = new CsvWriter($spreadsheet);
 
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test-SJIS-win');
+        $filename = File::temporaryFilename();
         $writer->setUseBOM(false);
         $writer->setOutputEncoding('SJIS-win');
         $writer->save($filename);

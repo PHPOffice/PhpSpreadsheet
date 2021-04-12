@@ -20,7 +20,7 @@ class EoMonthTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerEOMONTH()
+    public function providerEOMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }

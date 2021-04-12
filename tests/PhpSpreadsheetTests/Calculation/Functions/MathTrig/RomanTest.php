@@ -20,7 +20,7 @@ class RomanTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerROMAN()
+    public function providerROMAN(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }

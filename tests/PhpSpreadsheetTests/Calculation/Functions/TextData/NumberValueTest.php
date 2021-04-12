@@ -18,7 +18,7 @@ class NumberValueTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNUMBERVALUE()
+    public function providerNUMBERVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }

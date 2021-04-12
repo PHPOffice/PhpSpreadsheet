@@ -19,7 +19,7 @@ class CharTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCHAR()
+    public function providerCHAR(): array
     {
         return require 'tests/data/Calculation/TextData/CHAR.php';
     }

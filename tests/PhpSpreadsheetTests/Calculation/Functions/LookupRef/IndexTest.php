@@ -25,7 +25,7 @@ class IndexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerINDEX()
+    public function providerINDEX(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }

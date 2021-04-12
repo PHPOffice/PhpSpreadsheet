@@ -14,7 +14,7 @@ class ImSqrtTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImSqrtTest extends TestCase
         );
     }
 
-    public function providerIMSQRT()
+    public function providerIMSQRT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }

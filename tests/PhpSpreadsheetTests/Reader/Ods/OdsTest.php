@@ -15,6 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class OdsTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $timeZone;
 
     protected function setUp(): void
@@ -43,7 +46,7 @@ class OdsTest extends TestCase
      */
     private function loadOdsTestFile()
     {
-        if (!$this->spreadsheetOdsTest) {
+        if (!isset($this->spreadsheetOdsTest)) {
             $filename = 'samples/templates/OOCalcTest.ods';
 
             // Load into this instance
@@ -59,7 +62,7 @@ class OdsTest extends TestCase
      */
     protected function loadDataFile()
     {
-        if (!$this->spreadsheetData) {
+        if (!isset($this->spreadsheetData)) {
             $filename = 'tests/data/Reader/Ods/data.ods';
 
             // Load into this instance

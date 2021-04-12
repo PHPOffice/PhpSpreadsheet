@@ -20,7 +20,7 @@ class DateTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDATE()
+    public function providerDATE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }

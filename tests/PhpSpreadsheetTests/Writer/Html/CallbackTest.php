@@ -42,7 +42,7 @@ EOF;
         self::assertEquals($html3, $html1);
 
         $writer->setEditHtmlCallback([$this, 'yellowBody']);
-        $oufil = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $oufil = File::temporaryFilename();
         $writer->save($oufil);
         $html4 = file_get_contents($oufil);
         unlink($oufil);

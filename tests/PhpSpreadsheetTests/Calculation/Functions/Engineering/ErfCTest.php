@@ -27,7 +27,7 @@ class ErfCTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerERFC()
+    public function providerERFC(): array
     {
         return require 'tests/data/Calculation/Engineering/ERFC.php';
     }
