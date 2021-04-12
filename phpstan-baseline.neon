@@ -701,16 +701,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial.php
 
 		-
-			message: "#^Result of && is always true\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:schedulePayment\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
