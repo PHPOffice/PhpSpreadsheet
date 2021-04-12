@@ -64,14 +64,14 @@ class NumberFormat extends Supervisor
     /**
      * Format Code.
      *
-     * @var string
+     * @var null|string
      */
     protected $formatCode = self::FORMAT_GENERAL;
 
     /**
      * Built-in format Code.
      *
-     * @var string
+     * @var false|int
      */
     protected $builtInFormatCode = 0;
 
@@ -150,7 +150,7 @@ class NumberFormat extends Supervisor
     /**
      * Get Format Code.
      *
-     * @return string
+     * @return null|string
      */
     public function getFormatCode()
     {
@@ -190,7 +190,7 @@ class NumberFormat extends Supervisor
     /**
      * Get Built-In Format Code.
      *
-     * @return int
+     * @return false|int
      */
     public function getBuiltInFormatCode()
     {

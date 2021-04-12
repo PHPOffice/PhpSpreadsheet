@@ -10,8 +10,8 @@ class Extract
     /**
      * LEFT.
      *
-     * @param mixed (string) $value Value
-     * @param mixed (int) $chars Number of characters
+     * @param mixed $value String value from which to extract characters
+     * @param mixed $chars The number of characters to extract (as an integer)
      */
     public static function left($value = '', $chars = 1): string
     {
@@ -32,9 +32,9 @@ class Extract
     /**
      * MID.
      *
-     * @param mixed (string) $value Value
-     * @param mixed (int) $start Start character
-     * @param mixed (int) $chars Number of characters
+     * @param mixed $value String value from which to extract characters
+     * @param mixed $start Integer offset of the first character that we want to extract
+     * @param mixed $chars The number of characters to extract (as an integer)
      */
     public static function mid($value = '', $start = 1, $chars = null): string
     {
@@ -56,8 +56,8 @@ class Extract
     /**
      * RIGHT.
      *
-     * @param mixed (string) $value Value
-     * @param mixed (int) $chars Number of characters
+     * @param mixed $value String value from which to extract characters
+     * @param mixed $chars The number of characters to extract (as an integer)
      */
     public static function right($value = '', $chars = 1): string
     {

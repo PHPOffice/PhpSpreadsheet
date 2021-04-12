@@ -17,7 +17,7 @@ class WeekDay
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     * @param null|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      * @param int $style A number that determines the type of return value
      *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).

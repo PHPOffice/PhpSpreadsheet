@@ -38,7 +38,7 @@ class ConvertBinary extends ConvertBase
             return '-' . (512 - bindec($value));
         }
 
-        return bindec($value);
+        return (string) bindec($value);
     }
 
     /**

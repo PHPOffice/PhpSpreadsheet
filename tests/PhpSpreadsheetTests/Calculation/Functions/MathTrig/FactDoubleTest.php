@@ -8,7 +8,7 @@ class FactDoubleTest extends AllSetupTeardown
      * @dataProvider providerFACTDOUBLE
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testFACTDOUBLE($expectedResult, $value): void
     {
@@ -20,7 +20,7 @@ class FactDoubleTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACTDOUBLE()
+    public function providerFACTDOUBLE(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTDOUBLE.php';
     }

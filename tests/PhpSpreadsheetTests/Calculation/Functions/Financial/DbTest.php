@@ -24,7 +24,7 @@ class DbTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerDB()
+    public function providerDB(): array
     {
         return require 'tests/data/Calculation/Financial/DB.php';
     }

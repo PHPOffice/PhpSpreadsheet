@@ -23,7 +23,7 @@ class AcothTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerACOTH()
+    public function providerACOTH(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOTH.php';
     }

@@ -18,7 +18,7 @@ class MonthTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerMONTH()
+    public function providerMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/MONTH.php';
     }

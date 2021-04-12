@@ -19,7 +19,7 @@ class AtanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAtanh()
+    public function providerAtanh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATANH.php';
     }

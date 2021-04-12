@@ -14,7 +14,7 @@ class AutoFilter
     /**
      * Autofilter Worksheet.
      *
-     * @var Worksheet
+     * @var null|Worksheet
      */
     private $workSheet;
 
@@ -47,7 +47,7 @@ class AutoFilter
     /**
      * Get AutoFilter Parent Worksheet.
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getParent()
     {
@@ -779,6 +779,9 @@ class AutoFilter
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER:
                     $ruleValues = [];
                     $dataRowCount = $rangeEnd[1] - $rangeStart[1];
+                    $toptenRuleType = null;
+                    $ruleValue = 0;
+                    $ruleOperator = null;
                     foreach ($rules as $rule) {
                         //    We should only ever have one Dynamic Filter Rule anyway
                         $toptenRuleType = $rule->getGrouping();
@@ -788,10 +791,10 @@ class AutoFilter
                     if ($ruleOperator === AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
                         $ruleValue = floor($ruleValue * ($dataRowCount / 100));
                     }
-                    if ($ruleValue < 1) {
+                    if (!is_array($ruleValue) && $ruleValue < 1) {
                         $ruleValue = 1;
                     }
-                    if ($ruleValue > 500) {
+                    if (!is_array($ruleValue) && $ruleValue > 500) {
                         $ruleValue = 500;
                     }
 

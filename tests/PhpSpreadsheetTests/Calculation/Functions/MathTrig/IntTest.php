@@ -23,7 +23,7 @@ class IntTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerINT()
+    public function providerINT(): array
     {
         return require 'tests/data/Calculation/MathTrig/INT.php';
     }

@@ -19,7 +19,7 @@ class AcoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAcosh()
+    public function providerAcosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOSH.php';
     }

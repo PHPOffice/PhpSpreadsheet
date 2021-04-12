@@ -4,15 +4,26 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    protected $compatibilityMode;
+    /**
+     * @var string
+     */
+    private $compatibilityMode;
 
-    protected $spreadsheet;
+    /**
+     * @var Spreadsheet
+     */
+    private $spreadsheet;
 
+    /**
+     * @var Worksheet
+     */
     protected $sheet;
 
     protected function setUp(): void
@@ -26,8 +37,6 @@ class AllSetupTeardown extends TestCase
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
         $this->spreadsheet->disconnectWorksheets();
-        $this->spreadsheet = null;
-        $this->sheet = null;
     }
 
     protected static function setOpenOffice(): void
@@ -47,6 +56,20 @@ class AllSetupTeardown extends TestCase
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
+        }
+    }
+
+    /**
+     * @param mixed $value
+     */
+    protected function setCell(string $cell, $value): void
+    {
+        if ($value !== null) {
+            if (is_string($value) && is_numeric($value)) {
+                $this->sheet->getCell($cell)->setValueExplicit($value, DataType::TYPE_STRING);
+            } else {
+                $this->sheet->getCell($cell)->setValue($value);
+            }
         }
     }
 }

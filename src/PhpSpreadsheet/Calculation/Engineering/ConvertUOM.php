@@ -490,7 +490,7 @@ class ConvertUOM
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     public static function getConversionMultipliers()
     {
@@ -501,7 +501,7 @@ class ConvertUOM
      *    getBinaryConversionMultipliers
      * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     public static function getBinaryConversionMultipliers()
     {

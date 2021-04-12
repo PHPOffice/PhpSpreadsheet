@@ -8,7 +8,7 @@ class SignTest extends AllSetupTeardown
      * @dataProvider providerSIGN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testSIGN($expectedResult, $value): void
     {
@@ -22,7 +22,7 @@ class SignTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSIGN()
+    public function providerSIGN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }

@@ -23,7 +23,7 @@ class AcotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerACOT()
+    public function providerACOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOT.php';
     }

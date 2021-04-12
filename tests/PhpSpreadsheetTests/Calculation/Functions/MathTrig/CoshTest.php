@@ -19,7 +19,7 @@ class CoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCosh()
+    public function providerCosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/COSH.php';
     }

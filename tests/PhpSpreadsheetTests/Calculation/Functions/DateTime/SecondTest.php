@@ -18,7 +18,7 @@ class SecondTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerSECOND()
+    public function providerSECOND(): array
     {
         return require 'tests/data/Calculation/DateTime/SECOND.php';
     }

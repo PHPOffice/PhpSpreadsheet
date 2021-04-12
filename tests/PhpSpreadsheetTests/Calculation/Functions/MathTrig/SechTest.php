@@ -23,7 +23,7 @@ class SechTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSECH()
+    public function providerSECH(): array
     {
         return require 'tests/data/Calculation/MathTrig/SECH.php';
     }

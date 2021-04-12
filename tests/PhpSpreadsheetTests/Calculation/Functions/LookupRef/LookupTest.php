@@ -24,7 +24,7 @@ class LookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOOKUP()
+    public function providerLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/LOOKUP.php';
     }

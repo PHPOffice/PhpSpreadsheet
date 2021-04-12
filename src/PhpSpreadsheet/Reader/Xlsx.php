@@ -272,11 +272,11 @@ class Xlsx extends BaseReader
             if (!isset($sharedFormulas[(string) $c->f['si']])) {
                 $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
             } else {
-                $master = Coordinate::coordinateFromString($sharedFormulas[$instance]['master']);
-                $current = Coordinate::coordinateFromString($r);
+                $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
+                $current = Coordinate::indexesFromString($r);
 
                 $difference = [0, 0];
-                $difference[0] = Coordinate::columnIndexFromString($current[0]) - Coordinate::columnIndexFromString($master[0]);
+                $difference[0] = $current[0] - $master[0];
                 $difference[1] = $current[1] - $master[1];
 
                 $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
@@ -430,7 +430,7 @@ class Xlsx extends BaseReader
                             'SimpleXMLElement',
                             Settings::getLibXmlLoaderOptions()
                         );
-                        if (isset($xmlStrings, $xmlStrings->si)) {
+                        if (isset($xmlStrings->si)) {
                             foreach ($xmlStrings->si as $val) {
                                 if (isset($val->t)) {
                                     $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
@@ -511,10 +511,7 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
-                            $quotePrefix = false;
-                            if (isset($xf['quotePrefix'])) {
-                                $quotePrefix = (bool) $xf['quotePrefix'];
-                            }
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
 
                             $style = (object) [
                                 'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
@@ -543,6 +540,8 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
+
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
 
                             $cellStyle = (object) [
                                 'numFmt' => $numFmt,
@@ -880,10 +879,11 @@ class Xlsx extends BaseReader
 
                                     // Loop through contents
                                     foreach ($commentsFile->commentList->comment as $comment) {
+                                        $commentModel = $docSheet->getComment((string) $comment['ref']);
                                         if (!empty($comment['authorId'])) {
-                                            $docSheet->getComment((string) $comment['ref'])->setAuthor($authors[(string) $comment['authorId']]);
+                                            $commentModel->setAuthor($authors[$comment['authorId']]);
                                         }
-                                        $docSheet->getComment((string) $comment['ref'])->setText($this->parseRichText($comment->text));
+                                        $commentModel->setText($this->parseRichText($comment->text));
                                     }
                                 }
 
@@ -1081,6 +1081,7 @@ class Xlsx extends BaseReader
                                 }
                                 if ($xmlSheet->drawing && !$this->readDataOnly) {
                                     $unparsedDrawings = [];
+                                    $fileDrawing = null;
                                     foreach ($xmlSheet->drawing as $drawing) {
                                         $drawingRelId = (string) self::getArrayItem($drawing->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
@@ -1137,6 +1138,7 @@ class Xlsx extends BaseReader
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
+
                                                     if (isset($images[$imageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
@@ -1144,7 +1146,8 @@ class Xlsx extends BaseReader
                                                             false
                                                         );
                                                     }
-                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
+
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1170,7 +1173,7 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif ($this->includeCharts && $oneCellAnchor->graphicFrame) {
                                                     // Exported XLSX from Google Sheets positions charts with a oneCellAnchor
-                                                    $coordinates = Coordinate::stringFromColumnIndex(((string) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
+                                                    $coordinates = Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
                                                     $offsetX = Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
                                                     $width = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
@@ -1213,7 +1216,8 @@ class Xlsx extends BaseReader
                                                             false
                                                         );
                                                     }
-                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
+
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1239,10 +1243,10 @@ class Xlsx extends BaseReader
 
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
-                                                    $fromCoordinate = Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1);
+                                                    $fromCoordinate = Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1);
                                                     $fromOffsetX = Drawing::EMUToPixels($twoCellAnchor->from->colOff);
                                                     $fromOffsetY = Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
-                                                    $toCoordinate = Coordinate::stringFromColumnIndex(((string) $twoCellAnchor->to->col) + 1) . ($twoCellAnchor->to->row + 1);
+                                                    $toCoordinate = Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->to->col) + 1) . ($twoCellAnchor->to->row + 1);
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
@@ -1734,7 +1738,7 @@ class Xlsx extends BaseReader
      *
      * @return RichText
      */
-    private function parseRichText($is)
+    private function parseRichText(?SimpleXMLElement $is)
     {
         $value = new RichText();
 
@@ -1742,6 +1746,8 @@ class Xlsx extends BaseReader
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } else {
             if (is_object($is->r)) {
+
+                /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
                         $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $run->t));

@@ -116,6 +116,21 @@ class Xf
     private $rightBorderColor;
 
     /**
+     * @var int
+     */
+    private $diag;
+
+    /**
+     * @var int
+     */
+    private $diagColor;
+
+    /**
+     * @var Style
+     */
+    private $style;
+
+    /**
      * Constructor.
      *
      * @param Style $style The XF format
@@ -132,14 +147,14 @@ class Xf
         $this->foregroundColor = 0x40;
         $this->backgroundColor = 0x41;
 
-        $this->_diag = 0;
+        $this->diag = 0;
 
         $this->bottomBorderColor = 0x40;
         $this->topBorderColor = 0x40;
         $this->leftBorderColor = 0x40;
         $this->rightBorderColor = 0x40;
-        $this->_diag_color = 0x40;
-        $this->_style = $style;
+        $this->diagColor = 0x40;
+        $this->style = $style;
     }
 
     /**
@@ -153,39 +168,39 @@ class Xf
         if ($this->isStyleXf) {
             $style = 0xFFF5;
         } else {
-            $style = self::mapLocked($this->_style->getProtection()->getLocked());
-            $style |= self::mapHidden($this->_style->getProtection()->getHidden()) << 1;
+            $style = self::mapLocked($this->style->getProtection()->getLocked());
+            $style |= self::mapHidden($this->style->getProtection()->getHidden()) << 1;
         }
 
         // Flags to indicate if attributes have been set.
         $atr_num = ($this->numberFormatIndex != 0) ? 1 : 0;
         $atr_fnt = ($this->fontIndex != 0) ? 1 : 0;
-        $atr_alc = ((int) $this->_style->getAlignment()->getWrapText()) ? 1 : 0;
-        $atr_bdr = (self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())) ? 1 : 0;
+        $atr_alc = ((int) $this->style->getAlignment()->getWrapText()) ? 1 : 0;
+        $atr_bdr = (self::mapBorderStyle($this->style->getBorders()->getBottom()->getBorderStyle()) ||
+            self::mapBorderStyle($this->style->getBorders()->getTop()->getBorderStyle()) ||
+            self::mapBorderStyle($this->style->getBorders()->getLeft()->getBorderStyle()) ||
+            self::mapBorderStyle($this->style->getBorders()->getRight()->getBorderStyle())) ? 1 : 0;
         $atr_pat = ($this->foregroundColor != 0x40) ? 1 : 0;
         $atr_pat = ($this->backgroundColor != 0x41) ? 1 : $atr_pat;
-        $atr_pat = self::mapFillType($this->_style->getFill()->getFillType()) ? 1 : $atr_pat;
-        $atr_prot = self::mapLocked($this->_style->getProtection()->getLocked())
-                        | self::mapHidden($this->_style->getProtection()->getHidden());
+        $atr_pat = self::mapFillType($this->style->getFill()->getFillType()) ? 1 : $atr_pat;
+        $atr_prot = self::mapLocked($this->style->getProtection()->getLocked())
+            | self::mapHidden($this->style->getProtection()->getHidden());
 
         // Zero the default border colour if the border has not been set.
-        if (self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) == 0) {
+        if (self::mapBorderStyle($this->style->getBorders()->getBottom()->getBorderStyle()) == 0) {
             $this->bottomBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) == 0) {
+        if (self::mapBorderStyle($this->style->getBorders()->getTop()->getBorderStyle()) == 0) {
             $this->topBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()) == 0) {
+        if (self::mapBorderStyle($this->style->getBorders()->getRight()->getBorderStyle()) == 0) {
             $this->rightBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) == 0) {
+        if (self::mapBorderStyle($this->style->getBorders()->getLeft()->getBorderStyle()) == 0) {
             $this->leftBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) == 0) {
-            $this->_diag_color = 0;
+        if (self::mapBorderStyle($this->style->getBorders()->getDiagonal()->getBorderStyle()) == 0) {
+            $this->diagColor = 0;
         }
 
         $record = 0x00E0; // Record identifier
@@ -194,9 +209,9 @@ class Xf
         $ifnt = $this->fontIndex; // Index to FONT record
         $ifmt = $this->numberFormatIndex; // Index to FORMAT record
 
-        $align = $this->mapHAlign($this->_style->getAlignment()->getHorizontal()); // Alignment
-        $align |= (int) $this->_style->getAlignment()->getWrapText() << 3;
-        $align |= self::mapVAlign($this->_style->getAlignment()->getVertical()) << 4;
+        $align = $this->mapHAlign($this->style->getAlignment()->getHorizontal()); // Alignment
+        $align |= (int) $this->style->getAlignment()->getWrapText() << 3;
+        $align |= self::mapVAlign($this->style->getAlignment()->getVertical()) << 4;
         $align |= $this->textJustLast << 7;
 
         $used_attrib = $atr_num << 2;
@@ -209,35 +224,35 @@ class Xf
         $icv = $this->foregroundColor; // fg and bg pattern colors
         $icv |= $this->backgroundColor << 7;
 
-        $border1 = self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()); // Border line style and color
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()) << 4;
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) << 8;
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) << 12;
+        $border1 = self::mapBorderStyle($this->style->getBorders()->getLeft()->getBorderStyle()); // Border line style and color
+        $border1 |= self::mapBorderStyle($this->style->getBorders()->getRight()->getBorderStyle()) << 4;
+        $border1 |= self::mapBorderStyle($this->style->getBorders()->getTop()->getBorderStyle()) << 8;
+        $border1 |= self::mapBorderStyle($this->style->getBorders()->getBottom()->getBorderStyle()) << 12;
         $border1 |= $this->leftBorderColor << 16;
         $border1 |= $this->rightBorderColor << 23;
 
-        $diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
+        $diagonalDirection = $this->style->getBorders()->getDiagonalDirection();
         $diag_tl_to_rb = $diagonalDirection == Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == Borders::DIAGONAL_DOWN;
+            || $diagonalDirection == Borders::DIAGONAL_DOWN;
         $diag_tr_to_lb = $diagonalDirection == Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == Borders::DIAGONAL_UP;
+            || $diagonalDirection == Borders::DIAGONAL_UP;
         $border1 |= $diag_tl_to_rb << 30;
         $border1 |= $diag_tr_to_lb << 31;
 
         $border2 = $this->topBorderColor; // Border color
         $border2 |= $this->bottomBorderColor << 7;
-        $border2 |= $this->_diag_color << 14;
-        $border2 |= self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) << 21;
-        $border2 |= self::mapFillType($this->_style->getFill()->getFillType()) << 26;
+        $border2 |= $this->diagColor << 14;
+        $border2 |= self::mapBorderStyle($this->style->getBorders()->getDiagonal()->getBorderStyle()) << 21;
+        $border2 |= self::mapFillType($this->style->getFill()->getFillType()) << 26;
 
         $header = pack('vv', $record, $length);
 
         //BIFF8 options: identation, shrinkToFit and  text direction
-        $biff8_options = $this->_style->getAlignment()->getIndent();
-        $biff8_options |= (int) $this->_style->getAlignment()->getShrinkToFit() << 4;
+        $biff8_options = $this->style->getAlignment()->getIndent();
+        $biff8_options |= (int) $this->style->getAlignment()->getShrinkToFit() << 4;
 
         $data = pack('vvvC', $ifnt, $ifmt, $style, $align);
-        $data .= pack('CCC', self::mapTextRotation($this->_style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
+        $data .= pack('CCC', self::mapTextRotation($this->style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
         $data .= pack('VVv', $border1, $border2, $icv);
 
         return $header . $data;
@@ -300,7 +315,7 @@ class Xf
      */
     public function setDiagColor($colorIndex): void
     {
-        $this->_diag_color = $colorIndex;
+        $this->diagColor = $colorIndex;
     }
 
     /**
@@ -347,7 +362,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for border styles.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapBorderStyles = [
         Border::BORDER_NONE => 0x00,
@@ -381,7 +396,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for fill types.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapFillTypes = [
         Fill::FILL_NONE => 0x00,
@@ -422,7 +437,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for horizontal alignment.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapHAlignments = [
         Alignment::HORIZONTAL_GENERAL => 0,
@@ -449,7 +464,7 @@ class Xf
     /**
      * Map of BIFF2-BIFF8 codes for vertical alignment.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapVAlignments = [
         Alignment::VERTICAL_TOP => 0,

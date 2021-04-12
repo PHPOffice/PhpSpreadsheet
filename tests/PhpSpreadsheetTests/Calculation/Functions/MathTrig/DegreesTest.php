@@ -2,34 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class DegreesTest extends TestCase
+class DegreesTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDEGREES
      *
      * @param mixed $expectedResult
-     * @param mixed $val
+     * @param mixed $number
      */
-    public function testDEGREES($expectedResult, $val = null): void
+    public function testDegrees($expectedResult, $number = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=DEGREES()';
+        $sheet = $this->sheet;
+        $this->mightHaveException($expectedResult);
+        $this->setCell('A1', $number);
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=DEGREES()');
         } else {
-            $formula = "=DEGREES($val)";
+            $sheet->getCell('B1')->setValue('=DEGREES(A1)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerDegrees()
+    public function providerDegrees(): array
     {
         return require 'tests/data/Calculation/MathTrig/DEGREES.php';
     }

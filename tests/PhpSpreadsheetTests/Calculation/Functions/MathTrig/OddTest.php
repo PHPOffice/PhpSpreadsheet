@@ -8,7 +8,7 @@ class OddTest extends AllSetupTeardown
      * @dataProvider providerODD
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testODD($expectedResult, $value): void
     {
@@ -19,7 +19,7 @@ class OddTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerODD()
+    public function providerODD(): array
     {
         return require 'tests/data/Calculation/MathTrig/ODD.php';
     }

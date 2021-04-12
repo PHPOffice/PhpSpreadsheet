@@ -57,7 +57,7 @@ abstract class DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     protected static function filter(array $database, array $criteria): array
     {

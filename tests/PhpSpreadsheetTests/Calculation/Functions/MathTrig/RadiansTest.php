@@ -2,34 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class RadiansTest extends TestCase
+class RadiansTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRADIANS
      *
      * @param mixed $expectedResult
-     * @param mixed $val
+     * @param mixed $number
      */
-    public function testRADIANS($expectedResult, $val = null): void
+    public function testRADIANS($expectedResult, $number = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=RADIANS()';
+        $sheet = $this->sheet;
+        $this->mightHaveException($expectedResult);
+        $this->setCell('A1', $number);
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=RADIANS()');
         } else {
-            $formula = "=RADIANS($val)";
+            $sheet->getCell('B1')->setValue('=RADIANS(A1)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerRADIANS()
+    public function providerRADIANS(): array
     {
         return require 'tests/data/Calculation/MathTrig/RADIANS.php';
     }

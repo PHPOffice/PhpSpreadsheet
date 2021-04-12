@@ -23,7 +23,6 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      * @param mixed $expectedResult
-     * @param $libxmlDisableEntityLoader
      */
     public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader): void
     {
@@ -37,12 +36,12 @@ class XmlScannerTest extends TestCase
         self::assertEquals($expectedResult, $result);
 
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
+        if (isset($oldDisableEntityLoaderState)) {
             libxml_disable_entity_loader($oldDisableEntityLoaderState);
         }
     }
 
-    public function providerValidXML()
+    public function providerValidXML(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/XEETestValid*.xml') as $file) {
@@ -59,7 +58,6 @@ class XmlScannerTest extends TestCase
      * @dataProvider providerInvalidXML
      *
      * @param mixed $filename
-     * @param $libxmlDisableEntityLoader
      */
     public function testInvalidXML($filename, $libxmlDisableEntityLoader): void
     {
@@ -80,7 +78,7 @@ class XmlScannerTest extends TestCase
         }
     }
 
-    public function providerInvalidXML()
+    public function providerInvalidXML(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
@@ -127,7 +125,7 @@ class XmlScannerTest extends TestCase
         self::assertEquals(strrev($expectedResult), $xml);
     }
 
-    public function providerValidXMLForCallback()
+    public function providerValidXMLForCallback(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {

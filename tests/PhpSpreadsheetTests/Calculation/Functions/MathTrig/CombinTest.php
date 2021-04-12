@@ -26,7 +26,7 @@ class CombinTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBIN()
+    public function providerCOMBIN(): array
     {
         return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }

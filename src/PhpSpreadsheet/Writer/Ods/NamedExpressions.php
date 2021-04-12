@@ -23,11 +23,13 @@ class NamedExpressions
         $this->formulaConvertor = $formulaConvertor;
     }
 
-    public function write(): void
+    public function write(): string
     {
         $this->objWriter->startElement('table:named-expressions');
         $this->writeExpressions();
         $this->objWriter->endElement();
+
+        return '';
     }
 
     private function writeExpressions(): void

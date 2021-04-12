@@ -18,7 +18,7 @@ class WorksheetTest extends TestCase
         self::assertSame($testTitle, $worksheet->getTitle());
     }
 
-    public function setTitleInvalidProvider()
+    public function setTitleInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
@@ -76,7 +76,7 @@ class WorksheetTest extends TestCase
         self::assertSame($testCodeName, $worksheet->getCodeName());
     }
 
-    public function setCodeNameInvalidProvider()
+    public function setCodeNameInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
@@ -132,7 +132,7 @@ class WorksheetTest extends TestCase
         self::assertSame('B2', $worksheet->getTopLeftCell());
     }
 
-    public function extractSheetTitleProvider()
+    public function extractSheetTitleProvider(): array
     {
         return [
             ['B2', '', '', 'B2'],
@@ -274,7 +274,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedData, $worksheet->toArray());
     }
 
-    public function removeRowsProvider()
+    public function removeRowsProvider(): array
     {
         return [
             'Remove all rows except first one' => [

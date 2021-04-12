@@ -13,11 +13,11 @@ class MMultTest extends AllSetupTeardown
      */
     public function testMMULT($expectedResult, ...$args): void
     {
-        $result = MathTrig::MMULT(...$args);
+        $result = MathTrig\MatrixFunctions::funcMMult(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMMULT()
+    public function providerMMULT(): array
     {
         return require 'tests/data/Calculation/MathTrig/MMULT.php';
     }

@@ -10,7 +10,7 @@ class TimeValueTest extends AllSetupTeardown
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
-     * @param $timeValue
+     * @param mixed $timeValue
      */
     public function testTIMEVALUE($expectedResult, $timeValue): void
     {
@@ -22,7 +22,7 @@ class TimeValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerTIMEVALUE()
+    public function providerTIMEVALUE(): array
     {
         return require 'tests/data/Calculation/DateTime/TIMEVALUE.php';
     }

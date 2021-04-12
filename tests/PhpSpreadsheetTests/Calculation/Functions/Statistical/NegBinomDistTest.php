@@ -24,7 +24,7 @@ class NegBinomDistTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerNEGBINOMDIST()
+    public function providerNEGBINOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/NEGBINOMDIST.php';
     }

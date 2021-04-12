@@ -26,7 +26,7 @@ class FactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACT()
+    public function providerFACT(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
@@ -54,7 +54,7 @@ class FactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACTGnumeric()
+    public function providerFACTGnumeric(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTGNUMERIC.php';
     }

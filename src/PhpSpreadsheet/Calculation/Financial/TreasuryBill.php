@@ -20,7 +20,7 @@ class TreasuryBill
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param mixed (int) $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -66,7 +66,7 @@ class TreasuryBill
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param mixed (int) $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -117,7 +117,7 @@ class TreasuryBill
      *                                    the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param mixed (int) $price The Treasury bill's price per $100 face value
+     * @param mixed $price The Treasury bill's price per $100 face value
      *
      * @return float|string
      */

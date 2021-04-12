@@ -21,90 +21,6 @@ class Statistical
     const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
-    /*
-     *                                inverse_ncdf.php
-     *                            -------------------
-     *    begin                : Friday, January 16, 2004
-     *    copyright            : (C) 2004 Michael Nickerson
-     *    email                : nickersonm@yahoo.com
-     *
-     */
-    private static function inverseNcdf($p)
-    {
-        //    Inverse ncdf approximation by Peter J. Acklam, implementation adapted to
-        //    PHP by Michael Nickerson, using Dr. Thomas Ziegler's C implementation as
-        //    a guide. http://home.online.no/~pjacklam/notes/invnorm/index.html
-        //    I have not checked the accuracy of this implementation. Be aware that PHP
-        //    will truncate the coeficcients to 14 digits.
-
-        //    You have permission to use and distribute this function freely for
-        //    whatever purpose you want, but please show common courtesy and give credit
-        //    where credit is due.
-
-        //    Input paramater is $p - probability - where 0 < p < 1.
-
-        //    Coefficients in rational approximations
-        static $a = [
-            1 => -3.969683028665376e+01,
-            2 => 2.209460984245205e+02,
-            3 => -2.759285104469687e+02,
-            4 => 1.383577518672690e+02,
-            5 => -3.066479806614716e+01,
-            6 => 2.506628277459239e+00,
-        ];
-
-        static $b = [
-            1 => -5.447609879822406e+01,
-            2 => 1.615858368580409e+02,
-            3 => -1.556989798598866e+02,
-            4 => 6.680131188771972e+01,
-            5 => -1.328068155288572e+01,
-        ];
-
-        static $c = [
-            1 => -7.784894002430293e-03,
-            2 => -3.223964580411365e-01,
-            3 => -2.400758277161838e+00,
-            4 => -2.549732539343734e+00,
-            5 => 4.374664141464968e+00,
-            6 => 2.938163982698783e+00,
-        ];
-
-        static $d = [
-            1 => 7.784695709041462e-03,
-            2 => 3.224671290700398e-01,
-            3 => 2.445134137142996e+00,
-            4 => 3.754408661907416e+00,
-        ];
-
-        //    Define lower and upper region break-points.
-        $p_low = 0.02425; //Use lower region approx. below this
-        $p_high = 1 - $p_low; //Use upper region approx. above this
-
-        if (0 < $p && $p < $p_low) {
-            //    Rational approximation for lower region.
-            $q = sqrt(-2 * log($p));
-
-            return ((((($c[1] * $q + $c[2]) * $q + $c[3]) * $q + $c[4]) * $q + $c[5]) * $q + $c[6]) /
-                    (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
-        } elseif ($p_low <= $p && $p <= $p_high) {
-            //    Rational approximation for central region.
-            $q = $p - 0.5;
-            $r = $q * $q;
-
-            return ((((($a[1] * $r + $a[2]) * $r + $a[3]) * $r + $a[4]) * $r + $a[5]) * $r + $a[6]) * $q /
-                   ((((($b[1] * $r + $b[2]) * $r + $b[3]) * $r + $b[4]) * $r + $b[5]) * $r + 1);
-        } elseif ($p_high < $p && $p < 1) {
-            //    Rational approximation for upper region.
-            $q = sqrt(-2 * log(1 - $p));
-
-            return -((((($c[1] * $q + $c[2]) * $q + $c[3]) * $q + $c[4]) * $q + $c[5]) * $q + $c[6]) /
-                     (((($d[1] * $q + $d[2]) * $q + $d[3]) * $q + $d[4]) * $q + 1);
-        }
-        //    If 0 < p < 1, return a null value
-        return Functions::NULL();
-    }
-
     /**
      * AVEDEV.
      *
@@ -256,10 +172,10 @@ class Statistical
      * @see Statistical\Distributions\Binomial::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Binomial class instead
      *
-     * @param mixed (float) $value Number of successes in trials
-     * @param mixed (float) $trials Number of trials
-     * @param mixed (float) $probability Probability of success on each trial
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Number of successes in trials
+     * @param mixed $trials Number of trials
+     * @param mixed $probability Probability of success on each trial
+     * @param mixed $cumulative
      *
      * @return float|string
      */
@@ -766,7 +682,7 @@ class Statistical
             return Functions::VALUE();
         }
 
-        return self::NORMDIST($value, 0, 1, true) - 0.5;
+        return Statistical\Distributions\Normal::distribution($value, 0, 1, true) - 0.5;
     }
 
     /**
@@ -813,7 +729,7 @@ class Statistical
      * @param mixed[] $newValues Values of X for which we want to find Y
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
-     * @return array of float
+     * @return float[]
      */
     public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
     {
@@ -874,10 +790,10 @@ class Statistical
      * @see Statistical\Distributions\HyperGeometric::distribution()
      *      Use the distribution() method in the Statistical\Distributions\HyperGeometric class instead
      *
-     * @param mixed (int) $sampleSuccesses Number of successes in the sample
-     * @param mixed (int) $sampleNumber Size of the sample
-     * @param mixed (int) $populationSuccesses Number of successes in the population
-     * @param mixed (int) $populationNumber Population size
+     * @param mixed $sampleSuccesses Number of successes in the sample
+     * @param mixed $sampleNumber Size of the sample
+     * @param mixed $populationSuccesses Number of successes in the population
+     * @param mixed $populationNumber Population size
      *
      * @return float|string
      */
@@ -1048,6 +964,11 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\LogNormal class instead
+     *
      * @param float $probability
      * @param float $mean
      * @param float $stdDev
@@ -1060,19 +981,7 @@ class Statistical
      */
     public static function LOGINV($probability, $mean, $stdDev)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($probability)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($probability < 0) || ($probability > 1) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            return exp($mean + $stdDev * self::NORMSINV($probability));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::inverse($probability, $mean, $stdDev);
     }
 
     /**
@@ -1080,6 +989,11 @@ class Statistical
      *
      * Returns the cumulative lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::cumulative()
+     *      Use the cumulative() method in the Statistical\Distributions\LogNormal class instead
      *
      * @param float $value
      * @param float $mean
@@ -1089,19 +1003,7 @@ class Statistical
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($value <= 0) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            return self::NORMSDIST((log($value) - $mean) / $stdDev);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::cumulative($value, $mean, $stdDev);
     }
 
     /**
@@ -1109,6 +1011,11 @@ class Statistical
      *
      * Returns the lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\LogNormal::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\LogNormal class instead
      *
      * @param float $value
      * @param float $mean
@@ -1119,25 +1026,7 @@ class Statistical
      */
     public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($value <= 0) || ($stdDev <= 0)) {
-                return Functions::NAN();
-            }
-
-            if ($cumulative === true) {
-                return self::NORMSDIST2((log($value) - $mean) / $stdDev, true);
-            }
-
-            return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-                exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\LogNormal::distribution($value, $mean, $stdDev, $cumulative);
     }
 
     /**
@@ -1329,12 +1218,12 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     * @see Statistical\Distributions\Binomial::negative::mode()
+     * @see Statistical\Distributions\Binomial::negative()
      *      Use the negative() method in the Statistical\Distributions\Binomial class instead
      *
-     * @param mixed (float) $failures Number of Failures
-     * @param mixed (float) $successes Threshold number of Successes
-     * @param mixed (float) $probability Probability of success on each trial
+     * @param mixed $failures Number of Failures
+     * @param mixed $successes Threshold number of Successes
+     * @param mixed $probability Probability of success on each trial
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1350,33 +1239,21 @@ class Statistical
      * function has a very wide range of applications in statistics, including hypothesis
      * testing.
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
-     * @param mixed (bool) $cumulative
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Normal::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\Normal class instead
+     *
+     * @param mixed $value
+     * @param mixed $mean Mean Value
+     * @param mixed $stdDev Standard Deviation
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if ($stdDev < 0) {
-                return Functions::NAN();
-            }
-            if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
-                if ($cumulative) {
-                    return 0.5 * (1 + Engineering\Erf::erfValue(($value - $mean) / ($stdDev * sqrt(2))));
-                }
-
-                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (($value - $mean) ** 2 / (2 * ($stdDev * $stdDev))));
-            }
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Normal::distribution($value, $mean, $stdDev, $cumulative);
     }
 
     /**
@@ -1384,30 +1261,20 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @param mixed (float) $probability
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (float) $stdDev Standard Deviation
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\Normal::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\Normal class instead
+     *
+     * @param mixed $probability
+     * @param mixed $mean Mean Value
+     * @param mixed $stdDev Standard Deviation
      *
      * @return float|string The result, or a string containing an error
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($probability)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if (($probability < 0) || ($probability > 1)) {
-                return Functions::NAN();
-            }
-            if ($stdDev < 0) {
-                return Functions::NAN();
-            }
-
-            return (self::inverseNcdf($probability) * $stdDev) + $mean;
-        }
-
-        return Functions::VALUE();
+        return Statistical\Distributions\Normal::inverse($probability, $mean, $stdDev);
     }
 
     /**
@@ -1417,18 +1284,18 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed (float) $value
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::cumulative()
+     *      Use the cumulative() method in the Statistical\Distributions\StandardNormal class instead
+     *
+     * @param mixed $value
      *
      * @return float|string The result, or a string containing an error
      */
     public static function NORMSDIST($value)
     {
-        $value = Functions::flattenSingleValue($value);
-        if (!is_numeric($value)) {
-            return Functions::VALUE();
-        }
-
-        return self::NORMDIST($value, 0, 1, true);
+        return Statistical\Distributions\StandardNormal::cumulative($value);
     }
 
     /**
@@ -1438,20 +1305,19 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed (float) $value
-     * @param mixed (bool) $cumulative
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::distribution()
+     *      Use the distribution() method in the Statistical\Distributions\StandardNormal class instead
+     *
+     * @param mixed $value
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
     public static function NORMSDIST2($value, $cumulative)
     {
-        $value = Functions::flattenSingleValue($value);
-        if (!is_numeric($value)) {
-            return Functions::VALUE();
-        }
-        $cumulative = (bool) Functions::flattenSingleValue($cumulative);
-
-        return self::NORMDIST($value, 0, 1, $cumulative);
+        return Statistical\Distributions\StandardNormal::distribution($value, $cumulative);
     }
 
     /**
@@ -1459,13 +1325,18 @@ class Statistical
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param mixed (float) $value
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::inverse()
+     *      Use the inverse() method in the Statistical\Distributions\StandardNormal class instead
+     *
+     * @param mixed $value
      *
      * @return float|string The result, or a string containing an error
      */
     public static function NORMSINV($value)
     {
-        return self::NORMINV($value, 0, 1);
+        return Statistical\Distributions\StandardNormal::inverse($value);
     }
 
     /**
@@ -1503,9 +1374,9 @@ class Statistical
      * @see Statistical\Percentiles::PERCENTRANK()
      * Use the PERCENTRANK() method in the Statistical\Percentiles class instead
      *
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $value the number whose rank you want to find
-     * @param mixed (int) $significance the number of significant digits for the returned percentage value
+     * @param mixed $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed $value the number whose rank you want to find
+     * @param mixed $significance the number of significant digits for the returned percentage value
      *
      * @return float|string (string if result is an error)
      */
@@ -1550,9 +1421,9 @@ class Statistical
      * @see Statistical\Distributions\Poisson::distribution()
      * Use the distribution() method in the Statistical\Distributions\Poisson class instead
      *
-     * @param mixed (float) $value
-     * @param mixed (float) $mean Mean Value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value
+     * @param mixed $mean Mean Value
+     * @param mixed $cumulative
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1593,9 +1464,9 @@ class Statistical
      * @see Statistical\Percentiles::RANK()
      * Use the RANK() method in the Statistical\Percentiles class instead
      *
-     * @param mixed (float) $value the number whose rank you want to find
-     * @param mixed (float[]) $valueSet An array of, or a reference to, a list of numbers
-     * @param mixed (int) $order Order to sort the values in the value set
+     * @param mixed $value the number whose rank you want to find
+     * @param mixed $valueSet An array of, or a reference to, a list of numbers
+     * @param mixed $order Order to sort the values in the value set
      *
      * @return float|string The result, or a string containing an error
      */
@@ -1924,7 +1795,7 @@ class Statistical
      * @param mixed[] $newValues Values of X for which we want to find Y
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      *
-     * @return array of float
+     * @return float[]
      */
     public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
     {
@@ -2098,6 +1969,11 @@ class Statistical
      * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
      *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::zTest()
+     *      Use the zTest() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param float $dataSet
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
@@ -2106,15 +1982,6 @@ class Statistical
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {
-        $dataSet = Functions::flattenArrayIndexed($dataSet);
-        $m0 = Functions::flattenSingleValue($m0);
-        $sigma = Functions::flattenSingleValue($sigma);
-
-        if ($sigma === null) {
-            $sigma = StandardDeviations::STDEV($dataSet);
-        }
-        $n = count($dataSet);
-
-        return 1 - self::NORMSDIST((Averages::average($dataSet) - $m0) / ($sigma / sqrt($n)));
+        return Statistical\Distributions\StandardNormal::zTest($dataSet, $m0, $sigma);
     }
 }

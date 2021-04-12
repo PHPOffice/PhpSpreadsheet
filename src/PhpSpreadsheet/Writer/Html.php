@@ -37,7 +37,7 @@ class Html extends BaseWriter
     /**
      * Sheet index to write.
      *
-     * @var int
+     * @var null|int
      */
     private $sheetIndex = 0;
 
@@ -453,10 +453,8 @@ class Html extends BaseWriter
 
             // Get worksheet dimension
             [$min, $max] = explode(':', $sheet->calculateWorksheetDataDimension());
-            [$minCol, $minRow] = Coordinate::coordinateFromString($min);
-            $minCol = Coordinate::columnIndexFromString($minCol);
-            [$maxCol, $maxRow] = Coordinate::coordinateFromString($max);
-            $maxCol = Coordinate::columnIndexFromString($maxCol);
+            [$minCol, $minRow] = Coordinate::indexesFromString($min);
+            [$maxCol, $maxRow] = Coordinate::indexesFromString($max);
 
             [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $minRow);
 
@@ -737,7 +735,7 @@ class Html extends BaseWriter
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
-                        return;
+                        return '';
                     }
 
                     $html .= PHP_EOL;
@@ -1703,11 +1701,11 @@ class Html extends BaseWriter
                 $first = $cells[0];
                 $last = $cells[1];
 
-                [$fc, $fr] = Coordinate::coordinateFromString($first);
-                $fc = Coordinate::columnIndexFromString($fc) - 1;
+                [$fc, $fr] = Coordinate::indexesFromString($first);
+                $fc = $fc - 1;
 
-                [$lc, $lr] = Coordinate::coordinateFromString($last);
-                $lc = Coordinate::columnIndexFromString($lc) - 1;
+                [$lc, $lr] = Coordinate::indexesFromString($last);
+                $lc = $lc - 1;
 
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;

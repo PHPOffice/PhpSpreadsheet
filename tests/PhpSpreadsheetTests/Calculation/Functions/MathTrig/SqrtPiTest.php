@@ -2,30 +2,31 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class SqrtPiTest extends TestCase
+class SqrtPiTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSQRTPI
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $number
      */
-    public function testSQRTPI($expectedResult, $value): void
+    public function testSQRTPI($expectedResult, $number): void
     {
-        $result = MathTrig::SQRTPI($value);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        if ($number !== null) {
+            $sheet->getCell('A1')->setValue($number);
+        }
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=SQRTPI()');
+        } else {
+            $sheet->getCell('B1')->setValue('=SQRTPI(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSQRTPI()
+    public function providerSQRTPI(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }

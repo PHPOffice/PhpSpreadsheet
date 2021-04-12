@@ -16,7 +16,7 @@ class Fisher
      *        is normally distributed rather than skewed. Use this function to perform hypothesis
      *        testing on the correlation coefficient.
      *
-     * @param mixed (float) $value
+     * @param mixed $value Float value for which we want the probability
      *
      * @return float|string
      */
@@ -44,20 +44,20 @@ class Fisher
      *        analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
      *        FISHERINV(y) = x.
      *
-     * @param mixed (float) $value
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
      *
      * @return float|string
      */
-    public static function inverse($value)
+    public static function inverse($probability)
     {
-        $value = Functions::flattenSingleValue($value);
+        $probability = Functions::flattenSingleValue($probability);
 
         try {
-            self::validateFloat($value);
+            self::validateFloat($probability);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        return (exp(2 * $value) - 1) / (exp(2 * $value) + 1);
+        return (exp(2 * $probability) - 1) / (exp(2 * $probability) + 1);
     }
 }

@@ -24,7 +24,7 @@ class MedianTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMEDIAN()
+    public function providerMEDIAN(): array
     {
         return require 'tests/data/Calculation/Statistical/MEDIAN.php';
     }

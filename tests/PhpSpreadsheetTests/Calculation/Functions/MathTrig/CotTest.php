@@ -23,7 +23,7 @@ class CotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCOT()
+    public function providerCOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/COT.php';
     }

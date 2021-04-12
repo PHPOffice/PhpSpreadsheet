@@ -16,9 +16,9 @@ class Exponential
      *        such as how long an automated bank teller takes to deliver cash. For example, you can
      *        use EXPONDIST to determine the probability that the process takes at most 1 minute.
      *
-     * @param mixed (float) $value Value of the function
-     * @param mixed (float) $lambda The parameter value
-     * @param mixed (bool) $cumulative
+     * @param mixed $value Float value for which we want the probability
+     * @param mixed $lambda The parameter value as a float
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
      *
      * @return float|string
      */

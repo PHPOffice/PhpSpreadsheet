@@ -24,7 +24,7 @@ class RowsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerROWS()
+    public function providerROWS(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROWS.php';
     }

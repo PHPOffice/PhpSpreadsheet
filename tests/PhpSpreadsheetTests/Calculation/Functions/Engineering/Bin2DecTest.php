@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class Bin2DecTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -40,7 +43,7 @@ class Bin2DecTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBIN2DEC()
+    public function providerBIN2DEC(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2DEC.php';
     }

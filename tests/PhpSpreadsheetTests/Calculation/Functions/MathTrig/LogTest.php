@@ -32,7 +32,7 @@ class LogTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerLOG()
+    public function providerLOG(): array
     {
         return require 'tests/data/Calculation/MathTrig/LOG.php';
     }

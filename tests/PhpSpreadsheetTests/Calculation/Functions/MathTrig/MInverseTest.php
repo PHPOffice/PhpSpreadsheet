@@ -11,13 +11,13 @@ class MInverseTest extends AllSetupTeardown
      *
      * @param mixed $expectedResult
      */
-    public function testMINVERSE($expectedResult, ...$args): void
+    public function testMINVERSE($expectedResult, array $args): void
     {
-        $result = MathTrig::MINVERSE(...$args);
+        $result = MathTrig\MatrixFunctions::funcMInverse($args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMINVERSE()
+    public function providerMINVERSE(): array
     {
         return require 'tests/data/Calculation/MathTrig/MINVERSE.php';
     }

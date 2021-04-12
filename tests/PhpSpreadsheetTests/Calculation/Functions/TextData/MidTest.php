@@ -24,7 +24,7 @@ class MidTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMID()
+    public function providerMID(): array
     {
         return require 'tests/data/Calculation/TextData/MID.php';
     }
@@ -33,7 +33,7 @@ class MidTest extends TestCase
      * @dataProvider providerLocaleMID
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      * @param mixed $offset
      * @param mixed $characters
@@ -52,7 +52,7 @@ class MidTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleMID()
+    public function providerLocaleMID(): array
     {
         return [
             ['RA', 'fr_FR', true, 2, 2],

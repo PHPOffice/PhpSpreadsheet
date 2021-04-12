@@ -23,7 +23,7 @@ class CscTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCSC()
+    public function providerCSC(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSC.php';
     }

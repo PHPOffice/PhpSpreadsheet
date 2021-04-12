@@ -22,7 +22,7 @@ class Days360
      *                                        PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
-     * @param mixed (bool) $method US or European Method
+     * @param mixed $method US or European Method as a bool
      *                                        FALSE or omitted: U.S. (NASD) method. If the starting date is
      *                                        the last day of a month, it becomes equal to the 30th of the
      *                                        same month. If the ending date is the last day of a month and

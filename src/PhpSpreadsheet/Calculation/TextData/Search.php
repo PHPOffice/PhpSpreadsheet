@@ -11,9 +11,9 @@ class Search
     /**
      * SEARCHSENSITIVE.
      *
-     * @param mixed (string) $needle The string to look for
-     * @param mixed (string) $haystack The string in which to look
-     * @param mixed (int) $offset Offset within $haystack
+     * @param mixed $needle The string to look for
+     * @param mixed $haystack The string in which to look
+     * @param mixed $offset Integer offset within $haystack to start searching from
      *
      * @return int|string
      */
@@ -46,9 +46,9 @@ class Search
     /**
      * SEARCHINSENSITIVE.
      *
-     * @param mixed (string) $needle The string to look for
-     * @param mixed (string) $haystack The string in which to look
-     * @param mixed (int) $offset Offset within $haystack
+     * @param mixed $needle The string to look for
+     * @param mixed $haystack The string in which to look
+     * @param mixed $offset Integer offset within $haystack to start searching from
      *
      * @return int|string
      */

@@ -24,7 +24,7 @@ class TBillYieldTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerTBILLYIELD()
+    public function providerTBILLYIELD(): array
     {
         return require 'tests/data/Calculation/Financial/TBILLYIELD.php';
     }

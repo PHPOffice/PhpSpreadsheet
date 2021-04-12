@@ -7,7 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    protected $properties;
+    /**
+     * @var Properties
+     */
+    private $properties;
 
     protected function setup(): void
     {

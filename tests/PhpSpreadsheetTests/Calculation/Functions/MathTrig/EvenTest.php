@@ -8,7 +8,7 @@ class EvenTest extends AllSetupTeardown
      * @dataProvider providerEVEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testEVEN($expectedResult, $value): void
     {
@@ -19,7 +19,7 @@ class EvenTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerEVEN()
+    public function providerEVEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }

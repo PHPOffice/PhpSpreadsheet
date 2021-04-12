@@ -17,7 +17,7 @@ class LowerTest extends TestCase
      * @dataProvider providerLOWER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testLOWER($expectedResult, $value): void
     {
@@ -25,7 +25,7 @@ class LowerTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOWER()
+    public function providerLOWER(): array
     {
         return require 'tests/data/Calculation/TextData/LOWER.php';
     }
@@ -34,7 +34,7 @@ class LowerTest extends TestCase
      * @dataProvider providerLocaleLOWER
      *
      * @param string $expectedResult
-     * @param $value
+     * @param mixed $value
      * @param mixed $locale
      */
     public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void
@@ -51,7 +51,7 @@ class LowerTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleLOWER()
+    public function providerLocaleLOWER(): array
     {
         return [
             ['vrai', 'fr_FR', true],

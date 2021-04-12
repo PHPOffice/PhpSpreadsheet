@@ -29,7 +29,7 @@ class CsvTest extends TestCase
         self::assertSame($expectedValue, $actual, 'should be able to retrieve correct value');
     }
 
-    public function providerDelimiterDetection()
+    public function providerDelimiterDetection(): array
     {
         return [
             [
@@ -101,7 +101,7 @@ class CsvTest extends TestCase
         self::assertSame($expected, $reader->canRead($filename));
     }
 
-    public function providerCanLoad()
+    public function providerCanLoad(): array
     {
         return [
             [false, 'tests/data/Reader/Ods/data.ods'],
@@ -172,7 +172,7 @@ class CsvTest extends TestCase
         self::assertEquals(2, $info[0]['totalColumns']);
     }
 
-    public function providerEncodings()
+    public function providerEncodings(): array
     {
         return [
             ['tests/data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
@@ -288,7 +288,7 @@ EOF;
         self::assertEquals($delimiter, $reader->getDelimiter());
     }
 
-    public function providerEscapes()
+    public function providerEscapes(): array
     {
         return [
             ['\\', ';'],
@@ -310,7 +310,7 @@ EOF;
         self::assertEquals('sixième', $sheet->getCell('C2')->getValue());
     }
 
-    public function providerGuessEncoding()
+    public function providerGuessEncoding(): array
     {
         return [
             ['tests/data/Reader/CSV/premiere.utf8.csv'],

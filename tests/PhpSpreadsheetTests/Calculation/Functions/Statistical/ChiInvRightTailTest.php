@@ -30,7 +30,7 @@ class ChiInvRightTailTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCHIINV()
+    public function providerCHIINV(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIINVRightTail.php';
     }

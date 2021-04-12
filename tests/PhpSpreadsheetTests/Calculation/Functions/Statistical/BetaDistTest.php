@@ -24,7 +24,7 @@ class BetaDistTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerBETADIST()
+    public function providerBETADIST(): array
     {
         return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }

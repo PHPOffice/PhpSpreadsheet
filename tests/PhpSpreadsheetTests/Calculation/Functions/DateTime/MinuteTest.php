@@ -18,7 +18,7 @@ class MinuteTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerMINUTE()
+    public function providerMINUTE(): array
     {
         return require 'tests/data/Calculation/DateTime/MINUTE.php';
     }

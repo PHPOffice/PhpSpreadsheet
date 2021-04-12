@@ -26,7 +26,7 @@ class EffectTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerEFFECT()
+    public function providerEFFECT(): array
     {
         return require 'tests/data/Calculation/Financial/EFFECT.php';
     }

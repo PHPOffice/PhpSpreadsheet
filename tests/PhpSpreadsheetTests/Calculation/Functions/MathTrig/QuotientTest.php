@@ -32,7 +32,7 @@ class QuotientTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerQUOTIENT()
+    public function providerQUOTIENT(): array
     {
         return require 'tests/data/Calculation/MathTrig/QUOTIENT.php';
     }

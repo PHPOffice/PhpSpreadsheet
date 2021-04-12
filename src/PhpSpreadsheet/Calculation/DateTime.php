@@ -23,7 +23,7 @@ class DateTime
     /**
      * getDateValue.
      *
-     * @Deprecated 2.0.0 Use the method getDateValueNoThrow in the DateTimeExcel\Helpers class instead
+     * @Deprecated 2.0.0 Use the method getDateValue in the DateTimeExcel\Helpers class instead
      *
      * @param mixed $dateValue
      *
@@ -31,7 +31,11 @@ class DateTime
      */
     public static function getDateValue($dateValue)
     {
-        return DateTimeExcel\Helpers::getDateValueNoThrow($dateValue);
+        try {
+            return DateTimeExcel\Helpers::getDateValue($dateValue);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -198,7 +202,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATEVALUE($dateValue = 1)
+    public static function DATEVALUE($dateValue)
     {
         return DateTimeExcel\DateValue::funcDateValue($dateValue);
     }
@@ -651,7 +655,7 @@ class DateTime
      *
      * Returns the ISO 8601 week number of the year for a specified date.
      *
-     * @Deprecated 2.0.0 Use the funcIsoWeeknum method in the DateTimeExcel\Isoweeknum class instead
+     * @Deprecated 2.0.0 Use the funcIsoWeeknum method in the DateTimeExcel\IsoWeekNum class instead
      *
      * Excel Function:
      *        ISOWEEKNUM(dateValue)
@@ -663,7 +667,7 @@ class DateTime
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
-        return DateTimeExcel\IsoweekNum::funcIsoWeekNum($dateValue);
+        return DateTimeExcel\IsoWeekNum::funcIsoWeekNum($dateValue);
     }
 
     /**

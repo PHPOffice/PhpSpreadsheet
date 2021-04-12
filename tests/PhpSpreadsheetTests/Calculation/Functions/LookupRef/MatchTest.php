@@ -24,7 +24,7 @@ class MatchTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMATCH()
+    public function providerMATCH(): array
     {
         return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }

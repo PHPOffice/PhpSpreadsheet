@@ -129,6 +129,7 @@ class WorkDay
 
         $startDoW = WeekDay::funcWeekDay($startDate, 3);
         if (WeekDay::funcWeekDay($startDate, 3) >= 5) {
+            // @phpstan-ignore-next-line
             $startDate += -$startDoW + 4;
             ++$endDays;
         }
@@ -173,6 +174,7 @@ class WorkDay
             //    Adjust the calculated end date if it falls over a weekend
             $endDoW = WeekDay::funcWeekDay($endDate, 3);
             if ($endDoW >= 5) {
+                // @phpstan-ignore-next-line
                 $endDate += -$endDoW + 4;
             }
         }

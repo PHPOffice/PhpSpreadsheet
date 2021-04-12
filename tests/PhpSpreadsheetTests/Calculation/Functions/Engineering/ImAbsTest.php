@@ -27,7 +27,7 @@ class ImAbsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    public function providerIMABS()
+    public function providerIMABS(): array
     {
         return require 'tests/data/Calculation/Engineering/IMABS.php';
     }

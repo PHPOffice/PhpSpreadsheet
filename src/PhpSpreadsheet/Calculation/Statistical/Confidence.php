@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Confidence
 {
@@ -15,9 +14,9 @@ class Confidence
      *
      * Returns the confidence interval for a population mean
      *
-     * @param mixed (float) $alpha
-     * @param mixed (float) $stdDev Standard Deviation
-     * @param mixed (float) $size
+     * @param mixed $alpha As a float
+     * @param mixed $stdDev Standard Deviation as a float
+     * @param mixed $size As an integer
      *
      * @return float|string
      */
@@ -39,6 +38,6 @@ class Confidence
             return Functions::NAN();
         }
 
-        return Statistical::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
+        return Distributions\StandardNormal::inverse(1 - $alpha / 2) * $stdDev / sqrt($size);
     }
 }

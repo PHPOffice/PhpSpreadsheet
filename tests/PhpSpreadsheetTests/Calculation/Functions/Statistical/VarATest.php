@@ -25,7 +25,7 @@ class VarATest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerVARA()
+    public function providerVARA(): array
     {
         return require 'tests/data/Calculation/Statistical/VARA.php';
     }
@@ -44,7 +44,7 @@ class VarATest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerOdsVARA()
+    public function providerOdsVARA(): array
     {
         return require 'tests/data/Calculation/Statistical/VARA_ODS.php';
     }

@@ -9,8 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class TranslationTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
+    /**
+     * @var string
+     */
     private $returnDate;
 
     protected function setUp(): void
@@ -44,7 +50,7 @@ class TranslationTest extends TestCase
         self::assertSame($formula, $restoredFormula);
     }
 
-    public function providerTranslations()
+    public function providerTranslations(): array
     {
         return require 'tests/data/Calculation/Translations.php';
     }

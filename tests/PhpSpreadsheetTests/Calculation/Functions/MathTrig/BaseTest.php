@@ -38,7 +38,7 @@ class BaseTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBASE()
+    public function providerBASE(): array
     {
         return require 'tests/data/Calculation/MathTrig/BASE.php';
     }

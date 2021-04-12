@@ -26,7 +26,7 @@ class TrendTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }
 
-    public function providerGROWTH()
+    public function providerGROWTH(): array
     {
         return require 'tests/data/Calculation/Statistical/TREND.php';
     }

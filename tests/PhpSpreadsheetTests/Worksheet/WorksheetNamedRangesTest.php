@@ -5,11 +5,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetNamedRangesTest extends TestCase
 {
-    protected $spreadsheet;
+    /**
+     * @var Spreadsheet
+     */
+    private $spreadsheet;
 
     protected function setUp(): void
     {
