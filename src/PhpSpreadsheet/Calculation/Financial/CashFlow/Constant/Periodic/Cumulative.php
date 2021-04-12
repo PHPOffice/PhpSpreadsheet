@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Perio
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Cumulative
@@ -29,14 +29,20 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function interest($rate, $periods, $presentValue, $start, $end, $type = Constants::END_OF_PERIOD)
-    {
+    public static function interest(
+        $rate,
+        $periods,
+        $presentValue,
+        $start,
+        $end,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $start = Functions::flattenSingleValue($start);
         $end = Functions::flattenSingleValue($end);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $rate = CashFlowValidations::validateRate($rate);
@@ -88,14 +94,20 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function principal($rate, $periods, $presentValue, $start, $end, $type = Constants::END_OF_PERIOD)
-    {
+    public static function principal(
+        $rate,
+        $periods,
+        $presentValue,
+        $start,
+        $end,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $start = Functions::flattenSingleValue($start);
         $end = Functions::flattenSingleValue($end);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $rate = CashFlowValidations::validateRate($rate);

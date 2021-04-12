@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 
 class InterestAndPrincipal
 {
@@ -16,14 +16,14 @@ class InterestAndPrincipal
         int $numberOfPeriods = 0,
         float $presentValue = 0,
         float $futureValue = 0,
-        int $type = Constants::END_OF_PERIOD
+        int $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $payment = Payments::annuity($rate, $numberOfPeriods, $presentValue, $futureValue, $type);
         $capital = $presentValue;
         $interest = 0.0;
         $principal = 0.0;
         for ($i = 1; $i <= $period; ++$i) {
-            $interest = ($type === Constants::BEGINNING_OF_PERIOD && $i == 1) ? 0 : -$capital * $rate;
+            $interest = ($type === FinancialConstants::PAYMENT_BEGINNING_OF_PERIOD && $i == 1) ? 0 : -$capital * $rate;
             $principal = $payment - $interest;
             $capital += $principal;
         }

@@ -4,16 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Helpers
 {
-    public const DAYS_PER_YEAR_NASD = 0;
-    public const DAYS_PER_YEAR_ACTUAL = 1;
-    public const DAYS_PER_YEAR_360 = 2;
-    public const DAYS_PER_YEAR_365 = 3;
-    public const DAYS_PER_YEAR_360_EUROPEAN = 4;
-
     /**
      * daysPerYear.
      *
@@ -36,13 +31,13 @@ class Helpers
         }
 
         switch ($basis) {
-            case self::DAYS_PER_YEAR_NASD:
-            case self::DAYS_PER_YEAR_360:
-            case self::DAYS_PER_YEAR_360_EUROPEAN:
+            case FinancialConstants::BASIS_DAYS_PER_YEAR_NASD:
+            case FinancialConstants::BASIS_DAYS_PER_YEAR_360:
+            case FinancialConstants::BASIS_DAYS_PER_YEAR_360_EUROPEAN:
                 return 360;
-            case self::DAYS_PER_YEAR_365:
+            case FinancialConstants::BASIS_DAYS_PER_YEAR_365:
                 return 365;
-            case self::DAYS_PER_YEAR_ACTUAL:
+            case FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL:
                 return (DateTimeExcel\Helpers::isLeapYear($year)) ? 366 : 365;
         }
 

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Perio
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Interest
@@ -37,14 +37,14 @@ class Interest
         $numberOfPeriods,
         $presentValue,
         $futureValue = 0,
-        $type = Constants::END_OF_PERIOD
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);
@@ -157,14 +157,14 @@ class Interest
         $payment,
         $presentValue,
         $futureValue = 0.0,
-        $type = Constants::END_OF_PERIOD,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD,
         $guess = 0.1
     ) {
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
         $guess = ($guess === null) ? 0.1 : Functions::flattenSingleValue($guess);
 
         try {

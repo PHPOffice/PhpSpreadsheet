@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class TreasuryBill
@@ -41,7 +42,10 @@ class TreasuryBill
         }
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\Year::funcYear($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
 
         if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
             return Functions::NAN();
@@ -83,7 +87,10 @@ class TreasuryBill
         }
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\Year::funcYear($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
 
         if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
             return Functions::NAN();
@@ -126,7 +133,10 @@ class TreasuryBill
         }
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($maturity), Helpers::DAYS_PER_YEAR_ACTUAL);
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\Year::funcYear($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
 
         if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
             return Functions::NAN();

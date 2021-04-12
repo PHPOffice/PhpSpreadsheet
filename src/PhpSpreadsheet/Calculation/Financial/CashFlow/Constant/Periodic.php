@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Periodic
@@ -35,13 +35,13 @@ class Periodic
         $numberOfPeriods,
         $payment = 0.0,
         $presentValue = 0.0,
-        $type = Constants::END_OF_PERIOD
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
         $presentValue = ($presentValue === null) ? 0.0 : Functions::flattenSingleValue($presentValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $rate = CashFlowValidations::validateFloat($rate);
@@ -74,13 +74,13 @@ class Periodic
         $numberOfPeriods,
         $payment = 0.0,
         $futureValue = 0.0,
-        $type = Constants::END_OF_PERIOD
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $rate = CashFlowValidations::validateRate($rate);
@@ -113,13 +113,18 @@ class Periodic
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function periods($rate, $payment, $presentValue, $futureValue = 0, $type = Constants::END_OF_PERIOD)
-    {
+    public static function periods(
+        $rate,
+        $payment,
+        $presentValue,
+        $futureValue = 0.0,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $rate = Functions::flattenSingleValue($rate);
         $payment = Functions::flattenSingleValue($payment);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $rate = CashFlowValidations::validateRate($rate);

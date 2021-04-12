@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class AccruedInterest
@@ -50,8 +50,8 @@ class AccruedInterest
         $settlement,
         $rate,
         $parValue = 1000,
-        $frequency = Constants::FREQUENCY_ANNUAL,
-        $basis = Helpers::DAYS_PER_YEAR_NASD,
+        $frequency = FinancialConstants::FREQUENCY_ANNUAL,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD,
         $calcMethod = self::ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT
     ) {
         $issue = Functions::flattenSingleValue($issue);
@@ -59,8 +59,12 @@ class AccruedInterest
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
         $parValue = ($parValue === null) ? 1000 : Functions::flattenSingleValue($parValue);
-        $frequency = ($frequency === null) ? Constants::FREQUENCY_ANNUAL : Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
+        $frequency = ($frequency === null)
+            ? FinancialConstants::FREQUENCY_ANNUAL
+            : Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
             $issue = SecurityValidations::validateIssueDate($issue);
@@ -115,13 +119,15 @@ class AccruedInterest
         $settlement,
         $rate,
         $parValue = 1000,
-        $basis = Helpers::DAYS_PER_YEAR_NASD
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $issue = Functions::flattenSingleValue($issue);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
         $parValue = ($parValue === null) ? 1000 : Functions::flattenSingleValue($parValue);
-        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
             $issue = SecurityValidations::validateIssueDate($issue);

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Perio
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Payments
@@ -27,13 +27,13 @@ class Payments
         $numberOfPeriods,
         $presentValue,
         $futureValue = 0,
-        $type = Constants::END_OF_PERIOD
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);
@@ -75,14 +75,14 @@ class Payments
         $numberOfPeriods,
         $presentValue,
         $futureValue = 0,
-        $type = Constants::END_OF_PERIOD
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? Constants::END_OF_PERIOD : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
             $interestRate = CashFlowValidations::validateRate($interestRate);

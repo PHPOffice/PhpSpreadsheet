@@ -45,13 +45,13 @@ class Single
      *
      * Calculates the number of periods required for an investment to reach a specified value.
      *
-     * @param float $rate Interest rate per period
-     * @param float $presentValue Present Value
-     * @param float $futureValue Future Value
+     * @param mixed $rate Interest rate per period
+     * @param mixed $presentValue Present Value
+     * @param mixed $futureValue Future Value
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function periods($rate = 0.0, $presentValue = 0.0, $futureValue = 0.0)
+    public static function periods($rate, $presentValue, $futureValue)
     {
         $rate = Functions::flattenSingleValue($rate);
         $presentValue = Functions::flattenSingleValue($presentValue);

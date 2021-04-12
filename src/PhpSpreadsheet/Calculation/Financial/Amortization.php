@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
@@ -45,7 +46,7 @@ class Amortization
         $salvage,
         $period,
         $rate,
-        $basis = Helpers::DAYS_PER_YEAR_NASD
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
@@ -53,7 +54,9 @@ class Amortization
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
             $cost = FinancialValidations::validateFloat($cost);
@@ -130,7 +133,7 @@ class Amortization
         $salvage,
         $period,
         $rate,
-        $basis = Helpers::DAYS_PER_YEAR_NASD
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
@@ -138,7 +141,9 @@ class Amortization
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? Helpers::DAYS_PER_YEAR_NASD : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
             $cost = FinancialValidations::validateFloat($cost);
@@ -162,7 +167,7 @@ class Amortization
         }
 
         if (
-            ($basis == Helpers::DAYS_PER_YEAR_ACTUAL) &&
+            ($basis == FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) &&
             ($yearFrac < 1) && (DateTimeExcel\Helpers::isLeapYear($purchasedYear))
         ) {
             $yearFrac *= 365 / 366;

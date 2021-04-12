@@ -3,8 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\FinancialValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class CashFlowValidations extends FinancialValidations
@@ -28,7 +28,10 @@ class CashFlowValidations extends FinancialValidations
     public static function validatePeriodType($type): int
     {
         $rate = self::validateInt($type);
-        if ($type !== Constants::END_OF_PERIOD && $type !== Constants::BEGINNING_OF_PERIOD) {
+        if (
+            $type !== FinancialConstants::PAYMENT_END_OF_PERIOD &&
+            $type !== FinancialConstants::PAYMENT_BEGINNING_OF_PERIOD
+        ) {
             throw new Exception(Functions::NAN());
         }
 

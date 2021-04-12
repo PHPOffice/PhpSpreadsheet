@@ -1,7 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers as FinancialHelpers;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
@@ -20,7 +20,7 @@ $arguments = [
     ['Salvage Value', 20.00],
     ['Period', 1],
     ['Depreciation Rate', 0.20],
-    ['Basis', FinancialHelpers::DAYS_PER_YEAR_360_EUROPEAN],
+    ['Basis', FinancialConstants::BASIS_DAYS_PER_YEAR_360_EUROPEAN],
 ];
 
 // Some basic formatting for the data

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants as SecuritiesConstants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class FinancialValidations
@@ -77,9 +77,9 @@ class FinancialValidations
     {
         $frequency = self::validateInt($frequency);
         if (
-            ($frequency !== SecuritiesConstants::FREQUENCY_ANNUAL) &&
-            ($frequency !== SecuritiesConstants::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== SecuritiesConstants::FREQUENCY_QUARTERLY)
+            ($frequency !== FinancialConstants::FREQUENCY_ANNUAL) &&
+            ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL) &&
+            ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
         ) {
             throw new Exception(Functions::NAN());
         }

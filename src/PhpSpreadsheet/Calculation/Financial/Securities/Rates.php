@@ -5,33 +5,35 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class Yields
+class Rates
 {
     /**
-     * YIELDDISC.
+     * DISC.
      *
-     * Returns the annual yield of a security that pays interest at maturity.
+     * Returns the discount rate for a security.
+     *
+     * Excel Function:
+     *        DISC(settlement,maturity,price,redemption[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                              The security's settlement date is the date after the issue date when the security
-     *                              is traded to the buyer.
+     *                              The security settlement date is the date after the issue
+     *                                  date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
      * @param mixed $price The security's price per $100 face value
      * @param mixed $redemption The security's redemption value per $100 face value
      * @param mixed $basis The type of day count to use.
-     *                       0 or omitted    US (NASD) 30/360
-     *                       1               Actual/actual
-     *                       2               Actual/360
-     *                       3               Actual/365
-     *                       4               European 30/360
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
-     * @return float|string Result, or a string containing an error
+     * @return float|string
      */
-    public static function yieldDiscounted(
+    public static function discount(
         $settlement,
         $maturity,
         $price,
@@ -57,55 +59,54 @@ class Yields
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
-        if (!is_numeric($daysPerYear)) {
-            return $daysPerYear;
+        if ($price <= 0.0) {
+            return Functions::NAN();
         }
+
         $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;
         }
-        $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
-        return (($redemption - $price) / $price) * ($daysPerYear / $daysBetweenSettlementAndMaturity);
+        return (1 - $price / $redemption) / $daysBetweenSettlementAndMaturity;
     }
 
     /**
-     * YIELDMAT.
+     * INTRATE.
      *
-     * Returns the annual yield of a security that pays interest at maturity.
+     * Returns the interest rate for a fully invested security.
+     *
+     * Excel Function:
+     *        INTRATE(settlement,maturity,investment,redemption[,basis])
      *
      * @param mixed $settlement The security's settlement date.
-     *                              The security's settlement date is the date after the issue date when the security
-     *                              is traded to the buyer.
+     *                              The security settlement date is the date after the issue date when the security
+     *                                  is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
-     * @param mixed $issue The security's issue date
-     * @param mixed $rate The security's interest rate at date of issue
-     * @param mixed $price The security's price per $100 face value
+     * @param mixed $investment the amount invested in the security
+     * @param mixed $redemption the amount to be received at maturity
      * @param mixed $basis The type of day count to use.
-     *                       0 or omitted    US (NASD) 30/360
-     *                       1               Actual/actual
-     *                       2               Actual/360
-     *                       3               Actual/365
-     *                       4               European 30/360
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
-     * @return float|string Result, or a string containing an error
+     * @return float|string
      */
-    public static function yieldAtMaturity(
+    public static function interest(
         $settlement,
         $maturity,
-        $issue,
-        $rate,
-        $price,
+        $investment,
+        $redemption,
         $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
-        $issue = Functions::flattenSingleValue($issue);
-        $rate = Functions::flattenSingleValue($rate);
-        $price = Functions::flattenSingleValue($price);
+        $investment = Functions::flattenSingleValue($investment);
+        $redemption = Functions::flattenSingleValue($redemption);
         $basis = ($basis === null)
             ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
             : Functions::flattenSingleValue($basis);
@@ -114,40 +115,23 @@ class Yields
             $settlement = SecurityValidations::validateSettlementDate($settlement);
             $maturity = SecurityValidations::validateMaturityDate($maturity);
             SecurityValidations::validateSecurityPeriod($settlement, $maturity);
-            $issue = SecurityValidations::validateIssueDate($issue);
-            $rate = SecurityValidations::validateRate($rate);
-            $price = SecurityValidations::validatePrice($price);
+            $investment = SecurityValidations::validateFloat($investment);
+            $redemption = SecurityValidations::validateRedemption($redemption);
             $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
-        if (!is_numeric($daysPerYear)) {
-            return $daysPerYear;
+        if ($investment <= 0) {
+            return Functions::NAN();
         }
-        $daysBetweenIssueAndSettlement = DateTimeExcel\YearFrac::funcYearFrac($issue, $settlement, $basis);
-        if (!is_numeric($daysBetweenIssueAndSettlement)) {
-            //    return date error
-            return $daysBetweenIssueAndSettlement;
-        }
-        $daysBetweenIssueAndSettlement *= $daysPerYear;
-        $daysBetweenIssueAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($issue, $maturity, $basis);
-        if (!is_numeric($daysBetweenIssueAndMaturity)) {
-            //    return date error
-            return $daysBetweenIssueAndMaturity;
-        }
-        $daysBetweenIssueAndMaturity *= $daysPerYear;
+
         $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;
         }
-        $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
-        return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) -
-                    (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
-                (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
-            ($daysPerYear / $daysBetweenSettlementAndMaturity);
+        return (($redemption / $investment) - 1) / ($daysBetweenSettlementAndMaturity);
     }
 }

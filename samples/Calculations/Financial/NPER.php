@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
@@ -19,7 +19,7 @@ $arguments = [
     ['Payment Amount', -6000.00, -2000],
     ['Present Value', 50000, 60000],
     ['Future Value', null, 30000],
-    ['Payment Type', null, Constants::BEGINNING_OF_PERIOD],
+    ['Payment Type', null, FinancialConstants::PAYMENT_BEGINNING_OF_PERIOD],
 ];
 
 // Some basic formatting for the data
