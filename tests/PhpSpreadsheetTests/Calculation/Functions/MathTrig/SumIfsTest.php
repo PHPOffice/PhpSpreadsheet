@@ -17,7 +17,7 @@ class SumIfsTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMIFS()
+    public function providerSUMIFS(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMIFS.php';
     }

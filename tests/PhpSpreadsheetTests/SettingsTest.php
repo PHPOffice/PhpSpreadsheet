@@ -10,7 +10,7 @@ class SettingsTest extends TestCase
     /**
      * @var bool
      */
-    protected $prevValue;
+    private $prevValue;
 
     protected function setUp(): void
     {

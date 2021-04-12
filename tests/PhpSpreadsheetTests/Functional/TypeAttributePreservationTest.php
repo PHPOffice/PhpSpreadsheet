@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class TypeAttributePreservationTest extends AbstractFunctional
 {
-    public function providerFormulae()
+    public function providerFormulae(): array
     {
         $formats = ['Xlsx'];
         $data = require 'tests/data/Functional/TypeAttributePreservation/Formula.php';

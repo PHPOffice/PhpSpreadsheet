@@ -19,7 +19,7 @@ class AsinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAsin()
+    public function providerAsin(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASIN.php';
     }

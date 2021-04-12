@@ -18,7 +18,7 @@ class DayTest extends AllSetupTeardown
         self::assertSame($expectedResultExcel, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDAY()
+    public function providerDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/DAY.php';
     }
@@ -37,7 +37,7 @@ class DayTest extends AllSetupTeardown
         self::assertSame($expectedResultOpenOffice, $sheet->getCell('A2')->getCalculatedValue());
     }
 
-    public function providerDAYOpenOffice()
+    public function providerDAYOpenOffice(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYOpenOffice.php';
     }

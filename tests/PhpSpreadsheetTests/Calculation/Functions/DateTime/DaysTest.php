@@ -24,7 +24,7 @@ class DaysTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDAYS()
+    public function providerDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS.php';
     }

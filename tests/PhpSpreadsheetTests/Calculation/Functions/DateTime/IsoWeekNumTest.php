@@ -19,7 +19,7 @@ class IsoWeekNumTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerISOWEEKNUM()
+    public function providerISOWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
@@ -40,7 +40,7 @@ class IsoWeekNumTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerISOWEEKNUM1904()
+    public function providerISOWEEKNUM1904(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM1904.php';
     }

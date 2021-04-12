@@ -26,7 +26,7 @@ class BitAndTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITAND()
+    public function providerBITAND(): array
     {
         return require 'tests/data/Calculation/Engineering/BITAND.php';
     }

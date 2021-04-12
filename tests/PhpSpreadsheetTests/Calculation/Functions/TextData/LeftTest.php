@@ -24,7 +24,7 @@ class LeftTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEFT()
+    public function providerLEFT(): array
     {
         return require 'tests/data/Calculation/TextData/LEFT.php';
     }
@@ -51,7 +51,7 @@ class LeftTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleLEFT()
+    public function providerLocaleLEFT(): array
     {
         return [
             ['VR', 'fr_FR', true, 2],

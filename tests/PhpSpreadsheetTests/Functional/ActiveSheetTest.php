@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 class ActiveSheetTest extends AbstractFunctional
 {
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xls'],

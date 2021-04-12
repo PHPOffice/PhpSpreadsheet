@@ -24,7 +24,7 @@ class GeoMeanTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerGEOMEAN()
+    public function providerGEOMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }

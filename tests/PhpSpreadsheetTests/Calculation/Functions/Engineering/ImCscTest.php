@@ -14,7 +14,7 @@ class ImCscTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImCscTest extends TestCase
         );
     }
 
-    public function providerIMCSC()
+    public function providerIMCSC(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCSC.php';
     }

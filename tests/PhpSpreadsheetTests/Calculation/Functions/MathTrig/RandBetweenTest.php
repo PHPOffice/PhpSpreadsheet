@@ -39,7 +39,7 @@ class RandBetweenTest extends AllSetupTeardown
         }
     }
 
-    public function providerRANDBETWEEN()
+    public function providerRANDBETWEEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/RANDBETWEEN.php';
     }

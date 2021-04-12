@@ -3,14 +3,21 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use DateTime;
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\TimeZone;
 use PHPUnit\Framework\TestCase;
 
 class TimeZoneTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $tztimezone;
 
+    /**
+     * @var null|DateTimeZone
+     */
     private $dttimezone;
 
     protected function setUp(): void

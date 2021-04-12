@@ -28,7 +28,7 @@ class DProductTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -41,7 +41,7 @@ class DProductTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
@@ -60,7 +60,7 @@ class DProductTest extends TestCase
         ];
     }
 
-    public function providerDProduct()
+    public function providerDProduct(): array
     {
         return [
             [

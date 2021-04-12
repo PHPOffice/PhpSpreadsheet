@@ -24,7 +24,7 @@ class ChiDistLeftTailTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCHIDIST()
+    public function providerCHIDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIDISTLeftTail.php';
     }

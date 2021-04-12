@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class CsvContiguousTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $inputFileName = 'samples/Reader/sampleData/example2.csv';
 
     public function testContiguous(): void

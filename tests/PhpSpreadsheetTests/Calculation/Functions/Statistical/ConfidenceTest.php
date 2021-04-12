@@ -24,7 +24,7 @@ class ConfidenceTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCONFIDENCE()
+    public function providerCONFIDENCE(): array
     {
         return require 'tests/data/Calculation/Statistical/CONFIDENCE.php';
     }

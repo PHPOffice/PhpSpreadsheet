@@ -24,7 +24,7 @@ class PDurationTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerPDURATION()
+    public function providerPDURATION(): array
     {
         return require 'tests/data/Calculation/Financial/PDURATION.php';
     }

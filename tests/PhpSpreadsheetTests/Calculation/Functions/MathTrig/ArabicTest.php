@@ -20,7 +20,7 @@ class ArabicTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerARABIC()
+    public function providerARABIC(): array
     {
         return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }

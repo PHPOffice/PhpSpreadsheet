@@ -42,7 +42,7 @@ class ExponentialBestFitTest extends TestCase
         self::assertSame($expectedGoodnessOfFit[1], $bestFit->getGoodnessOfFit());
     }
 
-    public function providerExponentialBestFit()
+    public function providerExponentialBestFit(): array
     {
         return require 'tests/data/Shared/Trend/ExponentialBestFit.php';
     }

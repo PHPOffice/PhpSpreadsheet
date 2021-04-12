@@ -14,7 +14,7 @@ class ImSumTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -36,7 +36,7 @@ class ImSumTest extends TestCase
         );
     }
 
-    public function providerIMSUM()
+    public function providerIMSUM(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSUM.php';
     }

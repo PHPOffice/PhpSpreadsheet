@@ -24,7 +24,7 @@ class AmorLincTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerAMORLINC()
+    public function providerAMORLINC(): array
     {
         return require 'tests/data/Calculation/Financial/AMORLINC.php';
     }

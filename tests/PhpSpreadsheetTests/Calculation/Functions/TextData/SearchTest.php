@@ -18,7 +18,7 @@ class SearchTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSEARCH()
+    public function providerSEARCH(): array
     {
         return require 'tests/data/Calculation/TextData/SEARCH.php';
     }

@@ -23,7 +23,7 @@ class SecTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSEC()
+    public function providerSEC(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEC.php';
     }

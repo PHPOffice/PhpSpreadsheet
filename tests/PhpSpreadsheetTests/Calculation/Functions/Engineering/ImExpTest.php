@@ -14,7 +14,7 @@ class ImExpTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImExpTest extends TestCase
         );
     }
 
-    public function providerIMEXP()
+    public function providerIMEXP(): array
     {
         return require 'tests/data/Calculation/Engineering/IMEXP.php';
     }

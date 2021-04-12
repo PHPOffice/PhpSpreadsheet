@@ -45,7 +45,7 @@ class NetworkDaysTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
     }
 
-    public function providerNETWORKDAYS()
+    public function providerNETWORKDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }

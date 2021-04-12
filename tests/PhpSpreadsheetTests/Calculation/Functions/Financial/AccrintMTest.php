@@ -24,7 +24,7 @@ class AccrintMTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerACCRINTM()
+    public function providerACCRINTM(): array
     {
         return require 'tests/data/Calculation/Financial/ACCRINTM.php';
     }

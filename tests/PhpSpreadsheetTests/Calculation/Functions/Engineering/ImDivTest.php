@@ -14,7 +14,7 @@ class ImDivTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -36,7 +36,7 @@ class ImDivTest extends TestCase
         );
     }
 
-    public function providerIMDIV()
+    public function providerIMDIV(): array
     {
         return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }

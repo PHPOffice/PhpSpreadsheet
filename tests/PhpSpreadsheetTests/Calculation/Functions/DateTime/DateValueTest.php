@@ -37,7 +37,7 @@ class DateValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerDATEVALUE()
+    public function providerDATEVALUE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }

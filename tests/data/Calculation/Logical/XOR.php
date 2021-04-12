@@ -7,7 +7,7 @@ return [
     ],
     [
         false,
-        1 > 0, 2 > 0,
+        true, true,
     ],
     [
         true,
@@ -15,23 +15,23 @@ return [
     ],
     [
         true,
-        1 > 0, 0 > 1,
+        true, false,
     ],
     [
         true,
-        0 > 1, 2 > 0,
+        false, true,
     ],
     [
         false,
-        0 > 1, 0 > 2,
+        false, false,
     ],
     [
         false,
-        1 > 0, 2 > 0, 0 > 1, 0 > 2,
+        true, true, false, false,
     ],
     [
         true,
-        1 > 0, 2 > 0, 3 > 0, 0 > 1,
+        true, true, true, false,
     ],
     [
         false,

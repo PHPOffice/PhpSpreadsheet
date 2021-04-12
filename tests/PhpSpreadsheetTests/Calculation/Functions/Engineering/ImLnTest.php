@@ -14,7 +14,7 @@ class ImLnTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImLnTest extends TestCase
         );
     }
 
-    public function providerIMLN()
+    public function providerIMLN(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLN.php';
     }

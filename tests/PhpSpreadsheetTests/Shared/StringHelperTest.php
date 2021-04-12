@@ -7,10 +7,19 @@ use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $currencyCode;
 
+    /**
+     * @var string
+     */
     private $decimalSeparator;
 
+    /**
+     * @var string
+     */
     private $thousandsSeparator;
 
     protected function setUp(): void

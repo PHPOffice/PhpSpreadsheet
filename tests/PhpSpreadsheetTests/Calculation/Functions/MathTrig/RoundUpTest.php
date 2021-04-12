@@ -23,7 +23,7 @@ class RoundUpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerRoundUp()
+    public function providerRoundUp(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROUNDUP.php';
     }

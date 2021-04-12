@@ -18,7 +18,7 @@ class AddressHelperTest extends TestCase
         self::assertSame($expectedValue, $actualValue);
     }
 
-    public function providerR1C1ConversionToA1Absolute()
+    public function providerR1C1ConversionToA1Absolute(): array
     {
         return require 'tests/data/Cell/R1C1ConversionToA1Absolute.php';
     }
@@ -45,7 +45,7 @@ class AddressHelperTest extends TestCase
         self::assertSame($expectedValue, $actualValue);
     }
 
-    public function providerR1C1ConversionToA1Relative()
+    public function providerR1C1ConversionToA1Relative(): array
     {
         return require 'tests/data/Cell/R1C1ConversionToA1Relative.php';
     }
@@ -60,7 +60,7 @@ class AddressHelperTest extends TestCase
         AddressHelper::convertToA1($address);
     }
 
-    public function providerR1C1ConversionToA1Exception()
+    public function providerR1C1ConversionToA1Exception(): array
     {
         return require 'tests/data/Cell/R1C1ConversionToA1Exception.php';
     }
@@ -75,7 +75,7 @@ class AddressHelperTest extends TestCase
         self::assertSame($expectedValue, $actualValue);
     }
 
-    public function providerA1ConversionToR1C1Absolute()
+    public function providerA1ConversionToR1C1Absolute(): array
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Absolute.php';
     }
@@ -90,7 +90,7 @@ class AddressHelperTest extends TestCase
         self::assertSame($expectedValue, $actualValue);
     }
 
-    public function providerA1ConversionToR1C1Relative()
+    public function providerA1ConversionToR1C1Relative(): array
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Relative.php';
     }
@@ -105,7 +105,7 @@ class AddressHelperTest extends TestCase
         AddressHelper::convertToR1C1($address);
     }
 
-    public function providerA1ConversionToR1C1Exception()
+    public function providerA1ConversionToR1C1Exception(): array
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Exception.php';
     }

@@ -24,7 +24,7 @@ class ReceivedTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerRECEIVED()
+    public function providerRECEIVED(): array
     {
         return require 'tests/data/Calculation/Financial/RECEIVED.php';
     }

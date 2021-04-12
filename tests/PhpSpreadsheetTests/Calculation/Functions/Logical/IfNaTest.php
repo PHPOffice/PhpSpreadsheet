@@ -26,7 +26,7 @@ class IfNaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIFNA()
+    public function providerIFNA(): array
     {
         return require 'tests/data/Calculation/Logical/IFNA.php';
     }

@@ -18,7 +18,7 @@ class SubstituteTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSUBSTITUTE()
+    public function providerSUBSTITUTE(): array
     {
         return require 'tests/data/Calculation/TextData/SUBSTITUTE.php';
     }

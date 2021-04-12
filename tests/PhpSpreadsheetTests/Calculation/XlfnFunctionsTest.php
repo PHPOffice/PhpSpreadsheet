@@ -75,7 +75,7 @@ class XlfnFunctionsTest extends \PHPUnit\Framework\TestCase
         $sheet->setSelectedCell('B1');
 
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($workbook, 'Xlsx');
-        $oufil = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $oufil = File::temporaryFilename();
         $writer->save($oufil);
 
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');

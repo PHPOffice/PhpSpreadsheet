@@ -24,7 +24,7 @@ class CoupNumTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCOUPNUM()
+    public function providerCOUPNUM(): array
     {
         return require 'tests/data/Calculation/Financial/COUPNUM.php';
     }

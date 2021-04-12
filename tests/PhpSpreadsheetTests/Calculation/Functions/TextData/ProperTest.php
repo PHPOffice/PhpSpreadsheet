@@ -25,7 +25,7 @@ class ProperTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerPROPER()
+    public function providerPROPER(): array
     {
         return require 'tests/data/Calculation/TextData/PROPER.php';
     }
@@ -51,7 +51,7 @@ class ProperTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleLOWER()
+    public function providerLocaleLOWER(): array
     {
         return [
             ['Vrai', 'fr_FR', true],

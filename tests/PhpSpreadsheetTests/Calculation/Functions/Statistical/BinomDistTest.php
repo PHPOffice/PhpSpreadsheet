@@ -24,7 +24,7 @@ class BinomDistTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerBINOMDIST()
+    public function providerBINOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/BINOMDIST.php';
     }

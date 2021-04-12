@@ -13,7 +13,7 @@ class DrawingsTest extends AbstractFunctional
     /**
      * @var int
      */
-    protected $prevValue;
+    private $prevValue;
 
     protected function setUp(): void
     {

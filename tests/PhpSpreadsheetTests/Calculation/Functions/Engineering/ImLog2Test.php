@@ -14,7 +14,7 @@ class ImLog2Test extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImLog2Test extends TestCase
         );
     }
 
-    public function providerIMLOG2()
+    public function providerIMLOG2(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLOG2.php';
     }

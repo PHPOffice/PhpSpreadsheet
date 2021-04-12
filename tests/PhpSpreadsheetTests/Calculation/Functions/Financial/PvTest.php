@@ -24,7 +24,7 @@ class PvTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerPV()
+    public function providerPV(): array
     {
         return require 'tests/data/Calculation/Financial/PV.php';
     }

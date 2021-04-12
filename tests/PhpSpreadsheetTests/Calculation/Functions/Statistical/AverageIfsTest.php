@@ -24,7 +24,7 @@ class AverageIfsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerAVERAGEIFS()
+    public function providerAVERAGEIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/AVERAGEIFS.php';
     }

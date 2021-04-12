@@ -26,7 +26,7 @@ class NominalTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerNOMINAL()
+    public function providerNOMINAL(): array
     {
         return require 'tests/data/Calculation/Financial/NOMINAL.php';
     }

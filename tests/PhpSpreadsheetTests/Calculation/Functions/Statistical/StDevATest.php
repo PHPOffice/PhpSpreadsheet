@@ -25,7 +25,7 @@ class StDevATest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSTDEVA()
+    public function providerSTDEVA(): array
     {
         return require 'tests/data/Calculation/Statistical/STDEVA.php';
     }
@@ -44,7 +44,7 @@ class StDevATest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerOdsSTDEVA()
+    public function providerOdsSTDEVA(): array
     {
         return require 'tests/data/Calculation/Statistical/STDEVA_ODS.php';
     }

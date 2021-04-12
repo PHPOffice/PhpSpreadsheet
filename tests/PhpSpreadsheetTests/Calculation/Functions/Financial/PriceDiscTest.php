@@ -24,7 +24,7 @@ class PriceDiscTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerPRICEDISC()
+    public function providerPRICEDISC(): array
     {
         return require 'tests/data/Calculation/Financial/PRICEDISC.php';
     }

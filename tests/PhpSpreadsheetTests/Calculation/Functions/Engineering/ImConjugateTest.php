@@ -14,7 +14,7 @@ class ImConjugateTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImConjugateTest extends TestCase
         );
     }
 
-    public function providerIMCONJUGATE()
+    public function providerIMCONJUGATE(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
     }

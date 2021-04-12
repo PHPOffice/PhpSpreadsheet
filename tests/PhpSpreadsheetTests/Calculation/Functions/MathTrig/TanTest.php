@@ -19,7 +19,7 @@ class TanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerTan()
+    public function providerTan(): array
     {
         return require 'tests/data/Calculation/MathTrig/TAN.php';
     }

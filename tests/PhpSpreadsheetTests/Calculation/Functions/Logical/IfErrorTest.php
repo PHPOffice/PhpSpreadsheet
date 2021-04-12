@@ -26,7 +26,7 @@ class IfErrorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIFERROR()
+    public function providerIFERROR(): array
     {
         return require 'tests/data/Calculation/Logical/IFERROR.php';
     }

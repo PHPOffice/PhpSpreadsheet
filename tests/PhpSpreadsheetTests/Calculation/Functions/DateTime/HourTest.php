@@ -18,7 +18,7 @@ class HourTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerHOUR()
+    public function providerHOUR(): array
     {
         return require 'tests/data/Calculation/DateTime/HOUR.php';
     }

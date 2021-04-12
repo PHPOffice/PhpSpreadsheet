@@ -19,7 +19,7 @@ class TTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerT()
+    public function providerT(): array
     {
         return require 'tests/data/Calculation/TextData/T.php';
     }

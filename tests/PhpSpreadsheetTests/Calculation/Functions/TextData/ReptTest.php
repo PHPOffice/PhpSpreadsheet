@@ -51,7 +51,7 @@ class ReptTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPT()
+    public function providerREPT(): array
     {
         return require 'tests/data/Calculation/TextData/REPT.php';
     }

@@ -14,7 +14,7 @@ class ImTanTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class ImTanTest extends TestCase
         );
     }
 
-    public function providerIMTAN()
+    public function providerIMTAN(): array
     {
         return require 'tests/data/Calculation/Engineering/IMTAN.php';
     }

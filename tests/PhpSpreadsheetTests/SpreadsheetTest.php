@@ -26,10 +26,7 @@ class SpreadsheetTest extends TestCase
         $this->object->addSheet($sheet);
     }
 
-    /**
-     * @return array
-     */
-    public function dataProviderForSheetNames()
+    public function dataProviderForSheetNames(): array
     {
         $array = [
             [0, 'someSheet1'],

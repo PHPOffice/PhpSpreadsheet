@@ -26,7 +26,7 @@ class BitXorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITXOR()
+    public function providerBITXOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }

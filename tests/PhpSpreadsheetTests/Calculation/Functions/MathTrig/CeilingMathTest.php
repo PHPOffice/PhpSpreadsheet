@@ -23,7 +23,7 @@ class CeilingMathTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCEILINGMATH()
+    public function providerCEILINGMATH(): array
     {
         return require 'tests/data/Calculation/MathTrig/CEILINGMATH.php';
     }

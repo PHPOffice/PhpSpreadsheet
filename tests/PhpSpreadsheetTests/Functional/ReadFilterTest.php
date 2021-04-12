@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadFilterTest extends AbstractFunctional
 {
-    public function providerCellsValues()
+    public function providerCellsValues(): array
     {
         $cellValues = [
             // one argument as a multidimensional array

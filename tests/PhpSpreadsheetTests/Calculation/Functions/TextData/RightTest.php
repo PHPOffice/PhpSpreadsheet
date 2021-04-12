@@ -24,7 +24,7 @@ class RightTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerRIGHT()
+    public function providerRIGHT(): array
     {
         return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
@@ -51,7 +51,7 @@ class RightTest extends TestCase
         Settings::setLocale('en_US');
     }
 
-    public function providerLocaleRIGHT()
+    public function providerLocaleRIGHT(): array
     {
         return [
             ['RAI', 'fr_FR', true, 3],

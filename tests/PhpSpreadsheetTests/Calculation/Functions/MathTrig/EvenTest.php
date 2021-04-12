@@ -19,7 +19,7 @@ class EvenTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerEVEN()
+    public function providerEVEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }

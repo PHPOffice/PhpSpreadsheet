@@ -24,7 +24,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($stringBack, $string, 'should be able to get the original input with opposite method');
     }
 
-    public function providerColumnString()
+    public function providerColumnString(): array
     {
         return require 'tests/data/ColumnString.php';
     }
@@ -74,7 +74,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($columnIndexBack, $columnIndex, 'should be able to get the original input with opposite method');
     }
 
-    public function providerColumnIndex()
+    public function providerColumnIndex(): array
     {
         return require 'tests/data/ColumnIndex.php';
     }
@@ -91,7 +91,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCoordinates()
+    public function providerCoordinates(): array
     {
         return require 'tests/data/CellCoordinates.php';
     }
@@ -167,7 +167,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerAbsoluteCoordinates()
+    public function providerAbsoluteCoordinates(): array
     {
         return require 'tests/data/CellAbsoluteCoordinate.php';
     }
@@ -199,7 +199,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerAbsoluteReferences()
+    public function providerAbsoluteReferences(): array
     {
         return require 'tests/data/CellAbsoluteReference.php';
     }
@@ -237,7 +237,7 @@ class CoordinateTest extends TestCase
         }
     }
 
-    public function providerSplitRange()
+    public function providerSplitRange(): array
     {
         return require 'tests/data/CellSplitRange.php';
     }
@@ -254,7 +254,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBuildRange()
+    public function providerBuildRange(): array
     {
         return require 'tests/data/CellBuildRange.php';
     }
@@ -264,6 +264,7 @@ class CoordinateTest extends TestCase
         $this->expectException(TypeError::class);
 
         $cellRange = null;
+        // @phpstan-ignore-next-line
         Coordinate::buildRange($cellRange);
     }
 
@@ -288,7 +289,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerRangeBoundaries()
+    public function providerRangeBoundaries(): array
     {
         return require 'tests/data/CellRangeBoundaries.php';
     }
@@ -305,7 +306,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerRangeDimension()
+    public function providerRangeDimension(): array
     {
         return require 'tests/data/CellRangeDimension.php';
     }
@@ -322,7 +323,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerGetRangeBoundaries()
+    public function providerGetRangeBoundaries(): array
     {
         return require 'tests/data/CellGetRangeBoundaries.php';
     }
@@ -339,7 +340,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerExtractAllCellReferencesInRange()
+    public function providerExtractAllCellReferencesInRange(): array
     {
         return require 'tests/data/CellExtractAllCellReferencesInRange.php';
     }
@@ -357,7 +358,7 @@ class CoordinateTest extends TestCase
         Coordinate::extractAllCellReferencesInRange($range);
     }
 
-    public function providerInvalidRange()
+    public function providerInvalidRange(): array
     {
         return [['Z1:A1'], ['A4:A1'], ['B1:A1'], ['AA1:Z1']];
     }
@@ -374,7 +375,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMergeRangesInCollection()
+    public function providerMergeRangesInCollection(): array
     {
         return require 'tests/data/CellMergeRangesInCollection.php';
     }
@@ -391,7 +392,7 @@ class CoordinateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCoordinateIsRange()
+    public function providerCoordinateIsRange(): array
     {
         return require 'tests/data/CoordinateIsRange.php';
     }

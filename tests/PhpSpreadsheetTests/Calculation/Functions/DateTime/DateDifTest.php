@@ -18,7 +18,7 @@ class DateDifTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDATEDIF()
+    public function providerDATEDIF(): array
     {
         return require 'tests/data/Calculation/DateTime/DATEDIF.php';
     }

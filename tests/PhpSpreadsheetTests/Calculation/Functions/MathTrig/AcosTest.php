@@ -19,7 +19,7 @@ class AcosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAcos()
+    public function providerAcos(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOS.php';
     }

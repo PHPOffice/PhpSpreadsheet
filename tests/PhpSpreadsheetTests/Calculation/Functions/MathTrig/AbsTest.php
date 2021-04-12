@@ -24,7 +24,7 @@ class AbsTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerAbs()
+    public function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
     }

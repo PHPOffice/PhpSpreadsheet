@@ -19,7 +19,7 @@ class XmlTest extends TestCase
         $xmlReader->trySimpleXMLLoadString($filename);
     }
 
-    public function providerInvalidSimpleXML()
+    public function providerInvalidSimpleXML(): array
     {
         $tests = [];
         foreach (glob('tests/data/Reader/Xml/XEETestInvalidSimpleXML*.xml') as $file) {

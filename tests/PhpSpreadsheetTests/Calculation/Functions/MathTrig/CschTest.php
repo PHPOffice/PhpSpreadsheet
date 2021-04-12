@@ -23,7 +23,7 @@ class CschTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCSCH()
+    public function providerCSCH(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSCH.php';
     }

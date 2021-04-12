@@ -19,7 +19,7 @@ class SinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerSin()
+    public function providerSin(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIN.php';
     }

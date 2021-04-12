@@ -23,7 +23,7 @@ class FloorMathTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFLOORMATH()
+    public function providerFLOORMATH(): array
     {
         return require 'tests/data/Calculation/MathTrig/FLOORMATH.php';
     }

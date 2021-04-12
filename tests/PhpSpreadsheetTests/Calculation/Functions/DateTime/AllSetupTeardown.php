@@ -6,18 +6,34 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    protected $compatibilityMode;
+    /**
+     * @var string
+     */
+    private $compatibilityMode;
 
-    protected $excelCalendar;
+    /**
+     * @var int
+     */
+    private $excelCalendar;
 
-    protected $returnDateType;
+    /**
+     * @var string
+     */
+    private $returnDateType;
 
+    /**
+     * @var Spreadsheet
+     */
     protected $spreadsheet;
 
+    /**
+     * @var Worksheet
+     */
     protected $sheet;
 
     protected function setUp(): void
@@ -35,8 +51,6 @@ class AllSetupTeardown extends TestCase
         Functions::setCompatibilityMode($this->compatibilityMode);
         Functions::setReturnDateType($this->returnDateType);
         $this->spreadsheet->disconnectWorksheets();
-        $this->spreadsheet = null;
-        $this->sheet = null;
     }
 
     protected static function setMac1904(): void

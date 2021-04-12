@@ -24,7 +24,7 @@ class DegreesTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerDegrees()
+    public function providerDegrees(): array
     {
         return require 'tests/data/Calculation/MathTrig/DEGREES.php';
     }

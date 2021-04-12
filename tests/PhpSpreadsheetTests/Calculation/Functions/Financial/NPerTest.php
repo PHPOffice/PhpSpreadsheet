@@ -24,7 +24,7 @@ class NPerTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerNPER()
+    public function providerNPER(): array
     {
         return require 'tests/data/Calculation/Financial/NPER.php';
     }

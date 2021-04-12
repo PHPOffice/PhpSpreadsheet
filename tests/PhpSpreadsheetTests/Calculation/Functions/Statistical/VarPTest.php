@@ -25,7 +25,7 @@ class VarPTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerVARP()
+    public function providerVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP.php';
     }
@@ -44,7 +44,7 @@ class VarPTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerOdsVARP()
+    public function providerOdsVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP_ODS.php';
     }

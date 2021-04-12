@@ -19,7 +19,7 @@ class CosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCos()
+    public function providerCos(): array
     {
         return require 'tests/data/Calculation/MathTrig/COS.php';
     }
