@@ -33,4 +33,4 @@ $worksheet->setCellValue('B1', '=FVSCHEDULE(A2, A5:A9)');
 $worksheet->getStyle('B1')->getNumberFormat()->setFormatCode('$#,##0.00');
 
 $helper->log($worksheet->getCell('B1')->getValue());
-$helper->log('FV() Result is ' . $worksheet->getCell('B1')->getFormattedValue());
+$helper->log('FVSCHEDULE() Result is ' . $worksheet->getCell('B1')->getFormattedValue());
