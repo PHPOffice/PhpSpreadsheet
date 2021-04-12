@@ -3,14 +3,12 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Constants;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Cumulative
 {
-    use Financial\BaseValidations;
-
     /**
      * CUMIPMT.
      *
@@ -31,30 +29,33 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function interest($rate, $periods, $presentValue, $start, $end, $type = Constants::END_OF_PERIOD)
-    {
+    public static function interest(
+        $rate,
+        $periods,
+        $presentValue,
+        $start,
+        $end,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $start = Functions::flattenSingleValue($start);
         $end = Functions::flattenSingleValue($end);
-        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $rate = self::validateFloat($rate);
-            $periods = self::validateInt($periods);
-            $presentValue = self::validateFloat($presentValue);
-            $start = self::validateInt($start);
-            $end = self::validateInt($end);
-            $type = self::validateInt($type);
+            $rate = CashFlowValidations::validateRate($rate);
+            $periods = CashFlowValidations::validateInt($periods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $start = CashFlowValidations::validateInt($start);
+            $end = CashFlowValidations::validateInt($end);
+            $type = CashFlowValidations::validatePeriodType($type);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         // Validate parameters
-        if ($type !== Constants::END_OF_PERIOD && $type !== Constants::BEGINNING_OF_PERIOD) {
-            return Functions::NAN();
-        }
         if ($start < 1 || $start > $end) {
             return Functions::NAN();
         }
@@ -93,30 +94,33 @@ class Cumulative
      *
      * @return float|string
      */
-    public static function principal($rate, $periods, $presentValue, $start, $end, $type = 0)
-    {
+    public static function principal(
+        $rate,
+        $periods,
+        $presentValue,
+        $start,
+        $end,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $start = Functions::flattenSingleValue($start);
         $end = Functions::flattenSingleValue($end);
-        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $rate = self::validateFloat($rate);
-            $periods = self::validateInt($periods);
-            $presentValue = self::validateFloat($presentValue);
-            $start = self::validateInt($start);
-            $end = self::validateInt($end);
-            $type = self::validateInt($type);
+            $rate = CashFlowValidations::validateRate($rate);
+            $periods = CashFlowValidations::validateInt($periods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $start = CashFlowValidations::validateInt($start);
+            $end = CashFlowValidations::validateInt($end);
+            $type = CashFlowValidations::validatePeriodType($type);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         // Validate parameters
-        if ($type !== 0 && $type !== 1) {
-            return Functions::NAN();
-        }
         if ($start < 1 || $start > $end) {
             return Functions::VALUE();
         }

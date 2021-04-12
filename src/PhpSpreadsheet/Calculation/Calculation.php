@@ -855,7 +855,7 @@ class Calculation
         ],
         'DISC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DISC'],
+            'functionCall' => [Financial\Securities\Rates::class, 'discount'],
             'argumentCount' => '4,5',
         ],
         'DMAX' => [
@@ -1429,7 +1429,7 @@ class Calculation
         ],
         'INTRATE' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'INTRATE'],
+            'functionCall' => [Financial\Securities\Rates::class, 'interest'],
             'argumentCount' => '4,5',
         ],
         'IPMT' => [
@@ -2078,7 +2078,7 @@ class Calculation
         ],
         'RECEIVED' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'RECEIVED'],
+            'functionCall' => [Financial\Securities\Price::class, 'received'],
             'argumentCount' => '4-5',
         ],
         'REPLACE' => [

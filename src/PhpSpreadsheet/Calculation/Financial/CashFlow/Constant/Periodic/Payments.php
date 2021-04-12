@@ -3,13 +3,12 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\BaseValidations;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\CashFlowValidations;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Payments
 {
-    use BaseValidations;
-
     /**
      * PMT.
      *
@@ -23,27 +22,27 @@ class Payments
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function annuity($interestRate, $numberOfPeriods, $presentValue, $futureValue = 0, $type = 0)
-    {
+    public static function annuity(
+        $interestRate,
+        $numberOfPeriods,
+        $presentValue,
+        $futureValue = 0,
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+    ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $interestRate = self::validateFloat($interestRate);
-            $numberOfPeriods = self::validateInt($numberOfPeriods);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
-            $type = self::validateInt($type);
+            $interestRate = CashFlowValidations::validateRate($interestRate);
+            $numberOfPeriods = CashFlowValidations::validateInt($numberOfPeriods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
+            $type = CashFlowValidations::validatePeriodType($type);
         } catch (Exception $e) {
             return $e->getMessage();
-        }
-
-        // Validate parameters
-        if ($type != 0 && $type != 1) {
-            return Functions::NAN();
         }
 
         // Calculate
@@ -76,30 +75,27 @@ class Payments
         $numberOfPeriods,
         $presentValue,
         $futureValue = 0,
-        $type = 0
+        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = ($futureValue === null) ? 0.0 : Functions::flattenSingleValue($futureValue);
-        $type = ($type === null) ? 0 : Functions::flattenSingleValue($type);
+        $type = ($type === null) ? FinancialConstants::PAYMENT_END_OF_PERIOD : Functions::flattenSingleValue($type);
 
         try {
-            $interestRate = self::validateFloat($interestRate);
-            $period = self::validateInt($period);
-            $numberOfPeriods = self::validateInt($numberOfPeriods);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
-            $type = self::validateInt($type);
+            $interestRate = CashFlowValidations::validateRate($interestRate);
+            $period = CashFlowValidations::validateInt($period);
+            $numberOfPeriods = CashFlowValidations::validateInt($numberOfPeriods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
+            $type = CashFlowValidations::validatePeriodType($type);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         // Validate parameters
-        if ($type != 0 && $type != 1) {
-            return Functions::NAN();
-        }
         if ($period <= 0 || $period > $numberOfPeriods) {
             return Functions::NAN();
         }
