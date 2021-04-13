@@ -236,11 +236,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#2 \\$pSheet of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -1021,11 +1016,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
-			message: "#^Cannot call method isFormula\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
@@ -1068,16 +1058,6 @@ parameters:
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Cannot call method isFormula\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
 
 		-
@@ -3396,11 +3376,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Csv.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
 			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Csv.php
@@ -3493,11 +3468,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
@@ -3676,11 +3646,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$h1Etc has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Html.php
@@ -3752,21 +3717,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getAttributeNS\\(\\) on DOMElement\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
@@ -3946,16 +3896,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Slk.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$styleSettingsFont has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Slk.php
@@ -4063,11 +4003,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 12
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -4231,32 +4166,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has parameter \\$cellRangeAddress with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method getHyperLink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method getDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -4557,31 +4472,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$xmlWorkbook of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readProtection\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setFormulaAttributes\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -5251,11 +5141,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\PageSetup\\:\\:\\$worksheet has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
@@ -5551,21 +5436,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
@@ -5671,43 +5541,8 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
@@ -6611,16 +6446,6 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
 			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
@@ -7126,11 +6951,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Protection.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getCellXfByIndex\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Style.php
@@ -7158,6 +6978,11 @@ parameters:
 		-
 			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Style/Style.php
+
+		-
+			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
@@ -7302,11 +7127,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between 0\\|array\\<string\\>\\|string and float\\|int results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -7562,36 +7382,21 @@ parameters:
 
 		-
 			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method cellExists\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
+			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -8041,11 +7846,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:calculateSpansOmitRows\\(\\) has parameter \\$candidateSpannedRow with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -8154,11 +7954,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
@@ -8376,38 +8171,8 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Cannot call method getRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getDatatype\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
@@ -8861,16 +8626,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
@@ -9126,26 +8881,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$pCell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellFormula\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -9156,1089 +8891,9 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getWorksheet\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/DefinedNamesCalculationTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/DefinedNamesCalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/FormulaAsStringTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/FormulaAsStringTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateDifTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateDifTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateValueTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/Days360Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/Days360Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DaysTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EDateTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EDateTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EoMonthTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EoMonthTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/HourTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/HourTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/IsoWeekNumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/IsoWeekNumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MinuteTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MinuteTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MonthTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MonthTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NetworkDaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NetworkDaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NowTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/SecondTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/SecondTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TodayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekDayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekDayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekNumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekNumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WorkDayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WorkDayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearFracTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearFracTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitAndTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitAndTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitLShiftTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitLShiftTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitOrTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitOrTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitRShiftTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitRShiftTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitXorTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitXorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AbsTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AbsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcosTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcosTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcoshTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcoshTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcothTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcothTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AllSetupTeardown.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AllSetupTeardown.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ArabicTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ArabicTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Atan2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Atan2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/BaseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/BaseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingMathTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingMathTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingPreciseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingPreciseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinATest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinATest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CosTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CosTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CoshTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CoshTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CotTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CotTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CothTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CothTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CscTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CscTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CschTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CschTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/DegreesTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/DegreesTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/EvenTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/EvenTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ExpTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ExpTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactDoubleTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactDoubleTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorMathTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorMathTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorPreciseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorPreciseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/GcdTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/GcdTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/IntTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/IntTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LcmTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LcmTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LnTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LnTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Log10Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Log10Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LogTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LogTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MInverseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MInverseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MMultTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MMultTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MRoundTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MRoundTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MdeTermTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MdeTermTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ModTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ModTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MultinomialTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MultinomialTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/OddTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/OddTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/PowerTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/PowerTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ProductTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ProductTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/QuotientTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/QuotientTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RadiansTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RadiansTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandBetweenTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandBetweenTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RomanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RomanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundDownTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundDownTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundUpTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundUpTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SechTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SechTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SeriesSumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SeriesSumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SignTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SignTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtPiTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtPiTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
 
 		-
 			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -10251,169 +8906,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumIfTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumIfTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumProductTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumProductTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumSqTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumSqTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2MY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2MY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2PY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2PY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumXMY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumXMY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TruncTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TruncTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ModeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/ReptTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/ReptTest.php
-
-		-
 			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method hasValidValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Cannot call method getDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 8
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:add\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
@@ -10431,34 +8926,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:update\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:getHighestColumn\\(\\) expects string\\|null, int given\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 14
-			path: tests/PhpSpreadsheetTests/DefinedNameTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/DefinedNameTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ActiveSheetTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\ColumnWidthTest\\:\\:testReadColumnWidth\\(\\) has parameter \\$format with no typehint specified\\.$#"
@@ -10481,18 +8951,8 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
 
 		-
@@ -10526,24 +8986,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/EnclosureTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/EnclosureTest.php
-
-		-
 			message: "#^Cannot call method getPageSetup\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Functional/ReadBlankCellsTest.php
 
 		-
 			message: "#^Cannot access offset 'size' on array\\(0 \\=\\> int, 1 \\=\\> int, 2 \\=\\> int, 3 \\=\\> int, 4 \\=\\> int, 5 \\=\\> int, 6 \\=\\> int, 7 \\=\\> int, \\.\\.\\.\\)\\|false\\.$#"
@@ -10559,26 +9004,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pFilename of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) expects resource\\|string, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getOldCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
@@ -10626,34 +9051,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 67
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
 
 		-
 			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
@@ -10661,39 +9061,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlBorderTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlLoadStringTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 50
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 16
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
 
 		-
 			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -10704,36 +9074,6 @@ parameters:
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 16
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 14
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -10756,28 +9096,8 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 52
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
 			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
 			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
 
 		-
@@ -10836,11 +9156,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
 			message: "#^Cannot call method getConditionalFormattingRuleExt\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 8
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
@@ -10849,11 +9164,6 @@ parameters:
 			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/NamedRangeTest.php
 
 		-
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
@@ -10876,49 +9186,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method hasDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\XlsxTest\\:\\:testStripsWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 11
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlOddTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 70
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlStylesTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xml\\\\XmlTest\\:\\:testInvalidSimpleXML\\(\\) has parameter \\$filename with no typehint specified\\.$#"
@@ -10931,27 +9201,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$timeZone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:setDefaultTimezone\\(\\) expects DateTimeZone\\|string, DateTimeZone\\|null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
 
@@ -10986,41 +9236,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Style/AlignmentTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 29
-			path: tests/PhpSpreadsheetTests/Style/AlignmentTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 65
-			path: tests/PhpSpreadsheetTests/Style/BorderTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
@@ -11029,51 +9244,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\> given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/FontTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/FontTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Style/StyleTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\\\Rule\\:\\:setValue\\(\\) expects array\\<string\\>\\|string, int given\\.$#"
@@ -11096,11 +9266,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilterTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Worksheet/ColumnCellIterator2Test.php
-
-		-
 			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
@@ -11121,11 +9286,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
-
-		-
 			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
@@ -11136,26 +9296,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
@@ -11164,16 +9304,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false given\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 11
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvWriteTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
@@ -11201,34 +9331,14 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
-
-		-
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlNumberFormatTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$directory of function chdir expects string, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Html/InvalidFileNameTest.php
 
 		-
 			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -11246,37 +9356,12 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xls/FormulaErrTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
@@ -11291,27 +9376,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
 
@@ -11322,11 +9387,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
 
