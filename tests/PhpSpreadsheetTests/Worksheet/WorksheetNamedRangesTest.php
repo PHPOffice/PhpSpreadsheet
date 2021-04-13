@@ -55,7 +55,7 @@ class WorksheetNamedRangesTest extends TestCase
         $namedRange = 'Range1';
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectExceptionMessage('Cell coordinate string can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->cellExists($namedRange);
@@ -118,7 +118,7 @@ class WorksheetNamedRangesTest extends TestCase
         $namedCell = 'Range1';
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectExceptionMessage('Cell coordinate string can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->getCell($namedCell);

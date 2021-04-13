@@ -5334,9 +5334,7 @@ class Calculation
         $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
             : $pCell;
-        $recursiveCalculationCellAddress = $recursiveCalculationCell !== null
-            ? $recursiveCalculationCell->getCoordinate()
-            : null;
+        $recursiveCalculationCellAddress = $recursiveCalculationCell->getCoordinate();
 
         // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
         $definedNameValue = self::$referenceHelper->updateFormulaReferencesAnyWorksheet(
