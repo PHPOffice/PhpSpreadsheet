@@ -146,8 +146,15 @@ class File
             throw new InvalidArgumentException('File "' . $filename . '" does not exist.');
         }
 
-        if (!is_readable($filename)) {
-            throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $f = @fopen($filename, 're');
+            if (!$f || !fclose($f)) {
+                throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+            }
+        } else {
+            if (!is_readable($filename)) {
+                throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+            }
         }
     }
 }
