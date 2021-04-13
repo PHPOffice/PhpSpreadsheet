@@ -102,6 +102,9 @@ class Beta
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
     }
 
+    /**
+     * @return float|string
+     */
     private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax)
     {
         $a = 0;
