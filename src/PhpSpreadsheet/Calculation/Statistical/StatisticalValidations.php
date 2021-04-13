@@ -7,6 +7,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class StatisticalValidations
 {
+    /**
+     * @param mixed $value
+     */
     public static function validateFloat($value): float
     {
         if (!is_numeric($value)) {
@@ -16,6 +19,9 @@ class StatisticalValidations
         return (float) $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     public static function validateInt($value): int
     {
         if (!is_numeric($value)) {
@@ -25,6 +31,9 @@ class StatisticalValidations
         return (int) floor($value);
     }
 
+    /**
+     * @param mixed $value
+     */
     public static function validateBool($value): bool
     {
         if (!is_bool($value) && !is_numeric($value)) {
