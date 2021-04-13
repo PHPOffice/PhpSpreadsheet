@@ -5,9 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-trait BaseValidations
+class StatisticalValidations
 {
-    protected static function validateFloat($value): float
+    public static function validateFloat($value): float
     {
         if (!is_numeric($value)) {
             throw new Exception(Functions::VALUE());
@@ -16,12 +16,21 @@ trait BaseValidations
         return (float) $value;
     }
 
-    protected static function validateInt($value): int
+    public static function validateInt($value): int
     {
         if (!is_numeric($value)) {
             throw new Exception(Functions::VALUE());
         }
 
         return (int) floor($value);
+    }
+
+    public static function validateBool($value): bool
+    {
+        if (!is_bool($value) && !is_numeric($value)) {
+            throw new Exception(Functions::VALUE());
+        }
+
+        return (bool) $value;
     }
 }

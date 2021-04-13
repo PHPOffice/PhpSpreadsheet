@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ChiSquared
 {
-    use BaseValidations;
-
     private const MAX_ITERATIONS = 256;
 
     private const EPS = 2.22e-16;
@@ -29,8 +27,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $value = self::validateFloat($value);
-            $degrees = self::validateInt($degrees);
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -67,9 +65,9 @@ class ChiSquared
         $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
-            $value = self::validateFloat($value);
-            $degrees = self::validateInt($degrees);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -109,8 +107,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateProbability($probability);
-            $degrees = self::validateInt($degrees);
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -145,8 +143,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateProbability($probability);
-            $degrees = self::validateInt($degrees);
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }

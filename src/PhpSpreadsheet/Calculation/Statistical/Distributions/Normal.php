@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Normal
 {
-    use BaseValidations;
-
     public const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
     /**
@@ -33,10 +31,10 @@ class Normal
         $stdDev = Functions::flattenSingleValue($stdDev);
 
         try {
-            $value = self::validateFloat($value);
-            $mean = self::validateFloat($mean);
-            $stdDev = self::validateFloat($stdDev);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $mean = DistributionValidations::validateFloat($mean);
+            $stdDev = DistributionValidations::validateFloat($stdDev);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -70,9 +68,9 @@ class Normal
         $stdDev = Functions::flattenSingleValue($stdDev);
 
         try {
-            $probability = self::validateProbability($probability);
-            $mean = self::validateFloat($mean);
-            $stdDev = self::validateFloat($stdDev);
+            $probability = DistributionValidations::validateProbability($probability);
+            $mean = DistributionValidations::validateFloat($mean);
+            $stdDev = DistributionValidations::validateFloat($stdDev);
         } catch (Exception $e) {
             return $e->getMessage();
         }

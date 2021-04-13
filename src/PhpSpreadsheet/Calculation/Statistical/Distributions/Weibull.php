@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Weibull
 {
-    use BaseValidations;
-
     /**
      * WEIBULL.
      *
@@ -30,10 +28,10 @@ class Weibull
         $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
-            $value = self::validateFloat($value);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
