@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ChiSquared
 {
-    use BaseValidations;
-
     private const MAX_ITERATIONS = 256;
 
     private const EPS = 2.22e-16;
@@ -29,8 +27,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $value = self::validateFloat($value);
-            $degrees = self::validateInt($degrees);
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -67,9 +65,9 @@ class ChiSquared
         $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
-            $value = self::validateFloat($value);
-            $degrees = self::validateInt($degrees);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -109,8 +107,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateProbability($probability);
-            $degrees = self::validateInt($degrees);
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -145,8 +143,8 @@ class ChiSquared
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateProbability($probability);
-            $degrees = self::validateInt($degrees);
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -158,6 +156,18 @@ class ChiSquared
         return self::inverseLeftTailCalculation($probability, $degrees);
     }
 
+    /**
+     * CHITEST.
+     *
+     * Uses the chi-square test to calculate the probability that the differences between two supplied data sets
+     *      (of observed and expected frequencies), are likely to be simply due to sampling error,
+     *      or if they are likely to be real.
+     *
+     * @param mixed $actual an array of observed frequencies
+     * @param mixed $expected an array of expected frequencies
+     *
+     * @return float|string
+     */
     public static function test($actual, $expected)
     {
         $rows = count($actual);
@@ -199,7 +209,7 @@ class ChiSquared
         return ($columns - 1) * ($rows - 1);
     }
 
-    private static function inverseLeftTailCalculation($probability, $degrees)
+    private static function inverseLeftTailCalculation(float $probability, int $degrees): float
     {
         // bracket the root
         $min = 0;

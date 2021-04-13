@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Gamma extends GammaBase
 {
-    use BaseValidations;
-
     /**
      * GAMMA.
      *
@@ -23,7 +21,7 @@ class Gamma extends GammaBase
         $value = Functions::flattenSingleValue($value);
 
         try {
-            $value = self::validateFloat($value);
+            $value = DistributionValidations::validateFloat($value);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -54,10 +52,10 @@ class Gamma extends GammaBase
         $b = Functions::flattenSingleValue($b);
 
         try {
-            $value = self::validateFloat($value);
-            $a = self::validateFloat($a);
-            $b = self::validateFloat($b);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $a = DistributionValidations::validateFloat($a);
+            $b = DistributionValidations::validateFloat($b);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -87,9 +85,9 @@ class Gamma extends GammaBase
         $beta = Functions::flattenSingleValue($beta);
 
         try {
-            $probability = self::validateProbability($probability);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
+            $probability = DistributionValidations::validateProbability($probability);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -115,7 +113,7 @@ class Gamma extends GammaBase
         $value = Functions::flattenSingleValue($value);
 
         try {
-            $value = self::validateFloat($value);
+            $value = DistributionValidations::validateFloat($value);
         } catch (Exception $e) {
             return $e->getMessage();
         }

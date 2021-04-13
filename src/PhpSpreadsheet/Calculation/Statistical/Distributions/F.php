@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class F
 {
-    use BaseValidations;
-
     /**
      * F.DIST.
      *
@@ -32,10 +30,10 @@ class F
         $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
-            $value = self::validateFloat($value);
-            $u = self::validateInt($u);
-            $v = self::validateInt($v);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $u = DistributionValidations::validateInt($u);
+            $v = DistributionValidations::validateInt($v);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }

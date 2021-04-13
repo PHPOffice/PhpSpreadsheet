@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Percentiles
 {
-    use BaseValidations;
-
     public const RANK_SORT_DESCENDING = 0;
 
     public const RANK_SORT_ASCENDING = 1;
@@ -33,7 +31,7 @@ class Percentiles
         $entry = array_pop($aArgs);
 
         try {
-            $entry = self::validateFloat($entry);
+            $entry = StatisticalValidations::validateFloat($entry);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -82,8 +80,8 @@ class Percentiles
         $significance = ($significance === null) ? 3 : Functions::flattenSingleValue($significance);
 
         try {
-            $value = self::validateFloat($value);
-            $significance = self::validateInt($significance);
+            $value = StatisticalValidations::validateFloat($value);
+            $significance = StatisticalValidations::validateInt($significance);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -132,7 +130,7 @@ class Percentiles
         $entry = array_pop($aArgs);
 
         try {
-            $entry = self::validateFloat($entry);
+            $entry = StatisticalValidations::validateFloat($entry);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -164,8 +162,8 @@ class Percentiles
         $order = ($order === null) ? self::RANK_SORT_DESCENDING : Functions::flattenSingleValue($order);
 
         try {
-            $value = self::validateFloat($value);
-            $order = self::validateInt($order);
+            $value = StatisticalValidations::validateFloat($value);
+            $order = StatisticalValidations::validateInt($order);
         } catch (Exception $e) {
             return $e->getMessage();
         }

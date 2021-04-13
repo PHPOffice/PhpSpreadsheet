@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Permutations
 {
-    use BaseValidations;
-
     /**
      * PERMUT.
      *
@@ -30,8 +28,8 @@ class Permutations
         $numInSet = Functions::flattenSingleValue($numInSet);
 
         try {
-            $numObjs = self::validateInt($numObjs);
-            $numInSet = self::validateInt($numInSet);
+            $numObjs = StatisticalValidations::validateInt($numObjs);
+            $numInSet = StatisticalValidations::validateInt($numInSet);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -60,8 +58,8 @@ class Permutations
         $numInSet = Functions::flattenSingleValue($numInSet);
 
         try {
-            $numObjs = self::validateInt($numObjs);
-            $numInSet = self::validateInt($numInSet);
+            $numObjs = StatisticalValidations::validateInt($numObjs);
+            $numInSet = StatisticalValidations::validateInt($numInSet);
         } catch (Exception $e) {
             return $e->getMessage();
         }
