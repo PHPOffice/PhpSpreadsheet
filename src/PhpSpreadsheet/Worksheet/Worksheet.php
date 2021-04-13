@@ -1174,6 +1174,14 @@ class Worksheet implements IComparable
      */
     public function getCell(string $coordinate): Cell
     {
+        // Shortcut for increased performance for the vast majority of simple cases
+        if ($this->cellCollection->has($coordinate)) {
+            /** @var Cell $cell */
+            $cell = $this->cellCollection->get($coordinate);
+
+            return $cell;
+        }
+
         /** @var Worksheet $sheet */
         [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($coordinate);
         $cell = $sheet->cellCollection->get($finalCoordinate);
