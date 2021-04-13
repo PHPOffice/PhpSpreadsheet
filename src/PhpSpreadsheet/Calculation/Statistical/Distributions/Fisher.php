@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Fisher
 {
-    use BaseValidations;
-
     /**
      * FISHER.
      *
@@ -25,7 +23,7 @@ class Fisher
         $value = Functions::flattenSingleValue($value);
 
         try {
-            self::validateFloat($value);
+            DistributionValidations::validateFloat($value);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -53,7 +51,7 @@ class Fisher
         $probability = Functions::flattenSingleValue($probability);
 
         try {
-            self::validateFloat($probability);
+            DistributionValidations::validateFloat($probability);
         } catch (Exception $e) {
             return $e->getMessage();
         }

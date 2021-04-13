@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class StudentT
 {
-    use BaseValidations;
-
     private const MAX_ITERATIONS = 256;
 
     /**
@@ -29,9 +27,9 @@ class StudentT
         $tails = Functions::flattenSingleValue($tails);
 
         try {
-            $value = self::validateFloat($value);
-            $degrees = self::validateInt($degrees);
-            $tails = self::validateInt($tails);
+            $value = DistributionValidations::validateFloat($value);
+            $degrees = DistributionValidations::validateInt($degrees);
+            $tails = DistributionValidations::validateInt($tails);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -59,8 +57,8 @@ class StudentT
         $degrees = Functions::flattenSingleValue($degrees);
 
         try {
-            $probability = self::validateProbability($probability);
-            $degrees = self::validateInt($degrees);
+            $probability = DistributionValidations::validateProbability($probability);
+            $degrees = DistributionValidations::validateInt($degrees);
         } catch (Exception $e) {
             return $e->getMessage();
         }

@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Confidence
 {
-    use BaseValidations;
-
     /**
      * CONFIDENCE.
      *
@@ -27,9 +25,9 @@ class Confidence
         $size = Functions::flattenSingleValue($size);
 
         try {
-            $alpha = self::validateFloat($alpha);
-            $stdDev = self::validateFloat($stdDev);
-            $size = self::validateInt($size);
+            $alpha = StatisticalValidations::validateFloat($alpha);
+            $stdDev = StatisticalValidations::validateFloat($stdDev);
+            $size = StatisticalValidations::validateInt($size);
         } catch (Exception $e) {
             return $e->getMessage();
         }

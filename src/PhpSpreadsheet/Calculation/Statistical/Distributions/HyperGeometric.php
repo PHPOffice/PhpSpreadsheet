@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class HyperGeometric
 {
-    use BaseValidations;
-
     /**
      * HYPGEOMDIST.
      *
@@ -31,10 +29,10 @@ class HyperGeometric
         $populationNumber = Functions::flattenSingleValue($populationNumber);
 
         try {
-            $sampleSuccesses = self::validateInt($sampleSuccesses);
-            $sampleNumber = self::validateInt($sampleNumber);
-            $populationSuccesses = self::validateInt($populationSuccesses);
-            $populationNumber = self::validateInt($populationNumber);
+            $sampleSuccesses = DistributionValidations::validateInt($sampleSuccesses);
+            $sampleNumber = DistributionValidations::validateInt($sampleNumber);
+            $populationSuccesses = DistributionValidations::validateInt($populationSuccesses);
+            $populationNumber = DistributionValidations::validateInt($populationNumber);
         } catch (Exception $e) {
             return $e->getMessage();
         }
