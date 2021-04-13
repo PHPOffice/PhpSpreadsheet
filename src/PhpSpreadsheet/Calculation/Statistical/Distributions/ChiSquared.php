@@ -163,8 +163,8 @@ class ChiSquared
      *      (of observed and expected frequencies), are likely to be simply due to sampling error,
      *      or if they are likely to be real.
      *
-     * @param mixed $actual An array of observed frequencies.
-     * @param mixed $expected An array of expected frequencies.
+     * @param mixed $actual an array of observed frequencies
+     * @param mixed $expected an array of expected frequencies
      *
      * @return float|string
      */
@@ -209,7 +209,7 @@ class ChiSquared
         return ($columns - 1) * ($rows - 1);
     }
 
-    private static function inverseLeftTailCalculation($probability, $degrees): float
+    private static function inverseLeftTailCalculation(float $probability, int $degrees): float
     {
         // bracket the root
         $min = 0;

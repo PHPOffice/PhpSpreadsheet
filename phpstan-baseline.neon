@@ -1501,21 +1501,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:percentileFilterValues\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
@@ -1524,36 +1509,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:rankFilterValues\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Permutations\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Permutations\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array1 with no typehint specified\\.$#"
@@ -1611,11 +1566,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:calculateInverse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheP has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
@@ -1631,36 +1581,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 
 		-
-			message: "#^Binary operation \"\\*\" between int\\|string and \\(float\\|int\\) results in an error\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
 			message: "#^Binary operation \"\\-\" between 1 and float\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has parameter \\$actual with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has parameter \\$expected with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:inverseLeftTailCalculation\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
+    	-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:inverseLeftTailCalculation\\(\\) has parameter \\$degrees with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
@@ -1731,44 +1656,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
 			message: "#^Binary operation \"\\*\" between int\\|string and int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has no return typehint specified\\.$#"
@@ -1779,21 +1669,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has parameter \\$p with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:calculateDistribution\\(\\) has no return typehint specified\\.$#"
