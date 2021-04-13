@@ -527,7 +527,9 @@ class Html extends BaseReader
     private function processDomElementWidth(Worksheet $sheet, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['width'])) {
-            $sheet->getColumnDimension($column)->setWidth($attributeArray['width']);
+            $sheet->getColumnDimension($column)->setWidth(
+                (new Html\Dimension($attributeArray['width']))->width()
+            );
         }
     }
 
@@ -878,7 +880,7 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        str_replace('px', '', $styleValue)
+                        (new Html\Dimension($styleValue))->width()
                     );
 
                     break;
