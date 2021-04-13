@@ -28,7 +28,7 @@ class StatisticalValidations
             throw new Exception(Functions::VALUE());
         }
 
-        return (int) floor($value);
+        return (int) floor((float) $value);
     }
 
     /**
