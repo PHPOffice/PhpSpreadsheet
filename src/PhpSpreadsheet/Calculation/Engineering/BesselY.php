@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BesselY
 {
-    use BaseValidations;
-
     /**
      * BESSELY.
      *
@@ -28,12 +26,12 @@ class BesselY
      */
     public static function BESSELY($x, $ord)
     {
-        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = ($ord === null) ? 0 : Functions::flattenSingleValue($ord);
+        $x = Functions::flattenSingleValue($x);
+        $ord = Functions::flattenSingleValue($ord);
 
         try {
-            $x = self::validateFloat($x);
-            $ord = self::validateInt($ord);
+            $x = EngineeringValidations::validateFloat($x);
+            $ord = EngineeringValidations::validateInt($ord);
         } catch (Exception $e) {
             return $e->getMessage();
         }

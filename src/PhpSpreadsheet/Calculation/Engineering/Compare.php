@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Compare
 {
-    use BaseValidations;
-
     /**
      * DELTA.
      *
@@ -31,8 +29,8 @@ class Compare
         $b = Functions::flattenSingleValue($b);
 
         try {
-            $a = self::validateFloat($a);
-            $b = self::validateFloat($b);
+            $a = EngineeringValidations::validateFloat($a);
+            $b = EngineeringValidations::validateFloat($b);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -61,8 +59,8 @@ class Compare
         $step = Functions::flattenSingleValue($step);
 
         try {
-            $number = self::validateFloat($number);
-            $step = self::validateFloat($step);
+            $number = EngineeringValidations::validateFloat($number);
+            $step = EngineeringValidations::validateFloat($step);
         } catch (Exception $e) {
             return $e->getMessage();
         }
