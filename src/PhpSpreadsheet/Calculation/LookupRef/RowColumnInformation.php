@@ -56,8 +56,8 @@ class RowColumnInformation
             }
         }
 
-        if ($pCell) {
-            [, , $cellAddress] = Helpers::extractCellAddresses((string) $cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
+        if (is_string($cellAddress) && $pCell) {
+            [, , $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
         }
         [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
@@ -145,8 +145,8 @@ class RowColumnInformation
             }
         }
 
-        if ($pCell) {
-            [, , $cellAddress] = Helpers::extractCellAddresses((string) $cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
+        if (is_string($cellAddress) && $pCell) {
+            [, , $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
         }
         [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {

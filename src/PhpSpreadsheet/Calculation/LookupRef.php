@@ -188,7 +188,7 @@ class LookupRef
      *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      *
-     * @param null|array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
+     * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param Cell $pCell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error

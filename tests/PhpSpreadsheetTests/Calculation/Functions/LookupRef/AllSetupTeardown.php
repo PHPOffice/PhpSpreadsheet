@@ -6,14 +6,24 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
+    /**
+     * @var string
+     */
     protected $compatibilityMode;
 
+    /**
+     * @var Spreadsheet
+     */
     protected $spreadsheet;
 
+    /**
+     * @var Worksheet
+     */
     protected $sheet;
 
     protected function setUp(): void

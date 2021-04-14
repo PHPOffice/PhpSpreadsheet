@@ -33,7 +33,7 @@ class ColumnsOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMNSonSpreadsheet()
+    public function providerCOLUMNSonSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNSonSpreadsheet.php';
     }
