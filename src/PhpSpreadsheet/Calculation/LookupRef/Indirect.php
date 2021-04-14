@@ -5,9 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Indirect
@@ -45,42 +43,6 @@ class Indirect
         return $cellAddress;
     }
 
-    private static function convertR1C1(string &$cellAddress1, ?string &$cellAddress2, bool $a1): string
-    {
-        if (!$a1) {
-            $cellAddress1 = AddressHelper::convertToA1($cellAddress1);
-            if ($cellAddress2) {
-                $cellAddress2 = AddressHelper::convertToA1($cellAddress2);
-            }
-        }
-
-        return $cellAddress1 . ($cellAddress2 ? ":$cellAddress2" : '');
-    }
-
-    private static function extractCellAddresses(string $cellAddress, bool $a1, Spreadsheet $spreadsheet, Worksheet $sheet): array
-    {
-        $cellAddress1 = $cellAddress;
-        $cellAddress2 = null;
-        $namedRanges = $spreadsheet->getNamedRanges();
-        foreach ($namedRanges as $namedRange) {
-            $scope = $namedRange->getScope();
-            if ($cellAddress1 === $namedRange->getName() && ($scope === null || $scope === $sheet)) {
-                $sheet = $namedRange->getWorkSheet()->getTitle() . '!';
-                $cellAddress1 = $sheet . $namedRange->getValue();
-                $cellAddress = $cellAddress1;
-                $a1 = true;
-
-                break;
-            }
-        }
-        if (strpos($cellAddress, ':') !== false) {
-            [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);
-        }
-        $cellAddress = self::convertR1C1($cellAddress1, $cellAddress2, $a1);
-
-        return [$cellAddress1, $cellAddress2, $cellAddress];
-    }
-
     /**
      * INDIRECT.
      *
@@ -108,7 +70,7 @@ class Indirect
 
         [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
 
-        [$cellAddress1, $cellAddress2, $cellAddress] = self::extractCellAddresses($cellAddress, $a1, $spreadsheet, $pCell->getWorkSheet());
+        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $spreadsheet, $pCell->getWorkSheet());
 
         if (
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
