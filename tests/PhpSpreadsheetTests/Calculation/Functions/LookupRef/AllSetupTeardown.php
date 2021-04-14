@@ -17,12 +17,12 @@ class AllSetupTeardown extends TestCase
     protected $compatibilityMode;
 
     /**
-     * @var Spreadsheet
+     * @var ?Spreadsheet
      */
     protected $spreadsheet;
 
     /**
-     * @var Worksheet
+     * @var ?Worksheet
      */
     protected $sheet;
 

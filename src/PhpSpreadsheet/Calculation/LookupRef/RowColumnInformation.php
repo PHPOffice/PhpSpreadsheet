@@ -56,10 +56,11 @@ class RowColumnInformation
             }
         }
 
-        if (is_string($cellAddress) && $pCell) {
+        $cellAddress = is_string($cellAddress) ? $cellAddress : '';
+        if ($pCell) {
             [, , $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
         }
-        [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
+        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
@@ -145,10 +146,11 @@ class RowColumnInformation
             }
         }
 
-        if (is_string($cellAddress) && $pCell) {
+        $cellAddress = is_string($cellAddress) ? $cellAddress : '';
+        if ($pCell) {
             [, , $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet());
         }
-        [, $cellAddress] = Worksheet::extractSheetTitle((string) $cellAddress, true);
+        [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = preg_replace('/\D/', '', $startAddress);

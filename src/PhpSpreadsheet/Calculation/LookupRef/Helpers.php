@@ -28,7 +28,10 @@ class Helpers
         foreach ($namedRanges as $namedRange) {
             $scope = $namedRange->getScope();
             if ($cellAddress1 === $namedRange->getName() && ($scope === null || $scope === $sheet)) {
-                $sheet = $namedRange->getWorkSheet() ? ($namedRange->getWorkSheet()->getTitle() . '!') : '';
+                $sheet = '';
+                if ($namedRange->getWorkSheet() !== null) {
+                    $sheet = $namedRange->getWorkSheet()->getTitle() . '!';
+                }
                 $cellAddress1 = $sheet . $namedRange->getValue();
                 $cellAddress = $cellAddress1;
                 $a1 = true;
