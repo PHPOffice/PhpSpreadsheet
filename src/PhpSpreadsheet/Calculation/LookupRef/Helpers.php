@@ -32,7 +32,8 @@ class Helpers
                 if ($namedRange->getWorkSheet() !== null) {
                     $sheet = $namedRange->getWorkSheet()->getTitle() . '!';
                 }
-                $cellAddress1 = $sheet . $namedRange->getValue();
+                $value = preg_replace('/^=/', '', $namedRange->getValue());
+                $cellAddress1 = $sheet . $value;
                 $cellAddress = $cellAddress1;
                 $a1 = true;
 
