@@ -74,4 +74,21 @@ class IndirectTest extends AllSetupTeardown
         $result = $sheet->getCell('B3')->getCalculatedValue();
         self::assertSame('#REF!', $result);
     }
+
+    public function testINDIRECTEurUsd(): void
+    {
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue('EUR');
+        $sheet->getCell('A2')->setValue('USD');
+        $sheet->getCell('B1')->setValue(360);
+        $sheet->getCell('B2')->setValue(300);
+
+        $this->spreadsheet->addNamedRange(new NamedRange('EUR', $sheet, '$B$1'));
+        $this->spreadsheet->addNamedRange(new NamedRange('USD', $sheet, '$B$2'));
+
+        $this->setCell('E1', '=INDIRECT("USD")');
+
+        $result = $sheet->getCell('E1')->getCalculatedValue();
+        self::assertSame(300, $result);
+    }
 }
