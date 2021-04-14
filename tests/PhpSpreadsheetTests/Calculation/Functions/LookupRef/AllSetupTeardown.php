@@ -17,12 +17,12 @@ class AllSetupTeardown extends TestCase
     protected $compatibilityMode;
 
     /**
-     * @var ?Spreadsheet
+     * @var Spreadsheet
      */
     protected $spreadsheet;
 
     /**
-     * @var ?Worksheet
+     * @var Worksheet
      */
     protected $sheet;
 
@@ -37,8 +37,6 @@ class AllSetupTeardown extends TestCase
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
         $this->spreadsheet->disconnectWorksheets();
-        $this->spreadsheet = null;
-        $this->sheet = null;
     }
 
     protected static function setOpenOffice(): void
