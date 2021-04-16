@@ -148,8 +148,8 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @param mixed $linkURL URL Value to check, is also the value returned when no error
-     * @param mixed $displayName String Value to return when testValue is an error condition
+     * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
+     * @param mixed $displayName Expect string. Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
@@ -188,16 +188,16 @@ class LookupRef
      *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      *
-     * @param null|array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
+     * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param Cell $pCell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      *
      * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
-    public static function INDIRECT($cellAddress = null, ?Cell $pCell = null)
+    public static function INDIRECT($cellAddress, Cell $pCell)
     {
-        return Indirect::INDIRECT($cellAddress, $pCell);
+        return Indirect::INDIRECT($cellAddress, true, $pCell);
     }
 
     /**
