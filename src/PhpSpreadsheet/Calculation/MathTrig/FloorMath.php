@@ -21,7 +21,7 @@ class FloorMath
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcFloorMath($number, $significance = null, $mode = 0)
+    public static function evaluate($number, $significance = null, $mode = 0)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

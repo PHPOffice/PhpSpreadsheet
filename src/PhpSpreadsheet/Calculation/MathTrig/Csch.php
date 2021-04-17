@@ -15,7 +15,7 @@ class Csch
      *
      * @return float|string The hyperbolic cosecant of the angle
      */
-    public static function funcCsch($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

@@ -36,7 +36,7 @@ class MathTrig
      * Note that the Excel ATAN2() function accepts its arguments in the reverse order to the standard
      *        PHP atan2() function, so we need to reverse them here before calling the PHP atan() function.
      *
-     * @Deprecated 2.0.0 Use the funcAtan2 method in the MathTrig\Atan2 class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Atan2 class instead
      *
      * Excel Function:
      *        ATAN2(xCoordinate,yCoordinate)
@@ -48,7 +48,7 @@ class MathTrig
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
-        return MathTrig\Atan2::funcAtan2($xCoordinate, $yCoordinate);
+        return MathTrig\Atan2::evaluate($xCoordinate, $yCoordinate);
     }
 
     /**
@@ -56,7 +56,7 @@ class MathTrig
      *
      * Converts a number into a text representation with the given radix (base).
      *
-     * @Deprecated 2.0.0 Use the funcBase method in the MathTrig\Base class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Base class instead
      *
      * Excel Function:
      *        BASE(Number, Radix [Min_length])
@@ -69,7 +69,7 @@ class MathTrig
      */
     public static function BASE($number, $radix, $minLength = null)
     {
-        return MathTrig\Base::funcBase($number, $radix, $minLength);
+        return MathTrig\Base::evaluate($number, $radix, $minLength);
     }
 
     /**
@@ -85,7 +85,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcCeiling() method in the MathTrig\Ceiling class instead
+     * @see Use the evaluate method in the MathTrig\Ceiling class instead
      *
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
@@ -94,7 +94,7 @@ class MathTrig
      */
     public static function CEILING($number, $significance = null)
     {
-        return MathTrig\Ceiling::funcCeiling($number, $significance);
+        return MathTrig\Ceiling::evaluate($number, $significance);
     }
 
     /**
@@ -121,7 +121,7 @@ class MathTrig
     /**
      * EVEN.
      *
-     * @Deprecated 2.0.0 Use the funcEven method in the MathTrig\Even class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Even class instead
      *
      * Returns number rounded up to the nearest even integer.
      * You can use this function for processing items that come in twos. For example,
@@ -138,7 +138,7 @@ class MathTrig
      */
     public static function EVEN($number)
     {
-        return MathTrig\Even::funcEven($number);
+        return MathTrig\Even::evaluate($number);
     }
 
     /**
@@ -157,7 +157,7 @@ class MathTrig
      * Returns the factorial of a number.
      * The factorial of a number is equal to 1*2*3*...* number.
      *
-     * @Deprecated 2.0.0 Use the funcFact method in the MathTrig\Fact class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Fact class instead
      *
      * Excel Function:
      *        FACT(factVal)
@@ -168,7 +168,7 @@ class MathTrig
      */
     public static function FACT($factVal)
     {
-        return MathTrig\Fact::funcFact($factVal);
+        return MathTrig\Fact::evaluate($factVal);
     }
 
     /**
@@ -200,7 +200,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloor() method in the MathTrig\Floor class instead
+     * @see Use the evaluate method in the MathTrig\Floor class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -209,7 +209,7 @@ class MathTrig
      */
     public static function FLOOR($number, $significance = null)
     {
-        return MathTrig\Floor::funcFloor($number, $significance);
+        return MathTrig\Floor::evaluate($number, $significance);
     }
 
     /**
@@ -222,7 +222,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloorMath() method in the MathTrig\FloorMath class instead
+     * @see Use the evaluate method in the MathTrig\FloorMath class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -232,7 +232,7 @@ class MathTrig
      */
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
-        return MathTrig\FloorMath::funcFloorMath($number, $significance, $mode);
+        return MathTrig\FloorMath::evaluate($number, $significance, $mode);
     }
 
     /**
@@ -245,7 +245,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloorPrecise() method in the MathTrig\FloorPrecise class instead
+     * @see Use the evaluate method in the MathTrig\FloorPrecise class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -254,7 +254,7 @@ class MathTrig
      */
     public static function FLOORPRECISE($number, $significance = 1)
     {
-        return MathTrig\FloorPrecise::funcFloorPrecise($number, $significance);
+        return MathTrig\FloorPrecise::evaluate($number, $significance);
     }
 
     /**
@@ -267,7 +267,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcInt() method in the MathTrig\IntClass class instead
+     * @see Use the evaluate method in the MathTrig\IntClass class instead
      *
      * @param float $number Number to cast to an integer
      *
@@ -275,7 +275,7 @@ class MathTrig
      */
     public static function INT($number)
     {
-        return MathTrig\IntClass::funcInt($number);
+        return MathTrig\IntClass::evaluate($number);
     }
 
     /**
@@ -307,7 +307,7 @@ class MathTrig
      * of all integer arguments number1, number2, and so on. Use LCM to add fractions
      * with different denominators.
      *
-     * @Deprecated 2.0.0 Use the funcLcm method in the MathTrig\Lcm class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Lcm class instead
      *
      * Excel Function:
      *        LCM(number1[,number2[, ...]])
@@ -318,7 +318,7 @@ class MathTrig
      */
     public static function LCM(...$args)
     {
-        return MathTrig\Lcm::funcLcm(...$args);
+        return MathTrig\Lcm::evaluate(...$args);
     }
 
     /**
@@ -346,7 +346,7 @@ class MathTrig
      *
      * Returns the matrix determinant of an array.
      *
-     * @Deprecated 2.0.0 Use the funcMDeterm method in the MathTrig\MatrixFuncs class instead
+     * @Deprecated 2.0.0 Use the Determinant method in the MathTrig\MatrixFuncs class instead
      *
      * Excel Function:
      *        MDETERM(array)
@@ -357,7 +357,7 @@ class MathTrig
      */
     public static function MDETERM($matrixValues)
     {
-        return MathTrig\MatrixFunctions::funcMDeterm($matrixValues);
+        return MathTrig\MatrixFunctions::determinant($matrixValues);
     }
 
     /**
@@ -365,7 +365,7 @@ class MathTrig
      *
      * Returns the inverse matrix for the matrix stored in an array.
      *
-     * @Deprecated 2.0.0 Use the funcMInverse method in the MathTrig\MatrixFuncs class instead
+     * @Deprecated 2.0.0 Use the Inverse method in the MathTrig\MatrixFuncs class instead
      *
      * Excel Function:
      *        MINVERSE(array)
@@ -376,13 +376,13 @@ class MathTrig
      */
     public static function MINVERSE($matrixValues)
     {
-        return MathTrig\MatrixFunctions::funcMInverse($matrixValues);
+        return MathTrig\MatrixFunctions::inverse($matrixValues);
     }
 
     /**
      * MMULT.
      *
-     * @Deprecated 2.0.0 Use the funcMMult method in the MathTrig\MatrixFuncs class instead
+     * @Deprecated 2.0.0 Use the Multiply method in the MathTrig\MatrixFuncs class instead
      *
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
@@ -391,7 +391,7 @@ class MathTrig
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
-        return MathTrig\MatrixFunctions::funcMMult($matrixData1, $matrixData2);
+        return MathTrig\MatrixFunctions::multiply($matrixData1, $matrixData2);
     }
 
     /**
@@ -416,7 +416,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcMround() method in the MathTrig\Mround class instead
+     * @see Use the evaluate method in the MathTrig\Mround class instead
      *
      * @param float $number Number to round
      * @param int $multiple Multiple to which you want to round $number
@@ -425,7 +425,7 @@ class MathTrig
      */
     public static function MROUND($number, $multiple)
     {
-        return MathTrig\Mround::funcMround($number, $multiple);
+        return MathTrig\Mround::evaluate($number, $multiple);
     }
 
     /**
@@ -433,7 +433,7 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
-     * @Deprecated 2.0.0 Use the funcMultinomial method in the MathTrig\Multinomial class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Multinomial class instead
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
@@ -441,7 +441,7 @@ class MathTrig
      */
     public static function MULTINOMIAL(...$args)
     {
-        return MathTrig\Multinomial::funcMultinomial(...$args);
+        return MathTrig\Multinomial::evaluate(...$args);
     }
 
     /**
@@ -449,7 +449,7 @@ class MathTrig
      *
      * Returns number rounded up to the nearest odd integer.
      *
-     * @Deprecated 2.0.0 Use the funcOdd method in the MathTrig\Odd class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Odd class instead
      *
      * @param float $number Number to round
      *
@@ -457,7 +457,7 @@ class MathTrig
      */
     public static function ODD($number)
     {
-        return MathTrig\Odd::funcOdd($number);
+        return MathTrig\Odd::evaluate($number);
     }
 
     /**
@@ -482,7 +482,7 @@ class MathTrig
      *
      * PRODUCT returns the product of all the values and cells referenced in the argument list.
      *
-     * @Deprecated 2.0.0 Use the funcProduct method in the MathTrig\Product class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Product class instead
      *
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
@@ -493,7 +493,7 @@ class MathTrig
      */
     public static function PRODUCT(...$args)
     {
-        return MathTrig\Product::funcProduct(...$args);
+        return MathTrig\Product::evaluate(...$args);
     }
 
     /**
@@ -502,7 +502,7 @@ class MathTrig
      * QUOTIENT function returns the integer portion of a division. Numerator is the divided number
      *        and denominator is the divisor.
      *
-     * @Deprecated 2.0.0 Use the funcQuotient method in the MathTrig\Quotient class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Quotient class instead
      *
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
@@ -514,7 +514,7 @@ class MathTrig
      */
     public static function QUOTIENT($numerator, $denominator)
     {
-        return MathTrig\Quotient::funcQuotient($numerator, $denominator);
+        return MathTrig\Quotient::evaluate($numerator, $denominator);
     }
 
     /**
@@ -539,7 +539,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcRoman() method in the MathTrig\Roman class instead
+     * @see Use the evaluate method in the MathTrig\Roman class instead
      *
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
@@ -548,7 +548,7 @@ class MathTrig
      */
     public static function ROMAN($aValue, $style = 0)
     {
-        return MathTrig\Roman::funcRoman($aValue, $style);
+        return MathTrig\Roman::evaluate($aValue, $style);
     }
 
     /**
@@ -567,7 +567,7 @@ class MathTrig
      */
     public static function ROUNDUP($number, $digits)
     {
-        return MathTrig\RoundUp::funcRoundUp($number, $digits);
+        return MathTrig\RoundUp::evaluate($number, $digits);
     }
 
     /**
@@ -577,7 +577,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcRoundDown() method in the MathTrig\RoundDown class instead
+     * @see Use the evaluate method in the MathTrig\RoundDown class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -586,7 +586,7 @@ class MathTrig
      */
     public static function ROUNDDOWN($number, $digits)
     {
-        return MathTrig\RoundDown::funcRoundDown($number, $digits);
+        return MathTrig\RoundDown::evaluate($number, $digits);
     }
 
     /**
@@ -594,7 +594,7 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @Deprecated 2.0.0 Use the funcSeriesSum method in the MathTrig\SeriesSum class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\SeriesSum class instead
      *
      * @param mixed $x Input value
      * @param mixed $n Initial power
@@ -605,7 +605,7 @@ class MathTrig
      */
     public static function SERIESSUM($x, $n, $m, ...$args)
     {
-        return MathTrig\SeriesSum::funcSeriesSum($x, $n, $m, ...$args);
+        return MathTrig\SeriesSum::evaluate($x, $n, $m, ...$args);
     }
 
     /**
@@ -614,7 +614,7 @@ class MathTrig
      * Determines the sign of a number. Returns 1 if the number is positive, zero (0)
      *        if the number is 0, and -1 if the number is negative.
      *
-     * @Deprecated 2.0.0 Use the funcSign method in the MathTrig\Sign class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sign class instead
      *
      * @param float $number Number to round
      *
@@ -622,7 +622,7 @@ class MathTrig
      */
     public static function SIGN($number)
     {
-        return MathTrig\Sign::funcSign($number);
+        return MathTrig\Sign::evaluate($number);
     }
 
     /**
@@ -656,7 +656,7 @@ class MathTrig
      *
      * Returns a subtotal in a list or database.
      *
-     * @Deprecated 2.0.0 Use the funcSubtotal method in the MathTrig\Subtotal class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Subtotal class instead
      *
      * @param int $functionType
      *            A number 1 to 11 that specifies which function to
@@ -671,7 +671,7 @@ class MathTrig
      */
     public static function SUBTOTAL($functionType, ...$args)
     {
-        return MathTrig\Subtotal::funcSubtotal($functionType, ...$args);
+        return MathTrig\Subtotal::evaluate($functionType, ...$args);
     }
 
     /**
@@ -745,7 +745,7 @@ class MathTrig
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
-     * @Deprecated 2.0.0 Use the funcSumProduct method in the MathTrig\SumProduct class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\SumProduct class instead
      *
      * @param mixed ...$args Data values
      *
@@ -753,7 +753,7 @@ class MathTrig
      */
     public static function SUMPRODUCT(...$args)
     {
-        return MathTrig\SumProduct::funcSumProduct(...$args);
+        return MathTrig\SumProduct::evaluate(...$args);
     }
 
     /**
@@ -836,7 +836,7 @@ class MathTrig
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
-        return MathTrig\Trunc::funcTrunc($value, $digits);
+        return MathTrig\Trunc::evaluate($value, $digits);
     }
 
     /**
@@ -844,7 +844,7 @@ class MathTrig
      *
      * Returns the secant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcSec method in the MathTrig\Sec class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sec class instead
      *
      * @param float $angle Number
      *
@@ -852,7 +852,7 @@ class MathTrig
      */
     public static function SEC($angle)
     {
-        return MathTrig\Sec::funcSec($angle);
+        return MathTrig\Sec::evaluate($angle);
     }
 
     /**
@@ -860,7 +860,7 @@ class MathTrig
      *
      * Returns the hyperbolic secant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcSech method in the MathTrig\Sech class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sech class instead
      *
      * @param float $angle Number
      *
@@ -868,7 +868,7 @@ class MathTrig
      */
     public static function SECH($angle)
     {
-        return MathTrig\Sech::funcSech($angle);
+        return MathTrig\Sech::evaluate($angle);
     }
 
     /**
@@ -876,7 +876,7 @@ class MathTrig
      *
      * Returns the cosecant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCsc method in the MathTrig\Csc class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Csc class instead
      *
      * @param float $angle Number
      *
@@ -884,7 +884,7 @@ class MathTrig
      */
     public static function CSC($angle)
     {
-        return MathTrig\Csc::funcCsc($angle);
+        return MathTrig\Csc::evaluate($angle);
     }
 
     /**
@@ -892,7 +892,7 @@ class MathTrig
      *
      * Returns the hyperbolic cosecant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCsch method in the MathTrig\Csch class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Csch class instead
      *
      * @param float $angle Number
      *
@@ -900,7 +900,7 @@ class MathTrig
      */
     public static function CSCH($angle)
     {
-        return MathTrig\Csch::funcCsch($angle);
+        return MathTrig\Csch::evaluate($angle);
     }
 
     /**
@@ -908,7 +908,7 @@ class MathTrig
      *
      * Returns the cotangent of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCot method in the MathTrig\Cot class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Cot class instead
      *
      * @param float $angle Number
      *
@@ -916,7 +916,7 @@ class MathTrig
      */
     public static function COT($angle)
     {
-        return MathTrig\Cot::funcCot($angle);
+        return MathTrig\Cot::evaluate($angle);
     }
 
     /**
@@ -932,7 +932,7 @@ class MathTrig
      */
     public static function COTH($angle)
     {
-        return MathTrig\Coth::funcCoth($angle);
+        return MathTrig\Coth::evaluate($angle);
     }
 
     /**
@@ -940,7 +940,7 @@ class MathTrig
      *
      * Returns the arccotangent of a number.
      *
-     * @Deprecated 2.0.0 Use the funcAcot method in the MathTrig\Acot class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Acot class instead
      *
      * @param float $number Number
      *
@@ -948,7 +948,7 @@ class MathTrig
      */
     public static function ACOT($number)
     {
-        return MathTrig\Acot::funcAcot($number);
+        return MathTrig\Acot::evaluate($number);
     }
 
     /**
@@ -970,7 +970,7 @@ class MathTrig
      *
      * Returns the hyperbolic arccotangent of a number.
      *
-     * @Deprecated 2.0.0 Use the funcAcoth method in the MathTrig\Acoth class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Acoth class instead
      *
      * @param float $number Number
      *
@@ -978,7 +978,7 @@ class MathTrig
      */
     public static function ACOTH($number)
     {
-        return MathTrig\Acoth::funcAcoth($number);
+        return MathTrig\Acoth::evaluate($number);
     }
 
     /**
@@ -988,7 +988,7 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the builtinRound() method in the MathTrig\Round class instead
+     * @see Use the evaluate method in the MathTrig\Round class instead
      *
      * @param mixed $number Should be numeric
      * @param mixed $precision Should be int
@@ -997,7 +997,7 @@ class MathTrig
      */
     public static function builtinROUND($number, $precision)
     {
-        return MathTrig\Round::builtinRound($number, $precision);
+        return MathTrig\Round::evaluate($number, $precision);
     }
 
     /**
@@ -1019,7 +1019,7 @@ class MathTrig
     /**
      * ACOS.
      *
-     * @Deprecated 2.0.0 Use the funcAcos method in the MathTrig\Acos class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Acos class instead
      *
      * Returns the result of builtin function acos after validating args.
      *
@@ -1029,7 +1029,7 @@ class MathTrig
      */
     public static function builtinACOS($number)
     {
-        return MathTrig\Acos::funcAcos($number);
+        return MathTrig\Acos::evaluate($number);
     }
 
     /**
@@ -1037,7 +1037,7 @@ class MathTrig
      *
      * Returns the result of builtin function acosh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAcosh method in the MathTrig\Acosh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Acosh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1045,7 +1045,7 @@ class MathTrig
      */
     public static function builtinACOSH($number)
     {
-        return MathTrig\Acosh::funcAcosh($number);
+        return MathTrig\Acosh::evaluate($number);
     }
 
     /**
@@ -1053,7 +1053,7 @@ class MathTrig
      *
      * Returns the result of builtin function asin after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAsin method in the MathTrig\Asin class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Asin class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1061,7 +1061,7 @@ class MathTrig
      */
     public static function builtinASIN($number)
     {
-        return MathTrig\Asin::funcAsin($number);
+        return MathTrig\Asin::evaluate($number);
     }
 
     /**
@@ -1069,7 +1069,7 @@ class MathTrig
      *
      * Returns the result of builtin function asinh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAsinh method in the MathTrig\Asinh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Asinh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1077,7 +1077,7 @@ class MathTrig
      */
     public static function builtinASINH($number)
     {
-        return MathTrig\Asinh::funcAsinh($number);
+        return MathTrig\Asinh::evaluate($number);
     }
 
     /**
@@ -1085,7 +1085,7 @@ class MathTrig
      *
      * Returns the result of builtin function atan after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAtan method in the MathTrig\Atan class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Atan class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1093,7 +1093,7 @@ class MathTrig
      */
     public static function builtinATAN($number)
     {
-        return MathTrig\Atan::funcAtan($number);
+        return MathTrig\Atan::evaluate($number);
     }
 
     /**
@@ -1101,7 +1101,7 @@ class MathTrig
      *
      * Returns the result of builtin function atanh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAtanh method in the MathTrig\Atanh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Atanh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1109,7 +1109,7 @@ class MathTrig
      */
     public static function builtinATANH($number)
     {
-        return MathTrig\Atanh::funcAtanh($number);
+        return MathTrig\Atanh::evaluate($number);
     }
 
     /**
@@ -1117,7 +1117,7 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcCos method in the MathTrig\Cos class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Cos class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1125,7 +1125,7 @@ class MathTrig
      */
     public static function builtinCOS($number)
     {
-        return MathTrig\Cos::funcCos($number);
+        return MathTrig\Cos::evaluate($number);
     }
 
     /**
@@ -1133,7 +1133,7 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcCosh method in the MathTrig\Cosh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Cosh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1141,7 +1141,7 @@ class MathTrig
      */
     public static function builtinCOSH($number)
     {
-        return MathTrig\Cosh::funcCosh($number);
+        return MathTrig\Cosh::evaluate($number);
     }
 
     /**
@@ -1213,7 +1213,7 @@ class MathTrig
      *
      * Returns the result of builtin function deg2rad after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Radians class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1227,7 +1227,7 @@ class MathTrig
     /**
      * SIN.
      *
-     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sin class instead
      *
      * Returns the result of builtin function sin after validating args.
      *
@@ -1237,13 +1237,13 @@ class MathTrig
      */
     public static function builtinSIN($number)
     {
-        return MathTrig\Sin::funcSin($number);
+        return MathTrig\Sin::evaluate($number);
     }
 
     /**
      * SINH.
      *
-     * @Deprecated 2.0.0 Use the funcSinh method in the MathTrig\Sinh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sinh class instead
      *
      * Returns the result of builtin function sinh after validating args.
      *
@@ -1253,7 +1253,7 @@ class MathTrig
      */
     public static function builtinSINH($number)
     {
-        return MathTrig\Sinh::funcSinh($number);
+        return MathTrig\Sinh::evaluate($number);
     }
 
     /**
@@ -1277,7 +1277,7 @@ class MathTrig
      *
      * Returns the result of builtin function tan after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcTan method in the MathTrig\Tan class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Tan class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1285,7 +1285,7 @@ class MathTrig
      */
     public static function builtinTAN($number)
     {
-        return MathTrig\Tan::funcTan($number);
+        return MathTrig\Tan::evaluate($number);
     }
 
     /**
@@ -1293,7 +1293,7 @@ class MathTrig
      *
      * Returns the result of builtin function sinh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcTanh method in the MathTrig\Tanh class instead
+     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Tanh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1301,7 +1301,7 @@ class MathTrig
      */
     public static function builtinTANH($number)
     {
-        return MathTrig\Tanh::funcTanh($number);
+        return MathTrig\Tanh::evaluate($number);
     }
 
     /**

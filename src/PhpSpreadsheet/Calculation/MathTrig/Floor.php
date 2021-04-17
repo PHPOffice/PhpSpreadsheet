@@ -23,12 +23,12 @@ class Floor
      * Excel Function:
      *        FLOOR(number[,significance])
      *
-     * @param float $number Number to round
-     * @param float $significance Significance
+     * @param mixed $number Expect float. Number to round
+     * @param mixed $significance Expect float. Significance
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcFloor($number, $significance = null)
+    public static function evaluate($number, $significance = null)
     {
         if ($significance === null) {
             self::floorCheck1Arg();

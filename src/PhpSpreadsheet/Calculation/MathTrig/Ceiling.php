@@ -23,7 +23,7 @@ class Ceiling
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcCeiling($number, $significance = null)
+    public static function evaluate($number, $significance = null)
     {
         if ($significance === null) {
             self::floorCheck1Arg();

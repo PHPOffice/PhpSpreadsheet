@@ -15,7 +15,7 @@ class Asinh
      *
      * @return float|string The arc hyperbolic sine of the number
      */
-    public static function funcAsinh($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

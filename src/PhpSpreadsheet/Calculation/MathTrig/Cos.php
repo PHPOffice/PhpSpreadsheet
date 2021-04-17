@@ -15,7 +15,7 @@ class Cos
      *
      * @return float|string cosine
      */
-    public static function funcCos($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

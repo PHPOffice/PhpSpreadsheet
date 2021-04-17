@@ -16,7 +16,7 @@ class SumProduct
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function funcSumProduct(...$args)
+    public static function evaluate(...$args)
     {
         $arrayList = $args;
 

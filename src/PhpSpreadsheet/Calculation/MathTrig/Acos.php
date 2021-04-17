@@ -15,7 +15,7 @@ class Acos
      *
      * @return float|string The arccosine of the number
      */
-    public static function funcAcos($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
