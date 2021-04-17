@@ -59,8 +59,6 @@ class Logarithms
      *
      * Returns the result of builtin function log after validating args.
      *
-     * @Deprecated 2.0.0 Use the natural method in the MathTrig\Logarithms class instead
-     *
      * @param mixed $number Should be numeric
      *
      * @return float|string Rounded number

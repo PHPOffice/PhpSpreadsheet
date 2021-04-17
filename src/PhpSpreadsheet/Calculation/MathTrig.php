@@ -9,10 +9,13 @@ class MathTrig
      *
      * Converts a Roman numeral to an Arabic numeral.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Arabic class instead
-     *
      * Excel Function:
      *        ARABIC(text)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Arabic::evaluate()
+     *      Use the evaluate method in the MathTrig\Arabic class instead
      *
      * @param string $roman
      *
@@ -36,10 +39,13 @@ class MathTrig
      * Note that the Excel ATAN2() function accepts its arguments in the reverse order to the standard
      *        PHP atan2() function, so we need to reverse them here before calling the PHP atan() function.
      *
-     * @Deprecated 2.0.0 Use the funcAtan2 method in the MathTrig\Atan2 class instead
-     *
      * Excel Function:
      *        ATAN2(xCoordinate,yCoordinate)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Atan2::funcAtan2()
+     *      Use the funcAtan2 method in the MathTrig\Atan2 class instead
      *
      * @param float $xCoordinate the x-coordinate of the point
      * @param float $yCoordinate the y-coordinate of the point
@@ -56,10 +62,13 @@ class MathTrig
      *
      * Converts a number into a text representation with the given radix (base).
      *
-     * @Deprecated 2.0.0 Use the funcBase method in the MathTrig\Base class instead
-     *
      * Excel Function:
      *        BASE(Number, Radix [Min_length])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Base::funcBase()
+     *      Use the funcBase method in the MathTrig\Base class instead
      *
      * @param float $number
      * @param float $radix
@@ -85,7 +94,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcCeiling() method in the MathTrig\Ceiling class instead
+     * @see MathTrig\Ceiling::funcCeiling()
+     *      Use the funcCeiling() method in the MathTrig\Ceiling class instead
      *
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
@@ -103,10 +113,13 @@ class MathTrig
      * Returns the number of combinations for a given number of items. Use COMBIN to
      *        determine the total possible number of groups for a given number of items.
      *
-     * @Deprecated 2.0.0 Use the without method in the MathTrig\Combinations class instead
-     *
      * Excel Function:
      *        COMBIN(numObjs,numInSet)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Combinations::withoutRepetition()
+     *      Use the withoutRepetition() method in the MathTrig\Combinations class instead
      *
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each combination
@@ -121,8 +134,6 @@ class MathTrig
     /**
      * EVEN.
      *
-     * @Deprecated 2.0.0 Use the funcEven method in the MathTrig\Even class instead
-     *
      * Returns number rounded up to the nearest even integer.
      * You can use this function for processing items that come in twos. For example,
      *        a packing crate accepts rows of one or two items. The crate is full when
@@ -131,6 +142,11 @@ class MathTrig
      *
      * Excel Function:
      *        EVEN(number)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Even::funcEven()
+     *      Use the funcEven() method in the MathTrig\Even class instead
      *
      * @param float $number Number to round
      *
@@ -144,7 +160,10 @@ class MathTrig
     /**
      * Helper function for Even.
      *
-     * @Deprecated 2.0.0 Use the getEven method in the MathTrig\Helpers class instead
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Helpers::getEven()
+     *      Use the funcEven() method in the MathTrig\Helpers class instead
      */
     public static function getEven(float $number): int
     {
@@ -157,10 +176,13 @@ class MathTrig
      * Returns the factorial of a number.
      * The factorial of a number is equal to 1*2*3*...* number.
      *
-     * @Deprecated 2.0.0 Use the funcFact method in the MathTrig\Fact class instead
-     *
      * Excel Function:
      *        FACT(factVal)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Fact::funcFact()
+     *      Use the funcFact() method in the MathTrig\Fact class instead
      *
      * @param float $factVal Factorial Value
      *
@@ -176,10 +198,13 @@ class MathTrig
      *
      * Returns the double factorial of a number.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\FactDouble class instead
-     *
      * Excel Function:
      *        FACTDOUBLE(factVal)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\FactDouble::evaluate()
+     *      Use the evaluate() method in the MathTrig\FactDouble class instead
      *
      * @param float $factVal Factorial Value
      *
@@ -200,7 +225,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloor() method in the MathTrig\Floor class instead
+     * @see MathTrig\Floor::funcFloor()
+     *      Use the funcFloor() method in the MathTrig\Floor class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -222,7 +248,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloorMath() method in the MathTrig\FloorMath class instead
+     * @see MathTrig\FloorMath::funcFloorMath()
+     *      Use the funcFloorMath() method in the MathTrig\FloorMath class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -245,7 +272,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcFloorPrecise() method in the MathTrig\FloorPrecise class instead
+     * @see MathTrig\FloorPrecise::funcFloorPrecise()
+     *      Use the funcFloorPrecise() method in the MathTrig\FloorPrecise class instead
      *
      * @param float $number Number to round
      * @param float $significance Significance
@@ -267,7 +295,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcInt() method in the MathTrig\IntClass class instead
+     * @see MathTrig\IntClass::funcInt()
+     *      Use the funcInt() method in the MathTrig\IntClass class instead
      *
      * @param float $number Number to cast to an integer
      *
@@ -285,10 +314,13 @@ class MathTrig
      * The greatest common divisor is the largest integer that divides both
      *        number1 and number2 without a remainder.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Gcd class instead
-     *
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Gcd::evaluate()
+     *      Use the evaluate() method in the MathTrig\Gcd class instead
      *
      * @param mixed ...$args Data values
      *
@@ -307,10 +339,13 @@ class MathTrig
      * of all integer arguments number1, number2, and so on. Use LCM to add fractions
      * with different denominators.
      *
-     * @Deprecated 2.0.0 Use the funcLcm method in the MathTrig\Lcm class instead
-     *
      * Excel Function:
      *        LCM(number1[,number2[, ...]])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Lcm::funcLcm()
+     *      Use the funcLcm() method in the MathTrig\Lcm class instead
      *
      * @param mixed ...$args Data values
      *
@@ -326,10 +361,13 @@ class MathTrig
      *
      * Returns the logarithm of a number to a specified base. The default base is 10.
      *
-     * @Deprecated 2.0.0 Use the withBase method in the MathTrig\Logarithms class instead
-     *
      * Excel Function:
      *        LOG(number[,base])
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Logarithms::withBase()
+     *      Use the withBase() method in the MathTrig\Logarithms class instead
      *
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
@@ -346,10 +384,13 @@ class MathTrig
      *
      * Returns the matrix determinant of an array.
      *
-     * @Deprecated 2.0.0 Use the funcMDeterm method in the MathTrig\MatrixFuncs class instead
-     *
      * Excel Function:
      *        MDETERM(array)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\MatrixFunctions::determinant()
+     *      Use the determinant() method in the MathTrig\MatrixFunctions class instead
      *
      * @param array $matrixValues A matrix of values
      *
@@ -357,7 +398,7 @@ class MathTrig
      */
     public static function MDETERM($matrixValues)
     {
-        return MathTrig\MatrixFunctions::funcMDeterm($matrixValues);
+        return MathTrig\MatrixFunctions::determinant($matrixValues);
     }
 
     /**
@@ -365,10 +406,13 @@ class MathTrig
      *
      * Returns the inverse matrix for the matrix stored in an array.
      *
-     * @Deprecated 2.0.0 Use the funcMInverse method in the MathTrig\MatrixFuncs class instead
-     *
      * Excel Function:
      *        MINVERSE(array)
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\MatrixFunctions::inverse()
+     *      Use the inverse() method in the MathTrig\MatrixFunctions class instead
      *
      * @param array $matrixValues A matrix of values
      *
@@ -376,13 +420,16 @@ class MathTrig
      */
     public static function MINVERSE($matrixValues)
     {
-        return MathTrig\MatrixFunctions::funcMInverse($matrixValues);
+        return MathTrig\MatrixFunctions::inverse($matrixValues);
     }
 
     /**
      * MMULT.
      *
-     * @Deprecated 2.0.0 Use the funcMMult method in the MathTrig\MatrixFuncs class instead
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\MatrixFunctions::multiply()
+     *      Use the multiply() method in the MathTrig\MatrixFunctions class instead
      *
      * @param array $matrixData1 A matrix of values
      * @param array $matrixData2 A matrix of values
@@ -391,13 +438,16 @@ class MathTrig
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
-        return MathTrig\MatrixFunctions::funcMMult($matrixData1, $matrixData2);
+        return MathTrig\MatrixFunctions::multiply($matrixData1, $matrixData2);
     }
 
     /**
      * MOD.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Mod class instead
+     * @Deprecated 1.18.0
+     *
+     * @see MathTrig\Mod::evaluate()
+     *      Use the evaluate() method in the MathTrig\Mod class instead
      *
      * @param int $a Dividend
      * @param int $b Divisor
@@ -416,7 +466,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcMround() method in the MathTrig\Mround class instead
+     * @see MathTrig\Mround::funcMround()
+     *      Use the funcMround() method in the MathTrig\Mround class instead
      *
      * @param float $number Number to round
      * @param int $multiple Multiple to which you want to round $number
@@ -433,7 +484,10 @@ class MathTrig
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
-     * @Deprecated 2.0.0 Use the funcMultinomial method in the MathTrig\Multinomial class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Multinomial::funcMultinomial()
+     *      Use the funcMultinomial method in the MathTrig\Multinomial class instead
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
@@ -449,7 +503,10 @@ class MathTrig
      *
      * Returns number rounded up to the nearest odd integer.
      *
-     * @Deprecated 2.0.0 Use the funcOdd method in the MathTrig\Odd class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Odd::funcOdd()
+     *      Use the funcOdd method in the MathTrig\Odd class instead
      *
      * @param float $number Number to round
      *
@@ -465,7 +522,10 @@ class MathTrig
      *
      * Computes x raised to the power y.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Power class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Power::evaluate()
+     *      Use the evaluate method in the MathTrig\Power class instead
      *
      * @param float $x
      * @param float $y
@@ -482,7 +542,10 @@ class MathTrig
      *
      * PRODUCT returns the product of all the values and cells referenced in the argument list.
      *
-     * @Deprecated 2.0.0 Use the funcProduct method in the MathTrig\Product class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Product::funcProduct()
+     *      Use the funcProduct method in the MathTrig\Product class instead
      *
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
@@ -502,7 +565,10 @@ class MathTrig
      * QUOTIENT function returns the integer portion of a division. Numerator is the divided number
      *        and denominator is the divisor.
      *
-     * @Deprecated 2.0.0 Use the funcQuotient method in the MathTrig\Quotient class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Quotient::funcQuotient()
+     *      Use the funcQuotient method in the MathTrig\Quotient class instead
      *
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
@@ -520,7 +586,10 @@ class MathTrig
     /**
      * RAND/RANDBETWEEN.
      *
-     * @Deprecated 2.0.0 Use the randNoArg or randBetween method in the MathTrig\Random class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Random::randBetween()
+     *      Use the randBetween or randBetween method in the MathTrig\Random class instead
      *
      * @param int $min Minimal value
      * @param int $max Maximal value
@@ -539,7 +608,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcRoman() method in the MathTrig\Roman class instead
+     * @Ssee MathTrig\Roman::funcRoman()
+     *      Use the funcRoman() method in the MathTrig\Roman class instead
      *
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
@@ -558,7 +628,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcRoundUp() method in the MathTrig\RoundUp class instead
+     * @See MathTrig\RoundUp::funcRoundUp()
+     *      Use the funcRoundUp() method in the MathTrig\RoundUp class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -577,7 +648,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcRoundDown() method in the MathTrig\RoundDown class instead
+     * @See MathTrig\RoundDown::funcRoundDown()
+     *      Use the funcRoundDown() method in the MathTrig\RoundDown class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -594,7 +666,10 @@ class MathTrig
      *
      * Returns the sum of a power series
      *
-     * @Deprecated 2.0.0 Use the funcSeriesSum method in the MathTrig\SeriesSum class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SeriesSum::funcSeriesSum()
+     *      Use the funcSeriesSum method in the MathTrig\SeriesSum class instead
      *
      * @param mixed $x Input value
      * @param mixed $n Initial power
@@ -614,7 +689,10 @@ class MathTrig
      * Determines the sign of a number. Returns 1 if the number is positive, zero (0)
      *        if the number is 0, and -1 if the number is negative.
      *
-     * @Deprecated 2.0.0 Use the funcSign method in the MathTrig\Sign class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sign::funcSign()
+     *      Use the funcSign method in the MathTrig\Sign class instead
      *
      * @param float $number Number to round
      *
@@ -628,7 +706,10 @@ class MathTrig
     /**
      * returnSign = returns 0/-1/+1.
      *
-     * @Deprecated 2.0.0 Use the returnSign method in the MathTrig\Helpers class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Helpers::returnSign()
+     *      Use the returnSign method in the MathTrig\Helpers class instead
      */
     public static function returnSign(float $number): int
     {
@@ -640,7 +721,10 @@ class MathTrig
      *
      * Returns the square root of (number * pi).
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\SqrtPi class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SqrtPi::evaluate()
+     *      Use the evaluate method in the MathTrig\SqrtPi class instead
      *
      * @param float $number Number
      *
@@ -656,7 +740,10 @@ class MathTrig
      *
      * Returns a subtotal in a list or database.
      *
-     * @Deprecated 2.0.0 Use the funcSubtotal method in the MathTrig\Subtotal class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Subtotal::funcSubtotal()
+     *      Use the funcSubtotal method in the MathTrig\Subtotal class instead
      *
      * @param int $functionType
      *            A number 1 to 11 that specifies which function to
@@ -679,7 +766,10 @@ class MathTrig
      *
      * SUM computes the sum of all the values and cells referenced in the argument list.
      *
-     * @Deprecated 2.0.0 Use the funcSumNoStrings method in the MathTrig\Sum class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sum::funcSumNoStrings()
+     *      Use the funcSumNoStrings method in the MathTrig\Sum class instead
      *
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
@@ -745,7 +835,10 @@ class MathTrig
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
-     * @Deprecated 2.0.0 Use the funcSumProduct method in the MathTrig\SumProduct class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SumProduct::funcSumProduct()
+     *      Use the funcSumProduct method in the MathTrig\SumProduct class instead
      *
      * @param mixed ...$args Data values
      *
@@ -761,7 +854,10 @@ class MathTrig
      *
      * SUMSQ returns the sum of the squares of the arguments
      *
-     * @Deprecated 2.0.0 Use the sumSquare method in the MathTrig\SumSquares class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SumSquares::sumSquare()
+     *      Use the sumSquare method in the MathTrig\SumSquares class instead
      *
      * Excel Function:
      *        SUMSQ(value1[,value2[, ...]])
@@ -778,7 +874,10 @@ class MathTrig
     /**
      * SUMX2MY2.
      *
-     * @Deprecated 2.0.0 Use the sumXSquaredMinusYSquared method in the MathTrig\SumSquares class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SumSquares::sumXSquaredMinusYSquared()
+     *     Use the sumXSquaredMinusYSquared method in the MathTrig\SumSquares class instead
      *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
@@ -793,7 +892,10 @@ class MathTrig
     /**
      * SUMX2PY2.
      *
-     * @Deprecated 2.0.0 Use the sumXSquaredPlusYSquared method in the MathTrig\SumSquares class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SumSquares::sumXSquaredPlusYSquared()
+     *     Use the sumXSquaredPlusYSquared method in the MathTrig\SumSquares class instead
      *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
@@ -808,7 +910,10 @@ class MathTrig
     /**
      * SUMXMY2.
      *
-     * @Deprecated 2.0.0 Use the sumXMinusYSquared method in the MathTrig\SumSquares class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SumSquares::sumXMinusYSquared()
+     *      Use the sumXMinusYSquared method in the MathTrig\SumSquares class instead
      *
      * @param mixed[] $matrixData1 Matrix #1
      * @param mixed[] $matrixData2 Matrix #2
@@ -827,7 +932,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the funcTrunc() method in the MathTrig\Trunc class instead
+     * @see MathTrig\Trunc::funcTrunc()
+     *      Use the funcTrunc() method in the MathTrig\Trunc class instead
      *
      * @param float $value
      * @param int $digits
@@ -844,7 +950,10 @@ class MathTrig
      *
      * Returns the secant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcSec method in the MathTrig\Sec class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sec::funcSec()
+     *      Use the funcSec method in the MathTrig\Sec class instead
      *
      * @param float $angle Number
      *
@@ -860,7 +969,10 @@ class MathTrig
      *
      * Returns the hyperbolic secant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcSech method in the MathTrig\Sech class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\SecH::funcSech()
+     *      Use the funcSecH method in the MathTrig\Sech class instead
      *
      * @param float $angle Number
      *
@@ -876,7 +988,10 @@ class MathTrig
      *
      * Returns the cosecant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCsc method in the MathTrig\Csc class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Csc::funcCsc()
+     *      Use the funcCsc method in the MathTrig\Csc class instead
      *
      * @param float $angle Number
      *
@@ -892,7 +1007,10 @@ class MathTrig
      *
      * Returns the hyperbolic cosecant of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCsch method in the MathTrig\Csch class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Csch::funcCsch()
+     *      Use the funcCsch method in the MathTrig\Csch class instead
      *
      * @param float $angle Number
      *
@@ -908,7 +1026,10 @@ class MathTrig
      *
      * Returns the cotangent of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCot method in the MathTrig\Cot class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Cot::funcCot()
+     *      Use the funcCot method in the MathTrig\Cot class instead
      *
      * @param float $angle Number
      *
@@ -924,7 +1045,10 @@ class MathTrig
      *
      * Returns the hyperbolic cotangent of an angle.
      *
-     * @Deprecated 2.0.0 Use the funcCoth method in the MathTrig\Coth class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Coth::funcCoth()
+     *      Use the funcCoth method in the MathTrig\Coth class instead
      *
      * @param float $angle Number
      *
@@ -940,7 +1064,10 @@ class MathTrig
      *
      * Returns the arccotangent of a number.
      *
-     * @Deprecated 2.0.0 Use the funcAcot method in the MathTrig\Acot class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Acot::funcAcot()
+     *      Use the funcAcot method in the MathTrig\Acot class instead
      *
      * @param float $number Number
      *
@@ -954,7 +1081,10 @@ class MathTrig
     /**
      * Return NAN or value depending on argument.
      *
-     * @Deprecated 2.0.0 Use the numberOrNan method in the MathTrig\Helpers class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Helpers::numberOrNan()
+     *      Use the numberOrNan method in the MathTrig\Helpers class instead
      *
      * @param float $result Number
      *
@@ -970,7 +1100,10 @@ class MathTrig
      *
      * Returns the hyperbolic arccotangent of a number.
      *
-     * @Deprecated 2.0.0 Use the funcAcoth method in the MathTrig\Acoth class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Acoth::funcAcoth()
+     *      Use the funcAcoth method in the MathTrig\Acoth class instead
      *
      * @param float $number Number
      *
@@ -988,7 +1121,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the builtinRound() method in the MathTrig\Round class instead
+     * @See MathTrig\Round::builtinROUND()
+     *      Use the builtinRound() method in the MathTrig\Round class instead
      *
      * @param mixed $number Should be numeric
      * @param mixed $precision Should be int
@@ -1005,7 +1139,10 @@ class MathTrig
      *
      * Returns the result of builtin function abs after validating args.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Absolute class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Absolute::evaluate()
+     *      Use the evaluate method in the MathTrig\Absolute class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1019,7 +1156,10 @@ class MathTrig
     /**
      * ACOS.
      *
-     * @Deprecated 2.0.0 Use the funcAcos method in the MathTrig\Acos class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Acos::funcAcos()
+     *      Use the funcAcos method in the MathTrig\Acos class instead
      *
      * Returns the result of builtin function acos after validating args.
      *
@@ -1037,7 +1177,10 @@ class MathTrig
      *
      * Returns the result of builtin function acosh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAcosh method in the MathTrig\Acosh class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Acosh::funcAcosh()
+     *      Use the funcAcosh method in the MathTrig\Acosh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1053,7 +1196,10 @@ class MathTrig
      *
      * Returns the result of builtin function asin after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAsin method in the MathTrig\Asin class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Asin::funcAsin()
+     *      Use the funcAsin method in the MathTrig\Asin class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1069,7 +1215,10 @@ class MathTrig
      *
      * Returns the result of builtin function asinh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAsinh method in the MathTrig\Asinh class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Asinh::funcAsinh()
+     *      Use the funcAsinh method in the MathTrig\Asinh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1085,7 +1234,10 @@ class MathTrig
      *
      * Returns the result of builtin function atan after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAtan method in the MathTrig\Atan class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Atan::funcAtan()
+     *      Use the funcAtan method in the MathTrig\Atan class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1101,7 +1253,10 @@ class MathTrig
      *
      * Returns the result of builtin function atanh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcAtanh method in the MathTrig\Atanh class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Atanh::funcAtanh()
+     *      Use the funcAtanh method in the MathTrig\Atanh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1117,7 +1272,10 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcCos method in the MathTrig\Cos class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Cos::funcCos()
+     *      Use the funcCos method in the MathTrig\Cos class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1133,7 +1291,10 @@ class MathTrig
      *
      * Returns the result of builtin function cos after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcCosh method in the MathTrig\Cosh class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Cosh::funcCosh()
+     *      Use the funcCosh method in the MathTrig\Cosh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1149,7 +1310,10 @@ class MathTrig
      *
      * Returns the result of builtin function rad2deg after validating args.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Degrees class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Degrees::evaluate()
+     *      Use the evaluate method in the MathTrig\Degrees class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1165,7 +1329,10 @@ class MathTrig
      *
      * Returns the result of builtin function exp after validating args.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Exp class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Exp::evaluate()
+     *      Use the evaluate method in the MathTrig\Exp class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1181,7 +1348,10 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
-     * @Deprecated 2.0.0 Use the natural method in the MathTrig\Logarithms class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Logarithms::natural()
+     *      Use the natural method in the MathTrig\Logarithms class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1197,7 +1367,10 @@ class MathTrig
      *
      * Returns the result of builtin function log after validating args.
      *
-     * @Deprecated 2.0.0 Use the base10 method in the MathTrig\Logarithms class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Logarithms::base10()
+     *      Use the natural method in the MathTrig\Logarithms class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1213,7 +1386,10 @@ class MathTrig
      *
      * Returns the result of builtin function deg2rad after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Radians::evaluate()
+     *      Use the evaluate method in the MathTrig\Radians class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1227,9 +1403,12 @@ class MathTrig
     /**
      * SIN.
      *
-     * @Deprecated 2.0.0 Use the funcSin method in the MathTrig\Sin class instead
-     *
      * Returns the result of builtin function sin after validating args.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sin::funcSin()
+     *      Use the funcSin method in the MathTrig\Sin class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1243,9 +1422,12 @@ class MathTrig
     /**
      * SINH.
      *
-     * @Deprecated 2.0.0 Use the funcSinh method in the MathTrig\Sinh class instead
-     *
      * Returns the result of builtin function sinh after validating args.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sinh::funcSinh()
+     *      Use the funcSinh method in the MathTrig\Sinh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1261,7 +1443,10 @@ class MathTrig
      *
      * Returns the result of builtin function sqrt after validating args.
      *
-     * @Deprecated 2.0.0 Use the evaluate method in the MathTrig\Sqrt class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Sqrt::evaluate()
+     *      Use the evaluate method in the MathTrig\Sqrt class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1277,7 +1462,10 @@ class MathTrig
      *
      * Returns the result of builtin function tan after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcTan method in the MathTrig\Tan class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Tan::funcTan()
+     *      Use the funcTan method in the MathTrig\Tan class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1293,7 +1481,10 @@ class MathTrig
      *
      * Returns the result of builtin function sinh after validating args.
      *
-     * @Deprecated 2.0.0 Use the funcTanh method in the MathTrig\Tanh class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Tan::funcTan()
+     *      Use the funcTanh method in the MathTrig\Tanh class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1307,7 +1498,10 @@ class MathTrig
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
      *
-     * @Deprecated 2.0.0 Use the validateNumericNullBool method in the MathTrig\Helpers class instead
+     * @Deprecated 1.18.0
+     *
+     * @See MathTrig\Helpers::validateNumericNullBool()
+     *      Use the validateNumericNullBool method in the MathTrig\Helpers class instead
      *
      * @param mixed $number
      */
