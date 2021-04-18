@@ -1556,11 +1556,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
 		-
-			message: "#^Binary operation \"\\*\" between int\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
