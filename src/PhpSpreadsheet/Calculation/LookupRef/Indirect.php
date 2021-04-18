@@ -19,7 +19,7 @@ class Indirect
     {
         $a1fmt = Functions::flattenSingleValue($a1fmt);
         if ($a1fmt === null) {
-            return true;
+            return Helpers::CELLADDRESS_USE_A1;
         }
         if (is_string($a1fmt)) {
             throw new Exception(Functions::VALUE());
