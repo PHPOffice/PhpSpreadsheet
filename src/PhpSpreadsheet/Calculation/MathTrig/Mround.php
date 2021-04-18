@@ -12,12 +12,12 @@ class Mround
      *
      * Rounds a number to the nearest multiple of a specified value
      *
-     * @param float $number Number to round
-     * @param int $multiple Multiple to which you want to round $number
+     * @param mixed $number Expect float. Number to round.
+     * @param mixed $multiple Expect int. Multiple to which you want to round.
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcMround($number, $multiple)
+    public static function evaluate($number, $multiple)
     {
         try {
             $number = Helpers::validateNumericNullSubstitution($number, 0);

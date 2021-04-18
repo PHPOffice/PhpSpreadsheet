@@ -15,7 +15,7 @@ class Sech
      *
      * @return float|string The hyperbolic secant of the angle
      */
-    public static function funcSech($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

@@ -703,7 +703,7 @@ class Statistical
     {
         $aArgs = Functions::flattenArray($args);
 
-        $aMean = MathTrig\Product::funcProduct($aArgs);
+        $aMean = MathTrig\Product::evaluate($aArgs);
         if (is_numeric($aMean) && ($aMean > 0)) {
             $aCount = Counts::COUNT($aArgs);
             if (Minimum::MIN($aArgs) > 0) {

@@ -19,7 +19,7 @@ class CeilingPrecise
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcCeilingPrecise($number, $significance = 1)
+    public static function evaluate($number, $significance = 1)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

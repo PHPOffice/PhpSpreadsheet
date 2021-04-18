@@ -15,7 +15,7 @@ class Acot
      *
      * @return float|string The arccotangent of the number
      */
-    public static function funcAcot($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

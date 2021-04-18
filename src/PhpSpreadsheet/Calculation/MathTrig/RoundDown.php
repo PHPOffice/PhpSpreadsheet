@@ -16,7 +16,7 @@ class RoundDown
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcRoundDown($number, $digits)
+    public static function evaluate($number, $digits)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

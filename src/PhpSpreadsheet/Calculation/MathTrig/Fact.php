@@ -21,7 +21,7 @@ class Fact
      *
      * @return float|int|string Factorial, or a string containing an error
      */
-    public static function funcFact($factVal)
+    public static function evaluate($factVal)
     {
         try {
             $factVal = Helpers::validateNumericNullBool($factVal);

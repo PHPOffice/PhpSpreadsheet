@@ -22,7 +22,7 @@ class Even
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcEven($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

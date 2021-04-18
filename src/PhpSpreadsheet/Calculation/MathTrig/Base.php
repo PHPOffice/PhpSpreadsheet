@@ -21,7 +21,7 @@ class Base
      *
      * @return string the text representation with the given radix (base)
      */
-    public static function funcBase($number, $radix, $minLength = null)
+    public static function evaluate($number, $radix, $minLength = null)
     {
         try {
             $number = (int) Helpers::validateNumericNullBool($number);

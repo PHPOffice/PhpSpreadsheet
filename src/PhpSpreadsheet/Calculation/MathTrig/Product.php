@@ -18,7 +18,7 @@ class Product
      *
      * @return float|string
      */
-    public static function funcProduct(...$args)
+    public static function evaluate(...$args)
     {
         // Return value
         $returnValue = null;

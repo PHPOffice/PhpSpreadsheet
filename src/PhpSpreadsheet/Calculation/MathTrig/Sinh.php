@@ -15,7 +15,7 @@ class Sinh
      *
      * @return float|string Rounded number
      */
-    public static function funcSinh($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

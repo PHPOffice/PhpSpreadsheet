@@ -15,7 +15,7 @@ class Acoth
      *
      * @return float|string The hyperbolic arccotangent of the number
      */
-    public static function funcAcoth($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
