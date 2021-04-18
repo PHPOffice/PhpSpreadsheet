@@ -78,6 +78,7 @@ class Properties
                     break;
                 case 'date':
                     $creationDate = strtotime($propertyValue);
+                    $creationDate = $creationDate === false ? time() : $creationDate;
                     $docProps->setCreated($creationDate);
                     $docProps->setModified($creationDate);
 
@@ -112,6 +113,7 @@ class Properties
                     break;
                 case 'creation-date':
                     $creationDate = strtotime($propertyValue);
+                    $creationDate = $creationDate === false ? time() : $creationDate;
                     $docProps->setCreated($creationDate);
                     $docProps->setModified($creationDate);
 
