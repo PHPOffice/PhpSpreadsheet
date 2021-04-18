@@ -47,8 +47,13 @@ class HyperGeometric
             return Functions::NAN();
         }
 
-        return Combinations::withoutRepetition($populationSuccesses, $sampleSuccesses) *
-            Combinations::withoutRepetition($populationNumber - $populationSuccesses, $sampleNumber - $sampleSuccesses) /
-            Combinations::withoutRepetition($populationNumber, $sampleNumber);
+        $successesPopulationAndSample = (float) Combinations::withoutRepetition($populationSuccesses, $sampleSuccesses);
+        $numbersPopulationAndSample = (float) Combinations::withoutRepetition($populationNumber, $sampleNumber);
+        $adjustedPopulationAndSample = (float) Combinations::withoutRepetition(
+            $populationNumber - $populationSuccesses,
+            $sampleNumber - $sampleSuccesses
+        );
+
+        return $successesPopulationAndSample * $adjustedPopulationAndSample / $numbersPopulationAndSample;
     }
 }
