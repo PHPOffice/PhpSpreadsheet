@@ -13,7 +13,7 @@ class Indirect
     /**
      * Determine whether cell address is in A1 (true) or R1C1 (false) format.
      *
-     * @param null|bool|float|int|string $a1fmt
+     * @param mixed $a1fmt Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1, but can be provided as numeric which is cast to bool
      */
     private static function a1Format($a1fmt): bool
     {
@@ -53,7 +53,7 @@ class Indirect
      *        =INDIRECT(cellAddress, bool) where the bool argument is optional
      *
      * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
-     * @param null|bool|float|int|string $a1fmt
+     * @param mixed $a1fmt Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1, but can be provided as numeric which is cast to bool
      * @param Cell $pCell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error

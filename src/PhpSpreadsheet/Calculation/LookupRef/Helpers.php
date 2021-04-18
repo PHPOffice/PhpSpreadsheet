@@ -4,14 +4,19 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Helpers
 {
+    public const CELLADDRESS_USE_A1 = true;
+
+    public const CELLADDRESS_USE_R1C1 = false;
+
     private static function convertR1C1(string &$cellAddress1, ?string &$cellAddress2, bool $a1): string
     {
-        if (!$a1) {
+        if ($a1 === self::CELLADDRESS_USE_R1C1) {
             $cellAddress1 = AddressHelper::convertToA1($cellAddress1);
             if ($cellAddress2) {
                 $cellAddress2 = AddressHelper::convertToA1($cellAddress2);
@@ -31,30 +36,19 @@ class Helpers
         }
     }
 
-    private static function useThisName(string $cellAddress1, string $definedName, ?Worksheet $scope, Worksheet $sheet, string $sheetTitle, ?string $sheetName): bool
-    {
-        return strcasecmp($cellAddress1, $definedName) === 0 && ($scope === null || $scope === $sheet || $sheetTitle === $sheetName);
-    }
-
-    public static function extractCellAddresses(string $cellAddress, bool $a1, Spreadsheet $spreadsheet, Worksheet $sheet, ?string $sheetName = null): array
+    public static function extractCellAddresses(string $cellAddress, bool $a1, Spreadsheet $spreadsheet, Worksheet $sheet, string $sheetName = ''): array
     {
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;
-        $namedRanges = $spreadsheet->getNamedRanges();
-        foreach ($namedRanges as $namedRange) {
-            $scope = $namedRange->getScope();
-            $definedName = $namedRange->getName();
+        $namedRange = DefinedName::resolveName($cellAddress1, $sheet, $sheetName);
+        if ($namedRange !== null) {
             $workSheet = $namedRange->getWorkSheet();
             $sheetTitle = ($workSheet === null) ? '' : $workSheet->getTitle();
-            if (self::useThisName($cellAddress1, $definedName, $scope, $sheet, $sheetTitle, $sheetName)) {
-                $value = preg_replace('/^=/', '', $namedRange->getValue());
-                self::adjustSheetTitle($sheetTitle, $value);
-                $cellAddress1 = $sheetTitle . $value;
-                $cellAddress = $cellAddress1;
-                $a1 = true;
-
-                break;
-            }
+            $value = preg_replace('/^=/', '', $namedRange->getValue());
+            self::adjustSheetTitle($sheetTitle, $value);
+            $cellAddress1 = $sheetTitle . $value;
+            $cellAddress = $cellAddress1;
+            $a1 = self::CELLADDRESS_USE_A1;
         }
         if (strpos($cellAddress, ':') !== false) {
             [$cellAddress1, $cellAddress2] = explode(':', $cellAddress);

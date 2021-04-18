@@ -22,4 +22,5 @@ return [
     [90, 'newnr', false],
     ['#REF!', 'localname'],
     [9, 'OtherSheet!localname'],
+    ['#REF!', 'OtherSheetx!localname'],
 ];
