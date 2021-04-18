@@ -2876,16 +2876,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCreated\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
 			message: "#^Offset 'No' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php

@@ -7,6 +7,9 @@ use SimpleXMLElement;
 
 class Properties
 {
+    /**
+     * @var Spreadsheet
+     */
     protected $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
@@ -91,6 +94,10 @@ class Properties
     {
         $docProps = $this->spreadsheet->getProperties();
         foreach ($officePropertyMeta as $propertyName => $propertyValue) {
+            if ($propertyValue === null) {
+                continue;
+            }
+
             $attributes = $propertyValue->attributes($namespacesMeta['meta']);
             $propertyValue = trim((string) $propertyValue);
             switch ($propertyName) {
