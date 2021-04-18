@@ -62,7 +62,6 @@ class Indirect
     {
         try {
             $a1 = self::a1Format($a1fmt);
-            $spreadsheet = $pCell->getWorksheet()->getParent();
             $cellAddress = self::validateAddress($cellAddress);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -70,7 +69,7 @@ class Indirect
 
         [$cellAddress, $pSheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
 
-        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $spreadsheet, $pCell->getWorkSheet(), $sheetName);
+        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $pCell->getWorkSheet(), $sheetName);
 
         if (
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||

@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\DefinedName;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Helpers
@@ -36,7 +35,7 @@ class Helpers
         }
     }
 
-    public static function extractCellAddresses(string $cellAddress, bool $a1, Spreadsheet $spreadsheet, Worksheet $sheet, string $sheetName = ''): array
+    public static function extractCellAddresses(string $cellAddress, bool $a1, Worksheet $sheet, string $sheetName = ''): array
     {
         $cellAddress1 = $cellAddress;
         $cellAddress2 = null;

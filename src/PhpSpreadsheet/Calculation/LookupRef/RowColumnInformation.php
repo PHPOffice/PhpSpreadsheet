@@ -61,7 +61,7 @@ class RowColumnInformation
         $cellAddress = $cellAddress ?? '';
         if ($pCell != null) {
             [,, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
-            [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet(), $sheetName);
+            [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet(), $sheetName);
         }
         [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
@@ -154,7 +154,7 @@ class RowColumnInformation
         $cellAddress = $cellAddress ?? '';
         if ($pCell !== null) {
             [,, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
-            [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress ?? '', true, $pCell->getWorksheet()->getParent(), $pCell->getWorksheet(), $sheetName);
+            [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $pCell->getWorksheet(), $sheetName);
         }
         [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
