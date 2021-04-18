@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Beta
 {
-    use BaseValidations;
-
     private const MAX_ITERATIONS = 256;
 
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
@@ -28,20 +26,20 @@ class Beta
      *
      * @return float|string
      */
-    public static function distribution($value, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function distribution($value, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
     {
         $value = Functions::flattenSingleValue($value);
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
-        $rMin = Functions::flattenSingleValue($rMin);
-        $rMax = Functions::flattenSingleValue($rMax);
+        $rMin = ($rMin === null) ? 0.0 : Functions::flattenSingleValue($rMin);
+        $rMax = ($rMax === null) ? 1.0 : Functions::flattenSingleValue($rMax);
 
         try {
-            $value = self::validateFloat($value);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
-            $rMax = self::validateFloat($rMax);
-            $rMin = self::validateFloat($rMin);
+            $value = DistributionValidations::validateFloat($value);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
+            $rMax = DistributionValidations::validateFloat($rMax);
+            $rMin = DistributionValidations::validateFloat($rMin);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -74,20 +72,20 @@ class Beta
      *
      * @return float|string
      */
-    public static function inverse($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function inverse($probability, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
     {
         $probability = Functions::flattenSingleValue($probability);
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
-        $rMin = Functions::flattenSingleValue($rMin);
-        $rMax = Functions::flattenSingleValue($rMax);
+        $rMin = ($rMin === null) ? 0.0 : Functions::flattenSingleValue($rMin);
+        $rMax = ($rMax === null) ? 1.0 : Functions::flattenSingleValue($rMax);
 
         try {
-            $probability = self::validateProbability($probability);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
-            $rMax = self::validateFloat($rMax);
-            $rMin = self::validateFloat($rMin);
+            $probability = DistributionValidations::validateProbability($probability);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
+            $rMax = DistributionValidations::validateFloat($rMax);
+            $rMin = DistributionValidations::validateFloat($rMin);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -104,6 +102,9 @@ class Beta
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
     }
 
+    /**
+     * @return float|string
+     */
     private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax)
     {
         $a = 0;

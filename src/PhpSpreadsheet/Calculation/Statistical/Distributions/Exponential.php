@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Exponential
 {
-    use BaseValidations;
-
     /**
      * EXPONDIST.
      *
@@ -29,9 +27,9 @@ class Exponential
         $cumulative = Functions::flattenSingleValue($cumulative);
 
         try {
-            $value = self::validateFloat($value);
-            $lambda = self::validateFloat($lambda);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $lambda = DistributionValidations::validateFloat($lambda);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }

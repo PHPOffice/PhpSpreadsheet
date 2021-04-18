@@ -4,12 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
 {
-    use BaseValidations;
-
     /**
      * AMORDEGRC.
      *
@@ -40,24 +39,33 @@ class Amortization
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
-    {
+    public static function AMORDEGRC(
+        $cost,
+        $purchased,
+        $firstPeriod,
+        $salvage,
+        $period,
+        $rate,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+    ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
         $firstPeriod = Functions::flattenSingleValue($firstPeriod);
         $salvage = Functions::flattenSingleValue($salvage);
-        $period = floor(Functions::flattenSingleValue($period));
+        $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
-            $cost = self::validateFloat($cost);
-            $purchased = self::validateDate($purchased);
-            $firstPeriod = self::validateDate($firstPeriod);
-            $salvage = self::validateFloat($salvage);
-            $period = self::validateFloat($period);
-            $rate = self::validateFloat($rate);
-            $basis = self::validateBasis($basis);
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateInt($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -118,24 +126,33 @@ class Amortization
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
-    {
+    public static function AMORLINC(
+        $cost,
+        $purchased,
+        $firstPeriod,
+        $salvage,
+        $period,
+        $rate,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+    ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
         $firstPeriod = Functions::flattenSingleValue($firstPeriod);
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
-            $cost = self::validateFloat($cost);
-            $purchased = self::validateDate($purchased);
-            $firstPeriod = self::validateDate($firstPeriod);
-            $salvage = self::validateFloat($salvage);
-            $period = self::validateFloat($period);
-            $rate = self::validateFloat($rate);
-            $basis = self::validateBasis($basis);
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateFloat($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -149,7 +166,10 @@ class Amortization
             return $yearFrac;
         }
 
-        if (($basis == 1) && ($yearFrac < 1) && (DateTimeExcel\Helpers::isLeapYear($purchasedYear))) {
+        if (
+            ($basis == FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) &&
+            ($yearFrac < 1) && (DateTimeExcel\Helpers::isLeapYear($purchasedYear))
+        ) {
             $yearFrac *= 365 / 366;
         }
 

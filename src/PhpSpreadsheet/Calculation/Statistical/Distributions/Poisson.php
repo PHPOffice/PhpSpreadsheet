@@ -8,8 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Poisson
 {
-    use BaseValidations;
-
     /**
      * POISSON.
      *
@@ -29,9 +27,9 @@ class Poisson
         $mean = Functions::flattenSingleValue($mean);
 
         try {
-            $value = self::validateFloat($value);
-            $mean = self::validateFloat($mean);
-            $cumulative = self::validateBool($cumulative);
+            $value = DistributionValidations::validateFloat($value);
+            $mean = DistributionValidations::validateFloat($mean);
+            $cumulative = DistributionValidations::validateBool($cumulative);
         } catch (Exception $e) {
             return $e->getMessage();
         }

@@ -10,6 +10,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 
+/**
+ * @deprecated 1.18.0
+ */
 class Financial
 {
     const FINANCIAL_MAX_ITERATIONS = 128;
@@ -30,24 +33,24 @@ class Financial
      *      Use the periodic() method in the Financial\Securities\AccruedInterest class instead
      *
      * @param mixed $issue the security's issue date
-     * @param mixed $firstinterest the security's first interest date
+     * @param mixed $firstInterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
      * @param mixed $rate the security's annual coupon rate
-     * @param mixed $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
      * @param mixed $frequency The number of coupon payments per year.
-     *                                    Valid frequency values are:
-     *                                        1    Annual
-     *                                        2    Semi-Annual
-     *                                        4    Quarterly
+     *                             Valid frequency values are:
+     *                               1    Annual
+     *                               2    Semi-Annual
+     *                               4    Quarterly
      * @param mixed $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      * @param mixed $calcMethod
      *                          If true, use Issue to Settlement
      *                          If false, use FirstInterest to Settlement
@@ -56,20 +59,20 @@ class Financial
      */
     public static function ACCRINT(
         $issue,
-        $firstinterest,
+        $firstInterest,
         $settlement,
         $rate,
-        $par = 1000,
+        $parValue = 1000,
         $frequency = 1,
         $basis = 0,
         $calcMethod = true
     ) {
         return Securities\AccruedInterest::periodic(
             $issue,
-            $firstinterest,
+            $firstInterest,
             $settlement,
             $rate,
-            $par,
+            $parValue,
             $frequency,
             $basis,
             $calcMethod
@@ -92,20 +95,20 @@ class Financial
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param mixed $rate The security's annual coupon rate
-     * @param mixed $par The security's par value.
-     *                               If you omit par, ACCRINT uses $1,000.
+     * @param mixed $parValue The security's par value.
+     *                            If you omit par, ACCRINT uses $1,000.
      * @param mixed $basis The type of day count to use.
-     *                               0 or omitted    US (NASD) 30/360
-     *                               1                Actual/actual
-     *                               2                Actual/360
-     *                               3                Actual/365
-     *                               4                European 30/360
+     *                            0 or omitted    US (NASD) 30/360
+     *                            1               Actual/actual
+     *                            2               Actual/360
+     *                            3               Actual/365
+     *                            4               European 30/360
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function ACCRINTM($issue, $settlement, $rate, $par = 1000, $basis = 0)
+    public static function ACCRINTM($issue, $settlement, $rate, $parValue = 1000, $basis = 0)
     {
-        return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $par, $basis);
+        return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $parValue, $basis);
     }
 
     /**
@@ -170,11 +173,11 @@ class Financial
      * @param float $period The period
      * @param float $rate Rate of depreciation
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1               Actual/actual
+     *                       2               Actual/360
+     *                       3               Actual/365
+     *                       4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */
@@ -543,6 +546,11 @@ class Financial
      * Excel Function:
      *        DISC(settlement,maturity,price,redemption[,basis])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\Rates::discount()
+     *      Use the discount() method in the Financial\Securities\Rates class instead
+     *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
      *                                date when the security is traded to the buyer.
@@ -561,30 +569,7 @@ class Financial
      */
     public static function DISC($settlement, $maturity, $price, $redemption, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $price = Functions::flattenSingleValue($price);
-        $redemption = Functions::flattenSingleValue($redemption);
-        $basis = Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($price)) && (is_numeric($redemption)) && (is_numeric($basis))) {
-            $price = (float) $price;
-            $redemption = (float) $redemption;
-            $basis = (int) $basis;
-            if (($price <= 0) || ($redemption <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-
-            return (1 - $price / $redemption) / $daysBetweenSettlementAndMaturity;
-        }
-
-        return Functions::VALUE();
+        return Financial\Securities\Rates::discount($settlement, $maturity, $price, $redemption, $basis);
     }
 
     /**
@@ -724,47 +709,30 @@ class Financial
      * Excel Function:
      *        INTRATE(settlement,maturity,investment,redemption[,basis])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\Rates::interest()
+     *      Use the interest() method in the Financial\Securities\Rates class instead
+     *
      * @param mixed $settlement The security's settlement date.
-     *                                The security settlement date is the date after the issue date when the security is traded to the buyer.
+     *                              The security settlement date is the date after the issue date when the security
+     *                                  is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
-     *                                The maturity date is the date when the security expires.
+     *                            The maturity date is the date when the security expires.
      * @param int $investment the amount invested in the security
      * @param int $redemption the amount to be received at maturity
      * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     *                       0 or omitted    US (NASD) 30/360
+     *                       1               Actual/actual
+     *                       2               Actual/360
+     *                       3               Actual/365
+     *                       4               European 30/360
      *
      * @return float|string
      */
     public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $investment = Functions::flattenSingleValue($investment);
-        $redemption = Functions::flattenSingleValue($redemption);
-        $basis = Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($investment)) && (is_numeric($redemption)) && (is_numeric($basis))) {
-            $investment = (float) $investment;
-            $redemption = (float) $redemption;
-            $basis = (int) $basis;
-            if (($investment <= 0) || ($redemption <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-
-            return (($redemption / $investment) - 1) / ($daysBetweenSettlementAndMaturity);
-        }
-
-        return Functions::VALUE();
+        return Financial\Securities\Rates::interest($settlement, $maturity, $investment, $redemption, $basis);
     }
 
     /**
@@ -1174,7 +1142,12 @@ class Financial
     /**
      * RECEIVED.
      *
-     * Returns the price per $100 face value of a discounted security.
+     * Returns the amount received at maturity for a fully invested Security.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Financial\Securities\Price::received()
+     *      Use the received() method in the Financial\Securities\Price class instead
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -1194,27 +1167,7 @@ class Financial
      */
     public static function RECEIVED($settlement, $maturity, $investment, $discount, $basis = 0)
     {
-        $settlement = Functions::flattenSingleValue($settlement);
-        $maturity = Functions::flattenSingleValue($maturity);
-        $investment = (float) Functions::flattenSingleValue($investment);
-        $discount = (float) Functions::flattenSingleValue($discount);
-        $basis = (int) Functions::flattenSingleValue($basis);
-
-        //    Validate
-        if ((is_numeric($investment)) && (is_numeric($discount)) && (is_numeric($basis))) {
-            if (($investment <= 0) || ($discount <= 0)) {
-                return Functions::NAN();
-            }
-            $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
-            if (!is_numeric($daysBetweenSettlementAndMaturity)) {
-                //    return date error
-                return $daysBetweenSettlementAndMaturity;
-            }
-
-            return $investment / (1 - ($discount * $daysBetweenSettlementAndMaturity));
-        }
-
-        return Functions::VALUE();
+        return Financial\Securities\Price::received($settlement, $maturity, $investment, $discount, $basis);
     }
 
     /**

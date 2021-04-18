@@ -236,11 +236,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#2 \\$pSheet of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -496,36 +491,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselI\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselI.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselI\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselI.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselI.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2a\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
@@ -536,69 +501,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:besselK2\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselY\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselY.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselY\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselY.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselY.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Compare\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Compare.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Compare\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Compare.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Compare.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Complex\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Complex.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Complex\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Complex.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Complex.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BitWise\\:\\:validateBitwiseArgument\\(\\) never returns int so it can be removed from the return typehint\\.$#"
@@ -701,236 +606,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial.php
 
 		-
-			message: "#^Result of && is always true\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Amortization\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Cumulative\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Cumulative.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:schedulePayment\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
@@ -969,411 +644,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$type with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Payments\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Payments.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Single\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Single.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$next with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateSalvage\\(\\) has parameter \\$salvage with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateLife\\(\\) has parameter \\$life with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validatePeriod\\(\\) has parameter \\$period with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateMonth\\(\\) has parameter \\$month with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateFactor\\(\\) has parameter \\$factor with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\InterestRate\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/InterestRate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\TreasuryBill\\:\\:price\\(\\) should return float\\|string but returns float\\|int\\<0, max\\>\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\InterestAndPrincipal\\:\\:\\$interest has no typehint specified\\.$#"
@@ -1501,289 +771,74 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			message: "#^Binary operation \"\\*\" between float\\|string and int results in an error\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
+			message: "#^Binary operation \"\\*\" between float\\|string and int\\|string results in an error\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$next with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateIssueDate\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateIssueDate\\(\\) has parameter \\$issue with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateSecurityPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateSalvage\\(\\) has parameter \\$salvage with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateSecurityPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateLife\\(\\) has parameter \\$life with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateRate\\(\\) has parameter \\$rate with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validatePeriod\\(\\) has parameter \\$period with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateParValue\\(\\) has parameter \\$parValue with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateMonth\\(\\) has parameter \\$month with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validatePrice\\(\\) has parameter \\$price with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateFactor\\(\\) has parameter \\$factor with no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateYield\\(\\) has parameter \\$yield with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateRedemption\\(\\) has parameter \\$redemption with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateDiscount\\(\\) has parameter \\$discount with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateIssueDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateIssueDate\\(\\) has parameter \\$issue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateSecurityPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateSecurityPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateRate\\(\\) has parameter \\$rate with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateParValue\\(\\) has parameter \\$parValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validatePrice\\(\\) has parameter \\$price with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateYield\\(\\) has parameter \\$yield with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateRedemption\\(\\) has parameter \\$redemption with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateDiscount\\(\\) has parameter \\$discount with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateDate\\(\\) has parameter \\$date with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateSettlementDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateSettlementDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateMaturityDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateMaturityDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateIssueDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateIssueDate\\(\\) has parameter \\$issue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateSecurityPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateSecurityPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateRate\\(\\) has parameter \\$rate with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateParValue\\(\\) has parameter \\$parValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validatePrice\\(\\) has parameter \\$price with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateYield\\(\\) has parameter \\$yield with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateRedemption\\(\\) has parameter \\$redemption with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateDiscount\\(\\) has parameter \\$discount with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateFrequency\\(\\) has parameter \\$frequency with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:validateBasis\\(\\) has parameter \\$basis with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
+			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
@@ -1871,11 +926,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
-			message: "#^Cannot call method isFormula\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
@@ -1918,16 +968,6 @@ parameters:
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Cannot call method isFormula\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
 
 		-
@@ -2371,36 +1411,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Confidence\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Confidence.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Confidence\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Confidence.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Confidence.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:percentileFilterValues\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
@@ -2409,36 +1419,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:rankFilterValues\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Permutations\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Permutations\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array1 with no typehint specified\\.$#"
@@ -2496,41 +1476,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:calculateInverse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheP has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
@@ -2546,102 +1491,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Binomial\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Binomial\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Binomial\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Binomial\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Binomial\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Binary operation \"\\*\" between int\\|string and \\(float\\|int\\) results in an error\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
 			message: "#^Binary operation \"\\-\" between 1 and float\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has parameter \\$actual with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:test\\(\\) has parameter \\$expected with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:inverseLeftTailCalculation\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:inverseLeftTailCalculation\\(\\) has parameter \\$degrees with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:inverseLeftTailCalculation\\(\\) has parameter \\$probability with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
@@ -2706,219 +1556,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Exponential\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Exponential\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Exponential\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Exponential\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Exponential\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\F\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\F\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\F\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\F\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\F\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Fisher\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Fisher\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Fisher\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Fisher\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Fisher\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Gamma\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Gamma\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Gamma\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Gamma\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Gamma\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\HyperGeometric\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\HyperGeometric\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\HyperGeometric\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\HyperGeometric\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\HyperGeometric\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
 			message: "#^Binary operation \"\\*\" between int\\|string and int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\LogNormal\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\LogNormal\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\LogNormal\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\LogNormal\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\LogNormal\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has no return typehint specified\\.$#"
@@ -2929,96 +1569,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has parameter \\$p with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Poisson\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Poisson\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Poisson\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Poisson\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Poisson\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Weibull\\:\\:validateFloat\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Weibull\\:\\:validateInt\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Weibull\\:\\:validateBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Weibull\\:\\:validateProbability\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Weibull\\:\\:validateProbability\\(\\) has parameter \\$probability with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:calculateDistribution\\(\\) has no return typehint specified\\.$#"
@@ -4246,11 +2796,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Csv.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
 			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Csv.php
@@ -4343,11 +2888,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
@@ -4526,11 +3066,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$h1Etc has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Html.php
@@ -4602,21 +3137,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getAttributeNS\\(\\) on DOMElement\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
@@ -4796,16 +3316,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Slk.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$styleSettingsFont has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Slk.php
@@ -4913,11 +3423,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 12
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -5081,32 +3586,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has parameter \\$cellRangeAddress with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method getHyperLink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method getDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -5407,31 +3892,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$xmlWorkbook of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readProtection\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setFormulaAttributes\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -6101,11 +4561,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\PageSetup\\:\\:\\$worksheet has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
@@ -6401,21 +4856,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
@@ -6521,43 +4961,8 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
@@ -7461,16 +5866,6 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
 			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
@@ -7976,11 +6371,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Protection.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getCellXfByIndex\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Style.php
@@ -8008,6 +6398,11 @@ parameters:
 		-
 			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Style/Style.php
+
+		-
+			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
@@ -8152,11 +6547,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between 0\\|array\\<string\\>\\|string and float\\|int results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -8412,36 +6802,21 @@ parameters:
 
 		-
 			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method cellExists\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
+			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
+			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -8891,11 +7266,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:calculateSpansOmitRows\\(\\) has parameter \\$candidateSpannedRow with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -9004,11 +7374,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
@@ -9226,38 +7591,8 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Cannot call method getRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getDatatype\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
@@ -9711,16 +8046,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
@@ -9976,26 +8301,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$pCell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellFormula\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -10006,1089 +8311,9 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getWorksheet\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/DefinedNamesCalculationTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/DefinedNamesCalculationTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/FormulaAsStringTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/FormulaAsStringTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateDifTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateDifTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DateValueTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/Days360Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/Days360Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/DaysTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EDateTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EDateTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EoMonthTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/EoMonthTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/HourTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/HourTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/IsoWeekNumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/IsoWeekNumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MinuteTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MinuteTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MonthTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/MonthTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NetworkDaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NetworkDaysTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/NowTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/SecondTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/SecondTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeValueTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TodayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekDayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekDayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekNumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WeekNumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WorkDayTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/WorkDayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearFracTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearFracTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/YearTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitAndTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitAndTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitLShiftTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitLShiftTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitOrTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitOrTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitRShiftTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitRShiftTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitXorTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/BitXorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2OctTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2OctTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2BinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2BinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2DecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2DecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2HexTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2HexTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AbsTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AbsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcosTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcosTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcoshTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcoshTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcothTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcothTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AllSetupTeardown.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AllSetupTeardown.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ArabicTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ArabicTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AsinhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Atan2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Atan2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AtanhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/BaseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/BaseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingMathTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingMathTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingPreciseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingPreciseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CeilingTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinATest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinATest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CombinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CosTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CosTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CoshTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CoshTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CotTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CotTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CothTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CothTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CscTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CscTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CschTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CschTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/DegreesTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/DegreesTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/EvenTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/EvenTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ExpTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ExpTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactDoubleTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactDoubleTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FactTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorMathTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorMathTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorPreciseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorPreciseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/FloorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/GcdTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/GcdTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/IntTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/IntTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LcmTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LcmTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LnTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LnTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Log10Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/Log10Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LogTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/LogTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MInverseTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MInverseTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MMultTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MMultTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MRoundTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MRoundTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MdeTermTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MdeTermTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ModTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ModTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MultinomialTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MultinomialTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/OddTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/OddTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/PowerTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/PowerTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ProductTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/ProductTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/QuotientTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/QuotientTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RadiansTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RadiansTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandBetweenTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandBetweenTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RomanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RomanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundDownTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundDownTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundUpTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundUpTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SecTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SecTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SechTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SechTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SeriesSumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SeriesSumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SignTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SignTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SinhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtPiTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtPiTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SqrtTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
 
 		-
 			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -11101,169 +8326,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumIfTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumIfTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumProductTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumProductTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumSqTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumSqTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2MY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2MY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2PY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumX2PY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumXMY2Test.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SumXMY2Test.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanhTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TanhTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TruncTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/TruncTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ModeTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/ReptTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/ReptTest.php
-
-		-
 			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CellTest.php
-
-		-
-			message: "#^Cannot call method hasValidValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Cannot call method getDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 8
-			path: tests/PhpSpreadsheetTests/Cell/DataValidatorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:add\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
@@ -11281,34 +8346,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:update\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:getHighestColumn\\(\\) expects string\\|null, int given\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 14
-			path: tests/PhpSpreadsheetTests/DefinedNameTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/DefinedNameTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ActiveSheetTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\ColumnWidthTest\\:\\:testReadColumnWidth\\(\\) has parameter \\$format with no typehint specified\\.$#"
@@ -11331,18 +8371,8 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
 
 		-
@@ -11376,24 +8406,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/EnclosureTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/EnclosureTest.php
-
-		-
 			message: "#^Cannot call method getPageSetup\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Functional/ReadBlankCellsTest.php
 
 		-
 			message: "#^Cannot access offset 'size' on array\\(0 \\=\\> int, 1 \\=\\> int, 2 \\=\\> int, 3 \\=\\> int, 4 \\=\\> int, 5 \\=\\> int, 6 \\=\\> int, 7 \\=\\> int, \\.\\.\\.\\)\\|false\\.$#"
@@ -11409,26 +8424,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pFilename of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) expects resource\\|string, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getOldCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/TypeAttributePreservationTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
@@ -11476,34 +8471,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 67
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
 
 		-
 			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
@@ -11511,39 +8481,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlBorderTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlLoadStringTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 50
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 16
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
 
 		-
 			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -11554,36 +8494,6 @@ parameters:
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 16
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 14
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -11606,28 +8516,8 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 52
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 7
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
 			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/SlkTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
 			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
 
 		-
@@ -11686,11 +8576,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
 			message: "#^Cannot call method getConditionalFormattingRuleExt\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 8
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
@@ -11699,11 +8584,6 @@ parameters:
 			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/NamedRangeTest.php
 
 		-
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
@@ -11726,49 +8606,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method hasDataValidation\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\XlsxTest\\:\\:testStripsWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 11
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlOddTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 70
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlStylesTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xml\\\\XmlTest\\:\\:testInvalidSimpleXML\\(\\) has parameter \\$filename with no typehint specified\\.$#"
@@ -11781,27 +8621,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Cannot call method getHyperlink\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$timeZone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:setDefaultTimezone\\(\\) expects DateTimeZone\\|string, DateTimeZone\\|null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
 
@@ -11836,41 +8656,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 9
-			path: tests/PhpSpreadsheetTests/Style/AlignmentTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 29
-			path: tests/PhpSpreadsheetTests/Style/AlignmentTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 65
-			path: tests/PhpSpreadsheetTests/Style/BorderTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
@@ -11879,51 +8664,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\> given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 10
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Style/ExportArrayTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/FontTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/FontTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Style/NumberFormatBuiltinTest.php
-
-		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Style/StyleTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\\\Rule\\:\\:setValue\\(\\) expects array\\<string\\>\\|string, int given\\.$#"
@@ -11946,11 +8686,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilterTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Worksheet/ColumnCellIterator2Test.php
-
-		-
 			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
@@ -11971,11 +8706,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
-
-		-
 			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
@@ -11986,26 +8716,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
@@ -12014,16 +8724,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false given\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 11
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvWriteTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
@@ -12051,34 +8751,14 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
 
 		-
-			message: "#^Cannot call method getStyle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
-
-		-
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlNumberFormatTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$directory of function chdir expects string, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Html/InvalidFileNameTest.php
 
 		-
 			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
@@ -12096,37 +8776,12 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/XssVulnerabilityTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xls/FormulaErrTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
@@ -12141,27 +8796,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Cannot call method getDataType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
 
@@ -12172,11 +8807,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
 

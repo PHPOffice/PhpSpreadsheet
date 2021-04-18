@@ -3,13 +3,10 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\BaseValidations;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Single
 {
-    use BaseValidations;
-
     /**
      * FVSCHEDULE.
      *
@@ -30,10 +27,10 @@ class Single
         $schedule = Functions::flattenArray($schedule);
 
         try {
-            $principal = self::validateFloat($principal);
+            $principal = CashFlowValidations::validateFloat($principal);
 
             foreach ($schedule as $rate) {
-                $rate = self::validateFloat($rate);
+                $rate = CashFlowValidations::validateFloat($rate);
                 $principal *= 1 + $rate;
             }
         } catch (Exception $e) {
@@ -48,22 +45,22 @@ class Single
      *
      * Calculates the number of periods required for an investment to reach a specified value.
      *
-     * @param float $rate Interest rate per period
-     * @param float $presentValue Present Value
-     * @param float $futureValue Future Value
+     * @param mixed $rate Interest rate per period
+     * @param mixed $presentValue Present Value
+     * @param mixed $futureValue Future Value
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function periods($rate = 0.0, $presentValue = 0.0, $futureValue = 0.0)
+    public static function periods($rate, $presentValue, $futureValue)
     {
         $rate = Functions::flattenSingleValue($rate);
         $presentValue = Functions::flattenSingleValue($presentValue);
         $futureValue = Functions::flattenSingleValue($futureValue);
 
         try {
-            $rate = self::validateFloat($rate);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
+            $rate = CashFlowValidations::validateRate($rate);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -94,9 +91,9 @@ class Single
         $futureValue = Functions::flattenSingleValue($futureValue);
 
         try {
-            $periods = self::validateFloat($periods);
-            $presentValue = self::validateFloat($presentValue);
-            $futureValue = self::validateFloat($futureValue);
+            $periods = CashFlowValidations::validateFloat($periods);
+            $presentValue = CashFlowValidations::validatePresentValue($presentValue);
+            $futureValue = CashFlowValidations::validateFutureValue($futureValue);
         } catch (Exception $e) {
             return $e->getMessage();
         }

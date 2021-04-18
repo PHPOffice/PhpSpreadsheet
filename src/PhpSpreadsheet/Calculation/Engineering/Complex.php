@@ -9,8 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Complex
 {
-    use BaseValidations;
-
     /**
      * COMPLEX.
      *
@@ -33,8 +31,8 @@ class Complex
         $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
 
         try {
-            $realNumber = self::validateFloat($realNumber);
-            $imaginary = self::validateFloat($imaginary);
+            $realNumber = EngineeringValidations::validateFloat($realNumber);
+            $imaginary = EngineeringValidations::validateFloat($imaginary);
         } catch (Exception $e) {
             return $e->getMessage();
         }

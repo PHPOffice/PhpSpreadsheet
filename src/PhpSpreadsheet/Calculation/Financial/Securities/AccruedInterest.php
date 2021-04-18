@@ -4,12 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class AccruedInterest
 {
-    use BaseValidations;
-
     public const ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT = true;
 
     public const ACCRINT_CALCMODE_FIRST_INTEREST_TO_SETTLEMENT = false;
@@ -23,7 +22,7 @@ class AccruedInterest
      *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis][,calc_method])
      *
      * @param mixed $issue the security's issue date
-     * @param mixed $firstinterest the security's first interest date
+     * @param mixed $firstInterest the security's first interest date
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date
      *                                  when the security is traded to the buyer.
@@ -47,30 +46,34 @@ class AccruedInterest
      */
     public static function periodic(
         $issue,
-        $firstinterest,
+        $firstInterest,
         $settlement,
         $rate,
         $parValue = 1000,
-        $frequency = 1,
-        $basis = 0,
+        $frequency = FinancialConstants::FREQUENCY_ANNUAL,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD,
         $calcMethod = self::ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT
     ) {
         $issue = Functions::flattenSingleValue($issue);
-        $firstinterest = Functions::flattenSingleValue($firstinterest);
+        $firstInterest = Functions::flattenSingleValue($firstInterest);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
         $parValue = ($parValue === null) ? 1000 : Functions::flattenSingleValue($parValue);
-        $frequency = ($frequency === null) ? 1 : Functions::flattenSingleValue($frequency);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $frequency = ($frequency === null)
+            ? FinancialConstants::FREQUENCY_ANNUAL
+            : Functions::flattenSingleValue($frequency);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
-            $issue = self::validateIssueDate($issue);
-            $settlement = self::validateSettlementDate($settlement);
-            self::validateSecurityPeriod($issue, $settlement);
-            $rate = self::validateRate($rate);
-            $parValue = self::validateParValue($parValue);
-            $frequency = self::validateFrequency($frequency);
-            $basis = self::validateBasis($basis);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            SecurityValidations::validateSecurityPeriod($issue, $settlement);
+            $rate = SecurityValidations::validateRate($rate);
+            $parValue = SecurityValidations::validateParValue($parValue);
+            $frequency = SecurityValidations::validateFrequency($frequency);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -80,7 +83,7 @@ class AccruedInterest
             //    return date error
             return $daysBetweenIssueAndSettlement;
         }
-        $daysBetweenFirstInterestAndSettlement = YearFrac::funcYearFrac($firstinterest, $settlement, $basis);
+        $daysBetweenFirstInterestAndSettlement = YearFrac::funcYearFrac($firstInterest, $settlement, $basis);
         if (!is_numeric($daysBetweenFirstInterestAndSettlement)) {
             //    return date error
             return $daysBetweenFirstInterestAndSettlement;
@@ -101,7 +104,7 @@ class AccruedInterest
      * @param mixed $settlement The security's settlement (or maturity) date
      * @param mixed $rate The security's annual coupon rate
      * @param mixed $parValue The security's par value.
-     *                            If you omit par, ACCRINT uses $1,000.
+     *                            If you omit parValue, ACCRINT uses $1,000.
      * @param mixed $basis The type of day count to use.
      *                         0 or omitted    US (NASD) 30/360
      *                         1               Actual/actual
@@ -111,21 +114,28 @@ class AccruedInterest
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function atMaturity($issue, $settlement, $rate, $parValue = 1000, $basis = 0)
-    {
+    public static function atMaturity(
+        $issue,
+        $settlement,
+        $rate,
+        $parValue = 1000,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+    ) {
         $issue = Functions::flattenSingleValue($issue);
         $settlement = Functions::flattenSingleValue($settlement);
         $rate = Functions::flattenSingleValue($rate);
         $parValue = ($parValue === null) ? 1000 : Functions::flattenSingleValue($parValue);
-        $basis = ($basis === null) ? 0 : Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
         try {
-            $issue = self::validateIssueDate($issue);
-            $settlement = self::validateSettlementDate($settlement);
-            self::validateSecurityPeriod($issue, $settlement);
-            $rate = self::validateRate($rate);
-            $parValue = self::validateParValue($parValue);
-            $basis = self::validateBasis($basis);
+            $issue = SecurityValidations::validateIssueDate($issue);
+            $settlement = SecurityValidations::validateSettlementDate($settlement);
+            SecurityValidations::validateSecurityPeriod($issue, $settlement);
+            $rate = SecurityValidations::validateRate($rate);
+            $parValue = SecurityValidations::validateParValue($parValue);
+            $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
