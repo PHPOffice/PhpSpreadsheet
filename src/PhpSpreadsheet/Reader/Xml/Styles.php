@@ -24,7 +24,7 @@ class Styles
      */
     protected $styles = [];
 
-    private static $mappings = [
+    protected static $mappings = [
         'borderStyle' => [
             '1continuous' => Border::BORDER_THIN,
             '1dash' => Border::BORDER_DASHED,
@@ -118,37 +118,35 @@ class Styles
         return $this->styles;
     }
 
-    /**
-     * @param string $styleID
-     */
-    private function parseStyleAlignment($styleID, SimpleXMLElement $styleAttributes): void
-    {
-        $verticalAlignmentStyles = [
-            Alignment::VERTICAL_BOTTOM,
-            Alignment::VERTICAL_TOP,
-            Alignment::VERTICAL_CENTER,
-            Alignment::VERTICAL_JUSTIFY,
-        ];
-        $horizontalAlignmentStyles = [
-            Alignment::HORIZONTAL_GENERAL,
-            Alignment::HORIZONTAL_LEFT,
-            Alignment::HORIZONTAL_RIGHT,
-            Alignment::HORIZONTAL_CENTER,
-            Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-            Alignment::HORIZONTAL_JUSTIFY,
-        ];
+    protected const VERTICAL_ALIGNMENT_STYLES = [
+        Alignment::VERTICAL_BOTTOM,
+        Alignment::VERTICAL_TOP,
+        Alignment::VERTICAL_CENTER,
+        Alignment::VERTICAL_JUSTIFY,
+    ];
 
+    protected const HORIZONTAL_ALIGNMENT_STYLES = [
+        Alignment::HORIZONTAL_GENERAL,
+        Alignment::HORIZONTAL_LEFT,
+        Alignment::HORIZONTAL_RIGHT,
+        Alignment::HORIZONTAL_CENTER,
+        Alignment::HORIZONTAL_CENTER_CONTINUOUS,
+        Alignment::HORIZONTAL_JUSTIFY,
+    ];
+
+    protected function parseStyleAlignment(string $styleID, SimpleXMLElement $styleAttributes): void
+    {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             $styleAttributeValue = (string) $styleAttributeValue;
             switch ($styleAttributeKey) {
                 case 'Vertical':
-                    if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
+                    if (self::identifyFixedStyleValue(self::VERTICAL_ALIGNMENT_STYLES, $styleAttributeValue)) {
                         $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
                     }
 
                     break;
                 case 'Horizontal':
-                    if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
+                    if (self::identifyFixedStyleValue(self::HORIZONTAL_ALIGNMENT_STYLES, $styleAttributeValue)) {
                         $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
                     }
 
@@ -165,9 +163,14 @@ class Styles
         }
     }
 
-    private static $borderPositions = ['top', 'left', 'bottom', 'right'];
+    protected const BORDER_POSITIONS = [
+        'top',
+        'left',
+        'bottom',
+        'right'
+    ];
 
-    private function parseStyleBorders($styleID, SimpleXMLElement $styleData, array $namespaces): void
+    protected function parseStyleBorders(string $styleID, SimpleXMLElement $styleData, array $namespaces): void
     {
         $diagonalDirection = '';
         $borderPosition = '';
@@ -182,7 +185,7 @@ class Styles
                 switch ($borderStyleKey) {
                     case 'Position':
                         $borderStyleValue = strtolower($borderStyleValue);
-                        if (in_array($borderStyleValue, self::$borderPositions)) {
+                        if (in_array($borderStyleValue, self::BORDER_POSITIONS)) {
                             $borderPosition = $borderStyleValue;
                         } elseif ($borderStyleValue == 'diagonalleft') {
                             $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_DOWN;
@@ -198,6 +201,7 @@ class Styles
                         break;
                 }
             }
+
             if ($borderPosition) {
                 $this->styles[$styleID]['borders'][$borderPosition] = $thisBorder;
             } elseif ($diagonalDirection) {
@@ -207,7 +211,7 @@ class Styles
         }
     }
 
-    private static $underlineStyles = [
+    protected const UNDERLINE_STYLES = [
         Font::UNDERLINE_NONE,
         Font::UNDERLINE_DOUBLE,
         Font::UNDERLINE_DOUBLEACCOUNTING,
@@ -215,14 +219,14 @@ class Styles
         Font::UNDERLINE_SINGLEACCOUNTING,
     ];
 
-    private function parseStyleFontUnderline(string $styleID, string $styleAttributeValue): void
+    protected function parseStyleFontUnderline(string $styleID, string $styleAttributeValue): void
     {
-        if (self::identifyFixedStyleValue(self::$underlineStyles, $styleAttributeValue)) {
+        if (self::identifyFixedStyleValue(self::UNDERLINE_STYLES, $styleAttributeValue)) {
             $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
         }
     }
 
-    private function parseStyleFontVerticalAlign(string $styleID, string $styleAttributeValue): void
+    protected function parseStyleFontVerticalAlign(string $styleID, string $styleAttributeValue): void
     {
         if ($styleAttributeValue == 'Superscript') {
             $this->styles[$styleID]['font']['superscript'] = true;
@@ -232,7 +236,7 @@ class Styles
         }
     }
 
-    private function parseStyleFont(string $styleID, SimpleXMLElement $styleAttributes): void
+    protected function parseStyleFont(string $styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
             $styleAttributeValue = (string) $styleAttributeValue;
@@ -269,7 +273,7 @@ class Styles
         }
     }
 
-    private function parseStyleInterior($styleID, SimpleXMLElement $styleAttributes): void
+    protected function parseStyleInterior(string $styleID, SimpleXMLElement $styleAttributes): void
     {
         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValuex) {
             $styleAttributeValue = (string) $styleAttributeValuex;
@@ -293,7 +297,7 @@ class Styles
         }
     }
 
-    private function parseStyleNumberFormat($styleID, SimpleXMLElement $styleAttributes): void
+    protected function parseStyleNumberFormat(string $styleID, SimpleXMLElement $styleAttributes): void
     {
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];
@@ -313,9 +317,10 @@ class Styles
         }
     }
 
-    private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
+    protected static function identifyFixedStyleValue(array $styleList, &$styleAttributeValue): bool
     {
         $returnValue = false;
+
         $styleAttributeValue = strtolower($styleAttributeValue);
         foreach ($styleList as $style) {
             if ($styleAttributeValue == strtolower($style)) {
@@ -329,7 +334,7 @@ class Styles
         return $returnValue;
     }
 
-    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
+    protected static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
         return ($simple === null)
             ? new SimpleXMLElement('<xml></xml>')
