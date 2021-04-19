@@ -884,14 +884,14 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        str_replace('px', '', $styleValue)
+                        $this->getAmountFromStyleValue($styleValue)
                     );
 
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        str_replace('px', '', $styleValue)
+                        $this->getAmountFromStyleValue($styleValue)
                     );
 
                     break;
@@ -905,12 +905,21 @@ class Html extends BaseReader
 
                 case 'text-indent':
                     $cellStyle->getAlignment()->setIndent(
-                        (int) str_replace(['px'], '', $styleValue)
+                        (int) $this->getAmountFromStyleValue($styleValue)
                     );
 
                     break;
             }
         }
+    }
+
+    private function getAmountFromStyleValue($value)
+    {
+        if (strpos($value, 'pt') !== false) {
+            return round(intval($value) * 1.328);
+        }
+
+        return str_replace('px', '', $value);
     }
 
     /**
