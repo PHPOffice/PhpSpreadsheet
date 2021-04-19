@@ -23,6 +23,7 @@ class IndirectTest extends AllSetupTeardown
         $sheet->getCell('A3')->setValue(300);
         $sheet->getCell('A4')->setValue(400);
         $sheet->getCell('A5')->setValue(500);
+        $sheet->setTitle('ThisSheet');
 
         $sheet1 = $this->spreadsheet->createSheet();
         $sheet1->getCell('A1')->setValue(10);

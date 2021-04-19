@@ -270,6 +270,8 @@ class Cell
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 } elseif (strpos($ex->getMessage(), 'undefined name') !== false) {
                     return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
+                } elseif (strpos($ex->getMessage(), 'Undefined offset') !== false) {
+                    return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
                 }
 
                 throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
