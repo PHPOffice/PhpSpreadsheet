@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\Properties;
-use PhpOffice\PhpSpreadsheet\Reader\Xml\Styles;
+use PhpOffice\PhpSpreadsheet\Reader\Xml\Style;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -45,7 +45,7 @@ class Xml extends BaseReader
 
     public static function xmlMappings(): array
     {
-        return Styles::xmlMappings();
+        return Style::xmlMappings();
     }
 
     /**
@@ -270,7 +270,7 @@ class Xml extends BaseReader
 
         (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
-        $this->styles = (new Styles($spreadsheet))->parseStyles($xml, $namespaces);
+        $this->styles = (new Style($spreadsheet))->parseStyles($xml, $namespaces);
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
@@ -447,7 +447,9 @@ class Xml extends BaseReader
                             }
                             $node = $cell->Comment->Data->asXML();
                             $annotation = strip_tags((string) $node);
-                            $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setAuthor($author)->setText($this->parseRichText($annotation));
+                            $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)
+                                ->setAuthor($author)
+                                ->setText($this->parseRichText($annotation));
                         }
 
                         if (isset($cell_ss['StyleID'])) {
@@ -456,7 +458,8 @@ class Xml extends BaseReader
                                 //if (!$spreadsheet->getActiveSheet()->cellExists($columnID . $rowID)) {
                                 //    $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValue(null);
                                 //}
-                                $spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->styles[$style]);
+                                $spreadsheet->getActiveSheet()->getStyle($cellRange)
+                                    ->applyFromArray($this->styles[$style]);
                             }
                         }
                         ++$columnID;

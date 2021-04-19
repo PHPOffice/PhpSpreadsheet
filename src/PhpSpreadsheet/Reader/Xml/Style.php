@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
 
-class Styles
+class Style
 {
     /**
      * @var Spreadsheet
