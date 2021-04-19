@@ -90,6 +90,7 @@ class Styles
             $style_ss = self::getAttributes($style, $namespaces['ss']);
             $styleID = (string) $style_ss['ID'];
             $this->styles[$styleID] = $this->styles['Default'] ?? [];
+
             foreach ($style as $styleType => $styleDatax) {
                 $styleData = $styleDatax ?? new SimpleXMLElement('<xml></xml>');
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
@@ -170,7 +171,7 @@ class Styles
         'top',
         'left',
         'bottom',
-        'right'
+        'right',
     ];
 
     protected function parseStyleBorders(string $styleID, SimpleXMLElement $styleData, array $namespaces): void
@@ -183,6 +184,7 @@ class Styles
             $style = (string) $borderAttributes->Weight;
             $style .= strtolower((string) $borderAttributes->LineStyle);
             $thisBorder['borderStyle'] = self::$mappings['borderStyle'][$style] ?? Border::BORDER_NONE;
+
             foreach ($borderAttributes as $borderStyleKey => $borderStyleValuex) {
                 $borderStyleValue = (string) $borderStyleValuex;
                 switch ($borderStyleKey) {
@@ -320,7 +322,7 @@ class Styles
         }
     }
 
-    protected static function identifyFixedStyleValue(array $styleList, &$styleAttributeValue): bool
+    protected static function identifyFixedStyleValue(array $styleList, string &$styleAttributeValue): bool
     {
         $returnValue = false;
 
