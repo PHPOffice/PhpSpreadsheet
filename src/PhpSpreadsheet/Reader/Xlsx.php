@@ -48,6 +48,7 @@ class Xlsx extends BaseReader
      * @var ReferenceHelper
      */
     private $referenceHelper;
+
     /**
      * Xlsx\Theme instance.
      *
