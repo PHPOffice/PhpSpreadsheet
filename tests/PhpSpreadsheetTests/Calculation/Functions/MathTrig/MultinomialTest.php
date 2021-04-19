@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class MultinomialTest extends TestCase
+class MultinomialTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMULTINOMIAL
      *
@@ -20,11 +11,23 @@ class MultinomialTest extends TestCase
      */
     public function testMULTINOMIAL($expectedResult, ...$args): void
     {
-        $result = MathTrig::MULTINOMIAL(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $row = 0;
+        $excelArg = '';
+        foreach ($args as $arg) {
+            ++$row;
+            $excelArg = "A1:A$row";
+            if ($arg !== null) {
+                $sheet->getCell("A$row")->setValue($arg);
+            }
+        }
+        $sheet->getCell('B1')->setValue("=MULTINOMIAL($excelArg)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMULTINOMIAL()
+    public function providerMULTINOMIAL(): array
     {
         return require 'tests/data/Calculation/MathTrig/MULTINOMIAL.php';
     }

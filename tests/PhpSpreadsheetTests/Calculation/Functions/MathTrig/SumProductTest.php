@@ -3,16 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
 
-class SumProductTest extends TestCase
+class SumProductTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSUMPRODUCT
      *
@@ -20,11 +13,28 @@ class SumProductTest extends TestCase
      */
     public function testSUMPRODUCT($expectedResult, ...$args): void
     {
-        $result = MathTrig::SUMPRODUCT(...$args);
+        $sheet = $this->sheet;
+        $row = 0;
+        $arrayArg = '';
+        foreach ($args as $arr) {
+            $arr2 = Functions::flattenArray($arr);
+            $startRow = 0;
+            foreach ($arr2 as $arr3) {
+                ++$row;
+                if (!$startRow) {
+                    $startRow = $row;
+                }
+                $sheet->getCell("A$row")->setValue($arr3);
+            }
+            $arrayArg .= "A$startRow:A$row,";
+        }
+        $arrayArg = substr($arrayArg, 0, -1); // strip trailing comma
+        $sheet->getCell('B1')->setValue("=SUMPRODUCT($arrayArg)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMPRODUCT()
+    public function providerSUMPRODUCT(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMPRODUCT.php';
     }

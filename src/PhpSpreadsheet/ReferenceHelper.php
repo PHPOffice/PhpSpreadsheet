@@ -375,17 +375,16 @@ class ReferenceHelper
         $allCoordinates = $pSheet->getCoordinates();
 
         // Get coordinate of $pBefore
-        [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($pBefore);
-        $beforeColumnIndex = Coordinate::columnIndexFromString($beforeColumn);
+        [$beforeColumn, $beforeRow] = Coordinate::indexesFromString($pBefore);
 
         // Clear cells if we are removing columns or rows
         $highestColumn = $pSheet->getHighestColumn();
         $highestRow = $pSheet->getHighestRow();
 
         // 1. Clear column strips if we are removing columns
-        if ($pNumCols < 0 && $beforeColumnIndex - 2 + $pNumCols > 0) {
+        if ($pNumCols < 0 && $beforeColumn - 2 + $pNumCols > 0) {
             for ($i = 1; $i <= $highestRow - 1; ++$i) {
-                for ($j = $beforeColumnIndex - 1 + $pNumCols; $j <= $beforeColumnIndex - 2; ++$j) {
+                for ($j = $beforeColumn - 1 + $pNumCols; $j <= $beforeColumn - 2; ++$j) {
                     $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
                     $pSheet->removeConditionalStyles($coordinate);
                     if ($pSheet->cellExists($coordinate)) {
@@ -398,7 +397,7 @@ class ReferenceHelper
 
         // 2. Clear row strips if we are removing rows
         if ($pNumRows < 0 && $beforeRow - 1 + $pNumRows > 0) {
-            for ($i = $beforeColumnIndex - 1; $i <= Coordinate::columnIndexFromString($highestColumn) - 1; ++$i) {
+            for ($i = $beforeColumn - 1; $i <= Coordinate::columnIndexFromString($highestColumn) - 1; ++$i) {
                 for ($j = $beforeRow + $pNumRows; $j <= $beforeRow - 1; ++$j) {
                     $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
                     $pSheet->removeConditionalStyles($coordinate);
@@ -427,7 +426,7 @@ class ReferenceHelper
             $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex + $pNumCols) . ($cell->getRow() + $pNumRows);
 
             // Should the cell be updated? Move value and cellXf index from one cell to another.
-            if (($cellIndex >= $beforeColumnIndex) && ($cell->getRow() >= $beforeRow)) {
+            if (($cellIndex >= $beforeColumn) && ($cell->getRow() >= $beforeRow)) {
                 // Update cell styles
                 $pSheet->getCell($newCoordinate)->setXfIndex($cell->getXfIndex());
 
@@ -457,15 +456,15 @@ class ReferenceHelper
         $highestColumn = $pSheet->getHighestColumn();
         $highestRow = $pSheet->getHighestRow();
 
-        if ($pNumCols > 0 && $beforeColumnIndex - 2 > 0) {
+        if ($pNumCols > 0 && $beforeColumn - 2 > 0) {
             for ($i = $beforeRow; $i <= $highestRow - 1; ++$i) {
                 // Style
-                $coordinate = Coordinate::stringFromColumnIndex($beforeColumnIndex - 1) . $i;
+                $coordinate = Coordinate::stringFromColumnIndex($beforeColumn - 1) . $i;
                 if ($pSheet->cellExists($coordinate)) {
                     $xfIndex = $pSheet->getCell($coordinate)->getXfIndex();
                     $conditionalStyles = $pSheet->conditionalStylesExists($coordinate) ?
                         $pSheet->getConditionalStyles($coordinate) : false;
-                    for ($j = $beforeColumnIndex; $j <= $beforeColumnIndex - 1 + $pNumCols; ++$j) {
+                    for ($j = $beforeColumn; $j <= $beforeColumn - 1 + $pNumCols; ++$j) {
                         $pSheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
                         if ($conditionalStyles) {
                             $cloned = [];
@@ -480,7 +479,7 @@ class ReferenceHelper
         }
 
         if ($pNumRows > 0 && $beforeRow - 1 > 0) {
-            for ($i = $beforeColumnIndex; $i <= Coordinate::columnIndexFromString($highestColumn); ++$i) {
+            for ($i = $beforeColumn; $i <= Coordinate::columnIndexFromString($highestColumn); ++$i) {
                 // Style
                 $coordinate = Coordinate::stringFromColumnIndex($i) . ($beforeRow - 1);
                 if ($pSheet->cellExists($coordinate)) {
@@ -502,28 +501,28 @@ class ReferenceHelper
         }
 
         // Update worksheet: column dimensions
-        $this->adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustColumnDimensions($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: row dimensions
-        $this->adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustRowDimensions($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         //    Update worksheet: page breaks
-        $this->adjustPageBreaks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustPageBreaks($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         //    Update worksheet: comments
-        $this->adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustComments($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: hyperlinks
-        $this->adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustHyperlinks($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: data validations
-        $this->adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustDataValidations($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: merge cells
-        $this->adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustMergeCells($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: protected cells
-        $this->adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
+        $this->adjustProtectedCells($pSheet, $pBefore, $beforeColumn, $pNumCols, $beforeRow, $pNumRows);
 
         // Update worksheet: autofilter
         $autoFilter = $pSheet->getAutoFilter();
@@ -608,7 +607,7 @@ class ReferenceHelper
         // Update workbook: define names
         if (count($pSheet->getParent()->getDefinedNames()) > 0) {
             foreach ($pSheet->getParent()->getDefinedNames() as $definedName) {
-                if ($definedName->getWorksheet()->getHashCode() === $pSheet->getHashCode()) {
+                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $pSheet->getHashCode()) {
                     $definedName->setValue($this->updateCellReference($definedName->getValue(), $pBefore, $pNumCols, $pNumRows));
                 }
             }
@@ -654,7 +653,7 @@ class ReferenceHelper
                                 $toString .= $modified3 . ':' . $modified4;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = 100000;
-                                $row = 10000000 + trim($match[3], '$');
+                                $row = 10000000 + (int) trim($match[3], '$');
                                 $cellIndex = $column . $row;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -705,7 +704,7 @@ class ReferenceHelper
                                 [$column, $row] = Coordinate::coordinateFromString($match[3]);
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($column, '$')) + 100000;
-                                $row = trim($row, '$') + 10000000;
+                                $row = (int) trim($row, '$') + 10000000;
                                 $cellIndex = $column . $row;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -731,7 +730,7 @@ class ReferenceHelper
                                 [$column, $row] = Coordinate::coordinateFromString($match[3]);
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($column, '$')) + 100000;
-                                $row = trim($row, '$') + 10000000;
+                                $row = (int) trim($row, '$') + 10000000;
                                 $cellIndex = $row . $column;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -1021,7 +1020,7 @@ class ReferenceHelper
 
         // Create new row reference
         if ($updateRow) {
-            $newRow = $newRow + $pNumRows;
+            $newRow = (int) $newRow + $pNumRows;
         }
 
         // Return new reference

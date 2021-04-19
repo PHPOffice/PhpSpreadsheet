@@ -18,7 +18,7 @@ class DollarTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDOLLAR()
+    public function providerDOLLAR(): array
     {
         return require 'tests/data/Calculation/TextData/DOLLAR.php';
     }

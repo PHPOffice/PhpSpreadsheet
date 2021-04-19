@@ -46,8 +46,39 @@ return [
         '<2013',
     ],
     [
-        14000,
-        [7000, 14000, 'Hello World', 21000, 28000],
+        200,
+        [7000, 14000, 21000, 28000],
         '<23000',
+        [100, 200, 300, 800],
+    ],
+    [
+        (2 + 4 + 8) / 3,
+        [true, true, false, true, false],
+        true,
+        [2, 4, 6, 8, 10],
+    ],
+    [
+        (6 + 10) / 2,
+        [true, true, false, true, false],
+        '<>true',
+        [2, 4, 6, 8, 10],
+    ],
+    [
+        (1 + 2 + 5 + 6) / 4,
+        ['North', 'South', 'East', 'West', 'North', 'South', 'East', 'West'],
+        '???th',
+        [1, 2, 3, 4, 5, 6, 7, 8],
+    ],
+    [
+        16733.5,
+        ['East', 'West', 'North', 'South (New Office)', 'Midwest'],
+        '=*West',
+        [45678, 23789, -4789, 0, 9678],
+    ],
+    [
+        18589,
+        ['East', 'West', 'North', 'South (New Office)', 'Midwest'],
+        '<>*(New Office)',
+        [45678, 23789, -4789, 0, 9678],
     ],
 ];

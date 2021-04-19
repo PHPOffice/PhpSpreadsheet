@@ -49,7 +49,7 @@ class Column
     /**
      * Autofilter.
      *
-     * @var AutoFilter
+     * @var null|AutoFilter
      */
     private $parent;
 
@@ -77,14 +77,14 @@ class Column
     /**
      * Autofilter Column Rules.
      *
-     * @var array of Column\Rule
+     * @var Column\Rule[]
      */
     private $ruleset = [];
 
     /**
      * Autofilter Column Dynamic Attributes.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $attributes = [];
 
@@ -133,7 +133,7 @@ class Column
     /**
      * Get this Column's AutoFilter Parent.
      *
-     * @return AutoFilter
+     * @return null|AutoFilter
      */
     public function getParent()
     {
@@ -256,7 +256,7 @@ class Column
      *
      * @param string $pName Attribute Name
      *
-     * @return string
+     * @return null|string
      */
     public function getAttribute($pName)
     {

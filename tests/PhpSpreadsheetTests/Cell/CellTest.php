@@ -23,7 +23,7 @@ class CellTest extends TestCase
         self::assertSame($expected, $cell->getValue());
     }
 
-    public function providerSetValueExplicit()
+    public function providerSetValueExplicit(): array
     {
         return require 'tests/data/Cell/SetValueExplicit.php';
     }
@@ -42,7 +42,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($value, $dataType);
     }
 
-    public function providerSetValueExplicitException()
+    public function providerSetValueExplicitException(): array
     {
         return require 'tests/data/Cell/SetValueExplicitException.php';
     }

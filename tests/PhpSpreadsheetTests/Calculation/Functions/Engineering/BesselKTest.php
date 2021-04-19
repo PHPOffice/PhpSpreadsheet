@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BesselKTest extends TestCase
 {
-    const BESSEL_PRECISION = 1E-8;
+    const BESSEL_PRECISION = 1E-12;
 
     protected function setUp(): void
     {
@@ -26,7 +26,7 @@ class BesselKTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    public function providerBESSELK()
+    public function providerBESSELK(): array
     {
         return require 'tests/data/Calculation/Engineering/BESSELK.php';
     }

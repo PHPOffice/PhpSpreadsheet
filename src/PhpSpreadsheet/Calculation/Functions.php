@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Functions
 {
@@ -252,9 +253,11 @@ class Functions
         if ($condition === '') {
             $condition = '=""';
         }
-
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
-            if (!is_numeric($condition)) {
+            $condition = self::operandSpecialHandling($condition);
+            if (is_bool($condition)) {
+                return '=' . ($condition ? 'TRUE' : 'FALSE');
+            } elseif (!is_numeric($condition)) {
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
 
@@ -263,9 +266,10 @@ class Functions
         preg_match('/(=|<[>=]?|>=?)(.*)/', $condition, $matches);
         [, $operator, $operand] = $matches;
 
+        $operand = self::operandSpecialHandling($operand);
         if (is_numeric(trim($operand, '"'))) {
             $operand = trim($operand, '"');
-        } elseif (!is_numeric($operand)) {
+        } elseif (!is_numeric($operand) && $operand !== 'FALSE' && $operand !== 'TRUE') {
             $operand = str_replace('"', '""', $operand);
             $operand = Calculation::wrapResult(strtoupper($operand));
         }
@@ -273,12 +277,33 @@ class Functions
         return str_replace('""""', '""', $operator . $operand);
     }
 
+    private static function operandSpecialHandling($operand)
+    {
+        if (is_numeric($operand) || is_bool($operand)) {
+            return $operand;
+        } elseif (strtoupper($operand) === Calculation::getTRUE() || strtoupper($operand) === Calculation::getFALSE()) {
+            return strtoupper($operand);
+        }
+
+        // Check for percentage
+        if (preg_match('/^\-?\d*\.?\d*\s?\%$/', $operand)) {
+            return ((float) rtrim($operand, '%')) / 100;
+        }
+
+        // Check for dates
+        if (($dateValueOperand = Date::stringToExcel($operand)) !== false) {
+            return $dateValueOperand;
+        }
+
+        return $operand;
+    }
+
     /**
      * ERROR_TYPE.
      *
      * @param mixed $value Value to check
      *
-     * @return bool
+     * @return int|string
      */
     public static function errorType($value = '')
     {
@@ -551,7 +576,7 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
-     * @param array $array Array to be flattened
+     * @param array|mixed $array Array to be flattened
      *
      * @return array Flattened array
      */
@@ -584,7 +609,7 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
-     * @param array $array Array to be flattened
+     * @param array|mixed $array Array to be flattened
      *
      * @return array Flattened array
      */

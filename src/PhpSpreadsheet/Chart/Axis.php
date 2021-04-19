@@ -13,7 +13,7 @@ class Axis extends Properties
     /**
      * Axis Number.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $axisNumber = [
         'format' => self::FORMAT_CODE_GENERAL,
@@ -23,7 +23,7 @@ class Axis extends Properties
     /**
      * Axis Options.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $axisOptions = [
         'minimum' => null,
@@ -41,7 +41,7 @@ class Axis extends Properties
     /**
      * Fill Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $fillProperties = [
         'type' => self::EXCEL_COLOR_TYPE_ARGB,
@@ -52,7 +52,7 @@ class Axis extends Properties
     /**
      * Line Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $lineProperties = [
         'type' => self::EXCEL_COLOR_TYPE_ARGB,
@@ -63,7 +63,7 @@ class Axis extends Properties
     /**
      * Line Style Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $lineStyleProperties = [
         'width' => '9525',
@@ -86,7 +86,7 @@ class Axis extends Properties
     /**
      * Shadow Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $shadowProperties = [
         'presets' => self::SHADOW_PRESETS_NOSHADOW,
@@ -111,7 +111,7 @@ class Axis extends Properties
     /**
      * Glow Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $glowProperties = [
         'size' => null,
@@ -125,7 +125,7 @@ class Axis extends Properties
     /**
      * Soft Edge Properties.
      *
-     * @var array of mixed
+     * @var mixed[]
      */
     private $softEdges = [
         'size' => null,
@@ -135,10 +135,8 @@ class Axis extends Properties
      * Get Series Data Type.
      *
      * @param mixed $format_code
-     *
-     * @return string
      */
-    public function setAxisNumberProperties($format_code)
+    public function setAxisNumberProperties($format_code): void
     {
         $this->axisNumber['format'] = (string) $format_code;
         $this->axisNumber['source_linked'] = 0;
@@ -340,9 +338,9 @@ class Axis extends Properties
     {
         $this->setShadowPresetsProperties((int) $sh_presets)
             ->setShadowColor(
-                $sh_color_value === null ? $this->shadowProperties['color']['value'] : $sh_color_value,
-                $sh_color_alpha === null ? (int) $this->shadowProperties['color']['alpha'] : $sh_color_alpha,
-                $sh_color_type === null ? $this->shadowProperties['color']['type'] : $sh_color_type
+                $sh_color_value ?? $this->shadowProperties['color']['value'],
+                $sh_color_alpha ?? (int) $this->shadowProperties['color']['alpha'],
+                $sh_color_type ?? $this->shadowProperties['color']['type']
             )
             ->setShadowBlur($sh_blur)
             ->setShadowAngle($sh_angle)
@@ -367,7 +365,7 @@ class Axis extends Properties
     /**
      * Set Shadow Properties from Mapped Values.
      *
-     * @param mixed &$reference
+     * @param mixed $reference
      *
      * @return $this
      */
@@ -482,9 +480,9 @@ class Axis extends Properties
     {
         $this->setGlowSize($size)
             ->setGlowColor(
-                $color_value === null ? $this->glowProperties['color']['value'] : $color_value,
-                $color_alpha === null ? (int) $this->glowProperties['color']['alpha'] : $color_alpha,
-                $color_type === null ? $this->glowProperties['color']['type'] : $color_type
+                $color_value ?? $this->glowProperties['color']['value'],
+                $color_alpha ?? (int) $this->glowProperties['color']['alpha'],
+                $color_type ?? $this->glowProperties['color']['type']
             );
     }
 

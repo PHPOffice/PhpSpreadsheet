@@ -1,6 +1,6 @@
 <?php
 
-function calculationTestDataGenerator()
+function calculationTestDataGenerator(): array
 {
     $dataArray1 = [
         ['please +', 'please *', 'increment'],

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
@@ -17,7 +18,7 @@ class ColumnCellIterator extends CellIterator
     /**
      * Column index.
      *
-     * @var string
+     * @var int
      */
     private $columnIndex;
 
@@ -59,7 +60,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart($startRow = 1)
+    public function resetStart(int $startRow = 1)
     {
         $this->startRow = $startRow;
         $this->adjustForExistingOnlyRange();
@@ -77,7 +78,7 @@ class ColumnCellIterator extends CellIterator
      */
     public function resetEnd($endRow = null)
     {
-        $this->endRow = ($endRow) ? $endRow : $this->worksheet->getHighestRow();
+        $this->endRow = $endRow ?: $this->worksheet->getHighestRow();
         $this->adjustForExistingOnlyRange();
 
         return $this;
@@ -90,7 +91,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek($row = 1)
+    public function seek(int $row = 1)
     {
         if ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($this->columnIndex, $row))) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
@@ -113,20 +114,16 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Return the current cell in this worksheet column.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
-    public function current()
+    public function current(): ?Cell
     {
         return $this->worksheet->getCellByColumnAndRow($this->columnIndex, $this->currentRow);
     }
 
     /**
      * Return the current iterator key.
-     *
-     * @return int
      */
-    public function key()
+    public function key(): int
     {
         return $this->currentRow;
     }
@@ -161,10 +158,8 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating.
-     *
-     * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->currentRow <= $this->endRow && $this->currentRow >= $this->startRow;
     }

@@ -24,7 +24,7 @@ class CountIfTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerCOUNTIF()
+    public function providerCOUNTIF(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIF.php';
     }

@@ -27,7 +27,7 @@ class ErfPreciseTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerERFPRECISE()
+    public function providerERFPRECISE(): array
     {
         return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }

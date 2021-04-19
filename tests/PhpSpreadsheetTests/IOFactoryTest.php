@@ -24,7 +24,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf($expected, $actual);
     }
 
-    public function providerCreateWriter()
+    public function providerCreateWriter(): array
     {
         return [
             ['Xls', Writer\Xls::class],
@@ -58,7 +58,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf($expected, $actual);
     }
 
-    public function providerCreateReader()
+    public function providerCreateReader(): array
     {
         return [
             ['Xls', Reader\Xls::class],
@@ -118,7 +118,7 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Spreadsheet::class, $actual);
     }
 
-    public function providerIdentify()
+    public function providerIdentify(): array
     {
         return [
             ['samples/templates/26template.xlsx', 'Xlsx', Reader\Xlsx::class],

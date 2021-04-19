@@ -9,6 +9,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
 {
+    /**
+     * @var false|string
+     */
     private $curdir;
 
     protected function setUp(): void

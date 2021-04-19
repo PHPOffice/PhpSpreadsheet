@@ -37,6 +37,12 @@ class ConvertUoMTest extends TestCase
         self::assertIsArray($result);
     }
 
+    public function testGetBinaryConversionMultipliers(): void
+    {
+        $result = Engineering::getBinaryConversionMultipliers();
+        self::assertIsArray($result);
+    }
+
     /**
      * @dataProvider providerCONVERTUOM
      *
@@ -48,7 +54,7 @@ class ConvertUoMTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCONVERTUOM()
+    public function providerCONVERTUOM(): array
     {
         return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
     }

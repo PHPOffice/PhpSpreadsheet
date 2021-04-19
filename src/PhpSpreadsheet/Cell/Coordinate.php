@@ -25,7 +25,7 @@ abstract class Coordinate
      *
      * @param string $pCoordinateString eg: 'A1'
      *
-     * @return string[] Array containing column and row (indexes 0 and 1)
+     * @return array{0: string, 1: string} Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString)
     {
@@ -38,6 +38,23 @@ abstract class Coordinate
         }
 
         throw new Exception('Invalid cell coordinate ' . $pCoordinateString);
+    }
+
+    /**
+     * Get indexes from a string coordinates.
+     *
+     * @param string $coordinates eg: 'A1', '$B$12'
+     *
+     * @return array{0: int, 1: int} Array containing column index and row index (indexes 0 and 1)
+     */
+    public static function indexesFromString(string $coordinates): array
+    {
+        [$col, $row] = self::coordinateFromString($coordinates);
+
+        return [
+            self::columnIndexFromString(ltrim($col, '$')),
+            (int) ltrim($row, '$'),
+        ];
     }
 
     /**
@@ -339,7 +356,8 @@ abstract class Coordinate
 
     private static function processRangeSetOperators(array $operators, array $cells): array
     {
-        for ($offset = 0; $offset < count($operators); ++$offset) {
+        $operatorCount = count($operators);
+        for ($offset = 0; $offset < $operatorCount; ++$offset) {
             $operator = $operators[$offset];
             if ($operator !== ' ') {
                 continue;
@@ -350,6 +368,7 @@ abstract class Coordinate
             $operators = array_values($operators);
             $cells = array_values($cells);
             --$offset;
+            --$operatorCount;
         }
 
         return $cells;

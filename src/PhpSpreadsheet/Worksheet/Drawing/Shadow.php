@@ -52,7 +52,7 @@ class Shadow implements IComparable
     /**
      * Shadow alignment.
      *
-     * @var int
+     * @var string
      */
     private $alignment;
 
@@ -184,7 +184,7 @@ class Shadow implements IComparable
     /**
      * Get Shadow alignment.
      *
-     * @return int
+     * @return string
      */
     public function getAlignment()
     {
@@ -194,7 +194,7 @@ class Shadow implements IComparable
     /**
      * Set Shadow alignment.
      *
-     * @param int $pValue
+     * @param string $pValue
      *
      * @return $this
      */

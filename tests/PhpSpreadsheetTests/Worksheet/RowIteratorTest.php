@@ -5,20 +5,18 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class RowIteratorTest extends TestCase
 {
-    public $mockWorksheet;
-
-    public $mockRow;
+    /**
+     * @var Worksheet&MockObject
+     */
+    private $mockWorksheet;
 
     protected function setUp(): void
     {
-        $this->mockRow = $this->getMockBuilder(Row::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -65,6 +63,22 @@ class RowIteratorTest extends TestCase
         }
     }
 
+    public function testIteratorResetStart(): void
+    {
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $iterator->resetStart(5);
+
+        $key = $iterator->key();
+        self::assertSame(5, $key);
+
+        $lastRow = $iterator->key();
+        while ($iterator->valid() !== false) {
+            $iterator->next();
+            $lastRow = $iterator->key();
+        }
+        self::assertSame(6, $lastRow);
+    }
+
     public function testSeekOutOfRange(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
@@ -78,5 +92,13 @@ class RowIteratorTest extends TestCase
         $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->prev();
         self::assertFalse($iterator->valid());
+    }
+
+    public function testResetStartOutOfRange(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $iterator->resetStart(10);
     }
 }

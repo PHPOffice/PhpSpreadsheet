@@ -14,17 +14,12 @@ class ImSqrtTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
     }
 
     /**
@@ -42,7 +37,7 @@ class ImSqrtTest extends TestCase
         );
     }
 
-    public function providerIMSQRT()
+    public function providerIMSQRT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }

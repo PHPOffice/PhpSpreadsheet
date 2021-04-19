@@ -20,22 +20,22 @@ class HtmlTest extends TestCase
 
     public function testBadHtml(): void
     {
-        $this->expectException(ReaderException::class);
         $filename = 'tests/data/Reader/HTML/badhtml.html';
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
+
+        $this->expectException(ReaderException::class);
         $reader->load($filename);
-        self::assertTrue(false);
     }
 
     public function testNonHtml(): void
     {
-        $this->expectException(ReaderException::class);
         $filename = __FILE__;
         $reader = new Html();
         self::assertFalse($reader->canRead($filename));
+
+        $this->expectException(ReaderException::class);
         $reader->load($filename);
-        self::assertTrue(false);
     }
 
     public function testInvalidFilename(): void
@@ -45,7 +45,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead(''));
     }
 
-    public function providerCanReadVerySmallFile()
+    public function providerCanReadVerySmallFile(): array
     {
         $padding = str_repeat('a', 2048);
 

@@ -15,7 +15,7 @@ class StartsWithHashTest extends TestCase
 {
     public function testStartWithHash(): void
     {
-        $outputFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outputFilename = File::temporaryFilename();
         Settings::setLibXmlLoaderOptions(null);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -40,7 +40,7 @@ class StartsWithHashTest extends TestCase
     public function testStartWithHashReadRaw(): void
     {
         // Make sure raw data indicates A3 is an error, but A2 isn't.
-        $outputFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outputFilename = File::temporaryFilename();
         Settings::setLibXmlLoaderOptions(null);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

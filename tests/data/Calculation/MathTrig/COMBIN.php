@@ -71,6 +71,11 @@ return [
     [
         '#VALUE!',
         'ABCD',
+        2,
+    ],
+    [
+        '#VALUE!',
+        3,
         'EFGH',
     ],
     [
@@ -123,4 +128,8 @@ return [
         6,
         7,
     ],
+    [1, 0, 0],
+    ['#NUM!', 0, 1],
+    ['#VALUE!', 1, true],
+    ['#VALUE!', 1, null],
 ];

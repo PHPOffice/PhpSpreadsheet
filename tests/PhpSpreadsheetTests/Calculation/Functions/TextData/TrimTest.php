@@ -11,7 +11,7 @@ class TrimTest extends TestCase
      * @dataProvider providerTRIM
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
     public function testTRIM($expectedResult, $character): void
     {
@@ -19,7 +19,7 @@ class TrimTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTRIM()
+    public function providerTRIM(): array
     {
         return require 'tests/data/Calculation/TextData/TRIM.php';
     }

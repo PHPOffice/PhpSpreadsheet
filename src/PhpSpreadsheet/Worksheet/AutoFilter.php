@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -14,7 +14,7 @@ class AutoFilter
     /**
      * Autofilter Worksheet.
      *
-     * @var Worksheet
+     * @var null|Worksheet
      */
     private $workSheet;
 
@@ -47,7 +47,7 @@ class AutoFilter
     /**
      * Get AutoFilter Parent Worksheet.
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getParent()
     {
@@ -472,7 +472,7 @@ class AutoFilter
         $val = $maxVal = null;
 
         $ruleValues = [];
-        $baseDate = DateTime::DATENOW();
+        $baseDate = DateTimeExcel\Now::funcNow();
         //    Calculate start/end dates for the required date range based on current date
         switch ($dynamicRuleType) {
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:
@@ -595,7 +595,9 @@ class AutoFilter
             sort($dataValues);
         }
 
-        return array_pop(array_slice($dataValues, 0, $ruleValue));
+        $slice = array_slice($dataValues, 0, $ruleValue);
+
+        return array_pop($slice);
     }
 
     /**
@@ -777,6 +779,9 @@ class AutoFilter
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER:
                     $ruleValues = [];
                     $dataRowCount = $rangeEnd[1] - $rangeStart[1];
+                    $toptenRuleType = null;
+                    $ruleValue = 0;
+                    $ruleOperator = null;
                     foreach ($rules as $rule) {
                         //    We should only ever have one Dynamic Filter Rule anyway
                         $toptenRuleType = $rule->getGrouping();
@@ -786,10 +791,10 @@ class AutoFilter
                     if ($ruleOperator === AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
                         $ruleValue = floor($ruleValue * ($dataRowCount / 100));
                     }
-                    if ($ruleValue < 1) {
+                    if (!is_array($ruleValue) && $ruleValue < 1) {
                         $ruleValue = 1;
                     }
-                    if ($ruleValue > 500) {
+                    if (!is_array($ruleValue) && $ruleValue > 500) {
                         $ruleValue = 500;
                     }
 

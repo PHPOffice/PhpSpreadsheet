@@ -2,29 +2,37 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class LogTest extends TestCase
+class LogTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerLOG
      *
      * @param mixed $expectedResult
+     * @param mixed $number
+     * @param mixed $base
      */
-    public function testLOG($expectedResult, ...$args): void
+    public function testLOG($expectedResult, $number = 'omitted', $base = 'omitted'): void
     {
-        $result = MathTrig::logBase(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        if ($number !== null) {
+            $sheet->getCell('A1')->setValue($number);
+        }
+        if ($base !== null) {
+            $sheet->getCell('A2')->setValue($base);
+        }
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=LOG()');
+        } elseif ($base === 'omitted') {
+            $sheet->getCell('B1')->setValue('=LOG(A1)');
+        } else {
+            $sheet->getCell('B1')->setValue('=LOG(A1,A2)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerLOG()
+    public function providerLOG(): array
     {
         return require 'tests/data/Calculation/MathTrig/LOG.php';
     }

@@ -169,7 +169,7 @@ class Slk extends BaseReader
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum[0]) {
                         case 'X':
-                            $columnIndex = substr($rowDatum, 1) - 1;
+                            $columnIndex = (int) substr($rowDatum, 1) - 1;
 
                             break;
                         case 'Y':
@@ -251,7 +251,7 @@ class Slk extends BaseReader
                     }
                     //    Bracketed R references are relative to the current row
                     if ($rowReference[0] == '[') {
-                        $rowReference = $row + trim($rowReference, '[]');
+                        $rowReference = (int) $row + (int) trim($rowReference, '[]');
                     }
                     $columnReference = $cellReference[4][0];
                     //    Empty C reference is the current column
@@ -260,7 +260,7 @@ class Slk extends BaseReader
                     }
                     //    Bracketed C references are relative to the current column
                     if ($columnReference[0] == '[') {
-                        $columnReference = $column + trim($columnReference, '[]');
+                        $columnReference = (int) $column + (int) trim($columnReference, '[]');
                     }
                     $A1CellReference = Coordinate::stringFromColumnIndex($columnReference) . $rowReference;
 
@@ -419,14 +419,14 @@ class Slk extends BaseReader
         if ($columnWidth > '') {
             if ($startCol == $endCol) {
                 $startCol = Coordinate::stringFromColumnIndex((int) $startCol);
-                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
+                $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
             } else {
                 $startCol = Coordinate::stringFromColumnIndex($startCol);
                 $endCol = Coordinate::stringFromColumnIndex($endCol);
                 $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth((float) $columnWidth);
                 do {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);
-                } while ($startCol != $endCol);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth((float) $columnWidth);
+                } while ($startCol !== $endCol);
             }
         }
     }

@@ -19,7 +19,7 @@ class FormulaErrTest extends TestCase
         $sheet0->setCellValue('C1', '=DEFNAM=2');
         $sheet0->setCellValue('D1', '=CONCAT("X",DEFNAM)');
         $writer = IOFactory::createWriter($obj, 'Xls');
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $reader = IOFactory::createReader('Xls');
         $robj = $reader->load($filename);

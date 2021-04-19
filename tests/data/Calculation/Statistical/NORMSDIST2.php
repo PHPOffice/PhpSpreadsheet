@@ -13,5 +13,6 @@ return [
     [0.398942280401, 0, false],
     [0.989275889978, 2.3, true],
     [0.028327037742, 2.3, false],
-    ['#VALUE!', 'NAN', true],
+    ['#VALUE!', 'NaN', true],
+    ['#VALUE!', 2.3, 'NaN'],
 ];

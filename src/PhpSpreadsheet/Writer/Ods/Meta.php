@@ -3,22 +3,17 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Meta extends WriterPart
 {
     /**
      * Write meta.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
-    public function write(?Spreadsheet $spreadsheet = null)
+    public function write(): string
     {
-        if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
-        }
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet();
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {

@@ -11,7 +11,7 @@ class CleanTest extends TestCase
      * @dataProvider providerCLEAN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testCLEAN($expectedResult, $value): void
     {
@@ -19,7 +19,7 @@ class CleanTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCLEAN()
+    public function providerCLEAN(): array
     {
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }

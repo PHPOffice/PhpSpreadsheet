@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
@@ -59,7 +60,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart($startColumn = 'A')
+    public function resetStart(string $startColumn = 'A')
     {
         $this->startColumnIndex = Coordinate::columnIndexFromString($startColumn);
         $this->adjustForExistingOnlyRange();
@@ -77,7 +78,7 @@ class RowCellIterator extends CellIterator
      */
     public function resetEnd($endColumn = null)
     {
-        $endColumn = $endColumn ? $endColumn : $this->worksheet->getHighestColumn();
+        $endColumn = $endColumn ?: $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);
         $this->adjustForExistingOnlyRange();
 
@@ -91,7 +92,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek($column = 'A')
+    public function seek(string $column = 'A')
     {
         $columnx = $column;
         $column = Coordinate::columnIndexFromString($column);
@@ -116,20 +117,16 @@ class RowCellIterator extends CellIterator
 
     /**
      * Return the current cell in this worksheet row.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
      */
-    public function current()
+    public function current(): ?Cell
     {
         return $this->worksheet->getCellByColumnAndRow($this->currentColumnIndex, $this->rowIndex);
     }
 
     /**
      * Return the current iterator key.
-     *
-     * @return string
      */
-    public function key()
+    public function key(): string
     {
         return Coordinate::stringFromColumnIndex($this->currentColumnIndex);
     }
@@ -166,10 +163,8 @@ class RowCellIterator extends CellIterator
 
     /**
      * Return the current iterator position.
-     *
-     * @return int
      */
-    public function getCurrentColumnIndex()
+    public function getCurrentColumnIndex(): int
     {
         return $this->currentColumnIndex;
     }

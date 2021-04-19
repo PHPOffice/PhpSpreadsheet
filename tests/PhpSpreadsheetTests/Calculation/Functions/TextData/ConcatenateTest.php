@@ -18,7 +18,7 @@ class ConcatenateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCONCATENATE()
+    public function providerCONCATENATE(): array
     {
         return require 'tests/data/Calculation/TextData/CONCATENATE.php';
     }

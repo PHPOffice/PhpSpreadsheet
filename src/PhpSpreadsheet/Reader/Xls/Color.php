@@ -20,7 +20,7 @@ class Color
         if ($color <= 0x07 || $color >= 0x40) {
             // special built-in color
             return Color\BuiltIn::lookup($color);
-        } elseif (isset($palette, $palette[$color - 8])) {
+        } elseif (isset($palette[$color - 8])) {
             // palette color, color index 0x08 maps to pallete index 0
             return $palette[$color - 8];
         }

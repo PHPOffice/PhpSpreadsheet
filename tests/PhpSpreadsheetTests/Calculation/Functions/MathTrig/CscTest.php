@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class CscTest extends TestCase
+class CscTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCSC
      *
@@ -21,11 +12,18 @@ class CscTest extends TestCase
      */
     public function testCSC($expectedResult, $angle): void
     {
-        $result = MathTrig::CSC($angle);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->setCellValue('A2', 1.3);
+        $sheet->setCellValue('A3', 2.7);
+        $sheet->setCellValue('A4', -3.8);
+        $sheet->setCellValue('A5', -5.2);
+        $sheet->getCell('A1')->setValue("=CSC($angle)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCSC()
+    public function providerCSC(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSC.php';
     }

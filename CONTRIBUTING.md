@@ -9,3 +9,12 @@ If you would like to contribute, here are some notes and guidelines:
  - All code changes must be validated by `composer check`
  - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a GitHub repository")
  - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
+
+## How to release
+
+1. Complete CHANGELOG.md and commit
+2. Create an annotated tag
+    1. `git tag -a 1.2.3`
+    2. Tag subject must be the version number, eg: `1.2.3`
+    3. Tag body must be a copy-paste of the changelog entries
+3. Push tag with `git push --tags`, GitHub Actions will create a GitHub release automatically

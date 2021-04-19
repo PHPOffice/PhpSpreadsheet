@@ -65,6 +65,13 @@ class Csv extends BaseWriter
     private $excelCompatibility = false;
 
     /**
+     * Output encoding.
+     *
+     * @var string
+     */
+    private $outputEncoding = '';
+
+    /**
      * Create a new CSV.
      *
      * @param Spreadsheet $spreadsheet Spreadsheet object
@@ -296,6 +303,30 @@ class Csv extends BaseWriter
         return $this;
     }
 
+    /**
+     * Get output encoding.
+     *
+     * @return string
+     */
+    public function getOutputEncoding()
+    {
+        return $this->outputEncoding;
+    }
+
+    /**
+     * Set output encoding.
+     *
+     * @param string $pValue Output encoding
+     *
+     * @return $this
+     */
+    public function setOutputEncoding($pValue)
+    {
+        $this->outputEncoding = $pValue;
+
+        return $this;
+    }
+
     private $enclosureRequired = true;
 
     public function setEnclosureRequired(bool $value): self
@@ -347,6 +378,9 @@ class Csv extends BaseWriter
         $line .= $this->lineEnding;
 
         // Write to file
+        if ($this->outputEncoding != '') {
+            $line = mb_convert_encoding($line, $this->outputEncoding);
+        }
         fwrite($pFileHandle, $line);
     }
 }

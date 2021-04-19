@@ -8,9 +8,12 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlCommentsTest extends Functional\AbstractFunctional
 {
+    /**
+     * @var Spreadsheet
+     */
     private $spreadsheet;
 
-    public function providerCommentRichText()
+    public function providerCommentRichText(): array
     {
         $valueSingle = 'I am comment.';
         $valueMulti = 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';

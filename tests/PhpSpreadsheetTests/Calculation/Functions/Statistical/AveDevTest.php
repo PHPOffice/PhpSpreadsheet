@@ -24,7 +24,7 @@ class AveDevTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerAVEDEV()
+    public function providerAVEDEV(): array
     {
         return require 'tests/data/Calculation/Statistical/AVEDEV.php';
     }

@@ -18,7 +18,7 @@ class TextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXT()
+    public function providerTEXT(): array
     {
         return require 'tests/data/Calculation/TextData/TEXT.php';
     }
