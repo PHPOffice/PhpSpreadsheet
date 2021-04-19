@@ -198,11 +198,12 @@ class Xlsx extends BaseReader
                         ];
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
+                        $fileWorksheetPath = strpos($fileWorksheet, '/') === 0 ? substr($fileWorksheet, 1) : "$dir/$fileWorksheet";
 
                         $xml = new XMLReader();
                         $xml->xml(
                             $this->securityScanner->scanFile(
-                                'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
+                                'zip://' . File::realpath($pFilename) . '#' . $fileWorksheetPath
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
