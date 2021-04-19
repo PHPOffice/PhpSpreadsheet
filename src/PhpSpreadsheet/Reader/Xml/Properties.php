@@ -148,7 +148,7 @@ class Properties
         return mb_chr((int) hexdec($hex[1]), 'UTF-8');
     }
 
-    private static function getAttributes(SimpleXMLElement $simple, string $node): SimpleXMLElement
+    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
         return ($simple === null)
             ? new SimpleXMLElement('<xml></xml>')
