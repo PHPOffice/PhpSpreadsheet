@@ -8,9 +8,9 @@ use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
+use PhpOffice\PhpSpreadsheet\Reader\Xml\Properties;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -304,11 +304,6 @@ class Xml extends BaseReader
         return $returnValue;
     }
 
-    protected static function hex2str($hex)
-    {
-        return mb_chr((int) hexdec($hex[1]), 'UTF-8');
-    }
-
     /**
      * Loads from file into Spreadsheet instance.
      *
@@ -327,95 +322,7 @@ class Xml extends BaseReader
 
         $namespaces = $xml->getNamespaces(true);
 
-        $docProps = $spreadsheet->getProperties();
-        if (isset($xml->DocumentProperties[0])) {
-            foreach ($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
-                $stringValue = (string) $propertyValue;
-                switch ($propertyName) {
-                    case 'Title':
-                        $docProps->setTitle($stringValue);
-
-                        break;
-                    case 'Subject':
-                        $docProps->setSubject($stringValue);
-
-                        break;
-                    case 'Author':
-                        $docProps->setCreator($stringValue);
-
-                        break;
-                    case 'Created':
-                        $creationDate = strtotime($stringValue);
-                        $docProps->setCreated($creationDate);
-
-                        break;
-                    case 'LastAuthor':
-                        $docProps->setLastModifiedBy($stringValue);
-
-                        break;
-                    case 'LastSaved':
-                        $lastSaveDate = strtotime($stringValue);
-                        $docProps->setModified($lastSaveDate);
-
-                        break;
-                    case 'Company':
-                        $docProps->setCompany($stringValue);
-
-                        break;
-                    case 'Category':
-                        $docProps->setCategory($stringValue);
-
-                        break;
-                    case 'Manager':
-                        $docProps->setManager($stringValue);
-
-                        break;
-                    case 'Keywords':
-                        $docProps->setKeywords($stringValue);
-
-                        break;
-                    case 'Description':
-                        $docProps->setDescription($stringValue);
-
-                        break;
-                }
-            }
-        }
-        if (isset($xml->CustomDocumentProperties)) {
-            foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
-                $propertyAttributes = self::getAttributes($propertyValue, $namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-f]{4})_/i', ['self', 'hex2str'], $propertyName);
-                $propertyType = Properties::PROPERTY_TYPE_UNKNOWN;
-                switch ((string) $propertyAttributes) {
-                    case 'string':
-                        $propertyType = Properties::PROPERTY_TYPE_STRING;
-                        $propertyValue = trim((string) $propertyValue);
-
-                        break;
-                    case 'boolean':
-                        $propertyType = Properties::PROPERTY_TYPE_BOOLEAN;
-                        $propertyValue = (bool) $propertyValue;
-
-                        break;
-                    case 'integer':
-                        $propertyType = Properties::PROPERTY_TYPE_INTEGER;
-                        $propertyValue = (int) $propertyValue;
-
-                        break;
-                    case 'float':
-                        $propertyType = Properties::PROPERTY_TYPE_FLOAT;
-                        $propertyValue = (float) $propertyValue;
-
-                        break;
-                    case 'dateTime.tz':
-                        $propertyType = Properties::PROPERTY_TYPE_DATE;
-                        $propertyValue = strtotime(trim((string) $propertyValue));
-
-                        break;
-                }
-                $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
-            }
-        }
+        (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
         $this->parseStyles($xml, $namespaces);
 
@@ -791,7 +698,9 @@ class Xml extends BaseReader
 
     private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null) ? new SimpleXMLElement('<xml></xml>') : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+        return ($simple === null)
+            ? new SimpleXMLElement('<xml></xml>')
+            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
     }
 
     private static $underlineStyles = [
