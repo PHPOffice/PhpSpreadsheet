@@ -150,10 +150,12 @@ class Properties
 
     private static function getAttributes(SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return $simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>');
+        return ($simple === null)
+            ? new SimpleXMLElement('<xml></xml>')
+            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
     }
 
-    protected function processTimestampValue(string $dateTimeValue)
+    protected function processTimestampValue(string $dateTimeValue): int
     {
         $dateTime = strtotime($dateTimeValue);
 
