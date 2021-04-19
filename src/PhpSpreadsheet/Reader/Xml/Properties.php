@@ -44,14 +44,14 @@ class Properties
 
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = self::getAttributes($propertyValue, $namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-f]{4})_/i', ['self', 'hex2str'], $propertyName);
+                $propertyName = preg_replace_callback('/_x([0-9a-f]{4})_/i', [$this, 'hex2str'], $propertyName);
 
                 $this->processCustomProperty($docProps, $propertyName, $propertyValue, $propertyAttributes);
             }
         }
     }
 
-    protected static function hex2str($hex): string
+    protected function hex2str(array $hex): string
     {
         return mb_chr((int) hexdec($hex[1]), 'UTF-8');
     }
@@ -123,9 +123,9 @@ class Properties
     protected function processCustomProperty(
         DocumentProperties $docProps,
         string $propertyName,
-        $propertyValue,
+        SimpleXMLElement $propertyValue,
         SimpleXMLElement $propertyAttributes
-    ) {
+    ): void {
         $propertyType = DocumentProperties::PROPERTY_TYPE_UNKNOWN;
         switch ((string) $propertyAttributes) {
             case 'string':
@@ -156,7 +156,5 @@ class Properties
         }
 
         $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
-
-        return $propertyValue;
     }
 }
