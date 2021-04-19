@@ -464,7 +464,7 @@ class StringHelper
      */
     public static function countCharacters($value, $enc = 'UTF-8')
     {
-        return mb_strlen($value, $enc);
+        return mb_strlen($value ?? '', $enc);
     }
 
     /**
@@ -556,7 +556,7 @@ class StringHelper
      * Identify whether a string contains a fractional numeric value,
      * and convert it to a numeric if it is.
      *
-     * @param string &$operand string value to test
+     * @param string $operand string value to test
      *
      * @return bool
      */

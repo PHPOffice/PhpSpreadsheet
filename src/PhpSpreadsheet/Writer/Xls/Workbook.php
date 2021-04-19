@@ -551,8 +551,8 @@ class Workbook extends BIFFwriter
             $newRange = '';
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
-                    // We need a worksheet
-                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
+                    // We should have a worksheet
+                    $worksheet = $pDefinedName->getWorksheet() ? $pDefinedName->getWorksheet()->getTitle() : null;
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
@@ -678,13 +678,13 @@ class Workbook extends BIFFwriter
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
-                    $printAreaRect[0] = Coordinate::coordinateFromString($printAreaRect[0]);
-                    $printAreaRect[1] = Coordinate::coordinateFromString($printAreaRect[1]);
+                    $printAreaRect[0] = Coordinate::indexesFromString($printAreaRect[0]);
+                    $printAreaRect[1] = Coordinate::indexesFromString($printAreaRect[1]);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;
-                    $print_colmin = Coordinate::columnIndexFromString($printAreaRect[0][0]) - 1;
-                    $print_colmax = Coordinate::columnIndexFromString($printAreaRect[1][0]) - 1;
+                    $print_colmin = $printAreaRect[0][0] - 1;
+                    $print_colmax = $printAreaRect[1][0] - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
                     $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
@@ -756,8 +756,8 @@ class Workbook extends BIFFwriter
      * Write a short NAME record.
      *
      * @param string $name
-     * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
-     * @param integer[][] $rangeBounds range boundaries
+     * @param int $sheetIndex 1-based sheet index the defined name applies to. 0 = global
+     * @param int[][] $rangeBounds range boundaries
      * @param bool $isHidden
      *
      * @return string Complete binary record data
@@ -839,10 +839,9 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param Worksheet $sheet Worksheet name
      * @param int $offset Location of worksheet BOF
      */
-    private function writeBoundSheet($sheet, $offset): void
+    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, $offset): void
     {
         $sheetname = $sheet->getTitle();
         $record = 0x0085; // Record identifier

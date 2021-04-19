@@ -18,7 +18,7 @@ class ReplaceTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPLACE()
+    public function providerREPLACE(): array
     {
         return require 'tests/data/Calculation/TextData/REPLACE.php';
     }

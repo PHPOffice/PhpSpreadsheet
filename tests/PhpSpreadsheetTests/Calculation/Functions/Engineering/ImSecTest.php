@@ -14,17 +14,12 @@ class ImSecTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
     }
 
     /**
@@ -42,7 +37,7 @@ class ImSecTest extends TestCase
         );
     }
 
-    public function providerIMSEC()
+    public function providerIMSEC(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSEC.php';
     }

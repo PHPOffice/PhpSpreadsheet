@@ -10,10 +10,19 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
+    /**
+     * @var string
+     */
     private $currency;
 
+    /**
+     * @var string
+     */
     private $decsep;
 
+    /**
+     * @var string
+     */
     private $thosep;
 
     protected function setUp(): void
@@ -172,7 +181,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormat()
+    public function providerNumberFormat(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormat.php';
     }
@@ -208,7 +217,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormatDates()
+    public function providerNumberFormatDates(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
     }

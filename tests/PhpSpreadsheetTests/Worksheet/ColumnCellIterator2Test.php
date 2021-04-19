@@ -25,9 +25,11 @@ class ColumnCellIterator2Test extends TestCase
         $lastCoordinate = '';
         $firstCoordinate = '';
         foreach ($iterator as $cell) {
-            $lastCoordinate = $cell->getCoordinate();
-            if (!$firstCoordinate) {
-                $firstCoordinate = $lastCoordinate;
+            if ($cell !== null) {
+                $lastCoordinate = $cell->getCoordinate();
+                if (!$firstCoordinate) {
+                    $firstCoordinate = $lastCoordinate;
+                }
             }
         }
         self::assertEquals($expectedResultFirst, $firstCoordinate);

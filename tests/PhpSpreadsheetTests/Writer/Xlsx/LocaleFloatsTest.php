@@ -6,9 +6,15 @@ use PHPUnit\Framework\TestCase;
 
 class LocaleFloatsTest extends TestCase
 {
-    protected $localeAdjusted;
+    /**
+     * @var bool
+     */
+    private $localeAdjusted;
 
-    protected $currentLocale;
+    /**
+     * @var false|string
+     */
+    private $currentLocale;
 
     protected function setUp(): void
     {

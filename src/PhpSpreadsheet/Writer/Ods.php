@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
@@ -19,18 +18,46 @@ use ZipStream\ZipStream;
 class Ods extends BaseWriter
 {
     /**
-     * Private writer parts.
-     *
-     * @var Ods\WriterPart[]
-     */
-    private $writerParts = [];
-
-    /**
      * Private PhpSpreadsheet.
      *
      * @var Spreadsheet
      */
     private $spreadSheet;
+
+    /**
+     * @var Content
+     */
+    private $writerPartContent;
+
+    /**
+     * @var Meta
+     */
+    private $writerPartMeta;
+
+    /**
+     * @var MetaInf
+     */
+    private $writerPartMetaInf;
+
+    /**
+     * @var Mimetype
+     */
+    private $writerPartMimetype;
+
+    /**
+     * @var Settings
+     */
+    private $writerPartSettings;
+
+    /**
+     * @var Styles
+     */
+    private $writerPartStyles;
+
+    /**
+     * @var Thumbnails
+     */
+    private $writerPartThumbnails;
 
     /**
      * Create a new Ods.
@@ -39,35 +66,48 @@ class Ods extends BaseWriter
     {
         $this->setSpreadsheet($spreadsheet);
 
-        $writerPartsArray = [
-            'content' => Content::class,
-            'meta' => Meta::class,
-            'meta_inf' => MetaInf::class,
-            'mimetype' => Mimetype::class,
-            'settings' => Settings::class,
-            'styles' => Styles::class,
-            'thumbnails' => Thumbnails::class,
-        ];
-
-        foreach ($writerPartsArray as $writer => $class) {
-            $this->writerParts[$writer] = new $class($this);
-        }
+        $this->writerPartContent = new Content($this);
+        $this->writerPartMeta = new Meta($this);
+        $this->writerPartMetaInf = new MetaInf($this);
+        $this->writerPartMimetype = new Mimetype($this);
+        $this->writerPartSettings = new Settings($this);
+        $this->writerPartStyles = new Styles($this);
+        $this->writerPartThumbnails = new Thumbnails($this);
     }
 
-    /**
-     * Get writer part.
-     *
-     * @param string $pPartName Writer part name
-     *
-     * @return null|Ods\WriterPart
-     */
-    public function getWriterPart($pPartName)
+    public function getWriterPartContent(): Content
     {
-        if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
-            return $this->writerParts[strtolower($pPartName)];
-        }
+        return $this->writerPartContent;
+    }
 
-        return null;
+    public function getWriterPartMeta(): Meta
+    {
+        return $this->writerPartMeta;
+    }
+
+    public function getWriterPartMetaInf(): MetaInf
+    {
+        return $this->writerPartMetaInf;
+    }
+
+    public function getWriterPartMimetype(): Mimetype
+    {
+        return $this->writerPartMimetype;
+    }
+
+    public function getWriterPartSettings(): Settings
+    {
+        return $this->writerPartSettings;
+    }
+
+    public function getWriterPartStyles(): Styles
+    {
+        return $this->writerPartStyles;
+    }
+
+    public function getWriterPartThumbnails(): Thumbnails
+    {
+        return $this->writerPartThumbnails;
     }
 
     /**
@@ -88,13 +128,13 @@ class Ods extends BaseWriter
 
         $zip = $this->createZip();
 
-        $zip->addFile('META-INF/manifest.xml', $this->getWriterPart('meta_inf')->writeManifest());
-        $zip->addFile('Thumbnails/thumbnail.png', $this->getWriterPart('thumbnails')->writeThumbnail());
-        $zip->addFile('content.xml', $this->getWriterPart('content')->write());
-        $zip->addFile('meta.xml', $this->getWriterPart('meta')->write());
-        $zip->addFile('mimetype', $this->getWriterPart('mimetype')->write());
-        $zip->addFile('settings.xml', $this->getWriterPart('settings')->write());
-        $zip->addFile('styles.xml', $this->getWriterPart('styles')->write());
+        $zip->addFile('META-INF/manifest.xml', $this->getWriterPartMetaInf()->write());
+        $zip->addFile('Thumbnails/thumbnail.png', $this->getWriterPartthumbnails()->write());
+        $zip->addFile('content.xml', $this->getWriterPartcontent()->write());
+        $zip->addFile('meta.xml', $this->getWriterPartmeta()->write());
+        $zip->addFile('mimetype', $this->getWriterPartmimetype()->write());
+        $zip->addFile('settings.xml', $this->getWriterPartsettings()->write());
+        $zip->addFile('styles.xml', $this->getWriterPartstyles()->write());
 
         // Close file
         try {

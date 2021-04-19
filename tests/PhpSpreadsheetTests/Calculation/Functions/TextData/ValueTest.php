@@ -8,10 +8,19 @@ use PHPUnit\Framework\TestCase;
 
 class ValueTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $currencyCode;
 
+    /**
+     * @var string
+     */
     private $decimalSeparator;
 
+    /**
+     * @var string
+     */
     private $thousandsSeparator;
 
     protected function setUp(): void
@@ -32,7 +41,7 @@ class ValueTest extends TestCase
      * @dataProvider providerVALUE
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testVALUE($expectedResult, $value): void
     {
@@ -44,7 +53,7 @@ class ValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerVALUE()
+    public function providerVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/VALUE.php';
     }

@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class SumSqTest extends TestCase
+class SumSqTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSUMSQ
      *
@@ -20,11 +11,23 @@ class SumSqTest extends TestCase
      */
     public function testSUMSQ($expectedResult, ...$args): void
     {
-        $result = MathTrig::SUMSQ(...$args);
+        $this->mightHaveException($expectedResult);
+        $maxRow = 0;
+        $funcArg = '';
+        $sheet = $this->sheet;
+        foreach ($args as $arg) {
+            ++$maxRow;
+            $funcArg = "A1:A$maxRow";
+            if ($arg !== null) {
+                $sheet->getCell("A$maxRow")->setValue($arg);
+            }
+        }
+        $sheet->getCell('B1')->setValue("=SUMSQ($funcArg)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMSQ()
+    public function providerSUMSQ(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMSQ.php';
     }

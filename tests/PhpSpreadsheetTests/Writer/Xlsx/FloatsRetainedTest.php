@@ -18,7 +18,7 @@ class FloatsRetainedTest extends TestCase
      */
     public function testIntyFloatsRetainedByWriter($value): void
     {
-        $outputFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outputFilename = File::temporaryFilename();
         Settings::setLibXmlLoaderOptions(null);
         $sheet = new Spreadsheet();
         $sheet->getActiveSheet()->getCell('A1')->setValue($value);
@@ -33,7 +33,7 @@ class FloatsRetainedTest extends TestCase
         self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
     }
 
-    public function providerIntyFloatsRetainedByWriter()
+    public function providerIntyFloatsRetainedByWriter(): array
     {
         return [
             [-1.0],

@@ -19,10 +19,7 @@ class ExactTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * @return array
-     */
-    public function providerEXACT()
+    public function providerEXACT(): array
     {
         return require 'tests/data/Calculation/TextData/EXACT.php';
     }

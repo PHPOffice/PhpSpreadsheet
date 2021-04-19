@@ -69,8 +69,14 @@ class LookupRefTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerFormulaText()
+    public function providerFormulaText(): array
     {
         return require 'tests/data/Calculation/LookupRef/FORMULATEXT.php';
+    }
+
+    public function testFormulaTextWithoutCell(): void
+    {
+        $result = LookupRef::FORMULATEXT('A1');
+        self::assertEquals(Functions::REF(), $result);
     }
 }

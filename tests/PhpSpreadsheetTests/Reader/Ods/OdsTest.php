@@ -16,6 +16,22 @@ use PHPUnit\Framework\TestCase;
 class OdsTest extends TestCase
 {
     /**
+     * @var string
+     */
+    private $timeZone;
+
+    protected function setUp(): void
+    {
+        $this->timeZone = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+    }
+
+    protected function tearDown(): void
+    {
+        date_default_timezone_set($this->timeZone);
+    }
+
+    /**
      * @var Spreadsheet
      */
     private $spreadsheetOdsTest;
@@ -30,7 +46,7 @@ class OdsTest extends TestCase
      */
     private function loadOdsTestFile()
     {
-        if (!$this->spreadsheetOdsTest) {
+        if (!isset($this->spreadsheetOdsTest)) {
             $filename = 'samples/templates/OOCalcTest.ods';
 
             // Load into this instance
@@ -46,7 +62,7 @@ class OdsTest extends TestCase
      */
     protected function loadDataFile()
     {
-        if (!$this->spreadsheetData) {
+        if (!isset($this->spreadsheetData)) {
             $filename = 'tests/data/Reader/Ods/data.ods';
 
             // Load into this instance
@@ -86,6 +102,20 @@ class OdsTest extends TestCase
         self::assertEquals(1, $spreadsheet->getSheetCount());
 
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
+    }
+
+    public function testLoadOneWorksheetNotActive(): void
+    {
+        $filename = 'tests/data/Reader/Ods/data.ods';
+
+        // Load into this instance
+        $reader = new Ods();
+        $reader->setLoadSheetsOnly(['Second Sheet']);
+        $spreadsheet = $reader->load($filename);
+
+        self::assertEquals(1, $spreadsheet->getSheetCount());
+
+        self::assertEquals('Second Sheet', $spreadsheet->getSheet(0)->getTitle());
     }
 
     public function testLoadBadFile(): void
@@ -153,13 +183,13 @@ class OdsTest extends TestCase
         self::assertEquals(0, $firstSheet->getCell('G10')->getValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A10')->getDataType()); // Date
-        self::assertEquals(22269.0, $firstSheet->getCell('A10')->getValue());
+        self::assertEquals('19-Dec-60', $firstSheet->getCell('A10')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A13')->getDataType()); // Time
-        self::assertEquals(25569.0625, $firstSheet->getCell('A13')->getValue());
+        self::assertEquals('2:30:00', $firstSheet->getCell('A13')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A15')->getDataType()); // Date + Time
-        self::assertEquals(22269.0625, $firstSheet->getCell('A15')->getValue());
+        self::assertEquals('19-Dec-60 1:30:00', $firstSheet->getCell('A15')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A11')->getDataType()); // Fraction
 

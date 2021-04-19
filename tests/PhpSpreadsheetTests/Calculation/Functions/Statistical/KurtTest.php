@@ -12,13 +12,13 @@ class KurtTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testKURT($expectedResult, ...$values): void
+    public function testKURT($expectedResult, ...$args): void
     {
-        $result = Statistical::KURT(...$values);
+        $result = Statistical::KURT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerKURT()
+    public function providerKURT(): array
     {
         return require 'tests/data/Calculation/Statistical/KURT.php';
     }

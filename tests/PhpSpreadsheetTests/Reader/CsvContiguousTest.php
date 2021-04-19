@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class CsvContiguousTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $inputFileName = 'samples/Reader/sampleData/example2.csv';
 
     public function testContiguous(): void
@@ -23,8 +26,8 @@ class CsvContiguousTest extends TestCase
         // Tell the Reader that we want to use the Read Filter that we've Instantiated
         // and that we want to store it in contiguous rows/columns
         self::assertFalse($reader->getContiguous());
-        $reader->setReadFilter($chunkFilter)
-            ->setContiguous(true);
+        $reader->setReadFilter($chunkFilter);
+        $reader->setContiguous(true);
 
         // Instantiate a new PhpSpreadsheet object manually
         $spreadsheet = new Spreadsheet();
@@ -65,8 +68,8 @@ class CsvContiguousTest extends TestCase
 
         // Tell the Reader that we want to use the Read Filter that we've Instantiated
         // and that we want to store it in contiguous rows/columns
-        $reader->setReadFilter($chunkFilter)
-            ->setContiguous(true);
+        $reader->setReadFilter($chunkFilter);
+        $reader->setContiguous(true);
 
         // Instantiate a new PhpSpreadsheet object manually
         $spreadsheet = new Spreadsheet();

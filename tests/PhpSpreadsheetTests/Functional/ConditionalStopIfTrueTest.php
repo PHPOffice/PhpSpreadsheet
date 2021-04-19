@@ -9,7 +9,7 @@ class ConditionalStopIfTrueTest extends AbstractFunctional
     const COLOR_GREEN = 'FF99FF66';
     const COLOR_RED = 'FFFF5050';
 
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xlsx'],

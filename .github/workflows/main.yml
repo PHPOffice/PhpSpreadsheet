@@ -5,12 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        experimental:
+          - false
         php-version:
           - '7.2'
           - '7.3'
           - '7.4'
           - '8.0'
-          - '8.1'
+
+        include:
+          - php-version: '8.1'
+            experimental: true
 
     name: PHP ${{ matrix.php-version }}
 
@@ -38,13 +43,13 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.0' || matrix.php-version == '8.1' }}
+        if: ${{ matrix.php-version == '8.1' }}
         run: |
           rm composer.lock
           echo "::set-output name=flags::--ignore-platform-reqs"
 
       - name: Install dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
+        run: composer update --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -52,8 +57,10 @@ jobs:
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Test with PHPUnit
-        run: ./vendor/bin/phpunit
+      - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
+        env:
+          FAILURE_ACTION: "${{ matrix.experimental == true }}"
+        run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
@@ -116,6 +123,37 @@ jobs:
 
       - name: Code style with PHP_CodeSniffer
         run: ./vendor/bin/phpcs -q --report=checkstyle | cs2pr
+
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+          tools: cs2pr
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Static analysis with PHPStan
+        run: ./vendor/bin/phpstan analyse
 
   coverage:
     runs-on: ubuntu-latest

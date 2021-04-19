@@ -1,17 +1,71 @@
 <?php
 
 return [
-    [
-        0.45359230974880999,
+    'Imperial from and to (mass)' => [
+        1.942559385723E-03,
+        1.0,
+        'ozm',
+        'sg',
+    ],
+    'Same prefixed metric UoM' => [
+        5.0,
+        5.0,
+        'kg',
+        'kg',
+    ],
+    'Imperial to prefixed metric' => [
+        4.5359237E-01,
         1.0,
         'lbm',
         'kg',
     ],
-    [
-        123.45,
-        123.45,
+    'Prefixed metric to prefixed metric, same unit' => [
+        0.2,
+        2.0,
+        'hg',
         'kg',
-        'kg',
+    ],
+    'Unprefixed metric to prefixed metric, same unit' => [
+        12.345000000000001,
+        12345,
+        'm',
+        'km',
+    ],
+    'Prefixed metric to unprefixed metric, same unit' => [
+        12345,
+        12.345000000000001,
+        'km',
+        'm',
+    ],
+    'Prefixed metric to imperial' => [
+        0.62137119223732995,
+        1,
+        'km',
+        'mi',
+    ],
+    'Prefixed metric to alternative metric' => [
+        1.23450000000000E+05,
+        12.345,
+        'um',
+        'ang',
+    ],
+    'Prefixed metric to alternative prefixed metric' => [
+        1.23450000000000E+02,
+        12.345,
+        'um',
+        'kang',
+    ],
+    'Prefixed metric to 2-character prefixed metric, same unit' => [
+        1000.0,
+        100.0,
+        'hl',
+        'dal',
+    ],
+    'Imperial to Imperial (distance)' => [
+        1.0,
+        3.0,
+        'ft',
+        'yd',
     ],
     [
         20,
@@ -38,111 +92,171 @@ return [
         'F',
     ],
     [
-        295.14999999999998,
+        -273.15,
+        0,
+        'K',
+        'C',
+    ],
+    [
+        -459.67,
+        0,
+        'K',
+        'F',
+    ],
+    [
+        295.15,
         22,
         'C',
         'K',
     ],
     [
         22.5,
-        295.64999999999998,
+        295.65,
         'K',
         'C',
     ],
-    [
-        '#N/A',
-        2.5,
-        'ft',
-        'sec',
+    'Melting Point of Titanium (K to C)' => [
+        1667.85,
+        1941,
+        'K',
+        'C',
     ],
-    [
-        12.345000000000001,
-        12345,
-        'm',
-        'km',
+    'Melting Point of Titanium (K to F)' => [
+        3034.13,
+        1941,
+        'K',
+        'F',
     ],
-    [
-        12345,
-        12.345000000000001,
-        'km',
-        'm',
+    'Melting Point of Titanium (K to Rankine)' => [
+        3493.8,
+        1941,
+        'K',
+        'Rank',
     ],
-    [
-        0.62137119223732995,
-        1,
-        'km',
-        'mi',
+    'Melting Point of Titanium (K to Réaumur)' => [
+        1334.28,
+        1941,
+        'K',
+        'Reau',
     ],
-    [
-        '#VALUE!',
-        'three',
-        'ft',
-        'yds',
+    'Melting Point of Titanium (Rankine to K)' => [
+        1941,
+        3493.8,
+        'Rank',
+        'K',
     ],
-    [
+    'Melting Point of Titanium (Réaumur to K)' => [
+        1941,
+        1334.28,
+        'Reau',
+        'K',
+    ],
+    'Temperature synonyms (K)' => [
         123.45,
         123.45,
         'K',
         'kel',
     ],
-    [
+    'Temperature synonyms (C)' => [
         123.45,
         123.45,
         'C',
         'cel',
     ],
-    [
+    'Temperature synonyms (F)' => [
         123.45,
         123.45,
         'F',
         'fah',
     ],
-    [
+    'Invalid value to convert' => [
+        '#VALUE!',
+        'three',
+        'ft',
+        'yds',
+    ],
+    'Imperial to 2-character prefixed imperial, same unit' => [
+        '#N/A',
+        100.0,
+        'pt',
+        'dapt',
+    ],
+    'Prefixed metric to binary prefixed metric' => [
+        '#N/A',
+        12.345,
+        'um',
+        'kiang',
+    ],
+    'Mismatched categories' => [
         '#N/A',
         1,
         'ft',
         'day',
     ],
-    [
-        123.45,
-        123.45,
-        'm',
-        'm',
-    ],
-    [
-        234.56,
-        234.56,
-        'km',
-        'km',
-    ],
-    [
+    'From prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'kpt',
         'lt',
     ],
-    [
-        '#N/A',
-        234.56,
-        'sm',
-        'm',
-    ],
-    [
+    'To prefixed Imperial (Invalid)' => [
         '#N/A',
         234.56,
         'lt',
         'kpt',
     ],
-    [
+    'From binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'kiqt',
+        'pt',
+    ],
+    'To binary prefixed Imperial (Invalid)' => [
+        '#N/A',
+        234.56,
+        'pt',
+        'kiqt',
+    ],
+    'From prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'baton',
+        'cwt',
+    ],
+    'To prefixed Imperial 2 (Invalid)' => [
+        '#N/A',
+        12345.6,
+        'cwt',
+        'baton',
+    ],
+    'Invalid from unit' => [
+        '#N/A',
+        234.56,
+        'xxxx',
+        'm',
+    ],
+    'Invalid to unit' => [
         '#N/A',
         234.56,
         'm',
-        'sm',
+        'xxxx',
     ],
-    [
-        12345000,
-        12.345000000000001,
-        'km',
-        'mm',
+    'Basic Information conversion' => [
+        2,
+        16,
+        'bit',
+        'byte',
+    ],
+    'Information with standard metric prefix' => [
+        1000,
+        1,
+        'kbyte',
+        'byte',
+    ],
+    'Information with binary prefix' => [
+        1024,
+        1,
+        'kibyte',
+        'byte',
     ],
 ];

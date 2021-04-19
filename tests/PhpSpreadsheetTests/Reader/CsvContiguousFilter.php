@@ -7,10 +7,19 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 /**  Define a Read Filter class implementing IReadFilter  */
 class CsvContiguousFilter implements IReadFilter
 {
+    /**
+     * @var int
+     */
     private $startRow = 0;
 
+    /**
+     * @var int
+     */
     private $endRow = 0;
 
+    /**
+     * @var int
+     */
     private $filterType = 0;
 
     /**

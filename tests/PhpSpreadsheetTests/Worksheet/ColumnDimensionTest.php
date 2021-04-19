@@ -40,6 +40,6 @@ class ColumnDimensionTest extends TestCase
         $columnDimension = new ColumnDimension();
         $columnDimension->setAutoSize($expected);
         $result = $columnDimension->getAutoSize();
-        self::assertSame($expected, $result);
+        self::assertTrue($result);
     }
 }

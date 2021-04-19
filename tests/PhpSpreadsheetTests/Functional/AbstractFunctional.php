@@ -21,7 +21,7 @@ abstract class AbstractFunctional extends TestCase
      */
     protected function writeAndReload(Spreadsheet $spreadsheet, $format, ?callable $readerCustomizer = null)
     {
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer = IOFactory::createWriter($spreadsheet, $format);
         $writer->save($filename);
 

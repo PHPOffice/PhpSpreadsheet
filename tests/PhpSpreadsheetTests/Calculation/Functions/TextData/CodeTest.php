@@ -11,7 +11,7 @@ class CodeTest extends TestCase
      * @dataProvider providerCODE
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
     public function testCODE($expectedResult, $character): void
     {
@@ -19,7 +19,7 @@ class CodeTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCODE()
+    public function providerCODE(): array
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }

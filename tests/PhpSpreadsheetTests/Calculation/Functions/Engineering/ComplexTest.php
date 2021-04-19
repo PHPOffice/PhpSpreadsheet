@@ -24,7 +24,7 @@ class ComplexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMPLEX()
+    public function providerCOMPLEX(): array
     {
         return require 'tests/data/Calculation/Engineering/COMPLEX.php';
     }

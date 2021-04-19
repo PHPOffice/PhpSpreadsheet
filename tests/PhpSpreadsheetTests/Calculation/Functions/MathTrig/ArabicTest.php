@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class ArabicTest extends TestCase
+class ArabicTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerARABIC
      *
@@ -21,11 +12,15 @@ class ArabicTest extends TestCase
      */
     public function testARABIC($expectedResult, $romanNumeral): void
     {
-        $result = MathTrig::ARABIC($romanNumeral);
-        self::assertEquals($expectedResult, $result);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue($romanNumeral);
+        $sheet->getCell('B1')->setValue('=ARABIC(A1)');
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerARABIC()
+    public function providerARABIC(): array
     {
         return require 'tests/data/Calculation/MathTrig/ARABIC.php';
     }

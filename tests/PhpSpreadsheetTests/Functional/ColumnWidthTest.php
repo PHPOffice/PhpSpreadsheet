@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ColumnWidthTest extends AbstractFunctional
 {
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xlsx'],
@@ -15,8 +15,6 @@ class ColumnWidthTest extends AbstractFunctional
 
     /**
      * @dataProvider providerFormats
-     *
-     * @param $format
      */
     public function testReadColumnWidth($format): void
     {

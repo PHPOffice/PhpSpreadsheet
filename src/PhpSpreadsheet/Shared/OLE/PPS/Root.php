@@ -237,7 +237,7 @@ class Root extends PPS
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param int $iStBlk
-     * @param array &$raList Reference to array of PPS's
+     * @param array $raList Reference to array of PPS's
      */
     private function saveBigData($iStBlk, &$raList): void
     {
@@ -267,7 +267,7 @@ class Root extends PPS
     /**
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param array &$raList Reference to array of PPS's
+     * @param array $raList Reference to array of PPS's
      *
      * @return string
      */

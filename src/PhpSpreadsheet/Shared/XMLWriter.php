@@ -87,6 +87,6 @@ class XMLWriter extends \XMLWriter
             $text = implode("\n", $text);
         }
 
-        return $this->writeRaw(htmlspecialchars($text));
+        return $this->writeRaw(htmlspecialchars($text ?? ''));
     }
 }

@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class XmlOddTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $filename = '';
 
     protected function teardown(): void
@@ -53,7 +56,7 @@ class XmlOddTest extends TestCase
     </ss:Worksheet>
 </Workbook>
 EOT;
-        $this->filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $this->filename = File::temporaryFilename();
         file_put_contents($this->filename, $xmldata);
         $reader = new Xml();
         $spreadsheet = $reader->load($this->filename);

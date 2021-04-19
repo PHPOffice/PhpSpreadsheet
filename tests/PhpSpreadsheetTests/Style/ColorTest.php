@@ -11,14 +11,15 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetRed
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetRed($expectedResult, ...$args): void
+    public function testGetRed($expectedResult, $color, ...$args): void
     {
-        $result = Color::getRed(...$args);
+        $result = Color::getRed($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetRed()
+    public function providerColorGetRed(): array
     {
         return require 'tests/data/Style/ColorGetRed.php';
     }
@@ -27,14 +28,15 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetGreen
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetGreen($expectedResult, ...$args): void
+    public function testGetGreen($expectedResult, $color, ...$args): void
     {
-        $result = Color::getGreen(...$args);
+        $result = Color::getGreen($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetGreen()
+    public function providerColorGetGreen(): array
     {
         return require 'tests/data/Style/ColorGetGreen.php';
     }
@@ -43,14 +45,15 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetBlue
      *
      * @param mixed $expectedResult
+     * @param mixed $color
      */
-    public function testGetBlue($expectedResult, ...$args): void
+    public function testGetBlue($expectedResult, $color, ...$args): void
     {
-        $result = Color::getBlue(...$args);
+        $result = Color::getBlue($color, ...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetBlue()
+    public function providerColorGetBlue(): array
     {
         return require 'tests/data/Style/ColorGetBlue.php';
     }
@@ -66,7 +69,7 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorChangeBrightness()
+    public function providerColorChangeBrightness(): array
     {
         return require 'tests/data/Style/ColorChangeBrightness.php';
     }

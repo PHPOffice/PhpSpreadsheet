@@ -12,14 +12,15 @@ class CodePageTest extends TestCase
      * @dataProvider providerCodePage
      *
      * @param mixed $expectedResult
+     * @param mixed $codePageIndex
      */
-    public function testCodePageNumberToName($expectedResult, ...$args): void
+    public function testCodePageNumberToName($expectedResult, $codePageIndex): void
     {
-        $result = CodePage::numberToName(...$args);
+        $result = CodePage::numberToName($codePageIndex);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCodePage()
+    public function providerCodePage(): array
     {
         return require 'tests/data/Shared/CodePage.php';
     }

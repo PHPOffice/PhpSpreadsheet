@@ -11,7 +11,7 @@ class CharTest extends TestCase
      * @dataProvider providerCHAR
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
     public function testCHAR($expectedResult, $character): void
     {
@@ -19,7 +19,7 @@ class CharTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCHAR()
+    public function providerCHAR(): array
     {
         return require 'tests/data/Calculation/TextData/CHAR.php';
     }

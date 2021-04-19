@@ -24,7 +24,7 @@ class AverageATest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerAVERAGEA()
+    public function providerAVERAGEA(): array
     {
         return require 'tests/data/Calculation/Statistical/AVERAGEA.php';
     }

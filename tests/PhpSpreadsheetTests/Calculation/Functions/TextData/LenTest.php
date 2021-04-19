@@ -11,7 +11,7 @@ class LenTest extends TestCase
      * @dataProvider providerLEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testLEN($expectedResult, $value): void
     {
@@ -19,7 +19,7 @@ class LenTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEN()
+    public function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
     }

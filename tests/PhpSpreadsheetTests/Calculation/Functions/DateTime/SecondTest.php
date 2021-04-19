@@ -2,33 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
-
-class SecondTest extends TestCase
+class SecondTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerSECOND
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
      */
-    public function testSECOND($expectedResult, $dateTimeValue): void
+    public function testSECOND($expectedResult, string $dateTimeValue): void
     {
-        $result = DateTime::SECOND($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=SECOND($dateTimeValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23 2:23:46');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerSECOND()
+    public function providerSECOND(): array
     {
         return require 'tests/data/Calculation/DateTime/SECOND.php';
     }

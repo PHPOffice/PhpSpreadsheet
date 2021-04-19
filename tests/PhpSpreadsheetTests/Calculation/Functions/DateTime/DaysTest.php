@@ -2,35 +2,44 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use DateTime;
+use DateTimeImmutable;
+use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 
-class DaysTest extends TestCase
+class DaysTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerDAYS
      *
      * @param mixed $expectedResult
-     * @param $endDate
-     * @param $startDate
      */
-    public function testDAYS($expectedResult, $endDate, $startDate): void
+    public function testDAYS($expectedResult, string $formula): void
     {
-        $result = DateTime::DAYS($endDate, $startDate);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('C1')->setValue('1954-11-30');
+        $sheet->getCell('A1')->setValue("=DAYS($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDAYS()
+    public function providerDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS.php';
+    }
+
+    public function testObject(): void
+    {
+        $obj1 = new DateTime('2000-3-31');
+        $obj2 = new DateTimeImmutable('2000-2-29');
+        self::assertSame(31, Days::funcDays($obj1, $obj2));
+    }
+
+    public function testNonDateObject(): void
+    {
+        $obj1 = new Exception();
+        $obj2 = new DateTimeImmutable('2000-2-29');
+        self::assertSame('#VALUE!', Days::funcDays($obj1, $obj2));
     }
 }

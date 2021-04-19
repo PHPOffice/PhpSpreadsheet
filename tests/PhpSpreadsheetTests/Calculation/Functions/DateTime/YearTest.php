@@ -2,33 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
-
-class YearTest extends TestCase
+class YearTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerYEAR
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
      */
-    public function testYEAR($expectedResult, $dateTimeValue): void
+    public function testYEAR($expectedResult, string $dateTimeValue): void
     {
-        $result = DateTime::YEAR($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=YEAR($dateTimeValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerYEAR()
+    public function providerYEAR(): array
     {
         return require 'tests/data/Calculation/DateTime/YEAR.php';
     }

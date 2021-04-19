@@ -6,10 +6,14 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class AutoFilterTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $testInitialRange = 'H2:O256';
 
     /**
@@ -17,8 +21,14 @@ class AutoFilterTest extends TestCase
      */
     private $testAutoFilterObject;
 
+    /**
+     * @var Worksheet&MockObject
+     */
     private $mockWorksheetObject;
 
+    /**
+     * @var Cells&MockObject
+     */
     private $cellCollection;
 
     protected function setUp(): void

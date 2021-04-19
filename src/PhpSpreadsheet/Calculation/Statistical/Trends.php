@@ -1,0 +1,421 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
+
+class Trends
+{
+    private static function filterTrendValues(array &$array1, array &$array2): void
+    {
+        foreach ($array1 as $key => $value) {
+            if ((is_bool($value)) || (is_string($value)) || ($value === null)) {
+                unset($array1[$key], $array2[$key]);
+            }
+        }
+    }
+
+    private static function checkTrendArrays(&$array1, &$array2): void
+    {
+        if (!is_array($array1)) {
+            $array1 = [$array1];
+        }
+        if (!is_array($array2)) {
+            $array2 = [$array2];
+        }
+
+        $array1 = Functions::flattenArray($array1);
+        $array2 = Functions::flattenArray($array2);
+
+        self::filterTrendValues($array1, $array2);
+        self::filterTrendValues($array2, $array1);
+
+        // Reset the array indexes
+        $array1 = array_merge($array1);
+        $array2 = array_merge($array2);
+    }
+
+    protected static function validateTrendArrays(array $yValues, array $xValues): void
+    {
+        $yValueCount = count($yValues);
+        $xValueCount = count($xValues);
+
+        if (($yValueCount === 0) || ($yValueCount !== $xValueCount)) {
+            throw new Exception(Functions::NA());
+        } elseif ($yValueCount === 1) {
+            throw new Exception(Functions::DIV0());
+        }
+    }
+
+    /**
+     * CORREL.
+     *
+     * Returns covariance, the average of the products of deviations for each data point pair.
+     *
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param null|mixed $xValues array of mixed Data Series X
+     *
+     * @return float|string
+     */
+    public static function CORREL($yValues, $xValues = null)
+    {
+        if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
+            return Functions::VALUE();
+        }
+
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getCorrelation();
+    }
+
+    /**
+     * COVAR.
+     *
+     * Returns covariance, the average of the products of deviations for each data point pair.
+     *
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues array of mixed Data Series X
+     *
+     * @return float|string
+     */
+    public static function COVAR($yValues, $xValues)
+    {
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getCovariance();
+    }
+
+    /**
+     * FORECAST.
+     *
+     * Calculates, or predicts, a future value by using existing values.
+     * The predicted value is a y-value for a given x-value.
+     *
+     * @param mixed $xValue Float value of X for which we want to find Y
+     * @param mixed $yValues array of mixed Data Series Y
+     * @param mixed $xValues of mixed Data Series X
+     *
+     * @return bool|float|string
+     */
+    public static function FORECAST($xValue, $yValues, $xValues)
+    {
+        $xValue = Functions::flattenSingleValue($xValue);
+
+        try {
+            $xValue = StatisticalValidations::validateFloat($xValue);
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getValueOfYForX($xValue);
+    }
+
+    /**
+     * GROWTH.
+     *
+     * Returns values along a predicted exponential Trend
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     *
+     * @return float[]
+     */
+    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
+    {
+        $yValues = Functions::flattenArray($yValues);
+        $xValues = Functions::flattenArray($xValues);
+        $newValues = Functions::flattenArray($newValues);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+
+        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        if (empty($newValues)) {
+            $newValues = $bestFitExponential->getXValues();
+        }
+
+        $returnArray = [];
+        foreach ($newValues as $xValue) {
+            $returnArray[0][] = [$bestFitExponential->getValueOfYForX($xValue)];
+        }
+
+        return $returnArray;
+    }
+
+    /**
+     * INTERCEPT.
+     *
+     * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     *
+     * @return float|string
+     */
+    public static function INTERCEPT($yValues, $xValues)
+    {
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getIntersect();
+    }
+
+    /**
+     * LINEST.
+     *
+     * Calculates the statistics for a line by using the "least squares" method to calculate a straight line
+     *     that best fits your data, and then returns an array that describes the line.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
+     *
+     * @return array|int|string The result, or a string containing an error
+     */
+    public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
+    {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
+            $xValues = $yValues;
+        }
+
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
+
+        if ($stats === true) {
+            return [
+                [
+                    $bestFitLinear->getSlope(),
+                    $bestFitLinear->getIntersect(),
+                ],
+                [
+                    $bestFitLinear->getSlopeSE(),
+                    ($const === false) ? Functions::NA() : $bestFitLinear->getIntersectSE(),
+                ],
+                [
+                    $bestFitLinear->getGoodnessOfFit(),
+                    $bestFitLinear->getStdevOfResiduals(),
+                ],
+                [
+                    $bestFitLinear->getF(),
+                    $bestFitLinear->getDFResiduals(),
+                ],
+                [
+                    $bestFitLinear->getSSRegression(),
+                    $bestFitLinear->getSSResiduals(),
+                ],
+            ];
+        }
+
+        return [
+            $bestFitLinear->getSlope(),
+            $bestFitLinear->getIntersect(),
+        ];
+    }
+
+    /**
+     * LOGEST.
+     *
+     * Calculates an exponential curve that best fits the X and Y data series,
+     *        and then returns an array that describes the line.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param null|mixed[] $xValues Data Series X
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
+     *
+     * @return array|int|string The result, or a string containing an error
+     */
+    public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
+    {
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+        $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
+        if ($xValues === null) {
+            $xValues = $yValues;
+        }
+
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        foreach ($yValues as $value) {
+            if ($value < 0.0) {
+                return Functions::NAN();
+            }
+        }
+
+        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+
+        if ($stats === true) {
+            return [
+                [
+                    $bestFitExponential->getSlope(),
+                    $bestFitExponential->getIntersect(),
+                ],
+                [
+                    $bestFitExponential->getSlopeSE(),
+                    ($const === false) ? Functions::NA() : $bestFitExponential->getIntersectSE(),
+                ],
+                [
+                    $bestFitExponential->getGoodnessOfFit(),
+                    $bestFitExponential->getStdevOfResiduals(),
+                ],
+                [
+                    $bestFitExponential->getF(),
+                    $bestFitExponential->getDFResiduals(),
+                ],
+                [
+                    $bestFitExponential->getSSRegression(),
+                    $bestFitExponential->getSSResiduals(),
+                ],
+            ];
+        }
+
+        return [
+            $bestFitExponential->getSlope(),
+            $bestFitExponential->getIntersect(),
+        ];
+    }
+
+    /**
+     * RSQ.
+     *
+     * Returns the square of the Pearson product moment correlation coefficient through data points
+     *     in known_y's and known_x's.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function RSQ($yValues, $xValues)
+    {
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getGoodnessOfFit();
+    }
+
+    /**
+     * SLOPE.
+     *
+     * Returns the slope of the linear regression line through data points in known_y's and known_x's.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function SLOPE($yValues, $xValues)
+    {
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getSlope();
+    }
+
+    /**
+     * STEYX.
+     *
+     * Returns the standard error of the predicted y-value for each x in the regression.
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     *
+     * @return float|string
+     */
+    public static function STEYX($yValues, $xValues)
+    {
+        try {
+            self::checkTrendArrays($yValues, $xValues);
+            self::validateTrendArrays($yValues, $xValues);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
+
+        return $bestFitLinear->getStdevOfResiduals();
+    }
+
+    /**
+     * TREND.
+     *
+     * Returns values along a linear Trend
+     *
+     * @param mixed[] $yValues Data Series Y
+     * @param mixed[] $xValues Data Series X
+     * @param mixed[] $newValues Values of X for which we want to find Y
+     * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
+     *
+     * @return float[]
+     */
+    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
+    {
+        $yValues = Functions::flattenArray($yValues);
+        $xValues = Functions::flattenArray($xValues);
+        $newValues = Functions::flattenArray($newValues);
+        $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
+
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
+        if (empty($newValues)) {
+            $newValues = $bestFitLinear->getXValues();
+        }
+
+        $returnArray = [];
+        foreach ($newValues as $xValue) {
+            $returnArray[0][] = [$bestFitLinear->getValueOfYForX($xValue)];
+        }
+
+        return $returnArray;
+    }
+}

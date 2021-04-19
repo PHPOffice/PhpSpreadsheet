@@ -224,7 +224,7 @@ class Xls extends BaseReader
     /**
      * Shared fonts.
      *
-     * @var array
+     * @var Font[]
      */
     private $objFonts;
 
@@ -374,7 +374,7 @@ class Xls extends BaseReader
      *
      * @var int
      */
-    private $encryptionStartPos = false;
+    private $encryptionStartPos = 0;
 
     /**
      * The current RC4 decryption object.
@@ -659,7 +659,7 @@ class Xls extends BaseReader
         $this->definedname = [];
         $this->sst = [];
         $this->drawingGroupData = '';
-        $this->xfIndex = '';
+        $this->xfIndex = 0;
         $this->mapCellXfIndex = [];
         $this->mapCellStyleXfIndex = [];
 
@@ -801,9 +801,10 @@ class Xls extends BaseReader
         }
 
         // treat MSODRAWINGGROUP records, workbook-level Escher
+        $escherWorkbook = null;
         if (!$this->readDataOnly && $this->drawingGroupData) {
-            $escherWorkbook = new Escher();
-            $reader = new Xls\Escher($escherWorkbook);
+            $escher = new Escher();
+            $reader = new Xls\Escher($escher);
             $escherWorkbook = $reader->load($this->drawingGroupData);
         }
 
@@ -1133,38 +1134,40 @@ class Xls extends BaseReader
                                 continue 2;
                             }
 
-                            $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
-                            $BSE = $BSECollection[$BSEindex - 1];
-                            $blipType = $BSE->getBlipType();
+                            if ($escherWorkbook) {
+                                $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
+                                $BSE = $BSECollection[$BSEindex - 1];
+                                $blipType = $BSE->getBlipType();
 
-                            // need check because some blip types are not supported by Escher reader such as EMF
-                            if ($blip = $BSE->getBlip()) {
-                                $ih = imagecreatefromstring($blip->getData());
-                                $drawing = new MemoryDrawing();
-                                $drawing->setImageResource($ih);
+                                // need check because some blip types are not supported by Escher reader such as EMF
+                                if ($blip = $BSE->getBlip()) {
+                                    $ih = imagecreatefromstring($blip->getData());
+                                    $drawing = new MemoryDrawing();
+                                    $drawing->setImageResource($ih);
 
-                                // width, height, offsetX, offsetY
-                                $drawing->setResizeProportional(false);
-                                $drawing->setWidth($width);
-                                $drawing->setHeight($height);
-                                $drawing->setOffsetX($offsetX);
-                                $drawing->setOffsetY($offsetY);
+                                    // width, height, offsetX, offsetY
+                                    $drawing->setResizeProportional(false);
+                                    $drawing->setWidth($width);
+                                    $drawing->setHeight($height);
+                                    $drawing->setOffsetX($offsetX);
+                                    $drawing->setOffsetY($offsetY);
 
-                                switch ($blipType) {
-                                    case BSE::BLIPTYPE_JPEG:
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                    switch ($blipType) {
+                                        case BSE::BLIPTYPE_JPEG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                        break;
-                                    case BSE::BLIPTYPE_PNG:
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                            break;
+                                        case BSE::BLIPTYPE_PNG:
+                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                        break;
+                                            break;
+                                    }
+
+                                    $drawing->setWorksheet($this->phpSheet);
+                                    $drawing->setCoordinates($spContainer->getStartCoordinates());
                                 }
-
-                                $drawing->setWorksheet($this->phpSheet);
-                                $drawing->setCoordinates($spContainer->getStartCoordinates());
                             }
 
                             break;
@@ -1290,10 +1293,10 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                    //    TODO Provide support for named values
+                //    TODO Provide support for named values
             }
         }
-        $this->data = null;
+        $this->data = '';
 
         return $this->spreadsheet;
     }
@@ -1703,7 +1706,8 @@ class Xls extends BaseReader
                 //        max 2048 bytes will probably throw a wobbly.
                 $row = self::getUInt2d($recordData, 0);
                 $extension = true;
-                $cellAddress = array_pop(array_keys($this->phpSheet->getComments()));
+                $arrayKeys = array_keys($this->phpSheet->getComments());
+                $cellAddress = array_pop($arrayKeys);
             }
 
             $cellAddress = str_replace('$', '', $cellAddress);
@@ -2286,8 +2290,8 @@ class Xls extends BaseReader
                     $rotation = $angle;
                 } elseif ($angle <= 180) {
                     $rotation = 90 - $angle;
-                } elseif ($angle == 255) {
-                    $rotation = -165;
+                } elseif ($angle == Alignment::TEXTROTATION_STACK_EXCEL) {
+                    $rotation = Alignment::TEXTROTATION_STACK_PHPSPREADSHEET;
                 }
                 $objStyle->getAlignment()->setTextRotation($rotation);
 
@@ -2389,7 +2393,7 @@ class Xls extends BaseReader
 
                         break;
                     case 1:
-                        $objStyle->getAlignment()->setTextRotation(-165);
+                        $objStyle->getAlignment()->setTextRotation(Alignment::TEXTROTATION_STACK_PHPSPREADSHEET);
 
                         break;
                     case 2:
@@ -2741,6 +2745,7 @@ class Xls extends BaseReader
         $sheetType = ord($recordData[5]);
 
         // offset: 6; size: var; sheet name
+        $rec_name = null;
         if ($this->version == self::XLS_BIFF8) {
             $string = self::readUnicodeStringShort(substr($recordData, 6));
             $rec_name = $string['value'];
@@ -3017,12 +3022,14 @@ class Xls extends BaseReader
             // bit: 3; mask: 0x03; 0 = ordinary; 1 = Rich-Text
             $hasRichText = (($optionFlags & 0x08) != 0);
 
+            $formattingRuns = 0;
             if ($hasRichText) {
                 // number of Rich-Text formatting runs
                 $formattingRuns = self::getUInt2d($recordData, $pos);
                 $pos += 2;
             }
 
+            $extendedRunLength = 0;
             if ($hasAsian) {
                 // size of Asian phonetic setting
                 $extendedRunLength = self::getInt4d($recordData, $pos);
@@ -3033,6 +3040,7 @@ class Xls extends BaseReader
             $len = ($isCompressed) ? $numChars : $numChars * 2;
 
             // look up limit position - Check it again to be sure that no error occurs when parsing SST structure
+            $limitpos = null;
             foreach ($spliceOffsets as $spliceOffset) {
                 // it can happen that the string is empty, therefore we need
                 // <= and not just <
@@ -3097,7 +3105,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                            . chr(0);
+                                . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -4384,6 +4392,8 @@ class Xls extends BaseReader
 
         // offset: 4; size: 2; index to first visible colum
         $firstVisibleColumn = self::getUInt2d($recordData, 4);
+        $zoomscaleInPageBreakPreview = 0;
+        $zoomscaleInNormalView = 0;
         if ($this->version === self::XLS_BIFF8) {
             // offset:  8; size: 2; not used
             // offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
@@ -7181,6 +7191,7 @@ class Xls extends BaseReader
     {
         [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
         $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
+        $baseRow = (int) $baseRow;
 
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $rowIndex = self::getUInt2d($cellAddressStructure, 0);
@@ -7358,8 +7369,8 @@ class Xls extends BaseReader
      */
     private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
     {
-        [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
-        $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
+        [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
+        $baseCol = $baseCol - 1;
 
         // TODO: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?
@@ -7635,6 +7646,8 @@ class Xls extends BaseReader
                 $size = 9;
 
                 break;
+            default:
+                throw new PhpSpreadsheetException('Unsupported BIFF8 constant');
         }
 
         return [

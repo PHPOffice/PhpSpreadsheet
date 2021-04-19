@@ -69,58 +69,13 @@ class DefinedNames
         $this->objWriter->startElement('definedName');
         $this->objWriter->writeAttribute('name', $pDefinedName->getName());
         if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
-            $this->objWriter->writeAttribute('localSheetId', $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope()));
+            $this->objWriter->writeAttribute(
+                'localSheetId',
+                $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope())
+            );
         }
 
-        $definedRange = $pDefinedName->getValue();
-        $splitCount = preg_match_all(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
-            $definedRange,
-            $splitRanges,
-            PREG_OFFSET_CAPTURE
-        );
-
-        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
-        $offsets = array_column($splitRanges[0], 1);
-
-        $worksheets = $splitRanges[2];
-        $columns = $splitRanges[6];
-        $rows = $splitRanges[7];
-
-        while ($splitCount > 0) {
-            --$splitCount;
-            $length = $lengths[$splitCount];
-            $offset = $offsets[$splitCount];
-            $worksheet = $worksheets[$splitCount][0];
-            $column = $columns[$splitCount][0];
-            $row = $rows[$splitCount][0];
-
-            $newRange = '';
-            if (empty($worksheet)) {
-                if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
-                    // We should have a worksheet
-                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
-                }
-            } else {
-                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
-            }
-            if (!empty($worksheet)) {
-                $newRange = "'" . str_replace("'", "''", $worksheet) . "'!";
-            }
-
-            if (!empty($column)) {
-                $newRange .= $column;
-            }
-            if (!empty($row)) {
-                $newRange .= $row;
-            }
-
-            $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
-        }
-
-        if (substr($definedRange, 0, 1) === '=') {
-            $definedRange = substr($definedRange, 1);
-        }
+        $definedRange = $this->getDefinedRange($pDefinedName);
 
         $this->objWriter->writeRawData($definedRange);
 
@@ -144,7 +99,7 @@ class DefinedNames
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref so we can make the cell ref absolute
-            [$ws, $range[0]] = Worksheet::extractSheetTitle($range[0], true);
+            [, $range[0]] = Worksheet::extractSheetTitle($range[0], true);
 
             $range[0] = Coordinate::absoluteCoordinate($range[0]);
             $range[1] = Coordinate::absoluteCoordinate($range[1]);
@@ -219,5 +174,55 @@ class DefinedNames
 
             $this->objWriter->endElement();
         }
+    }
+
+    private function getDefinedRange(DefinedName $pDefinedName): string
+    {
+        $definedRange = $pDefinedName->getValue();
+        $splitCount = preg_match_all(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/mui',
+            $definedRange,
+            $splitRanges,
+            PREG_OFFSET_CAPTURE
+        );
+
+        $lengths = array_map('strlen', array_column($splitRanges[0], 0));
+        $offsets = array_column($splitRanges[0], 1);
+
+        $worksheets = $splitRanges[2];
+        $columns = $splitRanges[6];
+        $rows = $splitRanges[7];
+
+        while ($splitCount > 0) {
+            --$splitCount;
+            $length = $lengths[$splitCount];
+            $offset = $offsets[$splitCount];
+            $worksheet = $worksheets[$splitCount][0];
+            $column = $columns[$splitCount][0];
+            $row = $rows[$splitCount][0];
+
+            $newRange = '';
+            if (empty($worksheet)) {
+                if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
+                    // We should have a worksheet
+                    $worksheet = $pDefinedName->getWorksheet() ? $pDefinedName->getWorksheet()->getTitle() : null;
+                }
+            } else {
+                $worksheet = str_replace("''", "'", trim($worksheet, "'"));
+            }
+
+            if (!empty($worksheet)) {
+                $newRange = "'" . str_replace("'", "''", $worksheet) . "'!";
+            }
+            $newRange = "{$newRange}{$column}{$row}";
+
+            $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
+        }
+
+        if (substr($definedRange, 0, 1) === '=') {
+            $definedRange = substr($definedRange, 1);
+        }
+
+        return $definedRange;
     }
 }

@@ -18,7 +18,7 @@ class TextJoinTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTJOIN()
+    public function providerTEXTJOIN(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
