@@ -48,7 +48,6 @@ class Xlsx extends BaseReader
      * @var ReferenceHelper
      */
     private $referenceHelper;
-
     /**
      * Xlsx\Theme instance.
      *
@@ -471,10 +470,9 @@ class Xlsx extends BaseReader
                     }
 
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles']"));
-                    $xpathPath = strpos($xpath['Target'], '/') === 0 ? substr($xpath['Target'], 1) : "$dir/$xpath[Target]";
                     //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlStyles = simplexml_load_string(
-                        $this->securityScanner->scan($this->getFromZipArchive($zip, $xpathPath)),
+                        $this->securityScanner->scan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
