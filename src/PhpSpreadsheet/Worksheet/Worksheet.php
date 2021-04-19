@@ -1033,7 +1033,7 @@ class Worksheet implements IComparable
     /**
      * Get highest worksheet column.
      *
-     * @param string $row Return the data highest column for the specified row,
+     * @param int $row Return the data highest column for the specified row,
      *                                     or the highest column of any row if no row number is passed
      *
      * @return string Highest column name
