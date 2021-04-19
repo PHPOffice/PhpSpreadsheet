@@ -174,20 +174,23 @@ class Xml extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetNames($pFilename)
+    public function listWorksheetNames($filename)
     {
-        File::assertFile($pFilename);
-        if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+        File::assertFile($filename);
+        if (!$this->canRead($filename)) {
+            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
         }
 
         $worksheetNames = [];
 
-        $xml = $this->trySimpleXMLLoadString($pFilename);
+        $xml = $this->trySimpleXMLLoadString($filename);
+        if ($xml === false) {
+            throw new Exception("Problem reading {$filename}");
+        }
 
         $namespaces = $xml->getNamespaces(true);
 
@@ -203,20 +206,23 @@ class Xml extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo($filename)
     {
-        File::assertFile($pFilename);
-        if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+        File::assertFile($filename);
+        if (!$this->canRead($filename)) {
+            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
         }
 
         $worksheetInfo = [];
 
-        $xml = $this->trySimpleXMLLoadString($pFilename);
+        $xml = $this->trySimpleXMLLoadString($filename);
+        if ($xml === false) {
+            throw new Exception("Problem reading {$filename}");
+        }
 
         $namespaces = $xml->getNamespaces(true);
 
@@ -274,18 +280,18 @@ class Xml extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load($filename)
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     private static function identifyFixedStyleValue($styleList, &$styleAttributeValue)
