@@ -4776,16 +4776,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method getNamespaces\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method children\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:identifyFixedStyleValue\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
@@ -4801,22 +4791,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Parameter \\#1 \\$xml of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseStyles\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
 			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot access property \\$Names on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
