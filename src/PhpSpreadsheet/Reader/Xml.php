@@ -270,7 +270,7 @@ class Xml extends BaseReader
 
         (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
-        $this->styles = (new Style($spreadsheet))->parseStyles($xml, $namespaces);
+        $this->styles = (new Style())->parseStyles($xml, $namespaces);
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);

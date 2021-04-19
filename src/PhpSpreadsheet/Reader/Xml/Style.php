@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xml;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -12,11 +11,6 @@ use SimpleXMLElement;
 
 class Style
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadsheet;
-
     /**
      * Formats.
      *
@@ -73,11 +67,6 @@ class Style
     public static function xmlMappings(): array
     {
         return self::$mappings;
-    }
-
-    public function __construct(Spreadsheet $spreadsheet)
-    {
-        $this->spreadsheet = $spreadsheet;
     }
 
     public function parseStyles(SimpleXMLElement $xml, array $namespaces): array
