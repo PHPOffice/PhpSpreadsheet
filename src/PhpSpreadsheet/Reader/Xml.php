@@ -307,18 +307,21 @@ class Xml extends BaseReader
     /**
      * Loads from file into Spreadsheet instance.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
     {
-        File::assertFile($pFilename);
-        if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+        File::assertFile($filename);
+        if (!$this->canRead($filename)) {
+            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
         }
 
-        $xml = $this->trySimpleXMLLoadString($pFilename);
+        $xml = $this->trySimpleXMLLoadString($filename);
+        if ($xml === false) {
+            throw new Exception("Problem reading {$filename}");
+        }
 
         $namespaces = $xml->getNamespaces(true);
 
