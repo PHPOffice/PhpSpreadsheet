@@ -189,14 +189,7 @@ class Style
                 $borderStyleValue = (string) $borderStyleValuex;
                 switch ($borderStyleKey) {
                     case 'Position':
-                        $borderStyleValue = strtolower($borderStyleValue);
-                        if (in_array($borderStyleValue, self::BORDER_POSITIONS)) {
-                            $borderPosition = $borderStyleValue;
-                        } elseif ($borderStyleValue == 'diagonalleft') {
-                            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_DOWN;
-                        } elseif ($borderStyleValue == 'diagonalright') {
-                            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_UP;
-                        }
+                        [$borderPosition, $diagonalDirection] = $this->parseStyleBorder($borderStyleValue, $diagonalDirection);
 
                         break;
                     case 'Color':
@@ -214,6 +207,21 @@ class Style
                 $this->styles[$styleID]['borders']['diagonal'] = $thisBorder;
             }
         }
+    }
+
+    protected function parseStyleBorder(string $borderStyleValue, string $diagonalDirection): array
+    {
+        $borderStyleValue = strtolower($borderStyleValue);
+
+        if (in_array($borderStyleValue, self::BORDER_POSITIONS)) {
+            $borderPosition = $borderStyleValue;
+        } elseif ($borderStyleValue == 'diagonalleft') {
+            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_DOWN;
+        } elseif ($borderStyleValue == 'diagonalright') {
+            $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_UP;
+        }
+
+        return [$borderPosition, $diagonalDirection];
     }
 
     protected const UNDERLINE_STYLES = [
