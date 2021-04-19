@@ -51,18 +51,6 @@ class Properties
         }
     }
 
-    protected function hex2str(array $hex): string
-    {
-        return mb_chr((int) hexdec($hex[1]), 'UTF-8');
-    }
-
-    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
-    {
-        return ($simple === null)
-            ? new SimpleXMLElement('<xml></xml>')
-            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
-    }
-
     protected function processStandardProperty(
         DocumentProperties $docProps,
         string $propertyName,
@@ -82,9 +70,7 @@ class Properties
 
                 break;
             case 'Created':
-                $creationDate = strtotime($stringValue);
-                $creationDate = $creationDate === false ? time() : $creationDate;
-                $docProps->setCreated($creationDate);
+                $docProps->setCreated($this->processTimestampValue($stringValue));
 
                 break;
             case 'LastAuthor':
@@ -92,9 +78,7 @@ class Properties
 
                 break;
             case 'LastSaved':
-                $lastSaveDate = strtotime($stringValue);
-                $lastSaveDate = $lastSaveDate === false ? time() : $lastSaveDate;
-                $docProps->setModified($lastSaveDate);
+                $docProps->setModified($this->processTimestampValue($stringValue));
 
                 break;
             case 'Company':
@@ -123,10 +107,11 @@ class Properties
     protected function processCustomProperty(
         DocumentProperties $docProps,
         string $propertyName,
-        SimpleXMLElement $propertyValue,
+        ?SimpleXMLElement $propertyValue,
         SimpleXMLElement $propertyAttributes
     ): void {
         $propertyType = DocumentProperties::PROPERTY_TYPE_UNKNOWN;
+
         switch ((string) $propertyAttributes) {
             case 'string':
                 $propertyType = DocumentProperties::PROPERTY_TYPE_STRING;
@@ -150,11 +135,28 @@ class Properties
                 break;
             case 'dateTime.tz':
                 $propertyType = DocumentProperties::PROPERTY_TYPE_DATE;
-                $propertyValue = strtotime(trim((string) $propertyValue));
+                $propertyValue = $this->processTimestampValue(trim((string) $propertyValue));
 
                 break;
         }
 
         $docProps->setCustomProperty($propertyName, $propertyValue, $propertyType);
+    }
+
+    protected function hex2str(array $hex): string
+    {
+        return mb_chr((int) hexdec($hex[1]), 'UTF-8');
+    }
+
+    private static function getAttributes(SimpleXMLElement $simple, string $node): SimpleXMLElement
+    {
+        return $simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>');
+    }
+
+    protected function processTimestampValue(string $dateTimeValue)
+    {
+        $dateTime = strtotime($dateTimeValue);
+
+        return $dateTime === false ? time() : $dateTime;
     }
 }

@@ -322,7 +322,9 @@ class Xml extends BaseReader
 
         $namespaces = $xml->getNamespaces(true);
 
-        (new Properties($spreadsheet))->readProperties($xml, $namespaces);
+        if ($xml !== false) {
+            (new Properties($spreadsheet))->readProperties($xml, $namespaces);
+        }
 
         $this->parseStyles($xml, $namespaces);
 
@@ -696,11 +698,9 @@ class Xml extends BaseReader
         }
     }
 
-    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
+    private static function getAttributes(SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null)
-            ? new SimpleXMLElement('<xml></xml>')
-            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+        return $simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>');
     }
 
     private static $underlineStyles = [
