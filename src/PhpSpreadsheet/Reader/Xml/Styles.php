@@ -24,6 +24,9 @@ class Styles
      */
     protected $styles = [];
 
+    /**
+     * @var array
+     */
     protected static $mappings = [
         'borderStyle' => [
             '1continuous' => Border::BORDER_THIN,
