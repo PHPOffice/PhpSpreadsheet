@@ -221,7 +221,7 @@ class Style
             $diagonalDirection = $diagonalDirection ? Borders::DIAGONAL_BOTH : Borders::DIAGONAL_UP;
         }
 
-        return [$borderPosition, $diagonalDirection];
+        return [$borderPosition ?? null, $diagonalDirection];
     }
 
     protected const UNDERLINE_STYLES = [
