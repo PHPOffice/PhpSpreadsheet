@@ -45,7 +45,10 @@ class Xml extends BaseReader
 
     public static function xmlMappings(): array
     {
-        return Style::xmlMappings();
+        return array_merge(
+            Style\Fill::FILL_MAPPINGS,
+            Style\Border::BORDER_MAPPINGS,
+        );
     }
 
     /**
