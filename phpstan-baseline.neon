@@ -1091,16 +1091,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Indirect\\:\\:extractRequiredCells\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Indirect\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
@@ -1183,11 +1173,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$pString of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Cannot cast array\\|string to string\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
