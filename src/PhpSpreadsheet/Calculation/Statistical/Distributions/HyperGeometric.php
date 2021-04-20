@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations;
 
 class HyperGeometric
 {
@@ -47,8 +47,13 @@ class HyperGeometric
             return Functions::NAN();
         }
 
-        return MathTrig::COMBIN($populationSuccesses, $sampleSuccesses) *
-            MathTrig::COMBIN($populationNumber - $populationSuccesses, $sampleNumber - $sampleSuccesses) /
-            MathTrig::COMBIN($populationNumber, $sampleNumber);
+        $successesPopulationAndSample = (float) Combinations::withoutRepetition($populationSuccesses, $sampleSuccesses);
+        $numbersPopulationAndSample = (float) Combinations::withoutRepetition($populationNumber, $sampleNumber);
+        $adjustedPopulationAndSample = (float) Combinations::withoutRepetition(
+            $populationNumber - $populationSuccesses,
+            $sampleNumber - $sampleSuccesses
+        );
+
+        return $successesPopulationAndSample * $adjustedPopulationAndSample / $numbersPopulationAndSample;
     }
 }

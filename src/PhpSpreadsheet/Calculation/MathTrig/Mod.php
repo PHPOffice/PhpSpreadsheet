@@ -9,28 +9,28 @@ class Mod
     /**
      * MOD.
      *
-     * @param mixed $a Dividend
-     * @param mixed $b Divisor
+     * @param mixed $dividend Dividend
+     * @param mixed $divisor Divisor
      *
      * @return float|int|string Remainder, or a string containing an error
      */
-    public static function evaluate($a, $b)
+    public static function evaluate($dividend, $divisor)
     {
         try {
-            $a = Helpers::validateNumericNullBool($a);
-            $b = Helpers::validateNumericNullBool($b);
-            Helpers::validateNotZero($b);
+            $dividend = Helpers::validateNumericNullBool($dividend);
+            $divisor = Helpers::validateNumericNullBool($divisor);
+            Helpers::validateNotZero($divisor);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        if (($a < 0.0) && ($b > 0.0)) {
-            return $b - fmod(abs($a), $b);
+        if (($dividend < 0.0) && ($divisor > 0.0)) {
+            return $divisor - fmod(abs($dividend), $divisor);
         }
-        if (($a > 0.0) && ($b < 0.0)) {
-            return $b + fmod($a, abs($b));
+        if (($dividend > 0.0) && ($divisor < 0.0)) {
+            return $divisor + fmod($dividend, abs($divisor));
         }
 
-        return fmod($a, $b);
+        return fmod($dividend, $divisor);
     }
 }

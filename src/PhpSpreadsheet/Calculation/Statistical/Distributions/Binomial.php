@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations;
 
 class Binomial
 {
@@ -47,7 +47,8 @@ class Binomial
             return self::calculateCumulativeBinomial($value, $trials, $probability);
         }
 
-        return MathTrig::COMBIN($trials, $value) * $probability ** $value * (1 - $probability) ** ($trials - $value);
+        return Combinations::withoutRepetition($trials, $value) * $probability ** $value
+            * (1 - $probability) ** ($trials - $value);
     }
 
     /**
@@ -89,7 +90,8 @@ class Binomial
 
         $summer = 0;
         for ($i = $successes; $i <= $limit; ++$i) {
-            $summer += MathTrig::COMBIN($trials, $i) * $probability ** $i * (1 - $probability) ** ($trials - $i);
+            $summer += Combinations::withoutRepetition($trials, $i) * $probability ** $i
+                * (1 - $probability) ** ($trials - $i);
         }
 
         return $summer;
@@ -136,8 +138,8 @@ class Binomial
             }
         }
 
-        return (MathTrig::COMBIN($failures + $successes - 1, $successes - 1)) *
-            ($probability ** $successes) * ((1 - $probability) ** $failures);
+        return (Combinations::withoutRepetition($failures + $successes - 1, $successes - 1))
+            * ($probability ** $successes) * ((1 - $probability) ** $failures);
     }
 
     /**
@@ -191,7 +193,8 @@ class Binomial
     {
         $summer = 0;
         for ($i = 0; $i <= $value; ++$i) {
-            $summer += MathTrig::COMBIN($trials, $i) * $probability ** $i * (1 - $probability) ** ($trials - $i);
+            $summer += Combinations::withoutRepetition($trials, $i) * $probability ** $i
+                * (1 - $probability) ** ($trials - $i);
         }
 
         return $summer;
