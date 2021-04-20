@@ -47,7 +47,7 @@ class Xml extends BaseReader
     {
         return array_merge(
             Style\Fill::FILL_MAPPINGS,
-            Style\Border::BORDER_MAPPINGS,
+            Style\Border::BORDER_MAPPINGS
         );
     }
 
