@@ -4781,11 +4781,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseRichText\\(\\) has parameter \\$is with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(mixed, mixed\\)\\: int, array\\('self', 'cellReverseSort'\\) given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/ReferenceHelper.php
