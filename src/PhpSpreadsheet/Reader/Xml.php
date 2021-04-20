@@ -503,7 +503,7 @@ class Xml extends BaseReader
     }
 
     protected function parseCellComment(
-        SimpleXMLElement $cell,
+        object $cell,
         array $namespaces,
         Spreadsheet $spreadsheet,
         string $columnID,
@@ -522,7 +522,7 @@ class Xml extends BaseReader
             ->setText($this->parseRichText($annotation));
     }
 
-    protected function parseRichText($annotation)
+    protected function parseRichText(string $annotation): RichText
     {
         $value = new RichText();
 
