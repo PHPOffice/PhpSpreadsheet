@@ -443,16 +443,7 @@ class Xml extends BaseReader
                         }
 
                         if (isset($cell->Comment)) {
-                            $commentAttributes = $cell->Comment->attributes($namespaces['ss']);
-                            $author = 'unknown';
-                            if (isset($commentAttributes->Author)) {
-                                $author = (string) $commentAttributes->Author;
-                            }
-                            $node = $cell->Comment->Data->asXML();
-                            $annotation = strip_tags((string) $node);
-                            $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)
-                                ->setAuthor($author)
-                                ->setText($this->parseRichText($annotation));
+                            $this->parseCellComment($cell, $namespaces, $spreadsheet, $columnID, $rowID);
                         }
 
                         if (isset($cell_ss['StyleID'])) {
@@ -511,11 +502,31 @@ class Xml extends BaseReader
         return $spreadsheet;
     }
 
-    protected function parseRichText($is)
+    protected function parseCellComment(
+        SimpleXMLElement $cell,
+        array $namespaces,
+        Spreadsheet $spreadsheet,
+        string $columnID,
+        int $rowID
+    ): void {
+        $commentAttributes = $cell->Comment->attributes($namespaces['ss']);
+        $author = 'unknown';
+        if (isset($commentAttributes->Author)) {
+            $author = (string) $commentAttributes->Author;
+        }
+
+        $node = $cell->Comment->Data->asXML();
+        $annotation = strip_tags((string) $node);
+        $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)
+            ->setAuthor($author)
+            ->setText($this->parseRichText($annotation));
+    }
+
+    protected function parseRichText($annotation)
     {
         $value = new RichText();
 
-        $value->createText($is);
+        $value->createText($annotation);
 
         return $value;
     }
