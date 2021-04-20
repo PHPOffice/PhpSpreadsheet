@@ -4756,11 +4756,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:\\$mappings has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
@@ -4776,112 +4771,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method getNamespaces\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method children\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:identifyFixedStyleValue\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:identifyFixedStyleValue\\(\\) has parameter \\$styleAttributeValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:identifyFixedStyleValue\\(\\) has parameter \\$styleList with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:hex2str\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:hex2str\\(\\) has parameter \\$hex with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot access property \\$DocumentProperties on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCreated\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(\\)\\: mixed, array\\('self', 'hex2str'\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#1 \\$xml of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseStyles\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
 			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot access property \\$Names on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseRichText\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseRichText\\(\\) has parameter \\$is with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:\\$borderPositions has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseStyleBorders\\(\\) has parameter \\$styleID with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:\\$underlineStyles has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseStyleInterior\\(\\) has parameter \\$styleID with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:parseStyleNumberFormat\\(\\) has parameter \\$styleID with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
