@@ -20,7 +20,7 @@ class Quotient
      *
      * @return int|string
      */
-    public static function funcQuotient($numerator, $denominator)
+    public static function evaluate($numerator, $denominator)
     {
         try {
             $numerator = Helpers::validateNumericNullSubstitution($numerator, 0);

@@ -15,7 +15,7 @@ class Sec
      *
      * @return float|string The secant of the angle
      */
-    public static function funcSec($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

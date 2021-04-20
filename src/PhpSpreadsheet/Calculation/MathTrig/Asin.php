@@ -15,7 +15,7 @@ class Asin
      *
      * @return float|string The arcsine of the number
      */
-    public static function funcAsin($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

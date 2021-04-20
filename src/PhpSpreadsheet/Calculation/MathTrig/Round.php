@@ -16,7 +16,7 @@ class Round
      *
      * @return float|string Rounded number
      */
-    public static function builtinROUND($number, $precision)
+    public static function evaluate($number, $precision)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

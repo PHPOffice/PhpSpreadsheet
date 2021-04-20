@@ -15,7 +15,7 @@ class Atan
      *
      * @return float|string The arctangent of the number
      */
-    public static function funcAtan($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

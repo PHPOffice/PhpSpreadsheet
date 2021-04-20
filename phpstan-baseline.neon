@@ -1726,21 +1726,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Mround\\:\\:funcMround\\(\\) expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function round expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
 			message: "#^Cannot cast array\\|float\\|int\\|string to float\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php

@@ -16,7 +16,7 @@ class Sign
      *
      * @return int|string sign value, or a string containing an error
      */
-    public static function funcSign($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

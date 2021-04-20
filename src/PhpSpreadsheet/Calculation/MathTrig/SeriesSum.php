@@ -19,7 +19,7 @@ class SeriesSum
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function funcSeriesSum($x, $n, $m, ...$args)
+    public static function evaluate($x, $n, $m, ...$args)
     {
         try {
             $x = Helpers::validateNumericNullSubstitution($x, 0);

@@ -16,7 +16,7 @@ class Trunc
      *
      * @return float|string Truncated value, or a string containing an error
      */
-    public static function funcTrunc($value = 0, $digits = 0)
+    public static function evaluate($value = 0, $digits = 0)
     {
         try {
             $value = Helpers::validateNumericNullBool($value);

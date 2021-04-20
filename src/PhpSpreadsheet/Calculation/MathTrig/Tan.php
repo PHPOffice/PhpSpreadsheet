@@ -15,7 +15,7 @@ class Tan
      *
      * @return float|string Rounded number
      */
-    public static function funcTan($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

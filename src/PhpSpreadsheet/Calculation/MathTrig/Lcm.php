@@ -48,7 +48,7 @@ class Lcm
      *
      * @return int|string Lowest Common Multiplier, or a string containing an error
      */
-    public static function funcLcm(...$args)
+    public static function evaluate(...$args)
     {
         try {
             $arrayArgs = [];

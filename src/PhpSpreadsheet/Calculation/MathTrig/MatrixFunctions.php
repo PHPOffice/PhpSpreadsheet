@@ -120,7 +120,7 @@ class MatrixFunctions
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function funcMUnit($dimension)
+    public static function identity($dimension)
     {
         try {
             $dimension = (int) Helpers::validateNumericNullBool($dimension);
