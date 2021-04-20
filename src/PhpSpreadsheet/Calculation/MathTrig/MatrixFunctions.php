@@ -53,7 +53,7 @@ class MatrixFunctions
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function funcMDeterm($matrixValues)
+    public static function determinant($matrixValues)
     {
         try {
             $matrix = self::getMatrix($matrixValues);
@@ -78,7 +78,7 @@ class MatrixFunctions
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function funcMInverse($matrixValues)
+    public static function inverse($matrixValues)
     {
         try {
             $matrix = self::getMatrix($matrixValues);
@@ -99,7 +99,7 @@ class MatrixFunctions
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function funcMMult($matrixData1, $matrixData2)
+    public static function multiply($matrixData1, $matrixData2)
     {
         try {
             $matrixA = self::getMatrix($matrixData1);

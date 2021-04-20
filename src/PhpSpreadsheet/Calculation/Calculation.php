@@ -1636,7 +1636,7 @@ class Calculation
         ],
         'MDETERM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMDeterm'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'determinant'],
             'argumentCount' => '1',
         ],
         'MDURATION' => [
@@ -1686,7 +1686,7 @@ class Calculation
         ],
         'MINVERSE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMinverse'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'inverse'],
             'argumentCount' => '1',
         ],
         'MIRR' => [
@@ -1696,7 +1696,7 @@ class Calculation
         ],
         'MMULT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\MatrixFunctions::class, 'funcMMult'],
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'multiply'],
             'argumentCount' => '2',
         ],
         'MOD' => [

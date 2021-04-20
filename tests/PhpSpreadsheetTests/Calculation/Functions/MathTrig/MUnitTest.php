@@ -11,10 +11,10 @@ class MUnitTest extends AllSetupTeardown
         $identity = MatrixFunctions::funcMUnit(3);
         self::assertEquals([[1, 0, 0], [0, 1, 0], [0, 0, 1]], $identity);
         $startArray = [[1, 2, 2], [4, 5, 6], [7, 8, 9]];
-        $resultArray = MatrixFunctions::funcMMult($startArray, $identity);
+        $resultArray = MatrixFunctions::multiply($startArray, $identity);
         self::assertEquals($startArray, $resultArray);
-        $inverseArray = MatrixFunctions::funcMInverse($startArray);
-        $resultArray = MatrixFunctions::funcMMult($startArray, $inverseArray);
+        $inverseArray = MatrixFunctions::inverse($startArray);
+        $resultArray = MatrixFunctions::multiply($startArray, $inverseArray);
         self::assertEquals($identity, $resultArray);
         self::assertEquals('#VALUE!', MatrixFunctions::funcMUnit(0));
         self::assertEquals('#VALUE!', MatrixFunctions::funcMUnit(-1));
