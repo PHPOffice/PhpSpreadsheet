@@ -443,7 +443,7 @@ class Xml extends BaseReader
                         }
 
                         if (isset($cell->Comment)) {
-                            $this->parseCellComment($cell, $namespaces, $spreadsheet, $columnID, $rowID);
+                            $this->parseCellComment($cell->Comment, $namespaces, $spreadsheet, $columnID, $rowID);
                         }
 
                         if (isset($cell_ss['StyleID'])) {
@@ -503,19 +503,19 @@ class Xml extends BaseReader
     }
 
     protected function parseCellComment(
-        object $cell,
+        SimpleXMLElement $comment,
         array $namespaces,
         Spreadsheet $spreadsheet,
         string $columnID,
         int $rowID
     ): void {
-        $commentAttributes = $cell->Comment->attributes($namespaces['ss']);
+        $commentAttributes = $comment->attributes($namespaces['ss']);
         $author = 'unknown';
         if (isset($commentAttributes->Author)) {
             $author = (string) $commentAttributes->Author;
         }
 
-        $node = $cell->Comment->Data->asXML();
+        $node = $comment->Data->asXML();
         $annotation = strip_tags((string) $node);
         $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)
             ->setAuthor($author)
