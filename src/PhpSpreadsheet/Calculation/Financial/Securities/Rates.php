@@ -63,7 +63,7 @@ class Rates
             return Functions::NAN();
         }
 
-        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::evaluate($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;
@@ -126,7 +126,7 @@ class Rates
             return Functions::NAN();
         }
 
-        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::evaluate($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;

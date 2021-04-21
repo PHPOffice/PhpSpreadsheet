@@ -22,7 +22,7 @@ class Day
      *
      * @return int|string Day of the month
      */
-    public static function funcDay($dateValue)
+    public static function evaluate($dateValue)
     {
         $weirdResult = self::weirdCondition($dateValue);
         if ($weirdResult >= 0) {
@@ -41,6 +41,10 @@ class Day
         return (int) $PHPDateObject->format('j');
     }
 
+    /**
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     */
     private static function weirdCondition($dateValue): int
     {
         // Excel does not treat 0 consistently for DAY vs. (MONTH or YEAR)
