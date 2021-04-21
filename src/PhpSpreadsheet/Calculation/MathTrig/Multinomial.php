@@ -16,7 +16,7 @@ class Multinomial
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function funcMultinomial(...$args)
+    public static function evaluate(...$args)
     {
         $summer = 0;
         $divisor = 1;
@@ -28,13 +28,13 @@ class Multinomial
                 Helpers::validateNotNegative($arg);
                 $arg = (int) $arg;
                 $summer += $arg;
-                $divisor *= Fact::funcFact($arg);
+                $divisor *= Fact::evaluate($arg);
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
-        $summer = Fact::funcFact($summer);
+        $summer = Fact::evaluate($summer);
 
         return $summer / $divisor;
     }

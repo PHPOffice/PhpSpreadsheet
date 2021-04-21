@@ -42,7 +42,7 @@ class Format
             if ($value < 0) {
                 $round = 0 - $round;
             }
-            $value = MathTrig\Mround::funcMround($value, $round);
+            $value = MathTrig\Mround::evaluate($value, $round);
         }
         $mask = "$mask;($mask)";
 
@@ -66,6 +66,8 @@ class Format
         if (!is_numeric($value) || !is_numeric($decimals)) {
             return Functions::VALUE();
         }
+        $decimals = (float) $decimals;
+        $value = (float) $value;
         $decimals = (int) floor($decimals);
 
         $valueResult = round($value, $decimals);

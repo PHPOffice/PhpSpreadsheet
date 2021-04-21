@@ -48,7 +48,7 @@ class Subtotal
         [Statistical\Counts::class, 'COUNTA'], // 3
         [Statistical\Maximum::class, 'MAX'], // 4
         [Statistical\Minimum::class, 'MIN'], // 5
-        [Product::class, 'funcProduct'], // 6
+        [Product::class, 'evaluate'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8
         [Sum::class, 'funcSum'], // 9
@@ -72,7 +72,7 @@ class Subtotal
      *
      * @return float|string
      */
-    public static function funcSubtotal($functionType, ...$args)
+    public static function evaluate($functionType, ...$args)
     {
         $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);

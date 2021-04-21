@@ -28,7 +28,7 @@ class Atan2
      *
      * @return float|string the inverse tangent of the specified x- and y-coordinates, or a string containing an error
      */
-    public static function funcAtan2($xCoordinate, $yCoordinate)
+    public static function evaluate($xCoordinate, $yCoordinate)
     {
         try {
             $xCoordinate = Helpers::validateNumericNullBool($xCoordinate);

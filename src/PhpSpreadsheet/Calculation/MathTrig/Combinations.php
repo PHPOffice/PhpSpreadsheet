@@ -31,7 +31,7 @@ class Combinations
             return $e->getMessage();
         }
 
-        return round(Fact::funcFact($numObjs) / Fact::funcFact($numObjs - $numInSet)) / Fact::funcFact($numInSet);
+        return round(Fact::evaluate($numObjs) / Fact::evaluate($numObjs - $numInSet)) / Fact::evaluate($numInSet);
     }
 
     /**
@@ -69,6 +69,6 @@ class Combinations
             return $e->getMessage();
         }
 
-        return round(Fact::funcFact($numObjs + $numInSet - 1) / Fact::funcFact($numObjs - 1)) / Fact::funcFact($numInSet);
+        return round(Fact::evaluate($numObjs + $numInSet - 1) / Fact::evaluate($numObjs - 1)) / Fact::evaluate($numInSet);
     }
 }

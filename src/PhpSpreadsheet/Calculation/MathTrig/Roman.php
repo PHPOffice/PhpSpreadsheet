@@ -822,7 +822,7 @@ class Roman
      *
      * @return string Roman numeral, or a string containing an error
      */
-    public static function funcRoman($aValue, $style = 0)
+    public static function evaluate($aValue, $style = 0)
     {
         try {
             $aValue = Helpers::validateNumericNullBool($aValue);

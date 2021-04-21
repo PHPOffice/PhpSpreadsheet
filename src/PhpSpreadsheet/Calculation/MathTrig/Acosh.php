@@ -13,9 +13,9 @@ class Acosh
      *
      * @param float $number Number
      *
-     * @return float|string The arccosine of the number
+     * @return float|string The arccosine of the number, or an error string
      */
-    public static function funcAcosh($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
