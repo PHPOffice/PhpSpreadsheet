@@ -539,9 +539,8 @@ class Worksheet extends BIFFwriter
         $arrConditionalStyles = $phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
-            // @TODO CFRule & CFHeader
-            // Write CFHEADER record
-            $this->writeCFHeader();
+
+            $cfHeaderWritten = false;
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
@@ -549,6 +548,11 @@ class Worksheet extends BIFFwriter
                         $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
                         || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
                     ) {
+                        // Write CFHEADER record (only if there are Conditional Styles that we are able to write)
+                        if ($cfHeaderWritten === false) {
+                            $this->writeCFHeader();
+                            $cfHeaderWritten = true;
+                        }
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
