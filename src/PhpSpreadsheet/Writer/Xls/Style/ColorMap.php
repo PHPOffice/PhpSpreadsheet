@@ -2,243 +2,76 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls\Style;
 
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 class ColorMap
 {
-    public static function lookup(\PhpOffice\PhpSpreadsheet\Style\Color $color, int $default = 0x00): int
+    private static $colorMap = [
+        '000000' => 0x08,
+        'FFFFFF' => 0x09,
+        'FF0000' => 0x0A,
+        '00FF00' => 0x0B,
+        '0000FF' => 0x0C,
+        'FFFF00' => 0x0D,
+        'FF00FF' => 0x0E,
+        '00FFFF' => 0x0F,
+        '800000' => 0x10,
+        '008000' => 0x11,
+        '000080' => 0x12,
+        '808000' => 0x13,
+        '800080' => 0x14,
+        '008080' => 0x15,
+        'C0C0C0' => 0x16,
+        '808080' => 0x17,
+        '9999FF' => 0x18,
+        '993366' => 0x19,
+        'FFFFCC' => 0x1A,
+        'CCFFFF' => 0x1B,
+        '660066' => 0x1C,
+        'FF8080' => 0x1D,
+        '0066CC' => 0x1E,
+        'CCCCFF' => 0x1F,
+        '000080' => 0x20,
+        'FF00FF' => 0x21,
+        'FFFF00' => 0x22,
+        '00FFFF' => 0x23,
+        '800080' => 0x24,
+        '800000' => 0x25,
+        '008080' => 0x26,
+        '0000FF' => 0x27,
+        '00CCFF' => 0x28,
+        'CCFFFF' => 0x29,
+        'CCFFCC' => 0x2A,
+        'FFFF99' => 0x2B,
+        '99CCFF' => 0x2C,
+        'FF99CC' => 0x2D,
+        'CC99FF' => 0x2E,
+        'FFCC99' => 0x2F,
+        '3366FF' => 0x30,
+        '33CCCC' => 0x31,
+        '99CC00' => 0x32,
+        'FFCC00' => 0x33,
+        'FF9900' => 0x34,
+        'FF6600' => 0x35,
+        '666699' => 0x36,
+        '969696' => 0x37,
+        '003366' => 0x38,
+        '339966' => 0x39,
+        '003300' => 0x3A,
+        '333300' => 0x3B,
+        '993300' => 0x3C,
+        '993366' => 0x3D,
+        '333399' => 0x3E,
+        '333333' => 0x3F,
+    ];
+
+    public static function lookup(Color $color, int $defaultIndex = 0x00): int
     {
         $colorRgb = $color->getRGB();
-
-        switch ($colorRgb) {
-            case '000000':
-                $colorIdx = 0x08;
-
-                break;
-            case 'FFFFFF':
-                $colorIdx = 0x09;
-
-                break;
-            case 'FF0000':
-                $colorIdx = 0x0A;
-
-                break;
-            case '00FF00':
-                $colorIdx = 0x0B;
-
-                break;
-            case '0000FF':
-                $colorIdx = 0x0C;
-
-                break;
-            case 'FFFF00':
-                $colorIdx = 0x0D;
-
-                break;
-            case 'FF00FF':
-                $colorIdx = 0x0E;
-
-                break;
-            case '00FFFF':
-                $colorIdx = 0x0F;
-
-                break;
-            case '800000':
-                $colorIdx = 0x10;
-
-                break;
-            case '008000':
-                $colorIdx = 0x11;
-
-                break;
-            case '000080':
-                $colorIdx = 0x12;
-
-                break;
-            case '808000':
-                $colorIdx = 0x13;
-
-                break;
-            case '800080':
-                $colorIdx = 0x14;
-
-                break;
-            case '008080':
-                $colorIdx = 0x15;
-
-                break;
-            case 'C0C0C0':
-                $colorIdx = 0x16;
-
-                break;
-            case '808080':
-                $colorIdx = 0x17;
-
-                break;
-            case '9999FF':
-                $colorIdx = 0x18;
-
-                break;
-            case '993366':
-                $colorIdx = 0x19;
-
-                break;
-            case 'FFFFCC':
-                $colorIdx = 0x1A;
-
-                break;
-            case 'CCFFFF':
-                $colorIdx = 0x1B;
-
-                break;
-            case '660066':
-                $colorIdx = 0x1C;
-
-                break;
-            case 'FF8080':
-                $colorIdx = 0x1D;
-
-                break;
-            case '0066CC':
-                $colorIdx = 0x1E;
-
-                break;
-            case 'CCCCFF':
-                $colorIdx = 0x1F;
-
-                break;
-            case '000080':
-                $colorIdx = 0x20;
-
-                break;
-            case 'FF00FF':
-                $colorIdx = 0x21;
-
-                break;
-            case 'FFFF00':
-                $colorIdx = 0x22;
-
-                break;
-            case '00FFFF':
-                $colorIdx = 0x23;
-
-                break;
-            case '800080':
-                $colorIdx = 0x24;
-
-                break;
-            case '800000':
-                $colorIdx = 0x25;
-
-                break;
-            case '008080':
-                $colorIdx = 0x26;
-
-                break;
-            case '0000FF':
-                $colorIdx = 0x27;
-
-                break;
-            case '00CCFF':
-                $colorIdx = 0x28;
-
-                break;
-            case 'CCFFFF':
-                $colorIdx = 0x29;
-
-                break;
-            case 'CCFFCC':
-                $colorIdx = 0x2A;
-
-                break;
-            case 'FFFF99':
-                $colorIdx = 0x2B;
-
-                break;
-            case '99CCFF':
-                $colorIdx = 0x2C;
-
-                break;
-            case 'FF99CC':
-                $colorIdx = 0x2D;
-
-                break;
-            case 'CC99FF':
-                $colorIdx = 0x2E;
-
-                break;
-            case 'FFCC99':
-                $colorIdx = 0x2F;
-
-                break;
-            case '3366FF':
-                $colorIdx = 0x30;
-
-                break;
-            case '33CCCC':
-                $colorIdx = 0x31;
-
-                break;
-            case '99CC00':
-                $colorIdx = 0x32;
-
-                break;
-            case 'FFCC00':
-                $colorIdx = 0x33;
-
-                break;
-            case 'FF9900':
-                $colorIdx = 0x34;
-
-                break;
-            case 'FF6600':
-                $colorIdx = 0x35;
-
-                break;
-            case '666699':
-                $colorIdx = 0x36;
-
-                break;
-            case '969696':
-                $colorIdx = 0x37;
-
-                break;
-            case '003366':
-                $colorIdx = 0x38;
-
-                break;
-            case '339966':
-                $colorIdx = 0x39;
-
-                break;
-            case '003300':
-                $colorIdx = 0x3A;
-
-                break;
-            case '333300':
-                $colorIdx = 0x3B;
-
-                break;
-            case '993300':
-                $colorIdx = 0x3C;
-
-                break;
-            case '993366':
-                $colorIdx = 0x3D;
-
-                break;
-            case '333399':
-                $colorIdx = 0x3E;
-
-                break;
-            case '333333':
-                $colorIdx = 0x3F;
-
-                break;
-            default:
-                $colorIdx = $default;
-
-                break;
+        if (is_string($colorRgb) && array_key_exists($colorRgb, self::$colorMap)) {
+            return self::$colorMap[$colorRgb];
         }
 
-        return $colorIdx;
+        return $defaultIndex;
     }
 }
