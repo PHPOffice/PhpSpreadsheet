@@ -30,10 +30,10 @@ class CellAlignment
             return self::$horizontalMap[$horizontalAlignment];
         }
 
-        return Alignment::HORIZONTAL_GENERAL;
+        return self::$horizontalMap[Alignment::HORIZONTAL_GENERAL];
     }
 
-    public static function wrap(Alignment $alignment)
+    public static function wrap(Alignment $alignment): int
     {
         $wrap = $alignment->getWrapText();
 
@@ -48,6 +48,6 @@ class CellAlignment
             return self::$verticalMap[$verticalAlignment];
         }
 
-        return Alignment::HORIZONTAL_GENERAL;
+        return self::$verticalMap[Alignment::HORIZONTAL_GENERAL];
     }
 }
