@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls\Style;
 
 class ColorMap
 {
-    public static function lookup(\PhpOffice\PhpSpreadsheet\Style\Color $color, $default = 0x00): string
+    public static function lookup(\PhpOffice\PhpSpreadsheet\Style\Color $color, int $default = 0x00): int
     {
         $colorRgb = $color->getRGB();
 
