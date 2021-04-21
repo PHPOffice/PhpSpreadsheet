@@ -3156,55 +3156,9 @@ class Worksheet extends BIFFwriter
         if ($bFormatAlign == 1) {
             $blockAlign = 0;
             // Alignment and text break
-            switch ($conditional->getStyle()->getAlignment()->getHorizontal()) {
-                case Alignment::HORIZONTAL_GENERAL:
-                    $blockAlign = 0;
-
-                    break;
-                case Alignment::HORIZONTAL_LEFT:
-                    $blockAlign = 1;
-
-                    break;
-                case Alignment::HORIZONTAL_RIGHT:
-                    $blockAlign = 3;
-
-                    break;
-                case Alignment::HORIZONTAL_CENTER:
-                    $blockAlign = 2;
-
-                    break;
-                case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
-                    $blockAlign = 6;
-
-                    break;
-                case Alignment::HORIZONTAL_JUSTIFY:
-                    $blockAlign = 5;
-
-                    break;
-            }
-            if ($conditional->getStyle()->getAlignment()->getWrapText() == true) {
-                $blockAlign |= 1 << 3;
-            } else {
-                $blockAlign |= 0 << 3;
-            }
-            switch ($conditional->getStyle()->getAlignment()->getVertical()) {
-                case Alignment::VERTICAL_BOTTOM:
-                    $blockAlign = 2 << 4;
-
-                    break;
-                case Alignment::VERTICAL_TOP:
-                    $blockAlign = 0 << 4;
-
-                    break;
-                case Alignment::VERTICAL_CENTER:
-                    $blockAlign = 1 << 4;
-
-                    break;
-                case Alignment::VERTICAL_JUSTIFY:
-                    $blockAlign = 3 << 4;
-
-                    break;
-            }
+            $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
+            $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment());
+            $blockAlign |= Style\CellAlignment::vertical($conditional->getStyle()->getAlignment());
             $blockAlign |= 0 << 7;
 
             // Text rotation angle
