@@ -2951,12 +2951,12 @@ class Worksheet extends BIFFwriter
 
         // $flags : Option flags
         // Alignment
-        $bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() == null ? 1 : 0);
-        $bAlignVt = ($conditional->getStyle()->getAlignment()->getVertical() == null ? 1 : 0);
-        $bAlignWrapTx = ($conditional->getStyle()->getAlignment()->getWrapText() == false ? 1 : 0);
-        $bTxRotation = ($conditional->getStyle()->getAlignment()->getTextRotation() == null ? 1 : 0);
-        $bIndent = ($conditional->getStyle()->getAlignment()->getIndent() == 0 ? 1 : 0);
-        $bShrinkToFit = ($conditional->getStyle()->getAlignment()->getShrinkToFit() == false ? 1 : 0);
+        $bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() === null ? 1 : 0);
+        $bAlignVt = ($conditional->getStyle()->getAlignment()->getVertical() === null ? 1 : 0);
+        $bAlignWrapTx = ($conditional->getStyle()->getAlignment()->getWrapText() === false ? 1 : 0);
+        $bTxRotation = ($conditional->getStyle()->getAlignment()->getTextRotation() === null ? 1 : 0);
+        $bIndent = ($conditional->getStyle()->getAlignment()->getIndent() === 0 ? 1 : 0);
+        $bShrinkToFit = ($conditional->getStyle()->getAlignment()->getShrinkToFit() === false ? 1 : 0);
         if ($bAlignHz == 0 || $bAlignVt == 0 || $bAlignWrapTx == 0 || $bTxRotation == 0 || $bIndent == 0 || $bShrinkToFit == 0) {
             $bFormatAlign = 1;
         } else {
@@ -2985,9 +2985,9 @@ class Worksheet extends BIFFwriter
             $bFormatBorder = 0;
         }
         // Pattern
-        $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() == null ? 0 : 1);
-        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
-        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
+        $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
+        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
+        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
         if ($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0) {
             $bFormatFill = 1;
         } else {
@@ -2995,15 +2995,15 @@ class Worksheet extends BIFFwriter
         }
         // Font
         if (
-            $conditional->getStyle()->getFont()->getName() != null
-            || $conditional->getStyle()->getFont()->getSize() != null
-            || $conditional->getStyle()->getFont()->getBold() != null
-            || $conditional->getStyle()->getFont()->getItalic() != null
-            || $conditional->getStyle()->getFont()->getSuperscript() != null
-            || $conditional->getStyle()->getFont()->getSubscript() != null
-            || $conditional->getStyle()->getFont()->getUnderline() != null
-            || $conditional->getStyle()->getFont()->getStrikethrough() != null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
+            $conditional->getStyle()->getFont()->getName() !== null
+            || $conditional->getStyle()->getFont()->getSize() !== null
+            || $conditional->getStyle()->getFont()->getBold() !== null
+            || $conditional->getStyle()->getFont()->getItalic() !== null
+            || $conditional->getStyle()->getFont()->getSuperscript() !== null
+            || $conditional->getStyle()->getFont()->getSubscript() !== null
+            || $conditional->getStyle()->getFont()->getUnderline() !== null
+            || $conditional->getStyle()->getFont()->getStrikethrough() !== null
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() !== null
         ) {
             $bFormatFont = 1;
         } else {
@@ -3055,16 +3055,16 @@ class Worksheet extends BIFFwriter
         $dataBlockFill = null;
 
         // Data Blocks
-        if ($bFormatFont == 1) {
+        if ($bFormatFont === 1) {
             // Font Name
-            if ($conditional->getStyle()->getFont()->getName() == null) {
+            if ($conditional->getStyle()->getFont()->getName() === null) {
                 $dataBlockFont = pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
                 $dataBlockFont .= pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
             } else {
                 $dataBlockFont = StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
             }
             // Font Size
-            if ($conditional->getStyle()->getFont()->getSize() == null) {
+            if ($conditional->getStyle()->getFont()->getSize() === null) {
                 $dataBlockFont .= pack('V', 20 * 11);
             } else {
                 $dataBlockFont .= pack('V', 20 * $conditional->getStyle()->getFont()->getSize());
@@ -3072,16 +3072,16 @@ class Worksheet extends BIFFwriter
             // Font Options
             $dataBlockFont .= pack('V', 0);
             // Font weight
-            if ($conditional->getStyle()->getFont()->getBold() == true) {
+            if ($conditional->getStyle()->getFont()->getBold() === true) {
                 $dataBlockFont .= pack('v', 0x02BC);
             } else {
                 $dataBlockFont .= pack('v', 0x0190);
             }
             // Escapement type
-            if ($conditional->getStyle()->getFont()->getSubscript() == true) {
+            if ($conditional->getStyle()->getFont()->getSubscript() === true) {
                 $dataBlockFont .= pack('v', 0x02);
                 $fontEscapement = 0;
-            } elseif ($conditional->getStyle()->getFont()->getSuperscript() == true) {
+            } elseif ($conditional->getStyle()->getFont()->getSuperscript() === true) {
                 $dataBlockFont .= pack('v', 0x01);
                 $fontEscapement = 0;
             } else {
@@ -3131,7 +3131,7 @@ class Worksheet extends BIFFwriter
             $dataBlockFont .= pack('V', 0x00000000);
             // Options flags for modified font attributes
             $optionsFlags = 0;
-            $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() == null ? 1 : 0);
+            $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() === null ? 1 : 0);
             $optionsFlags |= (1 == $optionsFlagsBold ? 0x00000002 : 0);
             $optionsFlags |= (1 == 1 ? 0x00000008 : 0);
             $optionsFlags |= (1 == 1 ? 0x00000010 : 0);
@@ -3151,7 +3151,7 @@ class Worksheet extends BIFFwriter
             // Always
             $dataBlockFont .= pack('v', 0x0001);
         }
-        if ($bFormatAlign == 1) {
+        if ($bFormatAlign === 1) {
             $blockAlign = 0;
             // Alignment and text break
             $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
@@ -3176,7 +3176,7 @@ class Worksheet extends BIFFwriter
 
             $dataBlockAlign = pack('CCvvv', $blockAlign, $blockRotation, $blockIndent, $blockIndentRelative, 0x0000);
         }
-        if ($bFormatBorder == 1) {
+        if ($bFormatBorder === 1) {
             $blockLineStyle = Style\CellBorder::style($conditional->getStyle()->getBorders()->getLeft());
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getRight()) << 4;
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getTop()) << 8;
@@ -3193,7 +3193,7 @@ class Worksheet extends BIFFwriter
             $blockColor |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getDiagonal()) << 21;
             $dataBlockBorder = pack('vv', $blockLineStyle, $blockColor);
         }
-        if ($bFormatFill == 1) {
+        if ($bFormatFill === 1) {
             // Fill Pattern Style
             $blockFillPatternStyle = Style\CellFill::style($conditional->getStyle()->getFill());
             // Background Color
@@ -3206,16 +3206,16 @@ class Worksheet extends BIFFwriter
         }
 
         $data = pack('CCvvVv', $type, $operatorType, $szValue1, $szValue2, $flags, 0x0000);
-        if ($bFormatFont == 1) { // Block Formatting : OK
+        if ($bFormatFont === 1) { // Block Formatting : OK
             $data .= $dataBlockFont;
         }
-        if ($bFormatAlign == 1) {
+        if ($bFormatAlign === 1) {
             $data .= $dataBlockAlign;
         }
-        if ($bFormatBorder == 1) {
+        if ($bFormatBorder === 1) {
             $data .= $dataBlockBorder;
         }
-        if ($bFormatFill == 1) { // Block Formatting : OK
+        if ($bFormatFill === 1) { // Block Formatting : OK
             $data .= $dataBlockFill;
         }
         if ($bFormatProt == 1) {
