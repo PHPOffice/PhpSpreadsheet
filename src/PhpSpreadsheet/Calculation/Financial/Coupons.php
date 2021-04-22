@@ -70,7 +70,7 @@ class Coupons
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) {
-            return abs(DateTimeExcel\Days::evaluate($prev, $settlement));
+            return abs((float) DateTimeExcel\Days::evaluate($prev, $settlement));
         }
 
         return DateTimeExcel\YearFrac::evaluate($prev, $settlement, $basis) * $daysPerYear;

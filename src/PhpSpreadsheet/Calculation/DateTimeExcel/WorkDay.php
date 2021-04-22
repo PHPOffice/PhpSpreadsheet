@@ -183,7 +183,7 @@ class WorkDay
 
     private static function getWeekDay(float $date, int $wd): int
     {
-        $result = WeekDay::evaluate($date, 3);
+        $result = WeekDay::evaluate($date, $wd);
 
         return is_string($result) ? -1 : $result;
     }
