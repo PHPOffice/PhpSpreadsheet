@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class CellAlignment
 {
+    /**
+     * @var array<string, int>
+     */
     private static $horizontalMap = [
         Alignment::HORIZONTAL_GENERAL => 0,
         Alignment::HORIZONTAL_LEFT => 1,
@@ -15,6 +18,9 @@ class CellAlignment
         Alignment::HORIZONTAL_JUSTIFY => 5,
     ];
 
+    /**
+     * @var array<string, int>
+     */
     private static $verticalMap = [
         Alignment::VERTICAL_BOTTOM => 2 << 4,
         Alignment::VERTICAL_TOP => 0 << 4,

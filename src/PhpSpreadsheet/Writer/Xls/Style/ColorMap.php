@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class ColorMap
 {
+    /**
+     * @var array<string, int>
+     */
     private static $colorMap = [
         '000000' => 0x08,
         'FFFFFF' => 0x09,
