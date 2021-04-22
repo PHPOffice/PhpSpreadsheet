@@ -22,10 +22,10 @@ class CellAlignment
      * @var array<string, int>
      */
     private static $verticalMap = [
-        Alignment::VERTICAL_BOTTOM => 2 << 4,
-        Alignment::VERTICAL_TOP => 0 << 4,
-        Alignment::VERTICAL_CENTER => 1 << 4,
-        Alignment::VERTICAL_JUSTIFY => 3 << 4,
+        Alignment::VERTICAL_BOTTOM => 2,
+        Alignment::VERTICAL_TOP => 0,
+        Alignment::VERTICAL_CENTER => 1,
+        Alignment::VERTICAL_JUSTIFY => 3,
     ];
 
     public static function horizontal(Alignment $alignment): int
@@ -43,7 +43,7 @@ class CellAlignment
     {
         $wrap = $alignment->getWrapText();
 
-        return ($wrap === true) ? 1 << 3 : 0 << 3;
+        return ($wrap === true) ? 1 : 0;
     }
 
     public static function vertical(Alignment $alignment): int
@@ -54,6 +54,6 @@ class CellAlignment
             return self::$verticalMap[$verticalAlignment];
         }
 
-        return self::$verticalMap[Alignment::HORIZONTAL_GENERAL];
+        return self::$verticalMap[Alignment::VERTICAL_BOTTOM];
     }
 }

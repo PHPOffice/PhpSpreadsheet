@@ -3155,8 +3155,8 @@ class Worksheet extends BIFFwriter
             $blockAlign = 0;
             // Alignment and text break
             $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
-            $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment());
-            $blockAlign |= Style\CellAlignment::vertical($conditional->getStyle()->getAlignment());
+            $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment()) << 3;
+            $blockAlign |= Style\CellAlignment::vertical($conditional->getStyle()->getAlignment()) << 4;
             $blockAlign |= 0 << 7;
 
             // Text rotation angle
