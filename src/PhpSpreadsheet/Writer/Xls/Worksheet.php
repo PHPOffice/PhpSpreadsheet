@@ -1169,7 +1169,7 @@ class Worksheet extends BIFFwriter
         }
 
         // Use writeRow($row, null, $XF) to set XF format without setting height
-        if ($height != null) {
+        if ($height !== null) {
             $miyRw = $height * 20; // row height
         } else {
             $miyRw = 0xff; // default row height is 256
@@ -2986,8 +2986,8 @@ class Worksheet extends BIFFwriter
         }
         // Pattern
         $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
-        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
-        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
+        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
+        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
         if ($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0) {
             $bFormatFill = 1;
         } else {
@@ -3003,7 +3003,7 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSubscript() !== null
             || $conditional->getStyle()->getFont()->getUnderline() !== null
             || $conditional->getStyle()->getFont()->getStrikethrough() !== null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() !== null
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
         ) {
             $bFormatFont = 1;
         } else {
@@ -3055,7 +3055,7 @@ class Worksheet extends BIFFwriter
         $dataBlockFill = null;
 
         // Data Blocks
-        if ($bFormatFont === 1) {
+        if ($bFormatFont == 1) {
             // Font Name
             if ($conditional->getStyle()->getFont()->getName() === null) {
                 $dataBlockFont = pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
@@ -3164,7 +3164,7 @@ class Worksheet extends BIFFwriter
 
             // Indentation
             $blockIndent = $conditional->getStyle()->getAlignment()->getIndent();
-            if ($conditional->getStyle()->getAlignment()->getShrinkToFit() == true) {
+            if ($conditional->getStyle()->getAlignment()->getShrinkToFit() === true) {
                 $blockIndent |= 1 << 4;
             } else {
                 $blockIndent |= 0 << 4;
