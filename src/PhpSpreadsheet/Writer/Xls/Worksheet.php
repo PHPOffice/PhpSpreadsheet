@@ -11,11 +11,9 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\Xls;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
@@ -3192,159 +3190,12 @@ class Worksheet extends BIFFwriter
             // TODO writeCFRule() => $blockColor => Index Color for top line
             // TODO writeCFRule() => $blockColor => Index Color for bottom line
             // TODO writeCFRule() => $blockColor => Index Color for diagonal line
-            switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()) {
-                case Border::BORDER_NONE:
-                    $blockColor |= 0x00 << 21;
-
-                    break;
-                case Border::BORDER_THIN:
-                    $blockColor |= 0x01 << 21;
-
-                    break;
-                case Border::BORDER_MEDIUM:
-                    $blockColor |= 0x02 << 21;
-
-                    break;
-                case Border::BORDER_DASHED:
-                    $blockColor |= 0x03 << 21;
-
-                    break;
-                case Border::BORDER_DOTTED:
-                    $blockColor |= 0x04 << 21;
-
-                    break;
-                case Border::BORDER_THICK:
-                    $blockColor |= 0x05 << 21;
-
-                    break;
-                case Border::BORDER_DOUBLE:
-                    $blockColor |= 0x06 << 21;
-
-                    break;
-                case Border::BORDER_HAIR:
-                    $blockColor |= 0x07 << 21;
-
-                    break;
-                case Border::BORDER_MEDIUMDASHED:
-                    $blockColor |= 0x08 << 21;
-
-                    break;
-                case Border::BORDER_DASHDOT:
-                    $blockColor |= 0x09 << 21;
-
-                    break;
-                case Border::BORDER_MEDIUMDASHDOT:
-                    $blockColor |= 0x0A << 21;
-
-                    break;
-                case Border::BORDER_DASHDOTDOT:
-                    $blockColor |= 0x0B << 21;
-
-                    break;
-                case Border::BORDER_MEDIUMDASHDOTDOT:
-                    $blockColor |= 0x0C << 21;
-
-                    break;
-                case Border::BORDER_SLANTDASHDOT:
-                    $blockColor |= 0x0D << 21;
-
-                    break;
-            }
+            $blockColor |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getDiagonal()) << 21;
             $dataBlockBorder = pack('vv', $blockLineStyle, $blockColor);
         }
         if ($bFormatFill == 1) {
-            // Fill Patern Style
-            $blockFillPatternStyle = 0;
-            switch ($conditional->getStyle()->getFill()->getFillType()) {
-                case Fill::FILL_NONE:
-                    $blockFillPatternStyle = 0x00;
-
-                    break;
-                case Fill::FILL_SOLID:
-                    $blockFillPatternStyle = 0x01;
-
-                    break;
-                case Fill::FILL_PATTERN_MEDIUMGRAY:
-                    $blockFillPatternStyle = 0x02;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKGRAY:
-                    $blockFillPatternStyle = 0x03;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTGRAY:
-                    $blockFillPatternStyle = 0x04;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKHORIZONTAL:
-                    $blockFillPatternStyle = 0x05;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKVERTICAL:
-                    $blockFillPatternStyle = 0x06;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKDOWN:
-                    $blockFillPatternStyle = 0x07;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKUP:
-                    $blockFillPatternStyle = 0x08;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKGRID:
-                    $blockFillPatternStyle = 0x09;
-
-                    break;
-                case Fill::FILL_PATTERN_DARKTRELLIS:
-                    $blockFillPatternStyle = 0x0A;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTHORIZONTAL:
-                    $blockFillPatternStyle = 0x0B;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTVERTICAL:
-                    $blockFillPatternStyle = 0x0C;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTDOWN:
-                    $blockFillPatternStyle = 0x0D;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTUP:
-                    $blockFillPatternStyle = 0x0E;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTGRID:
-                    $blockFillPatternStyle = 0x0F;
-
-                    break;
-                case Fill::FILL_PATTERN_LIGHTTRELLIS:
-                    $blockFillPatternStyle = 0x10;
-
-                    break;
-                case Fill::FILL_PATTERN_GRAY125:
-                    $blockFillPatternStyle = 0x11;
-
-                    break;
-                case Fill::FILL_PATTERN_GRAY0625:
-                    $blockFillPatternStyle = 0x12;
-
-                    break;
-                case Fill::FILL_GRADIENT_LINEAR:
-                    $blockFillPatternStyle = 0x00;
-
-                    break; // does not exist in BIFF8
-                case Fill::FILL_GRADIENT_PATH:
-                    $blockFillPatternStyle = 0x00;
-
-                    break; // does not exist in BIFF8
-                default:
-                    $blockFillPatternStyle = 0x00;
-
-                    break;
-            }
+            // Fill Pattern Style
+            $blockFillPatternStyle = Style\CellFill::style($conditional->getStyle()->getFill());
             // Background Color
             $colorIdxBg = Style\ColorMap::lookup($conditional->getStyle()->getFill()->getStartColor(), 0x41);
             // Foreground Color
