@@ -391,7 +391,7 @@ class Worksheet extends BIFFwriter
         // Row dimensions
         foreach ($phpSheet->getRowDimensions() as $rowDimension) {
             $xfIndex = $rowDimension->getXfIndex() + 15; // there are 15 cellXfs
-            $this->writeRow($rowDimension->getRowIndex() - 1, $rowDimension->getRowHeight(), $xfIndex, ($rowDimension->getVisible() ? '0' : '1'), $rowDimension->getOutlineLevel());
+            $this->writeRow($rowDimension->getRowIndex() - 1, (int) $rowDimension->getRowHeight(), $xfIndex, $rowDimension->getVisible(), $rowDimension->getOutlineLevel());
         }
 
         // Write Cells
@@ -869,7 +869,7 @@ class Worksheet extends BIFFwriter
 
         // Parse the formula using the parser in Parser.php
         try {
-            $error = $this->parser->parse($formula);
+            $this->parser->parse($formula);
             $formula = $this->parser->toReversePolish();
 
             $formlen = strlen($formula); // Length of the binary string
@@ -1520,7 +1520,7 @@ class Worksheet extends BIFFwriter
     /**
      * Write BIFF record RANGEPROTECTION.
      *
-     * Openoffice.org's Documentaion of the Microsoft Excel File Format uses term RANGEPROTECTION for these records
+     * Openoffice.org's Documentation of the Microsoft Excel File Format uses term RANGEPROTECTION for these records
      * Microsoft Office Excel 97-2007 Binary File Format Specification uses term FEAT for these records
      */
     private function writeRangeProtection(): void
