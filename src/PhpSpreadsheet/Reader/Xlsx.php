@@ -636,7 +636,7 @@ class Xlsx extends BaseReader
                             if ($xmlSheet) {
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
-                                if (!$this->readDataOnly && $xmlSheet && $xmlSheet->conditionalFormatting) {
+                                if (!$this->readDataOnly && $xmlSheet->conditionalFormatting) {
                                     (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
                                 }
 
@@ -1607,7 +1607,7 @@ class Xlsx extends BaseReader
         // font
         if (isset($style->font)) {
             $docStyle->getFont()->setName((string) $style->font->name['val']);
-            $docStyle->getFont()->setSize((string) $style->font->sz['val']);
+            $docStyle->getFont()->setSize((float) $style->font->sz['val']);
             if (isset($style->font->b)) {
                 $docStyle->getFont()->setBold(!isset($style->font->b['val']) || self::boolean((string) $style->font->b['val']));
             }
@@ -1720,7 +1720,7 @@ class Xlsx extends BaseReader
 
         // top-level style settings
         if (isset($style->quotePrefix)) {
-            $docStyle->setQuotePrefix($style->quotePrefix);
+            $docStyle->setQuotePrefix((bool) $style->quotePrefix);
         }
     }
 
