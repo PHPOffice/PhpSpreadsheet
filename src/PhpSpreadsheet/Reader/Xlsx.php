@@ -1720,7 +1720,7 @@ class Xlsx extends BaseReader
 
         // top-level style settings
         if (isset($style->quotePrefix)) {
-            $docStyle->setQuotePrefix((bool) $style->quotePrefix);
+            $docStyle->setQuotePrefix(true);
         }
     }
 
