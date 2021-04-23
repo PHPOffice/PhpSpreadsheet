@@ -257,12 +257,12 @@ class Worksheet extends BIFFwriter
         $maxC = $this->phpSheet->getHighestColumn();
 
         // Determine lowest and highest column and row
+        $this->firstRowIndex = $minR;
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
         $this->firstColumnIndex = Coordinate::columnIndexFromString($minC);
         $this->lastColumnIndex = Coordinate::columnIndexFromString($maxC);
 
-//        if ($this->firstColumnIndex > 255) $this->firstColumnIndex = 255;
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
         }
@@ -411,7 +411,6 @@ class Worksheet extends BIFFwriter
             $cVal = $cell->getValue();
             if ($cVal instanceof RichText) {
                 $arrcRun = [];
-                $str_len = StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
@@ -2630,9 +2629,6 @@ class Worksheet extends BIFFwriter
             $record = 0x01BE; // Record identifier
 
             foreach ($dataValidationCollection as $cellCoordinate => $dataValidation) {
-                // initialize record data
-                $data = '';
-
                 // options
                 $options = 0x00000000;
 
@@ -3152,7 +3148,6 @@ class Worksheet extends BIFFwriter
             $dataBlockFont .= pack('v', 0x0001);
         }
         if ($bFormatAlign === 1) {
-            $blockAlign = 0;
             // Alignment and text break
             $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
             $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment()) << 3;
