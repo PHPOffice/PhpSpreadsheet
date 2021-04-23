@@ -51,7 +51,7 @@ class Arabic
     {
         $rslt = str_split($roman);
 
-        return is_array($rslt) ? $rslt : [];
+        return empty($rslt) ? [] : $rslt;
     }
 
     /**

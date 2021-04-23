@@ -20,7 +20,7 @@ class RoundUp
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
-            $digits = Helpers::validateNumericNullSubstitution($digits, null);
+            $digits = (int) Helpers::validateNumericNullSubstitution($digits, null);
         } catch (Exception $e) {
             return $e->getMessage();
         }
