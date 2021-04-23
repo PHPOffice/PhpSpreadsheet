@@ -1871,7 +1871,7 @@ class Worksheet implements IComparable
     /**
      * Get protected cells.
      *
-     * @return array[]
+     * @return string[]
      */
     public function getProtectedCells()
     {
