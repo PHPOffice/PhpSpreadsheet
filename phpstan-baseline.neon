@@ -4761,11 +4761,6 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#2 \\$pPassword of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:protectCells\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -7461,11 +7456,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$hexadecimal_number of function hexdec expects string, array given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -8073,11 +8063,6 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
