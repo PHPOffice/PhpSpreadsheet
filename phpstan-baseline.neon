@@ -7576,26 +7576,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeLong\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$fillType of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapFillType\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
-			message: "#^Parameter \\#1 \\$hAlign of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapHAlign\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
-			message: "#^Parameter \\#1 \\$vAlign of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapVAlign\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
 			message: "#^Parameter \\#1 \\$textRotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapTextRotation\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
