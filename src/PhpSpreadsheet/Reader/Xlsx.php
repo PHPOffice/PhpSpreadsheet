@@ -630,6 +630,12 @@ class Xlsx extends BaseReader
                             }
 
                             if ($xmlSheet) {
+                                // Setting Conditional Styles adjusts selected cells, so we need to execute this
+                                //    before reading the sheet view data to get the actual selected cells
+                                if (!$this->readDataOnly && $xmlSheet->conditionalFormatting) {
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
+                                }
+
                                 if (isset($xmlSheet->sheetViews, $xmlSheet->sheetViews->sheetView)) {
                                     $sheetViews = new SheetViews($xmlSheet->sheetViews->sheetView, $docSheet);
                                     $sheetViews->load();
@@ -761,10 +767,6 @@ class Xlsx extends BaseReader
                                     }
                                     ++$cIndex;
                                 }
-                            }
-
-                            if (!$this->readDataOnly && $xmlSheet && $xmlSheet->conditionalFormatting) {
-                                (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
                             }
 
                             $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
@@ -1601,7 +1603,7 @@ class Xlsx extends BaseReader
 
         // top-level style settings
         if (isset($style->quotePrefix)) {
-            $docStyle->setQuotePrefix($style->quotePrefix);
+            $docStyle->setQuotePrefix((bool) $style->quotePrefix);
         }
     }
 

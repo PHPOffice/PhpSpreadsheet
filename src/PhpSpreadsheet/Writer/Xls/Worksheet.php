@@ -539,16 +539,21 @@ class Worksheet extends BIFFwriter
         $arrConditionalStyles = $phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
-            // @TODO CFRule & CFHeader
-            // Write CFHEADER record
-            $this->writeCFHeader();
+
+            $cfHeaderWritten = false;
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
+                    /** @var Conditional $conditional */
                     if (
-                        $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                        $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION ||
+                        $conditional->getConditionType() == Conditional::CONDITION_CELLIS
                     ) {
+                        // Write CFHEADER record (only if there are Conditional Styles that we are able to write)
+                        if ($cfHeaderWritten === false) {
+                            $this->writeCFHeader();
+                            $cfHeaderWritten = true;
+                        }
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
@@ -4352,25 +4357,25 @@ class Worksheet extends BIFFwriter
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
                 if (
-                    $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
-                    || $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                    $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION ||
+                    $conditional->getConditionType() == Conditional::CONDITION_CELLIS
                 ) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }
                     // Cells
-                    $arrCoord = Coordinate::indexesFromString($cellCoordinate);
-                    if ($numColumnMin === null || ($numColumnMin > $arrCoord[0])) {
-                        $numColumnMin = $arrCoord[0];
+                    $rangeCoordinates = Coordinate::rangeBoundaries($cellCoordinate);
+                    if ($numColumnMin === null || ($numColumnMin > $rangeCoordinates[0][0])) {
+                        $numColumnMin = $rangeCoordinates[0][0];
                     }
-                    if ($numColumnMax === null || ($numColumnMax < $arrCoord[0])) {
-                        $numColumnMax = $arrCoord[0];
+                    if ($numColumnMax === null || ($numColumnMax < $rangeCoordinates[1][0])) {
+                        $numColumnMax = $rangeCoordinates[1][0];
                     }
-                    if ($numRowMin === null || ($numRowMin > $arrCoord[1])) {
-                        $numRowMin = $arrCoord[1];
+                    if ($numRowMin === null || ($numRowMin > $rangeCoordinates[0][1])) {
+                        $numRowMin = (int) $rangeCoordinates[0][1];
                     }
-                    if ($numRowMax === null || ($numRowMax < $arrCoord[1])) {
-                        $numRowMax = $arrCoord[1];
+                    if ($numRowMax === null || ($numRowMax < $rangeCoordinates[1][1])) {
+                        $numRowMax = (int) $rangeCoordinates[1][1];
                     }
                 }
             }
