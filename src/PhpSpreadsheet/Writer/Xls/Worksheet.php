@@ -2633,60 +2633,12 @@ class Worksheet extends BIFFwriter
                 $options = 0x00000000;
 
                 // data type
-                $type = 0x00;
-                switch ($dataValidation->getType()) {
-                    case DataValidation::TYPE_NONE:
-                        $type = 0x00;
-
-                        break;
-                    case DataValidation::TYPE_WHOLE:
-                        $type = 0x01;
-
-                        break;
-                    case DataValidation::TYPE_DECIMAL:
-                        $type = 0x02;
-
-                        break;
-                    case DataValidation::TYPE_LIST:
-                        $type = 0x03;
-
-                        break;
-                    case DataValidation::TYPE_DATE:
-                        $type = 0x04;
-
-                        break;
-                    case DataValidation::TYPE_TIME:
-                        $type = 0x05;
-
-                        break;
-                    case DataValidation::TYPE_TEXTLENGTH:
-                        $type = 0x06;
-
-                        break;
-                    case DataValidation::TYPE_CUSTOM:
-                        $type = 0x07;
-
-                        break;
-                }
+                $type = CellDataValidation::type($dataValidation);
 
                 $options |= $type << 0;
 
                 // error style
-                $errorStyle = 0x00;
-                switch ($dataValidation->getErrorStyle()) {
-                    case DataValidation::STYLE_STOP:
-                        $errorStyle = 0x00;
-
-                        break;
-                    case DataValidation::STYLE_WARNING:
-                        $errorStyle = 0x01;
-
-                        break;
-                    case DataValidation::STYLE_INFORMATION:
-                        $errorStyle = 0x02;
-
-                        break;
-                }
+                $errorStyle = CellDataValidation::errorStyle($dataValidation);
 
                 $options |= $errorStyle << 4;
 
@@ -2708,41 +2660,7 @@ class Worksheet extends BIFFwriter
                 $options |= $dataValidation->getShowErrorMessage() << 19;
 
                 // condition operator
-                $operator = 0x00;
-                switch ($dataValidation->getOperator()) {
-                    case DataValidation::OPERATOR_BETWEEN:
-                        $operator = 0x00;
-
-                        break;
-                    case DataValidation::OPERATOR_NOTBETWEEN:
-                        $operator = 0x01;
-
-                        break;
-                    case DataValidation::OPERATOR_EQUAL:
-                        $operator = 0x02;
-
-                        break;
-                    case DataValidation::OPERATOR_NOTEQUAL:
-                        $operator = 0x03;
-
-                        break;
-                    case DataValidation::OPERATOR_GREATERTHAN:
-                        $operator = 0x04;
-
-                        break;
-                    case DataValidation::OPERATOR_LESSTHAN:
-                        $operator = 0x05;
-
-                        break;
-                    case DataValidation::OPERATOR_GREATERTHANOREQUAL:
-                        $operator = 0x06;
-
-                        break;
-                    case DataValidation::OPERATOR_LESSTHANOREQUAL:
-                        $operator = 0x07;
-
-                        break;
-                }
+                $operator = CellDataValidation::operator($dataValidation);
 
                 $options |= $operator << 20;
 
