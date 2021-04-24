@@ -124,7 +124,7 @@ class MathTrig
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each combination
      *
-     * @return int|string Number of combinations, or a string containing an error
+     * @return float|int|string Number of combinations, or a string containing an error
      */
     public static function COMBIN($numObjs, $numInSet)
     {
@@ -150,7 +150,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int|string Rounded Number, or a string containing an error
+     * @return float|int|string Rounded Number, or a string containing an error
      */
     public static function EVEN($number)
     {
@@ -186,7 +186,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int|string Factorial, or a string containing an error
+     * @return float|int|string Factorial, or a string containing an error
      */
     public static function FACT($factVal)
     {
@@ -208,7 +208,7 @@ class MathTrig
      *
      * @param float $factVal Factorial Value
      *
-     * @return int|string Double Factorial, or a string containing an error
+     * @return float|int|string Double Factorial, or a string containing an error
      */
     public static function FACTDOUBLE($factVal)
     {
@@ -452,7 +452,7 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return int|string Remainder, or a string containing an error
+     * @return float|int|string Remainder, or a string containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
@@ -510,7 +510,7 @@ class MathTrig
      *
      * @param float $number Number to round
      *
-     * @return int|string Rounded Number, or a string containing an error
+     * @return float|int|string Rounded Number, or a string containing an error
      */
     public static function ODD($number)
     {
@@ -822,7 +822,7 @@ class MathTrig
      *
      * @param mixed $args Data values
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function SUMIFS(...$args)
     {

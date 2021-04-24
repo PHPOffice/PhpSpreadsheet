@@ -194,7 +194,7 @@ class Worksheet implements IComparable
     /**
      * Collection of protected cell ranges.
      *
-     * @var array
+     * @var string[]
      */
     private $protectedCells = [];
 
@@ -1871,7 +1871,7 @@ class Worksheet implements IComparable
     /**
      * Get protected cells.
      *
-     * @return array[]
+     * @return string[]
      */
     public function getProtectedCells()
     {
