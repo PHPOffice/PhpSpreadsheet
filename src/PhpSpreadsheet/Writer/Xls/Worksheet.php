@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 use GdImage;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
@@ -473,7 +472,7 @@ class Worksheet extends BIFFwriter
 
                         break;
                     case DataType::TYPE_ERROR:
-                        $this->writeBoolErr($row, $column, self::mapErrorCode($cVal), 1, $xfIndex);
+                        $this->writeBoolErr($row, $column, ErrorCode::error($cVal), 1, $xfIndex);
 
                         break;
                 }
@@ -837,7 +836,7 @@ class Worksheet extends BIFFwriter
                 $errorCodes = DataType::getErrorCodes();
                 if (isset($errorCodes[$calculatedValue])) {
                     // Error value
-                    $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
+                    $num = pack('CCCvCv', 0x02, 0x00, ErrorCode::error($calculatedValue), 0x00, 0x00, 0xFFFF);
                 } elseif ($calculatedValue === '') {
                     // Empty string (and BIFF8)
                     $num = pack('CCCvCv', 0x03, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
@@ -2728,35 +2727,6 @@ class Worksheet extends BIFFwriter
                 $this->append($header . $data);
             }
         }
-    }
-
-    /**
-     * Map Error code.
-     *
-     * @param string $errorCode
-     *
-     * @return int
-     */
-    private static function mapErrorCode($errorCode)
-    {
-        switch ($errorCode) {
-            case '#NULL!':
-                return 0x00;
-            case '#DIV/0!':
-                return 0x07;
-            case '#VALUE!':
-                return 0x0F;
-            case '#REF!':
-                return 0x17;
-            case '#NAME?':
-                return 0x1D;
-            case '#NUM!':
-                return 0x24;
-            case '#N/A':
-                return 0x2A;
-        }
-
-        return 0;
     }
 
     /**
