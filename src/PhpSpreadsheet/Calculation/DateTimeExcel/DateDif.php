@@ -21,7 +21,7 @@ class DateDif
      *
      * @return int|string Interval between the dates
      */
-    public static function funcDateDif($startDate, $endDate, $unit = 'D')
+    public static function evaluate($startDate, $endDate, $unit = 'D')
     {
         try {
             $startDate = Helpers::getDateValue($startDate);

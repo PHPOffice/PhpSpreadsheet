@@ -22,7 +22,7 @@ class Hour
      *
      * @return int|string Hour
      */
-    public static function funcHour($timeValue)
+    public static function evaluate($timeValue)
     {
         try {
             $timeValue = Functions::flattenSingleValue($timeValue);
