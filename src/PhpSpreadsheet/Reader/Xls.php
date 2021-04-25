@@ -2196,16 +2196,8 @@ class Xls extends BaseReader
 
             // bit 3, mask 0x08; wrap text
             $wrapText = (0x08 & ord($recordData[6])) >> 3;
-            switch ($wrapText) {
-                case 0:
-                    $objStyle->getAlignment()->setWrapText(false);
+            Xls\Style\CellAlignment::wrap($objStyle->getAlignment(), $wrapText);
 
-                    break;
-                case 1:
-                    $objStyle->getAlignment()->setWrapText(true);
-
-                    break;
-            }
             // bit 6-4, mask 0x70; vertical alignment
             $vertAlign = (0x70 & ord($recordData[6])) >> 4;
             Xls\Style\CellAlignment::vertical($objStyle->getAlignment(), $vertAlign);

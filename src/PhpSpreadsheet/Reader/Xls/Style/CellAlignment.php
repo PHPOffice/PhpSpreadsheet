@@ -42,4 +42,9 @@ class CellAlignment
             $alignment->setVertical(self::$verticalAlignmentMap[$vertical]);
         }
     }
+
+    public static function wrap(Alignment $alignment, int $wrap): void
+    {
+        $alignment->setWrapText((bool) $wrap);
+    }
 }
