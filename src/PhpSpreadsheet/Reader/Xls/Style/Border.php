@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Style\Border as StyleBorder;
 
 class Border
 {
+    /**
+     * @var array<string, int>
+     */
     protected static $map = [
         0x00 => StyleBorder::BORDER_NONE,
         0x01 => StyleBorder::BORDER_THIN,
