@@ -20,7 +20,7 @@ class IsoWeekNum
      *
      * @return int|string Week Number
      */
-    public static function funcIsoWeekNum($dateValue)
+    public static function evaluate($dateValue)
     {
         if (self::apparentBug($dateValue)) {
             return 52;
@@ -39,6 +39,10 @@ class IsoWeekNum
         return (int) $PHPDateObject->format('W');
     }
 
+    /**
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     */
     private static function apparentBug($dateValue): bool
     {
         if (Date::getExcelCalendar() !== DATE::CALENDAR_MAC_1904) {

@@ -22,7 +22,7 @@ class Second
      *
      * @return int|string Minute
      */
-    public static function funcSecond($timeValue)
+    public static function evaluate($timeValue)
     {
         try {
             $timeValue = Functions::flattenSingleValue($timeValue);

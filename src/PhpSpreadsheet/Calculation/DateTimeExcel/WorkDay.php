@@ -24,11 +24,12 @@ class WorkDay
      * @param int $endDays The number of nonweekend and nonholiday days before or after
      *                                        startDate. A positive value for days yields a future date; a
      *                                        negative value yields a past date.
+     * @param mixed $dateArgs
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcWorkDay($startDate, $endDays, ...$dateArgs)
+    public static function evaluate($startDate, $endDays, ...$dateArgs)
     {
         //    Retrieve the mandatory start date and days that are referenced in the function definition
         try {
@@ -65,8 +66,8 @@ class WorkDay
     {
         //    Adjust the start date if it falls over a weekend
 
-        $startDoW = WeekDay::funcWeekDay($startDate, 3);
-        if (WeekDay::funcWeekDay($startDate, 3) >= 5) {
+        $startDoW = self::getWeekDay($startDate, 3);
+        if (self::getWeekDay($startDate, 3) >= 5) {
             $startDate += 7 - $startDoW;
             --$endDays;
         }
@@ -77,7 +78,7 @@ class WorkDay
         while ($endDays > 0) {
             ++$endDate;
             //    Adjust the calculated end date if it falls over a weekend
-            $endDow = WeekDay::funcWeekDay($endDate, 3);
+            $endDow = self::getWeekDay($endDate, 3);
             if ($endDow >= 5) {
                 $endDate += 7 - $endDow;
             }
@@ -96,7 +97,7 @@ class WorkDay
     {
         $holidayCountedArray = $holidayDates = [];
         foreach ($holidayArray as $holidayDate) {
-            if (WeekDay::funcWeekDay($holidayDate, 3) < 5) {
+            if (self::getWeekDay($holidayDate, 3) < 5) {
                 $holidayDates[] = $holidayDate;
             }
         }
@@ -109,7 +110,7 @@ class WorkDay
                 }
             }
             //    Adjust the calculated end date if it falls over a weekend
-            $endDoW = WeekDay::funcWeekDay($endDate, 3);
+            $endDoW = self::getWeekDay($endDate, 3);
             if ($endDoW >= 5) {
                 $endDate += 7 - $endDoW;
             }
@@ -127,9 +128,8 @@ class WorkDay
     {
         //    Adjust the start date if it falls over a weekend
 
-        $startDoW = WeekDay::funcWeekDay($startDate, 3);
-        if (WeekDay::funcWeekDay($startDate, 3) >= 5) {
-            // @phpstan-ignore-next-line
+        $startDoW = self::getWeekDay($startDate, 3);
+        if (self::getWeekDay($startDate, 3) >= 5) {
             $startDate += -$startDoW + 4;
             ++$endDays;
         }
@@ -140,7 +140,7 @@ class WorkDay
         while ($endDays < 0) {
             --$endDate;
             //    Adjust the calculated end date if it falls over a weekend
-            $endDow = WeekDay::funcWeekDay($endDate, 3);
+            $endDow = self::getWeekDay($endDate, 3);
             if ($endDow >= 5) {
                 $endDate += 4 - $endDow;
             }
@@ -159,7 +159,7 @@ class WorkDay
     {
         $holidayCountedArray = $holidayDates = [];
         foreach ($holidayArray as $holidayDate) {
-            if (WeekDay::funcWeekDay($holidayDate, 3) < 5) {
+            if (self::getWeekDay($holidayDate, 3) < 5) {
                 $holidayDates[] = $holidayDate;
             }
         }
@@ -172,13 +172,19 @@ class WorkDay
                 }
             }
             //    Adjust the calculated end date if it falls over a weekend
-            $endDoW = WeekDay::funcWeekDay($endDate, 3);
+            $endDoW = self::getWeekDay($endDate, 3);
             if ($endDoW >= 5) {
-                // @phpstan-ignore-next-line
                 $endDate += -$endDoW + 4;
             }
         }
 
         return $endDate;
+    }
+
+    private static function getWeekDay(float $date, int $wd): int
+    {
+        $result = WeekDay::evaluate($date, $wd);
+
+        return is_string($result) ? -1 : $result;
     }
 }

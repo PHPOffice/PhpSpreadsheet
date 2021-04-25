@@ -21,7 +21,7 @@ class Month
      *
      * @return int|string Month of the year
      */
-    public static function funcMonth($dateValue)
+    public static function evaluate($dateValue)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue);
