@@ -287,7 +287,7 @@ class Gnumeric extends BaseReader
     /**
      * @param mixed $value
      */
-    private function testSimpleXml($value): SimpleXMLElement
+    private static function testSimpleXml($value): SimpleXMLElement
     {
         return ($value instanceof SimpleXMLElement) ? $value : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
     }
@@ -554,7 +554,7 @@ class Gnumeric extends BaseReader
         while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
             $this->setColumnWidth($c, $columnWidth);
             if ($hidden) {
-                self::setColumnInvisible($c);
+                $this->setColumnInvisible($c);
             }
             ++$c;
         }

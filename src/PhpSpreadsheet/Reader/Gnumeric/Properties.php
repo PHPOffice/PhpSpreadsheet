@@ -118,7 +118,7 @@ class Properties
                         break;
                     case 'user-defined':
                         [, $attrName] = explode(':', $attributes['name']);
-                        self::userDefinedProperties($attrName, $propertyValue);
+                        $this->userDefinedProperties($attrName, $propertyValue);
 
                         break;
                 }
