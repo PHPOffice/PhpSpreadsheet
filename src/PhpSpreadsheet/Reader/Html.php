@@ -220,13 +220,13 @@ class Html extends BaseReader
     /**
      * Set input encoding.
      *
-     * @deprecated no use is made of this property
-     *
      * @param string $pValue Input encoding, eg: 'ANSI'
      *
      * @return $this
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no use is made of this property
      */
     public function setInputEncoding($pValue)
     {
@@ -238,11 +238,11 @@ class Html extends BaseReader
     /**
      * Get input encoding.
      *
-     * @deprecated no use is made of this property
-     *
      * @return string
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no use is made of this property
      */
     public function getInputEncoding()
     {
@@ -620,7 +620,7 @@ class Html extends BaseReader
                     $cellContent .= $domText;
                 }
                 //    but if we have a rich text run instead, we need to append it correctly
-                    //    TODO
+                //    TODO
             } elseif ($child instanceof DOMElement) {
                 $this->processDomElementBody($sheet, $row, $column, $cellContent, $child);
             }
@@ -878,14 +878,14 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        str_replace('px', '', $styleValue)
+                        (float) str_replace('px', '', $styleValue)
                     );
 
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        str_replace('px', '', $styleValue)
+                        (float) str_replace('px', '', $styleValue)
                     );
 
                     break;
@@ -922,8 +922,8 @@ class Html extends BaseReader
     }
 
     /**
-     * @param string    $column
-     * @param int       $row
+     * @param string $column
+     * @param int $row
      */
     private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
@@ -990,7 +990,7 @@ class Html extends BaseReader
     /**
      * Map html border style to PhpSpreadsheet border style.
      *
-     * @param  string $style
+     * @param string $style
      *
      * @return null|string
      */
