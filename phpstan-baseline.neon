@@ -4516,11 +4516,6 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#1 \\$columnIndex of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:stringFromColumnIndex\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -5956,16 +5951,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
 			message: "#^Result of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
@@ -6352,16 +6337,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method renameCalculationCacheForWorksheet\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
