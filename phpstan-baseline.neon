@@ -2826,91 +2826,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:\\$referenceHelper has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:\\$mappings has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'No' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'Unit' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'DefaultSizePts' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseBorderAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseBorderAttributes\\(\\) has parameter \\$borderAttributes with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseRichText\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseRichText\\(\\) has parameter \\$is with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseGnumericColour\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseGnumericColour\\(\\) has parameter \\$gnmColour with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$rowspan has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Html.php
@@ -8324,11 +8239,6 @@ parameters:
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
 
 		-
 			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
