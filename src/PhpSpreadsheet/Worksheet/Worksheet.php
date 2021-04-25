@@ -1263,22 +1263,23 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
-     * @param bool $createIfNotExists Flag indicating whether a new cell should be created if it doesn't
-     *                                       already exist, or a null should be returned instead
      *
-     * @return null|Cell Cell that was found/created or null
+     * @return Cell Cell that was found/created or null
      */
-    public function getCellByColumnAndRow($columnIndex, $row, $createIfNotExists = true)
+    public function getCellByColumnAndRow($columnIndex, $row): Cell
     {
         $columnLetter = Coordinate::stringFromColumnIndex($columnIndex);
         $coordinate = $columnLetter . $row;
 
         if ($this->cellCollection->has($coordinate)) {
-            return $this->cellCollection->get($coordinate);
+            /** @var Cell $cell */
+            $cell = $this->cellCollection->get($coordinate);
+
+            return $cell;
         }
 
         // Create new cell object, if required
-        return $createIfNotExists ? $this->createNewCell($coordinate) : null;
+        return $this->createNewCell($coordinate);
     }
 
     /**
