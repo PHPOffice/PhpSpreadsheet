@@ -21,7 +21,7 @@ class CellFont
     }
 
     /**
-     * @var array<string, int>
+     * @var array<int, string>
      */
     protected static $underlineMap = [
         0x01 => Font::UNDERLINE_SINGLE,

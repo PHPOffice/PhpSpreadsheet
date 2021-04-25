@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 class CellAlignment
 {
     /**
-     * @var array<string, int>
+     * @var array<int, string>
      */
     protected static $horizontalAlignmentMap = [
         0 => Alignment::HORIZONTAL_GENERAL,
@@ -20,7 +20,7 @@ class CellAlignment
     ];
 
     /**
-     * @var array<string, int>
+     * @var array<int, string>
      */
     protected static $verticalAlignmentMap = [
         0 => Alignment::VERTICAL_TOP,

@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 class FillPattern
 {
     /**
-     * @var array<string, int>
+     * @var array<int, string>
      */
     protected static $fillPatternMap = [
         0x00 => Fill::FILL_NONE,
