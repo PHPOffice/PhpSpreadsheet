@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -2067,39 +2068,11 @@ class Xls extends BaseReader
 
             // offset: 8; size: 2; escapement type
             $escapement = self::getUInt2d($recordData, 8);
-            switch ($escapement) {
-                case 0x0001:
-                    $objFont->setSuperscript(true);
-
-                    break;
-                case 0x0002:
-                    $objFont->setSubscript(true);
-
-                    break;
-            }
+            CellFont::escapement($objFont, $escapement);
 
             // offset: 10; size: 1; underline type
             $underlineType = ord($recordData[10]);
-            switch ($underlineType) {
-                case 0x00:
-                    break; // no underline
-                case 0x01:
-                    $objFont->setUnderline(Font::UNDERLINE_SINGLE);
-
-                    break;
-                case 0x02:
-                    $objFont->setUnderline(Font::UNDERLINE_DOUBLE);
-
-                    break;
-                case 0x21:
-                    $objFont->setUnderline(Font::UNDERLINE_SINGLEACCOUNTING);
-
-                    break;
-                case 0x22:
-                    $objFont->setUnderline(Font::UNDERLINE_DOUBLEACCOUNTING);
-
-                    break;
-            }
+            CellFont::underline($objFont, $underlineType);
 
             // offset: 11; size: 1; font family
             // offset: 12; size: 1; character set
@@ -2219,68 +2192,15 @@ class Xls extends BaseReader
             // offset:  6; size: 1; Alignment and text break
             // bit 2-0, mask 0x07; horizontal alignment
             $horAlign = (0x07 & ord($recordData[6])) >> 0;
-            switch ($horAlign) {
-                case 0:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_GENERAL);
+            Xls\Style\CellAlignment::horizontal($objStyle->getAlignment(), $horAlign);
 
-                    break;
-                case 1:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
-
-                    break;
-                case 2:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-                    break;
-                case 3:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-                    break;
-                case 4:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_FILL);
-
-                    break;
-                case 5:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_JUSTIFY);
-
-                    break;
-                case 6:
-                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER_CONTINUOUS);
-
-                    break;
-            }
             // bit 3, mask 0x08; wrap text
             $wrapText = (0x08 & ord($recordData[6])) >> 3;
-            switch ($wrapText) {
-                case 0:
-                    $objStyle->getAlignment()->setWrapText(false);
+            Xls\Style\CellAlignment::wrap($objStyle->getAlignment(), $wrapText);
 
-                    break;
-                case 1:
-                    $objStyle->getAlignment()->setWrapText(true);
-
-                    break;
-            }
             // bit 6-4, mask 0x70; vertical alignment
             $vertAlign = (0x70 & ord($recordData[6])) >> 4;
-            switch ($vertAlign) {
-                case 0:
-                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
-
-                    break;
-                case 1:
-                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-
-                    break;
-                case 2:
-                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_BOTTOM);
-
-                    break;
-                case 3:
-                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_JUSTIFY);
-
-                    break;
-            }
+            Xls\Style\CellAlignment::vertical($objStyle->getAlignment(), $vertAlign);
 
             if ($this->version == self::XLS_BIFF8) {
                 // offset:  7; size: 1; XF_ROTATION: Text rotation angle
