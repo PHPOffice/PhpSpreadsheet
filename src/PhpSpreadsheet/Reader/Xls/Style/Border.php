@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border as StyleBorder;
 class Border
 {
     /**
-     * @var array<string, int>
+     * @var array<int, string>
      */
     protected static $borderStyleMap = [
         0x00 => StyleBorder::BORDER_NONE,
