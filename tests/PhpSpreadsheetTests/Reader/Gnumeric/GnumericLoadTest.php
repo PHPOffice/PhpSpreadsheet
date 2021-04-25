@@ -116,11 +116,7 @@ class GnumericLoadTest extends TestCase
         self::assertTrue($sheet->getCell('B23')->getStyle()->getFont()->getSubScript());
         self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
         $rowDimension = $sheet->getRowDimension(30);
-        if ($rowDimension === null) {
-            self::fail('Unable to get RowDimension for row 30)');
-        } else {
-            self::assertFalse($rowDimension->getVisible());
-        }
+        self::assertFalse($rowDimension->getVisible());
     }
 
     public function testLoadFilter(): void
