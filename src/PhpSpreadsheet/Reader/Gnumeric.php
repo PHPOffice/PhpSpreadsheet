@@ -91,9 +91,11 @@ class Gnumeric extends BaseReader
         return $data == chr(0x1F) . chr(0x8B);
     }
 
-    private static function matchXml(string $name, string $field): bool
+    private static function matchXml(XMLReader $xml, string $expectedLocalName): bool
     {
-        return 1 === preg_match("/:$field$/", $name);
+        return $xml->namespaceURI == self::NAMESPACE_GNM
+            && $xml->localName == $expectedLocalName
+            && $xml->nodeType == XMLReader::ELEMENT;
     }
 
     /**
@@ -113,10 +115,10 @@ class Gnumeric extends BaseReader
 
         $worksheetNames = [];
         while ($xml->read()) {
-            if (self::matchXml($xml->name, 'SheetName') && $xml->nodeType == XMLReader::ELEMENT) {
+            if (self::matchXml($xml, 'SheetName')) {
                 $xml->read(); //    Move onto the value node
                 $worksheetNames[] = (string) $xml->value;
-            } elseif (self::matchXml($xml->name, 'Sheets')) {
+            } elseif (self::matchXml($xml, 'Sheets')) {
                 //    break out of the loop once we've got our sheet names rather than parse the entire file
                 break;
             }
@@ -142,7 +144,7 @@ class Gnumeric extends BaseReader
 
         $worksheetInfo = [];
         while ($xml->read()) {
-            if (self::matchXml($xml->name, 'Sheet') && $xml->nodeType == XMLReader::ELEMENT) {
+            if (self::matchXml($xml, 'Sheet')) {
                 $tmpInfo = [
                     'worksheetName' => '',
                     'lastColumnLetter' => 'A',
@@ -152,20 +154,18 @@ class Gnumeric extends BaseReader
                 ];
 
                 while ($xml->read()) {
-                    if ($xml->nodeType == XMLReader::ELEMENT) {
-                        if (self::matchXml($xml->name, 'Name')) {
-                            $xml->read(); //    Move onto the value node
-                            $tmpInfo['worksheetName'] = (string) $xml->value;
-                        } elseif (self::matchXml($xml->name, 'MaxCol')) {
-                            $xml->read(); //    Move onto the value node
-                            $tmpInfo['lastColumnIndex'] = (int) $xml->value;
-                            $tmpInfo['totalColumns'] = (int) $xml->value + 1;
-                        } elseif (self::matchXml($xml->name, 'MaxRow')) {
-                            $xml->read(); //    Move onto the value node
-                            $tmpInfo['totalRows'] = (int) $xml->value + 1;
+                    if (self::matchXml($xml, 'Name')) {
+                        $xml->read(); //    Move onto the value node
+                        $tmpInfo['worksheetName'] = (string) $xml->value;
+                    } elseif (self::matchXml($xml, 'MaxCol')) {
+                        $xml->read(); //    Move onto the value node
+                        $tmpInfo['lastColumnIndex'] = (int) $xml->value;
+                        $tmpInfo['totalColumns'] = (int) $xml->value + 1;
+                    } elseif (self::matchXml($xml, 'MaxRow')) {
+                        $xml->read(); //    Move onto the value node
+                        $tmpInfo['totalRows'] = (int) $xml->value + 1;
 
-                            break;
-                        }
+                        break;
                     }
                 }
                 $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
