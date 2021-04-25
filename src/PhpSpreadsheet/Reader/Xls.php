@@ -3634,7 +3634,7 @@ class Xls extends BaseReader
             $level = (0x0700 & self::getUInt2d($recordData, 8)) >> 8;
 
             // bit: 12; mask: 0x1000; 1 = collapsed
-            $isCollapsed = (0x1000 & self::getUInt2d($recordData, 8)) >> 12;
+            $isCollapsed = (bool) ((0x1000 & self::getUInt2d($recordData, 8)) >> 12);
 
             // offset: 10; size: 2; not used
 
@@ -3704,7 +3704,7 @@ class Xls extends BaseReader
             $this->phpSheet->getRowDimension($r + 1)->setOutlineLevel($level);
 
             // bit: 4; mask: 0x00000010; 1 = outline group start or ends here... and is collapsed
-            $isCollapsed = (0x00000010 & self::getInt4d($recordData, 12)) >> 4;
+            $isCollapsed = (bool) ((0x00000010 & self::getInt4d($recordData, 12)) >> 4);
             $this->phpSheet->getRowDimension($r + 1)->setCollapsed($isCollapsed);
 
             // bit: 5; mask: 0x00000020; 1 = row is hidden

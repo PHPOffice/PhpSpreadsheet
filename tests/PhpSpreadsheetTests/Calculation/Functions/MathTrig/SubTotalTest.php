@@ -56,12 +56,8 @@ class SubTotalTest extends AllSetupTeardown
             'L' => false,
         ];
         foreach ($hiddenColumns as $col => $hidden) {
-            $colDim = $sheet->getColumnDimension($col);
-            if ($colDim === null) {
-                self::fail('Unexpected null column dimension');
-            } else {
-                $colDim->setVisible($hidden);
-            }
+            $columnDimension = $sheet->getColumnDimension($col);
+            $columnDimension->setVisible($hidden);
         }
         $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
         $result = $sheet->getCell('D2')->getCalculatedValue();
@@ -96,12 +92,8 @@ class SubTotalTest extends AllSetupTeardown
             '12' => false,
         ];
         foreach ($visibleRows as $row => $visible) {
-            $rowDim = $sheet->getRowDimension($row);
-            if ($rowDim === null) {
-                self::fail('Unexpected null row dimension');
-            } else {
-                $rowDim->setVisible($visible);
-            }
+            $rowDimension = $sheet->getRowDimension($row);
+            $rowDimension->setVisible($visible);
         }
         $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
         $result = $sheet->getCell('D2')->getCalculatedValue();

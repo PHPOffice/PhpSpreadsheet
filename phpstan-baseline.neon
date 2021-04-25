@@ -2591,28 +2591,8 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
 			message: "#^Offset 'DefaultSizePts' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
@@ -2758,16 +2738,6 @@ parameters:
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$h1Etc has no typehint specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
@@ -3021,11 +2991,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Slk.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3222,56 +3187,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryRight\\(\\) expects bool, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -4451,16 +4366,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(mixed, mixed\\)\\: int, array\\('self', 'cellReverseSort'\\) given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4472,46 +4377,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -5931,26 +5796,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
 			message: "#^Result of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
@@ -6037,11 +5882,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getRowDimension\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -6321,11 +6161,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -6343,11 +6178,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
@@ -7761,31 +7591,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Cannot call method getCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -7804,11 +7609,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
@@ -7836,16 +7636,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\CommentsTest\\:\\:testComments\\(\\) has parameter \\$format with no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
@@ -7854,11 +7644,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
-
-		-
-			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ConditionalTextTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
@@ -7956,26 +7741,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
 
 		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
@@ -8064,26 +7829,6 @@ parameters:
 			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\XlsxTest\\:\\:testStripsWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no typehint specified\\.$#"
@@ -8239,21 +7984,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$directory of function chdir expects string, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
