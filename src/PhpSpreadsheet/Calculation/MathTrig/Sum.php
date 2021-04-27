@@ -50,11 +50,13 @@ class Sum
     public static function funcSumNoStrings(...$args)
     {
         $returnValue = 0;
-
         // Loop through the arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if (is_numeric($arg)) {
+            if (is_numeric($arg) || empty($arg)) {
+                if (is_string($arg)) {
+                    $arg = (int) $arg;
+                }
                 $returnValue += $arg;
             } elseif (Functions::isError($arg)) {
                 return $arg;
