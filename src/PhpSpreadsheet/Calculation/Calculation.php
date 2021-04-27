@@ -30,6 +30,9 @@ class Calculation
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
     const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
     const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
@@ -3798,6 +3801,8 @@ class Calculation
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
             '|' . self::CALCULATION_REGEXP_CELLREF .
+            '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
+            '|' . self::CALCULATION_REGEXP_ROW_RANGE .
             '|' . self::CALCULATION_REGEXP_NUMBER .
             '|' . self::CALCULATION_REGEXP_STRING .
             '|' . self::CALCULATION_REGEXP_OPENBRACE .
@@ -3866,7 +3871,8 @@ class Calculation
                 $opCharacter .= $formula[++$index];
             }
             //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
-            $isOperandOrFunction = preg_match($regexpMatchString, substr($formula, $index), $match);
+            $isOperandOrFunction = (bool) preg_match($regexpMatchString, substr($formula, $index), $match);
+
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~', null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
@@ -4038,6 +4044,7 @@ class Calculation
                 $expectingOperand = false;
                 $val = $match[1];
                 $length = strlen($val);
+
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
                     $val = preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
@@ -4074,7 +4081,7 @@ class Calculation
                     //    Should only be applied to the actual cell column, not the worksheet name
                     //    If the last entry on the stack was a : operator, then we have a cell range reference
                     $testPrevOp = $stack->last(1);
-                    if ($testPrevOp !== null && $testPrevOp['value'] == ':') {
+                    if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         //    If we have a worksheet reference, then we're playing with a 3D reference
                         if ($matches[2] == '') {
                             //    Otherwise, we 'inherit' the worksheet reference from the start cell reference
@@ -4091,62 +4098,57 @@ class Calculation
                                 return $this->raiseFormulaError('3D Range references are not yet supported');
                             }
                         }
+                    } elseif (strpos($val, '!') === false && $pCellParent !== null) {
+                        $worksheet = $pCellParent->getTitle();
+                        $val = "'{$worksheet}'!{$val}";
                     }
 
                     $outputItem = $stack->getStackItem('Cell Reference', $val, $val, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
 
                     $output[] = $outputItem;
                 } else {    // it's a variable, constant, string, number or boolean
+                    $localeConstant = false;
+                    $stackItemType = 'Value';
+                    $stackItemReference = null;
+
                     //    If the last entry on the stack was a : operator, then we may have a row or column range reference
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
+                        $stackItemType = 'Cell Reference';
                         $startRowColRef = $output[count($output) - 1]['value'];
                         [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
                         $rangeSheetRef = $rangeWS1;
-                        if ($rangeWS1 != '') {
+                        if ($rangeWS1 !== '') {
                             $rangeWS1 .= '!';
                         }
+                        $rangeSheetRef = trim($rangeSheetRef, "'");
                         [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
-                        if ($rangeWS2 != '') {
+                        if ($rangeWS2 !== '') {
                             $rangeWS2 .= '!';
                         } else {
                             $rangeWS2 = $rangeWS1;
                         }
+
                         $refSheet = $pCellParent;
-                        if ($pCellParent !== null && $rangeSheetRef !== $pCellParent->getTitle()) {
+                        if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
                             $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
                         }
-                        if (
-                            (is_int($startRowColRef)) && (ctype_digit($val)) &&
-                            ($startRowColRef <= 1048576) && ($val <= 1048576)
-                        ) {
-                            //    Row range
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestColumn() : 'XFD'; //    Max 16,384 columns for Excel2007
-                            $output[count($output) - 1]['value'] = $rangeWS1 . 'A' . $startRowColRef;
-                            $val = $rangeWS2 . $endRowColRef . $val;
-                        } elseif (
-                            (ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
-                            (strlen($startRowColRef) <= 3) && (strlen($val) <= 3)
-                        ) {
-                            //    Column range
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestRow() : 1048576; //    Max 1,048,576 rows for Excel2007
-                            $output[count($output) - 1]['value'] = $rangeWS1 . strtoupper($startRowColRef) . '1';
-                            $val = $rangeWS2 . $val . $endRowColRef;
-                        }
-                    }
 
-                    $localeConstant = false;
-                    $stackItemType = 'Value';
-                    $stackItemReference = null;
-                    if ($opCharacter == self::FORMULA_STRING_QUOTE) {
+                        if (ctype_digit($val) && $val <= 1048576) {
+                            //    Row range
+                            $stackItemType = 'Row Reference';
+                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($val) : 'XFD'; //    Max 16,384 columns for Excel2007
+                            $val = "{$rangeWS2}{$endRowColRef}{$val}";
+                        } elseif (ctype_alpha($val) && strlen($val) <= 3) {
+                            //    Column range
+                            $stackItemType = 'Column Reference';
+                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
+                            $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                        }
+                        $stackItemReference = $val;
+                    } elseif ($opCharacter == self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
-                    } elseif (is_numeric($val)) {
-                        if ((strpos($val, '.') !== false) || (stripos($val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
-                            $val = (float) $val;
-                        } else {
-                            $val = (int) $val;
-                        }
                     } elseif (isset(self::$excelConstants[trim(strtoupper($val))])) {
                         $stackItemType = 'Constant';
                         $excelConstant = trim(strtoupper($val));
@@ -4154,10 +4156,41 @@ class Calculation
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
+                    } elseif (
+                        preg_match('/^' . self::CALCULATION_REGEXP_ROW_RANGE . '/miu', substr($formula, $index), $rowRangeReference)
+                    ) {
+                        $val = $rowRangeReference[1];
+                        $length = strlen($rowRangeReference[1]);
+                        $stackItemType = 'Row Reference';
+                        $column = 'A';
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
+                            $column = $pCellParent->getHighestDataColumn($val);
+                        }
+                        $val = "{$rowRangeReference[2]}{$column}{$rowRangeReference[7]}";
+                        $stackItemReference = $val;
+                    } elseif (
+                        preg_match('/^' . self::CALCULATION_REGEXP_COLUMN_RANGE . '/miu', substr($formula, $index), $columnRangeReference)
+                    ) {
+                        $val = $columnRangeReference[1];
+                        $length = strlen($val);
+                        $stackItemType = 'Column Reference';
+                        $row = '1';
+                        if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
+                            $row = $pCellParent->getHighestDataRow($val);
+                        }
+                        $val = "{$val}{$row}";
+                        $stackItemReference = $val;
                     } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', $val, $match)) {
                         $stackItemType = 'Defined Name';
                         $stackItemReference = $val;
+                    } elseif (is_numeric($val)) {
+                        if ((strpos($val, '.') !== false) || (stripos($val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
+                            $val = (float) $val;
+                        } else {
+                            $val = (int) $val;
+                        }
                     }
+
                     $details = $stack->getStackItem($stackItemType, $val, $stackItemReference, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
                     if ($localeConstant) {
                         $details['localeValue'] = $localeConstant;
@@ -4431,6 +4464,7 @@ class Calculation
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
+
                             $stack->push('Cell Reference', $cellValue, $cellRef);
                         } else {
                             $stack->push('Error', Functions::REF(), null);
@@ -4564,6 +4598,7 @@ class Calculation
                 }
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token, $matches)) {
                 $cellRef = null;
+
                 if (isset($matches[8])) {
                     if ($pCell === null) {
                         //                        We can't access the range, so return a REF error
@@ -4596,7 +4631,7 @@ class Calculation
                     }
                 } else {
                     if ($pCell === null) {
-                        //                        We can't access the cell, so return a REF error
+                        //  We can't access the cell, so return a REF error
                         $cellValue = Functions::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
@@ -4613,6 +4648,7 @@ class Calculation
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                                     $pCell->attach($pCellParent);
                                 } else {
+                                    $cellRef = ($cellSheet !== null) ? "{$matches[2]}!{$cellRef}" : $cellRef;
                                     $cellValue = null;
                                 }
                             } else {
@@ -4631,7 +4667,8 @@ class Calculation
                         }
                     }
                 }
-                $stack->push('Value', $cellValue, $cellRef);
+
+                $stack->push('Cell Value', $cellValue, $cellRef);
                 if (isset($storeKey)) {
                     $branchStore[$storeKey] = $cellValue;
                 }
@@ -5116,6 +5153,7 @@ class Calculation
 
         if ($pSheet !== null) {
             $pSheetName = $pSheet->getTitle();
+
             if (strpos($pRange, '!') !== false) {
                 [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
                 $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
