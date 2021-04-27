@@ -38,9 +38,6 @@ class RowColumnReferenceTest extends TestCase
 
     /**
      * @dataProvider providerCurrentWorksheetFormulae
-     *
-     * @param mixed $formula
-     * @param mixed $expectedResult
      */
     public function testCurrentWorksheet(string $formula, float $expectedResult): void
     {

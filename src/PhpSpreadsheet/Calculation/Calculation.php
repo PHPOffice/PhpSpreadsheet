@@ -4164,7 +4164,7 @@ class Calculation
                         $stackItemType = 'Row Reference';
                         $column = 'A';
                         if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
-                            $column = $pCellParent->getHighestDataColumn((int) $val);
+                            $column = $pCellParent->getHighestDataColumn($val);
                         }
                         $val = "{$rowRangeReference[2]}{$column}{$rowRangeReference[7]}";
                         $stackItemReference = $val;
