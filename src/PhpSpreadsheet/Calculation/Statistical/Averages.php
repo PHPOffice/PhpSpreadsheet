@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Mathtrig;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Averages extends AggregateBase
 {

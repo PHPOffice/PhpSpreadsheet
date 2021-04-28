@@ -23,7 +23,7 @@ class Deviations
         $aArgs = Functions::flattenArrayIndexed($args);
 
         $aMean = Averages::average($aArgs);
-        if (is_string($aMean)) {
+        if (!is_numeric($aMean)) {
             return Functions::NAN();
         }
 
@@ -64,6 +64,9 @@ class Deviations
     {
         $aArgs = Functions::flattenArrayIndexed($args);
         $mean = Averages::average($aArgs);
+        if (!is_numeric($mean)) {
+            return Functions::DIV0();
+        }
         $stdDev = StandardDeviations::STDEV($aArgs);
 
         if ($stdDev > 0) {
@@ -106,8 +109,10 @@ class Deviations
     {
         $aArgs = Functions::flattenArrayIndexed($args);
         $mean = Averages::average($aArgs);
+        if (!is_numeric($mean)) {
+            return Functions::DIV0();
+        }
         $stdDev = StandardDeviations::STDEV($aArgs);
-
         if ($stdDev === 0.0 || is_string($stdDev)) {
             return Functions::DIV0();
         }
