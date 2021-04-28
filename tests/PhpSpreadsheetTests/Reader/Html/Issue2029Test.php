@@ -100,7 +100,6 @@ class Issue2029Test extends TestCase
 </html>
 
 EOF;
-        $filename = 'tests/data/Reader/HTML/csv_with_angle_bracket.csv';
         $reader = new Html();
         $spreadsheet = $reader->loadFromString($content);
         $sheet = $spreadsheet->getActiveSheet();
