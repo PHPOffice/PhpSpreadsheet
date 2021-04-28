@@ -2469,7 +2469,7 @@ class Calculation
         ],
         'TRIMMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TRIMMEAN'],
+            'functionCall' => [Statistical\Averages::class, 'trimMean'],
             'argumentCount' => '2',
         ],
         'TRUE' => [

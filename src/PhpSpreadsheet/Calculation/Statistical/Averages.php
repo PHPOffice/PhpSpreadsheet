@@ -208,6 +208,54 @@ class Averages extends AggregateBase
     }
 
     /**
+     * TRIMMEAN.
+     *
+     * Returns the mean of the interior of a data set. TRIMMEAN calculates the mean
+     *        taken by excluding a percentage of data points from the top and bottom tails
+     *        of a data set.
+     *
+     * Excel Function:
+     *        TRIMEAN(value1[,value2[, ...]], $discard)
+     *
+     * @param mixed $args Data values
+     *
+     * @return float|string
+     */
+    public static function trimMean(...$args)
+    {
+        $aArgs = Functions::flattenArray($args);
+
+        // Calculate
+        $percent = array_pop($aArgs);
+
+        if ((is_numeric($percent)) && (!is_string($percent))) {
+            if (($percent < 0) || ($percent > 1)) {
+                return Functions::NAN();
+            }
+
+            $mArgs = [];
+            foreach ($aArgs as $arg) {
+                // Is it a numeric value?
+                if ((is_numeric($arg)) && (!is_string($arg))) {
+                    $mArgs[] = $arg;
+                }
+            }
+
+            $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
+            sort($mArgs);
+
+            for ($i = 0; $i < $discard; ++$i) {
+                array_pop($mArgs);
+                array_shift($mArgs);
+            }
+
+            return self::average($mArgs);
+        }
+
+        return Functions::VALUE();
+    }
+
+    /**
      * MEDIAN.
      *
      * Returns the median of the given numbers. The median is the number in the middle of a set of numbers.

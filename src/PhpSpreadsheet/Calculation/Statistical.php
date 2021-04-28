@@ -1713,42 +1713,18 @@ class Statistical
      * Excel Function:
      *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
+     * @Deprecated 1.18.0
+     *
+     *@see Statistical\Averages::trimMean()
+     *      Use the trimMean() method in the Statistical\Averages class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string
      */
     public static function TRIMMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $percent = array_pop($aArgs);
-
-        if ((is_numeric($percent)) && (!is_string($percent))) {
-            if (($percent < 0) || ($percent > 1)) {
-                return Functions::NAN();
-            }
-
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-
-            $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
-            sort($mArgs);
-
-            for ($i = 0; $i < $discard; ++$i) {
-                array_pop($mArgs);
-                array_shift($mArgs);
-            }
-
-            return Averages::average($mArgs);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Averages::trimMean(...$args);
     }
 
     /**
@@ -1761,12 +1737,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     *@see Statistical\Variances::VAR()
+     *      Use the VAR() method in the Statistical\Variances class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string (string if result is an error)
-     *
-     *@see Statistical\Variances::VAR()
-     *      Use the VAR() method in the Statistical\Variances class instead
      */
     public static function VARFunc(...$args)
     {
