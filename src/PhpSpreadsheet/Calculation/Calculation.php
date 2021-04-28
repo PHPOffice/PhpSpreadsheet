@@ -2288,12 +2288,12 @@ class Calculation
         ],
         'STDEVP' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVP'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVP'],
             'argumentCount' => '1+',
         ],
         'STDEVPA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVPA'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVPA'],
             'argumentCount' => '1+',
         ],
         'STEYX' => [
