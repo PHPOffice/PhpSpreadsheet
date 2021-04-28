@@ -180,15 +180,13 @@ class Averages extends AggregateBase
      */
     public static function harmonicMean(...$args)
     {
-        // Return value
-        $returnValue = 0;
-
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         if (Minimum::MIN($aArgs) < 0) {
             return Functions::NAN();
         }
 
+        $returnValue = 0;
         $aCount = 0;
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
