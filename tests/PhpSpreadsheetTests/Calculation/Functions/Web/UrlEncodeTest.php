@@ -9,8 +9,11 @@ class UrlEncodeTest extends TestCase
 {
     /**
      * @dataProvider providerURLENCODE
+     *
+     * @param string $expectedResult
+     * @param mixed $text
      */
-    public function testURLENCODE(string $expectedResult, string $text): void
+    public function testURLENCODE($expectedResult, $text): void
     {
         $result = Service::urlEncode($text);
         self::assertSame($expectedResult, $result);
