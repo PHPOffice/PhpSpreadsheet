@@ -27,7 +27,7 @@ class Selection
         if (is_array($chosenEntry)) {
             $chosenEntry = array_shift($chosenEntry);
         }
-        if ((is_numeric($chosenEntry)) && (!is_bool($chosenEntry))) {
+        if (is_numeric($chosenEntry)) {
             --$chosenEntry;
         } else {
             return Functions::VALUE();

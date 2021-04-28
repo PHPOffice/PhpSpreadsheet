@@ -32,7 +32,7 @@ class Formula
 
         if (
             $worksheet === null ||
-            $worksheet->getCell($cellReference) === null ||
+            !$worksheet->cellExists($cellReference) ||
             !$worksheet->getCell($cellReference)->isFormula()
         ) {
             return Functions::NA();
