@@ -40,7 +40,7 @@ class Service
             return Functions::VALUE(); // cURL error
         }
 
-        if ($response->getStatusCode() !== 200) {
+        if ($response->getStatusCode() != 200) {
             return Functions::VALUE(); // cURL error
         }
 

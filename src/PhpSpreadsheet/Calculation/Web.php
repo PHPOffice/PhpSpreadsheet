@@ -2,9 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Settings;
-use Psr\Http\Client\ClientExceptionInterface;
-
 /**
  * @deprecated 1.18.0
  */
