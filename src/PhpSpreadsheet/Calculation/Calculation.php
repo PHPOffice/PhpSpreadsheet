@@ -1195,7 +1195,7 @@ class Calculation
         ],
         'GEOMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'geometricMean'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'geometric'],
             'argumentCount' => '1+',
         ],
         'GESTEP' => [
@@ -1215,7 +1215,7 @@ class Calculation
         ],
         'HARMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'harmonicMean'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'harmonic'],
             'argumentCount' => '1+',
         ],
         'HEX2BIN' => [
@@ -2469,7 +2469,7 @@ class Calculation
         ],
         'TRIMMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Averages::class, 'trimMean'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'trim'],
             'argumentCount' => '2',
         ],
         'TRUE' => [

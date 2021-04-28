@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class Averages extends AggregateBase
 {
@@ -134,125 +133,6 @@ class Averages extends AggregateBase
         }
 
         return Functions::DIV0();
-    }
-
-    /**
-     * GEOMEAN.
-     *
-     * Returns the geometric mean of an array or range of positive data. For example, you
-     *        can use GEOMEAN to calculate average growth rate given compound interest with
-     *        variable rates.
-     *
-     * Excel Function:
-     *        GEOMEAN(value1[,value2[, ...]])
-     *
-     * @param mixed ...$args Data values
-     *
-     * @return float|string
-     */
-    public static function geometricMean(...$args)
-    {
-        $aArgs = Functions::flattenArray($args);
-
-        $aMean = MathTrig\Product::evaluate($aArgs);
-        if (is_numeric($aMean) && ($aMean > 0)) {
-            $aCount = Counts::COUNT($aArgs);
-            if (Minimum::MIN($aArgs) > 0) {
-                return $aMean ** (1 / $aCount);
-            }
-        }
-
-        return Functions::NAN();
-    }
-
-    /**
-     * HARMEAN.
-     *
-     * Returns the harmonic mean of a data set. The harmonic mean is the reciprocal of the
-     *        arithmetic mean of reciprocals.
-     *
-     * Excel Function:
-     *        HARMEAN(value1[,value2[, ...]])
-     *
-     * @param mixed ...$args Data values
-     *
-     * @return float|string
-     */
-    public static function harmonicMean(...$args)
-    {
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        if (Minimum::MIN($aArgs) < 0) {
-            return Functions::NAN();
-        }
-
-        $returnValue = 0;
-        $aCount = 0;
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($arg <= 0) {
-                    return Functions::NAN();
-                }
-                $returnValue += (1 / $arg);
-                ++$aCount;
-            }
-        }
-
-        // Return
-        if ($aCount > 0) {
-            return 1 / ($returnValue / $aCount);
-        }
-
-        return Functions::NA();
-    }
-
-    /**
-     * TRIMMEAN.
-     *
-     * Returns the mean of the interior of a data set. TRIMMEAN calculates the mean
-     *        taken by excluding a percentage of data points from the top and bottom tails
-     *        of a data set.
-     *
-     * Excel Function:
-     *        TRIMEAN(value1[,value2[, ...]], $discard)
-     *
-     * @param mixed $args Data values
-     *
-     * @return float|string
-     */
-    public static function trimMean(...$args)
-    {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $percent = array_pop($aArgs);
-
-        if ((is_numeric($percent)) && (!is_string($percent))) {
-            if (($percent < 0) || ($percent > 1)) {
-                return Functions::NAN();
-            }
-
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-
-            $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
-            sort($mArgs);
-
-            for ($i = 0; $i < $discard; ++$i) {
-                array_pop($mArgs);
-                array_shift($mArgs);
-            }
-
-            return self::average($mArgs);
-        }
-
-        return Functions::VALUE();
     }
 
     /**

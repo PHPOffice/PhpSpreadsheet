@@ -667,8 +667,8 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     * @see Statistical\Averages::geoMean()
-     *      Use the geometricMean() method in the Statistical\Averages class instead
+     * @see Statistical\Averages\Mean::geometric()
+     *      Use the geometric() method in the Statistical\Averages\Mean class instead
      *
      * @param mixed ...$args Data values
      *
@@ -676,7 +676,7 @@ class Statistical
      */
     public static function GEOMEAN(...$args)
     {
-        return Statistical\Averages::geometricMean(...$args);
+        return Statistical\Averages\Mean::geometric(...$args);
     }
 
     /**
@@ -712,8 +712,8 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     * @see Statistical\Averages::harmonicMean()
-     *      Use the harmonicMean() method in the Statistical\Averages class instead
+     * @see Statistical\Averages\Mean::harmonic()
+     *      Use the harmonic() method in the Statistical\Averages\Mean class instead
      *
      * @param mixed ...$args Data values
      *
@@ -721,7 +721,7 @@ class Statistical
      */
     public static function HARMEAN(...$args)
     {
-        return Statistical\Averages::harmonicMean(...$args);
+        return Statistical\Averages\Mean::harmonic(...$args);
     }
 
     /**
@@ -1715,8 +1715,8 @@ class Statistical
      *
      * @Deprecated 1.18.0
      *
-     *@see Statistical\Averages::trimMean()
-     *      Use the trimMean() method in the Statistical\Averages class instead
+     *@see Statistical\Averages\Mean::trim()
+     *      Use the trim() method in the Statistical\Averages\Mean class instead
      *
      * @param mixed $args Data values
      *
@@ -1724,7 +1724,7 @@ class Statistical
      */
     public static function TRIMMEAN(...$args)
     {
-        return Statistical\Averages::trimMean(...$args);
+        return Statistical\Averages\Mean::trim(...$args);
     }
 
     /**
