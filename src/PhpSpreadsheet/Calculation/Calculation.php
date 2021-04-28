@@ -1406,7 +1406,7 @@ class Calculation
         ],
         'INDEX' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'INDEX'],
+            'functionCall' => [LookupRef\Matrix::class, 'index'],
             'argumentCount' => '1-4',
         ],
         'INDIRECT' => [
@@ -2419,7 +2419,7 @@ class Calculation
         ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData::class, 'TEXTJOIN'],
+            'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
         ],
         'TIME' => [
