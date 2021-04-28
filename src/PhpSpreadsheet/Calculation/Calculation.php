@@ -531,7 +531,7 @@ class Calculation
         ],
         'CHOOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'CHOOSE'],
+            'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
             'argumentCount' => '2+',
         ],
         'CLEAN' => [
@@ -793,7 +793,7 @@ class Calculation
         ],
         'DB' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DB'],
+            'functionCall' => [Financial\Depreciation::class, 'DB'],
             'argumentCount' => '4,5',
         ],
         'DBCS' => [
@@ -813,7 +813,7 @@ class Calculation
         ],
         'DDB' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DDB'],
+            'functionCall' => [Financial\Depreciation::class, 'DDB'],
             'argumentCount' => '4,5',
         ],
         'DEC2BIN' => [
@@ -1118,7 +1118,7 @@ class Calculation
         ],
         'FORMULATEXT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'FORMULATEXT'],
+            'functionCall' => [LookupRef\Formula::class, 'text'],
             'argumentCount' => '1',
             'passCellReference' => true,
             'passByReference' => [true],
@@ -1245,7 +1245,7 @@ class Calculation
         ],
         'HYPERLINK' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'HYPERLINK'],
+            'functionCall' => [LookupRef\Hyperlink::class, 'set'],
             'argumentCount' => '1,2',
             'passCellReference' => true,
         ],
@@ -2604,7 +2604,7 @@ class Calculation
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'XIRR'],
+            'functionCall' => [Financial\CashFlow\Variable\NonPeriodic::class, 'rate'],
             'argumentCount' => '2,3',
         ],
         'XLOOKUP' => [
@@ -2614,7 +2614,7 @@ class Calculation
         ],
         'XNPV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'XNPV'],
+            'functionCall' => [Financial\CashFlow\Variable\NonPeriodic::class, 'presentValue'],
             'argumentCount' => '3',
         ],
         'XMATCH' => [
