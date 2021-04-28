@@ -933,7 +933,7 @@ class Calculation
         ],
         'ENCODEURL' => [
             'category' => Category::CATEGORY_WEB,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Web\Service::class, 'urlEncode'],
             'argumentCount' => '1',
         ],
         'EOMONTH' => [
@@ -2569,7 +2569,7 @@ class Calculation
         ],
         'WEBSERVICE' => [
             'category' => Category::CATEGORY_WEB,
-            'functionCall' => [Web::class, 'WEBSERVICE'],
+            'functionCall' => [Web\Service::class, 'webService'],
             'argumentCount' => '1',
         ],
         'WEEKDAY' => [
