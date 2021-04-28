@@ -30,7 +30,11 @@ class Formula
             ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
             : $pCell->getWorksheet();
 
-        if (!$worksheet->getCell($cellReference)->isFormula()) {
+        if (
+            $worksheet === null ||
+            $worksheet->getCell($cellReference) === null ||
+            !$worksheet->getCell($cellReference)->isFormula()
+        ) {
             return Functions::NA();
         }
 

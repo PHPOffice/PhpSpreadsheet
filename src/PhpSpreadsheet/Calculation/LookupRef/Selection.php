@@ -15,6 +15,8 @@ class Selection
      * Excel Function:
      *        =CHOOSE(index_num, value1, [value2], ...)
      *
+     * @param mixed ...$chooseArgs Data values
+     *
      * @return mixed The selected value
      */
     public static function choose(...$chooseArgs)
