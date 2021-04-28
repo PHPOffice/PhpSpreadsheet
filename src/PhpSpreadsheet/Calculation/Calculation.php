@@ -531,7 +531,7 @@ class Calculation
         ],
         'CHOOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'CHOOSE'],
+            'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
             'argumentCount' => '2+',
         ],
         'CLEAN' => [
@@ -1118,7 +1118,7 @@ class Calculation
         ],
         'FORMULATEXT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'FORMULATEXT'],
+            'functionCall' => [LookupRef\Formula::class, 'text'],
             'argumentCount' => '1',
             'passCellReference' => true,
             'passByReference' => [true],
@@ -1245,7 +1245,7 @@ class Calculation
         ],
         'HYPERLINK' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'HYPERLINK'],
+            'functionCall' => [LookupRef\Hyperlink::class, 'set'],
             'argumentCount' => '1,2',
             'passCellReference' => true,
         ],
