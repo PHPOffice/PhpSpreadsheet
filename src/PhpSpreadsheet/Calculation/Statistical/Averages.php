@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Mathtrig;
 
 class Averages extends AggregateBase
 {
@@ -133,6 +134,79 @@ class Averages extends AggregateBase
         }
 
         return Functions::DIV0();
+    }
+
+    /**
+     * GEOMEAN.
+     *
+     * Returns the geometric mean of an array or range of positive data. For example, you
+     *        can use GEOMEAN to calculate average growth rate given compound interest with
+     *        variable rates.
+     *
+     * Excel Function:
+     *        GEOMEAN(value1[,value2[, ...]])
+     *
+     * @param mixed ...$args Data values
+     *
+     * @return float|string
+     */
+    public static function geometricMean(...$args)
+    {
+        $aArgs = Functions::flattenArray($args);
+
+        $aMean = MathTrig\Product::evaluate($aArgs);
+        if (is_numeric($aMean) && ($aMean > 0)) {
+            $aCount = Counts::COUNT($aArgs);
+            if (Minimum::MIN($aArgs) > 0) {
+                return $aMean ** (1 / $aCount);
+            }
+        }
+
+        return Functions::NAN();
+    }
+
+    /**
+     * HARMEAN.
+     *
+     * Returns the harmonic mean of a data set. The harmonic mean is the reciprocal of the
+     *        arithmetic mean of reciprocals.
+     *
+     * Excel Function:
+     *        HARMEAN(value1[,value2[, ...]])
+     *
+     * @param mixed ...$args Data values
+     *
+     * @return float|string
+     */
+    public static function harmonicMean(...$args)
+    {
+        // Return value
+        $returnValue = 0;
+
+        // Loop through arguments
+        $aArgs = Functions::flattenArray($args);
+        if (Minimum::MIN($aArgs) < 0) {
+            return Functions::NAN();
+        }
+
+        $aCount = 0;
+        foreach ($aArgs as $arg) {
+            // Is it a numeric value?
+            if ((is_numeric($arg)) && (!is_string($arg))) {
+                if ($arg <= 0) {
+                    return Functions::NAN();
+                }
+                $returnValue += (1 / $arg);
+                ++$aCount;
+            }
+        }
+
+        // Return
+        if ($aCount > 0) {
+            return 1 / ($returnValue / $aCount);
+        }
+
+        return Functions::NA();
     }
 
     /**

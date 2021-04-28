@@ -428,48 +428,18 @@ class Statistical
      * Excel Function:
      *        DEVSQ(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::sumSquares()
+     *      Use the sumSquares() method in the Statistical\Deviations class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function DEVSQ(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-
-        // Return value
-        $returnValue = null;
-
-        $aMean = Averages::average($aArgs);
-        if ($aMean != Functions::DIV0()) {
-            $aCount = -1;
-            foreach ($aArgs as $k => $arg) {
-                // Is it a numeric value?
-                if (
-                    (is_bool($arg)) &&
-                    ((!Functions::isCellValue($k)) ||
-                    (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
-                ) {
-                    $arg = (int) $arg;
-                }
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = ($arg - $aMean) ** 2;
-                    } else {
-                        $returnValue += ($arg - $aMean) ** 2;
-                    }
-                    ++$aCount;
-                }
-            }
-
-            // Return
-            if ($returnValue === null) {
-                return Functions::NAN();
-            }
-
-            return $returnValue;
-        }
-
-        return Functions::NA();
+        return Statistical\Deviations::sumSquares(...$args);
     }
 
     /**
@@ -671,18 +641,18 @@ class Statistical
      * Calculates the probability that a member of a standard normal population will fall between
      *     the mean and z standard deviations from the mean.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::gauss()
+     *      Use the gauss() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param float $value
      *
      * @return float|string The result, or a string containing an error
      */
     public static function GAUSS($value)
     {
-        $value = Functions::flattenSingleValue($value);
-        if (!is_numeric($value)) {
-            return Functions::VALUE();
-        }
-
-        return Statistical\Distributions\Normal::distribution($value, 0, 1, true) - 0.5;
+        return Statistical\Distributions\StandardNormal::gauss($value);
     }
 
     /**
@@ -695,23 +665,18 @@ class Statistical
      * Excel Function:
      *        GEOMEAN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages::geoMean()
+     *      Use the geometricMean() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function GEOMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        $aMean = MathTrig\Product::evaluate($aArgs);
-        if (is_numeric($aMean) && ($aMean > 0)) {
-            $aCount = Counts::COUNT($aArgs);
-            if (Minimum::MIN($aArgs) > 0) {
-                return $aMean ** (1 / $aCount);
-            }
-        }
-
-        return Functions::NAN();
+        return Statistical\Averages::geometricMean(...$args);
     }
 
     /**
@@ -745,38 +710,18 @@ class Statistical
      * Excel Function:
      *        HARMEAN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages::harmonicMean()
+     *      Use the harmonicMean() method in the Statistical\Averages class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function HARMEAN(...$args)
     {
-        // Return value
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        if (Minimum::MIN($aArgs) < 0) {
-            return Functions::NAN();
-        }
-        $aCount = 0;
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($arg <= 0) {
-                    return Functions::NAN();
-                }
-                $returnValue += (1 / $arg);
-                ++$aCount;
-            }
-        }
-
-        // Return
-        if ($aCount > 0) {
-            return 1 / ($returnValue / $aCount);
-        }
-
-        return Functions::NA();
+        return Statistical\Averages::harmonicMean(...$args);
     }
 
     /**
@@ -835,40 +780,18 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::kurtosis()
+     *      Use the kurtosis() method in the Statistical\Deviations class instead
+     *
      * @param array ...$args Data Series
      *
      * @return float|string
      */
     public static function KURT(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::average($aArgs);
-        $stdDev = StandardDeviations::STDEV($aArgs);
-
-        if ($stdDev > 0) {
-            $count = $summer = 0;
-            // Loop through arguments
-            foreach ($aArgs as $k => $arg) {
-                if (
-                    (is_bool($arg)) &&
-                    (!Functions::isMatrixValue($k))
-                ) {
-                } else {
-                    // Is it a numeric value?
-                    if ((is_numeric($arg)) && (!is_string($arg))) {
-                        $summer += (($arg - $mean) / $stdDev) ** 4;
-                        ++$count;
-                    }
-                }
-            }
-
-            // Return
-            if ($count > 3) {
-                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2 / (($count - 2) * ($count - 3)));
-            }
-        }
-
-        return Functions::DIV0();
+        return Statistical\Deviations::kurtosis(...$args);
     }
 
     /**
@@ -1503,40 +1426,18 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::skew()
+     *      Use the skew() method in the Statistical\Deviations class instead
+     *
      * @param array ...$args Data Series
      *
      * @return float|string The result, or a string containing an error
      */
     public static function SKEW(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::average($aArgs);
-        $stdDev = StandardDeviations::STDEV($aArgs);
-
-        if ($stdDev === 0.0 || is_string($stdDev)) {
-            return Functions::DIV0();
-        }
-
-        $count = $summer = 0;
-        // Loop through arguments
-        foreach ($aArgs as $k => $arg) {
-            if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
-            } elseif (!is_numeric($arg)) {
-                return Functions::VALUE();
-            } else {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $summer += (($arg - $mean) / $stdDev) ** 3;
-                    ++$count;
-                }
-            }
-        }
-
-        if ($count > 2) {
-            return $summer * ($count / (($count - 1) * ($count - 2)));
-        }
-
-        return Functions::DIV0();
+        return Statistical\Deviations::skew(...$args);
     }
 
     /**

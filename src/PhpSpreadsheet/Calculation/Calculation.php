@@ -848,7 +848,7 @@ class Calculation
         ],
         'DEVSQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'DEVSQ'],
+            'functionCall' => [Statistical\Deviations::class, 'sumSquares'],
             'argumentCount' => '1+',
         ],
         'DGET' => [
@@ -1185,7 +1185,7 @@ class Calculation
         ],
         'GAUSS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAUSS'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'gauss'],
             'argumentCount' => '1',
         ],
         'GCD' => [
@@ -1195,7 +1195,7 @@ class Calculation
         ],
         'GEOMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GEOMEAN'],
+            'functionCall' => [Statistical\Averages::class, 'geometricMean'],
             'argumentCount' => '1+',
         ],
         'GESTEP' => [
@@ -1215,7 +1215,7 @@ class Calculation
         ],
         'HARMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'HARMEAN'],
+            'functionCall' => [Statistical\Averages::class, 'harmonicMean'],
             'argumentCount' => '1+',
         ],
         'HEX2BIN' => [
@@ -1529,7 +1529,7 @@ class Calculation
         ],
         'KURT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'KURT'],
+            'functionCall' => [Statistical\Deviations::class, 'kurtosis'],
             'argumentCount' => '1+',
         ],
         'LARGE' => [
@@ -2218,7 +2218,7 @@ class Calculation
         ],
         'SKEW' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'SKEW'],
+            'functionCall' => [Statistical\Deviations::class, 'skew'],
             'argumentCount' => '1+',
         ],
         'SKEW.P' => [
