@@ -58,7 +58,7 @@ class Datefunc
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcDate($year, $month, $day)
+    public static function evaluate($year, $month, $day)
     {
         $baseYear = Date::getExcelCalendar();
 
@@ -85,7 +85,7 @@ class Datefunc
     private static function getYear($year, int $baseYear): int
     {
         $year = Functions::flattenSingleValue($year);
-        $year = ($year !== null) ? StringHelper::testStringAsNumeric($year) : 0;
+        $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
         if (!is_numeric($year)) {
             throw new Exception(Functions::VALUE());
         }
@@ -118,7 +118,7 @@ class Datefunc
             $month = Date::monthStringToNumber($month);
         }
 
-        $month = ($month !== null) ? StringHelper::testStringAsNumeric($month) : 0;
+        $month = ($month !== null) ? StringHelper::testStringAsNumeric((string) $month) : 0;
         if (!is_numeric($month)) {
             throw new Exception(Functions::VALUE());
         }
@@ -139,7 +139,7 @@ class Datefunc
             $day = Date::dayStringToNumber($day);
         }
 
-        $day = ($day !== null) ? StringHelper::testStringAsNumeric($day) : 0;
+        $day = ($day !== null) ? StringHelper::testStringAsNumeric((string) $day) : 0;
         if (!is_numeric($day)) {
             throw new Exception(Functions::VALUE());
         }

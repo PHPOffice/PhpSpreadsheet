@@ -437,14 +437,14 @@ class Date
             return false;
         }
 
-        $dateValueNew = DateTimeExcel\DateValue::funcDateValue($dateValue);
+        $dateValueNew = DateTimeExcel\DateValue::evaluate($dateValue);
 
         if ($dateValueNew === Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = DateTimeExcel\TimeValue::funcTimeValue($dateValue);
+            $timeValue = DateTimeExcel\TimeValue::evaluate($dateValue);
             if ($timeValue === Functions::VALUE()) {
                 return false;
             }
