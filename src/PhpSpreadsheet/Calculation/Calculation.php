@@ -793,7 +793,7 @@ class Calculation
         ],
         'DB' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DB'],
+            'functionCall' => [Financial\Depreciation::class, 'DB'],
             'argumentCount' => '4,5',
         ],
         'DBCS' => [
@@ -813,7 +813,7 @@ class Calculation
         ],
         'DDB' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'DDB'],
+            'functionCall' => [Financial\Depreciation::class, 'DDB'],
             'argumentCount' => '4,5',
         ],
         'DEC2BIN' => [
@@ -2604,7 +2604,7 @@ class Calculation
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'XIRR'],
+            'functionCall' => [Financial\CashFlow\Variable\NonPeriodic::class, 'rate'],
             'argumentCount' => '2,3',
         ],
         'XLOOKUP' => [
@@ -2614,7 +2614,7 @@ class Calculation
         ],
         'XNPV' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial::class, 'XNPV'],
+            'functionCall' => [Financial\CashFlow\Variable\NonPeriodic::class, 'presentValue'],
             'argumentCount' => '3',
         ],
         'XMATCH' => [
