@@ -878,14 +878,14 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        str_replace('px', '', $styleValue)
+                        str_replace(['px', 'pt'], '', $styleValue)
                     );
 
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        str_replace('px', '', $styleValue)
+                        str_replace(['px', 'pt'], '', $styleValue)
                     );
 
                     break;
@@ -1009,7 +1009,15 @@ class Html extends BaseReader
             $borderStyle = Border::BORDER_NONE;
             $color = null;
         } else {
-            [, $borderStyle, $color] = explode(' ', $styleValue);
+            $borderArray = explode(' ', $styleValue);
+            $borderCount = count($borderArray);
+            if ($borderCount >= 3) {
+                $borderStyle = $borderArray[1];
+                $color = $borderArray[2];
+            } else {
+                $borderStyle = $borderArray[0];
+                $color = $borderArray[1] ?? null;
+            }
         }
 
         $cellStyle->applyFromArray([
