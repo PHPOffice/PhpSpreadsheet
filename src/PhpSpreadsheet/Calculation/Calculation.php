@@ -1534,7 +1534,7 @@ class Calculation
         ],
         'LARGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LARGE'],
+            'functionCall' => [Statistical\Size::class, 'large'],
             'argumentCount' => '2',
         ],
         'LCM' => [
@@ -2071,7 +2071,7 @@ class Calculation
         ],
         'RANK.EQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'RANK'],
             'argumentCount' => '2,3',
         ],
         'RATE' => [
@@ -2238,7 +2238,7 @@ class Calculation
         ],
         'SMALL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'SMALL'],
+            'functionCall' => [Statistical\Size::class, 'small'],
             'argumentCount' => '2',
         ],
         'SORT' => [

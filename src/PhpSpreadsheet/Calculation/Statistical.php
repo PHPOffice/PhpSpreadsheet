@@ -803,37 +803,18 @@ class Statistical
      * Excel Function:
      *        LARGE(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Size::large()
+     *      Use the large() method in the Statistical\Size class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function LARGE(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-        $entry = array_pop($aArgs);
-
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry = (int) floor($entry);
-
-            // Calculate
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-            $count = Counts::COUNT($mArgs);
-            --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
-            }
-            rsort($mArgs);
-
-            return $mArgs[$entry];
-        }
-
-        return Functions::VALUE();
+        return Statistical\Size::large(...$args);
     }
 
     /**
@@ -1469,38 +1450,18 @@ class Statistical
      * Excel Function:
      *        SMALL(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Size::small()
+     *      Use the small() method in the Statistical\Size class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function SMALL(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $entry = array_pop($aArgs);
-
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry = (int) floor($entry);
-
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-            $count = Counts::COUNT($mArgs);
-            --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
-            }
-            sort($mArgs);
-
-            return $mArgs[$entry];
-        }
-
-        return Functions::VALUE();
+        return Statistical\Size::small(...$args);
     }
 
     /**
