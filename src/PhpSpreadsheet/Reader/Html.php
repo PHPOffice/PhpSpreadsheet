@@ -469,7 +469,7 @@ class Html extends BaseReader
         if ($child->nodeName === 'table') {
             $this->flushCell($sheet, $column, $row, $cellContent);
             $column = $this->setTableStartColumn($column);
-            if ($this->tableLevel > 1) {
+            if ($this->tableLevel > 1 && $row > 1) {
                 --$row;
             }
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
