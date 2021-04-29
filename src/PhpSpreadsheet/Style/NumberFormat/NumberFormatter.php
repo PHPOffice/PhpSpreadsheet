@@ -168,7 +168,7 @@ class NumberFormatter
             } elseif ($format !== NumberFormat::FORMAT_GENERAL) {
                 // Yes, I know that this is basically just a hack;
                 //      if there's no placeholders for digits, just return the format mask "as is"
-                $value = str_replace('?', '', $format);
+                $value = str_replace('?', '', $format ?? '');
             }
         }
 
