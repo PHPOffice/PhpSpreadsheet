@@ -848,7 +848,7 @@ class Calculation
         ],
         'DEVSQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'DEVSQ'],
+            'functionCall' => [Statistical\Deviations::class, 'sumSquares'],
             'argumentCount' => '1+',
         ],
         'DGET' => [
@@ -1185,7 +1185,7 @@ class Calculation
         ],
         'GAUSS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GAUSS'],
+            'functionCall' => [Statistical\Distributions\StandardNormal::class, 'gauss'],
             'argumentCount' => '1',
         ],
         'GCD' => [
@@ -1195,7 +1195,7 @@ class Calculation
         ],
         'GEOMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'GEOMEAN'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'geometric'],
             'argumentCount' => '1+',
         ],
         'GESTEP' => [
@@ -1215,7 +1215,7 @@ class Calculation
         ],
         'HARMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'HARMEAN'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'harmonic'],
             'argumentCount' => '1+',
         ],
         'HEX2BIN' => [
@@ -1529,12 +1529,12 @@ class Calculation
         ],
         'KURT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'KURT'],
+            'functionCall' => [Statistical\Deviations::class, 'kurtosis'],
             'argumentCount' => '1+',
         ],
         'LARGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'LARGE'],
+            'functionCall' => [Statistical\Size::class, 'large'],
             'argumentCount' => '2',
         ],
         'LCM' => [
@@ -2071,7 +2071,7 @@ class Calculation
         ],
         'RANK.EQ' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'RANK'],
+            'functionCall' => [Statistical\Percentiles::class, 'RANK'],
             'argumentCount' => '2,3',
         ],
         'RATE' => [
@@ -2218,7 +2218,7 @@ class Calculation
         ],
         'SKEW' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'SKEW'],
+            'functionCall' => [Statistical\Deviations::class, 'skew'],
             'argumentCount' => '1+',
         ],
         'SKEW.P' => [
@@ -2238,7 +2238,7 @@ class Calculation
         ],
         'SMALL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'SMALL'],
+            'functionCall' => [Statistical\Size::class, 'small'],
             'argumentCount' => '2',
         ],
         'SORT' => [
@@ -2263,7 +2263,7 @@ class Calculation
         ],
         'STANDARDIZE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STANDARDIZE'],
+            'functionCall' => [Statistical\Standardize::class, 'execute'],
             'argumentCount' => '3',
         ],
         'STDEV' => [
@@ -2288,12 +2288,12 @@ class Calculation
         ],
         'STDEVP' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVP'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVP'],
             'argumentCount' => '1+',
         ],
         'STDEVPA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STDEVPA'],
+            'functionCall' => [Statistical\StandardDeviations::class, 'STDEVPA'],
             'argumentCount' => '1+',
         ],
         'STEYX' => [
@@ -2469,7 +2469,7 @@ class Calculation
         ],
         'TRIMMEAN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'TRIMMEAN'],
+            'functionCall' => [Statistical\Averages\Mean::class, 'trim'],
             'argumentCount' => '2',
         ],
         'TRUE' => [
