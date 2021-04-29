@@ -13,12 +13,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 
+/**
+ * @deprecated 1.18.0
+ */
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
     const EPS = 2.22e-16;
     const MAX_VALUE = 1.2e308;
-    const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
     /**
@@ -1469,6 +1471,11 @@ class Statistical
      *
      * Returns a normalized value from a distribution characterized by mean and standard_dev.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Standardize::execute()
+     *      Use the execute() method in the Statistical\Standardize class instead
+     *
      * @param float $value Value to normalize
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
@@ -1477,19 +1484,7 @@ class Statistical
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if ($stdDev <= 0) {
-                return Functions::NAN();
-            }
-
-            return ($value - $mean) / $stdDev;
-        }
-
-        return Functions::VALUE();
+        return Statistical\Standardize::execute($value, $mean, $stdDev);
     }
 
     /**

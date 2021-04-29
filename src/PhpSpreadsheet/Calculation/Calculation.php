@@ -2263,7 +2263,7 @@ class Calculation
         ],
         'STANDARDIZE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical::class, 'STANDARDIZE'],
+            'functionCall' => [Statistical\Standardize::class, 'execute'],
             'argumentCount' => '3',
         ],
         'STDEV' => [
