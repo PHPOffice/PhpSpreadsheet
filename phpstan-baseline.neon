@@ -1086,11 +1086,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Binary operation \"\\-\" between float\\|int and float\\|string results in an error\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical.php
