@@ -367,7 +367,7 @@ class Csv extends BaseWriter
                 if (!$this->enclosureRequired && strpbrk($element, "$delimiter$enclosure\n") === false) {
                     $enclosure = '';
                 } else {
-                    $element = str_replace($enclosure, $enclosure . $enclosure, $element);
+                    $element = str_replace($enclosure, $enclosure . $enclosure, strval($element));
                 }
             }
             // Add enclosed string
