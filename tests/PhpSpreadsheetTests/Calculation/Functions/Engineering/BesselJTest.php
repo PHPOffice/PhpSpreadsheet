@@ -26,7 +26,7 @@ class BesselJTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    public function providerBESSEJ()
+    public function providerBESSEJ(): array
     {
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }

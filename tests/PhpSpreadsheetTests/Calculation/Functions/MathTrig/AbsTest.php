@@ -2,34 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class AbsTest extends TestCase
+class AbsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAbs
      *
      * @param mixed $expectedResult
-     * @param mixed $val
+     * @param mixed $number
      */
-    public function testRound($expectedResult, $val = null): void
+    public function testRound($expectedResult, $number = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=ABS()';
+        $sheet = $this->sheet;
+        $this->mightHaveException($expectedResult);
+        $this->setCell('A1', $number);
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=ABS()');
         } else {
-            $formula = "=ABS($val)";
+            $sheet->getCell('B1')->setValue('=ABS(A1)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerAbs()
+    public function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
     }

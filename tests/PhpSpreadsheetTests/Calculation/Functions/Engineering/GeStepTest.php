@@ -24,7 +24,7 @@ class GeStepTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerGESTEP()
+    public function providerGESTEP(): array
     {
         return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }

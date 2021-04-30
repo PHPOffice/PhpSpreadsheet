@@ -170,13 +170,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/custom.xml to XML format.
      *
-     * @return string XML Output
+     * @return null|string XML Output
      */
     public function writeDocPropsCustom(Spreadsheet $spreadsheet)
     {
         $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         if (empty($customPropertyList)) {
-            return;
+            return null;
         }
 
         // Create XML writer

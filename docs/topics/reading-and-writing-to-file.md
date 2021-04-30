@@ -580,6 +580,18 @@ $writer->setUseBOM(true);
 $writer->save("05featuredemo.csv");
 ```
 
+#### Writing CSV files with desired encoding
+
+It can be set to output with the encoding that can be specified by PHP's mb_convert_encoding.
+This looks like the following code:
+
+```php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setUseBOM(false);
+$writer->setOutputEncoding('SJIS-WIN');
+$writer->save("05featuredemo.csv");
+```
+
 #### Decimal and thousands separators
 
 If the worksheet you are exporting contains numbers with decimal or

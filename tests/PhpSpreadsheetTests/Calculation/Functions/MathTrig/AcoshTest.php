@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class AcoshTest extends TestCase
+class AcoshTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAcosh
@@ -15,18 +11,15 @@ class AcoshTest extends TestCase
      */
     public function testAcosh($expectedResult, string $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->getCell('A2')->setValue('1.5');
         $sheet->getCell('A1')->setValue("=ACOSH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAcosh()
+    public function providerAcosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOSH.php';
     }

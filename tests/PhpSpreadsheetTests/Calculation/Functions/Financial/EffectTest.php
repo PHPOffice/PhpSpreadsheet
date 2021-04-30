@@ -17,14 +17,16 @@ class EffectTest extends TestCase
      * @dataProvider providerEFFECT
      *
      * @param mixed $expectedResult
+     * @param mixed $rate
+     * @param mixed $periods
      */
-    public function testEFFECT($expectedResult, ...$args): void
+    public function testEFFECT($expectedResult, $rate, $periods): void
     {
-        $result = Financial::EFFECT(...$args);
+        $result = Financial::EFFECT($rate, $periods);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerEFFECT()
+    public function providerEFFECT(): array
     {
         return require 'tests/data/Calculation/Financial/EFFECT.php';
     }

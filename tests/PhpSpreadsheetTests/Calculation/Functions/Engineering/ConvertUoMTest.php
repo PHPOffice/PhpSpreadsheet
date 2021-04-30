@@ -54,7 +54,7 @@ class ConvertUoMTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCONVERTUOM()
+    public function providerCONVERTUOM(): array
     {
         return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
     }

@@ -15,7 +15,7 @@ class Csc
      *
      * @return float|string The cosecant of the angle
      */
-    public static function funcCsc($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

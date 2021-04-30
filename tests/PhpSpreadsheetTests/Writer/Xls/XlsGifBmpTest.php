@@ -9,6 +9,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XlsGifBmpTest extends AbstractFunctional
 {
+    /**
+     * @var string
+     */
     private $filename = '';
 
     protected function tearDown(): void

@@ -24,7 +24,7 @@ class HarMeanTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerHARMEAN()
+    public function providerHARMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/HARMEAN.php';
     }

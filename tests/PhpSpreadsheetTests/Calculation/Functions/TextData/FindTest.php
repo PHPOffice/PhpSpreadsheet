@@ -18,7 +18,7 @@ class FindTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIND()
+    public function providerFIND(): array
     {
         return require 'tests/data/Calculation/TextData/FIND.php';
     }

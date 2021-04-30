@@ -10,8 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
+    /**
+     * @var string
+     */
     private $returnDate;
 
     protected function setUp(): void
@@ -123,7 +129,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsBlank()
+    public function providerIsBlank(): array
     {
         return require 'tests/data/Calculation/Functions/IS_BLANK.php';
     }
@@ -139,7 +145,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsErr()
+    public function providerIsErr(): array
     {
         return require 'tests/data/Calculation/Functions/IS_ERR.php';
     }
@@ -155,7 +161,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsError()
+    public function providerIsError(): array
     {
         return require 'tests/data/Calculation/Functions/IS_ERROR.php';
     }
@@ -171,7 +177,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerErrorType()
+    public function providerErrorType(): array
     {
         return require 'tests/data/Calculation/Functions/ERROR_TYPE.php';
     }
@@ -187,7 +193,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsLogical()
+    public function providerIsLogical(): array
     {
         return require 'tests/data/Calculation/Functions/IS_LOGICAL.php';
     }
@@ -203,7 +209,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsNa()
+    public function providerIsNa(): array
     {
         return require 'tests/data/Calculation/Functions/IS_NA.php';
     }
@@ -219,7 +225,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsNumber()
+    public function providerIsNumber(): array
     {
         return require 'tests/data/Calculation/Functions/IS_NUMBER.php';
     }
@@ -235,7 +241,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsText()
+    public function providerIsText(): array
     {
         return require 'tests/data/Calculation/Functions/IS_TEXT.php';
     }
@@ -251,7 +257,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsNonText()
+    public function providerIsNonText(): array
     {
         return require 'tests/data/Calculation/Functions/IS_NONTEXT.php';
     }
@@ -267,7 +273,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsEven()
+    public function providerIsEven(): array
     {
         return require 'tests/data/Calculation/Functions/IS_EVEN.php';
     }
@@ -283,7 +289,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsOdd()
+    public function providerIsOdd(): array
     {
         return require 'tests/data/Calculation/Functions/IS_ODD.php';
     }
@@ -299,7 +305,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerTYPE()
+    public function providerTYPE(): array
     {
         return require 'tests/data/Calculation/Functions/TYPE.php';
     }
@@ -315,7 +321,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerN()
+    public function providerN(): array
     {
         return require 'tests/data/Calculation/Functions/N.php';
     }
@@ -368,7 +374,7 @@ class FunctionsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIsFormula()
+    public function providerIsFormula(): array
     {
         return require 'tests/data/Calculation/Functions/ISFORMULA.php';
     }
@@ -384,7 +390,7 @@ class FunctionsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfCondition()
+    public function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }

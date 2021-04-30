@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class FreezePaneTest extends AbstractFunctional
 {
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xls'],

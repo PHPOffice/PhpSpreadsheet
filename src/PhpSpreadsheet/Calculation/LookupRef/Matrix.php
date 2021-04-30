@@ -9,7 +9,7 @@ class Matrix
     /**
      * TRANSPOSE.
      *
-     * @param array $matrixData A matrix of values
+     * @param array|mixed $matrixData A matrix of values
      *
      * @return array
      */

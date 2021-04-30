@@ -3,18 +3,15 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Styles extends WriterPart
 {
     /**
      * Write styles.xml to XML format.
      *
-     * @param Spreadsheet $spreadsheet
-     *
      * @return string XML Output
      */
-    public function write(?Spreadsheet $spreadsheet = null)
+    public function write(): string
     {
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {

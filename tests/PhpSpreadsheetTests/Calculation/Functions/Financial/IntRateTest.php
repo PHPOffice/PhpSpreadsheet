@@ -24,7 +24,7 @@ class IntRateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerINTRATE()
+    public function providerINTRATE(): array
     {
         return require 'tests/data/Calculation/Financial/INTRATE.php';
     }

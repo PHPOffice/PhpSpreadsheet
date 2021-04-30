@@ -776,19 +776,14 @@ class Roman
     const MAX_ROMAN_VALUE = 3999;
     const MAX_ROMAN_STYLE = 4;
 
-    private static function romanCut($num, $n)
-    {
-        return ($num - ($num % $n)) / $n;
-    }
-
     private static function valueOk(int $aValue, int $style): string
     {
         $origValue = $aValue;
-        $m = self::romanCut($aValue, 1000);
+        $m = \intdiv($aValue, 1000);
         $aValue %= 1000;
-        $c = self::romanCut($aValue, 100);
+        $c = \intdiv($aValue, 100);
         $aValue %= 100;
-        $t = self::romanCut($aValue, 10);
+        $t = \intdiv($aValue, 10);
         $aValue %= 10;
         $result = self::THOUSANDS[$m] . self::HUNDREDS[$c] . self::TENS[$t] . self::ONES[$aValue];
         if ($style > 0) {
@@ -822,7 +817,7 @@ class Roman
      *
      * @return string Roman numeral, or a string containing an error
      */
-    public static function funcRoman($aValue, $style = 0)
+    public static function evaluate($aValue, $style = 0)
     {
         try {
             $aValue = Helpers::validateNumericNullBool($aValue);

@@ -2,25 +2,18 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class SignTest extends TestCase
+class SignTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSIGN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testSIGN($expectedResult, $value): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 0);
         $sheet->setCellValue('A4', -3.8);
@@ -29,7 +22,7 @@ class SignTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSIGN()
+    public function providerSIGN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }

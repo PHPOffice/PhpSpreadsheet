@@ -21,7 +21,7 @@ class HtmlTest extends TestCase
         self::assertSame($expected, $actual->getPlainText());
     }
 
-    public function providerUtf8EncodingSupport()
+    public function providerUtf8EncodingSupport(): array
     {
         return [
             ['foo', 'foo'],

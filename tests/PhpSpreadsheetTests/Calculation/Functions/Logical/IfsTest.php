@@ -25,7 +25,7 @@ class IfsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIFS()
+    public function providerIFS(): array
     {
         return require 'tests/data/Calculation/Logical/IFS.php';
     }

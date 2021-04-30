@@ -11,8 +11,14 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class SlkTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var string
+     */
     private static $testbook = __DIR__ . '/../../../samples/templates/SylkTest.slk';
 
+    /**
+     * @var string
+     */
     private $filename = '';
 
     protected function teardown(): void

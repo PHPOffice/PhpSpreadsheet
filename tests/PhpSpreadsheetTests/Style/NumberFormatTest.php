@@ -8,10 +8,19 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $currencyCode;
 
+    /**
+     * @var string
+     */
     private $decimalSeparator;
 
+    /**
+     * @var string
+     */
     private $thousandsSeparator;
 
     protected function setUp(): void
@@ -41,7 +50,7 @@ class NumberFormatTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormat()
+    public function providerNumberFormat(): array
     {
         return require 'tests/data/Style/NumberFormat.php';
     }
@@ -57,7 +66,7 @@ class NumberFormatTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatDates()
+    public function providerNumberFormatDates(): array
     {
         return require 'tests/data/Style/NumberFormatDates.php';
     }

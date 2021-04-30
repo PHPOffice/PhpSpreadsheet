@@ -21,6 +21,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 // +----------------------------------------------------------------------+
 //
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
@@ -317,7 +318,7 @@ class OLE
 
                     break;
                 default:
-                    break;
+                    throw new Exception('Unsupported PPS type');
             }
             fseek($fh, 1, SEEK_CUR);
             $pps->Type = $type;
@@ -496,7 +497,7 @@ class OLE
      */
     public static function localDateToOLE($date)
     {
-        if (!isset($date)) {
+        if (!$date) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";
         }
 

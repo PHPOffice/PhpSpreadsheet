@@ -24,7 +24,7 @@ class PriceMatTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerPRICEMAT()
+    public function providerPRICEMAT(): array
     {
         return require 'tests/data/Calculation/Financial/PRICEMAT.php';
     }

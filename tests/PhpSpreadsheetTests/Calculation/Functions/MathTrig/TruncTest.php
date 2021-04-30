@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class TruncTest extends TestCase
+class TruncTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTRUNC
@@ -16,11 +12,8 @@ class TruncTest extends TestCase
      */
     public function testTRUNC($expectedResult, $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);
@@ -30,7 +23,7 @@ class TruncTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerTRUNC()
+    public function providerTRUNC(): array
     {
         return require 'tests/data/Calculation/MathTrig/TRUNC.php';
     }

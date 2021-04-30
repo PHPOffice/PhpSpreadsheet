@@ -200,7 +200,7 @@ class PPS
      * Updates index and pointers to previous, next and children PPS's for this
      * PPS. I don't think it'll work with Dir PPS's.
      *
-     * @param array &$raList Reference to the array of PPS's for the whole OLE
+     * @param array $raList Reference to the array of PPS's for the whole OLE
      *                          container
      * @param mixed $to_save
      * @param mixed $depth

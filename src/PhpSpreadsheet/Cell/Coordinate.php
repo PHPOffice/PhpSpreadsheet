@@ -25,7 +25,7 @@ abstract class Coordinate
      *
      * @param string $pCoordinateString eg: 'A1'
      *
-     * @return string[] Array containing column and row (indexes 0 and 1)
+     * @return array{0: string, 1: string} Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString)
     {
@@ -38,6 +38,23 @@ abstract class Coordinate
         }
 
         throw new Exception('Invalid cell coordinate ' . $pCoordinateString);
+    }
+
+    /**
+     * Get indexes from a string coordinates.
+     *
+     * @param string $coordinates eg: 'A1', '$B$12'
+     *
+     * @return array{0: int, 1: int} Array containing column index and row index (indexes 0 and 1)
+     */
+    public static function indexesFromString(string $coordinates): array
+    {
+        [$col, $row] = self::coordinateFromString($coordinates);
+
+        return [
+            self::columnIndexFromString(ltrim($col, '$')),
+            (int) ltrim($row, '$'),
+        ];
     }
 
     /**

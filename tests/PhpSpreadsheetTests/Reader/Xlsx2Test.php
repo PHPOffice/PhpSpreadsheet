@@ -49,7 +49,7 @@ class Xlsx2Test extends TestCase
     {
         // Make sure conditionals from existing file are maintained across save
         $filename = 'tests/data/Reader/XLSX/conditionalFormatting2Test.xlsx';
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outfile = File::temporaryFilename();
         $reader = IOFactory::createReader('Xlsx');
         $spreadshee1 = $reader->load($filename);
         $writer = IOFactory::createWriter($spreadshee1, 'Xlsx');
@@ -87,7 +87,7 @@ class Xlsx2Test extends TestCase
     public function testNewXlsxConditionalFormatting2(): void
     {
         // Make sure blanks/non-blanks added by PhpSpreadsheet are handled correctly
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outfile = File::temporaryFilename();
         $spreadshee1 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadshee1->getActiveSheet();
         $sheet->setCellValue('A2', 'a2');

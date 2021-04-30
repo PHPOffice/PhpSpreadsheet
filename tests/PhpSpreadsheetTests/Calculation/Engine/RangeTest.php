@@ -9,7 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 class RangeTest extends TestCase
 {
-    protected $spreadSheet;
+    /**
+     * @var Spreadsheet
+     */
+    private $spreadSheet;
 
     protected function setUp(): void
     {
@@ -40,7 +43,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $actualRresult);
     }
 
-    public function providerRangeEvaluation()
+    public function providerRangeEvaluation(): array
     {
         return[
             ['=SUM(A1:B3,A1:C2)', 48],
@@ -88,7 +91,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerNamedRangeEvaluation()
+    public function providerNamedRangeEvaluation(): array
     {
         return[
             ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1,GROUP2)', 48],
@@ -123,7 +126,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerUTF8NamedRangeEvaluation()
+    public function providerUTF8NamedRangeEvaluation(): array
     {
         return[
             [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 26],
@@ -151,7 +154,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedCount, $actualCount);
     }
 
-    public function providerCompositeNamedRangeEvaluation()
+    public function providerCompositeNamedRangeEvaluation(): array
     {
         return[
             //  Calculation engine doesn't yet handle union ranges with overlap

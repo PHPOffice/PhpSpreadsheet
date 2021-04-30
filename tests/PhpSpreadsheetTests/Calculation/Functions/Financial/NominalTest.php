@@ -17,14 +17,16 @@ class NominalTest extends TestCase
      * @dataProvider providerNOMINAL
      *
      * @param mixed $expectedResult
+     * @param mixed $rate
+     * @param mixed $periods
      */
-    public function testNOMINAL($expectedResult, ...$args): void
+    public function testNOMINAL($expectedResult, $rate, $periods): void
     {
-        $result = Financial::NOMINAL(...$args);
+        $result = Financial::NOMINAL($rate, $periods);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerNOMINAL()
+    public function providerNOMINAL(): array
     {
         return require 'tests/data/Calculation/Financial/NOMINAL.php';
     }

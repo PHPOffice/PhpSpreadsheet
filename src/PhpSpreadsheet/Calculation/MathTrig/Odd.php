@@ -15,7 +15,7 @@ class Odd
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcOdd($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

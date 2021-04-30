@@ -237,7 +237,7 @@ class XlsxTest extends TestCase
         $filename = 'tests/data/Reader/XLSX/empty_drawing.xlsx';
         $reader = new Xlsx();
         $excel = $reader->load($filename);
-        $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $resultFilename = File::temporaryFilename();
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
         $writer->save($resultFilename);
         $excel = $reader->load($resultFilename);
@@ -250,7 +250,6 @@ class XlsxTest extends TestCase
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
      *
-     * @param $string
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
     public function testStripsWhiteSpaceFromStyleString($string): void
@@ -259,7 +258,7 @@ class XlsxTest extends TestCase
         self::assertEquals(preg_match('/\s/', $string), 0);
     }
 
-    public function providerStripsWhiteSpaceFromStyleString()
+    public function providerStripsWhiteSpaceFromStyleString(): array
     {
         return [
             ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;

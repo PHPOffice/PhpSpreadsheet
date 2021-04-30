@@ -33,7 +33,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer = new CsvWriter($spreadsheet);
         $writer->setDelimiter($delimiter);
         $writer->setEnclosure($enclosure);
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = file_get_contents($filename);
         $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
@@ -64,7 +64,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer->setDelimiter($delimiter);
         $writer->setEnclosure($enclosure);
         self::assertEquals('', $writer->getEnclosure());
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = file_get_contents($filename);
         $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
@@ -95,7 +95,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer = new CsvWriter($spreadsheet);
         self::assertTrue($writer->getEnclosureRequired());
         $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = file_get_contents($filename);
         $filedata = preg_replace('/\\r?\\n/', $delimiter, $filedata);
@@ -149,7 +149,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $writer = new CsvWriter($spreadsheet);
         self::assertTrue($writer->getEnclosureRequired());
         $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $filedata = file_get_contents($filename);
         $filedata = preg_replace('/\\r/', '', $filedata);
@@ -176,7 +176,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $sheet->setCellValue('C1', '4');
         $writer = new CsvWriter($spreadsheet);
         $writer->setEnclosureRequired(false)->setDelimiter($delimiter)->setEnclosure($enclosure);
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);
@@ -200,7 +200,7 @@ class CsvEnclosureTest extends Functional\AbstractFunctional
         $sheet->setCellValue('C1', '4');
         $writer = new CsvWriter($spreadsheet);
         $writer->setDelimiter($delimiter)->setEnclosure($enclosure);
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $reader = new CsvReader();
         $reader->setDelimiter($delimiter);

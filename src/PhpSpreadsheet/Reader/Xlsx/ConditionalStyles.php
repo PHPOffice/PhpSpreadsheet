@@ -98,7 +98,9 @@ class ConditionalStyles
             }
 
             if (isset($cfRule->dataBar)) {
-                $objConditional->setDataBar($this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions));
+                $objConditional->setDataBar(
+                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions)
+                );
             } else {
                 $objConditional->setStyle(clone $this->dxfs[(int) ($cfRule['dxfId'])]);
             }

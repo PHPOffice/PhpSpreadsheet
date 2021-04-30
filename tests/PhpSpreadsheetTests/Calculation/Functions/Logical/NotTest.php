@@ -24,7 +24,7 @@ class NotTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNOT()
+    public function providerNOT(): array
     {
         return require 'tests/data/Calculation/Logical/NOT.php';
     }

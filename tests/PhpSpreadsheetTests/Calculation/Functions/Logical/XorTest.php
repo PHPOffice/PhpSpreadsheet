@@ -24,7 +24,7 @@ class XorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerXOR()
+    public function providerXOR(): array
     {
         return require 'tests/data/Calculation/Logical/XOR.php';
     }

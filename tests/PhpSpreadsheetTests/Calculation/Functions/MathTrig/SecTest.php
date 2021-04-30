@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class SecTest extends TestCase
+class SecTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSEC
@@ -16,11 +12,8 @@ class SecTest extends TestCase
      */
     public function testSEC($expectedResult, $angle): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);
@@ -30,7 +23,7 @@ class SecTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSEC()
+    public function providerSEC(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEC.php';
     }

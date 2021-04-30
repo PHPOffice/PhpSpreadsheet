@@ -24,7 +24,7 @@ class FvScheduleTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerFVSCHEDULE()
+    public function providerFVSCHEDULE(): array
     {
         return require 'tests/data/Calculation/Financial/FVSCHEDULE.php';
     }

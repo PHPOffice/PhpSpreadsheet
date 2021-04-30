@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Confidence
 {
@@ -12,9 +12,9 @@ class Confidence
      *
      * Returns the confidence interval for a population mean
      *
-     * @param float $alpha
-     * @param float $stdDev Standard Deviation
-     * @param float $size
+     * @param mixed $alpha As a float
+     * @param mixed $stdDev Standard Deviation as a float
+     * @param mixed $size As an integer
      *
      * @return float|string
      */
@@ -24,18 +24,18 @@ class Confidence
         $stdDev = Functions::flattenSingleValue($stdDev);
         $size = Functions::flattenSingleValue($size);
 
-        if ((is_numeric($alpha)) && (is_numeric($stdDev)) && (is_numeric($size))) {
-            $size = floor($size);
-            if (($alpha <= 0) || ($alpha >= 1)) {
-                return Functions::NAN();
-            }
-            if (($stdDev <= 0) || ($size < 1)) {
-                return Functions::NAN();
-            }
-
-            return Statistical::NORMSINV(1 - $alpha / 2) * $stdDev / sqrt($size);
+        try {
+            $alpha = StatisticalValidations::validateFloat($alpha);
+            $stdDev = StatisticalValidations::validateFloat($stdDev);
+            $size = StatisticalValidations::validateInt($size);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (($alpha <= 0) || ($alpha >= 1) || ($stdDev <= 0) || ($size < 1)) {
+            return Functions::NAN();
+        }
+
+        return Distributions\StandardNormal::inverse(1 - $alpha / 2) * $stdDev / sqrt($size);
     }
 }

@@ -12,28 +12,28 @@ use Psr\SimpleCache\CacheInterface;
 class Cells
 {
     /**
-     * @var \Psr\SimpleCache\CacheInterface
+     * @var CacheInterface
      */
     private $cache;
 
     /**
      * Parent worksheet.
      *
-     * @var Worksheet
+     * @var null|Worksheet
      */
     private $parent;
 
     /**
      * The currently active Cell.
      *
-     * @var Cell
+     * @var null|Cell
      */
     private $currentCell;
 
     /**
      * Coordinate of the currently active Cell.
      *
-     * @var string
+     * @var null|string
      */
     private $currentCoordinate;
 
@@ -405,7 +405,7 @@ class Cells
      * @param string $pCoord Coordinate of the cell to update
      * @param Cell $cell Cell to update
      *
-     * @return \PhpOffice\PhpSpreadsheet\Cell\Cell
+     * @return Cell
      */
     public function add($pCoord, Cell $cell)
     {
@@ -426,7 +426,7 @@ class Cells
      *
      * @param string $pCoord Coordinate of the cell
      *
-     * @return null|\PhpOffice\PhpSpreadsheet\Cell\Cell Cell that was found, or null if not found
+     * @return null|Cell Cell that was found, or null if not found
      */
     public function get($pCoord)
     {

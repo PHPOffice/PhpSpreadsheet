@@ -2,29 +2,31 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class CombinTest extends TestCase
+class CombinTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOMBIN
      *
      * @param mixed $expectedResult
+     * @param mixed $numObjs
+     * @param mixed $numInSet
      */
-    public function testCOMBIN($expectedResult, ...$args): void
+    public function testCOMBIN($expectedResult, $numObjs, $numInSet): void
     {
-        $result = MathTrig::COMBIN(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        if ($numObjs !== null) {
+            $sheet->getCell('A1')->setValue($numObjs);
+        }
+        if ($numInSet !== null) {
+            $sheet->getCell('A2')->setValue($numInSet);
+        }
+        $sheet->getCell('B1')->setValue('=COMBIN(A1,A2)');
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBIN()
+    public function providerCOMBIN(): array
     {
         return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }

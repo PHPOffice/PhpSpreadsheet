@@ -27,7 +27,7 @@ class DGetTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,7 +40,7 @@ class DGetTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Quarter', 'Area', 'Sales Rep.', 'Sales'],
@@ -63,7 +63,7 @@ class DGetTest extends TestCase
         ];
     }
 
-    public function providerDGet()
+    public function providerDGet(): array
     {
         return [
             [

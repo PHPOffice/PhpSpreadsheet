@@ -14,56 +14,56 @@ class Font extends Supervisor
     /**
      * Font Name.
      *
-     * @var string
+     * @var null|string
      */
     protected $name = 'Calibri';
 
     /**
      * Font Size.
      *
-     * @var float
+     * @var null|float
      */
     protected $size = 11;
 
     /**
      * Bold.
      *
-     * @var bool
+     * @var null|bool
      */
     protected $bold = false;
 
     /**
      * Italic.
      *
-     * @var bool
+     * @var null|bool
      */
     protected $italic = false;
 
     /**
      * Superscript.
      *
-     * @var bool
+     * @var null|bool
      */
     protected $superscript = false;
 
     /**
      * Subscript.
      *
-     * @var bool
+     * @var null|bool
      */
     protected $subscript = false;
 
     /**
      * Underline.
      *
-     * @var string
+     * @var null|string
      */
     protected $underline = self::UNDERLINE_NONE;
 
     /**
      * Strikethrough.
      *
-     * @var bool
+     * @var null|bool
      */
     protected $strikethrough = false;
 
@@ -75,7 +75,7 @@ class Font extends Supervisor
     protected $color;
 
     /**
-     * @var int
+     * @var null|int
      */
     public $colorIndex;
 
@@ -199,7 +199,7 @@ class Font extends Supervisor
     /**
      * Get Name.
      *
-     * @return string
+     * @return null|string
      */
     public function getName()
     {
@@ -235,7 +235,7 @@ class Font extends Supervisor
     /**
      * Get Size.
      *
-     * @return float
+     * @return null|float
      */
     public function getSize()
     {
@@ -271,7 +271,7 @@ class Font extends Supervisor
     /**
      * Get Bold.
      *
-     * @return bool
+     * @return null|bool
      */
     public function getBold()
     {
@@ -307,7 +307,7 @@ class Font extends Supervisor
     /**
      * Get Italic.
      *
-     * @return bool
+     * @return null|bool
      */
     public function getItalic()
     {
@@ -343,7 +343,7 @@ class Font extends Supervisor
     /**
      * Get Superscript.
      *
-     * @return bool
+     * @return null|bool
      */
     public function getSuperscript()
     {
@@ -377,7 +377,7 @@ class Font extends Supervisor
     /**
      * Get Subscript.
      *
-     * @return bool
+     * @return null|bool
      */
     public function getSubscript()
     {
@@ -411,7 +411,7 @@ class Font extends Supervisor
     /**
      * Get Underline.
      *
-     * @return string
+     * @return null|string
      */
     public function getUnderline()
     {
@@ -451,7 +451,7 @@ class Font extends Supervisor
     /**
      * Get Strikethrough.
      *
-     * @return bool
+     * @return null|bool
      */
     public function getStrikethrough()
     {

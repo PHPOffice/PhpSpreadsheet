@@ -15,7 +15,7 @@ class Atanh
      *
      * @return float|string The arc hyperbolic tangent of the number
      */
-    public static function funcAtanh($number)
+    public static function evaluate($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);

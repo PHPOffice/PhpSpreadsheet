@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class Dec2HexTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -41,7 +44,7 @@ class Dec2HexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDEC2HEX()
+    public function providerDEC2HEX(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2HEX.php';
     }

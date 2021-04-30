@@ -2,47 +2,44 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
-
-class WeekNumTest extends TestCase
+class WeekNumTest extends AllSetupTeardown
 {
-    private $excelCalendar;
-
-    protected function setUp(): void
-    {
-        $this->excelCalendar = Date::getExcelCalendar();
-    }
-
-    protected function tearDown(): void
-    {
-        Date::setExcelCalendar($this->excelCalendar);
-    }
-
     /**
      * @dataProvider providerWEEKNUM
      *
      * @param mixed $expectedResult
      */
-    public function testWEEKNUM($expectedResult, ...$args): void
+    public function testWEEKNUM($expectedResult, string $formula): void
     {
-        $result = DateTime::WEEKNUM(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=WEEKNUM($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKNUM()
+    public function providerWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
 
-    public function testWEEKNUMwith1904Calendar(): void
+    /**
+     * @dataProvider providerWEEKNUM1904
+     *
+     * @param mixed $expectedResult
+     */
+    public function testWEEKNUM1904($expectedResult, string $formula): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
-        self::assertEquals(27, DateTime::WEEKNUM('2004-07-02'));
-        self::assertEquals(1, DateTime::WEEKNUM('1904-01-02'));
-        self::assertEquals(1, DateTime::WEEKNUM(null));
-        // The following is a bug in Excel.
-        self::assertEquals(0, DateTime::WEEKNUM('1904-01-01'));
+        $this->mightHaveException($expectedResult);
+        self::setMac1904();
+        $sheet = $this->sheet;
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=WEEKNUM($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function providerWEEKNUM1904(): array
+    {
+        return require 'tests/data/Calculation/DateTime/WEEKNUM1904.php';
     }
 }

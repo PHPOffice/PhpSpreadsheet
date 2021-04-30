@@ -24,7 +24,7 @@ class AmorDegRcTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerAMORDEGRC()
+    public function providerAMORDEGRC(): array
     {
         return require 'tests/data/Calculation/Financial/AMORDEGRC.php';
     }

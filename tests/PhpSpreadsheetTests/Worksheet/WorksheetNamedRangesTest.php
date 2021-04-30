@@ -5,11 +5,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetNamedRangesTest extends TestCase
 {
-    protected $spreadsheet;
+    /**
+     * @var Spreadsheet
+     */
+    private $spreadsheet;
 
     protected function setUp(): void
     {
@@ -51,7 +55,7 @@ class WorksheetNamedRangesTest extends TestCase
         $namedRange = 'Range1';
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectExceptionMessage('Cell coordinate string can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->cellExists($namedRange);
@@ -114,7 +118,7 @@ class WorksheetNamedRangesTest extends TestCase
         $namedCell = 'Range1';
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Cell coordinate can not be a range of cells');
+        $this->expectExceptionMessage('Cell coordinate string can not be a range of cells');
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->getCell($namedCell);

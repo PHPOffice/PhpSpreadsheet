@@ -2,6 +2,8 @@
 
 // effect_rate, npery, result
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 return [
     [
         0.052500319868356002,
@@ -24,8 +26,23 @@ return [
         12,
     ],
     [
-        '#NUM!',
-        -0.025000000000000001,
+        Functions::NAN(),
+        -0.025,
         12,
+    ],
+    [
+        Functions::NAN(),
+        0.025,
+        -12,
+    ],
+    [
+        Functions::VALUE(),
+        'NaN',
+        12,
+    ],
+    [
+        Functions::VALUE(),
+        0.025,
+        'NaN',
     ],
 ];

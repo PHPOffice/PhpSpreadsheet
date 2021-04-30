@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class Hex2BinTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -40,7 +43,7 @@ class Hex2BinTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHEX2BIN()
+    public function providerHEX2BIN(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2BIN.php';
     }

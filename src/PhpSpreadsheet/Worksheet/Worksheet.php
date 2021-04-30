@@ -96,16 +96,16 @@ class Worksheet implements IComparable
     /**
      * Collection of drawings.
      *
-     * @var BaseDrawing[]
+     * @var ArrayObject<BaseDrawing>
      */
     private $drawingCollection;
 
     /**
      * Collection of Chart objects.
      *
-     * @var Chart[]
+     * @var ArrayObject<Chart>
      */
-    private $chartCollection = [];
+    private $chartCollection;
 
     /**
      * Worksheet title.
@@ -180,7 +180,7 @@ class Worksheet implements IComparable
     /**
      * Collection of breaks.
      *
-     * @var array
+     * @var int[]
      */
     private $breaks = [];
 
@@ -194,7 +194,7 @@ class Worksheet implements IComparable
     /**
      * Collection of protected cell ranges.
      *
-     * @var array
+     * @var string[]
      */
     private $protectedCells = [];
 
@@ -278,9 +278,9 @@ class Worksheet implements IComparable
     /**
      * Cached highest column.
      *
-     * @var string
+     * @var int
      */
-    private $cachedHighestColumn = 'A';
+    private $cachedHighestColumn = 1;
 
     /**
      * Cached highest row.
@@ -313,7 +313,7 @@ class Worksheet implements IComparable
     /**
      * Tab color.
      *
-     * @var Color
+     * @var null|Color
      */
     private $tabColor;
 
@@ -383,9 +383,11 @@ class Worksheet implements IComparable
     {
         if ($this->cellCollection !== null) {
             $this->cellCollection->unsetWorksheetCells();
+            // @phpstan-ignore-next-line
             $this->cellCollection = null;
         }
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
+        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 
@@ -534,7 +536,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of drawings.
      *
-     * @return BaseDrawing[]
+     * @return ArrayObject<BaseDrawing>
      */
     public function getDrawingCollection()
     {
@@ -544,7 +546,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of charts.
      *
-     * @return Chart[]
+     * @return ArrayObject<Chart>
      */
     public function getChartCollection()
     {
@@ -728,7 +730,7 @@ class Worksheet implements IComparable
 
             // loop through all cells in the worksheet
             foreach ($this->getCoordinates(false) as $coordinate) {
-                $cell = $this->getCell($coordinate, false);
+                $cell = $this->getCellOrNull($coordinate);
                 if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
                     //Determine if cell is in merge range
                     $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
@@ -1039,7 +1041,7 @@ class Worksheet implements IComparable
     public function getHighestColumn($row = null)
     {
         if ($row == null) {
-            return $this->cachedHighestColumn;
+            return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
         }
 
         return $this->getHighestDataColumn($row);
@@ -1166,52 +1168,94 @@ class Worksheet implements IComparable
     /**
      * Get cell at a specific coordinate.
      *
-     * @param string $pCoordinate Coordinate of the cell, eg: 'A1'
-     * @param bool $createIfNotExists Flag indicating whether a new cell should be created if it doesn't
-     *                                       already exist, or a null should be returned instead
+     * @param string $coordinate Coordinate of the cell, eg: 'A1'
      *
-     * @return null|Cell Cell that was found/created or null
+     * @return Cell Cell that was found or created
      */
-    public function getCell($pCoordinate, $createIfNotExists = true)
+    public function getCell(string $coordinate): Cell
     {
-        // Uppercase coordinate
-        $pCoordinateUpper = strtoupper($pCoordinate);
+        // Shortcut for increased performance for the vast majority of simple cases
+        if ($this->cellCollection->has($coordinate)) {
+            /** @var Cell $cell */
+            $cell = $this->cellCollection->get($coordinate);
 
-        // Check cell collection
-        if ($this->cellCollection->has($pCoordinateUpper)) {
-            return $this->cellCollection->get($pCoordinateUpper);
+            return $cell;
         }
+
+        /** @var Worksheet $sheet */
+        [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($coordinate);
+        $cell = $sheet->cellCollection->get($finalCoordinate);
+
+        return $cell ?? $sheet->createNewCell($finalCoordinate);
+    }
+
+    /**
+     * Get the correct Worksheet and coordinate from a coordinate that may
+     * contains reference to another sheet or a named range.
+     *
+     * @return array{0: Worksheet, 1: string}
+     */
+    private function getWorksheetAndCoordinate(string $pCoordinate): array
+    {
+        $sheet = null;
+        $finalCoordinate = null;
 
         // Worksheet reference?
         if (strpos($pCoordinate, '!') !== false) {
             $worksheetReference = self::extractSheetTitle($pCoordinate, true);
 
-            return $this->parent->getSheetByName($worksheetReference[0])
-                ->getCell(strtoupper($worksheetReference[1]), $createIfNotExists);
-        }
+            $sheet = $this->parent->getSheetByName($worksheetReference[0]);
+            $finalCoordinate = strtoupper($worksheetReference[1]);
 
-        // Named range?
-        if (
-            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
+            if (!$sheet) {
+                throw new Exception('Sheet not found for name: ' . $worksheetReference[0]);
+            }
+        } elseif (
+            !preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate) &&
+            preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate)
         ) {
+            // Named range?
             $namedRange = $this->validateNamedRange($pCoordinate, true);
             if ($namedRange !== null) {
-                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
-                $cellCoordinate = str_replace('$', '', $cellCoordinate);
+                $sheet = $namedRange->getWorksheet();
+                if (!$sheet) {
+                    throw new Exception('Sheet not found for named range: ' . $namedRange->getName());
+                }
 
-                return $namedRange->getWorksheet()->getCell($cellCoordinate, $createIfNotExists);
+                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
+                $finalCoordinate = str_replace('$', '', $cellCoordinate);
             }
         }
 
-        if (Coordinate::coordinateIsRange($pCoordinate)) {
-            throw new Exception('Cell coordinate can not be a range of cells.');
-        } elseif (strpos($pCoordinate, '$') !== false) {
+        if (!$sheet || !$finalCoordinate) {
+            $sheet = $this;
+            $finalCoordinate = strtoupper($pCoordinate);
+        }
+
+        if (Coordinate::coordinateIsRange($finalCoordinate)) {
+            throw new Exception('Cell coordinate string can not be a range of cells.');
+        } elseif (strpos($finalCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
 
-        // Create new cell object, if required
-        return $createIfNotExists ? $this->createNewCell($pCoordinateUpper) : null;
+        return [$sheet, $finalCoordinate];
+    }
+
+    /**
+     * Get an existing cell at a specific coordinate, or null.
+     *
+     * @param string $coordinate Coordinate of the cell, eg: 'A1'
+     *
+     * @return null|Cell Cell that was found or null
+     */
+    private function getCellOrNull($coordinate): ?Cell
+    {
+        // Check cell collection
+        if ($this->cellCollection->has($coordinate)) {
+            return $this->cellCollection->get($coordinate);
+        }
+
+        return null;
     }
 
     /**
@@ -1219,22 +1263,23 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
-     * @param bool $createIfNotExists Flag indicating whether a new cell should be created if it doesn't
-     *                                       already exist, or a null should be returned instead
      *
-     * @return null|Cell Cell that was found/created or null
+     * @return Cell Cell that was found/created or null
      */
-    public function getCellByColumnAndRow($columnIndex, $row, $createIfNotExists = true)
+    public function getCellByColumnAndRow($columnIndex, $row): Cell
     {
         $columnLetter = Coordinate::stringFromColumnIndex($columnIndex);
         $coordinate = $columnLetter . $row;
 
         if ($this->cellCollection->has($coordinate)) {
-            return $this->cellCollection->get($coordinate);
+            /** @var Cell $cell */
+            $cell = $this->cellCollection->get($coordinate);
+
+            return $cell;
         }
 
         // Create new cell object, if required
-        return $createIfNotExists ? $this->createNewCell($coordinate) : null;
+        return $this->createNewCell($coordinate);
     }
 
     /**
@@ -1251,18 +1296,19 @@ class Worksheet implements IComparable
         $this->cellCollectionIsSorted = false;
 
         // Coordinates
-        $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
-        if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($aCoordinates[0])) {
-            $this->cachedHighestColumn = $aCoordinates[0];
+        [$column, $row] = Coordinate::coordinateFromString($pCoordinate);
+        $aIndexes = Coordinate::indexesFromString($pCoordinate);
+        if ($this->cachedHighestColumn < $aIndexes[0]) {
+            $this->cachedHighestColumn = $aIndexes[0];
         }
-        if ($aCoordinates[1] > $this->cachedHighestRow) {
-            $this->cachedHighestRow = $aCoordinates[1];
+        if ($aIndexes[1] > $this->cachedHighestRow) {
+            $this->cachedHighestRow = $aIndexes[1];
         }
 
         // Cell needs appropriate xfIndex from dimensions records
         //    but don't create dimension records if they don't already exist
-        $rowDimension = $this->getRowDimension($aCoordinates[1], false);
-        $columnDimension = $this->getColumnDimension($aCoordinates[0], false);
+        $rowDimension = $this->rowDimensions[$row] ?? null;
+        $columnDimension = $this->columnDimensions[$column] ?? null;
 
         if ($rowDimension !== null && $rowDimension->getXfIndex() > 0) {
             // then there is a row dimension with explicit style, assign it to the cell
@@ -1278,44 +1324,16 @@ class Worksheet implements IComparable
     /**
      * Does the cell at a specific coordinate exist?
      *
-     * @param string $pCoordinate Coordinate of the cell eg: 'A1'
+     * @param string $coordinate Coordinate of the cell eg: 'A1'
      *
      * @return bool
      */
-    public function cellExists($pCoordinate)
+    public function cellExists($coordinate)
     {
-        // Worksheet reference?
-        if (strpos($pCoordinate, '!') !== false) {
-            $worksheetReference = self::extractSheetTitle($pCoordinate, true);
+        /** @var Worksheet $sheet */
+        [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($coordinate);
 
-            return $this->parent->getSheetByName($worksheetReference[0])->cellExists(strtoupper($worksheetReference[1]));
-        }
-
-        // Named range?
-        if (
-            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $pCoordinate, $matches)) &&
-            (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/i', $pCoordinate, $matches))
-        ) {
-            $namedRange = $this->validateNamedRange($pCoordinate, true);
-            if ($namedRange !== null) {
-                $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
-                $cellCoordinate = str_replace('$', '', $cellCoordinate);
-
-                return $namedRange->getWorksheet()->cellExists($cellCoordinate);
-            }
-        }
-
-        // Uppercase coordinate
-        $pCoordinate = strtoupper($pCoordinate);
-
-        if (Coordinate::coordinateIsRange($pCoordinate)) {
-            throw new Exception('Cell coordinate can not be a range of cells.');
-        } elseif (strpos($pCoordinate, '$') !== false) {
-            throw new Exception('Cell coordinate must not be absolute.');
-        }
-
-        // Cell exists?
-        return $this->cellCollection->has($pCoordinate);
+        return $sheet->cellCollection->has($finalCoordinate);
     }
 
     /**
@@ -1335,20 +1353,11 @@ class Worksheet implements IComparable
      * Get row dimension at a specific row.
      *
      * @param int $pRow Numeric index of the row
-     * @param bool $create
-     *
-     * @return null|RowDimension
      */
-    public function getRowDimension($pRow, $create = true)
+    public function getRowDimension(int $pRow): RowDimension
     {
-        // Found
-        $found = null;
-
         // Get row dimension
         if (!isset($this->rowDimensions[$pRow])) {
-            if (!$create) {
-                return null;
-            }
             $this->rowDimensions[$pRow] = new RowDimension($pRow);
 
             $this->cachedHighestRow = max($this->cachedHighestRow, $pRow);
@@ -1361,24 +1370,19 @@ class Worksheet implements IComparable
      * Get column dimension at a specific column.
      *
      * @param string $pColumn String index of the column eg: 'A'
-     * @param bool $create
-     *
-     * @return null|ColumnDimension
      */
-    public function getColumnDimension($pColumn, $create = true)
+    public function getColumnDimension(string $pColumn): ColumnDimension
     {
         // Uppercase coordinate
         $pColumn = strtoupper($pColumn);
 
         // Fetch dimensions
         if (!isset($this->columnDimensions[$pColumn])) {
-            if (!$create) {
-                return null;
-            }
             $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
-            if (Coordinate::columnIndexFromString($this->cachedHighestColumn) < Coordinate::columnIndexFromString($pColumn)) {
-                $this->cachedHighestColumn = $pColumn;
+            $columnIndex = Coordinate::columnIndexFromString($pColumn);
+            if ($this->cachedHighestColumn < $columnIndex) {
+                $this->cachedHighestColumn = $columnIndex;
             }
         }
 
@@ -1389,10 +1393,8 @@ class Worksheet implements IComparable
      * Get column dimension at a specific column by using numeric cell coordinates.
      *
      * @param int $columnIndex Numeric column coordinate of the cell
-     *
-     * @return null|ColumnDimension
      */
-    public function getColumnDimensionByColumn($columnIndex)
+    public function getColumnDimensionByColumn(int $columnIndex): ColumnDimension
     {
         return $this->getColumnDimension(Coordinate::stringFromColumnIndex($columnIndex));
     }
@@ -1482,7 +1484,7 @@ class Worksheet implements IComparable
      * Set conditional styles.
      *
      * @param string $pCoordinate eg: 'A1'
-     * @param $pValue Conditional[]
+     * @param Conditional[] $pValue
      *
      * @return $this
      */
@@ -1640,7 +1642,7 @@ class Worksheet implements IComparable
     /**
      * Get breaks.
      *
-     * @return array[]
+     * @return int[]
      */
     public function getBreaks()
     {
@@ -1853,7 +1855,7 @@ class Worksheet implements IComparable
     /**
      * Get protected cells.
      *
-     * @return array[]
+     * @return string[]
      */
     public function getProtectedCells()
     {
@@ -1987,7 +1989,7 @@ class Worksheet implements IComparable
     /**
      * Get the default position of the right bottom pane.
      *
-     * @return int
+     * @return null|string
      */
     public function getTopLeftCell()
     {
@@ -2677,9 +2679,9 @@ class Worksheet implements IComparable
 
         // Cache values
         if ($highestColumn < 1) {
-            $this->cachedHighestColumn = 'A';
+            $this->cachedHighestColumn = 1;
         } else {
-            $this->cachedHighestColumn = Coordinate::stringFromColumnIndex($highestColumn);
+            $this->cachedHighestColumn = $highestColumn;
         }
         $this->cachedHighestRow = $highestRow;
 
@@ -2905,7 +2907,6 @@ class Worksheet implements IComparable
     public function resetTabColor()
     {
         $this->tabColor = null;
-        $this->tabColor = null;
 
         return $this;
     }
@@ -2935,6 +2936,7 @@ class Worksheet implements IComparable
      */
     public function __clone()
     {
+        // @phpstan-ignore-next-line
         foreach ($this as $key => $val) {
             if ($key == 'parent') {
                 continue;

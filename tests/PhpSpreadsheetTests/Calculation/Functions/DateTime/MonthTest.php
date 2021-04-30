@@ -2,33 +2,23 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
-
-class MonthTest extends TestCase
+class MonthTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerMONTH
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
      */
-    public function testMONTH($expectedResult, $dateTimeValue): void
+    public function testMONTH($expectedResult, string $dateTimeValue): void
     {
-        $result = DateTime::MONTHOFYEAR($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=MONTH($dateTimeValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerMONTH()
+    public function providerMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/MONTH.php';
     }

@@ -16,11 +16,11 @@ class RoundUp
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    public static function funcRoundUp($number, $digits)
+    public static function evaluate($number, $digits)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
-            $digits = Helpers::validateNumericNullSubstitution($digits, null);
+            $digits = (int) Helpers::validateNumericNullSubstitution($digits, null);
         } catch (Exception $e) {
             return $e->getMessage();
         }

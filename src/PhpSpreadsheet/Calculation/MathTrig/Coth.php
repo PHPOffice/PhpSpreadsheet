@@ -15,7 +15,7 @@ class Coth
      *
      * @return float|string The hyperbolic cotangent of the angle
      */
-    public static function funcCoth($angle)
+    public static function evaluate($angle)
     {
         try {
             $angle = Helpers::validateNumericNullBool($angle);

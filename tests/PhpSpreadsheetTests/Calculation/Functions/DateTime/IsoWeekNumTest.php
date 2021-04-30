@@ -2,34 +2,46 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
-
-class IsoWeekNumTest extends TestCase
+class IsoWeekNumTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerISOWEEKNUM
      *
      * @param mixed $expectedResult
-     * @param mixed $dateValue
+     * @param string $dateValue
      */
     public function testISOWEEKNUM($expectedResult, $dateValue): void
     {
-        $result = DateTime::ISOWEEKNUM($dateValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerISOWEEKNUM()
+    public function providerISOWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
+    }
+
+    /**
+     * @dataProvider providerISOWEEKNUM1904
+     *
+     * @param mixed $expectedResult
+     * @param string $dateValue
+     */
+    public function testISOWEEKNUM1904($expectedResult, $dateValue): void
+    {
+        $this->mightHaveException($expectedResult);
+        self::setMac1904();
+        $sheet = $this->sheet;
+        $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function providerISOWEEKNUM1904(): array
+    {
+        return require 'tests/data/Calculation/DateTime/ISOWEEKNUM1904.php';
     }
 }

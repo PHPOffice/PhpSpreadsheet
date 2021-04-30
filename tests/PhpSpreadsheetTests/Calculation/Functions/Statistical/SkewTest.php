@@ -24,7 +24,7 @@ class SkewTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSKEW()
+    public function providerSKEW(): array
     {
         return require 'tests/data/Calculation/Statistical/SKEW.php';
     }

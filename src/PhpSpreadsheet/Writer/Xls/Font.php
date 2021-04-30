@@ -119,7 +119,7 @@ class Font
     /**
      * Map of BIFF2-BIFF8 codes for underline styles.
      *
-     * @var array of int
+     * @var int[]
      */
     private static $mapUnderline = [
         \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE => 0x00,

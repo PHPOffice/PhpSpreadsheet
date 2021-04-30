@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class Dec2OctTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -40,7 +43,7 @@ class Dec2OctTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDEC2OCT()
+    public function providerDEC2OCT(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2OCT.php';
     }

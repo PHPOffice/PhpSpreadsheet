@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class AsinTest extends TestCase
+class AsinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAsin
@@ -15,18 +11,15 @@ class AsinTest extends TestCase
      */
     public function testAsin($expectedResult, string $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->sheet;
         $sheet->getCell('A2')->setValue(0.5);
         $sheet->getCell('A1')->setValue("=ASIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAsin()
+    public function providerAsin(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASIN.php';
     }

@@ -13,10 +13,19 @@ use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $currencyCode;
 
+    /**
+     * @var string
+     */
     private $decimalSeparator;
 
+    /**
+     * @var string
+     */
     private $thousandsSeparator;
 
     protected function setUp(): void
@@ -59,9 +68,11 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->expects(self::once())
             ->method('getStyle')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('getNumberFormat')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('setFormatCode')
             ->with($format)
@@ -81,7 +92,7 @@ class AdvancedValueBinderTest extends TestCase
         self::assertEquals($valueBinded, $cell->getValue());
     }
 
-    public function currencyProvider()
+    public function currencyProvider(): array
     {
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
@@ -121,9 +132,11 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->expects(self::once())
             ->method('getStyle')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('getNumberFormat')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('setFormatCode')
             ->with($format)
@@ -139,7 +152,7 @@ class AdvancedValueBinderTest extends TestCase
         self::assertEquals($valueBinded, $cell->getValue());
     }
 
-    public function fractionProvider()
+    public function fractionProvider(): array
     {
         return [
             ['1/5', 0.2, '?/?'],
@@ -179,9 +192,11 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->expects(self::once())
             ->method('getStyle')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('getNumberFormat')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('setFormatCode')
             ->with($format)
@@ -197,7 +212,7 @@ class AdvancedValueBinderTest extends TestCase
         self::assertEquals($valueBinded, $cell->getValue());
     }
 
-    public function percentageProvider()
+    public function percentageProvider(): array
     {
         return [
             ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00],
@@ -231,9 +246,11 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->expects(self::once())
             ->method('getStyle')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('getNumberFormat')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects(self::once())
             ->method('setFormatCode')
             ->with($format)
@@ -249,7 +266,7 @@ class AdvancedValueBinderTest extends TestCase
         self::assertEquals($valueBinded, $cell->getValue());
     }
 
-    public function timeProvider()
+    public function timeProvider(): array
     {
         return [
             ['1:20', 0.05555555556, NumberFormat::FORMAT_DATE_TIME3],
@@ -262,9 +279,6 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider stringProvider
-     *
-     * @param mixed $value
-     * @param mixed $wrapped
      */
     public function testStringWrapping(string $value, bool $wrapped): void
     {
@@ -282,9 +296,11 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->expects($wrapped ? self::once() : self::never())
             ->method('getStyle')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects($wrapped ? self::once() : self::never())
             ->method('getAlignment')
             ->willReturnSelf();
+        // @phpstan-ignore-next-line
         $sheet->expects($wrapped ? self::once() : self::never())
             ->method('setWrapText')
             ->with($wrapped)
@@ -299,7 +315,7 @@ class AdvancedValueBinderTest extends TestCase
         $binder->bindValue($cell, $value);
     }
 
-    public function stringProvider()
+    public function stringProvider(): array
     {
         return [
             ['Hello World', false],

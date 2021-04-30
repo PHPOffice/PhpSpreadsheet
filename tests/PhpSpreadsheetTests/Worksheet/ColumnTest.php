@@ -5,13 +5,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
 {
-    public $mockWorksheet;
-
-    public $mockColumn;
+    /**
+     * @var Worksheet&MockObject
+     */
+    private $mockWorksheet;
 
     protected function setUp(): void
     {

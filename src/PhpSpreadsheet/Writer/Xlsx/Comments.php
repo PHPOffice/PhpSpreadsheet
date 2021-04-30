@@ -79,7 +79,7 @@ class Comments extends WriterPart
 
         // text
         $objWriter->startElement('text');
-        $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $pComment->getText());
+        $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $pComment->getText());
         $objWriter->endElement();
 
         $objWriter->endElement();
@@ -165,8 +165,7 @@ class Comments extends WriterPart
     private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment): void
     {
         // Metadata
-        [$column, $row] = Coordinate::coordinateFromString($pCellReference);
-        $column = Coordinate::columnIndexFromString($column);
+        [$column, $row] = Coordinate::indexesFromString($pCellReference);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 

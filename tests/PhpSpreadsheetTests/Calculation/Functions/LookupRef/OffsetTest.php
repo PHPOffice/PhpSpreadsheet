@@ -25,7 +25,7 @@ class OffsetTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerOFFSET()
+    public function providerOFFSET(): array
     {
         return require 'tests/data/Calculation/LookupRef/OFFSET.php';
     }

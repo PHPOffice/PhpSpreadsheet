@@ -3,13 +3,14 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class HtmlHelper
 {
     public static function createHtml(string $html): string
     {
-        $filename = tempnam(sys_get_temp_dir(), 'html');
+        $filename = File::temporaryFilename();
         file_put_contents($filename, $html);
 
         return $filename;

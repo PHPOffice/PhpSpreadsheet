@@ -24,7 +24,7 @@ class IrrTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIRR()
+    public function providerIRR(): array
     {
         return require 'tests/data/Calculation/Financial/IRR.php';
     }

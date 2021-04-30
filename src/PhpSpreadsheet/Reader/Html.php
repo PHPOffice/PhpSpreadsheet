@@ -220,13 +220,13 @@ class Html extends BaseReader
     /**
      * Set input encoding.
      *
-     * @deprecated no use is made of this property
-     *
      * @param string $pValue Input encoding, eg: 'ANSI'
      *
      * @return $this
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no use is made of this property
      */
     public function setInputEncoding($pValue)
     {
@@ -238,11 +238,11 @@ class Html extends BaseReader
     /**
      * Get input encoding.
      *
-     * @deprecated no use is made of this property
-     *
      * @return string
      *
      * @codeCoverageIgnore
+     *
+     * @deprecated no use is made of this property
      */
     public function getInputEncoding()
     {
@@ -469,7 +469,7 @@ class Html extends BaseReader
         if ($child->nodeName === 'table') {
             $this->flushCell($sheet, $column, $row, $cellContent);
             $column = $this->setTableStartColumn($column);
-            if ($this->tableLevel > 1) {
+            if ($this->tableLevel > 1 && $row > 1) {
                 --$row;
             }
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -620,7 +620,7 @@ class Html extends BaseReader
                     $cellContent .= $domText;
                 }
                 //    but if we have a rich text run instead, we need to append it correctly
-                    //    TODO
+                //    TODO
             } elseif ($child instanceof DOMElement) {
                 $this->processDomElementBody($sheet, $row, $column, $cellContent, $child);
             }
@@ -878,14 +878,14 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        str_replace('px', '', $styleValue)
+                        (float) str_replace(['px', 'pt'], '', $styleValue)
                     );
 
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        str_replace('px', '', $styleValue)
+                        (float) str_replace(['px', 'pt'], '', $styleValue)
                     );
 
                     break;
@@ -910,8 +910,6 @@ class Html extends BaseReader
     /**
      * Check if has #, so we can get clean hex.
      *
-     * @param $value
-     *
      * @return null|string
      */
     public function getStyleColor($value)
@@ -924,8 +922,8 @@ class Html extends BaseReader
     }
 
     /**
-     * @param string    $column
-     * @param int       $row
+     * @param string $column
+     * @param int $row
      */
     private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
@@ -992,7 +990,7 @@ class Html extends BaseReader
     /**
      * Map html border style to PhpSpreadsheet border style.
      *
-     * @param  string $style
+     * @param string $style
      *
      * @return null|string
      */
@@ -1011,7 +1009,15 @@ class Html extends BaseReader
             $borderStyle = Border::BORDER_NONE;
             $color = null;
         } else {
-            [, $borderStyle, $color] = explode(' ', $styleValue);
+            $borderArray = explode(' ', $styleValue);
+            $borderCount = count($borderArray);
+            if ($borderCount >= 3) {
+                $borderStyle = $borderArray[1];
+                $color = $borderArray[2];
+            } else {
+                $borderStyle = $borderArray[0];
+                $color = $borderArray[1] ?? null;
+            }
         }
 
         $cellStyle->applyFromArray([
