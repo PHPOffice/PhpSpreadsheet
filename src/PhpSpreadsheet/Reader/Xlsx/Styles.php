@@ -105,7 +105,7 @@ class Styles extends BaseParserClass
         } elseif ($fillStyleXml->patternFill) {
             $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
                 ? (string) $fillStyleXml->patternFill['patternType']
-                : Fill::FILL_NONE;
+                : Fill::FILL_SOLID;
 
             $fillStyle->setFillType($patternType);
             if ($fillStyleXml->patternFill->fgColor) {
