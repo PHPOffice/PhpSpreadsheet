@@ -27,16 +27,16 @@ class AutoFilter extends BaseReader
         }
     }
 
-    protected function getAttributeValue(?DOMNode $node, string $attribute): ?string
+    protected function getAttributeValue(?DOMNode $node, string $attributeName): ?string
     {
-        if ($node !== null && $node->hasAttributes()) {
+        if ($node !== null && $node->attributes !== null) {
             $attribute = $node->attributes->getNamedItemNS(
                 $this->tableNs,
-                $attribute
+                $attributeName
             );
 
             if ($attribute !== null) {
-                return (string) $attribute->value;
+                return $attribute->nodeValue;
             }
         }
 
