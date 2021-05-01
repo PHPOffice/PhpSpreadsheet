@@ -644,9 +644,8 @@ class Ods extends BaseReader
                 ++$worksheetID;
             }
 
-            $autoFilterReader->readAutoFilters($workbookData);
-            $definedNameReader->readDefinedRanges($workbookData);
-            $definedNameReader->readDefinedExpressions($workbookData);
+            $autoFilterReader->read($workbookData);
+            $definedNameReader->read($workbookData);
         }
         $spreadsheet->setActiveSheetIndex(0);
 
