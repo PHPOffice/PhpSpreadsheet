@@ -3,21 +3,15 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
 use DOMElement;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class AutoFilter extends BaseReader
 {
-    protected $spreadsheet;
-
-    protected $tableNs;
-
-    public function __construct(Spreadsheet $spreadsheet, string $tableNs)
+    public function read(DOMElement $workbookData): void
     {
-        $this->spreadsheet = $spreadsheet;
-        $this->tableNs = $tableNs;
+        $this->readAutoFilters($workbookData);
     }
 
-    public function readAutoFilters(DOMElement $workbookData): void
+    protected function readAutoFilters(DOMElement $workbookData): void
     {
         $databases = $workbookData->getElementsByTagNameNS($this->tableNs, 'database-ranges');
 

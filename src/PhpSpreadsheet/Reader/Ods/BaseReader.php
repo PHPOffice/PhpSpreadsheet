@@ -2,10 +2,30 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
+use DOMElement;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 abstract class BaseReader
 {
+    /**
+     * @var Spreadsheet
+     */
+    protected $spreadsheet;
+
+    /**
+     * @var string
+     */
+    protected $tableNs;
+
+    public function __construct(Spreadsheet $spreadsheet, string $tableNs)
+    {
+        $this->spreadsheet = $spreadsheet;
+        $this->tableNs = $tableNs;
+    }
+
+    abstract public function read(DOMElement $workbookData): void;
+
     protected function convertToExcelAddressValue(string $openOfficeAddress): string
     {
         $excelAddress = $openOfficeAddress;

@@ -4,25 +4,20 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
 use DOMElement;
 use PhpOffice\PhpSpreadsheet\DefinedName;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DefinedNames extends BaseReader
 {
-    protected $spreadsheet;
-
-    protected $tableNs;
-
-    public function __construct(Spreadsheet $spreadsheet, string $tableNs)
+    public function read(DOMElement $workbookData): void
     {
-        $this->spreadsheet = $spreadsheet;
-        $this->tableNs = $tableNs;
+        $this->readDefinedRanges($workbookData);
+        $this->readDefinedExpressions($workbookData);
     }
 
     /**
      * Read any Named Ranges that are defined in this spreadsheet.
      */
-    public function readDefinedRanges(DOMElement $workbookData): void
+    protected function readDefinedRanges(DOMElement $workbookData): void
     {
         $namedRanges = $workbookData->getElementsByTagNameNS($this->tableNs, 'named-range');
         foreach ($namedRanges as $definedNameElement) {
@@ -40,7 +35,7 @@ class DefinedNames extends BaseReader
     /**
      * Read any Named Formulae that are defined in this spreadsheet.
      */
-    public function readDefinedExpressions(DOMElement $workbookData): void
+    protected function readDefinedExpressions(DOMElement $workbookData): void
     {
         $namedExpressions = $workbookData->getElementsByTagNameNS($this->tableNs, 'named-expression');
         foreach ($namedExpressions as $definedNameElement) {
