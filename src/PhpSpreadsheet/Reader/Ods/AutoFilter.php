@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
 use DOMElement;
+use DOMNode;
 
 class AutoFilter extends BaseReader
 {
@@ -17,10 +18,24 @@ class AutoFilter extends BaseReader
 
         foreach ($databases as $autofilters) {
             foreach ($autofilters->childNodes as $autofilter) {
-                $autofilterRange = $autofilter->getAttributeNS($this->tableNs, 'target-range-address');
-                $baseAddress = $this->convertToExcelAddressValue($autofilterRange);
-                $this->spreadsheet->getActiveSheet()->setAutoFilter($baseAddress);
+                $autofilterRange = $this->getAttributeValue($autofilter, 'target-range-address');
+                if ($autofilterRange !== null) {
+                    $baseAddress = $this->convertToExcelAddressValue($autofilterRange);
+                    $this->spreadsheet->getActiveSheet()->setAutoFilter($baseAddress);
+                }
             }
         }
+    }
+
+    protected function getAttributeValue(DOMNode $node, string $attribute): ?string
+    {
+        if ($node->hasAttributes()) {
+            return (string) $node->attributes->getNamedItemNS(
+                $this->tableNs,
+                $attribute
+            )->value;
+        }
+
+        return null;
     }
 }
