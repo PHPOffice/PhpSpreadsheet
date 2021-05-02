@@ -634,21 +634,21 @@ class Worksheet extends WriterPart
 
                     self::writeAttributeif(
                         $objWriter,
-                        in_array($conditional->getConditionType(), [
-                            Conditional::CONDITION_CELLIS,
-                            Conditional::CONDITION_CONTAINSTEXT,
-                            Conditional::CONDITION_NOTCONTAINSTEXT,
-                        ]) && $conditional->getOperatorType() != Conditional::OPERATOR_NONE,
+                        (
+                            $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                            || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                            || $conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSTEXT
+                        ) && $conditional->getOperatorType() != Conditional::OPERATOR_NONE,
                         'operator',
                         $conditional->getOperatorType()
                     );
 
                     self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
 
-                    if (in_array($conditional->getConditionType(), [
-                        Conditional::CONDITION_CONTAINSTEXT,
-                        Conditional::CONDITION_NOTCONTAINSTEXT,
-                    ])) {
+                    if (
+                        $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        || $conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSTEXT
+                    ) {
                         self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
                     } else {
                         self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
