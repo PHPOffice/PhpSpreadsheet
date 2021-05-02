@@ -11,8 +11,9 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -22,7 +23,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
 use XMLReader;
 use ZipArchive;
@@ -304,8 +304,10 @@ class Ods extends BaseReader
 
         $pageSettings->readStyleCrossReferences($dom);
 
-        // Content
+        $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
+        $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
 
+        // Content
         $spreadsheets = $dom->getElementsByTagNameNS($officeNs, 'body')
             ->item(0)
             ->getElementsByTagNameNS($officeNs, 'spreadsheet');
@@ -642,8 +644,8 @@ class Ods extends BaseReader
                 ++$worksheetID;
             }
 
-            $this->readDefinedRanges($spreadsheet, $workbookData, $tableNs);
-            $this->readDefinedExpressions($spreadsheet, $workbookData, $tableNs);
+            $autoFilterReader->read($workbookData);
+            $definedNameReader->read($workbookData);
         }
         $spreadsheet->setActiveSheetIndex(0);
 
@@ -771,26 +773,6 @@ class Ods extends BaseReader
         return $value;
     }
 
-    private function convertToExcelAddressValue(string $openOfficeAddress): string
-    {
-        $excelAddress = $openOfficeAddress;
-
-        // Cell range 3-d reference
-        // As we don't support 3-d ranges, we're just going to take a quick and dirty approach
-        //  and assume that the second worksheet reference is the same as the first
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu', '$1!$2:$4', $excelAddress);
-        // Cell range reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress);
-        // Cell reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+)/miu', '$1!$2', $excelAddress);
-        // Cell range reference
-        $excelAddress = preg_replace('/\.([^\.]+):\.([^\.]+)/miu', '$1:$2', $excelAddress);
-        // Simple cell reference
-        $excelAddress = preg_replace('/\.([^\.]+)/miu', '$1', $excelAddress);
-
-        return $excelAddress;
-    }
-
     private function convertToExcelFormulaValue(string $openOfficeFormula): string
     {
         $temp = explode('"', $openOfficeFormula);
@@ -815,54 +797,5 @@ class Ods extends BaseReader
         $excelFormula = implode('"', $temp);
 
         return $excelFormula;
-    }
-
-    /**
-     * Read any Named Ranges that are defined in this spreadsheet.
-     */
-    private function readDefinedRanges(Spreadsheet $spreadsheet, DOMElement $workbookData, string $tableNs): void
-    {
-        $namedRanges = $workbookData->getElementsByTagNameNS($tableNs, 'named-range');
-        foreach ($namedRanges as $definedNameElement) {
-            $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
-            $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
-            $range = $definedNameElement->getAttributeNS($tableNs, 'cell-range-address');
-
-            $baseAddress = $this->convertToExcelAddressValue($baseAddress);
-            $range = $this->convertToExcelAddressValue($range);
-
-            $this->addDefinedName($spreadsheet, $baseAddress, $definedName, $range);
-        }
-    }
-
-    /**
-     * Read any Named Formulae that are defined in this spreadsheet.
-     */
-    private function readDefinedExpressions(Spreadsheet $spreadsheet, DOMElement $workbookData, string $tableNs): void
-    {
-        $namedExpressions = $workbookData->getElementsByTagNameNS($tableNs, 'named-expression');
-        foreach ($namedExpressions as $definedNameElement) {
-            $definedName = $definedNameElement->getAttributeNS($tableNs, 'name');
-            $baseAddress = $definedNameElement->getAttributeNS($tableNs, 'base-cell-address');
-            $expression = $definedNameElement->getAttributeNS($tableNs, 'expression');
-
-            $baseAddress = $this->convertToExcelAddressValue($baseAddress);
-            $expression = $this->convertToExcelFormulaValue($expression);
-
-            $this->addDefinedName($spreadsheet, $baseAddress, $definedName, $expression);
-        }
-    }
-
-    /**
-     * Assess scope and store the Defined Name.
-     */
-    private function addDefinedName(Spreadsheet $spreadsheet, string $baseAddress, string $definedName, string $value): void
-    {
-        [$sheetReference] = Worksheet::extractSheetTitle($baseAddress, true);
-        $worksheet = $spreadsheet->getSheetByName($sheetReference);
-        // Worksheet might still be null if we're only loading selected sheets rather than the full spreadsheet
-        if ($worksheet !== null) {
-            $spreadsheet->addDefinedName(DefinedName::createInstance((string) $definedName, $worksheet, $value));
-        }
     }
 }
