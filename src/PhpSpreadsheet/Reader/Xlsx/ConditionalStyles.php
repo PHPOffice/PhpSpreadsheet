@@ -45,6 +45,7 @@ class ConditionalStyles
                         || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT
                         || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSBLANKS
                         || (string) $cfRule['type'] == Conditional::CONDITION_NOTCONTAINSBLANKS
+                        || (string) $cfRule['type'] == Conditional::CONDITION_NOTCONTAINSTEXT
                         || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION)
                     && isset($this->dxfs[(int) ($cfRule['dxfId'])])
                 ) {
