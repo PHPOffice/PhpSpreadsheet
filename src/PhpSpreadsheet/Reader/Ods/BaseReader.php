@@ -51,7 +51,7 @@ abstract class BaseReader
         $temp = explode('"', $openOfficeFormula);
         $tKey = false;
         foreach ($temp as &$value) {
-            /** @var string $value */
+            // @var string $value
             // Only replace in alternate array entries (i.e. non-quoted blocks)
             if ($tKey = !$tKey) {
                 // Cell range reference in another sheet
