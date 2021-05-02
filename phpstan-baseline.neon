@@ -2821,11 +2821,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Ods/BaseReader.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$officeNs has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
