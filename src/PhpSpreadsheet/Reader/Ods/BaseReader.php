@@ -63,9 +63,9 @@ abstract class BaseReader
                 // Simple cell reference
                 $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value ?? '');
                 // Convert references to defined names/formulae
-                $value = str_replace('$$', '', $value);
+                $value = str_replace('$$', '', $value ?? '');
 
-                $value = Calculation::translateSeparator(';', ',', $value ?? '', $inBraces);
+                $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
             }
         }
 
