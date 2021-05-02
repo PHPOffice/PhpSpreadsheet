@@ -44,6 +44,7 @@ class DefinedNames extends BaseReader
             $expression = $definedNameElement->getAttributeNS($this->tableNs, 'expression');
 
             $baseAddress = $this->convertToExcelAddressValue($baseAddress);
+            $expression = substr($expression, strpos($expression, ':=') + 1);
             $expression = $this->convertToExcelFormulaValue($expression);
 
             $this->addDefinedName($baseAddress, $definedName, $expression);

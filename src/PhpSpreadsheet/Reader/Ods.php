@@ -788,6 +788,8 @@ class Ods extends BaseReader
                 $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value);
                 // Simple cell reference
                 $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value);
+                // Convert references to defined names/formulae
+                $value = str_replace('$$', '', $value);
 
                 $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
             }
