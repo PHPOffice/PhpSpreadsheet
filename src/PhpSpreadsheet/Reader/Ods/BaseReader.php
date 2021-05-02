@@ -35,15 +35,15 @@ abstract class BaseReader
         //  and assume that the second worksheet reference is the same as the first
         $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu', '$1!$2:$4', $excelAddress);
         // Cell range reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress);
+        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress ?? '');
         // Cell reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+)/miu', '$1!$2', $excelAddress);
+        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+)/miu', '$1!$2', $excelAddress ?? '');
         // Cell range reference
-        $excelAddress = preg_replace('/\.([^\.]+):\.([^\.]+)/miu', '$1:$2', $excelAddress);
+        $excelAddress = preg_replace('/\.([^\.]+):\.([^\.]+)/miu', '$1:$2', $excelAddress ?? '');
         // Simple cell reference
-        $excelAddress = preg_replace('/\.([^\.]+)/miu', '$1', $excelAddress);
+        $excelAddress = preg_replace('/\.([^\.]+)/miu', '$1', $excelAddress ?? '');
 
-        return $excelAddress;
+        return $excelAddress ?? '';
     }
 
     protected function convertToExcelFormulaValue(string $openOfficeFormula): string
@@ -57,13 +57,13 @@ abstract class BaseReader
                 // Cell range reference in another sheet
                 $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', '$1!$2:$3', $value);
                 // Cell reference in another sheet
-                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+)\]/miu', '$1!$2', $value);
+                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+)\]/miu', '$1!$2', $value ?? '');
                 // Cell range reference
-                $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value);
+                $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value ?? '');
                 // Simple cell reference
-                $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value);
+                $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value ?? '');
 
-                $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+                $value = Calculation::translateSeparator(';', ',', $value ?? '', $inBraces);
             }
         }
 
