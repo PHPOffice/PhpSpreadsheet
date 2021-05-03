@@ -499,10 +499,10 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processMergedCells(SimpleXMLElement $sheet): void
+    private function processMergedCells(?SimpleXMLElement $sheet): void
     {
         //    Handle Merged Cells in this worksheet
-        if (isset($sheet->MergedRegions)) {
+        if ($sheet !== null && isset($sheet->MergedRegions)) {
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
                 if (strpos($mergeCells, ':') !== false) {
                     $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells);
@@ -511,9 +511,9 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processAutofilter(SimpleXMLElement $sheet): void
+    private function processAutofilter(?SimpleXMLElement $sheet): void
     {
-        if (isset($sheet->Filters)) {
+        if ($sheet !== null && isset($sheet->Filters)) {
             foreach ($sheet->Filters->Filter as $autofilter) {
                 if ($autofilter !== null) {
                     $attributes = $autofilter->attributes();
@@ -547,9 +547,9 @@ class Gnumeric extends BaseReader
         return $c;
     }
 
-    private function processColumnWidths(SimpleXMLElement $sheet, int $maxCol): void
+    private function processColumnWidths(?SimpleXMLElement $sheet, int $maxCol): void
     {
-        if ((!$this->readDataOnly) && (isset($sheet->Cols))) {
+        if ((!$this->readDataOnly) && $sheet !== null && (isset($sheet->Cols))) {
             //    Column Widths
             $columnAttributes = $sheet->Cols->attributes();
             $defaultWidth = $columnAttributes['DefaultSizePts'] / 5.4;
@@ -586,9 +586,9 @@ class Gnumeric extends BaseReader
         return $r;
     }
 
-    private function processRowHeights(SimpleXMLElement $sheet, int $maxRow): void
+    private function processRowHeights(?SimpleXMLElement $sheet, int $maxRow): void
     {
-        if ((!$this->readDataOnly) && (isset($sheet->Rows))) {
+        if ((!$this->readDataOnly) && $sheet !== null && (isset($sheet->Rows))) {
             //    Row Heights
             $rowAttributes = $sheet->Rows->attributes();
             $defaultHeight = (float) $rowAttributes['DefaultSizePts'];
@@ -607,10 +607,10 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processDefinedNames(SimpleXMLElement $gnmXML): void
+    private function processDefinedNames(?SimpleXMLElement $gnmXML): void
     {
         //    Loop through definedNames (global named ranges)
-        if (isset($gnmXML->Names)) {
+        if ($gnmXML !== null && isset($gnmXML->Names)) {
             foreach ($gnmXML->Names->Name as $definedName) {
                 $name = (string) $definedName->name;
                 $value = (string) $definedName->value;
