@@ -390,7 +390,13 @@ class Worksheet extends BIFFwriter
         // Row dimensions
         foreach ($phpSheet->getRowDimensions() as $rowDimension) {
             $xfIndex = $rowDimension->getXfIndex() + 15; // there are 15 cellXfs
-            $this->writeRow($rowDimension->getRowIndex() - 1, (int) $rowDimension->getRowHeight(), $xfIndex, $rowDimension->getVisible(), $rowDimension->getOutlineLevel());
+            $this->writeRow(
+                $rowDimension->getRowIndex() - 1,
+                (int) $rowDimension->getRowHeight(),
+                $xfIndex,
+                !$rowDimension->getVisible(),
+                $rowDimension->getOutlineLevel()
+            );
         }
 
         // Write Cells
@@ -1181,7 +1187,7 @@ class Worksheet extends BIFFwriter
         // collapsed. The zero height flag, 0x20, is used to collapse a row.
 
         $grbit |= $level;
-        if ($hidden) {
+        if ($hidden === true) {
             $grbit |= 0x0030;
         }
         if ($height !== null) {

@@ -1220,13 +1220,13 @@
     </tr>
     <tr>
         <td style="padding-left: 1em;">Merged Cells</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td></td>
-        <td></td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td>N/A</td>
+        <td>N/A</td>
         <td></td>
         <td></td>
         <td></td>
