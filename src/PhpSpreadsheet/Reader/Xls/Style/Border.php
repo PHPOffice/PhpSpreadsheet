@@ -6,7 +6,10 @@ use PhpOffice\PhpSpreadsheet\Style\Border as StyleBorder;
 
 class Border
 {
-    protected static $map = [
+    /**
+     * @var array<int, string>
+     */
+    protected static $borderStyleMap = [
         0x00 => StyleBorder::BORDER_NONE,
         0x01 => StyleBorder::BORDER_THIN,
         0x02 => StyleBorder::BORDER_MEDIUM,
@@ -23,18 +26,10 @@ class Border
         0x0D => StyleBorder::BORDER_SLANTDASHDOT,
     ];
 
-    /**
-     * Map border style
-     * OpenOffice documentation: 2.5.11.
-     *
-     * @param int $index
-     *
-     * @return string
-     */
-    public static function lookup($index)
+    public static function lookup(int $index): string
     {
-        if (isset(self::$map[$index])) {
-            return self::$map[$index];
+        if (isset(self::$borderStyleMap[$index])) {
+            return self::$borderStyleMap[$index];
         }
 
         return StyleBorder::BORDER_NONE;

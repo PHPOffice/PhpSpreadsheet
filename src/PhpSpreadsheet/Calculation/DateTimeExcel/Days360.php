@@ -36,7 +36,7 @@ class Days360
      *
      * @return int|string Number of days between start date and end date
      */
-    public static function funcDays360($startDate = 0, $endDate = 0, $method = false)
+    public static function evaluate($startDate = 0, $endDate = 0, $method = false)
     {
         try {
             $startDate = Helpers::getDateValue($startDate);

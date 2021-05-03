@@ -43,7 +43,7 @@ class TreasuryBill
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
         $daysPerYear = Helpers::daysPerYear(
-            DateTimeExcel\Year::funcYear($maturity),
+            DateTimeExcel\Year::evaluate($maturity),
             FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
         );
 
@@ -88,7 +88,7 @@ class TreasuryBill
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
         $daysPerYear = Helpers::daysPerYear(
-            DateTimeExcel\Year::funcYear($maturity),
+            DateTimeExcel\Year::evaluate($maturity),
             FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
         );
 
@@ -134,7 +134,7 @@ class TreasuryBill
 
         $daysBetweenSettlementAndMaturity = $maturity - $settlement;
         $daysPerYear = Helpers::daysPerYear(
-            DateTimeExcel\Year::funcYear($maturity),
+            DateTimeExcel\Year::evaluate($maturity),
             FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
         );
 

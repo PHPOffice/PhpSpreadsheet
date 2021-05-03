@@ -56,6 +56,26 @@ class StandardNormal
     }
 
     /**
+     * GAUSS.
+     *
+     * Calculates the probability that a member of a standard normal population will fall between
+     *     the mean and z standard deviations from the mean.
+     *
+     * @param mixed $value
+     *
+     * @return float|string The result, or a string containing an error
+     */
+    public static function gauss($value)
+    {
+        $value = Functions::flattenSingleValue($value);
+        if (!is_numeric($value)) {
+            return Functions::VALUE();
+        }
+
+        return self::distribution($value, true) - 0.5;
+    }
+
+    /**
      * ZTEST.
      *
      * Returns the one-tailed P-value of a z-test.

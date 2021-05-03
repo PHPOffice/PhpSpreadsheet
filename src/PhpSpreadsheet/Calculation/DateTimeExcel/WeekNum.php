@@ -38,7 +38,7 @@ class WeekNum
      *
      * @return int|string Week Number
      */
-    public static function funcWeekNum($dateValue, $method = Constants::STARTWEEK_SUNDAY)
+    public static function evaluate($dateValue, $method = Constants::STARTWEEK_SUNDAY)
     {
         $origDateValueNull = empty($dateValue);
 

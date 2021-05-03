@@ -34,7 +34,7 @@ class YearFrac
      *
      * @return float|string fraction of the year, or a string containing an error
      */
-    public static function funcYearFrac($startDate, $endDate, $method = 0)
+    public static function evaluate($startDate, $endDate, $method = 0)
     {
         try {
             $method = (int) Helpers::validateNumericNull($method);
@@ -50,15 +50,15 @@ class YearFrac
 
         switch ($method) {
             case 0:
-                return Days360::funcDays360($startDate, $endDate) / 360;
+                return Days360::evaluate($startDate, $endDate) / 360;
             case 1:
                 return self::method1($startDate, $endDate);
             case 2:
-                return DateDif::funcDateDif($startDate, $endDate) / 360;
+                return DateDif::evaluate($startDate, $endDate) / 360;
             case 3:
-                return DateDif::funcDateDif($startDate, $endDate) / 365;
+                return DateDif::evaluate($startDate, $endDate) / 365;
             case 4:
-                return Days360::funcDays360($startDate, $endDate, true) / 360;
+                return Days360::evaluate($startDate, $endDate, true) / 360;
         }
 
         return Functions::NAN();
@@ -74,7 +74,7 @@ class YearFrac
     {
         if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && Date::getExcelCalendar() !== Date::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {
-                if (Month::funcMonth($sDate) == 12 && Day::funcDay($sDate) === 31 && $method === 0) {
+                if (Month::evaluate($sDate) == 12 && Day::evaluate($sDate) === 31 && $method === 0) {
                     $sDate += 2;
                 } else {
                     ++$sDate;
@@ -87,14 +87,14 @@ class YearFrac
 
     private static function method1(float $startDate, float $endDate): float
     {
-        $days = DateDif::funcDateDif($startDate, $endDate);
-        $startYear = Year::funcYear($startDate);
-        $endYear = Year::funcYear($endDate);
+        $days = DateDif::evaluate($startDate, $endDate);
+        $startYear = (int) Year::evaluate($startDate);
+        $endYear = (int) Year::evaluate($endDate);
         $years = $endYear - $startYear + 1;
-        $startMonth = Month::funcMonth($startDate);
-        $startDay = Day::funcDay($startDate);
-        $endMonth = Month::funcMonth($endDate);
-        $endDay = Day::funcDay($endDate);
+        $startMonth = (int) Month::evaluate($startDate);
+        $startDay = (int) Day::evaluate($startDate);
+        $endMonth = (int) Month::evaluate($endDate);
+        $endDay = (int) Day::evaluate($endDate);
         $startMonthDay = 100 * $startMonth + $startDay;
         $endMonthDay = 100 * $endMonth + $endDay;
         if ($years == 1) {

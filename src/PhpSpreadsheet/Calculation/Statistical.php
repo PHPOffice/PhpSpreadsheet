@@ -13,12 +13,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 
+/**
+ * @deprecated 1.18.0
+ */
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
     const EPS = 2.22e-16;
     const MAX_VALUE = 1.2e308;
-    const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
 
     /**
@@ -428,48 +430,18 @@ class Statistical
      * Excel Function:
      *        DEVSQ(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::sumSquares()
+     *      Use the sumSquares() method in the Statistical\Deviations class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function DEVSQ(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-
-        // Return value
-        $returnValue = null;
-
-        $aMean = Averages::average($aArgs);
-        if ($aMean != Functions::DIV0()) {
-            $aCount = -1;
-            foreach ($aArgs as $k => $arg) {
-                // Is it a numeric value?
-                if (
-                    (is_bool($arg)) &&
-                    ((!Functions::isCellValue($k)) ||
-                    (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
-                ) {
-                    $arg = (int) $arg;
-                }
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    if ($returnValue === null) {
-                        $returnValue = ($arg - $aMean) ** 2;
-                    } else {
-                        $returnValue += ($arg - $aMean) ** 2;
-                    }
-                    ++$aCount;
-                }
-            }
-
-            // Return
-            if ($returnValue === null) {
-                return Functions::NAN();
-            }
-
-            return $returnValue;
-        }
-
-        return Functions::NA();
+        return Statistical\Deviations::sumSquares(...$args);
     }
 
     /**
@@ -671,18 +643,18 @@ class Statistical
      * Calculates the probability that a member of a standard normal population will fall between
      *     the mean and z standard deviations from the mean.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Distributions\StandardNormal::gauss()
+     *      Use the gauss() method in the Statistical\Distributions\StandardNormal class instead
+     *
      * @param float $value
      *
      * @return float|string The result, or a string containing an error
      */
     public static function GAUSS($value)
     {
-        $value = Functions::flattenSingleValue($value);
-        if (!is_numeric($value)) {
-            return Functions::VALUE();
-        }
-
-        return Statistical\Distributions\Normal::distribution($value, 0, 1, true) - 0.5;
+        return Statistical\Distributions\StandardNormal::gauss($value);
     }
 
     /**
@@ -695,23 +667,18 @@ class Statistical
      * Excel Function:
      *        GEOMEAN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages\Mean::geometric()
+     *      Use the geometric() method in the Statistical\Averages\Mean class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function GEOMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        $aMean = MathTrig\Product::evaluate($aArgs);
-        if (is_numeric($aMean) && ($aMean > 0)) {
-            $aCount = Counts::COUNT($aArgs);
-            if (Minimum::MIN($aArgs) > 0) {
-                return $aMean ** (1 / $aCount);
-            }
-        }
-
-        return Functions::NAN();
+        return Statistical\Averages\Mean::geometric(...$args);
     }
 
     /**
@@ -745,38 +712,18 @@ class Statistical
      * Excel Function:
      *        HARMEAN(value1[,value2[, ...]])
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Averages\Mean::harmonic()
+     *      Use the harmonic() method in the Statistical\Averages\Mean class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string
      */
     public static function HARMEAN(...$args)
     {
-        // Return value
-        $returnValue = 0;
-
-        // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
-        if (Minimum::MIN($aArgs) < 0) {
-            return Functions::NAN();
-        }
-        $aCount = 0;
-        foreach ($aArgs as $arg) {
-            // Is it a numeric value?
-            if ((is_numeric($arg)) && (!is_string($arg))) {
-                if ($arg <= 0) {
-                    return Functions::NAN();
-                }
-                $returnValue += (1 / $arg);
-                ++$aCount;
-            }
-        }
-
-        // Return
-        if ($aCount > 0) {
-            return 1 / ($returnValue / $aCount);
-        }
-
-        return Functions::NA();
+        return Statistical\Averages\Mean::harmonic(...$args);
     }
 
     /**
@@ -835,40 +782,18 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::kurtosis()
+     *      Use the kurtosis() method in the Statistical\Deviations class instead
+     *
      * @param array ...$args Data Series
      *
      * @return float|string
      */
     public static function KURT(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::average($aArgs);
-        $stdDev = StandardDeviations::STDEV($aArgs);
-
-        if ($stdDev > 0) {
-            $count = $summer = 0;
-            // Loop through arguments
-            foreach ($aArgs as $k => $arg) {
-                if (
-                    (is_bool($arg)) &&
-                    (!Functions::isMatrixValue($k))
-                ) {
-                } else {
-                    // Is it a numeric value?
-                    if ((is_numeric($arg)) && (!is_string($arg))) {
-                        $summer += (($arg - $mean) / $stdDev) ** 4;
-                        ++$count;
-                    }
-                }
-            }
-
-            // Return
-            if ($count > 3) {
-                return $summer * ($count * ($count + 1) / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2 / (($count - 2) * ($count - 3)));
-            }
-        }
-
-        return Functions::DIV0();
+        return Statistical\Deviations::kurtosis(...$args);
     }
 
     /**
@@ -880,37 +805,18 @@ class Statistical
      * Excel Function:
      *        LARGE(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Size::large()
+     *      Use the large() method in the Statistical\Size class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function LARGE(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-        $entry = array_pop($aArgs);
-
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry = (int) floor($entry);
-
-            // Calculate
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-            $count = Counts::COUNT($mArgs);
-            --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
-            }
-            rsort($mArgs);
-
-            return $mArgs[$entry];
-        }
-
-        return Functions::VALUE();
+        return Statistical\Size::large(...$args);
     }
 
     /**
@@ -1503,40 +1409,18 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Deviations::skew()
+     *      Use the skew() method in the Statistical\Deviations class instead
+     *
      * @param array ...$args Data Series
      *
      * @return float|string The result, or a string containing an error
      */
     public static function SKEW(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed($args);
-        $mean = Averages::average($aArgs);
-        $stdDev = StandardDeviations::STDEV($aArgs);
-
-        if ($stdDev === 0.0 || is_string($stdDev)) {
-            return Functions::DIV0();
-        }
-
-        $count = $summer = 0;
-        // Loop through arguments
-        foreach ($aArgs as $k => $arg) {
-            if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
-            } elseif (!is_numeric($arg)) {
-                return Functions::VALUE();
-            } else {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $summer += (($arg - $mean) / $stdDev) ** 3;
-                    ++$count;
-                }
-            }
-        }
-
-        if ($count > 2) {
-            return $summer * ($count / (($count - 1) * ($count - 2)));
-        }
-
-        return Functions::DIV0();
+        return Statistical\Deviations::skew(...$args);
     }
 
     /**
@@ -1568,44 +1452,29 @@ class Statistical
      * Excel Function:
      *        SMALL(value1[,value2[, ...]],entry)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Size::small()
+     *      Use the small() method in the Statistical\Size class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string The result, or a string containing an error
      */
     public static function SMALL(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $entry = array_pop($aArgs);
-
-        if ((is_numeric($entry)) && (!is_string($entry))) {
-            $entry = (int) floor($entry);
-
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-            $count = Counts::COUNT($mArgs);
-            --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
-            }
-            sort($mArgs);
-
-            return $mArgs[$entry];
-        }
-
-        return Functions::VALUE();
+        return Statistical\Size::small(...$args);
     }
 
     /**
      * STANDARDIZE.
      *
      * Returns a normalized value from a distribution characterized by mean and standard_dev.
+     *
+     * @Deprecated 1.18.0
+     *
+     * @see Statistical\Standardize::execute()
+     *      Use the execute() method in the Statistical\Standardize class instead
      *
      * @param float $value Value to normalize
      * @param float $mean Mean Value
@@ -1615,19 +1484,7 @@ class Statistical
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-
-        if ((is_numeric($value)) && (is_numeric($mean)) && (is_numeric($stdDev))) {
-            if ($stdDev <= 0) {
-                return Functions::NAN();
-            }
-
-            return ($value - $mean) / $stdDev;
-        }
-
-        return Functions::VALUE();
+        return Statistical\Standardize::execute($value, $mean, $stdDev);
     }
 
     /**
@@ -1812,42 +1669,18 @@ class Statistical
      * Excel Function:
      *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
+     * @Deprecated 1.18.0
+     *
+     *@see Statistical\Averages\Mean::trim()
+     *      Use the trim() method in the Statistical\Averages\Mean class instead
+     *
      * @param mixed $args Data values
      *
      * @return float|string
      */
     public static function TRIMMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray($args);
-
-        // Calculate
-        $percent = array_pop($aArgs);
-
-        if ((is_numeric($percent)) && (!is_string($percent))) {
-            if (($percent < 0) || ($percent > 1)) {
-                return Functions::NAN();
-            }
-
-            $mArgs = [];
-            foreach ($aArgs as $arg) {
-                // Is it a numeric value?
-                if ((is_numeric($arg)) && (!is_string($arg))) {
-                    $mArgs[] = $arg;
-                }
-            }
-
-            $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
-            sort($mArgs);
-
-            for ($i = 0; $i < $discard; ++$i) {
-                array_pop($mArgs);
-                array_shift($mArgs);
-            }
-
-            return Averages::average($mArgs);
-        }
-
-        return Functions::VALUE();
+        return Statistical\Averages\Mean::trim(...$args);
     }
 
     /**
@@ -1860,12 +1693,12 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
+     *@see Statistical\Variances::VAR()
+     *      Use the VAR() method in the Statistical\Variances class instead
+     *
      * @param mixed ...$args Data values
      *
      * @return float|string (string if result is an error)
-     *
-     *@see Statistical\Variances::VAR()
-     *      Use the VAR() method in the Statistical\Variances class instead
      */
     public static function VARFunc(...$args)
     {

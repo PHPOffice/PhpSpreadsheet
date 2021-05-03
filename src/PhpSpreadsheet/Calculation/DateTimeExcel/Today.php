@@ -24,7 +24,7 @@ class Today
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcToday()
+    public static function evaluate()
     {
         $dti = new DateTimeImmutable();
         $dateArray = date_parse($dti->format('c'));
