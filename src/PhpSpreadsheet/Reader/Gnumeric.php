@@ -466,6 +466,7 @@ class Gnumeric extends BaseReader
             $this->processColumnWidths($sheet, $maxCol);
             $this->processRowHeights($sheet, $maxRow);
             $this->processMergedCells($sheet);
+            $this->processAutofilter($sheet);
 
             ++$worksheetID;
         }
@@ -505,6 +506,20 @@ class Gnumeric extends BaseReader
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
                 if (strpos($mergeCells, ':') !== false) {
                     $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells);
+                }
+            }
+        }
+    }
+
+    private function processAutofilter(SimpleXMLElement $sheet): void
+    {
+        if (isset($sheet->Filters)) {
+            foreach ($sheet->Filters->Filter as $autofilter) {
+                if ($autofilter !== null) {
+                    $attributes = $autofilter->attributes();
+                    if (isset($attributes['Area'])) {
+                        $this->spreadsheet->getActiveSheet()->setAutoFilter((string) $attributes['Area']);
+                    }
                 }
             }
         }
