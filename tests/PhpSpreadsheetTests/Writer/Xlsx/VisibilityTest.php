@@ -73,7 +73,7 @@ class VisibilityTest extends AbstractFunctional
         $spreadsheet->removeSheetByIndex(0);
         foreach ($visibleSheets as $sheetName => $visibility) {
             $worksheet = $spreadsheet->addSheet(new Worksheet($spreadsheet, $sheetName));
-            $worksheet->setCellValue("A1", $sheetName);
+            $worksheet->setCellValue('A1', $sheetName);
             $worksheet->setSheetState($visibility ? Worksheet::SHEETSTATE_VISIBLE : Worksheet::SHEETSTATE_HIDDEN);
         }
 
