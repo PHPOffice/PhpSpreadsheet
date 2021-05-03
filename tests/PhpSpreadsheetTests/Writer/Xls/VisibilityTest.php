@@ -1,0 +1,98 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+
+class VisibilityTest extends AbstractFunctional
+{
+    /**
+     * @dataProvider dataProviderRowVisibility
+     */
+    public function testRowVisibility(array $visibleRows): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        foreach ($visibleRows as $row => $visibility) {
+            $worksheet->setCellValue("A{$row}", $row);
+            $worksheet->getRowDimension($row)->setVisible($visibility);
+        }
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+        foreach ($visibleRows as $row => $visibility) {
+            self::assertSame($visibility, $reloadedWorksheet->getRowDimension($row)->getVisible());
+        }
+    }
+
+    public function dataProviderRowVisibility(): array
+    {
+        return [
+            [
+                [1 => true, 2 => false, 3 => false, 4 => true, 5 => true, 6 => false],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderColumnVisibility
+     */
+    public function testColumnVisibility(array $visibleColumns): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        foreach ($visibleColumns as $column => $visibility) {
+            $worksheet->setCellValue("{$column}1", $column);
+            $worksheet->getColumnDimension($column)->setVisible($visibility);
+        }
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+        foreach ($visibleColumns as $column => $visibility) {
+            self::assertSame($visibility, $reloadedWorksheet->getColumnDimension($column)->getVisible());
+        }
+    }
+
+    public function dataProviderColumnVisibility(): array
+    {
+        return [
+            [
+                ['A' => true, 'B' => false, 'C' => false, 'D' => true, 'E' => true, 'F' => false],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProviderSheetVisibility
+     */
+    public function testSheetVisibility(array $visibleSheets): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+        foreach ($visibleSheets as $sheetName => $visibility) {
+            $worksheet = $spreadsheet->addSheet(new Worksheet($spreadsheet, $sheetName));
+            $worksheet->setCellValue("A1", $sheetName);
+            $worksheet->setSheetState($visibility ? Worksheet::SHEETSTATE_VISIBLE : Worksheet::SHEETSTATE_HIDDEN);
+        }
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        foreach ($visibleSheets as $sheetName => $visibility) {
+            $reloadedWorksheet = $reloadedSpreadsheet->getSheetByName($sheetName);
+            self::assertSame(
+                $visibility ? Worksheet::SHEETSTATE_VISIBLE : Worksheet::SHEETSTATE_HIDDEN,
+                $reloadedWorksheet->getSheetState()
+            );
+        }
+    }
+
+    public function dataProviderSheetVisibility(): array
+    {
+        return [
+            [
+                ['Worksheet1' => true, 'Worksheet2' => false, 'Worksheet3' => true],
+            ],
+        ];
+    }
+}

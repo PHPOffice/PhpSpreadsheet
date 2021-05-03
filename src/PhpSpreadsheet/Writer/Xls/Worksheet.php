@@ -2166,7 +2166,9 @@ class Worksheet extends BIFFwriter
      */
     public function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1): void
     {
-        $bitmap_array = (is_resource($bitmap) || $bitmap instanceof GdImage ? $this->processBitmapGd($bitmap) : $this->processBitmap($bitmap));
+        $bitmap_array = (is_resource($bitmap) || $bitmap instanceof GdImage
+            ? $this->processBitmapGd($bitmap)
+            : $this->processBitmap($bitmap));
         [$width, $height, $size, $data] = $bitmap_array;
 
         // Scale the frame of the image.
