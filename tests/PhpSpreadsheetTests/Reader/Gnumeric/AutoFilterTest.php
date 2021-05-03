@@ -15,7 +15,7 @@ class AutoFilterTest extends TestCase
 
     protected function setUp(): void
     {
-        $filename = 'tests/data/Reader/Gnumeric/AutoFilter_Basic.gnumeric';
+        $filename = 'tests/data/Reader/Gnumeric/Autofilter_Basic.gnumeric';
         $reader = new Gnumeric();
         $this->spreadsheet = $reader->load($filename);
     }
