@@ -79,7 +79,7 @@ class VisibilityTest extends AbstractFunctional
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         foreach ($visibleSheets as $sheetName => $visibility) {
-            $reloadedWorksheet = $reloadedSpreadsheet->getSheetByName($sheetName);
+            $reloadedWorksheet = $reloadedSpreadsheet->getSheetByName($sheetName) ?? new Worksheet();
             self::assertSame(
                 $visibility ? Worksheet::SHEETSTATE_VISIBLE : Worksheet::SHEETSTATE_HIDDEN,
                 $reloadedWorksheet->getSheetState()
@@ -91,7 +91,7 @@ class VisibilityTest extends AbstractFunctional
     {
         return [
             [
-                ['Worksheet1' => false, 'Worksheet2' => true, 'Worksheet3' => true],
+                ['Worksheet 1' => false, 'Worksheet 2' => true, 'Worksheet 3' => true],
             ],
         ];
     }
