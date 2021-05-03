@@ -270,7 +270,9 @@ class Gnumeric extends BaseReader
                 $commentAttributes = $comment->attributes();
                 //    Only comment objects are handled at the moment
                 if ($commentAttributes->Text) {
-                    $this->spreadsheet->getActiveSheet()->getComment((string) $commentAttributes->ObjectBound)->setAuthor((string) $commentAttributes->Author)->setText($this->parseRichText((string) $commentAttributes->Text));
+                    $this->spreadsheet->getActiveSheet()->getComment((string) $commentAttributes->ObjectBound)
+                        ->setAuthor((string) $commentAttributes->Author)
+                        ->setText($this->parseRichText((string) $commentAttributes->Text));
                 }
             }
         }
