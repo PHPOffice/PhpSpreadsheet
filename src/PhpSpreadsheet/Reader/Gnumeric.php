@@ -88,14 +88,14 @@ class Gnumeric extends BaseReader
             }
         }
 
-        return $data == chr(0x1F) . chr(0x8B);
+        return $data === chr(0x1F) . chr(0x8B);
     }
 
     private static function matchXml(XMLReader $xml, string $expectedLocalName): bool
     {
-        return $xml->namespaceURI == self::NAMESPACE_GNM
-            && $xml->localName == $expectedLocalName
-            && $xml->nodeType == XMLReader::ELEMENT;
+        return $xml->namespaceURI === self::NAMESPACE_GNM
+            && $xml->localName === $expectedLocalName
+            && $xml->nodeType === XMLReader::ELEMENT;
     }
 
     /**
@@ -396,7 +396,7 @@ class Gnumeric extends BaseReader
                     if (array_key_exists($vtype, self::$mappings['dataType'])) {
                         $type = self::$mappings['dataType'][$vtype];
                     }
-                    if ($vtype == '20') {        //    Boolean
+                    if ($vtype === '20') {        //    Boolean
                         $cell = $cell == 'TRUE';
                     }
                 }
@@ -524,42 +524,42 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function setColumnWidth(int $c, float $defaultWidth): void
+    private function setColumnWidth(int $whichColumn, float $defaultWidth): void
     {
-        $colDim = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1));
-        if ($colDim !== null) {
-            $colDim->setWidth($defaultWidth);
+        $columnDimension = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
+        if ($columnDimension !== null) {
+            $columnDimension->setWidth($defaultWidth);
         }
     }
 
-    private function setColumnInvisible(int $c): void
+    private function setColumnInvisible(int $whichColumn): void
     {
-        $colDim = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($c + 1));
-        if ($colDim !== null) {
-            $colDim->setVisible(false);
+        $columnDimension = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
+        if ($columnDimension !== null) {
+            $columnDimension->setVisible(false);
         }
     }
 
-    private function processColumnLoop(int $c, int $maxCol, SimpleXMLElement $columnOverride, float $defaultWidth): int
+    private function processColumnLoop(int $whichColumn, int $maxCol, SimpleXMLElement $columnOverride, float $defaultWidth): int
     {
         $columnAttributes = self::testSimpleXml($columnOverride->attributes());
         $column = $columnAttributes['No'];
         $columnWidth = ((float) $columnAttributes['Unit']) / 5.4;
         $hidden = (isset($columnAttributes['Hidden'])) && ((string) $columnAttributes['Hidden'] == '1');
         $columnCount = (int) ($columnAttributes['Count'] ?? 1);
-        while ($c < $column) {
-            $this->setColumnWidth($c, $defaultWidth);
-            ++$c;
+        while ($whichColumn < $column) {
+            $this->setColumnWidth($whichColumn, $defaultWidth);
+            ++$whichColumn;
         }
-        while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
-            $this->setColumnWidth($c, $columnWidth);
+        while (($whichColumn < ($column + $columnCount)) && ($whichColumn <= $maxCol)) {
+            $this->setColumnWidth($whichColumn, $columnWidth);
             if ($hidden) {
-                $this->setColumnInvisible($c);
+                $this->setColumnInvisible($whichColumn);
             }
-            ++$c;
+            ++$whichColumn;
         }
 
-        return $c;
+        return $whichColumn;
     }
 
     private function processColumnWidths(SimpleXMLElement $sheet, int $maxCol): void
@@ -571,53 +571,53 @@ class Gnumeric extends BaseReader
             if ($columnAttributes !== null) {
                 $defaultWidth = $columnAttributes['DefaultSizePts'] / 5.4;
             }
-            $c = 0;
+            $whichColumn = 0;
             foreach ($sheet->Cols->ColInfo as $columnOverride) {
-                $c = $this->processColumnLoop($c, $maxCol, $columnOverride, $defaultWidth);
+                $whichColumn = $this->processColumnLoop($whichColumn, $maxCol, $columnOverride, $defaultWidth);
             }
-            while ($c <= $maxCol) {
-                $this->setColumnWidth($c, $defaultWidth);
-                ++$c;
+            while ($whichColumn <= $maxCol) {
+                $this->setColumnWidth($whichColumn, $defaultWidth);
+                ++$whichColumn;
             }
         }
     }
 
-    private function setRowHeight(int $r, float $defaultHeight): void
+    private function setRowHeight(int $whichRow, float $defaultHeight): void
     {
-        $rowDim = $this->spreadsheet->getActiveSheet()->getRowDimension($r);
-        if ($rowDim !== null) {
-            $rowDim->setRowHeight($defaultHeight);
+        $rowDimension = $this->spreadsheet->getActiveSheet()->getRowDimension($whichRow);
+        if ($rowDimension !== null) {
+            $rowDimension->setRowHeight($defaultHeight);
         }
     }
 
-    private function setRowInvisible(int $r): void
+    private function setRowInvisible(int $whichRow): void
     {
-        $rowDim = $this->spreadsheet->getActiveSheet()->getRowDimension($r);
-        if ($rowDim !== null) {
-            $rowDim->setVisible(false);
+        $rowDimension = $this->spreadsheet->getActiveSheet()->getRowDimension($whichRow);
+        if ($rowDimension !== null) {
+            $rowDimension->setVisible(false);
         }
     }
 
-    private function processRowLoop(int $r, int $maxRow, SimpleXMLElement $rowOverride, float $defaultHeight): int
+    private function processRowLoop(int $whichRow, int $maxRow, SimpleXMLElement $rowOverride, float $defaultHeight): int
     {
         $rowAttributes = self::testSimpleXml($rowOverride->attributes());
         $row = $rowAttributes['No'];
         $rowHeight = (float) $rowAttributes['Unit'];
         $hidden = (isset($rowAttributes['Hidden'])) && ((string) $rowAttributes['Hidden'] == '1');
         $rowCount = (int) ($rowAttributes['Count'] ?? 1);
-        while ($r < $row) {
-            ++$r;
-            $this->setRowHeight($r, $defaultHeight);
+        while ($whichRow < $row) {
+            ++$whichRow;
+            $this->setRowHeight($whichRow, $defaultHeight);
         }
-        while (($r < ($row + $rowCount)) && ($r < $maxRow)) {
-            ++$r;
-            $this->setRowHeight($r, $rowHeight);
+        while (($whichRow < ($row + $rowCount)) && ($whichRow < $maxRow)) {
+            ++$whichRow;
+            $this->setRowHeight($whichRow, $rowHeight);
             if ($hidden) {
-                $this->setRowInvisible($r);
+                $this->setRowInvisible($whichRow);
             }
         }
 
-        return $r;
+        return $whichRow;
     }
 
     private function processRowHeights(SimpleXMLElement $sheet, int $maxRow): void
@@ -629,17 +629,17 @@ class Gnumeric extends BaseReader
             if ($rowAttributes !== null) {
                 $defaultHeight = (float) $rowAttributes['DefaultSizePts'];
             }
-            $r = 0;
+            $whichRow = 0;
 
             foreach ($sheet->Rows->RowInfo as $rowOverride) {
-                $r = $this->processRowLoop($r, $maxRow, $rowOverride, $defaultHeight);
+                $whichRow = $this->processRowLoop($whichRow, $maxRow, $rowOverride, $defaultHeight);
             }
             // never executed, I can't figure out any circumstances
             // under which it would be executed, and, even if
             // such exist, I'm not convinced this is needed.
-            //while ($r < $maxRow) {
-            //    ++$r;
-            //    $this->spreadsheet->getActiveSheet()->getRowDimension($r)->setRowHeight($defaultHeight);
+            //while ($whichRow < $maxRow) {
+            //    ++$whichRow;
+            //    $this->spreadsheet->getActiveSheet()->getRowDimension($whichRow)->setRowHeight($defaultHeight);
             //}
         }
     }
@@ -731,7 +731,7 @@ class Gnumeric extends BaseReader
         $shade = (string) $styleAttributes['Shade'];
         if (($RGB != '000000') || ($shade != '0')) {
             $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
-            if ($shade == '1') {
+            if ($shade === '1') {
                 $styleArray['fill']['startColor']['rgb'] = $RGB;
                 $styleArray['fill']['endColor']['rgb'] = $RGB2;
             } else {
