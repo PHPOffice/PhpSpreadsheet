@@ -482,6 +482,7 @@ class Gnumeric extends BaseReader
             $this->processColumnWidths($sheet, $maxCol);
             $this->processRowHeights($sheet, $maxRow);
             $this->processMergedCells($sheet);
+            $this->processAutofilter($sheet);
 
             ++$worksheetID;
         }
@@ -514,13 +515,27 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processMergedCells(SimpleXMLElement $sheet): void
+    private function processMergedCells(?SimpleXMLElement $sheet): void
     {
         //    Handle Merged Cells in this worksheet
-        if (isset($sheet->MergedRegions)) {
+        if ($sheet !== null && isset($sheet->MergedRegions)) {
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
                 if (strpos($mergeCells, ':') !== false) {
                     $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells);
+                }
+            }
+        }
+    }
+
+    private function processAutofilter(?SimpleXMLElement $sheet): void
+    {
+        if ($sheet !== null && isset($sheet->Filters)) {
+            foreach ($sheet->Filters->Filter as $autofilter) {
+                if ($autofilter !== null) {
+                    $attributes = $autofilter->attributes();
+                    if (isset($attributes['Area'])) {
+                        $this->spreadsheet->getActiveSheet()->setAutoFilter((string) $attributes['Area']);
+                    }
                 }
             }
         }
@@ -564,9 +579,9 @@ class Gnumeric extends BaseReader
         return $whichColumn;
     }
 
-    private function processColumnWidths(SimpleXMLElement $sheet, int $maxCol): void
+    private function processColumnWidths(?SimpleXMLElement $sheet, int $maxCol): void
     {
-        if ((!$this->readDataOnly) && (isset($sheet->Cols))) {
+        if ((!$this->readDataOnly) && $sheet !== null && (isset($sheet->Cols))) {
             //    Column Widths
             $defaultWidth = 0;
             $columnAttributes = $sheet->Cols->attributes();
@@ -622,9 +637,9 @@ class Gnumeric extends BaseReader
         return $whichRow;
     }
 
-    private function processRowHeights(SimpleXMLElement $sheet, int $maxRow): void
+    private function processRowHeights(?SimpleXMLElement $sheet, int $maxRow): void
     {
-        if ((!$this->readDataOnly) && (isset($sheet->Rows))) {
+        if ((!$this->readDataOnly) && $sheet !== null && (isset($sheet->Rows))) {
             //    Row Heights
             $defaultHeight = 0;
             $rowAttributes = $sheet->Rows->attributes();
@@ -646,10 +661,10 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processDefinedNames(SimpleXMLElement $gnmXML): void
+    private function processDefinedNames(?SimpleXMLElement $gnmXML): void
     {
         //    Loop through definedNames (global named ranges)
-        if (isset($gnmXML->Names)) {
+        if ($gnmXML !== null && isset($gnmXML->Names)) {
             foreach ($gnmXML->Names->Name as $definedName) {
                 $name = (string) $definedName->name;
                 $value = (string) $definedName->value;
