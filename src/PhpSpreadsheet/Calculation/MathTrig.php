@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+/**
+ * @deprecated 1.18.0
+ */
 class MathTrig
 {
     /**

@@ -103,17 +103,21 @@ class Styles extends BaseParserClass
                 self::readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)
             );
         } elseif ($fillStyleXml->patternFill) {
-            $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
-                ? (string) $fillStyleXml->patternFill['patternType']
-                : Fill::FILL_NONE;
-
-            $fillStyle->setFillType($patternType);
+            $defaultFillStyle = Fill::FILL_NONE;
             if ($fillStyleXml->patternFill->fgColor) {
                 $fillStyle->getStartColor()->setARGB(self::readColor($fillStyleXml->patternFill->fgColor, true));
+                $defaultFillStyle = Fill::FILL_SOLID;
             }
             if ($fillStyleXml->patternFill->bgColor) {
                 $fillStyle->getEndColor()->setARGB(self::readColor($fillStyleXml->patternFill->bgColor, true));
+                $defaultFillStyle = Fill::FILL_SOLID;
             }
+
+            $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
+                ? (string) $fillStyleXml->patternFill['patternType']
+                : $defaultFillStyle;
+
+            $fillStyle->setFillType($patternType);
         }
     }
 

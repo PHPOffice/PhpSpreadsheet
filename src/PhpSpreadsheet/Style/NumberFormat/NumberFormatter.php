@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class NumberFormatter
 {
@@ -145,7 +146,6 @@ class NumberFormatter
             $format = preg_replace('/0,+/', '0', $format);
             $format = preg_replace('/#,+/', '#', $format);
         }
-
         if (preg_match('/#?.*\?\/\?/', $format, $m)) {
             if ($value != (int) $value) {
                 $value = FractionFormatter::format($value, $format);
@@ -163,7 +163,12 @@ class NumberFormatter
             $n = '/\\[[^\\]]+\\]/';
             $m = preg_replace($n, '', $format);
             if (preg_match(self::NUMBER_REGEX, $m, $matches)) {
+                // There are placeholders for digits, so inject digits from the value into the mask
                 $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands);
+            } elseif ($format !== NumberFormat::FORMAT_GENERAL) {
+                // Yes, I know that this is basically just a hack;
+                //      if there's no placeholders for digits, just return the format mask "as is"
+                $value = str_replace('?', '', $format ?? '');
             }
         }
 
