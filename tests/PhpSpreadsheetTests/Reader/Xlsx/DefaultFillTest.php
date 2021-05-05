@@ -40,4 +40,15 @@ class DefaultFillTest extends TestCase
         $style = $spreadsheet->getActiveSheet()->getConditionalStyles('A1')[0]->getStyle();
         self::assertSame('solid', $style->getFill()->getFillType());
     }
+
+    public function testDefaultConditionalFontSize(): void
+    {
+        // default fill pattern for a conditional style where the filltype is not defined
+        $filename = 'tests/data/Reader/XLSX/pr2050cf-fill.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+
+        $style = $spreadsheet->getActiveSheet()->getConditionalStyles('A1')[0]->getStyle();
+        self::assertSame(10, $style->getFont()->getSize());
+    }
 }
