@@ -100,14 +100,14 @@ class Font extends Supervisor
 
         // Initialise values
         if ($isConditional) {
-            $this->name = null;
-            $this->size = null;
-            $this->bold = null;
-            $this->italic = null;
-            $this->superscript = null;
-            $this->subscript = null;
-            $this->underline = null;
-            $this->strikethrough = null;
+            $this->name = self::DEFAULT_NAME;
+            $this->size = self::DEFAULT_SIZE;
+            $this->bold = false;
+            $this->italic = false;
+            $this->superscript = false;
+            $this->subscript = false;
+            $this->underline = self::UNDERLINE_NONE;
+            $this->strikethrough = false;
             $this->color = new Color(Color::COLOR_BLACK, $isSupervisor, $isConditional);
         } else {
             $this->color = new Color(Color::COLOR_BLACK, $isSupervisor);

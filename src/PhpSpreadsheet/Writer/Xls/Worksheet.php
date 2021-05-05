@@ -2886,22 +2886,10 @@ class Worksheet extends BIFFwriter
         } else {
             $bFormatFill = 0;
         }
+
         // Font
-        if (
-            $conditional->getStyle()->getFont()->getName() !== null
-            || $conditional->getStyle()->getFont()->getSize() !== null
-            || $conditional->getStyle()->getFont()->getBold() !== null
-            || $conditional->getStyle()->getFont()->getItalic() !== null
-            || $conditional->getStyle()->getFont()->getSuperscript() !== null
-            || $conditional->getStyle()->getFont()->getSubscript() !== null
-            || $conditional->getStyle()->getFont()->getUnderline() !== null
-            || $conditional->getStyle()->getFont()->getStrikethrough() !== null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
-        ) {
-            $bFormatFont = 1;
-        } else {
-            $bFormatFont = 0;
-        }
+        $bFormatFont = (int) ($conditional->getStyle()->getFont() !== null);
+
         // Alignment
         $flags = 0;
         $flags |= (1 == $bAlignHz ? 0x00000001 : 0);

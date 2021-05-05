@@ -171,12 +171,12 @@ class StringTable extends WriterPart
 
                 // Size
                 $objWriter->startElement($prefix . 'sz');
-                $objWriter->writeAttribute('val', $element->getFont()->getSize());
+                $objWriter->writeAttribute('val', (string) $element->getFont()->getSize());
                 $objWriter->endElement();
 
                 // Underline
                 $objWriter->startElement($prefix . 'u');
-                $objWriter->writeAttribute('val', $element->getFont()->getUnderline());
+                $objWriter->writeAttribute('val', $element->getFont()->getUnderline() ? '1' : '0');
                 $objWriter->endElement();
 
                 $objWriter->endElement();
