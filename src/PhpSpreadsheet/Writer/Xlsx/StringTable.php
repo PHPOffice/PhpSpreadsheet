@@ -132,53 +132,7 @@ class StringTable extends WriterPart
             if ($element instanceof Run) {
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
-
-                // rFont
-                $objWriter->startElement($prefix . 'rFont');
-                $objWriter->writeAttribute('val', $element->getFont()->getName());
-                $objWriter->endElement();
-
-                // Bold
-                $objWriter->startElement($prefix . 'b');
-                $objWriter->writeAttribute('val', ($element->getFont()->getBold() ? 'true' : 'false'));
-                $objWriter->endElement();
-
-                // Italic
-                $objWriter->startElement($prefix . 'i');
-                $objWriter->writeAttribute('val', ($element->getFont()->getItalic() ? 'true' : 'false'));
-                $objWriter->endElement();
-
-                // Superscript / subscript
-                if ($element->getFont()->getSuperscript() || $element->getFont()->getSubscript()) {
-                    $objWriter->startElement($prefix . 'vertAlign');
-                    if ($element->getFont()->getSuperscript()) {
-                        $objWriter->writeAttribute('val', 'superscript');
-                    } elseif ($element->getFont()->getSubscript()) {
-                        $objWriter->writeAttribute('val', 'subscript');
-                    }
-                    $objWriter->endElement();
-                }
-
-                // Strikethrough
-                $objWriter->startElement($prefix . 'strike');
-                $objWriter->writeAttribute('val', ($element->getFont()->getStrikethrough() ? 'true' : 'false'));
-                $objWriter->endElement();
-
-                // Color
-                $objWriter->startElement($prefix . 'color');
-                $objWriter->writeAttribute('rgb', $element->getFont()->getColor()->getARGB());
-                $objWriter->endElement();
-
-                // Size
-                $objWriter->startElement($prefix . 'sz');
-                $objWriter->writeAttribute('val', (string) $element->getFont()->getSize());
-                $objWriter->endElement();
-
-                // Underline
-                $objWriter->startElement($prefix . 'u');
-                $objWriter->writeAttribute('val', $element->getFont()->getUnderline() ? '1' : '0');
-                $objWriter->endElement();
-
+                $this->writeRichTextRun($objWriter, $prefix, $element);
                 $objWriter->endElement();
             }
 
@@ -278,5 +232,53 @@ class StringTable extends WriterPart
         }
 
         return $returnValue;
+    }
+
+    protected function writeRichTextRun(XMLWriter $objWriter, ?string $prefix, Run $element): void
+    {
+        // rFont
+        $objWriter->startElement($prefix . 'rFont');
+        $objWriter->writeAttribute('val', $element->getFont()->getName());
+        $objWriter->endElement();
+
+        // Bold
+        $objWriter->startElement($prefix . 'b');
+        $objWriter->writeAttribute('val', ($element->getFont()->getBold() ? 'true' : 'false'));
+        $objWriter->endElement();
+
+        // Italic
+        $objWriter->startElement($prefix . 'i');
+        $objWriter->writeAttribute('val', ($element->getFont()->getItalic() ? 'true' : 'false'));
+        $objWriter->endElement();
+
+        // Superscript / subscript
+        if ($element->getFont()->getSuperscript() || $element->getFont()->getSubscript()) {
+            $objWriter->startElement($prefix . 'vertAlign');
+            $objWriter->writeAttribute(
+                'val',
+                $element->getFont()->getSuperscript() ? 'superscript' : 'subscript'
+            );
+            $objWriter->endElement();
+        }
+
+        // Strikethrough
+        $objWriter->startElement($prefix . 'strike');
+        $objWriter->writeAttribute('val', ($element->getFont()->getStrikethrough() ? 'true' : 'false'));
+        $objWriter->endElement();
+
+        // Color
+        $objWriter->startElement($prefix . 'color');
+        $objWriter->writeAttribute('rgb', $element->getFont()->getColor()->getARGB());
+        $objWriter->endElement();
+
+        // Size
+        $objWriter->startElement($prefix . 'sz');
+        $objWriter->writeAttribute('val', (string) $element->getFont()->getSize());
+        $objWriter->endElement();
+
+        // Underline
+        $objWriter->startElement($prefix . 'u');
+        $objWriter->writeAttribute('val', $element->getFont()->getUnderline() ? '1' : '0');
+        $objWriter->endElement();
     }
 }

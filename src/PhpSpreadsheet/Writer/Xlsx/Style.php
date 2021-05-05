@@ -300,11 +300,9 @@ class Style extends WriterPart
         }
 
         // Size
-        if ($pFont->getSize() !== null) {
-            $objWriter->startElement('sz');
-            $objWriter->writeAttribute('val', StringHelper::formatNumber($pFont->getSize()));
-            $objWriter->endElement();
-        }
+        $objWriter->startElement('sz');
+        $objWriter->writeAttribute('val', StringHelper::formatNumber($pFont->getSize()));
+        $objWriter->endElement();
 
         // Foreground color
         if ($pFont->getColor()->getARGB() !== null) {
@@ -314,11 +312,9 @@ class Style extends WriterPart
         }
 
         // Name
-        if ($pFont->getName() !== null) {
-            $objWriter->startElement('name');
-            $objWriter->writeAttribute('val', $pFont->getName());
-            $objWriter->endElement();
-        }
+        $objWriter->startElement('name');
+        $objWriter->writeAttribute('val', $pFont->getName());
+        $objWriter->endElement();
 
         $objWriter->endElement();
     }
