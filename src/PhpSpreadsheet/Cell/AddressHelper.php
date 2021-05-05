@@ -102,26 +102,22 @@ class AddressHelper
         ?int $currentRowNumber = null,
         ?int $currentColumnNumber = null
     ): string {
-        $validityCheck = preg_match('/^(\$?[A-Z]{1,3})(\$?\d{1,7})$/i', $address, $cellReference);
+        $validityCheck = preg_match('/^(\$?)([A-Z]{1,3})(\$?)(\d{1,7})$/i', $address, $cellReference);
 
         if ($validityCheck === 0) {
             throw new Exception('Invalid A1-format Cell Reference');
         }
 
-        if ($cellReference[1][0] === '$') {
-            $columnId = Coordinate::columnIndexFromString(substr($cellReference[1], 1));
+        $columnId = Coordinate::columnIndexFromString($cellReference[2]);
+        if ($cellReference[1] === '$') {
             // Column must be absolute address
             $currentColumnNumber = null;
-        } else {
-            $columnId = Coordinate::columnIndexFromString($cellReference[1]);
         }
 
-        if ($cellReference[2][0] === '$') {
-            $rowId = (int) substr($cellReference[2], 1);
+        $rowId = (int) $cellReference[4];
+        if ($cellReference[3] === '$') {
             // Row must be absolute address
             $currentRowNumber = null;
-        } else {
-            $rowId = (int) $cellReference[2];
         }
 
         if ($currentRowNumber !== null) {
