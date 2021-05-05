@@ -18,14 +18,14 @@ class Font extends Supervisor
     /**
      * Font Name.
      *
-     * @var null|string
+     * @var string
      */
     protected $name = self::DEFAULT_NAME;
 
     /**
      * Font Size.
      *
-     * @var null|float
+     * @var float
      */
     protected $size = self::DEFAULT_SIZE;
 
