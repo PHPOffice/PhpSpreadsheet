@@ -4,6 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 class Font extends Supervisor
 {
+    public const DEFAULT_NAME = 'Calibri';
+
+    public const DEFAULT_SIZE = 11.0;
+
     // Underline types
     const UNDERLINE_NONE = 'none';
     const UNDERLINE_DOUBLE = 'double';
@@ -16,14 +20,14 @@ class Font extends Supervisor
      *
      * @var null|string
      */
-    protected $name = 'Calibri';
+    protected $name = self::DEFAULT_NAME;
 
     /**
      * Font Size.
      *
      * @var null|float
      */
-    protected $size = 11;
+    protected $size = self::DEFAULT_SIZE;
 
     /**
      * Bold.
@@ -220,7 +224,7 @@ class Font extends Supervisor
     public function setName($pValue)
     {
         if ($pValue == '') {
-            $pValue = 'Calibri';
+            $pValue = self::DEFAULT_NAME;
         }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['name' => $pValue]);
@@ -235,7 +239,7 @@ class Font extends Supervisor
     /**
      * Get Size.
      *
-     * @return null|float
+     * @return float
      */
     public function getSize()
     {
@@ -249,14 +253,14 @@ class Font extends Supervisor
     /**
      * Set Size.
      *
-     * @param float $pValue
+     * @param float $pValue The size in pt
      *
      * @return $this
      */
-    public function setSize($pValue)
+    public function setSize(float $pValue)
     {
-        if ($pValue == '') {
-            $pValue = 10;
+        if ($pValue <= 0.0) {
+            $pValue = self::DEFAULT_SIZE;
         }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['size' => $pValue]);

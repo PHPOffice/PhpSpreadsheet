@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PHPUnit\Framework\TestCase;
 
 class DefaultFillTest extends TestCase
@@ -49,6 +50,7 @@ class DefaultFillTest extends TestCase
         $spreadsheet = $reader->load($filename);
 
         $style = $spreadsheet->getActiveSheet()->getConditionalStyles('A1')[0]->getStyle();
-        self::assertSame(10, $style->getFont()->getSize());
+        self::assertSame(Font::DEFAULT_SIZE, $style->getFont()->getSize());
+        self::assertSame(Font::DEFAULT_NAME, $style->getFont()->getName());
     }
 }
