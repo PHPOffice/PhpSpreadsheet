@@ -203,7 +203,7 @@ class Font extends Supervisor
     /**
      * Get Name.
      *
-     * @return null|string
+     * @return string
      */
     public function getName()
     {
