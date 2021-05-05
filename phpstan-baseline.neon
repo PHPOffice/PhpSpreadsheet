@@ -7282,7 +7282,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getSubscript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
