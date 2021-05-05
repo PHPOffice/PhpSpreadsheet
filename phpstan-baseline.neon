@@ -4346,11 +4346,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Date.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) should return int but returns float\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/Drawing.php
@@ -4492,11 +4487,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$pDefaultFont of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$size of function imagettfbbox expects float, float\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
 
@@ -6721,11 +6711,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:getCharsetFromFontName\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-
-		-
 			message: "#^If condition is always false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
@@ -6737,11 +6722,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$underline of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Font\\:\\:mapUnderline\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeShort\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
@@ -7287,7 +7267,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 4
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -7322,11 +7302,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 

@@ -2938,18 +2938,10 @@ class Worksheet extends BIFFwriter
         // Data Blocks
         if ($bFormatFont == 1) {
             // Font Name
-            if ($conditional->getStyle()->getFont()->getName() === null) {
-                $dataBlockFont = pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
-                $dataBlockFont .= pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
-            } else {
-                $dataBlockFont = StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
-            }
+            $dataBlockFont = StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
             // Font Size
-            if ($conditional->getStyle()->getFont()->getSize() === null) {
-                $dataBlockFont .= pack('V', 20 * 11);
-            } else {
-                $dataBlockFont .= pack('V', 20 * $conditional->getStyle()->getFont()->getSize());
-            }
+            $dataBlockFont .= pack('V', 20 * $conditional->getStyle()->getFont()->getSize());
+
             // Font Options
             $dataBlockFont .= pack('V', 0);
             // Font weight
