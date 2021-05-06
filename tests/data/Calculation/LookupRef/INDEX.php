@@ -24,6 +24,15 @@ return [
         ],
         10,
     ],
+    'Row is not a number' => [
+        '#VALUE!', // Expected
+        // Input
+        [
+            20 => ['R' => 1],
+            21 => ['R' => 2],
+        ],
+        'NaN',
+    ],
     'Row is Error' => [
         '#N/A', // Expected
         // Input
@@ -72,6 +81,16 @@ return [
         2,
         10,
     ],
+    'Column is not a number' => [
+        '#VALUE!', // Expected
+        // Input
+        [
+            20 => ['R' => 1],
+            21 => ['R' => 2],
+        ],
+        1,
+        'NaN',
+    ],
     'Column is Error' => [
         '#N/A', // Expected
         // Input
@@ -81,16 +100,6 @@ return [
         ],
         1,
         '#N/A',
-    ],
-    [
-        '#REF!', // Expected
-        // Input
-        [
-            '20' => ['R' => 1, 'S' => 3],
-            '21' => ['R' => 2, 'S' => 4],
-        ],
-        10,
-        2,
     ],
     [
         4, // Expected
