@@ -54,30 +54,30 @@ class XlsxTest extends TestCase
             }
         }
     }
-	
-	public function testPurlNamespace(): void
-	{
-		$filename = 'tests/data/Reader/XLSX/purl-namespace.xlsx';
-		$reader = new Xlsx();
-		$actual = $reader->canRead($filename);
-		self::assertTrue($actual);
-		
-		$sheets = $reader->listWorksheetNames($filename);
-		self::assertEquals(['ml_out'], $sheets);
-		
-		$actual = $reader->listWorksheetInfo($filename);
-		$expected = [
-			[
-				'worksheetName' => 'ml_out',
-				'lastColumnLetter' => 'A',
-		        'lastColumnIndex' => 0,
-		        'totalRows' => '76',
-		        'totalColumns' => 1,
-			],
-		];
-		
-		self::assertEquals($expected, $actual);
-	}
+    
+    public function testPurlNamespace(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/purl-namespace.xlsx';
+        $reader = new Xlsx();
+        $actual = $reader->canRead($filename);
+        self::assertTrue($actual);
+        
+        $sheets = $reader->listWorksheetNames($filename);
+        self::assertEquals(['ml_out'], $sheets);
+        
+        $actual = $reader->listWorksheetInfo($filename);
+        $expected = [
+            [
+                'worksheetName' => 'ml_out',
+                'lastColumnLetter' => 'A',
+                'lastColumnIndex' => 0,
+                'totalRows' => '76',
+                'totalColumns' => 1,
+            ],
+        ];
+        
+        self::assertEquals($expected, $actual);
+    }
 
     public function testListWorksheetInfo(): void
     {
