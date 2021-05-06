@@ -79,7 +79,7 @@ class Xlsx extends BaseReader
         $zip = new ZipArchive();
 
         if ($zip->open($pFilename) === true) {
-	        [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName($zip);
+            [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName($zip);
             $result = !empty($workbookBasename);
 
             $zip->close();
@@ -112,7 +112,7 @@ class Xlsx extends BaseReader
         foreach ($rels->Relationship as $rel) {
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
-	            case 'http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument':
+                case 'http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument':
                     //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                     $xmlWorkbook = simplexml_load_string(
                         $this->securityScanner->scan($this->getFromZipArchive($zip, "{$rel['Target']}"))
@@ -334,7 +334,7 @@ class Xlsx extends BaseReader
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         //~ http://schemas.openxmlformats.org/package/2006/relationships"
-	    [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName($zip);
+        [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName($zip);
         $wbRels = simplexml_load_string(
             $this->securityScanner->scan($this->getFromZipArchive($zip, "xl/_rels/${workbookBasename}.rels")),
             'SimpleXMLElement',
@@ -355,28 +355,28 @@ class Xlsx extends BaseReader
                         $xmlThemeName = $xmlTheme->attributes();
                         $xmlTheme = $xmlTheme->children('http://schemas.openxmlformats.org/drawingml/2006/main');
                         $themeName = (string) $xmlThemeName['name'];
-	                    
+                        
                         $colourSchemeName = '';
-	                    $themeColours = [];
+                        $themeColours = [];
                         if (isset($xmlTheme->themeElements)) {
-	                        $colourScheme = $xmlTheme->themeElements->clrScheme->attributes();
-	                        $colourSchemeName = (string)$colourScheme['name'];
-	                        $colourScheme = $xmlTheme->themeElements->clrScheme->children('http://schemas.openxmlformats.org/drawingml/2006/main');
-	
-	                        foreach ($colourScheme as $k => $xmlColour) {
-		                        $themePos = array_search($k, $themeOrderArray);
-		                        if ($themePos === false) {
-			                        $themePos = $themeOrderAdditional++;
-		                        }
-		                        if (isset($xmlColour->sysClr)) {
-			                        $xmlColourData = $xmlColour->sysClr->attributes();
-			                        $themeColours[$themePos] = $xmlColourData['lastClr'];
-		                        }
-		                        elseif (isset($xmlColour->srgbClr)) {
-			                        $xmlColourData = $xmlColour->srgbClr->attributes();
-			                        $themeColours[$themePos] = $xmlColourData['val'];
-		                        }
-	                        }
+                            $colourScheme = $xmlTheme->themeElements->clrScheme->attributes();
+                            $colourSchemeName = (string)$colourScheme['name'];
+                            $colourScheme = $xmlTheme->themeElements->clrScheme->children('http://schemas.openxmlformats.org/drawingml/2006/main');
+    
+                            foreach ($colourScheme as $k => $xmlColour) {
+                                $themePos = array_search($k, $themeOrderArray);
+                                if ($themePos === false) {
+                                    $themePos = $themeOrderAdditional++;
+                                }
+                                if (isset($xmlColour->sysClr)) {
+                                    $xmlColourData = $xmlColour->sysClr->attributes();
+                                    $themeColours[$themePos] = $xmlColourData['lastClr'];
+                                }
+                                elseif (isset($xmlColour->srgbClr)) {
+                                    $xmlColourData = $xmlColour->srgbClr->attributes();
+                                    $themeColours[$themePos] = $xmlColourData['val'];
+                                }
+                            }
                         }
                         
                         self::$theme = new Xlsx\Theme($themeName, $colourSchemeName, $themeColours);
@@ -1937,6 +1937,7 @@ class Xlsx extends BaseReader
     private function getWorkbookBaseName(ZipArchive $zip)
     {
         $workbookBasename = '';
+        $xmlNamespaceBase = '';
 
         // check if it is an OOXML archive
         $rels = simplexml_load_string(
@@ -1950,9 +1951,9 @@ class Xlsx extends BaseReader
             foreach ($rels->Relationship as $rel) {
                 switch ($rel['Type']) {
                     case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
-	                case 'http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument':
-	                $xmlNamespaceBase = dirname($rel['Type']);
-	                $basename = basename($rel['Target']);
+                    case 'http://purl.oclc.org/ooxml/officeDocument/relationships/officeDocument':
+                    $xmlNamespaceBase = dirname($rel['Type']);
+                    $basename = basename($rel['Target']);
                         if (preg_match('/workbook.*\.xml/', $basename)) {
                             $workbookBasename = $basename;
                         }
@@ -1961,8 +1962,8 @@ class Xlsx extends BaseReader
                 }
             }
         }
-	
-	    return [$workbookBasename, $xmlNamespaceBase];
+    
+        return [$workbookBasename, $xmlNamespaceBase];
     }
 
     private function readSheetProtection(Worksheet $docSheet, SimpleXMLElement $xmlSheet): void
