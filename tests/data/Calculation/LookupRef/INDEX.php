@@ -144,6 +144,15 @@ return [
         1,
     ],
     [
+        [1 => ['Bananas', 'Pears']],
+        [
+            ['Apples', 'Lemons'],
+            ['Bananas', 'Pears'],
+        ],
+        2,
+        0,
+    ],
+    [
         3,
         [
             [4, 6],
