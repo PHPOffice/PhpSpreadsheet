@@ -1138,15 +1138,13 @@ class Xlsx extends BaseReader
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
-
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
                                                             $images[$embedImageKey],
                                                             false
                                                         );
-                                                    }
-                                                    else {
+                                                    } else {
                                                         $linkImageKey = (string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'link'
@@ -1225,8 +1223,7 @@ class Xlsx extends BaseReader
                                                             $images[$embedImageKey],
                                                             false
                                                         );
-                                                    }
-                                                    else {
+                                                    } else {
                                                         $linkImageKey = (string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'link'
