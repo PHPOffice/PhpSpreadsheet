@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Add ability to extract images if source is a URL. [Issue #1997](https://github.com/PHPOffice/PhpSpreadsheet/issues/1997) [PR #2072](https://github.com/PHPOffice/PhpSpreadsheet/pull/2072)
 - Implemented basic AutoFiltering for Ods Reader and Writer [PR #2053](https://github.com/PHPOffice/PhpSpreadsheet/pull/2053)
 - Implemented basic AutoFiltering for Gnumeric Reader [PR #2055](https://github.com/PHPOffice/PhpSpreadsheet/pull/2055)
 - Improved support for Row and Column ranges in formulae [Issue #1755](https://github.com/PHPOffice/PhpSpreadsheet/issues/1755) [PR #2028](https://github.com/PHPOffice/PhpSpreadsheet/pull/2028)
