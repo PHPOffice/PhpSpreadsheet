@@ -30,7 +30,7 @@ return [
         'NaN', 'red', 'blue', 'green', 'brown',
     ],
     [
-        'blue',
+        ['blue', 'purple'],
         3, ['red', 'orange'], ['yellow', 'green'], ['blue', 'purple'],
     ],
 ];
