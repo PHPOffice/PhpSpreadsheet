@@ -28,7 +28,7 @@ class Drawing extends BaseDrawing
         // Initialise values
         $this->path = '';
         $this->url = '';
-        
+
         // Initialize parent
         parent::__construct();
     }
@@ -126,7 +126,7 @@ class Drawing extends BaseDrawing
     public function setURL($url)
     {
         $this->url = $url;
-        
+
         return $this;
     }
 
