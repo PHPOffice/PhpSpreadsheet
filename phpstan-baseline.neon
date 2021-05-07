@@ -976,11 +976,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
 
 		-
-			message: "#^Parameter \\#3 \\$rowNum of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) expects int, float\\|int\\<0, max\\>\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
