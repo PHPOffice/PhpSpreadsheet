@@ -14,6 +14,13 @@ class Drawing extends BaseDrawing
     private $path;
 
     /**
+     * URL.
+     *
+     * @var string
+     */
+    private $url;
+
+    /**
      * Create a new Drawing.
      */
     public function __construct()
@@ -95,6 +102,30 @@ class Drawing extends BaseDrawing
             $this->path = $pValue;
         }
 
+        return $this;
+    }
+    
+    /**
+     * Get URL.
+     *
+     * @return string
+     */
+    public function getURL()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set URL.
+     *
+     * @param string $url to file
+     *
+     * @return $this
+     */
+    public function setURL($url)
+    {
+        $this->url = $url;
+        
         return $this;
     }
 
