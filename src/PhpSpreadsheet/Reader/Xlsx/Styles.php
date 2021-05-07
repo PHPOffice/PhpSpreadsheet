@@ -71,8 +71,7 @@ class Styles extends BaseParserClass
             $verticalAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
             if ($verticalAlign === 'superscript') {
                 $fontStyle->setSuperscript(true);
-            }
-            if ($verticalAlign === 'subscript') {
+            } elseif ($verticalAlign === 'subscript') {
                 $fontStyle->setSubscript(true);
             }
         }
