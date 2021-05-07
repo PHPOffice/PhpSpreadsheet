@@ -42,9 +42,12 @@ class Styles extends BaseParserClass
 
     public static function readFontStyle(Font $fontStyle, SimpleXMLElement $fontStyleXml): void
     {
-        $fontStyle->setName((string) $fontStyleXml->name['val']);
-        $fontStyle->setSize((float) $fontStyleXml->sz['val']);
-
+        if (isset($fontStyleXml->name, $fontStyleXml->name['val'])) {
+            $fontStyle->setName((string) $fontStyleXml->name['val']);
+        }
+        if (isset($fontStyleXml->sz, $fontStyleXml->sz['val'])) {
+            $fontStyle->setSize((float) $fontStyleXml->sz['val']);
+        }
         if (isset($fontStyleXml->b)) {
             $fontStyle->setBold(!isset($fontStyleXml->b['val']) || self::boolean((string) $fontStyleXml->b['val']));
         }
@@ -68,8 +71,7 @@ class Styles extends BaseParserClass
             $verticalAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
             if ($verticalAlign === 'superscript') {
                 $fontStyle->setSuperscript(true);
-            }
-            if ($verticalAlign === 'subscript') {
+            } elseif ($verticalAlign === 'subscript') {
                 $fontStyle->setSubscript(true);
             }
         }
