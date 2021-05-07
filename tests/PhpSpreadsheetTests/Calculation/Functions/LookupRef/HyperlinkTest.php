@@ -14,6 +14,7 @@ class HyperlinkTest extends TestCase
      * @dataProvider providerHYPERLINK
      *
      * @param mixed $expectedResult
+     * @param null|string $linkUrl
      * @param null|string $description
      */
     public function testHYPERLINK($expectedResult, $linkUrl, $description): void
