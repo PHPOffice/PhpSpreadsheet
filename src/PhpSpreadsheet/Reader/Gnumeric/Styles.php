@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -92,10 +91,17 @@ class Styles
         $this->readDataOnly = $readDataOnly;
     }
 
-    public function read(?SimpleXMLElement $sheet, $maxRow, $maxCol)
+    public function read(SimpleXMLElement $sheet, int $maxRow, int $maxCol): void
     {
-        foreach ($sheet->Styles->StyleRegion as $styleRegion) {
-            $styleAttributes = $styleRegion->attributes();
+        if ($sheet->Styles->StyleRegion !== null) {
+            $this->readStyles($sheet->Styles->StyleRegion, $maxRow, $maxCol);
+        }
+    }
+
+    private function readStyles(SimpleXMLElement $styleRegion, int $maxRow, int $maxCol): void
+    {
+        foreach ($styleRegion as $style) {
+            $styleAttributes = $style->attributes();
             if (($styleAttributes['startRow'] <= $maxRow) && ($styleAttributes['startCol'] <= $maxCol)) {
                 $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
                 $startRow = $styleAttributes['startRow'] + 1;
@@ -106,7 +112,7 @@ class Styles
                 $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow']);
                 $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
 
-                $styleAttributes = $styleRegion->Style->attributes();
+                $styleAttributes = $style->Style->attributes();
 
                 $styleArray = [];
                 //    We still set the number format mask for date/time values, even if readDataOnly is true
@@ -127,8 +133,8 @@ class Styles
 
                     $this->addColors($styleArray, $styleAttributes);
 
-                    $fontAttributes = $styleRegion->Style->Font->attributes();
-                    $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
+                    $fontAttributes = $style->Style->Font->attributes();
+                    $styleArray['font']['name'] = (string) $style->Style->Font;
                     $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
                     $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
                     $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
@@ -146,17 +152,17 @@ class Styles
                             break;
                     }
 
-                    if (isset($styleRegion->Style->StyleBorder)) {
-                        $srssb = $styleRegion->Style->StyleBorder;
+                    if (isset($style->Style->StyleBorder)) {
+                        $srssb = $style->Style->StyleBorder;
                         $this->addBorderStyle($srssb, $styleArray, 'top');
                         $this->addBorderStyle($srssb, $styleArray, 'bottom');
                         $this->addBorderStyle($srssb, $styleArray, 'left');
                         $this->addBorderStyle($srssb, $styleArray, 'right');
                         $this->addBorderDiagonal($srssb, $styleArray);
                     }
-                    if (isset($styleRegion->Style->HyperLink)) {
+                    if (isset($style->Style->HyperLink)) {
                         //    TO DO
-                        $hyperlink = $styleRegion->Style->HyperLink->attributes();
+                        $hyperlink = $style->Style->HyperLink->attributes();
                     }
                 }
                 $this->spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
