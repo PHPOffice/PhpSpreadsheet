@@ -118,7 +118,7 @@ class Styles
                 if (Date::isDateTimeFormatCode($formatCode)) {
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
                 }
-                if ($this->readDataOnly === false) {
+                if ($this->readDataOnly === false && $styleAttributes !== null) {
                     //    If readDataOnly is false, we set all formatting information
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
                     $styleArray = $this->readStyle($styleArray, $styleAttributes, $style);
@@ -232,7 +232,7 @@ class Styles
         return $cellRange;
     }
 
-    private function readStyle(array $styleArray, ?SimpleXMLElement $styleAttributes, SimpleXMLElement $style): array
+    private function readStyle(array $styleArray, SimpleXMLElement $styleAttributes, SimpleXMLElement $style): array
     {
         self::addStyle2($styleArray, 'alignment', 'horizontal', $styleAttributes['HAlign']);
         self::addStyle2($styleArray, 'alignment', 'vertical', $styleAttributes['VAlign']);
