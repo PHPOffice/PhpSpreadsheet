@@ -245,8 +245,8 @@ class Styles
 
         $fontAttributes = $style->Style->Font->attributes();
         if ($fontAttributes !== null) {
-            $styleArray['font']['name'] = (string)$style->Style->Font;
-            $styleArray['font']['size'] = (int)($fontAttributes['Unit']);
+            $styleArray['font']['name'] = (string) $style->Style->Font;
+            $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
             $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
             $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
             $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
