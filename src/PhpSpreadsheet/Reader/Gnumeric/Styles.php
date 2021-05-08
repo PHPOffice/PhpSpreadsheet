@@ -118,50 +118,10 @@ class Styles
                 if (Date::isDateTimeFormatCode($formatCode)) {
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
                 }
-                if (!$this->readDataOnly) {
+                if ($this->readDataOnly === false) {
                     //    If readDataOnly is false, we set all formatting information
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
-
-                    self::addStyle2($styleArray, 'alignment', 'horizontal', $styleAttributes['HAlign']);
-                    self::addStyle2($styleArray, 'alignment', 'vertical', $styleAttributes['VAlign']);
-                    $styleArray['alignment']['wrapText'] = $styleAttributes['WrapText'] == '1';
-                    $styleArray['alignment']['textRotation'] = $this->calcRotation($styleAttributes);
-                    $styleArray['alignment']['shrinkToFit'] = $styleAttributes['ShrinkToFit'] == '1';
-                    $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
-
-                    $this->addColors($styleArray, $styleAttributes);
-
-                    $fontAttributes = $style->Style->Font->attributes();
-                    $styleArray['font']['name'] = (string) $style->Style->Font;
-                    $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
-                    $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
-                    $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
-                    $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
-                    self::addStyle2($styleArray, 'font', 'underline', $fontAttributes['Underline']);
-
-                    switch ($fontAttributes['Script']) {
-                        case '1':
-                            $styleArray['font']['superscript'] = true;
-
-                            break;
-                        case '-1':
-                            $styleArray['font']['subscript'] = true;
-
-                            break;
-                    }
-
-                    if (isset($style->Style->StyleBorder)) {
-                        $srssb = $style->Style->StyleBorder;
-                        $this->addBorderStyle($srssb, $styleArray, 'top');
-                        $this->addBorderStyle($srssb, $styleArray, 'bottom');
-                        $this->addBorderStyle($srssb, $styleArray, 'left');
-                        $this->addBorderStyle($srssb, $styleArray, 'right');
-                        $this->addBorderDiagonal($srssb, $styleArray);
-                    }
-                    if (isset($style->Style->HyperLink)) {
-                        //    TO DO
-                        $hyperlink = $style->Style->HyperLink->attributes();
-                    }
+                    $styleArray = $this->readStyle($styleArray, $styleAttributes, $style);
                 }
                 $this->spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
             }
@@ -270,5 +230,51 @@ class Styles
         $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
 
         return $cellRange;
+    }
+
+    private function readStyle(array $styleArray, ?SimpleXMLElement $styleAttributes, SimpleXMLElement $style): array
+    {
+        self::addStyle2($styleArray, 'alignment', 'horizontal', $styleAttributes['HAlign']);
+        self::addStyle2($styleArray, 'alignment', 'vertical', $styleAttributes['VAlign']);
+        $styleArray['alignment']['wrapText'] = $styleAttributes['WrapText'] == '1';
+        $styleArray['alignment']['textRotation'] = $this->calcRotation($styleAttributes);
+        $styleArray['alignment']['shrinkToFit'] = $styleAttributes['ShrinkToFit'] == '1';
+        $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
+
+        $this->addColors($styleArray, $styleAttributes);
+
+        $fontAttributes = $style->Style->Font->attributes();
+        $styleArray['font']['name'] = (string) $style->Style->Font;
+        $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
+        $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
+        $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
+        $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
+        self::addStyle2($styleArray, 'font', 'underline', $fontAttributes['Underline']);
+
+        switch ($fontAttributes['Script']) {
+            case '1':
+                $styleArray['font']['superscript'] = true;
+
+                break;
+            case '-1':
+                $styleArray['font']['subscript'] = true;
+
+                break;
+        }
+
+        if (isset($style->Style->StyleBorder)) {
+            $srssb = $style->Style->StyleBorder;
+            $this->addBorderStyle($srssb, $styleArray, 'top');
+            $this->addBorderStyle($srssb, $styleArray, 'bottom');
+            $this->addBorderStyle($srssb, $styleArray, 'left');
+            $this->addBorderStyle($srssb, $styleArray, 'right');
+            $this->addBorderDiagonal($srssb, $styleArray);
+        }
+        if (isset($style->Style->HyperLink)) {
+            //    TO DO
+            $hyperlink = $style->Style->HyperLink->attributes();
+        }
+
+        return $styleArray;
     }
 }
