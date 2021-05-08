@@ -101,21 +101,19 @@ class Styles
     private function readStyles(SimpleXMLElement $styleRegion, int $maxRow, int $maxCol): void
     {
         foreach ($styleRegion as $style) {
+            if ($style === null) {
+                continue;
+            }
+
             $styleAttributes = $style->attributes();
             if (($styleAttributes['startRow'] <= $maxRow) && ($styleAttributes['startCol'] <= $maxCol)) {
-                $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
-                $startRow = $styleAttributes['startRow'] + 1;
-
-                $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
-
-                $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow']);
-                $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
+                $cellRange = $this->readStyleRange($styleAttributes, $maxCol, $maxRow);
 
                 $styleAttributes = $style->Style->attributes();
 
                 $styleArray = [];
-                //    We still set the number format mask for date/time values, even if readDataOnly is true
+                // We still set the number format mask for date/time values, even if readDataOnly is true
+                //    so that we can identify whether a float is a float or a date value
                 $formatCode = (string) $styleAttributes['Format'];
                 if (Date::isDateTimeFormatCode($formatCode)) {
                     $styleArray['numberFormat']['formatCode'] = $formatCode;
@@ -247,7 +245,7 @@ class Styles
         $styleArray['font']['color']['rgb'] = $RGB;
         $RGB = self::parseGnumericColour($styleAttributes['Back']);
         $shade = (string) $styleAttributes['Shade'];
-        if (($RGB != '000000') || ($shade != '0')) {
+        if (($RGB !== '000000') || ($shade !== '0')) {
             $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
             if ($shade === '1') {
                 $styleArray['fill']['startColor']['rgb'] = $RGB;
@@ -258,5 +256,19 @@ class Styles
             }
             self::addStyle2($styleArray, 'fill', 'fillType', $shade);
         }
+    }
+
+    private function readStyleRange(?SimpleXMLElement $styleAttributes, int $maxCol, int $maxRow): string
+    {
+        $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
+        $startRow = $styleAttributes['startRow'] + 1;
+
+        $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
+        $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
+
+        $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow']);
+        $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
+
+        return $cellRange;
     }
 }
