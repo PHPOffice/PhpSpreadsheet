@@ -106,7 +106,7 @@ class Styles
             }
 
             $styleAttributes = $style->attributes();
-            if (($styleAttributes['startRow'] <= $maxRow) && ($styleAttributes['startCol'] <= $maxCol)) {
+            if ($styleAttributes !== null && ($styleAttributes['startRow'] <= $maxRow) && ($styleAttributes['startCol'] <= $maxCol)) {
                 $cellRange = $this->readStyleRange($styleAttributes, $maxCol, $maxRow);
 
                 $styleAttributes = $style->Style->attributes();
@@ -258,7 +258,7 @@ class Styles
         }
     }
 
-    private function readStyleRange(?SimpleXMLElement $styleAttributes, int $maxCol, int $maxRow): string
+    private function readStyleRange(SimpleXMLElement $styleAttributes, int $maxCol, int $maxRow): string
     {
         $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
         $startRow = $styleAttributes['startRow'] + 1;
