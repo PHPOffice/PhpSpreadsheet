@@ -244,22 +244,24 @@ class Styles
         $this->addColors($styleArray, $styleAttributes);
 
         $fontAttributes = $style->Style->Font->attributes();
-        $styleArray['font']['name'] = (string) $style->Style->Font;
-        $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
-        $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
-        $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
-        $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
-        self::addStyle2($styleArray, 'font', 'underline', $fontAttributes['Underline']);
+        if ($fontAttributes !== null) {
+            $styleArray['font']['name'] = (string)$style->Style->Font;
+            $styleArray['font']['size'] = (int)($fontAttributes['Unit']);
+            $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
+            $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
+            $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
+            self::addStyle2($styleArray, 'font', 'underline', $fontAttributes['Underline']);
 
-        switch ($fontAttributes['Script']) {
-            case '1':
-                $styleArray['font']['superscript'] = true;
+            switch ($fontAttributes['Script']) {
+                case '1':
+                    $styleArray['font']['superscript'] = true;
 
-                break;
-            case '-1':
-                $styleArray['font']['subscript'] = true;
+                    break;
+                case '-1':
+                    $styleArray['font']['subscript'] = true;
 
-                break;
+                    break;
+            }
         }
 
         if (isset($style->Style->StyleBorder)) {
