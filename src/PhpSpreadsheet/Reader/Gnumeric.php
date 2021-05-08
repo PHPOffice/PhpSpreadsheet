@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\Properties;
+use PhpOffice\PhpSpreadsheet\Reader\Gnumeric\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -55,6 +56,20 @@ class Gnumeric extends BaseReader
 
     /** @var ReferenceHelper */
     private $referenceHelper;
+
+    /** @var array */
+    public static $mappings = [
+        'dataType' => [
+            '10' => DataType::TYPE_NULL,
+            '20' => DataType::TYPE_BOOL,
+            '30' => DataType::TYPE_NUMERIC, // Integer doesn't exist in Excel
+            '40' => DataType::TYPE_NUMERIC, // Float
+            '50' => DataType::TYPE_ERROR,
+            '60' => DataType::TYPE_STRING,
+            //'70':        //    Cell Range
+            //'80':        //    Array
+        ],
+    ];
 
     /**
      * Create a new Gnumeric.
@@ -195,80 +210,9 @@ class Gnumeric extends BaseReader
         return $data;
     }
 
-    /** @var array */
-    private static $mappings = [
-        'borderStyle' => [
-            '0' => Border::BORDER_NONE,
-            '1' => Border::BORDER_THIN,
-            '2' => Border::BORDER_MEDIUM,
-            '3' => Border::BORDER_SLANTDASHDOT,
-            '4' => Border::BORDER_DASHED,
-            '5' => Border::BORDER_THICK,
-            '6' => Border::BORDER_DOUBLE,
-            '7' => Border::BORDER_DOTTED,
-            '8' => Border::BORDER_MEDIUMDASHED,
-            '9' => Border::BORDER_DASHDOT,
-            '10' => Border::BORDER_MEDIUMDASHDOT,
-            '11' => Border::BORDER_DASHDOTDOT,
-            '12' => Border::BORDER_MEDIUMDASHDOTDOT,
-            '13' => Border::BORDER_MEDIUMDASHDOTDOT,
-        ],
-        'dataType' => [
-            '10' => DataType::TYPE_NULL,
-            '20' => DataType::TYPE_BOOL,
-            '30' => DataType::TYPE_NUMERIC, // Integer doesn't exist in Excel
-            '40' => DataType::TYPE_NUMERIC, // Float
-            '50' => DataType::TYPE_ERROR,
-            '60' => DataType::TYPE_STRING,
-            //'70':        //    Cell Range
-            //'80':        //    Array
-        ],
-        'fillType' => [
-            '1' => Fill::FILL_SOLID,
-            '2' => Fill::FILL_PATTERN_DARKGRAY,
-            '3' => Fill::FILL_PATTERN_MEDIUMGRAY,
-            '4' => Fill::FILL_PATTERN_LIGHTGRAY,
-            '5' => Fill::FILL_PATTERN_GRAY125,
-            '6' => Fill::FILL_PATTERN_GRAY0625,
-            '7' => Fill::FILL_PATTERN_DARKHORIZONTAL, // horizontal stripe
-            '8' => Fill::FILL_PATTERN_DARKVERTICAL, // vertical stripe
-            '9' => Fill::FILL_PATTERN_DARKDOWN, // diagonal stripe
-            '10' => Fill::FILL_PATTERN_DARKUP, // reverse diagonal stripe
-            '11' => Fill::FILL_PATTERN_DARKGRID, // diagoanl crosshatch
-            '12' => Fill::FILL_PATTERN_DARKTRELLIS, // thick diagonal crosshatch
-            '13' => Fill::FILL_PATTERN_LIGHTHORIZONTAL,
-            '14' => Fill::FILL_PATTERN_LIGHTVERTICAL,
-            '15' => Fill::FILL_PATTERN_LIGHTUP,
-            '16' => Fill::FILL_PATTERN_LIGHTDOWN,
-            '17' => Fill::FILL_PATTERN_LIGHTGRID, // thin horizontal crosshatch
-            '18' => Fill::FILL_PATTERN_LIGHTTRELLIS, // thin diagonal crosshatch
-        ],
-        'horizontal' => [
-            '1' => Alignment::HORIZONTAL_GENERAL,
-            '2' => Alignment::HORIZONTAL_LEFT,
-            '4' => Alignment::HORIZONTAL_RIGHT,
-            '8' => Alignment::HORIZONTAL_CENTER,
-            '16' => Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-            '32' => Alignment::HORIZONTAL_JUSTIFY,
-            '64' => Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-        ],
-        'underline' => [
-            '1' => Font::UNDERLINE_SINGLE,
-            '2' => Font::UNDERLINE_DOUBLE,
-            '3' => Font::UNDERLINE_SINGLEACCOUNTING,
-            '4' => Font::UNDERLINE_DOUBLEACCOUNTING,
-        ],
-        'vertical' => [
-            '1' => Alignment::VERTICAL_TOP,
-            '2' => Alignment::VERTICAL_BOTTOM,
-            '4' => Alignment::VERTICAL_CENTER,
-            '8' => Alignment::VERTICAL_JUSTIFY,
-        ],
-    ];
-
     public static function gnumericMappings(): array
     {
-        return self::$mappings;
+        return array_merge(self::$mappings, Styles::$mappings);
     }
 
     private function processComments(SimpleXMLElement $sheet): void
@@ -405,80 +349,9 @@ class Gnumeric extends BaseReader
                 $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
             }
 
+            (new Styles($this->spreadsheet, $this->readDataOnly))->read($sheet, $maxRow, $maxCol);
+
             $this->processComments($sheet);
-
-            foreach ($sheet->Styles->StyleRegion as $styleRegion) {
-                $styleAttributes = $styleRegion->attributes();
-                if (
-                    ($styleAttributes['startRow'] <= $maxRow) &&
-                    ($styleAttributes['startCol'] <= $maxCol)
-                ) {
-                    $startColumn = Coordinate::stringFromColumnIndex((int) $styleAttributes['startCol'] + 1);
-                    $startRow = $styleAttributes['startRow'] + 1;
-
-                    $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                    $endColumn = Coordinate::stringFromColumnIndex($endColumn + 1);
-
-                    $endRow = 1 + (($styleAttributes['endRow'] > $maxRow) ? $maxRow : (int) $styleAttributes['endRow']);
-                    $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
-
-                    $styleAttributes = $styleRegion->Style->attributes();
-
-                    $styleArray = [];
-                    //    We still set the number format mask for date/time values, even if readDataOnly is true
-                    $formatCode = (string) $styleAttributes['Format'];
-                    if (Date::isDateTimeFormatCode($formatCode)) {
-                        $styleArray['numberFormat']['formatCode'] = $formatCode;
-                    }
-                    if (!$this->readDataOnly) {
-                        //    If readDataOnly is false, we set all formatting information
-                        $styleArray['numberFormat']['formatCode'] = $formatCode;
-
-                        self::addStyle2($styleArray, 'alignment', 'horizontal', $styleAttributes['HAlign']);
-                        self::addStyle2($styleArray, 'alignment', 'vertical', $styleAttributes['VAlign']);
-                        $styleArray['alignment']['wrapText'] = $styleAttributes['WrapText'] == '1';
-                        $styleArray['alignment']['textRotation'] = $this->calcRotation($styleAttributes);
-                        $styleArray['alignment']['shrinkToFit'] = $styleAttributes['ShrinkToFit'] == '1';
-                        $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
-
-                        $this->addColors($styleArray, $styleAttributes);
-
-                        $fontAttributes = $styleRegion->Style->Font->attributes();
-                        $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
-                        $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
-                        $styleArray['font']['bold'] = $fontAttributes['Bold'] == '1';
-                        $styleArray['font']['italic'] = $fontAttributes['Italic'] == '1';
-                        $styleArray['font']['strikethrough'] = $fontAttributes['StrikeThrough'] == '1';
-                        self::addStyle2($styleArray, 'font', 'underline', $fontAttributes['Underline']);
-
-                        switch ($fontAttributes['Script']) {
-                            case '1':
-                                $styleArray['font']['superscript'] = true;
-
-                                break;
-                            case '-1':
-                                $styleArray['font']['subscript'] = true;
-
-                                break;
-                        }
-
-                        if (isset($styleRegion->Style->StyleBorder)) {
-                            $srssb = $styleRegion->Style->StyleBorder;
-                            $this->addBorderStyle($srssb, $styleArray, 'top');
-                            $this->addBorderStyle($srssb, $styleArray, 'bottom');
-                            $this->addBorderStyle($srssb, $styleArray, 'left');
-                            $this->addBorderStyle($srssb, $styleArray, 'right');
-                            $this->addBorderDiagonal($srssb, $styleArray);
-                        }
-                        if (isset($styleRegion->Style->HyperLink)) {
-                            //    TO DO
-                            $hyperlink = $styleRegion->Style->HyperLink->attributes();
-                        }
-                    }
-                    $this->spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
-                }
-            }
-
             $this->processColumnWidths($sheet, $maxCol);
             $this->processRowHeights($sheet, $maxRow);
             $this->processMergedCells($sheet);
@@ -491,28 +364,6 @@ class Gnumeric extends BaseReader
 
         // Return
         return $this->spreadsheet;
-    }
-
-    private function addBorderDiagonal(SimpleXMLElement $srssb, array &$styleArray): void
-    {
-        if (isset($srssb->Diagonal, $srssb->{'Rev-Diagonal'})) {
-            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes());
-            $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_BOTH;
-        } elseif (isset($srssb->Diagonal)) {
-            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes());
-            $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_UP;
-        } elseif (isset($srssb->{'Rev-Diagonal'})) {
-            $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->{'Rev-Diagonal'}->attributes());
-            $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_DOWN;
-        }
-    }
-
-    private function addBorderStyle(SimpleXMLElement $srssb, array &$styleArray, string $direction): void
-    {
-        $ucDirection = ucfirst($direction);
-        if (isset($srssb->$ucDirection)) {
-            $styleArray['borders'][$direction] = self::parseBorderAttributes($srssb->$ucDirection->attributes());
-        }
     }
 
     private function processMergedCells(?SimpleXMLElement $sheet): void
@@ -683,79 +534,11 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function calcRotation(SimpleXMLElement $styleAttributes): int
-    {
-        $rotation = (int) $styleAttributes->Rotation;
-        if ($rotation >= 270 && $rotation <= 360) {
-            $rotation -= 360;
-        }
-        $rotation = (abs($rotation) > 90) ? 0 : $rotation;
-
-        return $rotation;
-    }
-
-    private static function addStyle(array &$styleArray, string $key, string $value): void
-    {
-        if (array_key_exists($value, self::$mappings[$key])) {
-            $styleArray[$key] = self::$mappings[$key][$value];
-        }
-    }
-
-    private static function addStyle2(array &$styleArray, string $key1, string $key, string $value): void
-    {
-        if (array_key_exists($value, self::$mappings[$key])) {
-            $styleArray[$key1][$key] = self::$mappings[$key][$value];
-        }
-    }
-
-    private static function parseBorderAttributes(?SimpleXMLElement $borderAttributes): array
-    {
-        $styleArray = [];
-        if ($borderAttributes !== null) {
-            if (isset($borderAttributes['Color'])) {
-                $styleArray['color']['rgb'] = self::parseGnumericColour($borderAttributes['Color']);
-            }
-
-            self::addStyle($styleArray, 'borderStyle', $borderAttributes['Style']);
-        }
-
-        return $styleArray;
-    }
-
     private function parseRichText(string $is): RichText
     {
         $value = new RichText();
         $value->createText($is);
 
         return $value;
-    }
-
-    private static function parseGnumericColour(string $gnmColour): string
-    {
-        [$gnmR, $gnmG, $gnmB] = explode(':', $gnmColour);
-        $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
-        $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
-        $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
-
-        return $gnmR . $gnmG . $gnmB;
-    }
-
-    private function addColors(array &$styleArray, SimpleXMLElement $styleAttributes): void
-    {
-        $RGB = self::parseGnumericColour($styleAttributes['Fore']);
-        $styleArray['font']['color']['rgb'] = $RGB;
-        $RGB = self::parseGnumericColour($styleAttributes['Back']);
-        $shade = (string) $styleAttributes['Shade'];
-        if (($RGB != '000000') || ($shade != '0')) {
-            $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
-            if ($shade === '1') {
-                $styleArray['fill']['startColor']['rgb'] = $RGB;
-                $styleArray['fill']['endColor']['rgb'] = $RGB2;
-            } else {
-                $styleArray['fill']['endColor']['rgb'] = $RGB;
-                $styleArray['fill']['startColor']['rgb'] = $RGB2;
-            }
-            self::addStyle2($styleArray, 'fill', 'fillType', $shade);
-        }
     }
 }
