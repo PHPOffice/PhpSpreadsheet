@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ConditionalStyles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PivotTables;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
@@ -800,6 +801,13 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
                                 (new DataValidations($docSheet, $xmlSheet))->load();
+                            }
+
+                            if (!$this->readDataOnly && $this->includePivotTables) {
+                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    $relsWorksheet = simplexml_load_string($this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')); //~ http://schemas.openxmlformats.org/package/2006/relationships");
+                                    (new PivotTables($docSheet, $zip))->load($relsWorksheet, $dir, $fileWorksheet);
+                                }
                             }
 
                             // unparsed sheet AlternateContent

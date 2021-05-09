@@ -81,6 +81,28 @@ interface IReader
     public function setIncludeCharts($pValue);
 
     /**
+     * Read Pivot Tables in workbook?
+     *        If this is true, then the Reader will include any Pivot Tables that exist in the workbook.
+     *      Note that a ReadDataOnly value of false overrides, and Pivot Tables won't be read regardless of the IncludePivotTables value.
+     *        If false (the default) it will ignore any Pivot Tables defined in the workbook file.
+     *
+     * @return bool
+     */
+    public function getIncludePivotTables();
+
+    /**
+     * Set read Pivot Tables in workbook
+     *        Set to true, to advise the Reader to include any Pivot Tables that exist in the workbook.
+     *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludePivotTables value.
+     *        Set to false (the default) to discard Pivot Tables.
+     *
+     * @param bool $pValue
+     *
+     * @return IReader
+     */
+    public function setIncludePivotTables($pValue);
+
+    /**
      * Get which sheets to load
      * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
      *        indicating that all worksheets in the workbook should be loaded.

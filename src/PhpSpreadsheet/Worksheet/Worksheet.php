@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\PivotTable;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared;
@@ -106,6 +107,13 @@ class Worksheet implements IComparable
      * @var ArrayObject<Chart>
      */
     private $chartCollection;
+
+    /**
+     * Collection of PivotTable objects.
+     *
+     * @var PivotTable[]
+     */
+    private $pivotTableCollection = [];
 
     /**
      * Worksheet title.
@@ -2847,6 +2855,29 @@ class Worksheet implements IComparable
     public function getDataValidationCollection()
     {
         return $this->dataValidationCollection;
+    }
+
+    /**
+     * Get collection of PivotTables.
+     *
+     * @return PivotTable[]
+     */
+    public function getPivotTableCollection()
+    {
+        return $this->pivotTableCollection;
+    }
+
+    public function addPivotTable(?PivotTable $pPivotTable = null, ?int $iPivotTableIndex = null): PivotTable
+    {
+        $pPivotTable->setWorksheet($this);
+        if ($iPivotTableIndex === null) {
+            $this->pivotTableCollection[] = $pPivotTable;
+        } else {
+            // Insert the pivot table at the requested index
+            array_splice($this->pivotTableCollection, $iPivotTableIndex, 0, [$pPivotTable]);
+        }
+
+        return $pPivotTable;
     }
 
     /**

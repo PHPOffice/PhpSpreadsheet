@@ -35,6 +35,14 @@ abstract class BaseReader implements IReader
     protected $includeCharts = false;
 
     /**
+     * Read Pivottable that are defined in the workbook?
+     * Identifies whether the Reader should read the definitions for any Pivottable that exist in the workbook;.
+     *
+     * @var bool
+     */
+    protected $includePivotTables = false;
+
+    /**
      * Restrict which sheets should be loaded?
      * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
      *
@@ -93,6 +101,18 @@ abstract class BaseReader implements IReader
     public function setIncludeCharts($pValue)
     {
         $this->includeCharts = (bool) $pValue;
+
+        return $this;
+    }
+
+    public function getIncludePivotTables()
+    {
+        return $this->includePivotTables;
+    }
+
+    public function setIncludePivotTables($pValue = false)
+    {
+        $this->includePivotTables = (bool) $pValue;
 
         return $this;
     }
