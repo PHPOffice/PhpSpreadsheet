@@ -48,4 +48,9 @@ class ZipFileReader
     {
         return $this->securityScanner->scan($this->readRaw($filename));
     }
+
+    public function locate(string $filename = ''): bool
+    {
+        return (bool) $this->archive->locateName($filename);
+    }
 }

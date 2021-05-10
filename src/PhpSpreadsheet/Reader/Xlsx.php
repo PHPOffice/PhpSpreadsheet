@@ -794,7 +794,7 @@ class Xlsx extends BaseReader
                                 $hyperlinkReader = new Hyperlinks($docSheet);
                                 // Locate hyperlink relations
                                 $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
-                                if ($zip->locateName($relationsFileName)) {
+                                if ($this->zipReader->locate($relationsFileName)) {
                                     //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $relsWorksheet = simplexml_load_string(
                                         $this->zipReader->read($relationsFileName),
@@ -815,7 +815,7 @@ class Xlsx extends BaseReader
                             $vmlComments = [];
                             if (!$this->readDataOnly) {
                                 // Locate comment relations
-                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                if ($this->zipReader->locate(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                     //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $relsWorksheet = simplexml_load_string(
                                         $this->zipReader->read(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels'),
@@ -955,7 +955,7 @@ class Xlsx extends BaseReader
 
                                 // Header/footer images
                                 if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
-                                    if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    if ($this->zipReader->locate(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $relsWorksheet = simplexml_load_string(
                                             $this->zipReader->read(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels'),
@@ -1033,7 +1033,7 @@ class Xlsx extends BaseReader
                             }
 
                             // TODO: Autoshapes from twoCellAnchors!
-                            if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                            if ($this->zipReader->locate(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                 //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                 $relsWorksheet = simplexml_load_string(
                                     $this->zipReader->read(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels'),
@@ -1264,8 +1264,8 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $this->readFormControlProperties($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
-                            $this->readPrinterSettings($excel, $zip, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readFormControlProperties($excel, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
+                            $this->readPrinterSettings($excel, $dir, $fileWorksheet, $docSheet, $unparsedLoadedData);
 
                             // Loop through definedNames
                             if ($xmlWorkbook->definedNames) {
@@ -1795,9 +1795,9 @@ class Xlsx extends BaseReader
         }
     }
 
-    private function readFormControlProperties(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readFormControlProperties(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
     {
-        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+        if (!$this->zipReader->locate(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
             return;
         }
 
@@ -1825,9 +1825,9 @@ class Xlsx extends BaseReader
         unset($unparsedCtrlProps);
     }
 
-    private function readPrinterSettings(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readPrinterSettings(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
     {
-        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+        if (!$this->zipReader->locate(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
             return;
         }
 
