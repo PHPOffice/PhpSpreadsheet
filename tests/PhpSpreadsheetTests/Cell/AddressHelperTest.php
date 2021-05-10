@@ -109,4 +109,19 @@ class AddressHelperTest extends TestCase
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Exception.php';
     }
+
+    /**
+     * @dataProvider providerConvertFormulaToA1SpreadsheetXml
+     */
+    public function testConvertFormulaToA1SpreadsheetXml(string $expectedValue, string $formula): void
+    {
+        $actualValue = AddressHelper::convertFormulaToA1($formula);
+
+        self::assertSame($expectedValue, $actualValue);
+    }
+
+    public function providerConvertFormulaToA1SpreadsheetXml(): array
+    {
+        return require 'tests/data/Cell/ConvertFormulaToA1SpreadsheetXml.php';
+    }
 }
