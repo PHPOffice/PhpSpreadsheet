@@ -1,8 +1,16 @@
 <?php
 
 return [
-    ['=B4+C4', '=R4C2+R4C3'],
-    ['=B3+C3', '=R[2]C[1]+R[2]C[2]'],
-    ['=SUM(B1:B4)', '=SUM(R1C2:R4C2)'],
-    ['=CONCAT("Result of formula expression =R1C1+R1C2 is: ", A1+B1)', '=CONCAT("Result of formula expression =R1C1+R1C2 is: ", R1C1+R1C2)'],
+    // Basic arithmetic
+    ['=D3+F7+G4+C6+5', '=R3C4+R7C6+R4C7+R6C3+5'],
+    ['=D3-F7-G4-C6-5', '=R3C4-R7C6-R4C7-R6C3-5'],
+    ['=D3*F7*G4*C6*5', '=R3C4*R7C6*R4C7*R6C3*5'],
+    ['=D3/F7/G4/C6/5', '=R3C4/R7C6/R4C7/R6C3/5'],
+    // Formulas
+    ['=SUM(E1:E5)', '=SUM(R1C5:R5C5)'],
+    ['=SUM(E1:E5, D5)', '=SUM(R1C5:R5C5, R5C4)'],
+    ['=SUM(E1:E5, D5)-C5', '=SUM(R1C5:R5C5, R5C4)-R5C3'],
+    ['=IF(E1>E2, E3, E4)', '=IF(R1C5>R2C5, R3C5, R4C5)'],
+    // String literals
+    ['=CONCAT("Result of formula expression =R3C3+R4C3 is: ", C3+C4)', '=CONCAT("Result of formula expression =R3C3+R4C3 is: ", R3C3+R4C3)'],
 ];

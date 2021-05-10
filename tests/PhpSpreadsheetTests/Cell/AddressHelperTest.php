@@ -143,7 +143,7 @@ class AddressHelperTest extends TestCase
     /**
      * @dataProvider providerConvertFormulaToA1FromR1C1Relative
      */
-    public function testConvertFormulaToA1R1C1Relative(string $expectedValue, string $formula, int $row, int $column): void
+    public function testConvertFormulaToA1FromR1C1Relative(string $expectedValue, string $formula, int $row, int $column): void
     {
         $actualValue = AddressHelper::convertFormulaToA1($formula, $row, $column);
 
