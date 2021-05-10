@@ -48,7 +48,7 @@ class AddressHelper
     }
 
     /**
-     * Converts a formula that uses R1C1 format cell address to an A1 format cell address.
+     * Converts a formula that uses R1C1/SpreadsheetXML format cell address to an A1 format cell address.
      */
     public static function convertFormulaToA1(
         string $formula,
