@@ -12,7 +12,7 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
     /**
      * @var string
      */
-    private static $testbook = 'tests/data/Reader/Xlsx/namespacestd.xlsx';
+    private static $testbook = 'tests/data/Reader/XLSX/namespacestd.xlsx';
 
     public function testPreliminaries(): void
     {
