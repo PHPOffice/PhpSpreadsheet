@@ -1230,6 +1230,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('t', 'str');
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
+            $calculatedValue = (int) $calculatedValue;
         }
         // array values are not yet supported
         //$attributes = $pCell->getFormulaAttributes();
