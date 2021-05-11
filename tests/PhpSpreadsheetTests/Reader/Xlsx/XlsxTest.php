@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
@@ -9,7 +9,9 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
@@ -55,23 +57,24 @@ class XlsxTest extends TestCase
         }
     }
 
-    public function testListWorksheetInfo(): void
+    private static function getRowHeight(?RowDimension $rowDim): float
     {
-        $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
-        $reader = new Xlsx();
-        $actual = $reader->listWorksheetInfo($filename);
+        return ($rowDim === null) ? -1 : $rowDim->getRowHeight();
+    }
 
-        $expected = [
-            [
-                'worksheetName' => 'Sheet1',
-                'lastColumnLetter' => 'F',
-                'lastColumnIndex' => 5,
-                'totalRows' => '6',
-                'totalColumns' => 6,
-            ],
-        ];
+    private static function getRowVisible(?RowDimension $rowDim): bool
+    {
+        return ($rowDim === null) ? true : $rowDim->getVisible();
+    }
 
-        self::assertEquals($expected, $actual);
+    private static function getColumnWidth(?ColumnDimension $colDim): float
+    {
+        return ($colDim === null) ? -1 : $colDim->getWidth();
+    }
+
+    private static function getColumnVisible(?ColumnDimension $colDim): bool
+    {
+        return ($colDim === null) ? true : $colDim->getVisible();
     }
 
     public function testLoadXlsxRowColumnAttributes(): void
@@ -82,20 +85,20 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
         for ($row = 1; $row <= 4; ++$row) {
-            self::assertEquals($row * 5 + 10, floor($worksheet->getRowDimension($row)->getRowHeight()));
+            self::assertEquals($row * 5 + 10, floor(self::getRowHeight($worksheet->getRowDimension($row))));
         }
 
-        self::assertFalse($worksheet->getRowDimension(5)->getVisible());
+        self::assertFalse(self::getRowVisible($worksheet->getRowDimension(5)));
 
         for ($column = 1; $column <= 4; ++$column) {
             $columnAddress = Coordinate::stringFromColumnIndex($column);
             self::assertEquals(
                 $column * 2 + 2,
-                floor($worksheet->getColumnDimension($columnAddress)->getWidth())
+                floor(self::getColumnWidth($worksheet->getColumnDimension($columnAddress)))
             );
         }
 
-        self::assertFalse($worksheet->getColumnDimension('E')->getVisible());
+        self::assertFalse(self::getColumnVisible($worksheet->getColumnDimension('E')));
     }
 
     public function testLoadXlsxWithStyles(): void
@@ -252,7 +255,7 @@ class XlsxTest extends TestCase
      *
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
-    public function testStripsWhiteSpaceFromStyleString($string): void
+    public function testStripsWhiteSpaceFromStyleString(string $string): void
     {
         $string = Xlsx::stripWhiteSpaceFromStyleString($string);
         self::assertEquals(preg_match('/\s/', $string), 0);

@@ -1,11 +1,14 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\TestCase;
 
-function getTitleText($title)
+/**
+ * @param mixed $title
+ */
+function getTitleText($title): ?string
 {
     if (null === $title || null === $title->getCaption()) {
         return null;
