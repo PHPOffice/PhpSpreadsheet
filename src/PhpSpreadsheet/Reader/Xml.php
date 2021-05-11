@@ -284,7 +284,7 @@ class Xml extends BaseReader
             $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             if (
-                (isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
+                isset($this->loadSheetsOnly, $worksheet_ss['Name']) &&
                 (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
             ) {
                 continue;

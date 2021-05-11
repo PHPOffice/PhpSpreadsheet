@@ -75,6 +75,16 @@ class ColorMap
             return self::$colorMap["#{$colorRgb}"];
         }
 
+//      TODO Try and map RGB value to nearest colour within the define pallette
+//        $red =  Color::getRed($colorRgb, false);
+//        $green = Color::getGreen($colorRgb, false);
+//        $blue = Color::getBlue($colorRgb, false);
+
+//        $paletteSpace = 3;
+//        $newColor = ($red * $paletteSpace / 256) * ($paletteSpace * $paletteSpace) +
+//            ($green * $paletteSpace / 256) * $paletteSpace +
+//            ($blue * $paletteSpace / 256);
+
         return $defaultIndex;
     }
 }
