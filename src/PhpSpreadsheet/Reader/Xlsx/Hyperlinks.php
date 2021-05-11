@@ -21,7 +21,7 @@ class Hyperlinks
     public function readHyperlinks(SimpleXMLElement $relsWorksheet): void
     {
         foreach ($relsWorksheet->children(Namespaces::RELATIONSHIPS)->Relationship as $elementx) {
-            $element = $elementx->attributes();
+            $element = Xlsx::getAttributes($elementx);
             if ($element->Type == Namespaces::HYPERLINK) {
                 $this->hyperlinks[(string) $element->Id] = (string) $element->Target;
             }
@@ -40,9 +40,9 @@ class Hyperlinks
     private function setHyperlink(SimpleXMLElement $hyperlink, Worksheet $worksheet): void
     {
         // Link url
-        $linkRel = $hyperlink->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT);
+        $linkRel = Xlsx::getAttributes($hyperlink, Namespaces::SCHEMA_OFFICE_DOCUMENT);
 
-        $attributes = Xlsx::testSimpleXml($hyperlink->attributes());
+        $attributes = Xlsx::getAttributes($hyperlink);
         foreach (Coordinate::extractAllCellReferencesInRange($attributes->ref) as $cellReference) {
             $cell = $worksheet->getCell($cellReference);
             if (isset($linkRel['id'])) {
