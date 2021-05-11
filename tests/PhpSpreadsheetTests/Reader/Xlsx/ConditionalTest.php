@@ -8,9 +8,8 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ConditionalTest extends AbstractFunctional
 {
-
     /**
-     * Test check if conditional style with type 'notContainsText' works on xlsx
+     * Test check if conditional style with type 'notContainsText' works on xlsx.
      */
     public function testConditionalNotContainsText(): void
     {
@@ -20,12 +19,12 @@ class ConditionalTest extends AbstractFunctional
         $worksheet = $spreadsheet->getActiveSheet();
         $styles = $worksheet->getConditionalStyles('A1:A5');
 
-        $this->assertCount(1, $styles);
+        self::assertCount(1, $styles);
 
-        /** @var $notContainsTextStyle Conditional */
+        /** @var Conditional $notContainsTextStyle */
         $notContainsTextStyle = $styles[0];
-        $this->assertEquals('A', $notContainsTextStyle->getText());
-        $this->assertEquals(Conditional::CONDITION_NOTCONTAINSTEXT, $notContainsTextStyle->getConditionType());
-        $this->assertEquals(Conditional::OPERATOR_NOTCONTAINS, $notContainsTextStyle->getOperatorType());
+        self::assertEquals('A', $notContainsTextStyle->getText());
+        self::assertEquals(Conditional::CONDITION_NOTCONTAINSTEXT, $notContainsTextStyle->getConditionType());
+        self::assertEquals(Conditional::OPERATOR_NOTCONTAINS, $notContainsTextStyle->getOperatorType());
     }
 }

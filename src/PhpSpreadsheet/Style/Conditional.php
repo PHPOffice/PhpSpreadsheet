@@ -314,11 +314,7 @@ class Conditional implements IComparable
     }
 
     /**
-     * Verify if param is valid condition type
-     *
-     * @param string $type
-     *
-     * @return bool
+     * Verify if param is valid condition type.
      */
     public static function isValidConditionType(string $type): bool
     {

@@ -30,7 +30,7 @@ class ConditionalTest extends AbstractFunctional
     }
 
     /**
-     * Test check if conditional style with type 'notContainsText' works on xlsx
+     * Test check if conditional style with type 'notContainsText' works on xlsx.
      */
     public function testConditionalNotContainsText(): void
     {
@@ -40,7 +40,7 @@ class ConditionalTest extends AbstractFunctional
         $condition = new Conditional();
         $condition->setConditionType(Conditional::CONDITION_NOTCONTAINSTEXT);
         $condition->setOperatorType(Conditional::OPERATOR_NOTCONTAINS);
-        $condition->setText("C");
+        $condition->setText('C');
         $condition->getStyle()->applyFromArray([
             'fill' => [
                 'color' => ['argb' => 'FFFFC000'],
@@ -55,6 +55,6 @@ class ConditionalTest extends AbstractFunctional
         $needle = <<<xml
 <conditionalFormatting sqref="A1:A5"><cfRule type="notContainsText" dxfId="" priority="1" operator="notContains" text="C"><formula>ISERROR(SEARCH(&quot;C&quot;,A1:A5))</formula></cfRule></conditionalFormatting>
 xml;
-        $this->assertStringContainsString($needle, $data);
+        self::assertStringContainsString($needle, $data);
     }
 }
