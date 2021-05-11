@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Implemented URLENCODE() Web Function
 - Implemented the CHITEST(), CHISQ.DIST() and CHISQ.INV() and equivalent Statistical functions, for both left- and right-tailed distributions.
 - Support for ActiveSheet and SelectedCells in the ODS Reader and Writer. [PR #1908](https://github.com/PHPOffice/PhpSpreadsheet/pull/1908)
+- Support for notContainsText Conditional Style in xlsx [Issue #984](https://github.com/PHPOffice/PhpSpreadsheet/issues/984)
 
 ### Changed
 
