@@ -9,7 +9,7 @@ class NamespacePurlTest extends \PHPUnit\Framework\TestCase
     /**
      * @var string
      */
-    private static $testbook = 'tests/data/Reader/Xlsx/namespacepurl.xlsx';
+    private static $testbook = 'tests/data/Reader/XLSX/namespacepurl.xlsx';
 
     public function testPreliminaries(): void
     {
