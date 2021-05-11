@@ -21,6 +21,14 @@ class Properties
         $this->docProps = $docProps;
     }
 
+    /**
+     * @param mixed $obj
+     */
+    private static function nullOrSimple($obj): ?SimpleXMLElement
+    {
+        return ($obj instanceof SimpleXMLElement) ? $obj : null;
+    }
+
     private function extractPropertyData(string $propertyData): ?SimpleXMLElement
     {
         // okay to omit namespace because everything will be processed by xpath
@@ -30,7 +38,7 @@ class Properties
             Settings::getLibXmlLoaderOptions()
         );
 
-        return ($obj instanceof SimpleXMLElement) ? $obj : null;
+        return self::nullOrSimple($obj);
     }
 
     public function readCoreProperties(string $propertyData): void
