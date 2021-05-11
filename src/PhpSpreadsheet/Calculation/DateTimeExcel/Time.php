@@ -20,14 +20,14 @@ class Time
      * Excel Function:
      *        TIME(hour,minute,second)
      *
-     * @param int $hour A number from 0 (zero) to 32767 representing the hour.
+     * @param mixed $hour A number from 0 (zero) to 32767 representing the hour.
      *                                    Any value greater than 23 will be divided by 24 and the remainder
      *                                    will be treated as the hour value. For example, TIME(27,0,0) =
      *                                    TIME(3,0,0) = .125 or 3:00 AM.
-     * @param int $minute A number from 0 to 32767 representing the minute.
+     * @param mixed $minute A number from 0 to 32767 representing the minute.
      *                                    Any value greater than 59 will be converted to hours and minutes.
      *                                    For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM.
-     * @param int $second A number from 0 to 32767 representing the second.
+     * @param mixed $second A number from 0 to 32767 representing the second.
      *                                    Any value greater than 59 will be converted to hours, minutes,
      *                                    and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
      *                                    or 12:33:20 AM
@@ -35,7 +35,7 @@ class Time
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcTime($hour, $minute, $second)
+    public static function evaluate($hour, $minute, $second)
     {
         try {
             $hour = self::toIntWithNullBool($hour);
@@ -100,6 +100,9 @@ class Time
         }
     }
 
+    /**
+     * @param mixed $value expect int
+     */
     private static function toIntWithNullBool($value): int
     {
         $value = Functions::flattenSingleValue($value);

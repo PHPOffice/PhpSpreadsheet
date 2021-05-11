@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 
+use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use SimpleXMLElement;
 
@@ -91,74 +92,72 @@ class Properties
         }
     }
 
-    private function docPropertiesMeta(SimpleXMLElement $officePropertyMeta, array $namespacesMeta): void
+    private function docPropertiesMeta(SimpleXMLElement $officePropertyMeta): void
     {
         $docProps = $this->spreadsheet->getProperties();
         foreach ($officePropertyMeta as $propertyName => $propertyValue) {
-            if ($propertyValue === null) {
-                continue;
-            }
+            if ($propertyValue !== null) {
+                $attributes = $propertyValue->attributes(Gnumeric::NAMESPACE_META);
+                $propertyValue = trim((string) $propertyValue);
+                switch ($propertyName) {
+                    case 'keyword':
+                        $docProps->setKeywords($propertyValue);
 
-            $attributes = $propertyValue->attributes($namespacesMeta['meta']);
-            $propertyValue = trim((string) $propertyValue);
-            switch ($propertyName) {
-                case 'keyword':
-                    $docProps->setKeywords($propertyValue);
+                        break;
+                    case 'initial-creator':
+                        $docProps->setCreator($propertyValue);
+                        $docProps->setLastModifiedBy($propertyValue);
 
-                    break;
-                case 'initial-creator':
-                    $docProps->setCreator($propertyValue);
-                    $docProps->setLastModifiedBy($propertyValue);
+                        break;
+                    case 'creation-date':
+                        $creationDate = strtotime($propertyValue);
+                        $creationDate = $creationDate === false ? time() : $creationDate;
+                        $docProps->setCreated($creationDate);
+                        $docProps->setModified($creationDate);
 
-                    break;
-                case 'creation-date':
-                    $creationDate = strtotime($propertyValue);
-                    $creationDate = $creationDate === false ? time() : $creationDate;
-                    $docProps->setCreated($creationDate);
-                    $docProps->setModified($creationDate);
+                        break;
+                    case 'user-defined':
+                        [, $attrName] = explode(':', $attributes['name']);
+                        $this->userDefinedProperties($attrName, $propertyValue);
 
-                    break;
-                case 'user-defined':
-                    [, $attrName] = explode(':', $attributes['name']);
-                    switch ($attrName) {
-                        case 'publisher':
-                            $docProps->setCompany($propertyValue);
-
-                            break;
-                        case 'category':
-                            $docProps->setCategory($propertyValue);
-
-                            break;
-                        case 'manager':
-                            $docProps->setManager($propertyValue);
-
-                            break;
-                    }
-
-                    break;
+                        break;
+                }
             }
         }
     }
 
-    public function readProperties(SimpleXMLElement $xml, SimpleXMLElement $gnmXML, array $namespacesMeta): void
+    private function userDefinedProperties(string $attrName, string $propertyValue): void
     {
-        if (isset($namespacesMeta['office'])) {
-            $officeXML = $xml->children($namespacesMeta['office']);
+        $docProps = $this->spreadsheet->getProperties();
+        switch ($attrName) {
+            case 'publisher':
+                $docProps->setCompany($propertyValue);
+
+                break;
+            case 'category':
+                $docProps->setCategory($propertyValue);
+
+                break;
+            case 'manager':
+                $docProps->setManager($propertyValue);
+
+                break;
+        }
+    }
+
+    public function readProperties(SimpleXMLElement $xml, SimpleXMLElement $gnmXML): void
+    {
+        $officeXML = $xml->children(Gnumeric::NAMESPACE_OFFICE);
+        if (!empty($officeXML)) {
             $officeDocXML = $officeXML->{'document-meta'};
             $officeDocMetaXML = $officeDocXML->meta;
 
             foreach ($officeDocMetaXML as $officePropertyData) {
-                $officePropertyDC = [];
-                if (isset($namespacesMeta['dc'])) {
-                    $officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
-                }
+                $officePropertyDC = $officePropertyData->children(Gnumeric::NAMESPACE_DC);
                 $this->docPropertiesDC($officePropertyDC);
 
-                $officePropertyMeta = [];
-                if (isset($namespacesMeta['meta'])) {
-                    $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
-                }
-                $this->docPropertiesMeta($officePropertyMeta, $namespacesMeta);
+                $officePropertyMeta = $officePropertyData->children(Gnumeric::NAMESPACE_META);
+                $this->docPropertiesMeta($officePropertyMeta);
             }
         } elseif (isset($gnmXML->Summary)) {
             $this->docPropertiesOld($gnmXML);

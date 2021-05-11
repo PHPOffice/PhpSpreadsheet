@@ -63,17 +63,17 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
         if (is_string($daysPerYear)) {
             return Functions::VALUE();
         }
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) {
-            return abs(DateTimeExcel\Days::funcDays($prev, $settlement));
+            return abs((float) DateTimeExcel\Days::evaluate($prev, $settlement));
         }
 
-        return DateTimeExcel\YearFrac::funcYearFrac($prev, $settlement, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::evaluate($prev, $settlement, $basis) * $daysPerYear;
     }
 
     /**
@@ -133,7 +133,7 @@ class Coupons
             case FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
                 if ($frequency == FinancialConstants::FREQUENCY_ANNUAL) {
-                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
@@ -197,7 +197,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_NASD) {
@@ -208,7 +208,7 @@ class Coupons
             }
         }
 
-        return DateTimeExcel\YearFrac::funcYearFrac($settlement, $next, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::evaluate($settlement, $next, $basis) * $daysPerYear;
     }
 
     /**
@@ -316,7 +316,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac(
+        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::evaluate(
             $settlement,
             $maturity,
             FinancialConstants::BASIS_DAYS_PER_YEAR_NASD

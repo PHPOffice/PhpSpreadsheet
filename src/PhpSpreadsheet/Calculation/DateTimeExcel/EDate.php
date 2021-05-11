@@ -27,7 +27,7 @@ class EDate
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcEDate($dateValue, $adjustmentMonths)
+    public static function evaluate($dateValue, $adjustmentMonths)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue, false);

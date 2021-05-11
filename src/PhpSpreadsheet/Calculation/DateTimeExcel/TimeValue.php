@@ -29,12 +29,12 @@ class TimeValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcTimeValue($timeValue)
+    public static function evaluate($timeValue)
     {
         $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
-        $arraySplit = preg_split('/[\/:\-\s]/', $timeValue);
+        $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];
         if ((count($arraySplit) == 2 || count($arraySplit) == 3) && $arraySplit[0] > 24) {
             $arraySplit[0] = ($arraySplit[0] % 24);
             $timeValue = implode(':', $arraySplit);

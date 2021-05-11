@@ -21,7 +21,7 @@ class Year
      *
      * @return int|string Year
      */
-    public static function funcYear($dateValue)
+    public static function evaluate($dateValue)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue);

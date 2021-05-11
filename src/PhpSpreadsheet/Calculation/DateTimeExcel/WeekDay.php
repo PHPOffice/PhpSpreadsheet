@@ -19,14 +19,14 @@ class WeekDay
      *
      * @param null|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
-     * @param int $style A number that determines the type of return value
+     * @param mixed $style A number that determines the type of return value
      *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
      *                                        2                Numbers 1 (Monday) through 7 (Sunday).
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
      *
      * @return int|string Day of the week value
      */
-    public static function funcWeekDay($dateValue, $style = 1)
+    public static function evaluate($dateValue, $style = 1)
     {
         try {
             $dateValue = Helpers::getDateValue($dateValue);
@@ -58,6 +58,9 @@ class WeekDay
         return $DoW;
     }
 
+    /**
+     * @param mixed $style expect int
+     */
     private static function validateStyle($style): int
     {
         $style = Functions::flattenSingleValue($style);

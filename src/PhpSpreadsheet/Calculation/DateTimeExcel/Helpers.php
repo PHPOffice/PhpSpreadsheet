@@ -43,7 +43,7 @@ class Helpers
         if (!is_numeric($dateValue)) {
             $saveReturnDateType = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-            $dateValue = DateValue::funcDateValue($dateValue);
+            $dateValue = DateValue::evaluate($dateValue);
             Functions::setReturnDateType($saveReturnDateType);
             if (!is_numeric($dateValue)) {
                 throw new Exception(Functions::VALUE());
@@ -67,13 +67,18 @@ class Helpers
     {
         $saveReturnDateType = Functions::getReturnDateType();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        $timeValue = TimeValue::funcTimeValue($timeValue);
+        $timeValue = TimeValue::evaluate($timeValue);
         Functions::setReturnDateType($saveReturnDateType);
 
         return $timeValue;
     }
 
-    public static function adjustDateByMonths($dateValue = 0, $adjustmentMonths = 0)
+    /**
+     * Adjust date by given months.
+     *
+     * @param mixed $dateValue
+     */
+    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0): DateTime
     {
         // Execute function
         $PHPDateObject = Date::excelToDateTimeObject($dateValue);
@@ -194,8 +199,10 @@ class Helpers
             return (float) Date::PHPToExcel($PHPDateObject);
         }
         // RETURNDATE_UNIX_TIMESTAMP
+        $stamp = Date::PHPToExcel($PHPDateObject);
+        $stamp = is_bool($stamp) ? ((int) $stamp) : $stamp;
 
-        return (int) Date::excelToTimestamp(Date::PHPToExcel($PHPDateObject));
+        return (int) Date::excelToTimestamp($stamp);
     }
 
     private static function baseDate(): int
@@ -239,8 +246,11 @@ class Helpers
         if ($number === null) {
             return 0;
         }
-        if (is_numeric($number)) {
+        if (is_int($number)) {
             return $number;
+        }
+        if (is_numeric($number)) {
+            return (float) $number;
         }
 
         throw new Exception(Functions::VALUE());
