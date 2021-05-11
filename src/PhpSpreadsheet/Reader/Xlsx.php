@@ -643,7 +643,7 @@ class Xlsx extends BaseReader
                             ++$oldSheetId;
 
                             // Check if sheet should be skipped
-                            if (isset($this->loadSheetsOnly) && !in_array((string) $eleSheetAttr['name'], $this->loadSheetsOnly)) {
+                            if (is_array($this->loadSheetsOnly) && !in_array((string) $eleSheetAttr['name'], $this->loadSheetsOnly)) {
                                 ++$countSkippedSheets;
                                 $mapSheetId[$oldSheetId] = null;
 
@@ -849,6 +849,7 @@ class Xlsx extends BaseReader
                                 $mc = $xmlSheet->children(Namespaces::COMPATIBILITY);
                                 if ($mc->AlternateContent) {
                                     foreach ($mc->AlternateContent as $alternateContent) {
+                                        $alternateContent = self::testSimpleXml($alternateContent);
                                         $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['AlternateContents'][] = $alternateContent->asXML();
                                     }
                                 }
@@ -1038,7 +1039,7 @@ class Xlsx extends BaseReader
                                                 $shape->registerXPathNamespace('v', Namespaces::URN_VML);
                                                 $imageData = $shape->xpath('//v:imagedata');
 
-                                                if (!$imageData) {
+                                                if (empty($imageData)) {
                                                     continue;
                                                 }
 
@@ -1142,11 +1143,11 @@ class Xlsx extends BaseReader
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
 
-                                                    $objDrawing->setOffsetX(Drawing::EMUToPixels($oneCellAnchor->from->colOff));
+                                                    $objDrawing->setOffsetX((int) Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
                                                     $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cx')));
-                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy')));
+                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem((int) self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
                                                         $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
                                                     }
