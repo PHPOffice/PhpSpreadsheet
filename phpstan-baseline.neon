@@ -3276,16 +3276,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls/RC4.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\Style\\\\Border\\:\\:\\$map has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/Style/Border.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\Style\\\\FillPattern\\:\\:\\$map has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/Style/FillPattern.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:castToBoolean\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
