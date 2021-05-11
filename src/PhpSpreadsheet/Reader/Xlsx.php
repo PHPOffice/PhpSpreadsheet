@@ -102,11 +102,25 @@ class Xlsx extends BaseReader
         return ($value instanceof SimpleXMLElement) ? $value : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
     }
 
+    public static function getAttributes(?SimpleXMLElement $value, string $ns = ''): SimpleXMLElement
+    {
+        return self::testSimpleXml($value === null ? $value : $value->attributes($ns));
+    }
+
+    // Phpstan thinks, correctly, that xpath can return false.
+    // Scrutinizer thinks it can't.
+    // Sigh.
     private static function xpathNoFalse(SimpleXmlElement $sxml, string $path): array
     {
-        $result = $sxml->xpath($path);
+        return self::falseToArray($sxml->xpath($path));
+    }
 
-        return is_array($result) ? $result : [];
+    /**
+     * @param mixed $value
+     */
+    public static function falseToArray($value): array
+    {
+        return is_array($value) ? $value : [];
     }
 
     private function loadZip(string $filename, string $ns = ''): SimpleXMLElement
@@ -164,7 +178,7 @@ class Xlsx extends BaseReader
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
         $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
-            $rel = $relx->attributes();
+            $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             if ($mainNS !== '') {
@@ -173,7 +187,7 @@ class Xlsx extends BaseReader
                 if ($xmlWorkbook->sheets) {
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         // Check if sheet should be skipped
-                        $worksheetNames[] = (string) $eleSheet->attributes()['name'];
+                        $worksheetNames[] = (string) self::getAttributes($eleSheet)['name'];
                     }
                 }
             }
@@ -202,7 +216,7 @@ class Xlsx extends BaseReader
 
         $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
-            $rel = $relx->attributes();
+            $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             if ($mainNS !== '') {
@@ -213,7 +227,7 @@ class Xlsx extends BaseReader
 
                 $worksheets = [];
                 foreach ($relsWorkbook->Relationship as $elex) {
-                    $ele = $elex->attributes();
+                    $ele = self::getAttributes($elex);
                     if ((string) $ele['Type'] === "$namespace/worksheet") {
                         $worksheets[(string) $ele['Id']] = $ele['Target'];
                     }
@@ -225,14 +239,14 @@ class Xlsx extends BaseReader
                     /** @var SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
-                            'worksheetName' => (string) $eleSheet->attributes()['name'],
+                            'worksheetName' => (string) self::getAttributes($eleSheet)['name'],
                             'lastColumnLetter' => 'A',
                             'lastColumnIndex' => 0,
                             'totalRows' => 0,
                             'totalColumns' => 0,
                         ];
 
-                        $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes($namespace), 'id')];
+                        $fileWorksheet = $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $namespace), 'id')];
                         $fileWorksheetPath = strpos($fileWorksheet, '/') === 0 ? substr($fileWorksheet, 1) : "$dir/$fileWorksheet";
 
                         $xml = new XMLReader();
@@ -373,7 +387,7 @@ class Xlsx extends BaseReader
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
         $wbRels = $this->loadZip("xl/_rels/${workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         foreach ($wbRels->Relationship as $relx) {
-            $rel = self::testSimpleXml($relx->attributes());
+            $rel = self::getAttributes($relx);
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/theme":
                     $themeOrderArray = ['lt1', 'dk1', 'lt2', 'dk2'];
@@ -381,11 +395,11 @@ class Xlsx extends BaseReader
                     $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
 
                     $xmlTheme = $this->loadZip("xl/{$rel['Target']}", $drawingNS);
-                    $xmlThemeName = $xmlTheme->attributes();
+                    $xmlThemeName = self::getAttributes($xmlTheme);
                     $xmlTheme = $xmlTheme->children($drawingNS);
                     $themeName = (string) $xmlThemeName['name'];
 
-                    $colourScheme = self::testSimpleXml($xmlTheme->themeElements->clrScheme->attributes());
+                    $colourScheme = self::getAttributes($xmlTheme->themeElements->clrScheme);
                     $colourSchemeName = (string) $colourScheme['name'];
                     $colourScheme = $xmlTheme->themeElements->clrScheme->children($drawingNS);
 
@@ -396,10 +410,10 @@ class Xlsx extends BaseReader
                             $themePos = $themeOrderAdditional++;
                         }
                         if (isset($xmlColour->sysClr)) {
-                            $xmlColourData = $xmlColour->sysClr->attributes();
+                            $xmlColourData = self::getAttributes($xmlColour->sysClr);
                             $themeColours[$themePos] = $xmlColourData['lastClr'];
                         } elseif (isset($xmlColour->srgbClr)) {
-                            $xmlColourData = $xmlColour->srgbClr->attributes();
+                            $xmlColourData = self::getAttributes($xmlColour->srgbClr);
                             $themeColours[$themePos] = $xmlColourData['val'];
                         }
                     }
@@ -413,7 +427,7 @@ class Xlsx extends BaseReader
 
         $propertyReader = new PropertyReader($this->securityScanner, $excel->getProperties());
         foreach ($rels->Relationship as $relx) {
-            $rel = $relx->attributes();
+            $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             switch ($relType) {
@@ -467,7 +481,7 @@ class Xlsx extends BaseReader
                     $worksheets = [];
                     $macros = $customUI = null;
                     foreach ($relsWorkbook->Relationship as $elex) {
-                        $ele = $elex->attributes();
+                        $ele = self::getAttributes($elex);
                         switch ($ele['Type']) {
                             case Namespaces::WORKSHEET:
                             case Namespaces::PURL_WORKSHEET:
@@ -519,7 +533,7 @@ class Xlsx extends BaseReader
                     }
                     if (!$this->readDataOnly/* && $xmlStyles*/) {
                         foreach ($xfTags as $xfTag) {
-                            $xf = self::testSimpleXml($xfTag->attributes());
+                            $xf = self::getAttributes($xfTag);
                             $numFmt = null;
 
                             if ($xf['numFmtId']) {
@@ -562,7 +576,7 @@ class Xlsx extends BaseReader
                         }
 
                         foreach ($cellXfTags as $xfTag) {
-                            $xf = $xfTag->attributes();
+                            $xf = self::getAttributes($xfTag);
                             $numFmt = NumberFormat::FORMAT_GENERAL;
                             if ($numFmts && $xf['numFmtId']) {
                                 $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
@@ -604,7 +618,7 @@ class Xlsx extends BaseReader
                     // Set base date
                     if ($xmlWorkbookNS->workbookPr) {
                         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-                        $attrs1904 = $xmlWorkbookNS->workbookPr->attributes();
+                        $attrs1904 = self::getAttributes($xmlWorkbookNS->workbookPr);
                         if (isset($attrs1904['date1904'])) {
                             if (self::boolean((string) $attrs1904['date1904'])) {
                                 Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
@@ -625,7 +639,7 @@ class Xlsx extends BaseReader
                     if ($xmlWorkbookNS->sheets) {
                         /** @var SimpleXMLElement $eleSheet */
                         foreach ($xmlWorkbookNS->sheets->sheet as $eleSheet) {
-                            $eleSheetAttr = self::testSimpleXml($eleSheet->attributes());
+                            $eleSheetAttr = self::getAttributes($eleSheet);
                             ++$oldSheetId;
 
                             // Check if sheet should be skipped
@@ -647,7 +661,7 @@ class Xlsx extends BaseReader
                             //        and we're simply bringing the worksheet name in line with the formula, not the
                             //        reverse
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
-                            $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes($xmlNamespaceBase), 'id')];
+                            $fileWorksheet = $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id')];
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
@@ -680,7 +694,7 @@ class Xlsx extends BaseReader
                                 foreach ($xmlSheetNS->sheetData->row as $row) {
                                     $rowIndex = 1;
                                     foreach ($row->c as $c) {
-                                        $cAttr = $c->attributes();
+                                        $cAttr = self::getAttributes($c);
                                         $r = (string) $cAttr['r'];
                                         if ($r == '') {
                                             $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
@@ -865,7 +879,7 @@ class Xlsx extends BaseReader
                                 if ($zip->locateName($commentRelations)) {
                                     $relsWorksheet = $this->loadZip($commentRelations, Namespaces::RELATIONSHIPS);
                                     foreach ($relsWorksheet->Relationship as $elex) {
-                                        $ele = $elex->attributes();
+                                        $ele = self::getAttributes($elex);
                                         if ($ele['Type'] == Namespaces::COMMENTS) {
                                             $comments[(string) $ele['Id']] = (string) $ele['Target'];
                                         }
@@ -1030,7 +1044,7 @@ class Xlsx extends BaseReader
 
                                                 $imageData = $imageData[$idx];
 
-                                                $imageData = $imageData->attributes(Namespaces::URN_MSOFFICE);
+                                                $imageData = self::getAttributes($imageData, Namespaces::URN_MSOFFICE);
                                                 $style = self::toCSSArray((string) $shape['style']);
 
                                                 $hfImages[(string) $shape['id']] = new HeaderFooterDrawing();
@@ -1072,7 +1086,7 @@ class Xlsx extends BaseReader
                                     $unparsedDrawings = [];
                                     $fileDrawing = null;
                                     foreach ($xmlSheet->drawing as $drawing) {
-                                        $drawingRelId = (string) self::getArrayItem($drawing->attributes($xmlNamespaceBase), 'id');
+                                        $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
                                         $filename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
                                         $relsDrawing = $this->loadZipNoNamespace($filename, $xmlNamespaceBase);
@@ -1112,10 +1126,10 @@ class Xlsx extends BaseReader
                                                     $hlinkClick = $oneCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
 
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                                                    $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
-                                                    $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
+                                                    $objDrawing->setName((string) self::getArrayItem(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'name'));
+                                                    $objDrawing->setDescription((string) self::getArrayItem(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
                                                     $imageKey = (string) self::getArrayItem(
-                                                        $blip->attributes($xmlNamespaceBase),
+                                                        self::getAttributes($blip, $xmlNamespaceBase),
                                                         'embed'
                                                     );
 
@@ -1131,21 +1145,21 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
-                                                    $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx')));
-                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cy')));
+                                                    $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cx')));
+                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
-                                                        $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), 'rot')));
+                                                        $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
-                                                        $shadow->setBlurRadius(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'blurRad')));
-                                                        $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
-                                                        $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
-                                                        $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
+                                                        $shadow->setBlurRadius(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($outerShdw), 'blurRad')));
+                                                        $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($outerShdw), 'dist')));
+                                                        $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($outerShdw), 'dir')));
+                                                        $shadow->setAlignment((string) self::getArrayItem(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
-                                                        $shadow->getColor()->setRGB(self::getArrayItem($clr->attributes(), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem($clr->alpha->attributes(), 'val') / 1000);
+                                                        $shadow->getColor()->setRGB(self::getArrayItem(self::getAttributes($clr), 'val'));
+                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000);
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $oneCellAnchor, $hyperlinks);
@@ -1156,13 +1170,13 @@ class Xlsx extends BaseReader
                                                     $coordinates = Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1);
                                                     $offsetX = Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
-                                                    $width = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
-                                                    $height = Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cy'));
+                                                    $width = Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cx'));
+                                                    $height = Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy'));
 
                                                     $graphic = $oneCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
                                                     /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
-                                                    $thisChart = (string) $chartRef->attributes($xmlNamespaceBase);
+                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
 
                                                     $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
                                                         'fromCoordinate' => $coordinates,
@@ -1183,10 +1197,10 @@ class Xlsx extends BaseReader
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
                                                     $hlinkClick = $twoCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-                                                    $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
-                                                    $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
+                                                    $objDrawing->setName((string) self::getArrayItem(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'name'));
+                                                    $objDrawing->setDescription((string) self::getArrayItem(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
                                                     $imageKey = (string) self::getArrayItem(
-                                                        $blip->attributes($xmlNamespaceBase),
+                                                        self::getAttributes($blip, $xmlNamespaceBase),
                                                         'embed'
                                                     );
                                                     if (isset($images[$imageKey])) {
@@ -1203,20 +1217,20 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setResizeProportional(false);
 
                                                     if ($xfrm) {
-                                                        $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), 'cx')));
-                                                        $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), 'cy')));
-                                                        $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), 'rot')));
+                                                        $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cx')));
+                                                        $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cy')));
+                                                        $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
-                                                        $shadow->setBlurRadius(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'blurRad')));
-                                                        $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem($outerShdw->attributes(), 'dist')));
-                                                        $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), 'dir')));
-                                                        $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), 'algn'));
+                                                        $shadow->setBlurRadius(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($outerShdw), 'blurRad')));
+                                                        $shadow->setDistance(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($outerShdw), 'dist')));
+                                                        $shadow->setDirection(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($outerShdw), 'dir')));
+                                                        $shadow->setAlignment((string) self::getArrayItem(self::getAttributes($outerShdw), 'algn'));
                                                         $clr = $outerShdw->srgbClr ?? $outerShdw->prstClr;
-                                                        $shadow->getColor()->setRGB(self::getArrayItem($clr->attributes(), 'val'));
-                                                        $shadow->setAlpha(self::getArrayItem($clr->alpha->attributes(), 'val') / 1000);
+                                                        $shadow->getColor()->setRGB(self::getArrayItem(self::getAttributes($clr), 'val'));
+                                                        $shadow->setAlpha(self::getArrayItem(self::getAttributes($clr->alpha), 'val') / 1000);
                                                     }
 
                                                     $this->readHyperLinkDrawing($objDrawing, $twoCellAnchor, $hyperlinks);
@@ -1232,7 +1246,7 @@ class Xlsx extends BaseReader
                                                     $graphic = $twoCellAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
                                                     /** @var SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
-                                                    $thisChart = (string) $chartRef->attributes($xmlNamespaceBase);
+                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
 
                                                     $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
                                                         'fromCoordinate' => $fromCoordinate,
@@ -1419,7 +1433,7 @@ class Xlsx extends BaseReader
 
                     $workbookView = $xmlWorkbook->children($mainNS)->bookViews->workbookView;
                     if ((!$this->readDataOnly || !empty($this->loadSheetsOnly)) && !empty($workbookView)) {
-                        $workbookViewAttributes = self::testSimpleXml($workbookView->attributes());
+                        $workbookViewAttributes = self::testSimpleXml(self::getAttributes($workbookView));
                         // active sheet index
                         $activeTab = (int) $workbookViewAttributes->activeTab; // refers to old sheet index
 
@@ -1758,10 +1772,10 @@ class Xlsx extends BaseReader
             return;
         }
 
-        $hlinkId = (string) $hlinkClick->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT)['id'];
+        $hlinkId = (string) self::getAttributes($hlinkClick, Namespaces::SCHEMA_OFFICE_DOCUMENT)['id'];
         $hyperlink = new Hyperlink(
             $hyperlinks[$hlinkId],
-            (string) self::getArrayItem($cellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name')
+            (string) self::getArrayItem(self::getAttributes($cellAnchor->pic->nvPicPr->cNvPr), 'name')
         );
         $objDrawing->setHyperlink($hyperlink);
     }
@@ -1884,7 +1898,7 @@ class Xlsx extends BaseReader
         // check if it is an OOXML archive
         $rels = $this->loadZip('_rels/.rels');
         foreach ($rels->children(Namespaces::RELATIONSHIPS)->Relationship as $rel) {
-            $rel = $rel->attributes();
+            $rel = self::getAttributes($rel);
             switch ($rel['Type']) {
                 case Namespaces::OFFICE_DOCUMENT:
                 case Namespaces::PURL_OFFICE_DOCUMENT:
