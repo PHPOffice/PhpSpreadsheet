@@ -3346,11 +3346,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Offset 'name' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#1 \\$is of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:parseRichText\\(\\) expects SimpleXMLElement\\|null, object given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3512,11 +3507,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Offset 'id' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3987,11 +3977,6 @@ parameters:
 
 		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$theme \\(PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Cannot call method count\\(\\) on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
