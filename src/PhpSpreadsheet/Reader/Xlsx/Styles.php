@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -82,7 +83,7 @@ class Styles extends BaseParserClass
         if ($numfmtStyleXml->count() === 0) {
             return;
         }
-        $numfmt = $numfmtStyleXml->attributes();
+        $numfmt = Xlsx::getAttributes($numfmtStyleXml);
         if ($numfmt->count() > 0 && isset($numfmt['formatCode'])) {
             $numfmtStyle->setFormatCode((string) $numfmt['formatCode']);
         }
@@ -267,7 +268,7 @@ class Styles extends BaseParserClass
             //    Cell Styles
             if ($this->styleXml->cellStyles) {
                 foreach ($this->styleXml->cellStyles->cellStyle as $cellStylex) {
-                    $cellStyle = $cellStylex->attributes();
+                    $cellStyle = Xlsx::getAttributes($cellStylex);
                     if ((int) ($cellStyle['builtinId']) == 0) {
                         if (isset($this->cellStyles[(int) ($cellStyle['xfId'])])) {
                             // Set default style
