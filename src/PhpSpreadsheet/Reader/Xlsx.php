@@ -1576,8 +1576,8 @@ class Xlsx extends BaseReader
 
         // protection
         if (isset($style->protection)) {
-            Styles::readProtectionLocked($docStyle, $style->protection);
-            Styles::readProtectionHidden($docStyle, $style->protection);
+            Styles::readProtectionLocked($docStyle, $style);
+            Styles::readProtectionHidden($docStyle, $style);
         }
 
         // top-level style settings
