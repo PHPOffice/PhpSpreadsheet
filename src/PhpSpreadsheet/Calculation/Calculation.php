@@ -763,7 +763,7 @@ class Calculation
         ],
         'DATEDIF' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateDif::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateDif::class, 'interval'],
             'argumentCount' => '2,3',
         ],
         'DATEVALUE' => [
@@ -783,12 +783,12 @@ class Calculation
         ],
         'DAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Days::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Days::class, 'between'],
             'argumentCount' => '2',
         ],
         'DAYS360' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Days360::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Days360::class, 'between'],
             'argumentCount' => '2,3',
         ],
         'DB' => [
@@ -923,7 +923,7 @@ class Calculation
         ],
         'EDATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\EDate::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Month::class, 'adjust'],
             'argumentCount' => '2',
         ],
         'EFFECT' => [
@@ -938,7 +938,7 @@ class Calculation
         ],
         'EOMONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\EoMonth::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Month::class, 'lastDay'],
             'argumentCount' => '2',
         ],
         'ERF' => [
@@ -2634,7 +2634,7 @@ class Calculation
         ],
         'YEARFRAC' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\YearFrac::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\YearFrac::class, 'fraction'],
             'argumentCount' => '2,3',
         ],
         'YIELD' => [

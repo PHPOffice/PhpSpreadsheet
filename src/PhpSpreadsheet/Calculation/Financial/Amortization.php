@@ -70,7 +70,7 @@ class Amortization
             return $e->getMessage();
         }
 
-        $yearFrac = DateTimeExcel\YearFrac::evaluate($purchased, $firstPeriod, $basis);
+        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
@@ -161,7 +161,7 @@ class Amortization
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTimeExcel\DateParts::year($purchased);
-        $yearFrac = DateTimeExcel\YearFrac::evaluate($purchased, $firstPeriod, $basis);
+        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }

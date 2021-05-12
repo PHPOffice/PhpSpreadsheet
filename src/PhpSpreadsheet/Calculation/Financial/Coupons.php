@@ -70,10 +70,10 @@ class Coupons
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) {
-            return abs((float) DateTimeExcel\Days::evaluate($prev, $settlement));
+            return abs((float) DateTimeExcel\Days::between($prev, $settlement));
         }
 
-        return DateTimeExcel\YearFrac::evaluate($prev, $settlement, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::fraction($prev, $settlement, $basis) * $daysPerYear;
     }
 
     /**
@@ -208,7 +208,7 @@ class Coupons
             }
         }
 
-        return DateTimeExcel\YearFrac::evaluate($settlement, $next, $basis) * $daysPerYear;
+        return DateTimeExcel\YearFrac::fraction($settlement, $next, $basis) * $daysPerYear;
     }
 
     /**
@@ -316,7 +316,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::evaluate(
+        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::fraction(
             $settlement,
             $maturity,
             FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
