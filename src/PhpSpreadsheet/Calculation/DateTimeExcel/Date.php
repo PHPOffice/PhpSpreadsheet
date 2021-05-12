@@ -4,10 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-class Datefunc
+class Date
 {
     /**
      * DATE.
@@ -60,7 +60,7 @@ class Datefunc
      */
     public static function fromYMD($year, $month, $day)
     {
-        $baseYear = Date::getExcelCalendar();
+        $baseYear = SharedDateHelper::getExcelCalendar();
 
         try {
             $year = self::getYear($year, $baseYear);
@@ -72,7 +72,7 @@ class Datefunc
         }
 
         // Execute function
-        $excelDateValue = Date::formattedPHPToExcel($year, $month, $day);
+        $excelDateValue = SharedDateHelper::formattedPHPToExcel($year, $month, $day);
 
         return Helpers::returnIn3FormatsFloat($excelDateValue);
     }
@@ -115,7 +115,7 @@ class Datefunc
         $month = Functions::flattenSingleValue($month);
 
         if (($month !== null) && (!is_numeric($month))) {
-            $month = Date::monthStringToNumber($month);
+            $month = SharedDateHelper::monthStringToNumber($month);
         }
 
         $month = ($month !== null) ? StringHelper::testStringAsNumeric((string) $month) : 0;
@@ -136,7 +136,7 @@ class Datefunc
         $day = Functions::flattenSingleValue($day);
 
         if (($day !== null) && (!is_numeric($day))) {
-            $day = Date::dayStringToNumber($day);
+            $day = SharedDateHelper::dayStringToNumber($day);
         }
 
         $day = ($day !== null) ? StringHelper::testStringAsNumeric((string) $day) : 0;

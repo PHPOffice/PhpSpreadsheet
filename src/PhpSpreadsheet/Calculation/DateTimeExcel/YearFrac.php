@@ -54,9 +54,9 @@ class YearFrac
             case 1:
                 return self::method1($startDate, $endDate);
             case 2:
-                return DateDif::interval($startDate, $endDate) / 360;
+                return Difference::interval($startDate, $endDate) / 360;
             case 3:
-                return DateDif::interval($startDate, $endDate) / 365;
+                return Difference::interval($startDate, $endDate) / 365;
             case 4:
                 return Days360::between($startDate, $endDate, true) / 360;
         }
@@ -87,7 +87,7 @@ class YearFrac
 
     private static function method1(float $startDate, float $endDate): float
     {
-        $days = DateDif::interval($startDate, $endDate);
+        $days = Difference::interval($startDate, $endDate);
         $startYear = (int) DateParts::year($startDate);
         $endYear = (int) DateParts::year($endDate);
         $years = $endYear - $startYear + 1;

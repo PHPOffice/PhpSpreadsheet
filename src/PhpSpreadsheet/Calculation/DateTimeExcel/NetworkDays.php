@@ -27,7 +27,7 @@ class NetworkDays
      *
      * @return int|string Interval between the dates
      */
-    public static function evaluate($startDate, $endDate, ...$dateArgs)
+    public static function count($startDate, $endDate, ...$dateArgs)
     {
         try {
             //    Retrieve the mandatory start and end date that are referenced in the function definition
