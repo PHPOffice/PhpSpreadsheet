@@ -174,6 +174,6 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('center', $sheet->getCell('A2')->getStyle()->getAlignment()->getHorizontal());
         self::assertSame('inherit', $sheet->getCell('A2')->getStyle()->getProtection()->getLocked());
         self::assertEquals('top', $sheet->getCell('A3')->getStyle()->getAlignment()->getVertical());
-        //self::assertSame('unprotected', $sheet->getCell('A3')->getStyle()->getProtection()->getLocked());
+        self::assertSame('unprotected', $sheet->getCell('A3')->getStyle()->getProtection()->getLocked());
     }
 }
