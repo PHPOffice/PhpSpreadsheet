@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing.
+- All Excel Function implementations in `Calculation\Database`, `Calculation\DateTime`, `Calculation\Engineering`, `Calculation\Financial`, `Calculation\Logical`, `Calculation\LookupRef`, `Calculation\MathTrig`, `Calculation\Statistical`, `Calculation\TextData` and `Calculation\Web` have been moved to dedicated classes for individual functions or groups of related functions. See the docblocks against all the deprecated methods for details of the new methods to call instead. At some point, these old classes will be deleted.
 
 ### Removed
 
