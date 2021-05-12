@@ -466,17 +466,17 @@ class Calculation
         ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Ceiling::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'ceiling'],
             'argumentCount' => '1-2', // 2 for Excel, 1-2 for Ods/Gnumeric
         ],
         'CEILING.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'CEILING.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'precise'],
             'argumentCount' => '1,2',
         ],
         'CELL' => [
@@ -1073,17 +1073,17 @@ class Calculation
         ],
         'FLOOR' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Floor::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'floor'],
             'argumentCount' => '1-2', // Excel requries 2, Ods/Gnumeric 1-2
         ],
         'FLOOR.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'FLOOR.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'precise'],
             'argumentCount' => '1-2',
         ],
         'FORECAST' => [
