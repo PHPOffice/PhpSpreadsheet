@@ -29,7 +29,7 @@ class TimeValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function evaluate($timeValue)
+    public static function fromString($timeValue)
     {
         $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);

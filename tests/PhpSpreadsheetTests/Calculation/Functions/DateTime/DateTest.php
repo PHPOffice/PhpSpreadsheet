@@ -29,7 +29,7 @@ class DateTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = Datefunc::evaluate(2012, 1, 31); // 32-bit safe
+        $result = Datefunc::fromYMD(2012, 1, 31); // 32-bit safe
         self::assertEquals(1327968000, $result);
     }
 
@@ -37,7 +37,7 @@ class DateTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = Datefunc::evaluate(2012, 1, 31);
+        $result = Datefunc::fromYMD(2012, 1, 31);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -50,10 +50,10 @@ class DateTest extends AllSetupTeardown
     {
         self::setMac1904();
 
-        $result = Datefunc::evaluate(1918, 11, 11);
+        $result = Datefunc::fromYMD(1918, 11, 11);
         self::assertEquals($result, 5428);
 
-        $result = Datefunc::evaluate(1901, 1, 31);
+        $result = Datefunc::fromYMD(1901, 1, 31);
         self::assertEquals($result, '#NUM!');
     }
 }

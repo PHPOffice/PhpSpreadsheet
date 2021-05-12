@@ -33,7 +33,7 @@ class DateValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function evaluate($dateValue)
+    public static function fromString($dateValue)
     {
         $dti = new DateTimeImmutable();
         $baseYear = Date::getExcelCalendar();

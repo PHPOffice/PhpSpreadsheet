@@ -758,7 +758,7 @@ class Calculation
         ],
         'DATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Datefunc::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Datefunc::class, 'fromYMD'],
             'argumentCount' => '3',
         ],
         'DATEDIF' => [
@@ -768,7 +768,7 @@ class Calculation
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateValue::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateValue::class, 'fromString'],
             'argumentCount' => '1',
         ],
         'DAVERAGE' => [
@@ -2424,12 +2424,12 @@ class Calculation
         ],
         'TIME' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Time::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Time::class, 'fromHMS'],
             'argumentCount' => '3',
         ],
         'TIMEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\TimeValue::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\TimeValue::class, 'fromString'],
             'argumentCount' => '1',
         ],
         'TINV' => [
