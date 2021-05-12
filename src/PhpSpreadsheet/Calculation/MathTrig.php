@@ -184,16 +184,16 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @see MathTrig\Fact::evaluate()
-     *      Use the evaluate() method in the MathTrig\Fact class instead
-     *
      * @param float $factVal Factorial Value
      *
      * @return float|int|string Factorial, or a string containing an error
+     *
+     *@see MathTrig\Factorial::fact()
+     *      Use the fact() method in the MathTrig\Factorial class instead
      */
     public static function FACT($factVal)
     {
-        return MathTrig\Fact::evaluate($factVal);
+        return MathTrig\Factorial::fact($factVal);
     }
 
     /**
@@ -206,16 +206,16 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @see MathTrig\FactDouble::evaluate()
-     *      Use the evaluate() method in the MathTrig\FactDouble class instead
-     *
      * @param float $factVal Factorial Value
      *
      * @return float|int|string Double Factorial, or a string containing an error
+     *
+     *@see MathTrig\Factorial::factDouble()
+     *      Use the factDouble() method in the MathTrig\Factorial class instead
      */
     public static function FACTDOUBLE($factVal)
     {
-        return MathTrig\FactDouble::evaluate($factVal);
+        return MathTrig\Factorial::factDouble($factVal);
     }
 
     /**
@@ -469,17 +469,17 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see MathTrig\Mround::evaluate()
-     *      Use the evaluate() method in the MathTrig\Mround class instead
-     *
      * @param float $number Number to round
      * @param int $multiple Multiple to which you want to round $number
      *
      * @return float|string Rounded Number, or a string containing an error
+     *
+     *@see MathTrig\Round::multiple()
+     *      Use the multiple() method in the MathTrig\Mround class instead
      */
     public static function MROUND($number, $multiple)
     {
-        return MathTrig\Mround::evaluate($number, $multiple);
+        return MathTrig\Round::multiple($number, $multiple);
     }
 
     /**
@@ -489,8 +489,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Multinomial::evaluate()
-     *      Use the evaluate method in the MathTrig\Multinomial class instead
+     * @See MathTrig\Factorial::multinomial()
+     *      Use the multinomial method in the MathTrig\Factorial class instead
      *
      * @param mixed[] $args An array of mixed values for the Data Series
      *
@@ -498,7 +498,7 @@ class MathTrig
      */
     public static function MULTINOMIAL(...$args)
     {
-        return MathTrig\Multinomial::evaluate(...$args);
+        return MathTrig\Factorial::multinomial(...$args);
     }
 
     /**
@@ -631,8 +631,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @See MathTrig\RoundUp::evaluate()
-     *      Use the evaluate() method in the MathTrig\RoundUp class instead
+     * @See MathTrig\Round::up()
+     *      Use the up() method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -641,7 +641,7 @@ class MathTrig
      */
     public static function ROUNDUP($number, $digits)
     {
-        return MathTrig\RoundUp::evaluate($number, $digits);
+        return MathTrig\Round::up($number, $digits);
     }
 
     /**
@@ -651,8 +651,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @See MathTrig\RoundDown::evaluate()
-     *      Use the evaluate() method in the MathTrig\RoundDown class instead
+     * @See MathTrig\Round::down()
+     *      Use the down() method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      * @param int $digits Number of digits to which you want to round $number
@@ -661,7 +661,7 @@ class MathTrig
      */
     public static function ROUNDDOWN($number, $digits)
     {
-        return MathTrig\RoundDown::evaluate($number, $digits);
+        return MathTrig\Round::down($number, $digits);
     }
 
     /**
@@ -1124,8 +1124,8 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @See MathTrig\Round::evaluate()
-     *      Use the evaluate() method in the MathTrig\Round class instead
+     * @See MathTrig\Round::round()
+     *      Use the round() method in the MathTrig\Round class instead
      *
      * @param mixed $number Should be numeric
      * @param mixed $precision Should be int
@@ -1134,7 +1134,7 @@ class MathTrig
      */
     public static function builtinROUND($number, $precision)
     {
-        return MathTrig\Round::evaluate($number, $precision);
+        return MathTrig\Round::round($number, $precision);
     }
 
     /**

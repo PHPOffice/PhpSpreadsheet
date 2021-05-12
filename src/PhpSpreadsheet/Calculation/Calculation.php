@@ -993,12 +993,12 @@ class Calculation
         ],
         'FACT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Fact::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'fact'],
             'argumentCount' => '1',
         ],
         'FACTDOUBLE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FactDouble::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'factDouble'],
             'argumentCount' => '1',
         ],
         'FALSE' => [
@@ -1729,12 +1729,12 @@ class Calculation
         ],
         'MROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mround::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'multiple'],
             'argumentCount' => '2',
         ],
         'MULTINOMIAL' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Multinomial::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'multinomial'],
             'argumentCount' => '1+',
         ],
         'MUNIT' => [
@@ -2046,7 +2046,7 @@ class Calculation
         ],
         'RAND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Random::class, 'randNoArgs'],
+            'functionCall' => [MathTrig\Random::class, 'rand'],
             'argumentCount' => '0',
         ],
         'RANDARRAY' => [
@@ -2116,17 +2116,17 @@ class Calculation
         ],
         'ROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Round::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'round'],
             'argumentCount' => '2',
         ],
         'ROUNDDOWN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundDown::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'down'],
             'argumentCount' => '2',
         ],
         'ROUNDUP' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundUp::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'up'],
             'argumentCount' => '2',
         ],
         'ROW' => [
