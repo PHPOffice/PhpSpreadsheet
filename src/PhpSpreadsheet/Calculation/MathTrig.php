@@ -97,17 +97,17 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see MathTrig\Ceiling::evaluate()
-     *      Use the evaluate() method in the MathTrig\Ceiling class instead
-     *
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
      * @return float|string Rounded Number, or a string containing an error
+     *
+     * @see MathTrig\Ceiling::ceiling()
+     *      Use the ceiling() method in the MathTrig\Ceiling class instead
      */
     public static function CEILING($number, $significance = null)
     {
-        return MathTrig\Ceiling::evaluate($number, $significance);
+        return MathTrig\Ceiling::ceiling($number, $significance);
     }
 
     /**
@@ -228,17 +228,17 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see MathTrig\Floor::evaluate()
-     *      Use the evaluate() method in the MathTrig\Floor class instead
-     *
      * @param float $number Number to round
      * @param float $significance Significance
      *
      * @return float|string Rounded Number, or a string containing an error
+     *
+     *@see MathTrig\Floor::floor()
+     *      Use the evaluate() method in the MathTrig\Floor class instead
      */
     public static function FLOOR($number, $significance = null)
     {
-        return MathTrig\Floor::evaluate($number, $significance);
+        return MathTrig\Floor::floor($number, $significance);
     }
 
     /**
@@ -251,18 +251,18 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see MathTrig\FloorMath::evaluate()
-     *      Use the evaluate() method in the MathTrig\FloorMath class instead
-     *
      * @param float $number Number to round
      * @param float $significance Significance
      * @param int $mode direction to round negative numbers
      *
      * @return float|string Rounded Number, or a string containing an error
+     *
+     *@see MathTrig\Floor::math()
+     *      Use the math() method in the MathTrig\Floor class instead
      */
     public static function FLOORMATH($number, $significance = null, $mode = 0)
     {
-        return MathTrig\FloorMath::evaluate($number, $significance, $mode);
+        return MathTrig\Floor::math($number, $significance, $mode);
     }
 
     /**
@@ -275,17 +275,17 @@ class MathTrig
      *
      * @Deprecated 1.17.0
      *
-     * @see MathTrig\FloorPrecise::evaluate()
-     *      Use the evaluate() method in the MathTrig\FloorPrecise class instead
-     *
      * @param float $number Number to round
      * @param float $significance Significance
      *
      * @return float|string Rounded Number, or a string containing an error
+     *
+     *@see MathTrig\Floor::precise()
+     *      Use the precise() method in the MathTrig\Floor class instead
      */
     public static function FLOORPRECISE($number, $significance = 1)
     {
-        return MathTrig\FloorPrecise::evaluate($number, $significance);
+        return MathTrig\Floor::precise($number, $significance);
     }
 
     /**
