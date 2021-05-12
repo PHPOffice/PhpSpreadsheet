@@ -56,7 +56,7 @@ class NetworkDays
         $holidayCountedArray = [];
         foreach ($holidayArray as $holidayDate) {
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
-                if ((WeekDay::evaluate($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
+                if ((Week::day($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
                     --$partWeekDays;
                     $holidayCountedArray[] = $holidayDate;
                 }
@@ -68,7 +68,7 @@ class NetworkDays
 
     private static function calcStartDow(float $startDate): int
     {
-        $startDow = 6 - (int) WeekDay::evaluate($startDate, 2);
+        $startDow = 6 - (int) Week::day($startDate, 2);
         if ($startDow < 0) {
             $startDow = 5;
         }
@@ -78,7 +78,7 @@ class NetworkDays
 
     private static function calcEndDow(float $endDate): int
     {
-        $endDow = (int) WeekDay::evaluate($endDate, 2);
+        $endDow = (int) Week::day($endDate, 2);
         if ($endDow >= 6) {
             $endDow = 0;
         }

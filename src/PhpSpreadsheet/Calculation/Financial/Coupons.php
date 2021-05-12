@@ -63,7 +63,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         if (is_string($daysPerYear)) {
             return Functions::VALUE();
         }
@@ -133,7 +133,7 @@ class Coupons
             case FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
                 if ($frequency == FinancialConstants::FREQUENCY_ANNUAL) {
-                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
@@ -197,7 +197,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_NASD) {

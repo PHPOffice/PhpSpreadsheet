@@ -74,7 +74,7 @@ class YearFrac
     {
         if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && Date::getExcelCalendar() !== Date::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {
-                if (Month::evaluate($sDate) == 12 && Day::evaluate($sDate) === 31 && $method === 0) {
+                if (DateParts::month($sDate) == 12 && DateParts::day($sDate) === 31 && $method === 0) {
                     $sDate += 2;
                 } else {
                     ++$sDate;
@@ -88,13 +88,13 @@ class YearFrac
     private static function method1(float $startDate, float $endDate): float
     {
         $days = DateDif::evaluate($startDate, $endDate);
-        $startYear = (int) Year::evaluate($startDate);
-        $endYear = (int) Year::evaluate($endDate);
+        $startYear = (int) DateParts::year($startDate);
+        $endYear = (int) DateParts::year($endDate);
         $years = $endYear - $startYear + 1;
-        $startMonth = (int) Month::evaluate($startDate);
-        $startDay = (int) Day::evaluate($startDate);
-        $endMonth = (int) Month::evaluate($endDate);
-        $endDay = (int) Day::evaluate($endDate);
+        $startMonth = (int) DateParts::month($startDate);
+        $startDay = (int) DateParts::day($startDate);
+        $endMonth = (int) DateParts::month($endDate);
+        $endDay = (int) DateParts::day($endDate);
         $startMonthDay = 100 * $startMonth + $startDay;
         $endMonthDay = 100 * $endMonth + $endDay;
         if ($years == 1) {
