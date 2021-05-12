@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -102,7 +102,7 @@ class Date
             $year += 1900;
         }
 
-        return $year;
+        return (int) $year;
     }
 
     /**

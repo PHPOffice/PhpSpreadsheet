@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class YearFrac
 {
@@ -72,7 +72,7 @@ class YearFrac
      */
     private static function excelBug(float $sDate, $startDate, $endDate, int $method): float
     {
-        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && Date::getExcelCalendar() !== Date::CALENDAR_MAC_1904) {
+        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && SharedDateHelper::getExcelCalendar() !== SharedDateHelper::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {
                 if (DateParts::month($sDate) == 12 && DateParts::day($sDate) === 31 && $method === 0) {
                     $sDate += 2;

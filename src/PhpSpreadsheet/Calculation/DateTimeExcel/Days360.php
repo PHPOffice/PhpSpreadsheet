@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Days360
 {
@@ -50,12 +50,12 @@ class Days360
         }
 
         // Execute function
-        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
+        $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $startDay = $PHPStartDateObject->format('j');
         $startMonth = $PHPStartDateObject->format('n');
         $startYear = $PHPStartDateObject->format('Y');
 
-        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+        $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
         $endDay = $PHPEndDateObject->format('j');
         $endMonth = $PHPEndDateObject->format('n');
         $endYear = $PHPEndDateObject->format('Y');
