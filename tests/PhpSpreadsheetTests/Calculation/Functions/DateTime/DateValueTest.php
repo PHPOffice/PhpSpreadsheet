@@ -26,7 +26,7 @@ class DateValueTest extends AllSetupTeardown
             if (is_string($expectedResult)) {
                 $replYMD = str_replace('Y', date('Y'), $expectedResult);
                 if ($replYMD !== $expectedResult) {
-                    $expectedResult = DateValue::evaluate($replYMD);
+                    $expectedResult = DateValue::fromString($replYMD);
                 }
             }
             $this->sheet->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
@@ -46,7 +46,7 @@ class DateValueTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = DateValue::evaluate('2012-1-31');
+        $result = DateValue::fromString('2012-1-31');
         self::assertEquals(1327968000, $result);
         self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
@@ -55,7 +55,7 @@ class DateValueTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = DateValue::evaluate('2012-1-31');
+        $result = DateValue::fromString('2012-1-31');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -67,9 +67,9 @@ class DateValueTest extends AllSetupTeardown
     public function testDATEVALUEwith1904Calendar(): void
     {
         self::setMac1904();
-        self::assertEquals(5428, DateValue::evaluate('1918-11-11'));
-        self::assertEquals(0, DateValue::evaluate('1904-01-01'));
-        self::assertEquals('#VALUE!', DateValue::evaluate('1903-12-31'));
-        self::assertEquals('#VALUE!', DateValue::evaluate('1900-02-29'));
+        self::assertEquals(5428, DateValue::fromString('1918-11-11'));
+        self::assertEquals(0, DateValue::fromString('1904-01-01'));
+        self::assertEquals('#VALUE!', DateValue::fromString('1903-12-31'));
+        self::assertEquals('#VALUE!', DateValue::fromString('1900-02-29'));
     }
 }

@@ -58,7 +58,7 @@ class Datefunc
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function evaluate($year, $month, $day)
+    public static function fromYMD($year, $month, $day)
     {
         $baseYear = Date::getExcelCalendar();
 

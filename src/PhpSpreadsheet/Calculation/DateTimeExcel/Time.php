@@ -35,7 +35,7 @@ class Time
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function evaluate($hour, $minute, $second)
+    public static function fromHMS($hour, $minute, $second)
     {
         try {
             $hour = self::toIntWithNullBool($hour);

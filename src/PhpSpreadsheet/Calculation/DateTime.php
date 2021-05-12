@@ -115,7 +115,7 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Datefunc::evaluate()
+     * @See DateTimeExcel\Datefunc::fromYMD()
      *      Use the evaluate method in the DateTimeExcel\Datefunc class instead
      *
      * PhpSpreadsheet is a lot more forgiving than MS Excel when passing non numeric values to this function.
@@ -158,7 +158,7 @@ class DateTime
      */
     public static function DATE($year = 0, $month = 1, $day = 1)
     {
-        return DateTimeExcel\Datefunc::evaluate($year, $month, $day);
+        return DateTimeExcel\Datefunc::fromYMD($year, $month, $day);
     }
 
     /**
@@ -174,7 +174,7 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Time::evaluate()
+     * @See DateTimeExcel\Time::fromHMS()
      *      Use the evaluate method in the DateTimeExcel\Time class instead
      *
      * @param int $hour A number from 0 (zero) to 32767 representing the hour.
@@ -194,7 +194,7 @@ class DateTime
      */
     public static function TIME($hour = 0, $minute = 0, $second = 0)
     {
-        return DateTimeExcel\Time::evaluate($hour, $minute, $second);
+        return DateTimeExcel\Time::fromHMS($hour, $minute, $second);
     }
 
     /**
@@ -212,8 +212,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\DateValue::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\DateValue class instead
+     * @See DateTimeExcel\DateValue::fromString()
+     *      Use the fromString method in the DateTimeExcel\DateValue class instead
      *
      * @param string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
@@ -229,7 +229,7 @@ class DateTime
      */
     public static function DATEVALUE($dateValue)
     {
-        return DateTimeExcel\DateValue::evaluate($dateValue);
+        return DateTimeExcel\DateValue::fromString($dateValue);
     }
 
     /**
@@ -247,8 +247,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\TimeValue::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\TimeValue class instead
+     * @See DateTimeExcel\TimeValue::fromString()
+     *      Use the fromString method in the DateTimeExcel\TimeValue class instead
      *
      * @param string $timeValue A text string that represents a time in any one of the Microsoft
      *                                    Excel time formats; for example, "6:45 PM" and "18:45" text strings
@@ -260,7 +260,7 @@ class DateTime
      */
     public static function TIMEVALUE($timeValue)
     {
-        return DateTimeExcel\TimeValue::evaluate($timeValue);
+        return DateTimeExcel\TimeValue::fromString($timeValue);
     }
 
     /**
