@@ -160,7 +160,7 @@ class Amortization
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
-        $purchasedYear = DateTimeExcel\Year::evaluate($purchased);
+        $purchasedYear = DateTimeExcel\DateParts::year($purchased);
         $yearFrac = DateTimeExcel\YearFrac::evaluate($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;

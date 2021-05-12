@@ -3,11 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTime;
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class WeekNum
+class Week
 {
     /**
      * WEEKNUM.
@@ -38,7 +38,7 @@ class WeekNum
      *
      * @return int|string Week Number
      */
-    public static function evaluate($dateValue, $method = Constants::STARTWEEK_SUNDAY)
+    public static function number($dateValue, $method = Constants::STARTWEEK_SUNDAY)
     {
         $origDateValueNull = empty($dateValue);
 
@@ -76,6 +76,129 @@ class WeekNum
         $weekOfYear = floor(($dayOfYear - $endFirstWeek + 13) / 7);
 
         return (int) $weekOfYear;
+    }
+
+    /**
+     * ISOWEEKNUM.
+     *
+     * Returns the ISO 8601 week number of the year for a specified date.
+     *
+     * Excel Function:
+     *        ISOWEEKNUM(dateValue)
+     *
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     *
+     * @return int|string Week Number
+     */
+    public static function isoWeekNumber($dateValue)
+    {
+        if (self::apparentBug($dateValue)) {
+            return 52;
+        }
+
+        try {
+            $dateValue = Helpers::getDateValue($dateValue);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        // Execute function
+        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        Helpers::silly1900($PHPDateObject);
+
+        return (int) $PHPDateObject->format('W');
+    }
+
+    /**
+     * WEEKDAY.
+     *
+     * Returns the day of the week for a specified date. The day is given as an integer
+     * ranging from 0 to 7 (dependent on the requested style).
+     *
+     * Excel Function:
+     *        WEEKDAY(dateValue[,style])
+     *
+     * @param null|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     * @param mixed $style A number that determines the type of return value
+     *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
+     *                                        2                Numbers 1 (Monday) through 7 (Sunday).
+     *                                        3                Numbers 0 (Monday) through 6 (Sunday).
+     *
+     * @return int|string Day of the week value
+     */
+    public static function day($dateValue, $style = 1)
+    {
+        try {
+            $dateValue = Helpers::getDateValue($dateValue);
+            $style = self::validateStyle($style);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        // Execute function
+        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        Helpers::silly1900($PHPDateObject);
+        $DoW = (int) $PHPDateObject->format('w');
+
+        switch ($style) {
+            case 1:
+                ++$DoW;
+
+                break;
+            case 2:
+                $DoW = self::dow0Becomes7($DoW);
+
+                break;
+            case 3:
+                $DoW = self::dow0Becomes7($DoW) - 1;
+
+                break;
+        }
+
+        return $DoW;
+    }
+
+    /**
+     * @param mixed $style expect int
+     */
+    private static function validateStyle($style): int
+    {
+        $style = Functions::flattenSingleValue($style);
+
+        if (!is_numeric($style)) {
+            throw new Exception(Functions::VALUE());
+        }
+        $style = (int) $style;
+        if (($style < 1) || ($style > 3)) {
+            throw new Exception(Functions::NAN());
+        }
+
+        return $style;
+    }
+
+    private static function dow0Becomes7(int $DoW): int
+    {
+        return ($DoW === 0) ? 7 : $DoW;
+    }
+
+    /**
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                    PHP DateTime object, or a standard date string
+     */
+    private static function apparentBug($dateValue): bool
+    {
+        if (Date::getExcelCalendar() !== DATE::CALENDAR_MAC_1904) {
+            if (is_bool($dateValue)) {
+                return true;
+            }
+            if (is_numeric($dateValue) && !((int) $dateValue)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -125,6 +248,7 @@ class WeekNum
     {
         // This appears to be another Excel bug.
 
-        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_MAC_1904 && !$origNull && $dateObject->format('Y-m-d') === '1904-01-01';
+        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_MAC_1904 &&
+            !$origNull && $dateObject->format('Y-m-d') === '1904-01-01';
     }
 }

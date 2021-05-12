@@ -194,7 +194,7 @@ class Price
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         if (!is_numeric($daysPerYear)) {
             return $daysPerYear;
         }
