@@ -42,7 +42,7 @@ class Format
             if ($value < 0) {
                 $round = 0 - $round;
             }
-            $value = MathTrig\Mround::evaluate($value, $round);
+            $value = MathTrig\Round::multiple($value, $round);
         }
         $mask = "$mask;($mask)";
 
