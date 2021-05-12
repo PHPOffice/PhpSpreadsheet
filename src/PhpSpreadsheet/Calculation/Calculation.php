@@ -758,12 +758,12 @@ class Calculation
         ],
         'DATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Datefunc::class, 'fromYMD'],
+            'functionCall' => [DateTimeExcel\Date::class, 'fromYMD'],
             'argumentCount' => '3',
         ],
         'DATEDIF' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateDif::class, 'interval'],
+            'functionCall' => [DateTimeExcel\Difference::class, 'interval'],
             'argumentCount' => '2,3',
         ],
         'DATEVALUE' => [
@@ -1764,7 +1764,7 @@ class Calculation
         ],
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\NetworkDays::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\NetworkDays::class, 'count'],
             'argumentCount' => '2-3',
         ],
         'NETWORKDAYS.INTL' => [
@@ -2594,7 +2594,7 @@ class Calculation
         ],
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\WorkDay::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\WorkDay::class, 'date'],
             'argumentCount' => '2-3',
         ],
         'WORKDAY.INTL' => [

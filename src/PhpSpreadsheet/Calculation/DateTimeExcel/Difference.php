@@ -8,7 +8,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class DateDif
+class Difference
 {
     /**
      * DATEDIF.

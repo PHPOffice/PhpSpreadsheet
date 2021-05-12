@@ -115,8 +115,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Datefunc::fromYMD()
-     *      Use the fromYMD method in the DateTimeExcel\Datefunc class instead
+     * @See DateTimeExcel\Date::fromYMD()
+     *      Use the fromYMD method in the DateTimeExcel\Date class instead
      *
      * PhpSpreadsheet is a lot more forgiving than MS Excel when passing non numeric values to this function.
      * A Month name or abbreviation (English only at this point) such as 'January' or 'Jan' will still be accepted,
@@ -158,7 +158,7 @@ class DateTime
      */
     public static function DATE($year = 0, $month = 1, $day = 1)
     {
-        return DateTimeExcel\Datefunc::fromYMD($year, $month, $day);
+        return DateTimeExcel\Date::fromYMD($year, $month, $day);
     }
 
     /**
@@ -271,8 +271,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\DateDif::interval()
-     *      Use the interval method in the DateTimeExcel\DateDif class instead
+     * @See DateTimeExcel\Difference::interval()
+     *      Use the interval method in the DateTimeExcel\Difference class instead
      *
      * @param mixed $startDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
@@ -284,7 +284,7 @@ class DateTime
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
-        return DateTimeExcel\DateDif::interval($startDate, $endDate, $unit);
+        return DateTimeExcel\Difference::interval($startDate, $endDate, $unit);
     }
 
     /**
@@ -400,8 +400,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\NetworkDays::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\NetworkDays class instead
+     * @See DateTimeExcel\NetworkDays::count()
+     *      Use the count method in the DateTimeExcel\NetworkDays class instead
      *
      * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
      *                                            PHP DateTime object, or a standard date string
@@ -413,7 +413,7 @@ class DateTime
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
-        return DateTimeExcel\NetworkDays::evaluate($startDate, $endDate, ...$dateArgs);
+        return DateTimeExcel\NetworkDays::count($startDate, $endDate, ...$dateArgs);
     }
 
     /**
@@ -429,8 +429,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\WorkDay::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\WorkDay class instead
+     * @See DateTimeExcel\WorkDay::date()
+     *      Use the date method in the DateTimeExcel\WorkDay class instead
      *
      * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
@@ -444,7 +444,7 @@ class DateTime
      */
     public static function WORKDAY($startDate, $endDays, ...$dateArgs)
     {
-        return DateTimeExcel\WorkDay::evaluate($startDate, $endDays, ...$dateArgs);
+        return DateTimeExcel\WorkDay::date($startDate, $endDays, ...$dateArgs);
     }
 
     /**

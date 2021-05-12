@@ -196,9 +196,9 @@ class NonPeriodic
                 return $e->getMessage();
             }
             if ($date0 > $datei) {
-                $dif = $ordered ? Functions::NAN() : -((int) DateTimeExcel\DateDif::interval($datei, $date0, 'd'));
+                $dif = $ordered ? Functions::NAN() : -((int) DateTimeExcel\Difference::interval($datei, $date0, 'd'));
             } else {
-                $dif = DateTimeExcel\DateDif::interval($date0, $datei, 'd');
+                $dif = DateTimeExcel\Difference::interval($date0, $datei, 'd');
             }
             if (!is_numeric($dif)) {
                 return $dif;
