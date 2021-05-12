@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Time
 {
@@ -57,13 +57,13 @@ class Time
         // Execute function
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_EXCEL) {
-            $calendar = Date::getExcelCalendar();
-            $date = (int) ($calendar !== Date::CALENDAR_WINDOWS_1900);
+            $calendar = SharedDateHelper::getExcelCalendar();
+            $date = (int) ($calendar !== SharedDateHelper::CALENDAR_WINDOWS_1900);
 
-            return (float) Date::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
+            return (float) SharedDateHelper::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
         }
         if ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-            return (int) Date::excelToTimestamp(Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
+            return (int) SharedDateHelper::excelToTimestamp(SharedDateHelper::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
         }
         // RETURNDATE_PHP_DATETIME_OBJECT
         // Hour has already been normalized (0-23) above

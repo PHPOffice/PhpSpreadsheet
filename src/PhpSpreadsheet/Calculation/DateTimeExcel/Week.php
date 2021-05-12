@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Week
 {
@@ -45,7 +45,7 @@ class Week
         try {
             $method = self::validateMethod($method);
             if ($dateValue === null) { // boolean not allowed
-                $dateValue = (Date::getExcelCalendar() === DATE::CALENDAR_MAC_1904 || $method === Constants::DOW_SUNDAY) ? 0 : 1;
+                $dateValue = (SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_MAC_1904 || $method === Constants::DOW_SUNDAY) ? 0 : 1;
             }
             $dateValue = self::validateDateValue($dateValue);
             if (!$dateValue && self::buggyWeekNum1900($method)) {
@@ -57,7 +57,7 @@ class Week
         }
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
         if ($method == Constants::STARTWEEK_MONDAY_ISO) {
             Helpers::silly1900($PHPDateObject);
 
@@ -104,7 +104,7 @@ class Week
         }
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
         Helpers::silly1900($PHPDateObject);
 
         return (int) $PHPDateObject->format('W');
@@ -138,7 +138,7 @@ class Week
         }
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
         Helpers::silly1900($PHPDateObject);
         $DoW = (int) $PHPDateObject->format('w');
 
@@ -189,7 +189,7 @@ class Week
      */
     private static function apparentBug($dateValue): bool
     {
-        if (Date::getExcelCalendar() !== DATE::CALENDAR_MAC_1904) {
+        if (SharedDateHelper::getExcelCalendar() !== SharedDateHelper::CALENDAR_MAC_1904) {
             if (is_bool($dateValue)) {
                 return true;
             }
@@ -241,14 +241,14 @@ class Week
 
     private static function buggyWeekNum1900(int $method): bool
     {
-        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_WINDOWS_1900;
+        return $method === Constants::DOW_SUNDAY && SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_WINDOWS_1900;
     }
 
     private static function buggyWeekNum1904(int $method, bool $origNull, DateTime $dateObject): bool
     {
         // This appears to be another Excel bug.
 
-        return $method === Constants::DOW_SUNDAY && Date::getExcelCalendar() === Date::CALENDAR_MAC_1904 &&
+        return $method === Constants::DOW_SUNDAY && SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_MAC_1904 &&
             !$origNull && $dateObject->format('Y-m-d') === '1904-01-01';
     }
 }

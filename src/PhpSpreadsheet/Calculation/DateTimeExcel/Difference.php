@@ -4,9 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateInterval;
 use DateTime;
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Difference
 {
@@ -33,12 +33,12 @@ class Difference
         }
 
         // Execute function
-        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
+        $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $startDays = (int) $PHPStartDateObject->format('j');
         $startMonths = (int) $PHPStartDateObject->format('n');
         $startYears = (int) $PHPStartDateObject->format('Y');
 
-        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+        $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
         $endDays = (int) $PHPEndDateObject->format('j');
         $endMonths = (int) $PHPEndDateObject->format('n');
         $endYears = (int) $PHPEndDateObject->format('Y');

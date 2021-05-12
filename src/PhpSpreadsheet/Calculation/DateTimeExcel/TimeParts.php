@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class TimeParts
 {
@@ -37,7 +37,7 @@ class TimeParts
 
         // Execute function
         $timeValue = fmod($timeValue, 1);
-        $timeValue = Date::excelToDateTimeObject($timeValue);
+        $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
 
         return (int) $timeValue->format('H');
     }
@@ -71,7 +71,7 @@ class TimeParts
 
         // Execute function
         $timeValue = fmod($timeValue, 1);
-        $timeValue = Date::excelToDateTimeObject($timeValue);
+        $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
 
         return (int) $timeValue->format('i');
     }
@@ -105,7 +105,7 @@ class TimeParts
 
         // Execute function
         $timeValue = fmod($timeValue, 1);
-        $timeValue = Date::excelToDateTimeObject($timeValue);
+        $timeValue = SharedDateHelper::excelToDateTimeObject($timeValue);
 
         return (int) $timeValue->format('s');
     }

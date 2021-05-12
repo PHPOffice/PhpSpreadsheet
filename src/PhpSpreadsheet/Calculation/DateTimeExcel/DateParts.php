@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class DateParts
 {
@@ -36,7 +36,7 @@ class DateParts
         }
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
 
         return (int) $PHPDateObject->format('j');
     }
@@ -62,12 +62,12 @@ class DateParts
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        if ($dateValue < 1 && Date::getExcelCalendar() === DATE::CALENDAR_WINDOWS_1900) {
+        if ($dateValue < 1 && SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_WINDOWS_1900) {
             return 1;
         }
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
 
         return (int) $PHPDateObject->format('n');
     }
@@ -94,11 +94,11 @@ class DateParts
             return $e->getMessage();
         }
 
-        if ($dateValue < 1 && Date::getExcelCalendar() === DATE::CALENDAR_WINDOWS_1900) {
+        if ($dateValue < 1 && SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_WINDOWS_1900) {
             return 1900;
         }
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
 
         return (int) $PHPDateObject->format('Y');
     }
@@ -110,7 +110,7 @@ class DateParts
     private static function weirdCondition($dateValue): int
     {
         // Excel does not treat 0 consistently for DAY vs. (MONTH or YEAR)
-        if (Date::getExcelCalendar() === DATE::CALENDAR_WINDOWS_1900 && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
+        if (SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_WINDOWS_1900 && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
             if (is_bool($dateValue)) {
                 return (int) $dateValue;
             }
