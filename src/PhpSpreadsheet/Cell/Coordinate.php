@@ -13,6 +13,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  */
 abstract class Coordinate
 {
+    public const A1_COORDINATE_REGEX = '/^(?<absolute_col>\$?)(?<col_ref>[A-Z]{1,3})(?<absolute_row>\$?)(?<row_ref>\d{1,7})$/i';
+
     /**
      * Default range variable constant.
      *
@@ -29,8 +31,8 @@ abstract class Coordinate
      */
     public static function coordinateFromString($pCoordinateString)
     {
-        if (preg_match('/^([$]?[A-Z]{1,3})([$]?\\d{1,7})$/', $pCoordinateString, $matches)) {
-            return [$matches[1], $matches[2]];
+        if (preg_match(self::A1_COORDINATE_REGEX, $pCoordinateString, $matches)) {
+            return [$matches['absolute_col'] . $matches['col_ref'], $matches['absolute_row'] . $matches['row_ref']];
         } elseif (self::coordinateIsRange($pCoordinateString)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
         } elseif ($pCoordinateString == '') {

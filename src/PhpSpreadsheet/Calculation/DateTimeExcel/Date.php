@@ -2,12 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
-class Datefunc
+class Date
 {
     /**
      * DATE.
@@ -58,9 +58,9 @@ class Datefunc
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcDate($year, $month, $day)
+    public static function fromYMD($year, $month, $day)
     {
-        $baseYear = Date::getExcelCalendar();
+        $baseYear = SharedDateHelper::getExcelCalendar();
 
         try {
             $year = self::getYear($year, $baseYear);
@@ -72,7 +72,7 @@ class Datefunc
         }
 
         // Execute function
-        $excelDateValue = Date::formattedPHPToExcel($year, $month, $day);
+        $excelDateValue = SharedDateHelper::formattedPHPToExcel($year, $month, $day);
 
         return Helpers::returnIn3FormatsFloat($excelDateValue);
     }
@@ -85,7 +85,7 @@ class Datefunc
     private static function getYear($year, int $baseYear): int
     {
         $year = Functions::flattenSingleValue($year);
-        $year = ($year !== null) ? StringHelper::testStringAsNumeric($year) : 0;
+        $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
         if (!is_numeric($year)) {
             throw new Exception(Functions::VALUE());
         }
@@ -102,7 +102,7 @@ class Datefunc
             $year += 1900;
         }
 
-        return $year;
+        return (int) $year;
     }
 
     /**
@@ -115,10 +115,10 @@ class Datefunc
         $month = Functions::flattenSingleValue($month);
 
         if (($month !== null) && (!is_numeric($month))) {
-            $month = Date::monthStringToNumber($month);
+            $month = SharedDateHelper::monthStringToNumber($month);
         }
 
-        $month = ($month !== null) ? StringHelper::testStringAsNumeric($month) : 0;
+        $month = ($month !== null) ? StringHelper::testStringAsNumeric((string) $month) : 0;
         if (!is_numeric($month)) {
             throw new Exception(Functions::VALUE());
         }
@@ -136,10 +136,10 @@ class Datefunc
         $day = Functions::flattenSingleValue($day);
 
         if (($day !== null) && (!is_numeric($day))) {
-            $day = Date::dayStringToNumber($day);
+            $day = SharedDateHelper::dayStringToNumber($day);
         }
 
-        $day = ($day !== null) ? StringHelper::testStringAsNumeric($day) : 0;
+        $day = ($day !== null) ? StringHelper::testStringAsNumeric((string) $day) : 0;
         if (!is_numeric($day)) {
             throw new Exception(Functions::VALUE());
         }

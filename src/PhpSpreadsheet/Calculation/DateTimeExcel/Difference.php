@@ -4,11 +4,11 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateInterval;
 use DateTime;
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
-class DateDif
+class Difference
 {
     /**
      * DATEDIF.
@@ -21,7 +21,7 @@ class DateDif
      *
      * @return int|string Interval between the dates
      */
-    public static function funcDateDif($startDate, $endDate, $unit = 'D')
+    public static function interval($startDate, $endDate, $unit = 'D')
     {
         try {
             $startDate = Helpers::getDateValue($startDate);
@@ -33,12 +33,12 @@ class DateDif
         }
 
         // Execute function
-        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
+        $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $startDays = (int) $PHPStartDateObject->format('j');
         $startMonths = (int) $PHPStartDateObject->format('n');
         $startYears = (int) $PHPStartDateObject->format('Y');
 
-        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+        $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
         $endDays = (int) $PHPEndDateObject->format('j');
         $endMonths = (int) $PHPEndDateObject->format('n');
         $endYears = (int) $PHPEndDateObject->format('Y');
