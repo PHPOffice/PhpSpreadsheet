@@ -116,7 +116,7 @@ class DateTime
      * @Deprecated 1.18.0
      *
      * @See DateTimeExcel\Datefunc::fromYMD()
-     *      Use the evaluate method in the DateTimeExcel\Datefunc class instead
+     *      Use the fromYMD method in the DateTimeExcel\Datefunc class instead
      *
      * PhpSpreadsheet is a lot more forgiving than MS Excel when passing non numeric values to this function.
      * A Month name or abbreviation (English only at this point) such as 'January' or 'Jan' will still be accepted,
@@ -175,7 +175,7 @@ class DateTime
      * @Deprecated 1.18.0
      *
      * @See DateTimeExcel\Time::fromHMS()
-     *      Use the evaluate method in the DateTimeExcel\Time class instead
+     *      Use the fromHMS method in the DateTimeExcel\Time class instead
      *
      * @param int $hour A number from 0 (zero) to 32767 representing the hour.
      *                                    Any value greater than 23 will be divided by 24 and the remainder
@@ -271,8 +271,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\DateDif::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\DateDif class instead
+     * @See DateTimeExcel\DateDif::interval()
+     *      Use the interval method in the DateTimeExcel\DateDif class instead
      *
      * @param mixed $startDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
@@ -284,7 +284,7 @@ class DateTime
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
-        return DateTimeExcel\DateDif::evaluate($startDate, $endDate, $unit);
+        return DateTimeExcel\DateDif::interval($startDate, $endDate, $unit);
     }
 
     /**
@@ -297,8 +297,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Days::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\Days class instead
+     * @See DateTimeExcel\Days::between()
+     *      Use the between method in the DateTimeExcel\Days class instead
      *
      * @param DateTimeInterface|float|int|string $endDate Excel date serial value (float),
      * PHP date timestamp (integer), PHP DateTime object, or a standard date string
@@ -309,7 +309,7 @@ class DateTime
      */
     public static function DAYS($endDate = 0, $startDate = 0)
     {
-        return DateTimeExcel\Days::evaluate($endDate, $startDate);
+        return DateTimeExcel\Days::between($endDate, $startDate);
     }
 
     /**
@@ -324,8 +324,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Days360::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\Days360 class instead
+     * @See DateTimeExcel\Days360::between()
+     *      Use the between method in the DateTimeExcel\Days360 class instead
      *
      * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
@@ -347,7 +347,7 @@ class DateTime
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
-        return DateTimeExcel\Days360::evaluate($startDate, $endDate, $method);
+        return DateTimeExcel\Days360::between($startDate, $endDate, $method);
     }
 
     /**
@@ -363,8 +363,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\YearFrac::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\YearFrac class instead
+     * @See DateTimeExcel\YearFrac::fraction()
+     *      Use the fraction method in the DateTimeExcel\YearFrac class instead
      *
      * See https://lists.oasis-open.org/archives/office-formula/200806/msg00039.html
      *     for description of algorithm used in Excel
@@ -384,7 +384,7 @@ class DateTime
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
-        return DateTimeExcel\YearFrac::evaluate($startDate, $endDate, $method);
+        return DateTimeExcel\YearFrac::fraction($startDate, $endDate, $method);
     }
 
     /**
@@ -867,8 +867,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\Edate::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\Edate class instead
+     * @See DateTimeExcel\Month::adjust()
+     *      Use the adjust method in the DateTimeExcel\Edate class instead
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
@@ -881,7 +881,7 @@ class DateTime
      */
     public static function EDATE($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\EDate::evaluate($dateValue, $adjustmentMonths);
+        return DateTimeExcel\Month::adjust($dateValue, $adjustmentMonths);
     }
 
     /**
@@ -896,8 +896,8 @@ class DateTime
      *
      * @Deprecated 1.18.0
      *
-     * @See DateTimeExcel\EoMonth::evaluate()
-     *      Use the evaluate method in the DateTimeExcel\EoMonth class instead
+     * @See DateTimeExcel\Month::lastDay()
+     *      Use the lastDay method in the DateTimeExcel\EoMonth class instead
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
@@ -910,6 +910,6 @@ class DateTime
      */
     public static function EOMONTH($dateValue = 1, $adjustmentMonths = 0)
     {
-        return DateTimeExcel\EoMonth::evaluate($dateValue, $adjustmentMonths);
+        return DateTimeExcel\Month::lastDay($dateValue, $adjustmentMonths);
     }
 }

@@ -24,7 +24,7 @@ class Days
      *
      * @return int|string Number of days between start date and end date or an error
      */
-    public static function evaluate($endDate, $startDate)
+    public static function between($endDate, $startDate)
     {
         try {
             $startDate = Helpers::getDateValue($startDate);
