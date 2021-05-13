@@ -148,8 +148,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @see MathTrig\Even::evaluate()
-     *      Use the evaluate() method in the MathTrig\Even class instead
+     * @see MathTrig\Round::even()
+     *      Use the even() method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      *
@@ -157,7 +157,7 @@ class MathTrig
      */
     public static function EVEN($number)
     {
-        return MathTrig\Even::evaluate($number);
+        return MathTrig\Round::even($number);
     }
 
     /**
@@ -508,8 +508,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Odd::evaluate()
-     *      Use the evaluate method in the MathTrig\Odd class instead
+     * @See MathTrig\Round::odd()
+     *      Use the odd method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      *
@@ -517,7 +517,7 @@ class MathTrig
      */
     public static function ODD($number)
     {
-        return MathTrig\Odd::evaluate($number);
+        return MathTrig\Round::odd($number);
     }
 
     /**
@@ -726,8 +726,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\SqrtPi::evaluate()
-     *      Use the evaluate method in the MathTrig\SqrtPi class instead
+     * @See MathTrig\Sqrt::sqrt()
+     *      Use the pi method in the MathTrig\Sqrt class instead
      *
      * @param float $number Number
      *
@@ -735,7 +735,7 @@ class MathTrig
      */
     public static function SQRTPI($number)
     {
-        return MathTrig\SqrtPi::evaluate($number);
+        return MathTrig\Sqrt::pi($number);
     }
 
     /**
@@ -1448,8 +1448,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sqrt::evaluate()
-     *      Use the evaluate method in the MathTrig\Sqrt class instead
+     * @See MathTrig\Sqrt::sqrt()
+     *      Use the sqrt method in the MathTrig\Sqrt class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1457,7 +1457,7 @@ class MathTrig
      */
     public static function builtinSQRT($number)
     {
-        return MathTrig\Sqrt::evaluate($number);
+        return MathTrig\Sqrt::sqrt($number);
     }
 
     /**
