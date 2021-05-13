@@ -246,12 +246,12 @@ class Calculation
         ],
         'ACOS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acos'],
             'argumentCount' => '1',
         ],
         'ACOSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acosh'],
             'argumentCount' => '1',
         ],
         'ACOT' => [
@@ -306,12 +306,12 @@ class Calculation
         ],
         'ASIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asin'],
             'argumentCount' => '1',
         ],
         'ASINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asinh'],
             'argumentCount' => '1',
         ],
         'ATAN' => [
@@ -608,12 +608,12 @@ class Calculation
         ],
         'COS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cos'],
             'argumentCount' => '1',
         ],
         'COSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cosh'],
             'argumentCount' => '1',
         ],
         'COT' => [
@@ -2208,12 +2208,12 @@ class Calculation
         ],
         'SIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sin'],
             'argumentCount' => '1',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sinh'],
             'argumentCount' => '1',
         ],
         'SKEW' => [

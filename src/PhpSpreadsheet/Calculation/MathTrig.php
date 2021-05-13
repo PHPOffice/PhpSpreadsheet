@@ -234,7 +234,7 @@ class MathTrig
      * @return float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::floor()
-     *      Use the evaluate() method in the MathTrig\Floor class instead
+     *      Use the floor() method in the MathTrig\Floor class instead
      */
     public static function FLOOR($number, $significance = null)
     {
@@ -1161,8 +1161,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Acos::evaluate()
-     *      Use the evaluate method in the MathTrig\Acos class instead
+     * @See MathTrig\Trig\Cosine::acos()
+     *      Use the acos method in the MathTrig\Trig\Cosine class instead
      *
      * Returns the result of builtin function acos after validating args.
      *
@@ -1172,7 +1172,7 @@ class MathTrig
      */
     public static function builtinACOS($number)
     {
-        return MathTrig\Acos::evaluate($number);
+        return MathTrig\Trig\Cosine::acos($number);
     }
 
     /**
@@ -1182,8 +1182,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Acosh::evaluate()
-     *      Use the evaluate method in the MathTrig\Acosh class instead
+     * @See MathTrig\Trig\Cosine::acosh()
+     *      Use the acosh method in the MathTrig\Trig\Cosine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1191,7 +1191,7 @@ class MathTrig
      */
     public static function builtinACOSH($number)
     {
-        return MathTrig\Acosh::evaluate($number);
+        return MathTrig\Trig\Cosine::acosh($number);
     }
 
     /**
@@ -1201,8 +1201,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Asin::evaluate()
-     *      Use the evaluate method in the MathTrig\Asin class instead
+     * @See MathTrig\Trig\Sine::asin()
+     *      Use the asin method in the MathTrig\Trig\Sine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1210,7 +1210,7 @@ class MathTrig
      */
     public static function builtinASIN($number)
     {
-        return MathTrig\Asin::evaluate($number);
+        return MathTrig\Trig\Sine::asin($number);
     }
 
     /**
@@ -1220,8 +1220,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Asinh::evaluate()
-     *      Use the evaluate method in the MathTrig\Asinh class instead
+     * @See MathTrig\Trig\Sine::asinh()
+     *      Use the asinh method in the MathTrig\Trig\Sine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1229,7 +1229,7 @@ class MathTrig
      */
     public static function builtinASINH($number)
     {
-        return MathTrig\Asinh::evaluate($number);
+        return MathTrig\Trig\Sine::asinh($number);
     }
 
     /**
@@ -1277,8 +1277,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Cos::evaluate()
-     *      Use the evaluate method in the MathTrig\Cos class instead
+     * @See MathTrig\Trig\Cosine::cos()
+     *      Use the cos method in the MathTrig\Trig\Cosine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1286,7 +1286,7 @@ class MathTrig
      */
     public static function builtinCOS($number)
     {
-        return MathTrig\Cos::evaluate($number);
+        return MathTrig\Trig\Cosine::cos($number);
     }
 
     /**
@@ -1296,8 +1296,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Cosh::evaluate()
-     *      Use the evaluate method in the MathTrig\Cosh class instead
+     * @See MathTrig\Trig\Cosine::cosh()
+     *      Use the cosh method in the MathTrig\Trig\Cosine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1305,7 +1305,7 @@ class MathTrig
      */
     public static function builtinCOSH($number)
     {
-        return MathTrig\Cosh::evaluate($number);
+        return MathTrig\Trig\Cosine::cosh($number);
     }
 
     /**
@@ -1410,16 +1410,16 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sin::evaluate()
-     *      Use the evaluate method in the MathTrig\Sin class instead
+     * @See MathTrig\Trig\Sine::evaluate()
+     *      Use the sin method in the MathTrig\Trig\Sine class instead
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return float|string sine
      */
     public static function builtinSIN($number)
     {
-        return MathTrig\Sin::evaluate($number);
+        return MathTrig\Trig\Sine::sin($number);
     }
 
     /**
@@ -1429,8 +1429,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sinh::evaluate()
-     *      Use the evaluate method in the MathTrig\Sinh class instead
+     * @See MathTrig\Trig\Sine::sinh()
+     *      Use the sinh method in the MathTrig\Trig\Sine class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1438,7 +1438,7 @@ class MathTrig
      */
     public static function builtinSINH($number)
     {
-        return MathTrig\Sinh::evaluate($number);
+        return MathTrig\Trig\Sine::sinh($number);
     }
 
     /**
