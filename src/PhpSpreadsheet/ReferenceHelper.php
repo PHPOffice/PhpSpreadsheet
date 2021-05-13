@@ -226,8 +226,10 @@ class ReferenceHelper
         foreach ($aHyperlinkCollection as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
             if ($key != $newReference) {
-                $pSheet->setHyperlink($newReference, $value);
                 $pSheet->setHyperlink($key, null);
+                if ($newReference) {
+                    $pSheet->setHyperlink($newReference, $value);
+                }
             }
         }
     }
@@ -251,8 +253,10 @@ class ReferenceHelper
         foreach ($aDataValidationCollection as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
             if ($key != $newReference) {
-                $pSheet->setDataValidation($newReference, $value);
                 $pSheet->setDataValidation($key, null);
+                if ($newReference) {
+                    $pSheet->setDataValidation($newReference, $value);
+                }
             }
         }
     }
@@ -273,7 +277,9 @@ class ReferenceHelper
         $aNewMergeCells = []; // the new array of all merge cells
         foreach ($aMergeCells as $key => &$value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-            $aNewMergeCells[$newReference] = $newReference;
+            if ($newReference) {
+                $aNewMergeCells[$newReference] = $newReference;
+            }
         }
         $pSheet->setMergeCells($aNewMergeCells); // replace the merge cells array
     }
@@ -296,8 +302,10 @@ class ReferenceHelper
         foreach ($aProtectedCells as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
             if ($key != $newReference) {
-                $pSheet->protectCells($newReference, $value, true);
                 $pSheet->unprotectCells($key);
+                if ($newReference) {
+                    $pSheet->protectCells($newReference, $value, true);
+                }
             }
         }
     }
@@ -418,15 +426,20 @@ class ReferenceHelper
             $cell = $pSheet->getCell($coordinate);
             $cellIndex = Coordinate::columnIndexFromString($cell->getColumn());
 
-            if ($cellIndex - 1 + $pNumCols < 0) {
+            // Don't update cells that are being removed
+            if (
+                $pNumCols < 0 &&
+                $cellIndex >= $beforeColumn + $pNumCols &&
+                $cellIndex < $beforeColumn
+            ) {
                 continue;
             }
 
-            // New coordinate
-            $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex + $pNumCols) . ($cell->getRow() + $pNumRows);
-
             // Should the cell be updated? Move value and cellXf index from one cell to another.
             if (($cellIndex >= $beforeColumn) && ($cell->getRow() >= $beforeRow)) {
+                // New coordinate
+                $newCoordinate = Coordinate::stringFromColumnIndex($cellIndex + $pNumCols) . ($cell->getRow() + $pNumRows);
+
                 // Update cell styles
                 $pSheet->getCell($newCoordinate)->setXfIndex($cell->getXfIndex());
 
@@ -644,8 +657,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $pBefore, $pNumCols, $pNumRows), 2);
-                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $pBefore, $pNumCols, $pNumRows), 2);
+                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $pBefore, $pNumCols, $pNumRows, true), 2);
+                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $pBefore, $pNumCols, $pNumRows, false), 2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $sheetName)) {
@@ -669,8 +682,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $pBefore, $pNumCols, $pNumRows), 0, -2);
-                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $pBefore, $pNumCols, $pNumRows), 0, -2);
+                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $pBefore, $pNumCols, $pNumRows, true), 0, -2);
+                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $pBefore, $pNumCols, $pNumRows, false), 0, -2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $sheetName)) {
@@ -694,8 +707,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = $this->updateCellReference($match[3], $pBefore, $pNumCols, $pNumRows);
-                        $modified4 = $this->updateCellReference($match[4], $pBefore, $pNumCols, $pNumRows);
+                        $modified3 = $this->updateCellReference($match[3], $pBefore, $pNumCols, $pNumRows, true);
+                        $modified4 = $this->updateCellReference($match[4], $pBefore, $pNumCols, $pNumRows, false);
 
                         if ($match[3] . $match[4] !== $modified3 . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $sheetName)) {
@@ -900,10 +913,11 @@ class ReferenceHelper
      * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
+     * @param bool|null $topLeft Whether top/left or bottom/right
      *
      * @return string Updated cell range
      */
-    public function updateCellReference($pCellRange = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
+    public function updateCellReference($pCellRange = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $topLeft = null)
     {
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($pCellRange, '!') !== false) {
@@ -911,7 +925,7 @@ class ReferenceHelper
         // Is it a range or a single cell?
         } elseif (!Coordinate::coordinateIsRange($pCellRange)) {
             // Single cell
-            return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows);
+            return $this->updateSingleCellReference($pCellRange, $pBefore, $pNumCols, $pNumRows, $topLeft);
         } elseif (Coordinate::coordinateIsRange($pCellRange)) {
             // Range
             return $this->updateCellRange($pCellRange, $pBefore, $pNumCols, $pNumRows);
@@ -965,6 +979,7 @@ class ReferenceHelper
             throw new Exception('Only cell ranges may be passed to this method.');
         }
 
+        $needToReindex = false;
         // Update range
         $range = Coordinate::splitRange($pCellRange);
         $ic = count($range);
@@ -972,15 +987,31 @@ class ReferenceHelper
             $jc = count($range[$i]);
             for ($j = 0; $j < $jc; ++$j) {
                 if (ctype_alpha($range[$i][$j])) {
-                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference($range[$i][$j] . '1', $pBefore, $pNumCols, $pNumRows));
+                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference($range[$i][$j] . '1', $pBefore, $pNumCols, $pNumRows, $j === 0));
                     $range[$i][$j] = $r[0];
                 } elseif (ctype_digit($range[$i][$j])) {
-                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference('A' . $range[$i][$j], $pBefore, $pNumCols, $pNumRows));
+                    $r = Coordinate::coordinateFromString($this->updateSingleCellReference('A' . $range[$i][$j], $pBefore, $pNumCols, $pNumRows, $j === 0));
                     $range[$i][$j] = $r[1];
                 } else {
-                    $range[$i][$j] = $this->updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
+                    $range[$i][$j] = $this->updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows, $j === 0);
                 }
             }
+            if ($jc == 2) {
+                $currentRange = $range[$i][0].":".$range[$i][1];
+                $dimensions = Coordinate::rangeDimension($currentRange);
+                // If the entire range is being removed, one of the dimensions will be 0
+                if ($dimensions[0] == 0 or $dimensions[1] == 0) {
+                    unset($range[$i]);
+                    $needToReindex = true;
+                }
+            }
+        }
+        if ($needToReindex) {
+            // If all of the ranges have been removed, an empty string is desirable for many callers
+            if (!$range) {
+                return '';
+            }
+            $range = array_values($range);
         }
 
         // Recreate range string
@@ -994,10 +1025,11 @@ class ReferenceHelper
      * @param string $pBefore Insert before this one
      * @param int $pNumCols Number of columns to increment
      * @param int $pNumRows Number of rows to increment
+     * @param bool|null $topLeft Whether top/left or bottom/right
      *
      * @return string Updated cell reference
      */
-    private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
+    private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $topLeft = null)
     {
         if (Coordinate::coordinateIsRange($pCellReference)) {
             throw new Exception('Only single cell references may be passed to this method.');
@@ -1010,17 +1042,37 @@ class ReferenceHelper
         [$newColumn, $newRow] = Coordinate::coordinateFromString($pCellReference);
 
         // Verify which parts should be updated
-        $updateColumn = (($newColumn[0] != '$') && ($beforeColumn[0] != '$') && (Coordinate::columnIndexFromString($newColumn) >= Coordinate::columnIndexFromString($beforeColumn)));
-        $updateRow = (($newRow[0] != '$') && ($beforeRow[0] != '$') && $newRow >= $beforeRow);
-
-        // Create new column reference
-        if ($updateColumn) {
-            $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) + $pNumCols);
+        if (($newColumn{0} != '$') && ($beforeColumn{0} != '$')) {
+            // A special case is removing the left/top or bottom/right edge of a range
+            // $topLeft is null if we aren't adjusting a range at all.
+            if ($topLeft !== null and $pNumCols < 0 &&
+                Coordinate::columnIndexFromString($newColumn) >= Coordinate::columnIndexFromString($beforeColumn) + $pNumCols &&
+                Coordinate::columnIndexFromString($newColumn) <= Coordinate::columnIndexFromString($beforeColumn) - 1) {
+                if ($topLeft) {
+                    $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($beforeColumn) + $pNumCols);
+                } else {
+                    $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($beforeColumn) + $pNumCols - 1);
+                }
+            } elseif (Coordinate::columnIndexFromString($newColumn) >= Coordinate::columnIndexFromString($beforeColumn)) {
+                // Create new column reference
+                $newColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($newColumn) + $pNumCols);
+            }
         }
 
-        // Create new row reference
-        if ($updateRow) {
-            $newRow = (int) $newRow + $pNumRows;
+        if (($newRow{0} != '$') && ($beforeRow{0} != '$')) {
+            // A special case is removing the left/top or bottom/right edge of a range
+            // $topLeft is null if we aren't adjusting a range at all.
+            if ($topLeft !== null and $pNumRows < 0 &&
+                $newRow >= $beforeRow + $pNumRows &&
+                $newRow <= $beforeRow - 1) {
+                if ($topLeft) {
+                    $newRow = $beforeRow + $pNumRows;
+                } else {
+                    $newRow = $beforeRow + $pNumRows -1;
+                }
+            } elseif ($newRow >= $beforeRow) {
+                $newRow = $newRow + $pNumRows;
+            }
         }
 
         // Return new reference
