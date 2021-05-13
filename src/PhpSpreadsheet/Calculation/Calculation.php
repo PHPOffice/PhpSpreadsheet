@@ -256,12 +256,12 @@ class Calculation
         ],
         'ACOT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acot'],
             'argumentCount' => '1',
         ],
         'ACOTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acoth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acoth'],
             'argumentCount' => '1',
         ],
         'ADDRESS' => [
@@ -316,17 +316,17 @@ class Calculation
         ],
         'ATAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan'],
             'argumentCount' => '1',
         ],
         'ATAN2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan2::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan2'],
             'argumentCount' => '2',
         ],
         'ATANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atanh'],
             'argumentCount' => '1',
         ],
         'AVEDEV' => [
@@ -618,12 +618,12 @@ class Calculation
         ],
         'COT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'cot'],
             'argumentCount' => '1',
         ],
         'COTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Coth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'coth'],
             'argumentCount' => '1',
         ],
         'COUNT' => [
@@ -703,12 +703,12 @@ class Calculation
         ],
         'CSC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csc::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csc'],
             'argumentCount' => '1',
         ],
         'CSCH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csch::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csch'],
             'argumentCount' => '1',
         ],
         'CUBEKPIMEMBER' => [
@@ -2168,12 +2168,12 @@ class Calculation
         ],
         'SEC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sec::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sec'],
             'argumentCount' => '1',
         ],
         'SECH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sech::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sech'],
             'argumentCount' => '1',
         ],
         'SECOND' => [
@@ -2369,12 +2369,12 @@ class Calculation
         ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
             'argumentCount' => '1',
         ],
         'TANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tanh'],
             'argumentCount' => '1',
         ],
         'TBILLEQ' => [
