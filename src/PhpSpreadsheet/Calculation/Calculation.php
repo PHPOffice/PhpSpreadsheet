@@ -968,7 +968,7 @@ class Calculation
         ],
         'EVEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Even::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'even'],
             'argumentCount' => '1',
         ],
         'EXACT' => [
@@ -1859,7 +1859,7 @@ class Calculation
         ],
         'ODD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Odd::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'odd'],
             'argumentCount' => '1',
         ],
         'ODDFPRICE' => [
@@ -2253,12 +2253,12 @@ class Calculation
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sqrt::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'sqrt'],
             'argumentCount' => '1',
         ],
         'SQRTPI' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SqrtPi::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'pi'],
             'argumentCount' => '1',
         ],
         'STANDARDIZE' => [

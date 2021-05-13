@@ -119,4 +119,61 @@ class Round
 
         return Functions::NAN();
     }
+
+    /**
+     * EVEN.
+     *
+     * Returns number rounded up to the nearest even integer.
+     * You can use this function for processing items that come in twos. For example,
+     *        a packing crate accepts rows of one or two items. The crate is full when
+     *        the number of items, rounded up to the nearest two, matches the crate's
+     *        capacity.
+     *
+     * Excel Function:
+     *        EVEN(number)
+     *
+     * @param float $number Number to round
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function even($number)
+    {
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return Helpers::getEven($number);
+    }
+
+    /**
+     * ODD.
+     *
+     * Returns number rounded up to the nearest odd integer.
+     *
+     * @param float $number Number to round
+     *
+     * @return float|string Rounded Number, or a string containing an error
+     */
+    public static function odd($number)
+    {
+        try {
+            $number = Helpers::validateNumericNullBool($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $significance = Helpers::returnSign($number);
+        if ($significance == 0) {
+            return 1;
+        }
+
+        $result = ceil($number / $significance) * $significance;
+        if ($result == Helpers::getEven($result)) {
+            $result += $significance;
+        }
+
+        return $result;
+    }
 }
