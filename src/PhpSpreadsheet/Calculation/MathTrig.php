@@ -47,8 +47,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Atan2::evaluate()
-     *      Use the evaluate method in the MathTrig\Atan2 class instead
+     * @See MathTrig\Trig\Tangent::atan2()
+     *      Use the atan2 method in the MathTrig\Trig\Tangent class instead
      *
      * @param float $xCoordinate the x-coordinate of the point
      * @param float $yCoordinate the y-coordinate of the point
@@ -57,7 +57,7 @@ class MathTrig
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
-        return MathTrig\Atan2::evaluate($xCoordinate, $yCoordinate);
+        return MathTrig\Trig\Tangent::atan2($xCoordinate, $yCoordinate);
     }
 
     /**
@@ -955,8 +955,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sec::evaluate()
-     *      Use the evaluate method in the MathTrig\Sec class instead
+     * @See MathTrig\Trig\Secant::sec()
+     *      Use the sec method in the MathTrig\Trig\Secant class instead
      *
      * @param float $angle Number
      *
@@ -964,7 +964,7 @@ class MathTrig
      */
     public static function SEC($angle)
     {
-        return MathTrig\Sec::evaluate($angle);
+        return MathTrig\Trig\Secant::sec($angle);
     }
 
     /**
@@ -974,8 +974,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\SecH::evaluate()
-     *      Use the evaluate method in the MathTrig\Sech class instead
+     * @See MathTrig\Trig\Secant::sech()
+     *      Use the sech method in the MathTrig\Trig\Secant class instead
      *
      * @param float $angle Number
      *
@@ -983,7 +983,7 @@ class MathTrig
      */
     public static function SECH($angle)
     {
-        return MathTrig\Sech::evaluate($angle);
+        return MathTrig\Trig\Secant::sech($angle);
     }
 
     /**
@@ -993,8 +993,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Csc::evaluate()
-     *      Use the evaluate method in the MathTrig\Csc class instead
+     * @See MathTrig\Trig\Cosecant::csc()
+     *      Use the csc method in the MathTrig\Trig\Cosecant class instead
      *
      * @param float $angle Number
      *
@@ -1002,7 +1002,7 @@ class MathTrig
      */
     public static function CSC($angle)
     {
-        return MathTrig\Csc::evaluate($angle);
+        return MathTrig\Trig\Cosecant::csc($angle);
     }
 
     /**
@@ -1012,8 +1012,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Csch::evaluate()
-     *      Use the evaluate method in the MathTrig\Csch class instead
+     * @See MathTrig\Trig\Cosecant::csch()
+     *      Use the csch method in the MathTrig\Trig\Cosecant class instead
      *
      * @param float $angle Number
      *
@@ -1021,7 +1021,7 @@ class MathTrig
      */
     public static function CSCH($angle)
     {
-        return MathTrig\Csch::evaluate($angle);
+        return MathTrig\Trig\Cosecant::csch($angle);
     }
 
     /**
@@ -1031,8 +1031,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Cot::evaluate()
-     *      Use the evaluate method in the MathTrig\Cot class instead
+     * @See MathTrig\Trig\Cotangent::cot()
+     *      Use the cot method in the MathTrig\Trig\Cotangent class instead
      *
      * @param float $angle Number
      *
@@ -1040,7 +1040,7 @@ class MathTrig
      */
     public static function COT($angle)
     {
-        return MathTrig\Cot::evaluate($angle);
+        return MathTrig\Trig\Cotangent::cot($angle);
     }
 
     /**
@@ -1050,8 +1050,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Coth::evaluate()
-     *      Use the evaluate method in the MathTrig\Coth class instead
+     * @See MathTrig\Trig\Cotangent::coth()
+     *      Use the coth method in the MathTrig\Trig\Cotangent class instead
      *
      * @param float $angle Number
      *
@@ -1059,7 +1059,7 @@ class MathTrig
      */
     public static function COTH($angle)
     {
-        return MathTrig\Coth::evaluate($angle);
+        return MathTrig\Trig\Cotangent::coth($angle);
     }
 
     /**
@@ -1069,8 +1069,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Acot::evaluate()
-     *      Use the evaluate method in the MathTrig\Acot class instead
+     * @See MathTrig\Trig\Cotangent::acot()
+     *      Use the acot method in the MathTrig\Trig\Cotangent class instead
      *
      * @param float $number Number
      *
@@ -1078,7 +1078,7 @@ class MathTrig
      */
     public static function ACOT($number)
     {
-        return MathTrig\Acot::evaluate($number);
+        return MathTrig\Trig\Cotangent::acot($number);
     }
 
     /**
@@ -1105,8 +1105,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Acoth::evaluate()
-     *      Use the evaluate method in the MathTrig\Acoth class instead
+     * @See MathTrig\Trig\Cotangent::acoth()
+     *      Use the acoth method in the MathTrig\Trig\Cotangent class instead
      *
      * @param float $number Number
      *
@@ -1114,7 +1114,7 @@ class MathTrig
      */
     public static function ACOTH($number)
     {
-        return MathTrig\Acoth::evaluate($number);
+        return MathTrig\Trig\Cotangent::acoth($number);
     }
 
     /**
@@ -1239,8 +1239,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Atan::evaluate()
-     *      Use the evaluate method in the MathTrig\Atan class instead
+     * @See MathTrig\Trig\Tangent::atan()
+     *      Use the atan method in the MathTrig\Trig\Tangent class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1248,7 +1248,7 @@ class MathTrig
      */
     public static function builtinATAN($number)
     {
-        return MathTrig\Atan::evaluate($number);
+        return MathTrig\Trig\Tangent::atan($number);
     }
 
     /**
@@ -1258,8 +1258,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Atanh::evaluate()
-     *      Use the evaluate method in the MathTrig\Atanh class instead
+     * @See MathTrig\Trig\Tangent::atanh()
+     *      Use the atanh method in the MathTrig\Trig\Tangent class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1267,7 +1267,7 @@ class MathTrig
      */
     public static function builtinATANH($number)
     {
-        return MathTrig\Atanh::evaluate($number);
+        return MathTrig\Trig\Tangent::atanh($number);
     }
 
     /**
@@ -1467,8 +1467,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Tan::evaluate()
-     *      Use the evaluate method in the MathTrig\Tan class instead
+     * @See MathTrig\Trig\Tangent::tan()
+     *      Use the tan method in the MathTrig\Trig\Tangent class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1476,7 +1476,7 @@ class MathTrig
      */
     public static function builtinTAN($number)
     {
-        return MathTrig\Tan::evaluate($number);
+        return MathTrig\Trig\Tangent::tan($number);
     }
 
     /**
@@ -1486,8 +1486,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Tan::evaluate()
-     *      Use the evaluate method in the MathTrig\Tanh class instead
+     * @See MathTrig\Trig\Tangent::tanh()
+     *      Use the tanh method in the MathTrig\Trig\Tangent class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1495,7 +1495,7 @@ class MathTrig
      */
     public static function builtinTANH($number)
     {
-        return MathTrig\Tanh::evaluate($number);
+        return MathTrig\Trig\Tangent::tanh($number);
     }
 
     /**
