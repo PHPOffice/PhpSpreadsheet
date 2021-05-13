@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
 {
+    public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
+
     /**
      * Converts an R1C1 format cell address to an A1 format cell address.
      */
@@ -72,7 +74,7 @@ class AddressHelper
             foreach ($temp as &$value) {
                 //    Only replace in alternate array entries (i.e. non-quoted blocks)
                 if ($key = !$key) {
-                    preg_match_all('/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                    preg_match_all(self::R1C1_COORDINATE_REGEX, $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                     //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                     //        through the formula from left to right. Reversing means that we work right to left.through
                     //        the formula
