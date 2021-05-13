@@ -2329,7 +2329,7 @@ class Calculation
         ],
         'SUMPRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SumProduct::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sum::class, 'product'],
             'argumentCount' => '1+',
         ],
         'SUMSQ' => [

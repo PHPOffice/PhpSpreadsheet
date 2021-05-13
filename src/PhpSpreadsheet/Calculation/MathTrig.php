@@ -840,8 +840,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\SumProduct::evaluate()
-     *      Use the evaluate method in the MathTrig\SumProduct class instead
+     * @See MathTrig\Sum::product()
+     *      Use the product method in the MathTrig\Sum class instead
      *
      * @param mixed ...$args Data values
      *
@@ -849,7 +849,7 @@ class MathTrig
      */
     public static function SUMPRODUCT(...$args)
     {
-        return MathTrig\SumProduct::evaluate(...$args);
+        return MathTrig\Sum::product(...$args);
     }
 
     /**
