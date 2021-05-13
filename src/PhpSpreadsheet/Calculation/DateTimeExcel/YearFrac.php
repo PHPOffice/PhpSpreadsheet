@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class YearFrac
 {
@@ -34,7 +34,7 @@ class YearFrac
      *
      * @return float|string fraction of the year, or a string containing an error
      */
-    public static function evaluate($startDate, $endDate, $method = 0)
+    public static function fraction($startDate, $endDate, $method = 0)
     {
         try {
             $method = (int) Helpers::validateNumericNull($method);
@@ -50,15 +50,15 @@ class YearFrac
 
         switch ($method) {
             case 0:
-                return Days360::evaluate($startDate, $endDate) / 360;
+                return Days360::between($startDate, $endDate) / 360;
             case 1:
                 return self::method1($startDate, $endDate);
             case 2:
-                return DateDif::evaluate($startDate, $endDate) / 360;
+                return Difference::interval($startDate, $endDate) / 360;
             case 3:
-                return DateDif::evaluate($startDate, $endDate) / 365;
+                return Difference::interval($startDate, $endDate) / 365;
             case 4:
-                return Days360::evaluate($startDate, $endDate, true) / 360;
+                return Days360::between($startDate, $endDate, true) / 360;
         }
 
         return Functions::NAN();
@@ -72,9 +72,9 @@ class YearFrac
      */
     private static function excelBug(float $sDate, $startDate, $endDate, int $method): float
     {
-        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && Date::getExcelCalendar() !== Date::CALENDAR_MAC_1904) {
+        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && SharedDateHelper::getExcelCalendar() !== SharedDateHelper::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {
-                if (Month::evaluate($sDate) == 12 && Day::evaluate($sDate) === 31 && $method === 0) {
+                if (DateParts::month($sDate) == 12 && DateParts::day($sDate) === 31 && $method === 0) {
                     $sDate += 2;
                 } else {
                     ++$sDate;
@@ -87,14 +87,14 @@ class YearFrac
 
     private static function method1(float $startDate, float $endDate): float
     {
-        $days = DateDif::evaluate($startDate, $endDate);
-        $startYear = (int) Year::evaluate($startDate);
-        $endYear = (int) Year::evaluate($endDate);
+        $days = Difference::interval($startDate, $endDate);
+        $startYear = (int) DateParts::year($startDate);
+        $endYear = (int) DateParts::year($endDate);
         $years = $endYear - $startYear + 1;
-        $startMonth = (int) Month::evaluate($startDate);
-        $startDay = (int) Day::evaluate($startDate);
-        $endMonth = (int) Month::evaluate($endDate);
-        $endDay = (int) Day::evaluate($endDate);
+        $startMonth = (int) DateParts::month($startDate);
+        $startDay = (int) DateParts::day($startDate);
+        $endMonth = (int) DateParts::month($endDate);
+        $endDay = (int) DateParts::day($endDate);
         $startMonthDay = 100 * $startMonth + $startDay;
         $endMonthDay = 100 * $endMonth + $endDay;
         if ($years == 1) {
