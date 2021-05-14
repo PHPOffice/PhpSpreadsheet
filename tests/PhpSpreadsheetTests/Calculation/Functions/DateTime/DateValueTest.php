@@ -15,7 +15,7 @@ class DateValueTest extends AllSetupTeardown
      */
     public function testDATEVALUE($expectedResult, string $dateValue): void
     {
-        $this->sheet->getCell('B1')->setValue('1954-07-20');
+        $this->getSheet()->getCell('B1')->setValue('1954-07-20');
         // Loop to avoid extraordinarily rare edge case where first calculation
         // and second do not take place on same day.
         $row = 0;
@@ -29,8 +29,8 @@ class DateValueTest extends AllSetupTeardown
                     $expectedResult = DateValue::fromString($replYMD);
                 }
             }
-            $this->sheet->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
-            $result = $this->sheet->getCell("A$row")->getCalculatedValue();
+            $this->getSheet()->getCell("A$row")->setValue("=DATEVALUE($dateValue)");
+            $result = $this->getSheet()->getCell("A$row")->getCalculatedValue();
             $dtEnd = new DateTimeImmutable();
             $endDay = $dtEnd->format('d');
         } while ($startDay !== $endDay);

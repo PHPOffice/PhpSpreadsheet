@@ -8,7 +8,7 @@ class TodayTest extends AllSetupTeardown
 {
     public function testToday(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same second.
         do {
