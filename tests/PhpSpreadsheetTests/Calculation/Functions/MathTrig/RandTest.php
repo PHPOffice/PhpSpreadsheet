@@ -6,7 +6,7 @@ class RandTest extends AllSetupTeardown
 {
     public function testRand(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('=RAND()');
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertGreaterThanOrEqual(0, $result);
@@ -16,7 +16,7 @@ class RandTest extends AllSetupTeardown
     public function testRandException(): void
     {
         $this->mightHaveException('exception');
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('=RAND(A1)');
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals(0, $result);
