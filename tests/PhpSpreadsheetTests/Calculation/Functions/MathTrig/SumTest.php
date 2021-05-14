@@ -11,7 +11,7 @@ class SumTest extends AllSetupTeardown
      */
     public function testSUM($expectedResult, ...$args): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $row = 0;
         foreach ($args as $arg) {
             ++$row;
