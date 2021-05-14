@@ -47,11 +47,19 @@ class Arabic
         return $sum;
     }
 
+    /**
+     * @param mixed $value
+     */
+    private static function mollifyScrutinizer($value): array
+    {
+        return is_array($value) ? $value : [];
+    }
+
     private static function strSplit(string $roman): array
     {
         $rslt = str_split($roman);
 
-        return is_array($rslt) ? $rslt : [];
+        return self::mollifyScrutinizer($rslt);
     }
 
     /**

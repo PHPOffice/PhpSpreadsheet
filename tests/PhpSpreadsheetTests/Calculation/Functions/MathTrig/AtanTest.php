@@ -12,7 +12,7 @@ class AtanTest extends AllSetupTeardown
     public function testAtan($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A2')->setValue(5);
         $sheet->getCell('A1')->setValue("=ATAN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

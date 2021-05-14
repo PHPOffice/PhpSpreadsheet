@@ -50,15 +50,21 @@ class Sum
     public static function funcSumNoStrings(...$args)
     {
         $returnValue = 0;
-
         // Loop through the arguments
-        foreach (Functions::flattenArray($args) as $arg) {
+        $aArgs = Functions::flattenArrayIndexed($args);
+        foreach ($aArgs as $k => $arg) {
             // Is it a numeric value?
-            if (is_numeric($arg)) {
+            if (is_numeric($arg) || empty($arg)) {
+                if (is_string($arg)) {
+                    $arg = (int) $arg;
+                }
                 $returnValue += $arg;
+            } elseif (is_bool($arg)) {
+                $returnValue += (int) $arg;
             } elseif (Functions::isError($arg)) {
                 return $arg;
-            } else {
+            // ignore non-numerics from cell, but fail as literals (except null)
+            } elseif ($arg !== null && !Functions::isCellValue($k)) {
                 return Functions::VALUE();
             }
         }

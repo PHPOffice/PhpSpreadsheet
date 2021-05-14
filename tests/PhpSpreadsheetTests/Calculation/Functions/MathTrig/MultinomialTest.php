@@ -12,7 +12,7 @@ class MultinomialTest extends AllSetupTeardown
     public function testMULTINOMIAL($expectedResult, ...$args): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $row = 0;
         $excelArg = '';
         foreach ($args as $arg) {

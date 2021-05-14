@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\TestCase;
@@ -28,5 +28,16 @@ class DefaultFillTest extends TestCase
         self::assertSame('none', $sheet->getCell('D4')->getStyle()->getFill()->getFillType());
         self::assertSame('none', $sheet->getCell('J16')->getStyle()->getFill()->getFillType());
         self::assertSame('solid', $sheet->getCell('C2')->getStyle()->getFill()->getFillType());
+    }
+
+    public function testDefaultConditionalFill(): void
+    {
+        // default fill pattern for a conditional style where the filltype is not defined
+        $filename = 'tests/data/Reader/XLSX/pr2050cf-fill.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+
+        $style = $spreadsheet->getActiveSheet()->getConditionalStyles('A1')[0]->getStyle();
+        self::assertSame('solid', $style->getFill()->getFillType());
     }
 }

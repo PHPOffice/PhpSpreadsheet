@@ -31,7 +31,7 @@ class TimeValueTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = TimeValue::funcTimeValue('7:30:20');
+        $result = TimeValue::fromString('7:30:20');
         self::assertEquals(23420, $result);
         self::assertEqualsWithDelta(23420, $result, 1E-8);
     }
@@ -40,7 +40,7 @@ class TimeValueTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = TimeValue::funcTimeValue('7:30:20');
+        $result = TimeValue::fromString('7:30:20');
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type

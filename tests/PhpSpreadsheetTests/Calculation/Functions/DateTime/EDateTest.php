@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\EDate;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
 
 class EDateTest extends AllSetupTeardown
 {
@@ -29,7 +29,7 @@ class EDateTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = EDate::funcEDate('2012-1-26', -1);
+        $result = Month::adjust('2012-1-26', -1);
         self::assertEquals(1324857600, $result);
         self::assertEqualsWithDelta(1324857600, $result, 1E-8);
     }
@@ -38,7 +38,7 @@ class EDateTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = EDate::funcEDate('2012-1-26', -1);
+        $result = Month::adjust('2012-1-26', -1);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type

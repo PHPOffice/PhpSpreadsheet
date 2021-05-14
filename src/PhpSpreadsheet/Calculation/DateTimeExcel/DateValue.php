@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class DateValue
 {
@@ -33,13 +33,13 @@ class DateValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcDateValue($dateValue)
+    public static function fromString($dateValue)
     {
         $dti = new DateTimeImmutable();
-        $baseYear = Date::getExcelCalendar();
+        $baseYear = SharedDateHelper::getExcelCalendar();
         $dateValue = trim(Functions::flattenSingleValue($dateValue), '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
-        $dateValue = preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
+        $dateValue = preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue) ?? '';
         //    Convert separators (/ . or space) to hyphens (should also handle dot used for ordinals in some countries, e.g. Denmark, Germany)
         $dateValue = str_replace(['/', '.', '-', '  '], ' ', $dateValue);
 
@@ -59,7 +59,7 @@ class DateValue
         }
         if (count($t1) === 1) {
             //    We've been fed a time value without any date
-            return ((strpos($t, ':') === false)) ? Functions::Value() : 0.0;
+            return ((strpos((string) $t, ':') === false)) ? Functions::Value() : 0.0;
         }
         unset($t);
 
@@ -105,7 +105,7 @@ class DateValue
             $testVal1 = strtok($dateValue, '- ');
             $testVal2 = strtok('- ');
             $testVal3 = strtok('- ') ?: $dti->format('Y');
-            Helpers::adjustYear($testVal1, $testVal2, $testVal3);
+            Helpers::adjustYear((string) $testVal1, (string) $testVal2, $testVal3);
             $PHPDateArray = date_parse($testVal1 . '-' . $testVal2 . '-' . $testVal3);
             if (($PHPDateArray === false) || ($PHPDateArray['error_count'] > 0)) {
                 $PHPDateArray = date_parse($testVal2 . '-' . $testVal1 . '-' . $testVal3);
@@ -118,7 +118,7 @@ class DateValue
     /**
      * Final results.
      *
-     * @param array|false $PHPDateArray
+     * @param array|bool $PHPDateArray
      *
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
@@ -126,7 +126,7 @@ class DateValue
     private static function finalResults($PHPDateArray, DateTimeImmutable $dti, int $baseYear)
     {
         $retValue = Functions::Value();
-        if (($PHPDateArray !== false) && ($PHPDateArray['error_count'] == 0)) {
+        if (is_array($PHPDateArray) && $PHPDateArray['error_count'] == 0) {
             // Execute function
             Helpers::replaceIfEmpty($PHPDateArray['year'], $dti->format('Y'));
             if ($PHPDateArray['year'] < $baseYear) {

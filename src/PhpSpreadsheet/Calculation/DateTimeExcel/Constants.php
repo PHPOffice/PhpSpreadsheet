@@ -22,6 +22,7 @@ class Constants
     const DOW_FRIDAY = 6;
     const DOW_SATURDAY = 7;
     const STARTWEEK_MONDAY_ISO = 21;
+
     const METHODARR = [
         self::STARTWEEK_SUNDAY => self::DOW_SUNDAY,
         self::DOW_MONDAY,

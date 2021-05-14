@@ -14,7 +14,7 @@ class SumX2PY2Test extends AllSetupTeardown
     public function testSUMX2PY2($expectedResult, array $matrixData1, array $matrixData2): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $maxRow = 0;
         $funcArg1 = '';
         foreach (Functions::flattenArray($matrixData1) as $arg) {

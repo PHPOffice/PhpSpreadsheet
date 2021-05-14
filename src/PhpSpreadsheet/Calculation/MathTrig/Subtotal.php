@@ -8,7 +8,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Subtotal
 {
-    protected static function filterHiddenArgs($cellReference, $args)
+    /**
+     * @param mixed $cellReference
+     * @param mixed $args
+     */
+    protected static function filterHiddenArgs($cellReference, $args): array
     {
         return array_filter(
             $args,
@@ -21,7 +25,11 @@ class Subtotal
         );
     }
 
-    protected static function filterFormulaArgs($cellReference, $args)
+    /**
+     * @param mixed $cellReference
+     * @param mixed $args
+     */
+    protected static function filterFormulaArgs($cellReference, $args): array
     {
         return array_filter(
             $args,
@@ -42,6 +50,7 @@ class Subtotal
         );
     }
 
+    /** @var callable[] */
     private const CALL_FUNCTIONS = [
         1 => [Statistical\Averages::class, 'AVERAGE'],
         [Statistical\Counts::class, 'COUNT'], // 2
@@ -67,7 +76,7 @@ class Subtotal
      *                    list
      *            Numbers 101 to 111 shadow the functions of 1 to 11
      *                    but ignore any values in the range that are
-     *                    in hidden rows or columns
+     *                    in hidden rows
      * @param mixed[] $args A mixed data series of values
      *
      * @return float|string
@@ -91,7 +100,10 @@ class Subtotal
 
         $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
         if (array_key_exists($subtotal, self::CALL_FUNCTIONS)) {
-            return call_user_func_array(self::CALL_FUNCTIONS[$subtotal], $aArgs);
+            /** @var callable */
+            $call = self::CALL_FUNCTIONS[$subtotal];
+
+            return call_user_func_array($call, $aArgs);
         }
 
         return Functions::VALUE();

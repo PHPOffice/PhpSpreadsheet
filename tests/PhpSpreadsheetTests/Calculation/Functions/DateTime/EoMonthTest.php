@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\EoMonth;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month;
 
 class EoMonthTest extends AllSetupTeardown
 {
@@ -29,7 +29,7 @@ class EoMonthTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = EoMonth::funcEomonth('2012-1-26', -1);
+        $result = Month::lastDay('2012-1-26', -1);
         self::assertEquals(1325289600, $result);
     }
 
@@ -37,7 +37,7 @@ class EoMonthTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = EoMonth::funcEomonth('2012-1-26', -1);
+        $result = Month::lastDay('2012-1-26', -1);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
