@@ -57,7 +57,7 @@ class Subtotal
         [Statistical\Counts::class, 'COUNTA'], // 3
         [Statistical\Maximum::class, 'MAX'], // 4
         [Statistical\Minimum::class, 'MIN'], // 5
-        [Product::class, 'evaluate'], // 6
+        [Operations::class, 'product'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8
         [Sum::class, 'sumIgnoringStrings'], // 9
