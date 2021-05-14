@@ -838,7 +838,7 @@ class Calculation
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Degrees::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toDegrees'],
             'argumentCount' => '1',
         ],
         'DELTA' => [
@@ -1704,7 +1704,7 @@ class Calculation
         ],
         'MOD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mod::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'mod'],
             'argumentCount' => '2',
         ],
         'MODE' => [
@@ -1976,7 +1976,7 @@ class Calculation
         ],
         'POWER' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Power::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'power'],
             'argumentCount' => '2',
         ],
         'PPMT' => [
@@ -2006,7 +2006,7 @@ class Calculation
         ],
         'PRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Product::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'product'],
             'argumentCount' => '1+',
         ],
         'PROPER' => [
@@ -2036,12 +2036,12 @@ class Calculation
         ],
         'QUOTIENT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Quotient::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'quotient'],
             'argumentCount' => '2',
         ],
         'RADIANS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Radians::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toRadians'],
             'argumentCount' => '1',
         ],
         'RAND' => [
