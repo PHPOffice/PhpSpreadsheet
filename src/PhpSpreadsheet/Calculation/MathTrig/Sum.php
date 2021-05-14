@@ -18,7 +18,7 @@ class Sum
      *
      * @return float|string
      */
-    public static function funcSum(...$args)
+    public static function sumIgnoringStrings(...$args)
     {
         $returnValue = 0;
 
@@ -47,7 +47,7 @@ class Sum
      *
      * @return float|string
      */
-    public static function funcSumNoStrings(...$args)
+    public static function sumErroringStrings(...$args)
     {
         $returnValue = 0;
         // Loop through the arguments

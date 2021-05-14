@@ -60,7 +60,7 @@ class Subtotal
         [Product::class, 'evaluate'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8
-        [Sum::class, 'funcSum'], // 9
+        [Sum::class, 'sumIgnoringStrings'], // 9
         [Statistical\Variances::class, 'VAR'], // 10
         [Statistical\Variances::class, 'VARP'], // 11
     ];
