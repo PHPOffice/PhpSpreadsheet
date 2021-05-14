@@ -14,7 +14,7 @@ class EDateTest extends AllSetupTeardown
     public function testEDATE($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=EDATE($formula)");
         $sheet->getCell('B1')->setValue('1954-11-23');
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
