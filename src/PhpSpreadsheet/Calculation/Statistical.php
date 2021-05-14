@@ -949,9 +949,9 @@ class Statistical
      * @param mixed ...$args Data values
      *
      * @return float
+     *
      *@see Statistical\Maximum::max()
      *      Use the MAX() method in the Statistical\Maximum class instead
-     *
      */
     public static function MAX(...$args)
     {
@@ -971,9 +971,9 @@ class Statistical
      * @param mixed ...$args Data values
      *
      * @return float
+     *
      *@see Statistical\Maximum::maxA()
      *      Use the MAXA() method in the Statistical\Maximum class instead
-     *
      */
     public static function MAXA(...$args)
     {
@@ -1038,9 +1038,9 @@ class Statistical
      * @param mixed ...$args Data values
      *
      * @return float
+     *
      *@see Statistical\Minimum::min()
      *      Use the min() method in the Statistical\Minimum class instead
-     *
      */
     public static function MIN(...$args)
     {
@@ -1060,9 +1060,9 @@ class Statistical
      * @param mixed ...$args Data values
      *
      * @return float
+     *
      *@see Statistical\Minimum::minA()
      *      Use the minA() method in the Statistical\Minimum class instead
-     *
      */
     public static function MINA(...$args)
     {
