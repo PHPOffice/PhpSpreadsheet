@@ -55,8 +55,8 @@ class Subtotal
         1 => [Statistical\Averages::class, 'average'],
         [Statistical\Counts::class, 'COUNT'], // 2
         [Statistical\Counts::class, 'COUNTA'], // 3
-        [Statistical\Maximum::class, 'MAX'], // 4
-        [Statistical\Minimum::class, 'MIN'], // 5
+        [Statistical\Maximum::class, 'max'], // 4
+        [Statistical\Minimum::class, 'min'], // 5
         [Operations::class, 'product'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8

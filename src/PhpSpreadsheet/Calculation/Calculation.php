@@ -1624,12 +1624,12 @@ class Calculation
         ],
         'MAX' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAX'],
+            'functionCall' => [Statistical\Maximum::class, 'max'],
             'argumentCount' => '1+',
         ],
         'MAXA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAXA'],
+            'functionCall' => [Statistical\Maximum::class, 'maxA'],
             'argumentCount' => '1+',
         ],
         'MAXIFS' => [
@@ -1669,12 +1669,12 @@ class Calculation
         ],
         'MIN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MIN'],
+            'functionCall' => [Statistical\Minimum::class, 'min'],
             'argumentCount' => '1+',
         ],
         'MINA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MINA'],
+            'functionCall' => [Statistical\Minimum::class, 'minA'],
             'argumentCount' => '1+',
         ],
         'MINIFS' => [

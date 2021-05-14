@@ -19,7 +19,7 @@ class Minimum extends MaxMinBase
      *
      * @return float
      */
-    public static function MIN(...$args)
+    public static function min(...$args)
     {
         $returnValue = null;
 
@@ -53,7 +53,7 @@ class Minimum extends MaxMinBase
      *
      * @return float
      */
-    public static function MINA(...$args)
+    public static function minA(...$args)
     {
         $returnValue = null;
 

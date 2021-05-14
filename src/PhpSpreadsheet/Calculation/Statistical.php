@@ -942,20 +942,20 @@ class Statistical
      *        with negative numbers considered smaller than positive numbers.
      *
      * Excel Function:
-     *        MAX(value1[,value2[, ...]])
+     *        max(value1[,value2[, ...]])
      *
      * @Deprecated 1.17.0
-     *
-     * @see Statistical\Maximum::MAX()
-     *      Use the MAX() method in the Statistical\Maximum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
+     *@see Statistical\Maximum::max()
+     *      Use the MAX() method in the Statistical\Maximum class instead
+     *
      */
     public static function MAX(...$args)
     {
-        return Maximum::MAX(...$args);
+        return Maximum::max(...$args);
     }
 
     /**
@@ -964,20 +964,20 @@ class Statistical
      * Returns the greatest value in a list of arguments, including numbers, text, and logical values
      *
      * Excel Function:
-     *        MAXA(value1[,value2[, ...]])
+     *        maxA(value1[,value2[, ...]])
      *
      * @Deprecated 1.17.0
-     *
-     * @see Statistical\Maximum::MAXA()
-     *      Use the MAXA() method in the Statistical\Maximum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
+     *@see Statistical\Maximum::maxA()
+     *      Use the MAXA() method in the Statistical\Maximum class instead
+     *
      */
     public static function MAXA(...$args)
     {
-        return Maximum::MAXA(...$args);
+        return Maximum::maxA(...$args);
     }
 
     /**
@@ -1035,16 +1035,16 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Statistical\Minimum::MIN()
-     *      Use the MIN() method in the Statistical\Minimum class instead
-     *
      * @param mixed ...$args Data values
      *
      * @return float
+     *@see Statistical\Minimum::min()
+     *      Use the min() method in the Statistical\Minimum class instead
+     *
      */
     public static function MIN(...$args)
     {
-        return Minimum::MIN(...$args);
+        return Minimum::min(...$args);
     }
 
     /**
@@ -1057,16 +1057,16 @@ class Statistical
      *
      * @Deprecated 1.17.0
      *
-     * @see Statistical\Minimum::MINA()
-     *      Use the MINA() method in the Statistical\Minimum class instead
-     *
      * @param mixed ...$args Data values
      *
      * @return float
+     *@see Statistical\Minimum::minA()
+     *      Use the minA() method in the Statistical\Minimum class instead
+     *
      */
     public static function MINA(...$args)
     {
-        return Minimum::MINA(...$args);
+        return Minimum::minA(...$args);
     }
 
     /**
