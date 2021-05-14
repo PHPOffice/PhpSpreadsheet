@@ -13,7 +13,7 @@ class CscTest extends AllSetupTeardown
     public function testCSC($expectedResult, $angle): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);

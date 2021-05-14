@@ -13,7 +13,7 @@ class EvenTest extends AllSetupTeardown
     public function testEVEN($expectedResult, $value): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=EVEN($value)");
         $sheet->getCell('A2')->setValue(3.7);
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());

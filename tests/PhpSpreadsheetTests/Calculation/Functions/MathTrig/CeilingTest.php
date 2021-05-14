@@ -13,7 +13,7 @@ class CeilingTest extends AllSetupTeardown
     public function testCEILING($expectedResult, $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);
@@ -31,7 +31,7 @@ class CeilingTest extends AllSetupTeardown
     public function testCEILINGGnumeric1Arg(): void
     {
         self::setGnumeric();
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=CEILING(5.1)');
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta(6, $result, 1E-12);
@@ -40,7 +40,7 @@ class CeilingTest extends AllSetupTeardown
     public function testCELINGOpenOffice1Arg(): void
     {
         self::setOpenOffice();
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=CEILING(5.1)');
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta(6, $result, 1E-12);
@@ -49,7 +49,7 @@ class CeilingTest extends AllSetupTeardown
     public function testCEILINGExcel1Arg(): void
     {
         $this->mightHaveException('exception');
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=CEILING(5.1)');
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta(6, $result, 1E-12);

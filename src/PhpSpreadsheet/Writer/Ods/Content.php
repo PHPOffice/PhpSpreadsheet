@@ -101,6 +101,7 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
+        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
         // Defined names (ranges and formulae)
         (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
 
