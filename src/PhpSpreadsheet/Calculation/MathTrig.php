@@ -771,8 +771,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sum::funcSumNoStrings()
-     *      Use the funcSumNoStrings method in the MathTrig\Sum class instead
+     * @See MathTrig\Sum::sumErroringStrings()
+     *      Use the sumErroringStrings method in the MathTrig\Sum class instead
      *
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
@@ -783,7 +783,7 @@ class MathTrig
      */
     public static function SUM(...$args)
     {
-        return MathTrig\Sum::funcSum(...$args);
+        return MathTrig\Sum::sumIgnoringStrings(...$args);
     }
 
     /**

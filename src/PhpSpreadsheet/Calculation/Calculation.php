@@ -2314,7 +2314,7 @@ class Calculation
         ],
         'SUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sum::class, 'funcSumNoStrings'],
+            'functionCall' => [MathTrig\Sum::class, 'sumErroringStrings'],
             'argumentCount' => '1+',
         ],
         'SUMIF' => [
