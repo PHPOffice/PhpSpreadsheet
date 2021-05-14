@@ -38,7 +38,8 @@ $helper->write($spreadsheetFromCSV, __FILE__, ['Xlsx']);
 $filenameCSV = $helper->getFilename(__FILE__, 'csv');
 /** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writerCSV */
 $writerCSV = new CsvWriter($spreadsheetFromCSV);
-$writerCSV->setExcelCompatibility(true);
+//$writerCSV->setExcelCompatibility(true);
+$writerCSV->setUseBom(true); // because of non-ASCII chars
 
 $callStartTime = microtime(true);
 $writerCSV->save($filenameCSV);

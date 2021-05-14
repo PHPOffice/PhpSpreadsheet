@@ -472,7 +472,7 @@ class AutoFilter
         $val = $maxVal = null;
 
         $ruleValues = [];
-        $baseDate = DateTimeExcel\Now::funcNow();
+        $baseDate = DateTimeExcel\Current::now();
         //    Calculate start/end dates for the required date range based on current date
         switch ($dynamicRuleType) {
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:

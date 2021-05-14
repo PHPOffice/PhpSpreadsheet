@@ -328,4 +328,28 @@ return [
         2,
         false,
     ],
+    [
+        0.61,
+        'Ed',
+        [
+            [null, 'Ann', 'Cara', 'Colin', 'Ed', 'Frank'],
+            ['Math', 0.58, 0.90, 0.67, 0.76, 0.80],
+            ['French', 0.61, 0.71, 0.59, 0.59, 0.76],
+            ['Physics', 0.75, 0.45, 0.39, 0.52, 0.69],
+            ['Bioogy', 0.39, 0.55, 0.77, 0.61, 0.45],
+        ],
+        5,
+        false,
+    ],
+    [
+        'Normal Weight',
+        23.5,
+        [
+            [null, 'Min', 0.0, 18.5, 25.0, 30.0],
+            ['BMI', 'Max', 18.4, 24.9, 29.9, null],
+            [null, 'Body Type', 'Underweight', 'Normal Weight', 'Overweight', 'Obese'],
+        ],
+        3,
+        true,
+    ],
 ];

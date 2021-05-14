@@ -31,7 +31,7 @@ class TimeTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = Time::funcTime(7, 30, 20);
+        $result = Time::fromHMS(7, 30, 20);
         self::assertEqualsWithDelta(27020, $result, 1E-8);
     }
 
@@ -39,7 +39,7 @@ class TimeTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = Time::funcTime(7, 30, 20);
+        $result = Time::fromHMS(7, 30, 20);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -51,13 +51,13 @@ class TimeTest extends AllSetupTeardown
     public function testTIME1904(): void
     {
         self::setMac1904();
-        $result = Time::funcTime(0, 0, 0);
+        $result = Time::fromHMS(0, 0, 0);
         self::assertEquals(0, $result);
     }
 
     public function testTIME1900(): void
     {
-        $result = Time::funcTime(0, 0, 0);
+        $result = Time::fromHMS(0, 0, 0);
         self::assertEquals(0, $result);
     }
 }
