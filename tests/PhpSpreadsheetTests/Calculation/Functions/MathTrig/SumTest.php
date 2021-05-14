@@ -34,7 +34,7 @@ class SumTest extends AllSetupTeardown
      */
     public function testSUMLiterals($expectedResult, string $args): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue("=SUM($args)");
         $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
