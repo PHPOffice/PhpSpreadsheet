@@ -47,6 +47,7 @@ DVARP			= BDVARP			##	Calcule la variance pour l’ensemble d’une population d
 DATE			= DATE				##	Renvoie le numéro de série d’une date précise.
 DATEVALUE		= DATEVAL			##	Convertit une date représentée sous forme de texte en numéro de série.
 DAY			= JOUR				##	Convertit un numéro de série en jour du mois.
+DAYS			= JOURS				##	Calcule le nombre de jours qui séparent deux dates.
 DAYS360			= JOURS360			##	Calcule le nombre de jours qui séparent deux dates sur la base d’une année de 360 jours.
 EDATE			= MOIS.DECALER			##	Renvoie le numéro séquentiel de la date qui représente une date spécifiée (l’argument date_départ), corrigée en plus ou en moins du nombre de mois indiqué.
 EOMONTH			= FIN.MOIS			##	Renvoie le numéro séquentiel de la date du dernier jour du mois précédant ou suivant la date_départ du nombre de mois indiqué.

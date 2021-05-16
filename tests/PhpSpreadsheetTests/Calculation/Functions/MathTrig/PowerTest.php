@@ -14,7 +14,7 @@ class PowerTest extends AllSetupTeardown
     public function testPOWER($expectedResult, $base = 'omitted', $exponent = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if ($base !== null) {
             $sheet->getCell('A1')->setValue($base);
         }

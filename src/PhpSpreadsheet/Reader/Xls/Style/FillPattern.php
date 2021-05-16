@@ -6,7 +6,10 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class FillPattern
 {
-    protected static $map = [
+    /**
+     * @var array<int, string>
+     */
+    protected static $fillPatternMap = [
         0x00 => Fill::FILL_NONE,
         0x01 => Fill::FILL_SOLID,
         0x02 => Fill::FILL_PATTERN_MEDIUMGRAY,
@@ -38,8 +41,8 @@ class FillPattern
      */
     public static function lookup($index)
     {
-        if (isset(self::$map[$index])) {
-            return self::$map[$index];
+        if (isset(self::$fillPatternMap[$index])) {
+            return self::$fillPatternMap[$index];
         }
 
         return Fill::FILL_NONE;

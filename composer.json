@@ -53,7 +53,6 @@
     },
     "require": {
         "php": "^7.2 || ^8.0",
-        "ext-simplexml": "*",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
@@ -61,6 +60,7 @@
         "ext-iconv": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
+        "ext-simplexml": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
@@ -75,6 +75,7 @@
         "psr/simple-cache": "^1.0"
     },
     "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
         "dompdf/dompdf": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.18",
         "jpgraph/jpgraph": "^4.0",

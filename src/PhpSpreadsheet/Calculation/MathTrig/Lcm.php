@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Lcm
@@ -10,7 +10,7 @@ class Lcm
     //
     //    Private method to return an array of the factors of the input value
     //
-    private static function factors($value)
+    private static function factors(float $value): array
     {
         $startVal = floor(sqrt($value));
 

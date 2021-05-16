@@ -14,7 +14,7 @@ class QuotientTest extends AllSetupTeardown
     public function testQUOTIENT($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if ($arg1 !== null) {
             $sheet->getCell('A1')->setValue($arg1);
         }

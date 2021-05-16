@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 
 class ColumnWidthTest extends AbstractFunctional
 {
@@ -36,6 +37,7 @@ class ColumnWidthTest extends AbstractFunctional
 
         self::assertArrayHasKey('A', $columnDimensions);
         $column = array_shift($columnDimensions);
+        self::assertInstanceOf(ColumnDimension::class, $column);
         self::assertEquals(20, $column->getWidth());
     }
 }

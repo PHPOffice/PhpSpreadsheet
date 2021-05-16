@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTimeInterface;
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Days
 {
@@ -24,7 +24,7 @@ class Days
      *
      * @return int|string Number of days between start date and end date or an error
      */
-    public static function funcDays($endDate, $startDate)
+    public static function between($endDate, $startDate)
     {
         try {
             $startDate = Helpers::getDateValue($startDate);
@@ -34,8 +34,8 @@ class Days
         }
 
         // Execute function
-        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
-        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+        $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
+        $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
 
         $days = Functions::VALUE();
         $diff = $PHPStartDateObject->diff($PHPEndDateObject);
