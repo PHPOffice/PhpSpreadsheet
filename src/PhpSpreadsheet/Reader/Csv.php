@@ -10,6 +10,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Csv extends BaseReader
 {
+    const DEFAULT_FALLBACK_ENCODING = 'CP1252';
+    const GUESS_ENCODING = 'guess';
     const UTF8_BOM = "\xEF\xBB\xBF";
     const UTF8_BOM_LEN = 3;
     const UTF16BE_BOM = "\xfe\xff";
@@ -33,9 +35,16 @@ class Csv extends BaseReader
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Delimiter.
+     * Fallback encoding if 'guess' strikes out.
      *
      * @var string
+     */
+    private $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
+
+    /**
+     * Delimiter.
+     *
+     * @var ?string
      */
     private $delimiter;
 
@@ -68,35 +77,62 @@ class Csv extends BaseReader
     private $escapeCharacter = '\\';
 
     /**
+     * Callback for setting defaults in construction.
+     *
+     * @var ?callable
+     */
+    private static $constructorCallback;
+
+    /**
      * Create a new CSV Reader instance.
      */
     public function __construct()
     {
         parent::__construct();
+        $callback = self::$constructorCallback;
+        if ($callback !== null) {
+            $callback($this);
+        }
     }
 
     /**
-     * Set input encoding.
+     * Set a callback to change the defaults.
      *
-     * @param string $pValue Input encoding, eg: 'UTF-8'
-     *
-     * @return $this
+     * The callback must accept the Csv Reader object as the first parameter,
+     * and it should return void.
      */
-    public function setInputEncoding($pValue)
+    public static function setConstructorCallback(?callable $callback): void
+    {
+        self::$constructorCallback = $callback;
+    }
+
+    public static function getConstructorCallback(): ?callable
+    {
+        return self::$constructorCallback;
+    }
+
+    public function setInputEncoding(string $pValue): self
     {
         $this->inputEncoding = $pValue;
 
         return $this;
     }
 
-    /**
-     * Get input encoding.
-     *
-     * @return string
-     */
-    public function getInputEncoding()
+    public function getInputEncoding(): string
     {
         return $this->inputEncoding;
+    }
+
+    public function setFallbackEncoding(string $pValue): self
+    {
+        $this->fallbackEncoding = $pValue;
+
+        return $this;
+    }
+
+    public function getFallbackEncoding(): string
+    {
+        return $this->fallbackEncoding;
     }
 
     /**
@@ -161,12 +197,8 @@ class Csv extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $pFilename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo(string $pFilename): array
     {
         // Open file
         $this->openFileOrMemory($pFilename);
@@ -185,9 +217,11 @@ class Csv extends BaseReader
         $worksheetInfo[0]['totalColumns'] = 0;
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
+        $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+        while (is_array($rowData)) {
             ++$worksheetInfo[0]['totalRows'];
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
+            $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
         }
 
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
@@ -215,34 +249,35 @@ class Csv extends BaseReader
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
-    private function openFileOrMemory($pFilename): void
+    private function openFileOrMemory(string $pFilename): void
     {
         // Open file
         $fhandle = $this->canRead($pFilename);
         if (!$fhandle) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
+        if ($this->inputEncoding === self::GUESS_ENCODING) {
+            $this->inputEncoding = self::guessEncoding($pFilename, $this->fallbackEncoding);
+        }
         $this->openFile($pFilename);
         if ($this->inputEncoding !== 'UTF-8') {
             fclose($this->fileHandle);
             $entireFile = file_get_contents($pFilename);
             $this->fileHandle = fopen('php://memory', 'r+b');
-            $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
-            fwrite($this->fileHandle, $data);
-            $this->skipBOM();
+            if ($this->fileHandle !== false && $entireFile !== false) {
+                $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
+                fwrite($this->fileHandle, $data);
+                $this->skipBOM();
+            }
         }
     }
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @param string $pFilename
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
     {
-        $lineEnding = ini_get('auto_detect_line_endings');
+        $lineEnding = ini_get('auto_detect_line_endings') ?: '0';
         ini_set('auto_detect_line_endings', '1');
 
         // Open file
@@ -265,7 +300,8 @@ class Csv extends BaseReader
         $outRow = 0;
 
         // Loop through each line of the file in turn
-        while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure, $this->escapeCharacter)) !== false) {
+        $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+        while (is_array($rowData)) {
             $noOutputYet = true;
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
@@ -283,6 +319,7 @@ class Csv extends BaseReader
                 }
                 ++$columnLetter;
             }
+            $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
             ++$currentRow;
         }
 
@@ -295,48 +332,24 @@ class Csv extends BaseReader
         return $spreadsheet;
     }
 
-    /**
-     * Get delimiter.
-     *
-     * @return string
-     */
-    public function getDelimiter()
+    public function getDelimiter(): ?string
     {
         return $this->delimiter;
     }
 
-    /**
-     * Set delimiter.
-     *
-     * @param string $delimiter Delimiter, eg: ','
-     *
-     * @return $this
-     */
-    public function setDelimiter($delimiter)
+    public function setDelimiter(string $delimiter): self
     {
         $this->delimiter = $delimiter;
 
         return $this;
     }
 
-    /**
-     * Get enclosure.
-     *
-     * @return string
-     */
-    public function getEnclosure()
+    public function getEnclosure(): string
     {
         return $this->enclosure;
     }
 
-    /**
-     * Set enclosure.
-     *
-     * @param string $enclosure Enclosure, defaults to "
-     *
-     * @return $this
-     */
-    public function setEnclosure($enclosure)
+    public function setEnclosure(string $enclosure): self
     {
         if ($enclosure == '') {
             $enclosure = '"';
@@ -346,76 +359,53 @@ class Csv extends BaseReader
         return $this;
     }
 
-    /**
-     * Get sheet index.
-     *
-     * @return int
-     */
-    public function getSheetIndex()
+    public function getSheetIndex(): int
     {
         return $this->sheetIndex;
     }
 
-    /**
-     * Set sheet index.
-     *
-     * @param int $pValue Sheet index
-     *
-     * @return $this
-     */
-    public function setSheetIndex($pValue)
+    public function setSheetIndex(int $pValue): self
     {
         $this->sheetIndex = $pValue;
 
         return $this;
     }
 
-    /**
-     * Set Contiguous.
-     *
-     * @param bool $contiguous
-     *
-     * @return $this
-     */
-    public function setContiguous($contiguous)
+    public function setContiguous(bool $contiguous): self
     {
         $this->contiguous = (bool) $contiguous;
 
         return $this;
     }
 
-    /**
-     * Get Contiguous.
-     *
-     * @return bool
-     */
-    public function getContiguous()
+    public function getContiguous(): bool
     {
         return $this->contiguous;
     }
 
-    /**
-     * Set escape backslashes.
-     *
-     * @param string $escapeCharacter
-     *
-     * @return $this
-     */
-    public function setEscapeCharacter($escapeCharacter)
+    public function setEscapeCharacter(string $escapeCharacter): self
     {
         $this->escapeCharacter = $escapeCharacter;
 
         return $this;
     }
 
-    /**
-     * Get escape backslashes.
-     *
-     * @return string
-     */
-    public function getEscapeCharacter()
+    public function getEscapeCharacter(): string
     {
         return $this->escapeCharacter;
+    }
+
+    /**
+     * Scrutinizer believes, incorrectly, that the specific pathinfo
+     * call in canRead can return something other than an array.
+     * Phpstan knows better.
+     * This function satisfies both.
+     *
+     * @param mixed $extension
+     */
+    private static function extractStringLower($extension): string
+    {
+        return is_string($extension) ? strtolower($extension) : '';
     }
 
     /**
@@ -437,8 +427,7 @@ class Csv extends BaseReader
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = pathinfo($pFilename, PATHINFO_EXTENSION);
-        $extension = is_array($extension) ? '' : strtolower($extension);
+        $extension = self::extractStringLower(pathinfo($pFilename, PATHINFO_EXTENSION));
         if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
@@ -504,7 +493,7 @@ class Csv extends BaseReader
         return $encoding;
     }
 
-    public static function guessEncoding(string $filename, string $dflt = 'CP1252'): string
+    public static function guessEncoding(string $filename, string $dflt = self::DEFAULT_FALLBACK_ENCODING): string
     {
         $encoding = self::guessEncodingBom($filename);
         if ($encoding === '') {

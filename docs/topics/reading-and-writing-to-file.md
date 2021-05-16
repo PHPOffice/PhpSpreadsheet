@@ -477,6 +477,41 @@ $reader->setSheetIndex(0);
 $spreadsheet = $reader->load('sample.csv');
 ```
 
+You can also set the reader to guess the encoding
+rather than calling guessEncoding directly. In this case,
+the user-settable fallback encoding is used if nothing else works.
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+$reader->setFallbackEncoding('ISO-8859-2');  // default CP1252 without this statement
+$reader->setDelimiter(';');
+$reader->setEnclosure('');
+$reader->setSheetIndex(0);
+
+$spreadsheet = $reader->load('sample.csv');
+```
+
+Finally, you can set a callback to be invoked when the constructor is executed,
+either through `new Csv()` or `IOFactory::load`,
+and have that callback set the customizable attributes to whatever
+defaults are appropriate for your environment.
+
+```php
+function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
+{
+    $reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+    $reader->setFallbackEncoding('ISO-8859-2');
+    $reader->setDelimiter(',');
+    $reader->setEnclosure('"');
+    // Following represents how Excel behaves better than the default escape character
+    $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
+}
+
+\PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
+$spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
+```
+
 #### Read a specific worksheet
 
 CSV files can only contain one worksheet. Therefore, you can specify

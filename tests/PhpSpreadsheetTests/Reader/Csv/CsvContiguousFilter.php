@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
@@ -34,18 +34,18 @@ class CsvContiguousFilter implements IReadFilter
         $this->endRow = $startRow + $chunkSize;
     }
 
-    public function setFilterType($type): void
+    public function setFilterType(int $type): void
     {
         $this->filterType = $type;
     }
 
-    public function filter1($row)
+    public function filter1(int $row): bool
     {
         //  Include rows 1-10, followed by 100-110, etc.
         return $row % 100 <= 10;
     }
 
-    public function filter0($row)
+    public function filter0(int $row): bool
     {
         //  Only read the heading row, and the rows that are configured in $this->_startRow and $this->_endRow
         if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
