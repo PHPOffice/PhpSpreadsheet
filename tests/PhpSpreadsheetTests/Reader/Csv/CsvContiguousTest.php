@@ -54,7 +54,7 @@ class CsvContiguousTest extends TestCase
         self::assertSame('-20.1', self::getCellValue($spreadsheet, 'Country Data #3', 'C6'));
     }
 
-    private function getCellValue(Spreadsheet $spreadsheet, string $sheetName, string $cellAddress): string
+    private static function getCellValue(Spreadsheet $spreadsheet, string $sheetName, string $cellAddress): string
     {
         $sheet = $spreadsheet->getSheetByName($sheetName);
         if ($sheet === null) {
