@@ -35,7 +35,7 @@ class Csv extends BaseReader
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Fallback encoding if 'guess' strikes out.
+     * Fallback encoding if 'guess' fails to find a match.
      *
      * @var string
      */
