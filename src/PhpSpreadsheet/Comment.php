@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 class Comment implements IComparable
 {
     /**
-     * Authors2.
+     * Authors3.
      *
      * @var string
      */
