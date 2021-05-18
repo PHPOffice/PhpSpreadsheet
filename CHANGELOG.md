@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing.
+- Use of `nb` rather than `no` as the locale code for Norsk Bokmål.
 
 ### Deprecated
 
