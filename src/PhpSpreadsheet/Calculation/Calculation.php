@@ -921,6 +921,11 @@ class Calculation
             'functionCall' => [Database\DVarP::class, 'evaluate'],
             'argumentCount' => '3',
         ],
+        'ECMA.CEILING' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1,2',
+        ],
         'EDATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Month::class, 'adjust'],
