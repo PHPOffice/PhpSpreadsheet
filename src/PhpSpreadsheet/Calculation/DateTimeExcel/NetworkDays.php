@@ -2,9 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class NetworkDays
 {
@@ -23,10 +22,11 @@ class NetworkDays
      *                                            PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                            PHP DateTime object, or a standard date string
+     * @param mixed $dateArgs
      *
      * @return int|string Interval between the dates
      */
-    public static function funcNetworkDays($startDate, $endDate, ...$dateArgs)
+    public static function count($startDate, $endDate, ...$dateArgs)
     {
         try {
             //    Retrieve the mandatory start and end date that are referenced in the function definition
@@ -55,7 +55,7 @@ class NetworkDays
         $holidayCountedArray = [];
         foreach ($holidayArray as $holidayDate) {
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
-                if ((WeekDay::funcWeekDay($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
+                if ((Week::day($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
                     --$partWeekDays;
                     $holidayCountedArray[] = $holidayDate;
                 }
@@ -67,7 +67,7 @@ class NetworkDays
 
     private static function calcStartDow(float $startDate): int
     {
-        $startDow = 6 - (int) WeekDay::funcWeekDay($startDate, 2);
+        $startDow = 6 - (int) Week::day($startDate, 2);
         if ($startDow < 0) {
             $startDow = 5;
         }
@@ -77,7 +77,7 @@ class NetworkDays
 
     private static function calcEndDow(float $endDate): int
     {
-        $endDow = (int) WeekDay::funcWeekDay($endDate, 2);
+        $endDow = (int) Week::day($endDate, 2);
         if ($endDow >= 6) {
             $endDow = 0;
         }
@@ -95,7 +95,7 @@ class NetworkDays
         return $partWeekDays;
     }
 
-    private static function applySign(int $result, float $sDate, float $eDate)
+    private static function applySign(int $result, float $sDate, float $eDate): int
     {
         return ($sDate > $eDate) ? -$result : $result;
     }

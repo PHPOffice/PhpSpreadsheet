@@ -13,7 +13,7 @@ class SumProductTest extends AllSetupTeardown
      */
     public function testSUMPRODUCT($expectedResult, ...$args): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $row = 0;
         $arrayArg = '';
         foreach ($args as $arr) {

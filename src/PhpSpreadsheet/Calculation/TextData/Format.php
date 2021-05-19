@@ -42,7 +42,7 @@ class Format
             if ($value < 0) {
                 $round = 0 - $round;
             }
-            $value = MathTrig\Mround::evaluate($value, $round);
+            $value = MathTrig\Round::multiple($value, $round);
         }
         $mask = "$mask;($mask)";
 
@@ -98,7 +98,7 @@ class Format
         $format = Functions::flattenSingleValue($format);
 
         if ((is_string($value)) && (!is_numeric($value)) && Date::isDateTimeFormatCode($format)) {
-            $value = DateTimeExcel\DateValue::funcDateValue($value);
+            $value = DateTimeExcel\DateValue::fromString($value);
         }
 
         return (string) NumberFormat::toFormattedString($value, $format);
@@ -129,14 +129,14 @@ class Format
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             if (strpos($value, ':') !== false) {
-                $timeValue = DateTimeExcel\TimeValue::funcTimeValue($value);
+                $timeValue = DateTimeExcel\TimeValue::fromString($value);
                 if ($timeValue !== Functions::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
 
                     return $timeValue;
                 }
             }
-            $dateValue = DateTimeExcel\DateValue::funcDateValue($value);
+            $dateValue = DateTimeExcel\DateValue::fromString($value);
             if ($dateValue !== Functions::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
 
