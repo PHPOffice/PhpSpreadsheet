@@ -7,6 +7,29 @@ use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
 {
+    public function testSize(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue('Cell A1');
+        $font = $cell->getStyle()->getFont();
+
+        $font->setSize(15);
+        self::assertSame(15, $font->getSize(), 'Set to 15');
+
+        $font->setSize('');
+        self::assertSame(10, $font->getSize(), 'Should be the default 10');
+
+        $font->setSize(14);
+        $font->setSize(0);
+        self::assertSame(10, $font->getSize(), 'Should be the default 10');
+
+        $font->setSize(13);
+        $font->setSize(-1);
+        self::assertSame(13, $font->getSize(), 'Should still be 13');
+    }
+
     public function testSuperSubScript(): void
     {
         $spreadsheet = new Spreadsheet();
