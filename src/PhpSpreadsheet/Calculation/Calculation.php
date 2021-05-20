@@ -2914,7 +2914,7 @@ class Calculation
         return self::$localeLanguage;
     }
 
-    private function getLocaleFile(string $localeDir, string $locale, string $language, string $file)
+    private function getLocaleFile(string $localeDir, string $locale, string $language, string $file): string
     {
         $localeFileName = $localeDir . str_replace('_', DIRECTORY_SEPARATOR, $locale) .
             DIRECTORY_SEPARATOR . $file;
