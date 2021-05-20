@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetInfra;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -25,24 +27,24 @@ class LocaleGenerator
     private const ENGLISH_REFERENCE_COLUMN = 'B';
 
     /**
-     * @var string $translationSpreadsheetName
+     * @var string
      */
     protected $translationSpreadsheetName;
 
     /**
-     * @var string $translationBaseFolder
+     * @var string
      */
     protected $translationBaseFolder;
 
     protected $phpSpreadsheetFunctions;
 
     /**
-     * @var Spreadsheet $translationSpreadsheet
+     * @var Spreadsheet
      */
     protected $translationSpreadsheet;
 
     /**
-     * @var Worksheet $localeTranslations
+     * @var Worksheet
      */
     protected $localeTranslations;
 
@@ -51,7 +53,7 @@ class LocaleGenerator
     protected $errorCodeMap = [];
 
     /**
-     * @var Worksheet $functionNameTranslations
+     * @var Worksheet
      */
     private $functionNameTranslations;
 
@@ -69,7 +71,7 @@ class LocaleGenerator
         $this->phpSpreadsheetFunctions = $phpSpreadsheetFunctions;
     }
 
-    public function generateLocales()
+    public function generateLocales(): void
     {
         $this->openTranslationWorkbook();
 
@@ -90,7 +92,7 @@ class LocaleGenerator
         }
     }
 
-    protected function buildConfigFileForLocale($column, $locale)
+    protected function buildConfigFileForLocale($column, $locale): void
     {
         $language = $this->localeTranslations->getCell($column . self::ENGLISH_LANGUAGE_NAME_ROW)->getValue();
         $localeLanguage = $this->localeTranslations->getCell($column . self::LOCALE_LANGUAGE_NAME_ROW)->getValue();
@@ -114,7 +116,7 @@ class LocaleGenerator
         fclose($configFile);
     }
 
-    protected function writeConfigArgumentSeparator($configFile, $column)
+    protected function writeConfigArgumentSeparator($configFile, $column): void
     {
         $translationCell = $this->localeTranslations->getCell($column . self::ARGUMENT_SEPARATOR_ROW);
         $localeValue = $translationCell->getValue();
@@ -122,11 +124,11 @@ class LocaleGenerator
             $functionTranslation = "ArgumentSeparator = {$localeValue}" . PHP_EOL;
             fwrite($configFile, $functionTranslation);
         } else {
-            echo "No Argument Separator defined", PHP_EOL;
+            echo 'No Argument Separator defined', PHP_EOL;
         }
     }
 
-    protected function buildFunctionsFileForLocale($column, $locale)
+    protected function buildFunctionsFileForLocale($column, $locale): void
     {
         $language = $this->functionNameTranslations->getCell($column . self::ENGLISH_LANGUAGE_NAME_ROW)->getValue();
         $localeLanguage = $this->functionNameTranslations->getCell($column . self::LOCALE_LANGUAGE_NAME_ROW)
@@ -159,7 +161,7 @@ class LocaleGenerator
         $configFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'config');
         echo "Writing locale configuration to {$configFileName}", PHP_EOL;
 
-        $configFile = fopen($configFileName, 'w');
+        $configFile = fopen($configFileName, 'wb');
         $this->writeFileHeader($configFile, $localeLanguage, $language, 'locale settings');
 
         return $configFile;
@@ -173,7 +175,7 @@ class LocaleGenerator
         $functionFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'functions');
         echo "Writing local function names to {$functionFileName}", PHP_EOL;
 
-        $functionFile = fopen($functionFileName, 'w');
+        $functionFile = fopen($functionFileName, 'wb');
         $this->writeFileHeader($functionFile, $localeLanguage, $language, 'function name translations');
 
         return $functionFile;
@@ -300,6 +302,7 @@ class LocaleGenerator
                         echo 'CATEGORY: ', $cell->getValue(), PHP_EOL;
                         $this->functionNameMap[$cell->getValue()] = $cell->getRow();
                     }
+
                     continue;
                 }
                 if ($cell->getValue() != '') {
