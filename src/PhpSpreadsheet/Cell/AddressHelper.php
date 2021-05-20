@@ -49,6 +49,22 @@ class AddressHelper
         return $A1CellReference;
     }
 
+    protected static function convertSpreadsheetMLFormula(string $formula): string
+    {
+        $formula = substr($formula, 3);
+        $temp = explode('"', $formula);
+        $key = false;
+        foreach ($temp as &$value) {
+            //    Only replace in alternate array entries (i.e. non-quoted blocks)
+            if ($key = !$key) {
+                $value = str_replace(['[.', ':.', ']'], ['', ':', ''], $value);
+            }
+        }
+        unset($value);
+
+        return implode('"', $temp);
+    }
+
     /**
      * Converts a formula that uses R1C1/SpreadsheetXML format cell address to an A1 format cell address.
      */
@@ -58,15 +74,8 @@ class AddressHelper
         int $currentColumnNumber = 1
     ): string {
         if (substr($formula, 0, 3) == 'of:') {
-            $formula = substr($formula, 3);
-            $temp = explode('"', $formula);
-            $key = false;
-            foreach ($temp as &$value) {
-                //    Only replace in alternate array entries (i.e. non-quoted blocks)
-                if ($key = !$key) {
-                    $value = str_replace(['[.', '.', ']'], '', $value);
-                }
-            }
+            // We have a SpreasheetML Formula
+            return self::convertSpreadsheetMLFormula($formula);
         } else {
             //    Convert R1C1 style references to A1 style references (but only when not quoted)
             $temp = explode('"', $formula);
@@ -87,8 +96,9 @@ class AddressHelper
                     }
                 }
             }
+            unset($value);
         }
-        unset($value);
+
         //    Then rebuild the formula string
         $formula = implode('"', $temp);
 
