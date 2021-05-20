@@ -109,7 +109,7 @@ class CalculationTest extends TestCase
             ['hu'],
             ['it'],
             ['nl'],
-            ['no'],
+            ['nb'],
             ['pl'],
             ['pt'],
             ['pt_br'],
