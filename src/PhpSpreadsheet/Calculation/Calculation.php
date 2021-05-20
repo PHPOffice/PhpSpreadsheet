@@ -2914,6 +2914,21 @@ class Calculation
         return self::$localeLanguage;
     }
 
+    private function getLocaleFile(string $localeDir, string $locale, string $language, string $file)
+    {
+        $localeFileName = $localeDir . str_replace('_', DIRECTORY_SEPARATOR, $locale) .
+            DIRECTORY_SEPARATOR . $file;
+        if (!file_exists($localeFileName)) {
+            //    If there isn't a locale specific file, look for a language specific file
+            $localeFileName = $localeDir . $language . DIRECTORY_SEPARATOR . $file;
+            if (!file_exists($localeFileName)) {
+                throw new Exception('Locale file not found');
+            }
+        }
+
+        return $localeFileName;
+    }
+
     /**
      * Set the locale code.
      *
@@ -2921,7 +2936,7 @@ class Calculation
      *
      * @return bool
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale)
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -2931,23 +2946,24 @@ class Calculation
         if (count(self::$validLocaleLanguages) == 1) {
             self::loadLocales();
         }
+
         //    Test whether we have any language data for this language (any locale)
         if (in_array($language, self::$validLocaleLanguages)) {
             //    initialise language/locale settings
             self::$localeFunctions = [];
             self::$localeArgumentSeparator = ',';
             self::$localeBoolean = ['TRUE' => 'TRUE', 'FALSE' => 'FALSE', 'NULL' => 'NULL'];
-            //    Default is English, if user isn't requesting english, then read the necessary data from the locale files
-            if ($locale != 'en_us') {
+
+            //    Default is US English, if user isn't requesting US english, then read the necessary data from the locale files
+            if ($locale !== 'en_us') {
+                $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
                 //    Search for a file with a list of function names for locale
-                $functionNamesFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'functions';
-                if (!file_exists($functionNamesFile)) {
-                    //    If there isn't a locale specific function file, look for a language specific function file
-                    $functionNamesFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'functions';
-                    if (!file_exists($functionNamesFile)) {
-                        return false;
-                    }
+                try {
+                    $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
+                } catch (Exception $e) {
+                    return false;
                 }
+
                 //    Retrieve the list of locale or language specific function names
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 foreach ($localeFunctions as $localeFunction) {
@@ -2967,24 +2983,24 @@ class Calculation
                     self::$localeBoolean['FALSE'] = self::$localeFunctions['FALSE'];
                 }
 
-                $configFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'config';
-                if (!file_exists($configFile)) {
-                    $configFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'config';
+                try {
+                    $configFile = $this->getLocaleFile($localeDir, $locale, $language, 'config');
+                } catch (Exception $e) {
+                    return false;
                 }
-                if (file_exists($configFile)) {
-                    $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                    foreach ($localeSettings as $localeSetting) {
-                        [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
-                        if (strpos($localeSetting, '=') !== false) {
-                            [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
-                            $settingName = strtoupper($settingName);
-                            if ($settingValue !== '') {
-                                switch ($settingName) {
-                                    case 'ARGUMENTSEPARATOR':
-                                        self::$localeArgumentSeparator = $settingValue;
 
-                                        break;
-                                }
+                $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                foreach ($localeSettings as $localeSetting) {
+                    [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
+                    if (strpos($localeSetting, '=') !== false) {
+                        [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
+                        $settingName = strtoupper($settingName);
+                        if ($settingValue !== '') {
+                            switch ($settingName) {
+                                case 'ARGUMENTSEPARATOR':
+                                    self::$localeArgumentSeparator = $settingValue;
+
+                                    break;
                             }
                         }
                     }

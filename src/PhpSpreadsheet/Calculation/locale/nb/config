@@ -11,6 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
+NULL
+DIV0
 VALUE = #VERDI!
+REF
 NAME = #NAVN?
+NUM
 NA = #N/D

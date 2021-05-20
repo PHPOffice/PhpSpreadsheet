@@ -108,6 +108,8 @@ class LocaleGenerator
                 $errorCodeTranslation = "{$errorCode} = {$translationValue}" . PHP_EOL;
                 fwrite($configFile, $errorCodeTranslation);
             } else {
+                $errorCodeTranslation = "{$errorCode}" . PHP_EOL;
+                fwrite($configFile, $errorCodeTranslation);
                 echo "No {$language} translation available for error code {$errorCode}", PHP_EOL;
             }
         }

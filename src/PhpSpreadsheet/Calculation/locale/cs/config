@@ -11,6 +11,7 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
+NULL
 DIV0 = #DĚLENÍ_NULOU!
 VALUE = #HODNOTA!
 REF = #ODKAZ!
