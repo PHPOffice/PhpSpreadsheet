@@ -2,10 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
 use Matrix\Builder;
 use Matrix\Exception as MatrixException;
 use Matrix\Matrix;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class MatrixFunctions

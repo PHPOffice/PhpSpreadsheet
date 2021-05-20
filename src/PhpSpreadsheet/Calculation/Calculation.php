@@ -246,22 +246,22 @@ class Calculation
         ],
         'ACOS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acos'],
             'argumentCount' => '1',
         ],
         'ACOSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acosh'],
             'argumentCount' => '1',
         ],
         'ACOT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acot'],
             'argumentCount' => '1',
         ],
         'ACOTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acoth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acoth'],
             'argumentCount' => '1',
         ],
         'ADDRESS' => [
@@ -306,27 +306,27 @@ class Calculation
         ],
         'ASIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asin'],
             'argumentCount' => '1',
         ],
         'ASINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asinh'],
             'argumentCount' => '1',
         ],
         'ATAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan'],
             'argumentCount' => '1',
         ],
         'ATAN2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan2::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan2'],
             'argumentCount' => '2',
         ],
         'ATANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atanh'],
             'argumentCount' => '1',
         ],
         'AVEDEV' => [
@@ -466,17 +466,17 @@ class Calculation
         ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Ceiling::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'ceiling'],
             'argumentCount' => '1-2', // 2 for Excel, 1-2 for Ods/Gnumeric
         ],
         'CEILING.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'CEILING.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'precise'],
             'argumentCount' => '1,2',
         ],
         'CELL' => [
@@ -608,22 +608,22 @@ class Calculation
         ],
         'COS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cos'],
             'argumentCount' => '1',
         ],
         'COSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cosh'],
             'argumentCount' => '1',
         ],
         'COT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'cot'],
             'argumentCount' => '1',
         ],
         'COTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Coth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'coth'],
             'argumentCount' => '1',
         ],
         'COUNT' => [
@@ -703,12 +703,12 @@ class Calculation
         ],
         'CSC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csc::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csc'],
             'argumentCount' => '1',
         ],
         'CSCH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csch::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csch'],
             'argumentCount' => '1',
         ],
         'CUBEKPIMEMBER' => [
@@ -838,7 +838,7 @@ class Calculation
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Degrees::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toDegrees'],
             'argumentCount' => '1',
         ],
         'DELTA' => [
@@ -968,7 +968,7 @@ class Calculation
         ],
         'EVEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Even::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'even'],
             'argumentCount' => '1',
         ],
         'EXACT' => [
@@ -993,12 +993,12 @@ class Calculation
         ],
         'FACT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Fact::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'fact'],
             'argumentCount' => '1',
         ],
         'FACTDOUBLE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FactDouble::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'factDouble'],
             'argumentCount' => '1',
         ],
         'FALSE' => [
@@ -1073,17 +1073,17 @@ class Calculation
         ],
         'FLOOR' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Floor::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'floor'],
             'argumentCount' => '1-2', // Excel requries 2, Ods/Gnumeric 1-2
         ],
         'FLOOR.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'FLOOR.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'precise'],
             'argumentCount' => '1-2',
         ],
         'FORECAST' => [
@@ -1624,12 +1624,12 @@ class Calculation
         ],
         'MAX' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAX'],
+            'functionCall' => [Statistical\Maximum::class, 'max'],
             'argumentCount' => '1+',
         ],
         'MAXA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAXA'],
+            'functionCall' => [Statistical\Maximum::class, 'maxA'],
             'argumentCount' => '1+',
         ],
         'MAXIFS' => [
@@ -1669,12 +1669,12 @@ class Calculation
         ],
         'MIN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MIN'],
+            'functionCall' => [Statistical\Minimum::class, 'min'],
             'argumentCount' => '1+',
         ],
         'MINA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MINA'],
+            'functionCall' => [Statistical\Minimum::class, 'minA'],
             'argumentCount' => '1+',
         ],
         'MINIFS' => [
@@ -1704,7 +1704,7 @@ class Calculation
         ],
         'MOD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mod::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'mod'],
             'argumentCount' => '2',
         ],
         'MODE' => [
@@ -1729,12 +1729,12 @@ class Calculation
         ],
         'MROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mround::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'multiple'],
             'argumentCount' => '2',
         ],
         'MULTINOMIAL' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Multinomial::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'multinomial'],
             'argumentCount' => '1+',
         ],
         'MUNIT' => [
@@ -1859,7 +1859,7 @@ class Calculation
         ],
         'ODD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Odd::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'odd'],
             'argumentCount' => '1',
         ],
         'ODDFPRICE' => [
@@ -1976,7 +1976,7 @@ class Calculation
         ],
         'POWER' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Power::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'power'],
             'argumentCount' => '2',
         ],
         'PPMT' => [
@@ -2006,7 +2006,7 @@ class Calculation
         ],
         'PRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Product::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'product'],
             'argumentCount' => '1+',
         ],
         'PROPER' => [
@@ -2036,17 +2036,17 @@ class Calculation
         ],
         'QUOTIENT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Quotient::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'quotient'],
             'argumentCount' => '2',
         ],
         'RADIANS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Radians::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toRadians'],
             'argumentCount' => '1',
         ],
         'RAND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Random::class, 'randNoArgs'],
+            'functionCall' => [MathTrig\Random::class, 'rand'],
             'argumentCount' => '0',
         ],
         'RANDARRAY' => [
@@ -2116,17 +2116,17 @@ class Calculation
         ],
         'ROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Round::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'round'],
             'argumentCount' => '2',
         ],
         'ROUNDDOWN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundDown::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'down'],
             'argumentCount' => '2',
         ],
         'ROUNDUP' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundUp::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'up'],
             'argumentCount' => '2',
         ],
         'ROW' => [
@@ -2168,12 +2168,12 @@ class Calculation
         ],
         'SEC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sec::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sec'],
             'argumentCount' => '1',
         ],
         'SECH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sech::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sech'],
             'argumentCount' => '1',
         ],
         'SECOND' => [
@@ -2208,12 +2208,12 @@ class Calculation
         ],
         'SIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sin'],
             'argumentCount' => '1',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sinh'],
             'argumentCount' => '1',
         ],
         'SKEW' => [
@@ -2253,12 +2253,12 @@ class Calculation
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sqrt::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'sqrt'],
             'argumentCount' => '1',
         ],
         'SQRTPI' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SqrtPi::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'pi'],
             'argumentCount' => '1',
         ],
         'STANDARDIZE' => [
@@ -2314,7 +2314,7 @@ class Calculation
         ],
         'SUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sum::class, 'funcSumNoStrings'],
+            'functionCall' => [MathTrig\Sum::class, 'sumErroringStrings'],
             'argumentCount' => '1+',
         ],
         'SUMIF' => [
@@ -2329,7 +2329,7 @@ class Calculation
         ],
         'SUMPRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SumProduct::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sum::class, 'product'],
             'argumentCount' => '1+',
         ],
         'SUMSQ' => [
@@ -2369,12 +2369,12 @@ class Calculation
         ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
             'argumentCount' => '1',
         ],
         'TANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tanh'],
             'argumentCount' => '1',
         ],
         'TBILLEQ' => [

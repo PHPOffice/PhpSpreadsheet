@@ -42,12 +42,12 @@ class Poisson
             $summer = 0;
             $floor = floor($value);
             for ($i = 0; $i <= $floor; ++$i) {
-                $summer += $mean ** $i / MathTrig\Fact::evaluate($i);
+                $summer += $mean ** $i / MathTrig\Factorial::fact($i);
             }
 
             return exp(0 - $mean) * $summer;
         }
 
-        return (exp(0 - $mean) * $mean ** $value) / MathTrig\Fact::evaluate($value);
+        return (exp(0 - $mean) * $mean ** $value) / MathTrig\Factorial::fact($value);
     }
 }

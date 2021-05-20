@@ -12,7 +12,7 @@ class Days360Test extends AllSetupTeardown
     public function testDAYS360($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('2000-02-29');
         $sheet->getCell('C1')->setValue('2000-03-31');
         $sheet->getCell('A1')->setValue("=DAYS360($formula)");

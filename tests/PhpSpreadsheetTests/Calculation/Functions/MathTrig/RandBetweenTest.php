@@ -14,7 +14,7 @@ class RandBetweenTest extends AllSetupTeardown
     public function testRANDBETWEEN($expectedResult, $min = 'omitted', $max = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $lower = (int) $min;
         $upper = (int) $max;
         if ($min !== null) {
