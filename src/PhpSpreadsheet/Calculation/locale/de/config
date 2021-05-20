@@ -11,7 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
+NULL
+DIV0
 VALUE = #WERT!
 REF = #BEZUG!
+NAME
 NUM = #ZAHL!
 NA = #NV
