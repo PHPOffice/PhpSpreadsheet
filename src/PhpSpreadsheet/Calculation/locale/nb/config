@@ -1,0 +1,16 @@
+############################################################
+##
+## PhpSpreadsheet - locale settings
+##
+## Norsk Bokmål (Norwegian Bokmål)
+##
+############################################################
+
+ArgumentSeparator = ;
+
+##
+## Error Codes
+##
+VALUE! = #VERDI!
+NAME? = #NAVN?
+N/A = #N/D
