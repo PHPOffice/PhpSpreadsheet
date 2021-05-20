@@ -2,9 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
 class Dollar

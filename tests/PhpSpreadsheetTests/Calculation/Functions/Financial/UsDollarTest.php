@@ -11,7 +11,6 @@ class UsDollarTest extends TestCase
      * @dataProvider providerUSDOLLAR
      *
      * @param mixed $expectedResult
-     * @param mixed $message
      */
     public function testUSDOLLAR($expectedResult, ...$args): void
     {
