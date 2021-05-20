@@ -2,7 +2,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\LocaleGenerator;
+use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 
 require_once 'vendor/autoload.php';
 

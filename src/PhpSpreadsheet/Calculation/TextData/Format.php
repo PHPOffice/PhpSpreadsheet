@@ -44,7 +44,7 @@ class Format
             }
             $value = MathTrig\Round::multiple($value, $round);
         }
-        $mask = "$mask;($mask)";
+        $mask = "{$mask};-{$mask}";
 
         return NumberFormat::toFormattedString($value, $mask);
     }

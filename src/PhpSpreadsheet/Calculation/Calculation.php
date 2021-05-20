@@ -2524,7 +2524,7 @@ class Calculation
         ],
         'USDOLLAR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Financial\Dollar::class, 'format'],
             'argumentCount' => '2',
         ],
         'VALUE' => [
@@ -2953,9 +2953,7 @@ class Calculation
                 foreach ($localeFunctions as $localeFunction) {
                     [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
-                        [$fName, $lfName] = explode('=', $localeFunction);
-                        $fName = trim($fName);
-                        $lfName = trim($lfName);
+                        [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
                         if ((isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
                             self::$localeFunctions[$fName] = $lfName;
                         }
@@ -2978,13 +2976,15 @@ class Calculation
                     foreach ($localeSettings as $localeSetting) {
                         [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
                         if (strpos($localeSetting, '=') !== false) {
-                            [$settingName, $settingValue] = explode('=', $localeSetting);
-                            $settingName = strtoupper(trim($settingName));
-                            switch ($settingName) {
-                                case 'ARGUMENTSEPARATOR':
-                                    self::$localeArgumentSeparator = trim($settingValue);
+                            [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
+                            $settingName = strtoupper($settingName);
+                            if ($settingValue !== '') {
+                                switch ($settingName) {
+                                    case 'ARGUMENTSEPARATOR':
+                                        self::$localeArgumentSeparator = $settingValue;
 
-                                    break;
+                                        break;
+                                }
                             }
                         }
                     }
