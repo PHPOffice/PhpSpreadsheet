@@ -31,8 +31,8 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:')
 
 // Define named ranges
 $helper->log('Define named ranges');
-$spreadsheet->addNamedRange(new NamedRange('PersonName', $spreadsheet->getActiveSheet(), 'B1'));
-$spreadsheet->addNamedRange(new NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2'));
+$spreadsheet->addNamedRange(new NamedRange('PersonName', $spreadsheet->getActiveSheet(), '$B$1'));
+$spreadsheet->addNamedRange(new NamedRange('PersonLN', $spreadsheet->getActiveSheet(), '$B$2'));
 
 // Rename named ranges
 $helper->log('Rename named ranges');

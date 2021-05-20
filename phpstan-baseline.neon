@@ -5921,16 +5921,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Iterator.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagesx expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagesy expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:\\$pageOrder has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
