@@ -11,10 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #TYHJÄ!
-DIV/0! = #JAKO/0!
-VALUE! = #ARVO!
-REF! = #VIITTAUS!
-NAME? = #NIMI?
-NUM! = #LUKU!
-N/A = #PUUTTUU!
+NULL = #TYHJÄ!
+DIV0 = #JAKO/0!
+VALUE = #ARVO!
+REF = #VIITTAUS!
+NAME = #NIMI?
+NUM = #LUKU!
+NA = #PUUTTUU!

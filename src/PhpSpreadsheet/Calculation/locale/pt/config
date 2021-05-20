@@ -11,8 +11,8 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #NULO!
-VALUE! = #VALOR!
-NAME? = #NOME?
-NUM! = #NÚM!
-N/A = #N/D
+NULL = #NULO!
+VALUE = #VALOR!
+NAME = #NOME?
+NUM = #NÚM!
+NA = #N/D

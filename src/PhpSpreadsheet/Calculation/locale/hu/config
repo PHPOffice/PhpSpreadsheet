@@ -11,10 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #NULLA!
-DIV/0! = #ZÉRÓOSZTÓ!
-VALUE! = #ÉRTÉK!
-REF! = #HIV!
-NAME? = #NÉV?
-NUM! = #SZÁM!
-N/A = #HIÁNYZIK
+NULL = #NULLA!
+DIV0 = #ZÉRÓOSZTÓ!
+VALUE = #ÉRTÉK!
+REF = #HIV!
+NAME = #NÉV?
+NUM = #SZÁM!
+NA = #HIÁNYZIK

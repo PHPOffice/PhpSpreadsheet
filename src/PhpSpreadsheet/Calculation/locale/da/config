@@ -11,8 +11,8 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #NUL!
-VALUE! = #VÆRDI!
-REF! = #REFERENCE!
-NAME? = #NAVN?
-N/A = #I/T
+NULL = #NUL!
+VALUE = #VÆRDI!
+REF = #REFERENCE!
+NAME = #NAVN?
+NA = #I/T

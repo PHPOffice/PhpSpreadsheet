@@ -11,6 +11,6 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-VALUE! = #VERDI!
-NAME? = #NAVN?
-N/A = #N/D
+VALUE = #VERDI!
+NAME = #NAVN?
+NA = #N/D
