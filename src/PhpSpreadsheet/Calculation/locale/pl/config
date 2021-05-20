@@ -11,10 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #ZERO!
-DIV/0! = #DZIEL/0!
-VALUE! = #ARG!
-REF! = #ADR!
-NAME? = #NAZWA?
-NUM! = #LICZBA!
-N/A = #N/D!
+NULL = #ZERO!
+DIV0 = #DZIEL/0!
+VALUE = #ARG!
+REF = #ADR!
+NAME = #NAZWA?
+NUM = #LICZBA!
+NA = #N/D!

@@ -105,7 +105,6 @@ class LocaleGenerator
             $translationCell = $this->localeTranslations->getCell($column . $row);
             $translationValue = $translationCell->getValue();
             if (!empty($translationValue)) {
-                $errorCode = ltrim($errorCode, '#');
                 $errorCodeTranslation = "{$errorCode} = {$translationValue}" . PHP_EOL;
                 fwrite($configFile, $errorCodeTranslation);
             } else {

@@ -11,7 +11,7 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-VALUE! = #VALORE!
-REF! = #RIF!
-NAME? = #NOME?
-N/A = #N/D
+VALUE = #VALORE!
+REF = #RIF!
+NAME = #NOME?
+NA = #N/D

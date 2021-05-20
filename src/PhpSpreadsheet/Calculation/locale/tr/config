@@ -11,10 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #BOŞ!
-DIV/0! = #SAYI/0!
-VALUE! = #DEĞER!
-REF! = #BAŞV!
-NAME? = #AD?
-NUM! = #SAYI!
-N/A = #YOK
+NULL = #BOŞ!
+DIV0 = #SAYI/0!
+VALUE = #DEĞER!
+REF = #BAŞV!
+NAME = #AD?
+NUM = #SAYI!
+NA = #YOK

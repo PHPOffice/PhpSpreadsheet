@@ -11,10 +11,10 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-NULL! = #ПУСТО!
-DIV/0! = #ДЕЛ/0!
-VALUE! = #ЗНАЧ!
-REF! = #ССЫЛКА!
-NAME? = #ИМЯ?
-NUM! = #ЧИСЛО!
-N/A = #Н/Д
+NULL = #ПУСТО!
+DIV0 = #ДЕЛ/0!
+VALUE = #ЗНАЧ!
+REF = #ССЫЛКА!
+NAME = #ИМЯ?
+NUM = #ЧИСЛО!
+NA = #Н/Д

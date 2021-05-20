@@ -11,9 +11,9 @@ ArgumentSeparator = ;
 ##
 ## Error Codes
 ##
-DIV/0! = #DĚLENÍ_NULOU!
-VALUE! = #HODNOTA!
-REF! = #ODKAZ!
-NAME? = #NÁZEV?
-NUM! = #ČÍSLO!
-N/A = #NENÍ_K_DISPOZICI
+DIV0 = #DĚLENÍ_NULOU!
+VALUE = #HODNOTA!
+REF = #ODKAZ!
+NAME = #NÁZEV?
+NUM = #ČÍSLO!
+NA = #NENÍ_K_DISPOZICI
