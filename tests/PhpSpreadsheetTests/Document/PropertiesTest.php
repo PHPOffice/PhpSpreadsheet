@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Document;
 
 use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
@@ -23,7 +24,7 @@ class PropertiesTest extends TestCase
         self::assertSame('Unknown Creator', $this->properties->getCreator());
         self::assertSame('Unknown Creator', $this->properties->getLastModifiedBy());
         self::assertSame('Untitled Spreadsheet', $this->properties->getTitle());
-        self::assertSame('Microsoft Corporation', $this->properties->getCompany());
+        self::assertSame('', $this->properties->getCompany());
         self::assertSame($createdTime, $this->properties->getCreated());
         self::assertSame($modifiedTime, $this->properties->getModified());
     }
@@ -159,8 +160,12 @@ class PropertiesTest extends TestCase
     {
         $this->properties->setCustomProperty($propertyName, ...$args);
         self::assertTrue($this->properties->isCustomPropertySet($propertyName));
-        self::assertSame($expectedValue, $this->properties->getCustomPropertyValue($propertyName));
         self::assertSame($expectedType, $this->properties->getCustomPropertyType($propertyName));
+        $result = $this->properties->getCustomPropertyValue($propertyName);
+        if ($expectedType === Properties::PROPERTY_TYPE_DATE) {
+            $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d');
+        }
+        self::assertSame($expectedValue, $result);
     }
 
     public function providerCustomProperties(): array

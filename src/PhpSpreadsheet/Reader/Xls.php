@@ -1454,34 +1454,34 @@ class Xls extends BaseReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = CodePage::numberToName($value);
+                    $codePage = CodePage::numberToName((int) $value);
 
                     break;
                 case 0x02:    //    Title
-                    $this->spreadsheet->getProperties()->setTitle($value);
+                    $this->spreadsheet->getProperties()->setTitle("$value");
 
                     break;
                 case 0x03:    //    Subject
-                    $this->spreadsheet->getProperties()->setSubject($value);
+                    $this->spreadsheet->getProperties()->setSubject("$value");
 
                     break;
                 case 0x04:    //    Author (Creator)
-                    $this->spreadsheet->getProperties()->setCreator($value);
+                    $this->spreadsheet->getProperties()->setCreator("$value");
 
                     break;
                 case 0x05:    //    Keywords
-                    $this->spreadsheet->getProperties()->setKeywords($value);
+                    $this->spreadsheet->getProperties()->setKeywords("$value");
 
                     break;
                 case 0x06:    //    Comments (Description)
-                    $this->spreadsheet->getProperties()->setDescription($value);
+                    $this->spreadsheet->getProperties()->setDescription("$value");
 
                     break;
                 case 0x07:    //    Template
                     //    Not supported by PhpSpreadsheet
                     break;
                 case 0x08:    //    Last Saved By (LastModifiedBy)
-                    $this->spreadsheet->getProperties()->setLastModifiedBy($value);
+                    $this->spreadsheet->getProperties()->setLastModifiedBy("$value");
 
                     break;
                 case 0x09:    //    Revision
@@ -1606,11 +1606,11 @@ class Xls extends BaseReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = CodePage::numberToName($value);
+                    $codePage = CodePage::numberToName((int) $value);
 
                     break;
                 case 0x02:    //    Category
-                    $this->spreadsheet->getProperties()->setCategory($value);
+                    $this->spreadsheet->getProperties()->setCategory("$value");
 
                     break;
                 case 0x03:    //    Presentation Target
@@ -1647,11 +1647,11 @@ class Xls extends BaseReader
                     //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0E:    //    Manager
-                    $this->spreadsheet->getProperties()->setManager($value);
+                    $this->spreadsheet->getProperties()->setManager("$value");
 
                     break;
                 case 0x0F:    //    Company
-                    $this->spreadsheet->getProperties()->setCompany($value);
+                    $this->spreadsheet->getProperties()->setCompany("$value");
 
                     break;
                 case 0x10:    //    Links up-to-date

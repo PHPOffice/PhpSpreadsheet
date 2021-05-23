@@ -1271,11 +1271,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function base_convert expects string, int\\<0, 9007199254740991\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Base.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Helpers\\:\\:validateNumericNullBool\\(\\) should return float\\|int but returns float\\|int\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Helpers.php
@@ -2491,36 +2486,6 @@ parameters:
 			path: src/PhpSpreadsheet/DefinedName.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:\\$created \\(int\\) does not accept int\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:\\$modified \\(int\\) does not accept int\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:identifyPropertyType\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:identifyPropertyType\\(\\) has parameter \\$propertyValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:convertProperty\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:convertProperty\\(\\) has parameter \\$propertyValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\DocumentGenerator\\:\\:getPhpSpreadsheetFunctionText\\(\\) has parameter \\$functionCall with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/DocumentGenerator.php
@@ -3181,16 +3146,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
 
 		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCreated\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects int\\|string\\|null, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:setMetaProperties\\(\\) has parameter \\$namespacesMeta with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
@@ -3402,61 +3357,6 @@ parameters:
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$documentSummaryInformation \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$codePage of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:numberToName\\(\\) expects int, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$title of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setTitle\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$subject of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setSubject\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$creator of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCreator\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$keywords of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setKeywords\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$description of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setDescription\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$modifier of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setLastModifiedBy\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$codePage of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:numberToName\\(\\) expects int, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$category of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCategory\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setManager\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$company of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCompany\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -5251,16 +5151,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
 		-
-			message: "#^Parameter \\#7 \\$time_1st of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
-			message: "#^Parameter \\#8 \\$time_2nd of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
 			message: "#^Parameter \\#9 \\$data of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects string, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
@@ -5327,16 +5217,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#6 \\$dir of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
-
-		-
-			message: "#^Parameter \\#7 \\$time_1st of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
-
-		-
-			message: "#^Parameter \\#8 \\$time_2nd of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
 
@@ -5484,11 +5364,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$string of function strlen expects string, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/TimeZone.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$goodnessOfFit has no typehint specified\\.$#"
@@ -8471,29 +8346,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$timeZone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:setDefaultTimezone\\(\\) expects DateTimeZone\\|string, DateTimeZone\\|null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Shared/StringHelperTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$timeZone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:setDefaultTimezone\\(\\) expects DateTimeZone\\|string, DateTimeZone\\|null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/TimeZoneTest.php
-
-		-
-			message: "#^Cannot call method getTimestamp\\(\\) on DateTime\\|false\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Shared/TimeZoneTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$timezone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\TimeZone\\:\\:getTimeZoneAdjustment\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/TimeZoneTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$index with no typehint specified\\.$#"
