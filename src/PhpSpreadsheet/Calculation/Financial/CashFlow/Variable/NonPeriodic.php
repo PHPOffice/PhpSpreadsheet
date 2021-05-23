@@ -196,10 +196,9 @@ class NonPeriodic
                 return $e->getMessage();
             }
             if ($date0 > $datei) {
-                /** @phpstan-ignore-next-line */
-                $dif = $ordered ? Functions::NAN() : -DateTimeExcel\DateDif::funcDateDif($datei, $date0, 'd');
+                $dif = $ordered ? Functions::NAN() : -((int) DateTimeExcel\Difference::interval($datei, $date0, 'd'));
             } else {
-                $dif = DateTimeExcel\DateDif::funcDateDif($date0, $datei, 'd');
+                $dif = DateTimeExcel\Difference::interval($date0, $datei, 'd');
             }
             if (!is_numeric($dif)) {
                 return $dif;

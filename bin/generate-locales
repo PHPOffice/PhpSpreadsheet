@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
+
+require_once 'vendor/autoload.php';
+
+try {
+    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))->getProperty('phpSpreadsheetFunctions');
+    $phpSpreadsheetFunctionsProperty->setAccessible(true);
+    $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+
+    $localeGenerator = new LocaleGenerator(
+        __DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/',
+        'Translations.xlsx',
+        $phpSpreadsheetFunctions
+    );
+    $localeGenerator->generateLocales();
+} catch (\Exception $e) {
+    fwrite(STDERR, (string) $e);
+    exit(1);
+}

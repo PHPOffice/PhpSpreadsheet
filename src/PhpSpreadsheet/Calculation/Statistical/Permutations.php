@@ -38,8 +38,7 @@ class Permutations
         if ($numObjs < $numInSet) {
             return Functions::NAN();
         }
-
-        $result = round(MathTrig\Fact::evaluate($numObjs) / MathTrig\Fact::evaluate($numObjs - $numInSet));
+        $result = round(MathTrig\Factorial::fact($numObjs) / MathTrig\Factorial::fact($numObjs - $numInSet));
 
         return IntOrFloat::evaluate($result);
     }

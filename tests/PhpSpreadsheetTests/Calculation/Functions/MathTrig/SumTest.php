@@ -11,7 +11,7 @@ class SumTest extends AllSetupTeardown
      */
     public function testSUM($expectedResult, ...$args): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $row = 0;
         foreach ($args as $arg) {
             ++$row;
@@ -25,5 +25,23 @@ class SumTest extends AllSetupTeardown
     public function providerSUM(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUM.php';
+    }
+
+    /**
+     * @dataProvider providerSUMLiterals
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSUMLiterals($expectedResult, string $args): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('B1')->setValue("=SUM($args)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+    }
+
+    public function providerSUMLiterals(): array
+    {
+        return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
     }
 }

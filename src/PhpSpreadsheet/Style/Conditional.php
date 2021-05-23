@@ -15,6 +15,18 @@ class Conditional implements IComparable
     const CONDITION_CONTAINSBLANKS = 'containsBlanks';
     const CONDITION_NOTCONTAINSBLANKS = 'notContainsBlanks';
     const CONDITION_DATABAR = 'dataBar';
+    const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
+
+    private const CONDITION_TYPES = [
+        self::CONDITION_CELLIS,
+        self::CONDITION_CONTAINSBLANKS,
+        self::CONDITION_CONTAINSTEXT,
+        self::CONDITION_DATABAR,
+        self::CONDITION_EXPRESSION,
+        self::CONDITION_NONE,
+        self::CONDITION_NOTCONTAINSBLANKS,
+        self::CONDITION_NOTCONTAINSTEXT,
+    ];
 
     // Operator types
     const OPERATOR_NONE = '';
@@ -299,5 +311,13 @@ class Conditional implements IComparable
                 $this->$key = $value;
             }
         }
+    }
+
+    /**
+     * Verify if param is valid condition type.
+     */
+    public static function isValidConditionType(string $type): bool
+    {
+        return in_array($type, self::CONDITION_TYPES);
     }
 }

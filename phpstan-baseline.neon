@@ -341,141 +341,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTime\\:\\:NETWORKDAYS\\(\\) has parameter \\$dateArgs with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTime.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTime\\:\\:WORKDAY\\(\\) has parameter \\$dateArgs with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTime.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$PHPDateArray of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\DateValue\\:\\:finalResults\\(\\) expects array\\|false, array\\|bool given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$testVal1 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:adjustYear\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#2 \\$testVal2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:adjustYear\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:testStringAsNumeric\\(\\) expects string, float\\|int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Datefunc.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Day\\:\\:weirdCondition\\(\\) has parameter \\$dateValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Day.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:adjustDateByMonths\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:adjustDateByMonths\\(\\) has parameter \\$adjustmentMonths with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:adjustDateByMonths\\(\\) has parameter \\$dateValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Parameter \\#1 \\$excelTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:excelToTimestamp\\(\\) expects float\\|int, bool\\|float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:validateNumericNull\\(\\) should return float\\|int but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\IsoWeekNum\\:\\:apparentBug\\(\\) has parameter \\$dateValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/IsoWeekNum.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\NetworkDays\\:\\:funcNetworkDays\\(\\) has parameter \\$dateArgs with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/NetworkDays.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\NetworkDays\\:\\:applySign\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/NetworkDays.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Time\\:\\:toIntWithNullBool\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Time.php
-
-		-
-			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\WeekDay\\:\\:validateStyle\\(\\) has parameter \\$style with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WeekDay.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\WorkDay\\:\\:funcWorkDay\\(\\) has parameter \\$dateArgs with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
-
-		-
-			message: "#^Binary operation \"\\-\" between 7 and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
-
-		-
-			message: "#^Binary operation \"\\-\" between 7 and int\\<5, max\\>\\|string results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
-
-		-
-			message: "#^Binary operation \"\\-\" between 4 and int\\<5, max\\>\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
-
-		-
-			message: "#^Binary operation \"\\-\" between int\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
-
-		-
-			message: "#^Binary operation \"\\*\" between 100 and int\\|string results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\Logger\\:\\:writeDebugLog\\(\\) has parameter \\$args with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engine/Logger.php
@@ -961,16 +826,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
 
 		-
-			message: "#^Call to function is_bool\\(\\) with float\\|int\\|\\(string&numeric\\) will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
@@ -1121,11 +976,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
 
 		-
-			message: "#^Parameter \\#3 \\$rowNum of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) expects int, float\\|int\\<0, max\\>\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
@@ -1229,136 +1079,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$notExactMatch with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:COMBIN\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:EVEN\\(\\) should return int\\|string but returns float\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:FACT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:FACTDOUBLE\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:MOD\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:ODD\\(\\) should return int\\|string but returns float\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\:\\:SUMIFS\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Helpers\\:\\:validateNumericNullBool\\(\\) should return float\\|int but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Helpers\\:\\:validateNumericNullSubstitution\\(\\) should return float\\|int but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Lcm\\:\\:factors\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Lcm\\:\\:factors\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Lcm.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Roman\\:\\:romanCut\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Roman.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Roman\\:\\:romanCut\\(\\) has parameter \\$n with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Roman.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Roman\\:\\:romanCut\\(\\) has parameter \\$num with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Roman.php
-
-		-
-			message: "#^Parameter \\#2 \\$precision of function round expects int, float\\|int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/MathTrig/RoundDown.php
-
-		-
-			message: "#^Parameter \\#2 \\$precision of function round expects int, float\\|int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/MathTrig/RoundUp.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterHiddenArgs\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterHiddenArgs\\(\\) has parameter \\$args with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterHiddenArgs\\(\\) has parameter \\$cellReference with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterFormulaArgs\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterFormulaArgs\\(\\) has parameter \\$args with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:filterFormulaArgs\\(\\) has parameter \\$cellReference with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func_array expects callable\\(\\)\\: mixed, array\\('PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…'\\|'PhpOffice…', string\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function rtrim expects string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Trunc.php
-
-		-
-			message: "#^Binary operation \"\\-\" between float\\|int and float\\|string results in an error\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
@@ -2791,91 +2511,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:\\$referenceHelper has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:\\$mappings has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'No' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'Unit' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Offset 'DefaultSizePts' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseBorderAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseBorderAttributes\\(\\) has parameter \\$borderAttributes with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseRichText\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseRichText\\(\\) has parameter \\$is with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseGnumericColour\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Gnumeric\\:\\:parseGnumericColour\\(\\) has parameter \\$gnmColour with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$rowspan has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Html.php
@@ -2991,16 +2626,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
 			message: "#^Parameter \\#2 \\$styleValue of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:setBorderStyle\\(\\) expects string, string\\|null given\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Reader/Html.php
@@ -3082,21 +2707,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:convertToExcelAddressValue\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
@@ -3241,11 +2851,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Slk.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3361,6 +2966,36 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
+			message: "#^Parameter \\#1 \\$description of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setDescription\\(\\) expects string, int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
+			message: "#^Parameter \\#1 \\$modifier of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setLastModifiedBy\\(\\) expects string, int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
+			message: "#^Parameter \\#1 \\$codePage of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:numberToName\\(\\) expects int, bool\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
+			message: "#^Parameter \\#1 \\$category of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCategory\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
+			message: "#^Parameter \\#1 \\$manager of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setManager\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
+			message: "#^Parameter \\#1 \\$company of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCompany\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3387,56 +3022,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryRight\\(\\) expects bool, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -3624,16 +3209,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\RC4\\:\\:\\$j has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls/RC4.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\Style\\\\Border\\:\\:\\$map has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/Style/Border.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\Style\\\\FillPattern\\:\\:\\$map has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/Style/FillPattern.php
 
 		-
 			message: "#^Cannot access property \\$Relationship on SimpleXMLElement\\|false\\.$#"
@@ -3837,31 +3412,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method addChart\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readColor\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readColor\\(\\) has parameter \\$background with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readColor\\(\\) has parameter \\$color with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$hex of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:changeBrightness\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\:\\:setSize\\(\\) expects float, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -4641,16 +4191,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
 			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(mixed, mixed\\)\\: int, array\\('self', 'cellReverseSort'\\) given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4661,57 +4201,7 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#2 \\$pPassword of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:protectCells\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method getCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -6106,36 +5596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Cannot call method setXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
 			message: "#^Result of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
@@ -6222,11 +5682,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getRowDimension\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -6376,16 +5831,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Iterator.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagesx expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagesy expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:\\$pageOrder has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
@@ -6506,11 +5951,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -6526,23 +5966,8 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot call method setValueExplicit\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getRowDimension\\(\\) expects int, string given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
@@ -7306,16 +6731,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$height of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeRow\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#4 \\$hidden of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeRow\\(\\) expects bool, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -7342,11 +6757,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$subject of function preg_match_all expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$hexadecimal_number of function hexdec expects string, array given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -7449,26 +6859,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$escher \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeLong\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$fillType of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapFillType\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
-			message: "#^Parameter \\#1 \\$hAlign of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapHAlign\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
-			message: "#^Parameter \\#1 \\$vAlign of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapVAlign\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
 
 		-
 			message: "#^Parameter \\#1 \\$textRotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapTextRotation\\(\\) expects int, int\\|null given\\.$#"
@@ -7981,11 +7371,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\<string\\>\\|string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -7993,31 +7378,6 @@ parameters:
 		-
 			message: "#^Argument of an invalid type array\\<string\\>\\|string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getCollapsed\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getOutlineLevel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
@@ -8039,21 +7399,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
-
-		-
-			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/XlfnFunctionsTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
@@ -8081,16 +7426,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
 
 		-
-			message: "#^Cannot call method setWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\CommentsTest\\:\\:testComments\\(\\) has parameter \\$format with no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
@@ -8099,11 +7434,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
-
-		-
-			message: "#^Cannot call method setAutoSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ConditionalTextTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
@@ -8201,26 +7531,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
 
 		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Gnumeric/GnumericLoadTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTagsTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Html/HtmlTest.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
@@ -8309,26 +7619,6 @@ parameters:
 			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getWidth\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
-
-		-
-			message: "#^Cannot call method getVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\XlsxTest\\:\\:testStripsWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no typehint specified\\.$#"
@@ -8464,21 +7754,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$directory of function chdir expects string, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
-
-		-
-			message: "#^Cannot call method setVisible\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
-
-		-
-			message: "#^Cannot call method setRowHeight\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/VisibilityTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
