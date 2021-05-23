@@ -2966,36 +2966,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$description of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setDescription\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$modifier of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setLastModifiedBy\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$codePage of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:numberToName\\(\\) expects int, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$category of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCategory\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setManager\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$company of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCompany\\(\\) expects string, bool\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -4597,16 +4567,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
-			message: "#^Parameter \\#1 \\$time_1st of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root constructor expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
-			message: "#^Parameter \\#2 \\$time_2nd of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
