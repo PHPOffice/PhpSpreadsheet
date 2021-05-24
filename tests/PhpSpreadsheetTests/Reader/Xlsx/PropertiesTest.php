@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -44,7 +45,7 @@ class PropertiesTest extends AbstractFunctional
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d');
+                $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));
             }
             self::assertSame($testData['value'], $result);
         }
@@ -86,7 +87,7 @@ class PropertiesTest extends AbstractFunctional
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d');
+                $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));
             }
             self::assertSame($testData['value'], $result);
         }

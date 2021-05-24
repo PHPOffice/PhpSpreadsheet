@@ -82,7 +82,7 @@ class Meta extends WriterPart
         return $objWriter->getData();
     }
 
-    private function writeDocPropsCustom(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    private static function writeDocPropsCustom(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         foreach ($customPropertyList as $key => $customProperty) {
@@ -106,7 +106,7 @@ class Meta extends WriterPart
                     break;
                 case Properties::PROPERTY_TYPE_DATE:
                     $objWriter->writeAttribute('meta:value-type', 'date');
-                    $dtobj = Date::dateTimeFromTimestamp($propertyValue);
+                    $dtobj = Date::dateTimeFromTimestamp($propertyValue ?? 0);
                     $objWriter->writeRawData($dtobj->format(DATE_W3C));
 
                     break;

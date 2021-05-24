@@ -501,14 +501,17 @@ class Date
         return $day;
     }
 
-    public static function dateTimeFromTimestamp(string $date): DateTime
+    public static function dateTimeFromTimestamp(string $date, ?DateTimeZone $timeZone = null): DateTime
     {
-        return DateTime::createFromFormat('U', $date) ?: new DateTime();
+        $dtobj = DateTime::createFromFormat('U', $date) ?: new DateTime();
+        $dtobj->setTimeZone($timeZone ?? self::getDefaultOrLocalTimezone());
+
+        return $dtobj;
     }
 
-    public static function formattedDateTimeFromTimestamp(string $date, string $format): string
+    public static function formattedDateTimeFromTimestamp(string $date, string $format, ?DateTimeZone $timeZone = null): string
     {
-        $dtobj = self::dateTimeFromTimestamp($date);
+        $dtobj = self::dateTimeFromTimestamp($date, $timeZone);
 
         return $dtobj->format($format);
     }
