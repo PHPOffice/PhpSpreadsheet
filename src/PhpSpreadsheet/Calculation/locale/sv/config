@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## Svenska (Swedish)
 ##
-##	(For future use)
-##
-currencySymbol	= kr
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #Skärning!
-DIV0	= #Division/0!
-VALUE	= #Värdefel!
-REF	= #Referens!
-NAME	= #Namn?
-NUM	= #Ogiltigt!
-NA	= #Saknas!
+NULL = #SKÄRNING!
+DIV0 = #DIVISION/0!
+VALUE = #VÄRDEFEL!
+REF = #REFERENS!
+NAME = #NAMN?
+NUM = #OGILTIGT!
+NA = #SAKNAS!

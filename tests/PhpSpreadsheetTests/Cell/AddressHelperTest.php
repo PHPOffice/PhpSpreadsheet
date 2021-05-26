@@ -109,4 +109,49 @@ class AddressHelperTest extends TestCase
     {
         return require 'tests/data/Cell/A1ConversionToR1C1Exception.php';
     }
+
+    /**
+     * @dataProvider providerConvertFormulaToA1FromSpreadsheetXml
+     */
+    public function testConvertFormulaToA1SpreadsheetXml(string $expectedValue, string $formula): void
+    {
+        $actualValue = AddressHelper::convertFormulaToA1($formula);
+
+        self::assertSame($expectedValue, $actualValue);
+    }
+
+    public function providerConvertFormulaToA1FromSpreadsheetXml(): array
+    {
+        return require 'tests/data/Cell/ConvertFormulaToA1FromSpreadsheetXml.php';
+    }
+
+    /**
+     * @dataProvider providerConvertFormulaToA1FromR1C1Absolute
+     */
+    public function testConvertFormulaToA1R1C1Absolute(string $expectedValue, string $formula): void
+    {
+        $actualValue = AddressHelper::convertFormulaToA1($formula);
+
+        self::assertSame($expectedValue, $actualValue);
+    }
+
+    public function providerConvertFormulaToA1FromR1C1Absolute(): array
+    {
+        return require 'tests/data/Cell/ConvertFormulaToA1FromR1C1Absolute.php';
+    }
+
+    /**
+     * @dataProvider providerConvertFormulaToA1FromR1C1Relative
+     */
+    public function testConvertFormulaToA1FromR1C1Relative(string $expectedValue, string $formula, int $row, int $column): void
+    {
+        $actualValue = AddressHelper::convertFormulaToA1($formula, $row, $column);
+
+        self::assertSame($expectedValue, $actualValue);
+    }
+
+    public function providerConvertFormulaToA1FromR1C1Relative(): array
+    {
+        return require 'tests/data/Cell/ConvertFormulaToA1FromR1C1Relative.php';
+    }
 }
