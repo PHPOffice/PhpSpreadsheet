@@ -39,7 +39,7 @@ class DMax extends DatabaseAbstract
             return null;
         }
 
-        return Maximum::MAX(
+        return Maximum::max(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

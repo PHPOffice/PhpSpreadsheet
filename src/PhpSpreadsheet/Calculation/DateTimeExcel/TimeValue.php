@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use Datetime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class TimeValue
 {
@@ -29,12 +29,12 @@ class TimeValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcTimeValue($timeValue)
+    public static function fromString($timeValue)
     {
         $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
-        $arraySplit = preg_split('/[\/:\-\s]/', $timeValue);
+        $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];
         if ((count($arraySplit) == 2 || count($arraySplit) == 3) && $arraySplit[0] > 24) {
             $arraySplit[0] = ($arraySplit[0] % 24);
             $timeValue = implode(':', $arraySplit);
@@ -44,13 +44,13 @@ class TimeValue
         $retValue = Functions::VALUE();
         if (($PHPDateArray !== false) && ($PHPDateArray['error_count'] == 0)) {
             // OpenOffice-specific code removed - it works just like Excel
-            $excelDateValue = Date::formattedPHPToExcel(1900, 1, 1, $PHPDateArray['hour'], $PHPDateArray['minute'], $PHPDateArray['second']) - 1;
+            $excelDateValue = SharedDateHelper::formattedPHPToExcel(1900, 1, 1, $PHPDateArray['hour'], $PHPDateArray['minute'], $PHPDateArray['second']) - 1;
 
             $retType = Functions::getReturnDateType();
             if ($retType === Functions::RETURNDATE_EXCEL) {
                 $retValue = (float) $excelDateValue;
             } elseif ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-                $retValue = (int) $phpDateValue = Date::excelToTimestamp($excelDateValue + 25569) - 3600;
+                $retValue = (int) $phpDateValue = SharedDateHelper::excelToTimestamp($excelDateValue + 25569) - 3600;
             } else {
                 $retValue = new DateTime('1900-01-01 ' . $PHPDateArray['hour'] . ':' . $PHPDateArray['minute'] . ':' . $PHPDateArray['second']);
             }

@@ -15,16 +15,16 @@ class RowsOnSpreadsheetTest extends AllSetupTeardown
     public function testRowsOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setTitle('ThisSheet');
-        $this->spreadsheet->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
-        $this->spreadsheet->addNamedRange(new NamedRange('namedrangey', $sheet, '$F$2:$H$2'));
-        $this->spreadsheet->addNamedRange(new NamedRange('namedrange3', $sheet, '$F$4:$H$4'));
-        $this->spreadsheet->addNamedRange(new NamedRange('namedrange5', $sheet, '$F$5:$H$5', true));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangex', $sheet, '$E$2:$E$6'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrangey', $sheet, '$F$2:$H$2'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrange3', $sheet, '$F$4:$H$4'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('namedrange5', $sheet, '$F$5:$H$5', true));
 
-        $sheet1 = $this->spreadsheet->createSheet();
+        $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');
-        $this->spreadsheet->addNamedRange(new NamedRange('localname', $sheet1, '$F$6:$H$6', true));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('localname', $sheet1, '$F$6:$H$6', true));
 
         if ($cellReference === 'omitted') {
             $sheet->getCell('B3')->setValue('=ROWS()');
@@ -43,11 +43,11 @@ class RowsOnSpreadsheetTest extends AllSetupTeardown
 
     public function testRowsLocalDefinedName(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
 
-        $sheet1 = $this->spreadsheet->createSheet();
+        $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->setTitle('OtherSheet');
-        $this->spreadsheet->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$10', true)); // defined locally, only usable on sheet1
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$F$5:$H$10', true)); // defined locally, only usable on sheet1
 
         $sheet1->getCell('B3')->setValue('=ROWS(newnr)');
         $result = $sheet1->getCell('B3')->getCalculatedValue();

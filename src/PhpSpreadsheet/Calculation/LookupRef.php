@@ -13,6 +13,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+/**
+ * @deprecated 1.18.0
+ */
 class LookupRef
 {
     /**
@@ -25,7 +28,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the cell() method in the LookupRef\Address class instead
+     * @see LookupRef\Address::cell()
+     *      Use the cell() method in the LookupRef\Address class instead
      *
      * @param mixed $row Row number to use in the cell reference
      * @param mixed $column Column number to use in the cell reference
@@ -61,11 +65,12 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the COLUMN() method in the LookupRef\RowColumnInformation class instead
+     * @see LookupRef\RowColumnInformation::COLUMN()
+     *      Use the COLUMN() method in the LookupRef\RowColumnInformation class instead
      *
      * @param null|array|string $cellAddress A reference to a range of cells for which you want the column numbers
      *
-     * @return int|int[]
+     * @return int|int[]|string
      */
     public static function COLUMN($cellAddress = null, ?Cell $cell = null)
     {
@@ -82,7 +87,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the COLUMNS() method in the LookupRef\RowColumnInformation class instead
+     * @see LookupRef\RowColumnInformation::COLUMNS()
+     *      Use the COLUMNS() method in the LookupRef\RowColumnInformation class instead
      *
      * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells
      *                                          for which you want the number of columns
@@ -109,7 +115,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the ROW() method in the LookupRef\RowColumnInformation class instead
+     * @see LookupRef\RowColumnInformation::ROW()
+     *      Use the ROW() method in the LookupRef\RowColumnInformation class instead
      *
      * @param null|array|string $cellAddress A reference to a range of cells for which you want the row numbers
      *
@@ -130,7 +137,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the ROWS() method in the LookupRef\RowColumnInformation class instead
+     * @see LookupRef\RowColumnInformation::ROWS()
+     *      Use the ROWS() method in the LookupRef\RowColumnInformation class instead
      *
      * @param null|array|string $cellAddress An array or array formula, or a reference to a range of cells
      *                                          for which you want the number of rows
@@ -148,29 +156,20 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see LookupRef\Hyperlink::set()
+     *      Use the set() method in the LookupRef\Hyperlink class instead
+     *
      * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition
      * @param Cell $pCell The cell to set the hyperlink in
      *
-     * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
+     * @return string The value of $displayName (or $linkURL if $displayName was blank)
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, ?Cell $pCell = null)
     {
-        $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
-        $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
-
-        if ((!is_object($pCell)) || (trim($linkURL) == '')) {
-            return Functions::REF();
-        }
-
-        if ((is_object($displayName)) || trim($displayName) == '') {
-            $displayName = $linkURL;
-        }
-
-        $pCell->getHyperlink()->setUrl($linkURL);
-        $pCell->getHyperlink()->setTooltip($displayName);
-
-        return $displayName;
+        return LookupRef\Hyperlink::set($linkURL, $displayName, $pCell);
     }
 
     /**
@@ -184,7 +183,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the INDIRECT() method in the LookupRef\Indirect class instead
+     * @see LookupRef\Indirect::INDIRECT()
+     *      Use the INDIRECT() method in the LookupRef\Indirect class instead
      *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      *
@@ -192,8 +192,6 @@ class LookupRef
      * @param Cell $pCell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
-     *
-     * @TODO    Support for the optional a1 parameter introduced in Excel 2010
      */
     public static function INDIRECT($cellAddress, Cell $pCell)
     {
@@ -212,7 +210,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the OFFSET() method in the LookupRef\Offset class instead
+     * @see LookupRef\Offset::OFFSET()
+     *      Use the OFFSET() method in the LookupRef\Offset class instead
      *
      * @param null|string $cellAddress The reference from which you want to base the offset.
      *                                     Reference must refer to a cell or range of adjacent cells;
@@ -248,31 +247,16 @@ class LookupRef
      * Excel Function:
      *        =CHOOSE(index_num, value1, [value2], ...)
      *
+     * @Deprecated 1.18.0
+     *
+     * @see LookupRef\Selection::choose()
+     *      Use the choose() method in the LookupRef\Selection class instead
+     *
      * @return mixed The selected value
      */
     public static function CHOOSE(...$chooseArgs)
     {
-        $chosenEntry = Functions::flattenArray(array_shift($chooseArgs));
-        $entryCount = count($chooseArgs) - 1;
-
-        if (is_array($chosenEntry)) {
-            $chosenEntry = array_shift($chosenEntry);
-        }
-        if ((is_numeric($chosenEntry)) && (!is_bool($chosenEntry))) {
-            --$chosenEntry;
-        } else {
-            return Functions::VALUE();
-        }
-        $chosenEntry = floor($chosenEntry);
-        if (($chosenEntry < 0) || ($chosenEntry > $entryCount)) {
-            return Functions::VALUE();
-        }
-
-        if (is_array($chooseArgs[$chosenEntry])) {
-            return Functions::flattenArray($chooseArgs[$chosenEntry]);
-        }
-
-        return $chooseArgs[$chosenEntry];
+        return LookupRef\Selection::choose(...$chooseArgs);
     }
 
     /**
@@ -285,7 +269,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the MATCH() method in the LookupRef\ExcelMatch class instead
+     * @see LookupRef\ExcelMatch::MATCH()
+     *      Use the MATCH() method in the LookupRef\ExcelMatch class instead
      *
      * @param mixed $lookupValue The value that you want to match in lookup_array
      * @param mixed $lookupArray The range of cells being searched
@@ -309,7 +294,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the index() method in the LookupRef\Matrix class instead
+     * @see LookupRef\Matrix::index()
+     *      Use the index() method in the LookupRef\Matrix class instead
      *
      * @param mixed $rowNum The row in the array or range from which to return a value.
      *                          If row_num is omitted, column_num is required.
@@ -329,7 +315,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the transpose() method in the LookupRef\Matrix class instead
+     * @see LookupRef\Matrix::transpose()
+     *      Use the transpose() method in the LookupRef\Matrix class instead
      *
      * @param array $matrixData A matrix of values
      *
@@ -350,7 +337,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the lookup() method in the LookupRef\VLookup class instead
+     * @see LookupRef\VLookup::lookup()
+     *      Use the lookup() method in the LookupRef\VLookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_array The range of cells being searched
@@ -372,7 +360,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the lookup() method in the LookupRef\HLookup class instead
+     * @see LookupRef\HLookup::lookup()
+     *      Use the lookup() method in the LookupRef\HLookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_array The range of cells being searched
@@ -393,7 +382,8 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see Use the lookup() method in the LookupRef\Lookup class instead
+     * @see LookupRef\Lookup::lookup()
+     *      Use the lookup() method in the LookupRef\Lookup class instead
      *
      * @param mixed $lookup_value The value that you want to match in lookup_array
      * @param mixed $lookup_vector The range of cells being searched
@@ -409,6 +399,11 @@ class LookupRef
     /**
      * FORMULATEXT.
      *
+     * @Deprecated 1.18.0
+     *
+     * @see LookupRef\Formula::text()
+     *      Use the text() method in the LookupRef\Formula class instead
+     *
      * @param mixed $cellReference The cell to check
      * @param Cell $pCell The current cell (containing this formula)
      *
@@ -416,22 +411,6 @@ class LookupRef
      */
     public static function FORMULATEXT($cellReference = '', ?Cell $pCell = null)
     {
-        if ($pCell === null) {
-            return Functions::REF();
-        }
-
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
-
-        $cellReference = $matches[6] . $matches[7];
-        $worksheetName = trim($matches[3], "'");
-        $worksheet = (!empty($worksheetName))
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
-            : $pCell->getWorksheet();
-
-        if (!$worksheet->getCell($cellReference)->isFormula()) {
-            return Functions::NA();
-        }
-
-        return $worksheet->getCell($cellReference)->getValue();
+        return LookupRef\Formula::text($cellReference, $pCell);
     }
 }
