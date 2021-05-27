@@ -2241,11 +2241,6 @@ parameters:
 			path: src/PhpSpreadsheet/DocumentGenerator.php
 
 		-
-			message: "#^Cannot access offset 0 on \\(int\\|string\\)\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/DocumentGenerator.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\HashTable\\:\\:getIndexForHashCode\\(\\) should return int but returns int\\|string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/HashTable.php
