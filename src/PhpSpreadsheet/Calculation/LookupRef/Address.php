@@ -41,7 +41,8 @@ class Address
     {
         $row = Functions::flattenSingleValue($row);
         $column = Functions::flattenSingleValue($column);
-        $relativity = Functions::flattenSingleValue($relativity);
+        $relativity = ($relativity === null) ? 1 : Functions::flattenSingleValue($relativity);
+        $referenceStyle = ($referenceStyle === null) ? true : Functions::flattenSingleValue($referenceStyle);
         $sheetName = Functions::flattenSingleValue($sheetName);
 
         if (($row < 1) || ($column < 1)) {
