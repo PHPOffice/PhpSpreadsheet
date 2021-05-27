@@ -78,6 +78,7 @@ class DocumentGenerator
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
+            /** @var string $excelFunction */
             $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {
                 $lastAlphabet = $excelFunction[0];
