@@ -19,7 +19,7 @@ class Font extends Supervisor
     protected $name = 'Calibri';
 
     /**
-     * Font Size.
+     * Font Size in points.
      *
      * @var null|float
      */
@@ -249,20 +249,27 @@ class Font extends Supervisor
     /**
      * Set Size.
      *
-     * @param float $pValue
+     * @param float $fontSizeInPoints
      *
      * @return $this
      */
-    public function setSize($pValue)
+    public function setSize($fontSizeInPoints)
     {
-        if ($pValue == '') {
-            $pValue = 10;
+        if (is_string($fontSizeInPoints) || is_int($fontSizeInPoints)) {
+            $fontSizeInPoints = (float) $fontSizeInPoints; // $pValue = 0 if given string is not numeric
         }
+
+        // Size must be a positive floating point number
+        // ECMA-376-1:2016, part 1, chapter 18.4.11 sz (Font Size), p. 1536
+        if (!is_float($fontSizeInPoints) || !($fontSizeInPoints > 0)) {
+            $fontSizeInPoints = 10.0;
+        }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['size' => $pValue]);
+            $styleArray = $this->getStyleArray(['size' => $fontSizeInPoints]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->size = $pValue;
+            $this->size = $fontSizeInPoints;
         }
 
         return $this;
