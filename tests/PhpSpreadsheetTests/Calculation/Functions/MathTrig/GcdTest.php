@@ -12,7 +12,7 @@ class GcdTest extends AllSetupTeardown
     public function testGCD($expectedResult, ...$args): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $row = 0;
         foreach ($args as $arg) {
             ++$row;

@@ -57,11 +57,11 @@ class Yields
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         if (!is_numeric($daysPerYear)) {
             return $daysPerYear;
         }
-        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;
@@ -122,23 +122,23 @@ class Yields
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::funcYear($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         if (!is_numeric($daysPerYear)) {
             return $daysPerYear;
         }
-        $daysBetweenIssueAndSettlement = DateTimeExcel\YearFrac::funcYearFrac($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = DateTimeExcel\YearFrac::fraction($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;
         }
         $daysBetweenIssueAndSettlement *= $daysPerYear;
-        $daysBetweenIssueAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($issue, $maturity, $basis);
+        $daysBetweenIssueAndMaturity = DateTimeExcel\YearFrac::fraction($issue, $maturity, $basis);
         if (!is_numeric($daysBetweenIssueAndMaturity)) {
             //    return date error
             return $daysBetweenIssueAndMaturity;
         }
         $daysBetweenIssueAndMaturity *= $daysPerYear;
-        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::funcYearFrac($settlement, $maturity, $basis);
+        $daysBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::fraction($settlement, $maturity, $basis);
         if (!is_numeric($daysBetweenSettlementAndMaturity)) {
             //    return date error
             return $daysBetweenSettlementAndMaturity;

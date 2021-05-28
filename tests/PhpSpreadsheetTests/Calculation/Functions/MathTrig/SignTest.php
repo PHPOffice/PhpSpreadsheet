@@ -13,7 +13,7 @@ class SignTest extends AllSetupTeardown
     public function testSIGN($expectedResult, $value): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 0);
         $sheet->setCellValue('A4', -3.8);

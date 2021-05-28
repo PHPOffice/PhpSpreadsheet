@@ -95,6 +95,12 @@ class CalculationTest extends TestCase
         self::assertTrue($calculation->setLocale($locale));
     }
 
+    public function testInvalidLocaleReturnsFalse(): void
+    {
+        $calculation = Calculation::getInstance();
+        self::assertFalse($calculation->setLocale('xx'));
+    }
+
     public function providerCanLoadAllSupportedLocales(): array
     {
         return [
@@ -109,7 +115,7 @@ class CalculationTest extends TestCase
             ['hu'],
             ['it'],
             ['nl'],
-            ['no'],
+            ['nb'],
             ['pl'],
             ['pt'],
             ['pt_br'],

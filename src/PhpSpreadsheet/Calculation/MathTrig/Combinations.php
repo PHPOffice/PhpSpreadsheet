@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Combinations
 {
@@ -31,7 +31,7 @@ class Combinations
             return $e->getMessage();
         }
 
-        return round(Fact::evaluate($numObjs) / Fact::evaluate($numObjs - $numInSet)) / Fact::evaluate($numInSet);
+        return round(Factorial::fact($numObjs) / Factorial::fact($numObjs - $numInSet)) / Factorial::fact($numInSet);
     }
 
     /**
@@ -69,6 +69,6 @@ class Combinations
             return $e->getMessage();
         }
 
-        return round(Fact::evaluate($numObjs + $numInSet - 1) / Fact::evaluate($numObjs - 1)) / Fact::evaluate($numInSet);
+        return round(Factorial::fact($numObjs + $numInSet - 1) / Factorial::fact($numObjs - 1)) / Factorial::fact($numInSet);
     }
 }

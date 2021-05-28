@@ -25,7 +25,7 @@ class HLookup extends LookupBase
     {
         $lookupValue = Functions::flattenSingleValue($lookupValue);
         $indexNumber = Functions::flattenSingleValue($indexNumber);
-        $notExactMatch = Functions::flattenSingleValue($notExactMatch);
+        $notExactMatch = ($notExactMatch === null) ? true : Functions::flattenSingleValue($notExactMatch);
 
         try {
             $indexNumber = self::validateIndexLookup($lookupArray, $indexNumber);

@@ -162,6 +162,9 @@ $writer->setPreCalculateFormulas(false);
 $writer->save("05featuredemo.xlsx");
 ```
 
+**Note** Formulas will still be calculated in any column set to be autosized
+even if pre-calculated is set to false
+
 #### Office 2003 compatibility pack
 
 Because of a bug in the Office2003 compatibility pack, there can be some
