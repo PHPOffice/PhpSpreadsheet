@@ -2236,11 +2236,6 @@ parameters:
 			path: src/PhpSpreadsheet/Document/Properties.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\DocumentGenerator\\:\\:getPhpSpreadsheetFunctionText\\(\\) has parameter \\$functionCall with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/DocumentGenerator.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\HashTable\\:\\:getIndexForHashCode\\(\\) should return int but returns int\\|string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/HashTable.php

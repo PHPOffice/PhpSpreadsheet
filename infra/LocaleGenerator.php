@@ -341,6 +341,5 @@ class LocaleGenerator
 
         echo $message, PHP_EOL;
 
-        return;
     }
 }

@@ -17,7 +17,7 @@ class LocaleGeneratorTest extends TestCase
         $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
 
         $localeGenerator = new LocaleGenerator(
-            realpath(__DIR__ . '/../../src/PhpSpreadsheet/Calculation/locale/'),
+            (string) realpath(__DIR__ . '/../../src/PhpSpreadsheet/Calculation/locale/'),
             'Translations.xlsx',
             $phpSpreadsheetFunctions
         );
