@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheetInfra;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;

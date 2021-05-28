@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 use PhpOffice\PhpSpreadsheet\Calculation\Category as Cat;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PhpOffice\PhpSpreadsheet\DocumentGenerator;
+use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
