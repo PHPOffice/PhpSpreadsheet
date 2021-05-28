@@ -1802,11 +1802,11 @@ class Xlsx extends BaseReader
         $objDrawing->setHyperlink($hyperlink);
     }
 
-    private function getLockValue(SimpleXmlElement $protection, string $key): ?bool
+    private static function getLockValue(SimpleXmlElement $protection, string $key): ?bool
     {
         $returnValue = null;
         $protectKey = $protection[$key];
-        if ($protectKey) {
+        if (!empty($protectKey)) {
             $protectKey = (string) $protectKey;
             $returnValue = $protectKey !== 'false' && (bool) $protectKey;
         }
@@ -1814,11 +1814,11 @@ class Xlsx extends BaseReader
         return $returnValue;
     }
 
-    private function getPasswordValue(SimpleXmlElement $protection, string $key): ?string
+    private static function getPasswordValue(SimpleXmlElement $protection, string $key): ?string
     {
         $returnValue = null;
         $protectKey = $protection[$key];
-        if ($protectKey) {
+        if (!empty($protectKey)) {
             $returnValue = (string) $protectKey;
         }
 
