@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Use of `nb` rather than `no` as the locale language code for Norsk Bokmål.
 
 ### Fixed
+- Fixed error in COUPNCD() calculation for end of month [Issue #2116](https://github.com/PHPOffice/PhpSpreadsheet/issues/2116) - [PR #2119](https://github.com/PHPOffice/PhpSpreadsheet/pull/2119)
 - Resolve default values when a null argument is passed for HLOOKUP(), VLOOKUP() and ADDRESS() functions [Issue #2120](https://github.com/PHPOffice/PhpSpreadsheet/issues/2120) - [PR #2121](https://github.com/PHPOffice/PhpSpreadsheet/pull/2121)
 - Fixed incorrect R1C1 to A1 subtraction formula conversion (`R[-2]C-R[2]C`) [Issue #2076](https://github.com/PHPOffice/PhpSpreadsheet/pull/2076) [PR #2086](https://github.com/PHPOffice/PhpSpreadsheet/pull/2086)
 - Correctly handle absolute A1 references when converting to R1C1 format [PR #2060](https://github.com/PHPOffice/PhpSpreadsheet/pull/2060)
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fixed issue with Xlsx@listWorksheetInfo not returning any data
 - Fixed invalid arguments triggering mb_substr() error in LEFT(), MID() and RIGHT() text functions. [Issue #640](https://github.com/PHPOffice/PhpSpreadsheet/issues/640)
 - Fix for [Issue #1916](https://github.com/PHPOffice/PhpSpreadsheet/issues/1916) - Invalid signature check for XML files
+- Fix change in `Font::setSize()` behavior for PHP8. [PR #2100](https://github.com/PHPOffice/PhpSpreadsheet/pull/2100)
 
 ## 1.17.1 - 2021-03-01
 
