@@ -299,6 +299,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
         ],
+        'ARRAYTOTEXT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'ASC' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -765,6 +770,11 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Difference::class, 'interval'],
             'argumentCount' => '2,3',
+        ],
+        'DATESTRING' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -1527,6 +1537,11 @@ class Calculation
             'functionCall' => [Functions::class, 'isText'],
             'argumentCount' => '1',
         ],
+        'ISTHAIDIGIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'JIS' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -1842,6 +1857,11 @@ class Calculation
             'functionCall' => [Financial\CashFlow\Variable\Periodic::class, 'presentValue'],
             'argumentCount' => '2+',
         ],
+        'NUMBERSTRING' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'NUMBERVALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Format::class, 'NUMBERVALUE'],
@@ -2123,6 +2143,16 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Round::class, 'round'],
             'argumentCount' => '2',
+        ],
+        'ROUNDBAHTDOWN' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'ROUNDBAHTUP' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'ROUNDDOWN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2427,6 +2457,41 @@ class Calculation
             'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
         ],
+        'THAIDAYOFWEEK' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIDIGIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIMONTHOFYEAR' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAINUMSOUND' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAINUMSTRING' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAISTRINGLENGTH' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIYEAR' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'TIME' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Time::class, 'fromHMS'],
@@ -2531,6 +2596,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Format::class, 'VALUE'],
             'argumentCount' => '1',
+        ],
+        'VALUETOTEXT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,

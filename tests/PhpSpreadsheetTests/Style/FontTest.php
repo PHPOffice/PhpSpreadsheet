@@ -39,4 +39,36 @@ class FontTest extends TestCase
         self::assertTrue($font->getSuperscript());
         self::assertFalse($font->getSubscript(), 'False remains unchanged');
     }
+
+    public function testSize(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue('Cell A1');
+        $font = $cell->getStyle()->getFont();
+
+        self::assertEquals(11, $font->getSize(), 'The default is 11');
+
+        $font->setSize(12);
+        self::assertEquals(12, $font->getSize(), 'Accepted new font size');
+
+        $invalidFontSizeValues = [
+            '',
+            false,
+            true,
+            'non_numeric_string',
+            '-1.0',
+            -1.0,
+            0,
+            [],
+            (object) [],
+            null,
+        ];
+        foreach ($invalidFontSizeValues as $invalidFontSizeValue) {
+            $font->setSize(12);
+            $font->setSize($invalidFontSizeValue);
+            self::assertEquals(10, $font->getSize(), 'Set to 10 after trying to set an invalid value.');
+        }
+    }
 }

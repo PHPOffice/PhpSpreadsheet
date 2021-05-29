@@ -7,14 +7,16 @@ use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 require_once 'vendor/autoload.php';
 
 try {
-    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))->getProperty('phpSpreadsheetFunctions');
+    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
+        ->getProperty('phpSpreadsheetFunctions');
     $phpSpreadsheetFunctionsProperty->setAccessible(true);
     $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
 
     $localeGenerator = new LocaleGenerator(
-        __DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/',
+        realpath(__DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/'),
         'Translations.xlsx',
-        $phpSpreadsheetFunctions
+        $phpSpreadsheetFunctions,
+        true
     );
     $localeGenerator->generateLocales();
 } catch (\Exception $e) {

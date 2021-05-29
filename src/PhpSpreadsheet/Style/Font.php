@@ -249,15 +249,22 @@ class Font extends Supervisor
     /**
      * Set Size.
      *
-     * @param float $pValue
+     * @param mixed $pValue A float representing the value of a positive measurement in points (1/72 of an inch)
      *
      * @return $this
      */
     public function setSize($pValue)
     {
-        if ($pValue == '') {
-            $pValue = 10;
+        if (is_string($pValue) || is_int($pValue)) {
+            $pValue = (float) $pValue; // $pValue = 0 if given string is not numeric
         }
+
+        // Size must be a positive floating point number
+        // ECMA-376-1:2016, part 1, chapter 18.4.11 sz (Font Size), p. 1536
+        if (!is_float($pValue) || !($pValue > 0)) {
+            $pValue = 10.0;
+        }
+
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['size' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
