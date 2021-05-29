@@ -1,6 +1,6 @@
 <?php
 
-function orderGrid()
+function orderGrid(): array
 {
     return [
         ['Order ID', 10247, 10249, 10250, 10251, 10252, 10253],
@@ -9,7 +9,7 @@ function orderGrid()
     ];
 }
 
-function partsGrid()
+function partsGrid(): array
 {
     return [
         ['Axles', 'Bearings', 'Bolts'],
