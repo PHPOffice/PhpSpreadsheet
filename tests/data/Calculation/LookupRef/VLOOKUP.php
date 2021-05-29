@@ -1,6 +1,6 @@
 <?php
 
-function densityGrid()
+function densityGrid(): array
 {
     return [
         ['Density', 'Viscosity', 'Temperature'],
