@@ -636,46 +636,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$next with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
