@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Use of `nb` rather than `no` as the locale language code for Norsk Bokmål.
 
 ### Fixed
+- Fixed error in COUPNCD() calculation for end of month [Issue #2116](https://github.com/PHPOffice/PhpSpreadsheet/issues/2116) - [PR #2119](https://github.com/PHPOffice/PhpSpreadsheet/pull/2119)
 - Resolve default values when a null argument is passed for HLOOKUP(), VLOOKUP() and ADDRESS() functions [Issue #2120](https://github.com/PHPOffice/PhpSpreadsheet/issues/2120) - [PR #2121](https://github.com/PHPOffice/PhpSpreadsheet/pull/2121)
 - Fixed incorrect R1C1 to A1 subtraction formula conversion (`R[-2]C-R[2]C`) [Issue #2076](https://github.com/PHPOffice/PhpSpreadsheet/pull/2076) [PR #2086](https://github.com/PHPOffice/PhpSpreadsheet/pull/2086)
 - Correctly handle absolute A1 references when converting to R1C1 format [PR #2060](https://github.com/PHPOffice/PhpSpreadsheet/pull/2060)
