@@ -988,6 +988,9 @@ $security->setLockStructure(true);
 $security->setWorkbookPassword("PhpSpreadsheet");
 ```
 
+Note that there are additional methods setLockRevision and setRevisionsPassword
+which apply only to change tracking and history for shared workbooks.
+
 ### Worksheet
 
 An example on setting worksheet security:
