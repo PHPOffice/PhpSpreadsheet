@@ -43,6 +43,8 @@ class LocaleGenerator
      */
     protected $translationSpreadsheet;
 
+    protected $verbose;
+
     /**
      * @var Worksheet
      */
@@ -64,11 +66,13 @@ class LocaleGenerator
     public function __construct(
         string $translationBaseFolder,
         string $translationSpreadsheetName,
-        array $phpSpreadsheetFunctions
+        array $phpSpreadsheetFunctions,
+        bool $verbose = false
     ) {
         $this->translationBaseFolder = $translationBaseFolder;
         $this->translationSpreadsheetName = $translationSpreadsheetName;
         $this->phpSpreadsheetFunctions = $phpSpreadsheetFunctions;
+        $this->verbose = $verbose;
     }
 
     public function generateLocales(): void
@@ -110,7 +114,7 @@ class LocaleGenerator
             } else {
                 $errorCodeTranslation = "{$errorCode}" . PHP_EOL;
                 fwrite($configFile, $errorCodeTranslation);
-                echo "No {$language} translation available for error code {$errorCode}", PHP_EOL;
+                $this->log("No {$language} translation available for error code {$errorCode}");
             }
         }
 
@@ -125,7 +129,7 @@ class LocaleGenerator
             $functionTranslation = "ArgumentSeparator = {$localeValue}" . PHP_EOL;
             fwrite($configFile, $functionTranslation);
         } else {
-            echo 'No Argument Separator defined', PHP_EOL;
+            $this->log('No Argument Separator defined');
         }
     }
 
@@ -142,12 +146,12 @@ class LocaleGenerator
             if ($this->isFunctionCategoryEntry($translationCell)) {
                 $this->writeFileSectionHeader($functionFile, "{$translationValue} ({$functionName})");
             } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions)) {
-                echo "Function {$functionName} is not defined in PhpSpreadsheet", PHP_EOL;
+                $this->log("Function {$functionName} is not defined in PhpSpreadsheet");
             } elseif (!empty($translationValue)) {
                 $functionTranslation = "{$functionName} = {$translationValue}" . PHP_EOL;
                 fwrite($functionFile, $functionTranslation);
             } else {
-                echo "No {$language} translation available for function {$functionName}", PHP_EOL;
+                $this->log("No {$language} translation available for function {$functionName}");
             }
         }
 
@@ -156,11 +160,11 @@ class LocaleGenerator
 
     protected function openConfigFile(string $locale, string $language, string $localeLanguage)
     {
-        echo "Building locale {$locale} ($language) configuration", PHP_EOL;
+        $this->log("Building locale {$locale} ($language) configuration");
         $localeFolder = $this->getLocaleFolder($locale);
 
         $configFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'config');
-        echo "Writing locale configuration to {$configFileName}", PHP_EOL;
+        $this->log("Writing locale configuration to {$configFileName}");
 
         $configFile = fopen($configFileName, 'wb');
         $this->writeFileHeader($configFile, $localeLanguage, $language, 'locale settings');
@@ -170,11 +174,11 @@ class LocaleGenerator
 
     protected function openFunctionNameFile(string $locale, string $language, string $localeLanguage)
     {
-        echo "Building locale {$locale} ($language) function names", PHP_EOL;
+        $this->log("Building locale {$locale} ($language) function names");
         $localeFolder = $this->getLocaleFolder($locale);
 
         $functionFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'functions');
-        echo "Writing local function names to {$functionFileName}", PHP_EOL;
+        $this->log("Writing local function names to {$functionFileName}");
 
         $functionFile = fopen($functionFileName, 'wb');
         $this->writeFileHeader($functionFile, $localeLanguage, $language, 'function name translations');
@@ -231,7 +235,7 @@ class LocaleGenerator
     protected function mapLanguageColumns(Worksheet $translationWorksheet): array
     {
         $sheetName = $translationWorksheet->getTitle();
-        echo "Mapping Languages for {$sheetName}:", PHP_EOL;
+        $this->log("Mapping Languages for {$sheetName}:");
 
         $baseColumn = self::ENGLISH_REFERENCE_COLUMN;
         $languagesList = $translationWorksheet->getColumnIterator(++$baseColumn);
@@ -245,7 +249,7 @@ class LocaleGenerator
                 /** @var Cell $cell */
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
                     $languageNameMap[$cell->getColumn()] = $cell->getValue();
-                    echo $cell->getColumn(), ' -> ', $cell->getValue(), PHP_EOL;
+                    $this->log($cell->getColumn() . ' -> ' . $cell->getValue());
                 }
             }
         }
@@ -270,7 +274,7 @@ class LocaleGenerator
 
     protected function mapErrorCodeRows(): void
     {
-        echo 'Mapping Error Codes:', PHP_EOL;
+        $this->log('Mapping Error Codes:');
         $errorList = $this->localeTranslations->getRowIterator(self::ERROR_CODES_FIRST_ROW);
 
         foreach ($errorList as $errorRow) {
@@ -280,7 +284,7 @@ class LocaleGenerator
             foreach ($cells as $cell) {
                 /** @var Cell $cell */
                 if ($cell->getValue() != '') {
-                    echo $cell->getRow(), ' -> ', $cell->getValue(), PHP_EOL;
+                    $this->log($cell->getRow() . ' -> ' . $cell->getValue());
                     $this->errorCodeMap[$cell->getValue()] = $cell->getRow();
                 }
             }
@@ -289,7 +293,7 @@ class LocaleGenerator
 
     protected function mapFunctionNameRows(): void
     {
-        echo 'Mapping Functions:', PHP_EOL;
+        $this->log('Mapping Functions:');
         $functionList = $this->functionNameTranslations->getRowIterator(self::FUNCTION_NAME_LIST_FIRST_ROW);
 
         foreach ($functionList as $functionRow) {
@@ -300,7 +304,7 @@ class LocaleGenerator
                 /** @var Cell $cell */
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
-                        echo 'CATEGORY: ', $cell->getValue(), PHP_EOL;
+                        $this->log('CATEGORY: ' . $cell->getValue());
                         $this->functionNameMap[$cell->getValue()] = $cell->getRow();
                     }
 
@@ -308,10 +312,10 @@ class LocaleGenerator
                 }
                 if ($cell->getValue() != '') {
                     if (is_bool($cell->getValue())) {
-                        echo $cell->getRow(), ' -> ', ($cell->getValue() ? 'TRUE' : 'FALSE'), PHP_EOL;
+                        $this->log($cell->getRow() . ' -> ' . ($cell->getValue() ? 'TRUE' : 'FALSE'));
                         $this->functionNameMap[($cell->getValue() ? 'TRUE' : 'FALSE')] = $cell->getRow();
                     } else {
-                        echo $cell->getRow(), ' -> ', $cell->getValue(), PHP_EOL;
+                        $this->log($cell->getRow() . ' -> ' . $cell->getValue());
                         $this->functionNameMap[$cell->getValue()] = $cell->getRow();
                     }
                 }
@@ -327,5 +331,14 @@ class LocaleGenerator
         }
 
         return false;
+    }
+
+    private function log(string $message): void
+    {
+        if ($this->verbose === false) {
+            return;
+        }
+
+        echo $message, PHP_EOL;
     }
 }
