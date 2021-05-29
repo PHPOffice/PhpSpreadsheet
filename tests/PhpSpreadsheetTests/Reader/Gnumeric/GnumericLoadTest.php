@@ -115,7 +115,8 @@ class GnumericLoadTest extends TestCase
         self::assertEquals(Font::UNDERLINE_DOUBLE, $sheet->getCell('A24')->getStyle()->getFont()->getUnderline());
         self::assertTrue($sheet->getCell('B23')->getStyle()->getFont()->getSubScript());
         self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
-        self::assertFalse($sheet->getRowDimension(30)->getVisible());
+        $rowDimension = $sheet->getRowDimension(30);
+        self::assertFalse($rowDimension->getVisible());
     }
 
     public function testLoadFilter(): void

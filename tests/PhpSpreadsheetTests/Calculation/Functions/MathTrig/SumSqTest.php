@@ -14,7 +14,7 @@ class SumSqTest extends AllSetupTeardown
         $this->mightHaveException($expectedResult);
         $maxRow = 0;
         $funcArg = '';
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         foreach ($args as $arg) {
             ++$maxRow;
             $funcArg = "A1:A$maxRow";
