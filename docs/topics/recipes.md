@@ -201,7 +201,7 @@ $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
 Currently, formula translation only translates the function names, the
-constants TRUE and FALSE, and the function argument separators.
+constants TRUE and FALSE, and the function argument separators. Cell addressing using R1C1 formatting is not supported.
 
 At present, the following locale settings are supported:
 
@@ -216,7 +216,7 @@ French               | Français             | fr
 Hungarian            | Magyar               | hu
 Italian              | Italiano             | it
 Dutch                | Nederlands           | nl
-Norwegian            | Norsk                | no
+Norwegian            | Norsk Bokmål         | nb
 Polish               | Jezyk polski         | pl
 Portuguese           | Português            | pt
 Brazilian Portuguese | Português Brasileiro | pt_br

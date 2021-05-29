@@ -219,7 +219,8 @@ class Xls extends BaseWriter
             $arrRootData[] = $OLE_DocumentSummaryInformation;
         }
 
-        $root = new Root(time(), time(), $arrRootData);
+        $time = $this->spreadsheet->getProperties()->getModified();
+        $root = new Root($time, $time, $arrRootData);
         // save the OLE file
         $this->openFileHandle($pFilename);
         $root->save($this->fileHandle);

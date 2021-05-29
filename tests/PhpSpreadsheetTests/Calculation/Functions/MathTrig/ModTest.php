@@ -14,7 +14,7 @@ class ModTest extends AllSetupTeardown
     public function testMOD($expectedResult, $dividend = 'omitted', $divisor = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if ($dividend !== null) {
             $sheet->getCell('A1')->setValue($dividend);
         }

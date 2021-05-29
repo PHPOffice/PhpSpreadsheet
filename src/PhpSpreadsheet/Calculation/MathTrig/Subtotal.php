@@ -2,13 +2,17 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Subtotal
 {
-    protected static function filterHiddenArgs($cellReference, $args)
+    /**
+     * @param mixed $cellReference
+     * @param mixed $args
+     */
+    protected static function filterHiddenArgs($cellReference, $args): array
     {
         return array_filter(
             $args,
@@ -21,7 +25,11 @@ class Subtotal
         );
     }
 
-    protected static function filterFormulaArgs($cellReference, $args)
+    /**
+     * @param mixed $cellReference
+     * @param mixed $args
+     */
+    protected static function filterFormulaArgs($cellReference, $args): array
     {
         return array_filter(
             $args,
@@ -42,16 +50,17 @@ class Subtotal
         );
     }
 
+    /** @var callable[] */
     private const CALL_FUNCTIONS = [
-        1 => [Statistical\Averages::class, 'AVERAGE'],
+        1 => [Statistical\Averages::class, 'average'],
         [Statistical\Counts::class, 'COUNT'], // 2
         [Statistical\Counts::class, 'COUNTA'], // 3
-        [Statistical\Maximum::class, 'MAX'], // 4
-        [Statistical\Minimum::class, 'MIN'], // 5
-        [Product::class, 'evaluate'], // 6
+        [Statistical\Maximum::class, 'max'], // 4
+        [Statistical\Minimum::class, 'min'], // 5
+        [Operations::class, 'product'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8
-        [Sum::class, 'funcSum'], // 9
+        [Sum::class, 'sumIgnoringStrings'], // 9
         [Statistical\Variances::class, 'VAR'], // 10
         [Statistical\Variances::class, 'VARP'], // 11
     ];
@@ -67,7 +76,7 @@ class Subtotal
      *                    list
      *            Numbers 101 to 111 shadow the functions of 1 to 11
      *                    but ignore any values in the range that are
-     *                    in hidden rows or columns
+     *                    in hidden rows
      * @param mixed[] $args A mixed data series of values
      *
      * @return float|string
@@ -91,7 +100,10 @@ class Subtotal
 
         $aArgs = self::filterFormulaArgs($cellReference, $aArgs);
         if (array_key_exists($subtotal, self::CALL_FUNCTIONS)) {
-            return call_user_func_array(self::CALL_FUNCTIONS[$subtotal], $aArgs);
+            /** @var callable */
+            $call = self::CALL_FUNCTIONS[$subtotal];
+
+            return call_user_func_array($call, $aArgs);
         }
 
         return Functions::VALUE();

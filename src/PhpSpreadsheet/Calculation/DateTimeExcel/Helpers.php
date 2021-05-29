@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Helpers
 {
@@ -31,7 +31,7 @@ class Helpers
     public static function getDateValue($dateValue, bool $allowBool = true): float
     {
         if (is_object($dateValue)) {
-            $retval = Date::PHPToExcel($dateValue);
+            $retval = SharedDateHelper::PHPToExcel($dateValue);
             if (is_bool($retval)) {
                 throw new Exception(Functions::VALUE());
             }
@@ -43,7 +43,7 @@ class Helpers
         if (!is_numeric($dateValue)) {
             $saveReturnDateType = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-            $dateValue = DateValue::funcDateValue($dateValue);
+            $dateValue = DateValue::fromString($dateValue);
             Functions::setReturnDateType($saveReturnDateType);
             if (!is_numeric($dateValue)) {
                 throw new Exception(Functions::VALUE());
@@ -67,16 +67,21 @@ class Helpers
     {
         $saveReturnDateType = Functions::getReturnDateType();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        $timeValue = TimeValue::funcTimeValue($timeValue);
+        $timeValue = TimeValue::fromString($timeValue);
         Functions::setReturnDateType($saveReturnDateType);
 
         return $timeValue;
     }
 
-    public static function adjustDateByMonths($dateValue = 0, $adjustmentMonths = 0)
+    /**
+     * Adjust date by given months.
+     *
+     * @param mixed $dateValue
+     */
+    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0): DateTime
     {
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
         $oMonth = (int) $PHPDateObject->format('m');
         $oYear = (int) $PHPDateObject->format('Y');
 
@@ -144,7 +149,7 @@ class Helpers
             );
         }
         $excelDateValue =
-            Date::formattedPHPToExcel(
+            SharedDateHelper::formattedPHPToExcel(
                 $dateArray['year'],
                 $dateArray['month'],
                 $dateArray['day'],
@@ -157,7 +162,7 @@ class Helpers
         }
         // RETURNDATE_UNIX_TIMESTAMP)
 
-        return (int) Date::excelToTimestamp($excelDateValue);
+        return (int) SharedDateHelper::excelToTimestamp($excelDateValue);
     }
 
     /**
@@ -172,11 +177,11 @@ class Helpers
             return $excelDateValue;
         }
         if ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-            return (int) Date::excelToTimestamp($excelDateValue);
+            return (int) SharedDateHelper::excelToTimestamp($excelDateValue);
         }
         // RETURNDATE_PHP_DATETIME_OBJECT
 
-        return Date::excelToDateTimeObject($excelDateValue);
+        return SharedDateHelper::excelToDateTimeObject($excelDateValue);
     }
 
     /**
@@ -191,11 +196,13 @@ class Helpers
             return $PHPDateObject;
         }
         if ($retType === Functions::RETURNDATE_EXCEL) {
-            return (float) Date::PHPToExcel($PHPDateObject);
+            return (float) SharedDateHelper::PHPToExcel($PHPDateObject);
         }
         // RETURNDATE_UNIX_TIMESTAMP
+        $stamp = SharedDateHelper::PHPToExcel($PHPDateObject);
+        $stamp = is_bool($stamp) ? ((int) $stamp) : $stamp;
 
-        return (int) Date::excelToTimestamp(Date::PHPToExcel($PHPDateObject));
+        return (int) SharedDateHelper::excelToTimestamp($stamp);
     }
 
     private static function baseDate(): int
@@ -203,7 +210,7 @@ class Helpers
         if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
             return 0;
         }
-        if (Date::getExcelCalendar() === Date::CALENDAR_MAC_1904) {
+        if (SharedDateHelper::getExcelCalendar() === SharedDateHelper::CALENDAR_MAC_1904) {
             return 0;
         }
 
@@ -239,8 +246,11 @@ class Helpers
         if ($number === null) {
             return 0;
         }
-        if (is_numeric($number)) {
+        if (is_int($number)) {
             return $number;
+        }
+        if (is_numeric($number)) {
+            return (float) $number;
         }
 
         throw new Exception(Functions::VALUE());
