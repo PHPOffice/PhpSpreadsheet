@@ -766,7 +766,10 @@ class Xls extends BaseWriter
         return $data;
     }
 
-    private function writeSummaryPropOle(int $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
+    /**
+     * @param float|int $dataProp
+     */
+    private function writeSummaryPropOle($dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
             $dataSection[] = [

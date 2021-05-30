@@ -46,8 +46,8 @@ class Root extends PPS
     private $bigBlockSize;
 
     /**
-     * @param int $time_1st A timestamp
-     * @param int $time_2nd A timestamp
+     * @param null|float|int $time_1st A timestamp
+     * @param null|float|int $time_2nd A timestamp
      * @param File[] $raChild
      */
     public function __construct($time_1st, $time_2nd, $raChild)

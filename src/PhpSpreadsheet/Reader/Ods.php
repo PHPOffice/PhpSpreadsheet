@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTime;
-use DateTimeZone;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -256,9 +255,6 @@ class Ods extends BaseReader
     {
         File::assertFile($pFilename);
 
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
-
         $zip = new ZipArchive();
         if ($zip->open($pFilename) !== true) {
             throw new Exception("Could not open {$pFilename} for reading! Error opening file.");
@@ -502,8 +498,7 @@ class Ods extends BaseReader
                                             $type = DataType::TYPE_NUMERIC;
                                             $value = $cellData->getAttributeNS($officeNs, 'date-value');
 
-                                            $dateObj = new DateTime($value, $GMT);
-                                            $dateObj->setTimeZone($timezoneObj);
+                                            $dateObj = new DateTime($value);
                                             [$year, $month, $day, $hour, $minute, $second] = explode(
                                                 ' ',
                                                 $dateObj->format('Y m d H i s')

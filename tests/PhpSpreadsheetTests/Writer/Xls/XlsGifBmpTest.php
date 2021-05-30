@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -24,7 +25,7 @@ class XlsGifBmpTest extends AbstractFunctional
 
     public function testBmp(): void
     {
-        $pgmstart = time();
+        $pgmstart = (float) (new DateTime())->format('U');
         $spreadsheet = new Spreadsheet();
         $filstart = $spreadsheet->getProperties()->getModified();
         self::assertLessThanOrEqual($filstart, $pgmstart);
@@ -49,7 +50,7 @@ class XlsGifBmpTest extends AbstractFunctional
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
-        $pgmend = time();
+        $pgmend = (float) (new DateTime())->format('U');
 
         self::assertLessThanOrEqual($pgmend, $pgmstart);
         self::assertLessThanOrEqual($pgmend, $filstart);
