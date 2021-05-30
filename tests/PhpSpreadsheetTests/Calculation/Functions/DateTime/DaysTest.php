@@ -17,7 +17,7 @@ class DaysTest extends AllSetupTeardown
     public function testDAYS($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('C1')->setValue('1954-11-30');
         $sheet->getCell('A1')->setValue("=DAYS($formula)");
@@ -33,13 +33,13 @@ class DaysTest extends AllSetupTeardown
     {
         $obj1 = new DateTime('2000-3-31');
         $obj2 = new DateTimeImmutable('2000-2-29');
-        self::assertSame(31, Days::funcDays($obj1, $obj2));
+        self::assertSame(31, Days::between($obj1, $obj2));
     }
 
     public function testNonDateObject(): void
     {
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
-        self::assertSame('#VALUE!', Days::funcDays($obj1, $obj2));
+        self::assertSame('#VALUE!', Days::between($obj1, $obj2));
     }
 }

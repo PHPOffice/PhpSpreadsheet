@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## Español (Spanish)
 ##
-##	(For future use)
-##
-currencySymbol	= $	##	I'm surprised that the Excel Documentation suggests $ rather than €
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #¡NULO!
-DIV0	= #¡DIV/0!
-VALUE	= #¡VALOR!
-REF	= #¡REF!
-NAME	= #¿NOMBRE?
-NUM	= #¡NÚM!
-NA	= #N/A
+NULL = #¡NULO!
+DIV0 = #¡DIV/0!
+VALUE = #¡VALOR!
+REF = #¡REF!
+NAME = #¿NOMBRE?
+NUM = #¡NUM!
+NA

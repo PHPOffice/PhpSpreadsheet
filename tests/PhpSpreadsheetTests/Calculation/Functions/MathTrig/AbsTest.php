@@ -12,7 +12,7 @@ class AbsTest extends AllSetupTeardown
      */
     public function testRound($expectedResult, $number = 'omitted'): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
         $this->setCell('A1', $number);
         if ($number === 'omitted') {

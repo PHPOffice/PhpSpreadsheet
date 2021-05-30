@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## Suomi (Finnish)
 ##
-##	(For future use)
-##
-currencySymbol	= $	#	Symbol not known, should it be a € (Euro)?
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #TYHJÄ!
-DIV0	= #JAKO/0!
-VALUE	= #ARVO!
-REF	= #VIITTAUS!
-NAME	= #NIMI?
-NUM	= #LUKU!
-NA	= #PUUTTUU
+NULL = #TYHJÄ!
+DIV0 = #JAKO/0!
+VALUE = #ARVO!
+REF = #VIITTAUS!
+NAME = #NIMI?
+NUM = #LUKU!
+NA = #PUUTTUU!

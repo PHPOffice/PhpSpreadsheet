@@ -34,7 +34,7 @@ class Helpers
             return (int) $number;
         }
         if (is_numeric($number)) {
-            return $number;
+            return 0 + $number;
         }
 
         throw new Exception(Functions::VALUE());
@@ -55,7 +55,7 @@ class Helpers
             return $substitute;
         }
         if (is_numeric($number)) {
-            return $number;
+            return 0 + $number;
         }
 
         throw new Exception(Functions::VALUE());

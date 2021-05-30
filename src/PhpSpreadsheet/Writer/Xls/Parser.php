@@ -1149,10 +1149,6 @@ class Parser
             $this->advance();
             $result2 = $this->expression();
             $result = $this->createTree('ptgNE', $result, $result2);
-        } elseif ($this->currentToken == '&') {
-            $this->advance();
-            $result2 = $this->expression();
-            $result = $this->createTree('ptgConcat', $result, $result2);
         }
 
         return $result;
@@ -1203,6 +1199,11 @@ class Parser
             return $this->createTree('ptgUplus', $result2, '');
         }
         $result = $this->term();
+        while ($this->currentToken === '&') {
+            $this->advance();
+            $result2 = $this->expression();
+            $result = $this->createTree('ptgConcat', $result, $result2);
+        }
         while (
             ($this->currentToken == '+') ||
             ($this->currentToken == '-') ||

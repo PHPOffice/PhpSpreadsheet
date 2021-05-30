@@ -12,7 +12,7 @@ class CosTest extends AllSetupTeardown
     public function testCos($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 2);
         $sheet->getCell('A1')->setValue("=COS($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
