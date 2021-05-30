@@ -636,46 +636,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$next with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
@@ -2206,16 +2166,6 @@ parameters:
 			path: src/PhpSpreadsheet/DefinedName.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\DocumentGenerator\\:\\:getPhpSpreadsheetFunctionText\\(\\) has parameter \\$functionCall with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/DocumentGenerator.php
-
-		-
-			message: "#^Cannot access offset 0 on \\(int\\|string\\)\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/DocumentGenerator.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\HashTable\\:\\:getIndexForHashCode\\(\\) should return int but returns int\\|string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/HashTable.php
@@ -2414,101 +2364,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:getSecurityScanner\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\:\\:\\$delimiter \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\:\\:openFileOrMemory\\(\\) has parameter \\$pFilename with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fwrite expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$fileHandle has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$escapeCharacter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$enclosure has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$counts has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$numberLines has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:\\$delimiter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:__construct\\(\\) has parameter \\$enclosure with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:__construct\\(\\) has parameter \\$escapeCharacter with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:__construct\\(\\) has parameter \\$fileHandle with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Csv\\\\Delimiter\\:\\:getNextLine\\(\\) should return string\\|false but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Csv/Delimiter.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\:\\:\\$rowspan has no typehint specified\\.$#"
@@ -7454,41 +7309,6 @@ parameters:
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedRange\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/NamedRangeTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\CsvContiguousFilter\\:\\:setFilterType\\(\\) has parameter \\$type with no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\CsvContiguousFilter\\:\\:filter1\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\CsvContiguousFilter\\:\\:filter1\\(\\) has parameter \\$row with no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\CsvContiguousFilter\\:\\:filter0\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\CsvContiguousFilter\\:\\:filter0\\(\\) has parameter \\$row with no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousFilter.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/CsvContiguousTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/CsvTest.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"

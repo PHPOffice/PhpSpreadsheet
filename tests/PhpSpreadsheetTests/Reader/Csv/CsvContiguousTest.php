@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -49,12 +49,19 @@ class CsvContiguousTest extends TestCase
             $spreadsheet->getActiveSheet()->setTitle('Country Data #' . (++$sheet));
         }
 
-        $sheet = $spreadsheet->getSheetByName('Country Data #1');
-        self::assertEquals('Kabul', $sheet->getCell('A2')->getValue());
-        $sheet = $spreadsheet->getSheetByName('Country Data #2');
-        self::assertEquals('Lesotho', $sheet->getCell('B4')->getValue());
-        $sheet = $spreadsheet->getSheetByName('Country Data #3');
-        self::assertEquals(-20.1, $sheet->getCell('C6')->getValue());
+        self::assertSame('Kabul', self::getCellValue($spreadsheet, 'Country Data #1', 'A2'));
+        self::assertSame('Lesotho', self::getCellValue($spreadsheet, 'Country Data #2', 'B4'));
+        self::assertSame('-20.1', self::getCellValue($spreadsheet, 'Country Data #3', 'C6'));
+    }
+
+    private static function getCellValue(Spreadsheet $spreadsheet, string $sheetName, string $cellAddress): string
+    {
+        $sheet = $spreadsheet->getSheetByName($sheetName);
+        if ($sheet === null) {
+            return '';
+        }
+
+        return (string) $sheet->getCell($cellAddress)->getValue();
     }
 
     public function testContiguous2(): void
