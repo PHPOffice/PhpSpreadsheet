@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheetInfra;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -19,7 +19,7 @@ class DocumentGenerator
             $result .= "\n";
             $result .= "## {$categoryConstant}\n";
             $result .= "\n";
-            $lengths = [20, 42];
+            $lengths = [25, 37];
             $result .= self::tableRow($lengths, ['Excel Function', 'PhpSpreadsheet Function']) . "\n";
             $result .= self::tableRow($lengths, null) . "\n";
             foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
@@ -78,7 +78,8 @@ class DocumentGenerator
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
-            $lengths = [20, 31, 42];
+            /** @var string $excelFunction */
+            $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {
                 $lastAlphabet = $excelFunction[0];
                 $result .= "\n";

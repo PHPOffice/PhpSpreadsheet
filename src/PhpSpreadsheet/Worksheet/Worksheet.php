@@ -399,6 +399,7 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
+        $this->rowDimensions = [];
     }
 
     /**

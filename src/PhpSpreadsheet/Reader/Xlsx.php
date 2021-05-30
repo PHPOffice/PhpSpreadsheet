@@ -1808,17 +1808,9 @@ class Xlsx extends BaseReader
             return;
         }
 
-        if ($xmlWorkbook->workbookProtection['lockRevision']) {
-            $excel->getSecurity()->setLockRevision((bool) $xmlWorkbook->workbookProtection['lockRevision']);
-        }
-
-        if ($xmlWorkbook->workbookProtection['lockStructure']) {
-            $excel->getSecurity()->setLockStructure((bool) $xmlWorkbook->workbookProtection['lockStructure']);
-        }
-
-        if ($xmlWorkbook->workbookProtection['lockWindows']) {
-            $excel->getSecurity()->setLockWindows((bool) $xmlWorkbook->workbookProtection['lockWindows']);
-        }
+        $excel->getSecurity()->setLockRevision(self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision'));
+        $excel->getSecurity()->setLockStructure(self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure'));
+        $excel->getSecurity()->setLockWindows(self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows'));
 
         if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
             $excel->getSecurity()->setRevisionsPassword(
@@ -1833,6 +1825,18 @@ class Xlsx extends BaseReader
                 true
             );
         }
+    }
+
+    private static function getLockValue(SimpleXmlElement $protection, string $key): ?bool
+    {
+        $returnValue = null;
+        $protectKey = $protection[$key];
+        if (!empty($protectKey)) {
+            $protectKey = (string) $protectKey;
+            $returnValue = $protectKey !== 'false' && (bool) $protectKey;
+        }
+
+        return $returnValue;
     }
 
     private function readFormControlProperties(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void

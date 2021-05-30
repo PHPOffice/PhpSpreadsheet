@@ -636,46 +636,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Binary operation \"\\*\" between float\\|string and int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$next with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:couponFirstPeriodDate\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$maturity with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Coupons\\:\\:validateCouponPeriod\\(\\) has parameter \\$settlement with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
@@ -2234,16 +2194,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:convertProperty\\(\\) has parameter \\$propertyValue with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\DocumentGenerator\\:\\:getPhpSpreadsheetFunctionText\\(\\) has parameter \\$functionCall with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/DocumentGenerator.php
-
-		-
-			message: "#^Cannot access offset 0 on \\(int\\|string\\)\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/DocumentGenerator.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\HashTable\\:\\:getIndexForHashCode\\(\\) should return int but returns int\\|string\\|false\\.$#"
@@ -5824,16 +5774,6 @@ parameters:
 			message: "#^Class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Iterator implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Iterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagesx expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagesy expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/MemoryDrawing.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:\\$pageOrder has no typehint specified\\.$#"
