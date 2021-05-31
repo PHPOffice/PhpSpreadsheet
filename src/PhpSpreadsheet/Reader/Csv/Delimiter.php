@@ -6,19 +6,28 @@ class Delimiter
 {
     protected const POTENTIAL_DELIMETERS = [',', ';', "\t", '|', ':', ' ', '~'];
 
+    /** @var resource */
     protected $fileHandle;
 
+    /** @var string */
     protected $escapeCharacter;
 
+    /** @var string */
     protected $enclosure;
 
+    /** @var array */
     protected $counts = [];
 
+    /** @var int */
     protected $numberLines = 0;
 
+    /** @var ?string */
     protected $delimiter;
 
-    public function __construct($fileHandle, $escapeCharacter, $enclosure)
+    /**
+     * @param resource $fileHandle
+     */
+    public function __construct($fileHandle, string $escapeCharacter, string $enclosure)
     {
         $this->fileHandle = $fileHandle;
         $this->escapeCharacter = $escapeCharacter;
@@ -52,15 +61,13 @@ class Delimiter
     protected function countDelimiterValues(string $line, array $delimiterKeys): void
     {
         $splitString = str_split($line, 1);
-        if (!is_array($splitString)) {
-            return;
-        }
+        if (is_array($splitString)) {
+            $distribution = array_count_values($splitString);
+            $countLine = array_intersect_key($distribution, $delimiterKeys);
 
-        $distribution = array_count_values($splitString);
-        $countLine = array_intersect_key($distribution, $delimiterKeys);
-
-        foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
-            $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
+            foreach (self::POTENTIAL_DELIMETERS as $delimiter) {
+                $this->counts[$delimiter][] = $countLine[$delimiter] ?? 0;
+            }
         }
     }
 
@@ -137,8 +144,8 @@ class Delimiter
 
             // See if we have any enclosures left in the line
             // if we still have an enclosure then we need to read the next line as well
-        } while (preg_match('/(' . $enclosure . ')/', $line) > 0);
+        } while (preg_match('/(' . $enclosure . ')/', $line ?? '') > 0);
 
-        return $line;
+        return $line ?? false;
     }
 }

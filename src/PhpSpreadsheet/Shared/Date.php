@@ -97,7 +97,7 @@ class Date
     /**
      * Set the Default timezone to use for dates.
      *
-     * @param DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
+     * @param null|DateTimeZone|string $timeZone The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
      *
      * @return bool Success or failure
      */
@@ -115,29 +115,39 @@ class Date
     }
 
     /**
-     * Return the Default timezone being used for dates.
-     *
-     * @return DateTimeZone The timezone being used as default for Excel timestamp to PHP DateTime object
+     * Return the Default timezone, or UTC if default not set.
      */
-    public static function getDefaultTimezone()
+    public static function getDefaultTimezone(): DateTimeZone
     {
-        if (self::$defaultTimeZone === null) {
-            self::$defaultTimeZone = new DateTimeZone('UTC');
-        }
+        return self::$defaultTimeZone ?? new DateTimeZone('UTC');
+    }
 
+    /**
+     * Return the Default timezone, or local timezone if default is not set.
+     */
+    public static function getDefaultOrLocalTimezone(): DateTimeZone
+    {
+        return self::$defaultTimeZone ?? new DateTimeZone(date_default_timezone_get());
+    }
+
+    /**
+     * Return the Default timezone even if null.
+     */
+    public static function getDefaultTimezoneOrNull(): ?DateTimeZone
+    {
         return self::$defaultTimeZone;
     }
 
     /**
      * Validate a timezone.
      *
-     * @param DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
+     * @param null|DateTimeZone|string $timeZone The timezone to validate, either as a timezone string or object
      *
-     * @return DateTimeZone The timezone as a timezone object
+     * @return ?DateTimeZone The timezone as a timezone object
      */
     private static function validateTimeZone($timeZone)
     {
-        if ($timeZone instanceof DateTimeZone) {
+        if ($timeZone instanceof DateTimeZone || $timeZone === null) {
             return $timeZone;
         }
         if (in_array($timeZone, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC))) {
@@ -489,5 +499,20 @@ class Date
         }
 
         return $day;
+    }
+
+    public static function dateTimeFromTimestamp(string $date, ?DateTimeZone $timeZone = null): DateTime
+    {
+        $dtobj = DateTime::createFromFormat('U', $date) ?: new DateTime();
+        $dtobj->setTimeZone($timeZone ?? self::getDefaultOrLocalTimezone());
+
+        return $dtobj;
+    }
+
+    public static function formattedDateTimeFromTimestamp(string $date, string $format, ?DateTimeZone $timeZone = null): string
+    {
+        $dtobj = self::dateTimeFromTimestamp($date, $timeZone);
+
+        return $dtobj->format($format);
     }
 }

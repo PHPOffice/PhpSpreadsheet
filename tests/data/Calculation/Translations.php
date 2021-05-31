@@ -30,7 +30,7 @@ return [
         '=TEKST.SAMENVOEGEN(JAAR(VANDAAG());
             " is ";
             ALS(
-                DAYS(DATUM(JAAR(VANDAAG())+1; 1; 1); DATUM(JAAR(VANDAAG()); 1; 1)) = 365;
+                DAGEN(DATUM(JAAR(VANDAAG())+1; 1; 1); DATUM(JAAR(VANDAAG()); 1; 1)) = 365;
                 "NOT a Leap Year";
                 "a Leap Year"
             )

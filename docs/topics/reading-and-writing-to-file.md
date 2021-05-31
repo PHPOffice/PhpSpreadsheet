@@ -139,6 +139,11 @@ $reader->setReadFilter( new MyReadFilter() );
 $spreadsheet = $reader->load("06largescale.xlsx");
 ```
 
+Read Filtering does not renumber cell rows and columns. If you filter to read only rows 100-200, cells that you read will still be numbered A100-A200, not A1-A101. Cells A1-A99 will not be loaded, but if you then try to call `getCell()` for a cell outside your loaded range, then PHPSpreadsheet will create a new cell with a null value.
+
+Methods such as `toArray()` assume that all cells in a spreadsheet has been loaded from A1, so will return null values for rows and columns that fall outside your filter range: it is recommended that you keep track of the range that your filter has requested, and use `rangeToArray()` instead.
+
+
 ### \PhpOffice\PhpSpreadsheet\Writer\Xlsx
 
 #### Writing a spreadsheet
@@ -161,6 +166,9 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 $writer->save("05featuredemo.xlsx");
 ```
+
+**Note** Formulas will still be calculated in any column set to be autosized
+even if pre-calculated is set to false
 
 #### Office 2003 compatibility pack
 
@@ -475,6 +483,41 @@ $reader->setEnclosure('');
 $reader->setSheetIndex(0);
 
 $spreadsheet = $reader->load('sample.csv');
+```
+
+You can also set the reader to guess the encoding
+rather than calling guessEncoding directly. In this case,
+the user-settable fallback encoding is used if nothing else works.
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+$reader->setFallbackEncoding('ISO-8859-2');  // default CP1252 without this statement
+$reader->setDelimiter(';');
+$reader->setEnclosure('');
+$reader->setSheetIndex(0);
+
+$spreadsheet = $reader->load('sample.csv');
+```
+
+Finally, you can set a callback to be invoked when the constructor is executed,
+either through `new Csv()` or `IOFactory::load`,
+and have that callback set the customizable attributes to whatever
+defaults are appropriate for your environment.
+
+```php
+function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
+{
+    $reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+    $reader->setFallbackEncoding('ISO-8859-2');
+    $reader->setDelimiter(',');
+    $reader->setEnclosure('"');
+    // Following represents how Excel behaves better than the default escape character
+    $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
+}
+
+\PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
+$spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
 ```
 
 #### Read a specific worksheet
