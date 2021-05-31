@@ -25,6 +25,8 @@ class MergedCellTest extends TestCase
     }
 
     /**
+     * @param mixed $expectedResult
+     *
      * @dataProvider providerWorksheetFormulae
      */
     public function testMergedCellBehaviour(string $formula, $expectedResult): void
@@ -37,7 +39,7 @@ class MergedCellTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerWorksheetFormulae()
+    public function providerWorksheetFormulae(): array
     {
         return [
             ['=SUM(A1:A5)', 6.6],
