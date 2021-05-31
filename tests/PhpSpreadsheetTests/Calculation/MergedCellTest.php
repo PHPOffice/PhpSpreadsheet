@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class MergedCellTest extends TestCase
 {
