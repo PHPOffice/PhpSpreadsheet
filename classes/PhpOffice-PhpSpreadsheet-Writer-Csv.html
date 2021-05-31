@@ -77,7 +77,7 @@
                                         <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#property_spreadsheet">$spreadsheet</a></th>
                     <td class="phpdocumentor-cell">PhpSpreadsheet object.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#property_delimiter">$delimiter</a></th>
@@ -114,6 +114,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#property_excelCompatibility">$excelCompatibility</a></th>
                     <td class="phpdocumentor-cell">Whether to write a fully Excel compatible CSV file.</td>
                     <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#property_outputEncoding">$outputEncoding</a></th>
+                    <td class="phpdocumentor-cell">Output encoding.</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#property_enclosureRequired">$enclosureRequired</a></th>
@@ -234,6 +239,16 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                     <td class="phpdocumentor-cell">$this</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#method_getOutputEncoding">getOutputEncoding()</a></th>
+                    <td class="phpdocumentor-cell">Get output encoding.</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#method_setOutputEncoding">setOutputEncoding()</a></th>
+                    <td class="phpdocumentor-cell">Set output encoding.</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Csv.html#method_setEnclosureRequired">setEnclosureRequired()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">self</td>
@@ -323,7 +338,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
             <p class="phpdocumentor-summary">PhpSpreadsheet object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
         <span class="phpdocumentor-signature__name">$spreadsheet</span>
             </code>
     </article>
@@ -468,6 +483,26 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <span class="phpdocumentor-signature__name">$excelCompatibility</span>
          = <span class="phpdocumentor-signature__default-value">false</span>    </code>
     </article>
+                                    <a id="property_outputEncoding"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$outputEncoding</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+            <p class="phpdocumentor-summary">Output encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$outputEncoding</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
                                     <a id="property_enclosureRequired"></a>
 <article
         class="
@@ -479,7 +514,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">299</span>
+        <span class="phpdocumentor-element-found-in__line">330</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -623,7 +658,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">72</span>
+        <span class="phpdocumentor-element-found-in__line">79</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new CSV.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -631,7 +666,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
@@ -642,7 +677,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Spreadsheet object</p></section></dd>
                     </dl>
@@ -663,7 +698,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">82</span>
+        <span class="phpdocumentor-element-found-in__line">89</span>
     </aside>
         <p class="phpdocumentor-summary">Save PhpSpreadsheet to file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -701,7 +736,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">135</span>
+        <span class="phpdocumentor-element-found-in__line">142</span>
     </aside>
         <p class="phpdocumentor-summary">Get delimiter.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -729,7 +764,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">147</span>
+        <span class="phpdocumentor-element-found-in__line">154</span>
     </aside>
         <p class="phpdocumentor-summary">Set delimiter.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -769,7 +804,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">159</span>
+        <span class="phpdocumentor-element-found-in__line">166</span>
     </aside>
         <p class="phpdocumentor-summary">Get enclosure.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -797,7 +832,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">171</span>
+        <span class="phpdocumentor-element-found-in__line">178</span>
     </aside>
         <p class="phpdocumentor-summary">Set enclosure.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -837,7 +872,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">183</span>
+        <span class="phpdocumentor-element-found-in__line">190</span>
     </aside>
         <p class="phpdocumentor-summary">Get line ending.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -865,7 +900,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">195</span>
+        <span class="phpdocumentor-element-found-in__line">202</span>
     </aside>
         <p class="phpdocumentor-summary">Set line ending.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -905,7 +940,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">207</span>
+        <span class="phpdocumentor-element-found-in__line">214</span>
     </aside>
         <p class="phpdocumentor-summary">Get whether BOM should be used.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -933,7 +968,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">219</span>
+        <span class="phpdocumentor-element-found-in__line">226</span>
     </aside>
         <p class="phpdocumentor-summary">Set whether BOM should be used.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -973,7 +1008,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">231</span>
+        <span class="phpdocumentor-element-found-in__line">238</span>
     </aside>
         <p class="phpdocumentor-summary">Get whether a separator line should be included.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1001,7 +1036,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">243</span>
+        <span class="phpdocumentor-element-found-in__line">250</span>
     </aside>
         <p class="phpdocumentor-summary">Set whether a separator line should be included as the first line of the file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1041,7 +1076,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">255</span>
+        <span class="phpdocumentor-element-found-in__line">262</span>
     </aside>
         <p class="phpdocumentor-summary">Get whether the file should be saved with full Excel Compatibility.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1069,7 +1104,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">268</span>
+        <span class="phpdocumentor-element-found-in__line">275</span>
     </aside>
         <p class="phpdocumentor-summary">Set whether the file should be saved with full Excel Compatibility.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1110,7 +1145,7 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">280</span>
+        <span class="phpdocumentor-element-found-in__line">287</span>
     </aside>
         <p class="phpdocumentor-summary">Get sheet index.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1138,7 +1173,7 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">292</span>
+        <span class="phpdocumentor-element-found-in__line">299</span>
     </aside>
         <p class="phpdocumentor-summary">Set sheet index.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1167,6 +1202,74 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
         <span class="phpdocumentor-signature__response_type">$this</span>
             
 </article>
+                                    <a id="method_getOutputEncoding"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getOutputEncoding()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">311</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get output encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getOutputEncoding</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setOutputEncoding"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setOutputEncoding()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">323</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set output encoding.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setOutputEncoding</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Output encoding</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
                                     <a id="method_setEnclosureRequired"></a>
 <article
         class="
@@ -1178,7 +1281,7 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">301</span>
+        <span class="phpdocumentor-element-found-in__line">332</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1217,7 +1320,7 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">308</span>
+        <span class="phpdocumentor-element-found-in__line">339</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1244,7 +1347,7 @@ Note that this overrides other settings such as useBOM, enclosure and delimiter<
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Csv.php"><a href="../files/src-phpspreadsheet-writer-csv.html"><abbr title="src/PhpSpreadsheet/Writer/Csv.php">Csv.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">319</span>
+        <span class="phpdocumentor-element-found-in__line">350</span>
     </aside>
         <p class="phpdocumentor-summary">Write line to CSV file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

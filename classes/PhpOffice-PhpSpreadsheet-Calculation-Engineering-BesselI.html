@@ -82,6 +82,21 @@
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">float</td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html#method_besselI0">besselI0()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html#method_besselI1">besselI1()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BesselI.html#method_besselI2">besselI2()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">float</td>
+                </tr>
                                             </table>
 
         
@@ -99,7 +114,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php"><a href="../files/src-phpspreadsheet-calculation-engineering-besseli.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php">BesselI.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">28</span>
+        <span class="phpdocumentor-element-found-in__line">31</span>
     </aside>
         <p class="phpdocumentor-summary">BESSELI.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -107,11 +122,11 @@
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">BESSELI</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$x</span> :
-                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$ord</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">float|string</span>
@@ -120,21 +135,23 @@
         <section class="phpdocumentor-description"><p>Returns the modified Bessel function In(x), which is equivalent to the Bessel function evaluated
 for purely imaginary arguments</p>
 <p>Excel Function:
-BESSELI(x,ord)</p></section>
+BESSELI(x,ord)</p>
+<p>NOTE: The MS Excel implementation of the BESSELI function is still not accurate.
+This code provides a more accurate calculation</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$x</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The value at which to evaluate the function.
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A float value at which to evaluate the function.
 If x is nonnumeric, BESSELI returns the #VALUE! error value.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$ord</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The order of the Bessel function.
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The integer order of the Bessel function.
 If ord is not an integer, it is truncated.
 If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
 If $ord &lt; 0, BESSELI returns the #NUM! error value.</p></section></dd>
@@ -157,11 +174,137 @@ If $ord &lt; 0, BESSELI returns the #NUM! error value.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php"><a href="../files/src-phpspreadsheet-calculation-engineering-besseli.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php">BesselI.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">47</span>
+        <span class="phpdocumentor-element-found-in__line">52</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculate</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$x</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$ord</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$x</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$ord</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            
+</article>
+                                    <a id="method_besselI0"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">besselI0()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php"><a href="../files/src-phpspreadsheet-calculation-engineering-besseli.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php">BesselI.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">besselI0</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$x</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$x</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            
+</article>
+                                    <a id="method_besselI1"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">besselI1()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php"><a href="../files/src-phpspreadsheet-calculation-engineering-besseli.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php">BesselI.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">84</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">besselI1</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$x</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$x</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float</span>
+            
+</article>
+                                    <a id="method_besselI2"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">besselI2()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php"><a href="../files/src-phpspreadsheet-calculation-engineering-besseli.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BesselI.php">BesselI.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">106</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">besselI2</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$x</span> :
                 <span class="phpdocumentor-signature__argument__return-type">float</span>

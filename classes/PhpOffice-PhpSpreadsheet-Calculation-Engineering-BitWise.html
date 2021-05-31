@@ -72,7 +72,17 @@
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#constant_SPLIT_DIVISOR">SPLIT_DIVISOR</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">2 ** 24</td>
+                </tr>
                                                                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_splitNumber">splitNumber()</a></th>
+                    <td class="phpdocumentor-cell">Split a number into upper and lower portions for full 32-bit support.</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITAND">BITAND()</a></th>
                     <td class="phpdocumentor-cell">BITAND.</td>
                     <td class="phpdocumentor-cell">int|string</td>
@@ -90,24 +100,98 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITLSHIFT">BITLSHIFT()</a></th>
                     <td class="phpdocumentor-cell">BITLSHIFT.</td>
-                    <td class="phpdocumentor-cell">int|string</td>
+                    <td class="phpdocumentor-cell">float|int|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_BITRSHIFT">BITRSHIFT()</a></th>
                     <td class="phpdocumentor-cell">BITRSHIFT.</td>
-                    <td class="phpdocumentor-cell">int|string</td>
+                    <td class="phpdocumentor-cell">float|int|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_validateBitwiseArgument">validateBitwiseArgument()</a></th>
                     <td class="phpdocumentor-cell">Validate arguments passed to the bitwise functions.</td>
+                    <td class="phpdocumentor-cell">float|int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_validateShiftAmount">validateShiftAmount()</a></th>
+                    <td class="phpdocumentor-cell">Validate arguments passed to the bitwise functions.</td>
                     <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-BitWise.html#method_nullFalseTrueToNumber">nullFalseTrueToNumber()</a></th>
+                    <td class="phpdocumentor-cell">Many functions accept null/false/true argument treated as 0/0/1.</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                                             </table>
 
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_SPLIT_DIVISOR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">SPLIT_DIVISOR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">10</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$SPLIT_DIVISOR</span>
+        = <span class="phpdocumentor-signature__default-value">2 ** 24</span>
+    </code>
+    </article>
+                                            </section>
         
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_splitNumber"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">splitNumber()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">17</span>
+    </aside>
+        <p class="phpdocumentor-summary">Split a number into upper and lower portions for full 32-bit support.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">splitNumber</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
                                     <a id="method_BITAND"></a>
 <article
         class="
@@ -119,7 +203,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">23</span>
+        <span class="phpdocumentor-element-found-in__line">35</span>
     </aside>
         <p class="phpdocumentor-summary">BITAND.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -171,7 +255,7 @@ BITAND(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">48</span>
+        <span class="phpdocumentor-element-found-in__line">62</span>
     </aside>
         <p class="phpdocumentor-summary">BITOR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -223,7 +307,7 @@ BITOR(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">73</span>
+        <span class="phpdocumentor-element-found-in__line">90</span>
     </aside>
         <p class="phpdocumentor-summary">BITXOR.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -275,7 +359,7 @@ BITXOR(number1, number2)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">98</span>
+        <span class="phpdocumentor-element-found-in__line">118</span>
     </aside>
         <p class="phpdocumentor-summary">BITLSHIFT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -290,7 +374,7 @@ BITXOR(number1, number2)</p></section>
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int|string</span>
+        : <span class="phpdocumentor-signature__response_type">float|int|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the number value shifted left by shift_amount bits.</p>
@@ -313,7 +397,7 @@ BITLSHIFT(number, shift_amount)</p></section>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int|string</span>
+        <span class="phpdocumentor-signature__response_type">float|int|string</span>
             
 </article>
                                     <a id="method_BITRSHIFT"></a>
@@ -327,7 +411,7 @@ BITLSHIFT(number, shift_amount)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">129</span>
+        <span class="phpdocumentor-element-found-in__line">148</span>
     </aside>
         <p class="phpdocumentor-summary">BITRSHIFT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -342,7 +426,7 @@ BITLSHIFT(number, shift_amount)</p></section>
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int|string</span>
+        : <span class="phpdocumentor-signature__response_type">float|int|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the number value shifted right by shift_amount bits.</p>
@@ -365,7 +449,7 @@ BITRSHIFT(number, shift_amount)</p></section>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int|string</span>
+        <span class="phpdocumentor-signature__response_type">float|int|string</span>
             
 </article>
                                     <a id="method_validateBitwiseArgument"></a>
@@ -379,12 +463,52 @@ BITRSHIFT(number, shift_amount)</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">149</span>
+        <span class="phpdocumentor-element-found-in__line">172</span>
     </aside>
         <p class="phpdocumentor-summary">Validate arguments passed to the bitwise functions.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateBitwiseArgument</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|int</span>
+            
+</article>
+                                    <a id="method_validateShiftAmount"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">validateShiftAmount()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">198</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate arguments passed to the bitwise functions.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">validateShiftAmount</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$value</span> :
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
@@ -407,6 +531,44 @@ BITRSHIFT(number, shift_amount)</p></section>
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
             
+</article>
+                                    <a id="method_nullFalseTrueToNumber"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">nullFalseTrueToNumber()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php"><a href="../files/src-phpspreadsheet-calculation-engineering-bitwise.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/BitWise.php">BitWise.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">218</span>
+    </aside>
+        <p class="phpdocumentor-summary">Many functions accept null/false/true argument treated as 0/0/1.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">nullFalseTrueToNumber</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
 </article>
                                                             </section>
             </article>

@@ -75,7 +75,7 @@
                                         <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-ChainedBlockStream.html#property_ole">$ole</a></th>
                     <td class="phpdocumentor-cell">The OLE container of the file that is being read.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a></td>
+                    <td class="phpdocumentor-cell">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-ChainedBlockStream.html#property_params">$params</a></th>
@@ -105,7 +105,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-ChainedBlockStream.html#method_stream_read">stream_read()</a></th>
                     <td class="phpdocumentor-cell">Implements support for fread(), fgets() etc.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">bool|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-ChainedBlockStream.html#method_stream_eof">stream_eof()</a></th>
@@ -150,7 +150,7 @@ stream. Implements support for ftell().</td>
             <p class="phpdocumentor-summary">The OLE container of the file that is being read.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a></span>
+                <span class="phpdocumentor-signature__type">null|<a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a></span>
         <span class="phpdocumentor-signature__name">$ole</span>
             </code>
     </article>
@@ -249,7 +249,7 @@ stream. Implements support for ftell().</td>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$openedPath</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">bool</span>
@@ -277,9 +277,9 @@ ole-chainedblockstream://oleInstanceId=1</p></section></dd>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$openedPath</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>absolute path of the opened stream (out parameter)</p></section></dd>
                     </dl>
     
         
@@ -336,7 +336,7 @@ ole-chainedblockstream://oleInstanceId=1</p></section></dd>
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">string</span>
+        : <span class="phpdocumentor-signature__response_type">bool|string</span>
     </code>
 
     
@@ -351,7 +351,7 @@ ole-chainedblockstream://oleInstanceId=1</p></section></dd>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">bool|string</span>
             
 </article>
                                     <a id="method_stream_eof"></a>

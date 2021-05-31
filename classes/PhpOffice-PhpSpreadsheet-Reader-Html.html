@@ -153,7 +153,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly</a></th>
                     <td class="phpdocumentor-cell">Restrict which sheets should be loaded?
 This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</td>
-                    <td class="phpdocumentor-cell">array</td>
+                    <td class="phpdocumentor-cell">null|string[]</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readFilter">$readFilter</a></th>
@@ -208,7 +208,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_load">load()</a></th>
                     <td class="phpdocumentor-cell">Loads Spreadsheet from file.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_setInputEncoding">setInputEncoding()</a></th>
@@ -343,17 +343,17 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_loadIntoExisting">loadIntoExisting()</a></th>
                     <td class="phpdocumentor-cell">Loads PhpSpreadsheet from file into PhpSpreadsheet instance.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_loadFromString">loadFromString()</a></th>
                     <td class="phpdocumentor-cell">Spreadsheet from content.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_loadDocument">loadDocument()</a></th>
                     <td class="phpdocumentor-cell">Loads PhpSpreadsheet from DOMDocument into PhpSpreadsheet instance.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_getSheetIndex">getSheetIndex()</a></th>
@@ -713,7 +713,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">970</span>
+        <span class="phpdocumentor-element-found-in__line">968</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -803,7 +803,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
 This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">array</span>
+                <span class="phpdocumentor-signature__type">null|string[]</span>
         <span class="phpdocumentor-signature__name">$loadSheetsOnly</span>
             </code>
     </article>
@@ -1130,7 +1130,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
@@ -1145,7 +1145,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_setInputEncoding"></a>
@@ -1186,13 +1186,13 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
         <dl class="phpdocumentor-tag-list">
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">deprecated</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
                         <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
                     </dt>
                     <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
                                     </dl>
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1225,13 +1225,13 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
         <dl class="phpdocumentor-tag-list">
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">deprecated</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
-                                                                <dt class="phpdocumentor-tag-list__entry">
                         <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
                     </dt>
                     <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>no use is made of this property</p></section></dd>
                                     </dl>
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1349,7 +1349,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">flushCell</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
@@ -1372,7 +1372,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1413,7 +1413,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementBody</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1440,7 +1440,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1486,7 +1486,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementTitle</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1517,7 +1517,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1568,7 +1568,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementSpanEtc</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1599,7 +1599,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1650,7 +1650,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementHr</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1681,7 +1681,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1732,7 +1732,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementBr</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1763,7 +1763,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1814,7 +1814,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementA</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1845,7 +1845,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1896,7 +1896,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementH1Etc</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -1927,7 +1927,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1978,7 +1978,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementLi</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2009,7 +2009,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2060,7 +2060,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementImg</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2091,7 +2091,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2142,7 +2142,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementTable</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2173,7 +2173,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2224,7 +2224,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementTr</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2255,7 +2255,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2306,7 +2306,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementThTdOther</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2337,7 +2337,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2388,7 +2388,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementBgcolor</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2411,7 +2411,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2452,7 +2452,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementWidth</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
@@ -2471,7 +2471,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2507,7 +2507,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementHeight</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2526,7 +2526,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2562,7 +2562,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementAlign</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2585,7 +2585,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2626,7 +2626,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementVAlign</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2649,7 +2649,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2690,7 +2690,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementDataFormat</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2713,7 +2713,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2754,7 +2754,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">processDomElementThTd</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2785,7 +2785,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2840,7 +2840,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -2868,7 +2868,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2914,10 +2914,10 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
@@ -2930,14 +2930,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_loadFromString"></a>
@@ -2963,10 +2963,10 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|null</span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
@@ -2979,14 +2979,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|null</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|null</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_loadDocument"></a>
@@ -3012,10 +3012,10 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
@@ -3028,14 +3028,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_getSheetIndex"></a>
@@ -3125,7 +3125,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                                 <span class="phpdocumentor-signature__name">applyInlineStyle</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$row</span> :
@@ -3155,7 +3155,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -3189,7 +3189,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">917</span>
+        <span class="phpdocumentor-element-found-in__line">915</span>
     </aside>
         <p class="phpdocumentor-summary">Check if has #, so we can get clean hex.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3197,7 +3197,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
                                 <span class="phpdocumentor-signature__name">getStyleColor</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href=""><abbr title=""></abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">null|string</span>
@@ -3208,7 +3208,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href=""><abbr title=""></abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -3229,14 +3229,14 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">930</span>
+        <span class="phpdocumentor-element-found-in__line">928</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">insertImage</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$sheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$column</span> :
@@ -3259,7 +3259,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -3293,7 +3293,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">987</span>
+        <span class="phpdocumentor-element-found-in__line">985</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -3320,7 +3320,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">999</span>
+        <span class="phpdocumentor-element-found-in__line">997</span>
     </aside>
         <p class="phpdocumentor-summary">Map html border style to PhpSpreadsheet border style.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3360,7 +3360,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="../files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1008</span>
+        <span class="phpdocumentor-element-found-in__line">1006</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>

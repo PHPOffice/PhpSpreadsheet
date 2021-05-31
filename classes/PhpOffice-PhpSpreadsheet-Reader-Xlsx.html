@@ -66,7 +66,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">44</span>
+            <span class="phpdocumentor-element-found-in__line">41</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -108,7 +108,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_loadSheetsOnly">$loadSheetsOnly</a></th>
                     <td class="phpdocumentor-cell">Restrict which sheets should be loaded?
 This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</td>
-                    <td class="phpdocumentor-cell">array</td>
+                    <td class="phpdocumentor-cell">null|string[]</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_readFilter">$readFilter</a></th>
@@ -173,20 +173,10 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_load">load()</a></th>
                     <td class="phpdocumentor-cell">Loads Spreadsheet from file.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_readColor">readColor()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_readStyle">readStyle()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_readBorder">readBorder()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">void</td>
                 </tr>
@@ -234,6 +224,11 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_readProtection">readProtection()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_getLockValue">getLockValue()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">bool|null</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx.html#method_readFormControlProperties">readFormControlProperties()</a></th>
@@ -355,7 +350,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">51</span>
+        <span class="phpdocumentor-element-found-in__line">48</span>
     </aside>
             <p class="phpdocumentor-summary">ReferenceHelper instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -375,7 +370,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">58</span>
+        <span class="phpdocumentor-element-found-in__line">55</span>
     </aside>
             <p class="phpdocumentor-summary">Xlsx\Theme instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -466,7 +461,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
 This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">array</span>
+                <span class="phpdocumentor-signature__type">null|string[]</span>
         <span class="phpdocumentor-signature__name">$loadSheetsOnly</span>
             </code>
     </article>
@@ -543,7 +538,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">63</span>
+        <span class="phpdocumentor-element-found-in__line">60</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new Xlsx Reader instance.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -571,7 +566,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">77</span>
+        <span class="phpdocumentor-element-found-in__line">74</span>
     </aside>
         <p class="phpdocumentor-summary">Can the current IReader read the file?</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -611,7 +606,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">101</span>
+        <span class="phpdocumentor-element-found-in__line">98</span>
     </aside>
         <p class="phpdocumentor-summary">Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -651,7 +646,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">144</span>
+        <span class="phpdocumentor-element-found-in__line">141</span>
     </aside>
         <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -691,7 +686,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">239</span>
+        <span class="phpdocumentor-element-found-in__line">238</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -730,7 +725,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">251</span>
+        <span class="phpdocumentor-element-found-in__line">250</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -769,7 +764,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">256</span>
+        <span class="phpdocumentor-element-found-in__line">255</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -808,7 +803,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">261</span>
+        <span class="phpdocumentor-element-found-in__line">260</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -899,7 +894,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">291</span>
+        <span class="phpdocumentor-element-found-in__line">290</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -947,7 +942,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">318</span>
+        <span class="phpdocumentor-element-found-in__line">317</span>
     </aside>
         <p class="phpdocumentor-summary">Loads Spreadsheet from file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -958,7 +953,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
@@ -973,55 +968,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
-            
-</article>
-                                    <a id="method_readColor"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">readColor()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">1560</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readColor</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$color</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$background</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$color</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$background</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_readStyle"></a>
@@ -1035,7 +982,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1588</span>
+        <span class="phpdocumentor-element-found-in__line">1574</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1070,52 +1017,6 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         
     
 </article>
-                                    <a id="method_readBorder"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">readBorder()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">1715</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">readBorder</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$docBorder</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Border.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Border">Border</abbr></a></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$eleBorder</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$docBorder</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Border.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Border">Border</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$eleBorder</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
                                     <a id="method_parseRichText"></a>
 <article
         class="
@@ -1127,14 +1028,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1730</span>
+        <span class="phpdocumentor-element-found-in__line">1615</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">parseRichText</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$is</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr>|null</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a></span>
@@ -1145,7 +1046,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$is</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr>|null</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -1166,14 +1067,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1797</span>
+        <span class="phpdocumentor-element-found-in__line">1684</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">readRibbon</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$excel</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$customUITarget</span> :
@@ -1192,7 +1093,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$excel</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1221,7 +1122,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1839</span>
+        <span class="phpdocumentor-element-found-in__line">1726</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1269,7 +1170,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1844</span>
+        <span class="phpdocumentor-element-found-in__line">1731</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1317,7 +1218,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1849</span>
+        <span class="phpdocumentor-element-found-in__line">1736</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1356,7 +1257,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1880</span>
+        <span class="phpdocumentor-element-found-in__line">1767</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1395,7 +1296,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1885</span>
+        <span class="phpdocumentor-element-found-in__line">1772</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1434,7 +1335,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1902</span>
+        <span class="phpdocumentor-element-found-in__line">1789</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1489,14 +1390,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1918</span>
+        <span class="phpdocumentor-element-found-in__line">1805</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">readProtection</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$excel</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$xmlWorkbook</span> :
@@ -1511,7 +1412,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$excel</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1524,6 +1425,54 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         
     
 </article>
+                                    <a id="method_getLockValue"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getLockValue()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1830</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getLockValue</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$protection</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$key</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool|null</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$protection</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$key</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|null</span>
+            
+</article>
                                     <a id="method_readFormControlProperties"></a>
 <article
         class="
@@ -1535,14 +1484,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1945</span>
+        <span class="phpdocumentor-element-found-in__line">1842</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">readFormControlProperties</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$excel</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$zip</span> :
@@ -1573,7 +1522,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$excel</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1617,14 +1566,14 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1977</span>
+        <span class="phpdocumentor-element-found-in__line">1874</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">readPrinterSettings</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$excel</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$zip</span> :
@@ -1655,7 +1604,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$excel</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1699,7 +1648,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2023</span>
+        <span class="phpdocumentor-element-found-in__line">1920</span>
     </aside>
         <p class="phpdocumentor-summary">Convert an &#039;xsd:boolean&#039; XML value to a PHP boolean value.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1751,7 +1700,7 @@ since '(bool) &quot;false&quot;' returns true.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2037</span>
+        <span class="phpdocumentor-element-found-in__line">1934</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1791,14 +1740,14 @@ since '(bool) &quot;false&quot;' returns true.</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="../files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">2066</span>
+        <span class="phpdocumentor-element-found-in__line">1963</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                                 <span class="phpdocumentor-signature__name">readSheetProtection</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$docSheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$xmlSheet</span> :
@@ -1813,7 +1762,7 @@ since '(bool) &quot;false&quot;' returns true.</p></section>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$docSheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">

@@ -66,7 +66,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">31</span>
+            <span class="phpdocumentor-element-found-in__line">36</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -80,14 +80,9 @@
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerParts">$writerParts</a></th>
-                    <td class="phpdocumentor-cell">Private writer parts.</td>
-                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart[]</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_spreadSheet">$spreadSheet</a></th>
                     <td class="phpdocumentor-cell">Private Spreadsheet.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_stringTable">$stringTable</a></th>
@@ -97,42 +92,107 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_stylesConditionalHashTable">$stylesConditionalHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique Conditional HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Conditional></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_styleHashTable">$styleHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique Style HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Style></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_fillHashTable">$fillHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique Fill HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Fill></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_fontHashTable">$fontHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Font></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_bordersHashTable">$bordersHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique Borders HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Borders></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_numFmtHashTable">$numFmtHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique NumberFormat HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\NumberFormat></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_drawingHashTable">$drawingHashTable</a></th>
                     <td class="phpdocumentor-cell">Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_zip">$zip</a></th>
                     <td class="phpdocumentor-cell">Private handle for zip stream.</td>
                     <td class="phpdocumentor-cell"><abbr title="\ZipStream\ZipStream">ZipStream</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartChart">$writerPartChart</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart">Chart</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartComments">$writerPartComments</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Comments.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments">Comments</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartContentTypes">$writerPartContentTypes</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-ContentTypes.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes">ContentTypes</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartDocProps">$writerPartDocProps</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-DocProps.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps">DocProps</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartDrawing">$writerPartDrawing</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Drawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing">Drawing</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartRels">$writerPartRels</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels">Rels</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartRelsRibbon">$writerPartRelsRibbon</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsRibbon.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon">RelsRibbon</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartRelsVBA">$writerPartRelsVBA</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsVBA.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA">RelsVBA</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartStringTable">$writerPartStringTable</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-StringTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable">StringTable</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartStyle">$writerPartStyle</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style">Style</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartTheme">$writerPartTheme</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme">Theme</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartWorkbook">$writerPartWorkbook</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Workbook.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook">Workbook</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_writerPartWorksheet">$writerPartWorksheet</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet">Worksheet</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#property_pathNames">$pathNames</a></th>
@@ -178,9 +238,69 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPart">getWriterPart()</a></th>
-                    <td class="phpdocumentor-cell">Get writer part.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a></td>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartChart">getWriterPartChart()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart">Chart</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartComments">getWriterPartComments()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Comments.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments">Comments</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartContentTypes">getWriterPartContentTypes()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-ContentTypes.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes">ContentTypes</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartDocProps">getWriterPartDocProps()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-DocProps.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps">DocProps</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartDrawing">getWriterPartDrawing()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Drawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing">Drawing</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartRels">getWriterPartRels()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels">Rels</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartRelsRibbon">getWriterPartRelsRibbon()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsRibbon.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon">RelsRibbon</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartRelsVBA">getWriterPartRelsVBA()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsVBA.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA">RelsVBA</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartStringTable">getWriterPartStringTable()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-StringTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable">StringTable</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartStyle">getWriterPartStyle()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style">Style</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartTheme">getWriterPartTheme()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme">Theme</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartWorkbook">getWriterPartWorkbook()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Workbook.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook">Workbook</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getWriterPartWorksheet">getWriterPartWorksheet()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet">Worksheet</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_save">save()</a></th>
@@ -190,7 +310,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getSpreadsheet">getSpreadsheet()</a></th>
                     <td class="phpdocumentor-cell">Get Spreadsheet object.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_setSpreadsheet">setSpreadsheet()</a></th>
@@ -205,37 +325,37 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getStyleHashTable">getStyleHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get Style HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Style></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getStylesConditionalHashTable">getStylesConditionalHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get Conditional HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Conditional></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getFillHashTable">getFillHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get Fill HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Fill></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getFontHashTable">getFontHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get \PhpOffice\PhpSpreadsheet\Style\Font HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Font></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getBordersHashTable">getBordersHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get Borders HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Borders></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getNumFmtHashTable">getNumFmtHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get NumberFormat HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\NumberFormat></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getDrawingHashTable">getDrawingHashTable()</a></th>
                     <td class="phpdocumentor-cell">Get \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></td>
+                    <td class="phpdocumentor-cell">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_getOffice2003Compatibility">getOffice2003Compatibility()</a></th>
@@ -249,6 +369,11 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_addZipFile">addZipFile()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html#method_addZipFiles">addZipFiles()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">void</td>
                 </tr>
@@ -322,7 +447,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">43</span>
     </aside>
             <p class="phpdocumentor-summary">Office2003 compatibility.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -330,26 +455,6 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                 <span class="phpdocumentor-signature__type">bool</span>
         <span class="phpdocumentor-signature__name">$office2003compatibility</span>
          = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_writerParts"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$writerParts</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">45</span>
-    </aside>
-            <p class="phpdocumentor-summary">Private writer parts.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart[]</span>
-        <span class="phpdocumentor-signature__name">$writerParts</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
     </article>
                                     <a id="property_spreadSheet"></a>
 <article
@@ -362,12 +467,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">52</span>
+        <span class="phpdocumentor-element-found-in__line">50</span>
     </aside>
             <p class="phpdocumentor-summary">Private Spreadsheet.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
         <span class="phpdocumentor-signature__name">$spreadSheet</span>
             </code>
     </article>
@@ -382,7 +487,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">59</span>
+        <span class="phpdocumentor-element-found-in__line">57</span>
     </aside>
             <p class="phpdocumentor-summary">Private string table.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -402,12 +507,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">66</span>
+        <span class="phpdocumentor-element-found-in__line">64</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique Conditional HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Conditional></span>
         <span class="phpdocumentor-signature__name">$stylesConditionalHashTable</span>
             </code>
     </article>
@@ -422,12 +527,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">73</span>
+        <span class="phpdocumentor-element-found-in__line">71</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique Style HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Style></span>
         <span class="phpdocumentor-signature__name">$styleHashTable</span>
             </code>
     </article>
@@ -442,12 +547,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">80</span>
+        <span class="phpdocumentor-element-found-in__line">78</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique Fill HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Fill></span>
         <span class="phpdocumentor-signature__name">$fillHashTable</span>
             </code>
     </article>
@@ -462,12 +567,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">87</span>
+        <span class="phpdocumentor-element-found-in__line">85</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Font></span>
         <span class="phpdocumentor-signature__name">$fontHashTable</span>
             </code>
     </article>
@@ -482,12 +587,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">94</span>
+        <span class="phpdocumentor-element-found-in__line">92</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique Borders HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Borders></span>
         <span class="phpdocumentor-signature__name">$bordersHashTable</span>
             </code>
     </article>
@@ -502,12 +607,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">101</span>
+        <span class="phpdocumentor-element-found-in__line">99</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique NumberFormat HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\NumberFormat></span>
         <span class="phpdocumentor-signature__name">$numFmtHashTable</span>
             </code>
     </article>
@@ -522,12 +627,12 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">108</span>
+        <span class="phpdocumentor-element-found-in__line">106</span>
     </aside>
             <p class="phpdocumentor-summary">Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+                <span class="phpdocumentor-signature__type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing></span>
         <span class="phpdocumentor-signature__name">$drawingHashTable</span>
             </code>
     </article>
@@ -542,13 +647,260 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">115</span>
+        <span class="phpdocumentor-element-found-in__line">113</span>
     </aside>
             <p class="phpdocumentor-summary">Private handle for zip stream.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
                 <span class="phpdocumentor-signature__type"><abbr title="\ZipStream\ZipStream">ZipStream</abbr></span>
         <span class="phpdocumentor-signature__name">$zip</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartChart"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartChart</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">118</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart">Chart</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartChart</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartComments"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartComments</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">123</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Comments.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments">Comments</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartComments</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartContentTypes"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartContentTypes</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-ContentTypes.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes">ContentTypes</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartContentTypes</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartDocProps"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartDocProps</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">133</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-DocProps.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps">DocProps</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartDocProps</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartDrawing"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartDrawing</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Drawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing">Drawing</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartDrawing</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartRels"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartRels</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">143</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels">Rels</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartRels</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartRelsRibbon"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartRelsRibbon</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">148</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsRibbon.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon">RelsRibbon</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartRelsRibbon</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartRelsVBA"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartRelsVBA</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">153</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsVBA.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA">RelsVBA</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartRelsVBA</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartStringTable"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartStringTable</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">158</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-StringTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable">StringTable</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartStringTable</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartStyle"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartStyle</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">163</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style">Style</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartStyle</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartTheme"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartTheme</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">168</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme">Theme</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartTheme</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartWorkbook"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartWorkbook</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">173</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Workbook.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook">Workbook</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartWorkbook</span>
+            </code>
+    </article>
+                                    <a id="property_writerPartWorksheet"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$writerPartWorksheet</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">178</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$writerPartWorksheet</span>
             </code>
     </article>
                                     <a id="property_pathNames"></a>
@@ -562,7 +914,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">539</span>
+        <span class="phpdocumentor-element-found-in__line">652</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -706,7 +1058,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">120</span>
+        <span class="phpdocumentor-element-found-in__line">183</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new Xlsx Writer.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -714,7 +1066,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
@@ -725,7 +1077,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -735,44 +1087,355 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
-                                    <a id="method_getWriterPart"></a>
+                                    <a id="method_getWriterPartChart"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getWriterPart()</h4>
+    <h4 class="phpdocumentor-method__name">getWriterPartChart()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">165</span>
+        <span class="phpdocumentor-element-found-in__line">219</span>
     </aside>
-        <p class="phpdocumentor-summary">Get writer part.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getWriterPart</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pPartName</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
+                                <span class="phpdocumentor-signature__name">getWriterPartChart</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart">Chart</abbr></a></span>
     </code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pPartName</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Writer part name</p></section></dd>
-                    </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart">Chart</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartComments"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartComments()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">224</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartComments</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Comments.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments">Comments</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Comments.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments">Comments</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartContentTypes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartContentTypes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">229</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartContentTypes</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-ContentTypes.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes">ContentTypes</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-ContentTypes.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes">ContentTypes</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartDocProps"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartDocProps()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">234</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartDocProps</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-DocProps.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps">DocProps</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-DocProps.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps">DocProps</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartDrawing"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartDrawing()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">239</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartDrawing</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Drawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing">Drawing</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Drawing.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing">Drawing</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartRels"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartRels()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">244</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartRels</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels">Rels</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Rels.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels">Rels</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartRelsRibbon"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartRelsRibbon()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">249</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartRelsRibbon</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsRibbon.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon">RelsRibbon</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsRibbon.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon">RelsRibbon</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartRelsVBA"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartRelsVBA()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">254</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartRelsVBA</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsVBA.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA">RelsVBA</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-RelsVBA.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA">RelsVBA</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartStringTable"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartStringTable()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">259</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartStringTable</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-StringTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable">StringTable</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-StringTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable">StringTable</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartStyle"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartStyle()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">264</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartStyle</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style">Style</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style">Style</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartTheme"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartTheme()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">269</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartTheme</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme">Theme</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme">Theme</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartWorkbook"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartWorkbook()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">274</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartWorkbook</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Workbook.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook">Workbook</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Workbook.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook">Workbook</abbr></a></span>
+            
+</article>
+                                    <a id="method_getWriterPartWorksheet"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getWriterPartWorksheet()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">279</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getWriterPartWorksheet</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet">Worksheet</abbr></a></span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet">Worksheet</abbr></a></span>
             
 </article>
                                     <a id="method_save"></a>
@@ -786,7 +1449,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">179</span>
+        <span class="phpdocumentor-element-found-in__line">289</span>
     </aside>
         <p class="phpdocumentor-summary">Save PhpSpreadsheet to file.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -824,21 +1487,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">416</span>
+        <span class="phpdocumentor-element-found-in__line">529</span>
     </aside>
         <p class="phpdocumentor-summary">Get Spreadsheet object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getSpreadsheet</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
             
 </article>
                                     <a id="method_setSpreadsheet"></a>
@@ -852,7 +1515,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">428</span>
+        <span class="phpdocumentor-element-found-in__line">541</span>
     </aside>
         <p class="phpdocumentor-summary">Set Spreadsheet object.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -860,7 +1523,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                                 <span class="phpdocumentor-signature__name">setSpreadsheet</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">$this</span>
@@ -871,7 +1534,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>PhpSpreadsheet object</p></section></dd>
                     </dl>
@@ -892,7 +1555,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">440</span>
+        <span class="phpdocumentor-element-found-in__line">553</span>
     </aside>
         <p class="phpdocumentor-summary">Get string table.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -920,21 +1583,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">450</span>
+        <span class="phpdocumentor-element-found-in__line">563</span>
     </aside>
         <p class="phpdocumentor-summary">Get Style HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getStyleHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Style></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Style></span>
             
 </article>
                                     <a id="method_getStylesConditionalHashTable"></a>
@@ -948,21 +1611,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">460</span>
+        <span class="phpdocumentor-element-found-in__line">573</span>
     </aside>
         <p class="phpdocumentor-summary">Get Conditional HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getStylesConditionalHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Conditional></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Conditional></span>
             
 </article>
                                     <a id="method_getFillHashTable"></a>
@@ -976,21 +1639,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">470</span>
+        <span class="phpdocumentor-element-found-in__line">583</span>
     </aside>
         <p class="phpdocumentor-summary">Get Fill HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getFillHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Fill></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Fill></span>
             
 </article>
                                     <a id="method_getFontHashTable"></a>
@@ -1004,21 +1667,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">480</span>
+        <span class="phpdocumentor-element-found-in__line">593</span>
     </aside>
         <p class="phpdocumentor-summary">Get \PhpOffice\PhpSpreadsheet\Style\Font HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getFontHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Font></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Font></span>
             
 </article>
                                     <a id="method_getBordersHashTable"></a>
@@ -1032,21 +1695,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">490</span>
+        <span class="phpdocumentor-element-found-in__line">603</span>
     </aside>
         <p class="phpdocumentor-summary">Get Borders HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getBordersHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Borders></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\Borders></span>
             
 </article>
                                     <a id="method_getNumFmtHashTable"></a>
@@ -1060,21 +1723,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">500</span>
+        <span class="phpdocumentor-element-found-in__line">613</span>
     </aside>
         <p class="phpdocumentor-summary">Get NumberFormat HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getNumFmtHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\NumberFormat></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Style\NumberFormat></span>
             
 </article>
                                     <a id="method_getDrawingHashTable"></a>
@@ -1088,21 +1751,21 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">510</span>
+        <span class="phpdocumentor-element-found-in__line">623</span>
     </aside>
         <p class="phpdocumentor-summary">Get \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getDrawingHashTable</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-HashTable.html"><abbr title="\PhpOffice\PhpSpreadsheet\HashTable">HashTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">\PhpOffice\PhpSpreadsheet\HashTable<\PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing></span>
             
 </article>
                                     <a id="method_getOffice2003Compatibility"></a>
@@ -1116,7 +1779,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">520</span>
+        <span class="phpdocumentor-element-found-in__line">633</span>
     </aside>
         <p class="phpdocumentor-summary">Get Office2003 compatibility.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1144,7 +1807,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">532</span>
+        <span class="phpdocumentor-element-found-in__line">645</span>
     </aside>
         <p class="phpdocumentor-summary">Set Office2003 compatibility.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1184,7 +1847,7 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">541</span>
+        <span class="phpdocumentor-element-found-in__line">654</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
@@ -1212,6 +1875,43 @@ immediately available to MS Excel or other office spreadsheet viewer when openin
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$content</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+    
+</article>
+                                    <a id="method_addZipFiles"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">addZipFiles()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx.php"><a href="../files/src-phpspreadsheet-writer-xlsx.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx.php">Xlsx.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">662</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">addZipFiles</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$zipContent</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$zipContent</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>

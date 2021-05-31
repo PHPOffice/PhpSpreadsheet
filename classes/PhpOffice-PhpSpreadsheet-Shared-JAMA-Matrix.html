@@ -140,7 +140,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_get">get()</a></th>
                     <td class="phpdocumentor-cell">get.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">float|int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_getMatrix">getMatrix()</a></th>
@@ -155,7 +155,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_set">set()</a></th>
                     <td class="phpdocumentor-cell">set.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">void</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_identity">identity()</a></th>
@@ -186,11 +186,6 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_trace">trace()</a></th>
                     <td class="phpdocumentor-cell">trace.</td>
                     <td class="phpdocumentor-cell">float</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_uminus">uminus()</a></th>
-                    <td class="phpdocumentor-cell">uminus.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html#method_plus">plus()</a></th>
@@ -624,7 +619,7 @@
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">float|int</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Get the i,j-th element of the matrix.</p></section>
@@ -645,8 +640,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Element (int/float/double)</p></span>
+        <span class="phpdocumentor-signature__response_type">float|int</span>
             
 </article>
                                     <a id="method_getMatrix"></a>
@@ -743,7 +737,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">330</span>
+        <span class="phpdocumentor-element-found-in__line">328</span>
     </aside>
         <p class="phpdocumentor-summary">set.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -759,10 +753,10 @@
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$c</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">void</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Set the i,j-th element of the matrix.</p></section>
@@ -781,16 +775,13 @@
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Column position</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$c</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Int/float/double value</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>value</p></section></dd>
                     </dl>
     
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Element (int/float/double)</p></span>
-            
+    
 </article>
                                     <a id="method_identity"></a>
 <article
@@ -803,7 +794,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">348</span>
+        <span class="phpdocumentor-element-found-in__line">346</span>
     </aside>
         <p class="phpdocumentor-summary">identity.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -854,7 +845,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">364</span>
+        <span class="phpdocumentor-element-found-in__line">362</span>
     </aside>
         <p class="phpdocumentor-summary">diagonal.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -914,7 +905,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">384</span>
+        <span class="phpdocumentor-element-found-in__line">382</span>
     </aside>
         <p class="phpdocumentor-summary">getMatrixByRow.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -965,7 +956,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">407</span>
+        <span class="phpdocumentor-element-found-in__line">405</span>
     </aside>
         <p class="phpdocumentor-summary">getMatrixByCol.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1016,7 +1007,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">427</span>
+        <span class="phpdocumentor-element-found-in__line">425</span>
     </aside>
         <p class="phpdocumentor-summary">transpose.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1046,7 +1037,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">448</span>
+        <span class="phpdocumentor-element-found-in__line">446</span>
     </aside>
         <p class="phpdocumentor-summary">trace.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1065,36 +1056,6 @@
                     &mdash; <span class="phpdocumentor-description"><p>Sum of diagonal elements</p></span>
             
 </article>
-                                    <a id="method_uminus"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">uminus()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">466</span>
-    </aside>
-        <p class="phpdocumentor-summary">uminus.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">uminus</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Unary minus matrix -A</p></section>
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-JAMA-Matrix.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix">Matrix</abbr></a></span>
-                    &mdash; <span class="phpdocumentor-description"><p>Unary minus matrix</p></span>
-            
-</article>
                                     <a id="method_plus"></a>
 <article
         class="
@@ -1106,7 +1067,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">477</span>
+        <span class="phpdocumentor-element-found-in__line">464</span>
     </aside>
         <p class="phpdocumentor-summary">plus.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1148,7 +1109,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">520</span>
+        <span class="phpdocumentor-element-found-in__line">507</span>
     </aside>
         <p class="phpdocumentor-summary">plusEquals.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1189,7 +1150,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">577</span>
+        <span class="phpdocumentor-element-found-in__line">564</span>
     </aside>
         <p class="phpdocumentor-summary">minus.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1231,7 +1192,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">620</span>
+        <span class="phpdocumentor-element-found-in__line">607</span>
     </aside>
         <p class="phpdocumentor-summary">minusEquals.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1272,7 +1233,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">678</span>
+        <span class="phpdocumentor-element-found-in__line">665</span>
     </aside>
         <p class="phpdocumentor-summary">arrayTimes.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1315,7 +1276,7 @@ Cij = Aij * Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">722</span>
+        <span class="phpdocumentor-element-found-in__line">709</span>
     </aside>
         <p class="phpdocumentor-summary">arrayTimesEquals.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1357,7 +1318,7 @@ Aij = Aij * Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">780</span>
+        <span class="phpdocumentor-element-found-in__line">767</span>
     </aside>
         <p class="phpdocumentor-summary">arrayRightDivide.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1400,7 +1361,7 @@ A / B</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">843</span>
+        <span class="phpdocumentor-element-found-in__line">830</span>
     </aside>
         <p class="phpdocumentor-summary">arrayRightDivideEquals.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1443,7 +1404,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">887</span>
+        <span class="phpdocumentor-element-found-in__line">874</span>
     </aside>
         <p class="phpdocumentor-summary">arrayLeftDivide.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1486,7 +1447,7 @@ A / B</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">931</span>
+        <span class="phpdocumentor-element-found-in__line">918</span>
     </aside>
         <p class="phpdocumentor-summary">arrayLeftDivideEquals.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1529,7 +1490,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">974</span>
+        <span class="phpdocumentor-element-found-in__line">961</span>
     </aside>
         <p class="phpdocumentor-summary">times.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1571,7 +1532,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1067</span>
+        <span class="phpdocumentor-element-found-in__line">1054</span>
     </aside>
         <p class="phpdocumentor-summary">power.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1612,7 +1573,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1124</span>
+        <span class="phpdocumentor-element-found-in__line">1111</span>
     </aside>
         <p class="phpdocumentor-summary">concat.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1653,7 +1614,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1167</span>
+        <span class="phpdocumentor-element-found-in__line">1154</span>
     </aside>
         <p class="phpdocumentor-summary">Solve A*X = B.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1694,7 +1655,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1184</span>
+        <span class="phpdocumentor-element-found-in__line">1171</span>
     </aside>
         <p class="phpdocumentor-summary">Matrix inverse or pseudoinverse.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1723,7 +1684,7 @@ Aij = Aij / Bij</p></section>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php"><a href="../files/src-phpspreadsheet-shared-jama-matrix.html"><abbr title="src/PhpSpreadsheet/Shared/JAMA/Matrix.php">Matrix.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1196</span>
+        <span class="phpdocumentor-element-found-in__line">1183</span>
     </aside>
         <p class="phpdocumentor-summary">det.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

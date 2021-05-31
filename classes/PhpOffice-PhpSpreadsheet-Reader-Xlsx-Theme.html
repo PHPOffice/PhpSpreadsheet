@@ -85,7 +85,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Theme.html#property_colourMap">$colourMap</a></th>
                     <td class="phpdocumentor-cell">Colour Map.</td>
-                    <td class="phpdocumentor-cell">array</td>
+                    <td class="phpdocumentor-cell">string[]</td>
                 </tr>
                                                                 <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Theme.html#method___construct">__construct()</a></th>
@@ -105,7 +105,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Theme.html#method_getColourByIndex">getColourByIndex()</a></th>
                     <td class="phpdocumentor-cell">Get colour Map Value by Position.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">null|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Xlsx-Theme.html#method___clone">__clone()</a></th>
@@ -173,7 +173,7 @@
             <p class="phpdocumentor-summary">Colour Map.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">array</span>
+                <span class="phpdocumentor-signature__type">string[]</span>
         <span class="phpdocumentor-signature__name">$colourMap</span>
             </code>
     </article>
@@ -200,15 +200,15 @@
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$themeName</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$colourSchemeName</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$colourMap</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">string[]</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
@@ -219,17 +219,17 @@
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$themeName</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$colourSchemeName</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$colourMap</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string[]</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -314,10 +314,10 @@
                                 <span class="phpdocumentor-signature__name">getColourByIndex</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$index</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">string</span>
+        : <span class="phpdocumentor-signature__response_type">null|string</span>
     </code>
 
     
@@ -325,14 +325,14 @@
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$index</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">null|string</span>
             
 </article>
                                     <a id="method___clone"></a>

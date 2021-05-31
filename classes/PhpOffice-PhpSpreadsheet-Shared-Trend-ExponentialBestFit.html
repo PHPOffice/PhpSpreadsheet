@@ -234,12 +234,12 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_getValueOfYForX">getValueOfYForX()</a></th>
                     <td class="phpdocumentor-cell">Return the Y-Value for a specified value of X.</td>
-                    <td class="phpdocumentor-cell">bool</td>
+                    <td class="phpdocumentor-cell">float</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_getValueOfXForY">getValueOfXForY()</a></th>
                     <td class="phpdocumentor-cell">Return the X-Value for a specified value of Y.</td>
-                    <td class="phpdocumentor-cell">bool</td>
+                    <td class="phpdocumentor-cell">float</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_getXValues">getXValues()</a></th>
@@ -249,7 +249,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_getEquation">getEquation()</a></th>
                     <td class="phpdocumentor-cell">Return the Equation of the best-fit line.</td>
-                    <td class="phpdocumentor-cell">bool</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_getSlope">getSlope()</a></th>
@@ -325,6 +325,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_calculateGoodnessOfFit">calculateGoodnessOfFit()</a></th>
                     <td class="phpdocumentor-cell"></td>
                     <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_sumSquares">sumSquares()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Trend-BestFit.html#method_leastSquareFit">leastSquareFit()</a></th>
@@ -985,7 +990,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/ExponentialBestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-exponentialbestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/ExponentialBestFit.php">ExponentialBestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">93</span>
+        <span class="phpdocumentor-element-found-in__line">92</span>
     </aside>
         <p class="phpdocumentor-summary">Execute the regression and calculate the goodness of fit for a set of X and Y data values.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1041,7 +1046,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/ExponentialBestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-exponentialbestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/ExponentialBestFit.php">ExponentialBestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">114</span>
+        <span class="phpdocumentor-element-found-in__line">111</span>
     </aside>
         <p class="phpdocumentor-summary">Define the regression and calculate the goodness of fit for a set of X and Y data values.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1147,7 +1152,7 @@
         class="
             phpdocumentor-method
             phpdocumentor-method--public
-                                                        "
+                        phpdocumentor-element--abstract                                "
 >
     <h4 class="phpdocumentor-method__name">getValueOfYForX()</h4>
     <aside class="phpdocumentor-element-found-in">
@@ -1158,13 +1163,13 @@
         <p class="phpdocumentor-summary">Return the Y-Value for a specified value of X.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getValueOfYForX</span>(
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getValueOfYForX</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$xValue</span> :
                 <span class="phpdocumentor-signature__argument__return-type">float</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+        : <span class="phpdocumentor-signature__response_type">float</span>
     </code>
 
     
@@ -1179,7 +1184,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type">float</span>
                     &mdash; <span class="phpdocumentor-description"><p>Y-Value</p></span>
             
 </article>
@@ -1188,24 +1193,24 @@
         class="
             phpdocumentor-method
             phpdocumentor-method--public
-                                                        "
+                        phpdocumentor-element--abstract                                "
 >
     <h4 class="phpdocumentor-method__name">getValueOfXForY()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">113</span>
+        <span class="phpdocumentor-element-found-in__line">110</span>
     </aside>
         <p class="phpdocumentor-summary">Return the X-Value for a specified value of Y.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getValueOfXForY</span>(
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getValueOfXForY</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$yValue</span> :
                 <span class="phpdocumentor-signature__argument__return-type">float</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+        : <span class="phpdocumentor-signature__response_type">float</span>
     </code>
 
     
@@ -1220,7 +1225,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type">float</span>
                     &mdash; <span class="phpdocumentor-description"><p>X-Value</p></span>
             
 </article>
@@ -1235,7 +1240,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">123</span>
+        <span class="phpdocumentor-element-found-in__line">117</span>
     </aside>
         <p class="phpdocumentor-summary">Return the original set of X-Values.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1258,24 +1263,24 @@
         class="
             phpdocumentor-method
             phpdocumentor-method--public
-                                                        "
+                        phpdocumentor-element--abstract                                "
 >
     <h4 class="phpdocumentor-method__name">getEquation()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">135</span>
+        <span class="phpdocumentor-element-found-in__line">129</span>
     </aside>
         <p class="phpdocumentor-summary">Return the Equation of the best-fit line.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getEquation</span>(
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getEquation</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$dp</span> :
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+        : <span class="phpdocumentor-signature__response_type">string</span>
     </code>
 
     
@@ -1290,7 +1295,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
                                     <a id="method_getSlope"></a>
@@ -1304,7 +1309,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">147</span>
+        <span class="phpdocumentor-element-found-in__line">138</span>
     </aside>
         <p class="phpdocumentor-summary">Return the Slope of the line.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1344,7 +1349,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">163</span>
+        <span class="phpdocumentor-element-found-in__line">154</span>
     </aside>
         <p class="phpdocumentor-summary">Return the standard error of the Slope.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1384,7 +1389,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">179</span>
+        <span class="phpdocumentor-element-found-in__line">170</span>
     </aside>
         <p class="phpdocumentor-summary">Return the Value of X where it intersects Y = 0.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1424,7 +1429,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">195</span>
+        <span class="phpdocumentor-element-found-in__line">186</span>
     </aside>
         <p class="phpdocumentor-summary">Return the standard error of the Intersect.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1464,7 +1469,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">211</span>
+        <span class="phpdocumentor-element-found-in__line">202</span>
     </aside>
         <p class="phpdocumentor-summary">Return the goodness of fit for this regression.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1504,7 +1509,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">227</span>
+        <span class="phpdocumentor-element-found-in__line">218</span>
     </aside>
         <p class="phpdocumentor-summary">Return the goodness of fit for this regression.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1544,7 +1549,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">243</span>
+        <span class="phpdocumentor-element-found-in__line">234</span>
     </aside>
         <p class="phpdocumentor-summary">Return the standard deviation of the residuals for this regression.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1584,7 +1589,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">257</span>
+        <span class="phpdocumentor-element-found-in__line">248</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1623,7 +1628,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">271</span>
+        <span class="phpdocumentor-element-found-in__line">262</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1662,7 +1667,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">285</span>
+        <span class="phpdocumentor-element-found-in__line">276</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1701,7 +1706,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">299</span>
+        <span class="phpdocumentor-element-found-in__line">290</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1740,7 +1745,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">313</span>
+        <span class="phpdocumentor-element-found-in__line">304</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1779,7 +1784,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">327</span>
+        <span class="phpdocumentor-element-found-in__line">318</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1818,7 +1823,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">339</span>
+        <span class="phpdocumentor-element-found-in__line">330</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
@@ -1845,7 +1850,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">344</span>
+        <span class="phpdocumentor-element-found-in__line">335</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1934,6 +1939,45 @@
         
     
 </article>
+                                    <a id="method_sumSquares"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">sumSquares()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">389</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">sumSquares</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$values</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$values</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
                                     <a id="method_leastSquareFit"></a>
 <article
         class="
@@ -1945,7 +1989,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">403</span>
+        <span class="phpdocumentor-element-found-in__line">405</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
@@ -2000,7 +2044,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Trend/BestFit.php"><a href="../files/src-phpspreadsheet-shared-trend-bestfit.html"><abbr title="src/PhpSpreadsheet/Shared/Trend/BestFit.php">BestFit.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">445</span>
+        <span class="phpdocumentor-element-found-in__line">443</span>
     </aside>
         <p class="phpdocumentor-summary">Define the regression.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2014,10 +2058,6 @@
             [,                 <span class="phpdocumentor-signature__argument__name">$xValues</span> :
                 <span class="phpdocumentor-signature__argument__return-type">float[]</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$const</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
@@ -2035,11 +2075,6 @@
                     : <span class="phpdocumentor-signature__argument__return-type">float[]</span>
                      = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The set of X-values for this regression</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$const</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         

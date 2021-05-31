@@ -82,7 +82,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnCellIterator.html#property_columnIndex">$columnIndex</a></th>
                     <td class="phpdocumentor-cell">Column index.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnCellIterator.html#property_startRow">$startRow</a></th>
@@ -97,7 +97,7 @@
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_worksheet">$worksheet</a></th>
                     <td class="phpdocumentor-cell">Worksheet to iterate.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_onlyExistingCells">$onlyExistingCells</a></th>
@@ -220,7 +220,7 @@
             <p class="phpdocumentor-summary">Column index.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
+                <span class="phpdocumentor-signature__type">int</span>
         <span class="phpdocumentor-signature__name">$columnIndex</span>
             </code>
     </article>
@@ -280,7 +280,7 @@
             <p class="phpdocumentor-summary">Worksheet to iterate.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
         <span class="phpdocumentor-signature__name">$worksheet</span>
             </code>
     </article>
@@ -327,7 +327,7 @@
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
             [                <span class="phpdocumentor-signature__argument__name">$subject</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$columnIndex</span> :
@@ -350,7 +350,7 @@
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$subject</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The worksheet to iterate over</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -722,7 +722,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">34</span>
+        <span class="phpdocumentor-element-found-in__line">35</span>
     </aside>
         <p class="phpdocumentor-summary">Get loop only existing cells.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -750,7 +750,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">43</span>
     </aside>
         <p class="phpdocumentor-summary">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -778,7 +778,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="../files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">47</span>
+        <span class="phpdocumentor-element-found-in__line">48</span>
     </aside>
         <p class="phpdocumentor-summary">Set the iterator to loop only existing cells.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

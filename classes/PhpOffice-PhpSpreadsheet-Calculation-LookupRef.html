@@ -63,7 +63,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">10</span>
+            <span class="phpdocumentor-element-found-in__line">19</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -79,7 +79,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_COLUMN">COLUMN()</a></th>
                     <td class="phpdocumentor-cell">COLUMN.</td>
-                    <td class="phpdocumentor-cell">int|int[]</td>
+                    <td class="phpdocumentor-cell">int|int[]|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_COLUMNS">COLUMNS()</a></th>
@@ -99,17 +99,17 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_HYPERLINK">HYPERLINK()</a></th>
                     <td class="phpdocumentor-cell">HYPERLINK.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_INDIRECT">INDIRECT()</a></th>
                     <td class="phpdocumentor-cell">INDIRECT.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">array|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_OFFSET">OFFSET()</a></th>
                     <td class="phpdocumentor-cell">OFFSET.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">array|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_CHOOSE">CHOOSE()</a></th>
@@ -132,20 +132,17 @@
                     <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_vlookupSort">vlookupSort()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_VLOOKUP">VLOOKUP()</a></th>
                     <td class="phpdocumentor-cell">VLOOKUP
-The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value in the same row based on the index_number.</td>
+The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value
+    in the same row based on the index_number.</td>
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_HLOOKUP">HLOOKUP()</a></th>
                     <td class="phpdocumentor-cell">HLOOKUP
-The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value in the same column based on the index_number.</td>
+The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value
+    in the same column based on the index_number.</td>
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
@@ -176,7 +173,7 @@ The LOOKUP function searches for value either from a one-row or one-column range
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">34</span>
+        <span class="phpdocumentor-element-found-in__line">48</span>
     </aside>
         <p class="phpdocumentor-summary">CELL_ADDRESS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -228,15 +225,15 @@ The LOOKUP function searches for value either from a one-row or one-column range
                      = <span class="phpdocumentor-signature__argument__default-value">1</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Flag indicating the type of reference to return
 1 or omitted    Absolute
-2                Absolute row; relative column
-3                Relative row; absolute column
-4                Relative</p></section></dd>
+2               Absolute row; relative column
+3               Relative row; absolute column
+4               Relative</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$referenceStyle</span>
                     : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                      = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A logical value that specifies the A1 or R1C1 reference style.
-TRUE or omitted        CELL_ADDRESS returns an A1-style reference
+TRUE or omitted      CELL_ADDRESS returns an A1-style reference
 FALSE                CELL_ADDRESS returns an R1C1-style reference</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$sheetText</span>
@@ -245,7 +242,18 @@ FALSE                CELL_ADDRESS returns an R1C1-style reference</p></section><
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Optional Name of worksheet to use</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the cell() method in the LookupRef\Address class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
             
@@ -261,7 +269,7 @@ FALSE                CELL_ADDRESS returns an R1C1-style reference</p></section><
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">88</span>
+        <span class="phpdocumentor-element-found-in__line">75</span>
     </aside>
         <p class="phpdocumentor-summary">COLUMN.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -271,14 +279,20 @@ FALSE                CELL_ADDRESS returns an R1C1-style reference</p></section><
             [                <span class="phpdocumentor-signature__argument__name">$cellAddress</span> :
                 <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">int|int[]</span>
+        : <span class="phpdocumentor-signature__response_type">int|int[]|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the column number of the given cell reference
-If the cell reference is a range of cells, COLUMN returns the column numbers of each column in the reference as a horizontal array.
-If cell reference is omitted, and the function is being called through the calculation engine, then it is assumed to be the
-reference of the cell in which the COLUMN function appears; otherwise this function returns 0.</p>
+If the cell reference is a range of cells, COLUMN returns the column numbers of each column
+in the reference as a horizontal array.
+If cell reference is omitted, and the function is being called through the calculation engine,
+then it is assumed to be the reference of the cell in which the COLUMN function appears;
+otherwise this function returns 1.</p>
 <p>Excel Function:
 =COLUMN([cellAddress])</p></section>
     
@@ -289,11 +303,27 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
                     : <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A reference to a range of cells for which you want the column numbers</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the COLUMN() method in the LookupRef\RowColumnInformation class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int|int[]</span>
+        <span class="phpdocumentor-signature__response_type">int|int[]|string</span>
             
 </article>
                                     <a id="method_COLUMNS"></a>
@@ -307,7 +337,7 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">131</span>
+        <span class="phpdocumentor-element-found-in__line">98</span>
     </aside>
         <p class="phpdocumentor-summary">COLUMNS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -331,10 +361,22 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
                     <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
                     : <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An array or array formula, or a reference to a range of cells for which you want the number of columns</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An array or array formula, or a reference to a range of cells
+for which you want the number of columns</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the COLUMNS() method in the LookupRef\RowColumnInformation class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>The number of columns in cellAddress, or a string if arguments are invalid</p></span>
@@ -351,7 +393,7 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">165</span>
+        <span class="phpdocumentor-element-found-in__line">125</span>
     </aside>
         <p class="phpdocumentor-summary">ROW.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -361,14 +403,20 @@ reference of the cell in which the COLUMN function appears; otherwise this funct
             [                <span class="phpdocumentor-signature__argument__name">$cellAddress</span> :
                 <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$cell</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">int|array|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the row number of the given cell reference
-If the cell reference is a range of cells, ROW returns the row numbers of each row in the reference as a vertical array.
-If cell reference is omitted, and the function is being called through the calculation engine, then it is assumed to be the
-reference of the cell in which the ROW function appears; otherwise this function returns 0.</p>
+If the cell reference is a range of cells, ROW returns the row numbers of each row in the reference
+as a vertical array.
+If cell reference is omitted, and the function is being called through the calculation engine,
+then it is assumed to be the reference of the cell in which the ROW function appears;
+otherwise this function returns 1.</p>
 <p>Excel Function:
 =ROW([cellAddress])</p></section>
     
@@ -379,9 +427,25 @@ reference of the cell in which the ROW function appears; otherwise this function
                     : <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A reference to a range of cells for which you want the row numbers</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cell</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the ROW() method in the LookupRef\RowColumnInformation class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int|array|string</span>
             
@@ -397,7 +461,7 @@ reference of the cell in which the ROW function appears; otherwise this function
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">208</span>
+        <span class="phpdocumentor-element-found-in__line">148</span>
     </aside>
         <p class="phpdocumentor-summary">ROWS.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -421,10 +485,22 @@ reference of the cell in which the ROW function appears; otherwise this function
                     <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
                     : <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An array or array formula, or a reference to a range of cells for which you want the number of rows</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>An array or array formula, or a reference to a range of cells
+for which you want the number of rows</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the ROWS() method in the LookupRef\RowColumnInformation class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>The number of rows in cellAddress, or a string if arguments are invalid</p></span>
@@ -441,7 +517,7 @@ reference of the cell in which the ROW function appears; otherwise this function
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">239</span>
+        <span class="phpdocumentor-element-found-in__line">170</span>
     </aside>
         <p class="phpdocumentor-summary">HYPERLINK.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -449,18 +525,18 @@ reference of the cell in which the ROW function appears; otherwise this function
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">HYPERLINK</span>(
                     <span class="phpdocumentor-signature__argument">
             [                <span class="phpdocumentor-signature__argument__name">$linkURL</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$displayName</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$pCell</span> :
                 <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Excel Function:
@@ -470,14 +546,14 @@ reference of the cell in which the ROW function appears; otherwise this function
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$linkURL</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Value to check, is also the value returned when no error</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Expect string. Value to check, is also the value returned when no error</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$displayName</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Value to return when testValue is an error condition</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Expect string. Value to return when testValue is an error condition</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$pCell</span>
                     : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
@@ -485,9 +561,20 @@ reference of the cell in which the ROW function appears; otherwise this function
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The cell to set the hyperlink in</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the set() method in the LookupRef\Hyperlink class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">string</span>
                     &mdash; <span class="phpdocumentor-description"><p>The value of $displayName (or $linkURL if $displayName was blank)</p></span>
             
 </article>
@@ -502,55 +589,59 @@ reference of the cell in which the ROW function appears; otherwise this function
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">276</span>
+        <span class="phpdocumentor-element-found-in__line">196</span>
     </aside>
         <p class="phpdocumentor-summary">INDIRECT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">INDIRECT</span>(
                     <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$cellAddress</span> :
-                <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                            <span class="phpdocumentor-signature__argument__name">$cellAddress</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array|string</span>
+                            </span>
                     <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$pCell</span> :
+            ,                 <span class="phpdocumentor-signature__argument__name">$pCell</span> :
                 <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">array|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns the reference specified by a text string.
 References are immediately evaluated to display their contents.</p>
 <p>Excel Function:
-=INDIRECT(cellAddress)</p>
-<p>NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010</p></section>
+=INDIRECT(cellAddress)</p></section>
     
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">null|array|string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                    : <span class="phpdocumentor-signature__argument__return-type">array|string</span>
+                                    </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>$cellAddress The cell address of the current cell (containing this formula)</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$pCell</span>
                     : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                                    </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The current cell (containing this formula)</p></section></dd>
                     </dl>
     
                 <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
         <dl class="phpdocumentor-tag-list">
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">TODO</span>
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
                     </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Support for the optional a1 parameter introduced in Excel 2010</p></section></dd>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the INDIRECT() method in the LookupRef\Indirect class instead</p>
+<p>NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010</p></section></dd>
                                     </dl>
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-                    &mdash; <span class="phpdocumentor-description"><p>The cells referenced by cellAddress</p></span>
+        <span class="phpdocumentor-signature__response_type">array|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>An array containing a cell or range of cells, or a string on error</p></span>
             
 </article>
                                     <a id="method_OFFSET"></a>
@@ -564,7 +655,7 @@ References are immediately evaluated to display their contents.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">345</span>
+        <span class="phpdocumentor-element-found-in__line">236</span>
     </aside>
         <p class="phpdocumentor-summary">OFFSET.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -595,7 +686,7 @@ References are immediately evaluated to display their contents.</p>
                 <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">string</span>
+        : <span class="phpdocumentor-signature__response_type">array|string</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Returns a reference to a range that is a specified number of rows and columns from a cell or range of cells.
@@ -610,35 +701,39 @@ the number of columns to be returned.</p>
                     <span class="phpdocumentor-signature__argument__name">$cellAddress</span>
                     : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The reference from which you want to base the offset. Reference must refer to a cell or
-range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The reference from which you want to base the offset.
+Reference must refer to a cell or range of adjacent cells;
+otherwise, OFFSET returns the #VALUE! error value.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$rows</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number of rows, up or down, that you want the upper-left cell to refer to.
-Using 5 as the rows argument specifies that the upper-left cell in the reference is
-five rows below reference. Rows can be positive (which means below the starting reference)
-or negative (which means above the starting reference).</p></section></dd>
+Using 5 as the rows argument specifies that the upper-left cell in the
+reference is five rows below reference. Rows can be positive (which means
+below the starting reference) or negative (which means above the starting
+reference).</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$columns</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number of columns, to the left or right, that you want the upper-left cell of the result
-to refer to. Using 5 as the cols argument specifies that the upper-left cell in the
-reference is five columns to the right of reference. Cols can be positive (which means
-to the right of the starting reference) or negative (which means to the left of the
-starting reference).</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number of columns, to the left or right, that you want the upper-left cell
+of the result to refer to. Using 5 as the cols argument specifies that the
+upper-left cell in the reference is five columns to the right of reference.
+Cols can be positive (which means to the right of the starting reference)
+or negative (which means to the left of the starting reference).</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$height</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The height, in number of rows, that you want the returned reference to be. Height must be a positive number.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The height, in number of rows, that you want the returned reference to be.
+Height must be a positive number.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$width</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The width, in number of columns, that you want the returned reference to be. Width must be a positive number.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The width, in number of columns, that you want the returned reference to be.
+Width must be a positive number.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$pCell</span>
                     : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null</span>
@@ -646,10 +741,21 @@ starting reference).</p></section></dd>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the OFFSET() method in the LookupRef\Offset class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash; <span class="phpdocumentor-description"><p>A reference to a cell or range of cells</p></span>
+        <span class="phpdocumentor-signature__response_type">array|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>An array containing a cell or range of cells, or a string on error</p></span>
             
 </article>
                                     <a id="method_CHOOSE"></a>
@@ -663,7 +769,7 @@ starting reference).</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">423</span>
+        <span class="phpdocumentor-element-found-in__line">257</span>
     </aside>
         <p class="phpdocumentor-summary">CHOOSE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -691,7 +797,18 @@ Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the choose() method in the LookupRef\Selection class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash; <span class="phpdocumentor-description"><p>The selected value</p></span>
@@ -708,7 +825,7 @@ Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">463</span>
+        <span class="phpdocumentor-element-found-in__line">282</span>
     </aside>
         <p class="phpdocumentor-summary">MATCH.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -754,7 +871,18 @@ Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
 If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the MATCH() method in the LookupRef\ExcelMatch class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>The relative position of the found item</p></span>
@@ -771,14 +899,14 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">620</span>
+        <span class="phpdocumentor-element-found-in__line">308</span>
     </aside>
         <p class="phpdocumentor-summary">INDEX.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">INDEX</span>(
                     <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$arrayValues</span> :
+                            <span class="phpdocumentor-signature__argument__name">$matrix</span> :
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
@@ -800,23 +928,36 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
             <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$arrayValues</span>
+                    <span class="phpdocumentor-signature__argument__name">$matrix</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A range of cells or an array constant</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$rowNum</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The row in array from which to return a value. If row_num is omitted, column_num is required.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The row in the array or range from which to return a value.
+If row_num is omitted, column_num is required.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$columnNum</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column in array from which to return a value. If column_num is omitted, row_num is required.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column in the array or range from which to return a value.
+If column_num is omitted, row_num is required.</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the index() method in the LookupRef\Matrix class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash; <span class="phpdocumentor-description"><p>the value of a specified cell or array of cells</p></span>
@@ -833,7 +974,7 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">678</span>
+        <span class="phpdocumentor-element-found-in__line">328</span>
     </aside>
         <p class="phpdocumentor-summary">TRANSPOSE.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -857,58 +998,22 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A matrix of values</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the transpose() method in the LookupRef\Matrix class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Unlike the Excel TRANSPOSE function, which will only work on a single row or column, this function will transpose a full matrix</p></span>
-            
-</article>
-                                    <a id="method_vlookupSort"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">vlookupSort()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">698</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">vlookupSort</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$a</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$b</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$a</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$b</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Unlike the Excel TRANSPOSE function, which will only work on a single row or column,
+this function will transpose a full matrix</p></span>
             
 </article>
                                     <a id="method_VLOOKUP"></a>
@@ -922,10 +1027,11 @@ If match_type is 1 or -1, the list has to be ordered.</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">722</span>
+        <span class="phpdocumentor-element-found-in__line">351</span>
     </aside>
         <p class="phpdocumentor-summary">VLOOKUP
-The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value in the same row based on the index_number.</p>
+The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value
+    in the same row based on the index_number.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">VLOOKUP</span>(
@@ -966,7 +1072,8 @@ The VLOOKUP function searches for value in the left-most column of lookup_array 
                     <span class="phpdocumentor-signature__argument__name">$index_number</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column number in table_array from which the matching value must be returned. The first column is 1.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column number in table_array from which the matching value must be returned.
+The first column is 1.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$not_exact_match</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
@@ -974,7 +1081,18 @@ The VLOOKUP function searches for value in the left-most column of lookup_array 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>determines if you are looking for an exact match based on lookup_value</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the lookup() method in the LookupRef\VLookup class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash; <span class="phpdocumentor-description"><p>The value of the found cell</p></span>
@@ -991,10 +1109,11 @@ The VLOOKUP function searches for value in the left-most column of lookup_array 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">802</span>
+        <span class="phpdocumentor-element-found-in__line">374</span>
     </aside>
         <p class="phpdocumentor-summary">HLOOKUP
-The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value in the same column based on the index_number.</p>
+The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value
+    in the same column based on the index_number.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">HLOOKUP</span>(
@@ -1035,7 +1154,8 @@ The HLOOKUP function searches for value in the top-most row of lookup_array and 
                     <span class="phpdocumentor-signature__argument__name">$index_number</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The row number in table_array from which the matching value must be returned. The first row is 1.</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The row number in table_array from which the matching value must be returned.
+The first row is 1.</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$not_exact_match</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
@@ -1043,7 +1163,18 @@ The HLOOKUP function searches for value in the top-most row of lookup_array and 
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>determines if you are looking for an exact match based on lookup_value</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the lookup() method in the LookupRef\HLookup class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash; <span class="phpdocumentor-description"><p>The value of the found cell</p></span>
@@ -1060,7 +1191,7 @@ The HLOOKUP function searches for value in the top-most row of lookup_array and 
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">876</span>
+        <span class="phpdocumentor-element-found-in__line">394</span>
     </aside>
         <p class="phpdocumentor-summary">LOOKUP
 The LOOKUP function searches for value either from a one-row or one-column range or from an array.</p>
@@ -1103,7 +1234,18 @@ The LOOKUP function searches for value either from a one-row or one-column range
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The column from which the matching value must be returned</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the lookup() method in the LookupRef\Lookup class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash; <span class="phpdocumentor-description"><p>The value of the found cell</p></span>
@@ -1120,7 +1262,7 @@ The LOOKUP function searches for value either from a one-row or one-column range
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="../files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">948</span>
+        <span class="phpdocumentor-element-found-in__line">412</span>
     </aside>
         <p class="phpdocumentor-summary">FORMULATEXT.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1153,7 +1295,18 @@ The LOOKUP function searches for value either from a one-row or one-column range
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The current cell (containing this formula)</p></section></dd>
                     </dl>
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">Deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>1.18.0</p></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>Use the text() method in the LookupRef\Formula class instead</p></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
             

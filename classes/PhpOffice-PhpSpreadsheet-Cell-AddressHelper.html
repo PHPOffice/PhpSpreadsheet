@@ -71,14 +71,24 @@
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-AddressHelper.html#constant_R1C1_COORDINATE_REGEX">R1C1_COORDINATE_REGEX</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">&#039;/(R((?:\\[-?\\d*\\])|(?:\\d*))?)(C((?:\\[-?\\d*\\])|(?:\\d*))?)/i&#039;</td>
+                </tr>
                                                                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-AddressHelper.html#method_convertToA1">convertToA1()</a></th>
                     <td class="phpdocumentor-cell">Converts an R1C1 format cell address to an A1 format cell address.</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-AddressHelper.html#method_convertSpreadsheetMLFormula">convertSpreadsheetMLFormula()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Cell-AddressHelper.html#method_convertFormulaToA1">convertFormulaToA1()</a></th>
-                    <td class="phpdocumentor-cell">Converts a formula that uses R1C1 format cell address to an A1 format cell address.</td>
+                    <td class="phpdocumentor-cell">Converts a formula that uses R1C1/SpreadsheetXML format cell address to an A1 format cell address.</td>
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
@@ -88,6 +98,30 @@
                 </tr>
                                             </table>
 
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_R1C1_COORDINATE_REGEX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">R1C1_COORDINATE_REGEX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/AddressHelper.php"><a href="../files/src-phpspreadsheet-cell-addresshelper.html"><abbr title="src/PhpSpreadsheet/Cell/AddressHelper.php">AddressHelper.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">9</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$R1C1_COORDINATE_REGEX</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;/(R((?:\\[-?\\d*\\])|(?:\\d*))?)(C((?:\\[-?\\d*\\])|(?:\\d*))?)/i&#039;</span>
+    </code>
+    </article>
+                                            </section>
         
         
                     <section>
@@ -103,7 +137,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/AddressHelper.php"><a href="../files/src-phpspreadsheet-cell-addresshelper.html"><abbr title="src/PhpSpreadsheet/Cell/AddressHelper.php">AddressHelper.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">12</span>
+        <span class="phpdocumentor-element-found-in__line">14</span>
     </aside>
         <p class="phpdocumentor-summary">Converts an R1C1 format cell address to an A1 format cell address.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -150,6 +184,45 @@
         <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
+                                    <a id="method_convertSpreadsheetMLFormula"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">convertSpreadsheetMLFormula()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/AddressHelper.php"><a href="../files/src-phpspreadsheet-cell-addresshelper.html"><abbr title="src/PhpSpreadsheet/Cell/AddressHelper.php">AddressHelper.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">convertSpreadsheetMLFormula</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$formula</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$formula</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
                                     <a id="method_convertFormulaToA1"></a>
 <article
         class="
@@ -161,9 +234,9 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/AddressHelper.php"><a href="../files/src-phpspreadsheet-cell-addresshelper.html"><abbr title="src/PhpSpreadsheet/Cell/AddressHelper.php">AddressHelper.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">53</span>
+        <span class="phpdocumentor-element-found-in__line">71</span>
     </aside>
-        <p class="phpdocumentor-summary">Converts a formula that uses R1C1 format cell address to an A1 format cell address.</p>
+        <p class="phpdocumentor-summary">Converts a formula that uses R1C1/SpreadsheetXML format cell address to an A1 format cell address.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">convertFormulaToA1</span>(
@@ -219,7 +292,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/AddressHelper.php"><a href="../files/src-phpspreadsheet-cell-addresshelper.html"><abbr title="src/PhpSpreadsheet/Cell/AddressHelper.php">AddressHelper.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">100</span>
+        <span class="phpdocumentor-element-found-in__line">110</span>
     </aside>
         <p class="phpdocumentor-summary">Converts an A1 format cell address to an R1C1 format cell address.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

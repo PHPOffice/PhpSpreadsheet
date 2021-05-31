@@ -257,11 +257,11 @@ This requires both the timezone and the calculated date/time to allow for local 
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getTimeZoneAdjustment</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$timezone</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$timestamp</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">int</span>
@@ -272,12 +272,12 @@ This requires both the timezone and the calculated date/time to allow for local 
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$timezone</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The timezone for finding the adjustment to UST</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$timestamp</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>PHP date/time value</p></section></dd>
                     </dl>

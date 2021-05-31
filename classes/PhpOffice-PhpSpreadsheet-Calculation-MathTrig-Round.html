@@ -73,8 +73,33 @@
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
                                                                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_builtinROUND">builtinROUND()</a></th>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_round">round()</a></th>
                     <td class="phpdocumentor-cell">ROUND.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_up">up()</a></th>
+                    <td class="phpdocumentor-cell">ROUNDUP.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_down">down()</a></th>
+                    <td class="phpdocumentor-cell">ROUNDDOWN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_multiple">multiple()</a></th>
+                    <td class="phpdocumentor-cell">MROUND.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_even">even()</a></th>
+                    <td class="phpdocumentor-cell">EVEN.</td>
+                    <td class="phpdocumentor-cell">float|string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig-Round.html#method_odd">odd()</a></th>
+                    <td class="phpdocumentor-cell">ODD.</td>
                     <td class="phpdocumentor-cell">float|string</td>
                 </tr>
                                             </table>
@@ -83,14 +108,14 @@
         
                     <section>
                 <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_builtinROUND"></a>
+                                    <a id="method_round"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--public
                                     phpdocumentor-element--static                    "
 >
-    <h4 class="phpdocumentor-method__name">builtinROUND()</h4>
+    <h4 class="phpdocumentor-method__name">round()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
         :
@@ -99,7 +124,7 @@
         <p class="phpdocumentor-summary">ROUND.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">builtinROUND</span>(
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">round</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$number</span> :
                 <span class="phpdocumentor-signature__argument__return-type">mixed</span>
@@ -132,6 +157,249 @@
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">float|string</span>
                     &mdash; <span class="phpdocumentor-description"><p>Rounded number</p></span>
+            
+</article>
+                                    <a id="method_up"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">up()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+        <p class="phpdocumentor-summary">ROUNDUP.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">up</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$digits</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Rounds a number up to a specified number of decimal places</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to round</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$digits</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number of digits to which you want to round $number</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
+            
+</article>
+                                    <a id="method_down"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">down()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+        <p class="phpdocumentor-summary">ROUNDDOWN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">down</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$digits</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Rounds a number down to a specified number of decimal places</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to round</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$digits</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number of digits to which you want to round $number</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
+            
+</article>
+                                    <a id="method_multiple"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">multiple()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">102</span>
+    </aside>
+        <p class="phpdocumentor-summary">MROUND.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">multiple</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$multiple</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Rounds a number to the nearest multiple of a specified value</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Expect float. Number to round.</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$multiple</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Expect int. Multiple to which you want to round.</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
+            
+</article>
+                                    <a id="method_even"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">even()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">139</span>
+    </aside>
+        <p class="phpdocumentor-summary">EVEN.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">even</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns number rounded up to the nearest even integer.
+You can use this function for processing items that come in twos. For example,
+a packing crate accepts rows of one or two items. The crate is full when
+the number of items, rounded up to the nearest two, matches the crate's
+capacity.</p>
+<p>Excel Function:
+EVEN(number)</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to round</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
+            
+</article>
+                                    <a id="method_odd"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">odd()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php"><a href="../files/src-phpspreadsheet-calculation-mathtrig-round.html"><abbr title="src/PhpSpreadsheet/Calculation/MathTrig/Round.php">Round.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">159</span>
+    </aside>
+        <p class="phpdocumentor-summary">ODD.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">odd</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$number</span> :
+                <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">float|string</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Returns number rounded up to the nearest odd integer.</p></section>
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$number</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Number to round</p></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">float|string</span>
+                    &mdash; <span class="phpdocumentor-description"><p>Rounded Number, or a string containing an error</p></span>
             
 </article>
                                                             </section>

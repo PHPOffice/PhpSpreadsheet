@@ -66,7 +66,7 @@
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
             :
-            <span class="phpdocumentor-element-found-in__line">9</span>
+            <span class="phpdocumentor-element-found-in__line">5</span>
         </aside>
 
         <p class="phpdocumentor-class__summary"></p>
@@ -267,27 +267,12 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#property_formatCode">$formatCode</a></th>
                     <td class="phpdocumentor-cell">Format Code.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">null|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#property_builtInFormatCode">$builtInFormatCode</a></th>
                     <td class="phpdocumentor-cell">Built-in format Code.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#property_dateFormatReplacements">$dateFormatReplacements</a></th>
-                    <td class="phpdocumentor-cell">Search/replace values to convert Excel date/time format masks to PHP format masks.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#property_dateFormatReplacements24">$dateFormatReplacements24</a></th>
-                    <td class="phpdocumentor-cell">Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#property_dateFormatReplacements12">$dateFormatReplacements12</a></th>
-                    <td class="phpdocumentor-cell">Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).</td>
-                    <td class="phpdocumentor-cell">array</td>
+                    <td class="phpdocumentor-cell">bool|int</td>
                 </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_isSupervisor">$isSupervisor</a></th>
@@ -297,7 +282,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_parent">$parent</a></th>
                     <td class="phpdocumentor-cell">Parent. Only used for supervisor.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_parentPropertyName">$parentPropertyName</a></th>
@@ -327,7 +312,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_getFormatCode">getFormatCode()</a></th>
                     <td class="phpdocumentor-cell">Get Format Code.</td>
-                    <td class="phpdocumentor-cell">string</td>
+                    <td class="phpdocumentor-cell">null|string</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_setFormatCode">setFormatCode()</a></th>
@@ -337,7 +322,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_getBuiltInFormatCode">getBuiltInFormatCode()</a></th>
                     <td class="phpdocumentor-cell">Get Built-In Format Code.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">bool|int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_setBuiltInFormatCode">setBuiltInFormatCode()</a></th>
@@ -363,66 +348,6 @@
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_getHashCode">getHashCode()</a></th>
                     <td class="phpdocumentor-cell">Get hash code.</td>
                     <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_setLowercaseCallback">setLowercaseCallback()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_escapeQuotesCallback">escapeQuotesCallback()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_formatAsDate">formatAsDate()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_formatAsPercentage">formatAsPercentage()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_formatAsFraction">formatAsFraction()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_mergeComplexNumberFormatMasks">mergeComplexNumberFormatMasks()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_processComplexNumberFormatMask">processComplexNumberFormatMask()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_complexNumberFormatMask">complexNumberFormatMask()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_formatStraightNumericValue">formatStraightNumericValue()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_formatAsNumber">formatAsNumber()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_splitFormatCompare">splitFormatCompare()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_splitFormat">splitFormat()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat.html#method_toFormattedString">toFormattedString()</a></th>
@@ -453,7 +378,7 @@ extends this class.</td>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getActiveSheet">getActiveSheet()</a></th>
                     <td class="phpdocumentor-cell">Get the currently active sheet. Only used for supervisor.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></td>
+                    <td class="phpdocumentor-cell"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getSelectedCells">getSelectedCells()</a></th>
@@ -502,7 +427,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">12</span>
+        <span class="phpdocumentor-element-found-in__line">8</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -523,7 +448,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">14</span>
+        <span class="phpdocumentor-element-found-in__line">10</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -544,7 +469,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">16</span>
+        <span class="phpdocumentor-element-found-in__line">12</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -565,7 +490,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">17</span>
+        <span class="phpdocumentor-element-found-in__line">13</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -586,7 +511,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">18</span>
+        <span class="phpdocumentor-element-found-in__line">14</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -607,7 +532,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">19</span>
+        <span class="phpdocumentor-element-found-in__line">15</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -628,7 +553,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">21</span>
+        <span class="phpdocumentor-element-found-in__line">17</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -649,7 +574,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">22</span>
+        <span class="phpdocumentor-element-found-in__line">18</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -670,7 +595,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">24</span>
+        <span class="phpdocumentor-element-found-in__line">20</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -691,7 +616,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">25</span>
+        <span class="phpdocumentor-element-found-in__line">21</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -712,7 +637,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">26</span>
+        <span class="phpdocumentor-element-found-in__line">22</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -733,7 +658,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">27</span>
+        <span class="phpdocumentor-element-found-in__line">23</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -754,7 +679,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">28</span>
+        <span class="phpdocumentor-element-found-in__line">24</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -775,7 +700,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">29</span>
+        <span class="phpdocumentor-element-found-in__line">25</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -796,7 +721,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">30</span>
+        <span class="phpdocumentor-element-found-in__line">26</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -817,7 +742,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">31</span>
+        <span class="phpdocumentor-element-found-in__line">27</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -838,7 +763,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">32</span>
+        <span class="phpdocumentor-element-found-in__line">28</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -859,7 +784,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">33</span>
+        <span class="phpdocumentor-element-found-in__line">29</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -880,7 +805,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">34</span>
+        <span class="phpdocumentor-element-found-in__line">30</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -901,7 +826,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">31</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -922,7 +847,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">36</span>
+        <span class="phpdocumentor-element-found-in__line">32</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -943,7 +868,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">37</span>
+        <span class="phpdocumentor-element-found-in__line">33</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -964,7 +889,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">34</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -985,7 +910,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">39</span>
+        <span class="phpdocumentor-element-found-in__line">35</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1006,7 +931,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">40</span>
+        <span class="phpdocumentor-element-found-in__line">36</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1027,7 +952,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">41</span>
+        <span class="phpdocumentor-element-found-in__line">37</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1048,7 +973,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">42</span>
+        <span class="phpdocumentor-element-found-in__line">38</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1069,7 +994,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">43</span>
+        <span class="phpdocumentor-element-found-in__line">39</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1090,7 +1015,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">44</span>
+        <span class="phpdocumentor-element-found-in__line">40</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1111,7 +1036,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">45</span>
+        <span class="phpdocumentor-element-found-in__line">41</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1132,7 +1057,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">47</span>
+        <span class="phpdocumentor-element-found-in__line">43</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1153,7 +1078,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">48</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1174,7 +1099,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">49</span>
+        <span class="phpdocumentor-element-found-in__line">45</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1195,7 +1120,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">50</span>
+        <span class="phpdocumentor-element-found-in__line">46</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1216,7 +1141,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">51</span>
+        <span class="phpdocumentor-element-found-in__line">47</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1237,7 +1162,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">52</span>
+        <span class="phpdocumentor-element-found-in__line">48</span>
     </aside>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility"></span>
@@ -1261,7 +1186,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">59</span>
+        <span class="phpdocumentor-element-found-in__line">55</span>
     </aside>
             <p class="phpdocumentor-summary">Excel built-in number formats.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1281,7 +1206,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">66</span>
+        <span class="phpdocumentor-element-found-in__line">62</span>
     </aside>
             <p class="phpdocumentor-summary">Excel built-in number formats (flipped, for faster lookups).</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1301,12 +1226,12 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">73</span>
+        <span class="phpdocumentor-element-found-in__line">69</span>
     </aside>
             <p class="phpdocumentor-summary">Format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
+                <span class="phpdocumentor-signature__type">null|string</span>
         <span class="phpdocumentor-signature__name">$formatCode</span>
          = <span class="phpdocumentor-signature__default-value">self::FORMAT_GENERAL</span>    </code>
     </article>
@@ -1321,111 +1246,14 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">80</span>
+        <span class="phpdocumentor-element-found-in__line">76</span>
     </aside>
             <p class="phpdocumentor-summary">Built-in format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
+                <span class="phpdocumentor-signature__type">bool|int</span>
         <span class="phpdocumentor-signature__name">$builtInFormatCode</span>
          = <span class="phpdocumentor-signature__default-value">""</span>    </code>
-    </article>
-                                    <a id="property_dateFormatReplacements"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$dateFormatReplacements</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">397</span>
-    </aside>
-            <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks to PHP format masks.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$dateFormatReplacements</span>
-         = <span class="phpdocumentor-signature__default-value">[
-    // first remove escapes related to non-format characters
-    &#039;\\&#039; =&gt; &#039;&#039;,
-    //    12-hour suffix
-    &#039;am/pm&#039; =&gt; &#039;A&#039;,
-    //    4-digit year
-    &#039;e&#039; =&gt; &#039;Y&#039;,
-    &#039;yyyy&#039; =&gt; &#039;Y&#039;,
-    //    2-digit year
-    &#039;yy&#039; =&gt; &#039;y&#039;,
-    //    first letter of month - no php equivalent
-    &#039;mmmmm&#039; =&gt; &#039;M&#039;,
-    //    full month name
-    &#039;mmmm&#039; =&gt; &#039;F&#039;,
-    //    short month name
-    &#039;mmm&#039; =&gt; &#039;M&#039;,
-    //    mm is minutes if time, but can also be month w/leading zero
-    //    so we try to identify times be the inclusion of a : separator in the mask
-    //    It isn&#039;t perfect, but the best way I know how
-    &#039;:mm&#039; =&gt; &#039;:i&#039;,
-    &#039;mm:&#039; =&gt; &#039;i:&#039;,
-    //    month leading zero
-    &#039;mm&#039; =&gt; &#039;m&#039;,
-    //    month no leading zero
-    &#039;m&#039; =&gt; &#039;n&#039;,
-    //    full day of week name
-    &#039;dddd&#039; =&gt; &#039;l&#039;,
-    //    short day of week name
-    &#039;ddd&#039; =&gt; &#039;D&#039;,
-    //    days leading zero
-    &#039;dd&#039; =&gt; &#039;d&#039;,
-    //    days no leading zero
-    &#039;d&#039; =&gt; &#039;j&#039;,
-    //    seconds
-    &#039;ss&#039; =&gt; &#039;s&#039;,
-    //    fractional seconds - no php equivalent
-    &#039;.s&#039; =&gt; &#039;&#039;,
-]</span>    </code>
-    </article>
-                                    <a id="property_dateFormatReplacements24"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$dateFormatReplacements24</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">441</span>
-    </aside>
-            <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$dateFormatReplacements24</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;hh&#039; =&gt; &#039;H&#039;, &#039;h&#039; =&gt; &#039;G&#039;]</span>    </code>
-    </article>
-                                    <a id="property_dateFormatReplacements12"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$dateFormatReplacements12</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">451</span>
-    </aside>
-            <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$dateFormatReplacements12</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;hh&#039; =&gt; &#039;h&#039;, &#039;h&#039; =&gt; &#039;g&#039;]</span>    </code>
     </article>
                                                                     <a id="property_isSupervisor"></a>
 <article
@@ -1463,7 +1291,7 @@ extends this class.</td>
             <p class="phpdocumentor-summary">Parent. Only used for supervisor.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                <span class="phpdocumentor-signature__type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
         <span class="phpdocumentor-signature__name">$parent</span>
             </code>
     </article>
@@ -1502,7 +1330,7 @@ extends this class.</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">92</span>
+        <span class="phpdocumentor-element-found-in__line">88</span>
     </aside>
         <p class="phpdocumentor-summary">Create a new NumberFormat.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1555,7 +1383,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">109</span>
+        <span class="phpdocumentor-element-found-in__line">105</span>
     </aside>
         <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1584,7 +1412,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">121</span>
+        <span class="phpdocumentor-element-found-in__line">117</span>
     </aside>
         <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1624,7 +1452,7 @@ its ramifications are</p></section></dd>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">141</span>
+        <span class="phpdocumentor-element-found-in__line">137</span>
     </aside>
         <p class="phpdocumentor-summary">Apply styles from array.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1671,21 +1499,21 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">159</span>
+        <span class="phpdocumentor-element-found-in__line">155</span>
     </aside>
         <p class="phpdocumentor-summary">Get Format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getFormatCode</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type">string</span>
+        : <span class="phpdocumentor-signature__response_type">null|string</span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">null|string</span>
             
 </article>
                                     <a id="method_setFormatCode"></a>
@@ -1699,7 +1527,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">178</span>
+        <span class="phpdocumentor-element-found-in__line">174</span>
     </aside>
         <p class="phpdocumentor-summary">Set Format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1739,21 +1567,21 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">199</span>
+        <span class="phpdocumentor-element-found-in__line">195</span>
     </aside>
         <p class="phpdocumentor-summary">Get Built-In Format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getBuiltInFormatCode</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type">int</span>
+        : <span class="phpdocumentor-signature__response_type">bool|int</span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
+        <span class="phpdocumentor-signature__response_type">bool|int</span>
             
 </article>
                                     <a id="method_setBuiltInFormatCode"></a>
@@ -1767,7 +1595,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">215</span>
+        <span class="phpdocumentor-element-found-in__line">211</span>
     </aside>
         <p class="phpdocumentor-summary">Set Built-In Format Code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1807,7 +1635,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">231</span>
+        <span class="phpdocumentor-element-found-in__line">227</span>
     </aside>
         <p class="phpdocumentor-summary">Fill built-in format codes.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1833,7 +1661,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">338</span>
+        <span class="phpdocumentor-element-found-in__line">334</span>
     </aside>
         <p class="phpdocumentor-summary">Get built-in format code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1873,7 +1701,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">361</span>
+        <span class="phpdocumentor-element-found-in__line">357</span>
     </aside>
         <p class="phpdocumentor-summary">Get built-in format code index.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1913,7 +1741,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">379</span>
+        <span class="phpdocumentor-element-found-in__line">375</span>
     </aside>
         <p class="phpdocumentor-summary">Get hash code.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1931,621 +1759,6 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
                     &mdash; <span class="phpdocumentor-description"><p>Hash code</p></span>
             
 </article>
-                                    <a id="method_setLowercaseCallback"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">setLowercaseCallback()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">456</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">setLowercaseCallback</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$matches</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$matches</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_escapeQuotesCallback"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">escapeQuotesCallback()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">461</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">escapeQuotesCallback</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$matches</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$matches</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_formatAsDate"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">formatAsDate()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">466</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatAsDate</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$format</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$format</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_formatAsPercentage"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">formatAsPercentage()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">508</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatAsPercentage</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$format</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$format</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_formatAsFraction"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">formatAsFraction()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">526</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatAsFraction</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$format</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$format</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_mergeComplexNumberFormatMasks"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">mergeComplexNumberFormatMasks()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">559</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">mergeComplexNumberFormatMasks</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$numbers</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$masks</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$numbers</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$masks</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_processComplexNumberFormatMask"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">processComplexNumberFormatMask()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">578</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">processComplexNumberFormatMask</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$number</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$mask</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$number</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$mask</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_complexNumberFormatMask"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">complexNumberFormatMask()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">607</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">complexNumberFormatMask</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$number</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$mask</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$splitOnPoint</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$number</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$mask</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$splitOnPoint</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_formatStraightNumericValue"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">formatStraightNumericValue()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">629</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatStraightNumericValue</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$format</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$matches</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$useThousands</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$number_regex</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$format</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$matches</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$useThousands</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$number_regex</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_formatAsNumber"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">formatAsNumber()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">664</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">formatAsNumber</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$format</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$format</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_splitFormatCompare"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">splitFormatCompare()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">733</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">splitFormatCompare</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$cond</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$val</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$dfcond</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$dfval</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$cond</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$val</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$dfcond</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$dfval</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_splitFormat"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">splitFormat()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">759</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">splitFormat</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$sections</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$sections</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
                                     <a id="method_toFormattedString"></a>
 <article
         class="
@@ -2557,7 +1770,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">825</span>
+        <span class="phpdocumentor-element-found-in__line">397</span>
     </aside>
         <p class="phpdocumentor-summary">Convert a value in a pre-defined format to a PHP string.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2616,7 +1829,7 @@ $spreadsheet-&gt;getActiveSheet()-&gt;getStyle('B2')-&gt;getNumberFormat()-&gt;a
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat.php"><a href="../files/src-phpspreadsheet-style-numberformat.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat.php">NumberFormat.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">886</span>
+        <span class="phpdocumentor-element-found-in__line">402</span>
     </aside>
         <p class="phpdocumentor-summary">Abstract method to be implemented in anything which
 extends this class.</p>
@@ -2698,7 +1911,7 @@ its ramifications are</p></section></dd>
                                 <span class="phpdocumentor-signature__name">bindParent</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$parent</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$parentPropertyName</span> :
@@ -2713,7 +1926,7 @@ its ramifications are</p></section></dd>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$parent</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr>|<a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -2774,14 +1987,14 @@ its ramifications are</p></section></dd>
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">getActiveSheet</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
     </code>
 
     
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></span>
             
 </article>
                                     <a id="method_getSelectedCells"></a>

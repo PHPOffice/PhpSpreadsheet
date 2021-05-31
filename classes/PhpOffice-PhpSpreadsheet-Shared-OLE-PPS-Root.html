@@ -124,12 +124,12 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time1st">$Time1st</a></th>
                     <td class="phpdocumentor-cell">A timestamp.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">float|int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time2nd">$Time2nd</a></th>
                     <td class="phpdocumentor-cell">A timestamp.</td>
-                    <td class="phpdocumentor-cell">int</td>
+                    <td class="phpdocumentor-cell">float|int</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_startBlock">$startBlock</a></th>
@@ -420,7 +420,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</td>
             <p class="phpdocumentor-summary">A timestamp.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type">int</span>
+                <span class="phpdocumentor-signature__type">float|int</span>
         <span class="phpdocumentor-signature__name">$Time1st</span>
             </code>
     </article>
@@ -440,7 +440,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</td>
             <p class="phpdocumentor-summary">A timestamp.</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__type">int</span>
+                <span class="phpdocumentor-signature__type">float|int</span>
         <span class="phpdocumentor-signature__name">$Time2nd</span>
             </code>
     </article>
@@ -567,11 +567,11 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</td>
                                 <span class="phpdocumentor-signature__name">__construct</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__name">$time_1st</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$time_2nd</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$raChild</span> :
@@ -586,12 +586,12 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</td>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$time_1st</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A timestamp</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$time_2nd</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A timestamp</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -818,7 +818,7 @@ it will be used, but you have to close such stream by yourself.</p></section>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$raList</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">void</span>
@@ -834,9 +834,9 @@ it will be used, but you have to close such stream by yourself.</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$raList</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Reference to array of PPS's</p></section></dd>
                     </dl>
     
         
@@ -861,7 +861,7 @@ it will be used, but you have to close such stream by yourself.</p></section>
                                 <span class="phpdocumentor-signature__name">makeSmallData</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$raList</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
                             </span>
                 )
         : <span class="phpdocumentor-signature__response_type">string</span>
@@ -872,9 +872,9 @@ it will be used, but you have to close such stream by yourself.</p></section>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$raList</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Reference to array of PPS's</p></section></dd>
                     </dl>
     
         
@@ -1019,11 +1019,11 @@ it will be used, but you have to close such stream by yourself.</p></section>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$time_1st</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$time_2nd</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$data</span> :
@@ -1072,12 +1072,12 @@ it will be used, but you have to close such stream by yourself.</p></section>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The index of it's first child if this is a Dir or Root PPS</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$time_1st</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A timestamp</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$time_2nd</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|float|int</span>
                                     </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>A timestamp</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
@@ -1175,7 +1175,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</p>
                         <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">savePpsSetPnt</span>(
                     <span class="phpdocumentor-signature__argument">
                             <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$raList</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
                             </span>
                     <span class="phpdocumentor-signature__argument">
             ,                 <span class="phpdocumentor-signature__argument__name">$to_save</span> :
@@ -1194,9 +1194,10 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</p>
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$raList</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Reference to the array of PPS's for the whole OLE
+container</p></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$to_save</span>
                     : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
