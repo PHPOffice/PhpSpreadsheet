@@ -119,7 +119,7 @@ class Xls extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename, $flags = 0): void
+    public function save($pFilename, int $flags = 0): void
     {
         $this->processFlags($flags);
 

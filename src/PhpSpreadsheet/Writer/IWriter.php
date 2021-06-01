@@ -61,7 +61,7 @@ interface IWriter
      *
      * @param resource|string $pFilename Name of the file to save
      */
-    public function save($pFilename, $flags = 0);
+    public function save($pFilename, int $flags = 0): void;
 
     /**
      * Get use disk caching where possible?

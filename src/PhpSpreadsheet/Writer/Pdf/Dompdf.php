@@ -22,7 +22,7 @@ class Dompdf extends Pdf
      *
      * @param string $pFilename Name of the file to save as
      */
-    public function save($pFilename): void
+    public function save($pFilename, int $flags = 0): void
     {
         $fileHandle = parent::prepareForSave($pFilename);
 
