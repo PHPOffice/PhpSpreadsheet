@@ -25,4 +25,8 @@ return [
         0,
         null, 'STRING', '', 'xl95',
     ],
+    [
+        0,
+        null, null, null, null,
+    ],
 ];

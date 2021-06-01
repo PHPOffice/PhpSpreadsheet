@@ -2,543 +2,545 @@
 
 ## CATEGORY_CUBE
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-CUBEKPIMEMBER       | **Not yet Implemented**
-CUBEMEMBER          | **Not yet Implemented**
-CUBEMEMBERPROPERTY  | **Not yet Implemented**
-CUBERANKEDMEMBER    | **Not yet Implemented**
-CUBESET             | **Not yet Implemented**
-CUBESETCOUNT        | **Not yet Implemented**
-CUBEVALUE           | **Not yet Implemented**
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+CUBEKPIMEMBER            | **Not yet Implemented**
+CUBEMEMBER               | **Not yet Implemented**
+CUBEMEMBERPROPERTY       | **Not yet Implemented**
+CUBERANKEDMEMBER         | **Not yet Implemented**
+CUBESET                  | **Not yet Implemented**
+CUBESETCOUNT             | **Not yet Implemented**
+CUBEVALUE                | **Not yet Implemented**
 
 ## CATEGORY_DATABASE
 
-Excel Function      | PhpSpreadsheet Function                                      
---------------------|-------------------------------------------
-DAVERAGE            | \PhpOffice\PhpSpreadsheet\Calculation\Database::DAVERAGE
-DCOUNT              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNT
-DCOUNTA             | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNTA
-DGET                | \PhpOffice\PhpSpreadsheet\Calculation\Database::DGET
-DMAX                | \PhpOffice\PhpSpreadsheet\Calculation\Database::DMAX
-DMIN                | \PhpOffice\PhpSpreadsheet\Calculation\Database::DMIN
-DPRODUCT            | \PhpOffice\PhpSpreadsheet\Calculation\Database::DPRODUCT
-DSTDEV              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DSTDEV
-DSTDEVP             | \PhpOffice\PhpSpreadsheet\Calculation\Database::DSTDEVP
-DSUM                | \PhpOffice\PhpSpreadsheet\Calculation\Database::DSUM
-DVAR                | \PhpOffice\PhpSpreadsheet\Calculation\Database::DVAR
-DVARP               | \PhpOffice\PhpSpreadsheet\Calculation\Database::DVARP
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+DAVERAGE                 | \PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage::evaluate
+DCOUNT                   | \PhpOffice\PhpSpreadsheet\Calculation\Database\DCount::evaluate
+DCOUNTA                  | \PhpOffice\PhpSpreadsheet\Calculation\Database\DCountA::evaluate
+DGET                     | \PhpOffice\PhpSpreadsheet\Calculation\Database\DGet::evaluate
+DMAX                     | \PhpOffice\PhpSpreadsheet\Calculation\Database\DMax::evaluate
+DMIN                     | \PhpOffice\PhpSpreadsheet\Calculation\Database\DMin::evaluate
+DPRODUCT                 | \PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct::evaluate
+DSTDEV                   | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev::evaluate
+DSTDEVP                  | \PhpOffice\PhpSpreadsheet\Calculation\Database\DStDevP::evaluate
+DSUM                     | \PhpOffice\PhpSpreadsheet\Calculation\Database\DSum::evaluate
+DVAR                     | \PhpOffice\PhpSpreadsheet\Calculation\Database\DVar::evaluate
+DVARP                    | \PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP::evaluate
 
 ## CATEGORY_DATE_AND_TIME
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-DATE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATE
-DATEDIF             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEDIF
-DATEVALUE           | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE
-DAY                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYOFMONTH
-DAYS                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS
-DAYS360             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS360
-EDATE               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EDATE
-EOMONTH             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EOMONTH
-HOUR                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::HOUROFDAY
-ISOWEEKNUM          | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::ISOWEEKNUM
-MINUTE              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE
-MONTH               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MONTHOFYEAR
-NETWORKDAYS         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::NETWORKDAYS
-NETWORKDAYS.INTL    | **Not yet Implemented**
-NOW                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATETIMENOW
-SECOND              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND
-TIME                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIME
-TIMEVALUE           | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIMEVALUE
-TODAY               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATENOW
-WEEKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY
-WEEKNUM             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM
-WORKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WORKDAY
-WORKDAY.INTL        | **Not yet Implemented**
-YEAR                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEAR
-YEARFRAC            | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEARFRAC
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+DATE                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date::fromYMD
+DATEDIF                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Difference::interval
+DATEVALUE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue::fromString
+DAY                      | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts::day
+DAYS                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days::between
+DAYS360                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days360::between
+EDATE                    | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month::adjust
+EOMONTH                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Month::lastDay
+HOUR                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::hour
+ISOWEEKNUM               | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week::isoWeekNumber
+MINUTE                   | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::minute
+MONTH                    | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts::month
+NETWORKDAYS              | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\NetworkDays::count
+NETWORKDAYS.INTL         | **Not yet Implemented**
+NOW                      | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::now
+SECOND                   | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::second
+TIME                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time::fromHMS
+TIMEVALUE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue::fromString
+TODAY                    | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::today
+WEEKDAY                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week::day
+WEEKNUM                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week::number
+WORKDAY                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\WorkDay::date
+WORKDAY.INTL             | **Not yet Implemented**
+YEAR                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts::year
+YEARFRAC                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac::fraction
 
 ## CATEGORY_ENGINEERING
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-BESSELI             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELI
-BESSELJ             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELJ
-BESSELK             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELK
-BESSELY             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BESSELY
-BIN2DEC             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTODEC
-BIN2HEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOHEX
-BIN2OCT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BINTOOCT
-BITAND              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITAND
-BITLSHIFT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITLSHIFT
-BITOR               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITOR
-BITRSHIFT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITRSHIFT
-BITXOR              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::BITOR
-COMPLEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::COMPLEX
-CONVERT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::CONVERTUOM
-DEC2BIN             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::DECTOBIN
-DEC2HEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::DECTOHEX
-DEC2OCT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::DECTOOCT
-DELTA               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::DELTA
-ERF                 | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERF
-ERF.PRECISE         | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERFPRECISE
-ERFC                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERFC
-ERFC.PRECISE        | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERFC
-GESTEP              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::GESTEP
-HEX2BIN             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::HEXTOBIN
-HEX2DEC             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::HEXTODEC
-HEX2OCT             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::HEXTOOCT
-IMABS               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMABS
-IMAGINARY           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMAGINARY
-IMARGUMENT          | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMARGUMENT
-IMCONJUGATE         | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCONJUGATE
-IMCOS               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOS
-IMCOSH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOSH
-IMCOT               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCOT
-IMCSC               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSC
-IMCSCH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMCSCH
-IMDIV               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMDIV
-IMEXP               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMEXP
-IMLN                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLN
-IMLOG10             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLOG10
-IMLOG2              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMLOG2
-IMPOWER             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPOWER
-IMPRODUCT           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMPRODUCT
-IMREAL              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMREAL
-IMSEC               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSEC
-IMSECH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSECH
-IMSIN               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSIN
-IMSINH              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSINH
-IMSQRT              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSQRT
-IMSUB               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUB
-IMSUM               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMSUM
-IMTAN               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::IMTAN
-OCT2BIN             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTOBIN
-OCT2DEC             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTODEC
-OCT2HEX             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::OCTTOHEX
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+BESSELI                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselI::BESSELI
+BESSELJ                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ::BESSELJ
+BESSELK                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselK::BESSELK
+BESSELY                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselY::BESSELY
+BIN2DEC                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertBinary::toDecimal
+BIN2HEX                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertBinary::toHex
+BIN2OCT                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertBinary::toOctal
+BITAND                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise::BITAND
+BITLSHIFT                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise::BITLSHIFT
+BITOR                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise::BITOR
+BITRSHIFT                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise::BITRSHIFT
+BITXOR                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise::BITXOR
+COMPLEX                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::COMPLEX
+CONVERT                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM::CONVERT
+DEC2BIN                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertDecimal::toBinary
+DEC2HEX                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertDecimal::toHex
+DEC2OCT                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertDecimal::toOctal
+DELTA                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare::DELTA
+ERF                      | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf::ERF
+ERF.PRECISE              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf::ERFPRECISE
+ERFC                     | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC::ERFC
+ERFC.PRECISE             | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC::ERFC
+GESTEP                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare::GESTEP
+HEX2BIN                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toBinary
+HEX2DEC                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toDecimal
+HEX2OCT                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertHex::toOctal
+IMABS                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMABS
+IMAGINARY                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::IMAGINARY
+IMARGUMENT               | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMARGUMENT
+IMCONJUGATE              | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCONJUGATE
+IMCOS                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCOS
+IMCOSH                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCOSH
+IMCOT                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCOT
+IMCSC                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCSC
+IMCSCH                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMCSCH
+IMDIV                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations::IMDIV
+IMEXP                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMEXP
+IMLN                     | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMLN
+IMLOG10                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMLOG10
+IMLOG2                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMLOG2
+IMPOWER                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMPOWER
+IMPRODUCT                | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations::IMPRODUCT
+IMREAL                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::IMREAL
+IMSEC                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMSEC
+IMSECH                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMSECH
+IMSIN                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMSIN
+IMSINH                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMSINH
+IMSQRT                   | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMSQRT
+IMSUB                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations::IMSUB
+IMSUM                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations::IMSUM
+IMTAN                    | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions::IMTAN
+OCT2BIN                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertOctal::toBinary
+OCT2DEC                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertOctal::toDecimal
+OCT2HEX                  | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertOctal::toHex
 
 ## CATEGORY_FINANCIAL
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-ACCRINT             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::ACCRINT
-ACCRINTM            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::ACCRINTM
-AMORDEGRC           | \PhpOffice\PhpSpreadsheet\Calculation\Financial::AMORDEGRC
-AMORLINC            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::AMORLINC
-COUPDAYBS           | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYBS
-COUPDAYS            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYS
-COUPDAYSNC          | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPDAYSNC
-COUPNCD             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPNCD
-COUPNUM             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPNUM
-COUPPCD             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::COUPPCD
-CUMIPMT             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::CUMIPMT
-CUMPRINC            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::CUMPRINC
-DB                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DB
-DDB                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DDB
-DISC                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DISC
-DOLLARDE            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DOLLARDE
-DOLLARFR            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DOLLARFR
-DURATION            | **Not yet Implemented**
-EFFECT              | \PhpOffice\PhpSpreadsheet\Calculation\Financial::EFFECT
-FV                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial::FV
-FVSCHEDULE          | \PhpOffice\PhpSpreadsheet\Calculation\Financial::FVSCHEDULE
-INTRATE             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::INTRATE
-IPMT                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::IPMT
-IRR                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::IRR
-ISPMT               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::ISPMT
-MDURATION           | **Not yet Implemented**
-MIRR                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::MIRR
-NOMINAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NOMINAL
-NPER                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NPER
-NPV                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NPV
-ODDFPRICE           | **Not yet Implemented**
-ODDFYIELD           | **Not yet Implemented**
-ODDLPRICE           | **Not yet Implemented**
-ODDLYIELD           | **Not yet Implemented**
-PDURATION           | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PDURATION
-PMT                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PMT
-PPMT                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PPMT
-PRICE               | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PRICE
-PRICEDISC           | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PRICEDISC
-PRICEMAT            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PRICEMAT
-PV                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial::PV
-RATE                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::RATE
-RECEIVED            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::RECEIVED
-RRI                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::RRI
-SLN                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::SLN
-SYD                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial::SYD
-TBILLEQ             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::TBILLEQ
-TBILLPRICE          | \PhpOffice\PhpSpreadsheet\Calculation\Financial::TBILLPRICE
-TBILLYIELD          | \PhpOffice\PhpSpreadsheet\Calculation\Financial::TBILLYIELD
-USDOLLAR            | **Not yet Implemented**
-VDB                 | **Not yet Implemented**
-XIRR                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::XIRR
-XNPV                | \PhpOffice\PhpSpreadsheet\Calculation\Financial::XNPV
-YIELD               | **Not yet Implemented**
-YIELDDISC           | \PhpOffice\PhpSpreadsheet\Calculation\Financial::YIELDDISC
-YIELDMAT            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::YIELDMAT
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ACCRINT                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\AccruedInterest::periodic
+ACCRINTM                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\AccruedInterest::atMaturity
+AMORDEGRC                | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORDEGRC
+AMORLINC                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORLINC
+COUPDAYBS                | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPDAYBS
+COUPDAYS                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPDAYS
+COUPDAYSNC               | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPDAYSNC
+COUPNCD                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPNCD
+COUPNUM                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPNUM
+COUPPCD                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons::COUPPCD
+CUMIPMT                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Cumulative::interest
+CUMPRINC                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Cumulative::principal
+DB                       | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation::DB
+DDB                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation::DDB
+DISC                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates::discount
+DOLLARDE                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::decimal
+DOLLARFR                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::fractional
+DURATION                 | **Not yet Implemented**
+EFFECT                   | \PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate::effective
+FV                       | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic::futureValue
+FVSCHEDULE               | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Single::futureValue
+INTRATE                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates::interest
+IPMT                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Interest::payment
+IRR                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic::rate
+ISPMT                    | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Interest::schedulePayment
+MDURATION                | **Not yet Implemented**
+MIRR                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic::modifiedRate
+NOMINAL                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate::nominal
+NPER                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic::periods
+NPV                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic::presentValue
+ODDFPRICE                | **Not yet Implemented**
+ODDFYIELD                | **Not yet Implemented**
+ODDLPRICE                | **Not yet Implemented**
+ODDLYIELD                | **Not yet Implemented**
+PDURATION                | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Single::periods
+PMT                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Payments::annuity
+PPMT                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Payments::interestPayment
+PRICE                    | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price::price
+PRICEDISC                | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price::priceDiscounted
+PRICEMAT                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price::priceAtMaturity
+PV                       | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic::presentValue
+RATE                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Interest::rate
+RECEIVED                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price::received
+RRI                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Single::interestRate
+SLN                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation::SLN
+SYD                      | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation::SYD
+TBILLEQ                  | \PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill::bondEquivalentYield
+TBILLPRICE               | \PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill::price
+TBILLYIELD               | \PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill::yield
+USDOLLAR                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar::format
+VDB                      | **Not yet Implemented**
+XIRR                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::rate
+XNPV                     | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\NonPeriodic::presentValue
+YIELD                    | **Not yet Implemented**
+YIELDDISC                | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Yields::yieldDiscounted
+YIELDMAT                 | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Yields::yieldAtMaturity
 
 ## CATEGORY_INFORMATION
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-CELL                | **Not yet Implemented**
-ERROR.TYPE          | \PhpOffice\PhpSpreadsheet\Calculation\Functions::errorType
-INFO                | **Not yet Implemented**
-ISBLANK             | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isBlank
-ISERR               | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isErr
-ISERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isError
-ISEVEN              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isEven
-ISFORMULA           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isFormula
-ISLOGICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isLogical
-ISNA                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNa
-ISNONTEXT           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNonText
-ISNUMBER            | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNumber
-ISODD               | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isOdd
-ISREF               | **Not yet Implemented**
-ISTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isText
-N                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::n
-NA                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
-SHEET               | **Not yet Implemented**
-SHEETS              | **Not yet Implemented**
-TYPE                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+CELL                     | **Not yet Implemented**
+ERROR.TYPE               | \PhpOffice\PhpSpreadsheet\Calculation\Functions::errorType
+INFO                     | **Not yet Implemented**
+ISBLANK                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isBlank
+ISERR                    | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isErr
+ISERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isError
+ISEVEN                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isEven
+ISFORMULA                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isFormula
+ISLOGICAL                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isLogical
+ISNA                     | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNa
+ISNONTEXT                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNonText
+ISNUMBER                 | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isNumber
+ISODD                    | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isOdd
+ISREF                    | **Not yet Implemented**
+ISTEXT                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isText
+N                        | \PhpOffice\PhpSpreadsheet\Calculation\Functions::n
+NA                       | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
+SHEET                    | **Not yet Implemented**
+SHEETS                   | **Not yet Implemented**
+TYPE                     | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
 
 ## CATEGORY_LOGICAL
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-AND                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
-FALSE               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::FALSE
-IF                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementIf
-IFERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFERROR
-IFNA                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFNA
-IFS                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::IFS
-NOT                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
-OR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalOr
-SWITCH              | \PhpOffice\PhpSpreadsheet\Calculation\Logical::statementSwitch
-TRUE                | \PhpOffice\PhpSpreadsheet\Calculation\Logical::TRUE
-XOR                 | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalXor
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
+FALSE                    | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean::FALSE
+IF                       | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::statementIf
+IFERROR                  | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFERROR
+IFNA                     | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFNA
+IFS                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::IFS
+NOT                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::NOT
+OR                       | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalOr
+SWITCH                   | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional::statementSwitch
+TRUE                     | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean::TRUE
+XOR                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalXor
 
 ## CATEGORY_LOOKUP_AND_REFERENCE
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-ADDRESS             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::cellAddress
-AREAS               | **Not yet Implemented**
-CHOOSE              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::CHOOSE
-COLUMN              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::COLUMN
-COLUMNS             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::COLUMNS
-FILTER              | **Not yet Implemented**
-FORMULATEXT         | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::FORMULATEXT
-GETPIVOTDATA        | **Not yet Implemented**
-HLOOKUP             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::HLOOKUP
-HYPERLINK           | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::HYPERLINK
-INDEX               | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDEX
-INDIRECT            | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT
-LOOKUP              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::LOOKUP
-MATCH               | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::MATCH
-OFFSET              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::OFFSET
-ROW                 | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::ROW
-ROWS                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::ROWS
-RTD                 | **Not yet Implemented**
-SORT                | **Not yet Implemented**
-SORTBY              | **Not yet Implemented**
-TRANSPOSE           | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::TRANSPOSE
-UNIQUE              | **Not yet Implemented**
-VLOOKUP             | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::VLOOKUP
-XLOOKUP             | **Not yet Implemented**
-XMATCH              | **Not yet Implemented**
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ADDRESS                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address::cell
+AREAS                    | **Not yet Implemented**
+CHOOSE                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection::CHOOSE
+COLUMN                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMN
+COLUMNS                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::COLUMNS
+FILTER                   | **Not yet Implemented**
+FORMULATEXT              | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula::text
+GETPIVOTDATA             | **Not yet Implemented**
+HLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup::lookup
+HYPERLINK                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Hyperlink::set
+INDEX                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::index
+INDIRECT                 | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Indirect::INDIRECT
+LOOKUP                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup::lookup
+MATCH                    | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ExcelMatch::MATCH
+OFFSET                   | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Offset::OFFSET
+ROW                      | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::ROW
+ROWS                     | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::ROWS
+RTD                      | **Not yet Implemented**
+SORT                     | **Not yet Implemented**
+SORTBY                   | **Not yet Implemented**
+TRANSPOSE                | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix::transpose
+UNIQUE                   | **Not yet Implemented**
+VLOOKUP                  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup::lookup
+XLOOKUP                  | **Not yet Implemented**
+XMATCH                   | **Not yet Implemented**
 
 ## CATEGORY_MATH_AND_TRIG
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-ABS                 | abs
-ACOS                | acos
-ACOSH               | acosh
-ACOT                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOT
-ACOTH               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ACOTH
-AGGREGATE           | **Not yet Implemented**
-ARABIC              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ARABIC
-ASIN                | asin
-ASINH               | asinh
-ATAN                | atan
-ATAN2               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ATAN2
-ATANH               | atanh
-BASE                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::BASE
-CEILING             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CEILING
-CEILING.MATH        | **Not yet Implemented**
-CEILING.PRECISE     | **Not yet Implemented**
-COMBIN              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COMBIN
-COMBINA             | **Not yet Implemented**
-COS                 | cos
-COSH                | cosh
-COT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COT
-COTH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::COTH
-CSC                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSC
-CSCH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::CSCH
-DECIMAL             | **Not yet Implemented**
-DEGREES             | rad2deg
-EVEN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::EVEN
-EXP                 | exp
-FACT                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FACT
-FACTDOUBLE          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FACTDOUBLE
-FLOOR               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOOR
-FLOOR.MATH          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORMATH
-FLOOR.PRECISE       | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::FLOORPRECISE
-GCD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD
-INT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::INT
-ISO.CEILING         | **Not yet Implemented**
-LCM                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::LCM
-LN                  | log
-LOG                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::logBase
-LOG10               | log10
-MDETERM             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MDETERM
-MINVERSE            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MINVERSE
-MMULT               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MMULT
-MOD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MOD
-MROUND              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MROUND
-MULTINOMIAL         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MULTINOMIAL
-MUNIT               | **Not yet Implemented**
-ODD                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ODD
-PI                  | pi
-POWER               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::POWER
-PRODUCT             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::PRODUCT
-QUOTIENT            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::QUOTIENT
-RADIANS             | deg2rad
-RAND                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::RAND
-RANDARRAY           | **Not yet Implemented**
-RANDBETWEEN         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::RAND
-ROMAN               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROMAN
-ROUND               | round
-ROUNDDOWN           | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROUNDDOWN
-ROUNDUP             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROUNDUP
-SEC                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SEC
-SECH                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SECH
-SERIESSUM           | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SERIESSUM
-SEQUENCE            | **Not yet Implemented**
-SIGN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SIGN
-SIN                 | sin
-SINH                | sinh
-SQRT                | sqrt
-SQRTPI              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SQRTPI
-SUBTOTAL            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUBTOTAL
-SUM                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUM
-SUMIF               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIF
-SUMIFS              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMIFS
-SUMPRODUCT          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMPRODUCT
-SUMSQ               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMSQ
-SUMX2MY2            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2MY2
-SUMX2PY2            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMX2PY2
-SUMXMY2             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SUMXMY2
-TAN                 | tan
-TANH                | tanh
-TRUNC               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::TRUNC
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ABS                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Absolute::evaluate
+ACOS                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosine::acos
+ACOSH                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosine::acosh
+ACOT                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cotangent::acot
+ACOTH                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cotangent::acoth
+AGGREGATE                | **Not yet Implemented**
+ARABIC                   | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Arabic::evaluate
+ASIN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::asin
+ASINH                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::asinh
+ATAN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::atan
+ATAN2                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::atan2
+ATANH                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::atanh
+BASE                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base::evaluate
+CEILING                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::ceiling
+CEILING.MATH             | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::math
+CEILING.PRECISE          | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Ceiling::precise
+COMBIN                   | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withoutRepetition
+COMBINA                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withRepetition
+COS                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosine::cos
+COSH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosine::cosh
+COT                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cotangent::cot
+COTH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cotangent::coth
+CSC                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosecant::csc
+CSCH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Cosecant::csch
+DECIMAL                  | **Not yet Implemented**
+DEGREES                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Angle::toDegrees
+ECMA.CEILING             | **Not yet Implemented**
+EVEN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::even
+EXP                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp::evaluate
+FACT                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Factorial::fact
+FACTDOUBLE               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Factorial::factDouble
+FLOOR                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::floor
+FLOOR.MATH               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::math
+FLOOR.PRECISE            | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Floor::precise
+GCD                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Gcd::evaluate
+INT                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\IntClass::evaluate
+ISO.CEILING              | **Not yet Implemented**
+LCM                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Lcm::evaluate
+LN                       | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Logarithms::natural
+LOG                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Logarithms::withBase
+LOG10                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Logarithms::base10
+MDETERM                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::determinant
+MINVERSE                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::inverse
+MMULT                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::multiply
+MOD                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operations::mod
+MROUND                   | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::multiple
+MULTINOMIAL              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Factorial::multinomial
+MUNIT                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::identity
+ODD                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::odd
+PI                       | pi
+POWER                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operations::power
+PRODUCT                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operations::product
+QUOTIENT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operations::quotient
+RADIANS                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Angle::toRadians
+RAND                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::rand
+RANDARRAY                | **Not yet Implemented**
+RANDBETWEEN              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::randBetween
+ROMAN                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Roman::evaluate
+ROUND                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::round
+ROUNDDOWN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::down
+ROUNDUP                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::up
+SEC                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sec
+SECH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sech
+SEQUENCE                 | **Not yet Implemented**
+SERIESSUM                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SeriesSum::evaluate
+SIGN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sign::evaluate
+SIN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sin
+SINH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sinh
+SQRT                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sqrt::sqrt
+SQRTPI                   | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sqrt::pi
+SUBTOTAL                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Subtotal::evaluate
+SUM                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum::sumErroringStrings
+SUMIF                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::SUMIF
+SUMIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::SUMIFS
+SUMPRODUCT               | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sum::product
+SUMSQ                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumSquare
+SUMX2MY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXSquaredMinusYSquared
+SUMX2PY2                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXSquaredPlusYSquared
+SUMXMY2                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SumSquares::sumXMinusYSquared
+TAN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tan
+TANH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Tangent::tanh
+TRUNC                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trunc::evaluate
 
 ## CATEGORY_STATISTICAL
 
 Excel Function           | PhpSpreadsheet Function
--------------------------|-------------------------------------------
-AVEDEV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVEDEV
-AVERAGE                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGE
-AVERAGEA                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEA
-AVERAGEIF                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::AVERAGEIF
-AVERAGEIFS               | **Not yet Implemented**
-BETADIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
-BETA.DIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETADIST
-BETAINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETAINV
-BETA.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BETAINV
-BINOMDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
-BINOM.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::BINOMDIST
-BINOM.DIST.RANGE         | **Not yet Implemented**
-BINOM.INV                | **Not yet Implemented**
-CHIDIST                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
-CHISQ.DIST               | **Not yet Implemented**
-CHISQ.DIST.RT            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIDIST
-CHIINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIINV
-CHISQ.INV                | **Not yet Implemented**
-CHISQ.INV.RT             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CHIINV
-CHITEST                  | **Not yet Implemented**
-CHISQ.TEST               | **Not yet Implemented**
-CONFIDENCE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CONFIDENCE
-CONFIDENCE.NORM          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CONFIDENCE
+-------------------------|--------------------------------------
+AVEDEV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::averageDeviations
+AVERAGE                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::average
+AVERAGEA                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::averageA
+AVERAGEIF                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::AVERAGEIF
+AVERAGEIFS               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::AVERAGEIFS
+BETA.DIST                | **Not yet Implemented**
+BETA.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Beta::inverse
+BETADIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Beta::distribution
+BETAINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Beta::inverse
+BINOM.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::distribution
+BINOM.DIST.RANGE         | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::range
+BINOM.INV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::inverse
+BINOMDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::distribution
+CHIDIST                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::distributionRightTail
+CHIINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::inverseRightTail
+CHISQ.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::distributionLeftTail
+CHISQ.DIST.RT            | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::distributionRightTail
+CHISQ.INV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::inverseLeftTail
+CHISQ.INV.RT             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::inverseRightTail
+CHISQ.TEST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
+CHITEST                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared::test
+CONFIDENCE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
+CONFIDENCE.NORM          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.T             | **Not yet Implemented**
-CORREL                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
-COUNT                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNT
-COUNTA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTA
-COUNTBLANK               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTBLANK
-COUNTIF                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIF
-COUNTIFS                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COUNTIFS
-COVAR                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
-COVARIANCE.P             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::COVAR
+CORREL                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::CORREL
+COUNT                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts::COUNT
+COUNTA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts::COUNTA
+COUNTBLANK               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts::COUNTBLANK
+COUNTIF                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::COUNTIF
+COUNTIFS                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::COUNTIFS
+COVAR                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::COVAR
+COVARIANCE.P             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::COVAR
 COVARIANCE.S             | **Not yet Implemented**
-CRITBINOM                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CRITBINOM
-DEVSQ                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::DEVSQ
-EXPONDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::EXPONDIST
-EXPON.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::EXPONDIST
-FDIST                    | **Not yet Implemented**
-F.DIST                   | **Not yet Implemented**
+CRITBINOM                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::inverse
+DEVSQ                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations::sumSquares
+EXPON.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
+EXPONDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential::distribution
+F.DIST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F::distribution
 F.DIST.RT                | **Not yet Implemented**
-FINV                     | **Not yet Implemented**
 F.INV                    | **Not yet Implemented**
 F.INV.RT                 | **Not yet Implemented**
 F.TEST                   | **Not yet Implemented**
-FISHER                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHER
-FISHERINV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FISHERINV
-FORECAST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
+FDIST                    | **Not yet Implemented**
+FINV                     | **Not yet Implemented**
+FISHER                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Fisher::distribution
+FISHERINV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Fisher::inverse
+FORECAST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::FORECAST
 FORECAST.ETS             | **Not yet Implemented**
 FORECAST.ETS.CONFINT     | **Not yet Implemented**
 FORECAST.ETS.SEASONALITY | **Not yet Implemented**
 FORECAST.ETS.STAT        | **Not yet Implemented**
-FORECAST.LINEAR          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::FORECAST
+FORECAST.LINEAR          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::FORECAST
 FREQUENCY                | **Not yet Implemented**
 FTEST                    | **Not yet Implemented**
-GAMMA                    | **Not yet Implemented**
-GAMMADIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
-GAMMA.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMADIST
-GAMMAINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
-GAMMA.INV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMAINV
-GAMMALN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
-GAMMALN.PRECISE          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GAMMALN
-GAUSS                    | **Not yet Implemented**
-GEOMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GEOMEAN
-GROWTH                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::GROWTH
-HARMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HARMEAN
-HYPGEOMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HYPGEOMDIST
-INTERCEPT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::INTERCEPT
-KURT                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::KURT
-LARGE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LARGE
-LINEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LINEST
-LOGEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGEST
-LOGINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
-LOGNORMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGNORMDIST
-LOGNORM.DIST             | **Not yet Implemented**
-LOGNORM.INV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::LOGINV
-MAX                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAX
-MAXA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXA
-MAXIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MAXIFS
-MEDIAN                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MEDIAN
+GAMMA                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::gamma
+GAMMA.DIST               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::distribution
+GAMMA.INV                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::inverse
+GAMMADIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::distribution
+GAMMAINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::inverse
+GAMMALN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::ln
+GAMMALN.PRECISE          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma::ln
+GAUSS                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::gauss
+GEOMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean::geometric
+GROWTH                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::GROWTH
+HARMEAN                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean::harmonic
+HYPGEOM.DIST             | **Not yet Implemented**
+HYPGEOMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\HyperGeometric::distribution
+INTERCEPT                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::INTERCEPT
+KURT                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations::kurtosis
+LARGE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Size::large
+LINEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::LINEST
+LOGEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::LOGEST
+LOGINV                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\LogNormal::inverse
+LOGNORM.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\LogNormal::distribution
+LOGNORM.INV              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\LogNormal::inverse
+LOGNORMDIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\LogNormal::cumulative
+MAX                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum::max
+MAXA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum::maxA
+MAXIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::MAXIFS
+MEDIAN                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::median
 MEDIANIF                 | **Not yet Implemented**
-MIN                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
-MINA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
-MINIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIFS
-MODE                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
+MIN                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum::min
+MINA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum::minA
+MINIFS                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional::MINIFS
+MODE                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::mode
 MODE.MULT                | **Not yet Implemented**
-MODE.SNGL                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
-NEGBINOMDIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST
+MODE.SNGL                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages::mode
 NEGBINOM.DIST            | **Not yet Implemented**
-NORMDIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
-NORM.DIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
-NORMINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
-NORM.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
-NORMSDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
-NORM.S.DIST              | **Not yet Implemented**
-NORMSINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
-NORM.S.INV               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
-PEARSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::CORREL
-PERCENTILE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTILE
+NEGBINOMDIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial::negative
+NORM.DIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal::distribution
+NORM.INV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal::inverse
+NORM.S.DIST              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::distribution
+NORM.S.INV               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::inverse
+NORMDIST                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal::distribution
+NORMINV                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal::inverse
+NORMSDIST                | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::cumulative
+NORMSINV                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::inverse
+PEARSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::CORREL
+PERCENTILE               | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::PERCENTILE
 PERCENTILE.EXC           | **Not yet Implemented**
-PERCENTILE.INC           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTILE
-PERCENTRANK              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTRANK
+PERCENTILE.INC           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::PERCENTILE
+PERCENTRANK              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::PERCENTRANK
 PERCENTRANK.EXC          | **Not yet Implemented**
-PERCENTRANK.INC          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERCENTRANK
-PERMUT                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::PERMUT
-PERMUTATIONA             | **Not yet Implemented**
+PERCENTRANK.INC          | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::PERCENTRANK
+PERMUT                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations::PERMUT
+PERMUTATIONA             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations::PERMUTATIONA
 PHI                      | **Not yet Implemented**
-POISSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::POISSON
-POISSON.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::POISSON
+POISSON                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Poisson::distribution
+POISSON.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Poisson::distribution
 PROB                     | **Not yet Implemented**
-QUARTILE                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::QUARTILE
+QUARTILE                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::QUARTILE
 QUARTILE.EXC             | **Not yet Implemented**
-QUARTILE.INC             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::QUARTILE
-RANK                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RANK
+QUARTILE.INC             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::QUARTILE
+RANK                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::RANK
 RANK.AVG                 | **Not yet Implemented**
-RANK.EQ                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RANK
-RSQ                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::RSQ
-SKEW                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SKEW
+RANK.EQ                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::RANK
+RSQ                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::RSQ
+SKEW                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations::skew
 SKEW.P                   | **Not yet Implemented**
-SLOPE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SLOPE
-SMALL                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::SMALL
-STANDARDIZE              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STANDARDIZE
-STDEV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
-STDEV.P                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
-STDEV.S                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEV
-STDEVA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVA
-STDEVP                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVP
-STDEVPA                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STDEVPA
-STEYX                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::STEYX
-TDIST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TDIST
+SLOPE                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::SLOPE
+SMALL                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Size::small
+STANDARDIZE              | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Standardize::execute
+STDEV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEV
+STDEV.P                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVP
+STDEV.S                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEV
+STDEVA                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVA
+STDEVP                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVP
+STDEVPA                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations::STDEVPA
+STEYX                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::STEYX
 T.DIST                   | **Not yet Implemented**
 T.DIST.2T                | **Not yet Implemented**
 T.DIST.RT                | **Not yet Implemented**
-TINV                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
-T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
+T.INV                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
 T.INV.2T                 | **Not yet Implemented**
-TREND                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TREND
-TRIMMEAN                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TRIMMEAN
-TTEST                    | **Not yet Implemented**
 T.TEST                   | **Not yet Implemented**
-VAR                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
-VAR.P                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
-VAR.S                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARFunc
-VARA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARA
-VARP                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
-VARPA                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARPA
-WEIBULL                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
-WEIBULL.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
-ZTEST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::ZTEST
-Z.TEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::ZTEST
+TDIST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::distribution
+TINV                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
+TREND                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends::TREND
+TRIMMEAN                 | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean::trim
+TTEST                    | **Not yet Implemented**
+VAR                      | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VAR
+VAR.P                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARP
+VAR.S                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VAR
+VARA                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARA
+VARP                     | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARP
+VARPA                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARPA
+WEIBULL                  | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Weibull::distribution
+WEIBULL.DIST             | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Weibull::distribution
+Z.TEST                   | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::zTest
+ZTEST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal::zTest
 
 ## CATEGORY_TEXT_AND_DATA
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-ASC                 | **Not yet Implemented**
-BAHTTEXT            | **Not yet Implemented**
-CHAR                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CHARACTER
-CLEAN               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TRIMNONPRINTABLE
-CODE                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::ASCIICODE
-CONCAT              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CONCATENATE
-CONCATENATE         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CONCATENATE
-DBCS                | **Not yet Implemented**
-DOLLAR              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::DOLLAR
-EXACT               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::EXACT
-FIND                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHSENSITIVE
-FINDB               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHSENSITIVE
-FIXED               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::FIXEDFORMAT
-JIS                 | **Not yet Implemented**
-LEFT                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::LEFT
-LEFTB               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::LEFT
-LEN                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData::STRINGLENGTH
-LENB                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::STRINGLENGTH
-LOWER               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::LOWERCASE
-MID                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData::MID
-MIDB                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::MID
-NUMBERVALUE         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::NUMBERVALUE
-PHONETIC            | **Not yet Implemented**
-PROPER              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::PROPERCASE
-REPLACE             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::REPLACE
-REPLACEB            | \PhpOffice\PhpSpreadsheet\Calculation\TextData::REPLACE
-REPT                | str_repeat
-RIGHT               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::RIGHT
-RIGHTB              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::RIGHT
-SEARCH              | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHINSENSITIVE
-SEARCHB             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHINSENSITIVE
-SUBSTITUTE          | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SUBSTITUTE
-T                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData::RETURNSTRING
-TEXT                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TEXTFORMAT
-TEXTJOIN            | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TEXTJOIN
-TRIM                | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TRIMSPACES
-UNICHAR             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::CHARACTER
-UNICODE             | \PhpOffice\PhpSpreadsheet\Calculation\TextData::ASCIICODE
-UPPER               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::UPPERCASE
-VALUE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData::VALUE
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ASC                      | **Not yet Implemented**
+BAHTTEXT                 | **Not yet Implemented**
+CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
+CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
+CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+CONCAT                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+DBCS                     | **Not yet Implemented**
+DOLLAR                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::DOLLAR
+EXACT                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::exact
+FIND                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::sensitive
+FINDB                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::sensitive
+FIXED                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::FIXEDFORMAT
+JIS                      | **Not yet Implemented**
+LEFT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::left
+LEFTB                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::left
+LEN                      | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::length
+LENB                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::length
+LOWER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::lower
+MID                      | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::mid
+MIDB                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::mid
+NUMBERVALUE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::NUMBERVALUE
+PHONETIC                 | **Not yet Implemented**
+PROPER                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::proper
+REPLACE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace::replace
+REPLACEB                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace::replace
+REPT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::builtinREPT
+RIGHT                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::right
+RIGHTB                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::right
+SEARCH                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::insensitive
+SEARCHB                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::insensitive
+SUBSTITUTE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Replace::substitute
+T                        | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::test
+TEXT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::TEXTFORMAT
+TEXTJOIN                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::TEXTJOIN
+TRIM                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
+UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
+UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
+UPPER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
+VALUE                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
 
 ## CATEGORY_WEB
 
-Excel Function      | PhpSpreadsheet Function
---------------------|-------------------------------------------
-ENCODEURL           | **Not yet Implemented**
-FILTERXML           | **Not yet Implemented**
-WEBSERVICE          | \PhpOffice\PhpSpreadsheet\Calculation\Web::WEBSERVICE
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ENCODEURL                | \PhpOffice\PhpSpreadsheet\Calculation\Web\Service::urlEncode
+FILTERXML                | **Not yet Implemented**
+WEBSERVICE               | \PhpOffice\PhpSpreadsheet\Calculation\Web\Service::webService

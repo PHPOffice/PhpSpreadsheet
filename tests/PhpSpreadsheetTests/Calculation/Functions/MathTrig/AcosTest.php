@@ -12,7 +12,7 @@ class AcosTest extends AllSetupTeardown
     public function testAcos($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A2')->setValue(0.5);
         $sheet->getCell('A1')->setValue("=ACOS($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

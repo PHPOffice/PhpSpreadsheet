@@ -2,9 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class WorkDay
 {
@@ -29,7 +28,7 @@ class WorkDay
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function evaluate($startDate, $endDays, ...$dateArgs)
+    public static function date($startDate, $endDays, ...$dateArgs)
     {
         //    Retrieve the mandatory start date and days that are referenced in the function definition
         try {
@@ -183,7 +182,7 @@ class WorkDay
 
     private static function getWeekDay(float $date, int $wd): int
     {
-        $result = WeekDay::evaluate($date, $wd);
+        $result = Week::day($date, $wd);
 
         return is_string($result) ? -1 : $result;
     }

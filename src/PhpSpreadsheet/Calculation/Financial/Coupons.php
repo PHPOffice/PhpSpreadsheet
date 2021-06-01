@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
@@ -63,17 +64,17 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         if (is_string($daysPerYear)) {
             return Functions::VALUE();
         }
         $prev = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) {
-            return abs((float) DateTimeExcel\Days::evaluate($prev, $settlement));
+            return abs((float) DateTimeExcel\Days::between($prev, $settlement));
         }
 
-        return DateTimeExcel\YearFrac::evaluate($prev, $settlement, $basis) * $daysPerYear;
+        return (float) DateTimeExcel\YearFrac::fraction($prev, $settlement, $basis) * $daysPerYear;
     }
 
     /**
@@ -133,7 +134,7 @@ class Coupons
             case FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
                 if ($frequency == FinancialConstants::FREQUENCY_ANNUAL) {
-                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }
@@ -197,7 +198,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\Year::evaluate($settlement), $basis);
+        $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 
         if ($basis === FinancialConstants::BASIS_DAYS_PER_YEAR_NASD) {
@@ -208,7 +209,7 @@ class Coupons
             }
         }
 
-        return DateTimeExcel\YearFrac::evaluate($settlement, $next, $basis) * $daysPerYear;
+        return (float) DateTimeExcel\YearFrac::fraction($settlement, $next, $basis) * $daysPerYear;
     }
 
     /**
@@ -316,13 +317,13 @@ class Coupons
             return $e->getMessage();
         }
 
-        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::evaluate(
+        $yearsBetweenSettlementAndMaturity = DateTimeExcel\YearFrac::fraction(
             $settlement,
             $maturity,
             FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
         );
 
-        return (int) ceil($yearsBetweenSettlementAndMaturity * $frequency);
+        return (int) ceil((float) $yearsBetweenSettlementAndMaturity * $frequency);
     }
 
     /**
@@ -379,28 +380,33 @@ class Coupons
         return self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_PREVIOUS);
     }
 
-    private static function couponFirstPeriodDate($settlement, $maturity, int $frequency, $next)
+    private static function monthsDiff(DateTime $result, int $months, string $plusOrMinus, int $day, bool $lastDayFlag): void
+    {
+        $result->setDate((int) $result->format('Y'), (int) $result->format('m'), 1);
+        $result->modify("$plusOrMinus $months months");
+        $daysInMonth = (int) $result->format('t');
+        $result->setDate((int) $result->format('Y'), (int) $result->format('m'), $lastDayFlag ? $daysInMonth : min($day, $daysInMonth));
+    }
+
+    private static function couponFirstPeriodDate(float $settlement, float $maturity, int $frequency, bool $next): float
     {
         $months = 12 / $frequency;
 
         $result = Date::excelToDateTimeObject($maturity);
-        $maturityEoM = Helpers::isLastDayOfMonth($result);
+        $day = (int) $result->format('d');
+        $lastDayFlag = Helpers::isLastDayOfMonth($result);
 
         while ($settlement < Date::PHPToExcel($result)) {
-            $result->modify('-' . $months . ' months');
+            self::monthsDiff($result, $months, '-', $day, $lastDayFlag);
         }
         if ($next === true) {
-            $result->modify('+' . $months . ' months');
+            self::monthsDiff($result, $months, '+', $day, $lastDayFlag);
         }
 
-        if ($maturityEoM === true) {
-            $result->modify('-1 day');
-        }
-
-        return Date::PHPToExcel($result);
+        return (float) Date::PHPToExcel($result);
     }
 
-    private static function validateCouponPeriod($settlement, $maturity): void
+    private static function validateCouponPeriod(float $settlement, float $maturity): void
     {
         if ($settlement >= $maturity) {
             throw new Exception(Functions::NAN());

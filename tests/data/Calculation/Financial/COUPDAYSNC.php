@@ -219,4 +219,21 @@ return [
         4,
         4,
     ],
+    [
+        175,
+        '05-Apr-2019',
+        '30-Sep-2021',
+        2,
+        0,
+    ],
+    // Excel and LibreOffice return 175 for the following calculation.
+    // Gnumeric returns 176.
+    // My hand calculation, hardly guaranteed, agrees with Gnumeric.
+    [
+        176,
+        '05-Oct-2019',
+        '31-Mar-2022',
+        2,
+        0,
+    ],
 ];

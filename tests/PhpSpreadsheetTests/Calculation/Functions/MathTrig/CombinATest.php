@@ -14,7 +14,7 @@ class CombinATest extends AllSetupTeardown
     public function testCOMBINA($expectedResult, $numObjs, $numInSet): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if ($numObjs !== null) {
             $sheet->getCell('A1')->setValue($numObjs);
         }
