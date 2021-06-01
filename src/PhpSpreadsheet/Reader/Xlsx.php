@@ -14,7 +14,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\ConditionalStyles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\DataValidations;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PivotTables;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
@@ -311,13 +310,12 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
         File::assertFile($pFilename);
+        $this->processFlags($flags);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -770,7 +768,7 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
+                            $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'selectUnlockedCells'];
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
                                 foreach ($aKeys as $key) {
                                     $method = 'set' . ucfirst($key);
@@ -801,13 +799,6 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
                                 (new DataValidations($docSheet, $xmlSheet))->load();
-                            }
-
-                            if (!$this->readDataOnly && $this->includePivotTables) {
-                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
-                                    $relsWorksheet = simplexml_load_string($this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')); //~ http://schemas.openxmlformats.org/package/2006/relationships");
-                                    (new PivotTables($docSheet, $zip))->load($relsWorksheet, $dir, $fileWorksheet);
-                                }
                             }
 
                             // unparsed sheet AlternateContent

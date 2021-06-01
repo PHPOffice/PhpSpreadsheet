@@ -240,8 +240,10 @@ class Csv extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
+        $this->processFlags($flags);
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
