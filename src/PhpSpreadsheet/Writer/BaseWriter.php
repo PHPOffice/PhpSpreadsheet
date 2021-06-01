@@ -94,7 +94,7 @@ abstract class BaseWriter implements IWriter
         return $this->diskCachingDirectory;
     }
 
-    protected function processFlags(int $flags)
+    protected function processFlags(int $flags): void
     {
         if (((bool) ($flags & self::SAVE_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);

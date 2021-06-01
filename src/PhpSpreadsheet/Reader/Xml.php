@@ -236,8 +236,6 @@ class Xml extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $filename
-     *
      * @return Spreadsheet
      */
     public function load(string $pFilename, int $flags = 0)

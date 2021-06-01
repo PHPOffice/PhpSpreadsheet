@@ -137,7 +137,7 @@ abstract class BaseReader implements IReader
         return $this->securityScanner;
     }
 
-    protected function processFlags(int $flags)
+    protected function processFlags(int $flags): void
     {
         if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);

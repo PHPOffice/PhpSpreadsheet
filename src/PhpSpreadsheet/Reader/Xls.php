@@ -622,8 +622,6 @@ class Xls extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
     public function load(string $pFilename, int $flags = 0)
