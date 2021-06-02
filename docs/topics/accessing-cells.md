@@ -561,7 +561,9 @@ $spreadsheet->getActiveSheet()->setCellValue('B5', '21 December 1983');
 Alternatively, a `\PhpOffice\PhpSpreadsheet\Cell\StringValueBinder` class is available
 if you want to preserve all string content as strings. This might be appropriate if you
 were loading a file containing values that could be interpreted as numbers (e.g. numbers
-with leading zeroes such as phone numbers), but that should be retained as strings.
+with leading sign such as international phone numbers like `+441615579382`), but that
+should be retained as strings (non-international phone numbers with leading zeroes are
+already maintained as strings).
 
 **Creating your own value binder is relatively straightforward.** When more specialised
 value binding is required, you can implement the
