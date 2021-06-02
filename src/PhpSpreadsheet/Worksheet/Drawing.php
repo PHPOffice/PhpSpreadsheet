@@ -123,7 +123,7 @@ class Drawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setURL($isUrl)
+    public function setIsURL($isUrl)
     {
         $this->isUrl = $isUrl;
 
