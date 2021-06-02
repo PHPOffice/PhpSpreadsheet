@@ -115,7 +115,7 @@ class PageSettings
 
     private function setLayout(stdClass $printDefaults, SimpleXMLElement $pageSetupAttributes): void
     {
-        $printDefaults->orientation = (string) strtolower($pageSetupAttributes->Orientation) ?: PageSetup::ORIENTATION_PORTRAIT;
+        $printDefaults->orientation = (string) strtolower($pageSetupAttributes->Orientation ?? '') ?: PageSetup::ORIENTATION_PORTRAIT;
         $printDefaults->horizontalCentered = (bool) $pageSetupAttributes->CenterHorizontal ?: false;
         $printDefaults->verticalCentered = (bool) $pageSetupAttributes->CenterVertical ?: false;
     }

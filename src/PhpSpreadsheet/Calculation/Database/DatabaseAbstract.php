@@ -27,7 +27,7 @@ abstract class DatabaseAbstract
      */
     protected static function fieldExtract(array $database, $field): ?int
     {
-        $field = strtoupper(Functions::flattenSingleValue($field));
+        $field = strtoupper(Functions::flattenSingleValue($field ?? ''));
         if ($field === '') {
             return null;
         }
