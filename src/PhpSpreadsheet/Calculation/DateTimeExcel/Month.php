@@ -2,39 +2,81 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
-use Exception;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Month
 {
     /**
-     * MONTHOFYEAR.
+     * EDATE.
      *
-     * Returns the month of a date represented by a serial number.
-     * The month is given as an integer, ranging from 1 (January) to 12 (December).
+     * Returns the serial number that represents the date that is the indicated number of months
+     * before or after a specified date (the start_date).
+     * Use EDATE to calculate maturity dates or due dates that fall on the same day of the month
+     * as the date of issue.
      *
      * Excel Function:
-     *        MONTH(dateValue)
+     *        EDATE(dateValue,adjustmentMonths)
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
+     *                                        PHP DateTime object, or a standard date string
+     * @param int $adjustmentMonths The number of months before or after start_date.
+     *                                        A positive value for months yields a future date;
+     *                                        a negative value yields a past date.
      *
-     * @return int|string Month of the year
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcMonth($dateValue)
+    public static function adjust($dateValue, $adjustmentMonths)
     {
         try {
-            $dateValue = Helpers::getDateValue($dateValue);
+            $dateValue = Helpers::getDateValue($dateValue, false);
+            $adjustmentMonths = Helpers::validateNumericNull($adjustmentMonths);
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        if ($dateValue < 1 && Date::getExcelCalendar() === DATE::CALENDAR_WINDOWS_1900) {
-            return 1;
-        }
+        $adjustmentMonths = floor($adjustmentMonths);
 
         // Execute function
-        $PHPDateObject = Date::excelToDateTimeObject($dateValue);
+        $PHPDateObject = Helpers::adjustDateByMonths($dateValue, $adjustmentMonths);
 
-        return (int) $PHPDateObject->format('n');
+        return Helpers::returnIn3FormatsObject($PHPDateObject);
+    }
+
+    /**
+     * EOMONTH.
+     *
+     * Returns the date value for the last day of the month that is the indicated number of months
+     * before or after start_date.
+     * Use EOMONTH to calculate maturity dates or due dates that fall on the last day of the month.
+     *
+     * Excel Function:
+     *        EOMONTH(dateValue,adjustmentMonths)
+     *
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                                        PHP DateTime object, or a standard date string
+     * @param int $adjustmentMonths The number of months before or after start_date.
+     *                                        A positive value for months yields a future date;
+     *                                        a negative value yields a past date.
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *                        depending on the value of the ReturnDateType flag
+     */
+    public static function lastDay($dateValue, $adjustmentMonths)
+    {
+        try {
+            $dateValue = Helpers::getDateValue($dateValue, false);
+            $adjustmentMonths = Helpers::validateNumericNull($adjustmentMonths);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        $adjustmentMonths = floor($adjustmentMonths);
+
+        // Execute function
+        $PHPDateObject = Helpers::adjustDateByMonths($dateValue, $adjustmentMonths + 1);
+        $adjustDays = (int) $PHPDateObject->format('d');
+        $adjustDaysString = '-' . $adjustDays . ' days';
+        $PHPDateObject->modify($adjustDaysString);
+
+        return Helpers::returnIn3FormatsObject($PHPDateObject);
     }
 }

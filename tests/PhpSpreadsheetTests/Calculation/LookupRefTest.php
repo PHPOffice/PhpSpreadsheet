@@ -41,6 +41,8 @@ class LookupRefTest extends TestCase
             $remoteSheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
+            $remoteSheet->method('cellExists')
+                ->willReturn(true);
             $remoteSheet->method('getCell')
                 ->willReturn($remoteCell);
 
@@ -53,6 +55,8 @@ class LookupRefTest extends TestCase
             $sheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
+            $sheet->method('cellExists')
+                ->willReturn(true);
             $sheet->method('getCell')
                 ->willReturn($remoteCell);
             $sheet->method('getParent')

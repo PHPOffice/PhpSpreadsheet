@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Time
 {
@@ -20,14 +20,14 @@ class Time
      * Excel Function:
      *        TIME(hour,minute,second)
      *
-     * @param int $hour A number from 0 (zero) to 32767 representing the hour.
+     * @param mixed $hour A number from 0 (zero) to 32767 representing the hour.
      *                                    Any value greater than 23 will be divided by 24 and the remainder
      *                                    will be treated as the hour value. For example, TIME(27,0,0) =
      *                                    TIME(3,0,0) = .125 or 3:00 AM.
-     * @param int $minute A number from 0 to 32767 representing the minute.
+     * @param mixed $minute A number from 0 to 32767 representing the minute.
      *                                    Any value greater than 59 will be converted to hours and minutes.
      *                                    For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM.
-     * @param int $second A number from 0 to 32767 representing the second.
+     * @param mixed $second A number from 0 to 32767 representing the second.
      *                                    Any value greater than 59 will be converted to hours, minutes,
      *                                    and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
      *                                    or 12:33:20 AM
@@ -35,7 +35,7 @@ class Time
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function funcTime($hour, $minute, $second)
+    public static function fromHMS($hour, $minute, $second)
     {
         try {
             $hour = self::toIntWithNullBool($hour);
@@ -57,13 +57,13 @@ class Time
         // Execute function
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_EXCEL) {
-            $calendar = Date::getExcelCalendar();
-            $date = (int) ($calendar !== Date::CALENDAR_WINDOWS_1900);
+            $calendar = SharedDateHelper::getExcelCalendar();
+            $date = (int) ($calendar !== SharedDateHelper::CALENDAR_WINDOWS_1900);
 
-            return (float) Date::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
+            return (float) SharedDateHelper::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
         }
         if ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-            return (int) Date::excelToTimestamp(Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
+            return (int) SharedDateHelper::excelToTimestamp(SharedDateHelper::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
         }
         // RETURNDATE_PHP_DATETIME_OBJECT
         // Hour has already been normalized (0-23) above
@@ -100,6 +100,9 @@ class Time
         }
     }
 
+    /**
+     * @param mixed $value expect int
+     */
     private static function toIntWithNullBool($value): int
     {
         $value = Functions::flattenSingleValue($value);

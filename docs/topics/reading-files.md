@@ -324,6 +324,10 @@ to read and process a large workbook in "chunks": an example of this
 usage might be when transferring data from an Excel worksheet to a
 database.
 
+Read Filtering does not renumber cell rows and columns. If you filter to read only rows 100-200, cells that you read will still be numbered A100-A200, not A1-A101. Cells A1-A99 will not be loaded, but if you then try to call `getCell()` for a cell outside your loaded range, then PHPSpreadsheet will create a new cell with a null value.
+
+Methods such as `toArray()` assume that all cells in a spreadsheet has been loaded from A1, so will return null values for rows and columns that fall outside your filter range: it is recommended that you keep track of the range that your filter has requested, and use `rangeToArray()` instead.
+
 ```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
