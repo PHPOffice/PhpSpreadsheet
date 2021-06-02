@@ -14,11 +14,11 @@ class Drawing extends BaseDrawing
     private $path;
 
     /**
-     * URL.
+     * Whether or not we are dealing with a URL.
      *
-     * @var string
+     * @var bool
      */
-    private $url;
+    private $isUrl;
 
     /**
      * Create a new Drawing.
@@ -27,7 +27,7 @@ class Drawing extends BaseDrawing
     {
         // Initialise values
         $this->path = '';
-        $this->url = '';
+        $this->isUrl = false;
 
         // Initialize parent
         parent::__construct();
@@ -107,25 +107,25 @@ class Drawing extends BaseDrawing
     }
 
     /**
-     * Get URL.
+     * Get isURL.
      *
-     * @return string
+     * @return bool
      */
-    public function getURL()
+    public function getIsURL()
     {
-        return $this->url;
+        return $this->isUrl;
     }
 
     /**
-     * Set URL.
+     * Set isURL.
      *
-     * @param string $url to file
+     * @param bool $isUrl
      *
      * @return $this
      */
-    public function setURL($url)
+    public function setURL($isUrl)
     {
-        $this->url = $url;
+        $this->isUrl = $isUrl;
 
         return $this;
     }
