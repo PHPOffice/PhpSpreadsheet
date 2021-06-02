@@ -1031,14 +1031,14 @@ $reader->load("spreadsheetWithCharts.xlsx");
 ```
 Alternatively, you can specify this in the call to load the spreadsheet:
 ```php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("spreadsheetWithCharts.xlsx");
 $reader->load("spreadsheetWithCharts.xlsx", $reader::LOAD_WITH_CHARTS);
 ```
 
 If you wish to use the IOFactory `load()` method rather than instantiating a specific Reader, then you can still pass these flags.
 
 ```php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("setIncludeCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
 ```
 
 Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
