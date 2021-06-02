@@ -1375,23 +1375,26 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         }
     } else {
         if ($drawing->getPath()) {
-            $zipReader = fopen($drawing->getPath(),'r');
-            $imageContents = '';
-            while (!feof($zipReader)) {
-                $imageContents .= fread($zipReader,1024);
+            // Check if the source is a URL or a file path
+            if ($drawing->getIsURL()) {
+                $imageContents = file_get_contents($drawing->getPath());
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                file_put_contents($filePath , $imageContents);
+                $mimeType = mime_content_type($filePath);
+                // You could use the below to find the extension from mime type.
+                // https://gist.github.com/alexcorvi/df8faecb59e86bee93411f6a7967df2c#gistcomment-2722664
+                $extension = File::mime2ext($mimeType);
+                unlink($filePath);            
             }
-            fclose($zipReader);
-            $extension = $drawing->getExtension();
-        } 
-        elseif ($drawing->getURL()) {
-            $imageContents = file_get_contents($drawing->getURL());
-            $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
-            file_put_contents($filePath , $imageContents);
-            $mimeType = mime_content_type($filePath);
-            // You could use the below to find the extension from mime type.
-            // https://gist.github.com/alexcorvi/df8faecb59e86bee93411f6a7967df2c#gistcomment-2722664
-            $extension = File::mime2ext($mimeType);
-            unlink($filePath);
+            else {
+                $zipReader = fopen($drawing->getPath(),'r');
+                $imageContents = '';
+                while (!feof($zipReader)) {
+                    $imageContents .= fread($zipReader,1024);
+                }
+                fclose($zipReader);
+                $extension = $drawing->getExtension();            
+            }
         }
     }
     $myFileName = '00_Image_'.++$i.'.'.$extension;
