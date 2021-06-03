@@ -43,7 +43,7 @@ class AdvancedValueBinderTest extends TestCase
         StringHelper::setThousandsSeparator($this->thousandsSeparator);
     }
 
-    public function testNullValue()
+    public function testNullValue(): void
     {
         /** @var Cell&MockObject $cellStub */
         $cellStub = $this->getMockBuilder(Cell::class)
