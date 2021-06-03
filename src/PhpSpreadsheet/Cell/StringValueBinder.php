@@ -101,7 +101,7 @@ class StringValueBinder implements IValueBinder
         return true;
     }
 
-    protected function bindObjectValue(Cell $cell, $value): bool
+    protected function bindObjectValue(Cell $cell, object $value): bool
     {
         // Handle any objects that might be injected
         if ($value instanceof DateTimeInterface) {
