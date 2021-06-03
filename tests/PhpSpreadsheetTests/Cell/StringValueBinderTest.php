@@ -13,6 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
 {
+    /**
+     * @param mixed $expectedValue
+     */
     protected function createCellStub($expectedValue, string $expectedDataType, bool $quotePrefix = false): Cell
     {
         /** @var Style&MockObject $styleStub */
@@ -39,6 +42,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesDefault
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderDefaultBehaviour(
         $value,
@@ -82,6 +88,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressNullConversion
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNullConversion(
         $value,
@@ -105,6 +114,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressBooleanConversion
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressBooleanConversion(
         $value,
@@ -129,6 +141,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressNumericConversion
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNumericConversion(
         $value,
@@ -159,6 +174,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressFormulaConversion
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressFormulaConversion(
         $value,
@@ -182,6 +200,9 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressAllConversion
+     *
+     * @param mixed $value
+     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressAllConversion(
         $value,
