@@ -6,7 +6,9 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -244,5 +246,17 @@ class StringValueBinderTest extends TestCase
             [1.23e-4, 0.000123, DataType::TYPE_NUMERIC],
             [1.23e-24, 1.23E-24, DataType::TYPE_NUMERIC],
         ];
+    }
+
+    public function testStringValueBinderForRichTextObject(): void
+    {
+        $objRichText = new RichText();
+        $objRichText->createText('Hello World');
+
+        $cellStub = $this->createCellStub($objRichText, DataType::TYPE_INLINE);
+
+        $binder = new StringValueBinder();
+        $binder->setConversionForAllValueTypes(false);
+        $binder->bindValue($cellStub, $objRichText);
     }
 }
