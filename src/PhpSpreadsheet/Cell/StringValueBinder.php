@@ -2,10 +2,58 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use DateTimeInterface;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class StringValueBinder implements IValueBinder
 {
+    protected $convertNull = true;
+
+    protected $convertBoolean = true;
+
+    protected $convertNumeric = true;
+
+    protected $convertFormula = true;
+
+    public function setNullConversion(bool $suppressConversion = false): self
+    {
+        $this->convertNull = $suppressConversion;
+
+        return $this;
+    }
+
+    public function setBooleanConversion(bool $suppressConversion = false): self
+    {
+        $this->convertBoolean = $suppressConversion;
+
+        return $this;
+    }
+
+    public function setNumericConversion(bool $suppressConversion = false): self
+    {
+        $this->convertNumeric = $suppressConversion;
+
+        return $this;
+    }
+
+    public function setFormulaConversion(bool $suppressConversion = false): self
+    {
+        $this->convertFormula = $suppressConversion;
+
+        return $this;
+    }
+
+    public function setConversionForAllValueTypes(bool $suppressConversion = false): self
+    {
+        $this->convertNull = $suppressConversion;
+        $this->convertBoolean = $suppressConversion;
+        $this->convertNumeric = $suppressConversion;
+        $this->convertFormula = $suppressConversion;
+
+        return $this;
+    }
+
     /**
      * Bind value to a cell.
      *
@@ -21,9 +69,35 @@ class StringValueBinder implements IValueBinder
             $value = StringHelper::sanitizeUTF8($value);
         }
 
-        $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+        if (is_object($value)) {
+            // Handle any objects that might be injected
+            if ($value instanceof DateTimeInterface) {
+                $value = $value->format('Y-m-d H:i:s');
+            } elseif ($value instanceof RichText) {
+                $cell->setValueExplicit((string) $value, DataType::TYPE_INLINE);
 
-        // Done!
+                return true;
+            } else {
+                // Attempt to cast any unexpected objects to string
+                $value = (string) $value;
+            }
+        }
+
+        if ($value === null && $this->convertNull === false) {
+            $cell->setValueExplicit($value, DataType::TYPE_NULL);
+        } elseif (is_bool($value) && $this->convertBoolean === false) {
+            $cell->setValueExplicit($value, DataType::TYPE_BOOL);
+        } elseif ((is_int($value) || is_float($value)) && $this->convertNumeric === false) {
+            $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+        } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === false) {
+            $cell->setValueExplicit($value, DataType::TYPE_FORMULA);
+        } else {
+            if (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
+                $cell->getStyle()->setQuotePrefix(true);
+            }
+            $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
+        }
+
         return true;
     }
 }
