@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
@@ -207,6 +207,7 @@ class AutoFilterTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
         $invalidColumn = 123.456;
+        // @phpstan-ignore-next-line
         $this->testAutoFilterObject->setColumn($invalidColumn);
     }
 
