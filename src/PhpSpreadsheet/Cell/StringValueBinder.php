@@ -86,7 +86,7 @@ class StringValueBinder implements IValueBinder
             if ($value instanceof DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif ($value instanceof RichText) {
-                $cell->setValueExplicit((string)$value, DataType::TYPE_INLINE);
+                $cell->setValueExplicit($value, DataType::TYPE_INLINE);
 
                 return true;
             }
