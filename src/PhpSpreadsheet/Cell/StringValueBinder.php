@@ -8,12 +8,24 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class StringValueBinder implements IValueBinder
 {
+    /**
+     * @var bool $convertNull
+     */
     protected $convertNull = true;
 
+    /**
+     * @var bool $convertBoolean
+     */
     protected $convertBoolean = true;
 
+    /**
+     * @var bool $convertNumeric
+     */
     protected $convertNumeric = true;
 
+    /**
+     * @var bool $convertFormula
+     */
     protected $convertFormula = true;
 
     public function setNullConversion(bool $suppressConversion = false): self
