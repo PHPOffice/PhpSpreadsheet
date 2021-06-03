@@ -9,22 +9,22 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 class StringValueBinder implements IValueBinder
 {
     /**
-     * @var bool $convertNull
+     * @var bool
      */
     protected $convertNull = true;
 
     /**
-     * @var bool $convertBoolean
+     * @var bool
      */
     protected $convertBoolean = true;
 
     /**
-     * @var bool $convertNumeric
+     * @var bool
      */
     protected $convertNumeric = true;
 
     /**
-     * @var bool $convertFormula
+     * @var bool
      */
     protected $convertFormula = true;
 

@@ -15,8 +15,10 @@ class StringValueBinderTest extends TestCase
 {
     /**
      * @param mixed $expectedValue
+     *
+     * @return Cell&MockObject
      */
-    protected function createCellStub($expectedValue, string $expectedDataType, bool $quotePrefix = false): Cell
+    protected function createCellStub($expectedValue, string $expectedDataType, bool $quotePrefix = false): MockObject
     {
         /** @var Style&MockObject $styleStub */
         $styleStub = $this->getMockBuilder(Style::class)
