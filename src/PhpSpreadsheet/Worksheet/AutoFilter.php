@@ -689,7 +689,6 @@ class AutoFilter
     private function dynamicFilterDateRange($dynamicRuleType, &$filterColumn)
     {
         $ruleValues = [];
-        $val = $maxVal = null;
         $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?
         //    Calculate start/end dates for the required date range based on current date
         //    Val is lowest permitted value.

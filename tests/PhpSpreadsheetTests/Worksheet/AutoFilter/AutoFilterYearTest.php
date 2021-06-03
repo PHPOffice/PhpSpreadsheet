@@ -84,7 +84,6 @@ class AutoFilterYearTest extends TestCase
             $startDay = (int) $dtStart->format('d');
             $startMonth = (int) $dtStart->format('m');
             $sheet->getCell('A1')->setValue('Date');
-            $year = (int) $dtStart->format('Y');
             $sheet->getCell('A2')->setValue('=TODAY()');
             $sheet->getCell('A3')->setValue('=DATE(YEAR(A2), 12, 31)');
             $sheet->getCell('A4')->setValue('=A3 + 1');

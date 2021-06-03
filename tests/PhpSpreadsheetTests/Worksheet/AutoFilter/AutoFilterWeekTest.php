@@ -46,7 +46,6 @@ class AutoFilterWeekTest extends TestCase
             $sheet = $spreadsheet->getActiveSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
-            $startMonth = (int) $dtStart->format('m');
             self::setCells($sheet);
 
             $maxRow = 9;

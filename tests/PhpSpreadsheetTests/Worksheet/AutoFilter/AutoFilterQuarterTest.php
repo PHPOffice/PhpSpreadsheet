@@ -20,7 +20,7 @@ class AutoFilterQuarterTest extends TestCase
         ];
     }
 
-    private static function setCells(Worksheet $sheet, int $startMonth): void
+    private static function setCells(Worksheet $sheet): void
     {
         $sheet->getCell('A1')->setValue('Date');
         $sheet->getCell('A2')->setValue('=TODAY()');
@@ -45,8 +45,7 @@ class AutoFilterQuarterTest extends TestCase
             $sheet = $spreadsheet->getActiveSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
-            $startMonth = (int) $dtStart->format('m');
-            self::setCells($sheet, $startMonth);
+            self::setCells($sheet);
 
             $maxRow = 9;
             $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
