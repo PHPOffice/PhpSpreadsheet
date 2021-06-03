@@ -26,6 +26,7 @@ class DefaultValueBinder implements IValueBinder
             if ($value instanceof DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof RichText)) {
+                // Attempt to cast any unexpected objects to string
                 $value = (string) $value;
             }
         }
