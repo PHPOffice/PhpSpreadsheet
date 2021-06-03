@@ -71,25 +71,16 @@ class StringValueBinder implements IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
-     *
-     * @return bool
      */
     public function bindValue(Cell $cell, $value)
     {
+        if (is_object($value)) {
+            return $this->bindObjectValue($cell, $value);
+        }
+
         // sanitize UTF-8 strings
         if (is_string($value)) {
             $value = StringHelper::sanitizeUTF8($value);
-        }
-
-        if (is_object($value)) {
-            // Handle any objects that might be injected
-            if ($value instanceof DateTimeInterface) {
-                $value = $value->format('Y-m-d H:i:s');
-            } elseif ($value instanceof RichText) {
-                $cell->setValueExplicit($value, DataType::TYPE_INLINE);
-
-                return true;
-            }
         }
 
         if ($value === null && $this->convertNull === false) {
@@ -106,6 +97,22 @@ class StringValueBinder implements IValueBinder
             }
             $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
         }
+
+        return true;
+    }
+
+    protected function bindObjectValue(Cell $cell, $value): bool
+    {
+        // Handle any objects that might be injected
+        if ($value instanceof DateTimeInterface) {
+            $value = $value->format('Y-m-d H:i:s');
+        } elseif ($value instanceof RichText) {
+            $cell->setValueExplicit($value, DataType::TYPE_INLINE);
+
+            return true;
+        }
+
+        $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
 
         return true;
     }
