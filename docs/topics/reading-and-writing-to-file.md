@@ -1,8 +1,7 @@
 # Reading and writing to file
 
 As you already know from the [architecture](./architecture.md#readers-and-writers),
-reading and writing to a
-persisted storage is not possible using the base PhpSpreadsheet classes.
+reading and writing to a persisted storage is not possible using the base PhpSpreadsheet classes.
 For this purpose, PhpSpreadsheet provides readers and writers, which are
 implementations of `\PhpOffice\PhpSpreadsheet\Reader\IReader` and
 `\PhpOffice\PhpSpreadsheet\Writer\IWriter`.
@@ -892,8 +891,7 @@ class My_Custom_TCPDF_Writer extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf
 
 #### Writing a spreadsheet
 
-Once you have identified the Renderer that you wish to use for PDF
-generation, you can write a .pdf file using the following code:
+Once you have identified the Renderer that you wish to use for PDF generation, you can write a .pdf file using the following code:
 
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
@@ -905,8 +903,7 @@ first worksheet by default.
 
 #### Write all worksheets
 
-PDF files can contain one or more worksheets. If you want to write all
-sheets into a single PDF file, use the following code:
+PDF files can contain one or more worksheets. If you want to write all sheets into a single PDF file, use the following code:
 
 ```php
 $writer->writeAllSheets();
@@ -1020,3 +1017,64 @@ $spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
 ```
+
+## Reader/Writer Flags
+
+Some Readers and Writers support special "Feature Flags" that need to be explicitly enabled.
+An example of this is Charts in a spreadsheet. By default, when you load a spreadsheet that contains Charts, the charts will not be loaded. If all you want to do is read the data in the spreadsheet, then loading charts is an overhead for both speed of loading and memory usage.
+However, there are times when you may want to load any charts in the spreadsheet as well as the data. To do so, you need to tell the Reader explicitly to include Charts.
+
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+$reader->setIncludeCharts(true);
+$reader->load("spreadsheetWithCharts.xlsx");
+```
+Alternatively, you can specify this in the call to load the spreadsheet:
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("spreadsheetWithCharts.xlsx");
+$reader->load("spreadsheetWithCharts.xlsx", $reader::LOAD_WITH_CHARTS);
+```
+
+If you wish to use the IOFactory `load()` method rather than instantiating a specific Reader, then you can still pass these flags.
+
+```php
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
+```
+
+Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
+
+```php
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->setIncludeCharts(true);
+$writer->save('mySavedFileWithCharts.xlsx');
+```
+
+As with the `load()` method, you can also pass flags in the `save()` method:
+```php
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save('mySavedFileWithCharts.xlsx', \PhpOffice\PhpSpreadsheet\Writer\IWriter::SAVE_WITH_CHARTS);
+```
+
+Currently, the only special "Feature Flag" that is supported in this way is the inclusion of Charts, and only for certain formats.
+
+Readers  | LOAD_WITH_CHARTS |
+---------|------------------|
+Xlsx     |       YES        |
+Xls      |       NO         |
+Xml      |       NO         |
+Ods      |       NO         |
+Gnumeric |       NO         |
+Html     |       N/A        |
+Slk      |       N/A        |
+Csv      |       N/A        |
+
+
+Writers | SAVE_WITH_CHARTS |
+--------|------------------|
+Xlsx    |        YES       |
+Xls     |        NO        |
+Ods     |        NO        |
+Html    |        YES       |
+Pdf     |        YES       |
+Csv     |        N/A       |
+
