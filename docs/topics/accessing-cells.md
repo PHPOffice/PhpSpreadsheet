@@ -110,6 +110,11 @@ values beginning with `=` will be converted to a formula. Strings that
 aren't numeric, or that don't begin with a leading `=` will be treated
 as genuine string values.
 
+Note that a numeric string that begins with a leading zero (that isn't
+immediately followed by a decimal separator) will not be converted to a
+numeric, so values like phone numbers (e.g. `01615991375``will remain as
+strings).
+
 This "conversion" is handled by a cell "value binder", and you can write
 custom "value binders" to change the behaviour of these "conversions".
 The standard PhpSpreadsheet package also provides an "advanced value
@@ -138,8 +143,10 @@ Formats handled by the advanced value binder include:
 - When strings contain a newline character (`\n`), then the cell styling is
   set to wrap.
 
-You can read more about value binders later in this section of the
-documentation.
+Basically, it attempts to mimic the behaviour of the MS Excel GUI.
+
+You can read more about value binders [later in this section of the
+documentation](#using-value-binders-to-facilitate-data-entry).
 
 ### Setting a formula in a Cell
 
@@ -551,8 +558,27 @@ $spreadsheet->getActiveSheet()->setCellValue('A5', 'Date/time value:');
 $spreadsheet->getActiveSheet()->setCellValue('B5', '21 December 1983');
 ```
 
-**Creating your own value binder is easy.** When advanced value binding
-is required, you can implement the
-`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface or extend the
+Alternatively, a `\PhpOffice\PhpSpreadsheet\Cell\StringValueBinder` class is available
+if you want to preserve all content as strings. This might be appropriate if you
+were loading a file containing values that could be interpreted as numbers (e.g. numbers
+with leading sign such as international phone numbers like `+441615579382`), but that
+should be retained as strings (non-international phone numbers with leading zeroes are
+already maintained as strings).
+
+By default, the StringValueBinder will cast any datatype passed to it into a string. However, there are a number of settings which allow you to specify that certain datatypes shouldn't be cast to strings, but left "as is":
+
+```php
+// Set value binder
+$stringValueBinder = new \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder();
+$stringValueBinder->setNumericConversion(false)
+    ->setBooleanConversion(false)
+    ->setNullConversion(false)
+    ->setFormulaConversion(false);
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
+```
+
+**Creating your own value binder is relatively straightforward.** When more specialised
+value binding is required, you can implement the
+`\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface or extend the existing
 `\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder` or
 `\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` classes.
