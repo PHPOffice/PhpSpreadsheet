@@ -622,12 +622,12 @@ class Xls extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
+        $this->processFlags($flags);
+
         // Read the OLE file
         $this->loadOLE($pFilename);
 

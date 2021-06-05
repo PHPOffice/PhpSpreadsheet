@@ -26,6 +26,7 @@ class DefaultValueBinder implements IValueBinder
             if ($value instanceof DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof RichText)) {
+                // Attempt to cast any unexpected objects to string
                 $value = (string) $value;
             }
         }
@@ -57,11 +58,11 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_STRING;
         } elseif ($value instanceof RichText) {
             return DataType::TYPE_INLINE;
-        } elseif (is_string($value) && $value[0] === '=' && strlen($value) > 1) {
+        } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
             return DataType::TYPE_FORMULA;
         } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $value)) {
             $tValue = ltrim($value, '+-');
-            if (is_string($value) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
+            if (is_string($value) && strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
             } elseif ((strpos($value, '.') === false) && ($value > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;
