@@ -914,7 +914,7 @@ class Html extends BaseReader
      */
     public function getStyleColor($value)
     {
-        if (strpos($value, '#') === 0) {
+        if (strpos($value ?? '', '#') === 0) {
             return substr($value, 1);
         }
 

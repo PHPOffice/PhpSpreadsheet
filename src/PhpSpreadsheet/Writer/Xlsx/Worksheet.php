@@ -1256,7 +1256,7 @@ class Worksheet extends WriterPart
             $objWriter,
             $this->getParentWriter()->getOffice2003Compatibility() === false,
             'v',
-            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
+            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
                 ? StringHelper::formatNumber($calculatedValue) : '0'
         );
     }
