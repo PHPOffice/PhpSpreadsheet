@@ -4108,7 +4108,7 @@ class Calculation
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
                 //        so push a null onto the stack
                 if (($expectingOperand) || (!$expectingOperator)) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                 }
                 // make sure there was a function
                 $d = $stack->last(2);
@@ -4293,7 +4293,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == ')') {    // miscellaneous error checking
                 if ($expectingOperand) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                     $expectingOperand = false;
                     $expectingOperator = true;
                 } else {
@@ -4789,8 +4789,12 @@ class Calculation
                         $passByReference = isset(self::$controlFunctions[$functionName]['passByReference']);
                         $passCellReference = isset(self::$controlFunctions[$functionName]['passCellReference']);
                     }
+
                     // get the arguments for this function
                     $args = $argArrayVals = [];
+                    $reflector = new \ReflectionMethod(implode('::', $functionCall));
+                    $methodArguments = $reflector->getParameters();
+                    $emptyArguments = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
                         $a = $argCount - $i - 1;
@@ -4811,6 +4815,7 @@ class Calculation
                                 }
                             }
                         } else {
+                            $emptyArguments[] = ($arg['type'] === 'Empty Argument');
                             $args[] = self::unwrapResult($arg['value']);
                             if ($functionName != 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
@@ -4820,6 +4825,31 @@ class Calculation
 
                     //    Reverse the order of the arguments
                     krsort($args);
+                    krsort($emptyArguments);
+
+                    // Apply any defaults for empty argument values
+                    foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
+                        if ($isArgumentEmpty === true) {
+                            $reflectedArgumentId = count($args) - $argumentId - 1;
+                            $methodArgument = $methodArguments[$reflectedArgumentId];
+                            $defaultValue = null;
+                            if ($methodArgument->isDefaultValueAvailable()) {
+                                $defaultValue = $methodArgument->getDefaultValue();
+                                if ($methodArgument->isDefaultValueConstant()) {
+                                    $constantName = $methodArgument->getDefaultValueConstantName();
+                                    // read constant value
+                                    if (strpos($constantName, '::') !== false) {
+                                        [$className, $constantName] = explode('::', $constantName);
+                                        $constantReflector = new \ReflectionClassConstant($className, $constantName);
+                                        $defaultValue = $constantReflector->getValue();
+                                    } else {
+                                        $defaultValue = constant($constantName);
+                                    }
+                                }
+                            }
+                            $args[$argumentId] = $defaultValue;
+                        }
+                    }
 
                     if (($passByReference) && ($argCount == 0)) {
                         $args[] = $cellID;
@@ -4863,7 +4893,7 @@ class Calculation
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
-                    $stack->push('Value', $token);
+                    $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
