@@ -4792,8 +4792,6 @@ class Calculation
 
                     // get the arguments for this function
                     $args = $argArrayVals = [];
-                    $reflector = new \ReflectionMethod(implode('::', $functionCall));
-                    $methodArguments = $reflector->getParameters();
                     $emptyArguments = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
@@ -4827,27 +4825,40 @@ class Calculation
                     krsort($args);
                     krsort($emptyArguments);
 
-                    // Apply any defaults for empty argument values
-                    foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
-                        if ($isArgumentEmpty === true) {
-                            $reflectedArgumentId = count($args) - $argumentId - 1;
-                            $methodArgument = $methodArguments[$reflectedArgumentId];
-                            $defaultValue = null;
-                            if ($methodArgument->isDefaultValueAvailable()) {
-                                $defaultValue = $methodArgument->getDefaultValue();
-                                if ($methodArgument->isDefaultValueConstant()) {
-                                    $constantName = $methodArgument->getDefaultValueConstantName();
-                                    // read constant value
-                                    if (strpos($constantName, '::') !== false) {
-                                        [$className, $constantName] = explode('::', $constantName);
-                                        $constantReflector = new \ReflectionClassConstant($className, $constantName);
-                                        $defaultValue = $constantReflector->getValue();
-                                    } else {
-                                        $defaultValue = constant($constantName);
+                    if ($argCount > 0) {
+                        $reflector = new \ReflectionMethod(implode('::', $functionCall));
+                        $methodArguments = $reflector->getParameters();
+
+                        if (count($methodArguments) > 0) {
+                            // Apply any defaults for empty argument values
+                            foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
+                                if ($isArgumentEmpty === true) {
+                                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                                    if (
+                                        !array_key_exists($reflectedArgumentId, $methodArguments) ||
+                                        $methodArguments[$reflectedArgumentId]->isVariadic()
+                                    ) {
+                                        break;
                                     }
+                                    $methodArgument = $methodArguments[$reflectedArgumentId];
+                                    $defaultValue = null;
+                                    if ($methodArgument->isDefaultValueAvailable()) {
+                                        $defaultValue = $methodArgument->getDefaultValue();
+                                        if ($methodArgument->isDefaultValueConstant()) {
+                                            $constantName = $methodArgument->getDefaultValueConstantName();
+                                            // read constant value
+                                            if (strpos($constantName, '::') !== false) {
+                                                [$className, $constantName] = explode('::', $constantName);
+                                                $constantReflector = new \ReflectionClassConstant($className, $constantName);
+                                                $defaultValue = $constantReflector->getValue();
+                                            } else {
+                                                $defaultValue = constant($constantName);
+                                            }
+                                        }
+                                    }
+                                    $args[$argumentId] = $defaultValue;
                                 }
                             }
-                            $args[$argumentId] = $defaultValue;
                         }
                     }
 
