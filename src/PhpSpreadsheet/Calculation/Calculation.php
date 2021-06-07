@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use ReflectionClassConstant;
 use ReflectionMethod;
 
 class Calculation
@@ -4826,7 +4827,7 @@ class Calculation
                     krsort($emptyArguments);
 
                     if ($argCount > 0) {
-                        $reflector = new \ReflectionMethod(implode('::', $functionCall));
+                        $reflector = new ReflectionMethod(implode('::', $functionCall));
                         $methodArguments = $reflector->getParameters();
 
                         if (count($methodArguments) > 0) {
@@ -4849,7 +4850,7 @@ class Calculation
                                             // read constant value
                                             if (strpos($constantName, '::') !== false) {
                                                 [$className, $constantName] = explode('::', $constantName);
-                                                $constantReflector = new \ReflectionClassConstant($className, $constantName);
+                                                $constantReflector = new ReflectionClassConstant($className, $constantName);
                                                 $defaultValue = $constantReflector->getValue();
                                             } else {
                                                 $defaultValue = constant($constantName);
