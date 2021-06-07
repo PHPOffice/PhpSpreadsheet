@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use ReflectionClassConstant;
 use ReflectionMethod;
+use ReflectionParameter;
 
 class Calculation
 {
@@ -4774,7 +4775,7 @@ class Calculation
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
                 $argCount = $argCount['value'];
-                if ($functionName != 'MKMATRIX') {
+                if ($functionName !== 'MKMATRIX') {
                     $this->debugLog->writeDebugLog('Evaluating Function ', self::localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
                 }
                 if ((isset(self::$phpSpreadsheetFunctions[$functionName])) || (isset(self::$controlFunctions[$functionName]))) {    // function
@@ -4804,19 +4805,19 @@ class Calculation
                         ) {
                             if ($arg['reference'] === null) {
                                 $args[] = $cellID;
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($cellID);
                                 }
                             } else {
                                 $args[] = $arg['reference'];
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($arg['reference']);
                                 }
                             }
                         } else {
                             $emptyArguments[] = ($arg['type'] === 'Empty Argument');
                             $args[] = self::unwrapResult($arg['value']);
-                            if ($functionName != 'MKMATRIX') {
+                            if ($functionName !== 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
                             }
                         }
@@ -4827,40 +4828,7 @@ class Calculation
                     krsort($emptyArguments);
 
                     if ($argCount > 0) {
-                        $reflector = new ReflectionMethod(implode('::', $functionCall));
-                        $methodArguments = $reflector->getParameters();
-
-                        if (count($methodArguments) > 0) {
-                            // Apply any defaults for empty argument values
-                            foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
-                                if ($isArgumentEmpty === true) {
-                                    $reflectedArgumentId = count($args) - $argumentId - 1;
-                                    if (
-                                        !array_key_exists($reflectedArgumentId, $methodArguments) ||
-                                        $methodArguments[$reflectedArgumentId]->isVariadic()
-                                    ) {
-                                        break;
-                                    }
-                                    $methodArgument = $methodArguments[$reflectedArgumentId];
-                                    $defaultValue = null;
-                                    if ($methodArgument->isDefaultValueAvailable()) {
-                                        $defaultValue = $methodArgument->getDefaultValue();
-                                        if ($methodArgument->isDefaultValueConstant()) {
-                                            $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
-                                            // read constant value
-                                            if (strpos($constantName, '::') !== false) {
-                                                [$className, $constantName] = explode('::', $constantName);
-                                                $constantReflector = new ReflectionClassConstant($className, $constantName);
-                                                $defaultValue = $constantReflector->getValue();
-                                            } else {
-                                                $defaultValue = constant($constantName);
-                                            }
-                                        }
-                                    }
-                                    $args[$argumentId] = $defaultValue;
-                                }
-                            }
-                        }
+                        $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
                     }
 
                     if (($passByReference) && ($argCount == 0)) {
@@ -4868,7 +4836,7 @@ class Calculation
                         $argArrayVals[] = $this->showValue($cellID);
                     }
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
                             $this->debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)), ' )');
@@ -4887,7 +4855,7 @@ class Calculation
 
                     $result = call_user_func_array($functionCall, $args);
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         $this->debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
                     }
                     $stack->push('Value', self::wrapResult($result));
@@ -5426,6 +5394,57 @@ class Calculation
         }
 
         return $returnValue;
+    }
+
+    private function addDefaultArgumentValues(callable $functionCall, array $args, array $emptyArguments): array
+    {
+        $reflector = new ReflectionMethod(implode('::', $functionCall));
+        $methodArguments = $reflector->getParameters();
+
+        if (count($methodArguments) > 0) {
+            // Apply any defaults for empty argument values
+            foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
+                if ($isArgumentEmpty === true) {
+                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                    if (
+                        !array_key_exists($reflectedArgumentId, $methodArguments) ||
+                        $methodArguments[$reflectedArgumentId]->isVariadic()
+                    ) {
+                        break;
+                    }
+
+                    $args[$argumentId] = $this->getArgumentDefaultValue($methodArguments[$reflectedArgumentId]);
+                }
+            }
+        }
+
+        return $args;
+    }
+
+    /**
+     * @return null|mixed
+     */
+    private function getArgumentDefaultValue(ReflectionParameter $methodArgument)
+    {
+        $defaultValue = null;
+
+        if ($methodArgument->isDefaultValueAvailable()) {
+            $defaultValue = $methodArgument->getDefaultValue();
+            if ($methodArgument->isDefaultValueConstant()) {
+                $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
+                // read constant value
+                if (strpos($constantName, '::') !== false) {
+                    [$className, $constantName] = explode('::', $constantName);
+                    $constantReflector = new ReflectionClassConstant($className, $constantName);
+
+                    return $constantReflector->getValue();
+                }
+
+                return constant($constantName);
+            }
+        }
+
+        return $defaultValue;
     }
 
     /**
