@@ -4846,7 +4846,7 @@ class Calculation
                                     if ($methodArgument->isDefaultValueAvailable()) {
                                         $defaultValue = $methodArgument->getDefaultValue();
                                         if ($methodArgument->isDefaultValueConstant()) {
-                                            $constantName = $methodArgument->getDefaultValueConstantName();
+                                            $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
                                             // read constant value
                                             if (strpos($constantName, '::') !== false) {
                                                 [$className, $constantName] = explode('::', $constantName);
