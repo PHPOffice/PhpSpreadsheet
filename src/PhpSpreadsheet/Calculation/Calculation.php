@@ -5396,7 +5396,7 @@ class Calculation
         return $returnValue;
     }
 
-    private function addDefaultArgumentValues(callable $functionCall, array $args, array $emptyArguments): array
+    private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
     {
         $reflector = new ReflectionMethod(implode('::', $functionCall));
         $methodArguments = $reflector->getParameters();
