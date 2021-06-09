@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -145,6 +146,22 @@ class XlsxTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
 
         self::assertTrue($worksheet->getCell('B3')->hasDataValidation());
+    }
+
+    /*
+     * Test for load drop down lists of another sheet.
+     * Pull #2150, issue #2149
+     */
+    public function testLoadXlsxDataValidationOfAnotherSheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/dataValidation2Test.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        self::assertEquals(DataValidation::TYPE_LIST, $worksheet->getCell('B5')->getDataValidation()->getType());  // same sheet
+        self::assertEquals(DataValidation::TYPE_LIST, $worksheet->getCell('B14')->getDataValidation()->getType()); // another sheet
     }
 
     /**
