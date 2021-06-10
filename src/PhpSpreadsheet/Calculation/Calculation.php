@@ -12,7 +12,9 @@ use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use ReflectionClassConstant;
 use ReflectionMethod;
+use ReflectionParameter;
 
 class Calculation
 {
@@ -4108,7 +4110,7 @@ class Calculation
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
                 //        so push a null onto the stack
                 if (($expectingOperand) || (!$expectingOperator)) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                 }
                 // make sure there was a function
                 $d = $stack->last(2);
@@ -4293,7 +4295,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == ')') {    // miscellaneous error checking
                 if ($expectingOperand) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                     $expectingOperand = false;
                     $expectingOperator = true;
                 } else {
@@ -4773,7 +4775,7 @@ class Calculation
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
                 $argCount = $argCount['value'];
-                if ($functionName != 'MKMATRIX') {
+                if ($functionName !== 'MKMATRIX') {
                     $this->debugLog->writeDebugLog('Evaluating Function ', self::localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
                 }
                 if ((isset(self::$phpSpreadsheetFunctions[$functionName])) || (isset(self::$controlFunctions[$functionName]))) {    // function
@@ -4789,8 +4791,10 @@ class Calculation
                         $passByReference = isset(self::$controlFunctions[$functionName]['passByReference']);
                         $passCellReference = isset(self::$controlFunctions[$functionName]['passCellReference']);
                     }
+
                     // get the arguments for this function
                     $args = $argArrayVals = [];
+                    $emptyArguments = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
                         $a = $argCount - $i - 1;
@@ -4801,18 +4805,19 @@ class Calculation
                         ) {
                             if ($arg['reference'] === null) {
                                 $args[] = $cellID;
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($cellID);
                                 }
                             } else {
                                 $args[] = $arg['reference'];
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($arg['reference']);
                                 }
                             }
                         } else {
+                            $emptyArguments[] = ($arg['type'] === 'Empty Argument');
                             $args[] = self::unwrapResult($arg['value']);
-                            if ($functionName != 'MKMATRIX') {
+                            if ($functionName !== 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
                             }
                         }
@@ -4820,13 +4825,18 @@ class Calculation
 
                     //    Reverse the order of the arguments
                     krsort($args);
+                    krsort($emptyArguments);
+
+                    if ($argCount > 0) {
+                        $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
+                    }
 
                     if (($passByReference) && ($argCount == 0)) {
                         $args[] = $cellID;
                         $argArrayVals[] = $this->showValue($cellID);
                     }
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
                             $this->debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)), ' )');
@@ -4845,7 +4855,7 @@ class Calculation
 
                     $result = call_user_func_array($functionCall, $args);
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         $this->debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
                     }
                     $stack->push('Value', self::wrapResult($result));
@@ -4863,7 +4873,7 @@ class Calculation
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
-                    $stack->push('Value', $token);
+                    $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
@@ -5384,6 +5394,57 @@ class Calculation
         }
 
         return $returnValue;
+    }
+
+    private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
+    {
+        $reflector = new ReflectionMethod(implode('::', $functionCall));
+        $methodArguments = $reflector->getParameters();
+
+        if (count($methodArguments) > 0) {
+            // Apply any defaults for empty argument values
+            foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
+                if ($isArgumentEmpty === true) {
+                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                    if (
+                        !array_key_exists($reflectedArgumentId, $methodArguments) ||
+                        $methodArguments[$reflectedArgumentId]->isVariadic()
+                    ) {
+                        break;
+                    }
+
+                    $args[$argumentId] = $this->getArgumentDefaultValue($methodArguments[$reflectedArgumentId]);
+                }
+            }
+        }
+
+        return $args;
+    }
+
+    /**
+     * @return null|mixed
+     */
+    private function getArgumentDefaultValue(ReflectionParameter $methodArgument)
+    {
+        $defaultValue = null;
+
+        if ($methodArgument->isDefaultValueAvailable()) {
+            $defaultValue = $methodArgument->getDefaultValue();
+            if ($methodArgument->isDefaultValueConstant()) {
+                $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
+                // read constant value
+                if (strpos($constantName, '::') !== false) {
+                    [$className, $constantName] = explode('::', $constantName);
+                    $constantReflector = new ReflectionClassConstant($className, $constantName);
+
+                    return $constantReflector->getValue();
+                }
+
+                return constant($constantName);
+            }
+        }
+
+        return $defaultValue;
     }
 
     /**
