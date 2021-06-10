@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 class Dimension
 {
     /**
-     * Based on 96 dpi
+     * Based on 96 dpi.
      */
     const ABSOLUTE_UNITS = [
         'cm' => 96.0 / 2.54,
@@ -21,7 +21,7 @@ class Dimension
     ];
 
     /**
-     * Based on a standard column width of 8.54 units in MS Excel
+     * Based on a standard column width of 8.54 units in MS Excel.
      */
     const RELATIVE_UNITS = [
         'em' => 10.0 / 8.54,
@@ -36,14 +36,14 @@ class Dimension
     ];
 
     /**
-     * @var float|int Width in pixels
+     * @var float|int Width in pixels (if $unit is set) or in Excel's column width units if $unit is null.
      */
     protected $width;
 
     /**
      * @var null|string
      */
-    protected $unit = null;
+    protected $unit;
 
     public function __construct(string $dimension)
     {

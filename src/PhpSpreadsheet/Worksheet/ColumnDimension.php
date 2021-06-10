@@ -72,7 +72,7 @@ class ColumnDimension extends Dimension
      * By default, this will be the return value; but this method also accepts a unit of measure argument and will
      *     return the value converted to the specified UoM using an approximation method.
      */
-    public function getWidth(string $unitOfMeasure = null): float
+    public function getWidth(?string $unitOfMeasure = null): float
     {
         return ($unitOfMeasure === null)
             ? $this->width
@@ -88,7 +88,7 @@ class ColumnDimension extends Dimension
      *
      * @return $this
      */
-    public function setWidth(float $width, string $unitOfMeasure = null)
+    public function setWidth(float $width, ?string $unitOfMeasure = null)
     {
         $this->width = ($unitOfMeasure === null)
             ? $width
