@@ -12,7 +12,7 @@ class AsinTest extends AllSetupTeardown
     public function testAsin($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A2')->setValue(0.5);
         $sheet->getCell('A1')->setValue("=ASIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

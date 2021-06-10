@@ -12,7 +12,7 @@ class TanTest extends AllSetupTeardown
     public function testTan($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 1);
         $sheet->getCell('A1')->setValue("=TAN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

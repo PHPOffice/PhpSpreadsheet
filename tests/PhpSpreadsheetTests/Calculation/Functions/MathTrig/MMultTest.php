@@ -13,7 +13,7 @@ class MMultTest extends AllSetupTeardown
      */
     public function testMMULT($expectedResult, ...$args): void
     {
-        $result = MathTrig\MatrixFunctions::funcMMult(...$args);
+        $result = MathTrig\MatrixFunctions::multiply(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
@@ -25,7 +25,7 @@ class MMultTest extends AllSetupTeardown
     public function testOnSpreadsheet(): void
     {
         // very limited ability to test this in the absence of dynamic arrays
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('=MMULT({1,2,3}, {1,2,3})'); // incompatible dimensions
         self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
 

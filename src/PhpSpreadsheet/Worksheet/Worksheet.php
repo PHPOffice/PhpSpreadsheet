@@ -194,7 +194,7 @@ class Worksheet implements IComparable
     /**
      * Collection of protected cell ranges.
      *
-     * @var array
+     * @var string[]
      */
     private $protectedCells = [];
 
@@ -399,6 +399,7 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
+        $this->rowDimensions = [];
     }
 
     /**
@@ -1263,22 +1264,23 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
-     * @param bool $createIfNotExists Flag indicating whether a new cell should be created if it doesn't
-     *                                       already exist, or a null should be returned instead
      *
-     * @return null|Cell Cell that was found/created or null
+     * @return Cell Cell that was found/created or null
      */
-    public function getCellByColumnAndRow($columnIndex, $row, $createIfNotExists = true)
+    public function getCellByColumnAndRow($columnIndex, $row): Cell
     {
         $columnLetter = Coordinate::stringFromColumnIndex($columnIndex);
         $coordinate = $columnLetter . $row;
 
         if ($this->cellCollection->has($coordinate)) {
-            return $this->cellCollection->get($coordinate);
+            /** @var Cell $cell */
+            $cell = $this->cellCollection->get($coordinate);
+
+            return $cell;
         }
 
         // Create new cell object, if required
-        return $createIfNotExists ? $this->createNewCell($coordinate) : null;
+        return $this->createNewCell($coordinate);
     }
 
     /**
@@ -1295,7 +1297,7 @@ class Worksheet implements IComparable
         $this->cellCollectionIsSorted = false;
 
         // Coordinates
-        $aCoordinates = Coordinate::coordinateFromString($pCoordinate);
+        [$column, $row] = Coordinate::coordinateFromString($pCoordinate);
         $aIndexes = Coordinate::indexesFromString($pCoordinate);
         if ($this->cachedHighestColumn < $aIndexes[0]) {
             $this->cachedHighestColumn = $aIndexes[0];
@@ -1306,8 +1308,8 @@ class Worksheet implements IComparable
 
         // Cell needs appropriate xfIndex from dimensions records
         //    but don't create dimension records if they don't already exist
-        $rowDimension = $this->getRowDimension($aCoordinates[1], false);
-        $columnDimension = $this->getColumnDimension($aCoordinates[0], false);
+        $rowDimension = $this->rowDimensions[$row] ?? null;
+        $columnDimension = $this->columnDimensions[$column] ?? null;
 
         if ($rowDimension !== null && $rowDimension->getXfIndex() > 0) {
             // then there is a row dimension with explicit style, assign it to the cell
@@ -1352,20 +1354,11 @@ class Worksheet implements IComparable
      * Get row dimension at a specific row.
      *
      * @param int $pRow Numeric index of the row
-     * @param bool $create
-     *
-     * @return null|RowDimension
      */
-    public function getRowDimension($pRow, $create = true)
+    public function getRowDimension(int $pRow): RowDimension
     {
-        // Found
-        $found = null;
-
         // Get row dimension
         if (!isset($this->rowDimensions[$pRow])) {
-            if (!$create) {
-                return null;
-            }
             $this->rowDimensions[$pRow] = new RowDimension($pRow);
 
             $this->cachedHighestRow = max($this->cachedHighestRow, $pRow);
@@ -1378,20 +1371,14 @@ class Worksheet implements IComparable
      * Get column dimension at a specific column.
      *
      * @param string $pColumn String index of the column eg: 'A'
-     * @param bool $create
-     *
-     * @return null|ColumnDimension
      */
-    public function getColumnDimension($pColumn, $create = true)
+    public function getColumnDimension(string $pColumn): ColumnDimension
     {
         // Uppercase coordinate
         $pColumn = strtoupper($pColumn);
 
         // Fetch dimensions
         if (!isset($this->columnDimensions[$pColumn])) {
-            if (!$create) {
-                return null;
-            }
             $this->columnDimensions[$pColumn] = new ColumnDimension($pColumn);
 
             $columnIndex = Coordinate::columnIndexFromString($pColumn);
@@ -1407,10 +1394,8 @@ class Worksheet implements IComparable
      * Get column dimension at a specific column by using numeric cell coordinates.
      *
      * @param int $columnIndex Numeric column coordinate of the cell
-     *
-     * @return null|ColumnDimension
      */
-    public function getColumnDimensionByColumn($columnIndex)
+    public function getColumnDimensionByColumn(int $columnIndex): ColumnDimension
     {
         return $this->getColumnDimension(Coordinate::stringFromColumnIndex($columnIndex));
     }
@@ -1871,7 +1856,7 @@ class Worksheet implements IComparable
     /**
      * Get protected cells.
      *
-     * @return array[]
+     * @return string[]
      */
     public function getProtectedCells()
     {

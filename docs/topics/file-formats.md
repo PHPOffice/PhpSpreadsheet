@@ -71,7 +71,7 @@ library.
 ### Csv
 
 Comma Separated Value (CSV) file format is a common structuring strategy
-for text format files. In CSV flies, each line in the file represents a
+for text format files. In CSV files, each line in the file represents a
 row of data and (within each line of the file) the different data fields
 (or columns) are separated from one another using a comma (`,`). If a
 data field contains a comma, then it should be enclosed (typically in

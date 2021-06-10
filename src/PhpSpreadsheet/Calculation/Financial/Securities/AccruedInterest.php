@@ -78,12 +78,12 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        $daysBetweenIssueAndSettlement = YearFrac::funcYearFrac($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = YearFrac::fraction($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;
         }
-        $daysBetweenFirstInterestAndSettlement = YearFrac::funcYearFrac($firstInterest, $settlement, $basis);
+        $daysBetweenFirstInterestAndSettlement = YearFrac::fraction($firstInterest, $settlement, $basis);
         if (!is_numeric($daysBetweenFirstInterestAndSettlement)) {
             //    return date error
             return $daysBetweenFirstInterestAndSettlement;
@@ -140,7 +140,7 @@ class AccruedInterest
             return $e->getMessage();
         }
 
-        $daysBetweenIssueAndSettlement = YearFrac::funcYearFrac($issue, $settlement, $basis);
+        $daysBetweenIssueAndSettlement = YearFrac::fraction($issue, $settlement, $basis);
         if (!is_numeric($daysBetweenIssueAndSettlement)) {
             //    return date error
             return $daysBetweenIssueAndSettlement;

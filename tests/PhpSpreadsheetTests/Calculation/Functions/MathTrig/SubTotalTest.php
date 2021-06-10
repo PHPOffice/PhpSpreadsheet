@@ -13,7 +13,7 @@ class SubTotalTest extends AllSetupTeardown
     public function testSubtotal($expectedResult, $type): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->fromArray([[0], [1], [1], [2], [3], [5], [8], [13], [21], [34], [55], [89]], null, 'A1', true);
         $maxCol = $sheet->getHighestColumn();
         $maxRow = $sheet->getHighestRow();
@@ -37,7 +37,7 @@ class SubTotalTest extends AllSetupTeardown
     {
         // Hidden columns don't affect calculation, only hidden rows
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->fromArray([0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89], null, 'A1', true);
         $maxCol = $sheet->getHighestColumn();
         $maxRow = $sheet->getHighestRow();
@@ -56,7 +56,8 @@ class SubTotalTest extends AllSetupTeardown
             'L' => false,
         ];
         foreach ($hiddenColumns as $col => $hidden) {
-            $sheet->getColumnDimension($col)->setVisible($hidden);
+            $columnDimension = $sheet->getColumnDimension($col);
+            $columnDimension->setVisible($hidden);
         }
         $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
         $result = $sheet->getCell('D2')->getCalculatedValue();
@@ -72,7 +73,7 @@ class SubTotalTest extends AllSetupTeardown
     public function testSubtotalRowHidden($expectedResult, $type): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->fromArray([[0], [1], [1], [2], [3], [5], [8], [13], [21], [34], [55], [89]], null, 'A1', true);
         $maxCol = $sheet->getHighestColumn();
         $maxRow = $sheet->getHighestRow();
@@ -91,7 +92,8 @@ class SubTotalTest extends AllSetupTeardown
             '12' => false,
         ];
         foreach ($visibleRows as $row => $visible) {
-            $sheet->getRowDimension($row)->setVisible($visible);
+            $rowDimension = $sheet->getRowDimension($row);
+            $rowDimension->setVisible($visible);
         }
         $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
         $result = $sheet->getCell('D2')->getCalculatedValue();
@@ -105,7 +107,7 @@ class SubTotalTest extends AllSetupTeardown
 
     public function testSubtotalNested(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->fromArray(
             [
                 [123],

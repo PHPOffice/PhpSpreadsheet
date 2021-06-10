@@ -25,4 +25,12 @@ return [
         '#VALUE!',
         0, 'red', 'blue', 'green', 'brown',
     ],
+    [
+        '#VALUE!',
+        'NaN', 'red', 'blue', 'green', 'brown',
+    ],
+    [
+        ['blue', 'purple'],
+        3, ['red', 'orange'], ['yellow', 'green'], ['blue', 'purple'],
+    ],
 ];

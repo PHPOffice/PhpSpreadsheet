@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
@@ -39,15 +38,7 @@ class ConditionalStyles
         $conditionals = [];
         foreach ($xmlSheet->conditionalFormatting as $conditional) {
             foreach ($conditional->cfRule as $cfRule) {
-                if (
-                    ((string) $cfRule['type'] == Conditional::CONDITION_NONE
-                        || (string) $cfRule['type'] == Conditional::CONDITION_CELLIS
-                        || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSTEXT
-                        || (string) $cfRule['type'] == Conditional::CONDITION_CONTAINSBLANKS
-                        || (string) $cfRule['type'] == Conditional::CONDITION_NOTCONTAINSBLANKS
-                        || (string) $cfRule['type'] == Conditional::CONDITION_EXPRESSION)
-                    && isset($this->dxfs[(int) ($cfRule['dxfId'])])
-                ) {
+                if (Conditional::isValidConditionType((string) $cfRule['type']) && isset($this->dxfs[(int) ($cfRule['dxfId'])])) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                 } elseif ((string) $cfRule['type'] == Conditional::CONDITION_DATABAR) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
@@ -98,7 +89,9 @@ class ConditionalStyles
             }
 
             if (isset($cfRule->dataBar)) {
-                $objConditional->setDataBar($this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions));
+                $objConditional->setDataBar(
+                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions)
+                );
             } else {
                 $objConditional->setStyle(clone $this->dxfs[(int) ($cfRule['dxfId'])]);
             }

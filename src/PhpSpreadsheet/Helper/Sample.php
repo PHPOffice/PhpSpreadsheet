@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
@@ -119,11 +118,6 @@ class Sample
         foreach ($writers as $writerType) {
             $path = $this->getFilename($filename, mb_strtolower($writerType));
             $writer = IOFactory::createWriter($spreadsheet, $writerType);
-            if ($writer instanceof Pdf) {
-                // PDF writer needs temporary directory
-                $tempDir = $this->getTemporaryFolder();
-                $writer->setTempDir($tempDir);
-            }
             $callStartTime = microtime(true);
             $writer->save($path);
             $this->logWrite($writer, $path, $callStartTime);

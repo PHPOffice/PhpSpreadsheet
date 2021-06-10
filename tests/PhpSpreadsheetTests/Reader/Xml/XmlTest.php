@@ -45,4 +45,28 @@ class XmlTest extends TestCase
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
     }
+
+    public function testLoadCorruptedFile(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
+        $xmlReader = new Xml();
+        $xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+    }
+
+    public function testListWorksheetNamesCorruptedFile(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
+        $xmlReader = new Xml();
+        $xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+    }
+
+    public function testListWorksheetInfoCorruptedFile(): void
+    {
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+
+        $xmlReader = new Xml();
+        $xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+    }
 }

@@ -20,7 +20,7 @@ class Text
             $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        return mb_strlen($value, 'UTF-8');
+        return mb_strlen($value ?? '', 'UTF-8');
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Settings;
-use Psr\Http\Client\ClientExceptionInterface;
-
+/**
+ * @deprecated 1.18.0
+ */
 class Web
 {
     /**
@@ -15,39 +15,13 @@ class Web
      * Excel Function:
      *        Webservice(url)
      *
+     * @see Web\Service::webService()
+     *      Use the webService() method in the Web\Service class instead
+     *
      * @return string the output resulting from a call to the webservice
      */
     public static function WEBSERVICE(string $url)
     {
-        $url = trim($url);
-        if (strlen($url) > 2048) {
-            return Functions::VALUE(); // Invalid URL length
-        }
-
-        if (!preg_match('/^http[s]?:\/\//', $url)) {
-            return Functions::VALUE(); // Invalid protocol
-        }
-
-        // Get results from the the webservice
-        $client = Settings::getHttpClient();
-        $requestFactory = Settings::getRequestFactory();
-        $request = $requestFactory->createRequest('GET', $url);
-
-        try {
-            $response = $client->sendRequest($request);
-        } catch (ClientExceptionInterface $e) {
-            return Functions::VALUE(); // cURL error
-        }
-
-        if ($response->getStatusCode() != 200) {
-            return Functions::VALUE(); // cURL error
-        }
-
-        $output = $response->getBody()->getContents();
-        if (strlen($output) > 32767) {
-            return Functions::VALUE(); // Output not a string or too long
-        }
-
-        return $output;
+        return Web\Service::webService($url);
     }
 }

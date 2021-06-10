@@ -39,7 +39,7 @@ class DMin extends DatabaseAbstract
             return null;
         }
 
-        return Minimum::MIN(
+        return Minimum::min(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
