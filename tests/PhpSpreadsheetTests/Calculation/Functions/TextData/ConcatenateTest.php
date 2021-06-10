@@ -2,19 +2,27 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
-
-class ConcatenateTest extends TestCase
+class ConcatenateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCONCATENATE
      *
      * @param mixed $expectedResult
+     * @param array $args
      */
     public function testCONCATENATE($expectedResult, ...$args): void
     {
-        $result = TextData::CONCATENATE(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $finalArg = '';
+        $row = 0;
+        foreach ($args as $arg) {
+            ++$row;
+            $this->setCell("A$row", $arg);
+            $finalArg = "A1:A$row";
+        }
+        $this->setCell('B1', "=CONCAT($finalArg)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 

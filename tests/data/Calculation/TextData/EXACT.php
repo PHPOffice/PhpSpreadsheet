@@ -36,4 +36,6 @@ return [
         '  ',
         '',
     ],
+    'no arguments' => ['exception'],
+    'one argument1' => ['exception', 'abc'],
 ];

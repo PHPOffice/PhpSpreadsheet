@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
-
-class TextJoinTest extends TestCase
+class TextJoinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTEXTJOIN
@@ -14,7 +11,20 @@ class TextJoinTest extends TestCase
      */
     public function testTEXTJOIN($expectedResult, array $args): void
     {
-        $result = TextData::TEXTJOIN(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $b1Formula = '=TEXTJOIN(';
+        $comma = '';
+        $row = 0;
+        foreach ($args as $arg) {
+            ++$row;
+            $this->setCell("A$row", $arg);
+            $b1Formula .= $comma . "A$row";
+            $comma = ',';
+        }
+        $b1Formula .= ')';
+        $this->setCell('B1', $b1Formula);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
