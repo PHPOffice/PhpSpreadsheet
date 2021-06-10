@@ -2487,7 +2487,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 4
+			count: 2
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-

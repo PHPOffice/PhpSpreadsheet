@@ -49,6 +49,6 @@ class RowDimensionTest extends TestCase
         $rowDimension = new RowDimension();
         $rowDimension->setZeroHeight($expected);
         $result = $rowDimension->getZeroHeight();
-        self::assertSame($expected, $result);
+        self::assertTrue($result);
     }
 }

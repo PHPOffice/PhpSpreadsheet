@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
-use function _HumbugBoxa991b62ce91e\RingCentral\Psr7\str;
 
 class ColumnDimension extends Dimension
 {
