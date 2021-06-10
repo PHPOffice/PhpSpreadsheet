@@ -75,15 +75,15 @@ abstract class IOFactory
     /**
      * Loads Spreadsheet from file using automatic Reader\IReader resolution.
      *
-     * @param string $pFilename The name of the spreadsheet file
+     * @param string $filename The name of the spreadsheet file
      *
      * @return Spreadsheet
      */
-    public static function load($pFilename)
+    public static function load(string $filename, int $flags = 0)
     {
-        $reader = self::createReaderForFile($pFilename);
+        $reader = self::createReaderForFile($filename);
 
-        return $reader->load($pFilename);
+        return $reader->load($filename, $flags);
     }
 
     /**

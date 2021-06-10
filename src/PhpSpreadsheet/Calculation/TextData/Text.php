@@ -15,7 +15,7 @@ class Text
     {
         $value = Helpers::extractString($value);
 
-        return mb_strlen($value, 'UTF-8');
+        return mb_strlen($value ?? '', 'UTF-8');
     }
 
     /**
