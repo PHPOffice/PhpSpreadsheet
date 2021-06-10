@@ -2,9 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimensions;
-use PhpOffice\PhpSpreadsheet\Shared\Drawing;
-use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 
 class ColumnDimension extends Dimension
 {
@@ -74,9 +72,9 @@ class ColumnDimension extends Dimension
      */
     public function getWidth(?string $unitOfMeasure = null): float
     {
-        return ($unitOfMeasure === null)
+        return ($unitOfMeasure === null || $this->width < 0)
             ? $this->width
-            : Drawing::cellDimensionToPixels($this->width, new Font(false));
+            : (new CssDimension($this->width))->toUnit($unitOfMeasure);
     }
 
     /**
@@ -90,9 +88,9 @@ class ColumnDimension extends Dimension
      */
     public function setWidth(float $width, ?string $unitOfMeasure = null)
     {
-        $this->width = ($unitOfMeasure === null)
+        $this->width = ($unitOfMeasure === null || $width < 0)
             ? $width
-            : (new CssDimensions("{$width}{$unitOfMeasure}"))->width();
+            : (new CssDimension("{$width}{$unitOfMeasure}"))->width();
 
         return $this;
     }

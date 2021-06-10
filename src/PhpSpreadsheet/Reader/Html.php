@@ -528,16 +528,14 @@ class Html extends BaseReader
     private function processDomElementWidth(Worksheet $sheet, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['width'])) {
-            $sheet->getColumnDimension($column)->setWidth(
-                (new CssDimension($attributeArray['width']))->width()
-            );
+            $sheet->getColumnDimension($column)->setWidth((new CssDimension($attributeArray['width']))->width());
         }
     }
 
     private function processDomElementHeight(Worksheet $sheet, int $row, array $attributeArray): void
     {
         if (isset($attributeArray['height'])) {
-            $sheet->getRowDimension($row)->setRowHeight($attributeArray['height']);
+            $sheet->getRowDimension($row)->setRowHeight((new CssDimension($attributeArray['height']))->height());
         }
     }
 
@@ -888,7 +886,7 @@ class Html extends BaseReader
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        (float) str_replace(['px', 'pt'], '', $styleValue)
+                        (new CssDimension($styleValue ?? ''))->height()
                     );
 
                     break;

@@ -36,9 +36,12 @@ class Dimension
     ];
 
     /**
-     * @var float|int width in pixels (if is set) or in Excel's column width units if is null
+     * @var float|int If this is a width, then size is measured in pixels (if is set)
+     *                   or in Excel's default column width units if $unit is null.
+     *                If this is a height, then size is measured in pixels ()
+     *                   or in points () if $unit is null.
      */
-    protected $width;
+    protected $size;
 
     /**
      * @var null|string
@@ -47,26 +50,33 @@ class Dimension
 
     public function __construct(string $dimension)
     {
-        [$width, $unit] = sscanf($dimension, '%[1234567890.]%s');
+        [$size, $unit] = sscanf($dimension, '%[1234567890.]%s');
         $unit = strtolower(trim($unit));
 
-        // If a UoM is specified, then convert the width to pixels for internal storage
+        // If a UoM is specified, then convert the size to pixels for internal storage
         if (isset(self::ABSOLUTE_UNITS[$unit])) {
-            $width *= self::ABSOLUTE_UNITS[$unit];
+            $size *= self::ABSOLUTE_UNITS[$unit];
             $this->unit = 'px';
         } elseif (isset(self::RELATIVE_UNITS[$unit])) {
-            $width *= self::RELATIVE_UNITS[$unit];
-            $width = round($width, 4);
+            $size *= self::RELATIVE_UNITS[$unit];
+            $size = round($size, 4);
         }
 
-        $this->width = $width;
+        $this->size = $size;
     }
 
     public function width(): float
     {
         return (float) ($this->unit === null)
-            ? $this->width
-            : round(Drawing::pixelsToCellDimension((int) $this->width, new Font(false)), 4);
+            ? $this->size
+            : round(Drawing::pixelsToCellDimension((int) $this->size, new Font(false)), 4);
+    }
+
+    public function height(): float
+    {
+        return (float) ($this->unit === null)
+            ? $this->size
+            : $this->toUnit('pt');
     }
 
     public function toUnit(string $unitOfMeasure): float
@@ -76,11 +86,11 @@ class Dimension
             throw new Exception("{$unitOfMeasure} is not a vaid unit of measure");
         }
 
-        $width = $this->width;
+        $size = $this->size;
         if ($this->unit === null) {
-            $width = Drawing::cellDimensionToPixels($width, new Font(false));
+            $size = Drawing::cellDimensionToPixels($size, new Font(false));
         }
 
-        return $width / self::ABSOLUTE_UNITS[$unitOfMeasure];
+        return $size / self::ABSOLUTE_UNITS[$unitOfMeasure];
     }
 }
