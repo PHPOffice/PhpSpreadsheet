@@ -7,7 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimensions;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -529,7 +529,7 @@ class Html extends BaseReader
     {
         if (isset($attributeArray['width'])) {
             $sheet->getColumnDimension($column)->setWidth(
-                (new CssDimensions($attributeArray['width']))->width()
+                (new CssDimension($attributeArray['width']))->width()
             );
         }
     }
@@ -881,7 +881,7 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        (new Html\Dimension($styleValue))->width()
+                        (new CssDimension($styleValue))->width()
                     );
 
                     break;

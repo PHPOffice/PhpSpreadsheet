@@ -136,6 +136,7 @@ class HtmlTest extends TestCase
                     <tr>
                         <td width="50">50px</td>
                         <td style="width: 100px;">100px</td>
+                        <td width="50px">50px</td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
@@ -146,7 +147,10 @@ class HtmlTest extends TestCase
         self::assertEquals(50, $dimension->getWidth());
 
         $dimension = $firstSheet->getColumnDimension('B');
-        self::assertEquals(100, $dimension->getWidth());
+        self::assertEquals(100, $dimension->getWidth('px'));
+
+        $dimension = $firstSheet->getColumnDimension('C');
+        self::assertEquals(50, $dimension->getWidth('px'));
     }
 
     public function testCanApplyInlineHeight(): void
