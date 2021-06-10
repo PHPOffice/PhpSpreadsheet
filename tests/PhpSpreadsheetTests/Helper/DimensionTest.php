@@ -19,7 +19,7 @@ class DimensionTest extends TestCase
     /**
      * @dataProvider providerConvertUoM
      */
-    public function testConvertDimension(float $expectedResult, $dimension, string $unitOfMeasure): void
+    public function testConvertDimension(float $expectedResult, string $dimension, string $unitOfMeasure): void
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);
         self::assertSame($expectedResult, $result);

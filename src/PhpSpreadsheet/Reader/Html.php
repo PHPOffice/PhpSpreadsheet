@@ -881,7 +881,7 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        (new CssDimension($styleValue))->width()
+                        (new CssDimension($styleValue ?? ''))->width()
                     );
 
                     break;

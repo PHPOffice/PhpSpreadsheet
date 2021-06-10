@@ -36,7 +36,7 @@ class Dimension
     ];
 
     /**
-     * @var float|int Width in pixels (if $unit is set) or in Excel's column width units if $unit is null.
+     * @var float|int width in pixels (if is set) or in Excel's column width units if is null
      */
     protected $width;
 
@@ -66,10 +66,10 @@ class Dimension
     {
         return (float) ($this->unit === null)
             ? $this->width
-            : round(Drawing::pixelsToCellDimension($this->width, new Font(false)), 4);
+            : round(Drawing::pixelsToCellDimension((int) $this->width, new Font(false)), 4);
     }
 
-    public function toUnit(string $unitOfMeasure)
+    public function toUnit(string $unitOfMeasure): float
     {
         $unitOfMeasure = strtolower($unitOfMeasure);
         if (!array_key_exists($unitOfMeasure, self::ABSOLUTE_UNITS)) {
