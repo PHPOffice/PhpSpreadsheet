@@ -3,509 +3,732 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-calculation-engineering.html">Engineering</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation.html">Calculation</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-calculation-engineering.html">Engineering</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            ConvertUOM
-                                                        </h2>
+    ConvertUOM
+
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">8</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">8</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary"></p>
-        <section class="phpdocumentor-class__description"></section>
-
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_WEIGHT_AND_MASS">CATEGORY_WEIGHT_AND_MASS</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Weight and Mass&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_DISTANCE">CATEGORY_DISTANCE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Distance&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TIME">CATEGORY_TIME</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Time&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_PRESSURE">CATEGORY_PRESSURE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Pressure&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_FORCE">CATEGORY_FORCE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Force&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_ENERGY">CATEGORY_ENERGY</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Energy&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_POWER">CATEGORY_POWER</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Power&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_MAGNETISM">CATEGORY_MAGNETISM</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Magnetism&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TEMPERATURE">CATEGORY_TEMPERATURE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Temperature&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_VOLUME">CATEGORY_VOLUME</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Volume and Liquid Measure&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_AREA">CATEGORY_AREA</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Area&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_INFORMATION">CATEGORY_INFORMATION</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Information&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_SPEED">CATEGORY_SPEED</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;Speed&#039;</td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionUnits">$conversionUnits</a></th>
-                    <td class="phpdocumentor-cell">Details of the Units of measure that can be used in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionMultipliers">$conversionMultipliers</a></th>
-                    <td class="phpdocumentor-cell">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_binaryConversionMultipliers">$binaryConversionMultipliers</a></th>
-                    <td class="phpdocumentor-cell">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_unitConversions">$unitConversions</a></th>
-                    <td class="phpdocumentor-cell">Details of the Units of measure conversion factors, organised by group.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategories">getConversionCategories()</a></th>
-                    <td class="phpdocumentor-cell">getConversionGroups
-Returns a list of the different conversion groups for UOM conversions.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnits">getConversionCategoryUnits()</a></th>
-                    <td class="phpdocumentor-cell">getConversionGroupUnits
-Returns an array of units of measure, for a specified conversion group, or for all groups.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnitDetails">getConversionCategoryUnitDetails()</a></th>
-                    <td class="phpdocumentor-cell">getConversionGroupUnitDetails.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionMultipliers">getConversionMultipliers()</a></th>
-                    <td class="phpdocumentor-cell">getConversionMultipliers
-Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getBinaryConversionMultipliers">getBinaryConversionMultipliers()</a></th>
-                    <td class="phpdocumentor-cell">getBinaryConversionMultipliers
-Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_CONVERT">CONVERT()</a></th>
-                    <td class="phpdocumentor-cell">CONVERT.</td>
-                    <td class="phpdocumentor-cell">float|string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getUOMDetails">getUOMDetails()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_convertTemperature">convertTemperature()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">float|int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_resolveTemperatureSynonyms">resolveTemperatureSynonyms()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                                            </table>
-
-                    <section>
-                <h3 class="phpdocumentor-constants__header">Constants</h3>
-                                    <a id="constant_CATEGORY_WEIGHT_AND_MASS"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_WEIGHT_AND_MASS</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">10</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_WEIGHT_AND_MASS</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Weight and Mass&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_DISTANCE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_DISTANCE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">11</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_DISTANCE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Distance&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_TIME"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_TIME</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">12</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_TIME</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Time&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_PRESSURE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_PRESSURE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">13</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_PRESSURE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Pressure&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_FORCE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_FORCE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_FORCE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Force&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_ENERGY"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_ENERGY</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">15</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_ENERGY</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Energy&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_POWER"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_POWER</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">16</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_POWER</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Power&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_MAGNETISM"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_MAGNETISM</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">17</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_MAGNETISM</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Magnetism&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_TEMPERATURE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_TEMPERATURE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">18</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_TEMPERATURE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Temperature&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_VOLUME"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_VOLUME</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">19</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_VOLUME</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Volume and Liquid Measure&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_AREA"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_AREA</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">20</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_AREA</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Area&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_INFORMATION"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_INFORMATION</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">21</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_INFORMATION</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Information&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CATEGORY_SPEED"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CATEGORY_SPEED</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">22</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CATEGORY_SPEED</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;Speed&#039;</span>
-    </code>
-    </article>
-                                            </section>
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_conversionUnits"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$conversionUnits</h4>
+
+
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_AREA">CATEGORY_AREA</a>
+    <span>
+        &nbsp;= &#039;Area&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_DISTANCE">CATEGORY_DISTANCE</a>
+    <span>
+        &nbsp;= &#039;Distance&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_ENERGY">CATEGORY_ENERGY</a>
+    <span>
+        &nbsp;= &#039;Energy&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_FORCE">CATEGORY_FORCE</a>
+    <span>
+        &nbsp;= &#039;Force&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_INFORMATION">CATEGORY_INFORMATION</a>
+    <span>
+        &nbsp;= &#039;Information&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_MAGNETISM">CATEGORY_MAGNETISM</a>
+    <span>
+        &nbsp;= &#039;Magnetism&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_POWER">CATEGORY_POWER</a>
+    <span>
+        &nbsp;= &#039;Power&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_PRESSURE">CATEGORY_PRESSURE</a>
+    <span>
+        &nbsp;= &#039;Pressure&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_SPEED">CATEGORY_SPEED</a>
+    <span>
+        &nbsp;= &#039;Speed&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TEMPERATURE">CATEGORY_TEMPERATURE</a>
+    <span>
+        &nbsp;= &#039;Temperature&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TIME">CATEGORY_TIME</a>
+    <span>
+        &nbsp;= &#039;Time&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_VOLUME">CATEGORY_VOLUME</a>
+    <span>
+        &nbsp;= &#039;Volume and Liquid Measure&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_WEIGHT_AND_MASS">CATEGORY_WEIGHT_AND_MASS</a>
+    <span>
+        &nbsp;= &#039;Weight and Mass&#039;                    </span>
+</dt>
+<dd></dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_binaryConversionMultipliers">$binaryConversionMultipliers</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionMultipliers">$conversionMultipliers</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionUnits">$conversionUnits</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Details of the Units of measure that can be used in CONVERTUOM().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_unitConversions">$unitConversions</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Details of the Units of measure conversion factors, organised by group.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_CONVERT">CONVERT()</a>
+    <span>
+                        &nbsp;: float|string    </span>
+</dt>
+<dd>CONVERT.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getBinaryConversionMultipliers">getBinaryConversionMultipliers()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>getBinaryConversionMultipliers
+Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategories">getConversionCategories()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>getConversionGroups
+Returns a list of the different conversion groups for UOM conversions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnitDetails">getConversionCategoryUnitDetails()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>getConversionGroupUnitDetails.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnits">getConversionCategoryUnits()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>getConversionGroupUnits
+Returns an array of units of measure, for a specified conversion group, or for all groups.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionMultipliers">getConversionMultipliers()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>getConversionMultipliers
+Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_convertTemperature">convertTemperature()</a>
+    <span>
+                        &nbsp;: float|int    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getUOMDetails">getUOMDetails()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_resolveTemperatureSynonyms">resolveTemperatureSynonyms()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
+
+        </dl>
+
+
+
+        
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_AREA">
+        CATEGORY_AREA
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_AREA" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">29</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Units of measure that can be used in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$conversionUnits</span>
-         = <span class="phpdocumentor-signature__default-value">[
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_AREA</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Area&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_DISTANCE">
+        CATEGORY_DISTANCE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_DISTANCE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">11</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_DISTANCE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Distance&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_ENERGY">
+        CATEGORY_ENERGY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_ENERGY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_ENERGY</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Energy&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_FORCE">
+        CATEGORY_FORCE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_FORCE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_FORCE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Force&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_INFORMATION">
+        CATEGORY_INFORMATION
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_INFORMATION" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_INFORMATION</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Information&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_MAGNETISM">
+        CATEGORY_MAGNETISM
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_MAGNETISM" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">17</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_MAGNETISM</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Magnetism&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_POWER">
+        CATEGORY_POWER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_POWER" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_POWER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Power&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_PRESSURE">
+        CATEGORY_PRESSURE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_PRESSURE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">13</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_PRESSURE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Pressure&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_SPEED">
+        CATEGORY_SPEED
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_SPEED" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_SPEED</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Speed&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_TEMPERATURE">
+        CATEGORY_TEMPERATURE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TEMPERATURE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_TEMPERATURE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Temperature&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_TIME">
+        CATEGORY_TIME
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_TIME" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_TIME</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Time&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_VOLUME">
+        CATEGORY_VOLUME
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_VOLUME" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">19</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_VOLUME</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Volume and Liquid Measure&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CATEGORY_WEIGHT_AND_MASS">
+        CATEGORY_WEIGHT_AND_MASS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#constant_CATEGORY_WEIGHT_AND_MASS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">10</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CATEGORY_WEIGHT_AND_MASS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;Weight and Mass&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_binaryConversionMultipliers">
+        $binaryConversionMultipliers
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_binaryConversionMultipliers" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">231</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$binaryConversionMultipliers</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;Yi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 80, &#039;name&#039; =&gt; &#039;yobi&#039;], &#039;Zi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 70, &#039;name&#039; =&gt; &#039;zebi&#039;], &#039;Ei&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 60, &#039;name&#039; =&gt; &#039;exbi&#039;], &#039;Pi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 50, &#039;name&#039; =&gt; &#039;pebi&#039;], &#039;Ti&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 40, &#039;name&#039; =&gt; &#039;tebi&#039;], &#039;Gi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 30, &#039;name&#039; =&gt; &#039;gibi&#039;], &#039;Mi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 20, &#039;name&#039; =&gt; &#039;mebi&#039;], &#039;ki&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 10, &#039;name&#039; =&gt; &#039;kibi&#039;]]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_conversionMultipliers">
+        $conversionMultipliers
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionMultipliers" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">202</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$conversionMultipliers</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;Y&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+24, &#039;name&#039; =&gt; &#039;yotta&#039;], &#039;Z&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+21, &#039;name&#039; =&gt; &#039;zetta&#039;], &#039;E&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+18, &#039;name&#039; =&gt; &#039;exa&#039;], &#039;P&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000000.0, &#039;name&#039; =&gt; &#039;peta&#039;], &#039;T&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000.0, &#039;name&#039; =&gt; &#039;tera&#039;], &#039;G&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000.0, &#039;name&#039; =&gt; &#039;giga&#039;], &#039;M&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000.0, &#039;name&#039; =&gt; &#039;mega&#039;], &#039;k&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000.0, &#039;name&#039; =&gt; &#039;kilo&#039;], &#039;h&#039; =&gt; [&#039;multiplier&#039; =&gt; 100.0, &#039;name&#039; =&gt; &#039;hecto&#039;], &#039;e&#039; =&gt; [&#039;multiplier&#039; =&gt; 10.0, &#039;name&#039; =&gt; &#039;dekao&#039;], &#039;da&#039; =&gt; [&#039;multiplier&#039; =&gt; 10.0, &#039;name&#039; =&gt; &#039;dekao&#039;], &#039;d&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.1, &#039;name&#039; =&gt; &#039;deci&#039;], &#039;c&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.01, &#039;name&#039; =&gt; &#039;centi&#039;], &#039;m&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.001, &#039;name&#039; =&gt; &#039;milli&#039;], &#039;u&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-6, &#039;name&#039; =&gt; &#039;micro&#039;], &#039;n&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-9, &#039;name&#039; =&gt; &#039;nano&#039;], &#039;p&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-12, &#039;name&#039; =&gt; &#039;pico&#039;], &#039;f&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-15, &#039;name&#039; =&gt; &#039;femto&#039;], &#039;a&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-18, &#039;name&#039; =&gt; &#039;atto&#039;], &#039;z&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-22, &#039;name&#039; =&gt; &#039;zepto&#039;], &#039;y&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-25, &#039;name&#039; =&gt; &#039;yocto&#039;]]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_conversionUnits">
+        $conversionUnits
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_conversionUnits" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Details of the Units of measure that can be used in CONVERTUOM().</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$conversionUnits</span>
+     = <span class="phpdocumentor-signature__default-value">[
     // Weight and Mass
     &#039;g&#039; =&gt; [&#039;Group&#039; =&gt; self::CATEGORY_WEIGHT_AND_MASS, &#039;Unit Name&#039; =&gt; &#039;Gram&#039;, &#039;AllowPrefix&#039; =&gt; true],
     &#039;sg&#039; =&gt; [&#039;Group&#039; =&gt; self::CATEGORY_WEIGHT_AND_MASS, &#039;Unit Name&#039; =&gt; &#039;Slug&#039;, &#039;AllowPrefix&#039; =&gt; false],
@@ -671,67 +894,39 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
     &#039;mph&#039; =&gt; [&#039;Group&#039; =&gt; self::CATEGORY_SPEED, &#039;Unit Name&#039; =&gt; &#039;Miles per hour&#039;, &#039;AllowPrefix&#039; =&gt; false],
     &#039;admkn&#039; =&gt; [&#039;Group&#039; =&gt; self::CATEGORY_SPEED, &#039;Unit Name&#039; =&gt; &#039;Admiralty Knot&#039;, &#039;AllowPrefix&#039; =&gt; false],
     &#039;kn&#039; =&gt; [&#039;Group&#039; =&gt; self::CATEGORY_SPEED, &#039;Unit Name&#039; =&gt; &#039;Knot&#039;, &#039;AllowPrefix&#039; =&gt; false],
-]</span>    </code>
-    </article>
-                                    <a id="property_conversionMultipliers"></a>
-<article
+]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
         class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
 >
-    <h4 class="phpdocumentor-property__name">$conversionMultipliers</h4>
+    <h4 class="phpdocumentor-element__name" id="property_unitConversions">
+        $unitConversions
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#property_unitConversions" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">202</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$conversionMultipliers</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Y&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+24, &#039;name&#039; =&gt; &#039;yotta&#039;], &#039;Z&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+21, &#039;name&#039; =&gt; &#039;zetta&#039;], &#039;E&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E+18, &#039;name&#039; =&gt; &#039;exa&#039;], &#039;P&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000000.0, &#039;name&#039; =&gt; &#039;peta&#039;], &#039;T&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000000.0, &#039;name&#039; =&gt; &#039;tera&#039;], &#039;G&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000000.0, &#039;name&#039; =&gt; &#039;giga&#039;], &#039;M&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000000.0, &#039;name&#039; =&gt; &#039;mega&#039;], &#039;k&#039; =&gt; [&#039;multiplier&#039; =&gt; 1000.0, &#039;name&#039; =&gt; &#039;kilo&#039;], &#039;h&#039; =&gt; [&#039;multiplier&#039; =&gt; 100.0, &#039;name&#039; =&gt; &#039;hecto&#039;], &#039;e&#039; =&gt; [&#039;multiplier&#039; =&gt; 10.0, &#039;name&#039; =&gt; &#039;dekao&#039;], &#039;da&#039; =&gt; [&#039;multiplier&#039; =&gt; 10.0, &#039;name&#039; =&gt; &#039;dekao&#039;], &#039;d&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.1, &#039;name&#039; =&gt; &#039;deci&#039;], &#039;c&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.01, &#039;name&#039; =&gt; &#039;centi&#039;], &#039;m&#039; =&gt; [&#039;multiplier&#039; =&gt; 0.001, &#039;name&#039; =&gt; &#039;milli&#039;], &#039;u&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-6, &#039;name&#039; =&gt; &#039;micro&#039;], &#039;n&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-9, &#039;name&#039; =&gt; &#039;nano&#039;], &#039;p&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-12, &#039;name&#039; =&gt; &#039;pico&#039;], &#039;f&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-15, &#039;name&#039; =&gt; &#039;femto&#039;], &#039;a&#039; =&gt; [&#039;multiplier&#039; =&gt; 1.0E-18, &#039;name&#039; =&gt; &#039;atto&#039;], &#039;z&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-22, &#039;name&#039; =&gt; &#039;zepto&#039;], &#039;y&#039; =&gt; [&#039;multiplier&#039; =&gt; 9.999999999999999E-25, &#039;name&#039; =&gt; &#039;yocto&#039;]]</span>    </code>
-    </article>
-                                    <a id="property_binaryConversionMultipliers"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$binaryConversionMultipliers</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">231</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$binaryConversionMultipliers</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Yi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 80, &#039;name&#039; =&gt; &#039;yobi&#039;], &#039;Zi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 70, &#039;name&#039; =&gt; &#039;zebi&#039;], &#039;Ei&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 60, &#039;name&#039; =&gt; &#039;exbi&#039;], &#039;Pi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 50, &#039;name&#039; =&gt; &#039;pebi&#039;], &#039;Ti&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 40, &#039;name&#039; =&gt; &#039;tebi&#039;], &#039;Gi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 30, &#039;name&#039; =&gt; &#039;gibi&#039;], &#039;Mi&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 20, &#039;name&#039; =&gt; &#039;mebi&#039;], &#039;ki&#039; =&gt; [&#039;multiplier&#039; =&gt; 2 ** 10, &#039;name&#039; =&gt; &#039;kibi&#039;]]</span>    </code>
-    </article>
-                                    <a id="property_unitConversions"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$unitConversions</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">247</span>
-    </aside>
-            <p class="phpdocumentor-summary">Details of the Units of measure conversion factors, organised by group.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$unitConversions</span>
-         = <span class="phpdocumentor-signature__default-value">[
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">247</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Details of the Units of measure conversion factors, organised by group.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$unitConversions</span>
+     = <span class="phpdocumentor-signature__default-value">[
     // Conversion uses gram (g) as an intermediate unit
     self::CATEGORY_WEIGHT_AND_MASS =&gt; [&#039;g&#039; =&gt; 1.0, &#039;sg&#039; =&gt; 6.852176585679181E-5, &#039;lbm&#039; =&gt; 0.00220462262184878, &#039;u&#039; =&gt; 6.02214179421676E+23, &#039;ozm&#039; =&gt; 0.0352739619495804, &#039;grain&#039; =&gt; 15.4323583529414, &#039;cwt&#039; =&gt; 2.20462262184878E-5, &#039;shweight&#039; =&gt; 2.20462262184878E-5, &#039;uk_cwt&#039; =&gt; 1.96841305522212E-5, &#039;lcwt&#039; =&gt; 1.96841305522212E-5, &#039;hweight&#039; =&gt; 1.96841305522212E-5, &#039;stone&#039; =&gt; 0.00015747304441777, &#039;ton&#039; =&gt; 1.10231131092439E-6, &#039;uk_ton&#039; =&gt; 9.842065276110609E-7, &#039;LTON&#039; =&gt; 9.842065276110609E-7, &#039;brton&#039; =&gt; 9.842065276110609E-7],
     // Conversion uses meter (m) as an intermediate unit
@@ -756,390 +951,451 @@ Returns an array of the additional Multiplier prefixes that can be used with Inf
     self::CATEGORY_INFORMATION =&gt; [&#039;bit&#039; =&gt; 1.0, &#039;byte&#039; =&gt; 0.125],
     // Conversion uses Meters per Second (m/s) as an intermediate unit
     self::CATEGORY_SPEED =&gt; [&#039;m/s&#039; =&gt; 1.0, &#039;m/sec&#039; =&gt; 1.0, &#039;m/h&#039; =&gt; 3600.0, &#039;m/hr&#039; =&gt; 3600.0, &#039;mph&#039; =&gt; 2.2369362920544, &#039;admkn&#039; =&gt; 1.94260256941567, &#039;kn&#039; =&gt; 1.9438444924406],
-]</span>    </code>
-    </article>
-                                                            </section>
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_getConversionCategories"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getConversionCategories()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">437</span>
-    </aside>
-        <p class="phpdocumentor-summary">getConversionGroups
-Returns a list of the different conversion groups for UOM conversions.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategories</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+]</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getConversionCategoryUnits"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getConversionCategoryUnits()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">455</span>
-    </aside>
-        <p class="phpdocumentor-summary">getConversionGroupUnits
-Returns an array of units of measure, for a specified conversion group, or for all groups.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnits</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$category</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$category</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
 </article>
-                                    <a id="method_getConversionCategoryUnitDetails"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getConversionCategoryUnitDetails()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">474</span>
-    </aside>
-        <p class="phpdocumentor-summary">getConversionGroupUnitDetails.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionCategoryUnitDetails</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$category</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+            </section>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$category</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getConversionMultipliers"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">getConversionMultipliers()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_CONVERT">
+        CONVERT()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_CONVERT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">495</span>
-    </aside>
-        <p class="phpdocumentor-summary">getConversionMultipliers
-Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getConversionMultipliers</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">527</span>
+</aside>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getBinaryConversionMultipliers"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getBinaryConversionMultipliers()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">506</span>
-    </aside>
-        <p class="phpdocumentor-summary">getBinaryConversionMultipliers
-Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getBinaryConversionMultipliers</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_CONVERT"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">CONVERT()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">527</span>
-    </aside>
         <p class="phpdocumentor-summary">CONVERT.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">CONVERT</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$fromUOM</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$toUOM</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">float|string</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">CONVERT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromUOM</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toUOM</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
 
         <section class="phpdocumentor-description"><p>Converts a number from one measurement system to another.
 For example, CONVERT can translate a table of distances in miles to a table of distances
 in kilometers.</p>
 <p>Excel Function:
-CONVERT(value,fromUOM,toUOM)</p></section>
+CONVERT(value,fromUOM,toUOM)</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the value in fromUOM to convert</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fromUOM</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the units for value</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$toUOM</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the units for the result</p>
+</section>
+
+            </dd>
+            </dl>
+
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the value in fromUOM to convert</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fromUOM</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the units for value</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$toUOM</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>the units for the result</p></section></dd>
-                    </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">float|string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|string</span>
-            
 </article>
-                                    <a id="method_getUOMDetails"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">getUOMDetails()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getBinaryConversionMultipliers">
+        getBinaryConversionMultipliers()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getBinaryConversionMultipliers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">565</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getUOMDetails</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$uom</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">506</span>
+</aside>
+
+        <p class="phpdocumentor-summary">getBinaryConversionMultipliers
+Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure in CONVERTUOM().</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getBinaryConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$uom</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                    <a id="method_convertTemperature"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">convertTemperature()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getConversionCategories">
+        getConversionCategories()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategories" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">619</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">convertTemperature</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$fromUOM</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$toUOM</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">float|int</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">437</span>
+</aside>
+
+        <p class="phpdocumentor-summary">getConversionGroups
+Returns a list of the different conversion groups for UOM conversions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getConversionCategories</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fromUOM</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$toUOM</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">float|int</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                    <a id="method_resolveTemperatureSynonyms"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">resolveTemperatureSynonyms()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getConversionCategoryUnitDetails">
+        getConversionCategoryUnitDetails()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnitDetails" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="../files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">671</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">resolveTemperatureSynonyms</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$uom</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">474</span>
+</aside>
+
+        <p class="phpdocumentor-summary">getConversionGroupUnitDetails.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getConversionCategoryUnitDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$category</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p>
+</section>
+
+            </dd>
+            </dl>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$uom</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getConversionCategoryUnits">
+        getConversionCategoryUnits()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionCategoryUnits" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">455</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">getConversionGroupUnits
+Returns an array of units of measure, for a specified conversion group, or for all groups.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getConversionCategoryUnits</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$category</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$category</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The group whose units of measure you want to retrieve</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getConversionMultipliers">
+        getConversionMultipliers()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getConversionMultipliers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">495</span>
+</aside>
+
+        <p class="phpdocumentor-summary">getConversionMultipliers
+Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getConversionMultipliers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_convertTemperature">
+        convertTemperature()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_convertTemperature" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">619</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">convertTemperature</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromUOM</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$toUOM</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fromUOM</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$toUOM</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">float|int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getUOMDetails">
+        getUOMDetails()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_getUOMDetails" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">565</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getUOMDetails</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uom</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$uom</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_resolveTemperatureSynonyms">
+        resolveTemperatureSynonyms()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#method_resolveTemperatureSynonyms" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php"><a href="files/src-phpspreadsheet-calculation-engineering-convertuom.html"><abbr title="src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php">ConvertUOM.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">671</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">resolveTemperatureSynonyms</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uom</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$uom</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering-ConvertUOM.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

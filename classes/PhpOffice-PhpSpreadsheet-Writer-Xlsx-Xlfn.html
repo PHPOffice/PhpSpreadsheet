@@ -3,213 +3,289 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            Xlfn
-                                                        </h2>
+    Xlfn
+
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="../files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">5</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">5</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary"></p>
-        <section class="phpdocumentor-class__description"></section>
+        
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#constant_XLFNREGEXP">XLFNREGEXP</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;/(?&lt;!_xlfn[.])\\b(&#039; . &#039;beta[.]dist&#039; . &#039;|beta[.]inv&#039; . &#039;|binom[.]dist&#039; . &#039;|binom[.]inv&#039; . &#039;|ceiling[.]precise&#039; . &#039;|chisq[.]dist&#039; . &#039;|chisq[.]dist[.]rt&#039; . &#039;|chisq[.]inv&#039; . &#039;|chisq[.]inv[.]rt&#039; . &#039;|chisq[.]test&#039; . &#039;|confidence[.]norm&#039; . &#039;|confidence[.]t&#039; . &#039;|covariance[.]p&#039; . &#039;|covariance[.]s&#039; . &#039;|erf[.]precise&#039; . &#039;|erfc[.]precise&#039; . &#039;|expon[.]dist&#039; . &#039;|f[.]dist&#039; . &#039;|f[.]dist[.]rt&#039; . &#039;|f[.]inv&#039; . &#039;|f[.]inv[.]rt&#039; . &#039;|f[.]test&#039; . &#039;|floor[.]precise&#039; . &#039;|gamma[.]dist&#039; . &#039;|gamma[.]inv&#039; . &#039;|gammaln[.]precise&#039; . &#039;|lognorm[.]dist&#039; . &#039;|lognorm[.]inv&#039; . &#039;|mode[.]mult&#039; . &#039;|mode[.]sngl&#039; . &#039;|negbinom[.]dist&#039; . &#039;|networkdays[.]intl&#039; . &#039;|norm[.]dist&#039; . &#039;|norm[.]inv&#039; . &#039;|norm[.]s[.]dist&#039; . &#039;|norm[.]s[.]inv&#039; . &#039;|percentile[.]exc&#039; . &#039;|percentile[.]inc&#039; . &#039;|percentrank[.]exc&#039; . &#039;|percentrank[.]inc&#039; . &#039;|poisson[.]dist&#039; . &#039;|quartile[.]exc&#039; . &#039;|quartile[.]inc&#039; . &#039;|rank[.]avg&#039; . &#039;|rank[.]eq&#039; . &#039;|stdev[.]p&#039; . &#039;|stdev[.]s&#039; . &#039;|t[.]dist&#039; . &#039;|t[.]dist[.]2t&#039; . &#039;|t[.]dist[.]rt&#039; . &#039;|t[.]inv&#039; . &#039;|t[.]inv[.]2t&#039; . &#039;|t[.]test&#039; . &#039;|var[.]p&#039; . &#039;|var[.]s&#039; . &#039;|weibull[.]dist&#039; . &#039;|z[.]test&#039; . &#039;|acot&#039; . &#039;|acoth&#039; . &#039;|arabic&#039; . &#039;|averageifs&#039; . &#039;|binom[.]dist[.]range&#039; . &#039;|bitand&#039; . &#039;|bitlshift&#039; . &#039;|bitor&#039; . &#039;|bitrshift&#039; . &#039;|bitxor&#039; . &#039;|ceiling[.]math&#039; . &#039;|combina&#039; . &#039;|cot&#039; . &#039;|coth&#039; . &#039;|csc&#039; . &#039;|csch&#039; . &#039;|days&#039; . &#039;|dbcs&#039; . &#039;|decimal&#039; . &#039;|encodeurl&#039; . &#039;|filterxml&#039; . &#039;|floor[.]math&#039; . &#039;|formulatext&#039; . &#039;|gamma&#039; . &#039;|gauss&#039; . &#039;|ifna&#039; . &#039;|imcosh&#039; . &#039;|imcot&#039; . &#039;|imcsc&#039; . &#039;|imcsch&#039; . &#039;|imsec&#039; . &#039;|imsech&#039; . &#039;|imsinh&#039; . &#039;|imtan&#039; . &#039;|isformula&#039; . &#039;|iso[.]ceiling&#039; . &#039;|isoweeknum&#039; . &#039;|munit&#039; . &#039;|numbervalue&#039; . &#039;|pduration&#039; . &#039;|permutationa&#039; . &#039;|phi&#039; . &#039;|rri&#039; . &#039;|sec&#039; . &#039;|sech&#039; . &#039;|sheet&#039; . &#039;|sheets&#039; . &#039;|skew[.]p&#039; . &#039;|unichar&#039; . &#039;|unicode&#039; . &#039;|webservice&#039; . &#039;|xor&#039; . &#039;|forecast[.]et2&#039; . &#039;|forecast[.]ets[.]confint&#039; . &#039;|forecast[.]ets[.]seasonality&#039; . &#039;|forecast[.]ets[.]stat&#039; . &#039;|forecast[.]linear&#039; . &#039;|switch&#039; . &#039;|concat&#039; . &#039;|countifs&#039; . &#039;|ifs&#039; . &#039;|maxifs&#039; . &#039;|minifs&#039; . &#039;|sumifs&#039; . &#039;|textjoin&#039; . &#039;|filter&#039; . &#039;|randarray&#039; . &#039;|sequence&#039; . &#039;|sort&#039; . &#039;|sortby&#039; . &#039;|unique&#039; . &#039;|xlookup&#039; . &#039;|xmatch&#039; . &#039;|arraytotext&#039; . &#039;|call&#039; . &#039;|let&#039; . &#039;|register[.]id&#039; . &#039;|valuetotext&#039; . &#039;)(?=\\s*[(])/i&#039;</td>
-                </tr>
-                                                                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfn">addXlfn()</a></th>
-                    <td class="phpdocumentor-cell">Prefix function name in string with _xlfn. where required.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfnStripEquals">addXlfnStripEquals()</a></th>
-                    <td class="phpdocumentor-cell">Prefix function name in string with _xlfn. where required.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                            </table>
 
-                    <section>
-                <h3 class="phpdocumentor-constants__header">Constants</h3>
-                                    <a id="constant_XLFNREGEXP"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">XLFNREGEXP</h4>
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#constant_XLFNREGEXP">XLFNREGEXP</a>
+    <span>
+        &nbsp;= &#039;/(?&lt;!_xlfn[.])\b(&#039; . &#039;beta[.]dist&#039; . &#039;|beta[.]inv&#039; . &#039;|binom[.]dist&#039; . &#039;|binom[.]inv&#039; . &#039;|ceiling[.]precise&#039; . &#039;|chisq[.]dist&#039; . &#039;|chisq[.]dist[.]rt&#039; . &#039;|chisq[.]inv&#039; . &#039;|chisq[.]inv[.]rt&#039; . &#039;|chisq[.]test&#039; . &#039;|confidence[.]norm&#039; . &#039;|confidence[.]t&#039; . &#039;|covariance[.]p&#039; . &#039;|covariance[.]s&#039; . &#039;|erf[.]precise&#039; . &#039;|erfc[.]precise&#039; . &#039;|expon[.]dist&#039; . &#039;|f[.]dist&#039; . &#039;|f[.]dist[.]rt&#039; . &#039;|f[.]inv&#039; . &#039;|f[.]inv[.]rt&#039; . &#039;|f[.]test&#039; . &#039;|floor[.]precise&#039; . &#039;|gamma[.]dist&#039; . &#039;|gamma[.]inv&#039; . &#039;|gammaln[.]precise&#039; . &#039;|lognorm[.]dist&#039; . &#039;|lognorm[.]inv&#039; . &#039;|mode[.]mult&#039; . &#039;|mode[.]sngl&#039; . &#039;|negbinom[.]dist&#039; . &#039;|networkdays[.]intl&#039; . &#039;|norm[.]dist&#039; . &#039;|norm[.]inv&#039; . &#039;|norm[.]s[.]dist&#039; . &#039;|norm[.]s[.]inv&#039; . &#039;|percentile[.]exc&#039; . &#039;|percentile[.]inc&#039; . &#039;|percentrank[.]exc&#039; . &#039;|percentrank[.]inc&#039; . &#039;|poisson[.]dist&#039; . &#039;|quartile[.]exc&#039; . &#039;|quartile[.]inc&#039; . &#039;|rank[.]avg&#039; . &#039;|rank[.]eq&#039; . &#039;|stdev[.]p&#039; . &#039;|stdev[.]s&#039; . &#039;|t[.]dist&#039; . &#039;|t[.]dist[.]2t&#039; . &#039;|t[.]dist[.]rt&#039; . &#039;|t[.]inv&#039; . &#039;|t[.]inv[.]2t&#039; . &#039;|t[.]test&#039; . &#039;|var[.]p&#039; . &#039;|var[.]s&#039; . &#039;|weibull[.]dist&#039; . &#039;|z[.]test&#039; . &#039;|acot&#039; . &#039;|acoth&#039; . &#039;|arabic&#039; . &#039;|averageifs&#039; . &#039;|binom[.]dist[.]range&#039; . &#039;|bitand&#039; . &#039;|bitlshift&#039; . &#039;|bitor&#039; . &#039;|bitrshift&#039; . &#039;|bitxor&#039; . &#039;|ceiling[.]math&#039; . &#039;|combina&#039; . &#039;|cot&#039; . &#039;|coth&#039; . &#039;|csc&#039; . &#039;|csch&#039; . &#039;|days&#039; . &#039;|dbcs&#039; . &#039;|decimal&#039; . &#039;|encodeurl&#039; . &#039;|filterxml&#039; . &#039;|floor[.]math&#039; . &#039;|formulatext&#039; . &#039;|gamma&#039; . &#039;|gauss&#039; . &#039;|ifna&#039; . &#039;|imcosh&#039; . &#039;|imcot&#039; . &#039;|imcsc&#039; . &#039;|imcsch&#039; . &#039;|imsec&#039; . &#039;|imsech&#039; . &#039;|imsinh&#039; . &#039;|imtan&#039; . &#039;|isformula&#039; . &#039;|iso[.]ceiling&#039; . &#039;|isoweeknum&#039; . &#039;|munit&#039; . &#039;|numbervalue&#039; . &#039;|pduration&#039; . &#039;|permutationa&#039; . &#039;|phi&#039; . &#039;|rri&#039; . &#039;|sec&#039; . &#039;|sech&#039; . &#039;|sheet&#039; . &#039;|sheets&#039; . &#039;|skew[.]p&#039; . &#039;|unichar&#039; . &#039;|unicode&#039; . &#039;|webservice&#039; . &#039;|xor&#039; . &#039;|forecast[.]et2&#039; . &#039;|forecast[.]ets[.]confint&#039; . &#039;|forecast[.]ets[.]seasonality&#039; . &#039;|forecast[.]ets[.]stat&#039; . &#039;|forecast[.]linear&#039; . &#039;|switch&#039; . &#039;|concat&#039; . &#039;|countifs&#039; . &#039;|ifs&#039; . &#039;|maxifs&#039; . &#039;|minifs&#039; . &#039;|sumifs&#039; . &#039;|textjoin&#039; . &#039;|filter&#039; . &#039;|randarray&#039; . &#039;|sequence&#039; . &#039;|sort&#039; . &#039;|sortby&#039; . &#039;|unique&#039; . &#039;|xlookup&#039; . &#039;|xmatch&#039; . &#039;|arraytotext&#039; . &#039;|call&#039; . &#039;|let&#039; . &#039;|register[.]id&#039; . &#039;|valuetotext&#039; . &#039;)(?=\s*[(])/i&#039;                    </span>
+</dt>
+<dd></dd>
+
+                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfn">addXlfn()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Prefix function name in string with _xlfn. where required.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfnStripEquals">addXlfnStripEquals()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Prefix function name in string with _xlfn. where required.</dd>
+
+        </dl>
+
+
+
+        
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_XLFNREGEXP">
+        XLFNREGEXP
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#constant_XLFNREGEXP" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="../files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">7</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$XLFNREGEXP</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;/(?&lt;!_xlfn[.])\\b(&#039; . &#039;beta[.]dist&#039; . &#039;|beta[.]inv&#039; . &#039;|binom[.]dist&#039; . &#039;|binom[.]inv&#039; . &#039;|ceiling[.]precise&#039; . &#039;|chisq[.]dist&#039; . &#039;|chisq[.]dist[.]rt&#039; . &#039;|chisq[.]inv&#039; . &#039;|chisq[.]inv[.]rt&#039; . &#039;|chisq[.]test&#039; . &#039;|confidence[.]norm&#039; . &#039;|confidence[.]t&#039; . &#039;|covariance[.]p&#039; . &#039;|covariance[.]s&#039; . &#039;|erf[.]precise&#039; . &#039;|erfc[.]precise&#039; . &#039;|expon[.]dist&#039; . &#039;|f[.]dist&#039; . &#039;|f[.]dist[.]rt&#039; . &#039;|f[.]inv&#039; . &#039;|f[.]inv[.]rt&#039; . &#039;|f[.]test&#039; . &#039;|floor[.]precise&#039; . &#039;|gamma[.]dist&#039; . &#039;|gamma[.]inv&#039; . &#039;|gammaln[.]precise&#039; . &#039;|lognorm[.]dist&#039; . &#039;|lognorm[.]inv&#039; . &#039;|mode[.]mult&#039; . &#039;|mode[.]sngl&#039; . &#039;|negbinom[.]dist&#039; . &#039;|networkdays[.]intl&#039; . &#039;|norm[.]dist&#039; . &#039;|norm[.]inv&#039; . &#039;|norm[.]s[.]dist&#039; . &#039;|norm[.]s[.]inv&#039; . &#039;|percentile[.]exc&#039; . &#039;|percentile[.]inc&#039; . &#039;|percentrank[.]exc&#039; . &#039;|percentrank[.]inc&#039; . &#039;|poisson[.]dist&#039; . &#039;|quartile[.]exc&#039; . &#039;|quartile[.]inc&#039; . &#039;|rank[.]avg&#039; . &#039;|rank[.]eq&#039; . &#039;|stdev[.]p&#039; . &#039;|stdev[.]s&#039; . &#039;|t[.]dist&#039; . &#039;|t[.]dist[.]2t&#039; . &#039;|t[.]dist[.]rt&#039; . &#039;|t[.]inv&#039; . &#039;|t[.]inv[.]2t&#039; . &#039;|t[.]test&#039; . &#039;|var[.]p&#039; . &#039;|var[.]s&#039; . &#039;|weibull[.]dist&#039; . &#039;|z[.]test&#039; . &#039;|acot&#039; . &#039;|acoth&#039; . &#039;|arabic&#039; . &#039;|averageifs&#039; . &#039;|binom[.]dist[.]range&#039; . &#039;|bitand&#039; . &#039;|bitlshift&#039; . &#039;|bitor&#039; . &#039;|bitrshift&#039; . &#039;|bitxor&#039; . &#039;|ceiling[.]math&#039; . &#039;|combina&#039; . &#039;|cot&#039; . &#039;|coth&#039; . &#039;|csc&#039; . &#039;|csch&#039; . &#039;|days&#039; . &#039;|dbcs&#039; . &#039;|decimal&#039; . &#039;|encodeurl&#039; . &#039;|filterxml&#039; . &#039;|floor[.]math&#039; . &#039;|formulatext&#039; . &#039;|gamma&#039; . &#039;|gauss&#039; . &#039;|ifna&#039; . &#039;|imcosh&#039; . &#039;|imcot&#039; . &#039;|imcsc&#039; . &#039;|imcsch&#039; . &#039;|imsec&#039; . &#039;|imsech&#039; . &#039;|imsinh&#039; . &#039;|imtan&#039; . &#039;|isformula&#039; . &#039;|iso[.]ceiling&#039; . &#039;|isoweeknum&#039; . &#039;|munit&#039; . &#039;|numbervalue&#039; . &#039;|pduration&#039; . &#039;|permutationa&#039; . &#039;|phi&#039; . &#039;|rri&#039; . &#039;|sec&#039; . &#039;|sech&#039; . &#039;|sheet&#039; . &#039;|sheets&#039; . &#039;|skew[.]p&#039; . &#039;|unichar&#039; . &#039;|unicode&#039; . &#039;|webservice&#039; . &#039;|xor&#039; . &#039;|forecast[.]et2&#039; . &#039;|forecast[.]ets[.]confint&#039; . &#039;|forecast[.]ets[.]seasonality&#039; . &#039;|forecast[.]ets[.]stat&#039; . &#039;|forecast[.]linear&#039; . &#039;|switch&#039; . &#039;|concat&#039; . &#039;|countifs&#039; . &#039;|ifs&#039; . &#039;|maxifs&#039; . &#039;|minifs&#039; . &#039;|sumifs&#039; . &#039;|textjoin&#039; . &#039;|filter&#039; . &#039;|randarray&#039; . &#039;|sequence&#039; . &#039;|sort&#039; . &#039;|sortby&#039; . &#039;|unique&#039; . &#039;|xlookup&#039; . &#039;|xmatch&#039; . &#039;|arraytotext&#039; . &#039;|call&#039; . &#039;|let&#039; . &#039;|register[.]id&#039; . &#039;|valuetotext&#039; . &#039;)(?=\\s*[(])/i&#039;</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">7</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">XLFNREGEXP</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/(?&lt;!_xlfn[.])\b(&#039; . &#039;beta[.]dist&#039; . &#039;|beta[.]inv&#039; . &#039;|binom[.]dist&#039; . &#039;|binom[.]inv&#039; . &#039;|ceiling[.]precise&#039; . &#039;|chisq[.]dist&#039; . &#039;|chisq[.]dist[.]rt&#039; . &#039;|chisq[.]inv&#039; . &#039;|chisq[.]inv[.]rt&#039; . &#039;|chisq[.]test&#039; . &#039;|confidence[.]norm&#039; . &#039;|confidence[.]t&#039; . &#039;|covariance[.]p&#039; . &#039;|covariance[.]s&#039; . &#039;|erf[.]precise&#039; . &#039;|erfc[.]precise&#039; . &#039;|expon[.]dist&#039; . &#039;|f[.]dist&#039; . &#039;|f[.]dist[.]rt&#039; . &#039;|f[.]inv&#039; . &#039;|f[.]inv[.]rt&#039; . &#039;|f[.]test&#039; . &#039;|floor[.]precise&#039; . &#039;|gamma[.]dist&#039; . &#039;|gamma[.]inv&#039; . &#039;|gammaln[.]precise&#039; . &#039;|lognorm[.]dist&#039; . &#039;|lognorm[.]inv&#039; . &#039;|mode[.]mult&#039; . &#039;|mode[.]sngl&#039; . &#039;|negbinom[.]dist&#039; . &#039;|networkdays[.]intl&#039; . &#039;|norm[.]dist&#039; . &#039;|norm[.]inv&#039; . &#039;|norm[.]s[.]dist&#039; . &#039;|norm[.]s[.]inv&#039; . &#039;|percentile[.]exc&#039; . &#039;|percentile[.]inc&#039; . &#039;|percentrank[.]exc&#039; . &#039;|percentrank[.]inc&#039; . &#039;|poisson[.]dist&#039; . &#039;|quartile[.]exc&#039; . &#039;|quartile[.]inc&#039; . &#039;|rank[.]avg&#039; . &#039;|rank[.]eq&#039; . &#039;|stdev[.]p&#039; . &#039;|stdev[.]s&#039; . &#039;|t[.]dist&#039; . &#039;|t[.]dist[.]2t&#039; . &#039;|t[.]dist[.]rt&#039; . &#039;|t[.]inv&#039; . &#039;|t[.]inv[.]2t&#039; . &#039;|t[.]test&#039; . &#039;|var[.]p&#039; . &#039;|var[.]s&#039; . &#039;|weibull[.]dist&#039; . &#039;|z[.]test&#039; . &#039;|acot&#039; . &#039;|acoth&#039; . &#039;|arabic&#039; . &#039;|averageifs&#039; . &#039;|binom[.]dist[.]range&#039; . &#039;|bitand&#039; . &#039;|bitlshift&#039; . &#039;|bitor&#039; . &#039;|bitrshift&#039; . &#039;|bitxor&#039; . &#039;|ceiling[.]math&#039; . &#039;|combina&#039; . &#039;|cot&#039; . &#039;|coth&#039; . &#039;|csc&#039; . &#039;|csch&#039; . &#039;|days&#039; . &#039;|dbcs&#039; . &#039;|decimal&#039; . &#039;|encodeurl&#039; . &#039;|filterxml&#039; . &#039;|floor[.]math&#039; . &#039;|formulatext&#039; . &#039;|gamma&#039; . &#039;|gauss&#039; . &#039;|ifna&#039; . &#039;|imcosh&#039; . &#039;|imcot&#039; . &#039;|imcsc&#039; . &#039;|imcsch&#039; . &#039;|imsec&#039; . &#039;|imsech&#039; . &#039;|imsinh&#039; . &#039;|imtan&#039; . &#039;|isformula&#039; . &#039;|iso[.]ceiling&#039; . &#039;|isoweeknum&#039; . &#039;|munit&#039; . &#039;|numbervalue&#039; . &#039;|pduration&#039; . &#039;|permutationa&#039; . &#039;|phi&#039; . &#039;|rri&#039; . &#039;|sec&#039; . &#039;|sech&#039; . &#039;|sheet&#039; . &#039;|sheets&#039; . &#039;|skew[.]p&#039; . &#039;|unichar&#039; . &#039;|unicode&#039; . &#039;|webservice&#039; . &#039;|xor&#039; . &#039;|forecast[.]et2&#039; . &#039;|forecast[.]ets[.]confint&#039; . &#039;|forecast[.]ets[.]seasonality&#039; . &#039;|forecast[.]ets[.]stat&#039; . &#039;|forecast[.]linear&#039; . &#039;|switch&#039; . &#039;|concat&#039; . &#039;|countifs&#039; . &#039;|ifs&#039; . &#039;|maxifs&#039; . &#039;|minifs&#039; . &#039;|sumifs&#039; . &#039;|textjoin&#039; . &#039;|filter&#039; . &#039;|randarray&#039; . &#039;|sequence&#039; . &#039;|sort&#039; . &#039;|sortby&#039; . &#039;|unique&#039; . &#039;|xlookup&#039; . &#039;|xmatch&#039; . &#039;|arraytotext&#039; . &#039;|call&#039; . &#039;|let&#039; . &#039;|register[.]id&#039; . &#039;|valuetotext&#039; . &#039;)(?=\s*[(])/i&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
+
+        
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addXlfn">
+        addXlfn()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfn" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">153</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Prefix function name in string with _xlfn. where required.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">addXlfn</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$funcstring</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$funcstring</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addXlfnStripEquals">
+        addXlfnStripEquals()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#method_addXlfnStripEquals" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">162</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Prefix function name in string with _xlfn. where required.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">addXlfnStripEquals</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$funcstring</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"><p>Leading character, expected to be equals sign, is stripped.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$funcstring</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
     </article>
-                                            </section>
-        
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_addXlfn"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">addXlfn()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="../files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">153</span>
-    </aside>
-        <p class="phpdocumentor-summary">Prefix function name in string with _xlfn. where required.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addXlfn</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$funcstring</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$funcstring</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_addXlfnStripEquals"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">addXlfnStripEquals()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php"><a href="../files/src-phpspreadsheet-writer-xlsx-xlfn.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php">Xlfn.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">162</span>
-    </aside>
-        <p class="phpdocumentor-summary">Prefix function name in string with _xlfn. where required.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addXlfnStripEquals</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$funcstring</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>Leading character, expected to be equals sign, is stripped.</p></section>
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$funcstring</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
-                </ul>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Xlfn.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

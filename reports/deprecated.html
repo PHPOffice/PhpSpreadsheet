@@ -4,54 +4,78 @@
     <meta charset="utf-8">
     <title>    Documentation &raquo; Deprecated elements
 </title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-        <li><a href="../index.html">Home</a></li>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+        <li><a href="">Home</a></li>
     </ul>
 
     <div class="phpdocumentor-row">
@@ -60,43 +84,43 @@
                 <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Database.php">src/PhpSpreadsheet/Calculation/Database.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Database.php">src/PhpSpreadsheet/Calculation/Database.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/DateTime.php">src/PhpSpreadsheet/Calculation/DateTime.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/DateTime.php">src/PhpSpreadsheet/Calculation/DateTime.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Engineering.php">src/PhpSpreadsheet/Calculation/Engineering.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Engineering.php">src/PhpSpreadsheet/Calculation/Engineering.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Financial.php">src/PhpSpreadsheet/Calculation/Financial.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Financial.php">src/PhpSpreadsheet/Calculation/Financial.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Logical.php">src/PhpSpreadsheet/Calculation/Logical.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Logical.php">src/PhpSpreadsheet/Calculation/Logical.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/LookupRef.php">src/PhpSpreadsheet/Calculation/LookupRef.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/LookupRef.php">src/PhpSpreadsheet/Calculation/LookupRef.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/MathTrig.php">src/PhpSpreadsheet/Calculation/MathTrig.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/MathTrig.php">src/PhpSpreadsheet/Calculation/MathTrig.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Statistical.php">src/PhpSpreadsheet/Calculation/Statistical.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Statistical.php">src/PhpSpreadsheet/Calculation/Statistical.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/TextData.php">src/PhpSpreadsheet/Calculation/TextData.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/TextData.php">src/PhpSpreadsheet/Calculation/TextData.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Calculation/Web.php">src/PhpSpreadsheet/Calculation/Web.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Calculation/Web.php">src/PhpSpreadsheet/Calculation/Web.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Reader/Html.php">src/PhpSpreadsheet/Reader/Html.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Reader/Html.php">src/PhpSpreadsheet/Reader/Html.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Reader/Slk.php">src/PhpSpreadsheet/Reader/Slk.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Reader/Slk.php">src/PhpSpreadsheet/Reader/Slk.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#src/PhpSpreadsheet/Writer/Html.php">src/PhpSpreadsheet/Writer/Html.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#src/PhpSpreadsheet/Writer/Html.php">src/PhpSpreadsheet/Writer/Html.php</a></td>
                 </tr>
                     </table>
         
@@ -110,7 +134,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">8</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Database">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Database.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Database">Database</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -124,7 +148,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">10</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\DateTime">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-DateTime.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\DateTime">DateTime</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -138,17 +162,17 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">12</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering">Engineering</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">33</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_parseComplex"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering::parseComplex()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#method_parseComplex"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering::parseComplex()">Engineering::parseComplex()</abbr></a></td>
                             <td class="phpdocumentor-cell">No longer used by internal code. Please use the \Complex\Complex class instead</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">20</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#constant_EULER"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering::EULER">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Engineering.html#constant_EULER"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Engineering::EULER">Engineering::EULER</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -162,7 +186,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">16</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Financial.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Financial">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Financial">Financial</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -176,7 +200,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">10</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Logical.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Logical">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Logical.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Logical">Logical</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -190,7 +214,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">19</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\LookupRef">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\LookupRef">LookupRef</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -204,7 +228,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">8</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\MathTrig">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-MathTrig.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\MathTrig">MathTrig</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -218,7 +242,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">19</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Statistical">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Statistical.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Statistical">Statistical</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -232,7 +256,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">10</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-TextData.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\TextData">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-TextData.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\TextData">TextData</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -246,7 +270,7 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">8</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Calculation-Web.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Web">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Web.html"><abbr title="\PhpOffice\PhpSpreadsheet\Calculation\Web">Web</abbr></a></td>
                             <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
@@ -260,12 +284,12 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">231</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_setInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Html::setInputEncoding()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_setInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Html::setInputEncoding()">Html::setInputEncoding()</abbr></a></td>
                             <td class="phpdocumentor-cell">no use is made of this property</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">247</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_getInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Html::getInputEncoding()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_getInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Html::getInputEncoding()">Html::getInputEncoding()</abbr></a></td>
                             <td class="phpdocumentor-cell">no use is made of this property</td>
                         </tr>
                                                 </table>
@@ -279,12 +303,12 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">116</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_setInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Slk::setInputEncoding()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_setInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Slk::setInputEncoding()">Slk::setInputEncoding()</abbr></a></td>
                             <td class="phpdocumentor-cell">no use is made of this property</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">132</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_getInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Slk::getInputEncoding()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_getInputEncoding"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\Slk::getInputEncoding()">Slk::getInputEncoding()</abbr></a></td>
                             <td class="phpdocumentor-cell">no use is made of this property</td>
                         </tr>
                                                 </table>
@@ -298,26 +322,35 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">1628</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_getUseEmbeddedCSS"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Html::getUseEmbeddedCSS()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_getUseEmbeddedCSS"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Html::getUseEmbeddedCSS()">Html::getUseEmbeddedCSS()</abbr></a></td>
                             <td class="phpdocumentor-cell">no longer used</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">1644</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setUseEmbeddedCSS"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Html::setUseEmbeddedCSS()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_setUseEmbeddedCSS"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Html::setUseEmbeddedCSS()">Html::setUseEmbeddedCSS()</abbr></a></td>
                             <td class="phpdocumentor-cell">no longer used</td>
                         </tr>
                                                 </table>
             </div>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
-                </ul>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="reports/deprecated.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

@@ -3,1402 +3,1850 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-escher.html">Escher</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-escher-dgcontainer.html">DgContainer</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer.html">SpgrContainer</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-shared-escher.html">Escher</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-shared-escher-dgcontainer.html">DgContainer</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer.html">SpgrContainer</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            SpContainer
-                                                        </h2>
+    SpContainer
+
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">7</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">7</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary"></p>
-        <section class="phpdocumentor-class__description"></section>
+        
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_parent">$parent</a></th>
-                    <td class="phpdocumentor-cell">Parent Shape Group Container.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spgr">$spgr</a></th>
-                    <td class="phpdocumentor-cell">Is this a group shape?</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spType">$spType</a></th>
-                    <td class="phpdocumentor-cell">Shape type.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spFlag">$spFlag</a></th>
-                    <td class="phpdocumentor-cell">Shape flag.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spId">$spId</a></th>
-                    <td class="phpdocumentor-cell">Shape index (usually group shape has index 0, and the rest: 1,2,3...).</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_OPT">$OPT</a></th>
-                    <td class="phpdocumentor-cell">Array of options.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startCoordinates">$startCoordinates</a></th>
-                    <td class="phpdocumentor-cell">Cell coordinates of upper-left corner of shape, e.g. &#039;A1&#039;.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetX">$startOffsetX</a></th>
-                    <td class="phpdocumentor-cell">Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetY">$startOffsetY</a></th>
-                    <td class="phpdocumentor-cell">Vertical offset of upper-left corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endCoordinates">$endCoordinates</a></th>
-                    <td class="phpdocumentor-cell">Cell coordinates of bottom-right corner of shape, e.g. &#039;B2&#039;.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetX">$endOffsetX</a></th>
-                    <td class="phpdocumentor-cell">Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetY">$endOffsetY</a></th>
-                    <td class="phpdocumentor-cell">Vertical offset of bottom-right corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setParent">setParent()</a></th>
-                    <td class="phpdocumentor-cell">Set parent Shape Group Container.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getParent">getParent()</a></th>
-                    <td class="phpdocumentor-cell">Get the parent Shape Group Container.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpgr">setSpgr()</a></th>
-                    <td class="phpdocumentor-cell">Set whether this is a group shape.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpgr">getSpgr()</a></th>
-                    <td class="phpdocumentor-cell">Get whether this is a group shape.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpType">setSpType()</a></th>
-                    <td class="phpdocumentor-cell">Set the shape type.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpType">getSpType()</a></th>
-                    <td class="phpdocumentor-cell">Get the shape type.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpFlag">setSpFlag()</a></th>
-                    <td class="phpdocumentor-cell">Set the shape flag.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpFlag">getSpFlag()</a></th>
-                    <td class="phpdocumentor-cell">Get the shape flag.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpId">setSpId()</a></th>
-                    <td class="phpdocumentor-cell">Set the shape index.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpId">getSpId()</a></th>
-                    <td class="phpdocumentor-cell">Get the shape index.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setOPT">setOPT()</a></th>
-                    <td class="phpdocumentor-cell">Set an option for the Shape Group Container.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPT">getOPT()</a></th>
-                    <td class="phpdocumentor-cell">Get an option for the Shape Group Container.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPTCollection">getOPTCollection()</a></th>
-                    <td class="phpdocumentor-cell">Get the collection of options.</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartCoordinates">setStartCoordinates()</a></th>
-                    <td class="phpdocumentor-cell">Set cell coordinates of upper-left corner of shape.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartCoordinates">getStartCoordinates()</a></th>
-                    <td class="phpdocumentor-cell">Get cell coordinates of upper-left corner of shape.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetX">setStartOffsetX()</a></th>
-                    <td class="phpdocumentor-cell">Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetX">getStartOffsetX()</a></th>
-                    <td class="phpdocumentor-cell">Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetY">setStartOffsetY()</a></th>
-                    <td class="phpdocumentor-cell">Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetY">getStartOffsetY()</a></th>
-                    <td class="phpdocumentor-cell">Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndCoordinates">setEndCoordinates()</a></th>
-                    <td class="phpdocumentor-cell">Set cell coordinates of bottom-right corner of shape.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndCoordinates">getEndCoordinates()</a></th>
-                    <td class="phpdocumentor-cell">Get cell coordinates of bottom-right corner of shape.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetX">setEndOffsetX()</a></th>
-                    <td class="phpdocumentor-cell">Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetX">getEndOffsetX()</a></th>
-                    <td class="phpdocumentor-cell">Get offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetY">setEndOffsetY()</a></th>
-                    <td class="phpdocumentor-cell">Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetY">getEndOffsetY()</a></th>
-                    <td class="phpdocumentor-cell">Get offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getNestingLevel">getNestingLevel()</a></th>
-                    <td class="phpdocumentor-cell">Get the nesting level of this spContainer. This is the number of spgrContainers between this spContainer and
+
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endCoordinates">$endCoordinates</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Cell coordinates of bottom-right corner of shape, e.g. &#039;B2&#039;.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetX">$endOffsetX</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetY">$endOffsetY</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Vertical offset of bottom-right corner of shape measured in 1/256 of row height.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_OPT">$OPT</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Array of options.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_parent">$parent</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>            </span>
+</dt>
+<dd>Parent Shape Group Container.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spFlag">$spFlag</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Shape flag.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spgr">$spgr</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd>Is this a group shape?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spId">$spId</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Shape index (usually group shape has index 0, and the rest: 1,2,3...).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spType">$spType</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Shape type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startCoordinates">$startCoordinates</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Cell coordinates of upper-left corner of shape, e.g. &#039;A1&#039;.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetX">$startOffsetX</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetY">$startOffsetY</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd>Vertical offset of upper-left corner of shape measured in 1/256 of row height.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndCoordinates">getEndCoordinates()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get cell coordinates of bottom-right corner of shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetX">getEndOffsetX()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetY">getEndOffsetY()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getNestingLevel">getNestingLevel()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get the nesting level of this spContainer. This is the number of spgrContainers between this spContainer and
 the dgContainer. A value of 1 = immediately within first spgrContainer
-Higher nesting level occurs if and only if spContainer is part of a shape group.</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                                            </table>
+Higher nesting level occurs if and only if spContainer is part of a shape group.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPT">getOPT()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Get an option for the Shape Group Container.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPTCollection">getOPTCollection()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Get the collection of options.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getParent">getParent()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>    </span>
+</dt>
+<dd>Get the parent Shape Group Container.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpFlag">getSpFlag()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get the shape flag.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpgr">getSpgr()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Get whether this is a group shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpId">getSpId()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get the shape index.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpType">getSpType()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get the shape type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartCoordinates">getStartCoordinates()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get cell coordinates of upper-left corner of shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetX">getStartOffsetX()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetY">getStartOffsetY()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndCoordinates">setEndCoordinates()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set cell coordinates of bottom-right corner of shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetX">setEndOffsetX()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetY">setEndOffsetY()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setOPT">setOPT()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set an option for the Shape Group Container.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setParent">setParent()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set parent Shape Group Container.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpFlag">setSpFlag()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set the shape flag.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpgr">setSpgr()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set whether this is a group shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpId">setSpId()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set the shape index.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpType">setSpType()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set the shape type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartCoordinates">setStartCoordinates()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set cell coordinates of upper-left corner of shape.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetX">setStartOffsetX()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetY">setStartOffsetY()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</dd>
+
+        </dl>
+
+
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_parent"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$parent</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-            <p class="phpdocumentor-summary">Parent Shape Group Container.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$parent</span>
-            </code>
-    </article>
-                                    <a id="property_spgr"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$spgr</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">21</span>
-    </aside>
-            <p class="phpdocumentor-summary">Is this a group shape?</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$spgr</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_spType"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$spType</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">28</span>
-    </aside>
-            <p class="phpdocumentor-summary">Shape type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$spType</span>
-            </code>
-    </article>
-                                    <a id="property_spFlag"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$spFlag</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">35</span>
-    </aside>
-            <p class="phpdocumentor-summary">Shape flag.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$spFlag</span>
-            </code>
-    </article>
-                                    <a id="property_spId"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$spId</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">42</span>
-    </aside>
-            <p class="phpdocumentor-summary">Shape index (usually group shape has index 0, and the rest: 1,2,3...).</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$spId</span>
-            </code>
-    </article>
-                                    <a id="property_OPT"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$OPT</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">49</span>
-    </aside>
-            <p class="phpdocumentor-summary">Array of options.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$OPT</span>
-            </code>
-    </article>
-                                    <a id="property_startCoordinates"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$startCoordinates</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">56</span>
-    </aside>
-            <p class="phpdocumentor-summary">Cell coordinates of upper-left corner of shape, e.g. &#039;A1&#039;.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$startCoordinates</span>
-            </code>
-    </article>
-                                    <a id="property_startOffsetX"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$startOffsetX</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">63</span>
-    </aside>
-            <p class="phpdocumentor-summary">Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$startOffsetX</span>
-            </code>
-    </article>
-                                    <a id="property_startOffsetY"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$startOffsetY</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">70</span>
-    </aside>
-            <p class="phpdocumentor-summary">Vertical offset of upper-left corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$startOffsetY</span>
-            </code>
-    </article>
-                                    <a id="property_endCoordinates"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$endCoordinates</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">77</span>
-    </aside>
-            <p class="phpdocumentor-summary">Cell coordinates of bottom-right corner of shape, e.g. &#039;B2&#039;.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$endCoordinates</span>
-            </code>
-    </article>
-                                    <a id="property_endOffsetX"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$endOffsetX</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">84</span>
-    </aside>
-            <p class="phpdocumentor-summary">Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$endOffsetX</span>
-            </code>
-    </article>
-                                    <a id="property_endOffsetY"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$endOffsetY</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-            <p class="phpdocumentor-summary">Vertical offset of bottom-right corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$endOffsetY</span>
-            </code>
-    </article>
-                                                            </section>
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_setParent"></a>
-<article
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setParent()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_endCoordinates">
+        $endCoordinates
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">98</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set parent Shape Group Container.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setParent</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$parent</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Cell coordinates of bottom-right corner of shape, e.g. &#039;B2&#039;.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$endCoordinates</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$parent</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getParent"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getParent()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">108</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the parent Shape Group Container.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getParent</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-            
+
 </article>
-                                    <a id="method_setSpgr"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setSpgr()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_endOffsetX">
+        $endOffsetX
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">118</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set whether this is a group shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setSpgr</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">84</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$endOffsetX</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getSpgr"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getSpgr()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">128</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get whether this is a group shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getSpgr</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
 </article>
-                                    <a id="method_setSpType"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setSpType()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_endOffsetY">
+        $endOffsetY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_endOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">138</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set the shape type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setSpType</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">91</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Vertical offset of bottom-right corner of shape measured in 1/256 of row height.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$endOffsetY</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getSpType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getSpType()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">148</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the shape type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getSpType</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
 </article>
-                                    <a id="method_setSpFlag"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setSpFlag()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_OPT">
+        $OPT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_OPT" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">158</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set the shape flag.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setSpFlag</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">49</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Array of options.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$OPT</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getSpFlag"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getSpFlag()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">168</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the shape flag.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getSpFlag</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
 </article>
-                                    <a id="method_setSpId"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setSpId()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_parent">
+        $parent
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_parent" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">178</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set the shape index.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setSpId</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Parent Shape Group Container.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$parent</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getSpId"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getSpId()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">188</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the shape index.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getSpId</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
 </article>
-                                    <a id="method_setOPT"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setOPT()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_spFlag">
+        $spFlag
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spFlag" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">199</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set an option for the Shape Group Container.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setOPT</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$property</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Shape flag.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$spFlag</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$property</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number specifies the option</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getOPT"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getOPT()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">211</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get an option for the Shape Group Container.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getOPT</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$property</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$property</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>The number specifies the option</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+
 </article>
-                                    <a id="method_getOPTCollection"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getOPTCollection()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_spgr">
+        $spgr
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spgr" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">225</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get the collection of options.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getOPTCollection</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Is this a group shape?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$spgr</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
+
 </article>
-                                    <a id="method_setStartCoordinates"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setStartCoordinates()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_spId">
+        $spId
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spId" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">235</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set cell coordinates of upper-left corner of shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setStartCoordinates</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Shape index (usually group shape has index 0, and the rest: 1,2,3...).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$spId</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>eg: 'A1'</p></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getStartCoordinates"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getStartCoordinates()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">245</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get cell coordinates of upper-left corner of shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getStartCoordinates</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+
 </article>
-                                    <a id="method_setStartOffsetX"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setStartOffsetX()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_spType">
+        $spType
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_spType" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">255</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setStartOffsetX</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$startOffsetX</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Shape type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$spType</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$startOffsetX</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getStartOffsetX"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getStartOffsetX()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">265</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getStartOffsetX</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
 </article>
-                                    <a id="method_setStartOffsetY"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setStartOffsetY()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_startCoordinates">
+        $startCoordinates
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">275</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setStartOffsetY</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$startOffsetY</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">56</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Cell coordinates of upper-left corner of shape, e.g. &#039;A1&#039;.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$startCoordinates</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$startOffsetY</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_getStartOffsetY"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getStartOffsetY()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">285</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getStartOffsetY</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
 </article>
-                                    <a id="method_setEndCoordinates"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setEndCoordinates()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_startOffsetX">
+        $startOffsetX
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">295</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set cell coordinates of bottom-right corner of shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setEndCoordinates</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">63</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$startOffsetX</span>
     </code>
 
+        <section class="phpdocumentor-description"></section>
+
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>eg: 'A1'</p></section></dd>
-                    </dl>
-    
-        
-    
+
 </article>
-                                    <a id="method_getEndCoordinates"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getEndCoordinates()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_startOffsetY">
+        $startOffsetY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#property_startOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">305</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">70</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Vertical offset of upper-left corner of shape measured in 1/256 of row height.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$startOffsetY</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getEndCoordinates">
+        getEndCoordinates()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">305</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get cell coordinates of bottom-right corner of shape.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getEndCoordinates</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getEndCoordinates</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_setEndOffsetX"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setEndOffsetX()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">315</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setEndOffsetX</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$endOffsetX</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$endOffsetX</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
 </article>
-                                    <a id="method_getEndOffsetX"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getEndOffsetX()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getEndOffsetX">
+        getEndOffsetX()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">325</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">325</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getEndOffsetX</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getEndOffsetX</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
-</article>
-                                    <a id="method_setEndOffsetY"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setEndOffsetY()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">335</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setEndOffsetY</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$endOffsetY</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$endOffsetY</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
 </article>
-                                    <a id="method_getEndOffsetY"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getEndOffsetY()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getEndOffsetY">
+        getEndOffsetY()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getEndOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">345</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">345</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getEndOffsetY</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getEndOffsetY</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                    <a id="method_getNestingLevel"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getNestingLevel()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getNestingLevel">
+        getNestingLevel()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getNestingLevel" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="../files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">357</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">357</span>
+</aside>
+
         <p class="phpdocumentor-summary">Get the nesting level of this spContainer. This is the number of spgrContainers between this spContainer and
 the dgContainer. A value of 1 = immediately within first spgrContainer
 Higher nesting level occurs if and only if spContainer is part of a shape group.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getNestingLevel</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getNestingLevel</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Nesting level</p></span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Nesting level</p>
+</section>
+
+    
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOPT">
+        getOPT()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">211</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Get an option for the Shape Group Container.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getOPT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$property</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The number specifies the option</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOPTCollection">
+        getOPTCollection()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getOPTCollection" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">225</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the collection of options.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getOPTCollection</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParent">
+        getParent()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getParent" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">108</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the parent Shape Group Container.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSpFlag">
+        getSpFlag()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpFlag" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">168</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the shape flag.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getSpFlag</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSpgr">
+        getSpgr()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpgr" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get whether this is a group shape.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getSpgr</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSpId">
+        getSpId()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpId" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">188</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the shape index.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getSpId</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSpType">
+        getSpType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getSpType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">148</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get the shape type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getSpType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStartCoordinates">
+        getStartCoordinates()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">245</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get cell coordinates of upper-left corner of shape.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getStartCoordinates</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStartOffsetX">
+        getStartOffsetX()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">265</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getStartOffsetX</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStartOffsetY">
+        getStartOffsetY()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_getStartOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">285</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getStartOffsetY</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setEndCoordinates">
+        setEndCoordinates()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">295</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set cell coordinates of bottom-right corner of shape.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setEndCoordinates</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>eg: 'A1'</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setEndOffsetX">
+        setEndOffsetX()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">315</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setEndOffsetX</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$endOffsetX</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$endOffsetX</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setEndOffsetY">
+        setEndOffsetY()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setEndOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">335</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setEndOffsetY</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$endOffsetY</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$endOffsetY</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setOPT">
+        setOPT()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setOPT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">199</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set an option for the Shape Group Container.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setOPT</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$property</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The number specifies the option</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setParent">
+        setParent()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setParent" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">98</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set parent Shape Group Container.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setParent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$parent</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSpFlag">
+        setSpFlag()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpFlag" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">158</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set the shape flag.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setSpFlag</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSpgr">
+        setSpgr()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpgr" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">118</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set whether this is a group shape.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setSpgr</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSpId">
+        setSpId()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpId" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">178</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set the shape index.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setSpId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setSpType">
+        setSpType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setSpType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">138</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set the shape type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setSpType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStartCoordinates">
+        setStartCoordinates()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartCoordinates" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">235</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set cell coordinates of upper-left corner of shape.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setStartCoordinates</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>eg: 'A1'</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStartOffsetX">
+        setStartOffsetX()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">255</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setStartOffsetX</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startOffsetX</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$startOffsetX</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStartOffsetY">
+        setStartOffsetY()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#method_setStartOffsetY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php"><a href="files/src-phpspreadsheet-shared-escher-dgcontainer-spgrcontainer-spcontainer.html"><abbr title="src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer/SpContainer.php">SpContainer.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">275</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setStartOffsetY</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startOffsetY</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$startOffsetY</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

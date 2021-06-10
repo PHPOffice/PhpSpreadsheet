@@ -3,1584 +3,2031 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-style.html">Style</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-style.html">Style</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            Conditional
-                                                    <span class="phpdocumentor-class__implements">
-                    implements
-                                            <a href="../classes/PhpOffice-PhpSpreadsheet-IComparable.html"><abbr title="\PhpOffice\PhpSpreadsheet\IComparable">IComparable</abbr></a>                                    </span>
-                                </h2>
+    Conditional
+
+    
+    
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/PhpOffice-PhpSpreadsheet-IComparable.html"><abbr title="\PhpOffice\PhpSpreadsheet\IComparable">IComparable</abbr></a>                    </span>
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">8</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">8</span>
+</aside>
 
-        <p class="phpdocumentor-class__summary"></p>
-        <section class="phpdocumentor-class__description"></section>
-
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NONE">CONDITION_NONE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;none&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CELLIS">CONDITION_CELLIS</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;cellIs&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSTEXT">CONDITION_CONTAINSTEXT</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;containsText&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_EXPRESSION">CONDITION_EXPRESSION</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;expression&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSBLANKS">CONDITION_CONTAINSBLANKS</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;containsBlanks&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSBLANKS">CONDITION_NOTCONTAINSBLANKS</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;notContainsBlanks&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_DATABAR">CONDITION_DATABAR</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;dataBar&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSTEXT">CONDITION_NOTCONTAINSTEXT</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;notContainsText&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_TYPES">CONDITION_TYPES</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">[self::CONDITION_CELLIS, self::CONDITION_CONTAINSBLANKS, self::CONDITION_CONTAINSTEXT, self::CONDITION_DATABAR, self::CONDITION_EXPRESSION, self::CONDITION_NONE, self::CONDITION_NOTCONTAINSBLANKS, self::CONDITION_NOTCONTAINSTEXT]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NONE">OPERATOR_NONE</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BEGINSWITH">OPERATOR_BEGINSWITH</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;beginsWith&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_ENDSWITH">OPERATOR_ENDSWITH</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;endsWith&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_EQUAL">OPERATOR_EQUAL</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;equal&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHAN">OPERATOR_GREATERTHAN</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;greaterThan&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHANOREQUAL">OPERATOR_GREATERTHANOREQUAL</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;greaterThanOrEqual&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHAN">OPERATOR_LESSTHAN</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;lessThan&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHANOREQUAL">OPERATOR_LESSTHANOREQUAL</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;lessThanOrEqual&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTEQUAL">OPERATOR_NOTEQUAL</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;notEqual&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_CONTAINSTEXT">OPERATOR_CONTAINSTEXT</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;containsText&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTCONTAINS">OPERATOR_NOTCONTAINS</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;notContains&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BETWEEN">OPERATOR_BETWEEN</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;between&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTBETWEEN">OPERATOR_NOTBETWEEN</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;notBetween&#039;</td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_conditionType">$conditionType</a></th>
-                    <td class="phpdocumentor-cell">Condition type.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_operatorType">$operatorType</a></th>
-                    <td class="phpdocumentor-cell">Operator type.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_text">$text</a></th>
-                    <td class="phpdocumentor-cell">Text.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_stopIfTrue">$stopIfTrue</a></th>
-                    <td class="phpdocumentor-cell">Stop on this condition, if it matches.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_condition">$condition</a></th>
-                    <td class="phpdocumentor-cell">Condition.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_dataBar">$dataBar</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_style">$style</a></th>
-                    <td class="phpdocumentor-cell">Style.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Create a new Conditional.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditionType">getConditionType()</a></th>
-                    <td class="phpdocumentor-cell">Get Condition type.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditionType">setConditionType()</a></th>
-                    <td class="phpdocumentor-cell">Set Condition type.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getOperatorType">getOperatorType()</a></th>
-                    <td class="phpdocumentor-cell">Get Operator type.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setOperatorType">setOperatorType()</a></th>
-                    <td class="phpdocumentor-cell">Set Operator type.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getText">getText()</a></th>
-                    <td class="phpdocumentor-cell">Get text.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setText">setText()</a></th>
-                    <td class="phpdocumentor-cell">Set text.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStopIfTrue">getStopIfTrue()</a></th>
-                    <td class="phpdocumentor-cell">Get StopIfTrue.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStopIfTrue">setStopIfTrue()</a></th>
-                    <td class="phpdocumentor-cell">Set StopIfTrue.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditions">getConditions()</a></th>
-                    <td class="phpdocumentor-cell">Get Conditions.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditions">setConditions()</a></th>
-                    <td class="phpdocumentor-cell">Set Conditions.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_addCondition">addCondition()</a></th>
-                    <td class="phpdocumentor-cell">Add Condition.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStyle">getStyle()</a></th>
-                    <td class="phpdocumentor-cell">Get Style.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStyle">setStyle()</a></th>
-                    <td class="phpdocumentor-cell">Set Style.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getDataBar">getDataBar()</a></th>
-                    <td class="phpdocumentor-cell">get DataBar.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setDataBar">setDataBar()</a></th>
-                    <td class="phpdocumentor-cell">set DataBar.</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getHashCode">getHashCode()</a></th>
-                    <td class="phpdocumentor-cell">Get hash code.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___clone">__clone()</a></th>
-                    <td class="phpdocumentor-cell">Implement PHP __clone to create a deep clone, not just a shallow copy.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_isValidConditionType">isValidConditionType()</a></th>
-                    <td class="phpdocumentor-cell">Verify if param is valid condition type.</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                                            </table>
-
-                    <section>
-                <h3 class="phpdocumentor-constants__header">Constants</h3>
-                                    <a id="constant_CONDITION_NONE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_NONE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">11</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_NONE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;none&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_CELLIS"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_CELLIS</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">12</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_CELLIS</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;cellIs&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_CONTAINSTEXT"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_CONTAINSTEXT</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">13</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_CONTAINSTEXT</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;containsText&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_EXPRESSION"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_EXPRESSION</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_EXPRESSION</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;expression&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_CONTAINSBLANKS"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_CONTAINSBLANKS</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">15</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_CONTAINSBLANKS</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;containsBlanks&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_NOTCONTAINSBLANKS"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_NOTCONTAINSBLANKS</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">16</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_NOTCONTAINSBLANKS</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;notContainsBlanks&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_DATABAR"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_DATABAR</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">17</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_DATABAR</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;dataBar&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_NOTCONTAINSTEXT"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_NOTCONTAINSTEXT</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">18</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_NOTCONTAINSTEXT</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;notContainsText&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_CONDITION_TYPES"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">CONDITION_TYPES</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">20</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$CONDITION_TYPES</span>
-        = <span class="phpdocumentor-signature__default-value">[self::CONDITION_CELLIS, self::CONDITION_CONTAINSBLANKS, self::CONDITION_CONTAINSTEXT, self::CONDITION_DATABAR, self::CONDITION_EXPRESSION, self::CONDITION_NONE, self::CONDITION_NOTCONTAINSBLANKS, self::CONDITION_NOTCONTAINSTEXT]</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_NONE"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_NONE</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">32</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_NONE</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_BEGINSWITH"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_BEGINSWITH</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">33</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_BEGINSWITH</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;beginsWith&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_ENDSWITH"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_ENDSWITH</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">34</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_ENDSWITH</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;endsWith&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_EQUAL"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_EQUAL</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">35</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_EQUAL</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;equal&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_GREATERTHAN"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_GREATERTHAN</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">36</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_GREATERTHAN</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;greaterThan&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_GREATERTHANOREQUAL"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_GREATERTHANOREQUAL</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">37</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_GREATERTHANOREQUAL</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;greaterThanOrEqual&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_LESSTHAN"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_LESSTHAN</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">38</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_LESSTHAN</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;lessThan&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_LESSTHANOREQUAL"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_LESSTHANOREQUAL</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">39</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_LESSTHANOREQUAL</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;lessThanOrEqual&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_NOTEQUAL"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_NOTEQUAL</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">40</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_NOTEQUAL</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;notEqual&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_CONTAINSTEXT"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_CONTAINSTEXT</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">41</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_CONTAINSTEXT</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;containsText&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_NOTCONTAINS"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_NOTCONTAINS</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">42</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_NOTCONTAINS</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;notContains&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_BETWEEN"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_BETWEEN</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">43</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_BETWEEN</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;between&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_OPERATOR_NOTBETWEEN"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">OPERATOR_NOTBETWEEN</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">44</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$OPERATOR_NOTBETWEEN</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;notBetween&#039;</span>
-    </code>
-    </article>
-                                            </section>
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_conditionType"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$conditionType</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">51</span>
-    </aside>
-            <p class="phpdocumentor-summary">Condition type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$conditionType</span>
-         = <span class="phpdocumentor-signature__default-value">self::CONDITION_NONE</span>    </code>
-    </article>
-                                    <a id="property_operatorType"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$operatorType</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">58</span>
-    </aside>
-            <p class="phpdocumentor-summary">Operator type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$operatorType</span>
-         = <span class="phpdocumentor-signature__default-value">self::OPERATOR_NONE</span>    </code>
-    </article>
-                                    <a id="property_text"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$text</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">65</span>
-    </aside>
-            <p class="phpdocumentor-summary">Text.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$text</span>
-            </code>
-    </article>
-                                    <a id="property_stopIfTrue"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$stopIfTrue</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">72</span>
-    </aside>
-            <p class="phpdocumentor-summary">Stop on this condition, if it matches.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$stopIfTrue</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_condition"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$condition</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">79</span>
-    </aside>
-            <p class="phpdocumentor-summary">Condition.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string[]</span>
-        <span class="phpdocumentor-signature__name">$condition</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                                    <a id="property_dataBar"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$dataBar</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">84</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$dataBar</span>
-            </code>
-    </article>
-                                    <a id="property_style"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$style</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-            <p class="phpdocumentor-summary">Style.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$style</span>
-            </code>
-    </article>
-                                                            </section>
+
+
+
+
+
+
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes and Traits
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/PhpOffice-PhpSpreadsheet-IComparable.html"><abbr title="\PhpOffice\PhpSpreadsheet\IComparable">IComparable</abbr></a></dt>
+        <dd></dd>
+    
+    
+    </dl>
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CELLIS">CONDITION_CELLIS</a>
+    <span>
+        &nbsp;= &#039;cellIs&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSBLANKS">CONDITION_CONTAINSBLANKS</a>
+    <span>
+        &nbsp;= &#039;containsBlanks&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSTEXT">CONDITION_CONTAINSTEXT</a>
+    <span>
+        &nbsp;= &#039;containsText&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_DATABAR">CONDITION_DATABAR</a>
+    <span>
+        &nbsp;= &#039;dataBar&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_EXPRESSION">CONDITION_EXPRESSION</a>
+    <span>
+        &nbsp;= &#039;expression&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NONE">CONDITION_NONE</a>
+    <span>
+        &nbsp;= &#039;none&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSBLANKS">CONDITION_NOTCONTAINSBLANKS</a>
+    <span>
+        &nbsp;= &#039;notContainsBlanks&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSTEXT">CONDITION_NOTCONTAINSTEXT</a>
+    <span>
+        &nbsp;= &#039;notContainsText&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BEGINSWITH">OPERATOR_BEGINSWITH</a>
+    <span>
+        &nbsp;= &#039;beginsWith&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BETWEEN">OPERATOR_BETWEEN</a>
+    <span>
+        &nbsp;= &#039;between&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_CONTAINSTEXT">OPERATOR_CONTAINSTEXT</a>
+    <span>
+        &nbsp;= &#039;containsText&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_ENDSWITH">OPERATOR_ENDSWITH</a>
+    <span>
+        &nbsp;= &#039;endsWith&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_EQUAL">OPERATOR_EQUAL</a>
+    <span>
+        &nbsp;= &#039;equal&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHAN">OPERATOR_GREATERTHAN</a>
+    <span>
+        &nbsp;= &#039;greaterThan&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHANOREQUAL">OPERATOR_GREATERTHANOREQUAL</a>
+    <span>
+        &nbsp;= &#039;greaterThanOrEqual&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHAN">OPERATOR_LESSTHAN</a>
+    <span>
+        &nbsp;= &#039;lessThan&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHANOREQUAL">OPERATOR_LESSTHANOREQUAL</a>
+    <span>
+        &nbsp;= &#039;lessThanOrEqual&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NONE">OPERATOR_NONE</a>
+    <span>
+        &nbsp;= &#039;&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTBETWEEN">OPERATOR_NOTBETWEEN</a>
+    <span>
+        &nbsp;= &#039;notBetween&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTCONTAINS">OPERATOR_NOTCONTAINS</a>
+    <span>
+        &nbsp;= &#039;notContains&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTEQUAL">OPERATOR_NOTEQUAL</a>
+    <span>
+        &nbsp;= &#039;notEqual&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_TYPES">CONDITION_TYPES</a>
+    <span>
+        &nbsp;= [self::CONDITION_CELLIS, self::CONDITION_CONTAINSBLANKS, self::CONDITION_CONTAINSTEXT, self::CONDITION_DATABAR, self::CONDITION_EXPRESSION, self::CONDITION_NONE, self::CONDITION_NOTCONTAINSBLANKS, self::CONDITION_NOTCONTAINSTEXT]                    </span>
+</dt>
+<dd></dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_condition">$condition</a>
+    <span>
+                &nbsp;: array&lt;string|int, string&gt;            </span>
+</dt>
+<dd>Condition.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_conditionType">$conditionType</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Condition type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_dataBar">$dataBar</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a>            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_operatorType">$operatorType</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Operator type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_stopIfTrue">$stopIfTrue</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd>Stop on this condition, if it matches.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_style">$style</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>            </span>
+</dt>
+<dd>Style.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_text">$text</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd>Text.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___clone">__clone()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Implement PHP __clone to create a deep clone, not just a shallow copy.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___construct">__construct()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Create a new Conditional.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_addCondition">addCondition()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Add Condition.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditions">getConditions()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, string&gt;    </span>
+</dt>
+<dd>Get Conditions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditionType">getConditionType()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get Condition type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getDataBar">getDataBar()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a>    </span>
+</dt>
+<dd>get DataBar.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getHashCode">getHashCode()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get hash code.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getOperatorType">getOperatorType()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get Operator type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStopIfTrue">getStopIfTrue()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Get StopIfTrue.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStyle">getStyle()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
+</dt>
+<dd>Get Style.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getText">getText()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Get text.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_isValidConditionType">isValidConditionType()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Verify if param is valid condition type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditions">setConditions()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set Conditions.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditionType">setConditionType()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set Condition type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setDataBar">setDataBar()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>set DataBar.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setOperatorType">setOperatorType()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set Operator type.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStopIfTrue">setStopIfTrue()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set StopIfTrue.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStyle">setStyle()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set Style.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setText">setText()</a>
+    <span>
+                        &nbsp;: $this    </span>
+</dt>
+<dd>Set text.</dd>
+
+        </dl>
+
+
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___construct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_CELLIS">
+        CONDITION_CELLIS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CELLIS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">96</span>
-    </aside>
-        <p class="phpdocumentor-summary">Create a new Conditional.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_CELLIS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;cellIs&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+
 </article>
-                                    <a id="method_getConditionType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getConditionType()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_CONTAINSBLANKS">
+        CONDITION_CONTAINSBLANKS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSBLANKS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">107</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get Condition type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getConditionType</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_CONTAINSBLANKS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;containsBlanks&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+
 </article>
-                                    <a id="method_setConditionType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setConditionType()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_CONTAINSTEXT">
+        CONDITION_CONTAINSTEXT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_CONTAINSTEXT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">119</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set Condition type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setConditionType</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">13</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Condition type, see self::CONDITION_*</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getOperatorType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getOperatorType()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">131</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get Operator type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getOperatorType</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_CONTAINSTEXT</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;containsText&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+
 </article>
-                                    <a id="method_setOperatorType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setOperatorType()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_DATABAR">
+        CONDITION_DATABAR
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_DATABAR" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">143</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set Operator type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setOperatorType</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">17</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Conditional operator type, see self::OPERATOR_*</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getText"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getText()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">155</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get text.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getText</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_DATABAR</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;dataBar&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+
 </article>
-                                    <a id="method_setText"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setText()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_EXPRESSION">
+        CONDITION_EXPRESSION
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_EXPRESSION" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">167</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set text.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setText</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getStopIfTrue"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getStopIfTrue()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">179</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get StopIfTrue.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getStopIfTrue</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_EXPRESSION</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;expression&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
 </article>
-                                    <a id="method_setStopIfTrue"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setStopIfTrue()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_NONE">
+        CONDITION_NONE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NONE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">191</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set StopIfTrue.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setStopIfTrue</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$value</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">11</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$value</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getConditions"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getConditions()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">203</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get Conditions.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getConditions</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string[]</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_NONE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;none&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string[]</span>
-            
+
 </article>
-                                    <a id="method_setConditions"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setConditions()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_NOTCONTAINSBLANKS">
+        CONDITION_NOTCONTAINSBLANKS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSBLANKS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">215</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set Conditions.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setConditions</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool|float|int|string|string[]</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool|float|int|string|string[]</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Condition</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_addCondition"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">addCondition()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">232</span>
-    </aside>
-        <p class="phpdocumentor-summary">Add Condition.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">addCondition</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pValue</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_NOTCONTAINSBLANKS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;notContainsBlanks&#039;</span>
+</code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Condition</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getStyle"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getStyle()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">244</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get Style.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getStyle</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-    </code>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-            
+
 </article>
-                                    <a id="method_setStyle"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setStyle()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_NOTCONTAINSTEXT">
+        CONDITION_NOTCONTAINSTEXT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_NOTCONTAINSTEXT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">256</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set Style.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setStyle</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$pValue</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
-                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getDataBar"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getDataBar()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">268</span>
-    </aside>
-        <p class="phpdocumentor-summary">get DataBar.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getDataBar</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_NOTCONTAINSTEXT</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;notContainsText&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
-                    &mdash; <span class="phpdocumentor-description"><p>| null</p></span>
-            
+
 </article>
-                                    <a id="method_setDataBar"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setDataBar()</h4>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_BEGINSWITH">
+        OPERATOR_BEGINSWITH
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BEGINSWITH" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">278</span>
-    </aside>
-        <p class="phpdocumentor-summary">set DataBar.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setDataBar</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$dataBar</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+</aside>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$dataBar</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getHashCode"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getHashCode()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">290</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get hash code.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getHashCode</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_BEGINSWITH</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;beginsWith&#039;</span>
+</code>
+
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash; <span class="phpdocumentor-description"><p>Hash code</p></span>
-            
+
 </article>
-                                    <a id="method___clone"></a>
-<article
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_BETWEEN">
+        OPERATOR_BETWEEN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_BETWEEN" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">43</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_BETWEEN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;between&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_CONTAINSTEXT">
+        OPERATOR_CONTAINSTEXT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_CONTAINSTEXT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_CONTAINSTEXT</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;containsText&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_ENDSWITH">
+        OPERATOR_ENDSWITH
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_ENDSWITH" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_ENDSWITH</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;endsWith&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_EQUAL">
+        OPERATOR_EQUAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_EQUAL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_EQUAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;equal&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_GREATERTHAN">
+        OPERATOR_GREATERTHAN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHAN" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_GREATERTHAN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;greaterThan&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_GREATERTHANOREQUAL">
+        OPERATOR_GREATERTHANOREQUAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_GREATERTHANOREQUAL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_GREATERTHANOREQUAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;greaterThanOrEqual&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_LESSTHAN">
+        OPERATOR_LESSTHAN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHAN" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">38</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_LESSTHAN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;lessThan&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_LESSTHANOREQUAL">
+        OPERATOR_LESSTHANOREQUAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_LESSTHANOREQUAL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_LESSTHANOREQUAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;lessThanOrEqual&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_NONE">
+        OPERATOR_NONE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NONE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_NONE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_NOTBETWEEN">
+        OPERATOR_NOTBETWEEN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTBETWEEN" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">44</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_NOTBETWEEN</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;notBetween&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_NOTCONTAINS">
+        OPERATOR_NOTCONTAINS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTCONTAINS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_NOTCONTAINS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;notContains&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_OPERATOR_NOTEQUAL">
+        OPERATOR_NOTEQUAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_OPERATOR_NOTEQUAL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">OPERATOR_NOTEQUAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;notEqual&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_CONDITION_TYPES">
+        CONDITION_TYPES
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#constant_CONDITION_TYPES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CONDITION_TYPES</span>
+    = <span class="phpdocumentor-signature__default-value">[self::CONDITION_CELLIS, self::CONDITION_CONTAINSBLANKS, self::CONDITION_CONTAINSTEXT, self::CONDITION_DATABAR, self::CONDITION_EXPRESSION, self::CONDITION_NONE, self::CONDITION_NOTCONTAINSBLANKS, self::CONDITION_NOTCONTAINSTEXT]</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__clone()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_condition">
+        $condition
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_condition" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">304</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">79</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Condition.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
+    <span class="phpdocumentor-signature__name">$condition</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_conditionType">
+        $conditionType
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_conditionType" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Condition type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$conditionType</span>
+     = <span class="phpdocumentor-signature__default-value">self::CONDITION_NONE</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_dataBar">
+        $dataBar
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_dataBar" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">84</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$dataBar</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_operatorType">
+        $operatorType
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_operatorType" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">58</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Operator type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$operatorType</span>
+     = <span class="phpdocumentor-signature__default-value">self::OPERATOR_NONE</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_stopIfTrue">
+        $stopIfTrue
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_stopIfTrue" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">72</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Stop on this condition, if it matches.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$stopIfTrue</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_style">
+        $style
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_style" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">91</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Style.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$style</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_text">
+        $text
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#property_text" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">65</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Text.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$text</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___clone">
+        __clone()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___clone" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">304</span>
+</aside>
+
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__clone</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__clone</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                    <a id="method_isValidConditionType"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
 >
-    <h4 class="phpdocumentor-method__name">isValidConditionType()</h4>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="../files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">319</span>
-    </aside>
-        <p class="phpdocumentor-summary">Verify if param is valid condition type.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isValidConditionType</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$type</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">96</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Create a new Conditional.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$type</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addCondition">
+        addCondition()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_addCondition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">232</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Add Condition.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">addCondition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Condition</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getConditions">
+        getConditions()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">203</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get Conditions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getConditions</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getConditionType">
+        getConditionType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getConditionType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get Condition type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getConditionType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDataBar">
+        getDataBar()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getDataBar" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">268</span>
+</aside>
+
+        <p class="phpdocumentor-summary">get DataBar.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getDataBar</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>| null</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getHashCode">
+        getHashCode()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getHashCode" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">290</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get hash code.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getHashCode</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Hash code</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOperatorType">
+        getOperatorType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getOperatorType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">131</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get Operator type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getOperatorType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStopIfTrue">
+        getStopIfTrue()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStopIfTrue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">179</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get StopIfTrue.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getStopIfTrue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStyle">
+        getStyle()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getStyle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">244</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get Style.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getText">
+        getText()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_getText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">155</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get text.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getText</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isValidConditionType">
+        isValidConditionType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_isValidConditionType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">319</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Verify if param is valid condition type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isValidConditionType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setConditions">
+        setConditions()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">215</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set Conditions.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setConditions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool|float|int|string|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|float|int|string|array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Condition</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setConditionType">
+        setConditionType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setConditionType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">119</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set Condition type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setConditionType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Condition type, see self::CONDITION_*</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setDataBar">
+        setDataBar()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setDataBar" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">278</span>
+</aside>
+
+        <p class="phpdocumentor-summary">set DataBar.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setDataBar</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataBar</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dataBar</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setOperatorType">
+        setOperatorType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setOperatorType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">143</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set Operator type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setOperatorType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Conditional operator type, see self::OPERATOR_*</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStopIfTrue">
+        setStopIfTrue()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStopIfTrue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">191</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set StopIfTrue.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setStopIfTrue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStyle">
+        setStyle()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setStyle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">256</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set Style.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setText">
+        setText()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#method_setText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Conditional.php"><a href="files/src-phpspreadsheet-style-conditional.html"><abbr title="src/PhpSpreadsheet/Style/Conditional.php">Conditional.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">167</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set text.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Conditional.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>

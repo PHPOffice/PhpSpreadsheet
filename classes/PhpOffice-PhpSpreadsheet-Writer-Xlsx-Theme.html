@@ -3,427 +3,574 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
+                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
+                                    </ul>
+                        </section>
 
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                            </ul>
-            
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/phpoffice.html">PhpOffice</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
-                    <li><a href="../namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
-            </ul>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer-xlsx.html">Xlsx</a></li>
+    </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
+    <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-            Theme
-                            <span class="phpdocumentor-class__extends">
-                    extends <a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a>
-                </span>
-                                                        </h2>
+    Theme
+
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart">WriterPart</abbr></a>
+    </span>
+    
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">8</span>
-        </aside>
-
-        <p class="phpdocumentor-class__summary"></p>
-        <section class="phpdocumentor-class__description"></section>
-
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_majorFonts">$majorFonts</a></th>
-                    <td class="phpdocumentor-cell">Map of Major fonts to write.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_minorFonts">$minorFonts</a></th>
-                    <td class="phpdocumentor-cell">Map of Minor fonts to write.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_colourScheme">$colourScheme</a></th>
-                    <td class="phpdocumentor-cell">Map of core colours.</td>
-                    <td class="phpdocumentor-cell">string[]</td>
-                </tr>
-                                                    <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter">$parentWriter</a></th>
-                    <td class="phpdocumentor-cell">Parent Xlsx object.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeTheme">writeTheme()</a></th>
-                    <td class="phpdocumentor-cell">Write theme to XML format.</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeFonts">writeFonts()</a></th>
-                    <td class="phpdocumentor-cell">Write fonts to XML format.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeColourScheme">writeColourScheme()</a></th>
-                    <td class="phpdocumentor-cell">Write colour scheme to XML format.</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                                                    <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a></th>
-                    <td class="phpdocumentor-cell">Get parent Xlsx object.</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Set parent Xlsx object.</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                    </table>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">8</span>
+</aside>
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_majorFonts"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$majorFonts</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">15</span>
-    </aside>
-            <p class="phpdocumentor-summary">Map of Major fonts to write.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
-        <span class="phpdocumentor-signature__name">$majorFonts</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Jpan&#039; =&gt; &#039;ＭＳ Ｐゴシック&#039;, &#039;Hang&#039; =&gt; &#039;맑은 고딕&#039;, &#039;Hans&#039; =&gt; &#039;宋体&#039;, &#039;Hant&#039; =&gt; &#039;新細明體&#039;, &#039;Arab&#039; =&gt; &#039;Times New Roman&#039;, &#039;Hebr&#039; =&gt; &#039;Times New Roman&#039;, &#039;Thai&#039; =&gt; &#039;Tahoma&#039;, &#039;Ethi&#039; =&gt; &#039;Nyala&#039;, &#039;Beng&#039; =&gt; &#039;Vrinda&#039;, &#039;Gujr&#039; =&gt; &#039;Shruti&#039;, &#039;Khmr&#039; =&gt; &#039;MoolBoran&#039;, &#039;Knda&#039; =&gt; &#039;Tunga&#039;, &#039;Guru&#039; =&gt; &#039;Raavi&#039;, &#039;Cans&#039; =&gt; &#039;Euphemia&#039;, &#039;Cher&#039; =&gt; &#039;Plantagenet Cherokee&#039;, &#039;Yiii&#039; =&gt; &#039;Microsoft Yi Baiti&#039;, &#039;Tibt&#039; =&gt; &#039;Microsoft Himalaya&#039;, &#039;Thaa&#039; =&gt; &#039;MV Boli&#039;, &#039;Deva&#039; =&gt; &#039;Mangal&#039;, &#039;Telu&#039; =&gt; &#039;Gautami&#039;, &#039;Taml&#039; =&gt; &#039;Latha&#039;, &#039;Syrc&#039; =&gt; &#039;Estrangelo Edessa&#039;, &#039;Orya&#039; =&gt; &#039;Kalinga&#039;, &#039;Mlym&#039; =&gt; &#039;Kartika&#039;, &#039;Laoo&#039; =&gt; &#039;DokChampa&#039;, &#039;Sinh&#039; =&gt; &#039;Iskoola Pota&#039;, &#039;Mong&#039; =&gt; &#039;Mongolian Baiti&#039;, &#039;Viet&#039; =&gt; &#039;Times New Roman&#039;, &#039;Uigh&#039; =&gt; &#039;Microsoft Uighur&#039;, &#039;Geor&#039; =&gt; &#039;Sylfaen&#039;]</span>    </code>
-    </article>
-                                    <a id="property_minorFonts"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$minorFonts</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">53</span>
-    </aside>
-            <p class="phpdocumentor-summary">Map of Minor fonts to write.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
-        <span class="phpdocumentor-signature__name">$minorFonts</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;Jpan&#039; =&gt; &#039;ＭＳ Ｐゴシック&#039;, &#039;Hang&#039; =&gt; &#039;맑은 고딕&#039;, &#039;Hans&#039; =&gt; &#039;宋体&#039;, &#039;Hant&#039; =&gt; &#039;新細明體&#039;, &#039;Arab&#039; =&gt; &#039;Arial&#039;, &#039;Hebr&#039; =&gt; &#039;Arial&#039;, &#039;Thai&#039; =&gt; &#039;Tahoma&#039;, &#039;Ethi&#039; =&gt; &#039;Nyala&#039;, &#039;Beng&#039; =&gt; &#039;Vrinda&#039;, &#039;Gujr&#039; =&gt; &#039;Shruti&#039;, &#039;Khmr&#039; =&gt; &#039;DaunPenh&#039;, &#039;Knda&#039; =&gt; &#039;Tunga&#039;, &#039;Guru&#039; =&gt; &#039;Raavi&#039;, &#039;Cans&#039; =&gt; &#039;Euphemia&#039;, &#039;Cher&#039; =&gt; &#039;Plantagenet Cherokee&#039;, &#039;Yiii&#039; =&gt; &#039;Microsoft Yi Baiti&#039;, &#039;Tibt&#039; =&gt; &#039;Microsoft Himalaya&#039;, &#039;Thaa&#039; =&gt; &#039;MV Boli&#039;, &#039;Deva&#039; =&gt; &#039;Mangal&#039;, &#039;Telu&#039; =&gt; &#039;Gautami&#039;, &#039;Taml&#039; =&gt; &#039;Latha&#039;, &#039;Syrc&#039; =&gt; &#039;Estrangelo Edessa&#039;, &#039;Orya&#039; =&gt; &#039;Kalinga&#039;, &#039;Mlym&#039; =&gt; &#039;Kartika&#039;, &#039;Laoo&#039; =&gt; &#039;DokChampa&#039;, &#039;Sinh&#039; =&gt; &#039;Iskoola Pota&#039;, &#039;Mong&#039; =&gt; &#039;Mongolian Baiti&#039;, &#039;Viet&#039; =&gt; &#039;Arial&#039;, &#039;Uigh&#039; =&gt; &#039;Microsoft Uighur&#039;, &#039;Geor&#039; =&gt; &#039;Sylfaen&#039;]</span>    </code>
-    </article>
-                                    <a id="property_colourScheme"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$colourScheme</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
-    </aside>
-            <p class="phpdocumentor-summary">Map of core colours.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string[]</span>
-        <span class="phpdocumentor-signature__name">$colourScheme</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;dk2&#039; =&gt; &#039;1F497D&#039;, &#039;lt2&#039; =&gt; &#039;EEECE1&#039;, &#039;accent1&#039; =&gt; &#039;4F81BD&#039;, &#039;accent2&#039; =&gt; &#039;C0504D&#039;, &#039;accent3&#039; =&gt; &#039;9BBB59&#039;, &#039;accent4&#039; =&gt; &#039;8064A2&#039;, &#039;accent5&#039; =&gt; &#039;4BACC6&#039;, &#039;accent6&#039; =&gt; &#039;F79646&#039;, &#039;hlink&#039; =&gt; &#039;0000FF&#039;, &#039;folHlink&#039; =&gt; &#039;800080&#039;]</span>    </code>
-    </article>
-                                                                    <a id="property_parentWriter"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$parentWriter</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="../files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">14</span>
-    </aside>
-            <p class="phpdocumentor-summary">Parent Xlsx object.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$parentWriter</span>
-            </code>
-    </article>
-                            </section>
+
+
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_colourScheme">$colourScheme</a>
+    <span>
+                &nbsp;: array&lt;string|int, string&gt;            </span>
+</dt>
+<dd>Map of core colours.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_majorFonts">$majorFonts</a>
+    <span>
+                &nbsp;: array&lt;string|int, string&gt;            </span>
+</dt>
+<dd>Map of Major fonts to write.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_minorFonts">$minorFonts</a>
+    <span>
+                &nbsp;: array&lt;string|int, string&gt;            </span>
+</dt>
+<dd>Map of Minor fonts to write.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter">$parentWriter</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>            </span>
+</dt>
+<dd>Parent Xlsx object.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct">__construct()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Set parent Xlsx object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter">getParentWriter()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>    </span>
+</dt>
+<dd>Get parent Xlsx object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeTheme">writeTheme()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Write theme to XML format.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeColourScheme">writeColourScheme()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Write colour scheme to XML format.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeFonts">writeFonts()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Write fonts to XML format.</dd>
+
+        </dl>
+
+
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_writeTheme"></a>
-<article
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_colourScheme">
+        $colourScheme
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_colourScheme" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">91</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Map of core colours.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
+    <span class="phpdocumentor-signature__name">$colourScheme</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;dk2&#039; =&gt; &#039;1F497D&#039;, &#039;lt2&#039; =&gt; &#039;EEECE1&#039;, &#039;accent1&#039; =&gt; &#039;4F81BD&#039;, &#039;accent2&#039; =&gt; &#039;C0504D&#039;, &#039;accent3&#039; =&gt; &#039;9BBB59&#039;, &#039;accent4&#039; =&gt; &#039;8064A2&#039;, &#039;accent5&#039; =&gt; &#039;4BACC6&#039;, &#039;accent6&#039; =&gt; &#039;F79646&#039;, &#039;hlink&#039; =&gt; &#039;0000FF&#039;, &#039;folHlink&#039; =&gt; &#039;800080&#039;]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_majorFonts">
+        $majorFonts
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_majorFonts" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Map of Major fonts to write.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
+    <span class="phpdocumentor-signature__name">$majorFonts</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;Jpan&#039; =&gt; &#039;ＭＳ Ｐゴシック&#039;, &#039;Hang&#039; =&gt; &#039;맑은 고딕&#039;, &#039;Hans&#039; =&gt; &#039;宋体&#039;, &#039;Hant&#039; =&gt; &#039;新細明體&#039;, &#039;Arab&#039; =&gt; &#039;Times New Roman&#039;, &#039;Hebr&#039; =&gt; &#039;Times New Roman&#039;, &#039;Thai&#039; =&gt; &#039;Tahoma&#039;, &#039;Ethi&#039; =&gt; &#039;Nyala&#039;, &#039;Beng&#039; =&gt; &#039;Vrinda&#039;, &#039;Gujr&#039; =&gt; &#039;Shruti&#039;, &#039;Khmr&#039; =&gt; &#039;MoolBoran&#039;, &#039;Knda&#039; =&gt; &#039;Tunga&#039;, &#039;Guru&#039; =&gt; &#039;Raavi&#039;, &#039;Cans&#039; =&gt; &#039;Euphemia&#039;, &#039;Cher&#039; =&gt; &#039;Plantagenet Cherokee&#039;, &#039;Yiii&#039; =&gt; &#039;Microsoft Yi Baiti&#039;, &#039;Tibt&#039; =&gt; &#039;Microsoft Himalaya&#039;, &#039;Thaa&#039; =&gt; &#039;MV Boli&#039;, &#039;Deva&#039; =&gt; &#039;Mangal&#039;, &#039;Telu&#039; =&gt; &#039;Gautami&#039;, &#039;Taml&#039; =&gt; &#039;Latha&#039;, &#039;Syrc&#039; =&gt; &#039;Estrangelo Edessa&#039;, &#039;Orya&#039; =&gt; &#039;Kalinga&#039;, &#039;Mlym&#039; =&gt; &#039;Kartika&#039;, &#039;Laoo&#039; =&gt; &#039;DokChampa&#039;, &#039;Sinh&#039; =&gt; &#039;Iskoola Pota&#039;, &#039;Mong&#039; =&gt; &#039;Mongolian Baiti&#039;, &#039;Viet&#039; =&gt; &#039;Times New Roman&#039;, &#039;Uigh&#039; =&gt; &#039;Microsoft Uighur&#039;, &#039;Geor&#039; =&gt; &#039;Sylfaen&#039;]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_minorFonts">
+        $minorFonts
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#property_minorFonts" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">53</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Map of Minor fonts to write.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
+    <span class="phpdocumentor-signature__name">$minorFonts</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;Jpan&#039; =&gt; &#039;ＭＳ Ｐゴシック&#039;, &#039;Hang&#039; =&gt; &#039;맑은 고딕&#039;, &#039;Hans&#039; =&gt; &#039;宋体&#039;, &#039;Hant&#039; =&gt; &#039;新細明體&#039;, &#039;Arab&#039; =&gt; &#039;Arial&#039;, &#039;Hebr&#039; =&gt; &#039;Arial&#039;, &#039;Thai&#039; =&gt; &#039;Tahoma&#039;, &#039;Ethi&#039; =&gt; &#039;Nyala&#039;, &#039;Beng&#039; =&gt; &#039;Vrinda&#039;, &#039;Gujr&#039; =&gt; &#039;Shruti&#039;, &#039;Khmr&#039; =&gt; &#039;DaunPenh&#039;, &#039;Knda&#039; =&gt; &#039;Tunga&#039;, &#039;Guru&#039; =&gt; &#039;Raavi&#039;, &#039;Cans&#039; =&gt; &#039;Euphemia&#039;, &#039;Cher&#039; =&gt; &#039;Plantagenet Cherokee&#039;, &#039;Yiii&#039; =&gt; &#039;Microsoft Yi Baiti&#039;, &#039;Tibt&#039; =&gt; &#039;Microsoft Himalaya&#039;, &#039;Thaa&#039; =&gt; &#039;MV Boli&#039;, &#039;Deva&#039; =&gt; &#039;Mangal&#039;, &#039;Telu&#039; =&gt; &#039;Gautami&#039;, &#039;Taml&#039; =&gt; &#039;Latha&#039;, &#039;Syrc&#039; =&gt; &#039;Estrangelo Edessa&#039;, &#039;Orya&#039; =&gt; &#039;Kalinga&#039;, &#039;Mlym&#039; =&gt; &#039;Kartika&#039;, &#039;Laoo&#039; =&gt; &#039;DokChampa&#039;, &#039;Sinh&#039; =&gt; &#039;Iskoola Pota&#039;, &#039;Mong&#039; =&gt; &#039;Mongolian Baiti&#039;, &#039;Viet&#039; =&gt; &#039;Arial&#039;, &#039;Uigh&#039; =&gt; &#039;Microsoft Uighur&#039;, &#039;Geor&#039; =&gt; &#039;Sylfaen&#039;]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">writeTheme()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_parentWriter">
+        $parentWriter
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#property_parentWriter" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">109</span>
-    </aside>
-        <p class="phpdocumentor-summary">Write theme to XML format.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">writeTheme</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$spreadsheet</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Parent Xlsx object.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$parentWriter</span>
     </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-                    &mdash; <span class="phpdocumentor-description"><p>XML Output</p></span>
-            
-</article>
-                                    <a id="method_writeFonts"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">writeFonts()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">789</span>
-    </aside>
-        <p class="phpdocumentor-summary">Write fonts to XML format.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                                <span class="phpdocumentor-signature__name">writeFonts</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$objWriter</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$latinFont</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                    <span class="phpdocumentor-signature__argument">
-            ,                 <span class="phpdocumentor-signature__argument__name">$fontSet</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string[]</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
+        <section class="phpdocumentor-description"></section>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$objWriter</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$latinFont</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fontSet</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string[]</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
-</article>
-                                    <a id="method_writeColourScheme"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">writeColourScheme()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="../files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">817</span>
-    </aside>
-        <p class="phpdocumentor-summary">Write colour scheme to XML format.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                                <span class="phpdocumentor-signature__name">writeColourScheme</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$objWriter</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$objWriter</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-    
 </article>
-                                                                    <a id="method_getParentWriter"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getParentWriter()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="../files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">21</span>
-    </aside>
-        <p class="phpdocumentor-summary">Get parent Xlsx object.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getParentWriter</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-    </code>
+            </section>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-            
-</article>
-                                    <a id="method___construct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="../files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">29</span>
-    </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+</aside>
+
         <p class="phpdocumentor-summary">Set parent Xlsx object.</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$pWriter</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pWriter</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$pWriter</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
 </article>
-                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getParentWriter">
+        getParentWriter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-WriterPart.html#method_getParentWriter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php"><a href="files/src-phpspreadsheet-writer-xlsx-writerpart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/WriterPart.php">WriterPart.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+        <p class="phpdocumentor-summary">Get parent Xlsx object.</p>
 
-                </ul>
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getParentWriter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_writeTheme">
+        writeTheme()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeTheme" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">109</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Write theme to XML format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">writeTheme</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>XML Output</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_writeColourScheme">
+        writeColourScheme()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeColourScheme" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">817</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Write colour scheme to XML format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">writeColourScheme</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objWriter</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_writeFonts">
+        writeFonts()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#method_writeFonts" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php"><a href="files/src-phpspreadsheet-writer-xlsx-theme.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Theme.php">Theme.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">789</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Write fonts to XML format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">writeFonts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$latinFont</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fontSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objWriter</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$latinFont</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fontSet</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+            </section>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Theme.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
 </body>
 </html>
