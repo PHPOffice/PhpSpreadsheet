@@ -24,7 +24,6 @@ class Replace
             $newText = Helpers::extractString($newText);
             $left = mb_substr($oldText, 0, $start - 1, 'UTF-8');
 
-            $rightChars = $start + $chars - 1;
             $right = mb_substr($oldText, $start + $chars - 1, null, 'UTF-8');
         } catch (CalcExp $e) {
             return $e->getMessage();

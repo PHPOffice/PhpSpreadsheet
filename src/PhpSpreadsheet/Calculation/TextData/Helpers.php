@@ -11,7 +11,7 @@ class Helpers
     public static function convertBooleanValue(bool $value): string
     {
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-            return $value = $value ? '1' : '0';
+            return $value ? '1' : '0';
         }
 
         return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
