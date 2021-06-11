@@ -1143,33 +1143,35 @@ class Xls extends BaseReader
                                 // need check because some blip types are not supported by Escher reader such as EMF
                                 if ($blip = $BSE->getBlip()) {
                                     $ih = imagecreatefromstring($blip->getData());
-                                    $drawing = new MemoryDrawing();
-                                    $drawing->setImageResource($ih);
+                                    if ($ih !== false) {
+                                        $drawing = new MemoryDrawing();
+                                        $drawing->setImageResource($ih);
 
-                                    // width, height, offsetX, offsetY
-                                    $drawing->setResizeProportional(false);
-                                    $drawing->setWidth($width);
-                                    $drawing->setHeight($height);
-                                    $drawing->setOffsetX($offsetX);
-                                    $drawing->setOffsetY($offsetY);
+                                        // width, height, offsetX, offsetY
+                                        $drawing->setResizeProportional(false);
+                                        $drawing->setWidth($width);
+                                        $drawing->setHeight($height);
+                                        $drawing->setOffsetX($offsetX);
+                                        $drawing->setOffsetY($offsetY);
 
-                                    switch ($blipType) {
-                                        case BSE::BLIPTYPE_JPEG:
-                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                        switch ($blipType) {
+                                            case BSE::BLIPTYPE_JPEG:
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                            break;
-                                        case BSE::BLIPTYPE_PNG:
-                                            imagealphablending($ih, false);
-                                            imagesavealpha($ih, true);
-                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                                break;
+                                            case BSE::BLIPTYPE_PNG:
+                                                imagealphablending($ih, false);
+                                                imagesavealpha($ih, true);
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                            break;
+                                                break;
+                                        }
+
+                                        $drawing->setWorksheet($this->phpSheet);
+                                        $drawing->setCoordinates($spContainer->getStartCoordinates());
                                     }
-
-                                    $drawing->setWorksheet($this->phpSheet);
-                                    $drawing->setCoordinates($spContainer->getStartCoordinates());
                                 }
                             }
 
