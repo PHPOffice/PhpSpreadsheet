@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Datefunc;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
 
 class DateTest extends AllSetupTeardown
 {
@@ -14,7 +14,7 @@ class DateTest extends AllSetupTeardown
     public function testDATE($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('1954-11-23');
         $sheet->getCell('A1')->setValue("=DATE($formula)");
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
@@ -29,7 +29,7 @@ class DateTest extends AllSetupTeardown
     {
         self::setUnixReturn();
 
-        $result = Datefunc::funcDate(2012, 1, 31); // 32-bit safe
+        $result = Date::fromYMD(2012, 1, 31); // 32-bit safe
         self::assertEquals(1327968000, $result);
     }
 
@@ -37,7 +37,7 @@ class DateTest extends AllSetupTeardown
     {
         self::setObjectReturn();
 
-        $result = Datefunc::funcDate(2012, 1, 31);
+        $result = Date::fromYMD(2012, 1, 31);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -50,10 +50,10 @@ class DateTest extends AllSetupTeardown
     {
         self::setMac1904();
 
-        $result = Datefunc::funcDate(1918, 11, 11);
+        $result = Date::fromYMD(1918, 11, 11);
         self::assertEquals($result, 5428);
 
-        $result = Datefunc::funcDate(1901, 1, 31);
+        $result = Date::fromYMD(1901, 1, 31);
         self::assertEquals($result, '#NUM!');
     }
 }

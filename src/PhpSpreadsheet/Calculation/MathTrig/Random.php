@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Random
 {
@@ -11,7 +11,7 @@ class Random
      *
      * @return float Random number
      */
-    public static function randNoArgs()
+    public static function rand()
     {
         return (mt_rand(0, 10000000)) / 10000000;
     }

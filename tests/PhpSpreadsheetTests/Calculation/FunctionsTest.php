@@ -341,7 +341,7 @@ class FunctionsTest extends TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
             $remoteCell->method('isFormula')
-                ->willReturn(substr($value, 0, 1) == '=');
+                ->willReturn(substr($value ?? '', 0, 1) == '=');
 
             $remoteSheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()

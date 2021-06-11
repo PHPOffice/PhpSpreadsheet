@@ -6,7 +6,7 @@ abstract class BaseWriter implements IWriter
 {
     /**
      * Write charts that are defined in the workbook?
-     * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;.
+     * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object.
      *
      * @var bool
      */
@@ -92,6 +92,13 @@ abstract class BaseWriter implements IWriter
     public function getDiskCachingDirectory()
     {
         return $this->diskCachingDirectory;
+    }
+
+    protected function processFlags(int $flags): void
+    {
+        if (((bool) ($flags & self::SAVE_WITH_CHARTS)) === true) {
+            $this->setIncludeCharts(true);
+        }
     }
 
     /**

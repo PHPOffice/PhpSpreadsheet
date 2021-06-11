@@ -115,11 +115,13 @@ class Ods extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename): void
+    public function save($pFilename, int $flags = 0): void
     {
         if (!$this->spreadSheet) {
             throw new WriterException('PhpSpreadsheet object unassigned.');
         }
+
+        $this->processFlags($flags);
 
         // garbage collect
         $this->spreadSheet->garbageCollect();
