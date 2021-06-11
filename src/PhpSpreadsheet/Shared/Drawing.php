@@ -42,7 +42,7 @@ class Drawing
      * @param int $pValue Value in pixels
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont Default font of the workbook
      *
-     * @return int Value in cell dimension
+     * @return int|float Value in cell dimension
      */
     public static function pixelsToCellDimension($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
     {
@@ -52,16 +52,14 @@ class Drawing
 
         if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
-            $colWidth = $pValue * Font::$defaultColumnWidths[$name][$size]['width']
+            return $pValue * Font::$defaultColumnWidths[$name][$size]['width']
                 / Font::$defaultColumnWidths[$name][$size]['px'];
-        } else {
-            // We don't have data for this particular font and size, use approximation by
-            // extrapolating from Calibri 11
-            $colWidth = $pValue * 11 * Font::$defaultColumnWidths['Calibri'][11]['width']
-                / Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
         }
 
-        return $colWidth;
+        // We don't have data for this particular font and size, use approximation by
+        // extrapolating from Calibri 11
+        return $pValue * 11 * Font::$defaultColumnWidths['Calibri'][11]['width']
+            / Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
     }
 
     /**
