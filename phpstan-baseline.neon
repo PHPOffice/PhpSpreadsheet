@@ -2776,11 +2776,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\:\\:setOffsetX\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
