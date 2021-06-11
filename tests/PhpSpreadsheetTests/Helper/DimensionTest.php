@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PHPUnit\Framework\TestCase;
 
@@ -23,6 +24,13 @@ class DimensionTest extends TestCase
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);
         self::assertSame($expectedResult, $result);
+    }
+
+    public function testConvertDimensionInvalidUoM(): void
+    {
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('pikachu is not a vaid unit of measure');
+        (new Dimension('999'))->toUnit('pikachu');
     }
 
     public function providerCellWidth(): array
