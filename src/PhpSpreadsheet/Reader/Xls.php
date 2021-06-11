@@ -1160,6 +1160,8 @@ class Xls extends BaseReader
 
                                             break;
                                         case BSE::BLIPTYPE_PNG:
+                                            imagealphablending($ih, false);
+                                            imagesavealpha($ih, true);
                                             $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
                                             $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
