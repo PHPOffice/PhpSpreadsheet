@@ -28,8 +28,8 @@ class DimensionTest extends TestCase
 
     public function testConvertDimensionInvalidUoM(): void
     {
-        self::expectException(Exception::class);
-        self::expectExceptionMessage('pikachu is not a vaid unit of measure');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('pikachu is not a vaid unit of measure');
         (new Dimension('999'))->toUnit('pikachu');
     }
 
