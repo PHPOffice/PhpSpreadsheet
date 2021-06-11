@@ -81,7 +81,7 @@ class Xls
         } else {
             // we don't even have any default row dimension. Height depends on default font
             $pointRowHeight = Font::getDefaultRowHeightByFont($font);
-            $pixelRowHeight = Font::fontSizeToPixels($pointRowHeight);
+            $pixelRowHeight = Font::fontSizeToPixels((int) $pointRowHeight);
         }
 
         // now find the effective row height in pixels

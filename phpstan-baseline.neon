@@ -4236,11 +4236,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Font.php
 
 		-
-			message: "#^Parameter \\#1 \\$pixelValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
 			message: "#^Parameter \\#2 \\$pDefaultFont of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
@@ -4854,16 +4849,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-
-		-
-			message: "#^Parameter \\#1 \\$pointValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pointsToPixels\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$fontSizeInPoints of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:fontSizeToPixels\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Xls.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:\\$workbookViewVisibilityValues has no typehint specified\\.$#"
