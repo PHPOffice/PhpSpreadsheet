@@ -42,7 +42,7 @@ class Drawing
      * @param int $pValue Value in pixels
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont Default font of the workbook
      *
-     * @return int|float Value in cell dimension
+     * @return float|int Value in cell dimension
      */
     public static function pixelsToCellDimension($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
     {
