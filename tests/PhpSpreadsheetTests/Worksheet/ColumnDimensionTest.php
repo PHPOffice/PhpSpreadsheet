@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PHPUnit\Framework\TestCase;
 
@@ -36,10 +37,10 @@ class ColumnDimensionTest extends TestCase
 
         $expectedPx = 32.0;
         $expectedPt = 24.0;
-        $columnDimension->setWidth($expectedPx, 'px');
-        $resultPx = $columnDimension->getWidth('px');
+        $columnDimension->setWidth($expectedPx, Dimension::UOM_PIXELS);
+        $resultPx = $columnDimension->getWidth(Dimension::UOM_PIXELS);
         self::assertSame($expectedPx, $resultPx);
-        $resultPt = $columnDimension->getWidth('pt');
+        $resultPt = $columnDimension->getWidth(Dimension::UOM_POINTS);
         self::assertSame($expectedPt, $resultPt);
     }
 

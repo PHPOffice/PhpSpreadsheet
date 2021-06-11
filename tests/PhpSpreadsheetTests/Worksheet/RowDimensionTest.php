@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PHPUnit\Framework\TestCase;
 
@@ -36,10 +37,10 @@ class RowDimensionTest extends TestCase
 
         $expectedPx = 32.0;
         $expectedPt = 24.0;
-        $columnDimension->setRowHeight($expectedPx, 'px');
-        $resultPx = $columnDimension->getRowHeight('px');
+        $columnDimension->setRowHeight($expectedPx, Dimension::UOM_PIXELS);
+        $resultPx = $columnDimension->getRowHeight(Dimension::UOM_PIXELS);
         self::assertSame($expectedPx, $resultPx);
-        $resultPt = $columnDimension->getRowHeight('pt');
+        $resultPt = $columnDimension->getRowHeight(Dimension::UOM_POINTS);
         self::assertSame($expectedPt, $resultPt);
     }
 

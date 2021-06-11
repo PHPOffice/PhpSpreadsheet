@@ -74,7 +74,7 @@ class RowDimension extends Dimension
     {
         return ($unitOfMeasure === null || $this->height < 0)
             ? $this->height
-            : (new CssDimension($this->height . 'pt'))->toUnit($unitOfMeasure);
+            : (new CssDimension($this->height . CssDimension::UOM_POINTS))->toUnit($unitOfMeasure);
     }
 
     /**

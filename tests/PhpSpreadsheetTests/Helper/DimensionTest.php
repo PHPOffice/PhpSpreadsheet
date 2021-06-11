@@ -47,18 +47,18 @@ class DimensionTest extends TestCase
     public function providerConvertUoM(): array
     {
         return [
-            [60, '8.54', 'px'],
-            [100, '100px', 'px'],
-            [150, '200px', 'pt'],
-            [45, '8.54', 'pt'],
-            [12.5, '200px', 'pc'],
-            [3.75, '8.54', 'pc'],
-            [3.125, '300px', 'in'],
-            [0.625, '8.54', 'in'],
-            [7.9375, '300px', 'cm'],
-            [1.5875, '8.54', 'cm'],
-            [79.375, '300px', 'mm'],
-            [15.875, '8.54', 'mm'],
+            [60, '8.54', Dimension::UOM_PIXELS],
+            [100, '100px', Dimension::UOM_PIXELS],
+            [150, '200px', Dimension::UOM_POINTS],
+            [45, '8.54', Dimension::UOM_POINTS],
+            [12.5, '200px', Dimension::UOM_PICA],
+            [3.75, '8.54', Dimension::UOM_PICA],
+            [3.125, '300px', Dimension::UOM_INCHES],
+            [0.625, '8.54', Dimension::UOM_INCHES],
+            [7.9375, '300px', Dimension::UOM_CENTIMETERS],
+            [1.5875, '8.54', Dimension::UOM_CENTIMETERS],
+            [79.375, '300px', Dimension::UOM_MILLIMETERS],
+            [15.875, '8.54', Dimension::UOM_MILLIMETERS],
         ];
     }
 }
