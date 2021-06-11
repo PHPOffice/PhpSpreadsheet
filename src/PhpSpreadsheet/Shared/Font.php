@@ -265,7 +265,7 @@ class Font
         }
 
         // Convert from pixel width to column width
-        $columnWidth = Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
+        $columnWidth = Drawing::pixelsToCellDimension((int) $columnWidth, $defaultFont);
 
         // Return
         return (int) round($columnWidth, 6);

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
+
 class ColumnDimension extends Dimension
 {
     /**
@@ -63,20 +65,32 @@ class ColumnDimension extends Dimension
 
     /**
      * Get Width.
+     *
+     * Each unit of column width is equal to the width of one character in the default font size.
+     * By default, this will be the return value; but this method also accepts a unit of measure argument and will
+     *     return the value converted to the specified UoM using an approximation method.
      */
-    public function getWidth(): float
+    public function getWidth(?string $unitOfMeasure = null): float
     {
-        return $this->width;
+        return ($unitOfMeasure === null || $this->width < 0)
+            ? $this->width
+            : (new CssDimension((string) $this->width))->toUnit($unitOfMeasure);
     }
 
     /**
      * Set Width.
      *
+     * Each unit of column width is equal to the width of one character in the default font size.
+     * By default, this will be the unit of measure for the passed value; but this method accepts a unit of measure
+     *    argument, and will convert the value from the specified UoM using an approximation method.
+     *
      * @return $this
      */
-    public function setWidth(float $width)
+    public function setWidth(float $width, ?string $unitOfMeasure = null)
     {
-        $this->width = $width;
+        $this->width = ($unitOfMeasure === null || $width < 0)
+            ? $width
+            : (new CssDimension("{$width}{$unitOfMeasure}"))->width();
 
         return $this;
     }
