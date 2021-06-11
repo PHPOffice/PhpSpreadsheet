@@ -4236,7 +4236,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Font.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects int, float\\|int given\\.$#"
+			message: "#^Parameter \\#1 \\$pixelValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
 
@@ -4856,7 +4856,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/XMLWriter.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pointsToPixels\\(\\) expects int, float given\\.$#"
+			message: "#^Parameter \\#1 \\$pixelValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pointsToPixels\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Xls.php
 
