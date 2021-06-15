@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Replace
@@ -16,13 +17,17 @@ class Replace
      */
     public static function replace($oldText, $start, $chars, $newText): string
     {
-        $oldText = Functions::flattenSingleValue($oldText);
-        $start = Functions::flattenSingleValue($start);
-        $chars = Functions::flattenSingleValue($chars);
-        $newText = Functions::flattenSingleValue($newText);
+        try {
+            $start = Helpers::extractInt($start, 1, 0, true);
+            $chars = Helpers::extractInt($chars, 0, 0, true);
+            $oldText = Helpers::extractString($oldText);
+            $newText = Helpers::extractString($newText);
+            $left = mb_substr($oldText, 0, $start - 1, 'UTF-8');
 
-        $left = Extract::left($oldText, $start - 1);
-        $right = Extract::right($oldText, Text::length($oldText) - ($start + $chars) + 1);
+            $right = mb_substr($oldText, $start + $chars - 1, null, 'UTF-8');
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
 
         return $left . $newText . $right;
     }
@@ -35,15 +40,25 @@ class Replace
      * @param mixed $toText The string value that we want to replace with in $text
      * @param mixed $instance Integer instance Number for the occurrence of frmText to change
      */
-    public static function substitute($text = '', $fromText = '', $toText = '', $instance = 0): string
+    public static function substitute($text = '', $fromText = '', $toText = '', $instance = null): string
     {
-        $text = Functions::flattenSingleValue($text);
-        $fromText = Functions::flattenSingleValue($fromText);
-        $toText = Functions::flattenSingleValue($toText);
-        $instance = floor(Functions::flattenSingleValue($instance));
-
-        if ($instance == 0) {
-            return str_replace($fromText, $toText, $text);
+        try {
+            $text = Helpers::extractString($text);
+            $fromText = Helpers::extractString($fromText);
+            $toText = Helpers::extractString($toText);
+            $instance = Functions::flattenSingleValue($instance);
+            if ($instance === null) {
+                return str_replace($fromText, $toText, $text);
+            }
+            if (is_bool($instance)) {
+                if ($instance === false || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
+                    return Functions::Value();
+                }
+                $instance = 1;
+            }
+            $instance = Helpers::extractInt($instance, 1, 0, true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
         }
 
         $pos = -1;
