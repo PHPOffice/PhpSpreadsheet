@@ -17,6 +17,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
 use PhpOffice\PhpSpreadsheet\Shared\OLERead;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -622,12 +623,12 @@ class Xls extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
+        $this->processFlags($flags);
+
         // Read the OLE file
         $this->loadOLE($pFilename);
 
@@ -1102,12 +1103,12 @@ class Xls extends BaseReader
                     $endOffsetX = $spContainer->getEndOffsetX();
                     $endOffsetY = $spContainer->getEndOffsetY();
 
-                    $width = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
-                    $height = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
+                    $width = SharedXls::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
+                    $height = SharedXls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
 
                     // calculate offsetX and offsetY of the shape
-                    $offsetX = $startOffsetX * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, $startColumn) / 1024;
-                    $offsetY = $startOffsetY * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $startRow) / 256;
+                    $offsetX = $startOffsetX * SharedXls::sizeCol($this->phpSheet, $startColumn) / 1024;
+                    $offsetY = $startOffsetY * SharedXls::sizeRow($this->phpSheet, $startRow) / 256;
 
                     switch ($obj['otObjType']) {
                         case 0x19:
@@ -1143,31 +1144,35 @@ class Xls extends BaseReader
                                 // need check because some blip types are not supported by Escher reader such as EMF
                                 if ($blip = $BSE->getBlip()) {
                                     $ih = imagecreatefromstring($blip->getData());
-                                    $drawing = new MemoryDrawing();
-                                    $drawing->setImageResource($ih);
+                                    if ($ih !== false) {
+                                        $drawing = new MemoryDrawing();
+                                        $drawing->setImageResource($ih);
 
-                                    // width, height, offsetX, offsetY
-                                    $drawing->setResizeProportional(false);
-                                    $drawing->setWidth($width);
-                                    $drawing->setHeight($height);
-                                    $drawing->setOffsetX($offsetX);
-                                    $drawing->setOffsetY($offsetY);
+                                        // width, height, offsetX, offsetY
+                                        $drawing->setResizeProportional(false);
+                                        $drawing->setWidth($width);
+                                        $drawing->setHeight($height);
+                                        $drawing->setOffsetX($offsetX);
+                                        $drawing->setOffsetY($offsetY);
 
-                                    switch ($blipType) {
-                                        case BSE::BLIPTYPE_JPEG:
-                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                        switch ($blipType) {
+                                            case BSE::BLIPTYPE_JPEG:
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                            break;
-                                        case BSE::BLIPTYPE_PNG:
-                                            $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                            $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                                break;
+                                            case BSE::BLIPTYPE_PNG:
+                                                imagealphablending($ih, false);
+                                                imagesavealpha($ih, true);
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                            break;
+                                                break;
+                                        }
+
+                                        $drawing->setWorksheet($this->phpSheet);
+                                        $drawing->setCoordinates($spContainer->getStartCoordinates());
                                     }
-
-                                    $drawing->setWorksheet($this->phpSheet);
-                                    $drawing->setCoordinates($spContainer->getStartCoordinates());
                                 }
                             }
 

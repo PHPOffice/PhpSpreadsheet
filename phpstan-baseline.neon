@@ -2487,7 +2487,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 4
+			count: 2
 			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
@@ -2772,11 +2772,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -4101,11 +4096,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Date.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) should return int but returns float\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
 			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/Drawing.php
@@ -4237,11 +4227,6 @@ parameters:
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:\\$autoSizeMethods has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
 
@@ -4859,16 +4844,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-
-		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pointsToPixels\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$fontSizeInPoints of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:fontSizeToPixels\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Xls.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:\\$workbookViewVisibilityValues has no typehint specified\\.$#"
@@ -6214,11 +6189,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:calculateSpansOmitRows\\(\\) has parameter \\$sheetIndex with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/IWriter.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"

@@ -310,13 +310,12 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
         File::assertFile($pFilename);
+        $this->processFlags($flags);
 
         // Initialisations
         $excel = new Spreadsheet();
