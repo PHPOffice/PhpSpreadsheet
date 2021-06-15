@@ -1321,11 +1321,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:TRIMSPACES\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:CONCATENATE\\(\\) has parameter \\$args with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData.php
@@ -1339,96 +1334,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:SEARCHINSENSITIVE\\(\\) should return string but returns int\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\CharacterConvert\\:\\:character\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\CharacterConvert\\:\\:unicodeToOrd\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\CharacterConvert\\:\\:unicodeToOrd\\(\\) has parameter \\$character with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Cannot access offset 1 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\CharacterConvert\\:\\:convertBooleanValue\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\CharacterConvert\\:\\:convertBooleanValue\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Concatenate\\:\\:CONCATENATE\\(\\) has parameter \\$args with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Concatenate\\:\\:convertBooleanValue\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Concatenate\\:\\:convertBooleanValue\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
-
-		-
-			message: "#^Parameter \\#3 \\$length of function mb_substr expects int\\|null, float\\|int\\<0, max\\>\\|string given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function mb_substr expects int, float\\|int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
-
-		-
-			message: "#^Cannot cast array\\|float\\|int\\|string to float\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#3 \\$offset of function mb_strpos expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Search.php
-
-		-
-			message: "#^Parameter \\#3 \\$offset of function mb_stripos expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Search.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Trim\\:\\:\\$invalidChars has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Trim.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, float\\|int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/TextData/Trim.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Trim.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has no return typehint specified\\.$#"

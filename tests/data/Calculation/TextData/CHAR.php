@@ -61,4 +61,10 @@ return [
         '#VALUE!', // '†',
         0x2020,
     ],
+    'omitted argument' => ['exception'],
+    'non-printable' => ["\x02", 2],
+    'bool argument' => ["\x01", true],
+    'null argument' => ['#VALUE!', null],
+    'ascii 1 is 49' => ['1', 49],
+    'ascii 0 is 48' => ['0', 48],
 ];
