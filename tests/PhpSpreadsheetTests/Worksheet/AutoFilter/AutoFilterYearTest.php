@@ -3,12 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
-use PHPUnit\Framework\TestCase;
 
-class AutoFilterYearTest extends TestCase
+class AutoFilterYearTest extends SetupTeardown
 {
     public function providerYear(): array
     {
@@ -30,8 +28,7 @@ class AutoFilterYearTest extends TestCase
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $this->getSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
             $sheet->getCell('A1')->setValue('Date');
@@ -48,8 +45,9 @@ class AutoFilterYearTest extends TestCase
             }
             ++$row;
             $sheet->getCell("A$row")->setValue('=DATE(2041, 1, 1)'); // beyond epoch
-            $maxRow = $row;
-            $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
+            ++$row; // empty row at end
+            $this->maxRow = $maxRow = $row;
+            $autoFilter = $sheet->getAutoFilter();
             $autoFilter->setRange("A1:A$maxRow");
             $columnFilter = $autoFilter->getColumn('A');
             $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
@@ -64,13 +62,8 @@ class AutoFilterYearTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
-        $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
-            }
-        }
-        self::assertEquals($expectedVisible, $actualVisible);
+
+        self::assertEquals($expectedVisible, $this->getVisible());
     }
 
     public function testYearToDate(): void
@@ -78,8 +71,7 @@ class AutoFilterYearTest extends TestCase
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $this->getSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
             $startMonth = (int) $dtStart->format('m');
@@ -90,8 +82,8 @@ class AutoFilterYearTest extends TestCase
             $sheet->getCell('A5')->setValue('=DATE(YEAR(A2), 1, 1)');
             $sheet->getCell('A6')->setValue('=A5 - 1');
 
-            $maxRow = 6;
-            $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
+            $this->maxRow = $maxRow = 6;
+            $autoFilter = $sheet->getAutoFilter();
             $autoFilter->setRange("A1:A$maxRow");
             $columnFilter = $autoFilter->getColumn('A');
             $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
@@ -106,13 +98,8 @@ class AutoFilterYearTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
-        $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
-            }
-        }
+
         $expected = ($startMonth === 12 && $startDay === 31) ? [2, 3, 5] : [2, 5];
-        self::assertEquals($expected, $actualVisible);
+        self::assertEquals($expected, $this->getVisible());
     }
 }
