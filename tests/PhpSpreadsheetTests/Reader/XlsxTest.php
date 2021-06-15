@@ -160,8 +160,17 @@ class XlsxTest extends TestCase
 
         $worksheet = $spreadsheet->getActiveSheet();
 
-        self::assertEquals(DataValidation::TYPE_LIST, $worksheet->getCell('B5')->getDataValidation()->getType());  // same sheet
-        self::assertEquals(DataValidation::TYPE_LIST, $worksheet->getCell('B14')->getDataValidation()->getType()); // another sheet
+        // same sheet
+        $validationCell = $worksheet->getCell('B5');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('$A$5:$A$7', $validationCell->getDataValidation()->getFormula1());
+
+        // another sheet
+        $validationCell = $worksheet->getCell('B14');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('Feuil2!$A$3:$A$5', $validationCell->getDataValidation()->getFormula1());
     }
 
     /**
