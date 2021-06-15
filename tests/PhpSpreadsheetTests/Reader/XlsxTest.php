@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -145,6 +146,31 @@ class XlsxTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
 
         self::assertTrue($worksheet->getCell('B3')->hasDataValidation());
+    }
+
+    /*
+     * Test for load drop down lists of another sheet.
+     * Pull #2150, issue #2149
+     */
+    public function testLoadXlsxDataValidationOfAnotherSheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/dataValidation2Test.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // same sheet
+        $validationCell = $worksheet->getCell('B5');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('$A$5:$A$7', $validationCell->getDataValidation()->getFormula1());
+
+        // another sheet
+        $validationCell = $worksheet->getCell('B14');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('Feuil2!$A$3:$A$5', $validationCell->getDataValidation()->getFormula1());
     }
 
     /**
