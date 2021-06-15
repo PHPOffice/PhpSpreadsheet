@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
+
 class RowDimension extends Dimension
 {
     /**
@@ -63,24 +65,32 @@ class RowDimension extends Dimension
 
     /**
      * Get Row Height.
+     * By default, this will be in points; but this method accepts a unit of measure
+     *    argument, and will convert the value to the specified UoM.
      *
      * @return float
      */
-    public function getRowHeight()
+    public function getRowHeight(?string $unitOfMeasure = null)
     {
-        return $this->height;
+        return ($unitOfMeasure === null || $this->height < 0)
+            ? $this->height
+            : (new CssDimension($this->height . CssDimension::UOM_POINTS))->toUnit($unitOfMeasure);
     }
 
     /**
      * Set Row Height.
      *
-     * @param float $height
+     * @param float $height in points
+     * By default, this will be the passed argument value; but this method accepts a unit of measure
+     *    argument, and will convert the passed argument value to points from the specified UoM
      *
      * @return $this
      */
-    public function setRowHeight($height)
+    public function setRowHeight($height, ?string $unitOfMeasure = null)
     {
-        $this->height = $height;
+        $this->height = ($unitOfMeasure === null || $height < 0)
+            ? $height
+            : (new CssDimension("{$height}{$unitOfMeasure}"))->height();
 
         return $this;
     }

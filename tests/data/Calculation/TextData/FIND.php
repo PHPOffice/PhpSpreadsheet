@@ -106,4 +106,6 @@ return [
         true,
         'Mark Baker',
     ],
+    'no arguments' => ['exception'],
+    'one argument' => ['exception', 'a'],
 ];

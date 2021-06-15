@@ -63,7 +63,7 @@ class SampleTest extends TestCase
 //                }
                 if (!in_array($sample, $skipped)) {
                     $file = 'samples/' . $sample;
-                    $result[] = [$file];
+                    $result[$sample] = [$file];
                 }
             }
         }

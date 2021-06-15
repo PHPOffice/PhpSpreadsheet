@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -204,12 +205,12 @@ class Html extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
+        $this->processFlags($flags);
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
@@ -527,14 +528,14 @@ class Html extends BaseReader
     private function processDomElementWidth(Worksheet $sheet, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['width'])) {
-            $sheet->getColumnDimension($column)->setWidth($attributeArray['width']);
+            $sheet->getColumnDimension($column)->setWidth((new CssDimension($attributeArray['width']))->width());
         }
     }
 
     private function processDomElementHeight(Worksheet $sheet, int $row, array $attributeArray): void
     {
         if (isset($attributeArray['height'])) {
-            $sheet->getRowDimension($row)->setRowHeight($attributeArray['height']);
+            $sheet->getRowDimension($row)->setRowHeight((new CssDimension($attributeArray['height']))->height());
         }
     }
 
@@ -878,14 +879,14 @@ class Html extends BaseReader
 
                 case 'width':
                     $sheet->getColumnDimension($column)->setWidth(
-                        (float) str_replace(['px', 'pt'], '', $styleValue)
+                        (new CssDimension($styleValue ?? ''))->width()
                     );
 
                     break;
 
                 case 'height':
                     $sheet->getRowDimension($row)->setRowHeight(
-                        (float) str_replace(['px', 'pt'], '', $styleValue)
+                        (new CssDimension($styleValue ?? ''))->height()
                     );
 
                     break;
@@ -914,7 +915,7 @@ class Html extends BaseReader
      */
     public function getStyleColor($value)
     {
-        if (strpos($value, '#') === 0) {
+        if (strpos($value ?? '', '#') === 0) {
             return substr($value, 1);
         }
 

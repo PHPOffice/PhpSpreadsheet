@@ -251,7 +251,7 @@ class Functions
         $condition = self::flattenSingleValue($condition);
 
         if ($condition === '') {
-            $condition = '=""';
+            return '=""';
         }
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
             $condition = self::operandSpecialHandling($condition);

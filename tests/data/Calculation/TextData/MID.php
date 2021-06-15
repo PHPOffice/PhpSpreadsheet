@@ -37,10 +37,23 @@ return [
         2,
         'NaN',
     ],
-    [
-        '#VALUE!',
+    'length null treated as zero' => [
+        '',
+        'QWERTYUIOP',
+        2,
+        null,
+    ],
+    'length not specified' => [
+        'exception',
         'QWERTYUIOP',
         5,
+    ],
+    'start not specified' => [
+        'exception',
+        'QWERTYUIOP',
+    ],
+    'string not specified' => [
+        'exception',
     ],
     [
         'IOP',

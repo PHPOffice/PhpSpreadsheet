@@ -2,25 +2,20 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Text
 {
     /**
-     * STRINGLENGTH.
+     * LEN.
      *
      * @param mixed $value String Value
      */
     public static function length($value = ''): int
     {
-        $value = Functions::flattenSingleValue($value);
+        $value = Helpers::extractString($value);
 
-        if (is_bool($value)) {
-            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        return mb_strlen($value, 'UTF-8');
+        return mb_strlen($value ?? '', 'UTF-8');
     }
 
     /**
@@ -33,10 +28,10 @@ class Text
      */
     public static function exact($value1, $value2): bool
     {
-        $value1 = Functions::flattenSingleValue($value1);
-        $value2 = Functions::flattenSingleValue($value2);
+        $value1 = Helpers::extractString($value1);
+        $value2 = Helpers::extractString($value2);
 
-        return ((string) $value2) === ((string) $value1);
+        return $value2 === $value1;
     }
 
     /**
