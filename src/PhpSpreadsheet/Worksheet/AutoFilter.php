@@ -91,26 +91,25 @@ class AutoFilter
     {
         // extract coordinate
         [$worksheet, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-
-        if (strpos($pRange, ':') !== false) {
-            $this->range = $pRange;
-        } elseif (empty($pRange)) {
-            $this->range = '';
-        } else {
-            throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
-        }
-
         if (empty($pRange)) {
             //    Discard all column rules
             $this->columns = [];
-        } else {
-            //    Discard any column rules that are no longer valid within this range
-            [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
-            foreach ($this->columns as $key => $value) {
-                $colIndex = Coordinate::columnIndexFromString($key);
-                if (($rangeStart[0] > $colIndex) || ($rangeEnd[0] < $colIndex)) {
-                    unset($this->columns[$key]);
-                }
+            $this->range = '';
+
+            return $this;
+        }
+
+        if (strpos($pRange, ':') === false) {
+            throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
+        }
+
+        $this->range = $pRange;
+        //    Discard any column rules that are no longer valid within this range
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
+        foreach ($this->columns as $key => $value) {
+            $colIndex = Coordinate::columnIndexFromString($key);
+            if (($rangeStart[0] > $colIndex) || ($rangeEnd[0] < $colIndex)) {
+                unset($this->columns[$key]);
             }
         }
 
@@ -215,7 +214,7 @@ class AutoFilter
 
         if (is_string($pColumn)) {
             $this->columns[$pColumn] = new AutoFilter\Column($pColumn, $this);
-        } elseif (is_object($pColumn) && ($pColumn instanceof AutoFilter\Column)) {
+        } else {
             $pColumn->setParent($this);
             $this->columns[$column] = $pColumn;
         }
@@ -306,20 +305,22 @@ class AutoFilter
         if (($cellValue == '') || ($cellValue === null)) {
             return $blanks;
         }
+        $timeZone = new DateTimeZone('UTC');
 
         if (is_numeric($cellValue)) {
-            $dateValue = Date::excelToTimestamp($cellValue);
+            $dateTime = Date::excelToDateTimeObject((float) $cellValue, $timeZone);
+            $cellValue = (float) $cellValue;
             if ($cellValue < 1) {
                 //    Just the time part
-                $dtVal = date('His', $dateValue);
+                $dtVal = $dateTime->format('His');
                 $dateSet = $dateSet['time'];
             } elseif ($cellValue == floor($cellValue)) {
                 //    Just the date part
-                $dtVal = date('Ymd', $dateValue);
+                $dtVal = $dateTime->format('Ymd');
                 $dateSet = $dateSet['date'];
             } else {
                 //    date and time parts
-                $dtVal = date('YmdHis', $dateValue);
+                $dtVal = $dateTime->format('YmdHis');
                 $dateSet = $dateSet['dateTime'];
             }
             foreach ($dateSet as $dateValue) {
@@ -453,12 +454,10 @@ class AutoFilter
 
     /**
      * Search/Replace arrays to convert Excel wildcard syntax to a regexp syntax for preg_matching.
-     *
-     * @var array
      */
-    private static $fromReplace = ['\*', '\?', '~~', '~.*', '~.?'];
+    private const FROM_REPLACE = ['~~', '~\\*', '\\*', '~\\?', '\\?', "\x1c"];
 
-    private static $toReplace = ['.*', '.', '~', '\*', '\?'];
+    private const TO_REPLACE = ["\x1c", '[*]', '.*', '[?]', '.', '~'];
 
     private static function makeDateObject(int $year, int $month, int $day, int $hour = 0, int $minute = 0, int $second = 0): DateTime
     {
@@ -710,21 +709,37 @@ class AutoFilter
         return ['method' => 'filterTestInCustomDataSet', 'arguments' => ['filterRules' => $ruleValues, 'join' => AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND]];
     }
 
+    /**
+     * Apply the AutoFilter rules to the AutoFilter Range.
+     *
+     * @param string $columnID
+     * @param int $startRow
+     * @param int $endRow
+     * @param ?string $ruleType
+     * @param mixed $ruleValue
+     *
+     * @return mixed
+     */
     private function calculateTopTenValue($columnID, $startRow, $endRow, $ruleType, $ruleValue)
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
-        $dataValues = Functions::flattenArray($this->workSheet->rangeToArray($range, null, true, false));
+        $retVal = null;
+        if ($this->workSheet !== null) {
+            $dataValues = Functions::flattenArray($this->workSheet->rangeToArray($range, null, true, false));
+            $dataValues = array_filter($dataValues);
 
-        $dataValues = array_filter($dataValues);
-        if ($ruleType == Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) {
-            rsort($dataValues);
-        } else {
-            sort($dataValues);
+            if ($ruleType == Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) {
+                rsort($dataValues);
+            } else {
+                sort($dataValues);
+            }
+
+            $slice = array_slice($dataValues, 0, $ruleValue);
+
+            $retVal = array_pop($slice);
         }
 
-        $slice = array_slice($dataValues, 0, $ruleValue);
-
-        return array_pop($slice);
+        return $retVal;
     }
 
     /**
@@ -734,6 +749,9 @@ class AutoFilter
      */
     public function showHideRows()
     {
+        if ($this->workSheet === null) {
+            return $this;
+        }
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
 
         //    The heading row should always be visible
@@ -771,6 +789,9 @@ class AutoFilter
                             'dateTime' => [],
                         ];
                         foreach ($ruleDataSet as $ruleValue) {
+                            if (!is_array($ruleValue)) {
+                                continue;
+                            }
                             $date = $time = '';
                             if (
                                 (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR])) &&
@@ -830,10 +851,10 @@ class AutoFilter
                     //    Build a list of the filter value selections
                     foreach ($rules as $rule) {
                         $ruleValue = $rule->getValue();
-                        if (!is_numeric($ruleValue)) {
+                        if (!is_array($ruleValue) && !is_numeric($ruleValue)) {
                             //    Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
-                            $ruleValue = preg_quote($ruleValue);
-                            $ruleValue = str_replace(self::$fromReplace, self::$toReplace, $ruleValue);
+                            $ruleValue = preg_quote("$ruleValue");
+                            $ruleValue = str_replace(self::FROM_REPLACE, self::TO_REPLACE, $ruleValue);
                             if (trim($ruleValue) == '') {
                                 $customRuleForBlanks = true;
                                 $ruleValue = trim($ruleValue);
@@ -860,7 +881,8 @@ class AutoFilter
                             //    Number (Average) based
                             //    Calculate the average
                             $averageFormula = '=AVERAGE(' . $columnID . ($rangeStart[1] + 1) . ':' . $columnID . $rangeEnd[1] . ')';
-                            $average = Calculation::getInstance()->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
+                            $spreadsheet = ($this->workSheet === null) ? null : $this->workSheet->getParent();
+                            $average = Calculation::getInstance($spreadsheet)->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
                             //    Set above/below rule based on greaterThan or LessTan
                             $operator = ($dynamicRuleType === Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
                                 ? Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN
@@ -915,8 +937,8 @@ class AutoFilter
                         $ruleValue = $rule->getValue();
                         $ruleOperator = $rule->getOperator();
                     }
-                    if ($ruleOperator === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
-                        $ruleValue = floor($ruleValue * ($dataRowCount / 100));
+                    if (is_numeric($ruleValue) && $ruleOperator === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
+                        $ruleValue = floor((float) $ruleValue * ($dataRowCount / 100));
                     }
                     if (!is_array($ruleValue) && $ruleValue < 1) {
                         $ruleValue = 1;
@@ -947,18 +969,16 @@ class AutoFilter
             foreach ($columnFilterTests as $columnID => $columnFilterTest) {
                 $cellValue = $this->workSheet->getCell($columnID . $row)->getCalculatedValue();
                 //    Execute the filter test
-                $result = $result &&
-                    call_user_func_array(
-                        [self::class, $columnFilterTest['method']],
-                        [$cellValue, $columnFilterTest['arguments']]
-                    );
+                $result = // $result && // phpstan says $result is always true here
+                    // @phpstan-ignore-next-line
+                    call_user_func_array([self::class, $columnFilterTest['method']], [$cellValue, $columnFilterTest['arguments']]);
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
                 if (!$result) {
                     break;
                 }
             }
             //    Set show/hide for the row based on the result of the autoFilter result
-            $this->workSheet->getRowDimension($row)->setVisible($result);
+            $this->workSheet->getRowDimension((int) $row)->setVisible($result);
         }
 
         return $this;
