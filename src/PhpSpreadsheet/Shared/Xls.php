@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Xls
@@ -76,12 +77,11 @@ class Xls
         } elseif ($sheet->getDefaultRowDimension()->getRowHeight() != -1) {
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $sheet->getDefaultRowDimension();
-            $rowHeight = $defaultRowDimension->getRowHeight();
-            $pixelRowHeight = Drawing::pointsToPixels($rowHeight);
+            $pixelRowHeight = $defaultRowDimension->getRowHeight(Dimension::UOM_PIXELS);
         } else {
             // we don't even have any default row dimension. Height depends on default font
             $pointRowHeight = Font::getDefaultRowHeightByFont($font);
-            $pixelRowHeight = Font::fontSizeToPixels($pointRowHeight);
+            $pixelRowHeight = Font::fontSizeToPixels((int) $pointRowHeight);
         }
 
         // now find the effective row height in pixels
@@ -91,7 +91,7 @@ class Xls
             $effectivePixelRowHeight = $pixelRowHeight;
         }
 
-        return $effectivePixelRowHeight;
+        return (int) $effectivePixelRowHeight;
     }
 
     /**
