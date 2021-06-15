@@ -37,7 +37,6 @@ class ColumnTest extends SetupTeardown
                 Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
                 3
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         $result = $columnFilter->getColumnIndex();
         self::assertEquals('H', $result);
     }
@@ -47,7 +46,7 @@ class ColumnTest extends SetupTeardown
         $this->expectException(PhpSpreadsheetException::class);
         $this->expectExceptionMessage('Column is outside of current autofilter range.');
         $sheet = $this->initSheet();
-        $columnFilter = $sheet->getAutoFilter()->getColumn('B');
+        $sheet->getAutoFilter()->getColumn('B');
     }
 
     public function testSetColumnIndex(): void
@@ -60,7 +59,6 @@ class ColumnTest extends SetupTeardown
                 Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
                 3
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         $expectedResult = 'G';
 
         $result = $columnFilter->setColumnIndex($expectedResult);
@@ -89,7 +87,6 @@ class ColumnTest extends SetupTeardown
                 Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
                 3
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
 
         $result = $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
         self::assertInstanceOf(Column::class, $result);
@@ -202,10 +199,11 @@ class ColumnTest extends SetupTeardown
             'maxVal' => 200,
         ];
 
-        $result = $columnFilter->setAttributes($attributeSet);
+        $columnFilter->setAttributes($attributeSet);
 
         foreach ($attributeSet as $attributeName => $attributeValue) {
             $result = $columnFilter->getAttribute($attributeName);
+            self::assertSame($attributeValue, $result);
         }
         $result = $columnFilter->getAttribute('nonExistentAttribute');
         self::assertNull($result);

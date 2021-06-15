@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterWeekTest extends SetupTeardown
 {
@@ -18,7 +17,7 @@ class AutoFilterWeekTest extends SetupTeardown
         ];
     }
 
-    private function setCells(Worksheet $sheet): void
+    private function setCells(): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('Date');
@@ -45,7 +44,7 @@ class AutoFilterWeekTest extends SetupTeardown
             $sheet = $this->getSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
-            self::setCells($sheet);
+            $this->setCells();
 
             $maxRow = $this->maxRow;
             $autoFilter = $sheet->getAutoFilter();
