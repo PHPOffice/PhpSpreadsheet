@@ -40,7 +40,6 @@ class RuleCustomTest extends SetupTeardown
                 3
             )
             ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals($expectedResult, $this->getVisible());
     }
 

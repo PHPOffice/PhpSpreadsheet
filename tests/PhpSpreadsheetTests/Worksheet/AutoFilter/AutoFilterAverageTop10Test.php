@@ -160,7 +160,6 @@ class AutoFilterAverageTop10Test extends SetupTeardown
             )
             ->setRuleType(Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
 
-        $visible = $this->getVisible();
         self::assertCount(500, $this->getVisible(), 'Top10 Filter limited to 500 items plus ties');
     }
 }

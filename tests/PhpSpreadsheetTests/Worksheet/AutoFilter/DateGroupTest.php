@@ -49,7 +49,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([6], $this->getVisible());
     }
 
@@ -74,7 +73,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         $sheet->getCell('C5')->setValue(''); // make an empty cell in range
         self::assertEquals([6], $this->getVisible());
     }
@@ -100,7 +98,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([], $this->getVisible());
     }
 
@@ -122,7 +119,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([6], $this->getVisible());
     }
 
@@ -141,7 +137,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([], $this->getVisible());
     }
 
@@ -161,7 +156,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([14, 38, 62], $this->getVisible());
     }
 
@@ -182,7 +176,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([38], $this->getVisible());
     }
 
@@ -204,7 +197,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([38], $this->getVisible());
     }
 
@@ -226,7 +218,6 @@ class DateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([], $this->getVisible());
     }
 }

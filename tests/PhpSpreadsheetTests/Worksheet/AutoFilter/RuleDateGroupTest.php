@@ -48,7 +48,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
@@ -68,7 +67,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
@@ -90,7 +88,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
@@ -111,7 +108,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 'xyz'
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([3, 5, 6, 7], $this->getVisible());
     }
 
@@ -131,7 +127,6 @@ class RuleDateGroupTest extends SetupTeardown
             ->setRuleType(
                 Rule::AUTOFILTER_RULETYPE_DATEGROUP
             );
-        $autoFilterRuleObject = new Rule($columnFilter);
         self::assertEquals([3, 6], $this->getVisible());
     }
 }
