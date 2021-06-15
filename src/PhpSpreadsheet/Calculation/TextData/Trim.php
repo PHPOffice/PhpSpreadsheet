@@ -2,15 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-
 class Trim
 {
-    private static $invalidChars;
-
     /**
-     * TRIMNONPRINTABLE.
+     * CLEAN.
      *
      * @param mixed $stringValue String Value to check
      *
@@ -18,41 +13,22 @@ class Trim
      */
     public static function nonPrintable($stringValue = '')
     {
-        $stringValue = Functions::flattenSingleValue($stringValue);
+        $stringValue = Helpers::extractString($stringValue);
 
-        if (is_bool($stringValue)) {
-            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
-
-        if (self::$invalidChars === null) {
-            self::$invalidChars = range(chr(0), chr(31));
-        }
-
-        if (is_string($stringValue) || is_numeric($stringValue)) {
-            return str_replace(self::$invalidChars, '', trim($stringValue, "\x00..\x1F"));
-        }
-
-        return null;
+        return preg_replace('/[\\x00-\\x1f]/', '', "$stringValue");
     }
 
     /**
-     * TRIMSPACES.
+     * TRIM.
      *
      * @param mixed $stringValue String Value to check
      *
-     * @return null|string
+     * @return string
      */
     public static function spaces($stringValue = '')
     {
-        $stringValue = Functions::flattenSingleValue($stringValue);
-        if (is_bool($stringValue)) {
-            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
-        }
+        $stringValue = Helpers::extractString($stringValue);
 
-        if (is_string($stringValue) || is_numeric($stringValue)) {
-            return trim(preg_replace('/ +/', ' ', trim($stringValue, ' ')), ' ');
-        }
-
-        return null;
+        return trim(preg_replace('/ +/', ' ', trim("$stringValue", ' ')) ?? '', ' ');
     }
 }

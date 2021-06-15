@@ -215,11 +215,11 @@ class Column
     /**
      * Set AutoFilter Attributes.
      *
-     * @param string[] $attributes
+     * @param mixed[] $attributes
      *
      * @return $this
      */
-    public function setAttributes(array $attributes)
+    public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
 

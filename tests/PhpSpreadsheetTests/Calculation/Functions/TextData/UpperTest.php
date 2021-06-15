@@ -2,26 +2,27 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Settings;
-use PHPUnit\Framework\TestCase;
 
-class UpperTest extends TestCase
+class UpperTest extends AllSetupTeardown
 {
-    protected function tearDown(): void
-    {
-        Settings::setLocale('en_US');
-    }
-
     /**
      * @dataProvider providerUPPER
      *
      * @param mixed $expectedResult
-     * @param mixed $value
+     * @param mixed $str
      */
-    public function testUPPER($expectedResult, $value): void
+    public function testUPPER($expectedResult, $str = 'omitted'): void
     {
-        $result = TextData::UPPERCASE($value);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($str === 'omitted') {
+            $sheet->getCell('B1')->setValue('=UPPER()');
+        } else {
+            $this->setCell('A1', $str);
+            $sheet->getCell('B1')->setValue('=UPPER(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -41,14 +42,13 @@ class UpperTest extends TestCase
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
-            Settings::setLocale('en_US');
             self::markTestSkipped('Unable to set locale for locale-specific test');
         }
-
-        $result = TextData::UPPERCASE($value);
+        $sheet = $this->getSheet();
+        $this->setCell('A1', $value);
+        $sheet->getCell('B1')->setValue('=UPPER(A1)');
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
-
-        Settings::setLocale('en_US');
     }
 
     public function providerLocaleLOWER(): array

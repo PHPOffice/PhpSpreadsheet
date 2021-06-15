@@ -1234,6 +1234,7 @@ class Worksheet extends WriterPart
                 return;
             }
             $objWriter->writeAttribute('t', 'str');
+            $calculatedValue = StringHelper::controlCharacterPHP2OOXML($calculatedValue);
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
             $calculatedValue = (int) $calculatedValue;

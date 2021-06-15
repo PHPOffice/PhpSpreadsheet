@@ -25,4 +25,5 @@ return [
         null,
         null,
     ],
+    'omitted argument' => ['exception'],
 ];

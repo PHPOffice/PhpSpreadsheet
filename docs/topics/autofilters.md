@@ -327,14 +327,14 @@ $columnFilter->setFilterType(
 ```
 
 When defining the rule for a dynamic filter, we don't define a value (we
-can simply set that to NULL) but we do specify the dynamic filter
+can simply set that to null string) but we do specify the dynamic filter
 category.
 
 ```php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        NULL,
+        '',
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
     )
     ->setRuleType(
