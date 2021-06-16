@@ -759,8 +759,8 @@ class Worksheet implements IComparable
 
                         if ($cellValue !== null && $cellValue !== '') {
                             $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
-                                (float)$autoSizes[$this->cellCollection->getCurrentColumn()],
-                                (float)Shared\Font::calculateColumnWidth(
+                                (float) $autoSizes[$this->cellCollection->getCurrentColumn()],
+                                (float) Shared\Font::calculateColumnWidth(
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
                                     $cellValue,
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
