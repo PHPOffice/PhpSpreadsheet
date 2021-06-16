@@ -18,7 +18,7 @@ class FvTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testFV($expectedResult, ...$args): void
+    public function testFV($expectedResult, array $args): void
     {
         $result = Financial::FV(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
