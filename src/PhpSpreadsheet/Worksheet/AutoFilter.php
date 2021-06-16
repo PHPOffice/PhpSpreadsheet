@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -452,13 +453,6 @@ class AutoFilter
         return false;
     }
 
-    /**
-     * Search/Replace arrays to convert Excel wildcard syntax to a regexp syntax for preg_matching.
-     */
-    private const FROM_REPLACE = ['~~', '~\\*', '\\*', '~\\?', '\\?', "\x1c"];
-
-    private const TO_REPLACE = ["\x1c", '[*]', '.*', '[?]', '.', '~'];
-
     private static function makeDateObject(int $year, int $month, int $day, int $hour = 0, int $minute = 0, int $second = 0): DateTime
     {
         $baseDate = new DateTime();
@@ -853,8 +847,7 @@ class AutoFilter
                         $ruleValue = $rule->getValue();
                         if (!is_array($ruleValue) && !is_numeric($ruleValue)) {
                             //    Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
-                            $ruleValue = preg_quote("$ruleValue");
-                            $ruleValue = str_replace(self::FROM_REPLACE, self::TO_REPLACE, $ruleValue);
+                            $ruleValue = WildcardMatch::wildcard($ruleValue);
                             if (trim($ruleValue) == '') {
                                 $customRuleForBlanks = true;
                                 $ruleValue = trim($ruleValue);

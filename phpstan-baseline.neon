@@ -756,16 +756,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\WildcardMatch\\:\\:wildcard\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\WildcardMatch\\:\\:compare\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php
-
-		-
 			message: "#^Call to function is_string\\(\\) with null will always evaluate to false\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
