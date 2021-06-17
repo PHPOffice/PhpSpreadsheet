@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Return Value Error - DatabaseAbstruct::buildQuery() return null but must be string [Issue #2158](https://github.com/PHPOffice/PhpSpreadsheet/issues/2158) [PR #2160](https://github.com/PHPOffice/PhpSpreadsheet/pull/2160)
+- Xlsx reader not recognize data validations that references another sheet [Issue #2149](https://github.com/PHPOffice/PhpSpreadsheet/issues/2149) [PR #2150](https://github.com/PHPOffice/PhpSpreadsheet/pull/2150)
+- Don't calculate cell width for autosize columns if a cell contains a null or empty string value [Issue #2165](https://github.com/PHPOffice/PhpSpreadsheet/issues/2165) [PR #2167](https://github.com/PHPOffice/PhpSpreadsheet/pull/2167)
+- Allow negative interest rate values in a number of the Financial functions (`PPMT()`, `PMT()`, `FV()`, `PV()`, `NPER()`, etc) [Issue #2163](https://github.com/PHPOffice/PhpSpreadsheet/issues/2163) [PR #2164](https://github.com/PHPOffice/PhpSpreadsheet/pull/2164)
 - Xls Reader changing grey background to black in Excel template [Issue #2147](Changing grey background to black in Excel template) [PR #2156](https://github.com/PHPOffice/PhpSpreadsheet/pull/2156)
 - Column width and Row height styles in the Html Reader when the value includes a unit of measure. [Issue #2145](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145).
 
