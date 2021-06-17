@@ -155,8 +155,10 @@ class Drawing extends WriterPart
     public function writeDrawing(XMLWriter $objWriter, BaseDrawing $pDrawing, $pRelationId = -1, $hlinkClickId = null): void
     {
         if ($pRelationId >= 0) {
+            // Use drawUsingMoveAndResizeWithCell
+            $drawUsingMoveAndResizeWithCell = (property_exists($pDrawing, 'drawUsingMoveAndResizeWithCell') && $pDrawing->drawUsingMoveAndResizeWithCell);
             // xdr:oneCellAnchor
-            $objWriter->startElement('xdr:oneCellAnchor');
+            $objWriter->startElement($drawUsingMoveAndResizeWithCell ? 'xdr:twoCellAnchor' : 'xdr:oneCellAnchor');
             // Image location
             $aCoordinates = Coordinate::indexesFromString($pDrawing->getCoordinates());
 
@@ -173,6 +175,16 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('cx', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getWidth()));
             $objWriter->writeAttribute('cy', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getHeight()));
             $objWriter->endElement();
+
+            // drawUsingMoveAndResizeWithCell
+            if ($drawUsingMoveAndResizeWithCell) {
+                $objWriter->startElement('xdr:to');
+                $objWriter->writeElement('xdr:col', $aCoordinates[0] - 1);
+                $objWriter->writeElement('xdr:colOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getWidth()));
+                $objWriter->writeElement('xdr:row', $aCoordinates[1] - 1);
+                $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getHeight()));
+                $objWriter->endElement();
+            };
 
             // xdr:pic
             $objWriter->startElement('xdr:pic');
