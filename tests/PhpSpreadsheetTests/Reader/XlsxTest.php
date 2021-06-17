@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -14,47 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
-    public function testLoadXlsxWorkbookProperties(): void
-    {
-        $customPropertySet = [
-            'Publisher' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice Suite'],
-            'Tested' => ['type' => Properties::PROPERTY_TYPE_BOOLEAN, 'value' => true],
-            'Counter' => ['type' => Properties::PROPERTY_TYPE_INTEGER, 'value' => 15],
-            'Rate' => ['type' => Properties::PROPERTY_TYPE_FLOAT, 'value' => 1.15],
-            'Refactor Date' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-10'],
-        ];
-
-        $filename = 'tests/data/Reader/XLSX/propertyTest.xlsx';
-        $reader = new Xlsx();
-        $spreadsheet = $reader->load($filename);
-
-        $properties = $spreadsheet->getProperties();
-        // Core Properties
-        self::assertSame('Mark Baker', $properties->getCreator());
-        self::assertSame('Unit Testing', $properties->getTitle());
-        self::assertSame('Property Test', $properties->getSubject());
-
-        // Extended Properties
-        self::assertSame('PHPOffice', $properties->getCompany());
-        self::assertSame('The Big Boss', $properties->getManager());
-
-        // Custom Properties
-        $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
-        $customProperties = array_flip($customProperties);
-        self::assertArrayHasKey('Publisher', $customProperties);
-
-        foreach ($customPropertySet as $propertyName => $testData) {
-            self::assertTrue($properties->isCustomPropertySet($propertyName));
-            self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
-            if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                self::assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
-            } else {
-                self::assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
-            }
-        }
-    }
-
     public function testListWorksheetInfo(): void
     {
         $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
@@ -188,6 +148,31 @@ class XlsxTest extends TestCase
         self::assertTrue($worksheet->getCell('B3')->hasDataValidation());
     }
 
+    /*
+     * Test for load drop down lists of another sheet.
+     * Pull #2150, issue #2149
+     */
+    public function testLoadXlsxDataValidationOfAnotherSheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/dataValidation2Test.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // same sheet
+        $validationCell = $worksheet->getCell('B5');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('$A$5:$A$7', $validationCell->getDataValidation()->getFormula1());
+
+        // another sheet
+        $validationCell = $worksheet->getCell('B14');
+        self::assertTrue($validationCell->hasDataValidation());
+        self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
+        self::assertSame('Feuil2!$A$3:$A$5', $validationCell->getDataValidation()->getFormula1());
+    }
+
     /**
      * Test load Xlsx file without cell reference.
      *
@@ -237,7 +222,7 @@ class XlsxTest extends TestCase
         $filename = 'tests/data/Reader/XLSX/empty_drawing.xlsx';
         $reader = new Xlsx();
         $excel = $reader->load($filename);
-        $resultFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $resultFilename = File::temporaryFilename();
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
         $writer->save($resultFilename);
         $excel = $reader->load($resultFilename);
@@ -250,7 +235,6 @@ class XlsxTest extends TestCase
      * Test if all whitespace is removed from a style definition string.
      * This is needed to parse it into properties with the correct keys.
      *
-     * @param $string
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
     public function testStripsWhiteSpaceFromStyleString($string): void
@@ -259,7 +243,7 @@ class XlsxTest extends TestCase
         self::assertEquals(preg_match('/\s/', $string), 0);
     }
 
-    public function providerStripsWhiteSpaceFromStyleString()
+    public function providerStripsWhiteSpaceFromStyleString(): array
     {
         return [
             ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;

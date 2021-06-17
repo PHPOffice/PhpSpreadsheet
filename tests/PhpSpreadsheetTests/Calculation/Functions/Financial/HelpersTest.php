@@ -17,10 +17,10 @@ class HelpersTest extends TestCase
     public function testDaysPerYear($expectedResult, $year, $basis): void
     {
         $result = Helpers::daysPerYear($year, $basis);
-        self::assertSame($expectedResult, $result, 1E-8);
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerDaysPerYear()
+    public function providerDaysPerYear(): array
     {
         return require 'tests/data/Calculation/Financial/DaysPerYear.php';
     }

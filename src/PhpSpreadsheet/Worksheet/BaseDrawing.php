@@ -39,7 +39,7 @@ class BaseDrawing implements IComparable
     /**
      * Worksheet.
      *
-     * @var Worksheet
+     * @var null|Worksheet
      */
     protected $worksheet;
 
@@ -190,7 +190,7 @@ class BaseDrawing implements IComparable
     /**
      * Get Worksheet.
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getWorksheet()
     {
@@ -330,7 +330,7 @@ class BaseDrawing implements IComparable
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
             $ratio = $this->height / ($this->width != 0 ? $this->width : 1);
-            $this->height = round($ratio * $pValue);
+            $this->height = (int) round($ratio * $pValue);
         }
 
         // Set width
@@ -361,7 +361,7 @@ class BaseDrawing implements IComparable
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
             $ratio = $this->width / ($this->height != 0 ? $this->height : 1);
-            $this->width = round($ratio * $pValue);
+            $this->width = (int) round($ratio * $pValue);
         }
 
         // Set height
@@ -392,10 +392,10 @@ class BaseDrawing implements IComparable
         $yratio = $height / ($this->height != 0 ? $this->height : 1);
         if ($this->resizeProportional && !($width == 0 || $height == 0)) {
             if (($xratio * $this->height) < $height) {
-                $this->height = ceil($xratio * $this->height);
+                $this->height = (int) ceil($xratio * $this->height);
                 $this->width = $width;
             } else {
-                $this->width = ceil($yratio * $this->width);
+                $this->width = (int) ceil($yratio * $this->width);
                 $this->height = $height;
             }
         } else {

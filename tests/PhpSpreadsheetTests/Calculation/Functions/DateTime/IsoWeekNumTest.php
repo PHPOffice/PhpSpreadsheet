@@ -13,13 +13,13 @@ class IsoWeekNumTest extends AllSetupTeardown
     public function testISOWEEKNUM($expectedResult, $dateValue): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerISOWEEKNUM()
+    public function providerISOWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
@@ -34,13 +34,13 @@ class IsoWeekNumTest extends AllSetupTeardown
     {
         $this->mightHaveException($expectedResult);
         self::setMac1904();
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerISOWEEKNUM1904()
+    public function providerISOWEEKNUM1904(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM1904.php';
     }

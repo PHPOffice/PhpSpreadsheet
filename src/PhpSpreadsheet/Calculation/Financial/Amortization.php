@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Amortization
@@ -22,32 +24,53 @@ class Amortization
      * Excel Function:
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param float $cost The cost of the asset
+     * @param mixed $cost The float cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param float $period The period
-     * @param float $rate Rate of depreciation
-     * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     * @param mixed $period the period (float)
+     * @param mixed $rate rate of depreciation (float)
+     * @param mixed $basis The type of day count to use (int).
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1               Actual/actual
+     *                         2               Actual/360
+     *                         3               Actual/365
+     *                         4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
-    {
+    public static function AMORDEGRC(
+        $cost,
+        $purchased,
+        $firstPeriod,
+        $salvage,
+        $period,
+        $rate,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+    ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
         $firstPeriod = Functions::flattenSingleValue($firstPeriod);
         $salvage = Functions::flattenSingleValue($salvage);
-        $period = floor(Functions::flattenSingleValue($period));
+        $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
 
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        try {
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateInt($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
@@ -88,41 +111,65 @@ class Amortization
      * Excel Function:
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
-     * @param float $cost The cost of the asset
+     * @param mixed $cost The cost of the asset as a float
      * @param mixed $purchased Date of the purchase of the asset
      * @param mixed $firstPeriod Date of the end of the first period
      * @param mixed $salvage The salvage value at the end of the life of the asset
-     * @param float $period The period
-     * @param float $rate Rate of depreciation
-     * @param int $basis The type of day count to use.
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
+     * @param mixed $period The period as a float
+     * @param mixed $rate Rate of depreciation as  float
+     * @param mixed $basis Integer indicating the type of day count to use.
+     *                             0 or omitted    US (NASD) 30/360
+     *                             1               Actual/actual
+     *                             2               Actual/360
+     *                             3               Actual/365
+     *                             4               European 30/360
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
-    {
+    public static function AMORLINC(
+        $cost,
+        $purchased,
+        $firstPeriod,
+        $salvage,
+        $period,
+        $rate,
+        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+    ) {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
         $firstPeriod = Functions::flattenSingleValue($firstPeriod);
         $salvage = Functions::flattenSingleValue($salvage);
         $period = Functions::flattenSingleValue($period);
         $rate = Functions::flattenSingleValue($rate);
-        $basis = ($basis === null) ? 0 : (int) Functions::flattenSingleValue($basis);
+        $basis = ($basis === null)
+            ? FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+            : Functions::flattenSingleValue($basis);
+
+        try {
+            $cost = FinancialValidations::validateFloat($cost);
+            $purchased = FinancialValidations::validateDate($purchased);
+            $firstPeriod = FinancialValidations::validateDate($firstPeriod);
+            $salvage = FinancialValidations::validateFloat($salvage);
+            $period = FinancialValidations::validateFloat($period);
+            $rate = FinancialValidations::validateFloat($rate);
+            $basis = FinancialValidations::validateBasis($basis);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
         $fOneRate = $cost * $rate;
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
-        $purchasedYear = DateTime::YEAR($purchased);
-        $yearFrac = DateTime::YEARFRAC($purchased, $firstPeriod, $basis);
+        $purchasedYear = DateTimeExcel\DateParts::year($purchased);
+        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
         if (is_string($yearFrac)) {
             return $yearFrac;
         }
 
-        if (($basis == 1) && ($yearFrac < 1) && (DateTime::isLeapYear($purchasedYear))) {
+        if (
+            ($basis == FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) &&
+            ($yearFrac < 1) && (DateTimeExcel\Helpers::isLeapYear($purchasedYear))
+        ) {
             $yearFrac *= 365 / 366;
         }
 

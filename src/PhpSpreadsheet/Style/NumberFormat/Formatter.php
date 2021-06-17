@@ -43,7 +43,7 @@ class Formatter
         //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
         //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
         $cnt = count($sections);
-        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/';
+        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/mui';
         $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
         $colors = ['', '', '', '', ''];
         $condops = ['', '', '', '', ''];
@@ -130,7 +130,7 @@ class Formatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        $format = preg_replace('/_/ui', ' ', $format);
+        $format = preg_replace('/_.?/ui', ' ', $format);
 
         // Let's begin inspecting the format and converting the value to a formatted string
 
@@ -139,7 +139,7 @@ class Formatter
             // datetime format
             $value = DateFormatter::format($value, $format);
         } else {
-            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"') {
+            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"' && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format

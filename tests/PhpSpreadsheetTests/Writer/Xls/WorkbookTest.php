@@ -47,7 +47,7 @@ class WorkbookTest extends TestCase
         self::assertEquals($expectedResult, $palette);
     }
 
-    public function providerAddColor()
+    public function providerAddColor(): array
     {
         $this->setUp();
 

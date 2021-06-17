@@ -30,7 +30,7 @@ class DVarP extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float|string (string if result is an error)
+     * @return null|float|string (string if result is an error)
      */
     public static function evaluate($database, $field, $criteria)
     {

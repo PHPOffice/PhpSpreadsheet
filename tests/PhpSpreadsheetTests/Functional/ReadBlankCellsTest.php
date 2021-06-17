@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadBlankCellsTest extends AbstractFunctional
 {
-    public function providerSheetFormat()
+    public function providerSheetFormat(): array
     {
         return [
             ['Xlsx'],

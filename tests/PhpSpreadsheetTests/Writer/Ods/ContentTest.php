@@ -16,7 +16,14 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $samplesPath = 'tests/data/Writer/Ods';
+
+    /**
+     * @var string
+     */
 
     /**
      * @var string

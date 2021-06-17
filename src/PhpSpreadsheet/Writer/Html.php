@@ -37,7 +37,7 @@ class Html extends BaseWriter
     /**
      * Sheet index to write.
      *
-     * @var int
+     * @var null|int
      */
     private $sheetIndex = 0;
 
@@ -153,8 +153,10 @@ class Html extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename): void
+    public function save($pFilename, int $flags = 0): void
     {
+        $this->processFlags($flags);
+
         // Open file
         $this->openFileHandle($pFilename);
 
@@ -453,10 +455,8 @@ class Html extends BaseWriter
 
             // Get worksheet dimension
             [$min, $max] = explode(':', $sheet->calculateWorksheetDataDimension());
-            [$minCol, $minRow] = Coordinate::coordinateFromString($min);
-            $minCol = Coordinate::columnIndexFromString($minCol);
-            [$maxCol, $maxRow] = Coordinate::coordinateFromString($max);
-            $maxCol = Coordinate::columnIndexFromString($maxCol);
+            [$minCol, $minRow] = Coordinate::indexesFromString($min);
+            [$maxCol, $maxRow] = Coordinate::indexesFromString($max);
 
             [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $minRow);
 
@@ -692,18 +692,21 @@ class Html extends BaseWriter
                     $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' .
                     $imageData . '" alt="' . $filedesc . '" />';
             } elseif ($drawing instanceof MemoryDrawing) {
-                ob_start(); //  Let's start output buffering.
-                imagepng($drawing->getImageResource()); //  This will normally output the image, but because of ob_start(), it won't.
-                $contents = ob_get_contents(); //  Instead, output above is saved to $contents
-                ob_end_clean(); //  End the output buffer.
+                $imageResource = $drawing->getImageResource();
+                if ($imageResource) {
+                    ob_start(); //  Let's start output buffering.
+                    imagepng($imageResource); //  This will normally output the image, but because of ob_start(), it won't.
+                    $contents = ob_get_contents(); //  Instead, output above is saved to $contents
+                    ob_end_clean(); //  End the output buffer.
 
-                $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
+                    $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
 
-                //  Because of the nature of tables, width is more important than height.
-                //  max-width: 100% ensures that image doesnt overflow containing cell
-                //  width: X sets width of supplied image.
-                //  As a result, images bigger than cell will be contained and images smaller will not get stretched
-                $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="max-width:100%;width:' . $drawing->getWidth() . 'px;" />';
+                    //  Because of the nature of tables, width is more important than height.
+                    //  max-width: 100% ensures that image doesnt overflow containing cell
+                    //  width: X sets width of supplied image.
+                    //  As a result, images bigger than cell will be contained and images smaller will not get stretched
+                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="max-width:100%;width:' . $drawing->getWidth() . 'px;" />';
+                }
             }
         }
 
@@ -737,7 +740,7 @@ class Html extends BaseWriter
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
-                        return;
+                        return '';
                     }
 
                     $html .= PHP_EOL;
@@ -1703,11 +1706,11 @@ class Html extends BaseWriter
                 $first = $cells[0];
                 $last = $cells[1];
 
-                [$fc, $fr] = Coordinate::coordinateFromString($first);
-                $fc = Coordinate::columnIndexFromString($fc) - 1;
+                [$fc, $fr] = Coordinate::indexesFromString($first);
+                $fc = $fc - 1;
 
-                [$lc, $lr] = Coordinate::coordinateFromString($last);
-                $lc = Coordinate::columnIndexFromString($lc) - 1;
+                [$lc, $lr] = Coordinate::indexesFromString($last);
+                $lc = $lc - 1;
 
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -137,13 +139,17 @@ class DocProps extends WriterPart
         // dcterms:created
         $objWriter->startElement('dcterms:created');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $created = $spreadsheet->getProperties()->getCreated();
+        $date = Date::dateTimeFromTimestamp("$created");
+        $objWriter->writeRawData($date->format(DATE_W3C));
         $objWriter->endElement();
 
         // dcterms:modified
         $objWriter->startElement('dcterms:modified');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getModified()));
+        $created = $spreadsheet->getProperties()->getModified();
+        $date = Date::dateTimeFromTimestamp("$created");
+        $objWriter->writeRawData($date->format(DATE_W3C));
         $objWriter->endElement();
 
         // dc:title
@@ -170,13 +176,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/custom.xml to XML format.
      *
-     * @return string XML Output
+     * @return null|string XML Output
      */
     public function writeDocPropsCustom(Spreadsheet $spreadsheet)
     {
         $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         if (empty($customPropertyList)) {
-            return;
+            return null;
         }
 
         // Create XML writer
@@ -205,21 +211,22 @@ class DocProps extends WriterPart
             $objWriter->writeAttribute('name', $customProperty);
 
             switch ($propertyType) {
-                case 'i':
+                case Properties::PROPERTY_TYPE_INTEGER:
                     $objWriter->writeElement('vt:i4', $propertyValue);
 
                     break;
-                case 'f':
+                case Properties::PROPERTY_TYPE_FLOAT:
                     $objWriter->writeElement('vt:r8', $propertyValue);
 
                     break;
-                case 'b':
+                case Properties::PROPERTY_TYPE_BOOLEAN:
                     $objWriter->writeElement('vt:bool', ($propertyValue) ? 'true' : 'false');
 
                     break;
-                case 'd':
+                case Properties::PROPERTY_TYPE_DATE:
                     $objWriter->startElement('vt:filetime');
-                    $objWriter->writeRawData(date(DATE_W3C, $propertyValue));
+                    $date = Date::dateTimeFromTimestamp("$propertyValue");
+                    $objWriter->writeRawData($date->format(DATE_W3C));
                     $objWriter->endElement();
 
                     break;

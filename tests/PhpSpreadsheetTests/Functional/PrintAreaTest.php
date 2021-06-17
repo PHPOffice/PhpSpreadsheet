@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PrintAreaTest extends AbstractFunctional
 {
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xls'],

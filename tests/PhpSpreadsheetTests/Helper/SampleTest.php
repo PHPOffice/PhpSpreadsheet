@@ -25,7 +25,7 @@ class SampleTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function providerSample()
+    public function providerSample(): array
     {
         $skipped = [
             'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
@@ -63,7 +63,7 @@ class SampleTest extends TestCase
 //                }
                 if (!in_array($sample, $skipped)) {
                     $file = 'samples/' . $sample;
-                    $result[] = [$file];
+                    $result[$sample] = [$file];
                 }
             }
         }

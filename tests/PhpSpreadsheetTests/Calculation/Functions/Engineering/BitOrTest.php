@@ -26,7 +26,7 @@ class BitOrTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITOR()
+    public function providerBITOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITOR.php';
     }

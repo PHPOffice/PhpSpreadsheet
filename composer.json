@@ -1,7 +1,19 @@
 {
     "name": "phpoffice/phpspreadsheet",
     "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
-    "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
+    "keywords": [
+        "PHP",
+        "OpenXML",
+        "Excel",
+        "xlsx",
+        "xls",
+        "ods",
+        "gnumeric",
+        "spreadsheet"
+    ],
+    "config": {
+        "sort-packages": true
+    },
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
     "license": "MIT",
@@ -29,7 +41,8 @@
         "check": [
             "php-cs-fixer fix --ansi --dry-run --diff",
             "phpcs",
-            "phpunit --color=always"
+            "phpunit --color=always",
+            "phpstan analyse --ansi"
         ],
         "fix": [
             "php-cs-fixer fix --ansi"
@@ -39,35 +52,38 @@
         ]
     },
     "require": {
-        "php": "^7.2||^8.0",
+        "php": "^7.2 || ^8.0",
         "ext-ctype": "*",
         "ext-dom": "*",
+        "ext-fileinfo": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
-        "ext-fileinfo": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
-        "ext-SimpleXML": "*",
+        "ext-simplexml": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
+        "ezyang/htmlpurifier": "^4.13",
         "maennchen/zipstream-php": "^2.1",
-        "markbaker/complex": "^1.5||^2.0",
-        "markbaker/matrix": "^1.2||^2.0",
-        "psr/simple-cache": "^1.0",
+        "markbaker/complex": "^2.0",
+        "markbaker/matrix": "^2.0",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
-        "ezyang/htmlpurifier": "^4.13"
+        "psr/simple-cache": "^1.0"
     },
     "require-dev": {
-        "dompdf/dompdf": "^0.8.5",
+        "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+        "dompdf/dompdf": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.18",
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "^8.0",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpunit/phpunit": "^8.5||^9.3",
+        "phpstan/phpstan": "^0.12.82",
+        "phpstan/phpstan-phpunit": "^0.12.18",
+        "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "^3.5",
         "tecnickcom/tcpdf": "^6.3"
     },
@@ -84,7 +100,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests"
+            "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
+            "PhpOffice\\PhpSpreadsheetInfra\\": "infra"
         }
     }
 }

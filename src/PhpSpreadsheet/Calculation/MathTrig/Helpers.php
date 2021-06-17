@@ -34,7 +34,7 @@ class Helpers
             return (int) $number;
         }
         if (is_numeric($number)) {
-            return $number;
+            return 0 + $number;
         }
 
         throw new Exception(Functions::VALUE());
@@ -55,10 +55,52 @@ class Helpers
             return $substitute;
         }
         if (is_numeric($number)) {
-            return $number;
+            return 0 + $number;
         }
 
         throw new Exception(Functions::VALUE());
+    }
+
+    /**
+     * Confirm number >= 0.
+     *
+     * @param float|int $number
+     */
+    public static function validateNotNegative($number, ?string $except = null): void
+    {
+        if ($number >= 0) {
+            return;
+        }
+
+        throw new Exception($except ?? Functions::NAN());
+    }
+
+    /**
+     * Confirm number > 0.
+     *
+     * @param float|int $number
+     */
+    public static function validatePositive($number, ?string $except = null): void
+    {
+        if ($number > 0) {
+            return;
+        }
+
+        throw new Exception($except ?? Functions::NAN());
+    }
+
+    /**
+     * Confirm number != 0.
+     *
+     * @param float|int $number
+     */
+    public static function validateNotZero($number): void
+    {
+        if ($number) {
+            return;
+        }
+
+        throw new Exception(Functions::DIV0());
     }
 
     public static function returnSign(float $number): int

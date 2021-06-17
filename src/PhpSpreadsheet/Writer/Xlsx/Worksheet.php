@@ -634,15 +634,21 @@ class Worksheet extends WriterPart
 
                     self::writeAttributeif(
                         $objWriter,
-                        ($conditional->getConditionType() == Conditional::CONDITION_CELLIS || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT)
-                        && $conditional->getOperatorType() != Conditional::OPERATOR_NONE,
+                        (
+                            $conditional->getConditionType() === Conditional::CONDITION_CELLIS
+                            || $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
+                            || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
+                        ) && $conditional->getOperatorType() !== Conditional::OPERATOR_NONE,
                         'operator',
                         $conditional->getOperatorType()
                     );
 
                     self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
 
-                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT) {
+                    if (
+                        $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
+                        || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
+                    ) {
                         self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
                     } else {
                         self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
@@ -1084,7 +1090,7 @@ class Worksheet extends WriterPart
     private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, array $pStringTable): void
     {
         // Flipped stringtable, for faster index searching
-        $aFlippedStringTable = $this->getParentWriter()->getWriterPart('stringtable')->flipStringTable($pStringTable);
+        $aFlippedStringTable = $this->getParentWriter()->getWriterPartstringtable()->flipStringTable($pStringTable);
 
         // sheetData
         $objWriter->startElement('sheetData');
@@ -1169,7 +1175,7 @@ class Worksheet extends WriterPart
             $objWriter->writeElement('t', StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
         } elseif ($cellValue instanceof RichText) {
             $objWriter->startElement('is');
-            $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $cellValue);
             $objWriter->endElement();
         }
     }
@@ -1228,8 +1234,10 @@ class Worksheet extends WriterPart
                 return;
             }
             $objWriter->writeAttribute('t', 'str');
+            $calculatedValue = StringHelper::controlCharacterPHP2OOXML($calculatedValue);
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
+            $calculatedValue = (int) $calculatedValue;
         }
         // array values are not yet supported
         //$attributes = $pCell->getFormulaAttributes();
@@ -1249,7 +1257,7 @@ class Worksheet extends WriterPart
             $objWriter,
             $this->getParentWriter()->getOffice2003Compatibility() === false,
             'v',
-            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
+            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
                 ? StringHelper::formatNumber($calculatedValue) : '0'
         );
     }

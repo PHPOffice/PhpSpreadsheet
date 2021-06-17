@@ -24,7 +24,7 @@ class DeltaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDELTA()
+    public function providerDELTA(): array
     {
         return require 'tests/data/Calculation/Engineering/DELTA.php';
     }

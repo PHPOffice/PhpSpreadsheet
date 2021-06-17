@@ -17,7 +17,7 @@ class GammaLnTest extends TestCase
      * @dataProvider providerGAMMALN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testGAMMALN($expectedResult, $value): void
     {
@@ -25,7 +25,7 @@ class GammaLnTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerGAMMALN()
+    public function providerGAMMALN(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }

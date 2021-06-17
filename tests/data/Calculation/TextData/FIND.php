@@ -101,4 +101,11 @@ return [
         'Mark Baker',
         8,
     ],
+    'Boolean Needle' => [
+        '#VALUE!',
+        true,
+        'Mark Baker',
+    ],
+    'no arguments' => ['exception'],
+    'one argument' => ['exception', 'a'],
 ];

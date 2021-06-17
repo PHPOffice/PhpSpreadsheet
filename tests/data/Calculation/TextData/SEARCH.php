@@ -94,4 +94,11 @@ return [
         'BITE',
         'BIT',
     ],
+    'Boolean Needle' => [
+        '#VALUE!',
+        true,
+        'Mark Baker',
+    ],
+    'no arguments' => ['exception'],
+    'one argument' => ['exception', 'string'],
 ];

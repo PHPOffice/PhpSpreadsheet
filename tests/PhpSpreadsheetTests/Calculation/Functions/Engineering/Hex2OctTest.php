@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class Hex2OctTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -40,7 +43,7 @@ class Hex2OctTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHEX2OCT()
+    public function providerHEX2OCT(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2OCT.php';
     }

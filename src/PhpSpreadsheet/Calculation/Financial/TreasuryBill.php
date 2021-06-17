@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class TreasuryBill
@@ -17,7 +19,7 @@ class TreasuryBill
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -27,32 +29,29 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $discount = FinancialValidations::validateFloat($discount);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($discount)) {
-            if ($discount <= 0) {
-                return Functions::NAN();
-            }
-
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-
-            if (
-                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
-                $daysBetweenSettlementAndMaturity < 0
-            ) {
-                return Functions::NAN();
-            }
-
-            return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
+        if ($discount <= 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\DateParts::year($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
+
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
+        }
+
+        return (365 * $discount) / (360 - $discount * $daysBetweenSettlementAndMaturity);
     }
 
     /**
@@ -65,7 +64,7 @@ class TreasuryBill
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -75,36 +74,34 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $discount = Functions::flattenSingleValue($discount);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $discount = FinancialValidations::validateFloat($discount);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($discount)) {
-            if ($discount <= 0) {
-                return Functions::NAN();
-            }
-
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-
-            if (
-                $daysBetweenSettlementAndMaturity > Helpers::daysPerYear(DateTime::YEAR($maturity), Helpers::DAYS_PER_YEAR_ACTUAL) ||
-                $daysBetweenSettlementAndMaturity < 0
-            ) {
-                return Functions::NAN();
-            }
-            $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
-            if ($price < 0.0) {
-                return Functions::NAN();
-            }
-
-            return $price;
+        if ($discount <= 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\DateParts::year($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
+
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
+        }
+
+        $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
+        if ($price < 0.0) {
+            return Functions::NAN();
+        }
+
+        return $price;
     }
 
     /**
@@ -117,7 +114,7 @@ class TreasuryBill
      *                                    the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $price The Treasury bill's price per $100 face value
+     * @param mixed $price The Treasury bill's price per $100 face value
      *
      * @return float|string
      */
@@ -127,28 +124,24 @@ class TreasuryBill
         $maturity = Functions::flattenSingleValue($maturity);
         $price = Functions::flattenSingleValue($price);
 
-        if (
-            is_string($maturity = DateTime::getDateValue($maturity)) ||
-            is_string($settlement = DateTime::getDateValue($settlement))
-        ) {
-            return Functions::VALUE();
+        try {
+            $settlement = FinancialValidations::validateSettlementDate($settlement);
+            $maturity = FinancialValidations::validateMaturityDate($maturity);
+            $price = FinancialValidations::validatePrice($price);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        //    Validate
-        if (is_numeric($price)) {
-            if ($price <= 0) {
-                return Functions::NAN();
-            }
+        $daysBetweenSettlementAndMaturity = $maturity - $settlement;
+        $daysPerYear = Helpers::daysPerYear(
+            DateTimeExcel\DateParts::year($maturity),
+            FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL
+        );
 
-            $daysBetweenSettlementAndMaturity = $maturity - $settlement;
-
-            if ($daysBetweenSettlementAndMaturity > 360 || $daysBetweenSettlementAndMaturity < 0) {
-                return Functions::NAN();
-            }
-
-            return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
+        if ($daysBetweenSettlementAndMaturity > $daysPerYear || $daysBetweenSettlementAndMaturity < 0) {
+            return Functions::NAN();
         }
 
-        return Functions::VALUE();
+        return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
     }
 }

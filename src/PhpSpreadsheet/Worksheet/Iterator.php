@@ -30,14 +30,6 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->subject = null;
-    }
-
-    /**
      * Rewind iterator.
      */
     public function rewind(): void

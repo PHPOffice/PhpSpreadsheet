@@ -57,6 +57,7 @@ class ColumnIterator implements Iterator
      */
     public function __destruct()
     {
+        // @phpstan-ignore-next-line
         $this->worksheet = null;
     }
 

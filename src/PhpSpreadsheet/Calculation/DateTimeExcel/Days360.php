@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Days360
 {
@@ -22,7 +22,7 @@ class Days360
      *                                        PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
-     * @param bool $method US or European Method
+     * @param mixed $method US or European Method as a bool
      *                                        FALSE or omitted: U.S. (NASD) method. If the starting date is
      *                                        the last day of a month, it becomes equal to the 30th of the
      *                                        same month. If the ending date is the last day of a month and
@@ -36,7 +36,7 @@ class Days360
      *
      * @return int|string Number of days between start date and end date
      */
-    public static function funcDays360($startDate = 0, $endDate = 0, $method = false)
+    public static function between($startDate = 0, $endDate = 0, $method = false)
     {
         try {
             $startDate = Helpers::getDateValue($startDate);
@@ -50,12 +50,12 @@ class Days360
         }
 
         // Execute function
-        $PHPStartDateObject = Date::excelToDateTimeObject($startDate);
+        $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $startDay = $PHPStartDateObject->format('j');
         $startMonth = $PHPStartDateObject->format('n');
         $startYear = $PHPStartDateObject->format('Y');
 
-        $PHPEndDateObject = Date::excelToDateTimeObject($endDate);
+        $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
         $endDay = $PHPEndDateObject->format('j');
         $endMonth = $PHPEndDateObject->format('n');
         $endYear = $PHPEndDateObject->format('Y');

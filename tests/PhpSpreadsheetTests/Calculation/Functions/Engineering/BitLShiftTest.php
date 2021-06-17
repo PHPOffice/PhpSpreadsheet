@@ -26,7 +26,7 @@ class BitLShiftTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITLSHIFT()
+    public function providerBITLSHIFT(): array
     {
         return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
     }

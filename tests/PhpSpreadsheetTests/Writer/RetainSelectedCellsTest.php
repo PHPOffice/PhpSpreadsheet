@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class RetainSelectedCellsTest extends AbstractFunctional
 {
-    public function providerFormats()
+    public function providerFormats(): array
     {
         return [
             ['Xls'],

@@ -24,7 +24,7 @@ class CumIpmtTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCUMIPMT()
+    public function providerCUMIPMT(): array
     {
         return require 'tests/data/Calculation/Financial/CUMIPMT.php';
     }

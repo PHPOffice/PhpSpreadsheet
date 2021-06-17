@@ -30,7 +30,7 @@ class DMin extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return null|float|string
      */
     public static function evaluate($database, $field, $criteria)
     {
@@ -39,7 +39,7 @@ class DMin extends DatabaseAbstract
             return null;
         }
 
-        return Minimum::MIN(
+        return Minimum::min(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

@@ -24,7 +24,7 @@ class RateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerRATE()
+    public function providerRATE(): array
     {
         return require 'tests/data/Calculation/Financial/RATE.php';
     }

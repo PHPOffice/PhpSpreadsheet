@@ -14,17 +14,12 @@ class ImLog10Test extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
     }
 
     /**
@@ -42,7 +37,7 @@ class ImLog10Test extends TestCase
         );
     }
 
-    public function providerIMLOG10()
+    public function providerIMLOG10(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLOG10.php';
     }

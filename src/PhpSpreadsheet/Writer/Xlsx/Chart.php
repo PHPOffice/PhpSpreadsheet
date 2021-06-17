@@ -129,7 +129,7 @@ class Chart extends WriterPart
         if ((is_array($caption)) && (count($caption) > 0)) {
             $caption = $caption[0];
         }
-        $this->getParentWriter()->getWriterPart('stringtable')->writeRichTextForCharts($objWriter, $caption, 'a');
+        $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
         $objWriter->endElement();
         $objWriter->endElement();
@@ -219,10 +219,12 @@ class Chart extends WriterPart
         $chartTypes = self::getChartType($plotArea);
         $catIsMultiLevelSeries = $valIsMultiLevelSeries = false;
         $plotGroupingType = '';
+        $chartType = null;
         foreach ($chartTypes as $chartType) {
             $objWriter->startElement('c:' . $chartType);
 
             $groupCount = $plotArea->getPlotGroupCount();
+            $plotGroup = null;
             for ($i = 0; $i < $groupCount; ++$i) {
                 $plotGroup = $plotArea->getPlotGroupByIndex($i);
                 $groupType = $plotGroup->getPlotType();
@@ -244,7 +246,7 @@ class Chart extends WriterPart
 
             $this->writeDataLabels($objWriter, $layout);
 
-            if ($chartType === DataSeries::TYPE_LINECHART) {
+            if ($chartType === DataSeries::TYPE_LINECHART && $plotGroup) {
                 //    Line only, Line3D can't be smoothed
                 $objWriter->startElement('c:smooth');
                 $objWriter->writeAttribute('val', (int) $plotGroup->getSmoothLine());
@@ -316,10 +318,10 @@ class Chart extends WriterPart
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
                 $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
             } else {
-                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $yAxis);
+                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis);
             }
 
-            $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
+            $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis, $majorGridlines, $minorGridlines);
         }
 
         $objWriter->endElement();
@@ -1038,9 +1040,9 @@ class Chart extends WriterPart
      * @param DataSeries $plotGroup
      * @param string $groupType Type of plot for dataseries
      * @param XMLWriter $objWriter XML Writer
-     * @param bool &$catIsMultiLevelSeries Is category a multi-series category
-     * @param bool &$valIsMultiLevelSeries Is value set a multi-series set
-     * @param string &$plotGroupingType Type of grouping for multi-series values
+     * @param bool $catIsMultiLevelSeries Is category a multi-series category
+     * @param bool $valIsMultiLevelSeries Is value set a multi-series set
+     * @param string $plotGroupingType Type of grouping for multi-series values
      */
     private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
     {
@@ -1079,6 +1081,7 @@ class Chart extends WriterPart
             }
         }
 
+        $plotSeriesIdx = 0;
         foreach ($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
             $objWriter->startElement('c:ser');
 

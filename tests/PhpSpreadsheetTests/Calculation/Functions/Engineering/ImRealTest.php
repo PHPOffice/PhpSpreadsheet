@@ -27,7 +27,7 @@ class ImRealTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    public function providerIMREAL()
+    public function providerIMREAL(): array
     {
         return require 'tests/data/Calculation/Engineering/IMREAL.php';
     }

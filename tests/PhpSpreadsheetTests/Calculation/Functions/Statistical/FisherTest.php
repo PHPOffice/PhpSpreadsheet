@@ -17,7 +17,7 @@ class FisherTest extends TestCase
      * @dataProvider providerFISHER
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testFISHER($expectedResult, $value): void
     {
@@ -25,7 +25,7 @@ class FisherTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFISHER()
+    public function providerFISHER(): array
     {
         return require 'tests/data/Calculation/Statistical/FISHER.php';
     }

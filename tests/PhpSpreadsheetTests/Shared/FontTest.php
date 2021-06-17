@@ -49,7 +49,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFontSizeToPixels()
+    public function providerFontSizeToPixels(): array
     {
         return require 'tests/data/Shared/FontSizeToPixels.php';
     }
@@ -66,7 +66,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerInchSizeToPixels()
+    public function providerInchSizeToPixels(): array
     {
         return require 'tests/data/Shared/InchSizeToPixels.php';
     }
@@ -83,7 +83,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCentimeterSizeToPixels()
+    public function providerCentimeterSizeToPixels(): array
     {
         return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }

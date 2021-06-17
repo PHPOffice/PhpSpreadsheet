@@ -25,7 +25,7 @@ class TransposeTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTRANSPOSE()
+    public function providerTRANSPOSE(): array
     {
         return require 'tests/data/Calculation/LookupRef/TRANSPOSE.php';
     }

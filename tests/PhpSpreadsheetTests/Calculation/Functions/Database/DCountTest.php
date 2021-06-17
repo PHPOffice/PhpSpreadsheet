@@ -27,7 +27,7 @@ class DCountTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,7 +40,7 @@ class DCountTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Name', 'Gender', 'Age', 'Subject', 'Score'],
@@ -59,7 +59,7 @@ class DCountTest extends TestCase
         ];
     }
 
-    protected function database3()
+    private function database3(): array
     {
         return [
             ['Status', 'Value'],
@@ -74,7 +74,7 @@ class DCountTest extends TestCase
         ];
     }
 
-    public function providerDCount()
+    public function providerDCount(): array
     {
         return [
             [

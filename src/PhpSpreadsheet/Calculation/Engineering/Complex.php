@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use Complex\Complex as ComplexObject;
 use Complex\Exception as ComplexException;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Complex
@@ -16,10 +17,10 @@ class Complex
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
-     * @param float $realNumber the real coefficient of the complex number
-     * @param float $imaginary the imaginary coefficient of the complex number
-     * @param string $suffix The suffix for the imaginary component of the complex number.
-     *                                        If omitted, the suffix is assumed to be "i".
+     * @param mixed $realNumber the real float coefficient of the complex number
+     * @param mixed $imaginary the imaginary float coefficient of the complex number
+     * @param mixed $suffix The character suffix for the imaginary component of the complex number.
+     *                          If omitted, the suffix is assumed to be "i".
      *
      * @return string
      */
@@ -29,10 +30,14 @@ class Complex
         $imaginary = ($imaginary === null) ? 0.0 : Functions::flattenSingleValue($imaginary);
         $suffix = ($suffix === null) ? 'i' : Functions::flattenSingleValue($suffix);
 
-        if (
-            ((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
-            (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
-        ) {
+        try {
+            $realNumber = EngineeringValidations::validateFloat($realNumber);
+            $imaginary = EngineeringValidations::validateFloat($imaginary);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if (($suffix == 'i') || ($suffix == 'j') || ($suffix == '')) {
             $complex = new ComplexObject($realNumber, $imaginary, $suffix);
 
             return (string) $complex;
