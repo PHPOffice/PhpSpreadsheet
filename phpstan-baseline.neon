@@ -7206,16 +7206,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
 
 		-
-			message: "#^Function PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\getTitleText\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
-
-		-
-			message: "#^Function PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\getTitleText\\(\\) has parameter \\$title with no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
-
-		-
 			message: "#^Cannot call method setMinimumConditionalFormatValueObject\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
@@ -7244,11 +7234,6 @@ parameters:
 			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\XlsxTest\\:\\:testStripsWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsxTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xml\\\\XmlTest\\:\\:testInvalidSimpleXML\\(\\) has parameter \\$filename with no typehint specified\\.$#"
