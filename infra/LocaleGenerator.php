@@ -25,6 +25,7 @@ class LocaleGenerator
     private const FUNCTION_NAME_LIST_FIRST_ROW = 4;
     private const ENGLISH_FUNCTION_CATEGORIES_COLUMN = 'A';
     private const ENGLISH_REFERENCE_COLUMN = 'B';
+    private const EOL = "\n"; // not PHP_EOL
 
     /**
      * @var string
@@ -109,10 +110,10 @@ class LocaleGenerator
             $translationCell = $this->localeTranslations->getCell($column . $row);
             $translationValue = $translationCell->getValue();
             if (!empty($translationValue)) {
-                $errorCodeTranslation = "{$errorCode} = {$translationValue}" . PHP_EOL;
+                $errorCodeTranslation = "{$errorCode} = {$translationValue}" . self::EOL;
                 fwrite($configFile, $errorCodeTranslation);
             } else {
-                $errorCodeTranslation = "{$errorCode}" . PHP_EOL;
+                $errorCodeTranslation = "{$errorCode}" . self::EOL;
                 fwrite($configFile, $errorCodeTranslation);
                 $this->log("No {$language} translation available for error code {$errorCode}");
             }
@@ -126,7 +127,7 @@ class LocaleGenerator
         $translationCell = $this->localeTranslations->getCell($column . self::ARGUMENT_SEPARATOR_ROW);
         $localeValue = $translationCell->getValue();
         if (!empty($localeValue)) {
-            $functionTranslation = "ArgumentSeparator = {$localeValue}" . PHP_EOL;
+            $functionTranslation = "ArgumentSeparator = {$localeValue}" . self::EOL;
             fwrite($configFile, $functionTranslation);
         } else {
             $this->log('No Argument Separator defined');
@@ -148,7 +149,7 @@ class LocaleGenerator
             } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions)) {
                 $this->log("Function {$functionName} is not defined in PhpSpreadsheet");
             } elseif (!empty($translationValue)) {
-                $functionTranslation = "{$functionName} = {$translationValue}" . PHP_EOL;
+                $functionTranslation = "{$functionName} = {$translationValue}" . self::EOL;
                 fwrite($functionFile, $functionTranslation);
             } else {
                 $this->log("No {$language} translation available for function {$functionName}");
@@ -200,20 +201,20 @@ class LocaleGenerator
 
     protected function writeFileHeader($localeFile, string $localeLanguage, string $language, string $title): void
     {
-        fwrite($localeFile, str_repeat('#', 60) . PHP_EOL);
-        fwrite($localeFile, '##' . PHP_EOL);
-        fwrite($localeFile, "## PhpSpreadsheet - {$title}" . PHP_EOL);
-        fwrite($localeFile, '##' . PHP_EOL);
-        fwrite($localeFile, "## {$localeLanguage} ({$language})" . PHP_EOL);
-        fwrite($localeFile, '##' . PHP_EOL);
-        fwrite($localeFile, str_repeat('#', 60) . PHP_EOL . PHP_EOL);
+        fwrite($localeFile, str_repeat('#', 60) . self::EOL);
+        fwrite($localeFile, '##' . self::EOL);
+        fwrite($localeFile, "## PhpSpreadsheet - {$title}" . self::EOL);
+        fwrite($localeFile, '##' . self::EOL);
+        fwrite($localeFile, "## {$localeLanguage} ({$language})" . self::EOL);
+        fwrite($localeFile, '##' . self::EOL);
+        fwrite($localeFile, str_repeat('#', 60) . self::EOL . self::EOL);
     }
 
     protected function writeFileSectionHeader($localeFile, string $header): void
     {
-        fwrite($localeFile, PHP_EOL . '##' . PHP_EOL);
-        fwrite($localeFile, "## {$header}" . PHP_EOL);
-        fwrite($localeFile, '##' . PHP_EOL);
+        fwrite($localeFile, self::EOL . '##' . self::EOL);
+        fwrite($localeFile, "## {$header}" . self::EOL);
+        fwrite($localeFile, '##' . self::EOL);
     }
 
     protected function openTranslationWorkbook(): void
@@ -339,6 +340,6 @@ class LocaleGenerator
             return;
         }
 
-        echo $message, PHP_EOL;
+        echo $message, self::EOL;
     }
 }
