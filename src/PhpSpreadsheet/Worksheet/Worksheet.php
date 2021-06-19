@@ -1928,7 +1928,7 @@ class Worksheet implements IComparable
     /**
      * Get Freeze Pane.
      *
-     * @return string
+     * @return null|string
      */
     public function getFreezePane()
     {
