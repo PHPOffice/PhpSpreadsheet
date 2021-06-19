@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use GdImage;
+use SimpleXMLElement;
 
 class Drawing
 {
@@ -21,12 +22,13 @@ class Drawing
     /**
      * Convert EMU to pixels.
      *
-     * @param int $emuValue Value in EMU
+     * @param int|SimpleXMLElement $emuValue Value in EMU
      *
      * @return int Value in pixels
      */
     public static function EMUToPixels($emuValue)
     {
+        $emuValue = (int) $emuValue;
         if ($emuValue != 0) {
             return (int) round($emuValue / 9525);
         }
@@ -136,12 +138,13 @@ class Drawing
     /**
      * Convert angle to degrees.
      *
-     * @param int $pValue Angle
+     * @param int|SimpleXMLElement $pValue Angle
      *
      * @return int Degrees
      */
     public static function angleToDegrees($pValue)
     {
+        $pValue = (int) $pValue;
         if ($pValue != 0) {
             return (int) round($pValue / 60000);
         }

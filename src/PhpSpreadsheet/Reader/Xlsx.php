@@ -1157,13 +1157,13 @@ class Xlsx extends BaseReader
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
 
-                                                    $objDrawing->setOffsetX((int) Drawing::EMUToPixels((int) $oneCellAnchor->from->colOff));
-                                                    $objDrawing->setOffsetY(Drawing::EMUToPixels((int) $oneCellAnchor->from->rowOff));
+                                                    $objDrawing->setOffsetX((int) Drawing::EMUToPixels($oneCellAnchor->from->colOff));
+                                                    $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
                                                     $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem((int) self::getAttributes($oneCellAnchor->ext), 'cx')));
                                                     $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem((int) self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
-                                                        $objDrawing->setRotation((int) Drawing::angleToDegrees((int) self::getArrayItem(self::getAttributes($xfrm), 'rot')));
+                                                        $objDrawing->setRotation((int) Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
