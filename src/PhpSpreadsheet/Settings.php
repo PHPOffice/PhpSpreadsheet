@@ -99,6 +99,11 @@ class Settings
         return self::$chartRenderer;
     }
 
+    public static function htmlEntityFlags(): int
+    {
+        return \ENT_COMPAT;
+    }
+
     /**
      * Set default options for libxml loader.
      *
