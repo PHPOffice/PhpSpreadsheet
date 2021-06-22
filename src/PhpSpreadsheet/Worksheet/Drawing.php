@@ -94,14 +94,24 @@ class Drawing extends BaseDrawing
                 $this->path = $pValue;
                 // Implicit that it is a URL, rather store info than running check above on value in other places.
                 $this->isUrl = true;
+                $imageContents = file_get_contents($pValue);
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                file_put_contents($filePath, $imageContents);
+                if (file_exists($filePath)) {
+                    if ($this->width == 0 && $this->height == 0) {
+                        // Get width/height
+                        [$this->width, $this->height] = getimagesize($filePath);
+                    }
+                    unlink($filePath);
+                }
             } elseif (file_exists($pValue)) {
                 $this->path = $pValue;
+                if ($this->width == 0 && $this->height == 0) {
+                    // Get width/height
+                    [$this->width, $this->height] = getimagesize($pValue);
+                }
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");
-            }
-            if ($this->width == 0 && $this->height == 0) {
-                // Get width/height
-                [$this->width, $this->height] = getimagesize($pValue);
             }
         } else {
             $this->path = $pValue;

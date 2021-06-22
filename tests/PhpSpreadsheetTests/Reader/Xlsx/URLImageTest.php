@@ -25,11 +25,15 @@ class URLImageTest extends TestCase
                     $imageContents = file_get_contents($drawing->getPath());
                     $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                     file_put_contents($filePath, $imageContents);
-                    $mimeType = mime_content_type($filePath);
-                    // You could use the below to find the extension from mime type.
-                    $extension = File::mime2ext($mimeType);
-                    self::assertEquals('jpeg', $extension);
-                    unlink($filePath);
+                    if (file_exists($filePath)) {
+                        $mimeType = mime_content_type($filePath);
+                        // You could use the below to find the extension from mime type.
+                        $extension = File::mime2ext($mimeType);
+                        self::assertEquals('jpeg', $extension);
+                        unlink($filePath);
+                    } else {
+                        self::fail('Could not write file to disk.');
+                    }
                 } else {
                     self::fail('Could not assert that the file contains an image that is URL sourced.');
                 }
