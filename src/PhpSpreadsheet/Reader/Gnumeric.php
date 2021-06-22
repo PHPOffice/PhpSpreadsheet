@@ -266,9 +266,10 @@ class Gnumeric extends BaseReader
         (new Properties($this->spreadsheet))->readProperties($xml, $gnmXML);
 
         $worksheetID = 0;
-        foreach ($gnmXML->Sheets->Sheet as $sheet) {
+        foreach ($gnmXML->Sheets->Sheet as $sheetOrNull) {
+            $sheet = self::testSimpleXml($sheetOrNull);
             $worksheetName = (string) $sheet->Name;
-            if ((isset($this->loadSheetsOnly)) && (!in_array($worksheetName, $this->loadSheetsOnly))) {
+            if (is_array($this->loadSheetsOnly) && !in_array($worksheetName, $this->loadSheetsOnly)) {
                 continue;
             }
 
@@ -288,8 +289,9 @@ class Gnumeric extends BaseReader
                     ->sheetMargins($sheet);
             }
 
-            foreach ($sheet->Cells->Cell as $cell) {
-                $cellAttributes = $cell->attributes();
+            foreach ($sheet->Cells->Cell as $cellOrNull) {
+                $cell = self::testSimpleXml($cellOrNull);
+                $cellAttributes = self::testSimpleXml($cell->attributes());
                 $row = (int) $cellAttributes->Row + 1;
                 $column = (int) $cellAttributes->Col;
 
@@ -367,7 +369,7 @@ class Gnumeric extends BaseReader
         //    Handle Merged Cells in this worksheet
         if ($sheet !== null && isset($sheet->MergedRegions)) {
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
-                if (strpos($mergeCells, ':') !== false) {
+                if (strpos((string) $mergeCells, ':') !== false) {
                     $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells);
                 }
             }
@@ -404,8 +406,9 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processColumnLoop(int $whichColumn, int $maxCol, SimpleXMLElement $columnOverride, float $defaultWidth): int
+    private function processColumnLoop(int $whichColumn, int $maxCol, ?SimpleXMLElement $columnOverride, float $defaultWidth): int
     {
+        $columnOverride = self::testSimpleXml($columnOverride);
         $columnAttributes = self::testSimpleXml($columnOverride->attributes());
         $column = $columnAttributes['No'];
         $columnWidth = ((float) $columnAttributes['Unit']) / 5.4;
@@ -462,8 +465,9 @@ class Gnumeric extends BaseReader
         }
     }
 
-    private function processRowLoop(int $whichRow, int $maxRow, SimpleXMLElement $rowOverride, float $defaultHeight): int
+    private function processRowLoop(int $whichRow, int $maxRow, ?SimpleXMLElement $rowOverride, float $defaultHeight): int
     {
+        $rowOverride = self::testSimpleXml($rowOverride);
         $rowAttributes = self::testSimpleXml($rowOverride->attributes());
         $row = $rowAttributes['No'];
         $rowHeight = (float) $rowAttributes['Unit'];
