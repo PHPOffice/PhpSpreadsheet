@@ -286,8 +286,10 @@ class Xlsx extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename): void
+    public function save($pFilename, int $flags = 0): void
     {
+        $this->processFlags($flags);
+
         // garbage collect
         $this->pathNames = [];
         $this->spreadSheet->garbageCollect();

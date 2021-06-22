@@ -2,13 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Concatenate
 {
     /**
      * CONCATENATE.
+     *
+     * @param array $args
      */
     public static function CONCATENATE(...$args): string
     {
@@ -16,11 +17,9 @@ class Concatenate
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
+
         foreach ($aArgs as $arg) {
-            if (is_bool($arg)) {
-                $arg = self::convertBooleanValue($arg);
-            }
-            $returnValue .= $arg;
+            $returnValue .= Helpers::extractString($arg);
         }
 
         return $returnValue;
@@ -35,13 +34,15 @@ class Concatenate
      */
     public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args): string
     {
+        $delimiter = Functions::flattenSingleValue($delimiter);
+        $ignoreEmpty = Functions::flattenSingleValue($ignoreEmpty);
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $key => &$arg) {
             if ($ignoreEmpty === true && is_string($arg) && trim($arg) === '') {
                 unset($aArgs[$key]);
             } elseif (is_bool($arg)) {
-                $arg = self::convertBooleanValue($arg);
+                $arg = Helpers::convertBooleanValue($arg);
             }
         }
 
@@ -59,24 +60,12 @@ class Concatenate
     public static function builtinREPT($stringValue, $repeatCount): string
     {
         $repeatCount = Functions::flattenSingleValue($repeatCount);
+        $stringValue = Helpers::extractString($stringValue);
 
         if (!is_numeric($repeatCount) || $repeatCount < 0) {
             return Functions::VALUE();
         }
 
-        if (is_bool($stringValue)) {
-            $stringValue = self::convertBooleanValue($stringValue);
-        }
-
         return str_repeat($stringValue, (int) $repeatCount);
-    }
-
-    private static function convertBooleanValue($value)
-    {
-        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
-            return (int) $value;
-        }
-
-        return ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
     }
 }

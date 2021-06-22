@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
@@ -153,8 +154,10 @@ class Html extends BaseWriter
      *
      * @param resource|string $pFilename
      */
-    public function save($pFilename): void
+    public function save($pFilename, int $flags = 0): void
     {
+        $this->processFlags($flags);
+
         // Open file
         $this->openFileHandle($pFilename);
 
@@ -348,7 +351,9 @@ class Html extends BaseWriter
 
     private static function generateMeta($val, $desc)
     {
-        return $val ? ('      <meta name="' . $desc . '" content="' . htmlspecialchars($val) . '" />' . PHP_EOL) : '';
+        return $val
+            ? ('      <meta name="' . $desc . '" content="' . htmlspecialchars($val, Settings::htmlEntityFlags()) . '" />' . PHP_EOL)
+            : '';
     }
 
     /**
@@ -367,7 +372,7 @@ class Html extends BaseWriter
         $html .= '  <head>' . PHP_EOL;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />' . PHP_EOL;
         $html .= '      <meta name="generator" content="PhpSpreadsheet, https://github.com/PHPOffice/PhpSpreadsheet" />' . PHP_EOL;
-        $html .= '      <title>' . htmlspecialchars($properties->getTitle()) . '</title>' . PHP_EOL;
+        $html .= '      <title>' . htmlspecialchars($properties->getTitle(), Settings::htmlEntityFlags()) . '</title>' . PHP_EOL;
         $html .= self::generateMeta($properties->getCreator(), 'author');
         $html .= self::generateMeta($properties->getTitle(), 'title');
         $html .= self::generateMeta($properties->getDescription(), 'description');
@@ -670,7 +675,7 @@ class Html extends BaseWriter
                 $filename = preg_replace('@^[.]([^/])@', '$1', $filename);
 
                 // Convert UTF8 data to PCDATA
-                $filename = htmlspecialchars($filename);
+                $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
 
                 $html .= PHP_EOL;
                 $imageData = self::winFileToUrl($filename);
@@ -1299,7 +1304,7 @@ class Html extends BaseWriter
 
                 // Convert UTF8 data to PCDATA
                 $cellText = $element->getText();
-                $cellData .= htmlspecialchars($cellText);
+                $cellData .= htmlspecialchars($cellText, Settings::htmlEntityFlags());
 
                 $cellData .= $cellEnd;
 
@@ -1307,7 +1312,7 @@ class Html extends BaseWriter
             } else {
                 // Convert UTF8 data to PCDATA
                 $cellText = $element->getText();
-                $cellData .= htmlspecialchars($cellText);
+                $cellData .= htmlspecialchars($cellText, Settings::htmlEntityFlags());
             }
         }
     }
@@ -1324,7 +1329,7 @@ class Html extends BaseWriter
                 [$this, 'formatColor']
             );
             if ($cellData === $origData) {
-                $cellData = htmlspecialchars($cellData ?? '');
+                $cellData = htmlspecialchars($cellData ?? '', Settings::htmlEntityFlags());
             }
             if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
@@ -1489,7 +1494,7 @@ class Html extends BaseWriter
 
             // Hyperlink?
             if ($pSheet->hyperlinkExists($coordinate) && !$pSheet->getHyperlink($coordinate)->isInternal()) {
-                $cellData = '<a href="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl()) . '" title="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip()) . '">' . $cellData . '</a>';
+                $cellData = '<a href="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl(), Settings::htmlEntityFlags()) . '" title="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip(), Settings::htmlEntityFlags()) . '">' . $cellData . '</a>';
             }
 
             // Should the cell be written or is it swallowed by a rowspan or colspan?
@@ -1669,7 +1674,7 @@ class Html extends BaseWriter
         }
 
         // convert to PCDATA
-        $value = htmlspecialchars($pValue);
+        $value = htmlspecialchars($pValue, Settings::htmlEntityFlags());
 
         // color span tag
         if ($color !== null) {

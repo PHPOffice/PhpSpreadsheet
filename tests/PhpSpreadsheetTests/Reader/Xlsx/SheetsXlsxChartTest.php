@@ -1,9 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PHPUnit\Framework\TestCase;
 
 class SheetsXlsxChartTest extends TestCase
@@ -11,8 +12,8 @@ class SheetsXlsxChartTest extends TestCase
     public function testLoadSheetsXlsxChart(): void
     {
         $filename = 'tests/data/Reader/XLSX/sheetsChartsTest.xlsx';
-        $reader = IOFactory::createReader('Xlsx')->setIncludeCharts(true);
-        $spreadsheet = $reader->load($filename);
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename, IReader::LOAD_WITH_CHARTS);
         $worksheet = $spreadsheet->getActiveSheet();
 
         $charts = $worksheet->getChartCollection();

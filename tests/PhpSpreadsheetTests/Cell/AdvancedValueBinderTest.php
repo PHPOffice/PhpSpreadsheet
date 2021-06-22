@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
@@ -40,6 +41,23 @@ class AdvancedValueBinderTest extends TestCase
         StringHelper::setCurrencyCode($this->currencyCode);
         StringHelper::setDecimalSeparator($this->decimalSeparator);
         StringHelper::setThousandsSeparator($this->thousandsSeparator);
+    }
+
+    public function testNullValue(): void
+    {
+        /** @var Cell&MockObject $cellStub */
+        $cellStub = $this->getMockBuilder(Cell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Configure the stub.
+        $cellStub->expects(self::once())
+            ->method('setValueExplicit')
+            ->with(null, DataType::TYPE_NULL)
+            ->willReturn(true);
+
+        $binder = new AdvancedValueBinder();
+        $binder->bindValue($cellStub, null);
     }
 
     /**
@@ -105,6 +123,7 @@ class AdvancedValueBinderTest extends TestCase
             ['€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
             ['€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
             ['€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'],
+            ['$10.11', 10.11, $currencyUSD, ',', '.', '€'],
         ];
     }
 
