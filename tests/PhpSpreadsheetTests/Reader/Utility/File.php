@@ -196,5 +196,4 @@ class File
 
         return $mime_map[$mime] ?? false;
     }
-
 }

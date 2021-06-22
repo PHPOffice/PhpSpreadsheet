@@ -94,8 +94,7 @@ class Drawing extends BaseDrawing
                 $this->path = $pValue;
                 // Implicit that it is a URL, rather store info than running check above on value in other places.
                 $this->isUrl = true;
-            }
-            elseif (file_exists($pValue)) {
+            } elseif (file_exists($pValue)) {
                 $this->path = $pValue;
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");
