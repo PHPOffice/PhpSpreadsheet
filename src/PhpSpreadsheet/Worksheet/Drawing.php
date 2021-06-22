@@ -89,15 +89,20 @@ class Drawing extends BaseDrawing
     public function setPath($pValue, $pVerifyFile = true)
     {
         if ($pVerifyFile) {
-            if (file_exists($pValue)) {
+            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+            if (filter_var($pValue, FILTER_VALIDATE_URL)) {
                 $this->path = $pValue;
-
-                if ($this->width == 0 && $this->height == 0) {
-                    // Get width/height
-                    [$this->width, $this->height] = getimagesize($pValue);
-                }
+                // Implicit that it is a URL, rather store info than running check above on value in other places.
+                $this->isUrl = true;
+            }
+            elseif (file_exists($pValue)) {
+                $this->path = $pValue;
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");
+            }
+            if ($this->width == 0 && $this->height == 0) {
+                // Get width/height
+                [$this->width, $this->height] = getimagesize($pValue);
             }
         } else {
             $this->path = $pValue;
@@ -111,7 +116,7 @@ class Drawing extends BaseDrawing
      *
      * @return bool
      */
-    public function getIsURL()
+    public function getIsURL(): bool
     {
         return $this->isUrl;
     }
@@ -123,7 +128,7 @@ class Drawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setIsURL($isUrl)
+    public function setIsURL(bool $isUrl): Drawing
     {
         $this->isUrl = $isUrl;
 

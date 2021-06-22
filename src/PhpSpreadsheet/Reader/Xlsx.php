@@ -1152,7 +1152,6 @@ class Xlsx extends BaseReader
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
                                                             $objDrawing->setPath($url);
-                                                            $objDrawing->setIsURL(true);
                                                         }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
@@ -1232,7 +1231,6 @@ class Xlsx extends BaseReader
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
                                                             $objDrawing->setPath($url);
-                                                            $objDrawing->setIsURL(true);
                                                         }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
