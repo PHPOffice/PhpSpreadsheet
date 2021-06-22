@@ -96,13 +96,15 @@ class Drawing extends BaseDrawing
                 $this->isUrl = true;
                 $imageContents = file_get_contents($pValue);
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
-                file_put_contents($filePath, $imageContents);
-                if (file_exists($filePath)) {
-                    if ($this->width == 0 && $this->height == 0) {
-                        // Get width/height
-                        [$this->width, $this->height] = getimagesize($filePath);
+                if ($filePath) {
+                    file_put_contents($filePath, $imageContents);
+                    if (file_exists($filePath)) {
+                        if ($this->width == 0 && $this->height == 0) {
+                            // Get width/height
+                            [$this->width, $this->height] = getimagesize($filePath);
+                        }
+                        unlink($filePath);
                     }
-                    unlink($filePath);
                 }
             } elseif (file_exists($pValue)) {
                 $this->path = $pValue;
@@ -122,8 +124,6 @@ class Drawing extends BaseDrawing
 
     /**
      * Get isURL.
-     *
-     * @return bool
      */
     public function getIsURL(): bool
     {
@@ -133,11 +133,9 @@ class Drawing extends BaseDrawing
     /**
      * Set isURL.
      *
-     * @param bool $isUrl
-     *
      * @return $this
      */
-    public function setIsURL(bool $isUrl): Drawing
+    public function setIsURL(bool $isUrl): self
     {
         $this->isUrl = $isUrl;
 
