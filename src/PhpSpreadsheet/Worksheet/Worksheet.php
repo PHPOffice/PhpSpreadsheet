@@ -1334,6 +1334,10 @@ class Worksheet implements IComparable
         /** @var Worksheet $sheet */
         [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($coordinate);
 
+        // returned cellCollection might be undefined
+        if( $sheet->cellCollection == null )
+            return false;
+
         return $sheet->cellCollection->has($finalCoordinate);
     }
 
