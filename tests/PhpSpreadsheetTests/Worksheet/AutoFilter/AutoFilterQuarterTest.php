@@ -3,13 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PHPUnit\Framework\TestCase;
 
-class AutoFilterQuarterTest extends TestCase
+class AutoFilterQuarterTest extends SetupTeardown
 {
     public function providerQuarter(): array
     {
@@ -20,8 +17,9 @@ class AutoFilterQuarterTest extends TestCase
         ];
     }
 
-    private static function setCells(Worksheet $sheet): void
+    private function setCells(): void
     {
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('Date');
         $sheet->getCell('A2')->setValue('=TODAY()');
         $sheet->getCell('A3')->setValue('=DATE(YEAR(A2), MONTH(A2), 1)');
@@ -31,6 +29,7 @@ class AutoFilterQuarterTest extends TestCase
         $sheet->getCell('A7')->setValue('=DATE(YEAR(A2), MONTH(A2) - 6, 1)');
         $sheet->getCell('A8')->setValue('=DATE(YEAR(A2) + 1, MONTH(A2), 1)');
         $sheet->getCell('A9')->setValue('=DATE(YEAR(A2) - 1, MONTH(A2), 1)');
+        $this->maxRow = 9;
     }
 
     /**
@@ -41,14 +40,13 @@ class AutoFilterQuarterTest extends TestCase
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $this->getSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
-            self::setCells($sheet);
+            $this->setCells();
 
-            $maxRow = 9;
-            $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
+            $maxRow = $this->maxRow;
+            $autoFilter = $sheet->getAutoFilter();
             $autoFilter->setRange("A1:A$maxRow");
             $columnFilter = $autoFilter->getColumn('A');
             $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
@@ -63,12 +61,7 @@ class AutoFilterQuarterTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
-        $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
-            }
-        }
-        self::assertEquals($expectedVisible, $actualVisible);
+
+        self::assertEquals($expectedVisible, $this->getVisible());
     }
 }
