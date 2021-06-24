@@ -269,7 +269,7 @@ class Gnumeric extends BaseReader
         foreach ($gnmXML->Sheets->Sheet as $sheetOrNull) {
             $sheet = self::testSimpleXml($sheetOrNull);
             $worksheetName = (string) $sheet->Name;
-            if (is_array($this->loadSheetsOnly) && !in_array($worksheetName, $this->loadSheetsOnly)) {
+            if (is_array($this->loadSheetsOnly) && !in_array($worksheetName, $this->loadSheetsOnly, true)) {
                 continue;
             }
 
