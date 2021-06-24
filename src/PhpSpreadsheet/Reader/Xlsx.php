@@ -1149,17 +1149,25 @@ class Xlsx extends BaseReader
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
-                                                    $imageKey = (string) self::getArrayItem(
+                                                    $embedImageKey = (string) self::getArrayItem(
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
-
-                                                    if (isset($images[$imageKey])) {
+                                                    if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
-                                                            $images[$imageKey],
+                                                            $images[$embedImageKey],
                                                             false
                                                         );
+                                                    } else {
+                                                        $linkImageKey = (string) self::getArrayItem(
+                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                            'link'
+                                                        );
+                                                        if (isset($images[$linkImageKey])) {
+                                                            $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                            $objDrawing->setPath($url);
+                                                        }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
 
@@ -1220,16 +1228,25 @@ class Xlsx extends BaseReader
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
-                                                    $imageKey = (string) self::getArrayItem(
+                                                    $embedImageKey = (string) self::getArrayItem(
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
-                                                    if (isset($images[$imageKey])) {
+                                                    if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
-                                                            $images[$imageKey],
+                                                            $images[$embedImageKey],
                                                             false
                                                         );
+                                                    } else {
+                                                        $linkImageKey = (string) self::getArrayItem(
+                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                            'link'
+                                                        );
+                                                        if (isset($images[$linkImageKey])) {
+                                                            $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                            $objDrawing->setPath($url);
+                                                        }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
 
