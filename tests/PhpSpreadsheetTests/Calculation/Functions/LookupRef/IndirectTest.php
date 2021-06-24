@@ -17,7 +17,7 @@ class IndirectTest extends AllSetupTeardown
     public function testINDIRECT($expectedResult, $cellReference = 'omitted', $a1 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue(100);
         $sheet->getCell('A2')->setValue(200);
         $sheet->getCell('A3')->setValue(300);
@@ -25,7 +25,7 @@ class IndirectTest extends AllSetupTeardown
         $sheet->getCell('A5')->setValue(500);
         $sheet->setTitle('ThisSheet');
 
-        $sheet1 = $this->spreadsheet->createSheet();
+        $sheet1 = $this->getSpreadsheet()->createSheet();
         $sheet1->getCell('A1')->setValue(10);
         $sheet1->getCell('A2')->setValue(20);
         $sheet1->getCell('A3')->setValue(30);
@@ -37,8 +37,8 @@ class IndirectTest extends AllSetupTeardown
         $sheet1->getCell('B4')->setValue(4);
         $sheet1->getCell('B5')->setValue(5);
         $sheet1->setTitle('OtherSheet');
-        $this->spreadsheet->addNamedRange(new NamedRange('newnr', $sheet1, '$A$2:$A$4'));
-        $this->spreadsheet->addNamedRange(new NamedRange('localname', $sheet1, '$B$2:$B$4', true));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('newnr', $sheet1, '$A$2:$A$4'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('localname', $sheet1, '$B$2:$B$4', true));
 
         $this->setCell('B1', $cellReference);
         $this->setCell('B2', $a1);
@@ -61,14 +61,14 @@ class IndirectTest extends AllSetupTeardown
 
     public function testINDIRECTEurUsd(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('EUR');
         $sheet->getCell('A2')->setValue('USD');
         $sheet->getCell('B1')->setValue(360);
         $sheet->getCell('B2')->setValue(300);
 
-        $this->spreadsheet->addNamedRange(new NamedRange('EUR', $sheet, '$B$1'));
-        $this->spreadsheet->addNamedRange(new NamedRange('USD', $sheet, '$B$2'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('EUR', $sheet, '$B$1'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('USD', $sheet, '$B$2'));
 
         $this->setCell('E1', '=INDIRECT("USD")');
 
@@ -78,14 +78,14 @@ class IndirectTest extends AllSetupTeardown
 
     public function testINDIRECTLeadingEquals(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('EUR');
         $sheet->getCell('A2')->setValue('USD');
         $sheet->getCell('B1')->setValue(360);
         $sheet->getCell('B2')->setValue(300);
 
-        $this->spreadsheet->addNamedRange(new NamedRange('EUR', $sheet, '=$B$1'));
-        $this->spreadsheet->addNamedRange(new NamedRange('USD', $sheet, '=$B$2'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('EUR', $sheet, '=$B$1'));
+        $this->getSpreadsheet()->addNamedRange(new NamedRange('USD', $sheet, '=$B$2'));
 
         $this->setCell('E1', '=INDIRECT("USD")');
 
@@ -125,7 +125,7 @@ class IndirectTest extends AllSetupTeardown
 
     public function testDeprecatedCall(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('A2');
         $sheet->getCell('A2')->setValue('This is it');
         $result = \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));

@@ -42,9 +42,12 @@ class Styles extends BaseParserClass
 
     public static function readFontStyle(Font $fontStyle, SimpleXMLElement $fontStyleXml): void
     {
-        $fontStyle->setName((string) $fontStyleXml->name['val']);
-        $fontStyle->setSize((float) $fontStyleXml->sz['val']);
-
+        if (isset($fontStyleXml->name, $fontStyleXml->name['val'])) {
+            $fontStyle->setName((string) $fontStyleXml->name['val']);
+        }
+        if (isset($fontStyleXml->sz, $fontStyleXml->sz['val'])) {
+            $fontStyle->setSize((float) $fontStyleXml->sz['val']);
+        }
         if (isset($fontStyleXml->b)) {
             $fontStyle->setBold(!isset($fontStyleXml->b['val']) || self::boolean((string) $fontStyleXml->b['val']));
         }
@@ -68,8 +71,7 @@ class Styles extends BaseParserClass
             $verticalAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
             if ($verticalAlign === 'superscript') {
                 $fontStyle->setSuperscript(true);
-            }
-            if ($verticalAlign === 'subscript') {
+            } elseif ($verticalAlign === 'subscript') {
                 $fontStyle->setSubscript(true);
             }
         }
@@ -103,17 +105,21 @@ class Styles extends BaseParserClass
                 self::readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color)
             );
         } elseif ($fillStyleXml->patternFill) {
-            $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
-                ? (string) $fillStyleXml->patternFill['patternType']
-                : Fill::FILL_NONE;
-
-            $fillStyle->setFillType($patternType);
+            $defaultFillStyle = Fill::FILL_NONE;
             if ($fillStyleXml->patternFill->fgColor) {
                 $fillStyle->getStartColor()->setARGB(self::readColor($fillStyleXml->patternFill->fgColor, true));
+                $defaultFillStyle = Fill::FILL_SOLID;
             }
             if ($fillStyleXml->patternFill->bgColor) {
                 $fillStyle->getEndColor()->setARGB(self::readColor($fillStyleXml->patternFill->bgColor, true));
+                $defaultFillStyle = Fill::FILL_SOLID;
             }
+
+            $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
+                ? (string) $fillStyleXml->patternFill['patternType']
+                : $defaultFillStyle;
+
+            $fillStyle->setFillType($patternType);
         }
     }
 

@@ -21,7 +21,7 @@ class DateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->dttimezone = Date::getDefaultTimeZone();
+        $this->dttimezone = Date::getDefaultTimeZoneOrNull();
         $this->excelCalendar = Date::getExcelCalendar();
     }
 

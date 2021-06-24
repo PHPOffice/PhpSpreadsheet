@@ -215,11 +215,11 @@ class Column
     /**
      * Set AutoFilter Attributes.
      *
-     * @param string[] $attributes
+     * @param mixed[] $attributes
      *
      * @return $this
      */
-    public function setAttributes(array $attributes)
+    public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
 
@@ -244,7 +244,7 @@ class Column
     /**
      * Get AutoFilter Column Attributes.
      *
-     * @return string[]
+     * @return int[]|string[]
      */
     public function getAttributes()
     {
@@ -256,7 +256,7 @@ class Column
      *
      * @param string $pName Attribute Name
      *
-     * @return null|string
+     * @return null|int|string
      */
     public function getAttribute($pName)
     {
@@ -370,8 +370,6 @@ class Column
                     $cloned->setParent($this); // attach the new cloned Rule to this new cloned Autofilter Cloned object
                     $this->ruleset[$k] = $cloned;
                 }
-            } elseif (is_object($value)) {
-                $this->$key = clone $value;
             } else {
                 $this->$key = $value;
             }

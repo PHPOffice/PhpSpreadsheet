@@ -12,7 +12,7 @@ class AtanhTest extends AllSetupTeardown
     public function testAtanh($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('A2')->setValue(0.8);
         $sheet->getCell('A1')->setValue("=ATANH($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

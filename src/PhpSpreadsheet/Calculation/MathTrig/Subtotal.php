@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
@@ -52,15 +52,15 @@ class Subtotal
 
     /** @var callable[] */
     private const CALL_FUNCTIONS = [
-        1 => [Statistical\Averages::class, 'AVERAGE'],
+        1 => [Statistical\Averages::class, 'average'],
         [Statistical\Counts::class, 'COUNT'], // 2
         [Statistical\Counts::class, 'COUNTA'], // 3
-        [Statistical\Maximum::class, 'MAX'], // 4
-        [Statistical\Minimum::class, 'MIN'], // 5
-        [Product::class, 'evaluate'], // 6
+        [Statistical\Maximum::class, 'max'], // 4
+        [Statistical\Minimum::class, 'min'], // 5
+        [Operations::class, 'product'], // 6
         [Statistical\StandardDeviations::class, 'STDEV'], // 7
         [Statistical\StandardDeviations::class, 'STDEVP'], // 8
-        [Sum::class, 'funcSum'], // 9
+        [Sum::class, 'sumIgnoringStrings'], // 9
         [Statistical\Variances::class, 'VAR'], // 10
         [Statistical\Variances::class, 'VARP'], // 11
     ];

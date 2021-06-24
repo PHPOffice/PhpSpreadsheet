@@ -28,10 +28,10 @@ class Mean
     {
         $aArgs = Functions::flattenArray($args);
 
-        $aMean = MathTrig\Product::evaluate($aArgs);
+        $aMean = MathTrig\Operations::product($aArgs);
         if (is_numeric($aMean) && ($aMean > 0)) {
             $aCount = Counts::COUNT($aArgs);
-            if (Minimum::MIN($aArgs) > 0) {
+            if (Minimum::min($aArgs) > 0) {
                 return $aMean ** (1 / $aCount);
             }
         }
@@ -56,7 +56,7 @@ class Mean
     {
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
-        if (Minimum::MIN($aArgs) < 0) {
+        if (Minimum::min($aArgs) < 0) {
             return Functions::NAN();
         }
 

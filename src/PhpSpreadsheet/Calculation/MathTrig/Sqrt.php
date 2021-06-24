@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Sqrt
 {
@@ -13,9 +13,9 @@ class Sqrt
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return float|string square roor
      */
-    public static function evaluate($number)
+    public static function sqrt($number)
     {
         try {
             $number = Helpers::validateNumericNullBool($number);
@@ -24,5 +24,26 @@ class Sqrt
         }
 
         return Helpers::numberOrNan(sqrt($number));
+    }
+
+    /**
+     * SQRTPI.
+     *
+     * Returns the square root of (number * pi).
+     *
+     * @param float $number Number
+     *
+     * @return float|string Square Root of Number * Pi, or a string containing an error
+     */
+    public static function pi($number)
+    {
+        try {
+            $number = Helpers::validateNumericNullSubstitution($number, 0);
+            Helpers::validateNotNegative($number);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return sqrt($number * M_PI);
     }
 }

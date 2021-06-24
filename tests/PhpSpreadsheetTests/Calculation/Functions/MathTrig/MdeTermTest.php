@@ -13,7 +13,7 @@ class MdeTermTest extends AllSetupTeardown
     public function testMDETERM2($expectedResult, $matrix): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if (is_array($matrix)) {
             $sheet->fromArray($matrix, null, 'A1', true);
             $maxCol = $sheet->getHighestColumn();

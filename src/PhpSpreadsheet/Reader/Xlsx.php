@@ -310,13 +310,12 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $pFilename
-     *
      * @return Spreadsheet
      */
-    public function load($pFilename)
+    public function load(string $pFilename, int $flags = 0)
     {
         File::assertFile($pFilename);
+        $this->processFlags($flags);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -798,6 +797,22 @@ class Xlsx extends BaseReader
                                 $unparsedLoadedData = (new PageSetup($docSheet, $xmlSheet))->load($unparsedLoadedData);
                             }
 
+                            if ($xmlSheet !== false && isset($xmlSheet->extLst, $xmlSheet->extLst->ext, $xmlSheet->extLst->ext['uri']) && ($xmlSheet->extLst->ext['uri'] == '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}')) {
+                                // Create dataValidations node if does not exists, maybe is better inside the foreach ?
+                                if (!$xmlSheet->dataValidations) {
+                                    $xmlSheet->addChild('dataValidations');
+                                }
+
+                                foreach ($xmlSheet->extLst->ext->children('x14', true)->dataValidations->dataValidation as $item) {
+                                    $node = $xmlSheet->dataValidations->addChild('dataValidation');
+                                    foreach ($item->attributes() as $attr) {
+                                        $node->addAttribute($attr->getName(), $attr);
+                                    }
+                                    $node->addAttribute('sqref', $item->children('xm', true)->sqref);
+                                    $node->addChild('formula1', $item->formula1->children('xm', true)->f);
+                                }
+                            }
+
                             if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
                                 (new DataValidations($docSheet, $xmlSheet))->load();
                             }
@@ -1134,17 +1149,25 @@ class Xlsx extends BaseReader
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
-                                                    $imageKey = (string) self::getArrayItem(
+                                                    $embedImageKey = (string) self::getArrayItem(
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
-
-                                                    if (isset($images[$imageKey])) {
+                                                    if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
-                                                            $images[$imageKey],
+                                                            $images[$embedImageKey],
                                                             false
                                                         );
+                                                    } else {
+                                                        $linkImageKey = (string) self::getArrayItem(
+                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                            'link'
+                                                        );
+                                                        if (isset($images[$linkImageKey])) {
+                                                            $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                            $objDrawing->setPath($url);
+                                                        }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $oneCellAnchor->from->col) + 1) . ($oneCellAnchor->from->row + 1));
 
@@ -1205,16 +1228,25 @@ class Xlsx extends BaseReader
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
-                                                    $imageKey = (string) self::getArrayItem(
+                                                    $embedImageKey = (string) self::getArrayItem(
                                                         $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                         'embed'
                                                     );
-                                                    if (isset($images[$imageKey])) {
+                                                    if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
                                                             'zip://' . File::realpath($pFilename) . '#' .
-                                                            $images[$imageKey],
+                                                            $images[$embedImageKey],
                                                             false
                                                         );
+                                                    } else {
+                                                        $linkImageKey = (string) self::getArrayItem(
+                                                            $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
+                                                            'link'
+                                                        );
+                                                        if (isset($images[$linkImageKey])) {
+                                                            $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
+                                                            $objDrawing->setPath($url);
+                                                        }
                                                     }
                                                     $objDrawing->setCoordinates(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->from->col) + 1) . ($twoCellAnchor->from->row + 1));
 
@@ -1808,17 +1840,9 @@ class Xlsx extends BaseReader
             return;
         }
 
-        if ($xmlWorkbook->workbookProtection['lockRevision']) {
-            $excel->getSecurity()->setLockRevision((bool) $xmlWorkbook->workbookProtection['lockRevision']);
-        }
-
-        if ($xmlWorkbook->workbookProtection['lockStructure']) {
-            $excel->getSecurity()->setLockStructure((bool) $xmlWorkbook->workbookProtection['lockStructure']);
-        }
-
-        if ($xmlWorkbook->workbookProtection['lockWindows']) {
-            $excel->getSecurity()->setLockWindows((bool) $xmlWorkbook->workbookProtection['lockWindows']);
-        }
+        $excel->getSecurity()->setLockRevision(self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision'));
+        $excel->getSecurity()->setLockStructure(self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure'));
+        $excel->getSecurity()->setLockWindows(self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows'));
 
         if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
             $excel->getSecurity()->setRevisionsPassword(
@@ -1833,6 +1857,18 @@ class Xlsx extends BaseReader
                 true
             );
         }
+    }
+
+    private static function getLockValue(SimpleXmlElement $protection, string $key): ?bool
+    {
+        $returnValue = null;
+        $protectKey = $protection[$key];
+        if (!empty($protectKey)) {
+            $protectKey = (string) $protectKey;
+            $returnValue = $protectKey !== 'false' && (bool) $protectKey;
+        }
+
+        return $returnValue;
     }
 
     private function readFormControlProperties(Spreadsheet $excel, ZipArchive $zip, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Roman
@@ -769,6 +769,7 @@ class Roman
         3998 => ['MMMLMVLIII', 'MMMXMVIII', 'MMMVMIII'],
         3999 => ['MMMLMVLIV', 'MMMXMIX', 'MMMVMIV', 'MMMIM'],
     ];
+
     private const THOUSANDS = ['', 'M', 'MM', 'MMM'];
     private const HUNDREDS = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
     private const TENS = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];

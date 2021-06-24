@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
-
-class CharTest extends TestCase
+class CharTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHAR
@@ -13,9 +10,17 @@ class CharTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $character
      */
-    public function testCHAR($expectedResult, $character): void
+    public function testCHAR($expectedResult, $character = 'omitted'): void
     {
-        $result = TextData::CHARACTER($character);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($character === 'omitted') {
+            $sheet->getCell('B1')->setValue('=CHAR()');
+        } else {
+            $this->setCell('A1', $character);
+            $sheet->getCell('B1')->setValue('=CHAR(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 

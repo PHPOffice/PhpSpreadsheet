@@ -399,6 +399,7 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
+        $this->rowDimensions = [];
     }
 
     /**
@@ -756,15 +757,17 @@ class Worksheet implements IComparable
                             $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode()
                         );
 
-                        $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
-                            (float) $autoSizes[$this->cellCollection->getCurrentColumn()],
-                            (float) Shared\Font::calculateColumnWidth(
-                                $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
-                                $cellValue,
-                                $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
-                                $this->getParent()->getDefaultStyle()->getFont()
-                            )
-                        );
+                        if ($cellValue !== null && $cellValue !== '') {
+                            $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
+                                (float) $autoSizes[$this->cellCollection->getCurrentColumn()],
+                                (float) Shared\Font::calculateColumnWidth(
+                                    $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
+                                    $cellValue,
+                                    $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
+                                    $this->getParent()->getDefaultStyle()->getFont()
+                                )
+                            );
+                        }
                     }
                 }
             }
