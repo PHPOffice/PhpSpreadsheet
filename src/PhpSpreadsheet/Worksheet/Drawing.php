@@ -14,12 +14,20 @@ class Drawing extends BaseDrawing
     private $path;
 
     /**
+     * Whether or not we are dealing with a URL.
+     *
+     * @var bool
+     */
+    private $isUrl;
+
+    /**
      * Create a new Drawing.
      */
     public function __construct()
     {
         // Initialise values
         $this->path = '';
+        $this->isUrl = false;
 
         // Initialize parent
         parent::__construct();
@@ -81,9 +89,25 @@ class Drawing extends BaseDrawing
     public function setPath($pValue, $pVerifyFile = true)
     {
         if ($pVerifyFile) {
-            if (file_exists($pValue)) {
+            // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+            if (filter_var($pValue, FILTER_VALIDATE_URL)) {
                 $this->path = $pValue;
-
+                // Implicit that it is a URL, rather store info than running check above on value in other places.
+                $this->isUrl = true;
+                $imageContents = file_get_contents($pValue);
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                if ($filePath) {
+                    file_put_contents($filePath, $imageContents);
+                    if (file_exists($filePath)) {
+                        if ($this->width == 0 && $this->height == 0) {
+                            // Get width/height
+                            [$this->width, $this->height] = getimagesize($filePath);
+                        }
+                        unlink($filePath);
+                    }
+                }
+            } elseif (file_exists($pValue)) {
+                $this->path = $pValue;
                 if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
                     [$this->width, $this->height] = getimagesize($pValue);
@@ -94,6 +118,26 @@ class Drawing extends BaseDrawing
         } else {
             $this->path = $pValue;
         }
+
+        return $this;
+    }
+
+    /**
+     * Get isURL.
+     */
+    public function getIsURL(): bool
+    {
+        return $this->isUrl;
+    }
+
+    /**
+     * Set isURL.
+     *
+     * @return $this
+     */
+    public function setIsURL(bool $isUrl): self
+    {
+        $this->isUrl = $isUrl;
 
         return $this;
     }

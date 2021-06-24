@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ## Unreleased - TBD
 
 ### Added
+- Add ability to extract images if source is a URL. [Issue #1997](https://github.com/PHPOffice/PhpSpreadsheet/issues/1997) [PR #2072](https://github.com/PHPOffice/PhpSpreadsheet/pull/2072)
 
 - Support for passing flags in the Reader `load()` and Writer `save()`methods, and through the IOFactory, to set behaviours. [PR #2136](https://github.com/PHPOffice/PhpSpreadsheet/pull/2136)
   - See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-and-writing-to-file/) for details

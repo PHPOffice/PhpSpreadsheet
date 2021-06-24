@@ -3,12 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
-use PHPUnit\Framework\TestCase;
 
-class AutoFilterTodayTest extends TestCase
+class AutoFilterTodayTest extends SetupTeardown
 {
     public function providerYesterdayTodayTomorrow(): array
     {
@@ -27,8 +25,7 @@ class AutoFilterTodayTest extends TestCase
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $this->getSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = $dtStart->format('d');
             $sheet->getCell('A1')->setValue('Date');
@@ -38,8 +35,8 @@ class AutoFilterTodayTest extends TestCase
             $sheet->getCell('A5')->setValue('=TODAY()');
             $sheet->getCell('A6')->setValue('=A5+1');
             $sheet->getCell('A7')->setValue('=A5-1');
-            $maxRow = 7;
-            $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
+            $this->maxRow = $maxRow = 7;
+            $autoFilter = $sheet->getAutoFilter();
             $autoFilter->setRange("A1:A$maxRow");
             $columnFilter = $autoFilter->getColumn('A');
             $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
@@ -54,12 +51,7 @@ class AutoFilterTodayTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endDay = $dtEnd->format('d');
         } while ($startDay !== $endDay);
-        $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
-            }
-        }
-        self::assertEquals($expectedVisible, $actualVisible);
+
+        self::assertEquals($expectedVisible, $this->getVisible());
     }
 }

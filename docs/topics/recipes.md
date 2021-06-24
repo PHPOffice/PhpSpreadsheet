@@ -1372,9 +1372,11 @@ The following code extracts images from the current active worksheet,
 and writes each as a separate file.
 
 ```php
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 $i = 0;
+
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
-    if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+    if ($drawing instanceof MemoryDrawing) {
         ob_start();
         call_user_func(
             $drawing->getRenderingFunction(),
@@ -1383,24 +1385,39 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         $imageContents = ob_get_contents();
         ob_end_clean();
         switch ($drawing->getMimeType()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG :
+            case MemoryDrawing::MIMETYPE_PNG :
                 $extension = 'png';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_GIF:
+            case MemoryDrawing::MIMETYPE_GIF:
                 $extension = 'gif';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG :
+            case MemoryDrawing::MIMETYPE_JPEG :
                 $extension = 'jpg';
                 break;
         }
     } else {
-        $zipReader = fopen($drawing->getPath(),'r');
-        $imageContents = '';
-        while (!feof($zipReader)) {
-            $imageContents .= fread($zipReader,1024);
+        if ($drawing->getPath()) {
+            // Check if the source is a URL or a file path
+            if ($drawing->getIsURL()) {
+                $imageContents = file_get_contents($drawing->getPath());
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                file_put_contents($filePath , $imageContents);
+                $mimeType = mime_content_type($filePath);
+                // You could use the below to find the extension from mime type.
+                // https://gist.github.com/alexcorvi/df8faecb59e86bee93411f6a7967df2c#gistcomment-2722664
+                $extension = File::mime2ext($mimeType);
+                unlink($filePath);            
+            }
+            else {
+                $zipReader = fopen($drawing->getPath(),'r');
+                $imageContents = '';
+                while (!feof($zipReader)) {
+                    $imageContents .= fread($zipReader,1024);
+                }
+                fclose($zipReader);
+                $extension = $drawing->getExtension();            
+            }
         }
-        fclose($zipReader);
-        $extension = $drawing->getExtension();
     }
     $myFileName = '00_Image_'.++$i.'.'.$extension;
     file_put_contents($myFileName,$imageContents);
