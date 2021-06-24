@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -237,7 +237,7 @@ class XlsxTest extends TestCase
      *
      * @dataProvider providerStripsWhiteSpaceFromStyleString
      */
-    public function testStripsWhiteSpaceFromStyleString($string): void
+    public function testStripsWhiteSpaceFromStyleString(string $string): void
     {
         $string = Xlsx::stripWhiteSpaceFromStyleString($string);
         self::assertEquals(preg_match('/\s/', $string), 0);

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use DOMDocument;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
@@ -175,7 +176,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $rows = $tbod[0]->getElementsByTagName('tr');
 
         $tds = $rows[0]->getElementsByTagName('td');
-        $nbsp = html_entity_decode('&nbsp;');
+        $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
         self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
 
         $this->writeAndReload($spreadsheet, 'Html');
@@ -211,7 +212,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $rows = $tbod[0]->getElementsByTagName('tr');
 
         $tds = $rows[0]->getElementsByTagName('td');
-        $nbsp = html_entity_decode('&nbsp;');
+        $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
         self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
 
         $this->writeAndReload($spreadsheet, 'Html');

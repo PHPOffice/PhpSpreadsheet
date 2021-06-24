@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Settings;
+
 class XMLWriter extends \XMLWriter
 {
     public static $debugEnabled = false;
@@ -87,6 +89,6 @@ class XMLWriter extends \XMLWriter
             $text = implode("\n", $text);
         }
 
-        return $this->writeRaw(htmlspecialchars($text ?? ''));
+        return $this->writeRaw(htmlspecialchars($text ?? '', Settings::htmlEntityFlags()));
     }
 }

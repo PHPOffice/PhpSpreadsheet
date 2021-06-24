@@ -18,7 +18,7 @@ class NPerTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPER($expectedResult, ...$args): void
+    public function testNPER($expectedResult, array $args): void
     {
         $result = Financial::NPER(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
