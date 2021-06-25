@@ -40,10 +40,11 @@ class StringTable extends WriterPart
             $cellValue = $cell->getValue();
             if (
                 !is_object($cellValue) &&
+                is_string($cellValue) &&
                 ($cellValue !== null) &&
                 $cellValue !== '' &&
                 !isset($aFlippedStringTable[$cellValue]) &&
-                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)
+                ($cell->getDataType() === DataType::TYPE_STRING || $cell->getDataType() === DataType::TYPE_STRING2 || $cell->getDataType() === DataType::TYPE_NULL)
             ) {
                 $aStringTable[] = $cellValue;
                 $aFlippedStringTable[$cellValue] = true;
