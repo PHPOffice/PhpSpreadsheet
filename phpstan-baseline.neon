@@ -2926,21 +2926,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls/RC4.php
 
 		-
-			message: "#^Cannot access property \\$Relationship on SimpleXMLElement\\|false\\.$#"
-			count: 12
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$sheets on SimpleXMLElement\\|false\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method registerXPathNamespace\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:castToBoolean\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3011,83 +2996,13 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Offset 'name' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method xpath\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#1 \\$is of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:parseRichText\\(\\) expects SimpleXMLElement\\|null, object given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$styleXml of class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles constructor expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$workbookPr on SimpleXMLElement\\|false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#2 \\$xmlWorkbook of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:readProtection\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$relsWorksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Hyperlinks\\:\\:readHyperlinks\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$authors on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$commentList on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Argument of an invalid type array\\<SimpleXMLElement\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$drawing on SimpleXMLElement\\|false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method children\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method count\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot call method asXML\\(\\) on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$definedNames on SimpleXMLElement\\|false\\.$#"
-			count: 4
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
@@ -3102,26 +3017,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$bookViews on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$Default on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot access property \\$Override on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$chartElements of static method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readChart\\(\\) expects SimpleXMLElement, SimpleXMLElement\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3262,11 +3157,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Offset 'id' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3701,66 +3591,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:\\$securityScanner has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:\\$docProps has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:extractPropertyData\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:extractPropertyData\\(\\) has parameter \\$propertyData with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:readCoreProperties\\(\\) has parameter \\$propertyData with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:registerXPathNamespace\\(\\)\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:xpath\\(\\)\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:readExtendedProperties\\(\\) has parameter \\$propertyData with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:readCustomProperties\\(\\) has parameter \\$propertyData with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:getArrayItem\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Properties\\:\\:getArrayItem\\(\\) has parameter \\$key with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Properties.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$worksheet has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
@@ -3769,16 +3599,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$worksheetXml has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViews\\:\\:\\$sheetViewXml has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViews.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViews\\:\\:\\$worksheet has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViews.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$styles has no typehint specified\\.$#"
@@ -3807,11 +3627,6 @@ parameters:
 
 		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$theme \\(PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Cannot call method count\\(\\) on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
@@ -3922,11 +3737,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$columnIndex of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:stringFromColumnIndex\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$pCellRange of method PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\:\\:updateCellReference\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -5482,11 +5292,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$pRange of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:setRange\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getFreezePane\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
