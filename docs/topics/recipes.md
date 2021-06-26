@@ -475,7 +475,7 @@ $spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksh
 To show/hide gridlines when printing, use the following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setShowGridlines(true);
+$spreadsheet->getActiveSheet()->setPrintGridlines(true);
 ```
 
 ### Setting rows/columns to repeat at top/left

@@ -1584,7 +1584,7 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane());
+        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane() ?? '');
         $x = $column - 1;
         $y = $row - 1;
 
