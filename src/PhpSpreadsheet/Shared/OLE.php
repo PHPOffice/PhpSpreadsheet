@@ -502,9 +502,6 @@ class OLE
         }
         $dateTime = Date::dateTimeFromTimestamp("$date");
 
-        // factor used for separating numbers into 4 bytes parts
-        $factor = 2 ** 32;
-
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
