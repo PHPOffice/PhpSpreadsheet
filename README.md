@@ -31,3 +31,4 @@ Because all efforts have shifted to PhpSpreadsheet, PHPExcel will no longer be m
 ## License
 
 PhpSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/LICENSE)
+
