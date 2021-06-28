@@ -2566,41 +2566,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function substr_count expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$colorArray has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$fontStyleMappings has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$styleSettingsFont has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:\\$styleSettingsBorder has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
-			message: "#^Parameter \\#1 \\$columnIndex of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:stringFromColumnIndex\\(\\) expects int, string given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
