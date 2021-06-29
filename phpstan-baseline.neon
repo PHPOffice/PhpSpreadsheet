@@ -4311,11 +4311,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 
 		-
-			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/PasswordHasher.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:sanitizeUTF8\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
