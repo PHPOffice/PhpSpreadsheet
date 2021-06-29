@@ -240,6 +240,10 @@ class Alignment extends Supervisor
             $pValue = self::VERTICAL_BOTTOM;
         }
 
+        if ($pValue == 'middle') {
+            $pValue = self::VERTICAL_CENTER;
+        }
+
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['vertical' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
