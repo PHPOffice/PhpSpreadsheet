@@ -11,10 +11,13 @@ class EpochTest extends AbstractFunctional
     public function providerFormats(): array
     {
         return [
+            ['Ods', '1921-03-17 11:30:00Z'],
             ['Ods', '2021-03-17 11:30:00Z'],
             ['Ods', '2041-03-17 11:30:00Z'],
+            ['Xls', '1921-03-17 11:30:00Z'],
             ['Xls', '2021-03-17 11:30:00Z'],
             ['Xls', '2041-03-17 11:30:00Z'],
+            ['Xlsx', '1921-03-17 11:30:00Z'],
             ['Xlsx', '2021-03-17 11:30:00Z'],
             ['Xlsx', '2041-03-17 11:30:00Z'],
         ];
