@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
@@ -19,7 +18,6 @@ class FloatsRetainedTest extends TestCase
     public function testIntyFloatsRetainedByWriter($value): void
     {
         $outputFilename = File::temporaryFilename();
-        Settings::setLibXmlLoaderOptions(null);
         $sheet = new Spreadsheet();
         $sheet->getActiveSheet()->getCell('A1')->setValue($value);
 

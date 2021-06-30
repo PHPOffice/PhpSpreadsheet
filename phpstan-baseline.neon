@@ -6931,11 +6931,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
@@ -6981,11 +6976,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
@@ -6996,16 +6986,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
 			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
@@ -7014,11 +6994,6 @@ parameters:
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$data of function simplexml_load_string expects string, string\\|false given\\.$#"
