@@ -9,18 +9,6 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 class PasswordReloadTest extends AbstractFunctional
 {
     /**
-     * I don't know why separate process is needed for this test.
-     * I get a weird error without it, and I would rather just scrap the test
-     *     than spend any more time debugging it.
-     * The test works fine without separate process (on Windows) with:
-     *     php vendor\phpunit\phpunit\phpunit tests\PhpSpreadsheetTests\Shared\
-     * But it fails with:
-     *     php vendor\phpunit\phpunit\phpunit tests\PhpSpreadsheetTests\
-     * The error is a mysterious:
-     *     simplexml_load_string(): validity error : Validation failed: no DTD found !
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      * @dataProvider providerPasswords
      */
     public function testPasswordReload(string $format, string $algorithm, bool $supported = true): void
