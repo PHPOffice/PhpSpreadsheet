@@ -6801,11 +6801,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$directory of function chdir expects string, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/ImagesRootTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
