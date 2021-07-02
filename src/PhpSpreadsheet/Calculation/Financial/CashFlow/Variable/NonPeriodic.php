@@ -32,7 +32,7 @@ class NonPeriodic
     public static function rate($values, $dates, $guess = 0.1)
     {
         $rslt = self::xirrPart1($values, $dates);
-        if ($rslt) {
+        if ($rslt !== '') {
             return $rslt;
         }
 
@@ -47,6 +47,8 @@ class NonPeriodic
             if (!is_numeric($f1) || !is_numeric($f2)) {
                 break;
             }
+            $f1 = (float) $f1;
+            $f2 = (float) $f2;
             if (($f1 * $f2) < 0.0) {
                 $found = true;
 
@@ -91,14 +93,18 @@ class NonPeriodic
         return self::xnpvOrdered($rate, $values, $dates, true);
     }
 
-    private static function bothNegAndPos($neg, $pos)
+    private static function bothNegAndPos(bool $neg, bool $pos): bool
     {
         return $neg && $pos;
     }
 
-    private static function xirrPart1(&$values, &$dates)
+    /**
+     * @param mixed $values
+     * @param mixed $dates
+     */
+    private static function xirrPart1(&$values, &$dates): string
     {
-        if ((!is_array($values)) && (!is_array($dates))) {
+        if (!is_array($values) && !is_array($dates)) {
             return Functions::NA();
         }
         $values = Functions::flattenArray($values);
@@ -119,7 +125,7 @@ class NonPeriodic
         return self::xirrPart2($values);
     }
 
-    private static function xirrPart2(&$values)
+    private static function xirrPart2(array &$values): string
     {
         $valCount = count($values);
         $foundpos = false;
@@ -141,7 +147,10 @@ class NonPeriodic
         return '';
     }
 
-    private static function xirrPart3($values, $dates, $x1, $x2)
+    /**
+     * @return float|string
+     */
+    private static function xirrPart3(array $values, array $dates, float $x1, float $x2)
     {
         $f = self::xnpvOrdered($x1, $values, $dates, false);
         if ($f < 0.0) {
@@ -156,7 +165,7 @@ class NonPeriodic
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
-            $f_mid = self::xnpvOrdered($x_mid, $values, $dates, false);
+            $f_mid = (float) self::xnpvOrdered($x_mid, $values, $dates, false);
             if ($f_mid <= 0.0) {
                 $rtb = $x_mid;
             }
@@ -170,7 +179,14 @@ class NonPeriodic
         return $rslt;
     }
 
-    private static function xnpvOrdered($rate, $values, $dates, $ordered = true)
+    /**
+     * @param mixed $rate
+     * @param mixed $values
+     * @param mixed $dates
+     *
+     * @return float|string
+     */
+    private static function xnpvOrdered($rate, $values, $dates, bool $ordered = true)
     {
         $rate = Functions::flattenSingleValue($rate);
         $values = Functions::flattenArray($values);
@@ -209,7 +225,10 @@ class NonPeriodic
         return is_finite($xnpv) ? $xnpv : Functions::VALUE();
     }
 
-    private static function validateXnpv($rate, $values, $dates): void
+    /**
+     * @param mixed $rate
+     */
+    private static function validateXnpv($rate, array $values, array $dates): void
     {
         if (!is_numeric($rate)) {
             throw new Exception(Functions::VALUE());

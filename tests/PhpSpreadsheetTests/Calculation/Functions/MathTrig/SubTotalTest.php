@@ -92,7 +92,7 @@ class SubTotalTest extends AllSetupTeardown
             '12' => false,
         ];
         foreach ($visibleRows as $row => $visible) {
-            $rowDimension = $sheet->getRowDimension($row);
+            $rowDimension = $sheet->getRowDimension((int) $row);
             $rowDimension->setVisible($visible);
         }
         $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
