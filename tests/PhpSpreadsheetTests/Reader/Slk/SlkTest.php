@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Slk;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Slk;
@@ -14,7 +14,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
     /**
      * @var string
      */
-    private static $testbook = __DIR__ . '/../../../samples/templates/SylkTest.slk';
+    private static $testbook = __DIR__ . '/../../../../samples/templates/SylkTest.slk';
 
     /**
      * @var string
@@ -23,7 +23,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
 
     protected function teardown(): void
     {
-        if ($this->filename) {
+        if ($this->filename !== '') {
             unlink($this->filename);
             $this->filename = '';
         }
@@ -134,6 +134,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(Border::BORDER_THIN, $sheet->getCell('C18')->getStyle()->getBorders()->getBottom()->getBorderStyle());
         self::assertEquals(Border::BORDER_THIN, $sheet->getCell('C18')->getStyle()->getBorders()->getLeft()->getBorderStyle());
         // Have not yet figured out how C6/C7 are centred
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSheetIndex(): void
@@ -147,6 +148,7 @@ class SlkTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('SylkTest', $sheet->getTitle());
 
         self::assertEquals('FFFF0000', $sheet->getCell('A1')->getStyle()->getFont()->getColor()->getARGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLongName(): void
@@ -160,5 +162,6 @@ class SlkTest extends \PHPUnit\Framework\TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('123456789a123456789b123456789c1', $sheet->getTitle());
         self::assertEquals('FFFF0000', $sheet->getCell('A1')->getStyle()->getFont()->getColor()->getARGB());
+        $spreadsheet->disconnectWorksheets();
     }
 }
