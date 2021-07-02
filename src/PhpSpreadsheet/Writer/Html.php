@@ -749,7 +749,7 @@ class Html extends BaseWriter
                     $html .= PHP_EOL;
                     $imageDetails = getimagesize($chartFileName);
                     $filedesc = $chart->getTitle();
-                    $filedesc = $filedesc ? self::getChartCaption($filedesc->getCaption()) : '';
+                    $filedesc = $filedesc ? $filedesc->getCaptionText() : '';
                     $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded chart';
                     if ($fp = fopen($chartFileName, 'rb', 0)) {
                         $picture = fread($fp, filesize($chartFileName));
@@ -768,27 +768,6 @@ class Html extends BaseWriter
 
         // Return
         return $html;
-    }
-
-    /**
-     * Extend Row if chart is placed after nominal end of row.
-     * This code should be exercised by sample:
-     * Chart/32_Chart_read_write_PDF.php.
-     * However, that test is suppressed due to out-of-date
-     * Jpgraph code issuing warnings. So, don't measure
-     * code coverage for this function till that is fixed.
-     * Caption is described in documentation as fixed,
-     * but in 32_Chart it is somehow an array of RichText.
-     *
-     * @param mixed $cap
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     */
-    private static function getChartCaption($cap)
-    {
-        return is_array($cap) ? implode(' ', $cap) : $cap;
     }
 
     /**
