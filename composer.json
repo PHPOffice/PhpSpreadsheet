@@ -69,7 +69,7 @@
         "ezyang/htmlpurifier": "^4.13",
         "maennchen/zipstream-php": "^2.1",
         "markbaker/complex": "^3.0",
-        "markbaker/matrix": "^2.0",
+        "markbaker/matrix": "^3.0",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
         "psr/simple-cache": "^1.0"
