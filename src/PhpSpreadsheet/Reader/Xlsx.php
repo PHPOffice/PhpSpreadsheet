@@ -312,15 +312,16 @@ class Xlsx extends BaseReader
 
     private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
     {
+        $attr = $c->f->attributes();
         $cellDataType = 'f';
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?
-        if (isset($c->f['t']) && strtolower((string) $c->f['t']) == 'shared') {
-            $instance = (string) $c->f['si'];
+        if (isset($attr['t']) && strtolower((string) $attr['t']) == 'shared') {
+            $instance = (string) $attr['si'];
 
-            if (!isset($sharedFormulas[(string) $c->f['si']])) {
+            if (!isset($sharedFormulas[(string) $attr['si']])) {
                 $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
             } else {
                 $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
