@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use function is_float;
 
 class StringTable extends WriterPart
 {
@@ -38,6 +39,9 @@ class StringTable extends WriterPart
         foreach ($pSheet->getCoordinates() as $coordinate) {
             $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
+            if (is_float($cellValue)) {
+                $cellValue = (int)$cellValue;
+            }
             if (
                 !is_object($cellValue) &&
                 ($cellValue !== null) &&
