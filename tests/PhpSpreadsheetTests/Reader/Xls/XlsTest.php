@@ -1,7 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
@@ -71,11 +72,27 @@ class XlsTest extends AbstractFunctional
         $rowIterator = $sheet->getRowIterator();
 
         foreach ($rowIterator as $row) {
-            foreach ($row->getCellIterator() as $cell) {
+            foreach ($row->getCellIterator() as $cellx) {
+                /** @var Cell */
+                $cell = $cellx;
                 $valOld = $cell->getFormattedValue();
                 $valNew = $newsheet->getCell($cell->getCoordinate())->getFormattedValue();
                 self::assertEquals($valOld, $valNew);
             }
         }
+    }
+
+    /**
+     * Test load Xls file with MACCENTRALEUROPE encoding, which is implemented
+     * as MAC-CENTRALEUROPE on some systems. Issue #549.
+     */
+    public function testLoadMacCentralEurope(): void
+    {
+        $filename = 'tests/data/Reader/XLS/maccentraleurope.xls';
+        $reader = new Xls();
+        // When no fix applied, spreadsheet fails to load on some systems
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
     }
 }
