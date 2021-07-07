@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use Throwable;
 
 class StringHelper
 {
@@ -264,8 +265,12 @@ class StringHelper
             self::$isIconvEnabled = false;
         }
 
-        // Deactivate iconv default options if they fail (as seen on IMB i)
-        if (self::$isIconvEnabled && !@iconv('UTF-8', 'UTF-16LE' . self::$iconvOptions, 'x')) {
+        try {
+            // Deactivate iconv default options if they fail (as seen on IMB i)
+            if (self::$isIconvEnabled && !@iconv('UTF-8', 'UTF-16LE' . self::$iconvOptions, 'x')) {
+                self::$iconvOptions = '';
+            }
+        } catch (Throwable $t) {
             self::$iconvOptions = '';
         }
 
