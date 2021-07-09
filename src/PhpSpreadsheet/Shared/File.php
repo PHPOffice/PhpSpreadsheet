@@ -61,7 +61,7 @@ class File
 
             if (self::validateZipFirst4($zipFile)) {
                 $zip = new ZipArchive();
-                $res = $zip->open($zipFile, ZipArchive::CHECKCONS + ZipArchive::RDONLY);
+                $res = $zip->open($zipFile, ZipArchive::CHECKCONS);
                 if ($res === true) {
                     $returnValue = ($zip->getFromName($archiveFile) !== false);
                     $zip->close();
