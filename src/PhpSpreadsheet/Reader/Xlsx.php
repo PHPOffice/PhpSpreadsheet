@@ -341,6 +341,31 @@ class Xlsx extends BaseReader
      *
      * @return string
      */
+    private function fileExistsInArchive(ZipArchive $archive, $fileName = '')
+    {
+        // Root-relative paths
+        if (strpos($fileName, '//') !== false) {
+            $fileName = substr($fileName, strpos($fileName, '//') + 1);
+        }
+        $fileName = File::realpath($fileName);
+
+        // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
+        //    so we need to load case-insensitively from the zip file
+
+        // Apache POI fixes
+        $contents = $archive->locateName($fileName, ZipArchive::FL_NOCASE);
+        if ($contents === false) {
+            $contents = $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE);
+        }
+
+        return ($contents !== false);
+    }
+
+    /**
+     * @param string $fileName
+     *
+     * @return string
+     */
     private function getFromZipArchive(ZipArchive $archive, $fileName = '')
     {
         // Root-relative paths
@@ -821,8 +846,19 @@ class Xlsx extends BaseReader
                                 $this->readSheetProtection($docSheet, $xmlSheet);
                             }
 
-                            if ($xmlSheet && $xmlSheet->autoFilter && !$this->readDataOnly) {
-                                (new AutoFilter($docSheet, $xmlSheet))->load();
+                            if ($this->readDataOnly === false) {
+                                if ($xmlSheet && $xmlSheet->autoFilter) {
+                                    (new AutoFilter($docSheet, $xmlSheet))->load();
+                                } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+                                    foreach ($xmlSheet->tableParts->children('') as $tablePart) {
+                                        $ele = self::getAttributes($tablePart, 'r');
+                                        var_dump($ele);
+                                        if ($this->fileExistsInArchive($this->zip, "xl/tables/table1.xml")) {
+                                            $autoFilter = $this->loadZip("xl/tables/table1.xml");
+                                            (new AutoFilter($docSheet, $autoFilter))->load();
+                                        }
+                                    }
+                                }
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
