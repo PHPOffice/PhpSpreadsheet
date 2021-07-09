@@ -847,18 +847,7 @@ class Xlsx extends BaseReader
                             }
 
                             if ($this->readDataOnly === false) {
-                                if ($xmlSheet && $xmlSheet->autoFilter) {
-                                    (new AutoFilter($docSheet, $xmlSheet))->load();
-                                } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
-                                    foreach ($xmlSheet->tableParts->children('') as $tablePart) {
-                                        $ele = self::getAttributes($tablePart, 'r');
-                                        var_dump($ele);
-                                        if ($this->fileExistsInArchive($this->zip, "xl/tables/table1.xml")) {
-                                            $autoFilter = $this->loadZip("xl/tables/table1.xml");
-                                            (new AutoFilter($docSheet, $autoFilter))->load();
-                                        }
-                                    }
-                                }
+                                 $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -2010,6 +1999,67 @@ class Xlsx extends BaseReader
         if ($xmlSheet->protectedRanges->protectedRange) {
             foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
                 $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
+            }
+        }
+    }
+
+    /**
+     * @param SimpleXMLElement $xmlSheet
+     * @param Worksheet $docSheet
+     * @param string $dir
+     * @param $fileWorksheet
+     * @param ZipArchive $zip
+     * @return string
+     */
+    private function readAutoFilterTables(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip
+    ): void {
+        if ($xmlSheet && $xmlSheet->autoFilter) {
+            // In older files, autofilter structure is defined in the worksheet file
+            (new AutoFilter($docSheet, $xmlSheet))->load();
+        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+            // But for Office365, MS decided to make it all just a bit more complicated
+            $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        }
+    }
+
+    /**
+     * @param SimpleXMLElement $xmlSheet
+     * @param string $dir
+     * @param string $fileWorksheet
+     * @param ZipArchive $zip
+     * @param Worksheet $docSheet
+     */
+    private function readAutoFilterTablesInTablesFile(
+        SimpleXMLElement $xmlSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip,
+        Worksheet $docSheet
+    ): void {
+        foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
+            $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
+            $tablePartRel = (string)$relation['id'];
+            $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+            if ($zip->locateName($relationsFileName)) {
+                $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+                foreach ($relsTableReferences->Relationship as $relationship) {
+                    $relationshipAttributes = self::getAttributes($relationship, '');
+                    if ((string)$relationshipAttributes['Id'] === $tablePartRel) {
+                        $relationshipFileName = (string)$relationshipAttributes['Target'];
+
+                        $relationshipFilePath = dirname("$dir/$fileWorksheet") . '/' . $relationshipFileName;
+                        $relationshipFilePath = File::realpath($relationshipFilePath);
+                        if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
+                            $autoFilter = $this->loadZip($relationshipFilePath);
+                            (new AutoFilter($docSheet, $autoFilter))->load();
+                        }
+                    }
+                }
             }
         }
     }
