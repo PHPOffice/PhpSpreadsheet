@@ -2001,11 +2001,6 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param $fileWorksheet
-     *
-     * @return string
-     */
     private function readAutoFilterTables(
         SimpleXMLElement $xmlSheet,
         Worksheet $docSheet,
