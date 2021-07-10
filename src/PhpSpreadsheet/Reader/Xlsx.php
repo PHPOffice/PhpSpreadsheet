@@ -2028,15 +2028,17 @@ class Xlsx extends BaseReader
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
             $tablePartRel = (string) $relation['id'];
             $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+
             if ($zip->locateName($relationsFileName)) {
                 $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
                 foreach ($relsTableReferences->Relationship as $relationship) {
                     $relationshipAttributes = self::getAttributes($relationship, '');
+
                     if ((string) $relationshipAttributes['Id'] === $tablePartRel) {
                         $relationshipFileName = (string) $relationshipAttributes['Target'];
-
                         $relationshipFilePath = dirname("$dir/$fileWorksheet") . '/' . $relationshipFileName;
                         $relationshipFilePath = File::realpath($relationshipFilePath);
+
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
                             $autoFilter = $this->loadZip($relationshipFilePath);
                             (new AutoFilter($docSheet, $autoFilter))->load();
