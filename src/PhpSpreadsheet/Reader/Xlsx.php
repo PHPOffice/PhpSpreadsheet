@@ -338,10 +338,8 @@ class Xlsx extends BaseReader
 
     /**
      * @param string $fileName
-     *
-     * @return string
      */
-    private function fileExistsInArchive(ZipArchive $archive, $fileName = '')
+    private function fileExistsInArchive(ZipArchive $archive, $fileName = ''): bool
     {
         // Root-relative paths
         if (strpos($fileName, '//') !== false) {
@@ -358,7 +356,7 @@ class Xlsx extends BaseReader
             $contents = $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE);
         }
 
-        return ($contents !== false);
+        return $contents !== false;
     }
 
     /**
@@ -847,7 +845,7 @@ class Xlsx extends BaseReader
                             }
 
                             if ($this->readDataOnly === false) {
-                                 $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
+                                $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -2004,11 +2002,8 @@ class Xlsx extends BaseReader
     }
 
     /**
-     * @param SimpleXMLElement $xmlSheet
-     * @param Worksheet $docSheet
-     * @param string $dir
      * @param $fileWorksheet
-     * @param ZipArchive $zip
+     *
      * @return string
      */
     private function readAutoFilterTables(
@@ -2027,13 +2022,6 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param SimpleXMLElement $xmlSheet
-     * @param string $dir
-     * @param string $fileWorksheet
-     * @param ZipArchive $zip
-     * @param Worksheet $docSheet
-     */
     private function readAutoFilterTablesInTablesFile(
         SimpleXMLElement $xmlSheet,
         string $dir,
@@ -2043,14 +2031,14 @@ class Xlsx extends BaseReader
     ): void {
         foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
-            $tablePartRel = (string)$relation['id'];
+            $tablePartRel = (string) $relation['id'];
             $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
             if ($zip->locateName($relationsFileName)) {
                 $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
                 foreach ($relsTableReferences->Relationship as $relationship) {
                     $relationshipAttributes = self::getAttributes($relationship, '');
-                    if ((string)$relationshipAttributes['Id'] === $tablePartRel) {
-                        $relationshipFileName = (string)$relationshipAttributes['Target'];
+                    if ((string) $relationshipAttributes['Id'] === $tablePartRel) {
+                        $relationshipFileName = (string) $relationshipAttributes['Target'];
 
                         $relationshipFilePath = dirname("$dir/$fileWorksheet") . '/' . $relationshipFileName;
                         $relationshipFilePath = File::realpath($relationshipFilePath);

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BasicLoadTest extends TestCase
 {
-    public function testLoadAutoFilter()
+    public function testLoadAutoFilter(): void
     {
         $filename = 'tests/data/Features/AutoFilter/Xlsx/AutoFilter_Basic.xlsx';
         $reader = new Xlsx();
@@ -17,7 +17,7 @@ class BasicLoadTest extends TestCase
         self::assertSame('A1:D57', $worksheet->getAutoFilter()->getRange());
     }
 
-    public function testLoadOffice365AutoFilter()
+    public function testLoadOffice365AutoFilter(): void
     {
         $filename = 'tests/data/Features/AutoFilter/Xlsx/AutoFilter_Basic_Office365.xlsx';
         $reader = new Xlsx();
