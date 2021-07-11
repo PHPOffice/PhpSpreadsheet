@@ -8,7 +8,8 @@ class CodePage
 {
     public const DEFAULT_CODE_PAGE = 'CP1252';
 
-    private const PAGE_ARRAY = [
+    /** @var array */
+    private static $pageArray = [
         0 => 'CP1252', //    CodePage is not always correctly set when the xls file was saved by Apple's Numbers program
         367 => 'ASCII', //    ASCII
         437 => 'CP437', //    OEM US
@@ -70,7 +71,7 @@ class CodePage
 
     public static function validate(string $codePage): bool
     {
-        return in_array($codePage, self::PAGE_ARRAY, true);
+        return in_array($codePage, self::$pageArray, true);
     }
 
     /**
@@ -83,11 +84,13 @@ class CodePage
      */
     public static function numberToName(int $codePage): string
     {
-        if (array_key_exists($codePage, self::PAGE_ARRAY)) {
-            $value = self::PAGE_ARRAY[$codePage];
+        if (array_key_exists($codePage, self::$pageArray)) {
+            $value = self::$pageArray[$codePage];
             if (is_array($value)) {
                 foreach ($value as $encoding) {
                     if (@iconv('UTF-8', $encoding, ' ') !== false) {
+                        self::$pageArray[$codePage] = $encoding;
+
                         return $encoding;
                     }
                 }
@@ -106,6 +109,6 @@ class CodePage
 
     public static function getEncodings(): array
     {
-        return self::PAGE_ARRAY;
+        return self::$pageArray;
     }
 }
