@@ -338,6 +338,29 @@ class Xlsx extends BaseReader
 
     /**
      * @param string $fileName
+     */
+    private function fileExistsInArchive(ZipArchive $archive, $fileName = ''): bool
+    {
+        // Root-relative paths
+        if (strpos($fileName, '//') !== false) {
+            $fileName = substr($fileName, strpos($fileName, '//') + 1);
+        }
+        $fileName = File::realpath($fileName);
+
+        // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
+        //    so we need to load case-insensitively from the zip file
+
+        // Apache POI fixes
+        $contents = $archive->locateName($fileName, ZipArchive::FL_NOCASE);
+        if ($contents === false) {
+            $contents = $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE);
+        }
+
+        return $contents !== false;
+    }
+
+    /**
+     * @param string $fileName
      *
      * @return string
      */
@@ -821,8 +844,8 @@ class Xlsx extends BaseReader
                                 $this->readSheetProtection($docSheet, $xmlSheet);
                             }
 
-                            if ($xmlSheet && $xmlSheet->autoFilter && !$this->readDataOnly) {
-                                (new AutoFilter($docSheet, $xmlSheet))->load();
+                            if ($this->readDataOnly === false) {
+                                $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -1974,6 +1997,54 @@ class Xlsx extends BaseReader
         if ($xmlSheet->protectedRanges->protectedRange) {
             foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
                 $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
+            }
+        }
+    }
+
+    private function readAutoFilterTables(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip
+    ): void {
+        if ($xmlSheet && $xmlSheet->autoFilter) {
+            // In older files, autofilter structure is defined in the worksheet file
+            (new AutoFilter($docSheet, $xmlSheet))->load();
+        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+            // But for Office365, MS decided to make it all just a bit more complicated
+            $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        }
+    }
+
+    private function readAutoFilterTablesInTablesFile(
+        SimpleXMLElement $xmlSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip,
+        Worksheet $docSheet
+    ): void {
+        foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
+            $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
+            $tablePartRel = (string) $relation['id'];
+            $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+
+            if ($zip->locateName($relationsFileName)) {
+                $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+                foreach ($relsTableReferences->Relationship as $relationship) {
+                    $relationshipAttributes = self::getAttributes($relationship, '');
+
+                    if ((string) $relationshipAttributes['Id'] === $tablePartRel) {
+                        $relationshipFileName = (string) $relationshipAttributes['Target'];
+                        $relationshipFilePath = dirname("$dir/$fileWorksheet") . '/' . $relationshipFileName;
+                        $relationshipFilePath = File::realpath($relationshipFilePath);
+
+                        if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
+                            $autoFilter = $this->loadZip($relationshipFilePath);
+                            (new AutoFilter($docSheet, $autoFilter))->load();
+                        }
+                    }
+                }
             }
         }
     }
