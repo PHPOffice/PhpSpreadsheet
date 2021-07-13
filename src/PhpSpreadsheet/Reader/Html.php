@@ -137,12 +137,8 @@ class Html extends BaseReader
 
     /**
      * Validate that the current file is an HTML file.
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         // Check if file exists
         try {

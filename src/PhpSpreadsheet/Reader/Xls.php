@@ -419,14 +419,12 @@ class Xls extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
+        if (!File::testFileNoThrow($pFilename)) {
+            return false;
+        }
 
         try {
             // Use ParseXL for the hard work.

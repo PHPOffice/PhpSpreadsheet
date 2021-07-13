@@ -13,12 +13,8 @@ interface IReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename);
+    public function canRead(string $pFilename): bool;
 
     /**
      * Read data only?
