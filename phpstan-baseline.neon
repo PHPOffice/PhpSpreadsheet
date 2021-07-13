@@ -3491,11 +3491,6 @@ parameters:
 			path: src/PhpSpreadsheet/Settings.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:\\$pageArray has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/CodePage.php
-
-		-
 			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Date.php
@@ -6519,16 +6514,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Security\\\\XmlScannerTest\\:\\:testInvalidXML\\(\\) has parameter \\$libxmlDisableEntityLoader with no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
-
-		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
-
-		-
-			message: "#^Cannot call method getCoordinate\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getWorksheetInstance\\(\\) has no return typehint specified\\.$#"

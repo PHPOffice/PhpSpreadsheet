@@ -267,6 +267,11 @@ class Column
         return null;
     }
 
+    public function ruleCount(): int
+    {
+        return count($this->ruleset);
+    }
+
     /**
      * Get all AutoFilter Column Rules.
      *
