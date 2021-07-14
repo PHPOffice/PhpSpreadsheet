@@ -71,6 +71,27 @@ class Escher
         $this->object = $object;
     }
 
+    private const WHICH_ROUTINE = [
+        self::DGGCONTAINER => 'readDggContainer',
+        self::DGG => 'readDgg',
+        self::BSTORECONTAINER => 'readBstoreContainer',
+        self::BSE => 'readBSE',
+        self::BLIPJPEG => 'readBlipJPEG',
+        self::BLIPPNG => 'readBlipPNG',
+        self::OPT => 'readOPT',
+        self::TERTIARYOPT => 'readTertiaryOPT',
+        self::SPLITMENUCOLORS => 'readSplitMenuColors',
+        self::DGCONTAINER => 'readDgContainer',
+        self::DG => 'readDg',
+        self::SPGRCONTAINER => 'readSpgrContainer',
+        self::SPCONTAINER => 'readSpContainer',
+        self::SPGR => 'readSpgr',
+        self::SP => 'readSp',
+        self::CLIENTTEXTBOX => 'readClientTextbox',
+        self::CLIENTANCHOR => 'readClientAnchor',
+        self::CLIENTDATA => 'readClientData',
+    ];
+
     /**
      * Load Escher stream data. May be a partial Escher stream.
      *
@@ -91,84 +112,9 @@ class Escher
         while ($this->pos < $this->dataSize) {
             // offset: 2; size: 2: Record Type
             $fbt = Xls::getUInt2d($this->data, $this->pos + 2);
-
-            switch ($fbt) {
-                case self::DGGCONTAINER:
-                    $this->readDggContainer();
-
-                    break;
-                case self::DGG:
-                    $this->readDgg();
-
-                    break;
-                case self::BSTORECONTAINER:
-                    $this->readBstoreContainer();
-
-                    break;
-                case self::BSE:
-                    $this->readBSE();
-
-                    break;
-                case self::BLIPJPEG:
-                    $this->readBlipJPEG();
-
-                    break;
-                case self::BLIPPNG:
-                    $this->readBlipPNG();
-
-                    break;
-                case self::OPT:
-                    $this->readOPT();
-
-                    break;
-                case self::TERTIARYOPT:
-                    $this->readTertiaryOPT();
-
-                    break;
-                case self::SPLITMENUCOLORS:
-                    $this->readSplitMenuColors();
-
-                    break;
-                case self::DGCONTAINER:
-                    $this->readDgContainer();
-
-                    break;
-                case self::DG:
-                    $this->readDg();
-
-                    break;
-                case self::SPGRCONTAINER:
-                    $this->readSpgrContainer();
-
-                    break;
-                case self::SPCONTAINER:
-                    $this->readSpContainer();
-
-                    break;
-                case self::SPGR:
-                    $this->readSpgr();
-
-                    break;
-                case self::SP:
-                    $this->readSp();
-
-                    break;
-                case self::CLIENTTEXTBOX:
-                    $this->readClientTextbox();
-
-                    break;
-                case self::CLIENTANCHOR:
-                    $this->readClientAnchor();
-
-                    break;
-                case self::CLIENTDATA:
-                    $this->readClientData();
-
-                    break;
-                default:
-                    $this->readDefault();
-
-                    break;
+            $routine = self::WHICH_ROUTINE[$fbt] ?? 'readDefault';
+            if (method_exists($this, $routine)) {
+                $this->$routine();
             }
         }
 
@@ -209,9 +155,7 @@ class Escher
 
         // record is a container, read contents
         $dggContainer = new DggContainer();
-        if (method_exists($this->object, 'setDggContainer')) {
-            $this->object->setDggContainer($dggContainer);
-        }
+        $this->applyAttribute('setDggContainer', $dggContainer);
         $reader = new self($dggContainer);
         $reader->load($recordData);
     }
@@ -241,9 +185,7 @@ class Escher
 
         // record is a container, read contents
         $bstoreContainer = new BstoreContainer();
-        if (method_exists($this->object, 'setBstoreContainer')) {
-            $this->object->setBstoreContainer($bstoreContainer);
-        }
+        $this->applyAttribute('setBstoreContainer', $bstoreContainer);
         $reader = new self($bstoreContainer);
         $reader->load($recordData);
     }
@@ -266,9 +208,7 @@ class Escher
 
         // add BSE to BstoreContainer
         $BSE = new BSE();
-        if (method_exists($this->object, 'addBSE')) {
-            $this->object->addBSE($BSE);
-        }
+        $this->applyAttribute('addBSE', $BSE);
 
         $BSE->setBLIPType($recInstance);
 
@@ -354,9 +294,7 @@ class Escher
         $blip = new Blip();
         $blip->setData($data);
 
-        if (method_exists($this->object, 'setBlip')) {
-            $this->object->setBlip($blip);
-        }
+        $this->applyAttribute('setBlip', $blip);
     }
 
     /**
@@ -397,9 +335,7 @@ class Escher
         $blip = new Blip();
         $blip->setData($data);
 
-        if (method_exists($this->object, 'setBlip')) {
-            $this->object->setBlip($blip);
-        }
+        $this->applyAttribute('setBlip', $blip);
     }
 
     /**
@@ -463,9 +399,7 @@ class Escher
 
         // record is a container, read contents
         $dgContainer = new DgContainer();
-        if (method_exists($this->object, 'setDgContainer')) {
-            $this->object->setDgContainer($dgContainer);
-        }
+        $this->applyAttribute('setDgContainer', $dgContainer);
         $reader = new self($dgContainer);
         $reader->load($recordData);
     }
@@ -520,9 +454,7 @@ class Escher
 
         // add spContainer to spgrContainer
         $spContainer = new SpContainer();
-        if (method_exists($this->object, 'addChild')) {
-            $this->object->addChild($spContainer);
-        }
+        $this->applyAttribute('addChild', $spContainer);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
@@ -613,31 +545,21 @@ class Escher
         // offset: 16; size: 2; bottom-right corner vertical offset in 1/256 of row height
         $endOffsetY = Xls::getUInt2d($recordData, 16);
 
-        // set the start coordinates
-        if (
-            method_exists($this->object, 'setStartCoordinates')
-            && method_exists($this->object, 'setStartOffsetX')
-            && method_exists($this->object, 'setStartOffsetY')
-            && method_exists($this->object, 'setEndCoordinates')
-            && method_exists($this->object, 'setEndOffsetX')
-            && method_exists($this->object, 'setEndOffsetY')
-        ) {
-            $this->object->setStartCoordinates(Coordinate::stringFromColumnIndex($c1 + 1) . ($r1 + 1));
+        $this->applyAttribute('setStartCoordinates', Coordinate::stringFromColumnIndex($c1 + 1) . ($r1 + 1));
+        $this->applyAttribute('setStartOffsetX', $startOffsetX);
+        $this->applyAttribute('setStartOffsetY', $startOffsetY);
+        $this->applyAttribute('setEndCoordinates', Coordinate::stringFromColumnIndex($c2 + 1) . ($r2 + 1));
+        $this->applyAttribute('setEndOffsetX', $endOffsetX);
+        $this->applyAttribute('setEndOffsetY', $endOffsetY);
+    }
 
-            // set the start offsetX
-            $this->object->setStartOffsetX($startOffsetX);
-
-            // set the start offsetY
-            $this->object->setStartOffsetY($startOffsetY);
-
-            // set the end coordinates
-            $this->object->setEndCoordinates(Coordinate::stringFromColumnIndex($c2 + 1) . ($r2 + 1));
-
-            // set the end offsetX
-            $this->object->setEndOffsetX($endOffsetX);
-
-            // set the end offsetY
-            $this->object->setEndOffsetY($endOffsetY);
+    /**
+     * @param mixed $value
+     */
+    private function applyAttribute(string $name, $value): void
+    {
+        if (method_exists($this->object, $name)) {
+            $this->object->$name($value);
         }
     }
 
