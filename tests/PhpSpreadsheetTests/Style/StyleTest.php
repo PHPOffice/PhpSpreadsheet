@@ -55,6 +55,29 @@ class StyleTest extends TestCase
         self::assertFalse($sheet->getStyle('C3')->getFont()->getItalic());
     }
 
+    public function testStyleIsReused(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $styleArray = [
+            'font' => [
+                'italic' => true,
+            ],
+        ];
+
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        $sheet->getStyle('A2')->getFont()->setBold(true);
+        $sheet->getStyle('A3')->getFont()->setBold(true);
+        $sheet->getStyle('A3')->getFont()->setItalic(true);
+
+        $sheet->getStyle('A')->applyFromArray($styleArray);
+
+        self::assertCount(4, $spreadsheet->getCellXfCollection());
+        $spreadsheet->garbageCollect();
+
+        self::assertCount(3, $spreadsheet->getCellXfCollection());
+    }
+
     public function testStyleRow(): void
     {
         $spreadsheet = new Spreadsheet();

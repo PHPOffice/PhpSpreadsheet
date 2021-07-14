@@ -64,6 +64,21 @@ class Style extends Supervisor
     protected $quotePrefix = false;
 
     /**
+     * Cloning a Style and calling getHashCode() is expensive.
+     * When applying a single style to several cells can we cache the styles
+     * we encounter so to prevent calling these methods in order to determine
+     * if they will end up being the same as an existing style.
+     *
+     * The key is the hashcode of an old style
+     * The value is the old style with the new styles applied
+     *
+     * @see Style::applyFromArray()
+     *
+     * @var array<string, Style|Style[]>
+     */
+    private static $cachedStyles;
+
+    /**
      * Create a new Style.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
@@ -350,15 +365,47 @@ class Style extends Supervisor
             // First loop through columns, rows, or cells to find out which styles are affected by this operation
             $oldXfIndexes = $this->getOldXfIndexes($selectionType, $rangeStartIndexes, $rangeEndIndexes, $columnStart, $columnEnd, $pStyles);
 
+            // $cachedStyles is set when applying style for a range of cells, either column or row
+            $isUsingCache = self::$cachedStyles !== null;
+
             // clone each of the affected styles, apply the style array, and add the new styles to the workbook
             $workbook = $this->getActiveSheet()->getParent();
             $newXfIndexes = [];
             foreach ($oldXfIndexes as $oldXfIndex => $dummy) {
                 $style = $workbook->getCellXfByIndex($oldXfIndex);
-                $newStyle = clone $style;
-                $newStyle->applyFromArray($pStyles);
 
-                if ($existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode())) {
+                if (!$isUsingCache) {
+                    // Clone the old style and apply array, then see if this style already exist
+                    $newStyle = clone $style;
+                    $newStyle->applyFromArray($pStyles);
+
+                    $existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode());
+                } else {
+                    $objId = spl_object_id($style);
+
+                    // Check if we have already called getHashCode on the $oldXfIndex
+                    $styleHash = self::$cachedStyles['hashes'][$objId] ?? null;
+                    if ($styleHash === null) {
+                        // Cache hashCode of $oldXfIndex so we do not need to call this again
+                        $styleHash = self::$cachedStyles['hashes'][$objId] = $style->getHashCode();
+                    }
+
+                    $existingStyle = self::$cachedStyles[$styleHash] ?? null;
+
+                    if ($existingStyle === null) {
+                        // The $oldXfIndex combined with the style array does not exist, so we create it now
+                        $newStyle = clone $style;
+                        $newStyle->applyFromArray($pStyles);
+
+                        $existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode());
+
+                        // Cache the Style which is a result of $oldXfIndex and the style array
+                        self::$cachedStyles[$styleHash] = $existingStyle ?: $newStyle;
+                        self::$cachedStyles['hashes'][$objId] = $styleHash;
+                    }
+                }
+
+                if ($existingStyle) {
                     // there is already such cell Xf in our collection
                     $newXfIndexes[$oldXfIndex] = $existingStyle->getIndex();
                 } else {

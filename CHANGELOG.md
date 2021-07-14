@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing.
+- Improved performance of Style::applyFromArray() when applied to several cells. [#1785](https://github.com/PHPOffice/PhpSpreadsheet/issues/1785).
 
 ### Deprecated
 
