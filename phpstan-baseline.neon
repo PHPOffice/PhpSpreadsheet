@@ -3491,11 +3491,6 @@ parameters:
 			path: src/PhpSpreadsheet/Settings.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:\\$pageArray has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/CodePage.php
-
-		-
 			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Date.php
@@ -4024,11 +4019,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
-
-		-
-			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/PasswordHasher.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:sanitizeUTF8\\(\\) should return string but returns string\\|false\\.$#"
@@ -6516,16 +6506,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
 		-
-			message: "#^Cannot call method getFormattedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
-
-		-
-			message: "#^Cannot call method getCoordinate\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/XlsTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getWorksheetInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
@@ -6641,11 +6621,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetNamedRangesTest.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
@@ -6686,11 +6661,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/FloatsRetainedTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
@@ -6701,16 +6671,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/StartsWithHashTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
 			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
@@ -6719,11 +6679,6 @@ parameters:
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$options of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLibXmlLoaderOptions\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$data of function simplexml_load_string expects string, string\\|false given\\.$#"

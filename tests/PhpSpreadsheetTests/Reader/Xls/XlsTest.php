@@ -1,8 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XlsTest extends AbstractFunctional
@@ -16,6 +18,7 @@ class XlsTest extends AbstractFunctional
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
         self::assertEquals('Title', $spreadsheet->getSheet(0)->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -42,6 +45,8 @@ class XlsTest extends AbstractFunctional
         self::assertEquals($row, $newrow);
         self::assertEquals($sheet->getCell('A1')->getFormattedValue(), $newsheet->getCell('A1')->getFormattedValue());
         self::assertEquals($sheet->getCell("$col$row")->getFormattedValue(), $newsheet->getCell("$col$row")->getFormattedValue());
+        $spreadsheet->disconnectWorksheets();
+        $newspreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -71,11 +76,49 @@ class XlsTest extends AbstractFunctional
         $rowIterator = $sheet->getRowIterator();
 
         foreach ($rowIterator as $row) {
-            foreach ($row->getCellIterator() as $cell) {
+            foreach ($row->getCellIterator() as $cellx) {
+                /** @var Cell */
+                $cell = $cellx;
                 $valOld = $cell->getFormattedValue();
                 $valNew = $newsheet->getCell($cell->getCoordinate())->getFormattedValue();
                 self::assertEquals($valOld, $valNew);
             }
         }
+        $spreadsheet->disconnectWorksheets();
+        $newspreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test load Xls file with MACCENTRALEUROPE encoding, which is implemented
+     * as MAC-CENTRALEUROPE on some systems. Issue #549.
+     */
+    public function testLoadMacCentralEurope(): void
+    {
+        $codePages = CodePage::getEncodings();
+        self::assertIsArray($codePages[10029]);
+        $filename = 'tests/data/Reader/XLS/maccentraleurope.xls';
+        $reader = new Xls();
+        // When no fix applied, spreadsheet fails to load on some systems
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * First test changes array entry in CodePage.
+     * This test confirms new that new entry is okay.
+     */
+    public function testLoadMacCentralEurope2(): void
+    {
+        $codePages = CodePage::getEncodings();
+        self::assertIsString($codePages[10029]);
+        $filename = 'tests/data/Reader/XLS/maccentraleurope.xls';
+        $reader = new Xls();
+        // When no fix applied, spreadsheet fails to load on some systems
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }
