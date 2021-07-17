@@ -699,7 +699,8 @@ class Worksheet extends WriterPart
                 }
 
                 $objWriter->writeAttribute('allowBlank', ($dv->getAllowBlank() ? '1' : '0'));
-                $objWriter->writeAttribute('showDropDown', ($dv->getShowDropDown() ? '1' : '0'));
+                // showDropDown is really hideDropDown Excel renders as true = hide, false = show
+                $objWriter->writeAttribute('showDropDown', (!$dv->getShowDropDown() ? '1' : '0'));
                 $objWriter->writeAttribute('showInputMessage', ($dv->getShowInputMessage() ? '1' : '0'));
                 $objWriter->writeAttribute('showErrorMessage', ($dv->getShowErrorMessage() ? '1' : '0'));
 

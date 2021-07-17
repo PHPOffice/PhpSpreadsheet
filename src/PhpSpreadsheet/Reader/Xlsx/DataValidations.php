@@ -35,7 +35,8 @@ class DataValidations
                     $docValidation->setErrorStyle((string) $dataValidation['errorStyle']);
                     $docValidation->setOperator((string) $dataValidation['operator']);
                     $docValidation->setAllowBlank(filter_var($dataValidation['allowBlank'], FILTER_VALIDATE_BOOLEAN));
-                    $docValidation->setShowDropDown(filter_var($dataValidation['showDropDown'], FILTER_VALIDATE_BOOLEAN));
+                    // showDropDown is inverted (works as hideDropDown if true)
+                    $docValidation->setShowDropDown(!filter_var($dataValidation['showDropDown'], FILTER_VALIDATE_BOOLEAN));
                     $docValidation->setShowInputMessage(filter_var($dataValidation['showInputMessage'], FILTER_VALIDATE_BOOLEAN));
                     $docValidation->setShowErrorMessage(filter_var($dataValidation['showErrorMessage'], FILTER_VALIDATE_BOOLEAN));
                     $docValidation->setErrorTitle((string) $dataValidation['errorTitle']);
