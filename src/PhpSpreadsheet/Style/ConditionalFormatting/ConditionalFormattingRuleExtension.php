@@ -80,9 +80,12 @@ class ConditionalFormattingRuleExtension
 
                     $extDataBarObj = new ConditionalDataBarExtension();
                     $extFormattingRuleObj->setDataBarExt($extDataBarObj);
-                    $dataBarXml = $extCfRuleXml->dataBar;
-                    self::parseExtDataBarAttributesFromXml($extDataBarObj, $dataBarXml);
-                    self::parseExtDataBarElementChildrenFromXml($extDataBarObj, $dataBarXml, $ns);
+                   
+                    if ($dataBarXml = $extCfRuleXml->dataBar)
+                    {
+                        self::parseExtDataBarAttributesFromXml($extDataBarObj, $dataBarXml);
+                        self::parseExtDataBarElementChildrenFromXml($extDataBarObj, $dataBarXml, $ns);
+                    }
                 }
             }
         }
