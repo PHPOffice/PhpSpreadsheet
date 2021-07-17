@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataValidationBooleanValue extends TestCase
 {
-    public static function testPr2225_truefalse(): void
+    public static function testPr2225TrueFalse(): void
     {
         //This file is created with LibreOffice
         $xlsxFile = 'tests/data/Reader/XLSX/pr2225-datavalidation-truefalse.xlsx';
@@ -32,7 +32,7 @@ class DataValidationBooleanValue extends TestCase
     }
 
     //This file was created with Google Sheets export to XLSX
-    public static function testPr2225_onezero(): void
+    public static function testPr2225OneZero(): void
     {
         $xlsxFile = 'tests/data/Reader/XLSX/pr2225-datavalidation-onezero.xlsx';
         $reader = new Xlsx();
