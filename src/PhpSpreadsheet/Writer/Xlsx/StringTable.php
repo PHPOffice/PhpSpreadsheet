@@ -8,65 +8,56 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Psr\SimpleCache\CacheInterface;
 
 class StringTable extends WriterPart
 {
     /**
      * Create worksheet stringtable.
      *
-     * @param Worksheet $pSheet Worksheet
-     * @param string[] $pExistingTable Existing table to eventually merge with
-     *
-     * @return string[] String table for worksheet
+     * @param Worksheet $pSheet              Worksheet
+     * @param resource  $stringTableFD       String table storage file
+     * @param CacheInterface  $aFlippedStringTable Existing table to eventually merge with
      */
-    public function createStringTable(Worksheet $pSheet, $pExistingTable = null)
+    public function createStringTable(Worksheet $pSheet, $stringTableFD, CacheInterface $aFlippedStringTable, int &$stringTableRecordsCount = 0)
     {
-        // Create string lookup table
-        $aStringTable = [];
-        $cellCollection = null;
-        $aFlippedStringTable = null; // For faster lookup
-
-        // Is an existing table given?
-        if (($pExistingTable !== null) && is_array($pExistingTable)) {
-            $aStringTable = $pExistingTable;
-        }
-
-        // Fill index array
-        $aFlippedStringTable = $this->flipStringTable($aStringTable);
-
         // Loop through cells
+        $i = 0;
         foreach ($pSheet->getCoordinates() as $coordinate) {
+            if (++$i % 100 === 0) { gc_collect_cycles(); }
+
             $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
             if (!is_object($cellValue) &&
                 ($cellValue !== null) &&
                 $cellValue !== '' &&
-                !isset($aFlippedStringTable[$cellValue]) &&
-                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)) {
-                $aStringTable[] = $cellValue;
-                $aFlippedStringTable[$cellValue] = true;
+                !$aFlippedStringTable->has(md5($cellValue)) &&
+                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)
+            ) {
+                fwrite($stringTableFD, serialize($cellValue) . PHP_EOL);
+                $aFlippedStringTable->set(md5($cellValue), $stringTableRecordsCount);
+                $stringTableRecordsCount++;
             } elseif ($cellValue instanceof RichText &&
                 ($cellValue !== null) &&
-                !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
-                $aStringTable[] = $cellValue;
-                $aFlippedStringTable[$cellValue->getHashCode()] = true;
+                !!$aFlippedStringTable->has($cellValue->getHashCode())
+            ) {
+                fwrite($stringTableFD, serialize($cellValue) . PHP_EOL);
+                $aFlippedStringTable->set($cellValue->getHashCode(), $stringTableRecordsCount);
+                $stringTableRecordsCount++;
             }
         }
-
-        return $aStringTable;
     }
 
     /**
      * Write string table to XML format.
      *
-     * @param string[] $pStringTable
+     * @param resource $pStringTableFD
      *
      * @return string XML Output
      */
-    public function writeStringTable(array $pStringTable)
+    public function writeStringTable($pStringTableFD, int $uniqueCount)
     {
         // Create XML writer
-        $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
@@ -79,10 +70,11 @@ class StringTable extends WriterPart
         // String table
         $objWriter->startElement('sst');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-        $objWriter->writeAttribute('uniqueCount', count($pStringTable));
+        $objWriter->writeAttribute('uniqueCount', $uniqueCount);
 
         // Loop through string table
-        foreach ($pStringTable as $textElement) {
+        while (!feof($pStringTableFD)) {
+            $textElement = unserialize(fgets($pStringTableFD));
             $objWriter->startElement('si');
 
             if (!$textElement instanceof RichText) {
@@ -250,29 +242,5 @@ class StringTable extends WriterPart
 
             $objWriter->endElement();
         }
-    }
-
-    /**
-     * Flip string table (for index searching).
-     *
-     * @param array $stringTable Stringtable
-     *
-     * @return array
-     */
-    public function flipStringTable(array $stringTable)
-    {
-        // Return value
-        $returnValue = [];
-
-        // Loop through stringtable and add flipped items to $returnValue
-        foreach ($stringTable as $key => $value) {
-            if (!$value instanceof RichText) {
-                $returnValue[$value] = $key;
-            } elseif ($value instanceof RichText) {
-                $returnValue[$value->getHashCode()] = $key;
-            }
-        }
-
-        return $returnValue;
     }
 }

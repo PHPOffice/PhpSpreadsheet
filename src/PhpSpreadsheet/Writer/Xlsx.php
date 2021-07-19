@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
-use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing as WorksheetDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -50,13 +50,6 @@ class Xlsx extends BaseWriter
      * @var Spreadsheet
      */
     private $spreadSheet;
-
-    /**
-     * Private string table.
-     *
-     * @var string[]
-     */
-    private $stringTable = [];
 
     /**
      * Private unique Conditional HashTable.
@@ -191,10 +184,18 @@ class Xlsx extends BaseWriter
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             // Create string lookup table
-            $this->stringTable = [];
-            for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-                $this->stringTable = $this->getWriterPart('StringTable')->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
+            $tmpStringTableFile = tempnam($this->getDiskCachingDirectory(), 'est');
+            $stringTableFD = fopen($tmpStringTableFile, 'wb+');
+            if ($stringTableFD === false) {
+                throw new WriterException('Create temporary stringTable file failed');
             }
+
+            $aFlippedStringTable = Settings::getCache();
+            $stringTableRecordsCount = 0;
+            for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+                $this->getWriterPart('StringTable')->createStringTable($this->spreadSheet->getSheet($i), $stringTableFD, $aFlippedStringTable, $stringTableRecordsCount);
+            }
+            fseek($stringTableFD, 0);
 
             // Create styles dictionaries
             $this->styleHashTable->addFromSource($this->getWriterPart('Style')->allStyles($this->spreadSheet));
@@ -261,7 +262,9 @@ class Xlsx extends BaseWriter
             $this->addZipFile('xl/theme/theme1.xml', $this->getWriterPart('Theme')->writeTheme($this->spreadSheet));
 
             // Add string table to ZIP file
-            $this->addZipFile('xl/sharedStrings.xml', $this->getWriterPart('StringTable')->writeStringTable($this->stringTable));
+            $this->addZipFile('xl/sharedStrings.xml', $this->getWriterPart('StringTable')->writeStringTable($stringTableFD, $stringTableRecordsCount));
+            fclose($stringTableFD);
+            @unlink($tmpStringTableFile);
 
             // Add styles to ZIP file
             $this->addZipFile('xl/styles.xml', $this->getWriterPart('Style')->writeStyles($this->spreadSheet));
@@ -272,7 +275,7 @@ class Xlsx extends BaseWriter
             $chartCount = 0;
             // Add worksheets
             for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-                $this->addZipFile('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts));
+                $this->addZipFile('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->spreadSheet->getSheet($i), $aFlippedStringTable, $this->includeCharts));
                 if ($this->includeCharts) {
                     $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
                     if (count($charts) > 0) {
@@ -441,16 +444,6 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * Get string table.
-     *
-     * @return string[]
-     */
-    public function getStringTable()
-    {
-        return $this->stringTable;
-    }
-
-    /**
      * Get Style HashTable.
      *
      * @return HashTable
@@ -546,11 +539,21 @@ class Xlsx extends BaseWriter
 
     private $pathNames = [];
 
-    private function addZipFile(string $path, string $content): void
+    /**
+     * @param string          $path
+     * @param string|resource $input
+     */
+    private function addZipFile(string $path, $input): void
     {
         if (!in_array($path, $this->pathNames)) {
             $this->pathNames[] = $path;
-            $this->zip->addFile($path, $content);
+
+            if (is_resource($input)) {
+                $this->zip->addFileFromStream($path, $input);
+                fclose($input);
+            } else {
+                $this->zip->addFile($path, $input);
+            }
         }
     }
 }

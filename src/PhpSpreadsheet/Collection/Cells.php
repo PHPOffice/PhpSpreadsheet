@@ -45,9 +45,9 @@ class Cells
     private $currentCellIsDirty = false;
 
     /**
-     * An index of existing cells. Booleans indexed by their coordinate.
+     * An index of existing cells. Cells indexed by 4-bytes (64 cells) blocks.
      *
-     * @var bool[]
+     * @var int[][]
      */
     private $index = [];
 
@@ -96,8 +96,17 @@ class Cells
             return true;
         }
 
+        $column = '';
+        $row = 0;
+        sscanf($pCoord, '%[A-Z]%d', $column, $row);
+
+        $cellBlock = (int)(($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            return false;
+        }
+
         // Check if the requested entry exists in the index
-        return isset($this->index[$pCoord]);
+        return $this->index[$column][$cellBlock] & (1 << (($row - 1) % 64));
     }
 
     /**
@@ -126,7 +135,25 @@ class Cells
             $this->currentCellIsDirty = false;
         }
 
-        unset($this->index[$pCoord]);
+        $column = '';
+        $row = 0;
+        sscanf($pCoord, '%[A-Z]%d', $column, $row);
+
+        $cellBlock = (int)(($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            return;
+        }
+
+        // Check if the requested entry exists in the index
+        $this->index[$column][$cellBlock] &= ~(1 << (($row - 1) % 64));
+
+        // Clean index
+        if ($this->index[$column][$cellBlock] === 0) {
+            unset($this->index[$column][$cellBlock]);
+            if (empty($this->index[$column])) {
+                unset($this->index[$column]);
+            }
+        }
 
         // Delete the entry from cache
         $this->cache->delete($this->cachePrefix . $pCoord);
@@ -139,7 +166,17 @@ class Cells
      */
     public function getCoordinates()
     {
-        return array_keys($this->index);
+        foreach ($this->index as $column => $cellBlocks) {
+            foreach ($cellBlocks as $cellBlockId => $cellBlock) {
+                foreach (preg_split('//u', strrev(sprintf('%064b', $cellBlock)), -1, PREG_SPLIT_NO_EMPTY) as $pos => $char) {
+                    if ($char === "0") {
+                        continue;
+                    }
+                    
+                    yield $column . ($cellBlockId * 64 + $pos + 1);
+                }
+            }
+        }
     }
 
     /**
@@ -149,16 +186,26 @@ class Cells
      */
     public function getSortedCoordinates()
     {
-        $sortKeys = [];
-        foreach ($this->getCoordinates() as $coord) {
-            $column = '';
-            $row = 0;
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
+        $existingBlocksIds = [];
+        foreach ($this->index as $cellBlocks) {
+            foreach ($cellBlocks as $cellBlockId => $cellBlock) {
+                $existingBlocksIds[$cellBlockId] = true;
+            }
         }
-        ksort($sortKeys);
 
-        return array_values($sortKeys);
+        foreach ($existingBlocksIds as $blocksId => $v) {
+            for ($offset = 0; $offset < 64; $offset++) {
+                foreach ($this->index as $column => $cellBlocks) {
+                    if (!isset($cellBlocks[$blocksId])) {
+                        continue;
+                    }
+                    
+                    if (($cellBlocks[$blocksId] >> $offset) & 1) {
+                        yield $column . ($blocksId * 64 + $offset + 1);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -169,19 +216,23 @@ class Cells
     public function getHighestRowAndColumn()
     {
         // Lookup highest column and highest row
-        $col = ['A' => '1A'];
-        $row = [1];
+        $highestRow = 1;
+        $highestColumn = '1A';
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
             sscanf($coord, '%[A-Z]%d', $c, $r);
-            $row[$r] = $r;
-            $col[$c] = strlen($c) . $c;
+            if ($r > $highestRow) {
+                $highestRow = $r;
+            }
+            $currentCol = strlen($c) . $c;
+            if ($currentCol > $highestColumn) {
+                $highestColumn = $currentCol;
+            }
         }
 
         // Determine highest column and row
-        $highestRow = max($row);
-        $highestColumn = substr(max($col), 1);
+        $highestColumn = substr($highestColumn, 1);
 
         return [
             'row' => $highestRow,
@@ -245,7 +296,7 @@ class Cells
             return $colRow['column'];
         }
 
-        $columnList = [1];
+        $maxColId = 1;
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
@@ -254,10 +305,13 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Coordinate::columnIndexFromString($c);
+            $colId =  Coordinate::columnIndexFromString($c);
+            if ($colId > $maxColId) {
+                $maxColId = $colId;
+            }
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList));
+        return Coordinate::stringFromColumnIndex($maxColId);
     }
 
     /**
@@ -276,7 +330,7 @@ class Cells
             return $colRow['row'];
         }
 
-        $rowList = [0];
+        $maxRow = 0;
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
@@ -285,10 +339,12 @@ class Cells
             if ($c != $column) {
                 continue;
             }
-            $rowList[] = $r;
+            if ($r > $maxRow) {
+                $maxRow = $r;
+            }
         }
 
-        return max($rowList);
+        return $maxRow;
     }
 
     /**
@@ -412,7 +468,16 @@ class Cells
         if ($pCoord !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
-        $this->index[$pCoord] = true;
+        
+        $column = '';
+        $row = 0;
+        sscanf($pCoord, '%[A-Z]%d', $column, $row);
+        
+        $cellBlock = (int)(($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            $this->index[$column][$cellBlock] = 0;
+        }
+        $this->index[$column][$cellBlock] |= (1 << (($row - 1) % 64));
 
         $this->currentCoordinate = $pCoord;
         $this->currentCell = $cell;
