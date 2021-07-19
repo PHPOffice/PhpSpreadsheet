@@ -182,7 +182,7 @@ class Cells
     /**
      * Get a sorted list of all cell coordinates currently held in the collection by row and column.
      *
-     * @return string[]
+     * @return Generator
      */
     public function getSortedCoordinates()
     {
