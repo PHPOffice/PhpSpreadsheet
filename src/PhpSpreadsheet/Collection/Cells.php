@@ -106,7 +106,7 @@ class Cells
         }
 
         // Check if the requested entry exists in the index
-        return $this->index[$column][$cellBlock] & (1 << (($row - 1) % 64));
+        return (bool) ($this->index[$column][$cellBlock] >> (($row - 1) % 64) & 1);
     }
 
     /**
