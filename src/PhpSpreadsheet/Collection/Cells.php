@@ -162,7 +162,7 @@ class Cells
     /**
      * Get a list of all cell coordinates currently held in the collection.
      *
-     * @return string[]
+     * @return Generator
      */
     public function getCoordinates()
     {
