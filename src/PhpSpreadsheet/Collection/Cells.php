@@ -100,7 +100,7 @@ class Cells
         $row = 0;
         sscanf($pCoord, '%[A-Z]%d', $column, $row);
 
-        $cellBlock = (int)(($row - 1) / 64);
+        $cellBlock = (int) (($row - 1) / 64);
         if (!isset($this->index[$column][$cellBlock])) {
             return false;
         }
@@ -139,7 +139,7 @@ class Cells
         $row = 0;
         sscanf($pCoord, '%[A-Z]%d', $column, $row);
 
-        $cellBlock = (int)(($row - 1) / 64);
+        $cellBlock = (int) (($row - 1) / 64);
         if (!isset($this->index[$column][$cellBlock])) {
             return;
         }
@@ -169,10 +169,10 @@ class Cells
         foreach ($this->index as $column => $cellBlocks) {
             foreach ($cellBlocks as $cellBlockId => $cellBlock) {
                 foreach (preg_split('//u', strrev(sprintf('%064b', $cellBlock)), -1, PREG_SPLIT_NO_EMPTY) as $pos => $char) {
-                    if ($char === "0") {
+                    if ($char === '0') {
                         continue;
                     }
-                    
+
                     yield $column . ($cellBlockId * 64 + $pos + 1);
                 }
             }
@@ -199,7 +199,7 @@ class Cells
                     if (!isset($cellBlocks[$blocksId])) {
                         continue;
                     }
-                    
+
                     if (($cellBlocks[$blocksId] >> $offset) & 1) {
                         yield $column . ($blocksId * 64 + $offset + 1);
                     }
@@ -277,7 +277,7 @@ class Cells
 
         sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
 
-        return (int) $row;
+        return (int)$row;
     }
 
     /**
@@ -305,7 +305,7 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $colId =  Coordinate::columnIndexFromString($c);
+            $colId = Coordinate::columnIndexFromString($c);
             if ($colId > $maxColId) {
                 $maxColId = $colId;
             }
@@ -459,7 +459,7 @@ class Cells
      * Add or update a cell identified by its coordinate into the collection.
      *
      * @param string $pCoord Coordinate of the cell to update
-     * @param Cell $cell Cell to update
+     * @param Cell   $cell   Cell to update
      *
      * @return Cell
      */
@@ -468,12 +468,12 @@ class Cells
         if ($pCoord !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
-        
+
         $column = '';
         $row = 0;
         sscanf($pCoord, '%[A-Z]%d', $column, $row);
-        
-        $cellBlock = (int)(($row - 1) / 64);
+
+        $cellBlock = (int) (($row - 1) / 64);
         if (!isset($this->index[$column][$cellBlock])) {
             $this->index[$column][$cellBlock] = 0;
         }

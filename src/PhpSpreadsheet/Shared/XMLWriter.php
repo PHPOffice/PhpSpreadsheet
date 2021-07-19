@@ -64,7 +64,7 @@ class XMLWriter extends \XMLWriter
     /**
      * Get written data.
      *
-     * @return string|resource
+     * @return resource|string
      */
     public function getData()
     {

@@ -294,23 +294,18 @@ class Xlsx extends BaseWriter
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
         // Create string lookup table
-        $this->stringTable = [];
-        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
+        $tmpStringTableFile = tempnam($this->getDiskCachingDirectory(), 'est');
+        $stringTableFD = fopen($tmpStringTableFile, 'wb+');
+        if ($stringTableFD === false) {
+            throw new WriterException('Create temporary stringTable file failed');
         }
-//            // Create string lookup table
-//            $tmpStringTableFile = tempnam($this->getDiskCachingDirectory(), 'est');
-//            $stringTableFD = fopen($tmpStringTableFile, 'wb+');
-//            if ($stringTableFD === false) {
-//                throw new WriterException('Create temporary stringTable file failed');
-//            }
-//
-//            $aFlippedStringTable = Settings::getCache();
-//            $stringTableRecordsCount = 0;
-//            for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-//                $this->getWriterPart('StringTable')->createStringTable($this->spreadSheet->getSheet($i), $stringTableFD, $aFlippedStringTable, $stringTableRecordsCount);
-//            }
-//            fseek($stringTableFD, 0);
+
+        $aFlippedStringTable = Settings::getCache();
+        $stringTableRecordsCount = 0;
+        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+            $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $stringTableFD, $aFlippedStringTable, $stringTableRecordsCount);
+        }
+        fseek($stringTableFD, 0);
 
         // Create styles dictionaries
         $this->styleHashTable->addFromSource($this->getWriterPartStyle()->allStyles($this->spreadSheet));
@@ -372,11 +367,7 @@ class Xlsx extends BaseWriter
         $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
 
         // Add string table to ZIP file
-        $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);
-//            // Add string table to ZIP file
-//            $this->addZipFile('xl/sharedStrings.xml', $this->getWriterPart('StringTable')->writeStringTable($stringTableFD, $stringTableRecordsCount));
-//            fclose($stringTableFD);
-//            @unlink($tmpStringTableFile);
+        $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($stringTableFD, $stringTableRecordsCount);
 
         // Add styles to ZIP file
         $zipContent['xl/styles.xml'] = $this->getWriterPartStyle()->writeStyles($this->spreadSheet);
@@ -387,7 +378,7 @@ class Xlsx extends BaseWriter
         $chartCount = 0;
         // Add worksheets
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts);
+            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $aFlippedStringTable, $this->includeCharts);
             if ($this->includeCharts) {
                 $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
                 if (count($charts) > 0) {
@@ -398,20 +389,6 @@ class Xlsx extends BaseWriter
                 }
             }
         }
-//            $chartCount = 0;
-//            // Add worksheets
-//            for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-//                $this->addZipFile('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->spreadSheet->getSheet($i), $aFlippedStringTable, $this->includeCharts));
-//                if ($this->includeCharts) {
-//                    $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
-//                    if (count($charts) > 0) {
-//                        foreach ($charts as $chart) {
-//                            $this->addZipFile('xl/charts/chart' . ($chartCount + 1) . '.xml', $this->getWriterPart('Chart')->writeChart($chart, $this->preCalculateFormulas));
-//                            ++$chartCount;
-//                        }
-//                    }
-//                }
-//            }
 
         $chartRef1 = 0;
         // Add worksheet relationships (drawings, ...)
@@ -537,6 +514,9 @@ class Xlsx extends BaseWriter
         $this->zip = new ZipStream(null, $options);
 
         $this->addZipFiles($zipContent);
+
+        fclose($stringTableFD);
+        @unlink($tmpStringTableFile);
 
         // Close file
         try {
@@ -670,7 +650,7 @@ class Xlsx extends BaseWriter
 
     /**
      * @param string          $path
-     * @param string|resource $input
+     * @param resource|string $input
      */
     private function addZipFile(string $path, $input): void
     {
