@@ -19,13 +19,10 @@ class StringTable extends WriterPart
      * @param resource  $stringTableFD       String table storage file
      * @param CacheInterface  $aFlippedStringTable Existing table to eventually merge with
      */
-    public function createStringTable(Worksheet $pSheet, $stringTableFD, CacheInterface $aFlippedStringTable, int &$stringTableRecordsCount = 0)
+    public function createStringTable(Worksheet $pSheet, $stringTableFD, CacheInterface $aFlippedStringTable, int &$stringTableRecordsCount = 0): void
     {
         // Loop through cells
-        $i = 0;
         foreach ($pSheet->getCoordinates() as $coordinate) {
-            if (++$i % 100 === 0) { gc_collect_cycles(); }
-
             $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
             if (
@@ -37,14 +34,14 @@ class StringTable extends WriterPart
             ) {
                 fwrite($stringTableFD, serialize($cellValue) . PHP_EOL);
                 $aFlippedStringTable->set(md5($cellValue), $stringTableRecordsCount);
-                $stringTableRecordsCount++;
+                ++$stringTableRecordsCount;
             } elseif (
                 $cellValue instanceof RichText &&
-                !!$aFlippedStringTable->has($cellValue->getHashCode())
+                !$aFlippedStringTable->has($cellValue->getHashCode())
             ) {
                 fwrite($stringTableFD, serialize($cellValue) . PHP_EOL);
                 $aFlippedStringTable->set($cellValue->getHashCode(), $stringTableRecordsCount);
-                $stringTableRecordsCount++;
+                ++$stringTableRecordsCount;
             }
         }
     }
@@ -54,7 +51,7 @@ class StringTable extends WriterPart
      *
      * @param resource $pStringTableFD
      *
-     * @return string XML Output
+     * @return resource|string XML Output
      */
     public function writeStringTable($pStringTableFD, int $uniqueCount)
     {

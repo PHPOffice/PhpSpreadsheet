@@ -8,15 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class ChartsTitleTest extends TestCase
 {
-    private static function getTitleText(?Title $title): ?string
+    private static function getTitleText(?Title $title): string
     {
-        if (null === $title || empty($title->getCaption())) {
-            return null;
-        }
-
-        return implode("\n", array_map(function ($rt) {
-            return $rt->getPlainText();
-        }, $title->getCaption())); // @phpstan-ignore-line
+        return ($title === null) ? '' : $title->getCaptionText();
     }
 
     public function testChartTitles(): void
