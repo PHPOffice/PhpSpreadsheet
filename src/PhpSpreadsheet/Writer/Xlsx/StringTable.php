@@ -22,7 +22,6 @@ class StringTable extends WriterPart
     public function createStringTable(Worksheet $pSheet, $stringTableFD, CacheInterface $aFlippedStringTable, int &$stringTableRecordsCount = 0): void
     {
         // Loop through cells
-        $i = 0;
         foreach ($pSheet->getCoordinates() as $coordinate) {
             $cell = $pSheet->getCell($coordinate);
             $cellValue = $cell->getValue();
