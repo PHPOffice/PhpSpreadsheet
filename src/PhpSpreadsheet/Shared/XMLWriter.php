@@ -64,7 +64,7 @@ class XMLWriter extends \XMLWriter
     /**
      * Get written data.
      *
-     * @return string
+     * @return string|resource
      */
     public function getData()
     {
@@ -73,7 +73,7 @@ class XMLWriter extends \XMLWriter
         }
         $this->flush();
 
-        return file_get_contents($this->tempFileName);
+        return fopen($this->tempFileName, 'rb');
     }
 
     /**

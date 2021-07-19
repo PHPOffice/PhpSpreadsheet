@@ -15,21 +15,22 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
+use Psr\SimpleCache\CacheInterface;
 
 class Worksheet extends WriterPart
 {
     /**
      * Write worksheet to XML format.
      *
-     * @param string[] $pStringTable
-     * @param bool $includeCharts Flag indicating if we should write charts
+     * @param PhpspreadsheetWorksheet $pSheet
+     * @param CacheInterface          $aFlipStringTable
+     * @param bool                    $includeCharts Flag indicating if we should write charts
      *
      * @return string XML Output
      */
-    public function writeWorksheet(PhpspreadsheetWorksheet $pSheet, $pStringTable = null, $includeCharts = false)
+    public function writeWorksheet(PhpspreadsheetWorksheet $pSheet, CacheInterface $aFlipStringTable, bool $includeCharts = false)
     {
         // Create XML writer
-        $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
@@ -68,7 +69,7 @@ class Worksheet extends WriterPart
         $this->writeCols($objWriter, $pSheet);
 
         // sheetData
-        $this->writeSheetData($objWriter, $pSheet, $pStringTable);
+        $this->writeSheetData($objWriter, $pSheet, $aFlipStringTable);
 
         // sheetProtection
         $this->writeSheetProtection($objWriter, $pSheet);
@@ -1091,15 +1092,12 @@ class Worksheet extends WriterPart
     /**
      * Write SheetData.
      *
-     * @param XMLWriter $objWriter XML Writer
-     * @param PhpspreadsheetWorksheet $pSheet Worksheet
-     * @param string[] $pStringTable String table
+     * @param XMLWriter               $objWriter           XML Writer
+     * @param PhpspreadsheetWorksheet $pSheet              Worksheet
+     * @param CacheInterface          $aFlippedStringTable Inverted String table
      */
-    private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, array $pStringTable): void
+    private function writeSheetData(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, CacheInterface $aFlippedStringTable): void
     {
-        // Flipped stringtable, for faster index searching
-        $aFlippedStringTable = $this->getParentWriter()->getWriterPartstringtable()->flipStringTable($pStringTable);
-
         // sheetData
         $objWriter->startElement('sheetData');
 
@@ -1193,15 +1191,15 @@ class Worksheet extends WriterPart
 
     /**
      * @param RichText|string $cellValue
-     * @param string[] $pFlippedStringTable
+     * @param CacheInterface $pFlippedStringTable
      */
-    private function writeCellString(XMLWriter $objWriter, string $mappedType, $cellValue, array $pFlippedStringTable): void
+    private function writeCellString(XMLWriter $objWriter, string $mappedType, $cellValue, CacheInterface $pFlippedStringTable): void
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
-            self::writeElementIf($objWriter, isset($pFlippedStringTable[$cellValue]), 'v', $pFlippedStringTable[$cellValue] ?? '');
+            self::writeElementIf($objWriter, $pFlippedStringTable->has(md5($cellValue)), 'v', $pFlippedStringTable->get(md5($cellValue), ''));
         } else {
-            $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
+            $objWriter->writeElement('v', $pFlippedStringTable->get($cellValue->getHashCode()));
         }
     }
 
@@ -1279,9 +1277,9 @@ class Worksheet extends WriterPart
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $pSheet Worksheet
      * @param string $pCellAddress Cell Address
-     * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
+     * @param CacheInterface $pFlippedStringTable String table (flipped), for faster index searching
      */
-    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, string $pCellAddress, array $pFlippedStringTable): void
+    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $pSheet, string $pCellAddress, CacheInterface $pFlippedStringTable): void
     {
         // Cell
         $pCell = $pSheet->getCell($pCellAddress);
