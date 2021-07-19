@@ -51,7 +51,7 @@ class StringTable extends WriterPart
      *
      * @param resource $pStringTableFD
      *
-     * @return string XML Output
+     * @return resource|string XML Output
      */
     public function writeStringTable($pStringTableFD, int $uniqueCount)
     {
