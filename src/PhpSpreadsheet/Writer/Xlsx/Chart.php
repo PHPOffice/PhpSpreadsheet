@@ -1086,7 +1086,7 @@ class Chart extends WriterPart
             $objWriter->startElement('c:ser');
 
             $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
-            if ($plotLabel) {
+            if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
                 $fillColor = $plotLabel->getFillColor();
                 if ($fillColor !== null && !is_array($fillColor)) {
                     $objWriter->startElement('c:spPr');
@@ -1143,6 +1143,13 @@ class Chart extends WriterPart
                 $objWriter->writeAttribute('w', $plotLineWidth);
                 if ($groupType == DataSeries::TYPE_STOCKCHART) {
                     $objWriter->startElement('a:noFill');
+                    $objWriter->endElement();
+                } elseif ($plotLabel && $plotLabel->getFillColor() !== null) {
+                    $fillColor = $plotLabel->getFillColor();
+                    $objWriter->startElement('a:solidFill');
+                    $objWriter->startElement('a:srgbClr');
+                    $objWriter->writeAttribute('val', $fillColor);
+                    $objWriter->endElement();
                     $objWriter->endElement();
                 }
                 $objWriter->endElement();
