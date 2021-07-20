@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Kodus\Cache\FileCache;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -983,20 +984,14 @@ class Worksheet extends WriterPart
         // Highest row number
         $highestRow = $pSheet->getHighestRow();
 
-        // Loop through cells
-        $cellsByRow = [];
-        foreach ($pSheet->getCoordinates() as $coordinate) {
-            $cellAddress = Coordinate::coordinateFromString($coordinate);
-            $cellsByRow[$cellAddress[1]][] = $coordinate;
-        }
-
         $currentRow = 0;
         while ($currentRow++ < $highestRow) {
             // Get row dimension
             $rowDimension = $pSheet->getRowDimension($currentRow);
 
             // Write current row?
-            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+            $hasAnyCellInRow = $pSheet->getCellCollection()->hasAnyCellInRow($currentRow);
+            $writeCurrentRow = $hasAnyCellInRow || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
 
             if ($writeCurrentRow) {
                 // Start a new row
@@ -1032,8 +1027,8 @@ class Worksheet extends WriterPart
                 }
 
                 // Write cells
-                if (isset($cellsByRow[$currentRow])) {
-                    foreach ($cellsByRow[$currentRow] as $cellAddress) {
+                if ($hasAnyCellInRow) {
+                    foreach ($pSheet->getCellCollection()->getCellsByRow($currentRow) as $cellAddress) {
                         // Write cell
                         $this->writeCell($objWriter, $pSheet, $cellAddress, $aFlippedStringTable);
                     }
