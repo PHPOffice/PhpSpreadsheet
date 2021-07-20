@@ -110,6 +110,50 @@ class Cells
     }
 
     /**
+     * Return TRUE when any cell found in row
+     *
+     * @param int $row
+     *
+     * @return bool
+     */
+    public function hasAnyCellInRow(int $row): bool
+    {
+        $rowBlock = (int)(($row - 1) / 64);
+        foreach ($this->index as $rowBlocks) {
+            if (!isset($rowBlocks[$rowBlock])) {
+                continue;
+            }
+
+            if (($rowBlocks[$rowBlock] >> (($row - 1) % 64)) & 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return Generator for iterate by row
+     *
+     * @param int $row
+     *
+     * @return Generator
+     */
+    public function getCellsByRow(int $row): Generator
+    {
+        $rowBlock = (int)(($row - 1) / 64);
+        foreach ($this->index as $column => $rowBlocks) {
+            if (!isset($rowBlocks[$rowBlock])) {
+                continue;
+            }
+
+            if ((($rowBlocks[$rowBlock] >> (($row - 1) % 64)) & 1)) {
+                yield $column . ($rowBlock * 64 + (($row - 1) % 64) + 1);
+            }
+        }
+    }
+
+    /**
      * Add or update a cell in the collection.
      *
      * @param Cell $cell Cell to update
