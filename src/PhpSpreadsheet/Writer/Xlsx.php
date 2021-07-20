@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -48,13 +49,6 @@ class Xlsx extends BaseWriter
      * @var Spreadsheet
      */
     private $spreadSheet;
-
-    /**
-     * Private string table.
-     *
-     * @var string[]
-     */
-    private $stringTable = [];
 
     /**
      * Private unique Conditional HashTable.
@@ -300,10 +294,18 @@ class Xlsx extends BaseWriter
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
         // Create string lookup table
-        $this->stringTable = [];
-        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
+        $tmpStringTableFile = tempnam($this->getDiskCachingDirectory(), 'est');
+        $stringTableFD = fopen($tmpStringTableFile, 'wb+');
+        if ($stringTableFD === false) {
+            throw new WriterException('Create temporary stringTable file failed');
         }
+
+        $aFlippedStringTable = Settings::getCache();
+        $stringTableRecordsCount = 0;
+        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+            $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $stringTableFD, $aFlippedStringTable, $stringTableRecordsCount);
+        }
+        fseek($stringTableFD, 0);
 
         // Create styles dictionaries
         $this->styleHashTable->addFromSource($this->getWriterPartStyle()->allStyles($this->spreadSheet));
@@ -365,7 +367,7 @@ class Xlsx extends BaseWriter
         $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
 
         // Add string table to ZIP file
-        $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);
+        $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($stringTableFD, $stringTableRecordsCount);
 
         // Add styles to ZIP file
         $zipContent['xl/styles.xml'] = $this->getWriterPartStyle()->writeStyles($this->spreadSheet);
@@ -376,7 +378,7 @@ class Xlsx extends BaseWriter
         $chartCount = 0;
         // Add worksheets
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts);
+            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $aFlippedStringTable, $this->includeCharts);
             if ($this->includeCharts) {
                 $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
                 if (count($charts) > 0) {
@@ -513,6 +515,9 @@ class Xlsx extends BaseWriter
 
         $this->addZipFiles($zipContent);
 
+        fclose($stringTableFD);
+        @unlink($tmpStringTableFile);
+
         // Close file
         try {
             $this->zip->finish();
@@ -545,16 +550,6 @@ class Xlsx extends BaseWriter
         $this->spreadSheet = $spreadsheet;
 
         return $this;
-    }
-
-    /**
-     * Get string table.
-     *
-     * @return string[]
-     */
-    public function getStringTable()
-    {
-        return $this->stringTable;
     }
 
     /**
@@ -653,11 +648,21 @@ class Xlsx extends BaseWriter
 
     private $pathNames = [];
 
-    private function addZipFile(string $path, string $content): void
+    /**
+     * @param string          $path
+     * @param resource|string $input
+     */
+    private function addZipFile(string $path, $input): void
     {
         if (!in_array($path, $this->pathNames)) {
             $this->pathNames[] = $path;
-            $this->zip->addFile($path, $content);
+
+            if (is_resource($input)) {
+                $this->zip->addFileFromStream($path, $input);
+                fclose($input);
+            } else {
+                $this->zip->addFile($path, $input);
+            }
         }
     }
 
