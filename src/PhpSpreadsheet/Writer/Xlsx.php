@@ -541,7 +541,7 @@ class Xlsx extends BaseWriter
 
     /**
      * @param string          $path
-     * @param string|resource $input
+     * @param resource|string $input
      */
     private function addZipFile(string $path, $input): void
     {
