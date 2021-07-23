@@ -272,14 +272,26 @@ class Csv extends BaseReader
         }
     }
 
+    private static function setAutoDetect(?string $value): ?string
+    {
+        $retVal = null;
+        if ($value !== null) {
+            $retVal2 = @ini_set('auto_detect_line_endings', $value);
+            if (is_string($retVal2)) {
+                $retVal = $retVal2;
+            }
+        }
+
+        return $retVal;
+    }
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
     public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Deprecated in Php8.1
-        $lineEnding = @ini_get('auto_detect_line_endings') ?: '0';
-        @ini_set('auto_detect_line_endings', '1');
+        $iniset = self::setAutoDetect('1');
 
         // Open file
         $this->openFileOrMemory($pFilename);
@@ -328,7 +340,7 @@ class Csv extends BaseReader
         // Close file
         fclose($fileHandle);
 
-        @ini_set('auto_detect_line_endings', $lineEnding);
+        self::setAutoDetect($iniset);
 
         // Return
         return $spreadsheet;
