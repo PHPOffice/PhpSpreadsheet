@@ -321,7 +321,7 @@ class Cells
 
         sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
 
-        return (int)$row;
+        return $row;
     }
 
     /**
