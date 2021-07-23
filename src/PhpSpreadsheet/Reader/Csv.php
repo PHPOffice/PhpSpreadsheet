@@ -277,8 +277,9 @@ class Csv extends BaseReader
      */
     public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
     {
-        $lineEnding = ini_get('auto_detect_line_endings') ?: '0';
-        ini_set('auto_detect_line_endings', '1');
+        // Deprecated in Php8.1
+        $lineEnding = @ini_get('auto_detect_line_endings') ?: '0';
+        @ini_set('auto_detect_line_endings', '1');
 
         // Open file
         $this->openFileOrMemory($pFilename);
@@ -305,7 +306,8 @@ class Csv extends BaseReader
             $noOutputYet = true;
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
-                if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
+                self::convertBoolean($rowDatum);
+                if ($rowDatum !== '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
                             $noOutputYet = false;
@@ -326,10 +328,28 @@ class Csv extends BaseReader
         // Close file
         fclose($fileHandle);
 
-        ini_set('auto_detect_line_endings', $lineEnding);
+        @ini_set('auto_detect_line_endings', $lineEnding);
 
         // Return
         return $spreadsheet;
+    }
+
+    /**
+     * Convert string true/false to boolean, and null to null-string.
+     *
+     * @param mixed $rowDatum
+     */
+    private static function convertBoolean(&$rowDatum): void
+    {
+        if (is_string($rowDatum)) {
+            if (strcasecmp('true', $rowDatum) === 0) {
+                $rowDatum = true;
+            } elseif (strcasecmp('false', $rowDatum) === 0) {
+                $rowDatum = false;
+            }
+        } elseif ($rowDatum === null) {
+            $rowDatum = '';
+        }
     }
 
     public function getDelimiter(): ?string
