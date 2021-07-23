@@ -38,6 +38,14 @@ class Worksheet implements IComparable
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
     /**
+     * Max hyperlinks in hyperlinkCollection.
+     * Value obtained empirically
+     *
+     * @var int
+     */
+    const HYPERLINKS_LIMIT = 65530;
+
+    /**
      * Maximum 31 characters allowed for sheet title.
      *
      * @var int
@@ -2746,6 +2754,10 @@ class Worksheet implements IComparable
             return $this->hyperlinkCollection[$pCellCoordinate];
         }
 
+        if (count($this->hyperlinkCollection) >= self::HYPERLINKS_LIMIT) {
+            return new Hyperlink();
+        }
+
         // else create hyperlink
         $this->hyperlinkCollection[$pCellCoordinate] = new Hyperlink();
 
@@ -2763,6 +2775,8 @@ class Worksheet implements IComparable
     {
         if ($pHyperlink === null) {
             unset($this->hyperlinkCollection[$pCellCoordinate]);
+        } elseif (count($this->hyperlinkCollection) >= self::HYPERLINKS_LIMIT) {
+            return $this;
         } else {
             $this->hyperlinkCollection[$pCellCoordinate] = $pHyperlink;
         }
