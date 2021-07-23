@@ -31,8 +31,8 @@ class LocaleFloatsTest extends TestCase
 
     protected function tearDown(): void
     {
-        if ($this->localeAdjusted) {
-            setlocale(LC_ALL, $this->currentLocale ?: null);
+        if ($this->localeAdjusted && is_string($this->currentLocale)) {
+            setlocale(LC_ALL, $this->currentLocale);
         }
     }
 
