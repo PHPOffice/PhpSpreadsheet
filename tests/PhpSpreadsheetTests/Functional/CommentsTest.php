@@ -52,5 +52,7 @@ class CommentsTest extends AbstractFunctional
             $comment->setAlignment(Alignment::HORIZONTAL_RIGHT);
             self::assertEquals(Alignment::HORIZONTAL_RIGHT, $comment->getAlignment());
         }
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
