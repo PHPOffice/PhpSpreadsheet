@@ -40,8 +40,9 @@ class CommentsTest extends AbstractFunctional
 
         $commentCoordinate = key($commentsLoaded);
         self::assertSame('E10', $commentCoordinate);
+        self::assertSame('Comment', $sheet->getCell('E10')->getValue());
         $comment = $commentsLoaded[$commentCoordinate];
-        self::assertEquals('Comment to test', (string) $comment);
+        self::assertSame('Comment to test', (string) $comment);
         $commentClone = clone $comment;
         self::assertEquals($comment, $commentClone);
         self::assertNotSame($comment, $commentClone);
