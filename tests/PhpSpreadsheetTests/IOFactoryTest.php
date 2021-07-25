@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
-use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer;
 use PHPUnit\Framework\TestCase;
@@ -136,14 +136,14 @@ class IOFactoryTest extends TestCase
 
     public function testIdentifyNonExistingFileThrowException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ReaderException::class);
 
         IOFactory::identify('/non/existing/file');
     }
 
     public function testIdentifyExistingDirectoryThrowExceptions(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ReaderException::class);
 
         IOFactory::identify('.');
     }
