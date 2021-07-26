@@ -99,18 +99,22 @@ class Drawing extends BaseDrawing
                 if ($filePath) {
                     file_put_contents($filePath, $imageContents);
                     if (file_exists($filePath)) {
+                        // Get width/height
+                        [$this->imageWidth, $this->imageHeight] = getimagesize($filePath);
                         if ($this->width == 0 && $this->height == 0) {
-                            // Get width/height
-                            [$this->width, $this->height] = getimagesize($filePath);
+                            $this->width = $this->imageWidth;
+                            $this->height = $this->imageHeight;
                         }
                         unlink($filePath);
                     }
                 }
             } elseif (file_exists($pValue)) {
                 $this->path = $pValue;
+                // Get width/height
+                [$this->imageWidth, $this->imageHeight] = getimagesize($pValue);
                 if ($this->width == 0 && $this->height == 0) {
-                    // Get width/height
-                    [$this->width, $this->height] = getimagesize($pValue);
+                    $this->width = $this->imageWidth;
+                    $this->height = $this->imageHeight;
                 }
             } else {
                 throw new PhpSpreadsheetException("File $pValue not found!");

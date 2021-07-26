@@ -145,8 +145,8 @@ class MemoryDrawing extends BaseDrawing
 
         if ($this->imageResource !== null) {
             // Get width/height
-            $this->width = imagesx($this->imageResource);
-            $this->height = imagesy($this->imageResource);
+            $this->width = $this->imageWidth = imagesx($this->imageResource);
+            $this->height = $this->imageHeight = imagesy($this->imageResource);
         }
 
         return $this;

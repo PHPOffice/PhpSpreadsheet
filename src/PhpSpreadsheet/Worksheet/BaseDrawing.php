@@ -8,6 +8,10 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 
 class BaseDrawing implements IComparable
 {
+    // Anchor Types
+    const ANCHORTYPE_ONECELL = 'oneCell';
+    const ANCHORTYPE_TWOCELL = 'twoCell';
+
     /**
      * Image counter.
      *
@@ -44,6 +48,13 @@ class BaseDrawing implements IComparable
     protected $worksheet;
 
     /**
+     * Anchor type.
+     *
+     * @var string
+     */
+    protected $anchorType;
+
+    /**
      * Coordinates.
      *
      * @var string
@@ -65,18 +76,53 @@ class BaseDrawing implements IComparable
     protected $offsetY;
 
     /**
-     * Width.
+     * Bottom right coordinates when using ANCHORTYPE_TWOCELL.
+     *
+     * @var string
+     */
+    protected $coordinates2;
+
+    /**
+     * Bottom right offset X when using ANCHORTYPE_TWOCELL.
+     *
+     * @var int
+     */
+    protected $offsetX2;
+
+    /**
+     * Bottom right offset Y when using ANCHORTYPE_TWOCELL.
+     *
+     * @var int
+     */
+    protected $offsetY2;
+
+    /**
+     * Width when using ANCHORTYPE_ONECELL.
      *
      * @var int
      */
     protected $width;
 
     /**
-     * Height.
+     * Height when using ANCHORTYPE_TWOCELL.
      *
      * @var int
      */
     protected $height;
+
+    /**
+     * Pixel width of image. See $width for the size the Drawing will be in the sheet.
+     *
+     * @var int
+     */
+    protected $imageWidth;
+
+    /**
+     * Pixel width of image. See $height for the size the Drawing will be in the sheet.
+     *
+     * @var int
+     */
+    protected $imageHeight;
 
     /**
      * Proportional resize.
@@ -115,9 +161,13 @@ class BaseDrawing implements IComparable
         $this->name = '';
         $this->description = '';
         $this->worksheet = null;
+        $this->anchorType = self::ANCHORTYPE_ONECELL;
         $this->coordinates = 'A1';
         $this->offsetX = 0;
         $this->offsetY = 0;
+        $this->coordinates2 = 'A1';
+        $this->offsetX2 = 0;
+        $this->offsetY2 = 0;
         $this->width = 0;
         $this->height = 0;
         $this->resizeProportional = true;
@@ -237,6 +287,30 @@ class BaseDrawing implements IComparable
     }
 
     /**
+     * Get Anchor Type.
+     *
+     * @return string
+     */
+    public function getAnchorType()
+    {
+        return $this->anchorType;
+    }
+
+    /**
+     * Set Anchor Type (one cell or two cell).
+     *
+     * @param string $pValue
+     *
+     * @return $this
+     */
+    public function setAnchorType($pValue)
+    {
+        $this->anchorType = $pValue;
+
+        return $this;
+    }
+
+    /**
      * Get Coordinates.
      *
      * @return string
@@ -304,6 +378,78 @@ class BaseDrawing implements IComparable
     public function setOffsetY($pValue)
     {
         $this->offsetY = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get Bottom Right Coordinates.
+     *
+     * @return string
+     */
+    public function getCoordinates2()
+    {
+        return $this->coordinates2;
+    }
+
+    /**
+     * Set Bottom Right Coordinates.
+     *
+     * @param string $pValue eg: 'A1'
+     *
+     * @return $this
+     */
+    public function setCoordinates2($pValue)
+    {
+        $this->coordinates2 = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get Bottom Right OffsetX.
+     *
+     * @return int
+     */
+    public function getOffsetX2()
+    {
+        return $this->offsetX2;
+    }
+
+    /**
+     * Set Bottom Right OffsetX.
+     *
+     * @param int $pValue
+     *
+     * @return $this
+     */
+    public function setOffsetX2($pValue)
+    {
+        $this->offsetX2 = $pValue;
+
+        return $this;
+    }
+
+    /**
+     * Get Bottom Right OffsetY.
+     *
+     * @return int
+     */
+    public function getOffsetY2()
+    {
+        return $this->offsetY2;
+    }
+
+    /**
+     * Set Bottom Right OffsetY.
+     *
+     * @param int $pValue
+     *
+     * @return $this
+     */
+    public function setOffsetY2($pValue)
+    {
+        $this->offsetY2 = $pValue;
 
         return $this;
     }
@@ -428,6 +574,26 @@ class BaseDrawing implements IComparable
         $this->resizeProportional = $pValue;
 
         return $this;
+    }
+
+    /**
+     * Get Image Width.
+     *
+     * @return int
+     */
+    public function getImageWidth()
+    {
+        return $this->imageWidth;
+    }
+
+    /**
+     * Get Image Height.
+     *
+     * @return int
+     */
+    public function getImageHeight()
+    {
+        return $this->imageHeight;
     }
 
     /**
