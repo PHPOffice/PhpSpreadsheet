@@ -6092,7 +6092,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 12
+			count: 16
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
 		-
