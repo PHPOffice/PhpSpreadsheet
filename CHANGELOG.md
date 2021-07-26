@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Helper class for conversion between css size Units of measure (`px`, `pt`, `pc`, `in`, `cm`, `mm`). [PR #2152](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145)
 - Allow Row height and Column Width to be set using different units of measure (`px`, `pt`, `pc`, `in`, `cm`, `mm`), rather than only in points or MS Excel column width units. [PR #2152](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145)
 - Ability to call `setAnchorType` on a `Drawing` so that images can be removed in Excel when their containing row is deleted.
+- `getImageWidth()` and `getImageHeight()` functions on `Drawing` to retrieve the size of the image (as opposed to `getWidth()` and `getHeight()` which return the size of the `Drawing` in the worksheet).
 
 ### Changed
 
