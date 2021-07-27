@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -11,24 +10,6 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ConditionalTest extends AbstractFunctional
 {
-    /**
-     * @var int
-     */
-    private $prevValue;
-
-    protected function setUp(): void
-    {
-        $this->prevValue = Settings::getLibXmlLoaderOptions();
-
-        // Disable validating XML with the DTD
-        Settings::setLibXmlLoaderOptions($this->prevValue & ~LIBXML_DTDVALID & ~LIBXML_DTDATTR & ~LIBXML_DTDLOAD);
-    }
-
-    protected function tearDown(): void
-    {
-        Settings::setLibXmlLoaderOptions($this->prevValue);
-    }
-
     /**
      * Test check if conditional style with type 'notContainsText' works on xlsx.
      */

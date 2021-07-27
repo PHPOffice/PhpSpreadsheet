@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
@@ -16,7 +15,6 @@ class StartsWithHashTest extends TestCase
     public function testStartWithHash(): void
     {
         $outputFilename = File::temporaryFilename();
-        Settings::setLibXmlLoaderOptions(null);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValueExplicit('A1', '#define M', DataType::TYPE_STRING);
@@ -41,7 +39,6 @@ class StartsWithHashTest extends TestCase
     {
         // Make sure raw data indicates A3 is an error, but A2 isn't.
         $outputFilename = File::temporaryFilename();
-        Settings::setLibXmlLoaderOptions(null);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValueExplicit('A1', '#define M', DataType::TYPE_STRING);

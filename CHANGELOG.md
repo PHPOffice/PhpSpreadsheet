@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow negative interest rate values in a number of the Financial functions (`PPMT()`, `PMT()`, `FV()`, `PV()`, `NPER()`, etc) [Issue #2163](https://github.com/PHPOffice/PhpSpreadsheet/issues/2163) [PR #2164](https://github.com/PHPOffice/PhpSpreadsheet/pull/2164)
 - Xls Reader changing grey background to black in Excel template [Issue #2147](Changing grey background to black in Excel template) [PR #2156](https://github.com/PHPOffice/PhpSpreadsheet/pull/2156)
 - Column width and Row height styles in the Html Reader when the value includes a unit of measure. [Issue #2145](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145).
-
+- Data Validation flags not set correctly when reading XLSX files. [Issue #2224](https://github.com/PHPOffice/PhpSpreadsheet/issues/2224) [PR #2225](https://github.com/PHPOffice/PhpSpreadsheet/pull/2225)
 
 ## 1.18.0 - 2021-05-31
 

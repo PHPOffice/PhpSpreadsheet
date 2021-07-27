@@ -2138,7 +2138,7 @@ class Worksheet extends BIFFwriter
     private function writePassword(): void
     {
         // Exit unless sheet protection and password have been specified
-        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword()) {
+        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
             return;
         }
 
