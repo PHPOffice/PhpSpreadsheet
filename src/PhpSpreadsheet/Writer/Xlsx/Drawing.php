@@ -207,6 +207,11 @@ class Drawing extends WriterPart
             //a:hlinkClick
             $this->writeHyperLinkDrawing($objWriter, $hlinkClickId);
 
+            $objWriter->startElement('a:extLst');
+            $objWriter->startElement('a:ext');
+            $objWriter->writeAttribute('uri', '{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}');
+            $objWriter->endElement();
+            $objWriter->endElement();
             $objWriter->endElement();
 
             // xdr:cNvPicPr
