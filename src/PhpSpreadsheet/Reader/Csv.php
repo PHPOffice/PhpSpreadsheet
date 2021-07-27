@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -35,7 +35,7 @@ class Csv extends BaseReader
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Fallback encoding if 'guess' strikes out.
+     * Fallback encoding if guess strikes out.
      *
      * @var string
      */
@@ -410,17 +410,13 @@ class Csv extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         // Check if file exists
         try {
             $this->openFile($pFilename);
-        } catch (InvalidArgumentException $e) {
+        } catch (ReaderException $e) {
             return false;
         }
 

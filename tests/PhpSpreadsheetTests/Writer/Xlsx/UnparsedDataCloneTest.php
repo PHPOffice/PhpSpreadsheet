@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
@@ -16,7 +15,6 @@ class UnparsedDataCloneTest extends TestCase
     {
         $sampleFilename = 'tests/data/Writer/XLSX/drawing_on_2nd_page.xlsx';
         $resultFilename = File::temporaryFilename();
-        Settings::setLibXmlLoaderOptions(null); // reset to default options
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet = $reader->load($sampleFilename);
         $spreadsheet->setActiveSheetIndex(1);
@@ -63,7 +61,6 @@ class UnparsedDataCloneTest extends TestCase
         $resultFilename1 = File::temporaryFilename();
         $resultFilename2 = File::temporaryFilename();
         self::assertNotEquals($resultFilename1, $resultFilename2);
-        Settings::setLibXmlLoaderOptions(null); // reset to default options
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet = $reader->load($sampleFilename);
         $sheet = $spreadsheet->setActiveSheetIndex(1);

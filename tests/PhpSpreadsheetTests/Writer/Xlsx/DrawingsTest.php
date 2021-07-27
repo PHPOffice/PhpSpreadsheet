@@ -4,30 +4,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class DrawingsTest extends AbstractFunctional
 {
-    /**
-     * @var int
-     */
-    private $prevValue;
-
-    protected function setUp(): void
-    {
-        $this->prevValue = Settings::getLibXmlLoaderOptions();
-
-        // Disable validating XML with the DTD
-        Settings::setLibXmlLoaderOptions($this->prevValue & ~LIBXML_DTDVALID & ~LIBXML_DTDATTR & ~LIBXML_DTDLOAD);
-    }
-
-    protected function tearDown(): void
-    {
-        Settings::setLibXmlLoaderOptions($this->prevValue);
-    }
-
     /**
      * Test save and load XLSX file with drawing on 2nd worksheet.
      */
