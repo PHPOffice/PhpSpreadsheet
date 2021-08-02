@@ -63,6 +63,18 @@ class XlsxTest extends TestCase
         }
     }
 
+    /**
+     * Test load Xlsx file without styles xml.
+     *
+     * @doesNotPerformAssertions
+     */
+    public function testLoadXlsxWithoutStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/withoutStylesTest.xlsx';
+        $reader = new Xlsx();
+        $reader->load($filename);
+    }
+
     public function testLoadXlsxAutofilter(): void
     {
         $filename = 'tests/data/Reader/XLSX/autofilterTest.xlsx';

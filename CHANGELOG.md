@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xls Reader changing grey background to black in Excel template [Issue #2147](Changing grey background to black in Excel template) [PR #2156](https://github.com/PHPOffice/PhpSpreadsheet/pull/2156)
 - Column width and Row height styles in the Html Reader when the value includes a unit of measure. [Issue #2145](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145).
 - Data Validation flags not set correctly when reading XLSX files. [Issue #2224](https://github.com/PHPOffice/PhpSpreadsheet/issues/2224) [PR #2225](https://github.com/PHPOffice/PhpSpreadsheet/pull/2225)
+- Reading XLSX files without styles.xml throws an exception. [Issue #2246](https://github.com/PHPOffice/PhpSpreadsheet/issues/2246) 
 
 ## 1.18.0 - 2021-05-31
 
