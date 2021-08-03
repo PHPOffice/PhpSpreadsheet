@@ -530,111 +530,113 @@ class Xlsx extends BaseReader
                         }
                     }
 
-                    $dxfs = [];
-                    $styles = [];
                     $relType = "rel:Relationship[@Type='"
                         . "$xmlNamespaceBase/styles"
                         . "']";
                     $xpath = self::getArrayItem(self::xpathNoFalse($relsWorkbook, $relType));
-                    if ($xpath) {
+                    
+                    if ($xpath === null) {
+                        $xmlStyles = self::testSimpleXml(null);
+                    } else {
                         // I think Nonamespace is okay because I'm using xpath.
                         $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
-                        $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
-                        $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
-                        $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
-                        $borders = self::xpathNoFalse($xmlStyles, 'smm:borders/smm:border');
-                        $xfTags = self::xpathNoFalse($xmlStyles, 'smm:cellXfs/smm:xf');
-                        $cellXfTags = self::xpathNoFalse($xmlStyles, 'smm:cellStyleXfs/smm:xf');
+                    }
+                    
+                    $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
+                    $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
+                    $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
+                    $borders = self::xpathNoFalse($xmlStyles, 'smm:borders/smm:border');
+                    $xfTags = self::xpathNoFalse($xmlStyles, 'smm:cellXfs/smm:xf');
+                    $cellXfTags = self::xpathNoFalse($xmlStyles, 'smm:cellStyleXfs/smm:xf');
 
-                        $styles = [];
-                        $cellStyles = [];
-                        $numFmts = null;
-                        if (/*$xmlStyles && */ $xmlStyles->numFmts[0]) {
-                            $numFmts = $xmlStyles->numFmts[0];
-                        }
-                        if (isset($numFmts) && ($numFmts !== null)) {
-                            $numFmts->registerXPathNamespace('sml', $mainNS);
-                        }
-                        if (!$this->readDataOnly/* && $xmlStyles*/) {
-                            foreach ($xfTags as $xfTag) {
-                                $xf = self::getAttributes($xfTag);
-                                $numFmt = null;
+                    $styles = [];
+                    $cellStyles = [];
+                    $numFmts = null;
+                    if (/*$xmlStyles && */ $xmlStyles->numFmts[0]) {
+                        $numFmts = $xmlStyles->numFmts[0];
+                    }
+                    if (isset($numFmts) && ($numFmts !== null)) {
+                        $numFmts->registerXPathNamespace('sml', $mainNS);
+                    }
+                    if (!$this->readDataOnly/* && $xmlStyles*/) {
+                        foreach ($xfTags as $xfTag) {
+                            $xf = self::getAttributes($xfTag);
+                            $numFmt = null;
 
-                                if ($xf['numFmtId']) {
-                                    if (isset($numFmts)) {
-                                        $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
-
-                                        if (isset($tmpNumFmt['formatCode'])) {
-                                            $numFmt = (string) $tmpNumFmt['formatCode'];
-                                        }
-                                    }
-
-                                    // We shouldn't override any of the built-in MS Excel values (values below id 164)
-                                    //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
-                                    //  So we make allowance for them rather than lose formatting masks
-                                    if (
-                                        $numFmt === null &&
-                                        (int) $xf['numFmtId'] < 164 &&
-                                        NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
-                                    ) {
-                                        $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
-                                    }
-                                }
-                                $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
-
-                                $style = (object) [
-                                    'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
-                                    'font' => $fonts[(int) ($xf['fontId'])],
-                                    'fill' => $fills[(int) ($xf['fillId'])],
-                                    'border' => $borders[(int) ($xf['borderId'])],
-                                    'alignment' => $xfTag->alignment,
-                                    'protection' => $xfTag->protection,
-                                    'quotePrefix' => $quotePrefix,
-                                ];
-                                $styles[] = $style;
-
-                                // add style to cellXf collection
-                                $objStyle = new Style();
-                                self::readStyle($objStyle, $style);
-                                $excel->addCellXf($objStyle);
-                            }
-
-                            foreach ($cellXfTags as $xfTag) {
-                                $xf = self::getAttributes($xfTag);
-                                $numFmt = NumberFormat::FORMAT_GENERAL;
-                                if ($numFmts && $xf['numFmtId']) {
+                            if ($xf['numFmtId']) {
+                                if (isset($numFmts)) {
                                     $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
+
                                     if (isset($tmpNumFmt['formatCode'])) {
                                         $numFmt = (string) $tmpNumFmt['formatCode'];
-                                    } elseif ((int) $xf['numFmtId'] < 165) {
-                                        $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                     }
                                 }
 
-                                $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
-
-                                $cellStyle = (object) [
-                                    'numFmt' => $numFmt,
-                                    'font' => $fonts[(int) ($xf['fontId'])],
-                                    'fill' => $fills[((int) $xf['fillId'])],
-                                    'border' => $borders[(int) ($xf['borderId'])],
-                                    'alignment' => $xfTag->alignment,
-                                    'protection' => $xfTag->protection,
-                                    'quotePrefix' => $quotePrefix,
-                                ];
-                                $cellStyles[] = $cellStyle;
-
-                                // add style to cellStyleXf collection
-                                $objStyle = new Style();
-                                self::readStyle($objStyle, $cellStyle);
-                                $excel->addCellStyleXf($objStyle);
+                                // We shouldn't override any of the built-in MS Excel values (values below id 164)
+                                //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
+                                //  So we make allowance for them rather than lose formatting masks
+                                if (
+                                    $numFmt === null &&
+                                    (int) $xf['numFmtId'] < 164 &&
+                                    NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
+                                ) {
+                                    $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
+                                }
                             }
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+
+                            $style = (object) [
+                                'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
+                                'font' => $fonts[(int) ($xf['fontId'])],
+                                'fill' => $fills[(int) ($xf['fillId'])],
+                                'border' => $borders[(int) ($xf['borderId'])],
+                                'alignment' => $xfTag->alignment,
+                                'protection' => $xfTag->protection,
+                                'quotePrefix' => $quotePrefix,
+                            ];
+                            $styles[] = $style;
+
+                            // add style to cellXf collection
+                            $objStyle = new Style();
+                            self::readStyle($objStyle, $style);
+                            $excel->addCellXf($objStyle);
                         }
-                        $styleReader = new Styles($xmlStyles);
-                        $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
-                        $dxfs = $styleReader->dxfs($this->readDataOnly);
-                        $styles = $styleReader->styles();
+
+                        foreach ($cellXfTags as $xfTag) {
+                            $xf = self::getAttributes($xfTag);
+                            $numFmt = NumberFormat::FORMAT_GENERAL;
+                            if ($numFmts && $xf['numFmtId']) {
+                                $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
+                                if (isset($tmpNumFmt['formatCode'])) {
+                                    $numFmt = (string) $tmpNumFmt['formatCode'];
+                                } elseif ((int) $xf['numFmtId'] < 165) {
+                                    $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
+                                }
+                            }
+
+                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+
+                            $cellStyle = (object) [
+                                'numFmt' => $numFmt,
+                                'font' => $fonts[(int) ($xf['fontId'])],
+                                'fill' => $fills[((int) $xf['fillId'])],
+                                'border' => $borders[(int) ($xf['borderId'])],
+                                'alignment' => $xfTag->alignment,
+                                'protection' => $xfTag->protection,
+                                'quotePrefix' => $quotePrefix,
+                            ];
+                            $cellStyles[] = $cellStyle;
+
+                            // add style to cellStyleXf collection
+                            $objStyle = new Style();
+                            self::readStyle($objStyle, $cellStyle);
+                            $excel->addCellStyleXf($objStyle);
+                        }
                     }
+                    $styleReader = new Styles($xmlStyles);
+                    $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
+                    $dxfs = $styleReader->dxfs($this->readDataOnly);
+                    $styles = $styleReader->styles();
 
                     $xmlWorkbook = $this->loadZipNoNamespace($rel['Target'], $mainNS);
                     $xmlWorkbookNS = $this->loadZip($rel['Target'], $mainNS);
