@@ -64,13 +64,25 @@ class XlsxTest extends TestCase
     }
 
     /**
-     * Test load Xlsx file without styles xml.
+     * Test load Xlsx file without styles.xml
      *
      * @doesNotPerformAssertions
      */
     public function testLoadXlsxWithoutStyles(): void
     {
-        $filename = 'tests/data/Reader/XLSX/withoutStylesTest.xlsx';
+        $filename = 'tests/data/Reader/XLSX/issue.2246a.xlsx';
+        $reader = new Xlsx();
+        $reader->load($filename);
+    }
+
+    /**
+     * Test load Xlsx file with empty styles.xml
+     *
+     * @doesNotPerformAssertions
+     */
+    public function testLoadXlsxWithEmptyStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.2246b.xlsx';
         $reader = new Xlsx();
         $reader->load($filename);
     }
