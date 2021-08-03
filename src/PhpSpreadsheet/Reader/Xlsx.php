@@ -534,14 +534,14 @@ class Xlsx extends BaseReader
                         . "$xmlNamespaceBase/styles"
                         . "']";
                     $xpath = self::getArrayItem(self::xpathNoFalse($relsWorkbook, $relType));
-                    
+
                     if ($xpath === null) {
                         $xmlStyles = self::testSimpleXml(null);
                     } else {
                         // I think Nonamespace is okay because I'm using xpath.
                         $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
                     }
-                    
+
                     $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
                     $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
                     $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');

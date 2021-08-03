@@ -64,7 +64,7 @@ class XlsxTest extends TestCase
     }
 
     /**
-     * Test load Xlsx file without styles.xml
+     * Test load Xlsx file without styles.xml.
      *
      * @doesNotPerformAssertions
      */
@@ -76,7 +76,7 @@ class XlsxTest extends TestCase
     }
 
     /**
-     * Test load Xlsx file with empty styles.xml
+     * Test load Xlsx file with empty styles.xml.
      *
      * @doesNotPerformAssertions
      */
