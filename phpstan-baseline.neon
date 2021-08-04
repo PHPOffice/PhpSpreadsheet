@@ -6576,16 +6576,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
-
-		-
 			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
