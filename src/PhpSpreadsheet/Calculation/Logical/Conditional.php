@@ -89,7 +89,7 @@ class Conditional
             $switchSatisfied = false;
             if ($switchCount > 0) {
                 for ($index = 0; $index < $switchCount; ++$index) {
-                    if ($targetValue == $arguments[$index * 2 + 1]) {
+                    if ($targetValue == Functions::flattenSingleValue($arguments[$index * 2 + 1])) {
                         $result = $arguments[$index * 2 + 2];
                         $switchSatisfied = true;
 
