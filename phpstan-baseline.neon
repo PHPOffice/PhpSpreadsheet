@@ -4986,11 +4986,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Csv\\:\\:\\$enclosureRequired has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Csv.php
-
-		-
 			message: "#^Call to function array_key_exists\\(\\) with int and array\\('none' \\=\\> 'none', 'dashDot' \\=\\> '1px dashed', 'dashDotDot' \\=\\> '1px dotted', 'dashed' \\=\\> '1px dashed', 'dotted' \\=\\> '1px dotted', 'double' \\=\\> '3px double', 'hair' \\=\\> '1px solid', 'medium' \\=\\> '2px solid', \\.\\.\\.\\) will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -6534,16 +6529,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false given\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
