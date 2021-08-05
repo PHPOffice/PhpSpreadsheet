@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -65,16 +64,12 @@ class Slk extends BaseReader
 
     /**
      * Validate that the current file is a SYLK file.
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         try {
             $this->openFile($pFilename);
-        } catch (InvalidArgumentException $e) {
+        } catch (ReaderException $e) {
             return false;
         }
 

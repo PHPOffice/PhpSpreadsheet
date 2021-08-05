@@ -41,6 +41,8 @@ use ZipArchive;
 
 class Xlsx extends BaseReader
 {
+    const INITIAL_FILE = '_rels/.rels';
+
     /**
      * ReferenceHelper instance.
      *
@@ -72,14 +74,12 @@ class Xlsx extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
+        if (!File::testFileNoThrow($pFilename, self::INITIAL_FILE)) {
+            return false;
+        }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
@@ -168,7 +168,7 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetNames($pFilename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
@@ -176,7 +176,7 @@ class Xlsx extends BaseReader
         $zip->open($pFilename);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
@@ -207,14 +207,14 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
         $this->zip = $zip = new ZipArchive();
         $zip->open($pFilename);
 
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
@@ -389,7 +389,7 @@ class Xlsx extends BaseReader
      */
     public function load(string $pFilename, int $flags = 0): Spreadsheet
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
         $this->processFlags($flags);
 
         // Initialisations
@@ -444,7 +444,7 @@ class Xlsx extends BaseReader
             }
         }
 
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->securityScanner, $excel->getProperties());
         foreach ($rels->Relationship as $relx) {
@@ -1957,7 +1957,7 @@ class Xlsx extends BaseReader
         $xmlNamespaceBase = '';
 
         // check if it is an OOXML archive
-        $rels = $this->loadZip('_rels/.rels');
+        $rels = $this->loadZip(self::INITIAL_FILE);
         foreach ($rels->children(Namespaces::RELATIONSHIPS)->Relationship as $rel) {
             $rel = self::getAttributes($rel);
             switch ($rel['Type']) {
