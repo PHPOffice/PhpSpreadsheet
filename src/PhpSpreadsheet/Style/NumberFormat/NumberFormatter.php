@@ -55,7 +55,7 @@ class NumberFormatter
             $result = $mask;
         }
 
-        return $result;
+        return self::makeString($result);
     }
 
     /**
