@@ -82,7 +82,7 @@ class XlsxTest extends TestCase
 
         $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
 
-        self::assertEquals('No Styles.xml for this file', $reloadedWorksheet->getCell('A1')->getValue());
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
     }
 
     /**
@@ -103,7 +103,7 @@ class XlsxTest extends TestCase
         unlink($tempFilename);
 
         $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
-        self::assertEquals('Empty styles.xml for this file', $reloadedWorksheet->getCell('A1')->getValue());
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
     }
 
     public function testLoadXlsxAutofilter(): void
