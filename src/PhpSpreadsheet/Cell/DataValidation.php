@@ -478,4 +478,19 @@ class DataValidation
             }
         }
     }
+
+    /** @var ?string */
+    private $sqref;
+
+    public function getSqref(): ?string
+    {
+        return $this->sqref;
+    }
+
+    public function setSqref(?string $str): self
+    {
+        $this->sqref = $str;
+
+        return $this;
+    }
 }

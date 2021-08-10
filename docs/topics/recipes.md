@@ -1114,6 +1114,11 @@ ruleset:
 $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validation);
 ```
 
+Alternatively, one can apply the validation to a range of cells:
+```php
+$validation->setSqref('B5:B1048576');
+```
+
 ## Setting a column's width
 
 A column's width can be set using the following code:

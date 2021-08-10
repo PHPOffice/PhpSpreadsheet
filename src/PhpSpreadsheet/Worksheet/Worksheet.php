@@ -1966,6 +1966,13 @@ class Worksheet implements IComparable
         return $this;
     }
 
+    public function setTopLeftCell(string $topLeftCell): self
+    {
+        $this->topLeftCell = $topLeftCell;
+
+        return $this;
+    }
+
     /**
      * Freeze Pane by using numeric cell coordinates.
      *

@@ -45,6 +45,7 @@ class DataValidations
                     $docValidation->setPrompt((string) $dataValidation['prompt']);
                     $docValidation->setFormula1((string) $dataValidation->formula1);
                     $docValidation->setFormula2((string) $dataValidation->formula2);
+                    $docValidation->setSqref($range);
                 }
             }
         }
