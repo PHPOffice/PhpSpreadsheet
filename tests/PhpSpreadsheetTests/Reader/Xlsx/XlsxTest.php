@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -37,6 +37,7 @@ class XlsxTest extends TestCase
         }
 
         self::assertFalse($worksheet->getColumnDimension('E')->getVisible());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsxWithStyles(): void
@@ -61,6 +62,54 @@ class XlsxTest extends TestCase
                 );
             }
         }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test load Xlsx file without styles.xml.
+     */
+    public function testLoadXlsxWithoutStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.2246a.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $tempFilename = File::temporaryFilename();
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save($tempFilename);
+
+        $reader = new Xlsx();
+        $reloadedSpreadsheet = $reader->load($tempFilename);
+        unlink($tempFilename);
+
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test load Xlsx file with empty styles.xml.
+     */
+    public function testLoadXlsxWithEmptyStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.2246b.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $tempFilename = File::temporaryFilename();
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save($tempFilename);
+
+        $reader = new Xlsx();
+        $reloadedSpreadsheet = $reader->load($tempFilename);
+        unlink($tempFilename);
+
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsxAutofilter(): void
@@ -78,6 +127,7 @@ class XlsxTest extends TestCase
             AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER,
             $autofilter->getColumn('A')->getFilterType()
         );
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsxPageSetup(): void
@@ -97,6 +147,7 @@ class XlsxTest extends TestCase
 
         self::assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
         self::assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsxConditionalFormatting(): void
@@ -116,6 +167,7 @@ class XlsxTest extends TestCase
         self::assertEquals(Conditional::OPERATOR_BETWEEN, $conditionalRule->getOperatorType());
         self::assertEquals(['200', '400'], $conditionalRule->getConditions());
         self::assertInstanceOf(Style::class, $conditionalRule->getStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsxDataValidation(): void
@@ -127,6 +179,7 @@ class XlsxTest extends TestCase
         $worksheet = $spreadsheet->getActiveSheet();
 
         self::assertTrue($worksheet->getCell('B3')->hasDataValidation());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /*
@@ -152,6 +205,7 @@ class XlsxTest extends TestCase
         self::assertTrue($validationCell->hasDataValidation());
         self::assertSame(DataValidation::TYPE_LIST, $validationCell->getDataValidation()->getType());
         self::assertSame('Feuil2!$A$3:$A$5', $validationCell->getDataValidation()->getFormula1());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -163,7 +217,8 @@ class XlsxTest extends TestCase
     {
         $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
-        $reader->load($filename);
+        $spreadsheet = $reader->load($filename);
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -174,12 +229,14 @@ class XlsxTest extends TestCase
         $filename = 'tests/data/Reader/XLSX/without_cell_reference.xlsx';
         $reader = new Xlsx();
         $reader->setReadFilter(new OddColumnReadFilter());
-        $data = $reader->load($filename)->getActiveSheet()->toArray();
+        $spreadsheet = $reader->load($filename);
+        $data = $spreadsheet->getActiveSheet()->toArray();
         $ref = [1.0, null, 3.0, null, 5.0, null, 7.0, null, 9.0, null];
 
         for ($i = 0; $i < 10; ++$i) {
             self::assertEquals($ref, \array_slice($data[$i], 0, 10, true));
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -191,7 +248,8 @@ class XlsxTest extends TestCase
     {
         $filename = 'tests/data/Reader/XLSX/double_attr_drawing.xlsx';
         $reader = new Xlsx();
-        $reader->load($filename);
+        $spreadsheet = $reader->load($filename);
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -206,10 +264,12 @@ class XlsxTest extends TestCase
         $resultFilename = File::temporaryFilename();
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($excel);
         $writer->save($resultFilename);
+        $excel->disconnectWorksheets();
         $excel = $reader->load($resultFilename);
         unlink($resultFilename);
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($excel);
+        $excel->disconnectWorksheets();
     }
 
     /**
