@@ -4986,11 +4986,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Csv\\:\\:\\$enclosureRequired has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Csv.php
-
-		-
 			message: "#^Call to function array_key_exists\\(\\) with int and array\\('none' \\=\\> 'none', 'dashDot' \\=\\> '1px dashed', 'dashDotDot' \\=\\> '1px dotted', 'dashed' \\=\\> '1px dashed', 'dotted' \\=\\> '1px dotted', 'double' \\=\\> '3px double', 'hair' \\=\\> '1px solid', 'medium' \\=\\> '2px solid', \\.\\.\\.\\) will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -6536,16 +6531,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Csv\\\\CsvEnclosureTest\\:\\:\\$cellValues has no typehint specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false given\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Csv/CsvEnclosureTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/CallbackTest.php
@@ -6574,16 +6559,6 @@ parameters:
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$locale of function setlocale expects string\\|null, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
 		-
 			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
