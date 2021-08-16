@@ -395,10 +395,9 @@ class Xlsx extends BaseReader
         // Initialisations
         $excel = new Spreadsheet();
         $excel->removeSheetByIndex(0);
-        if (!$this->readDataOnly) {
-            $excel->removeCellStyleXfByIndex(0); // remove the default style
-            $excel->removeCellXfByIndex(0); // remove the default style
-        }
+        $addingFirstCellStyleXf = true;
+        $addingFirstCellXf = true;
+
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
@@ -534,8 +533,14 @@ class Xlsx extends BaseReader
                         . "$xmlNamespaceBase/styles"
                         . "']";
                     $xpath = self::getArrayItem(self::xpathNoFalse($relsWorkbook, $relType));
-                    // I think Nonamespace is okay because I'm using xpath.
-                    $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+
+                    if ($xpath === null) {
+                        $xmlStyles = self::testSimpleXml(null);
+                    } else {
+                        // I think Nonamespace is okay because I'm using xpath.
+                        $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+                    }
+
                     $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
                     $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
                     $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
@@ -593,6 +598,10 @@ class Xlsx extends BaseReader
                             // add style to cellXf collection
                             $objStyle = new Style();
                             self::readStyle($objStyle, $style);
+                            if ($addingFirstCellXf) {
+                                $excel->removeCellXfByIndex(0); // remove the default style
+                                $addingFirstCellXf = false;
+                            }
                             $excel->addCellXf($objStyle);
                         }
 
@@ -624,10 +633,13 @@ class Xlsx extends BaseReader
                             // add style to cellStyleXf collection
                             $objStyle = new Style();
                             self::readStyle($objStyle, $cellStyle);
+                            if ($addingFirstCellStyleXf) {
+                                $excel->removeCellStyleXfByIndex(0); // remove the default style
+                                $addingFirstCellStyleXf = false;
+                            }
                             $excel->addCellStyleXf($objStyle);
                         }
                     }
-
                     $styleReader = new Styles($xmlStyles);
                     $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
                     $dxfs = $styleReader->dxfs($this->readDataOnly);
