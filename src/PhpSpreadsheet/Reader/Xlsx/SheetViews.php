@@ -27,6 +27,7 @@ class SheetViews extends BaseParserClass
 
     public function load(): void
     {
+        $this->topLeft();
         $this->zoomScale();
         $this->view();
         $this->gridLines();
@@ -71,6 +72,13 @@ class SheetViews extends BaseParserClass
     {
         if (isset($this->sheetViewAttributes->view)) {
             $this->worksheet->getSheetView()->setView((string) $this->sheetViewAttributes->view);
+        }
+    }
+
+    private function topLeft(): void
+    {
+        if (isset($this->sheetViewAttributes->topLeftCell)) {
+            $this->worksheet->setTopLeftCell($this->sheetViewAttributes->topLeftCell);
         }
     }
 
