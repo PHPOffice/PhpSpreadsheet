@@ -419,14 +419,12 @@ class Xls extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
+        if (!File::testFileNoThrow($pFilename)) {
+            return false;
+        }
 
         try {
             // Use ParseXL for the hard work.
@@ -2127,6 +2125,10 @@ class Xls extends BaseReader
             }
 
             $formatString = $string['value'];
+            // Apache Open Office sets wrong case writing to xls - issue 2239
+            if ($formatString === 'GENERAL') {
+                $formatString = NumberFormat::FORMAT_GENERAL;
+            }
             $this->formats[$indexCode] = $formatString;
         }
     }
@@ -2176,7 +2178,7 @@ class Xls extends BaseReader
                 $numberFormat = ['formatCode' => $code];
             } else {
                 // we set the general format code
-                $numberFormat = ['formatCode' => 'General'];
+                $numberFormat = ['formatCode' => NumberFormat::FORMAT_GENERAL];
             }
             $objStyle->getNumberFormat()->setFormatCode($numberFormat['formatCode']);
 

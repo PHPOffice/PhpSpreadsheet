@@ -10,7 +10,6 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
@@ -28,6 +27,8 @@ use ZipArchive;
 
 class Ods extends BaseReader
 {
+    const INITIAL_FILE = 'content.xml';
+
     /**
      * Create a new Ods Reader instance.
      */
@@ -39,46 +40,42 @@ class Ods extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
-
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) === true) {
-            // check if it is an OOXML archive
-            $stat = $zip->statName('mimetype');
-            if ($stat && ($stat['size'] <= 255)) {
-                $mimeType = $zip->getFromName($stat['name']);
-            } elseif ($zip->statName('META-INF/manifest.xml')) {
-                $xml = simplexml_load_string(
-                    $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
-                    'SimpleXMLElement',
-                    Settings::getLibXmlLoaderOptions()
-                );
-                $namespacesContent = $xml->getNamespaces(true);
-                if (isset($namespacesContent['manifest'])) {
-                    $manifest = $xml->children($namespacesContent['manifest']);
-                    foreach ($manifest as $manifestDataSet) {
-                        $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
-                        if ($manifestAttributes->{'full-path'} == '/') {
-                            $mimeType = (string) $manifestAttributes->{'media-type'};
+        if (File::testFileNoThrow($pFilename)) {
+            $zip = new ZipArchive();
+            if ($zip->open($pFilename) === true) {
+                // check if it is an OOXML archive
+                $stat = $zip->statName('mimetype');
+                if ($stat && ($stat['size'] <= 255)) {
+                    $mimeType = $zip->getFromName($stat['name']);
+                } elseif ($zip->statName('META-INF/manifest.xml')) {
+                    $xml = simplexml_load_string(
+                        $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
+                        'SimpleXMLElement',
+                        Settings::getLibXmlLoaderOptions()
+                    );
+                    $namespacesContent = $xml->getNamespaces(true);
+                    if (isset($namespacesContent['manifest'])) {
+                        $manifest = $xml->children($namespacesContent['manifest']);
+                        foreach ($manifest as $manifestDataSet) {
+                            $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
+                            if ($manifestAttributes->{'full-path'} == '/') {
+                                $mimeType = (string) $manifestAttributes->{'media-type'};
 
-                            break;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            $zip->close();
+                $zip->close();
+            }
         }
 
         return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
@@ -93,18 +90,13 @@ class Ods extends BaseReader
      */
     public function listWorksheetNames($pFilename)
     {
-        File::assertFile($pFilename);
-
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
-        }
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -145,18 +137,13 @@ class Ods extends BaseReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
-        }
-
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -253,12 +240,10 @@ class Ods extends BaseReader
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new Exception("Could not open {$pFilename} for reading! Error opening file.");
-        }
+        $zip->open($pFilename);
 
         // Meta
 
@@ -289,7 +274,7 @@ class Ods extends BaseReader
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->securityScanner->scan($zip->getFromName('content.xml')),
+            $this->securityScanner->scan($zip->getFromName(self::INITIAL_FILE)),
             Settings::getLibXmlLoaderOptions()
         );
 
