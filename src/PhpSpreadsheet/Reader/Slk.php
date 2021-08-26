@@ -295,6 +295,15 @@ class Slk extends BaseReader
                     $this->processFormula($rowDatum, $hasCalculatedValue, $cellDataFormula, $row, $column);
 
                     break;
+                case 'A':
+                    $comment = substr($rowDatum, 1);
+                    $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
+                    $spreadsheet->getActiveSheet()
+                        ->getComment("$columnLetter$row")
+                        ->getText()
+                        ->createText($comment);
+
+                    break;
             }
         }
         $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
