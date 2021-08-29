@@ -2366,11 +2366,20 @@ class Worksheet implements IComparable
         return $this->setSelectedCells($pCoordinate);
     }
 
+    /**
+     * Sigh - Phpstan thinks, correctly, that preg_replace can return null.
+     * But Scrutinizer doesn't. Try to satisfy both.
+     *
+     * @param mixed $str
+     */
+    private static function ensureString($str): string
+    {
+        return is_string($str) ? $str : '';
+    }
+
     private static function pregReplace(string $pattern, string $replacement, string $subject): string
     {
-        $retVal = preg_replace($pattern, $replacement, $subject);
-
-        return is_string($retVal) ? $retVal : '';
+        return self::ensureString(preg_replace($pattern, $replacement, $subject));
     }
 
     private function tryDefinedName(string $pCoordinate): string
@@ -2399,7 +2408,7 @@ class Worksheet implements IComparable
     public function setSelectedCells($pCoordinate)
     {
         $originalCoordinate = $pCoordinate;
-        $pCoordinate = self::tryDefinedName($pCoordinate);
+        $pCoordinate = $this->tryDefinedName($pCoordinate);
 
         // Convert 'A' to 'A:A'
         $pCoordinate = self::pregReplace('/^([A-Z]+)$/', '${1}:${1}', $pCoordinate);
