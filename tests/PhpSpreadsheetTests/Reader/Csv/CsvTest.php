@@ -251,4 +251,13 @@ EOF;
             [(version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '', ','],
         ];
     }
+
+    public function testSetDelimiterNull(): void
+    {
+        $reader = new Csv();
+        $reader->setDelimiter(',');
+        self::assertSame(',', $reader->getDelimiter());
+        $reader->setDelimiter(null);
+        self::assertNull($reader->getDelimiter());
+    }
 }
