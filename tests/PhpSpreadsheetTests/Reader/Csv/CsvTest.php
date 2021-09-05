@@ -252,12 +252,24 @@ EOF;
         ];
     }
 
-    public function testSetDelimiterNull(): void
+    /**
+     * This test could be simpler, but Scrutinizer has a minor (and silly) problem.
+     *
+     * @dataProvider providerNull
+     */
+    public function testSetDelimiterNull(?string $setNull): void
     {
         $reader = new Csv();
         $reader->setDelimiter(',');
         self::assertSame(',', $reader->getDelimiter());
-        $reader->setDelimiter(null);
-        self::assertNull($reader->getDelimiter());
+        $reader->setDelimiter($setNull);
+        self::assertSame($setNull, $reader->getDelimiter());
+    }
+
+    public function providerNull(): array
+    {
+        return [
+            [null],
+        ];
     }
 }
