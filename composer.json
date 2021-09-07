@@ -64,7 +64,6 @@
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-xmlwriter": "*",
-        "ext-zip": "*",
         "ext-zlib": "*",
         "ezyang/htmlpurifier": "^4.13",
         "maennchen/zipstream-php": "^2.1",
