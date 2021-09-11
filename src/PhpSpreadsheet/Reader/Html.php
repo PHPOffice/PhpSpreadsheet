@@ -137,12 +137,8 @@ class Html extends BaseReader
 
     /**
      * Validate that the current file is an HTML file.
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         // Check if file exists
         try {
@@ -349,8 +345,9 @@ class Html extends BaseReader
                 $sheet->getComment($column . $row)
                     ->getText()
                     ->createTextRun($child->textContent);
+            } else {
+                $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             }
-            $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
             if (isset($this->formats[$child->nodeName])) {
                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
