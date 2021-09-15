@@ -369,7 +369,7 @@ class Csv extends BaseReader
         return $this->delimiter;
     }
 
-    public function setDelimiter(string $delimiter): self
+    public function setDelimiter(?string $delimiter): self
     {
         $this->delimiter = $delimiter;
 

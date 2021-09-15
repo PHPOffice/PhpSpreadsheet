@@ -251,4 +251,25 @@ EOF;
             [(version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '', ','],
         ];
     }
+
+    /**
+     * This test could be simpler, but Scrutinizer has a minor (and silly) problem.
+     *
+     * @dataProvider providerNull
+     */
+    public function testSetDelimiterNull(?string $setNull): void
+    {
+        $reader = new Csv();
+        $reader->setDelimiter(',');
+        self::assertSame(',', $reader->getDelimiter());
+        $reader->setDelimiter($setNull);
+        self::assertSame($setNull, $reader->getDelimiter());
+    }
+
+    public function providerNull(): array
+    {
+        return [
+            [null],
+        ];
+    }
 }
