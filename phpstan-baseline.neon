@@ -5276,31 +5276,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$objWriter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$spreadsheet has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$formulaConvertor has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:__construct\\(\\) has parameter \\$formulaConvertor with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
 			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
@@ -5859,21 +5834,6 @@ parameters:
 			message: "#^Cannot access offset 2 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\DefinedNames\\:\\:\\$objWriter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\DefinedNames\\:\\:\\$spreadsheet has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
 
 		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
