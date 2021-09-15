@@ -4826,31 +4826,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$coord of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:coordinateIsRange\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$activeCell \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$selectedCells \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
