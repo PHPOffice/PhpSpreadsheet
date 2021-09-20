@@ -4826,31 +4826,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$coord of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:coordinateIsRange\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$pRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$activeCell \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$selectedCells \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -5299,31 +5274,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$objWriter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$spreadsheet has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:\\$formulaConvertor has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\NamedExpressions\\:\\:__construct\\(\\) has parameter \\$formulaConvertor with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Ods/NamedExpressions.php
 
 		-
 			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
@@ -5884,21 +5834,6 @@ parameters:
 			message: "#^Cannot access offset 2 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\DefinedNames\\:\\:\\$objWriter has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\DefinedNames\\:\\:\\$spreadsheet has no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
 
 		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"

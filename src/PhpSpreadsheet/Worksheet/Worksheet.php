@@ -2374,6 +2374,38 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Sigh - Phpstan thinks, correctly, that preg_replace can return null.
+     * But Scrutinizer doesn't. Try to satisfy both.
+     *
+     * @param mixed $str
+     */
+    private static function ensureString($str): string
+    {
+        return is_string($str) ? $str : '';
+    }
+
+    private static function pregReplace(string $pattern, string $replacement, string $subject): string
+    {
+        return self::ensureString(preg_replace($pattern, $replacement, $subject));
+    }
+
+    private function tryDefinedName(string $pCoordinate): string
+    {
+        // Uppercase coordinate
+        $pCoordinate = strtoupper($pCoordinate);
+        // Eliminate leading equal sign
+        $pCoordinate = self::pregReplace('/^=/', '', $pCoordinate);
+        $defined = $this->parent->getDefinedName($pCoordinate, $this);
+        if ($defined !== null) {
+            if ($defined->getWorksheet() === $this && !$defined->isFormula()) {
+                $pCoordinate = self::pregReplace('/^=/', '', $defined->getValue());
+            }
+        }
+
+        return $pCoordinate;
+    }
+
+    /**
      * Select a range of cells.
      *
      * @param string $pCoordinate Cell range, examples: 'A1', 'B2:G5', 'A:C', '3:6'
@@ -2382,20 +2414,23 @@ class Worksheet implements IComparable
      */
     public function setSelectedCells($pCoordinate)
     {
-        // Uppercase coordinate
-        $pCoordinate = strtoupper($pCoordinate);
+        $originalCoordinate = $pCoordinate;
+        $pCoordinate = $this->tryDefinedName($pCoordinate);
 
         // Convert 'A' to 'A:A'
-        $pCoordinate = preg_replace('/^([A-Z]+)$/', '${1}:${1}', $pCoordinate);
+        $pCoordinate = self::pregReplace('/^([A-Z]+)$/', '${1}:${1}', $pCoordinate);
 
         // Convert '1' to '1:1'
-        $pCoordinate = preg_replace('/^(\d+)$/', '${1}:${1}', $pCoordinate);
+        $pCoordinate = self::pregReplace('/^(\d+)$/', '${1}:${1}', $pCoordinate);
 
         // Convert 'A:C' to 'A1:C1048576'
-        $pCoordinate = preg_replace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $pCoordinate);
+        $pCoordinate = self::pregReplace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $pCoordinate);
 
         // Convert '1:3' to 'A1:XFD3'
-        $pCoordinate = preg_replace('/^(\d+):(\d+)$/', 'A${1}:XFD${2}', $pCoordinate);
+        $pCoordinate = self::pregReplace('/^(\d+):(\d+)$/', 'A${1}:XFD${2}', $pCoordinate);
+        if (preg_match('/^\\$?[A-Z]{1,3}\\$?\d{1,7}(:\\$?[A-Z]{1,3}\\$?\d{1,7})?$/', $pCoordinate) !== 1) {
+            throw new Exception("Invalid setSelectedCells $originalCoordinate $pCoordinate");
+        }
 
         if (Coordinate::coordinateIsRange($pCoordinate)) {
             [$first] = Coordinate::splitRange($pCoordinate);
