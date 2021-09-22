@@ -1675,46 +1675,63 @@ class Xlsx extends BaseReader
                     } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
-                        if (isset($run->rPr->rFont['val'])) {
-                            $objText->getFont()->setName((string) $run->rPr->rFont['val']);
+                        $attr = $run->rPr->rFont->attributes();
+                        if (isset($attr['val'])) {
+                            $objText->getFont()->setName((string) $attr['val']);
                         }
-                        if (isset($run->rPr->sz['val'])) {
-                            $objText->getFont()->setSize((float) $run->rPr->sz['val']);
+                        $attr = $run->rPr->sz->attributes();
+                        if (isset($attr['val'])) {
+                            $objText->getFont()->setSize((float) $attr['val']);
                         }
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color(Styles::readColor($run->rPr->color)));
                         }
-                        if (
-                            (isset($run->rPr->b['val']) && self::boolean((string) $run->rPr->b['val'])) ||
-                            (isset($run->rPr->b) && !isset($run->rPr->b['val']))
-                        ) {
-                            $objText->getFont()->setBold(true);
-                        }
-                        if (
-                            (isset($run->rPr->i['val']) && self::boolean((string) $run->rPr->i['val'])) ||
-                            (isset($run->rPr->i) && !isset($run->rPr->i['val']))
-                        ) {
-                            $objText->getFont()->setItalic(true);
-                        }
-                        if (isset($run->rPr->vertAlign, $run->rPr->vertAlign['val'])) {
-                            $vertAlign = strtolower((string) $run->rPr->vertAlign['val']);
-                            if ($vertAlign == 'superscript') {
-                                $objText->getFont()->setSuperscript(true);
-                            }
-                            if ($vertAlign == 'subscript') {
-                                $objText->getFont()->setSubscript(true);
+                        if (isset($run->rPr->b)) {
+                            $attr = $run->rPr->b->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setBold(true);
                             }
                         }
-                        if (isset($run->rPr->u) && !isset($run->rPr->u['val'])) {
-                            $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
-                        } elseif (isset($run->rPr->u, $run->rPr->u['val'])) {
-                            $objText->getFont()->setUnderline((string) $run->rPr->u['val']);
+                        if (isset($run->rPr->i)) {
+                            $attr = $run->rPr->i->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setItalic(true);
+                            }
                         }
-                        if (
-                            (isset($run->rPr->strike['val']) && self::boolean((string) $run->rPr->strike['val'])) ||
-                            (isset($run->rPr->strike) && !isset($run->rPr->strike['val']))
-                        ) {
-                            $objText->getFont()->setStrikethrough(true);
+                        if (isset($run->rPr->vertAlign)) {
+                            $attr = $run->rPr->vertAlign->attributes();
+                            if (isset($attr['val'])) {
+                                $vertAlign = strtolower((string) $attr['val']);
+                                if ($vertAlign == 'superscript') {
+                                    $objText->getFont()->setSuperscript(true);
+                                }
+                                if ($vertAlign == 'subscript') {
+                                    $objText->getFont()->setSubscript(true);
+                                }
+                            }
+                        }
+                        if (isset($run->rPr->u)) {
+                            $attr = $run->rPr->u->attributes();
+                            if (!isset($attr['val'])) {
+                                $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                            } else {
+                                $objText->getFont()->setUnderline((string) $attr['val']);
+                            }
+                        }
+                        if (isset($run->rPr->strike)) {
+                            $attr = $run->rPr->strike->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setStrikethrough(true);
+                            }
                         }
                     }
                 }
