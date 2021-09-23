@@ -22,6 +22,7 @@ class Issue2301Test extends \PHPUnit\Framework\TestCase
         $font = $richtext[1]->getFont();
         self::assertNotNull($font);
         self::assertSame('Arial CE', $font->getName());
-        self::assertEquals(9, $font->getSize());
+        self::assertSame(9.0, $font->getSize());
+        self::assertSame('protected', $sheet->getCell('BT10')->getStyle()->getProtection()->getHidden());
     }
 }
