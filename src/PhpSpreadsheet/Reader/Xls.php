@@ -3753,7 +3753,7 @@ class Xls extends BaseReader
                                 // this has to do with that index 3 and 4  is omitted in all BIFF versions for some strange reason
                                 // check the OpenOffice documentation of the FONT record
                                 if (array_key_exists($fontIndex, $this->objFonts) === false) {
-                                    $fontIndex = array_key_last($this->objFonts);
+                                    $fontIndex = count($this->objFonts) - 1;
                                 }
                                 $textRun->setFont(clone $this->objFonts[$fontIndex]);
                             }
