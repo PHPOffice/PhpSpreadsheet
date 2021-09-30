@@ -28,7 +28,7 @@ class AutoFilterYearTest extends SetupTeardown
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $sheet = $this->getSheet();
+            $sheet = $this->getSpreadsheet()->createSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
             $sheet->getCell('A1')->setValue('Date');
@@ -63,7 +63,7 @@ class AutoFilterYearTest extends SetupTeardown
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
 
-        self::assertEquals($expectedVisible, $this->getVisible());
+        self::assertEquals($expectedVisible, $this->getVisibleSheet($sheet));
     }
 
     public function testYearToDate(): void
@@ -71,12 +71,14 @@ class AutoFilterYearTest extends SetupTeardown
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $sheet = $this->getSheet();
+            $sheet = $this->getSpreadsheet()->createSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
             $startMonth = (int) $dtStart->format('m');
             $sheet->getCell('A1')->setValue('Date');
             $sheet->getCell('A2')->setValue('=TODAY()');
+            // cache result for consistency in later calculations
+            $sheet->getCell('A2')->getCalculatedValue();
             $sheet->getCell('A3')->setValue('=DATE(YEAR(A2), 12, 31)');
             $sheet->getCell('A4')->setValue('=A3 + 1');
             $sheet->getCell('A5')->setValue('=DATE(YEAR(A2), 1, 1)');
@@ -100,6 +102,6 @@ class AutoFilterYearTest extends SetupTeardown
         } while ($startDay !== $endDay);
 
         $expected = ($startMonth === 12 && $startDay === 31) ? [2, 3, 5] : [2, 5];
-        self::assertEquals($expected, $this->getVisible());
+        self::assertEquals($expected, $this->getVisibleSheet($sheet));
     }
 }
