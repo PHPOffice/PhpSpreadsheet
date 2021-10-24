@@ -181,7 +181,7 @@ class Cells
 
         // Determine highest column and row
         $highestRow = max($row);
-        $highestColumn = substr(max($col) ?: '', 1);
+        $highestColumn = substr((string) @max($col), 1);
 
         return [
             'row' => $highestRow,
@@ -257,7 +257,7 @@ class Cells
             $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList) ?: 0);
+        return Coordinate::stringFromColumnIndex((int) @max($columnList));
     }
 
     /**
@@ -391,7 +391,7 @@ class Cells
      */
     private function storeCurrentCell(): void
     {
-        if ($this->currentCellIsDirty && !empty($this->currentCoordinate) && $this->currentCell !== null) {
+        if ($this->currentCellIsDirty && isset($this->currentCoordinate, $this->currentCell)) {
             $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);

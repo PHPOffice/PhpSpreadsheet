@@ -119,8 +119,7 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressBooleanConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
         $binder->setBooleanConversion(false);
@@ -193,8 +192,7 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressFormulaConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
         $binder->setFormulaConversion(false);
@@ -224,8 +222,7 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressAllConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
         $binder->setConversionForAllValueTypes(false);

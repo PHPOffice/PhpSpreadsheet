@@ -1043,7 +1043,7 @@ class Worksheet implements IComparable
      */
     public function getHighestColumn($row = null)
     {
-        if ($row == null) {
+        if (empty($row)) {
             return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
         }
 
