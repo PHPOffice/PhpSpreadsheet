@@ -21,12 +21,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Phase 1 of better namespace handling for Xlsx, resolving many open issues.
 [PR #2173](https://github.com/PHPOffice/PhpSpreadsheet/pull/2173)
 [PR #2204](https://github.com/PHPOffice/PhpSpreadsheet/pull/2204)
+[PR #2303](https://github.com/PHPOffice/PhpSpreadsheet/pull/2303)
 - Add ability to extract images if source is a URL. [Issue #1997](https://github.com/PHPOffice/PhpSpreadsheet/issues/1997) [PR #2072](https://github.com/PHPOffice/PhpSpreadsheet/pull/2072)
 - Support for passing flags in the Reader `load()` and Writer `save()`methods, and through the IOFactory, to set behaviours. [PR #2136](https://github.com/PHPOffice/PhpSpreadsheet/pull/2136)
   - See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-and-writing-to-file/) for details
 - More flexibility in the StringValueBinder to determine what datatypes should be treated as strings [PR #2138](https://github.com/PHPOffice/PhpSpreadsheet/pull/2138)
 - Helper class for conversion between css size Units of measure (`px`, `pt`, `pc`, `in`, `cm`, `mm`). [PR #2152](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145)
 - Allow Row height and Column Width to be set using different units of measure (`px`, `pt`, `pc`, `in`, `cm`, `mm`), rather than only in points or MS Excel column width units. [PR #2152](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145)
+- Ability to stream to an Amazon S3 bucket
+ [Issue #2249](https://github.com/PHPOffice/PhpSpreadsheet/issues/2249)
 
 ### Changed
 
