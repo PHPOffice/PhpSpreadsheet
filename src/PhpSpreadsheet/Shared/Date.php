@@ -163,7 +163,7 @@ class Date
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UST) unless you absolutely need a conversion
+     *                                                                    Use the default (UTC) unless you absolutely need a conversion
      *
      * @return DateTime PHP date/time object
      */
@@ -206,11 +206,12 @@ class Date
 
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp.
+     * The use of Unix timestamps, and therefore this function, is discouraged.
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UST) unless you absolutely need a conversion
+     *                                                                    Use the default (UTC) unless you absolutely need a conversion
      *
      * @return int Unix timetamp for this date/time
      */
@@ -223,7 +224,7 @@ class Date
     /**
      * Convert a date from PHP to an MS Excel serialized date/time value.
      *
-     * @param mixed $dateValue Unix Timestamp or PHP DateTime object or a string
+     * @param mixed $dateValue PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged
      *
      * @return bool|float Excel date/time value
      *                                  or boolean FALSE on failure
@@ -262,6 +263,7 @@ class Date
 
     /**
      * Convert a Unix timestamp to an MS Excel serialized date/time value.
+     * The use of Unix timestamps, and therefore this function, is discouraged.
      *
      * @param int $dateValue Unix Timestamp
      *
