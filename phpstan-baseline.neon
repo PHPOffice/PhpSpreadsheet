@@ -761,36 +761,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
 
 		-
-			message: "#^Binary operation \"\\-\" between int\\|string and 1 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:hLookupSearch\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:hLookupSearch\\(\\) has parameter \\$column with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:hLookupSearch\\(\\) has parameter \\$lookupArray with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:hLookupSearch\\(\\) has parameter \\$lookupValue with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:hLookupSearch\\(\\) has parameter \\$notExactMatch with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
