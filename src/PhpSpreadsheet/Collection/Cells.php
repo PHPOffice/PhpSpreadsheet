@@ -304,7 +304,7 @@ class Cells
     /**
      * @param mixed $str
      */
-    private function forceString($str): string
+    private static function forceString($str): string
     {
         return is_string($str) ? $str : '';
     }
