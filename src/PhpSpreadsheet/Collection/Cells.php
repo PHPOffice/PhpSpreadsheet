@@ -306,7 +306,7 @@ class Cells
      */
     private static function forceString($str): string
     {
-        return is_string($str) ? $str : '';
+        return (string) $str;
     }
 
     /**
@@ -322,7 +322,7 @@ class Cells
         $newCollection = clone $this;
 
         $newCollection->parent = $parent;
-        if (($newCollection->currentCell !== null) && (is_object($newCollection->currentCell))) {
+        if (is_object($newCollection->currentCell)) {
             $newCollection->currentCell->attach($this);
         }
 
@@ -340,11 +340,7 @@ class Cells
 
         // Store new values
         $stored = $newCollection->cache->setMultiple($newValues);
-        if (!$stored) {
-            $newCollection->__destruct();
-
-            throw new PhpSpreadsheetException('Failed to copy cells in cache');
-        }
+        $this->destructIfNeeded($stored, $newCollection, 'Failed to copy cells in cache');
 
         return $newCollection;
     }
@@ -395,16 +391,21 @@ class Cells
             $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
-            if (!$stored) {
-                $this->__destruct();
-
-                throw new PhpSpreadsheetException("Failed to store cell {$this->currentCoordinate} in cache");
-            }
+            $this->destructIfNeeded($stored, $this, "Failed to store cell {$this->currentCoordinate} in cache");
             $this->currentCellIsDirty = false;
         }
 
         $this->currentCoordinate = null;
         $this->currentCell = null;
+    }
+
+    private function destructIfNeeded(bool $stored, self $cells, string $message): void
+    {
+        if (!$stored) {
+            $cells->__destruct();
+
+            throw new PhpSpreadsheetException($message);
+        }
     }
 
     /**
