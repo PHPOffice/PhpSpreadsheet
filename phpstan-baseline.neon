@@ -1901,41 +1901,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Title.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:getParent\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet but returns PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:getCurrentCoordinate\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function sscanf expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Parameter \\#1 \\$columnIndex of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:stringFromColumnIndex\\(\\) expects int, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Cannot call method detach\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Memory\\:\\:\\$cache has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Collection/Memory.php
@@ -6148,11 +6113,6 @@ parameters:
 		-
 			message: "#^Cannot call method getCoordinate\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:getHighestColumn\\(\\) expects string\\|null, int given\\.$#"
-			count: 3
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
 
 		-

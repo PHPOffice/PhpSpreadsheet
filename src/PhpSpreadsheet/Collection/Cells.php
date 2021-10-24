@@ -76,7 +76,7 @@ class Cells
     /**
      * Return the parent worksheet for this cell collection.
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getParent()
     {
@@ -181,7 +181,7 @@ class Cells
 
         // Determine highest column and row
         $highestRow = max($row);
-        $highestColumn = substr(max($col), 1);
+        $highestColumn = substr(max($col) ?: '', 1);
 
         return [
             'row' => $highestRow,
@@ -192,7 +192,7 @@ class Cells
     /**
      * Return the cell coordinate of the currently active cell object.
      *
-     * @return string
+     * @return null|string
      */
     public function getCurrentCoordinate()
     {
@@ -209,7 +209,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
+        sscanf($this->currentCoordinate ?? 'A1', '%[A-Z]%d', $column, $row);
 
         return $column;
     }
@@ -224,7 +224,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate, '%[A-Z]%d', $column, $row);
+        sscanf($this->currentCoordinate ?? 'A1', '%[A-Z]%d', $column, $row);
 
         return (int) $row;
     }
@@ -232,7 +232,7 @@ class Cells
     /**
      * Get highest worksheet column.
      *
-     * @param string $row Return the highest column for the specified row,
+     * @param null|int|string $row Return the highest column for the specified row,
      *                    or the highest column of any row if no row number is passed
      *
      * @return string Highest column name
@@ -257,13 +257,13 @@ class Cells
             $columnList[] = Coordinate::columnIndexFromString($c);
         }
 
-        return Coordinate::stringFromColumnIndex(max($columnList));
+        return Coordinate::stringFromColumnIndex(max($columnList) ?: 0);
     }
 
     /**
      * Get highest worksheet row.
      *
-     * @param string $column Return the highest row for the specified column,
+     * @param null|string $column Return the highest row for the specified column,
      *                       or the highest row of any column if no column letter is passed
      *
      * @return int Highest row number
@@ -302,6 +302,14 @@ class Cells
     }
 
     /**
+     * @param mixed $str
+     */
+    private function forceString($str): string
+    {
+        return is_string($str) ? $str : '';
+    }
+
+    /**
      * Clone the cell collection.
      *
      * @param Worksheet $parent The new worksheet that we're copying to
@@ -327,7 +335,7 @@ class Cells
         // Change prefix
         $newCollection->cachePrefix = $newCollection->getUniqueID();
         foreach ($oldValues as $oldKey => $value) {
-            $newValues[str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey)] = clone $value;
+            $newValues[self::forceString(str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey))] = clone $value;
         }
 
         // Store new values
@@ -383,7 +391,7 @@ class Cells
      */
     private function storeCurrentCell(): void
     {
-        if ($this->currentCellIsDirty && !empty($this->currentCoordinate)) {
+        if ($this->currentCellIsDirty && !empty($this->currentCoordinate) && $this->currentCell !== null) {
             $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
