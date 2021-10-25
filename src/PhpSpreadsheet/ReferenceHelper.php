@@ -728,10 +728,12 @@ class ReferenceHelper
                                 $toString = ($match[2] > '') ? $match[2] . '!' : '';
                                 $toString .= $modified3;
                                 [$column, $row] = Coordinate::coordinateFromString($match[3]);
+                                $columnAdditionalIndex = $column[0] === '$' ? 1 : 0;
+                                $rowAdditionalIndex = $row[0] === '$' ? 1 : 0;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($column, '$')) + 100000;
                                 $row = (int) trim($row, '$') + 10000000;
-                                $cellIndex = $row . $column;
+                                $cellIndex = $row . $rowAdditionalIndex . $column . $columnAdditionalIndex;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
                                 $cellTokens[$cellIndex] = '/(?<![A-Z\$\!])' . preg_quote($fromString, '/') . '(?!\d)/i';
