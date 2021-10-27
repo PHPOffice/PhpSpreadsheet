@@ -45,10 +45,10 @@ class Font
     const ARIAL_ITALIC = 'ariali.ttf';
     const ARIAL_BOLD_ITALIC = 'arialbi.ttf';
 
-    const CALIBRI = 'CALIBRI.TTF';
-    const CALIBRI_BOLD = 'CALIBRIB.TTF';
-    const CALIBRI_ITALIC = 'CALIBRII.TTF';
-    const CALIBRI_BOLD_ITALIC = 'CALIBRIZ.TTF';
+    const CALIBRI = 'calibri.ttf';
+    const CALIBRI_BOLD = 'calibrib.ttf';
+    const CALIBRI_ITALIC = 'calibrii.ttf';
+    const CALIBRI_BOLD_ITALIC = 'calibriz.ttf';
 
     const COMIC_SANS_MS = 'comic.ttf';
     const COMIC_SANS_MS_BOLD = 'comicbd.ttf';

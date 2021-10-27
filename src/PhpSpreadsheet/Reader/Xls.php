@@ -3749,12 +3749,10 @@ class Xls extends BaseReader
                         } else {
                             $textRun = $richText->createTextRun($text);
                             if (isset($fmtRuns[$i - 1])) {
-                                if ($fmtRuns[$i - 1]['fontIndex'] < 4) {
-                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
-                                } else {
-                                    // this has to do with that index 4 is omitted in all BIFF versions for some strange reason
-                                    // check the OpenOffice documentation of the FONT record
-                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'] - 1;
+                                $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
+
+                                if (array_key_exists($fontIndex, $this->objFonts) === false) {
+                                    $fontIndex = count($this->objFonts) - 1;
                                 }
                                 $textRun->setFont(clone $this->objFonts[$fontIndex]);
                             }
