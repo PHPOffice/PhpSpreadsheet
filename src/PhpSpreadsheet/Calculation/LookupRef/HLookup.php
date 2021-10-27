@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class HLookup extends LookupBase
@@ -26,6 +27,7 @@ class HLookup extends LookupBase
         $lookupValue = Functions::flattenSingleValue($lookupValue);
         $indexNumber = Functions::flattenSingleValue($indexNumber);
         $notExactMatch = ($notExactMatch === null) ? true : Functions::flattenSingleValue($notExactMatch);
+        $lookupArray = self::convertLiteralArray($lookupArray);
 
         try {
             $indexNumber = self::validateIndexLookup($lookupArray, $indexNumber);
@@ -46,13 +48,18 @@ class HLookup extends LookupBase
 
         if ($rowNumber !== null) {
             //  otherwise return the appropriate value
-            return $lookupArray[$returnColumn][$rowNumber];
+            return $lookupArray[$returnColumn][Coordinate::stringFromColumnIndex($rowNumber)];
         }
 
         return Functions::NA();
     }
 
-    private static function hLookupSearch($lookupValue, $lookupArray, $column, $notExactMatch)
+    /**
+     * @param mixed $lookupValue The value that you want to match in lookup_array
+     * @param mixed $column The column to look up
+     * @param mixed $notExactMatch determines if you are looking for an exact match based on lookup_value
+     */
+    private static function hLookupSearch($lookupValue, array $lookupArray, $column, $notExactMatch): ?int
     {
         $lookupLower = StringHelper::strToLower($lookupValue);
 
@@ -74,7 +81,7 @@ class HLookup extends LookupBase
                 $bothNumeric,
                 $bothNotNumeric,
                 $notExactMatch,
-                $rowKey,
+                Coordinate::columnIndexFromString($rowKey),
                 $cellDataLower,
                 $lookupLower,
                 $rowNumber
@@ -82,5 +89,28 @@ class HLookup extends LookupBase
         }
 
         return $rowNumber;
+    }
+
+    private static function convertLiteralArray(array $lookupArray): array
+    {
+        if (array_key_exists(0, $lookupArray)) {
+            $lookupArray2 = [];
+            $row = 0;
+            foreach ($lookupArray as $arrayVal) {
+                ++$row;
+                if (!is_array($arrayVal)) {
+                    $arrayVal = [$arrayVal];
+                }
+                $arrayVal2 = [];
+                foreach ($arrayVal as $key2 => $val2) {
+                    $index = Coordinate::stringFromColumnIndex($key2 + 1);
+                    $arrayVal2[$index] = $val2;
+                }
+                $lookupArray2[$row] = $arrayVal2;
+            }
+            $lookupArray = $lookupArray2;
+        }
+
+        return $lookupArray;
     }
 }

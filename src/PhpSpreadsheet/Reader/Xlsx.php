@@ -957,9 +957,10 @@ class Xlsx extends BaseReader
                                     // Loop through contents
                                     $contentPath = self::xpathNoFalse($commentsFile, 'com:commentList/com:comment');
                                     foreach ($contentPath as $comment) {
-                                        $commentModel = $docSheet->getComment((string) $comment['ref']);
-                                        if (!empty($comment['authorId'])) {
-                                            $commentModel->setAuthor($authors[(int) $comment['authorId']]);
+                                        $commentx = $comment->attributes();
+                                        $commentModel = $docSheet->getComment((string) $commentx['ref']);
+                                        if (isset($commentx['authorId'])) {
+                                            $commentModel->setAuthor($authors[(int) $commentx['authorId']]);
                                         }
                                         $commentModel->setText($this->parseRichText($comment->children($mainNS)->text));
                                     }
