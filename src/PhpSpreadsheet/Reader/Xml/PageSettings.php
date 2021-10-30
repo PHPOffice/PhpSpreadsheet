@@ -62,6 +62,10 @@ class PageSettings
             foreach ($xmlX->WorksheetOptions->PageSetup as $pageSetupData) {
                 foreach ($pageSetupData as $pageSetupKey => $pageSetupValue) {
                     $pageSetupAttributes = $pageSetupValue->attributes($namespaces['x']);
+                    if (!$pageSetupAttributes) {
+                        continue;
+                    }
+
                     switch ($pageSetupKey) {
                         case 'Layout':
                             $this->setLayout($printDefaults, $pageSetupAttributes);
