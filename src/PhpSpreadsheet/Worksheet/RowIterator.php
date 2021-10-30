@@ -115,10 +115,8 @@ class RowIterator implements Iterator
 
     /**
      * Return the current row in this worksheet.
-     *
-     * @return Row
      */
-    public function current()
+    public function current(): Row
     {
         return new Row($this->subject, $this->position);
     }

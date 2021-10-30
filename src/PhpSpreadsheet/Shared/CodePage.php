@@ -8,6 +8,7 @@ class CodePage
 {
     public const DEFAULT_CODE_PAGE = 'CP1252';
 
+    /** @var array */
     private static $pageArray = [
         0 => 'CP1252', //    CodePage is not always correctly set when the xls file was saved by Apple's Numbers program
         367 => 'ASCII', //    ASCII
@@ -56,7 +57,7 @@ class CodePage
         10010 => 'MACROMANIA', //    Macintosh Romania
         10017 => 'MACUKRAINE', //    Macintosh Ukraine
         10021 => 'MACTHAI', //    Macintosh Thai
-        10029 => 'MACCENTRALEUROPE', //    Macintosh Central Europe
+        10029 => ['MACCENTRALEUROPE', 'MAC-CENTRALEUROPE'], //    Macintosh Central Europe
         10079 => 'MACICELAND', //    Macintosh Icelandic
         10081 => 'MACTURKISH', //    Macintosh Turkish
         10082 => 'MACCROATIAN', //    Macintosh Croatian
@@ -65,6 +66,7 @@ class CodePage
         //32769 => 'unsupported', //    ANSI Latin I (BIFF2-BIFF3)
         65000 => 'UTF-7', //    Unicode (UTF-7)
         65001 => 'UTF-8', //    Unicode (UTF-8)
+        99999 => ['unsupported'], //    Unicode (UTF-8)
     ];
 
     public static function validate(string $codePage): bool
@@ -83,7 +85,20 @@ class CodePage
     public static function numberToName(int $codePage): string
     {
         if (array_key_exists($codePage, self::$pageArray)) {
-            return self::$pageArray[$codePage];
+            $value = self::$pageArray[$codePage];
+            if (is_array($value)) {
+                foreach ($value as $encoding) {
+                    if (@iconv('UTF-8', $encoding, ' ') !== false) {
+                        self::$pageArray[$codePage] = $encoding;
+
+                        return $encoding;
+                    }
+                }
+
+                throw new PhpSpreadsheetException("Code page $codePage not implemented on this system.");
+            } else {
+                return $value;
+            }
         }
         if ($codePage == 720 || $codePage == 32769) {
             throw new PhpSpreadsheetException("Code page $codePage not supported."); //    OEM Arabic

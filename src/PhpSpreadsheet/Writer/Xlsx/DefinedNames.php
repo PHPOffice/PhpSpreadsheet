@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\DefinedName;
@@ -11,8 +12,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DefinedNames
 {
+    /** @var XMLWriter */
     private $objWriter;
 
+    /** @var Spreadsheet */
     private $spreadsheet;
 
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
@@ -66,12 +69,22 @@ class DefinedNames
     private function writeDefinedName(DefinedName $pDefinedName): void
     {
         // definedName for named range
+        $local = -1;
+        if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
+            try {
+                $local = $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope());
+            } catch (Exception $e) {
+                // See issue 2266 - deleting sheet which contains
+                //     defined names will cause Exception above.
+                return;
+            }
+        }
         $this->objWriter->startElement('definedName');
         $this->objWriter->writeAttribute('name', $pDefinedName->getName());
-        if ($pDefinedName->getLocalOnly() && $pDefinedName->getScope() !== null) {
+        if ($local >= 0) {
             $this->objWriter->writeAttribute(
                 'localSheetId',
-                $pDefinedName->getScope()->getParent()->getIndex($pDefinedName->getScope())
+                "$local"
             );
         }
 
@@ -92,7 +105,7 @@ class DefinedNames
         if (!empty($autoFilterRange)) {
             $this->objWriter->startElement('definedName');
             $this->objWriter->writeAttribute('name', '_xlnm._FilterDatabase');
-            $this->objWriter->writeAttribute('localSheetId', $pSheetId);
+            $this->objWriter->writeAttribute('localSheetId', "$pSheetId");
             $this->objWriter->writeAttribute('hidden', '1');
 
             // Create absolute coordinate and write as raw text
@@ -105,7 +118,7 @@ class DefinedNames
             $range[1] = Coordinate::absoluteCoordinate($range[1]);
             $range = implode(':', $range);
 
-            $this->objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
+            $this->objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle() ?? '') . '\'!' . $range);
 
             $this->objWriter->endElement();
         }
@@ -120,7 +133,7 @@ class DefinedNames
         if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $pSheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
             $this->objWriter->startElement('definedName');
             $this->objWriter->writeAttribute('name', '_xlnm.Print_Titles');
-            $this->objWriter->writeAttribute('localSheetId', $pSheetId);
+            $this->objWriter->writeAttribute('localSheetId', "$pSheetId");
 
             // Setting string
             $settingString = '';
@@ -158,7 +171,7 @@ class DefinedNames
         if ($pSheet->getPageSetup()->isPrintAreaSet()) {
             $this->objWriter->startElement('definedName');
             $this->objWriter->writeAttribute('name', '_xlnm.Print_Area');
-            $this->objWriter->writeAttribute('localSheetId', $pSheetId);
+            $this->objWriter->writeAttribute('localSheetId', "$pSheetId");
 
             // Print area
             $printArea = Coordinate::splitRange($pSheet->getPageSetup()->getPrintArea());
@@ -205,7 +218,8 @@ class DefinedNames
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
                     // We should have a worksheet
-                    $worksheet = $pDefinedName->getWorksheet() ? $pDefinedName->getWorksheet()->getTitle() : null;
+                    $ws = $pDefinedName->getWorksheet();
+                    $worksheet = ($ws === null) ? null : $ws->getTitle();
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
