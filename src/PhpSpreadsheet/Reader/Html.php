@@ -345,8 +345,9 @@ class Html extends BaseReader
                 $sheet->getComment($column . $row)
                     ->getText()
                     ->createTextRun($child->textContent);
+            } else {
+                $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             }
-            $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
             if (isset($this->formats[$child->nodeName])) {
                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);

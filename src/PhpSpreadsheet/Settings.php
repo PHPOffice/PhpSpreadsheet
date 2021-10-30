@@ -24,7 +24,7 @@ class Settings
      *
      * @var int
      */
-    private static $libXmlLoaderOptions = null;
+    private static $libXmlLoaderOptions;
 
     /**
      * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
