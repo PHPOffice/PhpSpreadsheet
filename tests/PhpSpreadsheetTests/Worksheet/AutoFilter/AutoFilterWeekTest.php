@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterWeekTest extends SetupTeardown
 {
@@ -17,11 +18,12 @@ class AutoFilterWeekTest extends SetupTeardown
         ];
     }
 
-    private function setCells(): void
+    private function setCells(Worksheet $sheet): void
     {
-        $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('Date');
         $sheet->getCell('A2')->setValue('=TODAY()');
+        // cache result for consistency in later calculations
+        $sheet->getCell('A2')->getCalculatedValue();
         $sheet->getCell('B2')->setValue('=WEEKDAY(A2) - 1'); // subtract to get to Sunday
         $sheet->getCell('A3')->setValue('=DATE(YEAR(A2), MONTH(A2), DAY(A2) - B2)');
         $sheet->getCell('A4')->setValue('=DATE(YEAR(A3), MONTH(A3), DAY(A3) + 8)');
@@ -41,10 +43,10 @@ class AutoFilterWeekTest extends SetupTeardown
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $sheet = $this->getSheet();
+            $sheet = $this->getSpreadsheet()->createSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
-            $this->setCells();
+            $this->setCells($sheet);
 
             $maxRow = $this->maxRow;
             $autoFilter = $sheet->getAutoFilter();
@@ -63,6 +65,6 @@ class AutoFilterWeekTest extends SetupTeardown
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
 
-        self::assertEquals($expectedVisible, $this->getVisible());
+        self::assertEquals($expectedVisible, $this->getVisibleSheet($sheet));
     }
 }

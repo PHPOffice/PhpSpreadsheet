@@ -3161,9 +3161,9 @@ class Calculation
         return $formula;
     }
 
-    private static $functionReplaceFromExcel = null;
+    private static $functionReplaceFromExcel;
 
-    private static $functionReplaceToLocale = null;
+    private static $functionReplaceToLocale;
 
     public function _translateFormulaToLocale($formula)
     {
@@ -3190,9 +3190,9 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
     }
 
-    private static $functionReplaceFromLocale = null;
+    private static $functionReplaceFromLocale;
 
-    private static $functionReplaceToExcel = null;
+    private static $functionReplaceToExcel;
 
     public function _translateFormulaToEnglish($formula)
     {
@@ -4368,7 +4368,7 @@ class Calculation
             $rowKey = array_shift($rKeys);
             $cKeys = array_keys(array_keys($operand[$rowKey]));
             $colKey = array_shift($cKeys);
-            if (ctype_upper($colKey)) {
+            if (ctype_upper("$colKey")) {
                 $operandData['reference'] = $colKey . $rowKey;
             }
         }
@@ -4524,7 +4524,7 @@ class Calculation
                             $sheet2 = $sheet1;
                         }
 
-                        if ($sheet1 == $sheet2) {
+                        if (trim($sheet1, "'") === trim($sheet2, "'")) {
                             if ($operand1Data['reference'] === null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $pCell->getColumn() . $operand1Data['value'];
@@ -4741,7 +4741,7 @@ class Calculation
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                                     $pCell->attach($pCellParent);
                                 } else {
-                                    $cellRef = ($cellSheet !== null) ? "{$matches[2]}!{$cellRef}" : $cellRef;
+                                    $cellRef = ($cellSheet !== null) ? "'{$matches[2]}'!{$cellRef}" : $cellRef;
                                     $cellValue = null;
                                 }
                             } else {
@@ -5262,7 +5262,7 @@ class Calculation
 
             // Extract range
             $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
-            $pRange = $pSheetName . '!' . $pRange;
+            $pRange = "'" . $pSheetName . "'" . '!' . $pRange;
             if (!isset($aReferences[1])) {
                 $currentCol = '';
                 $currentRow = 0;
@@ -5405,7 +5405,7 @@ class Calculation
             // Apply any defaults for empty argument values
             foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
                 if ($isArgumentEmpty === true) {
-                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                    $reflectedArgumentId = count($args) - (int) $argumentId - 1;
                     if (
                         !array_key_exists($reflectedArgumentId, $methodArguments) ||
                         $methodArguments[$reflectedArgumentId]->isVariadic()

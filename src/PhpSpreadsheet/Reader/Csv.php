@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -35,7 +35,7 @@ class Csv extends BaseReader
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Fallback encoding if 'guess' strikes out.
+     * Fallback encoding if guess strikes out.
      *
      * @var string
      */
@@ -272,13 +272,26 @@ class Csv extends BaseReader
         }
     }
 
+    private static function setAutoDetect(?string $value): ?string
+    {
+        $retVal = null;
+        if ($value !== null) {
+            $retVal2 = @ini_set('auto_detect_line_endings', $value);
+            if (is_string($retVal2)) {
+                $retVal = $retVal2;
+            }
+        }
+
+        return $retVal;
+    }
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
     public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
     {
-        $lineEnding = ini_get('auto_detect_line_endings') ?: '0';
-        ini_set('auto_detect_line_endings', '1');
+        // Deprecated in Php8.1
+        $iniset = self::setAutoDetect('1');
 
         // Open file
         $this->openFileOrMemory($pFilename);
@@ -305,7 +318,8 @@ class Csv extends BaseReader
             $noOutputYet = true;
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
-                if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
+                self::convertBoolean($rowDatum);
+                if ($rowDatum !== '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
                             $noOutputYet = false;
@@ -326,10 +340,28 @@ class Csv extends BaseReader
         // Close file
         fclose($fileHandle);
 
-        ini_set('auto_detect_line_endings', $lineEnding);
+        self::setAutoDetect($iniset);
 
         // Return
         return $spreadsheet;
+    }
+
+    /**
+     * Convert string true/false to boolean, and null to null-string.
+     *
+     * @param mixed $rowDatum
+     */
+    private static function convertBoolean(&$rowDatum): void
+    {
+        if (is_string($rowDatum)) {
+            if (strcasecmp('true', $rowDatum) === 0) {
+                $rowDatum = true;
+            } elseif (strcasecmp('false', $rowDatum) === 0) {
+                $rowDatum = false;
+            }
+        } elseif ($rowDatum === null) {
+            $rowDatum = '';
+        }
     }
 
     public function getDelimiter(): ?string
@@ -337,7 +369,7 @@ class Csv extends BaseReader
         return $this->delimiter;
     }
 
-    public function setDelimiter(string $delimiter): self
+    public function setDelimiter(?string $delimiter): self
     {
         $this->delimiter = $delimiter;
 
@@ -410,17 +442,13 @@ class Csv extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         // Check if file exists
         try {
             $this->openFile($pFilename);
-        } catch (InvalidArgumentException $e) {
+        } catch (ReaderException $e) {
             return false;
         }
 

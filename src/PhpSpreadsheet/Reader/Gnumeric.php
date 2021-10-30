@@ -77,18 +77,12 @@ class Gnumeric extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
-
-        // Check if gzlib functions are available
         $data = '';
-        if (function_exists('gzread')) {
+        // Check if gzlib functions are available
+        if (File::testFileNoThrow($pFilename) && function_exists('gzread')) {
             // Read signature data (first 3 bytes)
             $fh = fopen($pFilename, 'rb');
             if ($fh !== false) {
@@ -215,7 +209,7 @@ class Gnumeric extends BaseReader
             foreach ($sheet->Objects->children(self::NAMESPACE_GNM) as $key => $comment) {
                 $commentAttributes = $comment->attributes();
                 //    Only comment objects are handled at the moment
-                if ($commentAttributes->Text) {
+                if ($commentAttributes && $commentAttributes->Text) {
                     $this->spreadsheet->getActiveSheet()->getComment((string) $commentAttributes->ObjectBound)
                         ->setAuthor((string) $commentAttributes->Author)
                         ->setText($this->parseRichText((string) $commentAttributes->Text));

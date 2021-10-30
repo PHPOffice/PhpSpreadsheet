@@ -263,7 +263,7 @@ class Conditional implements IComparable
     /**
      * get DataBar.
      *
-     * @return ConditionalDataBar | null
+     * @return null|ConditionalDataBar
      */
     public function getDataBar()
     {
