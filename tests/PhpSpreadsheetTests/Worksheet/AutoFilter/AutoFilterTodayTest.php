@@ -25,14 +25,18 @@ class AutoFilterTodayTest extends SetupTeardown
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $sheet = $this->getSheet();
+            $sheet = $this->getSpreadsheet()->createSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = $dtStart->format('d');
             $sheet->getCell('A1')->setValue('Date');
             $sheet->getCell('A2')->setValue('=NOW()');
+            // cache result for consistency in later calculations
+            $sheet->getCell('A2')->getCalculatedValue();
             $sheet->getCell('A3')->setValue('=A2+1');
             $sheet->getCell('A4')->setValue('=A2-1');
             $sheet->getCell('A5')->setValue('=TODAY()');
+            // cache result for consistency in later calculations
+            $sheet->getCell('A5')->getCalculatedValue();
             $sheet->getCell('A6')->setValue('=A5+1');
             $sheet->getCell('A7')->setValue('=A5-1');
             $this->maxRow = $maxRow = 7;
@@ -52,6 +56,6 @@ class AutoFilterTodayTest extends SetupTeardown
             $endDay = $dtEnd->format('d');
         } while ($startDay !== $endDay);
 
-        self::assertEquals($expectedVisible, $this->getVisible());
+        self::assertEquals($expectedVisible, $this->getVisibleSheet($sheet));
     }
 }

@@ -115,7 +115,12 @@ abstract class BaseWriter implements IWriter
             return;
         }
 
-        $fileHandle = $filename ? fopen($filename, 'wb+') : false;
+        $mode = 'wb+';
+        $scheme = parse_url($filename, PHP_URL_SCHEME);
+        if ($scheme === 's3') {
+            $mode = 'w';
+        }
+        $fileHandle = $filename ? fopen($filename, $mode) : false;
         if ($fileHandle === false) {
             throw new Exception('Could not open file "' . $filename . '" for writing.');
         }
