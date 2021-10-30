@@ -54,7 +54,11 @@ class SetupTeardown extends TestCase
 
     public function getVisible(): array
     {
-        $sheet = $this->getSheet();
+        return $this->getVisibleSheet($this->getSheet());
+    }
+
+    public function getVisibleSheet(Worksheet $sheet): array
+    {
         $sheet->getAutoFilter()->showHideRows();
         $actualVisible = [];
         for ($row = 2; $row <= $this->maxRow; ++$row) {

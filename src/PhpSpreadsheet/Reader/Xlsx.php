@@ -41,6 +41,8 @@ use ZipArchive;
 
 class Xlsx extends BaseReader
 {
+    const INITIAL_FILE = '_rels/.rels';
+
     /**
      * ReferenceHelper instance.
      *
@@ -53,7 +55,7 @@ class Xlsx extends BaseReader
      *
      * @var Xlsx\Theme
      */
-    private static $theme = null;
+    private static $theme;
 
     /**
      * @var ZipArchive
@@ -72,14 +74,12 @@ class Xlsx extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
-        File::assertFile($pFilename);
+        if (!File::testFileNoThrow($pFilename, self::INITIAL_FILE)) {
+            return false;
+        }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
@@ -168,7 +168,7 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetNames($pFilename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
@@ -176,13 +176,13 @@ class Xlsx extends BaseReader
         $zip->open($pFilename);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             if ($mainNS !== '') {
-                $xmlWorkbook = $this->loadZip($rel['Target'], $mainNS);
+                $xmlWorkbook = $this->loadZip((string) $rel['Target'], $mainNS);
 
                 if ($xmlWorkbook->sheets) {
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
@@ -207,14 +207,14 @@ class Xlsx extends BaseReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
         $this->zip = $zip = new ZipArchive();
         $zip->open($pFilename);
 
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relType = (string) $rel['Type'];
@@ -246,7 +246,7 @@ class Xlsx extends BaseReader
                             'totalColumns' => 0,
                         ];
 
-                        $fileWorksheet = $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $namespace), 'id')];
+                        $fileWorksheet = (string) $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $namespace), 'id')];
                         $fileWorksheetPath = strpos($fileWorksheet, '/') === 0 ? substr($fileWorksheet, 1) : "$dir/$fileWorksheet";
 
                         $xml = new XMLReader();
@@ -312,15 +312,16 @@ class Xlsx extends BaseReader
 
     private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
     {
+        $attr = $c->f->attributes();
         $cellDataType = 'f';
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?
-        if (isset($c->f['t']) && strtolower((string) $c->f['t']) == 'shared') {
-            $instance = (string) $c->f['si'];
+        if (isset($attr['t']) && strtolower((string) $attr['t']) == 'shared') {
+            $instance = (string) $attr['si'];
 
-            if (!isset($sharedFormulas[(string) $c->f['si']])) {
+            if (!isset($sharedFormulas[(string) $attr['si']])) {
                 $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
             } else {
                 $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
@@ -333,6 +334,29 @@ class Xlsx extends BaseReader
                 $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
             }
         }
+    }
+
+    /**
+     * @param string $fileName
+     */
+    private function fileExistsInArchive(ZipArchive $archive, $fileName = ''): bool
+    {
+        // Root-relative paths
+        if (strpos($fileName, '//') !== false) {
+            $fileName = substr($fileName, strpos($fileName, '//') + 1);
+        }
+        $fileName = File::realpath($fileName);
+
+        // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
+        //    so we need to load case-insensitively from the zip file
+
+        // Apache POI fixes
+        $contents = $archive->locateName($fileName, ZipArchive::FL_NOCASE);
+        if ($contents === false) {
+            $contents = $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE);
+        }
+
+        return $contents !== false;
     }
 
     /**
@@ -365,16 +389,15 @@ class Xlsx extends BaseReader
      */
     public function load(string $pFilename, int $flags = 0): Spreadsheet
     {
-        File::assertFile($pFilename);
+        File::assertFile($pFilename, self::INITIAL_FILE);
         $this->processFlags($flags);
 
         // Initialisations
         $excel = new Spreadsheet();
         $excel->removeSheetByIndex(0);
-        if (!$this->readDataOnly) {
-            $excel->removeCellStyleXfByIndex(0); // remove the default style
-            $excel->removeCellXfByIndex(0); // remove the default style
-        }
+        $addingFirstCellStyleXf = true;
+        $addingFirstCellXf = true;
+
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
@@ -385,13 +408,14 @@ class Xlsx extends BaseReader
         $wbRels = $this->loadZip("xl/_rels/${workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         foreach ($wbRels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
+            $relTarget = (string) $rel['Target'];
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/theme":
                     $themeOrderArray = ['lt1', 'dk1', 'lt2', 'dk2'];
                     $themeOrderAdditional = count($themeOrderArray);
                     $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
 
-                    $xmlTheme = $this->loadZip("xl/{$rel['Target']}", $drawingNS);
+                    $xmlTheme = $this->loadZip("xl/{$relTarget}", $drawingNS);
                     $xmlThemeName = self::getAttributes($xmlTheme);
                     $xmlTheme = $xmlTheme->children($drawingNS);
                     $themeName = (string) $xmlThemeName['name'];
@@ -408,10 +432,10 @@ class Xlsx extends BaseReader
                         }
                         if (isset($xmlColour->sysClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->sysClr);
-                            $themeColours[$themePos] = $xmlColourData['lastClr'];
+                            $themeColours[$themePos] = (string) $xmlColourData['lastClr'];
                         } elseif (isset($xmlColour->srgbClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->srgbClr);
-                            $themeColours[$themePos] = $xmlColourData['val'];
+                            $themeColours[$themePos] = (string) $xmlColourData['val'];
                         }
                     }
                     self::$theme = new Xlsx\Theme($themeName, $colourSchemeName, $themeColours);
@@ -420,39 +444,40 @@ class Xlsx extends BaseReader
             }
         }
 
-        $rels = $this->loadZip('_rels/.rels', Namespaces::RELATIONSHIPS);
+        $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->securityScanner, $excel->getProperties());
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
+            $relTarget = (string) $rel['Target'];
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             switch ($relType) {
                 case Namespaces::CORE_PROPERTIES:
-                    $propertyReader->readCoreProperties($this->getFromZipArchive($zip, $rel['Target']));
+                    $propertyReader->readCoreProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
                 case "$xmlNamespaceBase/extended-properties":
-                    $propertyReader->readExtendedProperties($this->getFromZipArchive($zip, $rel['Target']));
+                    $propertyReader->readExtendedProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
                 case "$xmlNamespaceBase/custom-properties":
-                    $propertyReader->readCustomProperties($this->getFromZipArchive($zip, $rel['Target']));
+                    $propertyReader->readCustomProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
                 //Ribbon
                 case Namespaces::EXTENSIBILITY:
-                    $customUI = $rel['Target'];
-                    if ($customUI !== null) {
+                    $customUI = $relTarget;
+                    if ($customUI) {
                         $this->readRibbon($excel, $customUI, $zip);
                     }
 
                     break;
                 case "$xmlNamespaceBase/officeDocument":
-                    $dir = dirname($rel['Target']);
+                    $dir = dirname($relTarget);
 
                     // Do not specify namespace in next stmt - do it in Xpath
-                    $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($rel['Target']) . '.rels', '');
+                    $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', '');
                     $relsWorkbook->registerXPathNamespace('rel', Namespaces::RELATIONSHIPS);
 
                     $sharedStrings = [];
@@ -510,8 +535,14 @@ class Xlsx extends BaseReader
                         . "$xmlNamespaceBase/styles"
                         . "']";
                     $xpath = self::getArrayItem(self::xpathNoFalse($relsWorkbook, $relType));
-                    // I think Nonamespace is okay because I'm using xpath.
-                    $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+
+                    if ($xpath === null) {
+                        $xmlStyles = self::testSimpleXml(null);
+                    } else {
+                        // I think Nonamespace is okay because I'm using xpath.
+                        $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+                    }
+
                     $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
                     $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
                     $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
@@ -569,6 +600,10 @@ class Xlsx extends BaseReader
                             // add style to cellXf collection
                             $objStyle = new Style();
                             self::readStyle($objStyle, $style);
+                            if ($addingFirstCellXf) {
+                                $excel->removeCellXfByIndex(0); // remove the default style
+                                $addingFirstCellXf = false;
+                            }
                             $excel->addCellXf($objStyle);
                         }
 
@@ -600,17 +635,20 @@ class Xlsx extends BaseReader
                             // add style to cellStyleXf collection
                             $objStyle = new Style();
                             self::readStyle($objStyle, $cellStyle);
+                            if ($addingFirstCellStyleXf) {
+                                $excel->removeCellStyleXfByIndex(0); // remove the default style
+                                $addingFirstCellStyleXf = false;
+                            }
                             $excel->addCellStyleXf($objStyle);
                         }
                     }
-
                     $styleReader = new Styles($xmlStyles);
                     $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
                     $dxfs = $styleReader->dxfs($this->readDataOnly);
                     $styles = $styleReader->styles();
 
-                    $xmlWorkbook = $this->loadZipNoNamespace($rel['Target'], $mainNS);
-                    $xmlWorkbookNS = $this->loadZip($rel['Target'], $mainNS);
+                    $xmlWorkbook = $this->loadZipNoNamespace($relTarget, $mainNS);
+                    $xmlWorkbookNS = $this->loadZip($relTarget, $mainNS);
 
                     // Set base date
                     if ($xmlWorkbookNS->workbookPr) {
@@ -658,7 +696,7 @@ class Xlsx extends BaseReader
                             //        and we're simply bringing the worksheet name in line with the formula, not the
                             //        reverse
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
-                            $fileWorksheet = $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id')];
+                            $fileWorksheet = (string) $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id')];
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
@@ -820,8 +858,8 @@ class Xlsx extends BaseReader
                                 $this->readSheetProtection($docSheet, $xmlSheet);
                             }
 
-                            if ($xmlSheet && $xmlSheet->autoFilter && !$this->readDataOnly) {
-                                (new AutoFilter($docSheet, $xmlSheet))->load();
+                            if ($this->readDataOnly === false) {
+                                $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -845,7 +883,7 @@ class Xlsx extends BaseReader
 
                                 foreach ($xmlSheet->extLst->ext->children('x14', true)->dataValidations->dataValidation as $item) {
                                     $node = $xmlSheet->dataValidations->addChild('dataValidation');
-                                    foreach ($item->attributes() as $attr) {
+                                    foreach ($item->attributes() ?? [] as $attr) {
                                         $node->addAttribute($attr->getName(), $attr);
                                     }
                                     $node->addAttribute('sqref', $item->children('xm', true)->sqref);
@@ -921,9 +959,10 @@ class Xlsx extends BaseReader
                                     // Loop through contents
                                     $contentPath = self::xpathNoFalse($commentsFile, 'com:commentList/com:comment');
                                     foreach ($contentPath as $comment) {
-                                        $commentModel = $docSheet->getComment((string) $comment['ref']);
-                                        if (!empty($comment['authorId'])) {
-                                            $commentModel->setAuthor($authors[(int) $comment['authorId']]);
+                                        $commentx = $comment->attributes();
+                                        $commentModel = $docSheet->getComment((string) $commentx['ref']);
+                                        if (isset($commentx['authorId'])) {
+                                            $commentModel->setAuthor($authors[(int) $commentx['authorId']]);
                                         }
                                         $commentModel->setText($this->parseRichText($comment->children($mainNS)->text));
                                     }
@@ -1543,7 +1582,7 @@ class Xlsx extends BaseReader
                 switch ($contentType['ContentType']) {
                     case 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml':
                         if ($this->includeCharts) {
-                            $chartEntryRef = ltrim($contentType['PartName'], '/');
+                            $chartEntryRef = ltrim((string) $contentType['PartName'], '/');
                             $chartElements = $this->loadZip($chartEntryRef);
                             $objChart = Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
@@ -1619,8 +1658,6 @@ class Xlsx extends BaseReader
     }
 
     /**
-     * @param SimpleXMLElement | null $is
-     *
      * @return RichText
      */
     private function parseRichText(?SimpleXMLElement $is)
@@ -1639,46 +1676,63 @@ class Xlsx extends BaseReader
                     } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
-                        if (isset($run->rPr->rFont['val'])) {
-                            $objText->getFont()->setName((string) $run->rPr->rFont['val']);
+                        $attr = $run->rPr->rFont->attributes();
+                        if (isset($attr['val'])) {
+                            $objText->getFont()->setName((string) $attr['val']);
                         }
-                        if (isset($run->rPr->sz['val'])) {
-                            $objText->getFont()->setSize((float) $run->rPr->sz['val']);
+                        $attr = $run->rPr->sz->attributes();
+                        if (isset($attr['val'])) {
+                            $objText->getFont()->setSize((float) $attr['val']);
                         }
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color(Styles::readColor($run->rPr->color)));
                         }
-                        if (
-                            (isset($run->rPr->b['val']) && self::boolean((string) $run->rPr->b['val'])) ||
-                            (isset($run->rPr->b) && !isset($run->rPr->b['val']))
-                        ) {
-                            $objText->getFont()->setBold(true);
-                        }
-                        if (
-                            (isset($run->rPr->i['val']) && self::boolean((string) $run->rPr->i['val'])) ||
-                            (isset($run->rPr->i) && !isset($run->rPr->i['val']))
-                        ) {
-                            $objText->getFont()->setItalic(true);
-                        }
-                        if (isset($run->rPr->vertAlign, $run->rPr->vertAlign['val'])) {
-                            $vertAlign = strtolower((string) $run->rPr->vertAlign['val']);
-                            if ($vertAlign == 'superscript') {
-                                $objText->getFont()->setSuperscript(true);
-                            }
-                            if ($vertAlign == 'subscript') {
-                                $objText->getFont()->setSubscript(true);
+                        if (isset($run->rPr->b)) {
+                            $attr = $run->rPr->b->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setBold(true);
                             }
                         }
-                        if (isset($run->rPr->u) && !isset($run->rPr->u['val'])) {
-                            $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
-                        } elseif (isset($run->rPr->u, $run->rPr->u['val'])) {
-                            $objText->getFont()->setUnderline((string) $run->rPr->u['val']);
+                        if (isset($run->rPr->i)) {
+                            $attr = $run->rPr->i->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setItalic(true);
+                            }
                         }
-                        if (
-                            (isset($run->rPr->strike['val']) && self::boolean((string) $run->rPr->strike['val'])) ||
-                            (isset($run->rPr->strike) && !isset($run->rPr->strike['val']))
-                        ) {
-                            $objText->getFont()->setStrikethrough(true);
+                        if (isset($run->rPr->vertAlign)) {
+                            $attr = $run->rPr->vertAlign->attributes();
+                            if (isset($attr['val'])) {
+                                $vertAlign = strtolower((string) $attr['val']);
+                                if ($vertAlign == 'superscript') {
+                                    $objText->getFont()->setSuperscript(true);
+                                }
+                                if ($vertAlign == 'subscript') {
+                                    $objText->getFont()->setSubscript(true);
+                                }
+                            }
+                        }
+                        if (isset($run->rPr->u)) {
+                            $attr = $run->rPr->u->attributes();
+                            if (!isset($attr['val'])) {
+                                $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                            } else {
+                                $objText->getFont()->setUnderline((string) $attr['val']);
+                            }
+                        }
+                        if (isset($run->rPr->strike)) {
+                            $attr = $run->rPr->strike->attributes();
+                            if (
+                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
+                                (!isset($attr['val']))
+                            ) {
+                                $objText->getFont()->setStrikethrough(true);
+                            }
                         }
                     }
                 }
@@ -1688,11 +1742,7 @@ class Xlsx extends BaseReader
         return $value;
     }
 
-    /**
-     * @param mixed $customUITarget
-     * @param mixed $zip
-     */
-    private function readRibbon(Spreadsheet $excel, $customUITarget, $zip): void
+    private function readRibbon(Spreadsheet $excel, string $customUITarget, ZipArchive $zip): void
     {
         $baseDir = dirname($customUITarget);
         $nameCustomUI = basename($customUITarget);
@@ -1933,14 +1983,15 @@ class Xlsx extends BaseReader
         $xmlNamespaceBase = '';
 
         // check if it is an OOXML archive
-        $rels = $this->loadZip('_rels/.rels');
+        $rels = $this->loadZip(self::INITIAL_FILE);
         foreach ($rels->children(Namespaces::RELATIONSHIPS)->Relationship as $rel) {
             $rel = self::getAttributes($rel);
-            switch ($rel['Type']) {
+            $type = (string) $rel['Type'];
+            switch ($type) {
                 case Namespaces::OFFICE_DOCUMENT:
                 case Namespaces::PURL_OFFICE_DOCUMENT:
-                    $basename = basename($rel['Target']);
-                    $xmlNamespaceBase = dirname($rel['Type']);
+                    $basename = basename((string) $rel['Target']);
+                    $xmlNamespaceBase = dirname($type);
                     if (preg_match('/workbook.*\.xml/', $basename)) {
                         $workbookBasename = $basename;
                     }
@@ -1973,6 +2024,54 @@ class Xlsx extends BaseReader
         if ($xmlSheet->protectedRanges->protectedRange) {
             foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
                 $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
+            }
+        }
+    }
+
+    private function readAutoFilterTables(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip
+    ): void {
+        if ($xmlSheet && $xmlSheet->autoFilter) {
+            // In older files, autofilter structure is defined in the worksheet file
+            (new AutoFilter($docSheet, $xmlSheet))->load();
+        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+            // But for Office365, MS decided to make it all just a bit more complicated
+            $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        }
+    }
+
+    private function readAutoFilterTablesInTablesFile(
+        SimpleXMLElement $xmlSheet,
+        string $dir,
+        string $fileWorksheet,
+        ZipArchive $zip,
+        Worksheet $docSheet
+    ): void {
+        foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
+            $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
+            $tablePartRel = (string) $relation['id'];
+            $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+
+            if ($zip->locateName($relationsFileName)) {
+                $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
+                foreach ($relsTableReferences->Relationship as $relationship) {
+                    $relationshipAttributes = self::getAttributes($relationship, '');
+
+                    if ((string) $relationshipAttributes['Id'] === $tablePartRel) {
+                        $relationshipFileName = (string) $relationshipAttributes['Target'];
+                        $relationshipFilePath = dirname("$dir/$fileWorksheet") . '/' . $relationshipFileName;
+                        $relationshipFilePath = File::realpath($relationshipFilePath);
+
+                        if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
+                            $autoFilter = $this->loadZip($relationshipFilePath);
+                            (new AutoFilter($docSheet, $autoFilter))->load();
+                        }
+                    }
+                }
             }
         }
     }

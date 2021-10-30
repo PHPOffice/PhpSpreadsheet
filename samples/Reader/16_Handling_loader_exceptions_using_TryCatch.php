@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 
 require __DIR__ . '/../Header.php';
 
@@ -9,6 +10,6 @@ $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' u
 
 try {
     $spreadsheet = IOFactory::load($inputFileName);
-} catch (InvalidArgumentException $e) {
+} catch (ReaderException $e) {
     $helper->log('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
 }

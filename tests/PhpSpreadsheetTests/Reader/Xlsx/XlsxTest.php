@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -61,6 +61,49 @@ class XlsxTest extends TestCase
                 );
             }
         }
+    }
+
+    /**
+     * Test load Xlsx file without styles.xml.
+     */
+    public function testLoadXlsxWithoutStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.2246a.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $tempFilename = File::temporaryFilename();
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save($tempFilename);
+
+        $reader = new Xlsx();
+        $reloadedSpreadsheet = $reader->load($tempFilename);
+        unlink($tempFilename);
+
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
+    }
+
+    /**
+     * Test load Xlsx file with empty styles.xml.
+     */
+    public function testLoadXlsxWithEmptyStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/issue.2246b.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $tempFilename = File::temporaryFilename();
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save($tempFilename);
+
+        $reader = new Xlsx();
+        $reloadedSpreadsheet = $reader->load($tempFilename);
+        unlink($tempFilename);
+
+        $reloadedWorksheet = $reloadedSpreadsheet->getActiveSheet();
+        self::assertEquals('TipoDato', $reloadedWorksheet->getCell('A1')->getValue());
     }
 
     public function testLoadXlsxAutofilter(): void
