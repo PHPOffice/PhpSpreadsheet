@@ -36,11 +36,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Binary operation \"\\-\" between 0 and string\\|false results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:\\$spreadsheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -426,11 +421,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
 
 		-
-			message: "#^Binary operation \"\\-\" between 1 and float\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:\\$oneSqrtPi has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
@@ -442,11 +432,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:erfcValue\\(\\) has parameter \\$value with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
-
-		-
-			message: "#^Binary operation \"\\-\" between 2 and float\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
 
@@ -674,11 +659,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:MATCH\\(\\) should return int\\|string but returns float\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchFirstValue\\(\\) has no return typehint specified\\.$#"
@@ -1006,11 +986,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 
 		-
-			message: "#^Binary operation \"\\-\" between 1 and float\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:pchisq\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
@@ -1129,11 +1104,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\NewtonRaphson\\:\\:execute\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/NewtonRaphson.php
-
-		-
-			message: "#^Binary operation \"\\-\" between 1 and float\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
 
 		-
 			message: "#^Binary operation \"\\-\" between float\\|string and float\\|int\\|\\(string&numeric\\) results in an error\\.$#"
@@ -2356,16 +2326,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\:\\:setOffsetX\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\:\\:setOffsetY\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -2398,21 +2358,6 @@ parameters:
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#2 \\$pos of static method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:getUInt2d\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#2 \\$pos of static method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:getInt4d\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, float\\|int given\\.$#"
-			count: 5
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -2607,11 +2552,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:getFromZipArchive\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$is of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:parseRichText\\(\\) expects SimpleXMLElement\\|null, object given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3336,22 +3276,17 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(mixed, mixed\\)\\: int, array\\('self', 'cellReverseSort'\\) given\\.$#"
+			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\('self', 'cellReverseSort'\\) given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(mixed, mixed\\)\\: int, array\\('self', 'cellSort'\\) given\\.$#"
+			message: "#^Parameter \\#2 \\$cmp_function of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\('self', 'cellSort'\\) given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$columnIndex of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:stringFromColumnIndex\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -5331,11 +5266,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
-			message: "#^Parameter \\#2 \\$pad_length of function str_pad expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\BIFFwriter\\:\\:writeEof\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php
@@ -5871,16 +5801,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
-			message: "#^Parameter \\#2 \\$pId of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeRelationship\\(\\) expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeDrawingHyperLink\\(\\) should return int but returns float\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
@@ -6381,16 +6301,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
 
 		-
-			message: "#^Cannot access property \\$workbookProtection on SimpleXMLElement\\|false\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
-
-		-
-			message: "#^Cannot access property \\$sheets on SimpleXMLElement\\|false\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
-
-		-
 			message: "#^Cannot access property \\$pageSetup on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
@@ -6399,4 +6309,54 @@ parameters:
 			message: "#^Cannot access property \\$sheetProtection on SimpleXMLElement\\|false\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
+
+		-
+			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xml/Properties.php
+
+		-
+			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xml/Style.php
+
+		-
+			message: "#^Binary operation \"/\" between int\\|string and 360 results in an error\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
+
+		-
+			message: "#^Binary operation \"/\" between int\\|string and 365 results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
+
+		-
+			message: "#^Binary operation \"/\" between int\\|string and \\(float\\|int\\) results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
+
+		-
+			message: "#^Binary operation \"/\" between float\\|string and float\\|string results in an error\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
+
+		-
+			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
+
+		-
+			message: "#^Offset '(percentage|value)' does not exist on SimpleXMLElement|null\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
 

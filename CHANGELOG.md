@@ -44,6 +44,24 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Nothing.
 
 ### Fixed
+- Unexpected format in Xlsx Timestamp
+[Issue #2331](https://github.com/PHPOffice/PhpSpreadsheet/issues/2331)
+[PR #2332](https://github.com/PHPOffice/PhpSpreadsheet/pull/2332)
+- Corrections for HLOOKUP
+[Issue #2123](https://github.com/PHPOffice/PhpSpreadsheet/issues/2123)
+[PR #2330](https://github.com/PHPOffice/PhpSpreadsheet/pull/2330)
+- Corrections for Xlsx Read Comments
+[Issue #2316](https://github.com/PHPOffice/PhpSpreadsheet/issues/2316)
+[PR #2329](https://github.com/PHPOffice/PhpSpreadsheet/pull/2329)
+- Lowercase Calibri font names
+[Issue #2273](https://github.com/PHPOffice/PhpSpreadsheet/issues/2273)
+[PR #2325](https://github.com/PHPOffice/PhpSpreadsheet/pull/2325)
+- isFormula Referencing Sheet with Space in Title
+[Issue #2304](https://github.com/PHPOffice/PhpSpreadsheet/issues/2304)
+[PR #2306](https://github.com/PHPOffice/PhpSpreadsheet/pull/2306)
+- Xls Reader Fatal Error due to Undefined Offset
+[Issue #1114](https://github.com/PHPOffice/PhpSpreadsheet/issues/1114)
+[PR #2308](https://github.com/PHPOffice/PhpSpreadsheet/pull/2308)
 - Permit Csv Reader delimiter to be set to null.
 [Issue #2287](https://github.com/PHPOffice/PhpSpreadsheet/issues/2287)
 [PR #2288](https://github.com/PHPOffice/PhpSpreadsheet/pull/2288)
