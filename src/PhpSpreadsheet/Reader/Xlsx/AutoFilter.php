@@ -89,7 +89,7 @@ class AutoFilter
             $customFilters = $filterColumn->customFilters;
             //    Custom filters can an AND or an OR join;
             //        and there should only ever be one or two entries
-            if ((isset($customFilters['and'])) && ($customFilters['and'] == 1)) {
+            if ((isset($customFilters['and'])) && ((string) $customFilters['and'] === '1')) {
                 $column->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
             }
             foreach ($customFilters->customFilter as $filterRule) {
@@ -130,12 +130,12 @@ class AutoFilter
             //    We should only ever have one top10 filter
             foreach ($filterColumn->top10 as $filterRule) {
                 $column->createRule()->setRule(
-                    (((isset($filterRule['percent'])) && ($filterRule['percent'] == 1))
+                    (((isset($filterRule['percent'])) && ((string) $filterRule['percent'] === '1'))
                         ? Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT
                         : Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE
                     ),
                     (string) $filterRule['val'],
-                    (((isset($filterRule['top'])) && ($filterRule['top'] == 1))
+                    (((isset($filterRule['top'])) && ((string) $filterRule['top'] === '1'))
                         ? Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
                         : Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
                     )

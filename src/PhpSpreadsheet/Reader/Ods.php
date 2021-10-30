@@ -65,7 +65,7 @@ class Ods extends BaseReader
                         $manifest = $xml->children($namespacesContent['manifest']);
                         foreach ($manifest as $manifestDataSet) {
                             $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
-                            if ($manifestAttributes->{'full-path'} == '/') {
+                            if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
                                 $mimeType = (string) $manifestAttributes->{'media-type'};
 
                                 break;
@@ -357,7 +357,7 @@ class Ods extends BaseReader
                             break;
                         case 'table-row':
                             if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
-                                $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
                             } else {
                                 $rowRepeats = 1;
                             }
@@ -514,7 +514,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -632,6 +632,7 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+
         // Return
         return $spreadsheet;
     }

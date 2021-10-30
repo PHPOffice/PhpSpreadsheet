@@ -35,9 +35,12 @@ class Style
             foreach ($style as $styleType => $styleDatax) {
                 $styleData = $styleDatax ?? new SimpleXMLElement('<xml></xml>');
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
+
                 switch ($styleType) {
                     case 'Alignment':
-                        $alignment = $alignmentStyleParser->parseStyle($styleAttributes);
+                        if ($styleAttributes) {
+                            $alignment = $alignmentStyleParser->parseStyle($styleAttributes);
+                        }
 
                         break;
                     case 'Borders':
@@ -45,15 +48,21 @@ class Style
 
                         break;
                     case 'Font':
-                        $font = $fontStyleParser->parseStyle($styleAttributes);
+                        if ($styleAttributes) {
+                            $font = $fontStyleParser->parseStyle($styleAttributes);
+                        }
 
                         break;
                     case 'Interior':
-                        $fill = $fillStyleParser->parseStyle($styleAttributes);
+                        if ($styleAttributes) {
+                            $fill = $fillStyleParser->parseStyle($styleAttributes);
+                        }
 
                         break;
                     case 'NumberFormat':
-                        $numberFormat = $numberFormatStyleParser->parseStyle($styleAttributes);
+                        if ($styleAttributes) {
+                            $numberFormat = $numberFormatStyleParser->parseStyle($styleAttributes);
+                        }
 
                         break;
                 }
