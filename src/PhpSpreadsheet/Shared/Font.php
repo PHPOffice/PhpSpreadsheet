@@ -112,7 +112,7 @@ class Font
      *
      * @var string
      */
-    private static $trueTypeFontPath = null;
+    private static $trueTypeFontPath;
 
     /**
      * How wide is a default column for a given default font and size?
