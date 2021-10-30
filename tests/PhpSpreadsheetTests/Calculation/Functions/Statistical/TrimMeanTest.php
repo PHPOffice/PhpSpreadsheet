@@ -25,7 +25,7 @@ class TrimMeanTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerTRIMMEAN()
+    public function providerTRIMMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/TRIMMEAN.php';
     }

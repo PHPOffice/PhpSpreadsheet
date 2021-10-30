@@ -17,7 +17,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DAverage class instead
+     * @see Database\DAverage::evaluate()
+     *      Use the evaluate() method in the Database\DAverage class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -52,7 +53,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DCount class instead
+     * @see Database\DCount::evaluate()
+     *      Use the evaluate() method in the Database\DCount class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -89,7 +91,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DCountA class instead
+     * @see Database\DCountA::evaluate()
+     *      Use the evaluate() method in the Database\DCountA class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -124,7 +127,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DGet class instead
+     * @see Database\DGet::evaluate()
+     *      Use the evaluate() method in the Database\DGet class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -159,7 +163,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DMax class instead
+     * @see Database\DMax::evaluate()
+     *      Use the evaluate() method in the Database\DMax class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -194,7 +199,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DMin class instead
+     * @see Database\DMin::evaluate()
+     *      Use the evaluate() method in the Database\DMin class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -228,7 +234,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DProduct class instead
+     * @see Database\DProduct::evaluate()
+     *      Use the evaluate() method in the Database\DProduct class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -245,7 +252,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string
      */
     public static function DPRODUCT($database, $field, $criteria)
     {
@@ -263,7 +270,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DStDev class instead
+     * @see Database\DStDev::evaluate()
+     *      Use the evaluate() method in the Database\DStDev class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -298,7 +306,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DStDevP class instead
+     * @see Database\DStDevP::evaluate()
+     *      Use the evaluate() method in the Database\DStDevP class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -332,7 +341,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DSum class instead
+     * @see Database\DSum::evaluate()
+     *      Use the evaluate() method in the Database\DSum class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -349,7 +359,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return float|string
      */
     public static function DSUM($database, $field, $criteria)
     {
@@ -367,7 +377,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DVar class instead
+     * @see Database\DVar::evaluate()
+     *      Use the evaluate() method in the Database\DVar class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
@@ -402,7 +413,8 @@ class Database
      *
      * @Deprecated 1.17.0
      *
-     * @see Use the evaluate() method in the Database\DVarP class instead
+     * @see Database\DVarP::evaluate()
+     *      Use the evaluate() method in the Database\DVarP class instead
      *
      * @param mixed[] $database The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related

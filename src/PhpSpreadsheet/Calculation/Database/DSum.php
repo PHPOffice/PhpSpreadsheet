@@ -29,7 +29,7 @@ class DSum extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return null|float|string
      */
     public static function evaluate($database, $field, $criteria)
     {
@@ -38,7 +38,7 @@ class DSum extends DatabaseAbstract
             return null;
         }
 
-        return MathTrig::SUM(
+        return MathTrig\Sum::sumIgnoringStrings(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

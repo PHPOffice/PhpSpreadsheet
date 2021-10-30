@@ -37,4 +37,9 @@ return [
         'C:\\Users\\Mark\\Documents\\notes.doc',
         ['\\', true, 'C:', 'Users', 'Mark', 'Documents', 'notes.doc'],
     ],
+    'no argument' => ['exception', []],
+    'one argument' => ['exception', ['-']],
+    'two arguments' => ['exception', ['-', true]],
+    'three arguments' => ['a', ['-', true, 'a']],
+    'boolean as string' => ['TRUE-FALSE-TRUE', ['-', true, true, false, true]],
 ];

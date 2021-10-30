@@ -24,7 +24,7 @@ class AddressTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerADDRESS()
+    public function providerADDRESS(): array
     {
         return require 'tests/data/Calculation/LookupRef/ADDRESS.php';
     }

@@ -33,7 +33,7 @@ class XirrTest extends TestCase
         self::assertEquals($expectedResult, $result, $message);
     }
 
-    public function providerXIRR()
+    public function providerXIRR(): array
     {
         return require 'tests/data/Calculation/Financial/XIRR.php';
     }

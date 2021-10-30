@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
@@ -18,8 +17,7 @@ class FloatsRetainedTest extends TestCase
      */
     public function testIntyFloatsRetainedByWriter($value): void
     {
-        $outputFilename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
-        Settings::setLibXmlLoaderOptions(null);
+        $outputFilename = File::temporaryFilename();
         $sheet = new Spreadsheet();
         $sheet->getActiveSheet()->getCell('A1')->setValue($value);
 
@@ -33,7 +31,7 @@ class FloatsRetainedTest extends TestCase
         self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
     }
 
-    public function providerIntyFloatsRetainedByWriter()
+    public function providerIntyFloatsRetainedByWriter(): array
     {
         return [
             [-1.0],

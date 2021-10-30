@@ -16,11 +16,18 @@ class CodePageTest extends TestCase
      */
     public function testCodePageNumberToName($expectedResult, $codePageIndex): void
     {
+        if ($expectedResult === 'exception') {
+            $this->expectException(Exception::class);
+        }
         $result = CodePage::numberToName($codePageIndex);
-        self::assertEquals($expectedResult, $result);
+        if (is_array($expectedResult)) {
+            self::assertContains($result, $expectedResult);
+        } else {
+            self::assertEquals($expectedResult, $result);
+        }
     }
 
-    public function providerCodePage()
+    public function providerCodePage(): array
     {
         return require 'tests/data/Shared/CodePage.php';
     }

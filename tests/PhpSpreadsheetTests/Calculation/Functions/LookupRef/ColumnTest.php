@@ -26,7 +26,7 @@ class ColumnTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMN()
+    public function providerCOLUMN(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMN.php';
     }

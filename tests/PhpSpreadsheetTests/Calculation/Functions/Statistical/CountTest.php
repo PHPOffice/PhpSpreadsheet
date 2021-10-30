@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class CountTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
     protected function setUp(): void
@@ -32,7 +35,7 @@ class CountTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerBasicCOUNT()
+    public function providerBasicCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/BasicCOUNT.php';
     }
@@ -48,7 +51,7 @@ class CountTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerExcelCOUNT()
+    public function providerExcelCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/ExcelCOUNT.php';
     }
@@ -66,7 +69,7 @@ class CountTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerOpenOfficeCOUNT()
+    public function providerOpenOfficeCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/OpenOfficeCOUNT.php';
     }
@@ -84,7 +87,7 @@ class CountTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerGnumericCOUNT()
+    public function providerGnumericCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/GnumericCOUNT.php';
     }

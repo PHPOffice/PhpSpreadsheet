@@ -24,7 +24,7 @@ class SlnTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerSLN()
+    public function providerSLN(): array
     {
         return require 'tests/data/Calculation/Financial/SLN.php';
     }

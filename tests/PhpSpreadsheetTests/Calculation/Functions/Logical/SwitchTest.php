@@ -24,7 +24,7 @@ class SwitchTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSwitch()
+    public function providerSwitch(): array
     {
         return require 'tests/data/Calculation/Logical/SWITCH.php';
     }

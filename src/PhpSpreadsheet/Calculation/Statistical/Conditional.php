@@ -178,7 +178,7 @@ class Conditional
      * @param mixed $sumRange
      * @param mixed $condition
      *
-     * @return float
+     * @return float|string
      */
     public static function SUMIF($range, $condition, $sumRange = [])
     {

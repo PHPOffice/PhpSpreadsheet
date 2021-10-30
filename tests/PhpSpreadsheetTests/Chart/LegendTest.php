@@ -98,20 +98,9 @@ class LegendTest extends TestCase
         $testInstance = new Legend();
 
         foreach ($overlayValues as $overlayValue) {
-            $result = $testInstance->setOverlay($overlayValue);
-            self::assertTrue($result);
+            $testInstance->setOverlay($overlayValue);
+            self::assertSame($overlayValue, $testInstance->getOverlay());
         }
-    }
-
-    public function testSetInvalidOverlayReturnsFalse(): void
-    {
-        $testInstance = new Legend();
-
-        $result = $testInstance->setOverlay('INVALID');
-        self::assertFalse($result);
-
-        $result = $testInstance->getOverlay();
-        self::assertFalse($result);
     }
 
     public function testGetOverlay(): void

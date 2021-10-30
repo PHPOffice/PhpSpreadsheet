@@ -11,7 +11,7 @@ class MetaInf extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeManifest()
+    public function write(): string
     {
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {

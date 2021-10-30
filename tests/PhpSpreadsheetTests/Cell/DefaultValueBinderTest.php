@@ -8,14 +8,15 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    private function createCellStub()
+    private function createCellStub(): Cell
     {
         // Create a stub for the Cell class.
-        /** @var Cell $cellStub */
+        /** @var Cell&MockObject $cellStub */
         $cellStub = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -41,7 +42,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertTrue($result);
     }
 
-    public function binderProvider()
+    public function binderProvider(): array
     {
         return [
             [null],
@@ -73,7 +74,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDataTypeForValue()
+    public function providerDataTypeForValue(): array
     {
         return require 'tests/data/Cell/DefaultValueBinder.php';
     }

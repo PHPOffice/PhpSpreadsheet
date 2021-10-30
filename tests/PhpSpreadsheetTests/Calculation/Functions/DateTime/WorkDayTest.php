@@ -14,7 +14,7 @@ class WorkDayTest extends AllSetupTeardown
     public function testWORKDAY($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', ?array $arg3 = null): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         if ($arg1 !== null) {
             $sheet->getCell('A1')->setValue($arg1);
         }
@@ -45,7 +45,7 @@ class WorkDayTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
     }
 
-    public function providerWORKDAY()
+    public function providerWORKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }

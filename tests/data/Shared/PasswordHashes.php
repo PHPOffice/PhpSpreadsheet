@@ -51,4 +51,9 @@ return [
         'Symbols_salt',
         100000,
     ],
+    // Additional tests suggested by Issue #1897
+    ['DCDF', 'ABCDEFGHIJKLMNOPQRSTUVW'],
+    ['ECD1', 'ABCDEFGHIJKLMNOPQRSTUVWX'],
+    ['88D2', 'ABCDEFGHIJKLMNOPQRSTUVWXY'],
+    'password too long' => ['exception', str_repeat('x', 256)],
 ];

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
-class BestFit
+abstract class BestFit
 {
     /**
      * Indicator flag for a calculation error.
@@ -96,24 +96,18 @@ class BestFit
      *
      * @param float $xValue X-Value
      *
-     * @return bool Y-Value
+     * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
-    {
-        return false;
-    }
+    abstract public function getValueOfYForX($xValue);
 
     /**
      * Return the X-Value for a specified value of Y.
      *
      * @param float $yValue Y-Value
      *
-     * @return bool X-Value
+     * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
-    {
-        return false;
-    }
+    abstract public function getValueOfXForY($yValue);
 
     /**
      * Return the original set of X-Values.
@@ -130,12 +124,9 @@ class BestFit
      *
      * @param int $dp Number of places of decimal precision to display
      *
-     * @return bool
+     * @return string
      */
-    public function getEquation($dp = 0)
-    {
-        return false;
-    }
+    abstract public function getEquation($dp = 0);
 
     /**
      * Return the Slope of the line.

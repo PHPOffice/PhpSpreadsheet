@@ -27,7 +27,7 @@ class ImaginaryTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    public function providerIMAGINARY()
+    public function providerIMAGINARY(): array
     {
         return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }

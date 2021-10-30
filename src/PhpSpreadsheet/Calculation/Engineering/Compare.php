@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Compare
@@ -27,8 +28,11 @@ class Compare
         $a = Functions::flattenSingleValue($a);
         $b = Functions::flattenSingleValue($b);
 
-        if (!is_numeric($a) || !is_numeric($b)) {
-            return Functions::VALUE();
+        try {
+            $a = EngineeringValidations::validateFloat($a);
+            $b = EngineeringValidations::validateFloat($b);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         return (int) ($a == $b);
@@ -54,8 +58,11 @@ class Compare
         $number = Functions::flattenSingleValue($number);
         $step = Functions::flattenSingleValue($step);
 
-        if (!is_numeric($number) || !is_numeric($step)) {
-            return Functions::VALUE();
+        try {
+            $number = EngineeringValidations::validateFloat($number);
+            $step = EngineeringValidations::validateFloat($step);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         return (int) ($number >= $step);

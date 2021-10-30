@@ -2,12 +2,13 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\DocumentGenerator;
+use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 
 require_once 'vendor/autoload.php';
 
 try {
-    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))->getProperty('phpSpreadsheetFunctions');
+    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
+        ->getProperty('phpSpreadsheetFunctions');
     $phpSpreadsheetFunctionsProperty->setAccessible(true);
     $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
     ksort($phpSpreadsheetFunctions);

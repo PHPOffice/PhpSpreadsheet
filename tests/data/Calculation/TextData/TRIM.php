@@ -29,4 +29,5 @@ return [
         null,
         null,
     ],
+    'no arguments' => ['exception'],
 ];

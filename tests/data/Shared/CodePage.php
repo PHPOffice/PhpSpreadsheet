@@ -233,7 +233,7 @@ return [
     ],
     // Macintosh Central Europe
     [
-        'MACCENTRALEUROPE',
+        ['MACCENTRALEUROPE', 'MAC-CENTRALEUROPE'],
         10029,
     ],
     // Macintosh Icelandic
@@ -270,5 +270,10 @@ return [
     [
         'UTF-8',
         65001,
+    ],
+    // invalid
+    [
+        'exception',
+        99999,
     ],
 ];

@@ -24,7 +24,7 @@ class YieldDiscTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerYIELDDISC()
+    public function providerYIELDDISC(): array
     {
         return require 'tests/data/Calculation/Financial/YIELDDISC.php';
     }

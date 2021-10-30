@@ -18,13 +18,13 @@ class IPmtTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIPMT($expectedResult, ...$args): void
+    public function testIPMT($expectedResult, array $args): void
     {
         $result = Financial::IPMT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerIPMT()
+    public function providerIPMT(): array
     {
         return require 'tests/data/Calculation/Financial/IPMT.php';
     }

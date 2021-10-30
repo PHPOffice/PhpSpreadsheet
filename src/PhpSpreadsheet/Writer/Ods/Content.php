@@ -39,7 +39,7 @@ class Content extends WriterPart
      *
      * @return string XML Output
      */
-    public function write()
+    public function write(): string
     {
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -101,6 +101,7 @@ class Content extends WriterPart
 
         $this->writeSheets($objWriter);
 
+        (new AutoFilters($objWriter, $this->getParentWriter()->getSpreadsheet()))->write();
         // Defined names (ranges and formulae)
         (new NamedExpressions($objWriter, $this->getParentWriter()->getSpreadsheet(), $this->formulaConvertor))->write();
 

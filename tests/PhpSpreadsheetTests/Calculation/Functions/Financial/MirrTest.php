@@ -24,7 +24,7 @@ class MirrTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMIRR()
+    public function providerMIRR(): array
     {
         return require 'tests/data/Calculation/Financial/MIRR.php';
     }

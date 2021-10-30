@@ -29,4 +29,5 @@ return [
         'FALSE',
         false,
     ],
+    'no arguments' => ['exception'],
 ];

@@ -1,20 +1,35 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 ?>
 <form action="45_Quadratic_equation_solver.php" method="POST">
     Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
     <table border="0" cellpadding="0" cellspacing="0">
-        <tr><td><b>A&nbsp;</b></td>
-            <td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities($_POST['A']) : ''; ?>"></td>
+        <tr>
+            <td>
+                <b>A&nbsp;</b>
+            </td>
+            <td>
+                <input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities($_POST['A'], Settings::htmlEntityFlags()) : ''; ?>">
+            </td>
         </tr>
-        <tr><td><b>B&nbsp;</b></td>
-            <td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities($_POST['B']) : ''; ?>"></td>
+        <tr>
+            <td>
+                <b>B&nbsp;</b>
+            </td>
+            <td>
+                <input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities($_POST['B'], Settings::htmlEntityFlags()) : ''; ?>">
+            </td>
         </tr>
-        <tr><td><b>C&nbsp;</b></td>
-            <td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities($_POST['C']) : ''; ?>"></td>
+        <tr>
+            <td><b>C&nbsp;</b>
+            </td>
+            <td>
+                <input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities($_POST['C'], Settings::htmlEntityFlags()) : ''; ?>">
+            </td>
         </tr>
     </table>
     <input name="submit" type="submit" value="calculate"><br />

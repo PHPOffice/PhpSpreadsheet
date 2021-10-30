@@ -2,24 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
-
-class CodeTest extends TestCase
+class CodeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCODE
      *
      * @param mixed $expectedResult
-     * @param $character
+     * @param mixed $character
      */
-    public function testCODE($expectedResult, $character): void
+    public function testCODE($expectedResult, $character = 'omitted'): void
     {
-        $result = TextData::ASCIICODE($character);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($character === 'omitted') {
+            $sheet->getCell('B1')->setValue('=CODE()');
+        } else {
+            $this->setCell('A1', $character);
+            $sheet->getCell('B1')->setValue('=CODE(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCODE()
+    public function providerCODE(): array
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }

@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -35,7 +36,7 @@ $helper->log('Write link: ' . $baseUrl);
 
 $drawing->setWorksheet($aSheet);
 
-$filename = tempnam(\PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir(), 'phpspreadsheet-test');
+$filename = File::temporaryFilename();
 
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, $inputFileType);
 $writer->save($filename);

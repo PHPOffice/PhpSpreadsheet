@@ -41,6 +41,8 @@ class LookupRefTest extends TestCase
             $remoteSheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
+            $remoteSheet->method('cellExists')
+                ->willReturn(true);
             $remoteSheet->method('getCell')
                 ->willReturn($remoteCell);
 
@@ -53,6 +55,8 @@ class LookupRefTest extends TestCase
             $sheet = $this->getMockBuilder(Worksheet::class)
                 ->disableOriginalConstructor()
                 ->getMock();
+            $sheet->method('cellExists')
+                ->willReturn(true);
             $sheet->method('getCell')
                 ->willReturn($remoteCell);
             $sheet->method('getParent')
@@ -69,7 +73,7 @@ class LookupRefTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerFormulaText()
+    public function providerFormulaText(): array
     {
         return require 'tests/data/Calculation/LookupRef/FORMULATEXT.php';
     }

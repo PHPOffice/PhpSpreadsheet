@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Beta
 {
-    use BaseValidations;
-
     private const MAX_ITERATIONS = 256;
 
     private const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
@@ -20,28 +18,28 @@ class Beta
      *
      * Returns the beta distribution.
      *
-     * @param mixed (float) $value Value at which you want to evaluate the distribution
-     * @param mixed (float) $alpha Parameter to the distribution
-     * @param mixed (float) $beta Parameter to the distribution
-     * @param mixed (float) $rMin
-     * @param mixed (float) $rMax
+     * @param mixed $value Float value at which you want to evaluate the distribution
+     * @param mixed $alpha Parameter to the distribution as a float
+     * @param mixed $beta Parameter to the distribution as a float
+     * @param mixed $rMin as an float
+     * @param mixed $rMax as an float
      *
      * @return float|string
      */
-    public static function distribution($value, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function distribution($value, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
     {
         $value = Functions::flattenSingleValue($value);
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
-        $rMin = Functions::flattenSingleValue($rMin);
-        $rMax = Functions::flattenSingleValue($rMax);
+        $rMin = ($rMin === null) ? 0.0 : Functions::flattenSingleValue($rMin);
+        $rMax = ($rMax === null) ? 1.0 : Functions::flattenSingleValue($rMax);
 
         try {
-            $value = self::validateFloat($value);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
-            $rMax = self::validateFloat($rMax);
-            $rMin = self::validateFloat($rMin);
+            $value = DistributionValidations::validateFloat($value);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
+            $rMax = DistributionValidations::validateFloat($rMax);
+            $rMin = DistributionValidations::validateFloat($rMin);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -66,28 +64,28 @@ class Beta
      *
      * Returns the inverse of the Beta distribution.
      *
-     * @param mixed (float) $probability Probability at which you want to evaluate the distribution
-     * @param mixed (float) $alpha Parameter to the distribution
-     * @param mixed (float) $beta Parameter to the distribution
-     * @param mixed (float) $rMin Minimum value
-     * @param mixed (float) $rMax Maximum value
+     * @param mixed $probability Float probability at which you want to evaluate the distribution
+     * @param mixed $alpha Parameter to the distribution as a float
+     * @param mixed $beta Parameter to the distribution as a float
+     * @param mixed $rMin Minimum value as a float
+     * @param mixed $rMax Maximum value as a float
      *
      * @return float|string
      */
-    public static function inverse($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function inverse($probability, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
     {
         $probability = Functions::flattenSingleValue($probability);
         $alpha = Functions::flattenSingleValue($alpha);
         $beta = Functions::flattenSingleValue($beta);
-        $rMin = Functions::flattenSingleValue($rMin);
-        $rMax = Functions::flattenSingleValue($rMax);
+        $rMin = ($rMin === null) ? 0.0 : Functions::flattenSingleValue($rMin);
+        $rMax = ($rMax === null) ? 1.0 : Functions::flattenSingleValue($rMax);
 
         try {
-            $probability = self::validateFloat($probability);
-            $alpha = self::validateFloat($alpha);
-            $beta = self::validateFloat($beta);
-            $rMax = self::validateFloat($rMax);
-            $rMin = self::validateFloat($rMin);
+            $probability = DistributionValidations::validateProbability($probability);
+            $alpha = DistributionValidations::validateFloat($alpha);
+            $beta = DistributionValidations::validateFloat($beta);
+            $rMax = DistributionValidations::validateFloat($rMax);
+            $rMin = DistributionValidations::validateFloat($rMin);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -97,13 +95,16 @@ class Beta
             $rMin = $rMax;
             $rMax = $tmp;
         }
-        if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0) || ($probability > 1)) {
+        if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0.0)) {
             return Functions::NAN();
         }
 
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
     }
 
+    /**
+     * @return float|string
+     */
     private static function calculateInverse(float $probability, float $alpha, float $beta, float $rMin, float $rMax)
     {
         $a = 0;
@@ -137,9 +138,9 @@ class Beta
      *
      * The computation is based on formulas from Numerical Recipes, Chapter 6.4 (W.H. Press et al, 1992).
      *
-     * @param mixed $x require 0<=x<=1
-     * @param mixed $p require p>0
-     * @param mixed $q require q>0
+     * @param float $x require 0<=x<=1
+     * @param float $p require p>0
+     * @param float $q require q>0
      *
      * @return float 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
      */
@@ -171,8 +172,8 @@ class Beta
     /**
      * The natural logarithm of the beta function.
      *
-     * @param mixed $p require p>0
-     * @param mixed $q require q>0
+     * @param float $p require p>0
+     * @param float $q require q>0
      *
      * @return float 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
      *
@@ -198,10 +199,6 @@ class Beta
      * Based on an idea from Numerical Recipes (W.H. Press et al, 1992).
      *
      * @author Jaco van Kooten
-     *
-     * @param mixed $x
-     * @param mixed $p
-     * @param mixed $q
      */
     private static function betaFraction(float $x, float $p, float $q): float
     {

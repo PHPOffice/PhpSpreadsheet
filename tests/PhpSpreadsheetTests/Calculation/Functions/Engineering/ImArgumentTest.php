@@ -27,7 +27,7 @@ class ImArgumentTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
-    public function providerIMARGUMENT()
+    public function providerIMARGUMENT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMARGUMENT.php';
     }

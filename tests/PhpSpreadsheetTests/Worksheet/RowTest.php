@@ -5,13 +5,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class RowTest extends TestCase
 {
-    public $mockWorksheet;
-
-    public $mockRow;
+    /**
+     * @var Worksheet&MockObject
+     */
+    private $mockWorksheet;
 
     protected function setUp(): void
     {

@@ -33,7 +33,7 @@ class XNpvTest extends TestCase
         self::assertEquals($expectedResult, $result, $message);
     }
 
-    public function providerXNPV()
+    public function providerXNPV(): array
     {
         return require 'tests/data/Calculation/Financial/XNPV.php';
     }

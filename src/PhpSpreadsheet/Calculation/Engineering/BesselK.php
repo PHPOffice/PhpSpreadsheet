@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BesselK
@@ -15,38 +16,40 @@ class BesselK
      *    Excel Function:
      *        BESSELK(x,ord)
      *
-     * @param mixed (float) $x The value at which to evaluate the function.
+     * @param mixed $x A float value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
-     * @param mixed (int) $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     * @param mixed $ord The integer order of the Bessel function.
+     *                       If ord is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELK returns the #NUM! error value.
+     *                       If $ord < 0, BESSELKI returns the #NUM! error value.
      *
      * @return float|string Result, or a string containing an error
      */
     public static function BESSELK($x, $ord)
     {
-        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = ($ord === null) ? 0 : Functions::flattenSingleValue($ord);
+        $x = Functions::flattenSingleValue($x);
+        $ord = Functions::flattenSingleValue($ord);
 
-        if ((is_numeric($x)) && (is_numeric($ord))) {
-            $ord = (int) floor($ord);
-            $x = (float) $x;
-            if (($ord < 0) || ($x <= 0.0)) {
-                return Functions::NAN();
-            }
-
-            $fBk = self::calculate($x, $ord);
-
-            return (is_nan($fBk)) ? Functions::NAN() : $fBk;
+        try {
+            $x = EngineeringValidations::validateFloat($x);
+            $ord = EngineeringValidations::validateInt($ord);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if (($ord < 0) || ($x <= 0.0)) {
+            return Functions::NAN();
+        }
+
+        $fBk = self::calculate($x, $ord);
+
+        return (is_nan($fBk)) ? Functions::NAN() : $fBk;
     }
 
-    private static function calculate($x, $ord): float
+    private static function calculate(float $x, int $ord): float
     {
         // special cases
-        switch (floor($ord)) {
+        switch ($ord) {
             case 0:
                 return self::besselK0($x);
             case 1:

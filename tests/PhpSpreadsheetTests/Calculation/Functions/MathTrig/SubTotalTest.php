@@ -2,197 +2,129 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
-use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PHPUnit\Framework\TestCase;
-
-class SubTotalTest extends TestCase
+class SubTotalTest extends AllSetupTeardown
 {
-    protected function setUp(): void
+    /**
+     * @dataProvider providerSUBTOTAL
+     *
+     * @param mixed $expectedResult
+     * @param mixed $type expect an integer
+     */
+    public function testSubtotal($expectedResult, $type): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->fromArray([[0], [1], [1], [2], [3], [5], [8], [13], [21], [34], [55], [89]], null, 'A1', true);
+        $maxCol = $sheet->getHighestColumn();
+        $maxRow = $sheet->getHighestRow();
+        $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
+        $result = $sheet->getCell('D2')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+    }
+
+    public function providerSUBTOTAL(): array
+    {
+        return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
 
     /**
      * @dataProvider providerSUBTOTAL
      *
      * @param mixed $expectedResult
+     * @param mixed $type expect an integer
      */
-    public function testSUBTOTAL($expectedResult, ...$args): void
+    public function testSubtotalColumnHidden($expectedResult, $type): void
     {
-        $cell = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getValue', 'isFormula'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cell->method('getValue')
-            ->willReturn(null);
-        $cell->method('getValue')
-            ->willReturn(false);
-        $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->onlyMethods(['cellExists', 'getCell'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $worksheet->method('cellExists')
-            ->willReturn(true);
-        $worksheet->method('getCell')
-            ->willReturn($cell);
-        $cellReference = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getWorksheet'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cellReference->method('getWorksheet')
-            ->willReturn($worksheet);
-
-        array_push($args, $cellReference);
-        $result = MathTrig::SUBTOTAL(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
-    }
-
-    public function providerSUBTOTAL()
-    {
-        return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
-    }
-
-    protected function rowVisibility($data)
-    {
-        foreach ($data as $row => $visibility) {
-            yield $row => $visibility;
+        // Hidden columns don't affect calculation, only hidden rows
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->fromArray([0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89], null, 'A1', true);
+        $maxCol = $sheet->getHighestColumn();
+        $maxRow = $sheet->getHighestRow();
+        $hiddenColumns = [
+            'A' => false,
+            'B' => true,
+            'C' => false,
+            'D' => true,
+            'E' => false,
+            'F' => false,
+            'G' => false,
+            'H' => true,
+            'I' => false,
+            'J' => true,
+            'K' => true,
+            'L' => false,
+        ];
+        foreach ($hiddenColumns as $col => $hidden) {
+            $columnDimension = $sheet->getColumnDimension($col);
+            $columnDimension->setVisible($hidden);
         }
+        $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
+        $result = $sheet->getCell('D2')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
     /**
-     * @dataProvider providerHiddenSUBTOTAL
+     * @dataProvider providerSUBTOTALHIDDEN
      *
      * @param mixed $expectedResult
-     * @param mixed $hiddenRows
+     * @param mixed $type expect an integer
      */
-    public function testHiddenSUBTOTAL($expectedResult, $hiddenRows, ...$args): void
+    public function testSubtotalRowHidden($expectedResult, $type): void
     {
-        $visibilityGenerator = $this->rowVisibility($hiddenRows);
-
-        $rowDimension = $this->getMockBuilder(RowDimension::class)
-            ->onlyMethods(['getVisible'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $rowDimension->method('getVisible')
-            ->willReturnCallback(function () use ($visibilityGenerator) {
-                $result = $visibilityGenerator->current();
-                $visibilityGenerator->next();
-
-                return $result;
-            });
-        $columnDimension = $this->getMockBuilder(ColumnDimension::class)
-            ->onlyMethods(['getVisible'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $columnDimension->method('getVisible')
-            ->willReturn(true);
-        $cell = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getValue', 'isFormula'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cell->method('getValue')
-            ->willReturn('');
-        $cell->method('getValue')
-            ->willReturn(false);
-        $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->onlyMethods(['cellExists', 'getCell', 'getRowDimension', 'getColumnDimension'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $worksheet->method('cellExists')
-            ->willReturn(true);
-        $worksheet->method('getCell')
-            ->willReturn($cell);
-        $worksheet->method('getRowDimension')
-            ->willReturn($rowDimension);
-        $worksheet->method('getColumnDimension')
-            ->willReturn($columnDimension);
-        $cellReference = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getWorksheet'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cellReference->method('getWorksheet')
-            ->willReturn($worksheet);
-
-        array_push($args, $cellReference);
-        $result = MathTrig::SUBTOTAL(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->fromArray([[0], [1], [1], [2], [3], [5], [8], [13], [21], [34], [55], [89]], null, 'A1', true);
+        $maxCol = $sheet->getHighestColumn();
+        $maxRow = $sheet->getHighestRow();
+        $visibleRows = [
+            '1' => false,
+            '2' => true,
+            '3' => false,
+            '4' => true,
+            '5' => false,
+            '6' => false,
+            '7' => false,
+            '8' => true,
+            '9' => false,
+            '10' => true,
+            '11' => true,
+            '12' => false,
+        ];
+        foreach ($visibleRows as $row => $visible) {
+            $rowDimension = $sheet->getRowDimension((int) $row);
+            $rowDimension->setVisible($visible);
+        }
+        $sheet->getCell('D2')->setValue("=SUBTOTAL($type, A1:$maxCol$maxRow)");
+        $result = $sheet->getCell('D2')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerHiddenSUBTOTAL()
+    public function providerSUBTOTALHIDDEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
 
-    protected function cellValues(array $cellValues)
+    public function testSubtotalNested(): void
     {
-        foreach ($cellValues as $k => $v) {
-            yield $k => $v;
-        }
-    }
-
-    protected function cellIsFormula(array $cellValues)
-    {
-        foreach ($cellValues as $cellValue) {
-            yield is_string($cellValue) && $cellValue[0] === '=';
-        }
-    }
-
-    /**
-     * @dataProvider providerNestedSUBTOTAL
-     *
-     * @param mixed $expectedResult
-     */
-    public function testNestedSUBTOTAL($expectedResult, ...$args): void
-    {
-        $cellValueGenerator = $this->cellValues(Functions::flattenArray(array_slice($args, 1)));
-        $cellIsFormulaGenerator = $this->cellIsFormula(Functions::flattenArray(array_slice($args, 1)));
-
-        $cell = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getValue', 'isFormula'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cell->method('getValue')
-            ->willReturnCallback(function () use ($cellValueGenerator) {
-                $result = $cellValueGenerator->current();
-                $cellValueGenerator->next();
-
-                return $result;
-            });
-        $cell->method('isFormula')
-            ->willReturnCallback(function () use ($cellIsFormulaGenerator) {
-                $result = $cellIsFormulaGenerator->current();
-                $cellIsFormulaGenerator->next();
-
-                return $result;
-            });
-        $worksheet = $this->getMockBuilder(Worksheet::class)
-            ->onlyMethods(['cellExists', 'getCell'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $worksheet->method('cellExists')
-            ->willReturn(true);
-        $worksheet->method('getCell')
-            ->willReturn($cell);
-        $cellReference = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getWorksheet'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cellReference->method('getWorksheet')
-            ->willReturn($worksheet);
-
-        array_push($args, $cellReference);
-
-        $result = MathTrig::SUBTOTAL(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
-    }
-
-    public function providerNestedSUBTOTAL()
-    {
-        return require 'tests/data/Calculation/MathTrig/SUBTOTALNESTED.php';
+        $sheet = $this->getSheet();
+        $sheet->fromArray(
+            [
+                [123],
+                [234],
+                ['=SUBTOTAL(1,A1:A2)'],
+                ['=ROMAN(SUBTOTAL(1, A1:A2))'],
+                ['This is text containing "=" and "SUBTOTAL("'],
+                ['=AGGREGATE(1, 0, A1:A2)'],
+                ['=SUM(2, 3)'],
+            ],
+            null,
+            'A1',
+            true
+        );
+        $maxCol = $sheet->getHighestColumn();
+        $maxRow = $sheet->getHighestRow();
+        $sheet->getCell('H1')->setValue("=SUBTOTAL(9, A1:$maxCol$maxRow)");
+        self::assertEquals(362, $sheet->getCell('H1')->getCalculatedValue());
     }
 }

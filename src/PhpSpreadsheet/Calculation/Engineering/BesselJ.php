@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class BesselJ
@@ -17,9 +18,10 @@ class BesselJ
      * NOTE: The MS Excel implementation of the BESSELJ function is still not accurate, particularly for higher order
      *       values with x < -8 and x > 8. This code provides a more accurate calculation
      *
-     * @param mixed (float) $x The value at which to evaluate the function.
+     * @param mixed $x A float value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
-     * @param mixed (int) $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     * @param mixed $ord The integer order of the Bessel function.
+     *                       If ord is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
@@ -27,21 +29,23 @@ class BesselJ
      */
     public static function BESSELJ($x, $ord)
     {
-        $x = ($x === null) ? 0.0 : Functions::flattenSingleValue($x);
-        $ord = ($ord === null) ? 0.0 : Functions::flattenSingleValue($ord);
+        $x = Functions::flattenSingleValue($x);
+        $ord = Functions::flattenSingleValue($ord);
 
-        if ((is_numeric($x)) && (is_numeric($ord))) {
-            $ord = (int) floor($ord);
-            if ($ord < 0) {
-                return Functions::NAN();
-            }
-
-            $fResult = self::calculate((float) $x, $ord);
-
-            return (is_nan($fResult)) ? Functions::NAN() : $fResult;
+        try {
+            $x = EngineeringValidations::validateFloat($x);
+            $ord = EngineeringValidations::validateInt($ord);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
-        return Functions::VALUE();
+        if ($ord < 0) {
+            return Functions::NAN();
+        }
+
+        $fResult = self::calculate($x, $ord);
+
+        return (is_nan($fResult)) ? Functions::NAN() : $fResult;
     }
 
     private static function calculate(float $x, int $ord): float

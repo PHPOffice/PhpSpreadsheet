@@ -9,11 +9,19 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
 {
-    private $curdir;
+    /**
+     * @var string
+     */
+    private $curdir = '';
 
     protected function setUp(): void
     {
-        $this->curdir = getcwd();
+        $curdir = getcwd();
+        if ($curdir === false) {
+            self::fail('Unable to obtain current directory');
+        } else {
+            $this->curdir = $curdir;
+        }
     }
 
     protected function tearDown(): void
@@ -61,5 +69,6 @@ class ImagesRootTest extends Functional\AbstractFunctional
         self::assertCount(1, $img);
         self::assertEquals("$root/$stub", $img[0]->getAttribute('src'));
         self::assertEquals($desc, $img[0]->getAttribute('alt'));
+        $spreadsheet->disconnectWorksheets();
     }
 }

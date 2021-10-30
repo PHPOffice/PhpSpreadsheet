@@ -17,6 +17,13 @@ return [
         4,
     ],
     [
+        24,
+        '2011-01-01',
+        '2012-10-25',
+        4,
+        null,
+    ],
+    [
         '#VALUE!',
         'Invalid Date',
         '15-Nov-2008',
@@ -38,7 +45,7 @@ return [
         1,
     ],
     'Non-Numeric Frequency' => [
-        '#NUM!',
+        '#VALUE!',
         '25-Jan-2007',
         '15-Nov-2008',
         'NaN',
@@ -52,7 +59,7 @@ return [
         -1,
     ],
     'Non-Numeric Basis' => [
-        '#NUM!',
+        '#VALUE!',
         '25-Jan-2007',
         '15-Nov-2008',
         4,
@@ -211,5 +218,22 @@ return [
         '20-Mar-2021',
         4,
         4,
+    ],
+    [
+        175,
+        '05-Apr-2019',
+        '30-Sep-2021',
+        2,
+        0,
+    ],
+    // Excel and LibreOffice return 175 for the following calculation.
+    // Gnumeric returns 176.
+    // My hand calculation, hardly guaranteed, agrees with Gnumeric.
+    [
+        176,
+        '05-Oct-2019',
+        '31-Mar-2022',
+        2,
+        0,
     ],
 ];

@@ -44,8 +44,16 @@ return [
         "'EXCEL SHEET'!R2C3",
         2,
         3,
-        1,
+        null,
         false,
+        'EXCEL SHEET',
+    ],
+    [
+        "'EXCEL SHEET'!\$C\$2",
+        2,
+        3,
+        1,
+        null,
         'EXCEL SHEET',
     ],
     [
