@@ -8,6 +8,7 @@
 /bin export-ignore
 /composer.lock export-ignore
 /docs export-ignore
+/infra export-ignore
 /mkdocs.yml export-ignore
 /phpunit.xml.dist export-ignore
 /samples export-ignore

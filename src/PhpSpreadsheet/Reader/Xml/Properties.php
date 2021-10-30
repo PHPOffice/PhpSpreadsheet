@@ -70,7 +70,7 @@ class Properties
 
                 break;
             case 'Created':
-                $docProps->setCreated($this->processTimestampValue($stringValue));
+                $docProps->setCreated($stringValue);
 
                 break;
             case 'LastAuthor':
@@ -78,7 +78,7 @@ class Properties
 
                 break;
             case 'LastSaved':
-                $docProps->setModified($this->processTimestampValue($stringValue));
+                $docProps->setModified($stringValue);
 
                 break;
             case 'Company':
@@ -135,7 +135,7 @@ class Properties
                 break;
             case 'dateTime.tz':
                 $propertyType = DocumentProperties::PROPERTY_TYPE_DATE;
-                $propertyValue = $this->processTimestampValue(trim((string) $propertyValue));
+                $propertyValue = trim((string) $propertyValue);
 
                 break;
         }
@@ -153,12 +153,5 @@ class Properties
         return ($simple === null)
             ? new SimpleXMLElement('<xml></xml>')
             : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
-    }
-
-    protected function processTimestampValue(string $dateTimeValue): int
-    {
-        $dateTime = strtotime($dateTimeValue);
-
-        return $dateTime === false ? time() : $dateTime;
     }
 }

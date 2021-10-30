@@ -148,8 +148,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @see MathTrig\Even::evaluate()
-     *      Use the evaluate() method in the MathTrig\Even class instead
+     * @see MathTrig\Round::even()
+     *      Use the even() method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      *
@@ -157,7 +157,7 @@ class MathTrig
      */
     public static function EVEN($number)
     {
-        return MathTrig\Even::evaluate($number);
+        return MathTrig\Round::even($number);
     }
 
     /**
@@ -449,8 +449,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @see MathTrig\Mod::evaluate()
-     *      Use the evaluate() method in the MathTrig\Mod class instead
+     * @see MathTrig\Operations::mod()
+     *      Use the mod() method in the MathTrig\Operations class instead
      *
      * @param int $a Dividend
      * @param int $b Divisor
@@ -459,7 +459,7 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        return MathTrig\Mod::evaluate($a, $b);
+        return MathTrig\Operations::mod($a, $b);
     }
 
     /**
@@ -508,8 +508,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Odd::evaluate()
-     *      Use the evaluate method in the MathTrig\Odd class instead
+     * @See MathTrig\Round::odd()
+     *      Use the odd method in the MathTrig\Round class instead
      *
      * @param float $number Number to round
      *
@@ -517,7 +517,7 @@ class MathTrig
      */
     public static function ODD($number)
     {
-        return MathTrig\Odd::evaluate($number);
+        return MathTrig\Round::odd($number);
     }
 
     /**
@@ -527,7 +527,7 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Power::evaluate()
+     * @See MathTrig\Operations::power()
      *      Use the evaluate method in the MathTrig\Power class instead
      *
      * @param float $x
@@ -537,7 +537,7 @@ class MathTrig
      */
     public static function POWER($x = 0, $y = 2)
     {
-        return MathTrig\Power::evaluate($x, $y);
+        return MathTrig\Operations::power($x, $y);
     }
 
     /**
@@ -547,8 +547,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Product::evaluate()
-     *      Use the evaluate method in the MathTrig\Product class instead
+     * @See MathTrig\Operations::product()
+     *      Use the product method in the MathTrig\Operations class instead
      *
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
@@ -559,7 +559,7 @@ class MathTrig
      */
     public static function PRODUCT(...$args)
     {
-        return MathTrig\Product::evaluate(...$args);
+        return MathTrig\Operations::product(...$args);
     }
 
     /**
@@ -570,8 +570,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Quotient::evaluate()
-     *      Use the evaluate method in the MathTrig\Quotient class instead
+     * @See MathTrig\Operations::quotient()
+     *      Use the quotient method in the MathTrig\Operations class instead
      *
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
@@ -583,7 +583,7 @@ class MathTrig
      */
     public static function QUOTIENT($numerator, $denominator)
     {
-        return MathTrig\Quotient::evaluate($numerator, $denominator);
+        return MathTrig\Operations::quotient($numerator, $denominator);
     }
 
     /**
@@ -726,8 +726,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\SqrtPi::evaluate()
-     *      Use the evaluate method in the MathTrig\SqrtPi class instead
+     * @See MathTrig\Sqrt::sqrt()
+     *      Use the pi method in the MathTrig\Sqrt class instead
      *
      * @param float $number Number
      *
@@ -735,7 +735,7 @@ class MathTrig
      */
     public static function SQRTPI($number)
     {
-        return MathTrig\SqrtPi::evaluate($number);
+        return MathTrig\Sqrt::pi($number);
     }
 
     /**
@@ -771,8 +771,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sum::funcSumNoStrings()
-     *      Use the funcSumNoStrings method in the MathTrig\Sum class instead
+     * @See MathTrig\Sum::sumErroringStrings()
+     *      Use the sumErroringStrings method in the MathTrig\Sum class instead
      *
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
@@ -783,7 +783,7 @@ class MathTrig
      */
     public static function SUM(...$args)
     {
-        return MathTrig\Sum::funcSum(...$args);
+        return MathTrig\Sum::sumIgnoringStrings(...$args);
     }
 
     /**
@@ -840,8 +840,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\SumProduct::evaluate()
-     *      Use the evaluate method in the MathTrig\SumProduct class instead
+     * @See MathTrig\Sum::product()
+     *      Use the product method in the MathTrig\Sum class instead
      *
      * @param mixed ...$args Data values
      *
@@ -849,7 +849,7 @@ class MathTrig
      */
     public static function SUMPRODUCT(...$args)
     {
-        return MathTrig\SumProduct::evaluate(...$args);
+        return MathTrig\Sum::product(...$args);
     }
 
     /**
@@ -1315,8 +1315,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Degrees::evaluate()
-     *      Use the evaluate method in the MathTrig\Degrees class instead
+     * @See MathTrig\Angle::toDegrees()
+     *      Use the toDegrees method in the MathTrig\Angle class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1324,7 +1324,7 @@ class MathTrig
      */
     public static function builtinDEGREES($number)
     {
-        return MathTrig\Degrees::evaluate($number);
+        return MathTrig\Angle::toDegrees($number);
     }
 
     /**
@@ -1391,8 +1391,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Radians::evaluate()
-     *      Use the evaluate method in the MathTrig\Radians class instead
+     * @See MathTrig\Angle::toRadians()
+     *      Use the toRadians method in the MathTrig\Angle class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1400,7 +1400,7 @@ class MathTrig
      */
     public static function builtinRADIANS($number)
     {
-        return MathTrig\Radians::evaluate($number);
+        return MathTrig\Angle::toRadians($number);
     }
 
     /**
@@ -1448,8 +1448,8 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @See MathTrig\Sqrt::evaluate()
-     *      Use the evaluate method in the MathTrig\Sqrt class instead
+     * @See MathTrig\Sqrt::sqrt()
+     *      Use the sqrt method in the MathTrig\Sqrt class instead
      *
      * @param mixed $number Should be numeric
      *
@@ -1457,7 +1457,7 @@ class MathTrig
      */
     public static function builtinSQRT($number)
     {
-        return MathTrig\Sqrt::evaluate($number);
+        return MathTrig\Sqrt::sqrt($number);
     }
 
     /**

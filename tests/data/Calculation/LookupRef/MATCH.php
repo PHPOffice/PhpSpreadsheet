@@ -346,4 +346,10 @@ return [
         ['Obtuse', 'Amuse', 'Obverse', 'Inverse', 'Assurance', 'Amplitude', 'Adverse', 'Apartment'],
         0,
     ],
+    [
+        3, // Expected
+        '*~~*', // contains a tilde
+        ['aAAAAA', 'a123456*c', 'abc~xyz', 'alembic'],
+        0,
+    ],
 ];

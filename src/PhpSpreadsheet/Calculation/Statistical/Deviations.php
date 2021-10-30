@@ -103,7 +103,7 @@ class Deviations
      *
      * @param array ...$args Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
     public static function skew(...$args)
     {

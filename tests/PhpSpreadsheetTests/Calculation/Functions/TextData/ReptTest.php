@@ -2,13 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
-
-class ReptTest extends TestCase
+class ReptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPT
@@ -17,37 +11,21 @@ class ReptTest extends TestCase
      * @param mixed $val
      * @param mixed $rpt
      */
-    public function testReptDirect($expectedResult, $val = null, $rpt = null): void
+    public function testReptThroughEngine($expectedResult, $val = 'omitted', $rpt = 'omitted'): void
     {
-        $result = TextData::builtinREPT(is_string($val) ? trim($val, '"') : $val, $rpt);
-        self::assertEquals($expectedResult, $result);
-    }
-
-    /**
-     * @dataProvider providerREPT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $rpt
-     */
-    public function testReptThroughEngine($expectedResult, $val = null, $rpt = null): void
-    {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=REPT()';
-        } elseif ($rpt === null) {
-            $this->expectException(CalcExp::class);
-            $formula = "=REPT($val)";
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($val === 'omitted') {
+            $sheet->getCell('B1')->setValue('=REPT()');
+        } elseif ($rpt === 'omitted') {
+            $this->setCell('A1', $val);
+            $sheet->getCell('B1')->setValue('=REPT(A1)');
         } else {
-            if (is_bool($val)) {
-                $val = ($val) ? Calculation::getTRUE() : Calculation::getFALSE();
-            }
-            $formula = "=REPT($val, $rpt)";
+            $this->setCell('A1', $val);
+            $this->setCell('A2', $rpt);
+            $sheet->getCell('B1')->setValue('=REPT(A1, A2)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 

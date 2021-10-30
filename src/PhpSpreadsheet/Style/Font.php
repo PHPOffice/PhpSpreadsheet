@@ -213,20 +213,20 @@ class Font extends Supervisor
     /**
      * Set Name.
      *
-     * @param string $pValue
+     * @param string $fontname
      *
      * @return $this
      */
-    public function setName($pValue)
+    public function setName($fontname)
     {
-        if ($pValue == '') {
-            $pValue = 'Calibri';
+        if ($fontname == '') {
+            $fontname = 'Calibri';
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['name' => $pValue]);
+            $styleArray = $this->getStyleArray(['name' => $fontname]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->name = $pValue;
+            $this->name = $fontname;
         }
 
         return $this;
@@ -249,20 +249,27 @@ class Font extends Supervisor
     /**
      * Set Size.
      *
-     * @param float $pValue
+     * @param mixed $sizeInPoints A float representing the value of a positive measurement in points (1/72 of an inch)
      *
      * @return $this
      */
-    public function setSize($pValue)
+    public function setSize($sizeInPoints)
     {
-        if ($pValue == '') {
-            $pValue = 10;
+        if (is_string($sizeInPoints) || is_int($sizeInPoints)) {
+            $sizeInPoints = (float) $sizeInPoints; // $pValue = 0 if given string is not numeric
         }
+
+        // Size must be a positive floating point number
+        // ECMA-376-1:2016, part 1, chapter 18.4.11 sz (Font Size), p. 1536
+        if (!is_float($sizeInPoints) || !($sizeInPoints > 0)) {
+            $sizeInPoints = 10.0;
+        }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['size' => $pValue]);
+            $styleArray = $this->getStyleArray(['size' => $sizeInPoints]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->size = $pValue;
+            $this->size = $sizeInPoints;
         }
 
         return $this;

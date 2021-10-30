@@ -251,16 +251,16 @@ $columnFilter->createRule()
     );
 ```
 
-MS Excel uses \* as a wildcard to match any number of characters, and ?
-as a wildcard to match a single character. 'U\*' equates to "begins with
-a 'U'"; '\*U' equates to "ends with a 'U'"; and '\*U\*' equates to
-"contains a 'U'"
+MS Excel uses `*` as a wildcard to match any number of characters, and `?`
+as a wildcard to match a single character. `U*` equates to "begins with
+a 'U'"; `*U` equates to "ends with a 'U'"; and `*U*` equates to
+"contains a 'U'".
 
-If you want to match explicitly against a \* or a ? character, you can
-escape it with a tilde (\~), so ?\~\*\* would explicitly match for a \*
-character as the second character in the cell value, followed by any
+If you want to match explicitly against `*` or `?`, you can
+escape it with a tilde `~`, so `?~**` would explicitly match for `*`
+as the second character in the cell value, followed by any
 number of other characters. The only other character that needs escaping
-is the \~ itself.
+is the `~` itself.
 
 To create a "between" condition, we need to define two rules:
 
@@ -327,14 +327,14 @@ $columnFilter->setFilterType(
 ```
 
 When defining the rule for a dynamic filter, we don't define a value (we
-can simply set that to NULL) but we do specify the dynamic filter
+can simply set that to null string) but we do specify the dynamic filter
 category.
 
 ```php
 $columnFilter->createRule()
     ->setRule(
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        NULL,
+        '',
         \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
     )
     ->setRuleType(

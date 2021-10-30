@@ -61,4 +61,4 @@ $spreadsheet->getActiveSheet()
     ->setTitle('Simple');
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Ods']);

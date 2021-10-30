@@ -18,4 +18,5 @@ return [
         '-',
         true,
     ],
+    'no arguments' => ['exception'],
 ];

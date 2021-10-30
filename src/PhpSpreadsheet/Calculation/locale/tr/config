@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## Türkçe (Turkish)
 ##
-##	(For future use)
-##
-currencySymbol	= YTL
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #BOŞ!
-DIV0	= #SAYI/0!
-VALUE	= #DEĞER!
-REF	= #BAŞV!
-NAME	= #AD?
-NUM	= #SAYI!
-NA	= #YOK
+NULL = #BOŞ!
+DIV0 = #SAYI/0!
+VALUE = #DEĞER!
+REF = #BAŞV!
+NAME = #AD?
+NUM = #SAYI!
+NA = #YOK

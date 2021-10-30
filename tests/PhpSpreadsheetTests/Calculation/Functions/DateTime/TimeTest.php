@@ -14,7 +14,7 @@ class TimeTest extends AllSetupTeardown
     public function testTIME($expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue('15');
         $sheet->getCell('B2')->setValue('32');
         $sheet->getCell('B3')->setValue('50');

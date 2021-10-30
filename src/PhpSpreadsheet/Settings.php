@@ -24,7 +24,7 @@ class Settings
      *
      * @var int
      */
-    private static $libXmlLoaderOptions = null;
+    private static $libXmlLoaderOptions;
 
     /**
      * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
@@ -68,6 +68,11 @@ class Settings
         return Calculation::getInstance()->setLocale($locale);
     }
 
+    public static function getLocale(): string
+    {
+        return Calculation::getInstance()->getLocale();
+    }
+
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
@@ -92,6 +97,11 @@ class Settings
     public static function getChartRenderer()
     {
         return self::$chartRenderer;
+    }
+
+    public static function htmlEntityFlags(): int
+    {
+        return \ENT_COMPAT;
     }
 
     /**

@@ -19,7 +19,7 @@ jobs:
 
       - name: Build API documentation
         run: |
-          curl -LO https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0-rc/phpDocumentor.phar
+          curl -LO https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0/phpDocumentor.phar
           php phpDocumentor.phar --directory src/ --target docs/api
 
       - name: Deploy to GithHub Pages

@@ -594,8 +594,8 @@ class ReferenceHelper
 
         // Update worksheet: freeze pane
         if ($pSheet->getFreezePane()) {
-            $splitCell = $pSheet->getFreezePane();
-            $topLeftCell = $pSheet->getTopLeftCell();
+            $splitCell = $pSheet->getFreezePane() ?? '';
+            $topLeftCell = $pSheet->getTopLeftCell() ?? '';
 
             $splitCell = $this->updateCellReference($splitCell, $pBefore, $pNumCols, $pNumRows);
             $topLeftCell = $this->updateCellReference($topLeftCell, $pBefore, $pNumCols, $pNumRows);

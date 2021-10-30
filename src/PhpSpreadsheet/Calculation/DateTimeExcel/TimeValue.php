@@ -31,7 +31,7 @@ class TimeValue
      */
     public static function fromString($timeValue)
     {
-        $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
+        $timeValue = trim(Functions::flattenSingleValue($timeValue ?? ''), '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];

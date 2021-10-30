@@ -16,12 +16,11 @@ class SumIfTest extends AllSetupTeardown
         if ($expectedResult === 'incomplete') {
             self::markTestIncomplete('Raises formula error - researching solution');
         }
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->fromArray($array1, null, 'A1', true);
         $maxARow = count($array1);
         $firstArg = "A1:A$maxARow";
-        //$secondArg = is_string($condition) ? "\"$condition\"" : $condition;
-        $sheet->getCell('B1')->setValue($condition);
+        $this->setCell('B1', $condition);
         $secondArg = 'B1';
         if (empty($array2)) {
             $sheet->getCell('D1')->setValue("=SUMIF($firstArg, $secondArg)");

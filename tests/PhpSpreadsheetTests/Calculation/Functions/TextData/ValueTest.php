@@ -2,11 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PHPUnit\Framework\TestCase;
 
-class ValueTest extends TestCase
+class ValueTest extends AllSetupTeardown
 {
     /**
      * @var string
@@ -25,6 +23,7 @@ class ValueTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->currencyCode = StringHelper::getCurrencyCode();
         $this->decimalSeparator = StringHelper::getDecimalSeparator();
         $this->thousandsSeparator = StringHelper::getThousandsSeparator();
@@ -32,6 +31,7 @@ class ValueTest extends TestCase
 
     protected function tearDown(): void
     {
+        parent::tearDown();
         StringHelper::setCurrencyCode($this->currencyCode);
         StringHelper::setDecimalSeparator($this->decimalSeparator);
         StringHelper::setThousandsSeparator($this->thousandsSeparator);
@@ -43,13 +43,21 @@ class ValueTest extends TestCase
      * @param mixed $expectedResult
      * @param mixed $value
      */
-    public function testVALUE($expectedResult, $value): void
+    public function testVALUE($expectedResult, $value = 'omitted'): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');
         StringHelper::setCurrencyCode('$');
 
-        $result = TextData::VALUE($value);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($value === 'omitted') {
+            $sheet->getCell('B1')->setValue('=VALUE()');
+        } else {
+            $this->setCell('A1', $value);
+            $sheet->getCell('B1')->setValue('=VALUE(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
