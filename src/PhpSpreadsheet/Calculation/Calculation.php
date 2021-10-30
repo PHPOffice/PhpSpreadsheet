@@ -3161,9 +3161,9 @@ class Calculation
         return $formula;
     }
 
-    private static $functionReplaceFromExcel = null;
+    private static $functionReplaceFromExcel;
 
-    private static $functionReplaceToLocale = null;
+    private static $functionReplaceToLocale;
 
     public function _translateFormulaToLocale($formula)
     {
@@ -3190,9 +3190,9 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
     }
 
-    private static $functionReplaceFromLocale = null;
+    private static $functionReplaceFromLocale;
 
-    private static $functionReplaceToExcel = null;
+    private static $functionReplaceToExcel;
 
     public function _translateFormulaToEnglish($formula)
     {
@@ -5405,7 +5405,7 @@ class Calculation
             // Apply any defaults for empty argument values
             foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
                 if ($isArgumentEmpty === true) {
-                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                    $reflectedArgumentId = count($args) - (int) $argumentId - 1;
                     if (
                         !array_key_exists($reflectedArgumentId, $methodArguments) ||
                         $methodArguments[$reflectedArgumentId]->isVariadic()
