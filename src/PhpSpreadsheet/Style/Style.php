@@ -64,6 +64,27 @@ class Style extends Supervisor
     protected $quotePrefix = false;
 
     /**
+     * Internal cache for styles
+     * Used when applying style on range of cells (column or row) and cleared when
+     * all cells in range is styled.
+     *
+     * PhpSpreadsheet will always minimize the amount of styles used. So cells with
+     * same styles will reference the same Style instance. To check if two styles
+     * are similar Style::getHashCode() is used. This call is expensive. To minimize
+     * the need to call this method we can cache the internal PHP object id of the
+     * Style in the range. Style::getHashCode() will then only be called when we
+     * encounter a unique style.
+     *
+     * @see Style::applyFromArray()
+     * @see Style::getHashCode()
+     *
+     * @phpstan-var null|array{styleByHash: array<string, Style>, hashByObjId: array<int, string>}
+     *
+     * @var array<string, array>
+     */
+    private static $cachedStyles;
+
+    /**
      * Create a new Style.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
@@ -341,8 +362,14 @@ class Style extends Supervisor
             // Selection type, inspect
             if (preg_match('/^[A-Z]+1:[A-Z]+1048576$/', $pRange)) {
                 $selectionType = 'COLUMN';
+
+                // Enable caching of styles
+                self::$cachedStyles = ['hashByObjId' => [], 'styleByHash' => []];
             } elseif (preg_match('/^A\d+:XFD\d+$/', $pRange)) {
                 $selectionType = 'ROW';
+
+                // Enable caching of styles
+                self::$cachedStyles = ['hashByObjId' => [], 'styleByHash' => []];
             } else {
                 $selectionType = 'CELL';
             }
@@ -355,13 +382,55 @@ class Style extends Supervisor
             $newXfIndexes = [];
             foreach ($oldXfIndexes as $oldXfIndex => $dummy) {
                 $style = $workbook->getCellXfByIndex($oldXfIndex);
-                $newStyle = clone $style;
-                $newStyle->applyFromArray($pStyles);
 
-                if ($existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode())) {
+                // $cachedStyles is set when applying style for a range of cells, either column or row
+                if (self::$cachedStyles === null) {
+                    // Clone the old style and apply style-array
+                    $newStyle = clone $style;
+                    $newStyle->applyFromArray($pStyles);
+
+                    // Look for existing style we can use instead (reduce memory usage)
+                    $existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode());
+                } else {
+                    // Style cache is stored by Style::getHashCode(). But calling this method is
+                    // expensive. So we cache the php obj id -> hash.
+                    $objId = spl_object_id($style);
+
+                    // Look for the original HashCode
+                    $styleHash = self::$cachedStyles['hashByObjId'][$objId] ?? null;
+                    if ($styleHash === null) {
+                        // This object_id is not cached, store the hashcode in case encounter again
+                        $styleHash = self::$cachedStyles['hashByObjId'][$objId] = $style->getHashCode();
+                    }
+
+                    // Find existing style by hash.
+                    $existingStyle = self::$cachedStyles['styleByHash'][$styleHash] ?? null;
+
+                    if (!$existingStyle) {
+                        // The old style combined with the new style array is not cached, so we create it now
+                        $newStyle = clone $style;
+                        $newStyle->applyFromArray($pStyles);
+
+                        // Look for similar style in workbook to reduce memory usage
+                        $existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode());
+
+                        // Cache the new style by original hashcode
+                        self::$cachedStyles['styleByHash'][$styleHash] = $existingStyle instanceof self ? $existingStyle : $newStyle;
+                    }
+                }
+
+                if ($existingStyle) {
                     // there is already such cell Xf in our collection
                     $newXfIndexes[$oldXfIndex] = $existingStyle->getIndex();
                 } else {
+                    if (!isset($newStyle)) {
+                        // Handle bug in PHPStan, see https://github.com/phpstan/phpstan/issues/5805
+                        // $newStyle should always be defined.
+                        // This block might not be needed in the future
+                        $newStyle = clone $style;
+                        $newStyle->applyFromArray($pStyles);
+                    }
+
                     // we don't have such a cell Xf, need to add
                     $workbook->addCellXf($newStyle);
                     $newXfIndexes[$oldXfIndex] = $newStyle->getIndex();
@@ -377,6 +446,9 @@ class Style extends Supervisor
                         $columnDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
 
+                    // Disable caching of styles
+                    self::$cachedStyles = null;
+
                     break;
                 case 'ROW':
                     for ($row = $rangeStartIndexes[1]; $row <= $rangeEndIndexes[1]; ++$row) {
@@ -385,6 +457,9 @@ class Style extends Supervisor
                         $oldXfIndex = $rowDimension->getXfIndex() ?? 0;
                         $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                     }
+
+                    // Disable caching of styles
+                    self::$cachedStyles = null;
 
                     break;
                 case 'CELL':
