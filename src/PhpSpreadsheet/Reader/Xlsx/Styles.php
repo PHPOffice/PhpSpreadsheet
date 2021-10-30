@@ -21,7 +21,7 @@ class Styles extends BaseParserClass
      *
      * @var Theme
      */
-    private static $theme = null;
+    private static $theme;
 
     private $styles = [];
 
