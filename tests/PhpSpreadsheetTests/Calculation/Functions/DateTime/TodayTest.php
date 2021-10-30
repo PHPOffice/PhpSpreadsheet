@@ -8,27 +8,31 @@ class TodayTest extends AllSetupTeardown
 {
     public function testToday(): void
     {
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
+        $row = 0;
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same second.
         do {
+            ++$row;
             $dtStart = new DateTimeImmutable();
             $startSecond = $dtStart->format('s');
-            $sheet->setCellValue('A1', '=TODAY()');
+            $sheet->setCellValue("A$row", '=TODAY()');
+            // cache result for later assertions
+            $sheet->getCell("A$row")->getCalculatedValue();
             $dtEnd = new DateTimeImmutable();
             $endSecond = $dtEnd->format('s');
         } while ($startSecond !== $endSecond);
-        $sheet->setCellValue('B1', '=YEAR(A1)');
-        $sheet->setCellValue('C1', '=MONTH(A1)');
-        $sheet->setCellValue('D1', '=DAY(A1)');
-        $sheet->setCellValue('E1', '=HOUR(A1)');
-        $sheet->setCellValue('F1', '=MINUTE(A1)');
-        $sheet->setCellValue('G1', '=SECOND(A1)');
-        self::assertSame((int) $dtStart->format('Y'), $sheet->getCell('B1')->getCalculatedValue());
-        self::assertSame((int) $dtStart->format('m'), $sheet->getCell('C1')->getCalculatedValue());
-        self::assertSame((int) $dtStart->format('d'), $sheet->getCell('D1')->getCalculatedValue());
-        self::assertSame(0, $sheet->getCell('E1')->getCalculatedValue());
-        self::assertSame(0, $sheet->getCell('F1')->getCalculatedValue());
-        self::assertSame(0, $sheet->getCell('G1')->getCalculatedValue());
+        $sheet->setCellValue("B$row", "=YEAR(A$row)");
+        $sheet->setCellValue("C$row", "=MONTH(A$row)");
+        $sheet->setCellValue("D$row", "=DAY(A$row)");
+        $sheet->setCellValue("E$row", "=HOUR(A$row)");
+        $sheet->setCellValue("F$row", "=MINUTE(A$row)");
+        $sheet->setCellValue("G$row", "=SECOND(A$row)");
+        self::assertSame((int) $dtStart->format('Y'), $sheet->getCell("B$row")->getCalculatedValue());
+        self::assertSame((int) $dtStart->format('m'), $sheet->getCell("C$row")->getCalculatedValue());
+        self::assertSame((int) $dtStart->format('d'), $sheet->getCell("D$row")->getCalculatedValue());
+        self::assertSame(0, $sheet->getCell("E$row")->getCalculatedValue());
+        self::assertSame(0, $sheet->getCell("F$row")->getCalculatedValue());
+        self::assertSame(0, $sheet->getCell("G$row")->getCalculatedValue());
     }
 }

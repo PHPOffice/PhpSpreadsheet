@@ -21,10 +21,14 @@ return [
         'QWERTYUIOP',
         'NaN',
     ],
-    [
-        '#VALUE!',
+    'null length defaults to 0' => [
+        '',
         'QWERTYUIOP',
         null,
+    ],
+    'omitted length defaults to 1' => [
+        'P',
+        'QWERTYUIOP',
     ],
     [
         'GHI',
@@ -60,5 +64,8 @@ return [
         'SE',
         false,
         2,
+    ],
+    'string not specified' => [
+        'exception',
     ],
 ];

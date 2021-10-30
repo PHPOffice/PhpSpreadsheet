@@ -1,6 +1,6 @@
 # Memory saving
 
-PhpSpreadsheet uses an average of about 1k per cell in your worksheets, so
+PhpSpreadsheet uses an average of about 1k per cell (1.6k on 64-bit PHP) in your worksheets, so
 large workbooks can quickly use up available memory. Cell caching
 provides a mechanism that allows PhpSpreadsheet to maintain the cell
 objects in a smaller size of memory, or off-memory (eg: on disk, in APCu,

@@ -505,6 +505,8 @@ class Spreadsheet
     {
         $this->disconnectWorksheets();
         $this->calculationEngine = null;
+        $this->cellXfCollection = [];
+        $this->cellStyleXfCollection = [];
     }
 
     /**

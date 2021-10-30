@@ -13,7 +13,7 @@ class RomanTest extends AllSetupTeardown
     public function testROMAN($expectedResult, $formula): void
     {
         $this->mightHaveException($expectedResult);
-        $sheet = $this->sheet;
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A3', 49);
         $sheet->getCell('A1')->setValue("=ROMAN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();

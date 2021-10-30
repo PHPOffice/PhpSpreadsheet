@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -17,8 +16,6 @@ class WorksheetNamedRangesTest extends TestCase
 
     protected function setUp(): void
     {
-        Settings::setLibXmlLoaderOptions(null); // reset to default options
-
         $reader = new Xlsx();
         $this->spreadsheet = $reader->load('tests/data/Worksheet/namedRangeTest.xlsx');
     }

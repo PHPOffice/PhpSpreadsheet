@@ -12,7 +12,9 @@ use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use ReflectionClassConstant;
 use ReflectionMethod;
+use ReflectionParameter;
 
 class Calculation
 {
@@ -246,22 +248,22 @@ class Calculation
         ],
         'ACOS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acos'],
             'argumentCount' => '1',
         ],
         'ACOSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'acosh'],
             'argumentCount' => '1',
         ],
         'ACOT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acot'],
             'argumentCount' => '1',
         ],
         'ACOTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Acoth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'acoth'],
             'argumentCount' => '1',
         ],
         'ADDRESS' => [
@@ -299,6 +301,11 @@ class Calculation
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '1',
         ],
+        'ARRAYTOTEXT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'ASC' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -306,27 +313,27 @@ class Calculation
         ],
         'ASIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asin'],
             'argumentCount' => '1',
         ],
         'ASINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Asinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'asinh'],
             'argumentCount' => '1',
         ],
         'ATAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan'],
             'argumentCount' => '1',
         ],
         'ATAN2' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atan2::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atan2'],
             'argumentCount' => '2',
         ],
         'ATANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Atanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'atanh'],
             'argumentCount' => '1',
         ],
         'AVEDEV' => [
@@ -466,17 +473,17 @@ class Calculation
         ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Ceiling::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'ceiling'],
             'argumentCount' => '1-2', // 2 for Excel, 1-2 for Ods/Gnumeric
         ],
         'CEILING.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'CEILING.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\CeilingPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Ceiling::class, 'precise'],
             'argumentCount' => '1,2',
         ],
         'CELL' => [
@@ -608,22 +615,22 @@ class Calculation
         ],
         'COS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cos::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cos'],
             'argumentCount' => '1',
         ],
         'COSH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cosh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosine::class, 'cosh'],
             'argumentCount' => '1',
         ],
         'COT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Cot::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'cot'],
             'argumentCount' => '1',
         ],
         'COTH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Coth::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cotangent::class, 'coth'],
             'argumentCount' => '1',
         ],
         'COUNT' => [
@@ -703,12 +710,12 @@ class Calculation
         ],
         'CSC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csc::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csc'],
             'argumentCount' => '1',
         ],
         'CSCH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Csch::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Cosecant::class, 'csch'],
             'argumentCount' => '1',
         ],
         'CUBEKPIMEMBER' => [
@@ -758,17 +765,22 @@ class Calculation
         ],
         'DATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Datefunc::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Date::class, 'fromYMD'],
             'argumentCount' => '3',
         ],
         'DATEDIF' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateDif::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Difference::class, 'interval'],
             'argumentCount' => '2,3',
+        ],
+        'DATESTRING' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'DATEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\DateValue::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateValue::class, 'fromString'],
             'argumentCount' => '1',
         ],
         'DAVERAGE' => [
@@ -778,17 +790,17 @@ class Calculation
         ],
         'DAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Day::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateParts::class, 'day'],
             'argumentCount' => '1',
         ],
         'DAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Days::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Days::class, 'between'],
             'argumentCount' => '2',
         ],
         'DAYS360' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Days360::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Days360::class, 'between'],
             'argumentCount' => '2,3',
         ],
         'DB' => [
@@ -838,7 +850,7 @@ class Calculation
         ],
         'DEGREES' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Degrees::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toDegrees'],
             'argumentCount' => '1',
         ],
         'DELTA' => [
@@ -921,9 +933,14 @@ class Calculation
             'functionCall' => [Database\DVarP::class, 'evaluate'],
             'argumentCount' => '3',
         ],
+        'ECMA.CEILING' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1,2',
+        ],
         'EDATE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\EDate::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Month::class, 'adjust'],
             'argumentCount' => '2',
         ],
         'EFFECT' => [
@@ -938,7 +955,7 @@ class Calculation
         ],
         'EOMONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\EoMonth::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Month::class, 'lastDay'],
             'argumentCount' => '2',
         ],
         'ERF' => [
@@ -968,7 +985,7 @@ class Calculation
         ],
         'EVEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Even::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'even'],
             'argumentCount' => '1',
         ],
         'EXACT' => [
@@ -993,12 +1010,12 @@ class Calculation
         ],
         'FACT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Fact::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'fact'],
             'argumentCount' => '1',
         ],
         'FACTDOUBLE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FactDouble::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'factDouble'],
             'argumentCount' => '1',
         ],
         'FALSE' => [
@@ -1073,17 +1090,17 @@ class Calculation
         ],
         'FLOOR' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Floor::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'floor'],
             'argumentCount' => '1-2', // Excel requries 2, Ods/Gnumeric 1-2
         ],
         'FLOOR.MATH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorMath::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'math'],
             'argumentCount' => '1-3',
         ],
         'FLOOR.PRECISE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\FloorPrecise::class, 'evaluate'],
+            'functionCall' => [MathTrig\Floor::class, 'precise'],
             'argumentCount' => '1-2',
         ],
         'FORECAST' => [
@@ -1240,7 +1257,7 @@ class Calculation
         ],
         'HOUR' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Hour::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\TimeParts::class, 'hour'],
             'argumentCount' => '1',
         ],
         'HYPERLINK' => [
@@ -1504,7 +1521,7 @@ class Calculation
         ],
         'ISOWEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\IsoWeekNum::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Week::class, 'isoWeekNumber'],
             'argumentCount' => '1',
         ],
         'ISPMT' => [
@@ -1521,6 +1538,11 @@ class Calculation
             'category' => Category::CATEGORY_INFORMATION,
             'functionCall' => [Functions::class, 'isText'],
             'argumentCount' => '1',
+        ],
+        'ISTHAIDIGIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'JIS' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -1624,12 +1646,12 @@ class Calculation
         ],
         'MAX' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAX'],
+            'functionCall' => [Statistical\Maximum::class, 'max'],
             'argumentCount' => '1+',
         ],
         'MAXA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Maximum::class, 'MAXA'],
+            'functionCall' => [Statistical\Maximum::class, 'maxA'],
             'argumentCount' => '1+',
         ],
         'MAXIFS' => [
@@ -1669,12 +1691,12 @@ class Calculation
         ],
         'MIN' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MIN'],
+            'functionCall' => [Statistical\Minimum::class, 'min'],
             'argumentCount' => '1+',
         ],
         'MINA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Minimum::class, 'MINA'],
+            'functionCall' => [Statistical\Minimum::class, 'minA'],
             'argumentCount' => '1+',
         ],
         'MINIFS' => [
@@ -1684,7 +1706,7 @@ class Calculation
         ],
         'MINUTE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Minute::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\TimeParts::class, 'minute'],
             'argumentCount' => '1',
         ],
         'MINVERSE' => [
@@ -1704,7 +1726,7 @@ class Calculation
         ],
         'MOD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mod::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'mod'],
             'argumentCount' => '2',
         ],
         'MODE' => [
@@ -1724,17 +1746,17 @@ class Calculation
         ],
         'MONTH' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Month::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateParts::class, 'month'],
             'argumentCount' => '1',
         ],
         'MROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Mround::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'multiple'],
             'argumentCount' => '2',
         ],
         'MULTINOMIAL' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Multinomial::class, 'evaluate'],
+            'functionCall' => [MathTrig\Factorial::class, 'multinomial'],
             'argumentCount' => '1+',
         ],
         'MUNIT' => [
@@ -1764,7 +1786,7 @@ class Calculation
         ],
         'NETWORKDAYS' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\NetworkDays::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\NetworkDays::class, 'count'],
             'argumentCount' => '2-3',
         ],
         'NETWORKDAYS.INTL' => [
@@ -1824,7 +1846,7 @@ class Calculation
         ],
         'NOW' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Now::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Current::class, 'now'],
             'argumentCount' => '0',
         ],
         'NPER' => [
@@ -1836,6 +1858,11 @@ class Calculation
             'category' => Category::CATEGORY_FINANCIAL,
             'functionCall' => [Financial\CashFlow\Variable\Periodic::class, 'presentValue'],
             'argumentCount' => '2+',
+        ],
+        'NUMBERSTRING' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'NUMBERVALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -1859,7 +1886,7 @@ class Calculation
         ],
         'ODD' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Odd::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'odd'],
             'argumentCount' => '1',
         ],
         'ODDFPRICE' => [
@@ -1976,7 +2003,7 @@ class Calculation
         ],
         'POWER' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Power::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'power'],
             'argumentCount' => '2',
         ],
         'PPMT' => [
@@ -2006,7 +2033,7 @@ class Calculation
         ],
         'PRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Product::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'product'],
             'argumentCount' => '1+',
         ],
         'PROPER' => [
@@ -2036,17 +2063,17 @@ class Calculation
         ],
         'QUOTIENT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Quotient::class, 'evaluate'],
+            'functionCall' => [MathTrig\Operations::class, 'quotient'],
             'argumentCount' => '2',
         ],
         'RADIANS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Radians::class, 'evaluate'],
+            'functionCall' => [MathTrig\Angle::class, 'toRadians'],
             'argumentCount' => '1',
         ],
         'RAND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Random::class, 'randNoArgs'],
+            'functionCall' => [MathTrig\Random::class, 'rand'],
             'argumentCount' => '0',
         ],
         'RANDARRAY' => [
@@ -2116,17 +2143,27 @@ class Calculation
         ],
         'ROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Round::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'round'],
             'argumentCount' => '2',
+        ],
+        'ROUNDBAHTDOWN' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'ROUNDBAHTUP' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'ROUNDDOWN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundDown::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'down'],
             'argumentCount' => '2',
         ],
         'ROUNDUP' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\RoundUp::class, 'evaluate'],
+            'functionCall' => [MathTrig\Round::class, 'up'],
             'argumentCount' => '2',
         ],
         'ROW' => [
@@ -2168,17 +2205,17 @@ class Calculation
         ],
         'SEC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sec::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sec'],
             'argumentCount' => '1',
         ],
         'SECH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sech::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Secant::class, 'sech'],
             'argumentCount' => '1',
         ],
         'SECOND' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Second::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\TimeParts::class, 'second'],
             'argumentCount' => '1',
         ],
         'SEQUENCE' => [
@@ -2208,12 +2245,12 @@ class Calculation
         ],
         'SIN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sin::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sin'],
             'argumentCount' => '1',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sinh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Sine::class, 'sinh'],
             'argumentCount' => '1',
         ],
         'SKEW' => [
@@ -2253,12 +2290,12 @@ class Calculation
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sqrt::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'sqrt'],
             'argumentCount' => '1',
         ],
         'SQRTPI' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SqrtPi::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sqrt::class, 'pi'],
             'argumentCount' => '1',
         ],
         'STANDARDIZE' => [
@@ -2314,7 +2351,7 @@ class Calculation
         ],
         'SUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Sum::class, 'funcSumNoStrings'],
+            'functionCall' => [MathTrig\Sum::class, 'sumErroringStrings'],
             'argumentCount' => '1+',
         ],
         'SUMIF' => [
@@ -2329,7 +2366,7 @@ class Calculation
         ],
         'SUMPRODUCT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\SumProduct::class, 'evaluate'],
+            'functionCall' => [MathTrig\Sum::class, 'product'],
             'argumentCount' => '1+',
         ],
         'SUMSQ' => [
@@ -2369,12 +2406,12 @@ class Calculation
         ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tan::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
             'argumentCount' => '1',
         ],
         'TANH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Tanh::class, 'evaluate'],
+            'functionCall' => [MathTrig\Trig\Tangent::class, 'tanh'],
             'argumentCount' => '1',
         ],
         'TBILLEQ' => [
@@ -2422,14 +2459,49 @@ class Calculation
             'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
         ],
+        'THAIDAYOFWEEK' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIDIGIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIMONTHOFYEAR' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAINUMSOUND' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAINUMSTRING' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAISTRINGLENGTH' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
+        'THAIYEAR' => [
+            'category' => Category::CATEGORY_DATE_AND_TIME,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
+        ],
         'TIME' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Time::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Time::class, 'fromHMS'],
             'argumentCount' => '3',
         ],
         'TIMEVALUE' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\TimeValue::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\TimeValue::class, 'fromString'],
             'argumentCount' => '1',
         ],
         'TINV' => [
@@ -2449,7 +2521,7 @@ class Calculation
         ],
         'TODAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Today::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Current::class, 'today'],
             'argumentCount' => '0',
         ],
         'TRANSPOSE' => [
@@ -2519,13 +2591,18 @@ class Calculation
         ],
         'USDOLLAR' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Financial\Dollar::class, 'format'],
             'argumentCount' => '2',
         ],
         'VALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Format::class, 'VALUE'],
             'argumentCount' => '1',
+        ],
+        'VALUETOTEXT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '?',
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -2574,12 +2651,12 @@ class Calculation
         ],
         'WEEKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\WeekDay::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Week::class, 'day'],
             'argumentCount' => '1,2',
         ],
         'WEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\WeekNum::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\Week::class, 'number'],
             'argumentCount' => '1,2',
         ],
         'WEIBULL' => [
@@ -2594,7 +2671,7 @@ class Calculation
         ],
         'WORKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\WorkDay::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\WorkDay::class, 'date'],
             'argumentCount' => '2-3',
         ],
         'WORKDAY.INTL' => [
@@ -2629,12 +2706,12 @@ class Calculation
         ],
         'YEAR' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\Year::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\DateParts::class, 'year'],
             'argumentCount' => '1',
         ],
         'YEARFRAC' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
-            'functionCall' => [DateTimeExcel\YearFrac::class, 'evaluate'],
+            'functionCall' => [DateTimeExcel\YearFrac::class, 'fraction'],
             'argumentCount' => '2,3',
         ],
         'YIELD' => [
@@ -2909,6 +2986,21 @@ class Calculation
         return self::$localeLanguage;
     }
 
+    private function getLocaleFile(string $localeDir, string $locale, string $language, string $file): string
+    {
+        $localeFileName = $localeDir . str_replace('_', DIRECTORY_SEPARATOR, $locale) .
+            DIRECTORY_SEPARATOR . $file;
+        if (!file_exists($localeFileName)) {
+            //    If there isn't a locale specific file, look for a language specific file
+            $localeFileName = $localeDir . $language . DIRECTORY_SEPARATOR . $file;
+            if (!file_exists($localeFileName)) {
+                throw new Exception('Locale file not found');
+            }
+        }
+
+        return $localeFileName;
+    }
+
     /**
      * Set the locale code.
      *
@@ -2916,7 +3008,7 @@ class Calculation
      *
      * @return bool
      */
-    public function setLocale($locale)
+    public function setLocale(string $locale)
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -2926,31 +3018,30 @@ class Calculation
         if (count(self::$validLocaleLanguages) == 1) {
             self::loadLocales();
         }
+
         //    Test whether we have any language data for this language (any locale)
         if (in_array($language, self::$validLocaleLanguages)) {
             //    initialise language/locale settings
             self::$localeFunctions = [];
             self::$localeArgumentSeparator = ',';
             self::$localeBoolean = ['TRUE' => 'TRUE', 'FALSE' => 'FALSE', 'NULL' => 'NULL'];
-            //    Default is English, if user isn't requesting english, then read the necessary data from the locale files
-            if ($locale != 'en_us') {
+
+            //    Default is US English, if user isn't requesting US english, then read the necessary data from the locale files
+            if ($locale !== 'en_us') {
+                $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
                 //    Search for a file with a list of function names for locale
-                $functionNamesFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'functions';
-                if (!file_exists($functionNamesFile)) {
-                    //    If there isn't a locale specific function file, look for a language specific function file
-                    $functionNamesFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'functions';
-                    if (!file_exists($functionNamesFile)) {
-                        return false;
-                    }
+                try {
+                    $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
+                } catch (Exception $e) {
+                    return false;
                 }
+
                 //    Retrieve the list of locale or language specific function names
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 foreach ($localeFunctions as $localeFunction) {
                     [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
-                        [$fName, $lfName] = explode('=', $localeFunction);
-                        $fName = trim($fName);
-                        $lfName = trim($lfName);
+                        [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
                         if ((isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
                             self::$localeFunctions[$fName] = $lfName;
                         }
@@ -2964,20 +3055,22 @@ class Calculation
                     self::$localeBoolean['FALSE'] = self::$localeFunctions['FALSE'];
                 }
 
-                $configFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'config';
-                if (!file_exists($configFile)) {
-                    $configFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'config';
+                try {
+                    $configFile = $this->getLocaleFile($localeDir, $locale, $language, 'config');
+                } catch (Exception $e) {
+                    return false;
                 }
-                if (file_exists($configFile)) {
-                    $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                    foreach ($localeSettings as $localeSetting) {
-                        [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
-                        if (strpos($localeSetting, '=') !== false) {
-                            [$settingName, $settingValue] = explode('=', $localeSetting);
-                            $settingName = strtoupper(trim($settingName));
+
+                $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                foreach ($localeSettings as $localeSetting) {
+                    [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
+                    if (strpos($localeSetting, '=') !== false) {
+                        [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
+                        $settingName = strtoupper($settingName);
+                        if ($settingValue !== '') {
                             switch ($settingName) {
                                 case 'ARGUMENTSEPARATOR':
-                                    self::$localeArgumentSeparator = trim($settingValue);
+                                    self::$localeArgumentSeparator = $settingValue;
 
                                     break;
                             }
@@ -3068,9 +3161,9 @@ class Calculation
         return $formula;
     }
 
-    private static $functionReplaceFromExcel = null;
+    private static $functionReplaceFromExcel;
 
-    private static $functionReplaceToLocale = null;
+    private static $functionReplaceToLocale;
 
     public function _translateFormulaToLocale($formula)
     {
@@ -3097,9 +3190,9 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
     }
 
-    private static $functionReplaceFromLocale = null;
+    private static $functionReplaceFromLocale;
 
-    private static $functionReplaceToExcel = null;
+    private static $functionReplaceToExcel;
 
     public function _translateFormulaToEnglish($formula)
     {
@@ -4017,7 +4110,7 @@ class Calculation
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
                 //        so push a null onto the stack
                 if (($expectingOperand) || (!$expectingOperator)) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                 }
                 // make sure there was a function
                 $d = $stack->last(2);
@@ -4202,7 +4295,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == ')') {    // miscellaneous error checking
                 if ($expectingOperand) {
-                    $output[] = ['type' => 'NULL Value', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
                     $expectingOperand = false;
                     $expectingOperator = true;
                 } else {
@@ -4275,7 +4368,7 @@ class Calculation
             $rowKey = array_shift($rKeys);
             $cKeys = array_keys(array_keys($operand[$rowKey]));
             $colKey = array_shift($cKeys);
-            if (ctype_upper($colKey)) {
+            if (ctype_upper("$colKey")) {
                 $operandData['reference'] = $colKey . $rowKey;
             }
         }
@@ -4384,7 +4477,7 @@ class Calculation
             }
 
             // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
-            if (isset(self::$binaryOperators[$token])) {
+            if (!is_numeric($token) && isset(self::$binaryOperators[$token])) {
                 //    We must have two operands, error if we don't
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
@@ -4431,7 +4524,7 @@ class Calculation
                             $sheet2 = $sheet1;
                         }
 
-                        if ($sheet1 == $sheet2) {
+                        if (trim($sheet1, "'") === trim($sheet2, "'")) {
                             if ($operand1Data['reference'] === null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $pCell->getColumn() . $operand1Data['value'];
@@ -4596,7 +4689,7 @@ class Calculation
                 } else {
                     $this->executeNumericBinaryOperation($multiplier, $arg, '*', 'arrayTimesEquals', $stack);
                 }
-            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token, $matches)) {
+            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token ?? '', $matches)) {
                 $cellRef = null;
 
                 if (isset($matches[8])) {
@@ -4648,7 +4741,7 @@ class Calculation
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                                     $pCell->attach($pCellParent);
                                 } else {
-                                    $cellRef = ($cellSheet !== null) ? "{$matches[2]}!{$cellRef}" : $cellRef;
+                                    $cellRef = ($cellSheet !== null) ? "'{$matches[2]}'!{$cellRef}" : $cellRef;
                                     $cellValue = null;
                                 }
                             } else {
@@ -4674,7 +4767,7 @@ class Calculation
                 }
 
                 // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
-            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token, $matches)) {
+            } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
                 if ($pCellParent) {
                     $pCell->attach($pCellParent);
                 }
@@ -4682,7 +4775,7 @@ class Calculation
                 $functionName = $matches[1];
                 $argCount = $stack->pop();
                 $argCount = $argCount['value'];
-                if ($functionName != 'MKMATRIX') {
+                if ($functionName !== 'MKMATRIX') {
                     $this->debugLog->writeDebugLog('Evaluating Function ', self::localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
                 }
                 if ((isset(self::$phpSpreadsheetFunctions[$functionName])) || (isset(self::$controlFunctions[$functionName]))) {    // function
@@ -4698,8 +4791,10 @@ class Calculation
                         $passByReference = isset(self::$controlFunctions[$functionName]['passByReference']);
                         $passCellReference = isset(self::$controlFunctions[$functionName]['passCellReference']);
                     }
+
                     // get the arguments for this function
                     $args = $argArrayVals = [];
+                    $emptyArguments = [];
                     for ($i = 0; $i < $argCount; ++$i) {
                         $arg = $stack->pop();
                         $a = $argCount - $i - 1;
@@ -4710,18 +4805,19 @@ class Calculation
                         ) {
                             if ($arg['reference'] === null) {
                                 $args[] = $cellID;
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($cellID);
                                 }
                             } else {
                                 $args[] = $arg['reference'];
-                                if ($functionName != 'MKMATRIX') {
+                                if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($arg['reference']);
                                 }
                             }
                         } else {
+                            $emptyArguments[] = ($arg['type'] === 'Empty Argument');
                             $args[] = self::unwrapResult($arg['value']);
-                            if ($functionName != 'MKMATRIX') {
+                            if ($functionName !== 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
                             }
                         }
@@ -4729,13 +4825,18 @@ class Calculation
 
                     //    Reverse the order of the arguments
                     krsort($args);
+                    krsort($emptyArguments);
+
+                    if ($argCount > 0) {
+                        $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
+                    }
 
                     if (($passByReference) && ($argCount == 0)) {
                         $args[] = $cellID;
                         $argArrayVals[] = $this->showValue($cellID);
                     }
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
                             $this->debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)), ' )');
@@ -4754,7 +4855,7 @@ class Calculation
 
                     $result = call_user_func_array($functionCall, $args);
 
-                    if ($functionName != 'MKMATRIX') {
+                    if ($functionName !== 'MKMATRIX') {
                         $this->debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
                     }
                     $stack->push('Value', self::wrapResult($result));
@@ -4764,7 +4865,7 @@ class Calculation
                 }
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
-                if (isset(self::$excelConstants[strtoupper($token)])) {
+                if (isset(self::$excelConstants[strtoupper($token ?? '')])) {
                     $excelConstant = strtoupper($token);
                     $stack->push('Constant Value', self::$excelConstants[$excelConstant]);
                     if (isset($storeKey)) {
@@ -4772,7 +4873,7 @@ class Calculation
                     }
                     $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
-                    $stack->push('Value', $token);
+                    $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
@@ -5161,7 +5262,7 @@ class Calculation
 
             // Extract range
             $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
-            $pRange = $pSheetName . '!' . $pRange;
+            $pRange = "'" . $pSheetName . "'" . '!' . $pRange;
             if (!isset($aReferences[1])) {
                 $currentCol = '';
                 $currentRow = 0;
@@ -5293,6 +5394,57 @@ class Calculation
         }
 
         return $returnValue;
+    }
+
+    private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
+    {
+        $reflector = new ReflectionMethod(implode('::', $functionCall));
+        $methodArguments = $reflector->getParameters();
+
+        if (count($methodArguments) > 0) {
+            // Apply any defaults for empty argument values
+            foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
+                if ($isArgumentEmpty === true) {
+                    $reflectedArgumentId = count($args) - (int) $argumentId - 1;
+                    if (
+                        !array_key_exists($reflectedArgumentId, $methodArguments) ||
+                        $methodArguments[$reflectedArgumentId]->isVariadic()
+                    ) {
+                        break;
+                    }
+
+                    $args[$argumentId] = $this->getArgumentDefaultValue($methodArguments[$reflectedArgumentId]);
+                }
+            }
+        }
+
+        return $args;
+    }
+
+    /**
+     * @return null|mixed
+     */
+    private function getArgumentDefaultValue(ReflectionParameter $methodArgument)
+    {
+        $defaultValue = null;
+
+        if ($methodArgument->isDefaultValueAvailable()) {
+            $defaultValue = $methodArgument->getDefaultValue();
+            if ($methodArgument->isDefaultValueConstant()) {
+                $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
+                // read constant value
+                if (strpos($constantName, '::') !== false) {
+                    [$className, $constantName] = explode('::', $constantName);
+                    $constantReflector = new ReflectionClassConstant($className, $constantName);
+
+                    return $constantReflector->getValue();
+                }
+
+                return constant($constantName);
+            }
+        }
+
+        return $defaultValue;
     }
 
     /**

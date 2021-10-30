@@ -53,12 +53,8 @@ class Xml extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $pFilename): bool
     {
         //    Office                    xmlns:o="urn:schemas-microsoft-com:office:office"
         //    Excel                    xmlns:x="urn:schemas-microsoft-com:office:excel"
@@ -236,18 +232,18 @@ class Xml extends BaseReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param string $filename
-     *
      * @return Spreadsheet
      */
-    public function load($filename)
+    public function load(string $pFilename, int $flags = 0)
     {
+        $this->processFlags($flags);
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
     /**
@@ -284,7 +280,7 @@ class Xml extends BaseReader
             $worksheet_ss = self::getAttributes($worksheet, $namespaces['ss']);
 
             if (
-                (isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
+                isset($this->loadSheetsOnly, $worksheet_ss['Name']) &&
                 (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
             ) {
                 continue;
@@ -365,7 +361,7 @@ class Xml extends BaseReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross']);
+                                $columnTo = Coordinate::stringFromColumnIndex((int) (Coordinate::columnIndexFromString($columnID) + $cell_ss['MergeAcross']));
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Functions
 {
@@ -251,7 +252,7 @@ class Functions
         $condition = self::flattenSingleValue($condition);
 
         if ($condition === '') {
-            $condition = '=""';
+            return '=""';
         }
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
             $condition = self::operandSpecialHandling($condition);
@@ -659,7 +660,7 @@ class Functions
      * ISFORMULA.
      *
      * @param mixed $cellReference The cell to check
-     * @param Cell $pCell The current cell (containing this formula)
+     * @param ?Cell $pCell The current cell (containing this formula)
      *
      * @return bool|string
      */
@@ -668,6 +669,8 @@ class Functions
         if ($pCell === null) {
             return self::REF();
         }
+        $cellReference = self::expandDefinedName((string) $cellReference, $pCell);
+        $cellReference = self::trimTrailingRange($cellReference);
 
         preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
 
@@ -679,5 +682,29 @@ class Functions
             : $pCell->getWorksheet();
 
         return $worksheet->getCell($cellReference)->isFormula();
+    }
+
+    public static function expandDefinedName(string $pCoordinate, Cell $pCell): string
+    {
+        $worksheet = $pCell->getWorksheet();
+        $spreadsheet = $worksheet->getParent();
+        // Uppercase coordinate
+        $pCoordinatex = strtoupper($pCoordinate);
+        // Eliminate leading equal sign
+        $pCoordinatex = Worksheet::pregReplace('/^=/', '', $pCoordinatex);
+        $defined = $spreadsheet->getDefinedName($pCoordinatex, $worksheet);
+        if ($defined !== null) {
+            $worksheet2 = $defined->getWorkSheet();
+            if (!$defined->isFormula() && $worksheet2 !== null) {
+                $pCoordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
+            }
+        }
+
+        return $pCoordinate;
+    }
+
+    public static function trimTrailingRange(string $pCoordinate): string
+    {
+        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $pCoordinate);
     }
 }

@@ -57,4 +57,12 @@ return [
         0,
         ' ',
     ],
+    'no arguments' => ['exception'],
+    'one argument' => ['exception', 'hello'],
+    'two arguments' => ['exception', 'hello', 2],
+    'three arguments' => ['exception', 'hello', 2, 2],
+    'position zero' => ['#VALUE!', 'hello', 0, 2, 'xyz'],
+    'negative length' => ['#VALUE!', 'hello', 3, -1, 'xyz'],
+    'boolean 1st parm' => ['TRDFGE', true, 3, 1, 'DFG'],
+    'boolean 4th parm' => ['heFALSElo', 'hello', 3, 1, false],
 ];

@@ -11,7 +11,7 @@ class Hyperlink
      * HYPERLINK.
      *
      * Excel Function:
-     *        =HYPERLINK(linkURL,displayName)
+     *        =HYPERLINK(linkURL, [displayName])
      *
      * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition

@@ -2,26 +2,27 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Settings;
-use PHPUnit\Framework\TestCase;
 
-class ProperTest extends TestCase
+class ProperTest extends AllSetupTeardown
 {
-    protected function tearDown(): void
-    {
-        Settings::setLocale('en_US');
-    }
-
     /**
      * @dataProvider providerPROPER
      *
      * @param mixed $expectedResult
-     * @param mixed $value
+     * @param mixed $str
      */
-    public function testPROPER($expectedResult, $value): void
+    public function testPROPER($expectedResult, $str = 'omitted'): void
     {
-        $result = TextData::PROPERCASE($value);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($str === 'omitted') {
+            $sheet->getCell('B1')->setValue('=PROPER()');
+        } else {
+            $this->setCell('A1', $str);
+            $sheet->getCell('B1')->setValue('=PROPER(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -41,14 +42,13 @@ class ProperTest extends TestCase
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
-            Settings::setLocale('en_US');
             self::markTestSkipped('Unable to set locale for locale-specific test');
         }
-
-        $result = TextData::PROPERCASE($value);
+        $sheet = $this->getSheet();
+        $this->setCell('A1', $value);
+        $sheet->getCell('B1')->setValue('=PROPER(A1)');
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
-
-        Settings::setLocale('en_US');
     }
 
     public function providerLocaleLOWER(): array

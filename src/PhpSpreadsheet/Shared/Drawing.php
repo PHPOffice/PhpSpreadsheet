@@ -3,32 +3,34 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use GdImage;
+use SimpleXMLElement;
 
 class Drawing
 {
     /**
      * Convert pixels to EMU.
      *
-     * @param int $pValue Value in pixels
+     * @param int $pixelValue Value in pixels
      *
      * @return int Value in EMU
      */
-    public static function pixelsToEMU($pValue)
+    public static function pixelsToEMU($pixelValue)
     {
-        return $pValue * 9525;
+        return $pixelValue * 9525;
     }
 
     /**
      * Convert EMU to pixels.
      *
-     * @param int $pValue Value in EMU
+     * @param int|SimpleXMLElement $emuValue Value in EMU
      *
      * @return int Value in pixels
      */
-    public static function EMUToPixels($pValue)
+    public static function EMUToPixels($emuValue)
     {
-        if ($pValue != 0) {
-            return (int) round($pValue / 9525);
+        $emuValue = (int) $emuValue;
+        if ($emuValue != 0) {
+            return (int) round($emuValue / 9525);
         }
 
         return 0;
@@ -39,12 +41,12 @@ class Drawing
      * By inspection of a real Excel file using Calibri 11, one finds 1000px ~ 142.85546875
      * This gives a conversion factor of 7. Also, we assume that pixels and font size are proportional.
      *
-     * @param int $pValue Value in pixels
+     * @param int $pixelValue Value in pixels
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont Default font of the workbook
      *
-     * @return int Value in cell dimension
+     * @return float|int Value in cell dimension
      */
-    public static function pixelsToCellDimension($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
+    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
     {
         // Font name and size
         $name = $pDefaultFont->getName();
@@ -52,25 +54,25 @@ class Drawing
 
         if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
-            $colWidth = $pValue * Font::$defaultColumnWidths[$name][$size]['width'] / Font::$defaultColumnWidths[$name][$size]['px'];
-        } else {
-            // We don't have data for this particular font and size, use approximation by
-            // extrapolating from Calibri 11
-            $colWidth = $pValue * 11 * Font::$defaultColumnWidths['Calibri'][11]['width'] / Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
+            return $pixelValue * Font::$defaultColumnWidths[$name][$size]['width']
+                / Font::$defaultColumnWidths[$name][$size]['px'];
         }
 
-        return $colWidth;
+        // We don't have data for this particular font and size, use approximation by
+        // extrapolating from Calibri 11
+        return $pixelValue * 11 * Font::$defaultColumnWidths['Calibri'][11]['width']
+            / Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
     }
 
     /**
      * Convert column width from (intrinsic) Excel units to pixels.
      *
-     * @param float $pValue Value in cell dimension
+     * @param float $cellWidth Value in cell dimension
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont Default font of the workbook
      *
      * @return int Value in pixels
      */
-    public static function cellDimensionToPixels($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
+    public static function cellDimensionToPixels($cellWidth, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
     {
         // Font name and size
         $name = $pDefaultFont->getName();
@@ -78,11 +80,13 @@ class Drawing
 
         if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
-            $colWidth = $pValue * Font::$defaultColumnWidths[$name][$size]['px'] / Font::$defaultColumnWidths[$name][$size]['width'];
+            $colWidth = $cellWidth * Font::$defaultColumnWidths[$name][$size]['px']
+                / Font::$defaultColumnWidths[$name][$size]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
-            $colWidth = $pValue * $size * Font::$defaultColumnWidths['Calibri'][11]['px'] / Font::$defaultColumnWidths['Calibri'][11]['width'] / 11;
+            $colWidth = $cellWidth * $size * Font::$defaultColumnWidths['Calibri'][11]['px']
+                / Font::$defaultColumnWidths['Calibri'][11]['width'] / 11;
         }
 
         // Round pixels to closest integer
@@ -94,26 +98,26 @@ class Drawing
     /**
      * Convert pixels to points.
      *
-     * @param int $pValue Value in pixels
+     * @param int $pixelValue Value in pixels
      *
      * @return float Value in points
      */
-    public static function pixelsToPoints($pValue)
+    public static function pixelsToPoints($pixelValue)
     {
-        return $pValue * 0.75;
+        return $pixelValue * 0.75;
     }
 
     /**
      * Convert points to pixels.
      *
-     * @param int $pValue Value in points
+     * @param int $pointValue Value in points
      *
      * @return int Value in pixels
      */
-    public static function pointsToPixels($pValue)
+    public static function pointsToPixels($pointValue)
     {
-        if ($pValue != 0) {
-            return (int) ceil($pValue / 0.75);
+        if ($pointValue != 0) {
+            return (int) ceil($pointValue / 0.75);
         }
 
         return 0;
@@ -134,12 +138,13 @@ class Drawing
     /**
      * Convert angle to degrees.
      *
-     * @param int $pValue Angle
+     * @param int|SimpleXMLElement $pValue Angle
      *
      * @return int Degrees
      */
     public static function angleToDegrees($pValue)
     {
+        $pValue = (int) $pValue;
         if ($pValue != 0) {
             return (int) round($pValue / 60000);
         }
