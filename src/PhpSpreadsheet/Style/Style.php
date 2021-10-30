@@ -70,8 +70,8 @@ class Style extends Supervisor
      *
      * PhpSpreadsheet will always minimize the amount of styles used. So cells with
      * same styles will reference the same Style instance. To check if two styles
-     * are similar is Style::getHashCode() used. This call is expensive. To minimize
-     * the need to call this method can we cache the internal PHP object id of the
+     * are similar Style::getHashCode() is used. This call is expensive. To minimize
+     * the need to call this method we can cache the internal PHP object id of the
      * Style in the range. Style::getHashCode() will then only be called when we
      * encounter a unique style.
      *
