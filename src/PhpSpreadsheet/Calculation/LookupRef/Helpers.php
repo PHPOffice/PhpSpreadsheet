@@ -65,10 +65,10 @@ class Helpers
             $sheetName = trim($sheetName, "'");
         }
 
-        $pSheet = ($sheetName !== '')
+        $worksheet = ($sheetName !== '')
             ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
             : $pCell->getWorksheet();
 
-        return [$cellAddress, $pSheet, $sheetName];
+        return [$cellAddress, $worksheet, $sheetName];
     }
 }

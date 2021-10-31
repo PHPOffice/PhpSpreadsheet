@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow Row height and Column Width to be set using different units of measure (`px`, `pt`, `pc`, `in`, `cm`, `mm`), rather than only in points or MS Excel column width units. [PR #2152](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145)
 - Ability to stream to an Amazon S3 bucket
  [Issue #2249](https://github.com/PHPOffice/PhpSpreadsheet/issues/2249)
+- Provided a Size Helper class to validate size values (pt, px, em)
 
 ### Changed
 

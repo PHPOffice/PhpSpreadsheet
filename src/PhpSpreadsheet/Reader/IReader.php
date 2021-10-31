@@ -14,7 +14,7 @@ interface IReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool;
+    public function canRead(string $filename): bool;
 
     /**
      * Read data only?
@@ -125,5 +125,5 @@ interface IReader
      *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0);
+    public function load(string $filename, int $flags = 0);
 }

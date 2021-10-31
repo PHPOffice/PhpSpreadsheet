@@ -53,13 +53,13 @@ class PasswordHasher
      * Scrutinizer will squawk at the use of bitwise operations here,
      * but it should ultimately pass.
      *
-     * @param string $pPassword Password to hash
+     * @param string $password Password to hash
      */
-    private static function defaultHashPassword(string $pPassword): string
+    private static function defaultHashPassword(string $password): string
     {
         $verifier = 0;
-        $pwlen = strlen($pPassword);
-        $passwordArray = pack('c', $pwlen) . $pPassword;
+        $pwlen = strlen($password);
+        $passwordArray = pack('c', $pwlen) . $password;
         for ($i = $pwlen; $i >= 0; --$i) {
             $intermediate1 = (($verifier & 0x4000) === 0) ? 0 : 1;
             $intermediate2 = 2 * $verifier;

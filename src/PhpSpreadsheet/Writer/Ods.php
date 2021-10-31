@@ -113,9 +113,9 @@ class Ods extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param resource|string $pFilename
+     * @param resource|string $filename
      */
-    public function save($pFilename, int $flags = 0): void
+    public function save($filename, int $flags = 0): void
     {
         if (!$this->spreadSheet) {
             throw new WriterException('PhpSpreadsheet object unassigned.');
@@ -126,7 +126,7 @@ class Ods extends BaseWriter
         // garbage collect
         $this->spreadSheet->garbageCollect();
 
-        $this->openFileHandle($pFilename);
+        $this->openFileHandle($filename);
 
         $zip = $this->createZip();
 

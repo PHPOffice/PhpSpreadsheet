@@ -26,10 +26,10 @@ class MyReadFilter implements IReadFilter
         $this->columns = $columns;
     }
 
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = '')
     {
         if ($row >= $this->startRow && $row <= $this->endRow) {
-            if (in_array($column, $this->columns)) {
+            if (in_array($columnAddress, $this->columns)) {
                 return true;
             }
         }

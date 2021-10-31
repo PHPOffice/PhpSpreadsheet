@@ -55,7 +55,7 @@ class Offset
             return Functions::REF();
         }
 
-        [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
+        [$cellAddress, $worksheet] = self::extractWorksheet($cellAddress, $pCell);
 
         $startCell = $endCell = $cellAddress;
         if (strpos($cellAddress, ':')) {
@@ -87,13 +87,13 @@ class Offset
             $cellAddress .= ":{$endCellColumn}{$endCellRow}";
         }
 
-        return self::extractRequiredCells($pSheet, $cellAddress);
+        return self::extractRequiredCells($worksheet, $cellAddress);
     }
 
-    private static function extractRequiredCells(?Worksheet $pSheet, string $cellAddress)
+    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
     {
-        return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
-            ->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
+            ->extractCellRange($cellAddress, $worksheet, false);
     }
 
     private static function extractWorksheet($cellAddress, Cell $pCell): array
@@ -104,11 +104,11 @@ class Offset
             $sheetName = trim($sheetName, "'");
         }
 
-        $pSheet = ($sheetName !== '')
+        $worksheet = ($sheetName !== '')
             ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
             : $pCell->getWorksheet();
 
-        return [$cellAddress, $pSheet];
+        return [$cellAddress, $worksheet];
     }
 
     private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns)

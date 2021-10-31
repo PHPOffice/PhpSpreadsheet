@@ -75,7 +75,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', 0);
         $objWriter->endElement();
 
-        $this->writePlotArea($objWriter, $pChart->getWorksheet(), $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
+        $this->writePlotArea($objWriter, $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
 
         $this->writeLegend($objWriter, $pChart->getLegend());
 
@@ -202,7 +202,7 @@ class Chart extends WriterPart
      * @param Axis $xAxis
      * @param Axis $yAxis
      */
-    private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $pSheet, PlotArea $plotArea, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null): void
+    private function writePlotArea(XMLWriter $objWriter, PlotArea $plotArea, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null): void
     {
         if ($plotArea === null) {
             return;
