@@ -113,14 +113,26 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_REPLACEMENT_SET">REPLACEMENT_SET</a>
     <span>
-        &nbsp;= [&#039;${1}.*&#039;, &#039;\*&#039;, &#039;${1}.&#039;, &#039;\?&#039;]                    </span>
+        &nbsp;= [&quot;&quot;, &#039;[*]&#039;, &#039;.*&#039;, &#039;[?]&#039;, &#039;.&#039;, &#039;~&#039;]                    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Internal-WildcardMatch.html#constant_SEARCH_SET">SEARCH_SET</a>
     <span>
-        &nbsp;= [&#039;/(?&lt;!~)\*/ui&#039;, &#039;/~\*/ui&#039;, &#039;/(?&lt;!~)\?/ui&#039;, &#039;/~\?/ui&#039;]                    </span>
+        &nbsp;= [
+    &#039;~~&#039;,
+    // convert double tilde to unprintable value
+    &#039;~\*&#039;,
+    // convert tilde backslash asterisk to [*] (matches literal asterisk in regexp)
+    &#039;\*&#039;,
+    // convert backslash asterisk to .* (matches string of any length in regexp)
+    &#039;~\?&#039;,
+    // convert tilde backslash question to [?] (matches literal question mark in regexp)
+    &#039;\?&#039;,
+    // convert backslash question to . (matches one character in regexp)
+    &quot;&quot;,
+]                    </span>
 </dt>
 <dd></dd>
 
@@ -157,7 +169,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php"><a href="files/src-phpspreadsheet-calculation-internal-wildcardmatch.html"><abbr title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php">WildcardMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 </aside>
 
     
@@ -165,7 +177,7 @@
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REPLACEMENT_SET</span>
-    = <span class="phpdocumentor-signature__default-value">[&#039;${1}.*&#039;, &#039;\*&#039;, &#039;${1}.&#039;, &#039;\?&#039;]</span>
+    = <span class="phpdocumentor-signature__default-value">[&quot;&quot;, &#039;[*]&#039;, &#039;.*&#039;, &#039;[?]&#039;, &#039;.&#039;, &#039;~&#039;]</span>
 </code>
 
 
@@ -190,7 +202,19 @@
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SEARCH_SET</span>
-    = <span class="phpdocumentor-signature__default-value">[&#039;/(?&lt;!~)\*/ui&#039;, &#039;/~\*/ui&#039;, &#039;/(?&lt;!~)\?/ui&#039;, &#039;/~\?/ui&#039;]</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    &#039;~~&#039;,
+    // convert double tilde to unprintable value
+    &#039;~\*&#039;,
+    // convert tilde backslash asterisk to [*] (matches literal asterisk in regexp)
+    &#039;\*&#039;,
+    // convert backslash asterisk to .* (matches string of any length in regexp)
+    &#039;~\?&#039;,
+    // convert tilde backslash question to [?] (matches literal question mark in regexp)
+    &#039;\?&#039;,
+    // convert backslash question to . (matches one character in regexp)
+    &quot;&quot;,
+]</span>
 </code>
 
 
@@ -226,14 +250,14 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">compare</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$wildcard</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">compare</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$wildcard</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -269,7 +293,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php"><a href="files/src-phpspreadsheet-calculation-internal-wildcardmatch.html"><abbr title="src/PhpSpreadsheet/Calculation/Internal/WildcardMatch.php">WildcardMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
     

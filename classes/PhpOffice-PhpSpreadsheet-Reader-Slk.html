@@ -94,7 +94,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 </aside>
 
         
@@ -112,6 +112,50 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_COLOR_ARRAY">COLOR_ARRAY</a>
+    <span>
+        &nbsp;= [
+    &#039;FF00FFFF&#039;,
+    // 0 - cyan
+    &#039;FF000000&#039;,
+    // 1 - black
+    &#039;FFFFFFFF&#039;,
+    // 2 - white
+    &#039;FFFF0000&#039;,
+    // 3 - red
+    &#039;FF00FF00&#039;,
+    // 4 - green
+    &#039;FF0000FF&#039;,
+    // 5 - blue
+    &#039;FFFFFF00&#039;,
+    // 6 - yellow
+    &#039;FFFF00FF&#039;,
+]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_FONT_STYLE_MAPPINGS">FONT_STYLE_MAPPINGS</a>
+    <span>
+        &nbsp;= [&#039;B&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;, &#039;U&#039; =&gt; &#039;underline&#039;]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_STYLE_SETTINGS_BORDER">STYLE_SETTINGS_BORDER</a>
+    <span>
+        &nbsp;= [&#039;B&#039; =&gt; &#039;bottom&#039;, &#039;L&#039; =&gt; &#039;left&#039;, &#039;R&#039; =&gt; &#039;right&#039;, &#039;T&#039; =&gt; &#039;top&#039;]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_STYLE_SETTINGS_FONT">STYLE_SETTINGS_FONT</a>
+    <span>
+        &nbsp;= [&#039;D&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;]                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle</a>
     <span>
@@ -168,13 +212,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_colorArray">$colorArray</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontcount">$fontcount</a>
     <span>
                 &nbsp;: int            </span>
@@ -187,13 +224,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
                 &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Fonts.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontStyleMappings">$fontStyleMappings</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_format">$format</a>
@@ -222,20 +252,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
                 &nbsp;: int            </span>
 </dt>
 <dd>Sheet index to read.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsBorder">$styleSettingsBorder</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsFont">$styleSettingsFont</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method___construct">__construct()</a>
@@ -400,6 +416,13 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </dt>
 <dd>Open file for reading.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_processFlags">processFlags()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#method_addFonts">addFonts()</a>
     <span>
@@ -510,6 +533,128 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_COLOR_ARRAY">
+        COLOR_ARRAY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_COLOR_ARRAY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">208</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COLOR_ARRAY</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    &#039;FF00FFFF&#039;,
+    // 0 - cyan
+    &#039;FF000000&#039;,
+    // 1 - black
+    &#039;FFFFFFFF&#039;,
+    // 2 - white
+    &#039;FFFF0000&#039;,
+    // 3 - red
+    &#039;FF00FF00&#039;,
+    // 4 - green
+    &#039;FF0000FF&#039;,
+    // 5 - blue
+    &#039;FFFFFF00&#039;,
+    // 6 - yellow
+    &#039;FFFF00FF&#039;,
+]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_FONT_STYLE_MAPPINGS">
+        FONT_STYLE_MAPPINGS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_FONT_STYLE_MAPPINGS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">219</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FONT_STYLE_MAPPINGS</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;, &#039;U&#039; =&gt; &#039;underline&#039;]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_STYLE_SETTINGS_BORDER">
+        STYLE_SETTINGS_BORDER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_STYLE_SETTINGS_BORDER" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">367</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">STYLE_SETTINGS_BORDER</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bottom&#039;, &#039;L&#039; =&gt; &#039;left&#039;, &#039;R&#039; =&gt; &#039;right&#039;, &#039;T&#039; =&gt; &#039;top&#039;]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_STYLE_SETTINGS_FONT">
+        STYLE_SETTINGS_FONT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#constant_STYLE_SETTINGS_FONT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">365</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">STYLE_SETTINGS_FONT</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;D&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;]</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -751,52 +896,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_colorArray">
-        $colorArray
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_colorArray" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">213</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$colorArray</span>
-     = <span class="phpdocumentor-signature__default-value">[
-    &#039;FF00FFFF&#039;,
-    // 0 - cyan
-    &#039;FF000000&#039;,
-    // 1 - black
-    &#039;FFFFFFFF&#039;,
-    // 2 - white
-    &#039;FFFF0000&#039;,
-    // 3 - red
-    &#039;FF00FF00&#039;,
-    // 4 - green
-    &#039;FF0000FF&#039;,
-    // 5 - blue
-    &#039;FFFFFF00&#039;,
-    // 6 - yellow
-    &#039;FFFF00FF&#039;,
-]</span></code>
-
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_fontcount">
         $fontcount
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontcount" class="headerlink"><i class="fas fa-link"></i></a>
@@ -806,7 +905,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 </aside>
 
         <p class="phpdocumentor-summary">Font Count.</p>
@@ -838,7 +937,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 </aside>
 
         <p class="phpdocumentor-summary">Fonts.</p>
@@ -861,36 +960,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_fontStyleMappings">
-        $fontStyleMappings
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_fontStyleMappings" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">224</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$fontStyleMappings</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;, &#039;U&#039; =&gt; &#039;underline&#039;]</span></code>
-
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_format">
         $format
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_format" class="headerlink"><i class="fas fa-link"></i></a>
@@ -900,7 +969,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 </aside>
 
         <p class="phpdocumentor-summary">Format Count.</p>
@@ -932,7 +1001,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 </aside>
 
         <p class="phpdocumentor-summary">Formats.</p>
@@ -964,7 +1033,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 </aside>
 
         <p class="phpdocumentor-summary">Input encoding.</p>
@@ -996,7 +1065,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sheet index to read.</p>
@@ -1009,66 +1078,6 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 
         <section class="phpdocumentor-description"></section>
 
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_styleSettingsBorder">
-        $styleSettingsBorder
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsBorder" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">362</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$styleSettingsBorder</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;B&#039; =&gt; &#039;bottom&#039;, &#039;L&#039; =&gt; &#039;left&#039;, &#039;R&#039; =&gt; &#039;right&#039;, &#039;T&#039; =&gt; &#039;top&#039;]</span></code>
-
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_styleSettingsFont">
-        $styleSettingsFont
-        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Slk.html#property_styleSettingsFont" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">360</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$styleSettingsFont</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;D&#039; =&gt; &#039;bold&#039;, &#039;I&#039; =&gt; &#039;italic&#039;]</span></code>
-
-    
     
 
 </article>
@@ -1092,7 +1101,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new SYLK Reader instance.</p>
@@ -1126,26 +1135,25 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 </aside>
 
         <p class="phpdocumentor-summary">Validate that the current file is a SYLK file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">canRead</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pFilename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                <span class="phpdocumentor-signature__name">canRead</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1208,7 +1216,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">132</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get input encoding.</p>
@@ -1439,7 +1447,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">573</span>
+    <span class="phpdocumentor-element-found-in__line">578</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet index.</p>
@@ -1473,7 +1481,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
@@ -1518,26 +1526,32 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pFilename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$flags</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -1563,7 +1577,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">508</span>
+    <span class="phpdocumentor-element-found-in__line">513</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file into PhpSpreadsheet instance.</p>
@@ -1623,7 +1637,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setIncludeCharts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setIncludeCharts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$includeCharts</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
 Set to false (the default) to discard charts.</p>
@@ -1632,12 +1646,11 @@ Set to false (the default) to discard charts.</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$includeCharts</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1663,7 +1676,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set input encoding.</p>
@@ -1774,21 +1787,18 @@ Set to false (the default) to discard charts.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setLoadSheetsOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setLoadSheetsOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheetList</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
+                <span class="phpdocumentor-signature__argument__name">$sheetList</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>This should be either an array of worksheet names to be loaded, or a string containing a single worksheet name.
-If NULL, then it tells the Reader to read all worksheets in the workbook</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1822,7 +1832,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadDataOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadDataOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readCellValuesOnly</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Set to false (the default) to advise the Reader to read both data and formatting for cells.</p>
 </section>
@@ -1830,12 +1840,11 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readCellValuesOnly</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1869,7 +1878,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadEmptyCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadEmptyCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readEmptyCells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Set to false to advise the Reader to ignore cells containing a null value or an empty string.</p>
 </section>
@@ -1877,12 +1886,11 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readEmptyCells</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1915,14 +1923,14 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readFilter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readFilter</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1952,7 +1960,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">585</span>
+    <span class="phpdocumentor-element-found-in__line">590</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set sheet index.</p>
@@ -1998,26 +2006,68 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 </aside>
 
         <p class="phpdocumentor-summary">Open file for reading.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">openFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pFilename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">openFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pFilename</span>
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
 
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_processFlags">
+        processFlags()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_processFlags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/BaseReader.php"><a href="files/src-phpspreadsheet-reader-basereader.html"><abbr title="src/PhpSpreadsheet/Reader/BaseReader.php">BaseReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">140</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__name">processFlags</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$flags</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -2043,7 +2093,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">399</span>
+    <span class="phpdocumentor-element-found-in__line">404</span>
 </aside>
 
     
@@ -2106,7 +2156,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">394</span>
 </aside>
 
     
@@ -2169,7 +2219,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">409</span>
+    <span class="phpdocumentor-element-found-in__line">414</span>
 </aside>
 
     
@@ -2232,7 +2282,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">417</span>
+    <span class="phpdocumentor-element-found-in__line">422</span>
 </aside>
 
     
@@ -2295,7 +2345,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 </aside>
 
     
@@ -2337,7 +2387,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">556</span>
+    <span class="phpdocumentor-element-found-in__line">561</span>
 </aside>
 
     
@@ -2393,7 +2443,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">311</span>
+    <span class="phpdocumentor-element-found-in__line">316</span>
 </aside>
 
     
@@ -2463,7 +2513,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">277</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 </aside>
 
     
@@ -2526,7 +2576,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 </aside>
 
     
@@ -2596,7 +2646,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">321</span>
+    <span class="phpdocumentor-element-found-in__line">326</span>
 </aside>
 
     
@@ -2659,7 +2709,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">468</span>
+    <span class="phpdocumentor-element-found-in__line">473</span>
 </aside>
 
     
@@ -2708,7 +2758,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">487</span>
+    <span class="phpdocumentor-element-found-in__line">492</span>
 </aside>
 
     
@@ -2757,7 +2807,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">476</span>
+    <span class="phpdocumentor-element-found-in__line">481</span>
 </aside>
 
     
@@ -2806,7 +2856,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">434</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 </aside>
 
     
@@ -2855,7 +2905,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Slk.php"><a href="files/src-phpspreadsheet-reader-slk.html"><abbr title="src/PhpSpreadsheet/Reader/Slk.php">Slk.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">369</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 </aside>
 
     

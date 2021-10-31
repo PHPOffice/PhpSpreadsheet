@@ -156,7 +156,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</dd>
     <span>
                         &nbsp;: <abbr title="\Psr\SimpleCache\CacheInterface">CacheInterface</abbr>    </span>
 </dt>
-<dd>Gets the implementation of cache that should be used for cell collection.</dd>
+<dd>Gets the implementation of cache that is being used for cell collection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getChartRenderer">getChartRenderer()</a>
@@ -187,11 +187,25 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.</dd>
 <dd>Get default options for libxml loader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getLocale">getLocale()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getRequestFactory">getRequestFactory()</a>
     <span>
                         &nbsp;: <abbr title="\Psr\Http\Message\RequestFactoryInterface">RequestFactoryInterface</abbr>    </span>
 </dt>
 <dd>Get the HTTP request factory.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_htmlEntityFlags">htmlEntityFlags()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_setCache">setCache()</a>
@@ -419,7 +433,7 @@ SECURITY WARNING: Changing this flag is not recommended.</p>
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">$libXmlLoaderOptions</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
+    </code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -477,10 +491,10 @@ SECURITY WARNING: Changing this flag is not recommended.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Gets the implementation of cache that should be used for cell collection.</p>
+        <p class="phpdocumentor-summary">Gets the implementation of cache that is being used for cell collection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -511,7 +525,7 @@ SECURITY WARNING: Changing this flag is not recommended.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.</p>
@@ -547,7 +561,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">203</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the HTTP client implementation to be used for network request.</p>
@@ -581,7 +595,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the state of the entity loader (disabled/enabled) for libxml loader.</p>
@@ -616,7 +630,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get default options for libxml loader.</p>
@@ -645,6 +659,38 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getLocale">
+        getLocale()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getLocale" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getLocale</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getRequestFactory">
         getRequestFactory()
         <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getRequestFactory" class="headerlink"><i class="fas fa-link"></i></a>
@@ -652,7 +698,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the HTTP request factory.</p>
@@ -679,6 +725,38 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_htmlEntityFlags">
+        htmlEntityFlags()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_htmlEntityFlags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">102</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">htmlEntityFlags</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_setCache">
         setCache()
         <a href="classes/PhpOffice-PhpSpreadsheet-Settings.html#method_setCache" class="headerlink"><i class="fas fa-link"></i></a>
@@ -686,7 +764,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets the implementation of cache that should be used for cell collection.</p>
@@ -730,21 +808,21 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 </aside>
 
         <p class="phpdocumentor-summary">Identify to PhpSpreadsheet the external library to use for rendering charts.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setChartRenderer</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rendererClass</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setChartRenderer</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rendererClassName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$rendererClass</span>
+                <span class="phpdocumentor-signature__argument__name">$rendererClassName</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -777,7 +855,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the HTTP client implementation to be used for network request.</p>
@@ -828,7 +906,7 @@ eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 </aside>
 
         <p class="phpdocumentor-summary">Enable/Disable the entity loader for libxml loader.</p>
@@ -878,7 +956,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set default options for libxml loader.</p>
@@ -971,7 +1049,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 </aside>
 
         <p class="phpdocumentor-summary">Unset the HTTP client configuration.</p>
@@ -1005,7 +1083,7 @@ SECURITY WARNING: Changing this flag to false is not recommended.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Settings.php"><a href="files/src-phpspreadsheet-settings.html"><abbr title="src/PhpSpreadsheet/Settings.php">Settings.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 </aside>
 
     

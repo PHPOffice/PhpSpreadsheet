@@ -119,7 +119,7 @@
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-CodePage.html#property_pageArray">$pageArray</a>
     <span>
-                &nbsp;: mixed            </span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd></dd>
 
@@ -204,13 +204,13 @@ and mbstring understands.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/CodePage.php"><a href="files/src-phpspreadsheet-shared-codepage.html"><abbr title="src/PhpSpreadsheet/Shared/CodePage.php">CodePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$pageArray</span>
      = <span class="phpdocumentor-signature__default-value">[
     0 =&gt; &#039;CP1252&#039;,
@@ -306,7 +306,7 @@ and mbstring understands.</dd>
     //    Macintosh Ukraine
     10021 =&gt; &#039;MACTHAI&#039;,
     //    Macintosh Thai
-    10029 =&gt; &#039;MACCENTRALEUROPE&#039;,
+    10029 =&gt; [&#039;MACCENTRALEUROPE&#039;, &#039;MAC-CENTRALEUROPE&#039;],
     //    Macintosh Central Europe
     10079 =&gt; &#039;MACICELAND&#039;,
     //    Macintosh Icelandic
@@ -322,9 +322,12 @@ and mbstring understands.</dd>
     65000 =&gt; &#039;UTF-7&#039;,
     //    Unicode (UTF-7)
     65001 =&gt; &#039;UTF-8&#039;,
+    //    Unicode (UTF-8)
+    99999 =&gt; [&#039;unsupported&#039;],
 ]</span></code>
 
-    
+        <section class="phpdocumentor-description"></section>
+
     
 
 </article>
@@ -348,7 +351,7 @@ and mbstring understands.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/CodePage.php"><a href="files/src-phpspreadsheet-shared-codepage.html"><abbr title="src/PhpSpreadsheet/Shared/CodePage.php">CodePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 </aside>
 
     
@@ -380,7 +383,7 @@ and mbstring understands.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/CodePage.php"><a href="files/src-phpspreadsheet-shared-codepage.html"><abbr title="src/PhpSpreadsheet/Shared/CodePage.php">CodePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert Microsoft Code Page Identifier to Code Page Name which iconv
@@ -428,7 +431,7 @@ and mbstring understands.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/CodePage.php"><a href="files/src-phpspreadsheet-shared-codepage.html"><abbr title="src/PhpSpreadsheet/Shared/CodePage.php">CodePage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 </aside>
 
     
