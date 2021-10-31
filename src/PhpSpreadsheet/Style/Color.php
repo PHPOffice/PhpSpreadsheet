@@ -41,7 +41,7 @@ class Color extends Supervisor
     /**
      * ARGB - Alpha RGB.
      *
-     * @var string
+     * @var null|string
      */
     protected $argb;
 
@@ -135,7 +135,7 @@ class Color extends Supervisor
     /**
      * Get ARGB.
      */
-    public function getARGB(): string
+    public function getARGB(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getARGB();

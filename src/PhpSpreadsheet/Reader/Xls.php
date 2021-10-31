@@ -1154,19 +1154,19 @@ class Xls extends BaseReader
                                         $drawing->setOffsetY($offsetY);
 
                                         switch ($blipType) {
-                                    case BSE::BLIPTYPE_JPEG:
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
+                                            case BSE::BLIPTYPE_JPEG:
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
 
-                                        break;
-                                    case BSE::BLIPTYPE_PNG:
+                                                break;
+                                            case BSE::BLIPTYPE_PNG:
                                                 imagealphablending($ih, false);
                                                 imagesavealpha($ih, true);
-                                        $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
-                                        $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
+                                                $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
+                                                $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-                                        break;
-                                }
+                                                break;
+                                        }
 
                                         $drawing->setWorksheet($this->phpSheet);
                                         $drawing->setCoordinates($spContainer->getStartCoordinates());

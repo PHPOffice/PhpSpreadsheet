@@ -56,10 +56,10 @@ class Ods extends BaseReader
                     $mimeType = $zip->getFromName($stat['name']);
                 } elseif ($zip->statName('META-INF/manifest.xml')) {
                     $xml = simplexml_load_string(
-                    $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
-                    'SimpleXMLElement',
-                    Settings::getLibXmlLoaderOptions()
-                );
+                        $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
+                        'SimpleXMLElement',
+                        Settings::getLibXmlLoaderOptions()
+                    );
                     $namespacesContent = $xml->getNamespaces(true);
                     if (isset($namespacesContent['manifest'])) {
                         $manifest = $xml->children($namespacesContent['manifest']);

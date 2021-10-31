@@ -698,10 +698,10 @@ class Html extends BaseWriter
                 if ($imageResource) {
                     ob_start(); //  Let's start output buffering.
                     imagepng($imageResource); //  This will normally output the image, but because of ob_start(), it won't.
-                $contents = ob_get_contents(); //  Instead, output above is saved to $contents
-                ob_end_clean(); //  End the output buffer.
+                    $contents = ob_get_contents(); //  Instead, output above is saved to $contents
+                    ob_end_clean(); //  End the output buffer.
 
-                $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
+                    $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
 
                     //  Because of the nature of tables, width is more important than height.
                     //  max-width: 100% ensures that image doesnt overflow containing cell
@@ -1296,7 +1296,7 @@ class Html extends BaseWriter
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
             $formatCode = $worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
-            if ($formatCode) {
+            if ($formatCode !== null) {
                 $cellData = NumberFormat::toFormattedString(
                     $origData,
                     $formatCode,
