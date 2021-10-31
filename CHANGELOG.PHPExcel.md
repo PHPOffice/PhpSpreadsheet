@@ -1518,7 +1518,7 @@ documentation for more information on entering dates into a cell.
 ### Bugfixes
 
 - PHPExcel->removeSheetByIndex now re-orders sheets after deletion, so no array indexes are lost - @JV
-- PHPExcel_Writer_Excel2007_Worksheet::_writeCols() used direct assignment to $pSheet->getColumnDimension('A')->Width instead of ~~~~$pSheet->getColumnDimension('A')->setWidth() - @JV
+- PHPExcel_Writer_Excel2007_Worksheet::_writeCols() used direct assignment to $pSheet->getColumnDimension('A')->Width instead of $pSheet->getColumnDimension('A')->setWidth() - @JV
 - DocumentProperties used $this->LastModifiedBy instead of $this->_lastModifiedBy. - @JV
 
 ### General

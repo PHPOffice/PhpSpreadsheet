@@ -428,19 +428,6 @@ class Csv extends BaseReader
     }
 
     /**
-     * Scrutinizer believes, incorrectly, that the specific pathinfo
-     * call in canRead can return something other than an array.
-     * Phpstan knows better.
-     * This function satisfies both.
-     *
-     * @param mixed $extension
-     */
-    private static function extractStringLower($extension): string
-    {
-        return is_string($extension) ? strtolower($extension) : '';
-    }
-
-    /**
      * Can the current IReader read the file?
      */
     public function canRead(string $filename): bool

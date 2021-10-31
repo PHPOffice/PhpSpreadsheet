@@ -143,7 +143,7 @@ class Drawing
      */
     public static function angleToDegrees($angle)
     {
-        $pValue = (int) $angle;
+        $angle = (int) $angle;
         if ($angle != 0) {
             return (int) round($angle / 60000);
         }

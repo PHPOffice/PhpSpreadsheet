@@ -156,24 +156,24 @@ abstract class Coordinate
     /**
      * Build range from coordinate strings.
      *
-     * @param array $rangea Array containg one or more arrays containing one or two coordinate strings
+     * @param array $range Array containing one or more arrays containing one or two coordinate strings
      *
      * @return string String representation of $pRange
      */
-    public static function buildRange(array $rangea)
+    public static function buildRange(array $range)
     {
         // Verify range
-        if (empty($rangea) || !is_array($rangea[0])) {
+        if (empty($range) || !is_array($range[0])) {
             throw new Exception('Range does not contain any information');
         }
 
         // Build range
-        $counter = count($rangea);
+        $counter = count($range);
         for ($i = 0; $i < $counter; ++$i) {
-            $rangea[$i] = implode(':', $rangea[$i]);
+            $range[$i] = implode(':', $range[$i]);
         }
 
-        return implode(',', $rangea);
+        return implode(',', $range);
     }
 
     /**

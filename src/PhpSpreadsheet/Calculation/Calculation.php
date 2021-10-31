@@ -4724,7 +4724,7 @@ class Calculation
                     }
                 } else {
                     if ($pCell === null) {
-                        //                        We can't access the cell, so return a REF error
+                        // We can't access the cell, so return a REF error
                         $cellValue = Functions::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
@@ -5307,7 +5307,6 @@ class Calculation
         $returnValue = [];
 
         if ($worksheet !== null) {
-            $worksheetName = $worksheet->getTitle();
             if (strpos($range, '!') !== false) {
                 [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
                 $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
