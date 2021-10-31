@@ -135,6 +135,7 @@ class LUDecomposition
      */
     public function getL()
     {
+        $L = [];
         for ($i = 0; $i < $this->m; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i > $j) {
@@ -159,6 +160,7 @@ class LUDecomposition
      */
     public function getU()
     {
+        $U = [];
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i <= $j) {
@@ -219,7 +221,7 @@ class LUDecomposition
     /**
      * Count determinants.
      *
-     * @return array d matrix deterninat
+     * @return float
      */
     public function det()
     {
@@ -240,11 +242,11 @@ class LUDecomposition
     /**
      * Solve A*X = B.
      *
-     * @param mixed $B a Matrix with as many rows as A and any number of columns
+     * @param Matrix $B a Matrix with as many rows as A and any number of columns
      *
      * @return Matrix X so that L*U*X = B(piv,:)
      */
-    public function solve($B)
+    public function solve(Matrix $B)
     {
         if ($B->getRowDimension() == $this->m) {
             if ($this->isNonsingular()) {

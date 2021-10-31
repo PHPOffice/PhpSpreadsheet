@@ -24,7 +24,7 @@ class ColumnsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOLUMNS()
+    public function providerCOLUMNS(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }

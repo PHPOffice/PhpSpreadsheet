@@ -55,7 +55,7 @@ class Spreadsheet
     /**
      * Calculation Engine.
      *
-     * @var Calculation
+     * @var null|Calculation
      */
     private $calculationEngine;
 
@@ -69,7 +69,7 @@ class Spreadsheet
     /**
      * Named ranges.
      *
-     * @var NamedRange[]
+     * @var DefinedName[]
      */
     private $definedNames = [];
 
@@ -104,21 +104,21 @@ class Spreadsheet
     /**
      * macrosCode : all macros code as binary data (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
      *
-     * @var string
+     * @var null|string
      */
     private $macrosCode;
 
     /**
      * macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.
      *
-     * @var string
+     * @var null|string
      */
     private $macrosCertificate;
 
     /**
      * ribbonXMLData : null if workbook is'nt Excel 2007 or not contain a customized UI.
      *
-     * @var null|string
+     * @var null|array{target: string, data: string}
      */
     private $ribbonXMLData;
 
@@ -298,11 +298,9 @@ class Spreadsheet
     /**
      * retrieve ribbon XML Data.
      *
-     * return string|null|array
-     *
      * @param string $what
      *
-     * @return string
+     * @return null|array|string
      */
     public function getRibbonXMLData($what = 'all') //we need some constants here...
     {
@@ -373,7 +371,9 @@ class Spreadsheet
      */
     private function getExtensionOnly($path)
     {
-        return pathinfo($path, PATHINFO_EXTENSION);
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+        return is_array($extension) ? '' : $extension;
     }
 
     /**
@@ -453,7 +453,7 @@ class Spreadsheet
      *
      * @param string $codeName Sheet name
      *
-     * @return Worksheet
+     * @return null|Worksheet
      */
     public function getSheetByCodeName($codeName)
     {
@@ -503,8 +503,10 @@ class Spreadsheet
      */
     public function __destruct()
     {
-        $this->calculationEngine = null;
         $this->disconnectWorksheets();
+        $this->calculationEngine = null;
+        $this->cellXfCollection = [];
+        $this->cellStyleXfCollection = [];
     }
 
     /**
@@ -513,19 +515,17 @@ class Spreadsheet
      */
     public function disconnectWorksheets(): void
     {
-        $worksheet = null;
-        foreach ($this->workSheetCollection as $k => &$worksheet) {
+        foreach ($this->workSheetCollection as $worksheet) {
             $worksheet->disconnectCells();
-            $this->workSheetCollection[$k] = null;
+            unset($worksheet);
         }
-        unset($worksheet);
         $this->workSheetCollection = [];
     }
 
     /**
      * Return the calculation engine for this worksheet.
      *
-     * @return Calculation
+     * @return null|Calculation
      */
     public function getCalculationEngine()
     {
@@ -748,7 +748,7 @@ class Spreadsheet
     public function setIndexByName($worksheetName, $newIndexPosition)
     {
         $oldIndex = $this->getIndex($this->getSheetByName($worksheetName));
-        $pSheet = array_splice(
+        $worksheet = array_splice(
             $this->workSheetCollection,
             $oldIndex,
             1
@@ -757,7 +757,7 @@ class Spreadsheet
             $this->workSheetCollection,
             $newIndexPosition,
             0,
-            $pSheet
+            $worksheet
         );
 
         return $newIndexPosition;
@@ -875,7 +875,7 @@ class Spreadsheet
     /**
      * Get an array of all Named Ranges.
      *
-     * @return NamedRange[]
+     * @return DefinedName[]
      */
     public function getNamedRanges(): array
     {
@@ -890,7 +890,7 @@ class Spreadsheet
     /**
      * Get an array of all Named Formulae.
      *
-     * @return NamedFormula[]
+     * @return DefinedName[]
      */
     public function getNamedFormulae(): array
     {
@@ -995,13 +995,13 @@ class Spreadsheet
         return null;
     }
 
-    private function getLocalDefinedNameByType(string $name, bool $type, ?Worksheet $pSheet = null): ?DefinedName
+    private function getLocalDefinedNameByType(string $name, bool $type, ?Worksheet $worksheet = null): ?DefinedName
     {
         if (
-            ($pSheet !== null) && isset($this->definedNames[$pSheet->getTitle() . '!' . $name])
-            && $this->definedNames[$pSheet->getTitle() . '!' . $name]->isFormula() === $type
+            ($worksheet !== null) && isset($this->definedNames[$worksheet->getTitle() . '!' . $name])
+            && $this->definedNames[$worksheet->getTitle() . '!' . $name]->isFormula() === $type
         ) {
-            return $this->definedNames[$pSheet->getTitle() . '!' . $name];
+            return $this->definedNames[$worksheet->getTitle() . '!' . $name];
         }
 
         return null;
@@ -1123,6 +1123,7 @@ class Spreadsheet
      */
     public function __clone()
     {
+        // @phpstan-ignore-next-line
         foreach ($this as $key => $val) {
             if (is_object($val) || (is_array($val))) {
                 $this->{$key} = unserialize(serialize($val));
@@ -1342,6 +1343,7 @@ class Spreadsheet
         // remove cellXfs without references and create mapping so we can update xfIndex
         // for all cells and columns
         $countNeededCellXfs = 0;
+        $map = [];
         foreach ($this->cellXfCollection as $index => $cellXf) {
             if ($countReferencesCellXf[$index] > 0 || $index == 0) { // we must never remove the first cellXf
                 ++$countNeededCellXfs;

@@ -684,7 +684,7 @@ class Html
         $this->stringData = '';
     }
 
-    protected function rgbToColour($rgbValue)
+    protected function rgbToColour(string $rgbValue): string
     {
         preg_match_all('/\d+/', $rgbValue, $values);
         foreach ($values[0] as &$value) {
@@ -711,7 +711,7 @@ class Html
                 } elseif (strpos(trim($attributeValue), '#') === 0) {
                     $this->$attributeName = ltrim($attributeValue, '#');
                 } else {
-                    $this->$attributeName = $this->colourNameLookup($attributeValue);
+                    $this->$attributeName = static::colourNameLookup($attributeValue);
                 }
             } else {
                 $this->$attributeName = $attributeValue;

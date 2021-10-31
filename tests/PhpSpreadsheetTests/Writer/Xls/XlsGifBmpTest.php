@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -9,6 +10,9 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XlsGifBmpTest extends AbstractFunctional
 {
+    /**
+     * @var string
+     */
     private $filename = '';
 
     protected function tearDown(): void
@@ -21,7 +25,7 @@ class XlsGifBmpTest extends AbstractFunctional
 
     public function testBmp(): void
     {
-        $pgmstart = time();
+        $pgmstart = (float) (new DateTime())->format('U');
         $spreadsheet = new Spreadsheet();
         $filstart = $spreadsheet->getProperties()->getModified();
         self::assertLessThanOrEqual($filstart, $pgmstart);
@@ -38,15 +42,15 @@ class XlsGifBmpTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
         $creationDatestamp = $reloadedSpreadsheet->getProperties()->getCreated();
         $filstart = $creationDatestamp;
-        $pSheet = $reloadedSpreadsheet->getActiveSheet();
-        $drawings = $pSheet->getDrawingCollection();
+        $worksheet = $reloadedSpreadsheet->getActiveSheet();
+        $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        foreach ($pSheet->getDrawingCollection() as $drawing) {
+        foreach ($worksheet->getDrawingCollection() as $drawing) {
             // See if Scrutinizer approves this
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
-        $pgmend = time();
+        $pgmend = (float) (new DateTime())->format('U');
 
         self::assertLessThanOrEqual($pgmend, $pgmstart);
         self::assertLessThanOrEqual($pgmend, $filstart);
@@ -67,10 +71,10 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing->setCoordinates('A1');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
-        $pSheet = $reloadedSpreadsheet->getActiveSheet();
-        $drawings = $pSheet->getDrawingCollection();
+        $worksheet = $reloadedSpreadsheet->getActiveSheet();
+        $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        foreach ($pSheet->getDrawingCollection() as $drawing) {
+        foreach ($worksheet->getDrawingCollection() as $drawing) {
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }

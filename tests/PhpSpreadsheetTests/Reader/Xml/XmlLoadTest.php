@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PHPUnit\Framework\TestCase;
 
 class XmlLoadTest extends TestCase
@@ -21,8 +23,17 @@ class XmlLoadTest extends TestCase
         self::assertEquals('BCD', $sheet->getCell('A4')->getValue());
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
+        $creationDate = $props->getCreated();
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        self::assertEquals('2010-09-02T20:48:39Z', $result);
+        $creationDate = $props->getModified();
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        self::assertEquals('2010-09-03T21:48:39Z', $result);
         self::assertEquals('AbCd1234', $props->getCustomPropertyValue('my_API_Token'));
         self::assertEquals('2', $props->getCustomPropertyValue('myאInt'));
+        $creationDate = $props->getCustomPropertyValue('my_API_Token_Expiry');
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        self::assertEquals('2019-01-31T07:00:00Z', $result);
 
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Sample Data', $sheet->getTitle());
@@ -36,6 +47,10 @@ class XmlLoadTest extends TestCase
         self::assertEquals('# ?0/??0', $sheet->getCell('A11')->getStyle()->getNumberFormat()->getFormatCode());
         // Same pattern, same value, different display in Gnumeric vs Excel
         //self::assertEquals('1 1/2', $sheet->getCell('A11')->getFormattedValue());
+        self::assertEquals('hh":"mm":"ss', $sheet->getCell('A13')->getStyle()->getNumberFormat()->getFormatCode());
+        self::assertEquals('02:30:00', $sheet->getCell('A13')->getFormattedValue());
+        self::assertEquals('d/m/yy hh":"mm', $sheet->getCell('A15')->getStyle()->getNumberFormat()->getFormatCode());
+        self::assertEquals('19/12/60 01:30', $sheet->getCell('A15')->getFormattedValue());
 
         self::assertEquals('=B1+C1', $sheet->getCell('H1')->getValue());
         self::assertEquals('=E2&F2', $sheet->getCell('J2')->getValue());

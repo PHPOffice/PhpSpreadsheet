@@ -24,7 +24,7 @@ class OrTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerOR()
+    public function providerOR(): array
     {
         return require 'tests/data/Calculation/Logical/OR.php';
     }

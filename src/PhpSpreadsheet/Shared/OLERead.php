@@ -92,10 +92,8 @@ class OLERead
 
     /**
      * Read the file.
-     *
-     * @param $filename string Filename
      */
-    public function read($filename): void
+    public function read(string $filename): void
     {
         File::assertFile($filename);
 
@@ -190,7 +188,7 @@ class OLERead
      *
      * @param int $stream
      *
-     * @return string
+     * @return null|string
      */
     public function getStream($stream)
     {

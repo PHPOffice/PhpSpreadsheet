@@ -16,6 +16,22 @@ use PHPUnit\Framework\TestCase;
 class OdsTest extends TestCase
 {
     /**
+     * @var string
+     */
+    private $timeZone;
+
+    protected function setUp(): void
+    {
+        $this->timeZone = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+    }
+
+    protected function tearDown(): void
+    {
+        date_default_timezone_set($this->timeZone);
+    }
+
+    /**
      * @var Spreadsheet
      */
     private $spreadsheetOdsTest;
@@ -30,7 +46,7 @@ class OdsTest extends TestCase
      */
     private function loadOdsTestFile()
     {
-        if (!$this->spreadsheetOdsTest) {
+        if (!isset($this->spreadsheetOdsTest)) {
             $filename = 'samples/templates/OOCalcTest.ods';
 
             // Load into this instance
@@ -46,7 +62,7 @@ class OdsTest extends TestCase
      */
     protected function loadDataFile()
     {
-        if (!$this->spreadsheetData) {
+        if (!isset($this->spreadsheetData)) {
             $filename = 'tests/data/Reader/Ods/data.ods';
 
             // Load into this instance
@@ -86,6 +102,20 @@ class OdsTest extends TestCase
         self::assertEquals(1, $spreadsheet->getSheetCount());
 
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
+    }
+
+    public function testLoadOneWorksheetNotActive(): void
+    {
+        $filename = 'tests/data/Reader/Ods/data.ods';
+
+        // Load into this instance
+        $reader = new Ods();
+        $reader->setLoadSheetsOnly(['Second Sheet']);
+        $spreadsheet = $reader->load($filename);
+
+        self::assertEquals(1, $spreadsheet->getSheetCount());
+
+        self::assertEquals('Second Sheet', $spreadsheet->getSheet(0)->getTitle());
     }
 
     public function testLoadBadFile(): void
@@ -153,13 +183,13 @@ class OdsTest extends TestCase
         self::assertEquals(0, $firstSheet->getCell('G10')->getValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A10')->getDataType()); // Date
-        self::assertEquals(22269.0, $firstSheet->getCell('A10')->getValue());
+        self::assertEquals('19-Dec-60', $firstSheet->getCell('A10')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A13')->getDataType()); // Time
-        self::assertEquals(25569.0625, $firstSheet->getCell('A13')->getValue());
+        self::assertEquals('2:30:00', $firstSheet->getCell('A13')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A15')->getDataType()); // Date + Time
-        self::assertEquals(22269.0625, $firstSheet->getCell('A15')->getValue());
+        self::assertEquals('19-Dec-60 1:30:00', $firstSheet->getCell('A15')->getFormattedValue());
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A11')->getDataType()); // Fraction
 
@@ -259,47 +289,5 @@ class OdsTest extends TestCase
         $style = $firstSheet->getCell('E1')->getStyle();
         self::assertTrue($style->getFont()->getBold());
         self::assertTrue($style->getFont()->getItalic());
-    }
-
-    public function testLoadOdsWorkbookProperties(): void
-    {
-        $customPropertySet = [
-            'Owner' => ['type' => Properties::PROPERTY_TYPE_STRING, 'value' => 'PHPOffice'],
-            'Tested' => ['type' => Properties::PROPERTY_TYPE_BOOLEAN, 'value' => true],
-            'Counter' => ['type' => Properties::PROPERTY_TYPE_FLOAT, 'value' => 10.0],
-            'TestDate' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-30'],
-            'HereAndNow' => ['type' => Properties::PROPERTY_TYPE_DATE, 'value' => '2019-06-30'],
-        ];
-
-        $filename = 'tests/data/Reader/Ods/propertyTest.ods';
-        $reader = new Ods();
-        $spreadsheet = $reader->load($filename);
-
-        $properties = $spreadsheet->getProperties();
-        // Core Properties
-//        self::assertSame('Mark Baker', $properties->getCreator());
-        self::assertSame('Property Test File', $properties->getTitle());
-        self::assertSame('Testing for Properties', $properties->getSubject());
-        self::assertSame('TEST ODS PHPSpreadsheet', $properties->getKeywords());
-
-        // Extended Properties
-//        self::assertSame('PHPOffice', $properties->getCompany());
-//        self::assertSame('The Big Boss', $properties->getManager());
-
-        // Custom Properties
-        $customProperties = $properties->getCustomProperties();
-        self::assertIsArray($customProperties);
-        $customProperties = array_flip($customProperties);
-        self::assertArrayHasKey('TestDate', $customProperties);
-
-        foreach ($customPropertySet as $propertyName => $testData) {
-            self::assertTrue($properties->isCustomPropertySet($propertyName));
-            self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
-            if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
-                self::assertSame($testData['value'], date('Y-m-d', $properties->getCustomPropertyValue($propertyName)));
-            } else {
-                self::assertSame($testData['value'], $properties->getCustomPropertyValue($propertyName));
-            }
-        }
     }
 }

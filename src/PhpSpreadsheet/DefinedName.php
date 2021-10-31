@@ -241,9 +241,18 @@ abstract class DefinedName
     /**
      * Resolve a named range to a regular cell range or formula.
      */
-    public static function resolveName(string $definedName, Worksheet $worksheet): ?self
+    public static function resolveName(string $definedName, Worksheet $worksheet, string $sheetName = ''): ?self
     {
-        return $worksheet->getParent()->getDefinedName($definedName, $worksheet);
+        if ($sheetName === '') {
+            $worksheet2 = $worksheet;
+        } else {
+            $worksheet2 = $worksheet->getParent()->getSheetByName($sheetName);
+            if ($worksheet2 === null) {
+                return null;
+            }
+        }
+
+        return $worksheet->getParent()->getDefinedName($definedName, $worksheet2);
     }
 
     /**

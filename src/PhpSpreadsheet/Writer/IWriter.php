@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 interface IWriter
 {
+    public const SAVE_WITH_CHARTS = 1;
+
     /**
      * IWriter constructor.
      *
@@ -61,7 +63,7 @@ interface IWriter
      *
      * @param resource|string $filename Name of the file to save
      */
-    public function save($filename);
+    public function save($filename, int $flags = 0): void;
 
     /**
      * Get use disk caching where possible?

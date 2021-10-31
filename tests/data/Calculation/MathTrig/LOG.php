@@ -341,4 +341,5 @@ return [
         200,
         3,
     ],
+    ['exception'],
 ];

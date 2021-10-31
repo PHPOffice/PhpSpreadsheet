@@ -2,12 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+/**
+ * @template T of IComparable
+ */
 class HashTable
 {
     /**
      * HashTable elements.
      *
-     * @var array<string, IComparable>
+     * @var array<string, T>
      */
     protected $items = [];
 
@@ -21,7 +24,7 @@ class HashTable
     /**
      * Create a new HashTable.
      *
-     * @param IComparable[] $source Optional source array to create HashTable from
+     * @param T[] $source Optional source array to create HashTable from
      */
     public function __construct($source = null)
     {
@@ -34,7 +37,7 @@ class HashTable
     /**
      * Add HashTable items from source.
      *
-     * @param IComparable[] $source Source array to create HashTable from
+     * @param T[] $source Source array to create HashTable from
      */
     public function addFromSource(?array $source = null): void
     {
@@ -51,7 +54,7 @@ class HashTable
     /**
      * Add HashTable item.
      *
-     * @param IComparable $source Item to add
+     * @param T $source Item to add
      */
     public function add(IComparable $source): void
     {
@@ -65,7 +68,7 @@ class HashTable
     /**
      * Remove HashTable item.
      *
-     * @param IComparable $source Item to remove
+     * @param T $source Item to remove
      */
     public function remove(IComparable $source): void
     {
@@ -109,7 +112,7 @@ class HashTable
     /**
      * Get index for hash code.
      *
-     * @return false|int|string Index (return should never be a string, but scrutinizer refuses to recognise that)
+     * @return false|int Index
      */
     public function getIndexForHashCode(string $hashCode)
     {
@@ -119,7 +122,7 @@ class HashTable
     /**
      * Get by index.
      *
-     * @return IComparable
+     * @return null|T
      */
     public function getByIndex(int $index)
     {
@@ -133,7 +136,7 @@ class HashTable
     /**
      * Get by hashcode.
      *
-     * @return IComparable
+     * @return null|T
      */
     public function getByHashCode(string $hashCode)
     {
@@ -147,7 +150,7 @@ class HashTable
     /**
      * HashTable to array.
      *
-     * @return IComparable[]
+     * @return T[]
      */
     public function toArray()
     {
@@ -161,8 +164,15 @@ class HashTable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
+            // each member of this class is an array
+            if (is_array($value)) {
+                $array1 = $value;
+                foreach ($array1 as $key1 => $value1) {
+                    if (is_object($value1)) {
+                        $array1[$key1] = clone $value1;
+                    }
+                }
+                $this->$key = $array1;
             }
         }
     }

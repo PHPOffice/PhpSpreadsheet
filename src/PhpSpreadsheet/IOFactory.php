@@ -67,13 +67,15 @@ abstract class IOFactory
     }
 
     /**
-     * Loads Spreadsheet from file using automatic IReader resolution.
+     * Loads Spreadsheet from file using automatic Reader\IReader resolution.
+     *
+     * @param string $filename The name of the spreadsheet file
      */
-    public static function load(string $filename): Spreadsheet
+    public static function load(string $filename, int $flags = 0): Spreadsheet
     {
         $reader = self::createReaderForFile($filename);
 
-        return $reader->load($filename);
+        return $reader->load($filename, $flags);
     }
 
     /**
@@ -102,7 +104,7 @@ abstract class IOFactory
             $reader = self::createReader($guessedReader);
 
             // Let's see if we are lucky
-            if (isset($reader) && $reader->canRead($filename)) {
+            if ($reader->canRead($filename)) {
                 return $reader;
             }
         }

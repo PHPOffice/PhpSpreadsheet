@@ -69,4 +69,5 @@ return [
         0x2020,
         '†',
     ],
+    'omitted argument' => ['exception'],
 ];

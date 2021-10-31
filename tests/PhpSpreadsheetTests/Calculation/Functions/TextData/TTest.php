@@ -11,7 +11,7 @@ class TTest extends TestCase
      * @dataProvider providerT
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testT($expectedResult, $value): void
     {
@@ -19,7 +19,7 @@ class TTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerT()
+    public function providerT(): array
     {
         return require 'tests/data/Calculation/TextData/T.php';
     }

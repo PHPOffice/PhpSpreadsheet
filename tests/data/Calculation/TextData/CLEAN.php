@@ -6,6 +6,10 @@ return [
         'HELLO      ',
     ],
     [
+        ' HELLO ',
+        ' HELLO ',
+    ],
+    [
         'HELLO',
         '	HELLO',
     ],
@@ -21,4 +25,5 @@ return [
         null,
         null,
     ],
+    'omitted argument' => ['exception'],
 ];

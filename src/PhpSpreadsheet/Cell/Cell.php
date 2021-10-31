@@ -78,6 +78,7 @@ class Cell
 
     public function detach(): void
     {
+        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 
@@ -252,9 +253,11 @@ class Cell
         if ($this->dataType == DataType::TYPE_FORMULA) {
             try {
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
+                $selected = $this->getWorksheet()->getSelectedCells();
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
+                $this->getWorksheet()->setSelectedCells($selected);
                 $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
                 //    We don't yet handle array returns
                 if (is_array($result)) {
@@ -265,7 +268,7 @@ class Cell
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
-                } elseif (strpos($ex->getMessage(), 'undefined name') !== false) {
+                } elseif (preg_match('/[Uu]ndefined (name|offset: 2|array key 2)/', $ex->getMessage()) === 1) {
                     return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
                 }
 

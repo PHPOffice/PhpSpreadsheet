@@ -2,24 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
-
-class LenTest extends TestCase
+class LenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $str
      */
-    public function testLEN($expectedResult, $value): void
+    public function testLEN($expectedResult, $str = 'omitted'): void
     {
-        $result = TextData::STRINGLENGTH($value);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($str === 'omitted') {
+            $sheet->getCell('B1')->setValue('=LEN()');
+        } else {
+            $this->setCell('A1', $str);
+            $sheet->getCell('B1')->setValue('=LEN(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEN()
+    public function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
     }

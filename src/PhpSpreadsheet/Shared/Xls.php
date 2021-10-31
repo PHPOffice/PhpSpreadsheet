@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Xls
@@ -76,12 +77,11 @@ class Xls
         } elseif ($worksheet->getDefaultRowDimension()->getRowHeight() != -1) {
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $worksheet->getDefaultRowDimension();
-            $rowHeight = $defaultRowDimension->getRowHeight();
-            $pixelRowHeight = Drawing::pointsToPixels((int) $rowHeight);
+            $pixelRowHeight = $defaultRowDimension->getRowHeight(Dimension::UOM_PIXELS);
         } else {
             // we don't even have any default row dimension. Height depends on default font
             $pointRowHeight = Font::getDefaultRowHeightByFont($font);
-            $pixelRowHeight = Font::fontSizeToPixels($pointRowHeight);
+            $pixelRowHeight = Font::fontSizeToPixels((int) $pointRowHeight);
         }
 
         // now find the effective row height in pixels
@@ -91,7 +91,7 @@ class Xls
             $effectivePixelRowHeight = $pixelRowHeight;
         }
 
-        return $effectivePixelRowHeight;
+        return (int) $effectivePixelRowHeight;
     }
 
     /**
@@ -204,12 +204,11 @@ class Xls
      * @param int $width Width in pixels
      * @param int $height Height in pixels
      *
-     * @return array
+     * @return null|array
      */
     public static function oneAnchor2twoAnchor(Worksheet $worksheet, $coordinates, $offsetX, $offsetY, $width, $height)
     {
-        [$column, $row] = Coordinate::coordinateFromString($coordinates);
-        $col_start = Coordinate::columnIndexFromString($column);
+        [$col_start, $row] = Coordinate::indexesFromString($coordinates);
         $row_start = $row - 1;
 
         $x1 = $offsetX;
@@ -245,16 +244,16 @@ class Xls
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero height or width.
         if (self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_start)) == 0) {
-            return;
+            return null;
         }
         if (self::sizeCol($worksheet, Coordinate::stringFromColumnIndex($col_end)) == 0) {
-            return;
+            return null;
         }
         if (self::sizeRow($worksheet, $row_start + 1) == 0) {
-            return;
+            return null;
         }
         if (self::sizeRow($worksheet, $row_end + 1) == 0) {
-            return;
+            return null;
         }
 
         // Convert the pixel values to the percentage value expected by Excel

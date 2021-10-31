@@ -89,7 +89,7 @@ php vendor/phpoffice/phpspreadsheet/samples/Basic/01_Simple.php
 
 ## Learn by documentation
 
-For more in-depth documentation, you may read about an [overview of the
+For more documentation in depth, you may read about an [overview of the
 architecture](./topics/architecture.md),
 [creating a spreadsheet](./topics/creating-spreadsheet.md),
 [worksheets](./topics/worksheets.md),

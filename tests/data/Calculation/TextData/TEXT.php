@@ -66,4 +66,7 @@ return [
         1.75,
         '# ?/?',
     ],
+    'no arguments' => ['exception'],
+    'one argument' => ['exception', 1.75],
+    'boolean in lieu of string' => ['TRUE', true, '@'],
 ];

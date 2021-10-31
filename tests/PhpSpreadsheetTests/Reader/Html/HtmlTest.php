@@ -20,22 +20,22 @@ class HtmlTest extends TestCase
 
     public function testBadHtml(): void
     {
-        $this->expectException(ReaderException::class);
         $filename = 'tests/data/Reader/HTML/badhtml.html';
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
+
+        $this->expectException(ReaderException::class);
         $reader->load($filename);
-        self::assertTrue(false);
     }
 
     public function testNonHtml(): void
     {
-        $this->expectException(ReaderException::class);
         $filename = __FILE__;
         $reader = new Html();
         self::assertFalse($reader->canRead($filename));
+
+        $this->expectException(ReaderException::class);
         $reader->load($filename);
-        self::assertTrue(false);
     }
 
     public function testInvalidFilename(): void
@@ -45,7 +45,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead(''));
     }
 
-    public function providerCanReadVerySmallFile()
+    public function providerCanReadVerySmallFile(): array
     {
         $padding = str_repeat('a', 2048);
 
@@ -136,6 +136,7 @@ class HtmlTest extends TestCase
                     <tr>
                         <td width="50">50px</td>
                         <td style="width: 100px;">100px</td>
+                        <td width="50px">50px</td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
@@ -143,10 +144,16 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getColumnDimension('A');
+        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getWidth());
 
         $dimension = $firstSheet->getColumnDimension('B');
-        self::assertEquals(100, $dimension->getWidth());
+        self::assertNotNull($dimension);
+        self::assertEquals(100, $dimension->getWidth('px'));
+
+        $dimension = $firstSheet->getColumnDimension('C');
+        self::assertNotNull($dimension);
+        self::assertEquals(50, $dimension->getWidth('px'));
     }
 
     public function testCanApplyInlineHeight(): void
@@ -158,16 +165,25 @@ class HtmlTest extends TestCase
                     <tr>
                         <td style="height: 100px;">2</td>
                     </tr>
+                    <tr>
+                        <td height="50px">1</td>
+                    </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
         $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $dimension = $firstSheet->getRowDimension(1);
+        self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getRowHeight());
 
         $dimension = $firstSheet->getRowDimension(2);
-        self::assertEquals(100, $dimension->getRowHeight());
+        self::assertNotNull($dimension);
+        self::assertEquals(100, $dimension->getRowHeight('px'));
+
+        $dimension = $firstSheet->getRowDimension(3);
+        self::assertNotNull($dimension);
+        self::assertEquals(50, $dimension->getRowHeight('px'));
     }
 
     public function testCanApplyAlignment(): void

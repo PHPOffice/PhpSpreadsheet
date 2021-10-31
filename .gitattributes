@@ -3,12 +3,12 @@
 /.github export-ignore
 /.gitignore export-ignore
 /.php_cs.dist export-ignore
-/.sami.php export-ignore
 /.scrutinizer.yml export-ignore
 /CHANGELOG.PHPExcel.md export-ignore
 /bin export-ignore
 /composer.lock export-ignore
 /docs export-ignore
+/infra export-ignore
 /mkdocs.yml export-ignore
 /phpunit.xml.dist export-ignore
 /samples export-ignore

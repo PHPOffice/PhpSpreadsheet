@@ -291,9 +291,9 @@ class GridLines extends Properties
         $this->activateObject()
             ->setShadowPresetsProperties((int) $presets)
             ->setShadowColor(
-                $colorValue === null ? $this->shadowProperties['color']['value'] : $colorValue,
-                $colorAlpha === null ? $this->shadowProperties['color']['alpha'] : $this->getTrueAlpha($colorAlpha),
-                $colorType === null ? $this->shadowProperties['color']['type'] : $colorType
+                $colorValue ?? $this->shadowProperties['color']['value'],
+                $colorAlpha === null ? (int) $this->shadowProperties['color']['alpha'] : $this->getTrueAlpha($colorAlpha),
+                $colorType ?? $this->shadowProperties['color']['type']
             )
             ->setShadowBlur((float) $blur)
             ->setShadowAngle($angle)
@@ -318,7 +318,7 @@ class GridLines extends Properties
     /**
      * Set Shadow Properties Values.
      *
-     * @param mixed &$reference
+     * @param mixed $reference
      *
      * @return $this
      */

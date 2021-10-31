@@ -6,6 +6,18 @@ return [
         'MARK BAKER',
     ],
     [
+        'Buenos Días',
+        'BUENOS DÍAS',
+    ],
+    [
+        'Καλημερα',
+        'ΚΑΛΗΜΕΡΑ',
+    ],
+    [
+        'Доброе Утро',
+        'ДОБРОЕ УТРО',
+    ],
+    [
         'True',
         true,
     ],
@@ -13,4 +25,5 @@ return [
         'False',
         false,
     ],
+    'no argument' => ['exception'],
 ];

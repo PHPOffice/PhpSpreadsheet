@@ -26,6 +26,7 @@ class DefaultValueBinder implements IValueBinder
             if ($value instanceof DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof RichText)) {
+                // Attempt to cast any unexpected objects to string
                 $value = (string) $value;
             }
         }
@@ -40,39 +41,39 @@ class DefaultValueBinder implements IValueBinder
     /**
      * DataType for value.
      *
-     * @param mixed $pValue
+     * @param mixed $value
      *
      * @return string
      */
-    public static function dataTypeForValue($pValue)
+    public static function dataTypeForValue($value)
     {
         // Match the value against a few data types
-        if ($pValue === null) {
+        if ($value === null) {
             return DataType::TYPE_NULL;
-        } elseif (is_float($pValue) || is_int($pValue)) {
+        } elseif (is_float($value) || is_int($value)) {
             return DataType::TYPE_NUMERIC;
-        } elseif (is_bool($pValue)) {
+        } elseif (is_bool($value)) {
             return DataType::TYPE_BOOL;
-        } elseif ($pValue === '') {
+        } elseif ($value === '') {
             return DataType::TYPE_STRING;
-        } elseif ($pValue instanceof RichText) {
+        } elseif ($value instanceof RichText) {
             return DataType::TYPE_INLINE;
-        } elseif (is_string($pValue) && $pValue[0] === '=' && strlen($pValue) > 1) {
+        } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
             return DataType::TYPE_FORMULA;
-        } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $pValue)) {
-            $tValue = ltrim($pValue, '+-');
-            if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
+        } elseif (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $value)) {
+            $tValue = ltrim($value, '+-');
+            if (is_string($value) && strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
+            } elseif ((strpos($value, '.') === false) && ($value > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;
-            } elseif (!is_numeric($pValue)) {
+            } elseif (!is_numeric($value)) {
                 return DataType::TYPE_STRING;
             }
 
             return DataType::TYPE_NUMERIC;
-        } elseif (is_string($pValue)) {
+        } elseif (is_string($value)) {
             $errorCodes = DataType::getErrorCodes();
-            if (isset($errorCodes[$pValue])) {
+            if (isset($errorCodes[$value])) {
                 return DataType::TYPE_ERROR;
             }
         }

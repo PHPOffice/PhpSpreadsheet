@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
+
 class RowDimension extends Dimension
 {
     /**
@@ -43,10 +45,8 @@ class RowDimension extends Dimension
 
     /**
      * Get Row Index.
-     *
-     * @return int
      */
-    public function getRowIndex()
+    public function getRowIndex(): int
     {
         return $this->rowIndex;
     }
@@ -54,47 +54,51 @@ class RowDimension extends Dimension
     /**
      * Set Row Index.
      *
-     * @param int $pValue
-     *
      * @return $this
      */
-    public function setRowIndex($pValue)
+    public function setRowIndex(int $index)
     {
-        $this->rowIndex = $pValue;
+        $this->rowIndex = $index;
 
         return $this;
     }
 
     /**
      * Get Row Height.
+     * By default, this will be in points; but this method accepts a unit of measure
+     *    argument, and will convert the value to the specified UoM.
      *
      * @return float
      */
-    public function getRowHeight()
+    public function getRowHeight(?string $unitOfMeasure = null)
     {
-        return $this->height;
+        return ($unitOfMeasure === null || $this->height < 0)
+            ? $this->height
+            : (new CssDimension($this->height . CssDimension::UOM_POINTS))->toUnit($unitOfMeasure);
     }
 
     /**
      * Set Row Height.
      *
-     * @param float $pValue
+     * @param float $height in points
+     * By default, this will be the passed argument value; but this method accepts a unit of measure
+     *    argument, and will convert the passed argument value to points from the specified UoM
      *
      * @return $this
      */
-    public function setRowHeight($pValue)
+    public function setRowHeight($height, ?string $unitOfMeasure = null)
     {
-        $this->height = $pValue;
+        $this->height = ($unitOfMeasure === null || $height < 0)
+            ? $height
+            : (new CssDimension("{$height}{$unitOfMeasure}"))->height();
 
         return $this;
     }
 
     /**
      * Get ZeroHeight.
-     *
-     * @return bool
      */
-    public function getZeroHeight()
+    public function getZeroHeight(): bool
     {
         return $this->zeroHeight;
     }
@@ -102,11 +106,9 @@ class RowDimension extends Dimension
     /**
      * Set ZeroHeight.
      *
-     * @param bool $pValue
-     *
      * @return $this
      */
-    public function setZeroHeight($pValue)
+    public function setZeroHeight(bool $pValue)
     {
         $this->zeroHeight = $pValue;
 

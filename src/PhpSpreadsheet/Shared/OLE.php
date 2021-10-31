@@ -21,6 +21,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 // +----------------------------------------------------------------------+
 //
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
 use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
@@ -227,7 +228,8 @@ class OLE
         // in OLE_ChainedBlockStream::stream_open().
         // Object is removed from self::$instances in OLE_Stream::close().
         $GLOBALS['_OLE_INSTANCES'][] = $this;
-        $instanceId = end(array_keys($GLOBALS['_OLE_INSTANCES']));
+        $keys = array_keys($GLOBALS['_OLE_INSTANCES']);
+        $instanceId = end($keys);
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
         if ($blockIdOrPps instanceof OLE\PPS) {
@@ -316,7 +318,7 @@ class OLE
 
                     break;
                 default:
-                    break;
+                    throw new Exception('Unsupported PPS type');
             }
             fseek($fh, 1, SEEK_CUR);
             $pps->Type = $type;
@@ -489,42 +491,33 @@ class OLE
      * Utility function
      * Returns a string for the OLE container with the date given.
      *
-     * @param int $date A timestamp
+     * @param float|int $date A timestamp
      *
      * @return string The string for the OLE container
      */
     public static function localDateToOLE($date)
     {
-        if (!isset($date)) {
+        if (!$date) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";
         }
-
-        // factor used for separating numbers into 4 bytes parts
-        $factor = 2 ** 32;
+        $dateTime = Date::dateTimeFromTimestamp("$date");
 
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
-        $big_date = $days * 24 * 3600 + mktime((int) date('H', $date), (int) date('i', $date), (int) date('s', $date), (int) date('m', $date), (int) date('d', $date), (int) date('Y', $date));
+        $big_date = $days * 24 * 3600 + (float) $dateTime->format('U');
         // multiply just to make MS happy
         $big_date *= 10000000;
-
-        $high_part = floor($big_date / $factor);
-        // lower 4 bytes
-        $low_part = floor((($big_date / $factor) - $high_part) * $factor);
 
         // Make HEX string
         $res = '';
 
-        for ($i = 0; $i < 4; ++$i) {
-            $hex = $low_part % 0x100;
-            $res .= pack('c', $hex);
-            $low_part /= 0x100;
-        }
-        for ($i = 0; $i < 4; ++$i) {
-            $hex = $high_part % 0x100;
-            $res .= pack('c', $hex);
-            $high_part /= 0x100;
+        $factor = 2 ** 56;
+        while ($factor >= 1) {
+            $hex = (int) floor($big_date / $factor);
+            $res = pack('c', $hex) . $res;
+            $big_date = fmod($big_date, $factor);
+            $factor /= 256;
         }
 
         return $res;
@@ -535,7 +528,7 @@ class OLE
      *
      * @param string $oleTimestamp A binary string with the encoded date
      *
-     * @return int The Unix timestamp corresponding to the string
+     * @return float|int The Unix timestamp corresponding to the string
      */
     public static function OLE2LocalDate($oleTimestamp)
     {
@@ -558,9 +551,6 @@ class OLE
         // translate to seconds since 1970:
         $unixTimestamp = floor(65536.0 * 65536.0 * $timestampHigh + $timestampLow - $days * 24 * 3600 + 0.5);
 
-        $iTimestamp = (int) $unixTimestamp;
-
-        // Overflow conditions can't happen on 64-bit system
-        return ($iTimestamp == $unixTimestamp) ? $iTimestamp : ($unixTimestamp >= 0.0 ? PHP_INT_MAX : PHP_INT_MIN);
+        return IntOrFloat::evaluate($unixTimestamp);
     }
 }

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Font as FontStyle;
 
 class Font
@@ -45,10 +46,10 @@ class Font
     const ARIAL_ITALIC = 'ariali.ttf';
     const ARIAL_BOLD_ITALIC = 'arialbi.ttf';
 
-    const CALIBRI = 'CALIBRI.TTF';
-    const CALIBRI_BOLD = 'CALIBRIB.TTF';
-    const CALIBRI_ITALIC = 'CALIBRII.TTF';
-    const CALIBRI_BOLD_ITALIC = 'CALIBRIZ.TTF';
+    const CALIBRI = 'calibri.ttf';
+    const CALIBRI_BOLD = 'calibrib.ttf';
+    const CALIBRI_ITALIC = 'calibrii.ttf';
+    const CALIBRI_BOLD_ITALIC = 'calibriz.ttf';
 
     const COMIC_SANS_MS = 'comic.ttf';
     const COMIC_SANS_MS_BOLD = 'comicbd.ttf';
@@ -112,7 +113,7 @@ class Font
      *
      * @var string
      */
-    private static $trueTypeFontPath = null;
+    private static $trueTypeFontPath;
 
     /**
      * How wide is a default column for a given default font and size?
@@ -232,7 +233,7 @@ class Font
         }
 
         // Special case if there are one or more newline characters ("\n")
-        if (strpos($cellText, "\n") !== false) {
+        if (strpos($cellText ?? '', "\n") !== false) {
             $lineTexts = explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {
@@ -244,6 +245,7 @@ class Font
 
         // Try to get the exact text width in pixels
         $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
+        $columnWidth = 0;
         if (!$approximate) {
             $columnWidthAdjust = ceil(self::getTextWidthPixelsExact('n', $font, 0) * 1.07);
 
@@ -264,22 +266,16 @@ class Font
         }
 
         // Convert from pixel width to column width
-        $columnWidth = Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
+        $columnWidth = Drawing::pixelsToCellDimension((int) $columnWidth, $defaultFont);
 
         // Return
-        return round($columnWidth, 6);
+        return (int) round($columnWidth, 6);
     }
 
     /**
      * Get GD text width in pixels for a string of text in a certain font at a certain rotation angle.
-     *
-     * @param string $text
-     * @param FontStyle
-     * @param int $rotation
-     *
-     * @return int
      */
-    public static function getTextWidthPixelsExact($text, FontStyle $font, $rotation = 0)
+    public static function getTextWidthPixelsExact(string $text, FontStyle $font, int $rotation = 0): int
     {
         if (!function_exists('imagettfbbox')) {
             throw new PhpSpreadsheetException('GD library needs to be enabled');
@@ -343,7 +339,7 @@ class Font
 
         // Calculate approximate rotated column width
         if ($rotation !== 0) {
-            if ($rotation == -165) {
+            if ($rotation == Alignment::TEXTROTATION_STACK_PHPSPREADSHEET) {
                 // stacked text
                 $columnWidth = 4; // approximation
             } else {

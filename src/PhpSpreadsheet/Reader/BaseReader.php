@@ -38,7 +38,7 @@ abstract class BaseReader implements IReader
      * Restrict which sheets should be loaded?
      * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
      *
-     * @var array of string
+     * @var null|string[]
      */
     protected $loadSheetsOnly;
 
@@ -135,6 +135,13 @@ abstract class BaseReader implements IReader
     public function getSecurityScanner()
     {
         return $this->securityScanner;
+    }
+
+    protected function processFlags(int $flags): void
+    {
+        if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
+            $this->setIncludeCharts(true);
+        }
     }
 
     /**

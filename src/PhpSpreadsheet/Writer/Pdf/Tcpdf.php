@@ -24,7 +24,7 @@ class Tcpdf extends Pdf
      *
      * @param string $orientation Page orientation
      * @param string $unit Unit measure
-     * @param string $paperSize Paper size
+     * @param array|string $paperSize Paper size
      *
      * @return \TCPDF implementation
      */
@@ -38,7 +38,7 @@ class Tcpdf extends Pdf
      *
      * @param string $filename Name of the file to save as
      */
-    public function save($filename): void
+    public function save($filename, int $flags = 0): void
     {
         $fileHandle = parent::prepareForSave($filename);
 

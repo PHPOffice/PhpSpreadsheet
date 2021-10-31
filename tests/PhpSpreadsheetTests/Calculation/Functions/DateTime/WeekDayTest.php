@@ -2,33 +2,34 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week;
 
-class WeekDayTest extends TestCase
+class WeekDayTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerWEEKDAY
      *
      * @param mixed $expectedResult
      */
-    public function testWEEKDAY($expectedResult, ...$args): void
+    public function testWEEKDAY($expectedResult, string $formula): void
     {
-        $result = DateTime::WEEKDAY(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=WEEKDAY($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKDAY()
+    public function providerWEEKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
+    }
+
+    public function testWEEKDAYwith1904Calendar(): void
+    {
+        self::setMac1904();
+        self::assertEquals(7, Week::day('1904-01-02'));
+        self::assertEquals(6, Week::day('1904-01-01'));
+        self::assertEquals(6, Week::day(null));
     }
 }

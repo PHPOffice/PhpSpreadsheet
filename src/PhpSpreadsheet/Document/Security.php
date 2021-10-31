@@ -50,94 +50,57 @@ class Security
 
     /**
      * Is some sort of document security enabled?
-     *
-     * @return bool
      */
-    public function isSecurityEnabled()
+    public function isSecurityEnabled(): bool
     {
         return  $this->lockRevision ||
                 $this->lockStructure ||
                 $this->lockWindows;
     }
 
-    /**
-     * Get LockRevision.
-     *
-     * @return bool
-     */
-    public function getLockRevision()
+    public function getLockRevision(): bool
     {
         return $this->lockRevision;
     }
 
-    /**
-     * Set LockRevision.
-     *
-     * @param bool $locked
-     *
-     * @return $this
-     */
-    public function setLockRevision($locked)
+    public function setLockRevision(?bool $locked): self
     {
-        $this->lockRevision = $locked;
+        if ($locked !== null) {
+            $this->lockRevision = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get LockStructure.
-     *
-     * @return bool
-     */
-    public function getLockStructure()
+    public function getLockStructure(): bool
     {
         return $this->lockStructure;
     }
 
-    /**
-     * Set LockStructure.
-     *
-     * @param bool $locked
-     *
-     * @return $this
-     */
-    public function setLockStructure($locked)
+    public function setLockStructure(?bool $locked): self
     {
-        $this->lockStructure = $locked;
+        if ($locked !== null) {
+            $this->lockStructure = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get LockWindows.
-     *
-     * @return bool
-     */
-    public function getLockWindows()
+    public function getLockWindows(): bool
     {
         return $this->lockWindows;
     }
 
-    /**
-     * Set LockWindows.
-     *
-     * @param bool $locked
-     *
-     * @return $this
-     */
-    public function setLockWindows($locked)
+    public function setLockWindows(?bool $locked): self
     {
-        $this->lockWindows = $locked;
+        if ($locked !== null) {
+            $this->lockWindows = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get RevisionsPassword (hashed).
-     *
-     * @return string
-     */
-    public function getRevisionsPassword()
+    public function getRevisionsPassword(): string
     {
         return $this->revisionsPassword;
     }
@@ -150,22 +113,19 @@ class Security
      *
      * @return $this
      */
-    public function setRevisionsPassword($password, $alreadyHashed = false)
+    public function setRevisionsPassword(?string $password, bool $alreadyHashed = false)
     {
-        if (!$alreadyHashed) {
-            $password = PasswordHasher::hashPassword($password);
+        if ($password !== null) {
+            if (!$alreadyHashed) {
+                $password = PasswordHasher::hashPassword($password);
+            }
+            $this->revisionsPassword = $password;
         }
-        $this->revisionsPassword = $password;
 
         return $this;
     }
 
-    /**
-     * Get WorkbookPassword (hashed).
-     *
-     * @return string
-     */
-    public function getWorkbookPassword()
+    public function getWorkbookPassword(): string
     {
         return $this->workbookPassword;
     }
@@ -178,28 +138,15 @@ class Security
      *
      * @return $this
      */
-    public function setWorkbookPassword($password, $alreadyHashed = false)
+    public function setWorkbookPassword(?string $password, bool $alreadyHashed = false)
     {
-        if (!$alreadyHashed) {
-            $password = PasswordHasher::hashPassword($password);
+        if ($password !== null) {
+            if (!$alreadyHashed) {
+                $password = PasswordHasher::hashPassword($password);
+            }
+            $this->workbookPassword = $password;
         }
-        $this->workbookPassword = $password;
 
         return $this;
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 }

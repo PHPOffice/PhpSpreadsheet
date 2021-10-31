@@ -165,7 +165,7 @@ abstract class Pdf extends Html
     /**
      * Set Paper Size.
      *
-     * @param string $paperSize Paper size see PageSetup::PAPERSIZE_*
+     * @param int $paperSize Paper size see PageSetup::PAPERSIZE_*
      *
      * @return self
      */

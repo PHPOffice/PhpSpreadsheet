@@ -14,17 +14,12 @@ class ImCschTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
     }
 
     /**
@@ -42,7 +37,7 @@ class ImCschTest extends TestCase
         );
     }
 
-    public function providerIMCSCH()
+    public function providerIMCSCH(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCSCH.php';
     }

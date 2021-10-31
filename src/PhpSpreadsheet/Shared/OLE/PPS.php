@@ -74,14 +74,14 @@ class PPS
     /**
      * A timestamp.
      *
-     * @var int
+     * @var float|int
      */
     public $Time1st;
 
     /**
      * A timestamp.
      *
-     * @var int
+     * @var float|int
      */
     public $Time2nd;
 
@@ -129,8 +129,8 @@ class PPS
      * @param int $prev The index of the previous PPS
      * @param int $next The index of the next PPS
      * @param int $dir The index of it's first child if this is a Dir or Root PPS
-     * @param int $time_1st A timestamp
-     * @param int $time_2nd A timestamp
+     * @param null|float|int $time_1st A timestamp
+     * @param null|float|int $time_2nd A timestamp
      * @param string $data The (usually binary) source data of the PPS
      * @param array $children Array containing children PPS for this PPS
      */
@@ -142,8 +142,8 @@ class PPS
         $this->PrevPps = $prev;
         $this->NextPps = $next;
         $this->DirPps = $dir;
-        $this->Time1st = $time_1st;
-        $this->Time2nd = $time_2nd;
+        $this->Time1st = $time_1st ?? 0;
+        $this->Time2nd = $time_2nd ?? 0;
         $this->_data = $data;
         $this->children = $children;
         if ($data != '') {
@@ -189,7 +189,7 @@ class PPS
             . "\x00\x00\x00\x00"                  // 100
             . OLE::localDateToOLE($this->Time1st)          // 108
             . OLE::localDateToOLE($this->Time2nd)          // 116
-            . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
+            . pack('V', $this->startBlock ?? 0)  // 120
             . pack('V', $this->Size)               // 124
             . pack('V', 0); // 128
 
@@ -200,7 +200,7 @@ class PPS
      * Updates index and pointers to previous, next and children PPS's for this
      * PPS. I don't think it'll work with Dir PPS's.
      *
-     * @param array &$raList Reference to the array of PPS's for the whole OLE
+     * @param array $raList Reference to the array of PPS's for the whole OLE
      *                          container
      * @param mixed $to_save
      * @param mixed $depth

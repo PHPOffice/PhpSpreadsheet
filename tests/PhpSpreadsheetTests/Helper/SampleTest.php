@@ -25,11 +25,12 @@ class SampleTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function providerSample()
+    public function providerSample(): array
     {
         $skipped = [
             'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
             'Chart/32_Chart_read_write_HTML.php', // idem
+            'Chart/35_Chart_render.php', // idem
         ];
         // TCPDF and DomPDF libraries don't support PHP8 yet
         if (\PHP_VERSION_ID >= 80000) {
@@ -57,9 +58,12 @@ class SampleTest extends TestCase
         $result = [];
         foreach ($helper->getSamples() as $samples) {
             foreach ($samples as $sample) {
+//                if (array_pop(explode('/', $sample)) !== 'DGET.php') {
+//                    continue;
+//                }
                 if (!in_array($sample, $skipped)) {
                     $file = 'samples/' . $sample;
-                    $result[] = [$file];
+                    $result[$sample] = [$file];
                 }
             }
         }

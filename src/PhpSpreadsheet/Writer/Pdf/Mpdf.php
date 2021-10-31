@@ -24,7 +24,7 @@ class Mpdf extends Pdf
      *
      * @param string $filename Name of the file to save as
      */
-    public function save($filename): void
+    public function save($filename, int $flags = 0): void
     {
         $fileHandle = parent::prepareForSave($filename);
 
@@ -64,7 +64,7 @@ class Mpdf extends Pdf
         $config = ['tempDir' => $this->tempDir . '/mpdf'];
         $pdf = $this->createExternalWriterInstance($config);
         $ortmp = $orientation;
-        $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
+        $pdf->_setPageSize($paperSize, $ortmp);
         $pdf->DefOrientation = $orientation;
         $pdf->AddPageByArray([
             'orientation' => $orientation,

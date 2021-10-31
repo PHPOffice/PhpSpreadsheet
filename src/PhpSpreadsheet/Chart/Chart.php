@@ -424,7 +424,7 @@ class Chart
     /**
      * Get the top left position of the chart.
      *
-     * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
+     * @return array{cell: string, xOffset: int, yOffset: int} an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
     public function getTopLeftPosition()
     {

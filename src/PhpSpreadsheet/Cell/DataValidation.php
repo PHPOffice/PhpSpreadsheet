@@ -212,13 +212,13 @@ class DataValidation
     /**
      * Set Error style.
      *
-     * @param string $errorStye see self::STYLE_*
+     * @param string $errorStyle see self::STYLE_*
      *
      * @return $this
      */
-    public function setErrorStyle($errorStye)
+    public function setErrorStyle($errorStyle)
     {
-        $this->errorStyle = $errorStye;
+        $this->errorStyle = $errorStyle;
 
         return $this;
     }
@@ -477,5 +477,20 @@ class DataValidation
                 $this->$key = $value;
             }
         }
+    }
+
+    /** @var ?string */
+    private $sqref;
+
+    public function getSqref(): ?string
+    {
+        return $this->sqref;
+    }
+
+    public function setSqref(?string $str): self
+    {
+        $this->sqref = $str;
+
+        return $this;
     }
 }

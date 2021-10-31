@@ -24,7 +24,7 @@ class Settings
      *
      * @var int
      */
-    private static $libXmlLoaderOptions = null;
+    private static $libXmlLoaderOptions;
 
     /**
      * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
@@ -68,6 +68,11 @@ class Settings
         return Calculation::getInstance()->setLocale($locale);
     }
 
+    public static function getLocale(): string
+    {
+        return Calculation::getInstance()->getLocale();
+    }
+
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
@@ -89,9 +94,14 @@ class Settings
      * @return null|string Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
-    public static function getChartRenderer(): string
+    public static function getChartRenderer(): ?string
     {
         return self::$chartRenderer;
+    }
+
+    public static function htmlEntityFlags(): int
+    {
+        return \ENT_COMPAT;
     }
 
     /**
@@ -118,7 +128,7 @@ class Settings
         if (self::$libXmlLoaderOptions === null && defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
         } elseif (self::$libXmlLoaderOptions === null) {
-            self::$libXmlLoaderOptions = true;
+            self::$libXmlLoaderOptions = 0;
         }
 
         return self::$libXmlLoaderOptions;

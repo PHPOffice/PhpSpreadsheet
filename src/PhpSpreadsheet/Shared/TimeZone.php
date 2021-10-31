@@ -58,24 +58,20 @@ class TimeZone
      *    Return the Timezone offset used for date/time conversions to/from UST
      * This requires both the timezone and the calculated date/time to allow for local DST.
      *
-     * @param string $timezoneName The timezone for finding the adjustment to UST
-     * @param int $timestamp PHP date/time value
+     * @param ?string $timezoneName The timezone for finding the adjustment to UST
+     * @param float|int $timestamp PHP date/time value
      *
      * @return int Number of seconds for timezone adjustment
      */
     public static function getTimeZoneAdjustment($timezoneName, $timestamp)
     {
-        if ($timezoneName !== null) {
-            if (!self::validateTimezone($timezoneName)) {
-                throw new PhpSpreadsheetException('Invalid timezone ' . $timezoneName);
-            }
-        } else {
-            $timezoneName = self::$timezone;
+        $timezoneName = $timezoneName ?? self::$timezone;
+        $dtobj = Date::dateTimeFromTimestamp("$timestamp");
+        if (!self::validateTimezone($timezoneName)) {
+            throw new PhpSpreadsheetException("Invalid timezone $timezoneName");
         }
+        $dtobj->setTimeZone(new DateTimeZone($timezoneName));
 
-        $objTimezone = new DateTimeZone($timezoneName);
-        $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
-
-        return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
+        return $dtobj->getOffset();
     }
 }

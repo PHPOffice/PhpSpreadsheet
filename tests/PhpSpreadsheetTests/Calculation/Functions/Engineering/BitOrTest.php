@@ -2,30 +2,31 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class BitOrTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerBITOR
      *
      * @param mixed $expectedResult
-     * @param mixed[] $args
      */
-    public function testBITOR($expectedResult, array $args): void
+    public function testBITOR($expectedResult, string $formula): void
     {
-        $result = Engineering::BITOR(...$args);
+        if ($expectedResult === 'exception') {
+            $this->expectException(CalcExp::class);
+        }
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A2', 8);
+        $sheet->getCell('A1')->setValue("=BITOR($formula)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBITOR()
+    public function providerBITOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITOR.php';
     }

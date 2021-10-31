@@ -36,15 +36,14 @@ class Column
      */
     public function __destruct()
     {
+        // @phpstan-ignore-next-line
         $this->parent = null;
     }
 
     /**
      * Get column index as string eg: 'A'.
-     *
-     * @return string
      */
-    public function getColumnIndex()
+    public function getColumnIndex(): string
     {
         return $this->columnIndex;
     }

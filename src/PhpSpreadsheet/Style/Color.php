@@ -75,14 +75,16 @@ class Color extends Supervisor
      */
     public function getSharedComponent()
     {
+        /** @var Border|Fill $sharedComponent */
+        $sharedComponent = $this->parent->getSharedComponent();
         if ($this->parentPropertyName === 'endColor') {
-            return $this->parent->getSharedComponent()->getEndColor();
+            return $sharedComponent->getEndColor();
         }
         if ($this->parentPropertyName === 'startColor') {
-            return $this->parent->getSharedComponent()->getStartColor();
+            return $sharedComponent->getStartColor();
         }
 
-        return $this->parent->getSharedComponent()->getColor();
+        return $sharedComponent->getColor();
     }
 
     /**
@@ -132,10 +134,8 @@ class Color extends Supervisor
 
     /**
      * Get ARGB.
-     *
-     * @return string
      */
-    public function getARGB(): ?string
+    public function getARGB(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getARGB();
@@ -171,16 +171,14 @@ class Color extends Supervisor
 
     /**
      * Get RGB.
-     *
-     * @return string
      */
-    public function getRGB(): ?string
+    public function getRGB(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getRGB();
         }
 
-        return substr($this->argb, 2);
+        return substr($this->argb ?? '', 2);
     }
 
     /**
@@ -216,7 +214,7 @@ class Color extends Supervisor
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
-     * @return string The extracted colour component
+     * @return int|string The extracted colour component
      */
     private static function getColourComponent($rgbValue, $offset, $hex = true)
     {
@@ -232,7 +230,7 @@ class Color extends Supervisor
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
-     * @return string The red colour component
+     * @return int|string The red colour component
      */
     public static function getRed($rgbValue, $hex = true)
     {
@@ -246,7 +244,7 @@ class Color extends Supervisor
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
-     * @return string The green colour component
+     * @return int|string The green colour component
      */
     public static function getGreen($rgbValue, $hex = true)
     {
@@ -260,7 +258,7 @@ class Color extends Supervisor
      * @param bool $hex Flag indicating whether the component should be returned as a hex or a
      *                                    decimal value
      *
-     * @return string The blue colour component
+     * @return int|string The blue colour component
      */
     public static function getBlue($rgbValue, $hex = true)
     {
@@ -280,8 +278,11 @@ class Color extends Supervisor
         $rgba = (strlen($hexColourValue) === 8);
         $adjustPercentage = max(-1.0, min(1.0, $adjustPercentage));
 
+        /** @var int $red */
         $red = self::getRed($hexColourValue, false);
+        /** @var int $green */
         $green = self::getGreen($hexColourValue, false);
+        /** @var int $blue */
         $blue = self::getBlue($hexColourValue, false);
         if ($adjustPercentage > 0) {
             $red += (255 - $red) * $adjustPercentage;
@@ -307,7 +308,7 @@ class Color extends Supervisor
      *
      * @param int $colorIndex Index entry point into the colour array
      * @param bool $background Flag to indicate whether default background or foreground colour
-     *                              should be returned if the indexed colour doesn't exist
+     *                                            should be returned if the indexed colour doesn't exist
      *
      * @return Color
      */

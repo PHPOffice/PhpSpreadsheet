@@ -4,13 +4,20 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $compatibilityMode;
 
+    /**
+     * @var string
+     */
     private $locale;
 
     protected function setUp(): void
@@ -46,7 +53,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
-    public function providerBinaryComparisonOperation()
+    public function providerBinaryComparisonOperation(): array
     {
         return require 'tests/data/CalculationBinaryComparisonOperation.php';
     }
@@ -63,7 +70,7 @@ class CalculationTest extends TestCase
         self::assertIsCallable($functionCall);
     }
 
-    public function providerGetFunctions()
+    public function providerGetFunctions(): array
     {
         return Calculation::getInstance()->getFunctions();
     }
@@ -88,7 +95,13 @@ class CalculationTest extends TestCase
         self::assertTrue($calculation->setLocale($locale));
     }
 
-    public function providerCanLoadAllSupportedLocales()
+    public function testInvalidLocaleReturnsFalse(): void
+    {
+        $calculation = Calculation::getInstance();
+        self::assertFalse($calculation->setLocale('xx'));
+    }
+
+    public function providerCanLoadAllSupportedLocales(): array
     {
         return [
             ['bg'],
@@ -102,7 +115,7 @@ class CalculationTest extends TestCase
             ['hu'],
             ['it'],
             ['nl'],
-            ['no'],
+            ['nb'],
             ['pl'],
             ['pt'],
             ['pt_br'],
@@ -117,11 +130,13 @@ class CalculationTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $tree = $calculation->parseFormula('=_xlfn.ISFORMULA(A1)');
+        self::assertIsArray($tree);
         self::assertCount(3, $tree);
         $function = $tree[2];
         self::assertEquals('Function', $function['type']);
 
         $tree = $calculation->parseFormula('=_xlfn.STDEV.S(A1:B2)');
+        self::assertIsArray($tree);
         self::assertCount(5, $tree);
         $function = $tree[4];
         self::assertEquals('Function', $function['type']);
@@ -159,6 +174,14 @@ class CalculationTest extends TestCase
         $cell->getStyle()->setQuotePrefix(true);
 
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+
+        $cell2 = $workSheet->getCell('A2');
+        $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
+        self::assertEquals('ABC', $cell2->getCalculatedValue());
+
+        $cell3 = $workSheet->getCell('A3');
+        $cell3->setValueExplicit('=', DataType::TYPE_FORMULA);
+        self::assertEquals('', $cell3->getCalculatedValue());
     }
 
     public function testCellWithDdeExpresion(): void
@@ -196,6 +219,7 @@ class CalculationTest extends TestCase
         // Very simple formula
         $formula = '=IF(A1="please +",B1)';
         $tokens = $calculation->parseFormula($formula);
+        self::assertIsArray($tokens);
 
         $foundEqualAssociatedToStoreKey = false;
         $foundConditionalOnB1 = false;
@@ -225,6 +249,7 @@ class CalculationTest extends TestCase
         // Internal operation
         $formula = '=IF(A1="please +",SUM(B1:B3))+IF(A2="please *",PRODUCT(C1:C3), C1)';
         $tokens = $calculation->parseFormula($formula);
+        self::assertIsArray($tokens);
 
         $plusGotTagged = false;
         $productFunctionCorrectlyTagged = false;
@@ -254,6 +279,7 @@ class CalculationTest extends TestCase
 
         $formula = '=IF(A1="please +",SUM(B1:B3),1+IF(NOT(A2="please *"),C2-C1,PRODUCT(C1:C3)))';
         $tokens = $calculation->parseFormula($formula);
+        self::assertIsArray($tokens);
 
         $plusCorrectlyTagged = false;
         $productFunctionCorrectlyTagged = false;
@@ -298,6 +324,8 @@ class CalculationTest extends TestCase
 
         $formula = '=IF(A1="flag",IF(A2<10, 0) + IF(A3<10000, 0))';
         $tokens = $calculation->parseFormula($formula);
+        self::assertIsArray($tokens);
+
         $properlyTaggedPlus = false;
         foreach ($tokens as $token) {
             $isPlus = $token['value'] === '+';
@@ -310,8 +338,8 @@ class CalculationTest extends TestCase
     }
 
     /**
-     * @param $expectedResult
-     * @param $dataArray
+     * @param mixed $expectedResult
+     * @param mixed $dataArray
      * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
@@ -358,7 +386,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResult, $calculated);
     }
 
-    public function dataProviderBranchPruningFullExecution()
+    public function dataProviderBranchPruningFullExecution(): array
     {
         return require 'tests/data/Calculation/Calculation.php';
     }

@@ -2,30 +2,24 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class EvenTest extends TestCase
+class EvenTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerEVEN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testEVEN($expectedResult, $value): void
     {
-        $result = MathTrig::EVEN($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue("=EVEN($value)");
+        $sheet->getCell('A2')->setValue(3.7);
+        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerEVEN()
+    public function providerEVEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }

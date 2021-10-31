@@ -22,7 +22,7 @@ class Dompdf extends Pdf
      *
      * @param string $filename Name of the file to save as
      */
-    public function save($filename): void
+    public function save($filename, int $flags = 0): void
     {
         $fileHandle = parent::prepareForSave($filename);
 
@@ -59,7 +59,7 @@ class Dompdf extends Pdf
 
         //  Create PDF
         $pdf = $this->createExternalWriterInstance();
-        $pdf->setPaper(strtolower($paperSize), $orientation);
+        $pdf->setPaper($paperSize, $orientation);
 
         $pdf->loadHtml($this->generateHTMLAll());
         $pdf->render();

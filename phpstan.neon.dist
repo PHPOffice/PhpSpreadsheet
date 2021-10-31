@@ -1,0 +1,29 @@
+includes:
+    - phpstan-baseline.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    level: max
+    paths:
+        - src/
+        - tests/
+    parallel:
+        processTimeout: 300.0
+    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '~^Class GdImage not found\.$~'
+        - '~^Return typehint of method .* has invalid type GdImage\.$~'
+        - '~^Property .* has unknown class GdImage as its type\.$~'
+        - '~^Parameter .* of method .* has invalid typehint type GdImage\.$~'
+        - '~^Parameter \#1 \$im of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy) expects resource, GdImage\|resource given\.$~'
+        - '~^Parameter \#2 \$src_im of function imagecopy expects resource, GdImage\|resource given\.$~'
+        # Accept a bit anything for assert methods
+        - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
+        - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no typehint specified\.$~'
+
+        # Ignore all JpGraph issues
+        - '~^Constant (MARK_CIRCLE|MARK_CROSS|MARK_DIAMOND|MARK_DTRIANGLE|MARK_FILLEDCIRCLE|MARK_SQUARE|MARK_STAR|MARK_UTRIANGLE|MARK_X|SIDE_RIGHT) not found\.$~'
+        - '~^Instantiated class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot) not found\.$~'
+        - '~^Call to method .*\(\) on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
+        - '~^Access to property .* on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
