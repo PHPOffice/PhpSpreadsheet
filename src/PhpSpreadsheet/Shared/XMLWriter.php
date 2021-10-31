@@ -77,7 +77,7 @@ class XMLWriter extends \XMLWriter
     /**
      * Wrapper method for writeRaw.
      *
-     * @param string|string[] $rawTextData
+     * @param null|string|string[] $rawTextData
      *
      * @return bool
      */
@@ -87,6 +87,6 @@ class XMLWriter extends \XMLWriter
             $rawTextData = implode("\n", $rawTextData);
         }
 
-        return $this->writeRaw(htmlspecialchars($rawTextData));
+        return $this->writeRaw(htmlspecialchars($rawTextData ?? ''));
     }
 }
