@@ -65,10 +65,10 @@ class Slk extends BaseReader
     /**
      * Validate that the current file is a SYLK file.
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
         try {
-            $this->openFile($pFilename);
+            $this->openFile($filename);
         } catch (ReaderException $e) {
             return false;
         }
@@ -194,7 +194,7 @@ class Slk extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -202,7 +202,7 @@ class Slk extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     private const COLOR_ARRAY = [

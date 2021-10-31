@@ -2,7 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class Comment implements IComparable
 {
@@ -58,7 +61,7 @@ class Comment implements IComparable
     /**
      * Comment fill color.
      *
-     * @var Style\Color
+     * @var Color
      */
     private $fillColor;
 
@@ -77,28 +80,22 @@ class Comment implements IComparable
         // Initialise variables
         $this->author = 'Author';
         $this->text = new RichText();
-        $this->fillColor = new Style\Color('FFFFFFE1');
-        $this->alignment = Style\Alignment::HORIZONTAL_GENERAL;
+        $this->fillColor = new Color('FFFFFFE1');
+        $this->alignment = Alignment::HORIZONTAL_GENERAL;
     }
 
     /**
      * Get Author.
-     *
-     * @return string
      */
-    public function getAuthor()
+    public function getAuthor(): string
     {
         return $this->author;
     }
 
     /**
      * Set Author.
-     *
-     * @param string $author
-     *
-     * @return $this
      */
-    public function setAuthor($author)
+    public function setAuthor(string $author): self
     {
         $this->author = $author;
 
@@ -107,164 +104,146 @@ class Comment implements IComparable
 
     /**
      * Get Rich text comment.
-     *
-     * @return RichText
      */
-    public function getText()
+    public function getText(): RichText
     {
         return $this->text;
     }
 
     /**
      * Set Rich text comment.
-     *
-     * @return $this
      */
-    public function setText(RichText $pValue)
+    public function setText(RichText $text): self
     {
-        $this->text = $pValue;
+        $this->text = $text;
 
         return $this;
     }
 
     /**
      * Get comment width (CSS style, i.e. XXpx or YYpt).
-     *
-     * @return string
      */
-    public function getWidth()
+    public function getWidth(): string
     {
         return $this->width;
     }
 
     /**
-     * Set comment width (CSS style, i.e. XXpx or YYpt).
-     *
-     * @param string $width
-     *
-     * @return $this
+     * Set comment width (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
-    public function setWidth($width)
+    public function setWidth(string $width): self
     {
-        $this->width = $width;
+        $width = new Size($width);
+        if ($width->valid()) {
+            $this->width = (string) $width;
+        }
 
         return $this;
     }
 
     /**
      * Get comment height (CSS style, i.e. XXpx or YYpt).
-     *
-     * @return string
      */
-    public function getHeight()
+    public function getHeight(): string
     {
         return $this->height;
     }
 
     /**
-     * Set comment height (CSS style, i.e. XXpx or YYpt).
-     *
-     * @param string $value
-     *
-     * @return $this
+     * Set comment height (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
-    public function setHeight($value)
+    public function setHeight(string $height): self
     {
-        $this->height = $value;
+        $height = new Size($height);
+        if ($height->valid()) {
+            $this->height = (string) $height;
+        }
 
         return $this;
     }
 
     /**
      * Get left margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @return string
      */
-    public function getMarginLeft()
+    public function getMarginLeft(): string
     {
         return $this->marginLeft;
     }
 
     /**
-     * Set left margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @param string $value
-     *
-     * @return $this
+     * Set left margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
-    public function setMarginLeft($value)
+    public function setMarginLeft(string $margin): self
     {
-        $this->marginLeft = $value;
+        $margin = new Size($margin);
+        if ($margin->valid()) {
+            $this->marginLeft = (string) $margin;
+        }
 
         return $this;
     }
 
     /**
      * Get top margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @return string
      */
-    public function getMarginTop()
+    public function getMarginTop(): string
     {
         return $this->marginTop;
     }
 
     /**
-     * Set top margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @param string $value
-     *
-     * @return $this
+     * Set top margin (CSS style, i.e. XXpx or YYpt). Default unit is pt.
      */
-    public function setMarginTop($value)
+    public function setMarginTop(string $margin): self
     {
-        $this->marginTop = $value;
+        $margin = new Size($margin);
+        if ($margin->valid()) {
+            $this->marginTop = (string) $margin;
+        }
 
         return $this;
     }
 
     /**
      * Is the comment visible by default?
-     *
-     * @return bool
      */
-    public function getVisible()
+    public function getVisible(): bool
     {
         return $this->visible;
     }
 
     /**
      * Set comment default visibility.
-     *
-     * @param bool $value
-     *
-     * @return $this
      */
-    public function setVisible($value)
+    public function setVisible(bool $visibility): self
     {
-        $this->visible = $value;
+        $this->visible = $visibility;
+
+        return $this;
+    }
+
+    /**
+     * Set fill color.
+     */
+    public function setFillColor(Color $color): self
+    {
+        $this->fillColor = $color;
 
         return $this;
     }
 
     /**
      * Get fill color.
-     *
-     * @return Style\Color
      */
-    public function getFillColor()
+    public function getFillColor(): Color
     {
         return $this->fillColor;
     }
 
     /**
      * Set Alignment.
-     *
-     * @param string $alignment see Style\Alignment::HORIZONTAL_*
-     *
-     * @return $this
      */
-    public function setAlignment($alignment)
+    public function setAlignment(string $alignment): self
     {
         $this->alignment = $alignment;
 
@@ -273,20 +252,16 @@ class Comment implements IComparable
 
     /**
      * Get Alignment.
-     *
-     * @return string
      */
-    public function getAlignment()
+    public function getAlignment(): string
     {
         return $this->alignment;
     }
 
     /**
      * Get hash code.
-     *
-     * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->author .
@@ -319,10 +294,8 @@ class Comment implements IComparable
 
     /**
      * Convert to string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->text->getPlainText();
     }

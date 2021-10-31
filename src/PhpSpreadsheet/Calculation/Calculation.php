@@ -3893,15 +3893,15 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-            '|' . self::CALCULATION_REGEXP_CELLREF .
+                                '|' . self::CALCULATION_REGEXP_CELLREF .
             '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
             '|' . self::CALCULATION_REGEXP_ROW_RANGE .
-            '|' . self::CALCULATION_REGEXP_NUMBER .
-            '|' . self::CALCULATION_REGEXP_STRING .
-            '|' . self::CALCULATION_REGEXP_OPENBRACE .
-            '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
-            '|' . self::CALCULATION_REGEXP_ERROR .
-            ')/sui';
+                                '|' . self::CALCULATION_REGEXP_NUMBER .
+                                '|' . self::CALCULATION_REGEXP_STRING .
+                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
+                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
+                                '|' . self::CALCULATION_REGEXP_ERROR .
+                                ')/sui';
 
         //    Start with initialisation
         $index = 0;
@@ -4333,7 +4333,7 @@ class Calculation
                     ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
+                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )
                 ) {
                     while (
@@ -4724,7 +4724,7 @@ class Calculation
                     }
                 } else {
                     if ($pCell === null) {
-                        //  We can't access the cell, so return a REF error
+                        // We can't access the cell, so return a REF error
                         $cellValue = Functions::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
@@ -5242,34 +5242,34 @@ class Calculation
      * Extract range values.
      *
      * @param string $pRange String based range representation
-     * @param Worksheet $pSheet Worksheet
+     * @param Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
+    public function extractCellRange(&$pRange = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
 
-        if ($pSheet !== null) {
-            $pSheetName = $pSheet->getTitle();
+        if ($worksheet !== null) {
+            $worksheetName = $worksheet->getTitle();
 
             if (strpos($pRange, '!') !== false) {
-                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
+                [$worksheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
             }
 
             // Extract range
             $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
-            $pRange = "'" . $pSheetName . "'" . '!' . $pRange;
+            $pRange = "'" . $worksheetName . "'" . '!' . $pRange;
             if (!isset($aReferences[1])) {
                 $currentCol = '';
                 $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
-                if ($pSheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                if ($worksheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5280,8 +5280,8 @@ class Calculation
                     $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
-                    if ($pSheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    if ($worksheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5295,47 +5295,46 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string $pRange String based range representation
-     * @param Worksheet $pSheet Worksheet
+     * @param string $range String based range representation
+     * @param null|Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
+    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
 
-        if ($pSheet !== null) {
-            $pSheetName = $pSheet->getTitle();
-            if (strpos($pRange, '!') !== false) {
-                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
+        if ($worksheet !== null) {
+            if (strpos($range, '!') !== false) {
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($pRange, $pSheet);
+            $namedRange = DefinedName::resolveName($range, $worksheet);
             if ($namedRange === null) {
                 return Functions::REF();
             }
 
-            $pSheet = $namedRange->getWorksheet();
-            $pRange = $namedRange->getValue();
-            $splitRange = Coordinate::splitRange($pRange);
+            $worksheet = $namedRange->getWorksheet();
+            $range = $namedRange->getValue();
+            $splitRange = Coordinate::splitRange($range);
             //    Convert row and column references
             if (ctype_alpha($splitRange[0][0])) {
-                $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+                $range = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
             } elseif (ctype_digit($splitRange[0][0])) {
-                $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
+                $range = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
             }
 
             // Extract range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
                 [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
-                if ($pSheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                if ($worksheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5344,8 +5343,8 @@ class Calculation
                 foreach ($aReferences as $reference) {
                     // Extract range
                     [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
-                    if ($pSheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    if ($worksheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }

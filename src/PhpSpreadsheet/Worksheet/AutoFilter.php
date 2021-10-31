@@ -39,12 +39,12 @@ class AutoFilter
      * Create a new AutoFilter.
      *
      * @param string $pRange Cell range (i.e. A1:E10)
-     * @param Worksheet $pSheet
+     * @param Worksheet $worksheet
      */
-    public function __construct($pRange = '', ?Worksheet $pSheet = null)
+    public function __construct($pRange = '', ?Worksheet $worksheet = null)
     {
         $this->range = $pRange;
-        $this->workSheet = $pSheet;
+        $this->workSheet = $worksheet;
     }
 
     /**
@@ -60,13 +60,13 @@ class AutoFilter
     /**
      * Set AutoFilter Parent Worksheet.
      *
-     * @param Worksheet $pSheet
+     * @param Worksheet $worksheet
      *
      * @return $this
      */
-    public function setParent(?Worksheet $pSheet = null)
+    public function setParent(?Worksheet $worksheet = null)
     {
-        $this->workSheet = $pSheet;
+        $this->workSheet = $worksheet;
 
         return $this;
     }

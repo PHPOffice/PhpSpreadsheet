@@ -138,11 +138,11 @@ class Html extends BaseReader
     /**
      * Validate that the current file is an HTML file.
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
         // Check if file exists
         try {
-            $this->openFile($pFilename);
+            $this->openFile($filename);
         } catch (Exception $e) {
             return false;
         }
@@ -204,7 +204,7 @@ class Html extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -212,7 +212,7 @@ class Html extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**
@@ -630,7 +630,7 @@ class Html extends BaseReader
                     $cellContent .= $domText;
                 }
                 //    but if we have a rich text run instead, we need to append it correctly
-                //    TODO
+                    //    TODO
             } elseif ($child instanceof DOMElement) {
                 $this->processDomElementBody($sheet, $row, $column, $cellContent, $child);
             }
@@ -948,8 +948,8 @@ class Html extends BaseReader
     }
 
     /**
-     * @param string $column
-     * @param int $row
+     * @param string    $column
+     * @param int       $row
      */
     private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
     {
@@ -1016,7 +1016,7 @@ class Html extends BaseReader
     /**
      * Map html border style to PhpSpreadsheet border style.
      *
-     * @param string $style
+     * @param  string $style
      *
      * @return null|string
      */
