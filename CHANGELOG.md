@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Unreleased - TBD
+
+### Added
+
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
 ## 1.19.0 - 2021-10-31
 
 ### Added
@@ -82,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ## 1.18.0 - 2021-05-31
 
 ### Added
+
 - Enhancements to CSV Reader, allowing options to be set when using `IOFactory::load()` with a callback to set delimiter, enclosure, charset etc [PR #2103](https://github.com/PHPOffice/PhpSpreadsheet/pull/2103) - See [documentation](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/reading-and-writing-to-file.md#csv-comma-separated-values) for details.
 - Implemented basic AutoFiltering for Ods Reader and Writer [PR #2053](https://github.com/PHPOffice/PhpSpreadsheet/pull/2053)
 - Implemented basic AutoFiltering for Gnumeric Reader [PR #2055](https://github.com/PHPOffice/PhpSpreadsheet/pull/2055)
@@ -104,6 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Use of `nb` rather than `no` as the locale language code for Norsk Bokmål.
 
 ### Fixed
+
 - Fixed error in COUPNCD() calculation for end of month [Issue #2116](https://github.com/PHPOffice/PhpSpreadsheet/issues/2116) - [PR #2119](https://github.com/PHPOffice/PhpSpreadsheet/pull/2119)
 - Resolve default values when a null argument is passed for HLOOKUP(), VLOOKUP() and ADDRESS() functions [Issue #2120](https://github.com/PHPOffice/PhpSpreadsheet/issues/2120) - [PR #2121](https://github.com/PHPOffice/PhpSpreadsheet/pull/2121)
 - Fixed incorrect R1C1 to A1 subtraction formula conversion (`R[-2]C-R[2]C`) [Issue #2076](https://github.com/PHPOffice/PhpSpreadsheet/pull/2076) [PR #2086](https://github.com/PHPOffice/PhpSpreadsheet/pull/2086)
