@@ -3,7 +3,7 @@
 require_once 'Header.php';
 
 $requirements = [
-    'PHP 7.2.0' => version_compare(PHP_VERSION, '7.2.0', '>='),
+    'PHP 7.3.0' => version_compare(PHP_VERSION, '7.3.0', '>='),
     'PHP extension XML' => extension_loaded('xml'),
     'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
     'PHP extension mbstring' => extension_loaded('mbstring'),

@@ -78,20 +78,19 @@ class Gnumeric extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
-        $data = '';
         // Check if gzlib functions are available
-        if (File::testFileNoThrow($pFilename) && function_exists('gzread')) {
+        if (File::testFileNoThrow($filename) && function_exists('gzread')) {
             // Read signature data (first 3 bytes)
-            $fh = fopen($pFilename, 'rb');
+            $fh = fopen($filename, 'rb');
             if ($fh !== false) {
                 $data = fread($fh, 2);
                 fclose($fh);
             }
         }
 
-        return $data === chr(0x1F) . chr(0x8B);
+        return isset($data) && $data === chr(0x1F) . chr(0x8B);
     }
 
     private static function matchXml(XMLReader $xml, string $expectedLocalName): bool
@@ -231,7 +230,7 @@ class Gnumeric extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -240,7 +239,7 @@ class Gnumeric extends BaseReader
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**

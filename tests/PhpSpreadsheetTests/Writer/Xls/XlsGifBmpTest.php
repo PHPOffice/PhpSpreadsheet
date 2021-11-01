@@ -42,10 +42,10 @@ class XlsGifBmpTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
         $creationDatestamp = $reloadedSpreadsheet->getProperties()->getCreated();
         $filstart = $creationDatestamp;
-        $pSheet = $reloadedSpreadsheet->getActiveSheet();
-        $drawings = $pSheet->getDrawingCollection();
+        $worksheet = $reloadedSpreadsheet->getActiveSheet();
+        $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        foreach ($pSheet->getDrawingCollection() as $drawing) {
+        foreach ($worksheet->getDrawingCollection() as $drawing) {
             // See if Scrutinizer approves this
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
@@ -71,10 +71,10 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing->setCoordinates('A1');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
-        $pSheet = $reloadedSpreadsheet->getActiveSheet();
-        $drawings = $pSheet->getDrawingCollection();
+        $worksheet = $reloadedSpreadsheet->getActiveSheet();
+        $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        foreach ($pSheet->getDrawingCollection() as $drawing) {
+        foreach ($worksheet->getDrawingCollection() as $drawing) {
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
