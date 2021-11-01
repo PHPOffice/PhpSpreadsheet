@@ -27,17 +27,6 @@ class Settings
     private static $libXmlLoaderOptions;
 
     /**
-     * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
-     * Default behaviour is to do the check, but if you're running PHP versions
-     *      7.2 < 7.2.1
-     * then you may need to disable this check to prevent unwanted behaviour in other threads
-     * SECURITY WARNING: Changing this flag is not recommended.
-     *
-     * @var bool
-     */
-    private static $libXmlDisableEntityLoader = true;
-
-    /**
      * The cache implementation to be used for cell collection.
      *
      * @var CacheInterface
@@ -135,28 +124,27 @@ class Settings
     }
 
     /**
-     * Enable/Disable the entity loader for libxml loader.
-     * Allow/disallow libxml_disable_entity_loader() call when not thread safe.
-     * Default behaviour is to do the check, but if you're running PHP versions
-     *      7.2 < 7.2.1
-     * then you may need to disable this check to prevent unwanted behaviour in other threads
-     * SECURITY WARNING: Changing this flag to false is not recommended.
+     * Deprecated, has no effect.
      *
      * @param bool $state
+     *
+     * @deprecated will be removed without replacement as it is no longer necessary on PHP 7.3.0+
      */
     public static function setLibXmlDisableEntityLoader($state): void
     {
-        self::$libXmlDisableEntityLoader = (bool) $state;
+        // noop
     }
 
     /**
-     * Return the state of the entity loader (disabled/enabled) for libxml loader.
+     * Deprecated, has no effect.
      *
      * @return bool $state
+     *
+     * @deprecated will be removed without replacement as it is no longer necessary on PHP 7.3.0+
      */
     public static function getLibXmlDisableEntityLoader(): bool
     {
-        return self::$libXmlDisableEntityLoader;
+        return true;
     }
 
     /**

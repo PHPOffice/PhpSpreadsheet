@@ -8,7 +8,6 @@ jobs:
         experimental:
           - false
         php-version:
-          - '7.2'
           - '7.3'
           - '7.4'
           - '8.0'
@@ -150,7 +149,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code Version Compatibility check with PHP_CodeSniffer
-        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 7.2-
+        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 7.3-
 
   phpstan:
     runs-on: ubuntu-latest
