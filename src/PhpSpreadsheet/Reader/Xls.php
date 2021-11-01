@@ -420,9 +420,9 @@ class Xls extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($pFilename)) {
+        if (!File::testFileNoThrow($filename)) {
             return false;
         }
 
@@ -431,7 +431,7 @@ class Xls extends BaseReader
             $ole = new OLERead();
 
             // get excel data
-            $ole->read($pFilename);
+            $ole->read($filename);
 
             return true;
         } catch (PhpSpreadsheetException $e) {
@@ -623,12 +623,12 @@ class Xls extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();
@@ -1297,7 +1297,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                //    TODO Provide support for named values
+                    //    TODO Provide support for named values
             }
         }
         $this->data = '';
@@ -3032,7 +3032,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                                . chr(0);
+                            . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;

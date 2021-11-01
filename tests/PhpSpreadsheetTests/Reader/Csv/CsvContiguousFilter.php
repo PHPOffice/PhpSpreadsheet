@@ -55,7 +55,7 @@ class CsvContiguousFilter implements IReadFilter
         return false;
     }
 
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = '')
     {
         if ($this->filterType == 1) {
             return $this->filter1($row);

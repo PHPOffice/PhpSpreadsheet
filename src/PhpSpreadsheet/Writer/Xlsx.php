@@ -284,9 +284,9 @@ class Xlsx extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param resource|string $pFilename
+     * @param resource|string $filename
      */
-    public function save($pFilename, int $flags = 0): void
+    public function save($filename, int $flags = 0): void
     {
         $this->processFlags($flags);
 
@@ -503,7 +503,7 @@ class Xlsx extends BaseWriter
         Functions::setReturnDateType($saveDateReturnType);
         Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
-        $this->openFileHandle($pFilename);
+        $this->openFileHandle($filename);
 
         $options = new Archive();
         $options->setEnableZip64(false);
