@@ -207,6 +207,7 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp.
      * The use of Unix timestamps, and therefore this function, is discouraged.
+     * They are not Y2038-safe on a 32-bit system, and have no timezone info.
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
@@ -224,7 +225,8 @@ class Date
     /**
      * Convert a date from PHP to an MS Excel serialized date/time value.
      *
-     * @param mixed $dateValue PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged
+     * @param mixed $dateValue PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged;
+     *    not Y2038-safe on a 32-bit system, and no timezone info
      *
      * @return bool|float Excel date/time value
      *                                  or boolean FALSE on failure
