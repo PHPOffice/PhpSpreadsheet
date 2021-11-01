@@ -256,7 +256,7 @@ $sheetname = 'Data Sheet #3';
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Read rows 1 to 7 and columns A to E only
         if ($row >= 1 && $row <= 7) {
             if (in_array($column,range('A','E'))) {
@@ -301,7 +301,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
         $this->columns  = $columns;
     }
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Only read the rows and columns that were configured
         if ($row >= $this->startRow && $row <= $this->endRow) {
             if (in_array($column,$this->columns)) {
@@ -344,7 +344,7 @@ class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
         $this->endRow   = $startRow + $chunkSize;
     }
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Only read the heading row, and the configured rows
         if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;

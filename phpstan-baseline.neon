@@ -211,7 +211,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:strCaseReverse\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:strCaseReverse\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -231,7 +231,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#2 \\$pSheet of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$worksheet of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -816,7 +816,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Parameter \\#1 \\$pString of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
@@ -1246,7 +1246,7 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:substring\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:substring\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/DataType.php
 
@@ -1451,12 +1451,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/GridLines.php
 
 		-
-			message: "#^Parameter \\#3 \\$type of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Parameter \\#1 \\$blur of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowBlur\\(\\) expects float, string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$colorType of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/GridLines.php
 
@@ -1511,7 +1506,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$type with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$colorType with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
@@ -1521,12 +1516,12 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$array_kay_selector with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$arrayKaySelector with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$array_selector with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$arraySelector with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
@@ -1536,7 +1531,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has parameter \\$shadow_presets_option with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has parameter \\$presetsOption with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
@@ -1896,11 +1891,6 @@ parameters:
 			path: src/PhpSpreadsheet/DefinedName.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\HashTable\\:\\:getIndexForHashCode\\(\\) should return int but returns int\\|string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/HashTable.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:\\$colourMap has no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
@@ -2017,16 +2007,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:rgbToColour\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:rgbToColour\\(\\) has parameter \\$rgb with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
 
@@ -2381,17 +2361,17 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setType\\(\\) expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$type of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setType\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setErrorStyle\\(\\) expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$errorStyle of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setErrorStyle\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setOperator\\(\\) expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$operator of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setOperator\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -2566,7 +2546,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$pName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, array\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3221,7 +3201,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
 		-
-			message: "#^Parameter \\#1 \\$hex of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:changeBrightness\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$hexColourValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:changeBrightness\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
@@ -3271,7 +3251,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
 
@@ -3326,7 +3306,7 @@ parameters:
 			path: src/PhpSpreadsheet/Settings.php
 
 		-
-			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, float\\|int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$unixTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Date.php
 
@@ -3336,7 +3316,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Date.php
 
 		-
-			message: "#^Parameter \\#1 \\$pFormatCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:isDateTimeFormatCode\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$excelFormatCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:isDateTimeFormatCode\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Date.php
 
@@ -3466,7 +3446,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Font.php
 
 		-
-			message: "#^Parameter \\#2 \\$pDefaultFont of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$defaultFont of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
 
@@ -3866,7 +3846,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbIsUpper\\(\\) has parameter \\$char with no typehint specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbIsUpper\\(\\) has parameter \\$character with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
@@ -4096,7 +4076,7 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$pSheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$worksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
@@ -4137,11 +4117,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Border.php
 
@@ -4681,7 +4656,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$pRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeDimension\\(\\) expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeDimension\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -4916,22 +4891,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateTableTagInline\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateTableTag\\(\\) has parameter \\$html with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateTableTag\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateTableTag\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
@@ -4962,11 +4927,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowCellCss\\(\\) has parameter \\$pRow with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowCellCss\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
@@ -5006,11 +4966,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowCellDataValue\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowCellData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -5031,22 +4986,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowCellData\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowIncludeCharts\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowIncludeCharts\\(\\) has parameter \\$coordinate with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowIncludeCharts\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
@@ -5111,11 +5056,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowWriteCell\\(\\) has parameter \\$pSheet with no typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:generateRowWriteCell\\(\\) has parameter \\$rowSpan with no typehint specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -5171,7 +5111,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#1 \\$pRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
@@ -5291,7 +5231,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:getCharsetFromFontName\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$fontName of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:getCharsetFromFontName\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
@@ -5311,7 +5251,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeShort\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeShort\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
@@ -5367,11 +5307,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeAllDefinedNamesBiff8\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Parameter \\#1 \\$pSheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
 
@@ -5701,7 +5636,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
-			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string, int given\\.$#"
+			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -5822,7 +5757,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 4
+			count: 5
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5871,7 +5806,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
-			message: "#^Parameter \\#1 \\$pText of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\:\\:createTextRun\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\:\\:createTextRun\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
@@ -5917,8 +5852,13 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 4
+			count: 9
 			path: src/PhpSpreadsheet/Writer/Xlsx/Style.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float given\\.$#"
@@ -6002,16 +5942,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
+			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
@@ -6056,7 +5991,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
+			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
 
@@ -6101,7 +6036,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$pFilename of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) expects resource\\|string, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$filename of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) expects resource\\|string, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
@@ -6201,7 +6136,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, null given\\.$#"
+			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Shared/StringHelperTest.php
 
@@ -6216,12 +6151,12 @@ parameters:
 			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
+			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$pValue of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$conditions of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\> given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
 
