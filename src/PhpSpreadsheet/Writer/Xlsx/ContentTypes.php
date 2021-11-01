@@ -141,7 +141,7 @@ class ContentTypes extends WriterPart
         if ($spreadsheet->hasRibbonBinObjects()) {
             // Some additional objects in the ribbon ?
             // we need to write "Extension" but not already write for media content
-            $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types'), array_keys($aMediaContentTypes));
+            $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types') ?? [], array_keys($aMediaContentTypes));
             foreach ($tabRibbonTypes as $aRibbonType) {
                 $mimeType = 'image/.' . $aRibbonType; //we wrote $mimeType like customUI Editor
                 $this->writeDefaultContentType($objWriter, $aRibbonType, $mimeType);
@@ -192,7 +192,7 @@ class ContentTypes extends WriterPart
         if (File::fileExists($pFile)) {
             $image = getimagesize($pFile);
 
-            return image_type_to_mime_type($image[2]);
+            return image_type_to_mime_type((is_array($image) && count($image) >= 3) ? $image[2] : 0);
         }
 
         throw new WriterException("File $pFile does not exist");
