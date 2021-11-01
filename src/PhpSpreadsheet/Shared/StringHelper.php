@@ -490,7 +490,7 @@ class StringHelper
      */
     public static function strToUpper($textValue)
     {
-        return mb_convert_case($textValue, MB_CASE_UPPER, 'UTF-8');
+        return mb_convert_case($textValue ?? '', MB_CASE_UPPER, 'UTF-8');
     }
 
     /**
