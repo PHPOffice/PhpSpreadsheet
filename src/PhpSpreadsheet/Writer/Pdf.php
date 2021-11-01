@@ -165,13 +165,13 @@ abstract class Pdf extends Html
     /**
      * Set Paper Size.
      *
-     * @param int $pValue Paper size see PageSetup::PAPERSIZE_*
+     * @param int $paperSize Paper size see PageSetup::PAPERSIZE_*
      *
      * @return self
      */
-    public function setPaperSize($pValue)
+    public function setPaperSize($paperSize)
     {
-        $this->paperSize = $pValue;
+        $this->paperSize = $paperSize;
 
         return $this;
     }
@@ -189,13 +189,13 @@ abstract class Pdf extends Html
     /**
      * Set Orientation.
      *
-     * @param string $pValue Page orientation see PageSetup::ORIENTATION_*
+     * @param string $orientation Page orientation see PageSetup::ORIENTATION_*
      *
      * @return self
      */
-    public function setOrientation($pValue)
+    public function setOrientation($orientation)
     {
-        $this->orientation = $pValue;
+        $this->orientation = $orientation;
 
         return $this;
     }
@@ -213,16 +213,16 @@ abstract class Pdf extends Html
     /**
      * Set temporary storage directory.
      *
-     * @param string $pValue Temporary storage directory
+     * @param string $temporaryDirectory Temporary storage directory
      *
      * @return self
      */
-    public function setTempDir($pValue)
+    public function setTempDir($temporaryDirectory)
     {
-        if (is_dir($pValue)) {
-            $this->tempDir = $pValue;
+        if (is_dir($temporaryDirectory)) {
+            $this->tempDir = $temporaryDirectory;
         } else {
-            throw new WriterException("Directory does not exist: $pValue");
+            throw new WriterException("Directory does not exist: $temporaryDirectory");
         }
 
         return $this;
@@ -231,14 +231,14 @@ abstract class Pdf extends Html
     /**
      * Save Spreadsheet to PDF file, pre-save.
      *
-     * @param string $pFilename Name of the file to save as
+     * @param string $filename Name of the file to save as
      *
      * @return resource
      */
-    protected function prepareForSave($pFilename)
+    protected function prepareForSave($filename)
     {
         //  Open file
-        $this->openFileHandle($pFilename);
+        $this->openFileHandle($filename);
 
         return $this->fileHandle;
     }

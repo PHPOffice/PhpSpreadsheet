@@ -69,7 +69,7 @@ class Indirect
             return $e->getMessage();
         }
 
-        [$cellAddress, $pSheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
+        [$cellAddress, $worksheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
 
         [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $pCell->getWorkSheet(), $sheetName);
 
@@ -80,7 +80,7 @@ class Indirect
             return Functions::REF();
         }
 
-        return self::extractRequiredCells($pSheet, $cellAddress);
+        return self::extractRequiredCells($worksheet, $cellAddress);
     }
 
     /**
@@ -89,9 +89,9 @@ class Indirect
      * @return mixed Array of values in range if range contains more than one element.
      *                  Otherwise, a single value is returned.
      */
-    private static function extractRequiredCells(?Worksheet $pSheet, string $cellAddress)
+    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
     {
-        return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
-            ->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
+            ->extractCellRange($cellAddress, $worksheet, false);
     }
 }

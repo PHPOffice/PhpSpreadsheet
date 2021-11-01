@@ -151,9 +151,9 @@ class Properties
      *
      * @return $this
      */
-    public function setLastModifiedBy(string $modifier): self
+    public function setLastModifiedBy(string $modifiedBy): self
     {
-        $this->lastModifiedBy = $modifier;
+        $this->lastModifiedBy = $modifiedBy;
 
         return $this;
     }
@@ -434,7 +434,7 @@ class Properties
      *
      * @param mixed $propertyValue
      * @param string $propertyType
-     *   'i' : Integer
+     *      'i'    : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time

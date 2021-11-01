@@ -186,13 +186,13 @@ class Chart
     /**
      * Set Worksheet.
      *
-     * @param Worksheet $pValue
+     * @param Worksheet $worksheet
      *
      * @return $this
      */
-    public function setWorksheet(?Worksheet $pValue = null)
+    public function setWorksheet(?Worksheet $worksheet = null)
     {
-        $this->worksheet = $pValue;
+        $this->worksheet = $worksheet;
 
         return $this;
     }
