@@ -266,6 +266,7 @@ class Date
     /**
      * Convert a Unix timestamp to an MS Excel serialized date/time value.
      * The use of Unix timestamps, and therefore this function, is discouraged.
+     * They are not Y2038-safe on a 32-bit system, and have no timezone info.
      *
      * @param int $unixTimestamp Unix Timestamp
      *
