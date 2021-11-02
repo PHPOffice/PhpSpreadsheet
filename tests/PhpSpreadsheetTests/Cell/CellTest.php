@@ -79,4 +79,28 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
         $cell->getWorksheet();
     }
+
+    public function testDestroyCell1(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        self::assertSame('A1', $cell->getCoordinate());
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Coordinate no longer exists');
+        $spreadsheet->disconnectWorksheets();
+        $cell->getCoordinate();
+    }
+
+    public function testDestroyCell2(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        self::assertSame('A1', $cell->getCoordinate());
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Coordinate no longer exists');
+        $cell->getParent()->delete('A1');
+        $cell->getCoordinate();
+    }
 }

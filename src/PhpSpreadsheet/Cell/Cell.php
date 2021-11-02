@@ -139,7 +139,15 @@ class Cell
      */
     public function getCoordinate()
     {
-        return $this->parent->getCurrentCoordinate() ?? '';
+        $coordinate = null;
+        if (isset($this->parent)) {
+            $coordinate = $this->parent->getCurrentCoordinate();
+        }
+        if ($coordinate === null) {
+            throw new Exception('Coordinate no longer exists');
+        }
+
+        return $coordinate;
     }
 
     /**
@@ -478,9 +486,9 @@ class Cell
      */
     public function getWorksheet()
     {
-        $worksheet = $this->parent;
-        if ($worksheet !== null) {
-            $worksheet = $worksheet->getParent();
+        $worksheet = null;
+        if (isset($this->parent)) {
+            $worksheet = $this->parent->getParent();
         }
         if ($worksheet === null) {
             throw new Exception('Worksheet no longer exists');

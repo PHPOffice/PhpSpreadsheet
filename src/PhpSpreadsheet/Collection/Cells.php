@@ -209,7 +209,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate ?? 'A1', '%[A-Z]%d', $column, $row);
+        sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return $column;
     }
@@ -224,7 +224,7 @@ class Cells
         $column = '';
         $row = 0;
 
-        sscanf($this->currentCoordinate ?? 'A1', '%[A-Z]%d', $column, $row);
+        sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return (int) $row;
     }
@@ -302,14 +302,6 @@ class Cells
     }
 
     /**
-     * @param mixed $str
-     */
-    private static function forceString($str): string
-    {
-        return (string) $str;
-    }
-
-    /**
      * Clone the cell collection.
      *
      * @param Worksheet $parent The new worksheet that we're copying to
@@ -335,7 +327,9 @@ class Cells
         // Change prefix
         $newCollection->cachePrefix = $newCollection->getUniqueID();
         foreach ($oldValues as $oldKey => $value) {
-            $newValues[self::forceString(str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey))] = clone $value;
+            /** @var string */
+            $newKey = str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey);
+            $newValues[$newKey] = clone $value;
         }
 
         // Store new values
