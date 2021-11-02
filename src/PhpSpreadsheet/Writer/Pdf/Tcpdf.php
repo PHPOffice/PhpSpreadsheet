@@ -36,11 +36,11 @@ class Tcpdf extends Pdf
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $pFilename Name of the file to save as
+     * @param string $filename Name of the file to save as
      */
-    public function save($pFilename, int $flags = 0): void
+    public function save($filename, int $flags = 0): void
     {
-        $fileHandle = parent::prepareForSave($pFilename);
+        $fileHandle = parent::prepareForSave($filename);
 
         //  Default PDF paper size
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
@@ -97,7 +97,7 @@ class Tcpdf extends Pdf
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output($pFilename, 'S'));
+        fwrite($fileHandle, $pdf->output($filename, 'S'));
 
         parent::restoreStateAfterSave();
     }

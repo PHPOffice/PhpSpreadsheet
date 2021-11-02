@@ -121,4 +121,13 @@ class XlsTest extends AbstractFunctional
         self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testLoadXlsBug1114(): void
+    {
+        $filename = 'tests/data/Reader/XLS/bug1114.xls';
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1148140800.0, $sheet->getCell('B2')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
 }

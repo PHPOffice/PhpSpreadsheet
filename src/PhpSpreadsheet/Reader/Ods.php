@@ -41,15 +41,15 @@ class Ods extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        if (File::testFileNoThrow($pFilename)) {
+        if (File::testFileNoThrow($filename)) {
             $zip = new ZipArchive();
-            if ($zip->open($pFilename) === true) {
+            if ($zip->open($filename) === true) {
                 // check if it is an OOXML archive
                 $stat = $zip->statName('mimetype');
                 if ($stat && ($stat['size'] <= 255)) {
@@ -65,7 +65,7 @@ class Ods extends BaseReader
                         $manifest = $xml->children($namespacesContent['manifest']);
                         foreach ($manifest as $manifestDataSet) {
                             $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
-                            if ($manifestAttributes->{'full-path'} == '/') {
+                            if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
                                 $mimeType = (string) $manifestAttributes->{'media-type'};
 
                                 break;
@@ -220,7 +220,7 @@ class Ods extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -228,7 +228,7 @@ class Ods extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**
@@ -357,7 +357,7 @@ class Ods extends BaseReader
                             break;
                         case 'table-row':
                             if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
-                                $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
                             } else {
                                 $rowRepeats = 1;
                             }
@@ -514,7 +514,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -632,6 +632,7 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+
         // Return
         return $spreadsheet;
     }

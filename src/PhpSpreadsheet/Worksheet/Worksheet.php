@@ -2384,7 +2384,7 @@ class Worksheet implements IComparable
         return is_string($str) ? $str : '';
     }
 
-    private static function pregReplace(string $pattern, string $replacement, string $subject): string
+    public static function pregReplace(string $pattern, string $replacement, string $subject): string
     {
         return self::ensureString(preg_replace($pattern, $replacement, $subject));
     }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Security;
 
 use PhpOffice\PhpSpreadsheet\Reader;
-use PhpOffice\PhpSpreadsheet\Settings;
 
 class XmlScanner
 {
@@ -71,7 +70,7 @@ class XmlScanner
 
     private function disableEntityLoaderCheck(): void
     {
-        if (Settings::getLibXmlDisableEntityLoader() && \PHP_VERSION_ID < 80000) {
+        if (\PHP_VERSION_ID < 80000) {
             $libxmlDisableEntityLoaderValue = libxml_disable_entity_loader(true);
 
             if (self::$libxmlDisableEntityLoaderValue === null) {

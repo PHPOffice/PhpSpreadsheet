@@ -65,13 +65,16 @@ class UnparsedDataTest extends TestCase
 
         // xl/workbook.xml
         $xmlWorkbook = simplexml_load_string($resultWorkbookRaw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        self::assertNotFalse($xmlWorkbook);
         if (!$xmlWorkbook->workbookProtection) {
             self::fail('workbook.xml/workbookProtection not found!');
         } else {
             self::assertEquals($xmlWorkbook->workbookProtection['workbookPassword'], 'CBEB', 'workbook.xml/workbookProtection[workbookPassword] is wrong!');
             self::assertEquals($xmlWorkbook->workbookProtection['lockStructure'], 'true', 'workbook.xml/workbookProtection[lockStructure] is wrong!');
 
+            self::assertNotNull($xmlWorkbook->sheets->sheet[0]);
             self::assertEquals($xmlWorkbook->sheets->sheet[0]['state'], '', 'workbook.xml/sheets/sheet[0][state] is wrong!');
+            self::assertNotNull($xmlWorkbook->sheets->sheet[1]);
             self::assertEquals($xmlWorkbook->sheets->sheet[1]['state'], 'hidden', 'workbook.xml/sheets/sheet[1][state] is wrong!');
         }
         unset($xmlWorkbook);

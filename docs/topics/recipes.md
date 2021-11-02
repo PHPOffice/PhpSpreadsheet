@@ -1104,7 +1104,7 @@ formula is allowed to be maximum 255 characters (not bytes). This sets a
 limit on how many items you can have in the string "Item A,Item B,Item
 C". Therefore it is normally a better idea to type the item values
 directly in some cell range, say A1:A3, and instead use, say,
-`$validation->setFormula1('Sheet!$A$1:$A$3')`. Another benefit is that
+`$validation->setFormula1('\'Sheet title\'!$A$1:$A$3')`. Another benefit is that
 the item values themselves can contain the comma `,` character itself.
 
 If you need data validation on multiple cells, one can clone the

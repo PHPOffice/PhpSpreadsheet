@@ -70,11 +70,12 @@ class ConditionalFormattingRuleExtension
 
                 foreach ($extFormattingsXml->children($ns['x14']) as $extFormattingXml) {
                     $extCfRuleXml = $extFormattingXml->cfRule;
-                    if (((string) $extCfRuleXml->attributes()->type) !== Conditional::CONDITION_DATABAR) {
+                    $attributes = $extCfRuleXml->attributes();
+                    if (!$attributes || ((string) $attributes->type) !== Conditional::CONDITION_DATABAR) {
                         continue;
                     }
 
-                    $extFormattingRuleObj = new self((string) $extCfRuleXml->attributes()->id);
+                    $extFormattingRuleObj = new self((string) $attributes->id);
                     $extFormattingRuleObj->setSqref((string) $extFormattingXml->children($ns['xm'])->sqref);
                     $conditionalFormattingRuleExtensions[$extFormattingRuleObj->getId()] = $extFormattingRuleObj;
 
@@ -136,11 +137,16 @@ class ConditionalFormattingRuleExtension
         $cfvoIndex = 0;
         foreach ($dataBarXml->cfvo as $cfvo) {
             $f = (string) $cfvo->children($ns['xm'])->f;
+            $attributes = $cfvo->attributes();
+            if (!($attributes)) {
+                continue;
+            }
+
             if ($cfvoIndex === 0) {
-                $extDataBarObj->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject((string) $cfvo->attributes()['type'], null, (empty($f) ? null : $f)));
+                $extDataBarObj->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject((string) $attributes['type'], null, (empty($f) ? null : $f)));
             }
             if ($cfvoIndex === 1) {
-                $extDataBarObj->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject((string) $cfvo->attributes()['type'], null, (empty($f) ? null : $f)));
+                $extDataBarObj->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject((string) $attributes['type'], null, (empty($f) ? null : $f)));
             }
             ++$cfvoIndex;
         }

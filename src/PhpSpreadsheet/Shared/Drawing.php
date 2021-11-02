@@ -42,15 +42,14 @@ class Drawing
      * This gives a conversion factor of 7. Also, we assume that pixels and font size are proportional.
      *
      * @param int $pixelValue Value in pixels
-     * @param \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont Default font of the workbook
      *
      * @return float|int Value in cell dimension
      */
-    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
+    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont)
     {
         // Font name and size
-        $name = $pDefaultFont->getName();
-        $size = $pDefaultFont->getSize();
+        $name = $defaultFont->getName();
+        $size = $defaultFont->getSize();
 
         if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
@@ -126,27 +125,27 @@ class Drawing
     /**
      * Convert degrees to angle.
      *
-     * @param int $pValue Degrees
+     * @param int $degrees Degrees
      *
      * @return int Angle
      */
-    public static function degreesToAngle($pValue)
+    public static function degreesToAngle($degrees)
     {
-        return (int) round($pValue * 60000);
+        return (int) round($degrees * 60000);
     }
 
     /**
      * Convert angle to degrees.
      *
-     * @param int|SimpleXMLElement $pValue Angle
+     * @param int|SimpleXMLElement $angle Angle
      *
      * @return int Degrees
      */
-    public static function angleToDegrees($pValue)
+    public static function angleToDegrees($angle)
     {
-        $pValue = (int) $pValue;
-        if ($pValue != 0) {
-            return (int) round($pValue / 60000);
+        $angle = (int) $angle;
+        if ($angle != 0) {
+            return (int) round($angle / 60000);
         }
 
         return 0;
@@ -157,14 +156,14 @@ class Drawing
      *
      * @see http://www.php.net/manual/en/function.imagecreatefromwbmp.php#86214
      *
-     * @param string $p_sFile Path to Windows DIB (BMP) image
+     * @param string $bmpFilename Path to Windows DIB (BMP) image
      *
      * @return GdImage|resource
      */
-    public static function imagecreatefrombmp($p_sFile)
+    public static function imagecreatefrombmp($bmpFilename)
     {
         //    Load the image into a string
-        $file = fopen($p_sFile, 'rb');
+        $file = fopen($bmpFilename, 'rb');
         $read = fread($file, 10);
         while (!feof($file) && ($read != '')) {
             $read .= fread($file, 1024);
