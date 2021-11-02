@@ -304,16 +304,14 @@ class Cells
     /**
      * Clone the cell collection.
      *
-     * @param Worksheet $worksheet The new worksheet that we're copying to
-     *
      * @return self
      */
-    public function cloneCellCollection(Worksheet $parent)
+    public function cloneCellCollection(Worksheet $worksheet)
     {
         $this->storeCurrentCell();
         $newCollection = clone $this;
 
-        $newCollection->parent = $parent;
+        $newCollection->parent = $worksheet;
         if (is_object($newCollection->currentCell)) {
             $newCollection->currentCell->attach($this);
         }
