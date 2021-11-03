@@ -85,9 +85,6 @@ class Worksheet extends WriterPart
         // conditionalFormatting
         $this->writeConditionalFormatting($objWriter, $worksheet);
 
-        // dataValidations
-        $this->writeDataValidations($objWriter, $worksheet);
-
         // hyperlinks
         $this->writeHyperlinks($objWriter, $worksheet);
 
