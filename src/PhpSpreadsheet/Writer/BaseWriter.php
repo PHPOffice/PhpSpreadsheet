@@ -50,9 +50,9 @@ abstract class BaseWriter implements IWriter
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($pValue)
+    public function setIncludeCharts($includeCharts)
     {
-        $this->includeCharts = (bool) $pValue;
+        $this->includeCharts = (bool) $includeCharts;
 
         return $this;
     }
@@ -62,9 +62,9 @@ abstract class BaseWriter implements IWriter
         return $this->preCalculateFormulas;
     }
 
-    public function setPreCalculateFormulas($pValue)
+    public function setPreCalculateFormulas($precalculateFormulas)
     {
-        $this->preCalculateFormulas = (bool) $pValue;
+        $this->preCalculateFormulas = (bool) $precalculateFormulas;
 
         return $this;
     }
@@ -74,15 +74,15 @@ abstract class BaseWriter implements IWriter
         return $this->useDiskCaching;
     }
 
-    public function setUseDiskCaching($pValue, $pDirectory = null)
+    public function setUseDiskCaching($useDiskCache, $cacheDirectory = null)
     {
-        $this->useDiskCaching = $pValue;
+        $this->useDiskCaching = $useDiskCache;
 
-        if ($pDirectory !== null) {
-            if (is_dir($pDirectory)) {
-                $this->diskCachingDirectory = $pDirectory;
+        if ($cacheDirectory !== null) {
+            if (is_dir($cacheDirectory)) {
+                $this->diskCachingDirectory = $cacheDirectory;
             } else {
-                throw new Exception("Directory does not exist: $pDirectory");
+                throw new Exception("Directory does not exist: $cacheDirectory");
             }
         }
 

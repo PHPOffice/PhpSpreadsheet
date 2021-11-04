@@ -75,16 +75,16 @@ class Xlsx extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($pFilename, self::INITIAL_FILE)) {
+        if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
             return false;
         }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
 
-        if ($zip->open($pFilename) === true) {
+        if ($zip->open($filename) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
 
@@ -162,18 +162,18 @@ class Xlsx extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetNames($pFilename)
+    public function listWorksheetNames($filename)
     {
-        File::assertFile($pFilename, self::INITIAL_FILE);
+        File::assertFile($filename, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($pFilename);
+        $zip->open($filename);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
@@ -201,18 +201,18 @@ class Xlsx extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo($filename)
     {
-        File::assertFile($pFilename, self::INITIAL_FILE);
+        File::assertFile($filename, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($pFilename);
+        $zip->open($filename);
 
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
@@ -252,7 +252,7 @@ class Xlsx extends BaseReader
                         $xml = new XMLReader();
                         $xml->xml(
                             $this->securityScanner->scanFile(
-                                'zip://' . File::realpath($pFilename) . '#' . $fileWorksheetPath
+                                'zip://' . File::realpath($filename) . '#' . $fileWorksheetPath
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
@@ -387,9 +387,9 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      */
-    public function load(string $pFilename, int $flags = 0): Spreadsheet
+    public function load(string $filename, int $flags = 0): Spreadsheet
     {
-        File::assertFile($pFilename, self::INITIAL_FILE);
+        File::assertFile($filename, self::INITIAL_FILE);
         $this->processFlags($flags);
 
         // Initialisations
@@ -401,7 +401,7 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($pFilename);
+        $zip->open($filename);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
@@ -1106,7 +1106,7 @@ class Xlsx extends BaseReader
                                                     $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
                                                 }
 
-                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($pFilename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
                                                 $hfImages[(string) $shape['id']]->setResizeProportional(false);
                                                 $hfImages[(string) $shape['id']]->setWidth($style['width']);
                                                 $hfImages[(string) $shape['id']]->setHeight($style['height']);
@@ -1124,12 +1124,12 @@ class Xlsx extends BaseReader
                             }
 
                             // TODO: Autoshapes from twoCellAnchors!
-                            $filename = dirname("$dir/$fileWorksheet")
+                            $drawingFilename = dirname("$dir/$fileWorksheet")
                                 . '/_rels/'
                                 . basename($fileWorksheet)
                                 . '.rels';
-                            if ($zip->locateName($filename)) {
-                                $relsWorksheet = $this->loadZipNoNamespace($filename, Namespaces::RELATIONSHIPS);
+                            if ($zip->locateName($drawingFilename)) {
+                                $relsWorksheet = $this->loadZipNoNamespace($drawingFilename, Namespaces::RELATIONSHIPS);
                                 $drawings = [];
                                 foreach ($relsWorksheet->Relationship as $ele) {
                                     if ((string) $ele['Type'] === "$xmlNamespaceBase/drawing") {
@@ -1142,8 +1142,8 @@ class Xlsx extends BaseReader
                                     foreach ($xmlSheet->drawing as $drawing) {
                                         $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
-                                        $filename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
-                                        $relsDrawing = $this->loadZipNoNamespace($filename, $xmlNamespaceBase);
+                                        $drawingFilename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
+                                        $relsDrawing = $this->loadZipNoNamespace($drawingFilename, $xmlNamespaceBase);
                                         $images = [];
                                         $hyperlinks = [];
                                         if ($relsDrawing && $relsDrawing->Relationship) {
@@ -1188,7 +1188,7 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($pFilename) . '#' .
+                                                            'zip://' . File::realpath($filename) . '#' .
                                                             $images[$embedImageKey],
                                                             false
                                                         );
@@ -1267,7 +1267,7 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($pFilename) . '#' .
+                                                            'zip://' . File::realpath($filename) . '#' .
                                                             $images[$embedImageKey],
                                                             false
                                                         );

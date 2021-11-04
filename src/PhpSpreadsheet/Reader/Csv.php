@@ -111,9 +111,9 @@ class Csv extends BaseReader
         return self::$constructorCallback;
     }
 
-    public function setInputEncoding(string $pValue): self
+    public function setInputEncoding(string $encoding): self
     {
-        $this->inputEncoding = $pValue;
+        $this->inputEncoding = $encoding;
 
         return $this;
     }
@@ -198,10 +198,10 @@ class Csv extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      */
-    public function listWorksheetInfo(string $pFilename): array
+    public function listWorksheetInfo(string $filename): array
     {
         // Open file
-        $this->openFileOrMemory($pFilename);
+        $this->openFileOrMemory($filename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -238,7 +238,7 @@ class Csv extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -246,23 +246,23 @@ class Csv extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
-    private function openFileOrMemory(string $pFilename): void
+    private function openFileOrMemory(string $filename): void
     {
         // Open file
-        $fhandle = $this->canRead($pFilename);
+        $fhandle = $this->canRead($filename);
         if (!$fhandle) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
         }
         if ($this->inputEncoding === self::GUESS_ENCODING) {
-            $this->inputEncoding = self::guessEncoding($pFilename, $this->fallbackEncoding);
+            $this->inputEncoding = self::guessEncoding($filename, $this->fallbackEncoding);
         }
-        $this->openFile($pFilename);
+        $this->openFile($filename);
         if ($this->inputEncoding !== 'UTF-8') {
             fclose($this->fileHandle);
-            $entireFile = file_get_contents($pFilename);
+            $entireFile = file_get_contents($filename);
             $this->fileHandle = fopen('php://memory', 'r+b');
             if ($this->fileHandle !== false && $entireFile !== false) {
                 $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
@@ -288,13 +288,13 @@ class Csv extends BaseReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
-    public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Deprecated in Php8.1
         $iniset = self::setAutoDetect('1');
 
         // Open file
-        $this->openFileOrMemory($pFilename);
+        $this->openFileOrMemory($filename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -396,9 +396,9 @@ class Csv extends BaseReader
         return $this->sheetIndex;
     }
 
-    public function setSheetIndex(int $pValue): self
+    public function setSheetIndex(int $indexValue): self
     {
-        $this->sheetIndex = $pValue;
+        $this->sheetIndex = $indexValue;
 
         return $this;
     }
@@ -428,26 +428,13 @@ class Csv extends BaseReader
     }
 
     /**
-     * Scrutinizer believes, incorrectly, that the specific pathinfo
-     * call in canRead can return something other than an array.
-     * Phpstan knows better.
-     * This function satisfies both.
-     *
-     * @param mixed $extension
-     */
-    private static function extractStringLower($extension): string
-    {
-        return is_string($extension) ? strtolower($extension) : '';
-    }
-
-    /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
         // Check if file exists
         try {
-            $this->openFile($pFilename);
+            $this->openFile($filename);
         } catch (ReaderException $e) {
             return false;
         }
@@ -455,13 +442,13 @@ class Csv extends BaseReader
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = self::extractStringLower(pathinfo($pFilename, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
 
         // Attempt to guess mimetype
-        $type = mime_content_type($pFilename);
+        $type = mime_content_type($filename);
         $supportedTypes = [
             'application/csv',
             'text/csv',

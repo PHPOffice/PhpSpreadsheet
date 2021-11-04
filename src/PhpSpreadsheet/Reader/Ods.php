@@ -41,15 +41,15 @@ class Ods extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $pFilename): bool
+    public function canRead(string $filename): bool
     {
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        if (File::testFileNoThrow($pFilename)) {
+        if (File::testFileNoThrow($filename)) {
             $zip = new ZipArchive();
-            if ($zip->open($pFilename) === true) {
+            if ($zip->open($filename) === true) {
                 // check if it is an OOXML archive
                 $stat = $zip->statName('mimetype');
                 if ($stat && ($stat['size'] <= 255)) {
@@ -220,7 +220,7 @@ class Ods extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -228,7 +228,7 @@ class Ods extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**

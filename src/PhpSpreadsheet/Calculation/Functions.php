@@ -15,12 +15,13 @@ class Functions
      */
     const M_2DIVPI = 0.63661977236758134307553505349006;
 
-    /** constants */
     const COMPATIBILITY_EXCEL = 'Excel';
     const COMPATIBILITY_GNUMERIC = 'Gnumeric';
     const COMPATIBILITY_OPENOFFICE = 'OpenOfficeCalc';
 
+    /** Use of RETURNDATE_PHP_NUMERIC is discouraged - not 32-bit Y2038-safe, no timezone. */
     const RETURNDATE_PHP_NUMERIC = 'P';
+    /** Use of RETURNDATE_UNIX_TIMESTAMP is discouraged - not 32-bit Y2038-safe, no timezone. */
     const RETURNDATE_UNIX_TIMESTAMP = 'P';
     const RETURNDATE_PHP_OBJECT = 'O';
     const RETURNDATE_PHP_DATETIME_OBJECT = 'O';
