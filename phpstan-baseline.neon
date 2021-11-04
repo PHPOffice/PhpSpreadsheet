@@ -5661,16 +5661,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
 
 		-
-			message: "#^Parameter \\#1 \\$arr1 of function array_diff expects array, array\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
-
-		-
-			message: "#^Cannot access offset 2 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
-
-		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
