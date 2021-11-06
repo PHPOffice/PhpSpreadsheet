@@ -47,7 +47,7 @@ class Ods extends BaseReader
 
         // Load file
 
-        if (File::testFileNoThrow($filename)) {
+        if (File::testFileNoThrow($filename, '')) {
             $zip = new ZipArchive();
             if ($zip->open($filename) === true) {
                 // check if it is an OOXML archive
