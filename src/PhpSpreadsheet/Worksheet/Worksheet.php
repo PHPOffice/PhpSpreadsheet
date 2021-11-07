@@ -1415,17 +1415,17 @@ class Worksheet implements IComparable
     /**
      * Get style for cell.
      *
-     * @param string $pCellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
      *
      * @return Style
      */
-    public function getStyle($pCellCoordinate)
+    public function getStyle($cellCoordinate)
     {
         // set this sheet as active
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
 
         // set cell coordinate as active
-        $this->setSelectedCells($pCellCoordinate);
+        $this->setSelectedCells($cellCoordinate);
 
         return $this->parent->getCellXfSupervisor();
     }
@@ -1524,22 +1524,22 @@ class Worksheet implements IComparable
      *
      * Please note that this will overwrite existing cell styles for cells in range!
      *
-     * @param Style $pCellStyle Cell style to duplicate
+     * @param Style $style Cell style to duplicate
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      *
      * @return $this
      */
-    public function duplicateStyle(Style $pCellStyle, $pRange)
+    public function duplicateStyle(Style $style, $pRange)
     {
         // Add the style to the workbook if necessary
         $workbook = $this->parent;
-        if ($existingStyle = $this->parent->getCellXfByHashCode($pCellStyle->getHashCode())) {
+        if ($existingStyle = $this->parent->getCellXfByHashCode($style->getHashCode())) {
             // there is already such cell Xf in our collection
             $xfIndex = $existingStyle->getIndex();
         } else {
             // we don't have such a cell Xf, need to add
-            $workbook->addCellXf($pCellStyle);
-            $xfIndex = $pCellStyle->getIndex();
+            $workbook->addCellXf($style);
+            $xfIndex = $style->getIndex();
         }
 
         // Calculate range outer borders
@@ -1567,21 +1567,21 @@ class Worksheet implements IComparable
      *
      * Please note that this will overwrite existing cell styles for cells in range!
      *
-     * @param Conditional[] $pCellStyle Cell style to duplicate
-     * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
+     * @param Conditional[] $styles Cell style to duplicate
+     * @param string $range Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      *
      * @return $this
      */
-    public function duplicateConditionalStyle(array $pCellStyle, $pRange = '')
+    public function duplicateConditionalStyle(array $styles, $range = '')
     {
-        foreach ($pCellStyle as $cellStyle) {
+        foreach ($styles as $cellStyle) {
             if (!($cellStyle instanceof Conditional)) {
                 throw new Exception('Style is not a conditional style');
             }
         }
 
         // Calculate range outer borders
-        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($pRange . ':' . $pRange);
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range . ':' . $range);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1593,7 +1593,7 @@ class Worksheet implements IComparable
         // Loop through cells and apply styles
         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                $this->setConditionalStyles(Coordinate::stringFromColumnIndex($col) . $row, $pCellStyle);
+                $this->setConditionalStyles(Coordinate::stringFromColumnIndex($col) . $row, $styles);
             }
         }
 
@@ -2299,31 +2299,31 @@ class Worksheet implements IComparable
     /**
      * Get comment for cell.
      *
-     * @param string $pCellCoordinate Cell coordinate to get comment for, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate to get comment for, eg: 'A1'
      *
      * @return Comment
      */
-    public function getComment($pCellCoordinate)
+    public function getComment($cellCoordinate)
     {
         // Uppercase coordinate
-        $pCellCoordinate = strtoupper($pCellCoordinate);
+        $cellCoordinate = strtoupper($cellCoordinate);
 
-        if (Coordinate::coordinateIsRange($pCellCoordinate)) {
+        if (Coordinate::coordinateIsRange($cellCoordinate)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($pCellCoordinate, '$') !== false) {
+        } elseif (strpos($cellCoordinate, '$') !== false) {
             throw new Exception('Cell coordinate string must not be absolute.');
-        } elseif ($pCellCoordinate == '') {
+        } elseif ($cellCoordinate == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');
         }
 
         // Check if we already have a comment for this cell.
-        if (isset($this->comments[$pCellCoordinate])) {
-            return $this->comments[$pCellCoordinate];
+        if (isset($this->comments[$cellCoordinate])) {
+            return $this->comments[$cellCoordinate];
         }
 
         // If not, create a new comment.
         $newComment = new Comment();
-        $this->comments[$pCellCoordinate] = $newComment;
+        $this->comments[$cellCoordinate] = $newComment;
 
         return $newComment;
     }
@@ -2777,36 +2777,36 @@ class Worksheet implements IComparable
     /**
      * Get hyperlink.
      *
-     * @param string $pCellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
      *
      * @return Hyperlink
      */
-    public function getHyperlink($pCellCoordinate)
+    public function getHyperlink($cellCoordinate)
     {
         // return hyperlink if we already have one
-        if (isset($this->hyperlinkCollection[$pCellCoordinate])) {
-            return $this->hyperlinkCollection[$pCellCoordinate];
+        if (isset($this->hyperlinkCollection[$cellCoordinate])) {
+            return $this->hyperlinkCollection[$cellCoordinate];
         }
 
         // else create hyperlink
-        $this->hyperlinkCollection[$pCellCoordinate] = new Hyperlink();
+        $this->hyperlinkCollection[$cellCoordinate] = new Hyperlink();
 
-        return $this->hyperlinkCollection[$pCellCoordinate];
+        return $this->hyperlinkCollection[$cellCoordinate];
     }
 
     /**
      * Set hyperlink.
      *
-     * @param string $pCellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate to insert hyperlink, eg: 'A1'
      *
      * @return $this
      */
-    public function setHyperlink($pCellCoordinate, ?Hyperlink $pHyperlink = null)
+    public function setHyperlink($cellCoordinate, ?Hyperlink $pHyperlink = null)
     {
         if ($pHyperlink === null) {
-            unset($this->hyperlinkCollection[$pCellCoordinate]);
+            unset($this->hyperlinkCollection[$cellCoordinate]);
         } else {
-            $this->hyperlinkCollection[$pCellCoordinate] = $pHyperlink;
+            $this->hyperlinkCollection[$cellCoordinate] = $pHyperlink;
         }
 
         return $this;
@@ -2837,36 +2837,36 @@ class Worksheet implements IComparable
     /**
      * Get data validation.
      *
-     * @param string $pCellCoordinate Cell coordinate to get data validation for, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate to get data validation for, eg: 'A1'
      *
      * @return DataValidation
      */
-    public function getDataValidation($pCellCoordinate)
+    public function getDataValidation($cellCoordinate)
     {
         // return data validation if we already have one
-        if (isset($this->dataValidationCollection[$pCellCoordinate])) {
-            return $this->dataValidationCollection[$pCellCoordinate];
+        if (isset($this->dataValidationCollection[$cellCoordinate])) {
+            return $this->dataValidationCollection[$cellCoordinate];
         }
 
         // else create data validation
-        $this->dataValidationCollection[$pCellCoordinate] = new DataValidation();
+        $this->dataValidationCollection[$cellCoordinate] = new DataValidation();
 
-        return $this->dataValidationCollection[$pCellCoordinate];
+        return $this->dataValidationCollection[$cellCoordinate];
     }
 
     /**
      * Set data validation.
      *
-     * @param string $pCellCoordinate Cell coordinate to insert data validation, eg: 'A1'
+     * @param string $cellCoordinate Cell coordinate to insert data validation, eg: 'A1'
      *
      * @return $this
      */
-    public function setDataValidation($pCellCoordinate, ?DataValidation $pDataValidation = null)
+    public function setDataValidation($cellCoordinate, ?DataValidation $pDataValidation = null)
     {
         if ($pDataValidation === null) {
-            unset($this->dataValidationCollection[$pCellCoordinate]);
+            unset($this->dataValidationCollection[$cellCoordinate]);
         } else {
-            $this->dataValidationCollection[$pCellCoordinate] = $pDataValidation;
+            $this->dataValidationCollection[$cellCoordinate] = $pDataValidation;
         }
 
         return $this;

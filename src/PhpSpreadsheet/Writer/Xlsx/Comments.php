@@ -66,15 +66,15 @@ class Comments extends WriterPart
      * Write comment to XML format.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string $pCellReference Cell reference
+     * @param string $cellReference Cell reference
      * @param Comment $pComment Comment
      * @param array $pAuthors Array of authors
      */
-    private function writeComment(XMLWriter $objWriter, $pCellReference, Comment $pComment, array $pAuthors): void
+    private function writeComment(XMLWriter $objWriter, $cellReference, Comment $pComment, array $pAuthors): void
     {
         // comment
         $objWriter->startElement('comment');
-        $objWriter->writeAttribute('ref', $pCellReference);
+        $objWriter->writeAttribute('ref', $cellReference);
         $objWriter->writeAttribute('authorId', $pAuthors[$pComment->getAuthor()]);
 
         // text
@@ -159,13 +159,13 @@ class Comments extends WriterPart
      * Write VML comment to XML format.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string $pCellReference Cell reference, eg: 'A1'
+     * @param string $cellReference Cell reference, eg: 'A1'
      * @param Comment $pComment Comment
      */
-    private function writeVMLComment(XMLWriter $objWriter, $pCellReference, Comment $pComment): void
+    private function writeVMLComment(XMLWriter $objWriter, $cellReference, Comment $pComment): void
     {
         // Metadata
-        [$column, $row] = Coordinate::indexesFromString($pCellReference);
+        [$column, $row] = Coordinate::indexesFromString($cellReference);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 
