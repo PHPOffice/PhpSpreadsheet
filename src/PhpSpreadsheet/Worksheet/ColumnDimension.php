@@ -32,12 +32,12 @@ class ColumnDimension extends Dimension
     /**
      * Create a new ColumnDimension.
      *
-     * @param string $pIndex Character column index
+     * @param string $index Character column index
      */
-    public function __construct($pIndex = 'A')
+    public function __construct($index = 'A')
     {
         // Initialise values
-        $this->columnIndex = $pIndex;
+        $this->columnIndex = $index;
 
         // set dimension as unformatted by default
         parent::__construct(0);

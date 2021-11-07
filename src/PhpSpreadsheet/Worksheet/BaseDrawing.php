@@ -152,13 +152,13 @@ class BaseDrawing implements IComparable
     /**
      * Set Name.
      *
-     * @param string $pValue
+     * @param string $name
      *
      * @return $this
      */
-    public function setName($pValue)
+    public function setName($name)
     {
-        $this->name = $pValue;
+        $this->name = $name;
 
         return $this;
     }
@@ -200,20 +200,20 @@ class BaseDrawing implements IComparable
     /**
      * Set Worksheet.
      *
-     * @param Worksheet $pValue
-     * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
+     * @param Worksheet $worksheet
+     * @param bool $overrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
      * @return $this
      */
-    public function setWorksheet(?Worksheet $pValue = null, $pOverrideOld = false)
+    public function setWorksheet(?Worksheet $worksheet = null, $overrideOld = false)
     {
         if ($this->worksheet === null) {
             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
-            $this->worksheet = $pValue;
+            $this->worksheet = $worksheet;
             $this->worksheet->getCell($this->coordinates);
             $this->worksheet->getDrawingCollection()->append($this);
         } else {
-            if ($pOverrideOld) {
+            if ($overrideOld) {
                 // Remove drawing from old \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
                 $iterator = $this->worksheet->getDrawingCollection()->getIterator();
 
@@ -227,7 +227,7 @@ class BaseDrawing implements IComparable
                 }
 
                 // Set new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
-                $this->setWorksheet($pValue);
+                $this->setWorksheet($worksheet);
             } else {
                 throw new PhpSpreadsheetException('A Worksheet has already been assigned. Drawings can only exist on one \\PhpOffice\\PhpSpreadsheet\\Worksheet.');
             }
@@ -249,13 +249,13 @@ class BaseDrawing implements IComparable
     /**
      * Set Coordinates.
      *
-     * @param string $pValue eg: 'A1'
+     * @param string $coordinates eg: 'A1'
      *
      * @return $this
      */
-    public function setCoordinates($pValue)
+    public function setCoordinates($coordinates)
     {
-        $this->coordinates = $pValue;
+        $this->coordinates = $coordinates;
 
         return $this;
     }
@@ -273,13 +273,13 @@ class BaseDrawing implements IComparable
     /**
      * Set OffsetX.
      *
-     * @param int $pValue
+     * @param int $offsetX
      *
      * @return $this
      */
-    public function setOffsetX($pValue)
+    public function setOffsetX($offsetX)
     {
-        $this->offsetX = $pValue;
+        $this->offsetX = $offsetX;
 
         return $this;
     }
@@ -297,13 +297,13 @@ class BaseDrawing implements IComparable
     /**
      * Set OffsetY.
      *
-     * @param int $pValue
+     * @param int $offsetY
      *
      * @return $this
      */
-    public function setOffsetY($pValue)
+    public function setOffsetY($offsetY)
     {
-        $this->offsetY = $pValue;
+        $this->offsetY = $offsetY;
 
         return $this;
     }
@@ -321,20 +321,20 @@ class BaseDrawing implements IComparable
     /**
      * Set Width.
      *
-     * @param int $pValue
+     * @param int $width
      *
      * @return $this
      */
-    public function setWidth($pValue)
+    public function setWidth($width)
     {
         // Resize proportional?
-        if ($this->resizeProportional && $pValue != 0) {
+        if ($this->resizeProportional && $width != 0) {
             $ratio = $this->height / ($this->width != 0 ? $this->width : 1);
-            $this->height = (int) round($ratio * $pValue);
+            $this->height = (int) round($ratio * $width);
         }
 
         // Set width
-        $this->width = $pValue;
+        $this->width = $width;
 
         return $this;
     }
@@ -352,20 +352,20 @@ class BaseDrawing implements IComparable
     /**
      * Set Height.
      *
-     * @param int $pValue
+     * @param int $height
      *
      * @return $this
      */
-    public function setHeight($pValue)
+    public function setHeight($height)
     {
         // Resize proportional?
-        if ($this->resizeProportional && $pValue != 0) {
+        if ($this->resizeProportional && $height != 0) {
             $ratio = $this->width / ($this->height != 0 ? $this->height : 1);
-            $this->width = (int) round($ratio * $pValue);
+            $this->width = (int) round($ratio * $height);
         }
 
         // Set height
-        $this->height = $pValue;
+        $this->height = $height;
 
         return $this;
     }
@@ -419,13 +419,13 @@ class BaseDrawing implements IComparable
     /**
      * Set ResizeProportional.
      *
-     * @param bool $pValue
+     * @param bool $resizeProportional
      *
      * @return $this
      */
-    public function setResizeProportional($pValue)
+    public function setResizeProportional($resizeProportional)
     {
-        $this->resizeProportional = $pValue;
+        $this->resizeProportional = $resizeProportional;
 
         return $this;
     }
@@ -443,13 +443,13 @@ class BaseDrawing implements IComparable
     /**
      * Set Rotation.
      *
-     * @param int $pValue
+     * @param int $rotation
      *
      * @return $this
      */
-    public function setRotation($pValue)
+    public function setRotation($rotation)
     {
-        $this->rotation = $pValue;
+        $this->rotation = $rotation;
 
         return $this;
     }
@@ -467,13 +467,13 @@ class BaseDrawing implements IComparable
     /**
      * Set Shadow.
      *
-     * @param Drawing\Shadow $pValue
+     * @param Drawing\Shadow $shadow
      *
      * @return $this
      */
-    public function setShadow(?Drawing\Shadow $pValue = null)
+    public function setShadow(?Drawing\Shadow $shadow = null)
     {
-        $this->shadow = $pValue;
+        $this->shadow = $shadow;
 
         return $this;
     }
@@ -517,9 +517,9 @@ class BaseDrawing implements IComparable
         }
     }
 
-    public function setHyperlink(?Hyperlink $pHyperlink = null): void
+    public function setHyperlink(?Hyperlink $hyperlink = null): void
     {
-        $this->hyperlink = $pHyperlink;
+        $this->hyperlink = $hyperlink;
     }
 
     /**

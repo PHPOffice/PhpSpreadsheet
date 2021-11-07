@@ -451,18 +451,18 @@ class Xls extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetNames($pFilename)
+    public function listWorksheetNames($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         $worksheetNames = [];
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -509,18 +509,18 @@ class Xls extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         $worksheetInfo = [];
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -1364,14 +1364,14 @@ class Xls extends BaseReader
     /**
      * Use OLE reader to extract the relevant data streams from the OLE file.
      *
-     * @param string $pFilename
+     * @param string $filename
      */
-    private function loadOLE($pFilename): void
+    private function loadOLE($filename): void
     {
         // OLE reader
         $ole = new OLERead();
         // get excel data,
-        $ole->read($pFilename);
+        $ole->read($filename);
         // Get workbook data: workbook stream + sheet streams
         $this->data = $ole->getStream($ole->wrkbook);
         // Get summary information data

@@ -2893,11 +2893,11 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param bool $pValue
+     * @param bool $calculationCacheEnabled
      */
-    public function setCalculationCacheEnabled($pValue): void
+    public function setCalculationCacheEnabled($calculationCacheEnabled): void
     {
-        $this->calculationCacheEnabled = $pValue;
+        $this->calculationCacheEnabled = $calculationCacheEnabled;
         $this->clearCalculationCache();
     }
 
@@ -5241,13 +5241,13 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string $pRange String based range representation
+     * @param string $range String based range representation
      * @param Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$pRange = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
+    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -5255,14 +5255,14 @@ class Calculation
         if ($worksheet !== null) {
             $worksheetName = $worksheet->getTitle();
 
-            if (strpos($pRange, '!') !== false) {
-                [$worksheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
+            if (strpos($range, '!') !== false) {
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
                 $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
             }
 
             // Extract range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
-            $pRange = "'" . $worksheetName . "'" . '!' . $pRange;
+            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
+            $range = "'" . $worksheetName . "'" . '!' . $range;
             if (!isset($aReferences[1])) {
                 $currentCol = '';
                 $currentRow = 0;
@@ -5358,14 +5358,14 @@ class Calculation
     /**
      * Is a specific function implemented?
      *
-     * @param string $pFunction Function Name
+     * @param string $function Function Name
      *
      * @return bool
      */
-    public function isImplemented($pFunction)
+    public function isImplemented($function)
     {
-        $pFunction = strtoupper($pFunction);
-        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$pFunction]) || (is_array(self::$phpSpreadsheetFunctions[$pFunction]['functionCall']) && self::$phpSpreadsheetFunctions[$pFunction]['functionCall'][1] === 'DUMMY');
+        $function = strtoupper($function);
+        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');
 
         return !$notImplemented;
     }

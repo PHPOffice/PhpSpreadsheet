@@ -685,27 +685,27 @@ class Functions
         return $worksheet->getCell($cellReference)->isFormula();
     }
 
-    public static function expandDefinedName(string $pCoordinate, Cell $cell): string
+    public static function expandDefinedName(string $coordinate, Cell $cell): string
     {
         $worksheet = $cell->getWorksheet();
         $spreadsheet = $worksheet->getParent();
         // Uppercase coordinate
-        $pCoordinatex = strtoupper($pCoordinate);
+        $pCoordinatex = strtoupper($coordinate);
         // Eliminate leading equal sign
         $pCoordinatex = Worksheet::pregReplace('/^=/', '', $pCoordinatex);
         $defined = $spreadsheet->getDefinedName($pCoordinatex, $worksheet);
         if ($defined !== null) {
             $worksheet2 = $defined->getWorkSheet();
             if (!$defined->isFormula() && $worksheet2 !== null) {
-                $pCoordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
+                $coordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
             }
         }
 
-        return $pCoordinate;
+        return $coordinate;
     }
 
-    public static function trimTrailingRange(string $pCoordinate): string
+    public static function trimTrailingRange(string $coordinate): string
     {
-        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $pCoordinate);
+        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $coordinate);
     }
 }
