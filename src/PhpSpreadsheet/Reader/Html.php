@@ -218,7 +218,7 @@ class Html extends BaseReader
     /**
      * Set input encoding.
      *
-     * @param string $pValue Input encoding, eg: 'ANSI'
+     * @param string $inputEncoding Input encoding, eg: 'ANSI'
      *
      * @return $this
      *
@@ -226,9 +226,9 @@ class Html extends BaseReader
      *
      * @deprecated no use is made of this property
      */
-    public function setInputEncoding($pValue)
+    public function setInputEncoding($inputEncoding)
     {
-        $this->inputEncoding = $pValue;
+        $this->inputEncoding = $inputEncoding;
 
         return $this;
     }
@@ -650,28 +650,28 @@ class Html extends BaseReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
     {
         // Validate
-        if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid HTML file.');
+        if (!$this->canRead($filename)) {
+            throw new Exception($filename . ' is an Invalid HTML file.');
         }
 
         // Create a new DOM object
         $dom = new DOMDocument();
         // Reload the HTML file into the DOM object
         try {
-            $convert = mb_convert_encoding($this->securityScanner->scanFile($pFilename), 'HTML-ENTITIES', 'UTF-8');
+            $convert = mb_convert_encoding($this->securityScanner->scanFile($filename), 'HTML-ENTITIES', 'UTF-8');
             $loaded = $dom->loadHTML(self::ensureString($convert));
         } catch (Throwable $e) {
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load ' . $pFilename . ' as a DOM Document', 0, $e ?? null);
+            throw new Exception('Failed to load ' . $filename . ' as a DOM Document', 0, $e ?? null);
         }
 
         return $this->loadDocument($dom, $spreadsheet);
@@ -736,13 +736,13 @@ class Html extends BaseReader
     /**
      * Set sheet index.
      *
-     * @param int $pValue Sheet index
+     * @param int $sheetIndex Sheet index
      *
      * @return $this
      */
-    public function setSheetIndex($pValue)
+    public function setSheetIndex($sheetIndex)
     {
-        $this->sheetIndex = $pValue;
+        $this->sheetIndex = $sheetIndex;
 
         return $this;
     }

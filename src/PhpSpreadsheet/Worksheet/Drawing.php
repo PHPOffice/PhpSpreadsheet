@@ -81,20 +81,20 @@ class Drawing extends BaseDrawing
     /**
      * Set Path.
      *
-     * @param string $pValue File path
-     * @param bool $pVerifyFile Verify file
+     * @param string $path File path
+     * @param bool $verifyFile Verify file
      *
      * @return $this
      */
-    public function setPath($pValue, $pVerifyFile = true)
+    public function setPath($path, $verifyFile = true)
     {
-        if ($pVerifyFile) {
+        if ($verifyFile) {
             // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
-            if (filter_var($pValue, FILTER_VALIDATE_URL)) {
-                $this->path = $pValue;
+            if (filter_var($path, FILTER_VALIDATE_URL)) {
+                $this->path = $path;
                 // Implicit that it is a URL, rather store info than running check above on value in other places.
                 $this->isUrl = true;
-                $imageContents = file_get_contents($pValue);
+                $imageContents = file_get_contents($path);
                 $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
                 if ($filePath) {
                     file_put_contents($filePath, $imageContents);
@@ -106,17 +106,17 @@ class Drawing extends BaseDrawing
                         unlink($filePath);
                     }
                 }
-            } elseif (file_exists($pValue)) {
-                $this->path = $pValue;
+            } elseif (file_exists($path)) {
+                $this->path = $path;
                 if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
-                    [$this->width, $this->height] = getimagesize($pValue);
+                    [$this->width, $this->height] = getimagesize($path);
                 }
             } else {
-                throw new PhpSpreadsheetException("File $pValue not found!");
+                throw new PhpSpreadsheetException("File $path not found!");
             }
         } else {
-            $this->path = $pValue;
+            $this->path = $path;
         }
 
         return $this;

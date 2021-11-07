@@ -38,12 +38,12 @@ class AutoFilter
     /**
      * Create a new AutoFilter.
      *
-     * @param string $pRange Cell range (i.e. A1:E10)
+     * @param string $range Cell range (i.e. A1:E10)
      * @param Worksheet $worksheet
      */
-    public function __construct($pRange = '', ?Worksheet $worksheet = null)
+    public function __construct($range = '', ?Worksheet $worksheet = null)
     {
-        $this->range = $pRange;
+        $this->range = $range;
         $this->workSheet = $worksheet;
     }
 
@@ -84,15 +84,15 @@ class AutoFilter
     /**
      * Set AutoFilter Range.
      *
-     * @param string $pRange Cell range (i.e. A1:E10)
+     * @param string $range Cell range (i.e. A1:E10)
      *
      * @return $this
      */
-    public function setRange($pRange)
+    public function setRange($range)
     {
         // extract coordinate
-        [$worksheet, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-        if (empty($pRange)) {
+        [$worksheet, $range] = Worksheet::extractSheetTitle($range, true);
+        if (empty($range)) {
             //    Discard all column rules
             $this->columns = [];
             $this->range = '';
@@ -100,11 +100,11 @@ class AutoFilter
             return $this;
         }
 
-        if (strpos($pRange, ':') === false) {
+        if (strpos($range, ':') === false) {
             throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
         }
 
-        $this->range = $pRange;
+        $this->range = $range;
         //    Discard any column rules that are no longer valid within this range
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         foreach ($this->columns as $key => $value) {
@@ -152,44 +152,44 @@ class AutoFilter
     /**
      * Get a specified AutoFilter Column Offset within the defined AutoFilter range.
      *
-     * @param string $pColumn Column name (e.g. A)
+     * @param string $column Column name (e.g. A)
      *
      * @return int The offset of the specified column within the autofilter range
      */
-    public function getColumnOffset($pColumn)
+    public function getColumnOffset($column)
     {
-        return $this->testColumnInRange($pColumn);
+        return $this->testColumnInRange($column);
     }
 
     /**
      * Get a specified AutoFilter Column.
      *
-     * @param string $pColumn Column name (e.g. A)
+     * @param string $column Column name (e.g. A)
      *
      * @return AutoFilter\Column
      */
-    public function getColumn($pColumn)
+    public function getColumn($column)
     {
-        $this->testColumnInRange($pColumn);
+        $this->testColumnInRange($column);
 
-        if (!isset($this->columns[$pColumn])) {
-            $this->columns[$pColumn] = new AutoFilter\Column($pColumn, $this);
+        if (!isset($this->columns[$column])) {
+            $this->columns[$column] = new AutoFilter\Column($column, $this);
         }
 
-        return $this->columns[$pColumn];
+        return $this->columns[$column];
     }
 
     /**
      * Get a specified AutoFilter Column by it's offset.
      *
-     * @param int $pColumnOffset Column offset within range (starting from 0)
+     * @param int $columnOffset Column offset within range (starting from 0)
      *
      * @return AutoFilter\Column
      */
-    public function getColumnByOffset($pColumnOffset)
+    public function getColumnByOffset($columnOffset)
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
-        $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $pColumnOffset);
+        $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
 
         return $this->getColumn($pColumn);
     }
@@ -227,16 +227,16 @@ class AutoFilter
     /**
      * Clear a specified AutoFilter Column.
      *
-     * @param string $pColumn Column name (e.g. A)
+     * @param string $column Column name (e.g. A)
      *
      * @return $this
      */
-    public function clearColumn($pColumn)
+    public function clearColumn($column)
     {
-        $this->testColumnInRange($pColumn);
+        $this->testColumnInRange($column);
 
-        if (isset($this->columns[$pColumn])) {
-            unset($this->columns[$pColumn]);
+        if (isset($this->columns[$column])) {
+            unset($this->columns[$column]);
         }
 
         return $this;
