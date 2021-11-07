@@ -158,18 +158,18 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see LookupRef\Hyperlink::set()
-     *      Use the set() method in the LookupRef\Hyperlink class instead
-     *
      * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition
-     * @param Cell $pCell The cell to set the hyperlink in
+     * @param Cell $cell The cell to set the hyperlink in
      *
      * @return string The value of $displayName (or $linkURL if $displayName was blank)
+     *
+     *@see LookupRef\Hyperlink::set()
+     *      Use the set() method in the LookupRef\Hyperlink class instead
      */
-    public static function HYPERLINK($linkURL = '', $displayName = null, ?Cell $pCell = null)
+    public static function HYPERLINK($linkURL = '', $displayName = null, ?Cell $cell = null)
     {
-        return LookupRef\Hyperlink::set($linkURL, $displayName, $pCell);
+        return LookupRef\Hyperlink::set($linkURL, $displayName, $cell);
     }
 
     /**
@@ -183,19 +183,19 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see LookupRef\Indirect::INDIRECT()
+     * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
+     * @param Cell $cell The current cell (containing this formula)
+     *
+     * @return array|string An array containing a cell or range of cells, or a string on error
+     *
+     *@see LookupRef\Indirect::INDIRECT()
      *      Use the INDIRECT() method in the LookupRef\Indirect class instead
      *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
-     *
-     * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
-     * @param Cell $pCell The current cell (containing this formula)
-     *
-     * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function INDIRECT($cellAddress, Cell $pCell)
+    public static function INDIRECT($cellAddress, Cell $cell)
     {
-        return Indirect::INDIRECT($cellAddress, true, $pCell);
+        return Indirect::INDIRECT($cellAddress, true, $cell);
     }
 
     /**
@@ -233,9 +233,9 @@ class LookupRef
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null)
     {
-        return Offset::OFFSET($cellAddress, $rows, $columns, $height, $width, $pCell);
+        return Offset::OFFSET($cellAddress, $rows, $columns, $height, $width, $cell);
     }
 
     /**
@@ -401,16 +401,16 @@ class LookupRef
      *
      * @Deprecated 1.18.0
      *
-     * @see LookupRef\Formula::text()
-     *      Use the text() method in the LookupRef\Formula class instead
-     *
      * @param mixed $cellReference The cell to check
-     * @param Cell $pCell The current cell (containing this formula)
+     * @param Cell $cell The current cell (containing this formula)
      *
      * @return string
+     *
+     *@see LookupRef\Formula::text()
+     *      Use the text() method in the LookupRef\Formula class instead
      */
-    public static function FORMULATEXT($cellReference = '', ?Cell $pCell = null)
+    public static function FORMULATEXT($cellReference = '', ?Cell $cell = null)
     {
-        return LookupRef\Formula::text($cellReference, $pCell);
+        return LookupRef\Formula::text($cellReference, $cell);
     }
 }

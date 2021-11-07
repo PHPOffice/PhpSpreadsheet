@@ -1242,9 +1242,9 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
-    private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $pCell): void
+    private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $pCell->getCalculatedValue() : $cellValue;
+        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
         if (is_string($calculatedValue)) {
             if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
@@ -1285,15 +1285,15 @@ class Worksheet extends WriterPart
      *
      * @param XMLWriter $objWriter XML Writer
      * @param PhpspreadsheetWorksheet $worksheet Worksheet
-     * @param string $pCellAddress Cell Address
+     * @param string $cellAddress Cell Address
      * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
      */
-    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, string $pCellAddress, array $pFlippedStringTable): void
+    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, string $cellAddress, array $pFlippedStringTable): void
     {
         // Cell
-        $pCell = $worksheet->getCell($pCellAddress);
+        $pCell = $worksheet->getCell($cellAddress);
         $objWriter->startElement('c');
-        $objWriter->writeAttribute('r', $pCellAddress);
+        $objWriter->writeAttribute('r', $cellAddress);
 
         // Sheet styles
         $xfi = $pCell->getXfIndex();

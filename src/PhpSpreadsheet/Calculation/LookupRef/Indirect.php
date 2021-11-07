@@ -56,11 +56,11 @@ class Indirect
      * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param mixed $a1fmt Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1,
      *                      but can be provided as numeric which is cast to bool
-     * @param Cell $pCell The current cell (containing this formula)
+     * @param Cell $cell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function INDIRECT($cellAddress, $a1fmt, Cell $pCell)
+    public static function INDIRECT($cellAddress, $a1fmt, Cell $cell)
     {
         try {
             $a1 = self::a1Format($a1fmt);
@@ -69,9 +69,9 @@ class Indirect
             return $e->getMessage();
         }
 
-        [$cellAddress, $worksheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $pCell);
+        [$cellAddress, $worksheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $cell);
 
-        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $pCell->getWorkSheet(), $sheetName);
+        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName);
 
         if (
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
