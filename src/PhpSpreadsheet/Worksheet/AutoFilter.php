@@ -197,27 +197,27 @@ class AutoFilter
     /**
      * Set AutoFilter.
      *
-     * @param AutoFilter\Column|string $pColumn
+     * @param AutoFilter\Column|string $columnObjectOrString
      *            A simple string containing a Column ID like 'A' is permitted
      *
      * @return $this
      */
-    public function setColumn($pColumn)
+    public function setColumn($columnObjectOrString)
     {
-        if ((is_string($pColumn)) && (!empty($pColumn))) {
-            $column = $pColumn;
-        } elseif (is_object($pColumn) && ($pColumn instanceof AutoFilter\Column)) {
-            $column = $pColumn->getColumnIndex();
+        if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
+            $column = $columnObjectOrString;
+        } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof AutoFilter\Column)) {
+            $column = $columnObjectOrString->getColumnIndex();
         } else {
             throw new PhpSpreadsheetException('Column is not within the autofilter range.');
         }
         $this->testColumnInRange($column);
 
-        if (is_string($pColumn)) {
-            $this->columns[$pColumn] = new AutoFilter\Column($pColumn, $this);
+        if (is_string($columnObjectOrString)) {
+            $this->columns[$columnObjectOrString] = new AutoFilter\Column($columnObjectOrString, $this);
         } else {
-            $pColumn->setParent($this);
-            $this->columns[$column] = $pColumn;
+            $columnObjectOrString->setParent($this);
+            $this->columns[$column] = $columnObjectOrString;
         }
         ksort($this->columns);
 
