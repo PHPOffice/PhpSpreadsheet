@@ -284,31 +284,31 @@ class Rule
     /**
      * Set AutoFilter Rule Value.
      *
-     * @param int|int[]|string|string[] $pValue
+     * @param int|int[]|string|string[] $value
      *
      * @return $this
      */
-    public function setValue($pValue)
+    public function setValue($value)
     {
-        if (is_array($pValue)) {
+        if (is_array($value)) {
             $grouping = -1;
-            foreach ($pValue as $key => $value) {
+            foreach ($value as $key => $v) {
                 //    Validate array entries
                 if (!in_array($key, self::DATE_TIME_GROUPS)) {
                     //    Remove any invalid entries from the value array
-                    unset($pValue[$key]);
+                    unset($value[$key]);
                 } else {
                     //    Work out what the dateTime grouping will be
                     $grouping = max($grouping, array_search($key, self::DATE_TIME_GROUPS));
                 }
             }
-            if (count($pValue) == 0) {
+            if (count($value) == 0) {
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
             $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]);
         }
-        $this->value = $pValue;
+        $this->value = $value;
 
         return $this;
     }
