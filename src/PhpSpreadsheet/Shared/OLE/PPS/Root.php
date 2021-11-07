@@ -73,10 +73,10 @@ class Root extends PPS
         // Initial Setting for saving
         $this->bigBlockSize = 2 ** (
             (isset($this->bigBlockSize)) ? self::adjust2($this->bigBlockSize) : 9
-            );
+        );
         $this->smallBlockSize = 2 ** (
             (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
-            );
+        );
 
         // Make an array of PPS's (for Save)
         $aList = [];
