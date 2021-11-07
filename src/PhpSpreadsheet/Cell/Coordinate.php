@@ -282,7 +282,7 @@ abstract class Coordinate
             'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26,
         ];
 
-        //    We also use the language construct isset() rather than the more costly strlen() function to match the length of $pString
+        //    We also use the language construct isset() rather than the more costly strlen() function to match the length of $columnAddress
         //        for improved performance
         if (isset($columnAddress[0])) {
             if (!isset($columnAddress[1])) {
