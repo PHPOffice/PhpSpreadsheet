@@ -4330,7 +4330,8 @@ class Calculation
                 //        Cell References) then we have an INTERSECTION operator
                 if (
                     ($expectingOperator) &&
-                    ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
+                    (
+                        (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
                             ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
@@ -4456,7 +4457,8 @@ class Calculation
                     && (
                         $storeValueAsBool
                         || Functions::isError($storeValue)
-                        || ($storeValue === 'Pruned branch'))
+                        || ($storeValue === 'Pruned branch')
+                    )
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
