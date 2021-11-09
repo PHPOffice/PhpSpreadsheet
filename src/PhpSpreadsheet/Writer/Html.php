@@ -141,9 +141,9 @@ class Html extends BaseWriter
     private $editHtmlCallback;
 
     /**
-     * Optional HTMLPurifier_Config object
+     * Optional HTMLPurifier_Config object.
      *
-     * @var HTMLPurifier_Config|mixed $config
+     * @var HTMLPurifier_Config|mixed
      */
     private $htmlPurifierConfig;
 
@@ -233,7 +233,7 @@ class Html extends BaseWriter
     /**
      * Set a callback to edit the HTMLPurifier Config.
      *
-     * @param mixed|HTMLPurifier_Config $htmlPurifierConfig
+     * @param HTMLPurifier_Config|mixed $htmlPurifierConfig
      */
     public function setHtmlPurifierConfig($htmlPurifierConfig): void
     {
