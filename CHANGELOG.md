@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Setter for HTMLPurifier config in HTML writer
 
 ### Changed
 
