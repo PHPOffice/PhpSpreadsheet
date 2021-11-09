@@ -141,6 +141,13 @@ class Html extends BaseWriter
     private $editHtmlCallback;
 
     /**
+     * Optional HTMLPurifier_Config object
+     *
+     * @var HTMLPurifier_Config|mixed $config
+     */
+    private $htmlPurifierConfig;
+
+    /**
      * Create a new HTML.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -221,6 +228,16 @@ class Html extends BaseWriter
     public function setEditHtmlCallback(?callable $callback): void
     {
         $this->editHtmlCallback = $callback;
+    }
+
+    /**
+     * Set a callback to edit the HTMLPurifier Config.
+     *
+     * @param mixed|HTMLPurifier_Config $htmlPurifierConfig
+     */
+    public function setHtmlPurifierConfig($htmlPurifierConfig): void
+    {
+        $this->htmlPurifierConfig = $htmlPurifierConfig;
     }
 
     const VALIGN_ARR = [
@@ -1768,7 +1785,7 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
-            $sanitizer = new HTMLPurifier();
+            $sanitizer = new HTMLPurifier($this->htmlPurifierConfig);
             $sanitizedString = $sanitizer->purify($worksheet->getComment($coordinate)->getText()->getPlainText());
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
