@@ -166,10 +166,10 @@ class DggContainer
     /**
      * Set identifier clusters. [<drawingId> => <max shape id>, ...].
      *
-     * @param array $pValue
+     * @param array $IDCLs
      */
-    public function setIDCLs($pValue): void
+    public function setIDCLs($IDCLs): void
     {
-        $this->IDCLs = $pValue;
+        $this->IDCLs = $IDCLs;
     }
 }

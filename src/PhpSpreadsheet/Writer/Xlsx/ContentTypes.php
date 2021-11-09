@@ -183,35 +183,35 @@ class ContentTypes extends WriterPart
     /**
      * Get image mime type.
      *
-     * @param string $pFile Filename
+     * @param string $filename Filename
      *
      * @return string Mime Type
      */
-    private function getImageMimeType($pFile)
+    private function getImageMimeType($filename)
     {
-        if (File::fileExists($pFile)) {
-            $image = getimagesize($pFile);
+        if (File::fileExists($filename)) {
+            $image = getimagesize($filename);
 
             return image_type_to_mime_type((is_array($image) && count($image) >= 3) ? $image[2] : 0);
         }
 
-        throw new WriterException("File $pFile does not exist");
+        throw new WriterException("File $filename does not exist");
     }
 
     /**
      * Write Default content type.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string $pPartname Part name
-     * @param string $pContentType Content type
+     * @param string $partName Part name
+     * @param string $contentType Content type
      */
-    private function writeDefaultContentType(XMLWriter $objWriter, $pPartname, $pContentType): void
+    private function writeDefaultContentType(XMLWriter $objWriter, $partName, $contentType): void
     {
-        if ($pPartname != '' && $pContentType != '') {
+        if ($partName != '' && $contentType != '') {
             // Write content type
             $objWriter->startElement('Default');
-            $objWriter->writeAttribute('Extension', $pPartname);
-            $objWriter->writeAttribute('ContentType', $pContentType);
+            $objWriter->writeAttribute('Extension', $partName);
+            $objWriter->writeAttribute('ContentType', $contentType);
             $objWriter->endElement();
         } else {
             throw new WriterException('Invalid parameters passed.');
@@ -222,16 +222,16 @@ class ContentTypes extends WriterPart
      * Write Override content type.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param string $pPartname Part name
-     * @param string $pContentType Content type
+     * @param string $partName Part name
+     * @param string $contentType Content type
      */
-    private function writeOverrideContentType(XMLWriter $objWriter, $pPartname, $pContentType): void
+    private function writeOverrideContentType(XMLWriter $objWriter, $partName, $contentType): void
     {
-        if ($pPartname != '' && $pContentType != '') {
+        if ($partName != '' && $contentType != '') {
             // Write content type
             $objWriter->startElement('Override');
-            $objWriter->writeAttribute('PartName', $pPartname);
-            $objWriter->writeAttribute('ContentType', $pContentType);
+            $objWriter->writeAttribute('PartName', $partName);
+            $objWriter->writeAttribute('ContentType', $contentType);
             $objWriter->endElement();
         } else {
             throw new WriterException('Invalid parameters passed.');
