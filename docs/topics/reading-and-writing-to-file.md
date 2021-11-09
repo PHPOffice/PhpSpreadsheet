@@ -720,6 +720,17 @@ specify which sheet to write to HTML:
 $writer->setSheetIndex(0);
 ```
 
+#### Usage of custom HTMLPurifier Config
+
+Cell can contain comment. HTMLPurifier using for cleanup input string.
+Therefore, you can specify your own config:
+
+```php
+$config = HTMLPurifier_Config::createDefault();
+$config->set('Cache.SerializerPath', APPPATH . 'cache');
+$writer->setHtmlPurifierConfig($config);
+```
+
 #### Setting the images root of the HTML file
 
 There might be situations where you want to explicitly set the included
