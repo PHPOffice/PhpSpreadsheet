@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
 
 class Cell
 {
@@ -139,9 +140,10 @@ class Cell
      */
     public function getCoordinate()
     {
-        $coordinate = null;
-        if (isset($this->parent)) {
+        try {
             $coordinate = $this->parent->getCurrentCoordinate();
+        } catch (Throwable $e) {
+            $coordinate = null;
         }
         if ($coordinate === null) {
             throw new Exception('Coordinate no longer exists');
@@ -486,10 +488,12 @@ class Cell
      */
     public function getWorksheet()
     {
-        $worksheet = null;
-        if (isset($this->parent)) {
+        try {
             $worksheet = $this->parent->getParent();
+        } catch (Throwable $e) {
+            $worksheet = null;
         }
+
         if ($worksheet === null) {
             throw new Exception('Worksheet no longer exists');
         }
