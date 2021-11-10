@@ -6226,11 +6226,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
 
 		-
-			message: "#^Class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
@@ -6241,16 +6236,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Column.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/ColumnCellIterator.php
-
-		-
-			message: "#^Class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnIterator implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/ColumnIterator.php
-
-		-
 			message: "#^Cannot use array destructuring on array\\|false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Drawing.php
@@ -6259,11 +6244,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\:\\:\\$color \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Drawing/Shadow.php
-
-		-
-			message: "#^Class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Iterator implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Iterator.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:getPrintArea\\(\\) should return string but returns string\\|null\\.$#"
@@ -6294,16 +6274,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Row\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Row.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/RowCellIterator.php
-
-		-
-			message: "#^Class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowIterator implements generic interface Iterator but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/RowIterator.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\SheetView\\:\\:\\$sheetViewTypes has no type specified\\.$#"
@@ -6376,12 +6346,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartCollection\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getDrawingCollection\\(\\) return type with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByName\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false but returns PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -6392,6 +6357,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$index of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension constructor expects int, null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of function array_splice expects array, ArrayObject\\<int, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -6437,16 +6407,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$rotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:calculateColumnWidth\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$chartCollection with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$drawingCollection with generic class ArrayObject does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -8926,6 +8886,21 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
 
 		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
+			count: 5
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
+
+		-
+			message: "#^Cannot call method getXAxisLabel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
+			count: 5
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
+
+		-
+			message: "#^Cannot call method getYAxisLabel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
+			count: 5
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
+
+		-
 			message: "#^Cannot call method getColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
@@ -8969,6 +8944,11 @@ parameters:
 			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/PropertiesTest.php
+
+		-
+			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
+			count: 2
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/SheetsXlsxChartTest.php
 
 		-
 			message: "#^Expression in empty\\(\\) is not falsy\\.$#"
@@ -9274,4 +9254,9 @@ parameters:
 			message: "#^Parameter \\#1 \\$data of function simplexml_load_string expects string, string\\|false given\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
+
+		-
+			message: "#^Cannot call method getExtension\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\|null\\.$#"
+			count: 2
+			path: tests/PhpSpreadsheetTests/Writer/Xlsx/WmfTest.php
 
