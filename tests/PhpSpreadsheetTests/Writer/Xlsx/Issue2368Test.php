@@ -3,12 +3,13 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
-class Issue2368Test extends TestCase
+class Issue2368Test extends AbstractFunctional
 {
     public function testBoolWrite(): void
     {
@@ -33,5 +34,45 @@ class Issue2368Test extends TestCase
             self::assertSame(0, substr_count($contents, '<extLst>'));
             self::assertSame(2, substr_count($contents, 'dataValidations')); // start and end tags
         }
+    }
+
+    public function testMultipleRange(): void
+    {
+        // DataValidations which were identical except for sqref were incorrectly merged.
+        $filename = 'tests/data/Writer/XLSX/issue.2368new.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $validations = $sheet->getDataValidationCollection();
+        /** @var string[] */
+        $ranges = [];
+        foreach ($validations as $validation) {
+            $ranges[] = $validation->getSqref();
+        }
+        self::assertContains('A1:A5', $ranges);
+        self::assertContains('A10:A14', $ranges);
+        self::assertContains('A20:A24', $ranges);
+        self::assertSame('"yes,no"', $sheet->getCell('A3')->getDataValidation()->getFormula1());
+        self::assertSame('"yes,no"', $sheet->getCell('A10')->getDataValidation()->getFormula1());
+        self::assertSame('"yes,no"', $sheet->getCell('A24')->getDataValidation()->getFormula1());
+
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet2 = $reloadedSpreadsheet->getActiveSheet();
+        $validation2 = $sheet2->getDataValidationCollection();
+        /** @var string[] */
+        $range2 = [];
+        foreach ($validation2 as $validation) {
+            $range2[] = $validation->getSqref();
+        }
+        self::assertContains('A1:A5', $range2);
+        self::assertContains('A10:A14', $range2);
+        self::assertContains('A20:A24', $range2);
+        self::assertSame('"yes,no"', $sheet2->getCell('A3')->getDataValidation()->getFormula1());
+        self::assertSame('"yes,no"', $sheet2->getCell('A10')->getDataValidation()->getFormula1());
+        self::assertSame('"yes,no"', $sheet2->getCell('A24')->getDataValidation()->getFormula1());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
