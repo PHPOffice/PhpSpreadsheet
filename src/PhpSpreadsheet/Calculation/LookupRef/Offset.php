@@ -40,7 +40,7 @@ class Offset
      *
      * @return array|int|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null)
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
@@ -51,11 +51,11 @@ class Offset
             return 0;
         }
 
-        if (!is_object($pCell)) {
+        if (!is_object($cell)) {
             return Functions::REF();
         }
 
-        [$cellAddress, $worksheet] = self::extractWorksheet($cellAddress, $pCell);
+        [$cellAddress, $worksheet] = self::extractWorksheet($cellAddress, $cell);
 
         $startCell = $endCell = $cellAddress;
         if (strpos($cellAddress, ':')) {
@@ -96,7 +96,7 @@ class Offset
             ->extractCellRange($cellAddress, $worksheet, false);
     }
 
-    private static function extractWorksheet($cellAddress, Cell $pCell): array
+    private static function extractWorksheet($cellAddress, Cell $cell): array
     {
         $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
@@ -105,8 +105,8 @@ class Offset
         }
 
         $worksheet = ($sheetName !== '')
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
-            : $pCell->getWorksheet();
+            ? $cell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $cell->getWorksheet();
 
         return [$cellAddress, $worksheet];
     }

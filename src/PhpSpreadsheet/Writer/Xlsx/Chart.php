@@ -30,7 +30,7 @@ class Chart extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $pChart, $calculateCellValues = true)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $chart, $calculateCellValues = true)
     {
         $this->calculateCellValues = $calculateCellValues;
 
@@ -43,7 +43,7 @@ class Chart extends WriterPart
         }
         //    Ensure that data series values are up-to-date before we save
         if ($this->calculateCellValues) {
-            $pChart->refresh();
+            $chart->refresh();
         }
 
         // XML header
@@ -69,22 +69,22 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:chart');
 
-        $this->writeTitle($objWriter, $pChart->getTitle());
+        $this->writeTitle($objWriter, $chart->getTitle());
 
         $objWriter->startElement('c:autoTitleDeleted');
         $objWriter->writeAttribute('val', 0);
         $objWriter->endElement();
 
-        $this->writePlotArea($objWriter, $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
+        $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY(), $chart->getMajorGridlines(), $chart->getMinorGridlines());
 
-        $this->writeLegend($objWriter, $pChart->getLegend());
+        $this->writeLegend($objWriter, $chart->getLegend());
 
         $objWriter->startElement('c:plotVisOnly');
-        $objWriter->writeAttribute('val', (int) $pChart->getPlotVisibleOnly());
+        $objWriter->writeAttribute('val', (int) $chart->getPlotVisibleOnly());
         $objWriter->endElement();
 
         $objWriter->startElement('c:dispBlanksAs');
-        $objWriter->writeAttribute('val', $pChart->getDisplayBlanksAs());
+        $objWriter->writeAttribute('val', $chart->getDisplayBlanksAs());
         $objWriter->endElement();
 
         $objWriter->startElement('c:showDLblsOverMax');

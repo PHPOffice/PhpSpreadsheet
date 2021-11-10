@@ -123,9 +123,9 @@ class Csv extends BaseReader
         return $this->inputEncoding;
     }
 
-    public function setFallbackEncoding(string $pValue): self
+    public function setFallbackEncoding(string $fallbackEncoding): self
     {
-        $this->fallbackEncoding = $pValue;
+        $this->fallbackEncoding = $fallbackEncoding;
 
         return $this;
     }

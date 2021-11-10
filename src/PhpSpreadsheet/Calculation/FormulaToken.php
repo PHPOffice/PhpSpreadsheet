@@ -76,16 +76,16 @@ class FormulaToken
     /**
      * Create a new FormulaToken.
      *
-     * @param string $pValue
-     * @param string $pTokenType Token type (represented by TOKEN_TYPE_*)
-     * @param string $pTokenSubType Token Subtype (represented by TOKEN_SUBTYPE_*)
+     * @param string $value
+     * @param string $tokenType Token type (represented by TOKEN_TYPE_*)
+     * @param string $tokenSubType Token Subtype (represented by TOKEN_SUBTYPE_*)
      */
-    public function __construct($pValue, $pTokenType = self::TOKEN_TYPE_UNKNOWN, $pTokenSubType = self::TOKEN_SUBTYPE_NOTHING)
+    public function __construct($value, $tokenType = self::TOKEN_TYPE_UNKNOWN, $tokenSubType = self::TOKEN_SUBTYPE_NOTHING)
     {
         // Initialise values
-        $this->value = $pValue;
-        $this->tokenType = $pTokenType;
-        $this->tokenSubType = $pTokenSubType;
+        $this->value = $value;
+        $this->tokenType = $tokenType;
+        $this->tokenSubType = $tokenSubType;
     }
 
     /**
