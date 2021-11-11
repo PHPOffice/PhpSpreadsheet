@@ -339,7 +339,7 @@ class AutoFilter
      * Test if cell value is within a set of values defined by a ruleset.
      *
      * @param mixed $cellValue
-     * @param mixed[] $ruleSet
+     * @param string[][] $ruleSet
      *
      * @return bool
      */
@@ -356,9 +356,7 @@ class AutoFilter
             }
         }
         $returnVal = ($join == AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
-        foreach ($dataSet as $rulex) {
-            /** @var string[] */
-            $rule = $rulex;
+        foreach ($dataSet as $rule) {
             $retVal = false;
 
             if (is_numeric($rule['value'])) {
