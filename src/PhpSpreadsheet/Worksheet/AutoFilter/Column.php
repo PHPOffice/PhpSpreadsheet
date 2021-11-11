@@ -176,6 +176,9 @@ class Column
         if (!in_array($filterType, self::$filterTypes)) {
             throw new PhpSpreadsheetException('Invalid filter type for column AutoFilter.');
         }
+        if ($filterType === self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER && count($this->ruleset) > 2) {
+            throw new PhpSpreadsheetException('No more than 2 rules are allowed in a Custom Filter');
+        }
 
         $this->filterType = $filterType;
 
@@ -305,6 +308,9 @@ class Column
      */
     public function createRule()
     {
+        if ($this->filterType === self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER && count($this->ruleset) >= 2) {
+            throw new PhpSpreadsheetException('No more than 2 rules are allowed in a Custom Filter');
+        }
         $this->ruleset[] = new Column\Rule($this);
 
         return end($this->ruleset);
