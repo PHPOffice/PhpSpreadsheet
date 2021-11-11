@@ -356,7 +356,9 @@ class AutoFilter
             }
         }
         $returnVal = ($join == AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
-        foreach ($dataSet as $rule) {
+        foreach ($dataSet as $rulex) {
+            /** @var string[] */
+            $rule = $rulex;
             $retVal = false;
 
             if (is_numeric($rule['value'])) {
