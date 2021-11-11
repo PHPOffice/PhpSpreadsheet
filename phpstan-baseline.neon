@@ -6092,7 +6092,7 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
 		-
@@ -6106,18 +6106,8 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
 		-
-			message: "#^Cannot access offset 'operator' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
 			message: "#^Cannot access offset 'time' on mixed\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 9
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
 		-
@@ -6157,11 +6147,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 

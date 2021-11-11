@@ -339,12 +339,13 @@ class AutoFilter
      * Test if cell value is within a set of values defined by a ruleset.
      *
      * @param mixed $cellValue
-     * @param string[][] $ruleSet
+     * @param mixed[] $ruleSet
      *
      * @return bool
      */
     private static function filterTestInCustomDataSet($cellValue, $ruleSet)
     {
+        /** @var array[] */
         $dataSet = $ruleSet['filterRules'];
         $join = $ruleSet['join'];
         $customRuleForBlanks = $ruleSet['customRuleForBlanks'] ?? false;
@@ -357,39 +358,45 @@ class AutoFilter
         }
         $returnVal = ($join == AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
         foreach ($dataSet as $rule) {
+            /** @var string */
+            $ruleValue = $rule['value'];
+            /** @var string */
+            $ruleOperator = $rule['operator'];
+            /** @var string */
+            $cellValueString = $cellValue;
             $retVal = false;
 
-            if (is_numeric($rule['value'])) {
+            if (is_numeric($ruleValue)) {
                 //    Numeric values are tested using the appropriate operator
                 $numericTest = is_numeric($cellValue);
-                switch ($rule['operator']) {
+                switch ($ruleOperator) {
                     case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
-                        $retVal = $numericTest && ($cellValue == $rule['value']);
+                        $retVal = $numericTest && ($cellValue == $ruleValue);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
-                        $retVal = !$numericTest || ($cellValue != $rule['value']);
+                        $retVal = !$numericTest || ($cellValue != $ruleValue);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN:
-                        $retVal = $numericTest && ($cellValue > $rule['value']);
+                        $retVal = $numericTest && ($cellValue > $ruleValue);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL:
-                        $retVal = $numericTest && ($cellValue >= $rule['value']);
+                        $retVal = $numericTest && ($cellValue >= $ruleValue);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN:
-                        $retVal = $numericTest && ($cellValue < $rule['value']);
+                        $retVal = $numericTest && ($cellValue < $ruleValue);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL:
-                        $retVal = $numericTest && ($cellValue <= $rule['value']);
+                        $retVal = $numericTest && ($cellValue <= $ruleValue);
 
                         break;
                 }
-            } elseif ($rule['value'] == '') {
-                switch ($rule['operator']) {
+            } elseif ($ruleValue == '') {
+                switch ($ruleOperator) {
                     case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
                         $retVal = (($cellValue == '') || ($cellValue === null));
 
@@ -405,29 +412,29 @@ class AutoFilter
                 }
             } else {
                 //    String values are always tested for equality, factoring in for wildcards (hence a regexp test)
-                switch ($rule['operator']) {
+                switch ($ruleOperator) {
                     case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
-                        $retVal = (bool) preg_match('/^' . $rule['value'] . '$/i', $cellValue);
+                        $retVal = (bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString);
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
-                        $retVal = !((bool) preg_match('/^' . $rule['value'] . '$/i', $cellValue));
+                        $retVal = !((bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString));
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN:
-                        $retVal = strcasecmp($cellValue, $rule['value']) > 0;
+                        $retVal = strcasecmp($cellValueString, $ruleValue) > 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL:
-                        $retVal = strcasecmp($cellValue, $rule['value']) >= 0;
+                        $retVal = strcasecmp($cellValueString, $ruleValue) >= 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN:
-                        $retVal = strcasecmp($cellValue, $rule['value']) < 0;
+                        $retVal = strcasecmp($cellValueString, $ruleValue) < 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL:
-                        $retVal = strcasecmp($cellValue, $rule['value']) <= 0;
+                        $retVal = strcasecmp($cellValueString, $ruleValue) <= 0;
 
                         break;
                 }
