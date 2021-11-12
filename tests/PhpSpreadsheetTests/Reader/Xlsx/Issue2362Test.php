@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PHPUnit\Framework\TestCase;
 use ZipArchive;
 
