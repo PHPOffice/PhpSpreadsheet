@@ -465,7 +465,7 @@ class Drawing extends WriterPart
     /**
      * Get an array of all drawings.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
+     * @return BaseDrawing[] All drawings in PhpSpreadsheet
      */
     public function allDrawings(Spreadsheet $spreadsheet)
     {

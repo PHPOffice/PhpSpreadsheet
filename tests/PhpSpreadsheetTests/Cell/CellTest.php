@@ -21,6 +21,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($value, $dataType);
 
         self::assertSame($expected, $cell->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerSetValueExplicit(): array
@@ -64,5 +65,42 @@ class CellTest extends TestCase
         $value = $spreadsheet->getActiveSheet()->getCell($cell)->getCalculatedValue();
         self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
         self::assertEquals(247, $value);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDestroyWorksheet(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        self::assertSame($sheet, $cell->getWorksheet());
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Worksheet no longer exists');
+        $spreadsheet->disconnectWorksheets();
+        $cell->getWorksheet();
+    }
+
+    public function testDestroyCell1(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        self::assertSame('A1', $cell->getCoordinate());
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Coordinate no longer exists');
+        $spreadsheet->disconnectWorksheets();
+        $cell->getCoordinate();
+    }
+
+    public function testDestroyCell2(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        self::assertSame('A1', $cell->getCoordinate());
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Coordinate no longer exists');
+        $cell->getParent()->delete('A1');
+        $cell->getCoordinate();
     }
 }
