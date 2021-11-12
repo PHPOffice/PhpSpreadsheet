@@ -96,14 +96,14 @@ class Worksheet implements IComparable
     /**
      * Collection of drawings.
      *
-     * @var ArrayObject<BaseDrawing>
+     * @var ArrayObject<int, BaseDrawing>
      */
     private $drawingCollection;
 
     /**
      * Collection of Chart objects.
      *
-     * @var ArrayObject<Chart>
+     * @var ArrayObject<int, Chart>
      */
     private $chartCollection;
 
@@ -537,7 +537,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of drawings.
      *
-     * @return ArrayObject<BaseDrawing>
+     * @return ArrayObject<int, BaseDrawing>
      */
     public function getDrawingCollection()
     {
@@ -547,7 +547,7 @@ class Worksheet implements IComparable
     /**
      * Get collection of charts.
      *
-     * @return ArrayObject<Chart>
+     * @return ArrayObject<int, Chart>
      */
     public function getChartCollection()
     {

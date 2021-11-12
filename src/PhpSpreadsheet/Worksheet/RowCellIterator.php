@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
+/**
+ * @extends CellIterator<string>
+ */
 class RowCellIterator extends CellIterator
 {
     /**
@@ -44,7 +47,7 @@ class RowCellIterator extends CellIterator
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(?Worksheet $worksheet = null, $rowIndex = 1, $startColumn = 'A', $endColumn = null)
+    public function __construct(Worksheet $worksheet, $rowIndex = 1, $startColumn = 'A', $endColumn = null)
     {
         // Set subject and row index
         $this->worksheet = $worksheet;
