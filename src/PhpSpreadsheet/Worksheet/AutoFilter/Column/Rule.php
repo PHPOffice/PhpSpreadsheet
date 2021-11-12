@@ -238,9 +238,9 @@ class Rule
     /**
      * Create a new Rule.
      */
-    public function __construct(?Column $pParent = null)
+    public function __construct(?Column $parent = null)
     {
-        $this->parent = $pParent;
+        $this->parent = $parent;
     }
 
     /**
@@ -256,17 +256,17 @@ class Rule
     /**
      * Set AutoFilter Rule Type.
      *
-     * @param string $pRuleType see self::AUTOFILTER_RULETYPE_*
+     * @param string $ruleType see self::AUTOFILTER_RULETYPE_*
      *
      * @return $this
      */
-    public function setRuleType($pRuleType)
+    public function setRuleType($ruleType)
     {
-        if (!in_array($pRuleType, self::RULE_TYPES)) {
+        if (!in_array($ruleType, self::RULE_TYPES)) {
             throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
 
-        $this->ruleType = $pRuleType;
+        $this->ruleType = $ruleType;
 
         return $this;
     }
@@ -284,31 +284,31 @@ class Rule
     /**
      * Set AutoFilter Rule Value.
      *
-     * @param int|int[]|string|string[] $pValue
+     * @param int|int[]|string|string[] $value
      *
      * @return $this
      */
-    public function setValue($pValue)
+    public function setValue($value)
     {
-        if (is_array($pValue)) {
+        if (is_array($value)) {
             $grouping = -1;
-            foreach ($pValue as $key => $value) {
+            foreach ($value as $key => $v) {
                 //    Validate array entries
                 if (!in_array($key, self::DATE_TIME_GROUPS)) {
                     //    Remove any invalid entries from the value array
-                    unset($pValue[$key]);
+                    unset($value[$key]);
                 } else {
                     //    Work out what the dateTime grouping will be
                     $grouping = max($grouping, array_search($key, self::DATE_TIME_GROUPS));
                 }
             }
-            if (count($pValue) == 0) {
+            if (count($value) == 0) {
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
             $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]);
         }
-        $this->value = $pValue;
+        $this->value = $value;
 
         return $this;
     }
@@ -326,22 +326,22 @@ class Rule
     /**
      * Set AutoFilter Rule Operator.
      *
-     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
+     * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
      *
      * @return $this
      */
-    public function setOperator($pOperator)
+    public function setOperator($operator)
     {
-        if (empty($pOperator)) {
-            $pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
+        if (empty($operator)) {
+            $operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
         }
         if (
-            (!in_array($pOperator, self::OPERATORS)) &&
-            (!in_array($pOperator, self::TOP_TEN_VALUE))
+            (!in_array($operator, self::OPERATORS)) &&
+            (!in_array($operator, self::TOP_TEN_VALUE))
         ) {
             throw new PhpSpreadsheetException('Invalid operator for column AutoFilter Rule.');
         }
-        $this->operator = $pOperator;
+        $this->operator = $operator;
 
         return $this;
     }
@@ -359,21 +359,21 @@ class Rule
     /**
      * Set AutoFilter Rule Grouping.
      *
-     * @param string $pGrouping
+     * @param string $grouping
      *
      * @return $this
      */
-    public function setGrouping($pGrouping)
+    public function setGrouping($grouping)
     {
         if (
-            ($pGrouping !== null) &&
-            (!in_array($pGrouping, self::DATE_TIME_GROUPS)) &&
-            (!in_array($pGrouping, self::DYNAMIC_TYPES)) &&
-            (!in_array($pGrouping, self::TOP_TEN_TYPE))
+            ($grouping !== null) &&
+            (!in_array($grouping, self::DATE_TIME_GROUPS)) &&
+            (!in_array($grouping, self::DYNAMIC_TYPES)) &&
+            (!in_array($grouping, self::TOP_TEN_TYPE))
         ) {
             throw new PhpSpreadsheetException('Invalid grouping for column AutoFilter Rule.');
         }
-        $this->grouping = $pGrouping;
+        $this->grouping = $grouping;
 
         return $this;
     }
@@ -381,21 +381,21 @@ class Rule
     /**
      * Set AutoFilter Rule.
      *
-     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
-     * @param int|int[]|string|string[] $pValue
-     * @param string $pGrouping
+     * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
+     * @param int|int[]|string|string[] $value
+     * @param string $grouping
      *
      * @return $this
      */
-    public function setRule($pOperator, $pValue, $pGrouping = null)
+    public function setRule($operator, $value, $grouping = null)
     {
-        $this->setOperator($pOperator);
-        $this->setValue($pValue);
+        $this->setOperator($operator);
+        $this->setValue($value);
         //  Only set grouping if it's been passed in as a user-supplied argument,
         //      otherwise we're calculating it when we setValue() and don't want to overwrite that
         //      If the user supplies an argumnet for grouping, then on their own head be it
-        if ($pGrouping !== null) {
-            $this->setGrouping($pGrouping);
+        if ($grouping !== null) {
+            $this->setGrouping($grouping);
         }
 
         return $this;
@@ -416,9 +416,9 @@ class Rule
      *
      * @return $this
      */
-    public function setParent(?Column $pParent = null)
+    public function setParent(?Column $parent = null)
     {
-        $this->parent = $pParent;
+        $this->parent = $parent;
 
         return $this;
     }

@@ -4,31 +4,14 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PHPUnit\Framework\MockObject\MockObject;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class DefaultValueBinderTest extends TestCase
 {
-    private function createCellStub(): Cell
-    {
-        // Create a stub for the Cell class.
-        /** @var Cell&MockObject $cellStub */
-        $cellStub = $this->getMockBuilder(Cell::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        // Configure the stub.
-        $cellStub->expects(self::any())
-            ->method('setValueExplicit')
-            ->willReturn(true);
-
-        return $cellStub;
-    }
-
     /**
      * @dataProvider binderProvider
      *
@@ -36,10 +19,13 @@ class DefaultValueBinderTest extends TestCase
      */
     public function testBindValue($value): void
     {
-        $cellStub = $this->createCellStub();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
         $binder = new DefaultValueBinder();
-        $result = $binder->bindValue($cellStub, $value);
+        $result = $binder->bindValue($cell, $value);
         self::assertTrue($result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function binderProvider(): array
@@ -91,11 +77,14 @@ class DefaultValueBinderTest extends TestCase
 
     public function testCanOverrideStaticMethodWithoutOverridingBindValue(): void
     {
-        $cellStub = $this->createCellStub();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
         $binder = new ValueBinderWithOverriddenDataTypeForValue();
 
         self::assertFalse($binder::$called);
-        $binder->bindValue($cellStub, 123);
+        $binder->bindValue($cell, 123);
         self::assertTrue($binder::$called);
+        $spreadsheet->disconnectWorksheets();
     }
 }

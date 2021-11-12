@@ -12,13 +12,13 @@ class Formula
      * FORMULATEXT.
      *
      * @param mixed $cellReference The cell to check
-     * @param Cell $pCell The current cell (containing this formula)
+     * @param Cell $cell The current cell (containing this formula)
      *
      * @return string
      */
-    public static function text($cellReference = '', ?Cell $pCell = null)
+    public static function text($cellReference = '', ?Cell $cell = null)
     {
-        if ($pCell === null) {
+        if ($cell === null) {
             return Functions::REF();
         }
 
@@ -27,8 +27,8 @@ class Formula
         $cellReference = $matches[6] . $matches[7];
         $worksheetName = trim($matches[3], "'");
         $worksheet = (!empty($worksheetName))
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
-            : $pCell->getWorksheet();
+            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            : $cell->getWorksheet();
 
         if (
             $worksheet === null ||

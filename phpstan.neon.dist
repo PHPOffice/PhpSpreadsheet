@@ -13,14 +13,14 @@ parameters:
     checkMissingIterableValueType: false
     ignoreErrors:
         - '~^Class GdImage not found\.$~'
-        - '~^Return typehint of method .* has invalid type GdImage\.$~'
+        - '~^Method .* has invalid return type GdImage\.$~'
         - '~^Property .* has unknown class GdImage as its type\.$~'
-        - '~^Parameter .* of method .* has invalid typehint type GdImage\.$~'
+        - '~^Parameter .* of method .* has invalid type GdImage\.$~'
         - '~^Parameter \#1 \$im of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy) expects resource, GdImage\|resource given\.$~'
         - '~^Parameter \#2 \$src_im of function imagecopy expects resource, GdImage\|resource given\.$~'
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
-        - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no typehint specified\.$~'
+        - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no type specified\.$~'
 
         # Ignore all JpGraph issues
         - '~^Constant (MARK_CIRCLE|MARK_CROSS|MARK_DIAMOND|MARK_DTRIANGLE|MARK_FILLEDCIRCLE|MARK_SQUARE|MARK_STAR|MARK_UTRIANGLE|MARK_X|SIDE_RIGHT) not found\.$~'

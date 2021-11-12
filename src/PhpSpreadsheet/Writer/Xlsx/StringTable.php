@@ -63,11 +63,11 @@ class StringTable extends WriterPart
     /**
      * Write string table to XML format.
      *
-     * @param string[] $pStringTable
+     * @param string[] $stringTable
      *
      * @return string XML Output
      */
-    public function writeStringTable(array $pStringTable)
+    public function writeStringTable(array $stringTable)
     {
         // Create XML writer
         $objWriter = null;
@@ -83,10 +83,10 @@ class StringTable extends WriterPart
         // String table
         $objWriter->startElement('sst');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-        $objWriter->writeAttribute('uniqueCount', count($pStringTable));
+        $objWriter->writeAttribute('uniqueCount', count($stringTable));
 
         // Loop through string table
-        foreach ($pStringTable as $textElement) {
+        foreach ($stringTable as $textElement) {
             $objWriter->startElement('si');
 
             if (!$textElement instanceof RichText) {
@@ -113,17 +113,17 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param RichText $pRichText Rich text
+     * @param RichText $richText Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichText(XMLWriter $objWriter, RichText $pRichText, $prefix = null): void
+    public function writeRichText(XMLWriter $objWriter, RichText $richText, $prefix = null): void
     {
         if ($prefix !== null) {
             $prefix .= ':';
         }
 
         // Loop through rich text elements
-        $elements = $pRichText->getRichTextElements();
+        $elements = $richText->getRichTextElements();
         foreach ($elements as $element) {
             // r
             $objWriter->startElement($prefix . 'r');
@@ -196,15 +196,15 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param RichText|string $pRichText text string or Rich text
+     * @param RichText|string $richText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichTextForCharts(XMLWriter $objWriter, $pRichText = null, $prefix = null): void
+    public function writeRichTextForCharts(XMLWriter $objWriter, $richText = null, $prefix = null): void
     {
-        if (!$pRichText instanceof RichText) {
-            $textRun = $pRichText;
-            $pRichText = new RichText();
-            $pRichText->createTextRun($textRun);
+        if (!$richText instanceof RichText) {
+            $textRun = $richText;
+            $richText = new RichText();
+            $richText->createTextRun($textRun);
         }
 
         if ($prefix !== null) {
@@ -212,7 +212,7 @@ class StringTable extends WriterPart
         }
 
         // Loop through rich text elements
-        $elements = $pRichText->getRichTextElements();
+        $elements = $richText->getRichTextElements();
         foreach ($elements as $element) {
             // r
             $objWriter->startElement($prefix . 'r');

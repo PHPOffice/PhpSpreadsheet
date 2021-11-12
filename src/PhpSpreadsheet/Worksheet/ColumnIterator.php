@@ -7,6 +7,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
+/**
+ * @implements Iterator<string, Column>
+ */
 class ColumnIterator implements Iterator
 {
     /**
