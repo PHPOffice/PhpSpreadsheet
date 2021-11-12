@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use HTMLPurifier;
+use HTMLPurifier_Config;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -143,7 +144,7 @@ class Html extends BaseWriter
     /**
      * Optional HTMLPurifier_Config object.
      *
-     * @var \HTMLPurifier_Config|mixed
+     * @var HTMLPurifier_Config|mixed
      */
     private $htmlPurifierConfig;
 
@@ -233,7 +234,7 @@ class Html extends BaseWriter
     /**
      * Set a callback to edit the HTMLPurifier Config.
      *
-     * @param \HTMLPurifier_Config|mixed $htmlPurifierConfig
+     * @param HTMLPurifier_Config|mixed $htmlPurifierConfig
      */
     public function setHtmlPurifierConfig($htmlPurifierConfig): void
     {
