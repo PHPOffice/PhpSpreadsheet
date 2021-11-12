@@ -25,8 +25,18 @@ class Issue2362Test extends TestCase
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
 
-        self::assertSame('Дата', (string) $sheet->getCell('A1')->getValue());
-        self::assertSame('391800, Рязанская область, г. Скопин, ул. Ленина, д. 40', (string) $sheet->getCell('D21')->getValue());
+        $value = $sheet->getCell('A1')->getValue();
+        if ($value instanceof RichText) {
+            self::assertSame('Дата', (string) $value);
+        } else {
+            self::fail('A1 is not RichText');
+        }
+        $value = $sheet->getCell('D21')->getValue();
+        if ($value instanceof RichText) {
+            self::assertSame('391800, Рязанская область, г. Скопин, ул. Ленина, д. 40', (string) $value);
+        } else {
+            self::fail('D21 is not RichText');
+        }
         $spreadsheet->disconnectWorksheets();
     }
 }
