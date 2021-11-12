@@ -75,16 +75,16 @@ class SheetView
      * Set ZoomScale.
      * Valid values range from 10 to 400.
      *
-     * @param int $pValue
+     * @param int $zoomScale
      *
      * @return $this
      */
-    public function setZoomScale($pValue)
+    public function setZoomScale($zoomScale)
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 1
-        if (($pValue >= 1) || $pValue === null) {
-            $this->zoomScale = $pValue;
+        if (($zoomScale >= 1) || $zoomScale === null) {
+            $this->zoomScale = $zoomScale;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
         }
@@ -106,14 +106,14 @@ class SheetView
      * Set ZoomScale.
      * Valid values range from 10 to 400.
      *
-     * @param int $pValue
+     * @param int $zoomScaleNormal
      *
      * @return $this
      */
-    public function setZoomScaleNormal($pValue)
+    public function setZoomScaleNormal($zoomScaleNormal)
     {
-        if (($pValue >= 1) || $pValue === null) {
-            $this->zoomScaleNormal = $pValue;
+        if (($zoomScaleNormal >= 1) || $zoomScaleNormal === null) {
+            $this->zoomScaleNormal = $zoomScaleNormal;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
         }
@@ -124,11 +124,11 @@ class SheetView
     /**
      * Set ShowZeroes setting.
      *
-     * @param bool $pValue
+     * @param bool $showZeros
      */
-    public function setShowZeros($pValue): void
+    public function setShowZeros($showZeros): void
     {
-        $this->showZeros = $pValue;
+        $this->showZeros = $showZeros;
     }
 
     /**
@@ -157,18 +157,18 @@ class SheetView
      *        'pageLayout'        self::SHEETVIEW_PAGE_LAYOUT
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
-     * @param string $pValue
+     * @param string $sheetViewType
      *
      * @return $this
      */
-    public function setView($pValue)
+    public function setView($sheetViewType)
     {
         // MS Excel 2007 allows setting the view to 'normal', 'pageLayout' or 'pageBreakPreview' via the user interface
-        if ($pValue === null) {
-            $pValue = self::SHEETVIEW_NORMAL;
+        if ($sheetViewType === null) {
+            $sheetViewType = self::SHEETVIEW_NORMAL;
         }
-        if (in_array($pValue, self::$sheetViewTypes)) {
-            $this->sheetviewType = $pValue;
+        if (in_array($sheetViewType, self::$sheetViewTypes)) {
+            $this->sheetviewType = $sheetViewType;
         } else {
             throw new PhpSpreadsheetException('Invalid sheetview layout type.');
         }
