@@ -6,41 +6,27 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Style\Style;
-use PHPUnit\Framework\MockObject\MockObject;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
 {
     /**
-     * @param mixed $expectedValue
-     *
-     * @return Cell&MockObject
+     * @var IValueBinder
      */
-    protected function createCellStub($expectedValue, string $expectedDataType, bool $quotePrefix = false): MockObject
+    private $valueBinder;
+
+    protected function setUp(): void
     {
-        /** @var Style&MockObject $styleStub */
-        $styleStub = $this->getMockBuilder(Style::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->valueBinder = Cell::getValueBinder();
+    }
 
-        /** @var Cell&MockObject $cellStub */
-        $cellStub = $this->getMockBuilder(Cell::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        // Configure the stub.
-        $cellStub->expects(self::once())
-            ->method('setValueExplicit')
-            ->with($expectedValue, $expectedDataType)
-            ->willReturn(true);
-        $cellStub->expects($quotePrefix ? self::once() : self::never())
-            ->method('getStyle')
-            ->willReturn($styleStub);
-
-        return $cellStub;
+    protected function tearDown(): void
+    {
+        Cell::setValueBinder($this->valueBinder);
     }
 
     /**
@@ -52,13 +38,16 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderDefaultBehaviour(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
-        $binder = new StringValueBinder();
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder(new StringValueBinder());
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesDefault(): array
@@ -76,7 +65,7 @@ class StringValueBinderTest extends TestCase
             ['-.123', '-.123', DataType::TYPE_STRING],
             ['1.23e-4', '1.23e-4', DataType::TYPE_STRING],
             ['ABC', 'ABC', DataType::TYPE_STRING],
-            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_STRING, true],
+            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_STRING],
             [123, '123', DataType::TYPE_STRING],
             [123.456, '123.456', DataType::TYPE_STRING],
             [0.123, '0.123', DataType::TYPE_STRING],
@@ -98,20 +87,26 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressNullConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
         $binder = new StringValueBinder();
         $binder->setNullConversion(false);
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesSuppressNullConversion(): array
     {
         return [
             [null, null, DataType::TYPE_NULL],
+            [true, '1', DataType::TYPE_STRING],
+            [123, '123', DataType::TYPE_STRING],
         ];
     }
 
@@ -124,14 +119,18 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressBooleanConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
         $binder = new StringValueBinder();
         $binder->setBooleanConversion(false);
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesSuppressBooleanConversion(): array
@@ -139,6 +138,8 @@ class StringValueBinderTest extends TestCase
         return [
             [true, true, DataType::TYPE_BOOL],
             [false, false, DataType::TYPE_BOOL],
+            [null, '', DataType::TYPE_STRING],
+            [123, '123', DataType::TYPE_STRING],
         ];
     }
 
@@ -151,14 +152,18 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressNumericConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
         $binder = new StringValueBinder();
         $binder->setNumericConversion(false);
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesSuppressNumericConversion(): array
@@ -172,6 +177,9 @@ class StringValueBinderTest extends TestCase
             [-.123, -0.123, DataType::TYPE_NUMERIC],
             [1.23e-4, 0.000123, DataType::TYPE_NUMERIC],
             [1.23e-24, 1.23E-24, DataType::TYPE_NUMERIC],
+            [true, '1', DataType::TYPE_STRING],
+            [false, '', DataType::TYPE_STRING],
+            [null, '', DataType::TYPE_STRING],
         ];
     }
 
@@ -184,14 +192,18 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressFormulaConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
         $binder = new StringValueBinder();
         $binder->setFormulaConversion(false);
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesSuppressFormulaConversion(): array
@@ -210,14 +222,18 @@ class StringValueBinderTest extends TestCase
     public function testStringValueBinderSuppressAllConversion(
         $value,
         $expectedValue,
-        string $expectedDataType,
-        bool $quotePrefix = false
+        string $expectedDataType
     ): void {
-        $cellStub = $this->createCellStub($expectedValue, $expectedDataType, $quotePrefix);
-
         $binder = new StringValueBinder();
         $binder->setConversionForAllValueTypes(false);
-        $binder->bindValue($cellStub, $value);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($value);
+        self::assertSame($expectedValue, $cell->getValue());
+        self::assertSame($expectedDataType, $cell->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDataValuesSuppressAllConversion(): array
@@ -252,10 +268,15 @@ class StringValueBinderTest extends TestCase
         $objRichText = new RichText();
         $objRichText->createText('Hello World');
 
-        $cellStub = $this->createCellStub($objRichText, DataType::TYPE_INLINE);
-
         $binder = new StringValueBinder();
         $binder->setConversionForAllValueTypes(false);
-        $binder->bindValue($cellStub, $objRichText);
+        Cell::setValueBinder($binder);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValue($objRichText);
+        self::assertSame('inlineStr', $cell->getDataType());
+        self::assertSame('Hello World', $cell->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }
