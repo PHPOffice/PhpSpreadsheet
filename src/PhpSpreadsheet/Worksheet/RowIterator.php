@@ -5,6 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use Iterator;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
+/**
+ * @implements Iterator<int, Row>
+ */
 class RowIterator implements Iterator
 {
     /**

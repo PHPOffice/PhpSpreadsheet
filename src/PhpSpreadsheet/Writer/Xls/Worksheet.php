@@ -2518,11 +2518,11 @@ class Worksheet extends BIFFwriter
     /**
      * Set Escher object.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $escher
      */
-    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $pValue = null): void
+    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher = null): void
     {
-        $this->escher = $pValue;
+        $this->escher = $escher;
     }
 
     /**

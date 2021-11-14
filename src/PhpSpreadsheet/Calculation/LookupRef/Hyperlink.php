@@ -15,16 +15,16 @@ class Hyperlink
      *
      * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition
-     * @param Cell $pCell The cell to set the hyperlink in
+     * @param Cell $cell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function set($linkURL = '', $displayName = null, ?Cell $pCell = null)
+    public static function set($linkURL = '', $displayName = null, ?Cell $cell = null)
     {
         $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);
 
-        if ((!is_object($pCell)) || (trim($linkURL) == '')) {
+        if ((!is_object($cell)) || (trim($linkURL) == '')) {
             return Functions::REF();
         }
 
@@ -32,8 +32,8 @@ class Hyperlink
             $displayName = $linkURL;
         }
 
-        $pCell->getHyperlink()->setUrl($linkURL);
-        $pCell->getHyperlink()->setTooltip($displayName);
+        $cell->getHyperlink()->setUrl($linkURL);
+        $cell->getHyperlink()->setTooltip($displayName);
 
         return $displayName;
     }

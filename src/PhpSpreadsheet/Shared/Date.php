@@ -333,12 +333,12 @@ class Date
      *
      * @return bool
      */
-    public static function isDateTime(Cell $pCell)
+    public static function isDateTime(Cell $cell)
     {
-        return is_numeric($pCell->getCalculatedValue()) &&
+        return is_numeric($cell->getCalculatedValue()) &&
             self::isDateTimeFormat(
-                $pCell->getWorksheet()->getStyle(
-                    $pCell->getCoordinate()
+                $cell->getWorksheet()->getStyle(
+                    $cell->getCoordinate()
                 )->getNumberFormat()
             );
     }
