@@ -18,24 +18,24 @@ class RichText implements IComparable
     /**
      * Create a new RichText instance.
      *
-     * @param Cell $pCell
+     * @param Cell $cell
      */
-    public function __construct(?Cell $pCell = null)
+    public function __construct(?Cell $cell = null)
     {
         // Initialise variables
         $this->richTextElements = [];
 
         // Rich-Text string attached to cell?
-        if ($pCell !== null) {
+        if ($cell !== null) {
             // Add cell text and style
-            if ($pCell->getValue() != '') {
-                $objRun = new Run($pCell->getValue());
-                $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
+            if ($cell->getValue() != '') {
+                $objRun = new Run($cell->getValue());
+                $objRun->setFont(clone $cell->getWorksheet()->getStyle($cell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
             // Set parent value
-            $pCell->setValueExplicit($this, DataType::TYPE_STRING);
+            $cell->setValueExplicit($this, DataType::TYPE_STRING);
         }
     }
 

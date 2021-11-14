@@ -103,20 +103,20 @@ class Xml extends BaseReader
     /**
      * Check if the file is a valid SimpleXML.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return false|SimpleXMLElement
      */
-    public function trySimpleXMLLoadString($pFilename)
+    public function trySimpleXMLLoadString($filename)
     {
         try {
             $xml = simplexml_load_string(
-                $this->securityScanner->scan($this->fileContents ?: file_get_contents($pFilename)),
+                $this->securityScanner->scan($this->fileContents ?: file_get_contents($filename)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
         } catch (\Exception $e) {
-            throw new Exception('Cannot load invalid XML file: ' . $pFilename, 0, $e);
+            throw new Exception('Cannot load invalid XML file: ' . $filename, 0, $e);
         }
         $this->fileContents = '';
 

@@ -640,13 +640,13 @@ class Xlsx extends BaseWriter
     /**
      * Set Office2003 compatibility.
      *
-     * @param bool $pValue Office2003 compatibility?
+     * @param bool $office2003compatibility Office2003 compatibility?
      *
      * @return $this
      */
-    public function setOffice2003Compatibility($pValue)
+    public function setOffice2003Compatibility($office2003compatibility)
     {
-        $this->office2003compatibility = $pValue;
+        $this->office2003compatibility = $office2003compatibility;
 
         return $this;
     }

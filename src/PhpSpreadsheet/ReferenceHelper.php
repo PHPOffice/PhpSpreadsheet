@@ -234,18 +234,18 @@ class ReferenceHelper
      * Update data validations when inserting/deleting rows/columns.
      *
      * @param Worksheet $worksheet The worksheet that we're editing
-     * @param string $pBefore Insert/Delete before this cell address (e.g. 'A1')
-     * @param int $pNumCols Number of columns to insert/delete (negative values indicate deletion)
-     * @param int $pNumRows Number of rows to insert/delete (negative values indicate deletion)
+     * @param string $before Insert/Delete before this cell address (e.g. 'A1')
+     * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
+     * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, $pBefore, $pNumCols, $pNumRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, $before, $numberOfColumns, $numberOfRows): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
-        ($pNumCols > 0 || $pNumRows > 0) ?
+        ($numberOfColumns > 0 || $numberOfRows > 0) ?
             uksort($aDataValidationCollection, ['self', 'cellReverseSort']) : uksort($aDataValidationCollection, ['self', 'cellSort']);
 
         foreach ($aDataValidationCollection as $key => $value) {
-            $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+            $newReference = $this->updateCellReference($key, $before, $numberOfColumns, $numberOfRows);
             if ($key != $newReference) {
                 $worksheet->setDataValidation($newReference, $value);
                 $worksheet->setDataValidation($key, null);

@@ -661,16 +661,16 @@ class Functions
      * ISFORMULA.
      *
      * @param mixed $cellReference The cell to check
-     * @param ?Cell $pCell The current cell (containing this formula)
+     * @param ?Cell $cell The current cell (containing this formula)
      *
      * @return bool|string
      */
-    public static function isFormula($cellReference = '', ?Cell $pCell = null)
+    public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
-        if ($pCell === null) {
+        if ($cell === null) {
             return self::REF();
         }
-        $cellReference = self::expandDefinedName((string) $cellReference, $pCell);
+        $cellReference = self::expandDefinedName((string) $cellReference, $cell);
         $cellReference = self::trimTrailingRange($cellReference);
 
         preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
@@ -679,33 +679,33 @@ class Functions
         $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
 
         $worksheet = (!empty($worksheetName))
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($worksheetName)
-            : $pCell->getWorksheet();
+            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            : $cell->getWorksheet();
 
         return $worksheet->getCell($cellReference)->isFormula();
     }
 
-    public static function expandDefinedName(string $pCoordinate, Cell $pCell): string
+    public static function expandDefinedName(string $coordinate, Cell $cell): string
     {
-        $worksheet = $pCell->getWorksheet();
+        $worksheet = $cell->getWorksheet();
         $spreadsheet = $worksheet->getParent();
         // Uppercase coordinate
-        $pCoordinatex = strtoupper($pCoordinate);
+        $pCoordinatex = strtoupper($coordinate);
         // Eliminate leading equal sign
         $pCoordinatex = Worksheet::pregReplace('/^=/', '', $pCoordinatex);
         $defined = $spreadsheet->getDefinedName($pCoordinatex, $worksheet);
         if ($defined !== null) {
             $worksheet2 = $defined->getWorkSheet();
             if (!$defined->isFormula() && $worksheet2 !== null) {
-                $pCoordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
+                $coordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
             }
         }
 
-        return $pCoordinate;
+        return $coordinate;
     }
 
-    public static function trimTrailingRange(string $pCoordinate): string
+    public static function trimTrailingRange(string $coordinate): string
     {
-        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $pCoordinate);
+        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $coordinate);
     }
 }
