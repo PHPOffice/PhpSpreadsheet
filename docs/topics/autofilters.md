@@ -99,6 +99,8 @@ results are unpredictable.
 Other filter expression types (such as cell colour filters) are not yet
 supported.
 
+String comparisons in filters are case-insensitive.
+
 ### Simple filters
 
 In MS Excel, Simple Filters are a dropdown list of all values used in
@@ -113,6 +115,8 @@ will be hidden.
 To create a filter expression, we need to start by identifying the
 filter type. In this case, we're just going to specify that this filter
 is a standard filter.
+*Please note that Excel regards only tests for equal as a standard filter;
+all others, including tests for not equal, must be supplied as custom filters.*
 
 ```php
 $columnFilter->setFilterType(
@@ -255,6 +259,7 @@ MS Excel uses `*` as a wildcard to match any number of characters, and `?`
 as a wildcard to match a single character. `U*` equates to "begins with
 a 'U'"; `*U` equates to "ends with a 'U'"; and `*U*` equates to
 "contains a 'U'".
+Note that PhpSpreadsheet recognizes wildcards only for equal/not-equal tests.
 
 If you want to match explicitly against `*` or `?`, you can
 escape it with a tilde `~`, so `?~**` would explicitly match for `*`
@@ -290,8 +295,8 @@ This defined two rules, filtering numbers that are `>= -20` OR `<=
 than OR.
 
 ```php
-$columnFilter->setAndOr(
-    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_ANDOR_AND
+$columnFilter->setJoin(
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND
 );
 ```
 
@@ -501,7 +506,7 @@ hiding all other rows within the autofilter area.
 ### Displaying Filtered Rows
 
 Simply looping through the rows in an autofilter area will still access
-ever row, whether it matches the filter criteria or not. To selectively
+every row, whether it matches the filter criteria or not. To selectively
 access only the filtered rows, you need to test each row’s visibility
 settings.
 
