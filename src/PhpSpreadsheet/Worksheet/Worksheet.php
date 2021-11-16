@@ -1036,14 +1036,14 @@ class Worksheet implements IComparable
     /**
      * Get highest worksheet column.
      *
-     * @param string $row Return the data highest column for the specified row,
+     * @param null|int|string $row Return the data highest column for the specified row,
      *                                     or the highest column of any row if no row number is passed
      *
      * @return string Highest column name
      */
     public function getHighestColumn($row = null)
     {
-        if ($row == null) {
+        if (empty($row)) {
             return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
         }
 
@@ -1053,7 +1053,7 @@ class Worksheet implements IComparable
     /**
      * Get highest worksheet column that contains data.
      *
-     * @param string $row Return the highest data column for the specified row,
+     * @param null|int|string $row Return the highest data column for the specified row,
      *                                     or the highest data column of any row if no row number is passed
      *
      * @return string Highest column name that contains data
@@ -1066,7 +1066,7 @@ class Worksheet implements IComparable
     /**
      * Get highest worksheet row.
      *
-     * @param string $column Return the highest data row for the specified column,
+     * @param null|string $column Return the highest data row for the specified column,
      *                                     or the highest row of any column if no column letter is passed
      *
      * @return int Highest row number
@@ -1083,7 +1083,7 @@ class Worksheet implements IComparable
     /**
      * Get highest worksheet row that contains data.
      *
-     * @param string $column Return the highest data row for the specified column,
+     * @param null|string $column Return the highest data row for the specified column,
      *                                     or the highest data row of any column if no column letter is passed
      *
      * @return int Highest row number that contains data

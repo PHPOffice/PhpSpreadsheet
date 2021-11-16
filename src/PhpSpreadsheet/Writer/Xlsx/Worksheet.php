@@ -85,6 +85,9 @@ class Worksheet extends WriterPart
         // conditionalFormatting
         $this->writeConditionalFormatting($objWriter, $worksheet);
 
+        // dataValidations
+        $this->writeDataValidations($objWriter, $worksheet);
+
         // hyperlinks
         $this->writeHyperlinks($objWriter, $worksheet);
 
@@ -118,8 +121,6 @@ class Worksheet extends WriterPart
         // ConditionalFormattingRuleExtensionList
         // (Must be inserted last. Not insert last, an Excel parse error will occur)
         $this->writeExtLst($objWriter, $worksheet);
-        // dataValidations
-        $this->writeDataValidations($objWriter, $worksheet);
 
         $objWriter->endElement();
 
@@ -681,16 +682,11 @@ class Worksheet extends WriterPart
         // Write data validations?
         if (!empty($dataValidationCollection)) {
             $dataValidationCollection = Coordinate::mergeRangesInCollection($dataValidationCollection);
-            $objWriter->startElement('extLst');
-            $objWriter->startElement('ext');
-            $objWriter->writeAttribute('uri', '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}');
-            $objWriter->writeAttribute('xmlns:x14', 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main');
-            $objWriter->startElement('x14:dataValidations');
+            $objWriter->startElement('dataValidations');
             $objWriter->writeAttribute('count', count($dataValidationCollection));
-            $objWriter->writeAttribute('xmlns:xm', 'http://schemas.microsoft.com/office/excel/2006/main');
 
             foreach ($dataValidationCollection as $coordinate => $dv) {
-                $objWriter->startElement('x14:dataValidation');
+                $objWriter->startElement('dataValidation');
 
                 if ($dv->getType() != '') {
                     $objWriter->writeAttribute('type', $dv->getType());
@@ -705,7 +701,6 @@ class Worksheet extends WriterPart
                 }
 
                 $objWriter->writeAttribute('allowBlank', ($dv->getAllowBlank() ? '1' : '0'));
-                // showDropDown is really hideDropDown Excel renders as true = hide, false = show
                 $objWriter->writeAttribute('showDropDown', (!$dv->getShowDropDown() ? '1' : '0'));
                 $objWriter->writeAttribute('showInputMessage', ($dv->getShowInputMessage() ? '1' : '0'));
                 $objWriter->writeAttribute('showErrorMessage', ($dv->getShowErrorMessage() ? '1' : '0'));
@@ -723,24 +718,19 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('prompt', $dv->getPrompt());
                 }
 
+                $objWriter->writeAttribute('sqref', $dv->getSqref() ?? $coordinate);
+
                 if ($dv->getFormula1() !== '') {
-                    $objWriter->startElement('x14:formula1');
-                    $objWriter->writeElement('xm:f', $dv->getFormula1());
-                    $objWriter->endElement();
+                    $objWriter->writeElement('formula1', $dv->getFormula1());
                 }
                 if ($dv->getFormula2() !== '') {
-                    $objWriter->startElement('x14:formula2');
-                    $objWriter->writeElement('xm:f', $dv->getFormula2());
-                    $objWriter->endElement();
+                    $objWriter->writeElement('formula2', $dv->getFormula2());
                 }
-                $objWriter->writeElement('xm:sqref', $dv->getSqref() ?? $coordinate);
 
                 $objWriter->endElement();
             }
 
-            $objWriter->endElement(); // dataValidations
-            $objWriter->endElement(); // ext
-            $objWriter->endElement(); // extLst
+            $objWriter->endElement();
         }
     }
 
