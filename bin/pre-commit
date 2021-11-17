@@ -14,7 +14,7 @@ if [ "$files" != "" ]; then
     done <<< "$files"
 
     # Run php-cs-fixer validation before commit
-    echo "$files" | xargs ./vendor/bin/php-cs-fixer fix --diff --config .php_cs.dist
+    echo "$files" | xargs ./vendor/bin/php-cs-fixer fix --diff --config .php-cs-fixer.dist.php
     if [ $? -ne 0 ]; then
         pass=false
     fi
