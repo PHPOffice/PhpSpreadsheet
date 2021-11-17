@@ -39,7 +39,6 @@ class AutoFilter
      * Create a new AutoFilter.
      *
      * @param string $range Cell range (i.e. A1:E10)
-     * @param Worksheet $worksheet
      */
     public function __construct($range = '', ?Worksheet $worksheet = null)
     {
@@ -59,8 +58,6 @@ class AutoFilter
 
     /**
      * Set AutoFilter Parent Worksheet.
-     *
-     * @param Worksheet $worksheet
      *
      * @return $this
      */
@@ -708,11 +705,10 @@ class AutoFilter
      * Convert a dynamic rule daterange to a custom filter range expression for ease of calculation.
      *
      * @param string $dynamicRuleType
-     * @param AutoFilter\Column $filterColumn
      *
      * @return mixed[]
      */
-    private function dynamicFilterDateRange($dynamicRuleType, &$filterColumn)
+    private function dynamicFilterDateRange($dynamicRuleType, AutoFilter\Column &$filterColumn)
     {
         $ruleValues = [];
         $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?

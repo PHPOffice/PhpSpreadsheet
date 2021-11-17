@@ -65,7 +65,6 @@ class Comments extends WriterPart
     /**
      * Write comment to XML format.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $cellReference Cell reference
      * @param Comment $comment Comment
      * @param array $authors Array of authors
@@ -158,7 +157,6 @@ class Comments extends WriterPart
     /**
      * Write VML comment to XML format.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $cellReference Cell reference, eg: 'A1'
      * @param Comment $comment Comment
      */

@@ -7091,16 +7091,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$escher \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$escher \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
 			message: "#^Cannot access offset 'comp' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -7256,16 +7246,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$escher \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$escher \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$outlineBelow is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -7326,11 +7306,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Argument of an invalid type array\\|string supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
 			message: "#^Cannot access offset int on mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
@@ -7351,12 +7326,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:getChartType\\(\\) never returns string so it can be removed from the return type\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues|null, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -7397,16 +7367,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$xAxisLabel of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$yAxisLabel of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\|null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -7463,16 +7423,6 @@ parameters:
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:\\$calculateCellValues has no type specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeries and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -7544,16 +7494,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeDrawingHyperLink\\(\\) has parameter \\$i with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeDrawingHyperLink\\(\\) has parameter \\$objWriter with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeUnparsedRelationship\\(\\) has parameter \\$relationship with no type specified\\.$#"

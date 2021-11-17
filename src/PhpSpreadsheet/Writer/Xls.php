@@ -246,8 +246,6 @@ class Xls extends BaseWriter
             // sheet index
             $sheetIndex = $sheet->getParent()->getIndex($sheet);
 
-            $escher = null;
-
             // check if there are any shapes for this sheet
             $filterRange = $sheet->getAutoFilter()->getRange();
             if (count($sheet->getDrawingCollection()) == 0 && empty($filterRange)) {

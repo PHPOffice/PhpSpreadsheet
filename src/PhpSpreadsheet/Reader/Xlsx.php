@@ -1843,11 +1843,9 @@ class Xlsx extends BaseReader
     }
 
     /**
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing
-     * @param SimpleXMLElement $cellAnchor
      * @param array $hyperlinks
      */
-    private function readHyperLinkDrawing($objDrawing, $cellAnchor, $hyperlinks): void
+    private function readHyperLinkDrawing(\PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing, SimpleXMLElement $cellAnchor, $hyperlinks): void
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
 

@@ -7,7 +7,7 @@ class SpgrContainer
     /**
      * Parent Shape Group Container.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
+     * @var null|SpgrContainer
      */
     private $parent;
 
@@ -20,20 +20,16 @@ class SpgrContainer
 
     /**
      * Set parent Shape Group Container.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
      */
-    public function setParent($parent): void
+    public function setParent(?self $parent): void
     {
         $this->parent = $parent;
     }
 
     /**
      * Get the parent Shape Group Container if any.
-     *
-     * @return null|\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
      */
-    public function getParent()
+    public function getParent(): ?self
     {
         return $this->parent;
     }

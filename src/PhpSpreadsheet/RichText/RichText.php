@@ -17,8 +17,6 @@ class RichText implements IComparable
 
     /**
      * Create a new RichText instance.
-     *
-     * @param Cell $cell
      */
     public function __construct(?Cell $cell = null)
     {
