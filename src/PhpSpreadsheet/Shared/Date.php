@@ -193,15 +193,18 @@ class Date
         $partDay = $partDay * 24 - $hours;
         $minutes = floor($partDay * 60);
         $partDay = $partDay * 60 - $minutes;
-        $seconds = round($partDay * 60);
+        $seconds = floor($partDay * 60);
+        $partDay = $partDay * 60 - $seconds;
+        $microseconds = round($partDay * 1000 * 1000);
 
         if ($days >= 0) {
             $days = '+' . $days;
         }
+
         $interval = $days . ' days';
 
         return $baseDate->modify($interval)
-            ->setTime((int) $hours, (int) $minutes, (int) $seconds);
+            ->setTime((int) $hours, (int) $minutes, (int) $seconds, (int) $microseconds);
     }
 
     /**
