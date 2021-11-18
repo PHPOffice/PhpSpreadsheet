@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -34,7 +35,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
-use stdClass;
 use Throwable;
 use XMLReader;
 use ZipArchive;
@@ -51,16 +51,12 @@ class Xlsx extends BaseReader
     private $referenceHelper;
 
     /**
-     * Xlsx\Theme instance.
-     *
-     * @var Xlsx\Theme
-     */
-    private static $theme;
-
-    /**
      * @var ZipArchive
      */
     private $zip;
+
+    /** @var Styles */
+    private $styleReader;
 
     /**
      * Create a new Xlsx Reader instance.
@@ -406,6 +402,8 @@ class Xlsx extends BaseReader
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
         $wbRels = $this->loadZip("xl/_rels/${workbookBasename}.rels", Namespaces::RELATIONSHIPS);
+        $theme = null;
+        $this->styleReader = new Styles();
         foreach ($wbRels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
@@ -438,7 +436,8 @@ class Xlsx extends BaseReader
                             $themeColours[$themePos] = (string) $xmlColourData['val'];
                         }
                     }
-                    self::$theme = new Xlsx\Theme($themeName, $colourSchemeName, $themeColours);
+                    $theme = new Theme($themeName, $colourSchemeName, $themeColours);
+                    $this->styleReader->setTheme($theme);
 
                     break;
             }
@@ -599,7 +598,7 @@ class Xlsx extends BaseReader
 
                             // add style to cellXf collection
                             $objStyle = new Style();
-                            self::readStyle($objStyle, $style);
+                            $this->styleReader->readStyle($objStyle, $style);
                             if ($addingFirstCellXf) {
                                 $excel->removeCellXfByIndex(0); // remove the default style
                                 $addingFirstCellXf = false;
@@ -634,7 +633,7 @@ class Xlsx extends BaseReader
 
                             // add style to cellStyleXf collection
                             $objStyle = new Style();
-                            self::readStyle($objStyle, $cellStyle);
+                            $this->styleReader->readStyle($objStyle, $cellStyle);
                             if ($addingFirstCellStyleXf) {
                                 $excel->removeCellStyleXfByIndex(0); // remove the default style
                                 $addingFirstCellStyleXf = false;
@@ -642,10 +641,10 @@ class Xlsx extends BaseReader
                             $excel->addCellStyleXf($objStyle);
                         }
                     }
-                    $styleReader = new Styles($xmlStyles);
-                    $styleReader->setStyleBaseData(self::$theme, $styles, $cellStyles);
-                    $dxfs = $styleReader->dxfs($this->readDataOnly);
-                    $styles = $styleReader->styles();
+                    $this->styleReader->setStyleXml($xmlStyles);
+                    $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
+                    $dxfs = $this->styleReader->dxfs($this->readDataOnly);
+                    $styles = $this->styleReader->styles();
 
                     $xmlWorkbook = $this->loadZipNoNamespace($relTarget, $mainNS);
                     $xmlWorkbookNS = $this->loadZip($relTarget, $mainNS);
@@ -718,7 +717,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
-                                $sheetViewOptions->load($this->getReadDataOnly());
+                                $sheetViewOptions->load($this->getReadDataOnly(), $this->styleReader);
 
                                 (new ColumnAndRowAttributes($docSheet, $xmlSheet))
                                     ->load($this->getReadFilter(), $this->getReadDataOnly());
@@ -1619,45 +1618,6 @@ class Xlsx extends BaseReader
     }
 
     /**
-     * @param SimpleXMLElement|stdClass $style
-     */
-    private static function readStyle(Style $docStyle, $style): void
-    {
-        $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
-
-        // font
-        if (isset($style->font)) {
-            Styles::readFontStyle($docStyle->getFont(), $style->font);
-        }
-
-        // fill
-        if (isset($style->fill)) {
-            Styles::readFillStyle($docStyle->getFill(), $style->fill);
-        }
-
-        // border
-        if (isset($style->border)) {
-            Styles::readBorderStyle($docStyle->getBorders(), $style->border);
-        }
-
-        // alignment
-        if (isset($style->alignment)) {
-            Styles::readAlignmentStyle($docStyle->getAlignment(), $style->alignment);
-        }
-
-        // protection
-        if (isset($style->protection)) {
-            Styles::readProtectionLocked($docStyle, $style);
-            Styles::readProtectionHidden($docStyle, $style);
-        }
-
-        // top-level style settings
-        if (isset($style->quotePrefix)) {
-            $docStyle->setQuotePrefix((bool) $style->quotePrefix);
-        }
-    }
-
-    /**
      * @return RichText
      */
     private function parseRichText(?SimpleXMLElement $is)
@@ -1685,7 +1645,7 @@ class Xlsx extends BaseReader
                             $objText->getFont()->setSize((float) $attr['val']);
                         }
                         if (isset($run->rPr->color)) {
-                            $objText->getFont()->setColor(new Color(Styles::readColor($run->rPr->color)));
+                            $objText->getFont()->setColor(new Color($this->styleReader->readColor($run->rPr->color)));
                         }
                         if (isset($run->rPr->b)) {
                             $attr = $run->rPr->b->attributes();
