@@ -12,6 +12,9 @@ class URLImageTest extends TestCase
 {
     public function testURLImageSource(): void
     {
+        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
+        }
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.xlsx');
         if (!$filename) {
             self::fail('No test file found.');
