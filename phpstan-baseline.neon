@@ -8831,11 +8831,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/SheetsXlsxChartTest.php
 
 		-
-			message: "#^Expression in empty\\(\\) is not falsy\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/URLImageTest.php
-
-		-
 			message: "#^Part \\$creationDate \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
