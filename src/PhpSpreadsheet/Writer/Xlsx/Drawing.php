@@ -78,7 +78,6 @@ class Drawing extends WriterPart
     /**
      * Write drawings to XML format.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param int $relationId
      */
     public function writeChart(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart\Chart $chart, $relationId = -1): void
@@ -148,7 +147,6 @@ class Drawing extends WriterPart
     /**
      * Write drawings to XML format.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param int $relationId
      * @param null|int $hlinkClickId
      */
@@ -424,9 +422,7 @@ class Drawing extends WriterPart
     /**
      * Write VML comment to XML format.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $reference Reference
-     * @param HeaderFooterDrawing $image Image
      */
     private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $reference, HeaderFooterDrawing $image): void
     {

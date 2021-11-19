@@ -21,7 +21,6 @@ class Column
     /**
      * Create a new column.
      *
-     * @param Worksheet $parent
      * @param string $columnIndex
      */
     public function __construct(?Worksheet $parent = null, $columnIndex = 'A')

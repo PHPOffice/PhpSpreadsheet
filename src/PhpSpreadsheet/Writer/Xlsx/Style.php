@@ -145,9 +145,6 @@ class Style extends WriterPart
 
     /**
      * Write Fill.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Fill $fill Fill style
      */
     private function writeFill(XMLWriter $objWriter, Fill $fill): void
     {
@@ -166,9 +163,6 @@ class Style extends WriterPart
 
     /**
      * Write Gradient Fill.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Fill $fill Fill style
      */
     private function writeGradientFill(XMLWriter $objWriter, Fill $fill): void
     {
@@ -209,9 +203,6 @@ class Style extends WriterPart
 
     /**
      * Write Pattern Fill.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Fill $fill Fill style
      */
     private function writePatternFill(XMLWriter $objWriter, Fill $fill): void
     {
@@ -246,9 +237,6 @@ class Style extends WriterPart
 
     /**
      * Write Font.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Font $font Font style
      */
     private function writeFont(XMLWriter $objWriter, Font $font): void
     {
@@ -325,9 +313,6 @@ class Style extends WriterPart
 
     /**
      * Write Border.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param Borders $borders Borders style
      */
     private function writeBorder(XMLWriter $objWriter, Borders $borders): void
     {
@@ -363,10 +348,6 @@ class Style extends WriterPart
 
     /**
      * Write Cell Style Xf.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Style\Style $style Style
-     * @param Spreadsheet $spreadsheet Workbook
      */
     private function writeCellStyleXf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style, Spreadsheet $spreadsheet): void
     {
@@ -438,9 +419,6 @@ class Style extends WriterPart
 
     /**
      * Write Cell Style Dxf.
-     *
-     * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Style\Style $style Style
      */
     private function writeCellStyleDxf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style): void
     {
@@ -508,9 +486,7 @@ class Style extends WriterPart
     /**
      * Write BorderPr.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $name Element name
-     * @param Border $border Border style
      */
     private function writeBorderPr(XMLWriter $objWriter, $name, Border $border): void
     {
@@ -531,8 +507,6 @@ class Style extends WriterPart
     /**
      * Write NumberFormat.
      *
-     * @param XMLWriter $objWriter XML Writer
-     * @param NumberFormat $numberFormat Number Format
      * @param int $id Number Format identifier
      */
     private function writeNumFmt(XMLWriter $objWriter, NumberFormat $numberFormat, $id = 0): void
