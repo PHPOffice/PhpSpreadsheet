@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Setter for HTMLPurifier config in HTML writer
+- Moved tmp dir from Pdf class to Html class 
+- Use tmp dir in HTMLPurifier config
 
 ### Changed
 
