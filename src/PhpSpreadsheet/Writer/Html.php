@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use HTMLPurifier;
-use HTMLPurifier_Config;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
