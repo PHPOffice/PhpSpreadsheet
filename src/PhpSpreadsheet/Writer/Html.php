@@ -1656,7 +1656,6 @@ class Html extends BaseWriter
      * @param string $temporaryDirectory Temporary storage directory
      *
      * @return self
-     * @throws Exception
      */
     public function setTempDir($temporaryDirectory)
     {
