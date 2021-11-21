@@ -26,6 +26,7 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Html extends BaseWriter
 {
@@ -142,11 +143,11 @@ class Html extends BaseWriter
     private $editHtmlCallback;
 
     /**
-     * Optional HTMLPurifier_Config object.
+     * Temporary storage directory.
      *
-     * @var HTMLPurifier_Config|mixed
+     * @var string
      */
-    private $htmlPurifierConfig;
+    protected $tempDir = '';
 
     /**
      * Create a new HTML.
@@ -155,6 +156,11 @@ class Html extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
         $this->defaultFont = $this->spreadsheet->getDefaultStyle()->getFont();
+
+        $this->tempDir = File::sysGetTempDir() . '/phpsp';
+        if (!is_dir($this->tempDir)) {
+            mkdir($this->tempDir);
+        }
     }
 
     /**
@@ -229,16 +235,6 @@ class Html extends BaseWriter
     public function setEditHtmlCallback(?callable $callback): void
     {
         $this->editHtmlCallback = $callback;
-    }
-
-    /**
-     * Set a callback to edit the HTMLPurifier Config.
-     *
-     * @param HTMLPurifier_Config|mixed $htmlPurifierConfig
-     */
-    public function setHtmlPurifierConfig($htmlPurifierConfig): void
-    {
-        $this->htmlPurifierConfig = $htmlPurifierConfig;
     }
 
     const VALIGN_ARR = [
@@ -1645,6 +1641,35 @@ class Html extends BaseWriter
     }
 
     /**
+     * Get temporary storage directory.
+     *
+     * @return string
+     */
+    public function getTempDir()
+    {
+        return $this->tempDir;
+    }
+
+    /**
+     * Set temporary storage directory.
+     *
+     * @param string $temporaryDirectory Temporary storage directory
+     *
+     * @return self
+     * @throws Exception
+     */
+    public function setTempDir($temporaryDirectory)
+    {
+        if (is_dir($temporaryDirectory)) {
+            $this->tempDir = $temporaryDirectory;
+        } else {
+            throw new WriterException("Directory does not exist: $temporaryDirectory");
+        }
+
+        return $this;
+    }
+
+    /**
      * Add color to formatted string as inline style.
      *
      * @param string $value Plain formatted value without color
@@ -1786,7 +1811,11 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
-            $sanitizer = new HTMLPurifier($this->htmlPurifierConfig);
+            $sanitizer = new HTMLPurifier();
+            $cachePath = $this->tempDir . '/pur';
+            if (is_dir($cachePath) || mkdir($cachePath)) {
+                $sanitizer->config->set('Cache.SerializerPath', $cachePath);
+            }
             $sanitizedString = $sanitizer->purify($worksheet->getComment($coordinate)->getText()->getPlainText());
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
