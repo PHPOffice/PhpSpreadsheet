@@ -142,24 +142,12 @@ class Html extends BaseWriter
     private $editHtmlCallback;
 
     /**
-     * Temporary storage directory.
-     *
-     * @var string
-     */
-    protected $tempDir = '';
-
-    /**
      * Create a new HTML.
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
         $this->defaultFont = $this->spreadsheet->getDefaultStyle()->getFont();
-
-        $this->tempDir = File::sysGetTempDir() . '/phpsp';
-        if (!is_dir($this->tempDir)) {
-            mkdir($this->tempDir);
-        }
     }
 
     /**
@@ -1640,34 +1628,6 @@ class Html extends BaseWriter
     }
 
     /**
-     * Get temporary storage directory.
-     *
-     * @return string
-     */
-    public function getTempDir()
-    {
-        return $this->tempDir;
-    }
-
-    /**
-     * Set temporary storage directory.
-     *
-     * @param string $temporaryDirectory Temporary storage directory
-     *
-     * @return self
-     */
-    public function setTempDir($temporaryDirectory)
-    {
-        if (is_dir($temporaryDirectory)) {
-            $this->tempDir = $temporaryDirectory;
-        } else {
-            throw new WriterException("Directory does not exist: $temporaryDirectory");
-        }
-
-        return $this;
-    }
-
-    /**
      * Add color to formatted string as inline style.
      *
      * @param string $value Plain formatted value without color
@@ -1810,7 +1770,7 @@ class Html extends BaseWriter
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
             $sanitizer = new HTMLPurifier();
-            $cachePath = $this->tempDir . '/pur';
+            $cachePath = File::sysGetTempDir() . '/phpsppur';
             if (is_dir($cachePath) || mkdir($cachePath)) {
                 $sanitizer->config->set('Cache.SerializerPath', $cachePath);
             }

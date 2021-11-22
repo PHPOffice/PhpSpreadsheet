@@ -2,11 +2,20 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 abstract class Pdf extends Html
 {
+    /**
+     * Temporary storage directory.
+     *
+     * @var string
+     */
+    protected $tempDir = '';
+
     /**
      * Font.
      *
@@ -111,10 +120,7 @@ abstract class Pdf extends Html
     {
         parent::__construct($spreadsheet);
         //$this->setUseInlineCss(true);
-        $this->tempDir .= '/pdf';
-        if (!is_dir($this->tempDir)) {
-            mkdir($this->tempDir);
-        }
+        $this->tempDir = File::sysGetTempDir() . '/phpsppdf';
         $this->isPdf = true;
     }
 
@@ -190,6 +196,34 @@ abstract class Pdf extends Html
     public function setOrientation($orientation)
     {
         $this->orientation = $orientation;
+
+        return $this;
+    }
+
+    /**
+     * Get temporary storage directory.
+     *
+     * @return string
+     */
+    public function getTempDir()
+    {
+        return $this->tempDir;
+    }
+
+    /**
+     * Set temporary storage directory.
+     *
+     * @param string $temporaryDirectory Temporary storage directory
+     *
+     * @return self
+     */
+    public function setTempDir($temporaryDirectory)
+    {
+        if (is_dir($temporaryDirectory)) {
+            $this->tempDir = $temporaryDirectory;
+        } else {
+            throw new WriterException("Directory does not exist: $temporaryDirectory");
+        }
 
         return $this;
     }
