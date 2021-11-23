@@ -397,6 +397,43 @@ class Rels extends WriterPart
     }
 
     /**
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet
+     */
+    public function writeVMLDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    {
+        // Create XML writer
+        $objWriter = null;
+        if ($this->getParentWriter()->getUseDiskCaching()) {
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+        } else {
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
+        }
+
+        // XML header
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
+
+        // Relationships
+        $objWriter->startElement('Relationships');
+        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
+
+        // Loop through images and write relationships
+        foreach ($worksheet->getComments() as $comment) {
+            if ($drawing = $comment->getBackgroundImage()) {
+                $this->writeRelationship(
+                    $objWriter,
+                    $drawing->getImageIndex(),
+                    'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
+                    '../media/' . $drawing->getMediaFilename()
+                );
+            }
+        }
+
+        $objWriter->endElement();
+
+        return $objWriter->getData();
+    }
+
+    /**
      * Write Override content type.
      *
      * @param XMLWriter $objWriter XML Writer

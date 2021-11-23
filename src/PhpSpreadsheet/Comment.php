@@ -71,6 +71,12 @@ class Comment implements IComparable
      * @var string
      */
     private $alignment;
+    /**
+     * Background image in comment
+     *
+     * @var Worksheet\Drawing
+     */
+    private $backgroundImage;
 
     /**
      * Create a new Comment.
@@ -298,5 +304,45 @@ class Comment implements IComparable
     public function __toString(): string
     {
         return $this->text->getPlainText();
+    }
+
+    /**
+     * Check is background image exists
+     * @return bool
+     */
+    public function hasBackgroundImage()
+    {
+        return !is_null($this->backgroundImage);
+    }
+
+    /**
+     * Returns background image
+     *
+     * @return Worksheet\Drawing
+     */
+    public function getBackgroundImage()
+    {
+        return $this->backgroundImage;
+    }
+
+    /**
+     * Sets background image
+     *
+     * @param Worksheet\Drawing $objDrawing
+     */
+    public function setBackgroundImage(Worksheet\Drawing $objDrawing)
+    {
+        $this->backgroundImage = $objDrawing;
+    }
+
+    /**
+     * Sets size of comment as size of background image
+     */
+    public function setSizeAsBackgroundImage()
+    {
+        if ($this->hasBackgroundImage()) {
+            $this->setWidth($this->backgroundImage->getWidth());
+            $this->setHeight($this->backgroundImage->getHeight());
+        }
     }
 }

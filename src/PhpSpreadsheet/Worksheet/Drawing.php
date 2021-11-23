@@ -2,10 +2,18 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use _PHPStan_9b5387833\Nette\Neon\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class Drawing extends BaseDrawing
 {
+    const IMAGE_TYPES_CONVERTION_MAP = [
+        IMAGETYPE_GIF   => IMAGETYPE_PNG,
+        IMAGETYPE_JPEG  => IMAGETYPE_JPEG,
+        IMAGETYPE_PNG   => IMAGETYPE_PNG,
+        IMAGETYPE_BMP   => IMAGETYPE_PNG,
+    ];
+
     /**
      * Path.
      *
@@ -66,6 +74,23 @@ class Drawing extends BaseDrawing
         $exploded = explode('.', basename($this->path));
 
         return $exploded[count($exploded) - 1];
+    }
+
+    /**
+     * Get full filepath to store drawing in zip archive
+     *
+     * @return string
+     */
+    public function getMediaFilename()
+    {
+        $imageType = getimagesize($this->getPath())[2];
+
+        if (!array_key_exists($imageType, self::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        $newImageType = self::IMAGE_TYPES_CONVERTION_MAP[$imageType];
+        return sprintf('image%d%s', $this->getImageIndex(), image_type_to_extension($newImageType));
     }
 
     /**
