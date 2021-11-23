@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Use tmp dir in HTMLPurifier config
 
 ### Changed
 
