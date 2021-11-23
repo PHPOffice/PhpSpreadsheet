@@ -28,6 +28,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
+use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use ZipArchive;
 use ZipStream\Exception\OverflowException;
 use ZipStream\Option\Archive;
@@ -439,11 +440,23 @@ class Xlsx extends BaseWriter
 
             // Add comment relationship parts
             if (count($this->spreadSheet->getSheet($i)->getComments()) > 0) {
+                // VML Comments relationships
+                $zipContent['xl/drawings/_rels/vmlDrawing' . ($i + 1) . '.vml.rels'] = $this->getWriterPartRels()->writeVMLDrawingRelationships($this->spreadSheet->getSheet($i));
+
                 // VML Comments
                 $zipContent['xl/drawings/vmlDrawing' . ($i + 1) . '.vml'] = $this->getWriterPartComments()->writeVMLComments($this->spreadSheet->getSheet($i));
 
                 // Comments
                 $zipContent['xl/comments' . ($i + 1) . '.xml'] = $this->getWriterPartComments()->writeComments($this->spreadSheet->getSheet($i));
+
+                // Media
+                foreach ($this->spreadSheet->getSheet($i)->getComments() as $comment) {
+                    $image = $comment->getBackgroundImage();
+
+                    if ($image instanceof WorksheetDrawing) {
+                        $zipContent['xl/media/' . $image->getMediaFilename()] = $this->processDrawing($image);
+                    }
+                }
             }
 
             // Add unparsed relationship parts
@@ -666,5 +679,50 @@ class Xlsx extends BaseWriter
         foreach ($zipContent as $path => $content) {
             $this->addZipFile($path, $content);
         }
+    }
+
+    /**
+     * @param WorksheetDrawing $drawing
+     * @return mixed
+     */
+    private function processDrawing(WorksheetDrawing $drawing)
+    {
+        $data = null;
+        $filename = $drawing->getPath();
+        $imageData = getimagesize($filename);
+
+        if (is_array($imageData)) {
+            switch ($imageData[2]) {
+                case 1: // GIF, not supported by BIFF8, we convert to PNG
+                    $image = imagecreatefromgif($filename);
+                    if ($image !== false) {
+                        ob_start();
+                        imagepng($image);
+                        $data = ob_get_contents();
+                        ob_end_clean();
+                    }
+                    break;
+
+                case 2: // JPEG
+                    $data = file_get_contents($filename);
+                    break;
+
+                case 3: // PNG
+                    $data = file_get_contents($filename);
+                    break;
+
+                case 6: // Windows DIB (BMP), we convert to PNG
+                    $image = imagecreatefrombmp($filename);
+                    if ($image !== false) {
+                        ob_start();
+                        imagepng($image);
+                        $data = ob_get_contents();
+                        ob_end_clean();
+                    }
+                    break;
+            }
+        }
+
+        return $data;
     }
 }

@@ -158,6 +158,17 @@ class ContentTypes extends WriterPart
                     }
                 }
             }
+
+            if (count($spreadsheet->getSheet($i)->getComments()) > 0) {
+                foreach ($spreadsheet->getSheet($i)->getComments() as $comment) {
+                    $image = $comment->getBackgroundImage();
+                    if (!isset($aMediaContentTypes[strtolower($image->getExtension())])) {
+                        $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
+
+                        $this->writeDefaultContentType($objWriter, strtolower($image->getExtension()), $aMediaContentTypes[strtolower($image->getExtension())]);
+                    }
+                }
+            }
         }
 
         // unparsed defaults

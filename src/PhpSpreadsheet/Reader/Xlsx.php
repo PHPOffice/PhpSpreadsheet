@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PHP_CodeSniffer\Autoload;
+use PHP_CodeSniffer\Sniffs\AbstractArraySniff;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -985,6 +987,19 @@ class Xlsx extends BaseReader
                                         continue;
                                     }
 
+                                    // Locate VML drawings image relations
+                                    $drowingImages = [];
+                                    $VMLDrawingsRelations = dirname($relPath) . '/_rels/' . basename($relPath) . '.rels';
+                                    if ($zip->locateName($VMLDrawingsRelations)) {
+                                        $relsVMLDrawing = $this->loadZip($VMLDrawingsRelations, Namespaces::RELATIONSHIPS);
+                                        foreach ($relsVMLDrawing->Relationship as $elex) {
+                                            $ele = self::getAttributes($elex);
+                                            if ($ele['Type'] == Namespaces::IMAGE) {
+                                                $drowingImages[(string) $ele['Id']] = (string) $ele['Target'];
+                                            }
+                                        }
+                                    }
+
                                     $shapes = self::xpathNoFalse($vmlCommentsFile, '//v:shape');
                                     foreach ($shapes as $shape) {
                                         $shape->registerXPathNamespace('v', Namespaces::URN_VML);
@@ -994,6 +1009,8 @@ class Xlsx extends BaseReader
                                             $fillColor = strtoupper(substr((string) $shape['fillcolor'], 1));
                                             $column = null;
                                             $row = null;
+                                            $fillImageRelId = null;
+                                            $fillImageTitle = '';
 
                                             $clientData = $shape->xpath('.//x:ClientData');
                                             if (is_array($clientData) && !empty($clientData)) {
@@ -1012,10 +1029,39 @@ class Xlsx extends BaseReader
                                                 }
                                             }
 
+                                            $fillImageRelNode = $shape->xpath('.//v:fill/@o:relid');
+                                            if (is_array($fillImageRelNode) && !empty($fillImageRelNode)) {
+                                                $fillImageRelNode = $fillImageRelNode[0];
+
+                                                if (isset($fillImageRelNode['relid'])) {
+                                                    $fillImageRelId = (string) $fillImageRelNode['relid'];
+                                                }
+                                            }
+
+                                            $fillImageTitleNode = $shape->xpath('.//v:fill/@o:title');
+                                            if (is_array($fillImageTitleNode) && !empty($fillImageTitleNode)) {
+                                                $fillImageTitleNode = $fillImageTitleNode[0];
+
+                                                if (isset($fillImageTitleNode['title'])) {
+                                                    $fillImageTitle = (string) $fillImageTitleNode['title'];
+                                                }
+                                            }
+
+
                                             if (($column !== null) && ($row !== null)) {
                                                 // Set comment properties
                                                 $comment = $docSheet->getCommentByColumnAndRow($column + 1, $row + 1);
                                                 $comment->getFillColor()->setRGB($fillColor);
+                                                if (isset($drowingImages[$fillImageRelId])) {
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                                                    $objDrawing->setName($fillImageTitle);
+                                                    $imagePath = str_replace('../', 'xl/', $drowingImages[$fillImageRelId]);
+                                                    $objDrawing->setPath(
+                                                        'zip://' . File::realpath($filename) . '#' . $imagePath,
+                                                        false
+                                                    );
+                                                    $comment->setBackgroundImage($objDrawing);
+                                                }
 
                                                 // Parse style
                                                 $styleArray = explode(';', str_replace(' ', '', $style));
