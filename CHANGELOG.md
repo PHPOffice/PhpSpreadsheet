@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Ability to add a picture to the background of the comment. Supports four image formats: png, jpeg, gif, bmp. A Comment method setSizeAsBackgroundImage for changing the size of a comment to the size of an background image. [Issue #1547](https://github.com/PHPOffice/PhpSpreadsheet/issues/1547) [PR #2422](https://github.com/PHPOffice/PhpSpreadsheet/pull/2422)
 
 ### Changed
 

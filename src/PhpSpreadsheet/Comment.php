@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class Comment implements IComparable
 {
@@ -73,6 +74,13 @@ class Comment implements IComparable
     private $alignment;
 
     /**
+     * Background image in comment.
+     *
+     * @var Drawing
+     */
+    private $backgroundImage;
+
+    /**
      * Create a new Comment.
      */
     public function __construct()
@@ -82,6 +90,7 @@ class Comment implements IComparable
         $this->text = new RichText();
         $this->fillColor = new Color('FFFFFFE1');
         $this->alignment = Alignment::HORIZONTAL_GENERAL;
+        $this->backgroundImage = new Drawing();
     }
 
     /**
@@ -298,5 +307,46 @@ class Comment implements IComparable
     public function __toString(): string
     {
         return $this->text->getPlainText();
+    }
+
+    /**
+     * Check is background image exists.
+     *
+     * @return bool
+     */
+    public function hasBackgroundImage(): bool
+    {
+        return file_exists($this->backgroundImage->getPath());
+    }
+
+    /**
+     * Returns background image.
+     *
+     * @return Drawing
+     */
+    public function getBackgroundImage(): Drawing
+    {
+        return $this->backgroundImage;
+    }
+
+    /**
+     * Sets background image.
+     *
+     * @param Drawing $objDrawing
+     */
+    public function setBackgroundImage(Drawing $objDrawing): void
+    {
+        $this->backgroundImage = $objDrawing;
+    }
+
+    /**
+     * Sets size of comment as size of background image.
+     */
+    public function setSizeAsBackgroundImage(): void
+    {
+        if ($this->hasBackgroundImage()) {
+            $this->setWidth((string) $this->backgroundImage->getWidth());
+            $this->setHeight((string) $this->backgroundImage->getHeight());
+        }
     }
 }
