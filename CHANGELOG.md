@@ -5,15 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## Unreleased - TBD
+## 1.20.0 - 2021-11-23
 
 ### Added
 
-- Use tmp dir in HTMLPurifier config
+- Xlsx Writer Support for WMF Files [#2339](https://github.com/PHPOffice/PhpSpreadsheet/issues/2339)
+- Use standard temporary file for internal use of HTMLPurifier [#2383](https://github.com/PHPOffice/PhpSpreadsheet/issues/2383)
 
 ### Changed
 
 - Drop support for PHP 7.2, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support
+- Use native typing for objects that were already documented as such
 
 ### Deprecated
 
@@ -25,7 +27,18 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Fixed null conversation for strToUpper [#2292](https://github.com/PHPOffice/PhpSpreadsheet/issues/2292)
+- Fixed Trying to access array offset on value of type null (Xls Reader) [#2315](https://github.com/PHPOffice/PhpSpreadsheet/issues/2315)
+- Don't corrupt XLSX files containing data validation [#2377](https://github.com/PHPOffice/PhpSpreadsheet/issues/2377)
+- Non-fixed cells were not updated if shared formula has a fixed cell [#2354](https://github.com/PHPOffice/PhpSpreadsheet/issues/2354)
+- Declare key of generic ArrayObject
+- CSV reader better support for boolean values [#2374](https://github.com/PHPOffice/PhpSpreadsheet/pull/2374)
+- Some ZIP file could not be read [#2376](https://github.com/PHPOffice/PhpSpreadsheet/pull/2376)
+- Fix regression were hyperlinks could not be read [#2391](https://github.com/PHPOffice/PhpSpreadsheet/pull/2391)
+- AutoFilter Improvements [#2393](https://github.com/PHPOffice/PhpSpreadsheet/pull/2393)
+- Don't corrupt file when using chart with fill color [#589](https://github.com/PHPOffice/PhpSpreadsheet/pull/589)
+- Restore imperfect array formula values in xlsx writer [#2343](https://github.com/PHPOffice/PhpSpreadsheet/pull/2343)
+- Restore explicit list of changes to PHPExcel migration document [#1546](https://github.com/PHPOffice/PhpSpreadsheet/issues/1546)
 
 ## 1.19.0 - 2021-10-31
 
