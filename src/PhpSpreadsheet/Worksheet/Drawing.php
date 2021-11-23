@@ -6,6 +6,13 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 class Drawing extends BaseDrawing
 {
+    const IMAGE_TYPES_CONVERTION_MAP = [
+        IMAGETYPE_GIF => IMAGETYPE_PNG,
+        IMAGETYPE_JPEG => IMAGETYPE_JPEG,
+        IMAGETYPE_PNG => IMAGETYPE_PNG,
+        IMAGETYPE_BMP => IMAGETYPE_PNG,
+    ];
+
     /**
      * Path.
      *
@@ -66,6 +73,26 @@ class Drawing extends BaseDrawing
         $exploded = explode('.', basename($this->path));
 
         return $exploded[count($exploded) - 1];
+    }
+
+    /**
+     * Get full filepath to store drawing in zip archive.
+     *
+     * @return string
+     */
+    public function getMediaFilename()
+    {
+        $imageData = getimagesize($this->getPath());
+
+        if ($imageData === false) {
+            throw new PhpSpreadsheetException('Unable to get image data of ' . $this->getPath());
+        } elseif (!array_key_exists($imageData[2], self::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        $newImageType = self::IMAGE_TYPES_CONVERTION_MAP[$imageData[2]];
+
+        return sprintf('image%d%s', $this->getImageIndex(), image_type_to_extension($newImageType));
     }
 
     /**
