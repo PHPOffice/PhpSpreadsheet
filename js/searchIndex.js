@@ -4218,7 +4218,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003ACOMPATIBILITY_EXCEL",
             "name": "COMPATIBILITY_EXCEL",
-            "summary": "constants",
+            "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#constant_COMPATIBILITY_EXCEL"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003ACOMPATIBILITY_GNUMERIC",
@@ -4233,12 +4233,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003ARETURNDATE_PHP_NUMERIC",
             "name": "RETURNDATE_PHP_NUMERIC",
-            "summary": "",
+            "summary": "Use\u0020of\u0020RETURNDATE_PHP_NUMERIC\u0020is\u0020discouraged\u0020\u002D\u0020not\u002032\u002Dbit\u0020Y2038\u002Dsafe,\u0020no\u0020timezone.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#constant_RETURNDATE_PHP_NUMERIC"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003ARETURNDATE_UNIX_TIMESTAMP",
             "name": "RETURNDATE_UNIX_TIMESTAMP",
-            "summary": "",
+            "summary": "Use\u0020of\u0020RETURNDATE_UNIX_TIMESTAMP\u0020is\u0020discouraged\u0020\u002D\u0020not\u002032\u002Dbit\u0020Y2038\u002Dsafe,\u0020no\u0020timezone.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Calculation-Functions.html#constant_RETURNDATE_UNIX_TIMESTAMP"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions\u003A\u003ARETURNDATE_PHP_OBJECT",
@@ -8856,6 +8856,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Cell-StringValueBinder.html#method_setBooleanConversion"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\StringValueBinder\u003A\u003AgetBooleanConversion\u0028\u0029",
+            "name": "getBooleanConversion",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Cell-StringValueBinder.html#method_getBooleanConversion"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Cell\\StringValueBinder\u003A\u003AsetNumericConversion\u0028\u0029",
             "name": "setNumericConversion",
             "summary": "",
@@ -11220,6 +11225,11 @@ Search.appendIndex(
             "name": "storeCurrentCell",
             "summary": "Store\u0020cell\u0020data\u0020in\u0020cache\u0020for\u0020the\u0020current\u0020cell\u0020object\u0020if\u0020it\u0027s\u0020\u0022dirty\u0022,\nand\u0020the\u0020\u0027nullify\u0027\u0020the\u0020current\u0020cell\u0020object.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_storeCurrentCell"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Collection\\Cells\u003A\u003AdestructIfNeeded\u0028\u0029",
+            "name": "destructIfNeeded",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_destructIfNeeded"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Collection\\Cells\u003A\u003Aadd\u0028\u0029",
             "name": "add",
@@ -17628,12 +17638,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Settings\u003A\u003AsetLibXmlDisableEntityLoader\u0028\u0029",
             "name": "setLibXmlDisableEntityLoader",
-            "summary": "Enable\/Disable\u0020the\u0020entity\u0020loader\u0020for\u0020libxml\u0020loader.",
+            "summary": "Deprecated,\u0020has\u0020no\u0020effect.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Settings.html#method_setLibXmlDisableEntityLoader"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Settings\u003A\u003AgetLibXmlDisableEntityLoader\u0028\u0029",
             "name": "getLibXmlDisableEntityLoader",
-            "summary": "Return\u0020the\u0020state\u0020of\u0020the\u0020entity\u0020loader\u0020\u0028disabled\/enabled\u0029\u0020for\u0020libxml\u0020loader.",
+            "summary": "Deprecated,\u0020has\u0020no\u0020effect.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Settings.html#method_getLibXmlDisableEntityLoader"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Settings\u003A\u003AsetCache\u0028\u0029",
@@ -17680,11 +17690,6 @@ Search.appendIndex(
             "name": "libXmlLoaderOptions",
             "summary": "Default\u0020options\u0020for\u0020libxml\u0020loader.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Settings.html#property_libXmlLoaderOptions"
-        },                {
-            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Settings\u003A\u003A\u0024libXmlDisableEntityLoader",
-            "name": "libXmlDisableEntityLoader",
-            "summary": "Allow\/disallow\u0020libxml_disable_entity_loader\u0028\u0029\u0020call\u0020when\u0020not\u0020thread\u0020safe.",
-            "url": "classes/PhpOffice-PhpSpreadsheet-Settings.html#property_libXmlDisableEntityLoader"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Settings\u003A\u003A\u0024cache",
             "name": "cache",
@@ -29008,22 +29013,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcreateCSSStyleAlignment\u0028\u0029",
             "name": "createCSSStyleAlignment",
-            "summary": "Create\u0020CSS\u0020style\u0020\u0028\\PhpOffice\\PhpSpreadsheet\\Style\\Alignment\u0029.",
+            "summary": "Create\u0020CSS\u0020style.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_createCSSStyleAlignment"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcreateCSSStyleFont\u0028\u0029",
             "name": "createCSSStyleFont",
-            "summary": "Create\u0020CSS\u0020style\u0020\u0028\\PhpOffice\\PhpSpreadsheet\\Style\\Font\u0029.",
+            "summary": "Create\u0020CSS\u0020style.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_createCSSStyleFont"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcreateCSSStyleBorders\u0028\u0029",
             "name": "createCSSStyleBorders",
-            "summary": "Create\u0020CSS\u0020style\u0020\u0028Borders\u0029.",
+            "summary": "Create\u0020CSS\u0020style.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_createCSSStyleBorders"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcreateCSSStyleBorder\u0028\u0029",
             "name": "createCSSStyleBorder",
-            "summary": "Create\u0020CSS\u0020style\u0020\u0028Border\u0029.",
+            "summary": "Create\u0020CSS\u0020style.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Writer-Html.html#method_createCSSStyleBorder"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Writer\\Html\u003A\u003AcreateCSSStyleFill\u0028\u0029",

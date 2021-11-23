@@ -590,7 +590,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setIncludeCharts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setIncludeCharts</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$includeCharts</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
 Set to false (the default) to discard charts.</p>
@@ -599,7 +599,7 @@ Set to false (the default) to discard charts.</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$includeCharts</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -720,7 +720,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadDataOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadDataOnly</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readDataOnly</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Set to false (the default) to advise the Reader to read both data and formatting for cells.</p>
 </section>
@@ -728,7 +728,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readDataOnly</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -767,7 +767,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadEmptyCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadEmptyCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readEmptyCells</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"><p>Set to false to advise the Reader to ignore cells containing a null value or an empty string.</p>
 </section>
@@ -775,7 +775,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readEmptyCells</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -813,14 +813,14 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setReadFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setReadFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$readFilter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$readFilter</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReadFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReadFilter">IReadFilter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">

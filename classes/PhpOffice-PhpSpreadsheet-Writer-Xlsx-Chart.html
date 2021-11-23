@@ -158,7 +158,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html#method_getChartType">getChartType()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
+                        &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Get the data series type(s) for a chart plot series.</dd>
 
@@ -235,7 +235,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx-Chart.html#method_writePlotSeriesValuesElement">writePlotSeriesValuesElement()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>    </span>
+                        &nbsp;: void    </span>
 </dt>
 <dd>Method writing plot series values.</dd>
 
@@ -392,14 +392,14 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$writer</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pWriter</span>
+                <span class="phpdocumentor-signature__argument__name">$writer</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xlsx.html"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xlsx">Xlsx</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -470,14 +470,14 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">writeChart</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Chart">Chart</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pChart</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$calculateCellValues</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">writeChart</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Chart">Chart</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$chart</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$calculateCellValues</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pChart</span>
+                <span class="phpdocumentor-signature__argument__name">$chart</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Chart">Chart</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -516,14 +516,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">985</span>
+    <span class="phpdocumentor-element-found-in__line">964</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the data series type(s) for a chart plot series.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getChartType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotArea</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getChartType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotArea</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -534,15 +534,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -561,7 +560,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1469</span>
+    <span class="phpdocumentor-element-found-in__line">1437</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Alternate Content block.</p>
@@ -579,9 +578,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -607,14 +604,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1357</span>
+    <span class="phpdocumentor-element-found-in__line">1330</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Bubble Chart Details.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeBubbles</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeBubbles</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -622,20 +619,17 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$objWriter</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -661,14 +655,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">387</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Category Axis.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeCategoryAxis</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxisLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxis</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeCategoryAxis</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxisLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxis</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -679,17 +673,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$xAxisLabel</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$id1</span>
@@ -746,14 +737,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">336</span>
+    <span class="phpdocumentor-element-found-in__line">321</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Data Labels.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeDataLabels</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$chartLayout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeDataLabels</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$chartLayout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -764,18 +755,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$chartLayout</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Chart layout</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -801,14 +788,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1402</span>
+    <span class="phpdocumentor-element-found-in__line">1372</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Layout.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeLayout</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$layout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeLayout</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$layout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -819,17 +806,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$layout</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -855,14 +839,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Chart Legend.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeLegend</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$legend</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeLegend</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$legend</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -873,17 +857,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$legend</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Legend">Legend</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -909,14 +890,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">193</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Chart Plot Area.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writePlotArea</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotArea</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxisLabel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxisLabel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorGridlines</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorGridlines</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writePlotArea</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-PlotArea.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\PlotArea">PlotArea</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotArea</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxisLabel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxisLabel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxis</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorGridlines</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorGridlines</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -927,9 +908,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$plotArea</span>
@@ -940,35 +919,31 @@
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$xAxisLabel</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$yAxisLabel</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$xAxis</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$yAxis</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$majorGridlines</span>
@@ -1008,14 +983,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1047</span>
+    <span class="phpdocumentor-element-found-in__line">1019</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Plot Group (series of related plots).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writePlotGroup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeries">DataSeries</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotGroup</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$catIsMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$valIsMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$plotGroupingType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writePlotGroup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeries">DataSeries</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotGroup</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$catIsMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$valIsMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$plotGroupingType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1023,11 +998,10 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$plotGroup</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeries">DataSeries</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeries.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeries">DataSeries</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$groupType</span>
@@ -1043,9 +1017,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$catIsMultiLevelSeries</span>
@@ -1098,14 +1070,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1232</span>
+    <span class="phpdocumentor-element-found-in__line">1210</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Plot Series Label.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writePlotSeriesLabel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writePlotSeriesLabel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1113,20 +1085,17 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$plotSeriesLabel</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$objWriter</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1152,14 +1121,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1267</span>
+    <span class="phpdocumentor-element-found-in__line">1243</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Plot Series Values.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writePlotSeriesValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;str&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writePlotSeriesValues</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;str&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1167,20 +1136,17 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$plotSeriesValues</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues">DataSeriesValues</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$objWriter</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$groupType</span>
@@ -1224,14 +1190,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1014</span>
+    <span class="phpdocumentor-element-found-in__line">990</span>
 </aside>
 
         <p class="phpdocumentor-summary">Method writing plot series values.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writePlotSeriesValuesElement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">3</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fillColor</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;FF9900&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">writePlotSeriesValuesElement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">3</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fillColor</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;FF9900&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1242,9 +1208,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$val</span>
@@ -1269,10 +1233,9 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
+            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1289,7 +1252,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1497</span>
+    <span class="phpdocumentor-element-found-in__line">1463</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Printer Settings.</p>
@@ -1307,9 +1270,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -1335,14 +1296,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Chart Title.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeTitle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeTitle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1353,17 +1314,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$title</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1389,14 +1347,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php"><a href="files/src-phpspreadsheet-writer-xlsx-chart.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">505</span>
+    <span class="phpdocumentor-element-found-in__line">486</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Value Axis.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeValueAxis</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxisLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxis</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorGridlines</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorGridlines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">writeValueAxis</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yAxisLabel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$groupType</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isMultiLevelSeries</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis">Axis</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xAxis</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorGridlines</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorGridlines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1407,21 +1365,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>XML Writer</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$yAxisLabel</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Title">Title</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$groupType</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Chart type</p>

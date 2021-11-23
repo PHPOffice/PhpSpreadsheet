@@ -179,7 +179,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#property_escher">$escher</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>            </span>
+                &nbsp;: null|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>            </span>
 </dt>
 <dd>Escher object corresponding to MSODRAWINGGROUP.</dd>
 
@@ -299,7 +299,7 @@ recalculating it for each call to new().</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#method_getEscher">getEscher()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null    </span>
 </dt>
 <dd>Get Escher object.</dd>
 
@@ -874,7 +874,7 @@ supported).</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
+        <span class="phpdocumentor-signature__type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
     <span class="phpdocumentor-signature__name">$escher</span>
     </code>
 
@@ -1527,14 +1527,14 @@ recalculating it for each call to new().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1180</span>
+    <span class="phpdocumentor-element-found-in__line">1178</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Escher object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getEscher</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getEscher</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1542,7 +1542,7 @@ recalculating it for each call to new().</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1561,26 +1561,25 @@ recalculating it for each call to new().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1190</span>
+    <span class="phpdocumentor-element-found-in__line">1186</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Escher object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setEscher</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">setEscher</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escher</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+                <span class="phpdocumentor-signature__argument__name">$escher</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1694,14 +1693,14 @@ storage.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">writeWorkbook</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pWorksheetSizes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">writeWorkbook</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheetSizes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pWorksheetSizes</span>
+                <span class="phpdocumentor-signature__argument__name">$worksheetSizes</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -2000,13 +1999,13 @@ necessary.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">parseDefinedNameValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-DefinedName.html"><abbr title="\PhpOffice\PhpSpreadsheet\DefinedName">DefinedName</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pDefinedName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">parseDefinedNameValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-DefinedName.html"><abbr title="\PhpOffice\PhpSpreadsheet\DefinedName">DefinedName</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$definedName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pDefinedName</span>
+                <span class="phpdocumentor-signature__argument__name">$definedName</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-DefinedName.html"><abbr title="\PhpOffice\PhpSpreadsheet\DefinedName">DefinedName</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">

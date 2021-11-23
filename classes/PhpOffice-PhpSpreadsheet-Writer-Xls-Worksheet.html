@@ -207,7 +207,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#property_escher">$escher</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>            </span>
+                &nbsp;: null|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>            </span>
 </dt>
 <dd>Escher object corresponding to MSODRAWING.</dd>
 
@@ -364,7 +364,7 @@ sized chunks.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Worksheet.html#method_getEscher">getEscher()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null    </span>
 </dt>
 <dd>Get Escher object.</dd>
 
@@ -1285,7 +1285,7 @@ simplicity we will store all fractions with a numerator of 100.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
+        <span class="phpdocumentor-signature__type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
     <span class="phpdocumentor-signature__name">$escher</span>
     </code>
 
@@ -2092,14 +2092,14 @@ sized chunks.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2513</span>
+    <span class="phpdocumentor-element-found-in__line">2511</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Escher object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getEscher</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getEscher</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2107,7 +2107,7 @@ sized chunks.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2496,26 +2496,25 @@ MSDN library.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2523</span>
+    <span class="phpdocumentor-element-found-in__line">2519</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Escher object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setEscher</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">setEscher</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$escher</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a></span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+                <span class="phpdocumentor-signature__argument__name">$escher</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|null</span>
+                            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -3040,7 +3039,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3176</span>
+    <span class="phpdocumentor-element-found-in__line">3172</span>
 </aside>
 
     
@@ -3279,7 +3278,7 @@ See section 2.5.14 in OpenOffice.org&#039;s Documentation of the Microsoft Excel
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3129</span>
+    <span class="phpdocumentor-element-found-in__line">3125</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write CFHeader record.</p>
@@ -3313,7 +3312,7 @@ See section 2.5.14 in OpenOffice.org&#039;s Documentation of the Microsoft Excel
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2775</span>
+    <span class="phpdocumentor-element-found-in__line">2771</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write CFRule Record.</p>
@@ -3411,7 +3410,7 @@ length record.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2616</span>
+    <span class="phpdocumentor-element-found-in__line">2612</span>
 </aside>
 
         <p class="phpdocumentor-summary">Store the DATAVALIDATIONS and DATAVALIDATION records.</p>
@@ -4068,7 +4067,7 @@ $format is optional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2531</span>
+    <span class="phpdocumentor-element-found-in__line">2527</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write MSODRAWING record.</p>
@@ -4323,7 +4322,7 @@ to support other Excel objects.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xls-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2744</span>
+    <span class="phpdocumentor-element-found-in__line">2740</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write PLV Record.</p>

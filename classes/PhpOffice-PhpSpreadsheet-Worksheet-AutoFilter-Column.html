@@ -809,7 +809,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">363</span>
+    <span class="phpdocumentor-element-found-in__line">367</span>
 </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
@@ -850,14 +850,14 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pColumn</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pParent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$column</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pColumn</span>
+                <span class="phpdocumentor-signature__argument__name">$column</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -866,7 +866,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pParent</span>
+                <span class="phpdocumentor-signature__argument__name">$parent</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -898,21 +898,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">322</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a new AutoFilter Column Rule to the ruleset.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">addRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pRule</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">addRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rule</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pRule</span>
+                <span class="phpdocumentor-signature__argument__name">$rule</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -942,7 +942,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">356</span>
 </aside>
 
         <p class="phpdocumentor-summary">Delete all AutoFilter Column Rules.</p>
@@ -976,7 +976,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">306</span>
+    <span class="phpdocumentor-element-found-in__line">307</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new AutoFilter Column Rule in the ruleset.</p>
@@ -1010,7 +1010,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">334</span>
+    <span class="phpdocumentor-element-found-in__line">338</span>
 </aside>
 
         <p class="phpdocumentor-summary">Delete a specified AutoFilter Column Rule
@@ -1018,14 +1018,14 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">deleteRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">deleteRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pIndex</span>
+                <span class="phpdocumentor-signature__argument__name">$index</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1057,21 +1057,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get specific AutoFilter Column Attribute.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|int|string</span></code>
+                <span class="phpdocumentor-signature__name">getAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|int|string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pName</span>
+                <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1103,7 +1103,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
+    <span class="phpdocumentor-element-found-in__line">250</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get AutoFilter Column Attributes.</p>
@@ -1171,7 +1171,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get AutoFilter Type.</p>
@@ -1205,7 +1205,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get AutoFilter Multiple Rules And/Or Join.</p>
@@ -1273,21 +1273,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">292</span>
+    <span class="phpdocumentor-element-found-in__line">293</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified AutoFilter Column Rule.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getRule</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column-Rule.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule">Rule</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pIndex</span>
+                <span class="phpdocumentor-signature__argument__name">$index</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1319,7 +1319,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">281</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get all AutoFilter Column Rules.</p>
@@ -1353,7 +1353,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 </aside>
 
     
@@ -1385,21 +1385,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">238</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set An AutoFilter Attribute.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pName</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pName</span>
+                <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1408,7 +1408,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pValue</span>
+                <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1440,7 +1440,7 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter Attributes.</p>
@@ -1492,14 +1492,14 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setColumnIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pColumn</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setColumnIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$column</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pColumn</span>
+                <span class="phpdocumentor-signature__argument__name">$column</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1531,21 +1531,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter Type.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setFilterType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pFilterType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setFilterType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filterType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pFilterType</span>
+                <span class="phpdocumentor-signature__argument__name">$filterType</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1576,21 +1576,21 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">203</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter Multiple Rules And/Or.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setJoin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pJoin</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setJoin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$join</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pJoin</span>
+                <span class="phpdocumentor-signature__argument__name">$join</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1622,26 +1622,25 @@ If the number of rules is reduced to 1, then we reset And/Or logic to Or.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php"><a href="files/src-phpspreadsheet-worksheet-autofilter-column.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php">Column.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set this Column&#039;s AutoFilter Parent.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setParent</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pParent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setParent</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pParent</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$parent</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 

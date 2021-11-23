@@ -217,7 +217,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_getCurrentCoordinate">getCurrentCoordinate()</a>
     <span>
-                        &nbsp;: string    </span>
+                        &nbsp;: null|string    </span>
 </dt>
 <dd>Return the cell coordinate of the currently active cell object.</dd>
 
@@ -252,7 +252,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_getParent">getParent()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>    </span>
+                        &nbsp;: null|<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>    </span>
 </dt>
 <dd>Return the parent worksheet for this cell collection.</dd>
 
@@ -297,6 +297,13 @@
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>    </span>
 </dt>
 <dd>Add or update a cell in the collection.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_destructIfNeeded">destructIfNeeded()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_getAllCacheKeys">getAllCacheKeys()</a>
@@ -628,7 +635,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">482</span>
+    <span class="phpdocumentor-element-found-in__line">483</span>
 </aside>
 
         <p class="phpdocumentor-summary">Destroy this cell collection.</p>
@@ -662,7 +669,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">410</span>
+    <span class="phpdocumentor-element-found-in__line">411</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add or update a cell identified by its coordinate into the collection.</p>
@@ -717,7 +724,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">311</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clone the cell collection.</p>
@@ -735,9 +742,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The new worksheet that we're copying to</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -809,7 +814,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">431</span>
+    <span class="phpdocumentor-element-found-in__line">432</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell at a specific coordinate.</p>
@@ -931,7 +936,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCurrentCoordinate</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">getCurrentCoordinate</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -939,7 +944,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">null|string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -999,7 +1004,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getHighestColumn</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">getHighestColumn</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">null|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1007,7 +1012,7 @@ and the &#039;nullify&#039; the current cell object.</dd>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$row</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|int|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Return the highest column for the specified row,
@@ -1047,7 +1052,7 @@ or the highest column of any row if no row number is passed</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getHighestRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$column</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                <span class="phpdocumentor-signature__name">getHighestRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$column</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1055,7 +1060,7 @@ or the highest column of any row if no row number is passed</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$column</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Return the highest row for the specified column,
@@ -1130,7 +1135,7 @@ or the highest row of any column if no column letter is passed</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1138,7 +1143,7 @@ or the highest row of any column if no column letter is passed</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1237,7 +1242,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">363</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove a column, deleting all cells in that column.</p>
@@ -1283,7 +1288,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">349</span>
+    <span class="phpdocumentor-element-found-in__line">345</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove a row, deleting all cells in that row.</p>
@@ -1329,7 +1334,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">462</span>
+    <span class="phpdocumentor-element-found-in__line">463</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clear the cell collection and disconnect from our parent.</p>
@@ -1402,6 +1407,62 @@ or the highest row of any column if no column letter is passed</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_destructIfNeeded">
+        destructIfNeeded()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_destructIfNeeded" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">394</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">destructIfNeeded</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stored</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">self&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cells</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$stored</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cells</span>
+                : <span class="phpdocumentor-signature__argument__return-type">self</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$message</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getAllCacheKeys">
         getAllCacheKeys()
         <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html#method_getAllCacheKeys" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1409,7 +1470,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">492</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns all known cache keys.</p>
@@ -1478,7 +1539,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Collection/Cells.php"><a href="files/src-phpspreadsheet-collection-cells.html"><abbr title="src/PhpSpreadsheet/Collection/Cells.php">Cells.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">384</span>
+    <span class="phpdocumentor-element-found-in__line">380</span>
 </aside>
 
         <p class="phpdocumentor-summary">Store cell data in cache for the current cell object if it&#039;s &quot;dirty&quot;,

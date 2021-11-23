@@ -522,7 +522,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">351</span>
+    <span class="phpdocumentor-element-found-in__line">356</span>
 </aside>
 
     
@@ -556,7 +556,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">504</span>
+    <span class="phpdocumentor-element-found-in__line">509</span>
 </aside>
 
     
@@ -605,7 +605,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">254</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a PHP DateTime object to an MS Excel serialized date/time value.</p>
@@ -652,7 +652,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">499</span>
 </aside>
 
         <p class="phpdocumentor-summary">Strips an ordinal from a numeric value.</p>
@@ -728,7 +728,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</p>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The timezone to assume for the Excel timestamp,
 if you don't want to treat it as a UTC value
-Use the default (UST) unless you absolutely need a conversion</p>
+Use the default (UTC) unless you absolutely need a conversion</p>
 </section>
 
             </dd>
@@ -757,7 +757,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">217</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a MS serialized datetime value from Excel to a unix timestamp.</p>
@@ -766,7 +766,9 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">excelToTimestamp</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$excelTimestamp</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<abbr title="\DateTimeZone">DateTimeZone</abbr>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeZone</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The use of Unix timestamps, and therefore this function, is discouraged.
+They are not Y2038-safe on a 32-bit system, and have no timezone info.</p>
+</section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -786,7 +788,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The timezone to assume for the Excel timestamp,
 if you don't want to treat it as a UTC value
-Use the default (UST) unless you absolutely need a conversion</p>
+Use the default (UTC) unless you absolutely need a conversion</p>
 </section>
 
             </dd>
@@ -815,7 +817,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">512</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 </aside>
 
     
@@ -871,7 +873,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">291</span>
+    <span class="phpdocumentor-element-found-in__line">296</span>
 </aside>
 
         <p class="phpdocumentor-summary">formattedPHPToExcel.</p>
@@ -1094,21 +1096,21 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">331</span>
+    <span class="phpdocumentor-element-found-in__line">336</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is a given cell a date/time?</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isDateTime</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pCell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">isDateTime</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$pCell</span>
+                <span class="phpdocumentor-signature__argument__name">$cell</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -1138,7 +1140,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">346</span>
+    <span class="phpdocumentor-element-found-in__line">351</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is a given number format a date/time?</p>
@@ -1182,7 +1184,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">360</span>
+    <span class="phpdocumentor-element-found-in__line">365</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is a given number format code a date/time?</p>
@@ -1227,7 +1229,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">474</span>
+    <span class="phpdocumentor-element-found-in__line">479</span>
 </aside>
 
         <p class="phpdocumentor-summary">Converts a month name (either a long or a short name) to a month number.</p>
@@ -1274,7 +1276,7 @@ Use the default (UST) unless you absolutely need a conversion</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">231</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a date from PHP to an MS Excel serialized date/time value.</p>
@@ -1292,7 +1294,8 @@ Use the default (UST) unless you absolutely need a conversion</p>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Unix Timestamp or PHP DateTime object or a string</p>
+                    <section class="phpdocumentor-description"><p>PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged;
+not Y2038-safe on a 32-bit system, and no timezone info</p>
 </section>
 
             </dd>
@@ -1416,7 +1419,7 @@ or boolean FALSE on failure</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">441</span>
+    <span class="phpdocumentor-element-found-in__line">446</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a date/time string to Excel time.</p>
@@ -1463,7 +1466,7 @@ or boolean FALSE on failure</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Date.php"><a href="files/src-phpspreadsheet-shared-date.html"><abbr title="src/PhpSpreadsheet/Shared/Date.php">Date.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a Unix timestamp to an MS Excel serialized date/time value.</p>
@@ -1472,7 +1475,9 @@ or boolean FALSE on failure</p>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">timestampToExcel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unixTimestamp</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|float</span></code>
 
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The use of Unix timestamps, and therefore this function, is discouraged.
+They are not Y2038-safe on a 32-bit system, and have no timezone info.</p>
+</section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
