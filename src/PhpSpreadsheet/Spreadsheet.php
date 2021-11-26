@@ -1174,11 +1174,9 @@ class Spreadsheet
     /**
      * Check if style exists in style collection.
      *
-     * @param Style $cellStyleIndex
-     *
      * @return bool
      */
-    public function cellXfExists($cellStyleIndex)
+    public function cellXfExists(Style $cellStyleIndex)
     {
         return in_array($cellStyleIndex, $this->cellXfCollection, true);
     }

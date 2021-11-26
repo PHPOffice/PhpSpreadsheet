@@ -1769,6 +1769,10 @@ class Html extends BaseWriter
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
             $sanitizer = new HTMLPurifier();
+            $cachePath = File::sysGetTempDir() . '/phpsppur';
+            if (is_dir($cachePath) || mkdir($cachePath)) {
+                $sanitizer->config->set('Cache.SerializerPath', $cachePath);
+            }
             $sanitizedString = $sanitizer->purify($worksheet->getComment($coordinate)->getText()->getPlainText());
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';

@@ -341,7 +341,6 @@ class Worksheet implements IComparable
     /**
      * Create a new worksheet.
      *
-     * @param Spreadsheet $parent
      * @param string $title
      */
     public function __construct(?Spreadsheet $parent = null, $title = 'Worksheet')
