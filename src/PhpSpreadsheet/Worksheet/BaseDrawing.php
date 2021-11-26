@@ -200,7 +200,6 @@ class BaseDrawing implements IComparable
     /**
      * Set Worksheet.
      *
-     * @param Worksheet $worksheet
      * @param bool $overrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
      * @return $this
@@ -379,12 +378,12 @@ class BaseDrawing implements IComparable
      * $objDrawing->setWidthAndHeight(160,120);
      * </code>
      *
-     * @author Vincent@luo MSN:kele_100@hotmail.com
-     *
      * @param int $width
      * @param int $height
      *
      * @return $this
+     *
+     * @author Vincent@luo MSN:kele_100@hotmail.com
      */
     public function setWidthAndHeight($width, $height)
     {
@@ -466,8 +465,6 @@ class BaseDrawing implements IComparable
 
     /**
      * Set Shadow.
-     *
-     * @param Drawing\Shadow $shadow
      *
      * @return $this
      */

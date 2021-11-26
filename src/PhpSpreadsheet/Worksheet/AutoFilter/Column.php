@@ -143,8 +143,6 @@ class Column
     /**
      * Set this Column's AutoFilter Parent.
      *
-     * @param AutoFilter $parent
-     *
      * @return $this
      */
     public function setParent(?AutoFilter $parent = null)

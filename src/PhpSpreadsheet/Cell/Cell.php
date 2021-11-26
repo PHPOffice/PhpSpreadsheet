@@ -70,7 +70,7 @@ class Cell
      *
      * @return $this
      */
-    public function updateInCollection()
+    public function updateInCollection(): self
     {
         $this->parent->update($this);
 
@@ -397,12 +397,8 @@ class Cell
 
     /**
      * Set Data validation rules.
-     *
-     * @param DataValidation $dataValidation
-     *
-     * @return Cell
      */
-    public function setDataValidation(?DataValidation $dataValidation = null)
+    public function setDataValidation(?DataValidation $dataValidation = null): self
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set data validation for cell that is not bound to a worksheet');
@@ -455,8 +451,6 @@ class Cell
 
     /**
      * Set Hyperlink.
-     *
-     * @param Hyperlink $hyperlink
      *
      * @return Cell
      */

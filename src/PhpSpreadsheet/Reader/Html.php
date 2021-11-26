@@ -757,12 +757,11 @@ class Html extends BaseReader
      * TODO :
      * - Implement to other propertie, such as border
      *
-     * @param Worksheet $sheet
      * @param int $row
      * @param string $column
      * @param array $attributeArray
      */
-    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, $row, $column, $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
