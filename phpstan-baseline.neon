@@ -5996,36 +5996,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/FractionFormatter.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function abs expects float\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function number_format expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
