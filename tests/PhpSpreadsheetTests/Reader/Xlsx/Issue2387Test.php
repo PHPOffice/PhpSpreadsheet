@@ -1,0 +1,26 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PHPUnit\Framework\TestCase;
+
+class Issue2387Test extends TestCase
+{
+    public function testIssue2387(): void
+    {
+        // Theme was not being handled.
+        $filename = 'tests/data/Reader/XLSX/issue.2387.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('335593', $sheet->getCell('B2')->getStyle()->getFont()->getColor()->getRgb());
+        self::assertSame(Fill::FILL_NONE, $sheet->getCell('B2')->getStyle()->getFill()->getFillType());
+        self::assertSame('FFFFFF', $sheet->getCell('C2')->getStyle()->getFont()->getColor()->getRgb());
+        self::assertSame('000000', $sheet->getCell('C2')->getStyle()->getFill()->getStartColor()->getRgb());
+        self::assertSame(Fill::FILL_SOLID, $sheet->getCell('C2')->getStyle()->getFill()->getFillType());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+}
