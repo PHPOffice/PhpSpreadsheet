@@ -202,10 +202,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get indexed filename (using image index).
-     *
-     * @return string
      */
-    public function getIndexedFilename()
+    public function getIndexedFilename(): string
     {
         $extension = strtolower($this->getMimeType());
         $extension = explode('/', $extension);
