@@ -213,7 +213,6 @@ class ContentTypes extends WriterPart
     /**
      * Write Default content type.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $partName Part name
      * @param string $contentType Content type
      */
@@ -233,7 +232,6 @@ class ContentTypes extends WriterPart
     /**
      * Write Override content type.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param string $partName Part name
      * @param string $contentType Content type
      */
