@@ -52,10 +52,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get indexed filename (using image index).
-     *
-     * @return string
      */
-    public function getIndexedFilename()
+    public function getIndexedFilename(): string
     {
         $fileName = $this->getFilename();
         $fileName = str_replace(' ', '_', $fileName);

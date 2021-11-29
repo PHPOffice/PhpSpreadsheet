@@ -186,8 +186,6 @@ class Chart
     /**
      * Set Worksheet.
      *
-     * @param Worksheet $worksheet
-     *
      * @return $this
      */
     public function setWorksheet(?Worksheet $worksheet = null)

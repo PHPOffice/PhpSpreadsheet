@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-        bootstrap="./tests/bootstrap.php"
-        backupGlobals="true"
-        colors="true"
-        cacheResultFile="/tmp/.phpspreadsheet.phpunit.result.cache"
->
-    <php>
-        <ini name="memory_limit" value="2048M"/>
-    </php>
-    <testsuite name="PhpSpreadsheet Unit Test Suite">
-        <directory>./tests/PhpSpreadsheetTests</directory>
-    </testsuite>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory>./src/PhpSpreadsheet/Shared/JAMA</directory>
-                <directory>./src/PhpSpreadsheet/Writer/PDF</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="./tests/bootstrap.php" backupGlobals="true" colors="true" cacheResultFile="/tmp/.phpspreadsheet.phpunit.result.cache">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <exclude>
+      <directory>./src/PhpSpreadsheet/Shared/JAMA</directory>
+      <directory>./src/PhpSpreadsheet/Writer/PDF</directory>
+    </exclude>
+  </coverage>
+  <php>
+    <ini name="memory_limit" value="2048M"/>
+  </php>
+  <testsuite name="PhpSpreadsheet Unit Test Suite">
+    <directory>./tests/PhpSpreadsheetTests</directory>
+  </testsuite>
 </phpunit>

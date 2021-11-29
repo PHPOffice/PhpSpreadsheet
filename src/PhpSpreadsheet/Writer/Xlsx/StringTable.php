@@ -112,8 +112,6 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
-     * @param XMLWriter $objWriter XML Writer
-     * @param RichText $richText Rich text
      * @param string $prefix Optional Namespace prefix
      */
     public function writeRichText(XMLWriter $objWriter, RichText $richText, $prefix = null): void
@@ -195,7 +193,6 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param RichText|string $richText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      */

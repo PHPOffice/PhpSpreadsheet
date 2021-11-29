@@ -4230,7 +4230,7 @@ class Calculation
                         if (ctype_digit($val) && $val <= 1048576) {
                             //    Row range
                             $stackItemType = 'Row Reference';
-                            /** @var string */
+                            /** @var int $valx */
                             $valx = $val;
                             $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
                             $val = "{$rangeWS2}{$endRowColRef}{$val}";
