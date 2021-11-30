@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +20,15 @@ class Unparsed2396Test extends TestCase
             unlink($this->filename);
             $this->filename = '';
         }
+    }
+
+    private function getHash(?BaseDrawing $drawing): string
+    {
+        self::assertInstanceOf(Drawing::class, $drawing);
+        $contents = file_get_contents($drawing->getPath());
+        self::assertIsString($contents);
+
+        return md5($contents);
     }
 
     // Don't drop image as in issue 2396.
@@ -36,12 +47,12 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         $drawing1 = $sheet->getDrawingCollection();
         self::assertCount(1, $drawing1);
-        $hash = md5(file_get_contents($drawing1[0]->getPath()));
+        $hash = $this->getHash($drawing1[0]);
 
         $sheet = $spreadsheet->getSheet(1);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, md5(file_get_contents($drawings[0]->getPath())));
+        self::assertSame($hash, $this->getHash($drawings[0]));
 
         $sheet = $spreadsheet->getSheet(2);
         $drawings = $sheet->getDrawingCollection();
@@ -51,7 +62,7 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(3);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, md5(file_get_contents($drawings[0]->getPath())));
+        self::assertSame($hash, $this->getHash($drawings[0]));
 
         $sheet = $spreadsheet->getSheet(4);
         $drawings = $sheet->getDrawingCollection();
@@ -68,7 +79,7 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(6);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, md5(file_get_contents($drawings[0]->getPath())));
+        self::assertSame($hash, $this->getHash($drawings[0]));
 
         $spreadsheet->disconnectWorksheets();
     }
