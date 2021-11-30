@@ -22,13 +22,16 @@ class Unparsed2396Test extends TestCase
         }
     }
 
-    private function getHash(?BaseDrawing $drawing): string
+    private function getContents(?BaseDrawing $drawing): string
     {
-        self::assertInstanceOf(Drawing::class, $drawing);
-        $contents = file_get_contents($drawing->getPath());
-        self::assertIsString($contents);
+        if ($drawing instanceof Drawing) {
+            $contents = file_get_contents($drawing->getPath());
+            self::assertIsString($contents);
 
-        return md5($contents);
+            return $contents;
+        }
+
+        self::fail('Unexpected null or baseDrawing which is not Drawing');
     }
 
     // Don't drop image as in issue 2396.
@@ -47,12 +50,12 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         $drawing1 = $sheet->getDrawingCollection();
         self::assertCount(1, $drawing1);
-        $hash = $this->getHash($drawing1[0]);
+        $hash = $this->getContents($drawing1[0]);
 
         $sheet = $spreadsheet->getSheet(1);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, $this->getHash($drawings[0]));
+        self::assertSame($hash, $this->getContents($drawings[0]));
 
         $sheet = $spreadsheet->getSheet(2);
         $drawings = $sheet->getDrawingCollection();
@@ -62,7 +65,7 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(3);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, $this->getHash($drawings[0]));
+        self::assertSame($hash, $this->getContents($drawings[0]));
 
         $sheet = $spreadsheet->getSheet(4);
         $drawings = $sheet->getDrawingCollection();
@@ -79,7 +82,7 @@ class Unparsed2396Test extends TestCase
         $sheet = $spreadsheet->getSheet(6);
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        self::assertSame($hash, $this->getHash($drawings[0]));
+        self::assertSame($hash, $this->getContents($drawings[0]));
 
         $spreadsheet->disconnectWorksheets();
     }

@@ -9,7 +9,7 @@ $helper->log('Start');
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/sampleData/issue.1767.xlsx';
 
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . $inputFileName . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading all WorkSheets');
 $reader->setLoadAllSheets();
