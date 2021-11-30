@@ -24,14 +24,15 @@ class Unparsed2396Test extends TestCase
 
     private function getContents(?BaseDrawing $drawing): string
     {
+        $contents = '';
         if ($drawing instanceof Drawing) {
-            $contents = file_get_contents($drawing->getPath());
-            self::assertIsString($contents);
-
-            return $contents;
+            $contents = (string) file_get_contents($drawing->getPath());
+        } else {
+            self::fail('Unexpected null or baseDrawing which is not Drawing');
         }
+        self::assertNotSame('', $contents);
 
-        self::fail('Unexpected null or baseDrawing which is not Drawing');
+        return $contents;
     }
 
     // Don't drop image as in issue 2396.
