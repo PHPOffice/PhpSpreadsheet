@@ -1205,27 +1205,26 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('t', 'b');
             $calculatedValue = (int) $calculatedValue;
         }
-        // array values are not yet supported
-        //$attributes = $pCell->getFormulaAttributes();
-        //if (($attributes['t'] ?? null) === 'array') {
-        //    $objWriter->startElement('f');
-        //    $objWriter->writeAttribute('t', 'array');
-        //    $objWriter->writeAttribute('ref', $pCellAddress);
-        //    $objWriter->writeAttribute('aca', '1');
-        //    $objWriter->writeAttribute('ca', '1');
-        //    $objWriter->text(substr($cellValue, 1));
-        //    $objWriter->endElement();
-        //} else {
-        //    $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
-        //}
-        $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
-        self::writeElementIf(
-            $objWriter,
-            $this->getParentWriter()->getOffice2003Compatibility() === false,
-            'v',
-            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
-                ? StringHelper::formatNumber($calculatedValue) : '0'
-        );
+
+        $attributes = $cell->getFormulaAttributes();
+        if (($attributes['t'] ?? null) === 'array') {
+            $objWriter->startElement('f');
+            $objWriter->writeAttribute('t', 'array');
+            $objWriter->writeAttribute('ref', $cell->getCoordinate());
+            $objWriter->writeAttribute('aca', '1');
+            $objWriter->writeAttribute('ca', '1');
+            $objWriter->text(substr($cellValue, 1));
+            $objWriter->endElement();
+        } else {
+            $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
+            self::writeElementIf(
+                $objWriter,
+                $this->getParentWriter()->getOffice2003Compatibility() === false,
+                'v',
+                ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
+                    ? StringHelper::formatNumber($calculatedValue) : '0'
+            );
+        }
     }
 
     /**
