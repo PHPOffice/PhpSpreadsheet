@@ -26,14 +26,14 @@ abstract class Pdf extends Html
     /**
      * Orientation (Over-ride).
      *
-     * @var string
+     * @var ?string
      */
     protected $orientation;
 
     /**
      * Paper size (Over-ride).
      *
-     * @var int
+     * @var ?int
      */
     protected $paperSize;
 
@@ -155,7 +155,7 @@ abstract class Pdf extends Html
     /**
      * Get Paper Size.
      *
-     * @return int
+     * @return ?int
      */
     public function getPaperSize()
     {
@@ -178,10 +178,8 @@ abstract class Pdf extends Html
 
     /**
      * Get Orientation.
-     *
-     * @return string
      */
-    public function getOrientation()
+    public function getOrientation(): ?string
     {
         return $this->orientation;
     }

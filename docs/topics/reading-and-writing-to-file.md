@@ -918,6 +918,16 @@ which sheet to write to PDF:
 $writer->setSheetIndex(0);
 ```
 
+#### Setting Orientation and PaperSize
+
+PhpSpreadsheet will attempt to honor the orientation and paper size specified
+in the worksheet for each page it prints, if the renderer supports that. However, you can set all pages
+to have the same orientation and paper size, e.g.
+
+```php
+$writer->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+```
+
 #### Formula pre-calculation
 
 By default, this writer pre-calculates all formulas in the spreadsheet.
