@@ -28,37 +28,12 @@ class Mpdf extends Pdf
     {
         $fileHandle = parent::prepareForSave($filename);
 
-        //  Default PDF paper size
-        $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
-
         //  Check for paper size and page orientation
-        if (null === $this->getSheetIndex()) {
-            $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
-        } else {
-            $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
-        }
-        $this->setOrientation($orientation);
-
-        //  Override Page Orientation
-        if (null !== $this->getOrientation()) {
-            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
-                ? PageSetup::ORIENTATION_PORTRAIT
-                : $this->getOrientation();
-        }
-        $orientation = strtoupper($orientation);
-
-        //  Override Paper Size
-        if (null !== $this->getPaperSize()) {
-            $printPaperSize = $this->getPaperSize();
-        }
-
-        if (isset(self::$paperSizes[$printPaperSize])) {
-            $paperSize = self::$paperSizes[$printPaperSize];
-        }
+        $setup = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
+        $orientation = $this->getOrientation() ?? $setup->getOrientation();
+        $orientation = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+        $printPaperSize = $this->getPaperSize() ?? $setup->getPaperSize();
+        $paperSize = self::$paperSizes[$printPaperSize] ?? PageSetup::getPaperSizeDefault();
 
         //  Create PDF
         $config = ['tempDir' => $this->tempDir . '/mpdf'];

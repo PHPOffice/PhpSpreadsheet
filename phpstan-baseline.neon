@@ -6531,11 +6531,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:getSheetIndex\\(\\) should return int but returns int\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$borderStyle of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:mapBorderStyle\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -6649,26 +6644,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function fwrite expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Dompdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Dompdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and int will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Mpdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
