@@ -426,7 +426,7 @@ class ReferenceHelper
                         ->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()));
                 } else {
                     // Formula should not be adjusted
-                    $worksheet->getCell($newCoordinate)->setValue($cell->getValue());
+                    $worksheet->getCell($newCoordinate)->setValueExplicit($cell->getValue(), $cell->getDataType());
                 }
 
                 // Clear the original cell
