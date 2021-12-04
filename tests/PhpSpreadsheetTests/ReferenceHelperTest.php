@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperTest extends TestCase
@@ -128,5 +130,23 @@ class ReferenceHelperTest extends TestCase
     public function providerMultipleWorksheetFormulaUpdates(): array
     {
         return require 'tests/data/ReferenceHelperFormulaUpdatesMultipleSheet.php';
+    }
+
+    public function testInsertNewBeforeRetainDataType(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValueExplicit('+1', DataType::TYPE_STRING);
+        $oldDataType = $cell->getDataType();
+        $oldValue = $cell->getValue();
+
+        $sheet->insertNewRowBefore(1);
+        $newCell = $sheet->getCell('A2');
+        $newDataType = $newCell->getDataType();
+        $newValue = $newCell->getValue();
+
+        self::assertSame($oldValue, $newValue);
+        self::assertSame($oldDataType, $newDataType);
     }
 }
