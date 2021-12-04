@@ -282,6 +282,7 @@ class Comment implements IComparable
             ($this->visible ? 1 : 0) .
             $this->fillColor->getHashCode() .
             $this->alignment .
+            ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '') .
             __CLASS__
         );
     }
@@ -311,8 +312,6 @@ class Comment implements IComparable
 
     /**
      * Check is background image exists.
-     *
-     * @return bool
      */
     public function hasBackgroundImage(): bool
     {
@@ -321,8 +320,6 @@ class Comment implements IComparable
 
     /**
      * Returns background image.
-     *
-     * @return Drawing
      */
     public function getBackgroundImage(): Drawing
     {
@@ -331,22 +328,24 @@ class Comment implements IComparable
 
     /**
      * Sets background image.
-     *
-     * @param Drawing $objDrawing
      */
-    public function setBackgroundImage(Drawing $objDrawing): void
+    public function setBackgroundImage(Drawing $objDrawing): self
     {
         $this->backgroundImage = $objDrawing;
+
+        return $this;
     }
 
     /**
      * Sets size of comment as size of background image.
      */
-    public function setSizeAsBackgroundImage(): void
+    public function setSizeAsBackgroundImage(): self
     {
         if ($this->hasBackgroundImage()) {
             $this->setWidth((string) $this->backgroundImage->getWidth());
             $this->setHeight((string) $this->backgroundImage->getHeight());
         }
+
+        return $this;
     }
 }
