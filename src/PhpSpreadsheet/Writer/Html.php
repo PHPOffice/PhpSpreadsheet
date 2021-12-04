@@ -356,6 +356,8 @@ class Html extends BaseWriter
             : '';
     }
 
+    public const BODY_LINE = '  <body>' . PHP_EOL;
+
     /**
      * Generate HTML header.
      *
@@ -386,7 +388,7 @@ class Html extends BaseWriter
 
         $html .= '  </head>' . PHP_EOL;
         $html .= '' . PHP_EOL;
-        $html .= '  <body>' . PHP_EOL;
+        $html .= self::BODY_LINE;
 
         return $html;
     }
