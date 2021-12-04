@@ -282,4 +282,25 @@ class Helpers
             $PHPDateObject->modify($mod);
         }
     }
+
+    public static function dateParse(string $string): array
+    {
+        return self::forceArray(date_parse($string));
+    }
+
+    public static function dateParseSucceeded(array $dateArray): bool
+    {
+        return $dateArray['error_count'] === 0;
+    }
+
+    /**
+     * Despite documentation, date_parse probably never returns false.
+     * Just in case, this routine helps guarantee it.
+     *
+     * @param array|false $dateArray
+     */
+    private static function forceArray($dateArray): array
+    {
+        return is_array($dateArray) ? $dateArray : ['error_count' => 1];
+    }
 }
