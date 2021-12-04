@@ -30,32 +30,13 @@ class Dompdf extends Pdf
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if ($this->getSheetIndex() === null) {
-            $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
-        } else {
-            $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
-        }
+        $setup = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
+        $orientation = $this->getOrientation() ?? $setup->getOrientation();
+        $orientation = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+        $printPaperSize = $this->getPaperSize() ?? $setup->getPaperSize();
+        $paperSize = self::$paperSizes[$printPaperSize] ?? PageSetup::getPaperSizeDefault();
 
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
-
-        //  Override Page Orientation
-        if ($this->getOrientation() !== null) {
-            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_DEFAULT)
-                ? PageSetup::ORIENTATION_PORTRAIT
-                : $this->getOrientation();
-        }
-        //  Override Paper Size
-        if ($this->getPaperSize() !== null) {
-            $printPaperSize = $this->getPaperSize();
-        }
-
-        if (isset(self::$paperSizes[$printPaperSize])) {
-            $paperSize = self::$paperSizes[$printPaperSize];
-        }
 
         //  Create PDF
         $pdf = $this->createExternalWriterInstance();
@@ -65,7 +46,7 @@ class Dompdf extends Pdf
         $pdf->render();
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output());
+        fwrite($fileHandle, $pdf->output() ?? '');
 
         parent::restoreStateAfterSave();
     }
