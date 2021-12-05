@@ -291,10 +291,8 @@ class Html extends BaseWriter
 
     /**
      * Get sheet index.
-     *
-     * @return int
      */
-    public function getSheetIndex()
+    public function getSheetIndex(): ?int
     {
         return $this->sheetIndex;
     }
@@ -1769,6 +1767,10 @@ class Html extends BaseWriter
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
             $sanitizer = new HTMLPurifier();
+            $cachePath = File::sysGetTempDir() . '/phpsppur';
+            if (is_dir($cachePath) || mkdir($cachePath)) {
+                $sanitizer->config->set('Cache.SerializerPath', $cachePath);
+            }
             $sanitizedString = $sanitizer->purify($worksheet->getComment($coordinate)->getText()->getPlainText());
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
@@ -1778,6 +1780,11 @@ class Html extends BaseWriter
         }
 
         return $result;
+    }
+
+    public function getOrientation(): ?string
+    {
+        return null;
     }
 
     /**
@@ -1815,7 +1822,7 @@ class Html extends BaseWriter
             $htmlPage .= 'margin-top: ' . $top;
             $bottom = StringHelper::FormatNumber($worksheet->getPageMargins()->getBottom()) . 'in; ';
             $htmlPage .= 'margin-bottom: ' . $bottom;
-            $orientation = $worksheet->getPageSetup()->getOrientation();
+            $orientation = $this->getOrientation() ?? $worksheet->getPageSetup()->getOrientation();
             if ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) {
                 $htmlPage .= 'size: landscape; ';
             } elseif ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT) {
