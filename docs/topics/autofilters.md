@@ -65,6 +65,13 @@ $spreadsheet->getActiveSheet()->setAutoFilter(
 
 This enables filtering, but does not actually apply any filters.
 
+After setting the range, you can change it so that the end row is the
+last row used on the worksheet:
+
+```php
+$spreadsheet->getActiveSheet()->getAutoFilter()->setRangeToMaxRow();
+```
+
 ## Autofilter Expressions
 
 PHPEXcel 1.7.8 introduced the ability to actually create, read and write
@@ -502,6 +509,23 @@ $autoFilter->showHideRows();
 
 This will set all rows that match the filter criteria to visible, while
 hiding all other rows within the autofilter area.
+
+Excel allows you to explicitly hide a row after applying a filter even
+if the row wasn't hidden by the filter. However, if a row is hidden *before*
+applying the filter, and the filter is applied, the row will no longer be hidden.
+This can make a difference during PhpSpreadsheet save, since PhpSpreadsheet
+will apply the filter during save if it hasn't been previously applied,
+or if the filter criteria have changed since it was last applied.
+Note that an autofilter read in from an existing spreadsheet is assumed to have been applied.
+Also note that changing the data in the columns being filtered
+does not result in reevaluation in either Excel or PhpSpreadsheet.
+If you wish to re-apply all filters in the spreadsheet
+(possibly just before save):
+```php
+$spreadsheet->reevaluateAutoFilters(false);
+```
+You can specify `true` rather than `false` to adjust the filter ranges
+on each sheet so that they end at the last row used on the sheet.
 
 ### Displaying Filtered Rows
 
