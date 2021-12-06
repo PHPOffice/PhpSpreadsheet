@@ -56,8 +56,8 @@ class File
         // doing the original file_exists on ZIP archives...
         if (strtolower(substr($filename, 0, 6)) == 'zip://') {
             // Open ZIP file and verify if the file exists
-            $zipFile = substr($filename, 6, strpos($filename, '#') - 6);
-            $archiveFile = substr($filename, strpos($filename, '#') + 1);
+            $zipFile = substr($filename, 6, strrpos($filename, '#') - 6);
+            $archiveFile = substr($filename, strrpos($filename, '#') + 1);
 
             if (self::validateZipFirst4($zipFile)) {
                 $zip = new ZipArchive();

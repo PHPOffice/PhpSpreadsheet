@@ -160,18 +160,32 @@ class PageSetup
     const PAGEORDER_DOWN_THEN_OVER = 'downThenOver';
 
     /**
-     * Paper size.
+     * Paper size default.
      *
      * @var int
      */
-    private $paperSize = self::PAPERSIZE_LETTER;
+    private static $paperSizeDefault = self::PAPERSIZE_LETTER;
+
+    /**
+     * Paper size.
+     *
+     * @var ?int
+     */
+    private $paperSize;
+
+    /**
+     * Orientation default.
+     *
+     * @var string
+     */
+    private static $orientationDefault = self::ORIENTATION_DEFAULT;
 
     /**
      * Orientation.
      *
      * @var string
      */
-    private $orientation = self::ORIENTATION_DEFAULT;
+    private $orientation;
 
     /**
      * Scale (Print Scale).
@@ -256,6 +270,7 @@ class PageSetup
      */
     public function __construct()
     {
+        $this->orientation = self::$orientationDefault;
     }
 
     /**
@@ -265,7 +280,7 @@ class PageSetup
      */
     public function getPaperSize()
     {
-        return $this->paperSize;
+        return $this->paperSize ?? self::$paperSizeDefault;
     }
 
     /**
@@ -280,6 +295,22 @@ class PageSetup
         $this->paperSize = $paperSize;
 
         return $this;
+    }
+
+    /**
+     * Get Paper Size default.
+     */
+    public static function getPaperSizeDefault(): int
+    {
+        return self::$paperSizeDefault;
+    }
+
+    /**
+     * Set Paper Size Default.
+     */
+    public static function setPaperSizeDefault(int $paperSize): void
+    {
+        self::$paperSizeDefault = $paperSize;
     }
 
     /**
@@ -301,9 +332,23 @@ class PageSetup
      */
     public function setOrientation($orientation)
     {
-        $this->orientation = $orientation;
+        if ($orientation === self::ORIENTATION_LANDSCAPE || $orientation === self::ORIENTATION_PORTRAIT || $orientation === self::ORIENTATION_DEFAULT) {
+            $this->orientation = $orientation;
+        }
 
         return $this;
+    }
+
+    public static function getOrientationDefault(): string
+    {
+        return self::$orientationDefault;
+    }
+
+    public static function setOrientationDefault(string $orientation): void
+    {
+        if ($orientation === self::ORIENTATION_LANDSCAPE || $orientation === self::ORIENTATION_PORTRAIT || $orientation === self::ORIENTATION_DEFAULT) {
+            self::$orientationDefault = $orientation;
+        }
     }
 
     /**
