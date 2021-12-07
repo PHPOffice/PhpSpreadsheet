@@ -275,6 +275,9 @@ class Csv extends BaseReader
 
     private static function setAutoDetect(?string $value): ?string
     {
+        if(version_compare(PHP_VERSION, "8.1.0", '>=')) {
+            return null;
+        }
         $retVal = null;
         if ($value !== null) {
             $retVal2 = @ini_set('auto_detect_line_endings', $value);
