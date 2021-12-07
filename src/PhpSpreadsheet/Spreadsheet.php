@@ -1589,4 +1589,17 @@ class Spreadsheet
             throw new Exception('Tab ratio must be between 0 and 1000.');
         }
     }
+
+    public function reevaluateAutoFilters(bool $resetToMax): void
+    {
+        foreach ($this->workSheetCollection as $sheet) {
+            $filter = $sheet->getAutoFilter();
+            if (!empty($filter->getRange())) {
+                if ($resetToMax) {
+                    $filter->setRangeToMaxRow();
+                }
+                $filter->showHideRows();
+            }
+        }
+    }
 }

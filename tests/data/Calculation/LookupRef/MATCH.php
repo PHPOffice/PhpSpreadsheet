@@ -352,4 +352,10 @@ return [
         ['aAAAAA', 'a123456*c', 'abc~xyz', 'alembic'],
         0,
     ],
+    [
+        2, // Expected
+        'abc/123*', // wildcard search contains a forward slash
+        ['abc123fff', 'abc/123fff'],
+        0,
+    ],
 ];

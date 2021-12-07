@@ -100,6 +100,13 @@ class Column
         $this->parent = $parent;
     }
 
+    public function setEvaluatedFalse(): void
+    {
+        if ($this->parent !== null) {
+            $this->parent->setEvaluated(false);
+        }
+    }
+
     /**
      * Get AutoFilter column index as string eg: 'A'.
      *
@@ -119,6 +126,7 @@ class Column
      */
     public function setColumnIndex($column)
     {
+        $this->setEvaluatedFalse();
         // Uppercase coordinate
         $column = strtoupper($column);
         if ($this->parent !== null) {
@@ -147,6 +155,7 @@ class Column
      */
     public function setParent(?AutoFilter $parent = null)
     {
+        $this->setEvaluatedFalse();
         $this->parent = $parent;
 
         return $this;
@@ -171,6 +180,7 @@ class Column
      */
     public function setFilterType($filterType)
     {
+        $this->setEvaluatedFalse();
         if (!in_array($filterType, self::$filterTypes)) {
             throw new PhpSpreadsheetException('Invalid filter type for column AutoFilter.');
         }
@@ -202,6 +212,7 @@ class Column
      */
     public function setJoin($join)
     {
+        $this->setEvaluatedFalse();
         // Lowercase And/Or
         $join = strtolower($join);
         if (!in_array($join, self::$ruleJoins)) {
@@ -222,6 +233,7 @@ class Column
      */
     public function setAttributes($attributes)
     {
+        $this->setEvaluatedFalse();
         $this->attributes = $attributes;
 
         return $this;
@@ -237,6 +249,7 @@ class Column
      */
     public function setAttribute($name, $value)
     {
+        $this->setEvaluatedFalse();
         $this->attributes[$name] = $value;
 
         return $this;
@@ -306,6 +319,7 @@ class Column
      */
     public function createRule()
     {
+        $this->setEvaluatedFalse();
         if ($this->filterType === self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER && count($this->ruleset) >= 2) {
             throw new PhpSpreadsheetException('No more than 2 rules are allowed in a Custom Filter');
         }
@@ -321,6 +335,7 @@ class Column
      */
     public function addRule(Column\Rule $rule)
     {
+        $this->setEvaluatedFalse();
         $rule->setParent($this);
         $this->ruleset[] = $rule;
 
@@ -337,6 +352,7 @@ class Column
      */
     public function deleteRule($index)
     {
+        $this->setEvaluatedFalse();
         if (isset($this->ruleset[$index])) {
             unset($this->ruleset[$index]);
             //    If we've just deleted down to a single rule, then reset And/Or joining to Or
@@ -355,6 +371,7 @@ class Column
      */
     public function clearRules()
     {
+        $this->setEvaluatedFalse();
         $this->ruleset = [];
         $this->setJoin(self::AUTOFILTER_COLUMN_JOIN_OR);
 
