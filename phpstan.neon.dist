@@ -1,5 +1,6 @@
 includes:
     - phpstan-baseline.neon
+    - phpstan-conditional.php
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
@@ -12,12 +13,8 @@ parameters:
         processTimeout: 300.0
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '~^Class GdImage not found\.$~'
-        - '~^Method .* has invalid return type GdImage\.$~'
-        - '~^Property .* has unknown class GdImage as its type\.$~'
-        - '~^Parameter .* of method .* has invalid type GdImage\.$~'
-        - '~^Parameter \#1 \$im of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy) expects resource, GdImage\|resource given\.$~'
-        - '~^Parameter \#2 \$src_im of function imagecopy expects resource, GdImage\|resource given\.$~'
+        - '~^Parameter \#1 \$im(age)? of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy) expects (GdImage|resource), GdImage\|resource given\.$~'
+        - '~^Parameter \#2 \$src_im(age)? of function imagecopy expects (GdImage|resource), GdImage\|resource given\.$~'
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
         - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no type specified\.$~'
