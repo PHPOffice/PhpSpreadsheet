@@ -65,6 +65,9 @@ class Fill extends Supervisor
      */
     protected $endColor;
 
+    /** @var bool */
+    protected $colorChanged = false;
+
     /**
      * Create a new Fill.
      *
@@ -248,6 +251,7 @@ class Fill extends Supervisor
      */
     public function setStartColor(Color $color)
     {
+        $this->colorChanged = true;
         // make sure parameter is a real color and not a supervisor
         $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;
 
@@ -278,6 +282,7 @@ class Fill extends Supervisor
      */
     public function setEndColor(Color $color)
     {
+        $this->colorChanged = true;
         // make sure parameter is a real color and not a supervisor
         $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;
 
@@ -289,6 +294,11 @@ class Fill extends Supervisor
         }
 
         return $this;
+    }
+
+    public function getColorsChanged(): bool
+    {
+        return $this->colorChanged || $this->startColor->getHasChanged() || $this->endColor->getHasChanged();
     }
 
     /**
@@ -308,6 +318,7 @@ class Fill extends Supervisor
             $this->getRotation() .
             ($this->getFillType() !== self::FILL_NONE ? $this->getStartColor()->getHashCode() : '') .
             ($this->getFillType() !== self::FILL_NONE ? $this->getEndColor()->getHashCode() : '') .
+            ((string) $this->getColorsChanged()) .
             __CLASS__
         );
     }
@@ -315,10 +326,12 @@ class Fill extends Supervisor
     protected function exportArray1(): array
     {
         $exportedArray = [];
-        $this->exportArray2($exportedArray, 'endColor', $this->getEndColor());
         $this->exportArray2($exportedArray, 'fillType', $this->getFillType());
         $this->exportArray2($exportedArray, 'rotation', $this->getRotation());
-        $this->exportArray2($exportedArray, 'startColor', $this->getStartColor());
+        if ($this->getColorsChanged()) {
+            $this->exportArray2($exportedArray, 'endColor', $this->getEndColor());
+            $this->exportArray2($exportedArray, 'startColor', $this->getStartColor());
+        }
 
         return $exportedArray;
     }

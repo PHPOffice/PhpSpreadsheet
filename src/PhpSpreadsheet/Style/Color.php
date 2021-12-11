@@ -45,6 +45,9 @@ class Color extends Supervisor
      */
     protected $argb;
 
+    /** @var bool */
+    protected $hasChanged = false;
+
     /**
      * Create a new Color.
      *
@@ -153,6 +156,7 @@ class Color extends Supervisor
      */
     public function setARGB(?string $colorValue = self::COLOR_BLACK)
     {
+        $this->hasChanged = true;
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = self::COLOR_BLACK;
         } elseif (!$this->validateColor($colorValue, self::VALIDATE_ARGB_SIZE)) {
@@ -190,6 +194,7 @@ class Color extends Supervisor
      */
     public function setRGB(?string $colorValue = self::COLOR_BLACK)
     {
+        $this->hasChanged = true;
         if ($colorValue === '' || $colorValue === null) {
             $colorValue = '000000';
         } elseif (!$this->validateColor($colorValue, self::VALIDATE_RGB_SIZE)) {
@@ -409,5 +414,10 @@ class Color extends Supervisor
         $this->exportArray2($exportedArray, 'argb', $this->getARGB());
 
         return $exportedArray;
+    }
+
+    public function getHasChanged(): bool
+    {
+        return $this->hasChanged;
     }
 }
