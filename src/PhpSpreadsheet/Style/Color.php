@@ -78,12 +78,15 @@ class Color extends Supervisor
      */
     public function getSharedComponent()
     {
+        /** @var Style */
+        $parent = $this->parent;
         /** @var Border|Fill $sharedComponent */
-        $sharedComponent = $this->parent->getSharedComponent();
-        if ($this->parentPropertyName === 'endColor') {
-            return $sharedComponent->getEndColor();
-        }
-        if ($this->parentPropertyName === 'startColor') {
+        $sharedComponent = $parent->getSharedComponent();
+        if ($sharedComponent instanceof Fill) {
+            if ($this->parentPropertyName === 'endColor') {
+                return $sharedComponent->getEndColor();
+            }
+
             return $sharedComponent->getStartColor();
         }
 
@@ -99,7 +102,10 @@ class Color extends Supervisor
      */
     public function getStyleArray($array)
     {
-        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -225,7 +231,7 @@ class Color extends Supervisor
     {
         $colour = substr($rgbValue, $offset, 2);
 
-        return ($hex) ? $colour : hexdec($colour);
+        return ($hex) ? $colour : (int) hexdec($colour);
     }
 
     /**

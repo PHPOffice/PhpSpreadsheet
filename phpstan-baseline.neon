@@ -5546,36 +5546,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/Borders.php
 
 		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getEndColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getStartColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getColourComponent\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$condition \\(array\\<string\\>\\) does not accept array\\<bool\\|float\\|int\\|string\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Conditional.php
@@ -5744,11 +5714,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:\\$id has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Fill.php
 
 		-
 			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\) given\\.$#"

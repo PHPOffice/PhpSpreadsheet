@@ -105,7 +105,10 @@ class Fill extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getFill();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getFill();
     }
 
     /**
