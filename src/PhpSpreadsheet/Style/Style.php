@@ -131,8 +131,10 @@ class Style extends Supervisor
         } else {
             $xfIndex = 0;
         }
+        /** @var Spreadsheet */
+        $parent = $this->parent;
 
-        return $this->parent->getCellXfByIndex($xfIndex);
+        return $parent->getCellXfByIndex($xfIndex);
     }
 
     /**
@@ -142,7 +144,10 @@ class Style extends Supervisor
      */
     public function getParent()
     {
-        return $this->parent;
+        /** @var Spreadsheet */
+        $parent = $this->parent;
+
+        return $parent;
     }
 
     /**

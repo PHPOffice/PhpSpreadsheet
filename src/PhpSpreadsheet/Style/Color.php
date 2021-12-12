@@ -46,7 +46,7 @@ class Color extends Supervisor
     protected $argb;
 
     /** @var bool */
-    protected $hasChanged = false;
+    private $hasChanged = false;
 
     /**
      * Create a new Color.
@@ -424,6 +424,10 @@ class Color extends Supervisor
 
     public function getHasChanged(): bool
     {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->hasChanged;
+        }
+
         return $this->hasChanged;
     }
 }

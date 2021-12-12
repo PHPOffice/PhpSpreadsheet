@@ -49,7 +49,7 @@ class Fill extends Supervisor
      *
      * @var float
      */
-    protected $rotation = 0;
+    protected $rotation = 0.0;
 
     /**
      * Start color.
@@ -66,7 +66,7 @@ class Fill extends Supervisor
     protected $endColor;
 
     /** @var bool */
-    protected $colorChanged = false;
+    private $colorChanged = false;
 
     /**
      * Create a new Fill.
@@ -130,7 +130,7 @@ class Fill extends Supervisor
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *     [
      *         'fillType' => Fill::FILL_GRADIENT_LINEAR,
-     *         'rotation' => 0,
+     *         'rotation' => 0.0,
      *         'startColor' => [
      *             'rgb' => '000000'
      *         ],
@@ -301,7 +301,13 @@ class Fill extends Supervisor
 
     public function getColorsChanged(): bool
     {
-        return $this->colorChanged || $this->startColor->getHasChanged() || $this->endColor->getHasChanged();
+        if ($this->isSupervisor) {
+            $changed = $this->getSharedComponent()->colorChanged;
+        } else {
+            $changed = $this->colorChanged;
+        }
+
+        return $changed || $this->startColor->getHasChanged() || $this->endColor->getHasChanged();
     }
 
     /**

@@ -18,7 +18,7 @@ abstract class Supervisor implements IComparable
     /**
      * Parent. Only used for supervisor.
      *
-     * @var Spreadsheet|Style
+     * @var Spreadsheet|Supervisor
      */
     protected $parent;
 
@@ -45,7 +45,7 @@ abstract class Supervisor implements IComparable
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param Spreadsheet|Style $parent
+     * @param Spreadsheet|Supervisor $parent
      * @param null|string $parentPropertyName
      *
      * @return $this
