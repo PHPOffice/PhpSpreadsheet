@@ -166,11 +166,12 @@ class ContentTypes extends WriterPart
                     }
 
                     $bgImage = $comment->getBackgroundImage();
+                    $bgImageExtentionKey = strtolower($bgImage->getImageFileExtentionForSave(false));
 
-                    if (!isset($aMediaContentTypes[strtolower($bgImage->getExtension())])) {
-                        $aMediaContentTypes[strtolower($bgImage->getExtension())] = $this->getImageMimeType($bgImage->getPath());
+                    if (!isset($aMediaContentTypes[$bgImageExtentionKey])) {
+                        $aMediaContentTypes[$bgImageExtentionKey] = $bgImage->getImageMimeType();
 
-                        $this->writeDefaultContentType($objWriter, strtolower($bgImage->getExtension()), $aMediaContentTypes[strtolower($bgImage->getExtension())]);
+                        $this->writeDefaultContentType($objWriter, $bgImageExtentionKey, $aMediaContentTypes[$bgImageExtentionKey]);
                     }
                 }
             }

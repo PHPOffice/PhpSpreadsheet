@@ -431,8 +431,9 @@ class Xlsx extends BaseWriter
                 foreach ($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'] as $relId => $drawingXml) {
                     $drawingFile = array_search($relId, $unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']);
                     if ($drawingFile !== false) {
-                        $drawingFile = ltrim($drawingFile, '.');
-                        $zipContent['xl' . $drawingFile] = $drawingXml;
+                        //$drawingFile = ltrim($drawingFile, '.');
+                        //$zipContent['xl' . $drawingFile] = $drawingXml;
+                        $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = $drawingXml;
                     }
                 }
             }
@@ -497,7 +498,7 @@ class Xlsx extends BaseWriter
                     $imageContents = file_get_contents($imagePath);
                 }
 
-                $zipContent['xl/media/' . str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename())] = $imageContents;
+                $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
             } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
                 ob_start();
                 call_user_func(
@@ -507,7 +508,7 @@ class Xlsx extends BaseWriter
                 $imageContents = ob_get_contents();
                 ob_end_clean();
 
-                $zipContent['xl/media/' . str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename())] = $imageContents;
+                $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
             }
         }
 

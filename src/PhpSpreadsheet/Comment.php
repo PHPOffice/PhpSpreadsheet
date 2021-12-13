@@ -5,10 +5,10 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 
 class Comment implements IComparable
 {
@@ -339,7 +339,7 @@ class Comment implements IComparable
      */
     public function setBackgroundImage(Drawing $objDrawing): self
     {
-        if (!array_key_exists($objDrawing->getType(),Drawing::IMAGE_TYPES_CONVERTION_MAP)) {
+        if (!array_key_exists($objDrawing->getType(), Drawing::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
         $this->backgroundImage = $objDrawing;

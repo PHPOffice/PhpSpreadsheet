@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use ZipArchive;
 
 class Drawing extends BaseDrawing
 {
@@ -55,10 +56,7 @@ class Drawing extends BaseDrawing
      */
     public function getIndexedFilename(): string
     {
-        $fileName = $this->getFilename();
-        $fileName = str_replace(' ', '_', $fileName);
-
-        return str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
+        return md5($this->path) . '.' . $this->getExtension();
     }
 
     /**
@@ -84,9 +82,7 @@ class Drawing extends BaseDrawing
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
-        $newImageType = self::IMAGE_TYPES_CONVERTION_MAP[$this->type];
-
-        return sprintf('image%d%s', $this->getImageIndex(), image_type_to_extension($newImageType));
+        return sprintf('image%d%s', $this->getImageIndex(), $this->getImageFileExtentionForSave());
     }
 
     /**
@@ -104,7 +100,7 @@ class Drawing extends BaseDrawing
      *
      * @param string $path File path
      * @param bool $verifyFile Verify file
-     * @param \ZipArchive $zip Zip archive instance
+     * @param ZipArchive $zip Zip archive instance
      *
      * @return $this
      */
@@ -128,7 +124,7 @@ class Drawing extends BaseDrawing
             } elseif (file_exists($path)) {
                 $this->path = $path;
                 $this->setSizesAndType($path);
-            } elseif ($zip instanceof \ZipArchive) {
+            } elseif ($zip instanceof ZipArchive) {
                 $zipPath = explode('#', $path)[1];
                 if ($zip->locateName($zipPath) !== false) {
                     $this->path = $path;
@@ -176,5 +172,42 @@ class Drawing extends BaseDrawing
             parent::getHashCode() .
             __CLASS__
         );
+    }
+
+    /**
+     * Get Image Type for Save.
+     */
+    public function getImageTypeForSave(): int
+    {
+        if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        return self::IMAGE_TYPES_CONVERTION_MAP[$this->type];
+    }
+
+    /**
+     * Get Image file extention for Save.
+     */
+    public function getImageFileExtentionForSave(bool $includeDot = true): string
+    {
+        if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        $result = image_type_to_extension(self::IMAGE_TYPES_CONVERTION_MAP[$this->type], $includeDot);
+        return is_string($result) ? $result : '';
+    }
+
+    /**
+     * Get Image mime type.
+     */
+    public function getImageMimeType(): string
+    {
+        if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        return image_type_to_mime_type(self::IMAGE_TYPES_CONVERTION_MAP[$this->type]);
     }
 }

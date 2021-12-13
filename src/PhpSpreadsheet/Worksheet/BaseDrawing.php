@@ -538,10 +538,12 @@ class BaseDrawing implements IComparable
     /**
      * Set Fact Sizes and Type of Image.
      */
-    protected function setSizesAndType(string $path)
+    protected function setSizesAndType(string $path): void
     {
         if ($this->width == 0 && $this->height == 0 && $this->type == IMAGETYPE_UNKNOWN) {
-            if ($imageData = getimagesize($path)) {
+            $imageData = getimagesize($path);
+
+            if (is_array($imageData)) {
                 $this->width = $imageData[0];
                 $this->height = $imageData[1];
                 $this->type = $imageData[2];

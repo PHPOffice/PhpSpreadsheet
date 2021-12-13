@@ -82,9 +82,12 @@ class DrawingsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $comment = $sheet->getComment('A1');
 
+        self::assertTrue($comment instanceof Comment);
         self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 178);
         self::assertEquals($comment->getBackgroundImage()->getHeight(), 140);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_JPEG);
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save($tempFileName);
@@ -92,6 +95,84 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet = $reader->load($tempFileName);
         unlink($tempFileName);
 
+        self::assertNotNull($reloadedSpreadsheet);
+    }
+
+    /**
+     * Test save and load XLSX file with drawing in comment, image in BMP/GIF format saved as PNG.
+     */
+    public function testDrawingInCommentImageFormatsConversions(): void
+    {
+        $reader = new Xlsx();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Add gif image to comment background
+        $sheet->setCellValue('A1', '.gif');
+        $drawing = new Drawing();
+        $drawing->setName('Green Square');
+        $drawing->setPath('tests/data/Writer/XLSX/green_square.gif');
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
+        $comment = $sheet->getComment('A1');
+        $comment->setBackgroundImage($drawing);
+        $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '112.5pt');
+        self::assertEquals($comment->getHeight(), '112.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
+
+        // Add bmp image to comment background
+        $sheet->setCellValue('A2', '.bmp 16 colors');
+        $drawing = new Drawing();
+        $drawing->setName('Yellow Square');
+        $drawing->setPath('tests/data/Writer/XLSX/yellow_square_16.bmp');
+        self::assertEquals($drawing->getWidth(), 70);
+        self::assertEquals($drawing->getHeight(), 70);
+        $comment = $sheet->getComment('A2');
+        $comment->setBackgroundImage($drawing);
+        $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
+
+        // Write file
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $tempFileName = File::sysGetTempDir() . '/drawings_in_comments_conversions.xlsx';
+        $writer->save($tempFileName);
+
+        // Read new file
+        $reloadedSpreadsheet = $reader->load($tempFileName);
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+
+        // Add gif image to comment background
+        $comment = $sheet->getComment('A1');
+        self::assertEquals($comment->getWidth(), '112.5pt');
+        self::assertEquals($comment->getHeight(), '112.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 150);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Add bmp image to comment background
+        $comment = $sheet->getComment('A2');
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        unlink($tempFileName);
         self::assertNotNull($reloadedSpreadsheet);
     }
 
@@ -121,6 +202,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertTrue($comment instanceof Comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
 
         // Add gif image to comment background
         $sheet->setCellValue('A2', '.gif');
@@ -135,6 +217,12 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
 
+        $comment = $sheet->getComment('A2');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
+
         // Add jpeg image to comment background
         $sheet->setCellValue('A3', '.jpeg');
         $drawing = new Drawing();
@@ -147,6 +235,12 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '37.5pt');
         self::assertEquals($comment->getHeight(), '37.5pt');
+
+        $comment = $sheet->getComment('A3');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_JPEG);
 
         // Add bmp image to comment background
         $sheet->setCellValue('A4', '.bmp 16 colors');
@@ -161,6 +255,12 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
 
+        $comment = $sheet->getComment('A4');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
+
         // Add bmp image to comment background
         $sheet->setCellValue('A5', '.bmp 256 colors');
         $drawing = new Drawing();
@@ -173,6 +273,12 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
+
+        $comment = $sheet->getComment('A5');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
 
         // Add bmp image to comment background
         $sheet->setCellValue('A6', '.bmp 24 bit');
@@ -187,12 +293,23 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
 
+        $comment = $sheet->getComment('A6');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
+
         // Add unsupported tiff image to comment background
         $sheet->setCellValue('A7', '.tiff');
         $drawing = new Drawing();
         $drawing->setName('Purple Square');
         $drawing->setPath('tests/data/Writer/XLSX/purple_square.tiff');
         $comment = $sheet->getComment('A7');
+        self::assertTrue($comment instanceof Comment);
+        self::assertFalse($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_UNKNOWN);
+
         try {
             $comment->setBackgroundImage($drawing);
         } catch (PhpSpreadsheetException $e) {
