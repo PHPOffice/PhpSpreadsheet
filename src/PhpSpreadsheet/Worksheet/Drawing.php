@@ -196,6 +196,7 @@ class Drawing extends BaseDrawing
         }
 
         $result = image_type_to_extension(self::IMAGE_TYPES_CONVERTION_MAP[$this->type], $includeDot);
+
         return is_string($result) ? $result : '';
     }
 
