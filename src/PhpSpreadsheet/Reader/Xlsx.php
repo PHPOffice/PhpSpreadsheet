@@ -1054,7 +1054,8 @@ class Xlsx extends BaseReader
                                                     $imagePath = str_replace('../', 'xl/', $drowingImages[$fillImageRelId]);
                                                     $objDrawing->setPath(
                                                         'zip://' . File::realpath($filename) . '#' . $imagePath,
-                                                        false
+                                                        true,
+                                                        $zip
                                                     );
                                                     $comment->setBackgroundImage($objDrawing);
                                                 }

@@ -2,11 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Size;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 
 class Comment implements IComparable
 {
@@ -315,7 +317,13 @@ class Comment implements IComparable
      */
     public function hasBackgroundImage(): bool
     {
-        return file_exists($this->backgroundImage->getPath());
+        $path = $this->backgroundImage->getPath();
+
+        if (empty($path)) {
+            return false;
+        }
+
+        return getimagesize($path) !== false;
     }
 
     /**
@@ -331,6 +339,9 @@ class Comment implements IComparable
      */
     public function setBackgroundImage(Drawing $objDrawing): self
     {
+        if (!array_key_exists($objDrawing->getType(),Drawing::IMAGE_TYPES_CONVERTION_MAP)) {
+            throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
         $this->backgroundImage = $objDrawing;
 
         return $this;
@@ -342,8 +353,8 @@ class Comment implements IComparable
     public function setSizeAsBackgroundImage(): self
     {
         if ($this->hasBackgroundImage()) {
-            $this->setWidth((string) $this->backgroundImage->getWidth());
-            $this->setHeight((string) $this->backgroundImage->getHeight());
+            $this->setWidth(SharedDrawing::pixelsToPoints($this->backgroundImage->getWidth()) . 'pt');
+            $this->setHeight(SharedDrawing::pixelsToPoints($this->backgroundImage->getHeight()) . 'pt');
         }
 
         return $this;

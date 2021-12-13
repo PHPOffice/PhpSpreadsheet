@@ -80,15 +80,11 @@ class Drawing extends BaseDrawing
      */
     public function getMediaFilename()
     {
-        $imageData = getimagesize($this->getPath());
-
-        if ($imageData === false) {
-            throw new PhpSpreadsheetException('Unable to get image data of ' . $this->getPath());
-        } elseif (!array_key_exists($imageData[2], self::IMAGE_TYPES_CONVERTION_MAP)) {
+        if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
-        $newImageType = self::IMAGE_TYPES_CONVERTION_MAP[$imageData[2]];
+        $newImageType = self::IMAGE_TYPES_CONVERTION_MAP[$this->type];
 
         return sprintf('image%d%s', $this->getImageIndex(), image_type_to_extension($newImageType));
     }
@@ -108,10 +104,11 @@ class Drawing extends BaseDrawing
      *
      * @param string $path File path
      * @param bool $verifyFile Verify file
+     * @param \ZipArchive $zip Zip archive instance
      *
      * @return $this
      */
-    public function setPath($path, $verifyFile = true)
+    public function setPath($path, $verifyFile = true, $zip = null)
     {
         if ($verifyFile) {
             // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
@@ -124,18 +121,18 @@ class Drawing extends BaseDrawing
                 if ($filePath) {
                     file_put_contents($filePath, $imageContents);
                     if (file_exists($filePath)) {
-                        if ($this->width == 0 && $this->height == 0) {
-                            // Get width/height
-                            [$this->width, $this->height] = getimagesize($filePath);
-                        }
+                        $this->setSizesAndType($filePath);
                         unlink($filePath);
                     }
                 }
             } elseif (file_exists($path)) {
                 $this->path = $path;
-                if ($this->width == 0 && $this->height == 0) {
-                    // Get width/height
-                    [$this->width, $this->height] = getimagesize($path);
+                $this->setSizesAndType($path);
+            } elseif ($zip instanceof \ZipArchive) {
+                $zipPath = explode('#', $path)[1];
+                if ($zip->locateName($zipPath) !== false) {
+                    $this->path = $path;
+                    $this->setSizesAndType($path);
                 }
             } else {
                 throw new PhpSpreadsheetException("File $path not found!");

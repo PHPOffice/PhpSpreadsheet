@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -77,13 +79,19 @@ class DrawingsTest extends AbstractFunctional
         $reader = new Xlsx();
         $spreadsheet = $reader->load($tempFileName);
 
+        $sheet = $spreadsheet->getActiveSheet();
+        $comment = $sheet->getComment('A1');
+
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 178);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 140);
+
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save($tempFileName);
 
         $reloadedSpreadsheet = $reader->load($tempFileName);
         unlink($tempFileName);
 
-        // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
     }
 
@@ -101,54 +109,96 @@ class DrawingsTest extends AbstractFunctional
         $drawing = new Drawing();
         $drawing->setName('Blue Square');
         $drawing->setPath('tests/data/Writer/XLSX/blue_square.png');
+        self::assertEquals($drawing->getWidth(), 100);
+        self::assertEquals($drawing->getHeight(), 100);
         $comment = $sheet->getComment('A1');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '75pt');
+        self::assertEquals($comment->getHeight(), '75pt');
+
+        $comment = $sheet->getComment('A1');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
 
         // Add gif image to comment background
         $sheet->setCellValue('A2', '.gif');
         $drawing = new Drawing();
         $drawing->setName('Green Square');
         $drawing->setPath('tests/data/Writer/XLSX/green_square.gif');
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
         $comment = $sheet->getComment('A2');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '112.5pt');
+        self::assertEquals($comment->getHeight(), '112.5pt');
 
         // Add jpeg image to comment background
         $sheet->setCellValue('A3', '.jpeg');
         $drawing = new Drawing();
         $drawing->setName('Red Square');
         $drawing->setPath('tests/data/Writer/XLSX/red_square.jpeg');
+        self::assertEquals($drawing->getWidth(), 50);
+        self::assertEquals($drawing->getHeight(), 50);
         $comment = $sheet->getComment('A3');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '37.5pt');
+        self::assertEquals($comment->getHeight(), '37.5pt');
 
         // Add bmp image to comment background
         $sheet->setCellValue('A4', '.bmp 16 colors');
         $drawing = new Drawing();
         $drawing->setName('Yellow Square');
         $drawing->setPath('tests/data/Writer/XLSX/yellow_square_16.bmp');
+        self::assertEquals($drawing->getWidth(), 70);
+        self::assertEquals($drawing->getHeight(), 70);
         $comment = $sheet->getComment('A4');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
 
         // Add bmp image to comment background
         $sheet->setCellValue('A5', '.bmp 256 colors');
         $drawing = new Drawing();
         $drawing->setName('Brown Square');
         $drawing->setPath('tests/data/Writer/XLSX/brown_square_256.bmp');
+        self::assertEquals($drawing->getWidth(), 70);
+        self::assertEquals($drawing->getHeight(), 70);
         $comment = $sheet->getComment('A5');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
 
         // Add bmp image to comment background
         $sheet->setCellValue('A6', '.bmp 24 bit');
         $drawing = new Drawing();
         $drawing->setName('Orange Square');
         $drawing->setPath('tests/data/Writer/XLSX/orange_square_24_bit.bmp');
+        self::assertEquals($drawing->getWidth(), 70);
+        self::assertEquals($drawing->getHeight(), 70);
         $comment = $sheet->getComment('A6');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+
+        // Add unsupported tiff image to comment background
+        $sheet->setCellValue('A7', '.tiff');
+        $drawing = new Drawing();
+        $drawing->setName('Purple Square');
+        $drawing->setPath('tests/data/Writer/XLSX/purple_square.tiff');
+        $comment = $sheet->getComment('A7');
+        try {
+            $comment->setBackgroundImage($drawing);
+        } catch (PhpSpreadsheetException $e) {
+            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
 
         // Write file
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
@@ -159,7 +209,6 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet = $reader->load($tempFileName);
         unlink($tempFileName);
 
-        // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
     }
 }
