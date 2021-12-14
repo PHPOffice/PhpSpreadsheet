@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
-use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -132,9 +131,8 @@ class Style extends Supervisor
         } else {
             $xfIndex = 0;
         }
-        $parent = $this->getSpreadsheet();
 
-        return $parent->getCellXfByIndex($xfIndex);
+        return $activeSheet->getParent()->getCellXfByIndex($xfIndex);
     }
 
     /**
@@ -142,22 +140,7 @@ class Style extends Supervisor
      */
     public function getParent(): Spreadsheet
     {
-        return $this->getSpreadsheet();
-    }
-
-    /**
-     * Scrutinizer gets confused about parent being only a Spreadsheet here.
-     *
-     * @codeCoverageIgnore
-     */
-    private function getSpreadsheet(): Spreadsheet
-    {
-        $parent = $this->parent;
-        if ($parent instanceof Spreadsheet) {
-            return $parent;
-        }
-
-        throw new Exception('Parent is not an instance of Spreadsheet');
+        return $this->getActiveSheet()->getParent();
     }
 
     /**
