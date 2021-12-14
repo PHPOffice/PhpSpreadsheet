@@ -1,5 +1,5 @@
 {
-    "name": "phpoffice/phpspreadsheet",
+    "name": "bezcell/phpspreadsheet",
     "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
     "keywords": [
         "PHP",
@@ -14,7 +14,7 @@
     "config": {
         "sort-packages": true
     },
-    "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
+    "homepage": "https://github.com/bezcell/PhpSpreadsheet",
     "type": "library",
     "license": "MIT",
     "authors": [
