@@ -154,7 +154,14 @@ class Drawing extends WriterPart
     {
         if ($relationId >= 0) {
             // xdr:oneCellAnchor
-            $objWriter->startElement('xdr:oneCellAnchor');
+            // $objWriter->startElement('xdr:oneCellAnchor');
+            $aResizeProportional = $drawing->getResizeProportional();
+            if ($aResizeProportional) {
+                $objWriter->startElement('xdr:twoCellAnchor');
+            } else {
+                $objWriter->startElement('xdr:oneCellAnchor');
+            }
+            
             // Image location
             $aCoordinates = Coordinate::indexesFromString($drawing->getCoordinates());
 
@@ -167,9 +174,22 @@ class Drawing extends WriterPart
             $objWriter->endElement();
 
             // xdr:ext
-            $objWriter->startElement('xdr:ext');
-            $objWriter->writeAttribute('cx', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($drawing->getWidth()));
-            $objWriter->writeAttribute('cy', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($drawing->getHeight()));
+            // $objWriter->startElement('xdr:ext');
+            // $objWriter->writeAttribute('cx', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($drawing->getWidth()));
+            // $objWriter->writeAttribute('cy', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($drawing->getHeight()));
+            // $objWriter->endElement();
+            if ($aResizeProportional) {
+                $objWriter->startElement('xdr:to');
+                $objWriter->writeElement('xdr:col', $aCoordinates[0] - 1);
+                $objWriter->writeElement('xdr:colOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getOffsetX()) + \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getWidth()));
+                $objWriter->writeElement('xdr:row', $aCoordinates[1] - 1);
+                $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getOffsetY()) + \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getHeight()));
+            } else {
+                // xdr:ext
+                $objWriter->startElement('xdr:ext');
+                $objWriter->writeAttribute('cx', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getWidth()));
+                $objWriter->writeAttribute('cy', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($pDrawing->getHeight()));
+            }
             $objWriter->endElement();
 
             // xdr:pic
