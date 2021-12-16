@@ -166,7 +166,7 @@ class ContentTypes extends WriterPart
                     }
 
                     $bgImage = $comment->getBackgroundImage();
-                    $bgImageExtentionKey = strtolower($bgImage->getImageFileExtentionForSave(false));
+                    $bgImageExtentionKey = strtolower($bgImage->getImageFileExtensionForSave(false));
 
                     if (!isset($aMediaContentTypes[$bgImageExtentionKey])) {
                         $aMediaContentTypes[$bgImageExtentionKey] = $bgImage->getImageMimeType();

@@ -150,7 +150,7 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet = $reader->load($tempFileName);
         $sheet = $reloadedSpreadsheet->getActiveSheet();
 
-        // Add gif image to comment background
+        // Check first image in comment background
         $comment = $sheet->getComment('A1');
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
@@ -161,7 +161,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getBackgroundImage()->getHeight(), 150);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
 
-        // Add bmp image to comment background
+        // Check second image in comment background
         $comment = $sheet->getComment('A2');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
@@ -312,6 +312,31 @@ class DrawingsTest extends AbstractFunctional
 
         try {
             $comment->setBackgroundImage($drawing);
+            self::fail('Should throw exception when attempting to add tiff');
+        } catch (PhpSpreadsheetException $e) {
+            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        try {
+            $drawing->getImageTypeForSave();
+            self::fail('Should throw exception when attempting to get image type for tiff');
+        } catch (PhpSpreadsheetException $e) {
+            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        try {
+            $drawing->getImageFileExtensionForSave();
+            self::fail('Should throw exception when attempting to get image file extention for tiff');
+        } catch (PhpSpreadsheetException $e) {
+            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        try {
+            $drawing->getImageMimeType();
+            self::fail('Should throw exception when attempting to get image mime type for tiff');
         } catch (PhpSpreadsheetException $e) {
             self::assertTrue($e instanceof PhpSpreadsheetException);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
@@ -324,6 +349,83 @@ class DrawingsTest extends AbstractFunctional
 
         // Read new file
         $reloadedSpreadsheet = $reader->load($tempFileName);
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+
+        // Check first image in comment background
+        $comment = $sheet->getComment('A1');
+        self::assertEquals($comment->getWidth(), '75pt');
+        self::assertEquals($comment->getHeight(), '75pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 100);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 100);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Check second image in comment background
+        $comment = $sheet->getComment('A2');
+        self::assertEquals($comment->getWidth(), '112.5pt');
+        self::assertEquals($comment->getHeight(), '112.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 150);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Check third image in comment background
+        $comment = $sheet->getComment('A3');
+        self::assertEquals($comment->getWidth(), '37.5pt');
+        self::assertEquals($comment->getHeight(), '37.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 50);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 50);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_JPEG);
+
+        // Check fourth image in comment background
+        $comment = $sheet->getComment('A4');
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Check fifth image in comment background
+        $comment = $sheet->getComment('A5');
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Check sixth image in comment background
+        $comment = $sheet->getComment('A6');
+        self::assertEquals($comment->getWidth(), '52.5pt');
+        self::assertEquals($comment->getHeight(), '52.5pt');
+        self::assertTrue($comment instanceof Comment);
+        self::assertTrue($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 70);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
+
+        // Check seventh image in comment background
+        $comment = $sheet->getComment('A7');
+        self::assertTrue($comment instanceof Comment);
+        self::assertFalse($comment->hasBackgroundImage());
+        self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
+        self::assertEquals($comment->getBackgroundImage()->getWidth(), 0);
+        self::assertEquals($comment->getBackgroundImage()->getHeight(), 0);
+        self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_UNKNOWN);
+
         unlink($tempFileName);
 
         self::assertNotNull($reloadedSpreadsheet);

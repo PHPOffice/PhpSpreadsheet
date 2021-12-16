@@ -82,7 +82,7 @@ class Drawing extends BaseDrawing
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
-        return sprintf('image%d%s', $this->getImageIndex(), $this->getImageFileExtentionForSave());
+        return sprintf('image%d%s', $this->getImageIndex(), $this->getImageFileExtensionForSave());
     }
 
     /**
@@ -189,7 +189,7 @@ class Drawing extends BaseDrawing
     /**
      * Get Image file extention for Save.
      */
-    public function getImageFileExtentionForSave(bool $includeDot = true): string
+    public function getImageFileExtensionForSave(bool $includeDot = true): string
     {
         if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
