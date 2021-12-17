@@ -207,7 +207,7 @@ class PPS
      *
      * @return int The index for this PPS
      */
-    public static function savePpsSetPnt(& $raList, $to_save, $depth = 0)
+    public static function savePpsSetPnt(&$raList, $to_save, $depth = 0)
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return 0xFFFFFFFF;

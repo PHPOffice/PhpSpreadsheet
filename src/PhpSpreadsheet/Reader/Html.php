@@ -288,7 +288,7 @@ class Html extends BaseReader
      * @param int|string $row
      * @param mixed $cellContent
      */
-    protected function flushCell(Worksheet $sheet, $column, $row, & $cellContent): void
+    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -307,7 +307,7 @@ class Html extends BaseReader
         $cellContent = (string) '';
     }
 
-    private function processDomElementBody(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child): void
+    private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
     {
         $attributeArray = [];
         foreach (($child->attributes ?? []) as $attribute) {
@@ -325,7 +325,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementTitle(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementTitle(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'title') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -338,7 +338,7 @@ class Html extends BaseReader
 
     private const SPAN_ETC = ['span', 'div', 'font', 'i', 'em', 'strong', 'b'];
 
-    private function processDomElementSpanEtc(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementSpanEtc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array((string) $child->nodeName, self::SPAN_ETC, true)) {
             if (isset($attributeArray['class']) && $attributeArray['class'] === 'comment') {
@@ -357,7 +357,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementHr(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementHr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'hr') {
             $this->flushCell($sheet, $column, $row, $cellContent);
@@ -371,7 +371,7 @@ class Html extends BaseReader
         $this->processDomElementBr($sheet, $row, $column, $cellContent, $child, $attributeArray);
     }
 
-    private function processDomElementBr(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementBr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'br' || $child->nodeName === 'hr') {
             if ($this->tableLevel > 0) {
@@ -388,7 +388,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementA(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementA(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'a') {
             foreach ($attributeArray as $attributeName => $attributeValue) {
@@ -416,7 +416,7 @@ class Html extends BaseReader
 
     private const H1_ETC = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'p'];
 
-    private function processDomElementH1Etc(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementH1Etc(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if (in_array((string) $child->nodeName, self::H1_ETC, true)) {
             if ($this->tableLevel > 0) {
@@ -444,7 +444,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementLi(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementLi(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'li') {
             if ($this->tableLevel > 0) {
@@ -465,7 +465,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementImg(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementImg(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'img') {
             $this->insertImage($sheet, $column, $row, $attributeArray);
@@ -474,7 +474,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementTable(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
             $this->flushCell($sheet, $column, $row, $cellContent);
@@ -494,7 +494,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementTr(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementTr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'tr') {
             $column = $this->getTableStartColumn();
@@ -511,7 +511,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementThTdOther(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementThTdOther(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName !== 'td' && $child->nodeName !== 'th') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -569,7 +569,7 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementThTd(Worksheet $sheet, int & $row, string & $column, string & $cellContent, DOMElement $child, array & $attributeArray): void
+    private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
             ++$column;
@@ -620,7 +620,7 @@ class Html extends BaseReader
         ++$column;
     }
 
-    protected function processDomElement(DOMNode $element, Worksheet $sheet, int & $row, string & $column, string & $cellContent): void
+    protected function processDomElement(DOMNode $element, Worksheet $sheet, int &$row, string &$column, string &$cellContent): void
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -761,7 +761,7 @@ class Html extends BaseReader
      * @param string $column
      * @param array $attributeArray
      */
-    private function applyInlineStyle(Worksheet & $sheet, $row, $column, $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, $row, $column, $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;

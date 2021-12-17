@@ -147,7 +147,7 @@ abstract class Supervisor implements IComparable
      *
      * @param mixed $objOrValue
      */
-    final protected function exportArray2(array & $exportedArray, string $index, $objOrValue): void
+    final protected function exportArray2(array &$exportedArray, string $index, $objOrValue): void
     {
         if ($objOrValue instanceof self) {
             $exportedArray[$index] = $objOrValue->exportArray();

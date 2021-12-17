@@ -354,7 +354,7 @@ class Csv extends BaseReader
      *
      * @param mixed $rowDatum
      */
-    private function convertBoolean(& $rowDatum, bool $preserveBooleanString): void
+    private function convertBoolean(&$rowDatum, bool $preserveBooleanString): void
     {
         if (is_string($rowDatum) && !$preserveBooleanString) {
             if (strcasecmp('true', $rowDatum) === 0) {
@@ -462,7 +462,7 @@ class Csv extends BaseReader
         return in_array($type, $supportedTypes, true);
     }
 
-    private static function guessEncodingTestNoBom(string & $encoding, string & $contents, string $compare, string $setEncoding): void
+    private static function guessEncodingTestNoBom(string &$encoding, string &$contents, string $compare, string $setEncoding): void
     {
         if ($encoding === '') {
             $pos = strpos($contents, $compare);
@@ -487,7 +487,7 @@ class Csv extends BaseReader
         return $encoding;
     }
 
-    private static function guessEncodingTestBom(string & $encoding, string $first4, string $compare, string $setEncoding): void
+    private static function guessEncodingTestBom(string &$encoding, string $first4, string $compare, string $setEncoding): void
     {
         if ($encoding === '') {
             if ($compare === substr($first4, 0, strlen($compare))) {

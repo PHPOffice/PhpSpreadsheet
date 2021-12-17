@@ -1016,7 +1016,7 @@ class Chart extends WriterPart
      * @param bool $valIsMultiLevelSeries Is value set a multi-series set
      * @param string $plotGroupingType Type of grouping for multi-series values
      */
-    private function writePlotGroup(?DataSeries $plotGroup, $groupType, XMLWriter $objWriter, & $catIsMultiLevelSeries, & $valIsMultiLevelSeries, & $plotGroupingType): void
+    private function writePlotGroup(?DataSeries $plotGroup, $groupType, XMLWriter $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
     {
         if ($plotGroup === null) {
             return;

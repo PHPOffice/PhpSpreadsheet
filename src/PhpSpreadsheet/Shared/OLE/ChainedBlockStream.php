@@ -46,7 +46,7 @@ class ChainedBlockStream
      *
      * @return bool true on success
      */
-    public function stream_open($path, $mode, $options, & $openedPath) // @codingStandardsIgnoreLine
+    public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
     {
         if ($mode != 'r') {
             if ($options & STREAM_REPORT_ERRORS) {

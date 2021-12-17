@@ -1898,7 +1898,7 @@ class Xls extends BaseReader
      *
      * @return bool Success
      */
-    private function verifyPassword($password, $docid, $salt_data, $hashedsalt_data, & $valContext)
+    private function verifyPassword($password, $docid, $salt_data, $hashedsalt_data, &$valContext)
     {
         $pwarray = str_repeat("\0", 64);
 

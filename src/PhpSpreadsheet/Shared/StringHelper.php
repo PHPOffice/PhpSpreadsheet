@@ -560,7 +560,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function convertToNumberIfFraction(& $operand)
+    public static function convertToNumberIfFraction(&$operand)
     {
         if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
