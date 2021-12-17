@@ -14,7 +14,6 @@ class Issue2450Test extends TestCase
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
-        $sheet = $spreadsheet->getActiveSheet();
         $birthYears = [
             'C2' => $sheet->getCell('C2')->getFormattedValue(),
             'C3' => $sheet->getCell('C3')->getFormattedValue(),
