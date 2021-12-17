@@ -183,7 +183,7 @@ class Styles extends BaseParserClass
         );
     }
 
-    private function formatGeneral(string $formatString): string
+    private static function formatGeneral(string $formatString): string
     {
         if ($formatString === 'GENERAL') {
             $formatString = NumberFormat::FORMAT_GENERAL;
