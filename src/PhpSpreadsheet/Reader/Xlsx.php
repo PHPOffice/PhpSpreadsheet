@@ -306,7 +306,7 @@ class Xlsx extends BaseReader
         return isset($c->v) ? (string) $c->v : null;
     }
 
-    private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
+    private function castToFormula($c, $r, & $cellDataType, & $value, & $calculatedValue, & $sharedFormulas, $castBaseType): void
     {
         $attr = $c->f->attributes();
         $cellDataType = 'f';
@@ -1902,7 +1902,7 @@ class Xlsx extends BaseReader
         return $returnValue;
     }
 
-    private function readFormControlProperties(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readFormControlProperties(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array & $unparsedLoadedData): void
     {
         $zip = $this->zip;
         if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
@@ -1929,7 +1929,7 @@ class Xlsx extends BaseReader
         unset($unparsedCtrlProps);
     }
 
-    private function readPrinterSettings(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readPrinterSettings(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array & $unparsedLoadedData): void
     {
         $zip = $this->zip;
         if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {

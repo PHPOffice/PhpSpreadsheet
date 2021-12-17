@@ -392,7 +392,7 @@ class Xls extends BaseWriter
         }
     }
 
-    private function processMemoryDrawing(BstoreContainer &$bstoreContainer, MemoryDrawing $drawing, string $renderingFunctionx): void
+    private function processMemoryDrawing(BstoreContainer & $bstoreContainer, MemoryDrawing $drawing, string $renderingFunctionx): void
     {
         switch ($renderingFunctionx) {
             case MemoryDrawing::RENDERING_JPEG:
@@ -422,7 +422,7 @@ class Xls extends BaseWriter
         $bstoreContainer->addBSE($BSE);
     }
 
-    private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
+    private function processDrawing(BstoreContainer & $bstoreContainer, Drawing $drawing): void
     {
         $blipType = null;
         $blipData = '';
@@ -470,7 +470,7 @@ class Xls extends BaseWriter
         }
     }
 
-    private function processBaseDrawing(BstoreContainer &$bstoreContainer, BaseDrawing $drawing): void
+    private function processBaseDrawing(BstoreContainer & $bstoreContainer, BaseDrawing $drawing): void
     {
         if ($drawing instanceof Drawing) {
             $this->processDrawing($bstoreContainer, $drawing);
@@ -769,7 +769,7 @@ class Xls extends BaseWriter
     /**
      * @param float|int $dataProp
      */
-    private function writeSummaryPropOle($dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
+    private function writeSummaryPropOle($dataProp, int & $dataSection_NumProps, array & $dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
             $dataSection[] = [
@@ -782,7 +782,7 @@ class Xls extends BaseWriter
         }
     }
 
-    private function writeSummaryProp(string $dataProp, int &$dataSection_NumProps, array &$dataSection, int $sumdata, int $typdata): void
+    private function writeSummaryProp(string $dataProp, int & $dataSection_NumProps, array & $dataSection, int $sumdata, int $typdata): void
     {
         if ($dataProp) {
             $dataSection[] = [

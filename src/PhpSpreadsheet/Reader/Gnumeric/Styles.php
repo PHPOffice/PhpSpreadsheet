@@ -124,7 +124,7 @@ class Styles
         }
     }
 
-    private function addBorderDiagonal(SimpleXMLElement $srssb, array &$styleArray): void
+    private function addBorderDiagonal(SimpleXMLElement $srssb, array & $styleArray): void
     {
         if (isset($srssb->Diagonal, $srssb->{'Rev-Diagonal'})) {
             $styleArray['borders']['diagonal'] = self::parseBorderAttributes($srssb->Diagonal->attributes());
@@ -138,7 +138,7 @@ class Styles
         }
     }
 
-    private function addBorderStyle(SimpleXMLElement $srssb, array &$styleArray, string $direction): void
+    private function addBorderStyle(SimpleXMLElement $srssb, array & $styleArray, string $direction): void
     {
         $ucDirection = ucfirst($direction);
         if (isset($srssb->$ucDirection)) {
@@ -157,14 +157,14 @@ class Styles
         return $rotation;
     }
 
-    private static function addStyle(array &$styleArray, string $key, string $value): void
+    private static function addStyle(array & $styleArray, string $key, string $value): void
     {
         if (array_key_exists($value, self::$mappings[$key])) {
             $styleArray[$key] = self::$mappings[$key][$value];
         }
     }
 
-    private static function addStyle2(array &$styleArray, string $key1, string $key, string $value): void
+    private static function addStyle2(array & $styleArray, string $key1, string $key, string $value): void
     {
         if (array_key_exists($value, self::$mappings[$key])) {
             $styleArray[$key1][$key] = self::$mappings[$key][$value];
@@ -195,7 +195,7 @@ class Styles
         return $gnmR . $gnmG . $gnmB;
     }
 
-    private function addColors(array &$styleArray, SimpleXMLElement $styleAttributes): void
+    private function addColors(array & $styleArray, SimpleXMLElement $styleAttributes): void
     {
         $RGB = self::parseGnumericColour((string) $styleAttributes['Fore']);
         $styleArray['font']['color']['rgb'] = $RGB;

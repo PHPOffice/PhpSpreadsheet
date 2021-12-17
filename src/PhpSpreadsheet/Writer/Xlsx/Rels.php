@@ -297,7 +297,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, &$chartRef, $includeCharts = false)
+    public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, & $chartRef, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;

@@ -181,7 +181,7 @@ class MD5
         return $Y ^ ($X | (~$Z)); // Y XOR (X OR NOT Z)
     }
 
-    private static function step($func, int &$A, int $B, int $C, int $D, int $M, int $s, int $t): void
+    private static function step($func, int & $A, int $B, int $C, int $D, int $M, int $s, int $t): void
     {
         $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & 0xffffffff;
         $A = self::rotate($A, $s);

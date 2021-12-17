@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
+use DateInterval;
 use Psr\SimpleCache\CacheInterface;
 
 /**
@@ -94,7 +95,7 @@ class Memory implements CacheInterface
     /**
      * @param string                 $key
      * @param mixed                  $value
-     * @param null|int|\DateInterval $ttl
+     * @param null|DateInterval|int $ttl
      *
      * @return bool
      */
@@ -107,7 +108,7 @@ class Memory implements CacheInterface
 
     /**
      * @param iterable               $values
-     * @param null|int|\DateInterval $ttl
+     * @param null|DateInterval|int $ttl
      *
      * @return bool
      */

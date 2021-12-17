@@ -106,7 +106,7 @@ class Root extends PPS
      *
      * @return float[] The array of numbers
      */
-    private function calcSize(&$raList)
+    private function calcSize(& $raList)
     {
         // Calculate Basic Setting
         [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
@@ -239,7 +239,7 @@ class Root extends PPS
      * @param int $iStBlk
      * @param array $raList Reference to array of PPS's
      */
-    private function saveBigData($iStBlk, &$raList): void
+    private function saveBigData($iStBlk, & $raList): void
     {
         $FILE = $this->fileHandle;
 
@@ -271,7 +271,7 @@ class Root extends PPS
      *
      * @return string
      */
-    private function makeSmallData(&$raList)
+    private function makeSmallData(& $raList)
     {
         $sRes = '';
         $FILE = $this->fileHandle;
@@ -321,7 +321,7 @@ class Root extends PPS
      *
      * @param array $raList Reference to an array with all PPS's
      */
-    private function savePps(&$raList): void
+    private function savePps(& $raList): void
     {
         // Save each PPS WK
         $iC = count($raList);

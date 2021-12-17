@@ -222,7 +222,7 @@ class Slk extends BaseReader
         'U' => 'underline',
     ];
 
-    private function processFormula(string $rowDatum, bool &$hasCalculatedValue, string &$cellDataFormula, string $row, string $column): void
+    private function processFormula(string $rowDatum, bool & $hasCalculatedValue, string & $cellDataFormula, string $row, string $column): void
     {
         $cellDataFormula = '=' . substr($rowDatum, 1);
         //    Convert R1C1 style references to A1 style references (but only when not quoted)
@@ -270,7 +270,7 @@ class Slk extends BaseReader
         $hasCalculatedValue = true;
     }
 
-    private function processCRecord(array $rowData, Spreadsheet &$spreadsheet, string &$row, string &$column): void
+    private function processCRecord(array $rowData, Spreadsheet & $spreadsheet, string & $row, string & $column): void
     {
         //    Read cell value data
         $hasCalculatedValue = false;
@@ -313,7 +313,7 @@ class Slk extends BaseReader
         $this->processCFinal($spreadsheet, $hasCalculatedValue, $cellDataFormula, $cellData, "$columnLetter$row");
     }
 
-    private function processCFinal(Spreadsheet &$spreadsheet, bool $hasCalculatedValue, string $cellDataFormula, string $cellData, string $coordinate): void
+    private function processCFinal(Spreadsheet & $spreadsheet, bool $hasCalculatedValue, string $cellDataFormula, string $cellData, string $coordinate): void
     {
         // Set cell value
         $spreadsheet->getActiveSheet()->getCell($coordinate)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
@@ -323,7 +323,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function processFRecord(array $rowData, Spreadsheet &$spreadsheet, string &$row, string &$column): void
+    private function processFRecord(array $rowData, Spreadsheet & $spreadsheet, string & $row, string & $column): void
     {
         //    Read cell formatting
         $formatStyle = $columnWidth = '';
@@ -371,7 +371,7 @@ class Slk extends BaseReader
         'T' => 'top',
     ];
 
-    private function styleSettings(string $rowDatum, array &$styleData, string &$fontStyle): void
+    private function styleSettings(string $rowDatum, array & $styleData, string & $fontStyle): void
     {
         $styleSettings = substr($rowDatum, 1);
         $iMax = strlen($styleSettings);
@@ -391,7 +391,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function addFormats(Spreadsheet &$spreadsheet, string $formatStyle, string $row, string $column): void
+    private function addFormats(Spreadsheet & $spreadsheet, string $formatStyle, string $row, string $column): void
     {
         if ($formatStyle && $column > '' && $row > '') {
             $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
@@ -401,7 +401,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function addFonts(Spreadsheet &$spreadsheet, string $fontStyle, string $row, string $column): void
+    private function addFonts(Spreadsheet & $spreadsheet, string $fontStyle, string $row, string $column): void
     {
         if ($fontStyle && $column > '' && $row > '') {
             $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
@@ -411,7 +411,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function addStyle(Spreadsheet &$spreadsheet, array $styleData, string $row, string $column): void
+    private function addStyle(Spreadsheet & $spreadsheet, array $styleData, string $row, string $column): void
     {
         if ((!empty($styleData)) && $column > '' && $row > '') {
             $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
@@ -436,7 +436,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function processPRecord(array $rowData, Spreadsheet &$spreadsheet): void
+    private function processPRecord(array $rowData, Spreadsheet & $spreadsheet): void
     {
         //    Read shared styles
         $formatArray = [];
@@ -470,7 +470,7 @@ class Slk extends BaseReader
         $this->processPFinal($spreadsheet, $formatArray);
     }
 
-    private function processPColors(string $rowDatum, array &$formatArray): void
+    private function processPColors(string $rowDatum, array & $formatArray): void
     {
         if (preg_match('/L([1-9]\\d*)/', $rowDatum, $matches)) {
             $fontColor = $matches[1] % 8;
@@ -478,7 +478,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function processPFontStyles(string $rowDatum, array &$formatArray): void
+    private function processPFontStyles(string $rowDatum, array & $formatArray): void
     {
         $styleSettings = substr($rowDatum, 1);
         $iMax = strlen($styleSettings);
@@ -489,7 +489,7 @@ class Slk extends BaseReader
         }
     }
 
-    private function processPFinal(Spreadsheet &$spreadsheet, array $formatArray): void
+    private function processPFinal(Spreadsheet & $spreadsheet, array $formatArray): void
     {
         if (array_key_exists('numberFormat', $formatArray)) {
             $this->formats['P' . $this->format] = $formatArray;
@@ -558,7 +558,7 @@ class Slk extends BaseReader
         return $spreadsheet;
     }
 
-    private function columnRowFromRowData(array $rowData, string &$column, string &$row): void
+    private function columnRowFromRowData(array $rowData, string & $column, string & $row): void
     {
         foreach ($rowData as $rowDatum) {
             $char0 = $rowDatum[0];
