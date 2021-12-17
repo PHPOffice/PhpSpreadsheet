@@ -6046,11 +6046,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Column.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Drawing.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\:\\:\\$color \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Drawing/Shadow.php

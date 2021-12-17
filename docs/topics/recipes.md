@@ -957,8 +957,25 @@ $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->getText()->createTextRun('Total amount on the current invoice, excluding VAT.');
 ```
-
 ![08-cell-comment.png](./images/08-cell-comment.png)
+
+## Add a comment with background image to a cell
+
+To add a comment with background image to a cell, use the following code:
+
+```php
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('B5', 'Gibli Chromo');
+// Add png image to comment background
+$drawing = new Drawing();
+$drawing->setName('Gibli Chromo');
+$drawing->setPath('/tmp/gibli_chromo.png');
+$comment = $sheet->getComment('B5');
+$comment->setBackgroundImage($drawing);
+// Set the size of the comment equal to the size of the image 
+$comment->setSizeAsBackgroundImage();
+```
+![08-cell-comment-with-image.png](./images/08-cell-comment-with-image.png)
 
 ## Apply autofilter to a range of cells
 
