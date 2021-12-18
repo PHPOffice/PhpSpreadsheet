@@ -94,7 +94,7 @@ class Styles extends BaseParserClass
         }
         $numfmt = Xlsx::getAttributes($numfmtStyleXml);
         if ($numfmt->count() > 0 && isset($numfmt['formatCode'])) {
-            $numfmtStyle->setFormatCode((string) $numfmt['formatCode']);
+            $numfmtStyle->setFormatCode(self::formatGeneral((string) $numfmt['formatCode']));
         }
     }
 
@@ -183,6 +183,15 @@ class Styles extends BaseParserClass
         );
     }
 
+    private static function formatGeneral(string $formatString): string
+    {
+        if ($formatString === 'GENERAL') {
+            $formatString = NumberFormat::FORMAT_GENERAL;
+        }
+
+        return $formatString;
+    }
+
     /**
      * Read style.
      *
@@ -193,7 +202,7 @@ class Styles extends BaseParserClass
         if ($style->numFmt instanceof SimpleXMLElement) {
             $this->readNumberFormat($docStyle->getNumberFormat(), $style->numFmt);
         } else {
-            $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
+            $docStyle->getNumberFormat()->setFormatCode(self::formatGeneral((string) $style->numFmt));
         }
 
         if (isset($style->font)) {

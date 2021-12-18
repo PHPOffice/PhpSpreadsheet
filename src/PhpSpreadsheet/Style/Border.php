@@ -70,8 +70,11 @@ class Border extends Supervisor
      */
     public function getSharedComponent()
     {
+        /** @var Style */
+        $parent = $this->parent;
+
         /** @var Borders $sharedComponent */
-        $sharedComponent = $this->parent->getSharedComponent();
+        $sharedComponent = $parent->getSharedComponent();
         switch ($this->parentPropertyName) {
             case 'bottom':
                 return $sharedComponent->getBottom();
@@ -97,7 +100,10 @@ class Border extends Supervisor
      */
     public function getStyleArray($array)
     {
-        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
