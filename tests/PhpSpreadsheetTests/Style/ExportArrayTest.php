@@ -51,6 +51,7 @@ class ExportArrayTest extends TestCase
         self::AssertEquals($cell1style->getFont()->getHashCode(), $cell2style->getFont()->getHashCode());
         self::AssertEquals($cell1style->getFill()->getHashCode(), $cell2style->getFill()->getHashCode());
         self::AssertEquals($cell1style->getProtection()->getHashCode(), $cell2style->getProtection()->getHashCode());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStyleFromArrayCopy(): void
@@ -89,6 +90,7 @@ class ExportArrayTest extends TestCase
 
         self::AssertEquals($cell1style->getFill()->getStartColor()->getHashCode(), $cell2style->getFill()->getStartColor()->getHashCode());
         self::AssertEquals($cell1style->getFill()->getEndColor()->getHashCode(), $cell2style->getFill()->getEndColor()->getHashCode());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testNumberFormat(): void
@@ -112,6 +114,7 @@ class ExportArrayTest extends TestCase
         self::assertEquals('$ 12,345.679', $cell2->getFormattedValue());
 
         self::AssertEquals($cell1style->getNumberFormat()->getHashCode(), $cell2style->getNumberFormat()->getHashCode());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testNumberFormatFromArray(): void
@@ -139,6 +142,7 @@ class ExportArrayTest extends TestCase
         self::AssertEquals($cell1style->getBorders()->getHashCode(), $cell2style->getBorders()->getHashCode());
         self::AssertEquals($cell1style->getBorders()->getTop()->getHashCode(), $cell2style->getBorders()->getTop()->getHashCode());
         self::AssertEquals($cell1style->getBorders()->getTop()->getBorderStyle(), $cell2style->getBorders()->getTop()->getBorderStyle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testStackedRotation(): void
@@ -157,5 +161,128 @@ class ExportArrayTest extends TestCase
         $cell2style->applyFromArray($styleArray);
 
         self::AssertEquals($cell1style->getAlignment()->getTextRotation(), $cell2style->getAlignment()->getTextRotation());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testFillColors(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $cell1 = $sheet->getCell('A2');
+        $cell1style = $cell1->getStyle();
+        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->getStartColor()->setArgb('FF112233');
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+                'endColor' => ['argb' => 'FF000000'],
+                'startColor' => ['argb' => 'FF112233'],
+            ],
+            $styleArray['fill'],
+            'changed start color with setArgb'
+        );
+
+        $cell1 = $sheet->getCell('A1');
+        $cell1style = $cell1->getStyle();
+        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+            ],
+            $styleArray['fill'],
+            'default colors'
+        );
+
+        $cell1 = $sheet->getCell('A3');
+        $cell1style = $cell1->getStyle();
+        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->getEndColor()->setArgb('FF112233');
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+                'endColor' => ['argb' => 'FF112233'],
+                'startColor' => ['argb' => 'FFFFFFFF'],
+            ],
+            $styleArray['fill'],
+            'changed end color with setArgb'
+        );
+
+        $cell1 = $sheet->getCell('A4');
+        $cell1style = $cell1->getStyle();
+        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->setEndColor(new Color('FF0000FF'));
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+                'endColor' => ['argb' => 'FF0000FF'],
+                'startColor' => ['argb' => 'FFFFFFFF'],
+            ],
+            $styleArray['fill'],
+            'changed end color with setEndColor'
+        );
+
+        $cell1 = $sheet->getCell('A5');
+        $cell1style = $cell1->getStyle();
+        $cell1style->getFill()->setFillType(Fill::FILL_PATTERN_GRAY125);
+        $cell1style->getFill()->setStartColor(new Color('FF0000FF'));
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+                'startColor' => ['argb' => 'FF0000FF'],
+                'endColor' => ['argb' => 'FF000000'],
+            ],
+            $styleArray['fill'],
+            'changed start color with setStartColor'
+        );
+
+        $cell1 = $sheet->getCell('A6');
+        $cell1->getStyle()->getFill()->applyFromArray(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 45.0,
+                'startColor' => ['argb' => 'FF00FFFF'],
+            ]
+        );
+        $cell1style = $cell1->getStyle();
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 45.0,
+                'startColor' => ['argb' => 'FF00FFFF'],
+                'endColor' => ['argb' => 'FF000000'],
+            ],
+            $styleArray['fill'],
+            'applyFromArray with startColor'
+        );
+
+        $cell1 = $sheet->getCell('A7');
+        $cell1->getStyle()->getFill()->applyFromArray(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+            ]
+        );
+        $cell1style = $cell1->getStyle();
+        $styleArray = $cell1style->exportArray();
+        self::assertEquals(
+            [
+                'fillType' => Fill::FILL_PATTERN_GRAY125,
+                'rotation' => 0.0,
+            ],
+            $styleArray['fill'],
+            'applyFromArray without start/endColor'
+        );
+        $spreadsheet->disconnectWorksheets();
     }
 }

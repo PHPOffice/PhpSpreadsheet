@@ -5511,66 +5511,6 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Alignment.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Borders.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Borders\\) given\\.$#"
-			count: 10
-			path: src/PhpSpreadsheet/Style/Borders.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getEndColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getStartColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getColourComponent\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$condition \\(array\\<string\\>\\) does not accept array\\<bool\\|float\\|int\\|string\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Conditional.php
@@ -5741,36 +5681,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
 
 		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Fill.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\) given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Fill.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Font.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:\\$builtInFormatCode \\(int\\|false\\) does not accept bool\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
@@ -5899,21 +5809,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Protection.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getCellXfByIndex\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getParent\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet but returns PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"

@@ -132,17 +132,15 @@ class Style extends Supervisor
             $xfIndex = 0;
         }
 
-        return $this->parent->getCellXfByIndex($xfIndex);
+        return $activeSheet->getParent()->getCellXfByIndex($xfIndex);
     }
 
     /**
      * Get parent. Only used for style supervisor.
-     *
-     * @return Spreadsheet
      */
-    public function getParent()
+    public function getParent(): Spreadsheet
     {
-        return $this->parent;
+        return $this->getActiveSheet()->getParent();
     }
 
     /**

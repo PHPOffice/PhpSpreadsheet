@@ -111,7 +111,10 @@ class Alignment extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getAlignment();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getAlignment();
     }
 
     /**
