@@ -104,7 +104,10 @@ class NumberFormat extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getNumberFormat();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getNumberFormat();
     }
 
     /**
@@ -157,7 +160,7 @@ class NumberFormat extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFormatCode();
         }
-        if ($this->builtInFormatCode !== false) {
+        if (is_int($this->builtInFormatCode)) {
             return self::builtInFormatCode($this->builtInFormatCode);
         }
 
@@ -352,7 +355,7 @@ class NumberFormat extends Supervisor
      *
      * @param string $formatCodeIndex
      *
-     * @return bool|int
+     * @return false|int
      */
     public static function builtInFormatCodeIndex($formatCodeIndex)
     {

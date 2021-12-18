@@ -107,6 +107,13 @@ class BaseDrawing implements IComparable
     private $hyperlink;
 
     /**
+     * Image type.
+     *
+     * @var int
+     */
+    protected $type;
+
+    /**
      * Create a new BaseDrawing.
      */
     public function __construct()
@@ -123,6 +130,7 @@ class BaseDrawing implements IComparable
         $this->resizeProportional = true;
         $this->rotation = 0;
         $this->shadow = new Drawing\Shadow();
+        $this->type = IMAGETYPE_UNKNOWN;
 
         // Set image index
         ++self::$imageCounter;
@@ -525,5 +533,29 @@ class BaseDrawing implements IComparable
     public function getHyperlink()
     {
         return $this->hyperlink;
+    }
+
+    /**
+     * Set Fact Sizes and Type of Image.
+     */
+    protected function setSizesAndType(string $path): void
+    {
+        if ($this->width == 0 && $this->height == 0 && $this->type == IMAGETYPE_UNKNOWN) {
+            $imageData = getimagesize($path);
+
+            if (is_array($imageData)) {
+                $this->width = $imageData[0];
+                $this->height = $imageData[1];
+                $this->type = $imageData[2];
+            }
+        }
+    }
+
+    /**
+     * Get Image Type.
+     */
+    public function getType(): int
+    {
+        return $this->type;
     }
 }
