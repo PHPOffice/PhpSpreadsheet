@@ -1914,12 +1914,10 @@ class Worksheet implements IComparable
 
     /**
      * Remove autofilter.
-     *
-     * @return $this
      */
-    public function removeAutoFilter()
+    public function removeAutoFilter(): self
     {
-        $this->autoFilter->setRange(null);
+        $this->autoFilter->setRange('');
 
         return $this;
     }

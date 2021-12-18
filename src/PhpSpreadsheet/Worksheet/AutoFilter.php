@@ -93,13 +93,9 @@ class AutoFilter
     }
 
     /**
-     * Set AutoFilter Range.
-     *
-     * @param string $range Cell range (i.e. A1:E10)
-     *
-     * @return $this
+     * Set AutoFilter Cell Range.
      */
-    public function setRange($range)
+    public function setRange(string $range): self
     {
         $this->evaluated = false;
         // extract coordinate
