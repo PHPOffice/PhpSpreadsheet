@@ -371,7 +371,7 @@ class Worksheet implements IComparable
         $this->defaultRowDimension = new RowDimension(null);
         // Default column dimension
         $this->defaultColumnDimension = new ColumnDimension(null);
-        $this->autoFilter = new AutoFilter(null, $this);
+        $this->autoFilter = new AutoFilter('', $this);
     }
 
     /**
