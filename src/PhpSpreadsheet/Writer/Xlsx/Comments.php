@@ -178,6 +178,12 @@ class Comments extends WriterPart
         // v:fill
         $objWriter->startElement('v:fill');
         $objWriter->writeAttribute('color2', '#' . $comment->getFillColor()->getRGB());
+        if ($comment->hasBackgroundImage()) {
+            $bgImage = $comment->getBackgroundImage();
+            $objWriter->writeAttribute('o:relid', 'rId' . $bgImage->getImageIndex());
+            $objWriter->writeAttribute('o:title', $bgImage->getName());
+            $objWriter->writeAttribute('type', 'frame');
+        }
         $objWriter->endElement();
 
         // v:shadow
