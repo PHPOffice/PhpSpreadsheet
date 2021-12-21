@@ -1689,7 +1689,7 @@ class Xlsx extends BaseReader
                             $objText->getFont()->setSize((float) $attr['val']);
                         }
                         $attr = $run->rPr->color->attributes();
-                        if (count($attr) > 0) {
+                        if ($attr && $attr->count() > 0) {
                             $objText->getFont()->setColor(new Color($this->styleReader->readColor($attr)));
                         }
                         if (isset($run->rPr->b)) {
