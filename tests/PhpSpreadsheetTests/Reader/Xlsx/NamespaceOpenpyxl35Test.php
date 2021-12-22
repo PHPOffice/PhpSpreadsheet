@@ -61,7 +61,10 @@ class NamespaceOpenpyxl35Test extends \PHPUnit\Framework\TestCase
     {
         $result = $sheet->getCell($cell)->getValue();
 
-        return (string) $result;
+        // Phpstan doesn't allow cast from mixed to string,
+        // and also doesn't allow us to put line in a try block,
+        // because it thinks (incorrectly) that nothing can be thrown.
+        return (string) $result; // @phpstan-ignore-line
     }
 
     public function testLoadXlsx(): void

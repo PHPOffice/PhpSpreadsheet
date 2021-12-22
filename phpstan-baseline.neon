@@ -8531,16 +8531,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Namespace.Issue2109bTest.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Namespace.Openpyxl35Test.php
-
-		-
 			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/PropertiesTest.php
