@@ -60,11 +60,11 @@ class NamespaceIssue2109bTest extends \PHPUnit\Framework\TestCase
     private static function getCellValue(Worksheet $sheet, string $cell): string
     {
         $result = $sheet->getCell($cell)->getValue();
+        if (is_scalar($result) || (is_object($result) && method_exists($result, '__toString'))) {
+            return (string) $result;
+        }
 
-        // Phpstan doesn't allow cast from mixed to string,
-        // and also doesn't allow us to put line in a try block,
-        // because it thinks (incorrectly) that nothing can be thrown.
-        return (string) $result; // @phpstan-ignore-line
+        return '';
     }
 
     public function testLoadXlsx(): void
