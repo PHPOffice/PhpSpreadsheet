@@ -8416,16 +8416,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/NamedRangeTest.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Csv\\\\CsvContiguousFilter\\:\\:\\$startRow \\(int\\) does not accept mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Csv/CsvContiguousFilter.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Csv/CsvContiguousTest.php
-
-		-
 			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsPropertiesTest.php
