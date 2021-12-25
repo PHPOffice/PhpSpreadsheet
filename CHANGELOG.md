@@ -5,13 +5,76 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Unreleased - TBD
+
+### Added
+
+- Ability to add a picture to the background of the comment. Supports four image formats: png, jpeg, gif, bmp. A Comment method setSizeAsBackgroundImage for changing the size of a comment to the size of an background image. [Issue #1547](https://github.com/PHPOffice/PhpSpreadsheet/issues/1547) [PR #2422](https://github.com/PHPOffice/PhpSpreadsheet/pull/2422)
+- Ability to set default paper size and orientation
+[PR #2410](https://github.com/PHPOffice/PhpSpreadsheet/pull/2410)
+- Ability to extend AutoFilter to Maximum Row
+[PR #2414](https://github.com/PHPOffice/PhpSpreadsheet/pull/2414)
+
+### Changed
+
+- Xlsx Writer will evaluate AutoFilter only if it is as yet unevaluated, or has changed since it was last evaluated.
+[PR #2414](https://github.com/PHPOffice/PhpSpreadsheet/pull/2414)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Rounding in NumberFormatter
+[Issue #2385](https://github.com/PHPOffice/PhpSpreadsheet/issues/2385)
+[PR #2399](https://github.com/PHPOffice/PhpSpreadsheet/pull/2399)
+- Support for Themes
+[Issue #2075](https://github.com/PHPOffice/PhpSpreadsheet/issues/2075)
+[Issue #2387](https://github.com/PHPOffice/PhpSpreadsheet/issues/2387)
+[PR #2403](https://github.com/PHPOffice/PhpSpreadsheet/pull/2403)
+- Read Spreadsheet with `#` in Name
+[Issue #2405](https://github.com/PHPOffice/PhpSpreadsheet/issues/2405)
+[PR #2409](https://github.com/PHPOffice/PhpSpreadsheet/pull/2409)
+- Improve PDF Support for Page Size and Orientation
+[Issue #1691](https://github.com/PHPOffice/PhpSpreadsheet/issues/1691)
+[PR #2410](https://github.com/PHPOffice/PhpSpreadsheet/pull/2410)
+- Wildcard Handling Issues in Text Match
+[Issue #2430](https://github.com/PHPOffice/PhpSpreadsheet/issues/2430)
+[PR #2431](https://github.com/PHPOffice/PhpSpreadsheet/pull/2431)
+- Respect DataType in insertNewBefore
+[PR #2433](https://github.com/PHPOffice/PhpSpreadsheet/pull/2433)
+- Handle Rows Explicitly Hidden After AutoFilter
+[Issue #1641](https://github.com/PHPOffice/PhpSpreadsheet/issues/1641)
+[PR #2414](https://github.com/PHPOffice/PhpSpreadsheet/pull/2414)
+- Special Characters in Image File Name
+[Issue #1470](https://github.com/PHPOffice/PhpSpreadsheet/issues/1470)
+[Issue #2415](https://github.com/PHPOffice/PhpSpreadsheet/issues/2415)
+[PR #2416](https://github.com/PHPOffice/PhpSpreadsheet/pull/2416)
+- Mpdf With Very Many Styles
+[Issue #2432](https://github.com/PHPOffice/PhpSpreadsheet/issues/2432)
+[PR #2434](https://github.com/PHPOffice/PhpSpreadsheet/pull/2434)
+- Name Clashes Between Parsed and Unparsed Drawings
+[Issue #1767](https://github.com/PHPOffice/PhpSpreadsheet/issues/1767)
+[Issue #2396](https://github.com/PHPOffice/PhpSpreadsheet/issues/2396)
+[PR #2423](https://github.com/PHPOffice/PhpSpreadsheet/pull/2423)
+- Fill Pattern Start and End Colors
+[Issue #2441](https://github.com/PHPOffice/PhpSpreadsheet/issues/2441)
+[PR #2444](https://github.com/PHPOffice/PhpSpreadsheet/pull/2444)
+- General Style Specified in Wrong Case
+[Issue #2450](https://github.com/PHPOffice/PhpSpreadsheet/issues/2450)
+[PR #2451](https://github.com/PHPOffice/PhpSpreadsheet/pull/2451)
+
 ## 1.20.0 - 2021-11-23
 
 ### Added
 
 - Xlsx Writer Support for WMF Files [#2339](https://github.com/PHPOffice/PhpSpreadsheet/issues/2339)
 - Use standard temporary file for internal use of HTMLPurifier [#2383](https://github.com/PHPOffice/PhpSpreadsheet/issues/2383)
-- Ability to add a picture to the background of the comment. Supports four image formats: png, jpeg, gif, bmp. A Comment method setSizeAsBackgroundImage for changing the size of a comment to the size of an background image. [Issue #1547](https://github.com/PHPOffice/PhpSpreadsheet/issues/1547) [PR #2422](https://github.com/PHPOffice/PhpSpreadsheet/pull/2422)
 
 ### Changed
 
@@ -65,7 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- PHP 8.1 will deprecate auto_detect_line_endings. As a result of this change, Csv Reader using PHP8.1+ will no longer be able to handle a Csv with Mac line endings.
+- PHP 8.1 will deprecate auto_detect_line_endings. As a result of this change, Csv Reader using some release after PHP8.1 will no longer be able to handle a Csv with Mac line endings.
 
 ### Removed
 
