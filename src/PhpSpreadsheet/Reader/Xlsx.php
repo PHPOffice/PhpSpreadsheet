@@ -132,6 +132,42 @@ class Xlsx extends BaseReader
         return self::testSimpleXml($rels);
     }
 
+    private function loadStyleZip(string $filename, string $ns = ''): SimpleXMLElement
+    {
+        // With the following:
+        //    <x:styleSheet xmlns:x="whatever"...
+        // simplexml_load_file specifying namespace works fine,
+        // but xpath on the result does not. I can't figure out
+        // how to make xpath work in this circumstance, but I can
+        // manipulate the xml to the far more usual:
+        //    <stylesheet xmlns="whatever"...
+        // Ugly, but arguably serviceable.
+        $xml = $this->getFromZipArchive($this->zip, $filename);
+        $xmlns = " xmlns=\"$ns\"";
+        if (strpos($xml, $xmlns) === false) {
+            $pattern = "~ xmlns:([A-Za-z0-9_]+)=\"$ns\"~";
+            if (preg_match($pattern, $xml, $matches) === 1) {
+                $pattern = "~ xmlns:${matches[1]}=~";
+                $repl = preg_replace($pattern, ' xmlns=', $xml);
+                if (is_string($repl)) {
+                    $pattern = "~<(/?)${matches[1]}:~";
+                    $repl = preg_replace($pattern, '<$1', $repl);
+                }
+                if (is_string($repl)) {
+                    $xml = $repl;
+                }
+            }
+        }
+        $rels = simplexml_load_string(
+            $this->securityScanner->scan($xml),
+            'SimpleXMLElement',
+            0,
+            $ns
+        );
+
+        return self::testSimpleXml($rels);
+    }
+
     // This function is just to identify cases where I'm not sure
     // why empty namespace is required.
     private function loadZipNonamespace(string $filename, string $ns): SimpleXMLElement
@@ -538,11 +574,10 @@ class Xlsx extends BaseReader
                     if ($xpath === null) {
                         $xmlStyles = self::testSimpleXml(null);
                     } else {
-                        // I think Nonamespace is okay because I'm using xpath.
-                        $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+                        $xmlStyles = $this->loadStyleZip("$dir/$xpath[Target]", $mainNS);
                     }
 
-                    $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
+                    $xmlStyles->registerXPathNamespace('smm', $mainNS);
                     $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
                     $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
                     $borders = self::xpathNoFalse($xmlStyles, 'smm:borders/smm:border');
@@ -558,6 +593,7 @@ class Xlsx extends BaseReader
                     if (isset($numFmts) && ($numFmts !== null)) {
                         $numFmts->registerXPathNamespace('sml', $mainNS);
                     }
+                    $this->styleReader->setNamespace($mainNS);
                     if (!$this->readDataOnly/* && $xmlStyles*/) {
                         foreach ($xfTags as $xfTag) {
                             $xf = self::getAttributes($xfTag);
@@ -642,6 +678,7 @@ class Xlsx extends BaseReader
                         }
                     }
                     $this->styleReader->setStyleXml($xmlStyles);
+                    $this->styleReader->setNamespace($mainNS);
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
                     $styles = $this->styleReader->styles();
