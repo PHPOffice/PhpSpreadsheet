@@ -41,10 +41,20 @@ class Styles extends BaseParserClass
         $this->namespace = $namespace;
     }
 
+    /**
+     * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
+     *
+     * @param mixed $value
+     */
+    private static function castBool($value): bool
+    {
+        return (bool) $value;
+    }
+
     private function getStyleAttributes(SimpleXMLElement $value): SimpleXMLElement
     {
         $attr = null;
-        if ($value) {
+        if (self::castBool($value)) {
             $attr = $value->attributes('');
             if ($attr === null || count($attr) === 0) {
                 $attr = $value->attributes($this->namespace);

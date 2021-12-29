@@ -148,12 +148,10 @@ class Xlsx extends BaseReader
             $pattern = "~ xmlns:([A-Za-z0-9_]+)=\"$ns\"~";
             if (preg_match($pattern, $xml, $matches) === 1) {
                 $pattern = "~ xmlns:${matches[1]}=~";
-                $repl = preg_replace($pattern, ' xmlns=', $xml);
-                if (is_string($repl)) {
-                    $pattern = "~<(/?)${matches[1]}:~";
-                    $repl = preg_replace($pattern, '<$1', $repl);
-                }
-                if (is_string($repl)) {
+                $repl = Worksheet::pregReplace($pattern, ' xmlns=', $xml);
+                $pattern = "~<(/?)${matches[1]}:~";
+                $repl = Worksheet::pregReplace($pattern, '<$1', $repl);
+                if ($repl !== '') {
                     $xml = $repl;
                 }
             }
