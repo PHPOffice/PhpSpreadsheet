@@ -541,28 +541,11 @@ class Xlsx extends BaseReader
                         $xmlStyles = $this->loadZip("$dir/$xpath[Target]", $mainNS);
                     }
 
-                    $fills = [];
-                    $fonts = [];
-                    $borders = [];
-                    $xfTags = [];
-                    $cellXfTags = [];
-                    if (count($xmlStyles) > 0) {
-                        foreach ($xmlStyles->fills->fill as $fill) {
-                            $fills[] = $fill;
-                        }
-                        foreach ($xmlStyles->fonts->font as $font) {
-                            $fonts[] = $font;
-                        }
-                        foreach ($xmlStyles->borders->border as $border) {
-                            $borders[] = $border;
-                        }
-                        foreach ($xmlStyles->cellXfs->xf as $xf) {
-                            $xfTags[] = $xf;
-                        }
-                        foreach ($xmlStyles->cellStyleXfs->xf as $xf) {
-                            $cellXfTags[] = $xf;
-                        }
-                    }
+                    $fills = self::extractStyles($xmlStyles, 'fills', 'fill');
+                    $fonts = self::extractStyles($xmlStyles, 'fonts', 'font');
+                    $borders = self::extractStyles($xmlStyles, 'borders', 'border');
+                    $xfTags = self::extractStyles($xmlStyles, 'cellXfs', 'xf');
+                    $cellXfTags = self::extractStyles($xmlStyles, 'cellStyleXfs', 'xf');
 
                     $styles = [];
                     $cellStyles = [];
@@ -2093,5 +2076,17 @@ class Xlsx extends BaseReader
                 }
             }
         }
+    }
+
+    private static function extractStyles(?SimpleXMLElement $sxml, string $node1, string $node2): array
+    {
+        $array = [];
+        if ($sxml && $sxml->{$node1}->{$node2}) {
+            foreach ($sxml->{$node1}->{$node2} as $node) {
+                $array[] = $node;
+            }
+        }
+
+        return $array;
     }
 }
