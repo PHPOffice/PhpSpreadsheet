@@ -7931,26 +7931,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XirrTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:COLUMN\\(\\) expects array\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/ColumnTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/OffsetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:ROW\\(\\) expects array\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/RowTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$matrixData of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:TRANSPOSE\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/TransposeTest.php
-
-		-
 			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
@@ -8219,11 +8199,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/UpperTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/LookupRefTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, mixed given\\.$#"

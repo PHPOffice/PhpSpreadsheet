@@ -2,27 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PHPUnit\Framework\TestCase;
 
-class ColumnTest extends TestCase
+class ColumnTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOLUMN
      *
      * @param mixed $expectedResult
-     * @param null|mixed $cellReference
+     * @param null|array|string $cellReference
      */
     public function testCOLUMN($expectedResult, $cellReference = null): void
     {
-        $result = LookupRef::COLUMN($cellReference);
+        $result = LookupRef\RowColumnInformation::COLUMN($cellReference);
         self::assertSame($expectedResult, $result);
     }
 
@@ -33,14 +25,15 @@ class ColumnTest extends TestCase
 
     public function testCOLUMNwithNull(): void
     {
-        $cell = $this->getMockBuilder(Cell::class)
-            ->onlyMethods(['getColumn'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cell->method('getColumn')
-            ->willReturn('D');
-
-        $result = LookupRef::COLUMN(null, $cell);
-        self::assertSame(4, $result);
+        $sheet = $this->getSheet();
+        $sheet->getCell('D1')->setValue('=COLUMN()');
+        self::assertSame(4, $sheet->getCell('D1')->getCalculatedValue());
+        $sheet->getCell('D2')->setValue('=COLUMN(C13)');
+        self::assertSame(3, $sheet->getCell('D2')->getCalculatedValue());
+        // Sheetnames don't have to exist
+        $sheet->getCell('D3')->setValue('=COLUMN(Sheet17!E15)');
+        self::assertSame(5, $sheet->getCell('D3')->getCalculatedValue());
+        $sheet->getCell('D4')->setValue("=COLUMN('Worksheet #5'!X500)");
+        self::assertSame(24, $sheet->getCell('D4')->getCalculatedValue());
     }
 }
