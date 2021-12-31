@@ -50,10 +50,8 @@ class AutoFilter
 
     /**
      * Create a new AutoFilter.
-     *
-     * @param string $range Cell range (i.e. A1:E10)
      */
-    public function __construct($range = '', ?Worksheet $worksheet = null)
+    public function __construct(string $range = '', ?Worksheet $worksheet = null)
     {
         $this->range = $range;
         $this->workSheet = $worksheet;
@@ -93,13 +91,9 @@ class AutoFilter
     }
 
     /**
-     * Set AutoFilter Range.
-     *
-     * @param string $range Cell range (i.e. A1:E10)
-     *
-     * @return $this
+     * Set AutoFilter Cell Range.
      */
-    public function setRange($range)
+    public function setRange(string $range): self
     {
         $this->evaluated = false;
         // extract coordinate
