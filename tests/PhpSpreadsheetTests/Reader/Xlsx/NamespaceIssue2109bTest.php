@@ -60,8 +60,11 @@ class NamespaceIssue2109bTest extends \PHPUnit\Framework\TestCase
     private static function getCellValue(Worksheet $sheet, string $cell): string
     {
         $result = $sheet->getCell($cell)->getValue();
+        if (is_scalar($result) || (is_object($result) && method_exists($result, '__toString'))) {
+            return (string) $result;
+        }
 
-        return (string) $result;
+        return '';
     }
 
     public function testLoadXlsx(): void
