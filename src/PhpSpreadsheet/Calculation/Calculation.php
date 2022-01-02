@@ -5229,13 +5229,22 @@ class Calculation
         return $result;
     }
 
-    private static function returnFalseAfterTrigger(?bool $value): bool
+    /**
+     * @param mixed $value
+     *
+     * @return false|string
+     */
+    private static function returnFalseAfterTrigger($value)
     {
-        return $value === null;
+        return is_string($value) ? $value : false;
     }
 
-    // trigger an error, but nicely, if need be
-    protected function raiseFormulaError($errorMessage)
+    /**
+     * Trigger an error, but nicely, if need be.
+     *
+     * @return false
+     */
+    protected function raiseFormulaError(string $errorMessage)
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
@@ -5243,7 +5252,9 @@ class Calculation
             throw new Exception($errorMessage);
         }
 
-        return self::returnFalseAfterTrigger(trigger_error($errorMessage, E_USER_ERROR));
+        self::returnFalseAfterTrigger(trigger_error($errorMessage, E_USER_ERROR));
+
+        return false;
     }
 
     /**
