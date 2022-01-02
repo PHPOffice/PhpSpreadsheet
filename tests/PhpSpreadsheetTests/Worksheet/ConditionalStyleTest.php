@@ -3,15 +3,15 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class ConditionalStyleTest extends TestCase
 {
     protected $spreadsheet;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -59,7 +59,7 @@ class ConditionalStyleTest extends TestCase
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->conditionalStylesExists($cellReference);
 
-        $this->assertSame($expectedHasConditionalStyles, $cellHasConditionalStyles);
+        self::assertSame($expectedHasConditionalStyles, $cellHasConditionalStyles);
     }
 
     /**
@@ -69,7 +69,7 @@ class ConditionalStyleTest extends TestCase
     {
         $cellHasConditionalStyles = $this->spreadsheet->getActiveSheet()->getConditionalStyles($cellReference);
 
-        $this->assertSame($expectedGetConditionalStyles, !empty($cellHasConditionalStyles));
+        self::assertSame($expectedGetConditionalStyles, !empty($cellHasConditionalStyles));
     }
 
     public function cellConditionalStylesProvider(): array
