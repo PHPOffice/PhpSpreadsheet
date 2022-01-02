@@ -1433,7 +1433,9 @@ class Worksheet implements IComparable
      * Get conditional styles for a cell.
      *
      * @param string $coordinate eg: 'A1' or 'A1:A3'.
-     *          If a range of cells is specified, then true will only be returned if the range matches the entire
+     *          If a single cell is referenced, then the array of conditional styles will be returned if the cell is
+     *               included in a conditional style range.
+     *          If a range of cells is specified, then the styles will only be returned if the range matches the entire
      *               range of the conditional.
      *
      * @return Conditional[]
@@ -1459,6 +1461,8 @@ class Worksheet implements IComparable
      * Do conditional styles exist for this cell?
      *
      * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a single cell is specified, then this method will return true if that cell is included in a
+     *               conditional style range.
      *          If a range of cells is specified, then true will only be returned if the range matches the entire
      *               range of the conditional.
      *
