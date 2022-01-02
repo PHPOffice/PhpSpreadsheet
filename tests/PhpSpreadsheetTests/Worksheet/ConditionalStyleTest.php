@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class ConditionalStyleTest extends TestCase
 {
+    /**
+     * @var Spreadsheet
+     */
     protected $spreadsheet;
 
     protected function setUp(): void
