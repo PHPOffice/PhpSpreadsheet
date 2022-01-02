@@ -1432,30 +1432,53 @@ class Worksheet implements IComparable
     /**
      * Get conditional styles for a cell.
      *
-     * @param string $coordinate eg: 'A1'
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a range of cells is specified, then true will only be returned if the range matches the entire
+     *               range of the conditional.
      *
      * @return Conditional[]
      */
     public function getConditionalStyles($coordinate)
     {
         $coordinate = strtoupper($coordinate);
-        if (!isset($this->conditionalStylesCollection[$coordinate])) {
-            $this->conditionalStylesCollection[$coordinate] = [];
+        if (strpos($coordinate, ':') !== false) {
+            return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
-        return $this->conditionalStylesCollection[$coordinate];
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $this->conditionalStylesCollection[$conditionalRange];
+            }
+        }
+
+        return [];
     }
 
     /**
      * Do conditional styles exist for this cell?
      *
-     * @param string $coordinate eg: 'A1'
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a range of cells is specified, then true will only be returned if the range matches the entire
+     *               range of the conditional.
      *
      * @return bool
      */
     public function conditionalStylesExists($coordinate)
     {
-        return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        $coordinate = strtoupper($coordinate);
+        if (strpos($coordinate, ':') !== false) {
+            return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        }
+
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
