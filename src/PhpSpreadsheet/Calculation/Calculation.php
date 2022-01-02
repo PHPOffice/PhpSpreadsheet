@@ -5229,6 +5229,11 @@ class Calculation
         return $result;
     }
 
+    private static function returnFalseAfterTrigger(?bool $value): bool
+    {
+        return $value === null;
+    }
+
     // trigger an error, but nicely, if need be
     protected function raiseFormulaError($errorMessage)
     {
@@ -5237,9 +5242,8 @@ class Calculation
         if (!$this->suppressFormulaErrors) {
             throw new Exception($errorMessage);
         }
-        trigger_error($errorMessage, E_USER_ERROR);
 
-        return false;
+        return self::returnFalseAfterTrigger(trigger_error($errorMessage, E_USER_ERROR));
     }
 
     /**
