@@ -25,7 +25,7 @@ class CalculationErrorTest extends TestCase
         $error = false;
 
         try {
-            $result = $calculation->_calculateFormulaValue('=SUM(');
+            $calculation->_calculateFormulaValue('=SUM(');
         } catch (Throwable $e) {
             self::assertSame("Formula Error: Expecting ')'", $e->getMessage());
             self::assertSame('PHPUnit\\Framework\\Error\\Error', get_class($e));

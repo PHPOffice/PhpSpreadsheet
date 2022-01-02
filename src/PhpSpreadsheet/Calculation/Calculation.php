@@ -5230,16 +5230,6 @@ class Calculation
     }
 
     /**
-     * @param mixed $value
-     *
-     * @return false|string
-     */
-    private static function returnFalseAfterTrigger($value)
-    {
-        return is_string($value) ? $value : false;
-    }
-
-    /**
      * Trigger an error, but nicely, if need be.
      *
      * @return false
@@ -5252,7 +5242,9 @@ class Calculation
             throw new Exception($errorMessage);
         }
 
-        self::returnFalseAfterTrigger(trigger_error($errorMessage, E_USER_ERROR));
+        if (strlen($errorMessage) > 0) {
+            trigger_error($errorMessage, E_USER_ERROR);
+        }
 
         return false;
     }
