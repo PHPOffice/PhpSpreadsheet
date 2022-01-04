@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -547,6 +548,25 @@ class Cell
     public function getStyle()
     {
         return $this->getWorksheet()->getStyle($this->getCoordinate());
+    }
+
+    /**
+     * Get cell style.
+     *
+     * @return Style
+     */
+    public function getAppliedStyle()
+    {
+        if ($this->getWorksheet()->conditionalStylesExists($this->getCoordinate()) === false) {
+            return $this->getStyle();
+        }
+
+        $cellStyle = $this->getStyle();
+        $conditionals = $this->getWorksheet()->getConditionalStyles($this->getCoordinate());
+
+        $matcher = new CellMatcher($this, $cellStyle, $conditionals);
+
+        return $matcher->matchConditions();
     }
 
     /**
