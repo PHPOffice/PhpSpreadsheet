@@ -24,11 +24,8 @@ class CsvContiguousFilter implements IReadFilter
 
     /**
      * Set the list of rows that we want to read.
-     *
-     * @param mixed $startRow
-     * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize): void
+    public function setRows(int $startRow, int $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
