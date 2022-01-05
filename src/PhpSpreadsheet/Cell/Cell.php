@@ -561,12 +561,12 @@ class Cell
             return $this->getStyle();
         }
 
-        $cellStyle = $this->getStyle();
+        $matcher = new CellMatcher($this, $this->getStyle());
+
+        $conditionalRange = $this->getWorksheet()->getConditionalRange($this->getCoordinate());
         $conditionals = $this->getWorksheet()->getConditionalStyles($this->getCoordinate());
 
-        $matcher = new CellMatcher($this, $cellStyle, $conditionals);
-
-        return $matcher->matchConditions();
+        return $matcher->matchConditions($conditionalRange, $conditionals);
     }
 
     /**

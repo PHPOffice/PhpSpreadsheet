@@ -16,12 +16,16 @@ class Conditional implements IComparable
     const CONDITION_NOTCONTAINSBLANKS = 'notContainsBlanks';
     const CONDITION_DATABAR = 'dataBar';
     const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
+    const CONDITION_BEGINSWITH = 'beginsWith';
+    const CONDITION_ENDSWITH = 'endsWith';
 
     private const CONDITION_TYPES = [
+        self::CONDITION_BEGINSWITH,
         self::CONDITION_CELLIS,
         self::CONDITION_CONTAINSBLANKS,
         self::CONDITION_CONTAINSTEXT,
         self::CONDITION_DATABAR,
+        self::CONDITION_ENDSWITH,
         self::CONDITION_EXPRESSION,
         self::CONDITION_NONE,
         self::CONDITION_NOTCONTAINSBLANKS,

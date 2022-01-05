@@ -1418,7 +1418,7 @@ class Worksheet implements IComparable
      *
      * @return Style
      */
-    public function getStyle($cellCoordinate)
+    public function getStyle($cellCoordinate): Style
     {
         // set this sheet as active
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
@@ -1440,7 +1440,7 @@ class Worksheet implements IComparable
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles($coordinate)
+    public function getConditionalStyles($coordinate): array
     {
         $coordinate = strtoupper($coordinate);
         if (strpos($coordinate, ':') !== false) {
@@ -1457,6 +1457,19 @@ class Worksheet implements IComparable
         return [];
     }
 
+    public function getConditionalRange($coordinate): ?string
+    {
+        $coordinate = strtoupper($coordinate);
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $conditionalRange;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Do conditional styles exist for this cell?
      *
@@ -1468,7 +1481,7 @@ class Worksheet implements IComparable
      *
      * @return bool
      */
-    public function conditionalStylesExists($coordinate)
+    public function conditionalStylesExists($coordinate): bool
     {
         $coordinate = strtoupper($coordinate);
         if (strpos($coordinate, ':') !== false) {
