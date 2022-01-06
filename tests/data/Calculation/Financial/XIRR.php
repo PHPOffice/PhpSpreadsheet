@@ -60,6 +60,13 @@ return [
         0.1,
     ],
     [
+        '#VALUE!',
+        'Return VALUE error if guess is non-numeric',
+        [1893.67, 139947.43, 52573.25, 48849.74, 26369.16, -273029.18],
+        ['2019-06-27', '2019-06-20', '2019-06-21', '2019-06-24', '2019-06-27', '2019-07-27'],
+        'XYZ',
+    ],
+    [
         0.137963527441025,
         'Dates can be in any order after all',
         [1893.67, 139947.43, 52573.25, 48849.74, 26369.16, -273029.18],
@@ -119,9 +126,38 @@ return [
         0.00000,
     ],
     [
+        0.13796353,
+        'Substitute when guess is empty cell',
+        [139947.43, 1893.67, 52573.25, 48849.74, 26369.16, -273029.18],
+        ['2019-06-20', '2019-06-27', '2019-06-21', '2019-06-24', '2019-06-27', '2019-07-27'],
+        'C1',
+    ],
+    [
         '#NUM!',
         'Can\'t find a result2 that works after FINANCIAL_MAX_ITERATIONS tries, the #NUM! error value is returned',
         [-10000, 10000, -10000, 5],
         ['2010-01-15', '2010-04-16', '2010-07-16', '2010-10-15'],
+    ],
+    [
+        -0.642307613,
+        'See issue #2469 - non-convergence with initial guess',
+        [55600, -51094.83],
+        ['2021-11-24', '2021-12-24'],
+    ],
+    [
+        -0.642307613,
+        'See issue #2469 - non-convergence with initial guess equal to correct answer',
+        [55600, -51094.83],
+        ['2021-11-24', '2021-12-24'],
+        -0.642307613,
+    ],
+    [
+        'exception',
+        'Only one argument should cause exception',
+        ['2021-11-24', '2021-12-24'],
+    ],
+    [
+        'exception',
+        'No argument should cause exception',
     ],
 ];
