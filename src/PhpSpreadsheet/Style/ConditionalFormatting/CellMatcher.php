@@ -90,9 +90,13 @@ class CellMatcher
             case Conditional::CONDITION_ENDSWITH:
                 // Expression is RIGHT(<Cell Reference>,LEN("<TEXT>"))="<TEXT>"
             case Conditional::CONDITION_CONTAINSBLANKS:
-                // Expression is LEN(TRIM(A8))=0
+                // Expression is LEN(TRIM(<Cell Reference>))=0
             case Conditional::CONDITION_NOTCONTAINSBLANKS:
-                // Expression is LEN(TRIM(A8))>0
+                // Expression is LEN(TRIM(<Cell Reference>))>0
+            case Conditional::CONDITION_CONTAINSERRORS:
+                // Expression is ISERROR(<Cell Reference>)
+            case Conditional::CONDITION_NOTCONTAINSERRORS:
+                // Expression is NOT(ISERROR(<Cell Reference>))
             case Conditional::CONDITION_EXPRESSION:
                 return $this->processExpression($conditional);
         }
@@ -142,11 +146,21 @@ var_dump("{$column}{$row}");
 
     protected function cellConditionCheck($condition)
     {
-        return preg_replace_callback(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
-            [$this, 'conditionCellAdjustment'],
-            $condition
-        );
+        $splitCondition = explode(Calculation::FORMULA_STRING_QUOTE, $condition);
+        $i = false;
+        foreach ($splitCondition as &$value) {
+            //    Only count/replace in alternating array entries (ie. not in quoted strings)
+            if ($i = !$i) {
+                $value = preg_replace_callback(
+                    '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
+                    [$this, 'conditionCellAdjustment'],
+                    $value
+                );
+            }
+        }
+        unset($value);
+        //    Then rebuild the condition string to return it
+        return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
     protected function adjustConditionsForCellReferences(array $conditions)
@@ -197,11 +211,12 @@ var_dump("{$column}{$row}");
         $expression = "={$expression}";
 var_dump($expression);
         try {
+            $this->engine->flushInstance();
             $result = $this->engine->calculateFormula($expression);
         } catch (Exception $e) {
             return false;
         }
-
+var_dump($result);
         return $result;
     }
 }
