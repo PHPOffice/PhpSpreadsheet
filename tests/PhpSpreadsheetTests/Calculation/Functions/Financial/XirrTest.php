@@ -55,7 +55,7 @@ class XirrTest extends AllSetupTeardown
         $result = $sheet->getCell('D1')->getCalculatedValue();
         $this->adjustResult($result, $expectedResult);
 
-        self::assertEquals($expectedResult, $result, $message);
+        self::assertEqualsWithDelta($expectedResult, $result, 0.1E-7, $message);
     }
 
     public function providerXIRR(): array
