@@ -124,6 +124,13 @@
 <dd>Autofilter Column Ruleset.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#property_evaluated">$evaluated</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#property_range">$range</a>
     <span>
                 &nbsp;: string            </span>
@@ -195,6 +202,13 @@ referenced as a property of its parent.</dd>
 <dd>Get all AutoFilter Columns.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_getEvaluated">getEvaluated()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_getParent">getParent()</a>
     <span>
                         &nbsp;: null|<a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>    </span>
@@ -216,6 +230,13 @@ referenced as a property of its parent.</dd>
 <dd>Set AutoFilter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setEvaluated">setEvaluated()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setParent">setParent()</a>
     <span>
                         &nbsp;: $this    </span>
@@ -225,9 +246,16 @@ referenced as a property of its parent.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setRange">setRange()</a>
     <span>
-                        &nbsp;: $this    </span>
+                        &nbsp;: self    </span>
 </dt>
-<dd>Set AutoFilter Range.</dd>
+<dd>Set AutoFilter Cell Range.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setRangeToMaxRow">setRangeToMaxRow()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_shiftColumn">shiftColumn()</a>
@@ -437,7 +465,7 @@ referenced as a property of its parent.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">495</span>
+    <span class="phpdocumentor-element-found-in__line">521</span>
 </aside>
 
     
@@ -487,6 +515,37 @@ referenced as a property of its parent.</dd>
         <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column">Column</abbr></a>&gt;</span>
     <span class="phpdocumentor-signature__name">$columns</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_evaluated">
+        $evaluated
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#property_evaluated" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$evaluated</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -577,7 +636,7 @@ referenced as a property of its parent.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1012</span>
+    <span class="phpdocumentor-element-found-in__line">1039</span>
 </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
@@ -611,7 +670,7 @@ referenced as a property of its parent.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new AutoFilter.</p>
@@ -629,9 +688,7 @@ referenced as a property of its parent.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Cell range (i.e. A1:E10)</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$worksheet</span>
@@ -664,7 +721,7 @@ referenced as a property of its parent.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1041</span>
+    <span class="phpdocumentor-element-found-in__line">1068</span>
 </aside>
 
         <p class="phpdocumentor-summary">toString method replicates previous behavior by returning the range if object is
@@ -699,7 +756,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">231</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clear a specified AutoFilter Column.</p>
@@ -745,7 +802,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">168</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified AutoFilter Column.</p>
@@ -791,7 +848,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">209</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified AutoFilter Column by it&#039;s offset.</p>
@@ -837,7 +894,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified AutoFilter Column Offset within the defined AutoFilter range.</p>
@@ -884,7 +941,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get all AutoFilter Columns.</p>
@@ -911,6 +968,38 @@ referenced as a property of its parent.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getEvaluated">
+        getEvaluated()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_getEvaluated" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getEvaluated</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getParent">
         getParent()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_getParent" class="headerlink"><i class="fas fa-link"></i></a>
@@ -918,7 +1007,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get AutoFilter Parent Worksheet.</p>
@@ -952,7 +1041,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get AutoFilter Range.</p>
@@ -986,7 +1075,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter.</p>
@@ -1025,6 +1114,48 @@ referenced as a property of its parent.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setEvaluated">
+        setEvaluated()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setEvaluated" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">46</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setEvaluated</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setParent">
         setParent()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setParent" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1032,7 +1163,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter Parent Worksheet.</p>
@@ -1076,14 +1207,14 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Set AutoFilter Range.</p>
+        <p class="phpdocumentor-summary">Set AutoFilter Cell Range.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1094,16 +1225,46 @@ referenced as a property of its parent.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Cell range (i.e. A1:E10)</p>
-</section>
-
+                
             </dd>
             </dl>
 
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setRangeToMaxRow">
+        setRangeToMaxRow()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_setRangeToMaxRow" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">126</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setRangeToMaxRow</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1122,7 +1283,7 @@ referenced as a property of its parent.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">254</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 </aside>
 
         <p class="phpdocumentor-summary">Shift an AutoFilter Column Rule to a different column.</p>
@@ -1180,7 +1341,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">773</span>
+    <span class="phpdocumentor-element-found-in__line">799</span>
 </aside>
 
         <p class="phpdocumentor-summary">Apply the AutoFilter rules to the AutoFilter Range.</p>
@@ -1214,7 +1375,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Validate that the specified column is in the AutoFilter range.</p>
@@ -1261,7 +1422,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">746</span>
+    <span class="phpdocumentor-element-found-in__line">772</span>
 </aside>
 
         <p class="phpdocumentor-summary">Apply the AutoFilter rules to the AutoFilter Range.</p>
@@ -1338,7 +1499,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">711</span>
+    <span class="phpdocumentor-element-found-in__line">737</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a dynamic rule daterange to a custom filter range expression for ease of calculation.</p>
@@ -1390,7 +1551,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">540</span>
 </aside>
 
     
@@ -1422,7 +1583,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">539</span>
+    <span class="phpdocumentor-element-found-in__line">565</span>
 </aside>
 
     
@@ -1454,7 +1615,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">548</span>
+    <span class="phpdocumentor-element-found-in__line">574</span>
 </aside>
 
     
@@ -1486,7 +1647,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">561</span>
+    <span class="phpdocumentor-element-found-in__line">587</span>
 </aside>
 
     
@@ -1518,7 +1679,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">571</span>
+    <span class="phpdocumentor-element-found-in__line">597</span>
 </aside>
 
     
@@ -1550,7 +1711,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">585</span>
+    <span class="phpdocumentor-element-found-in__line">611</span>
 </aside>
 
     
@@ -1582,7 +1743,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">595</span>
+    <span class="phpdocumentor-element-found-in__line">621</span>
 </aside>
 
     
@@ -1614,7 +1775,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">608</span>
+    <span class="phpdocumentor-element-found-in__line">634</span>
 </aside>
 
     
@@ -1646,7 +1807,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">618</span>
+    <span class="phpdocumentor-element-found-in__line">644</span>
 </aside>
 
     
@@ -1678,7 +1839,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">631</span>
+    <span class="phpdocumentor-element-found-in__line">657</span>
 </aside>
 
     
@@ -1710,7 +1871,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">640</span>
+    <span class="phpdocumentor-element-found-in__line">666</span>
 </aside>
 
     
@@ -1742,7 +1903,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">653</span>
+    <span class="phpdocumentor-element-found-in__line">679</span>
 </aside>
 
     
@@ -1774,7 +1935,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">663</span>
+    <span class="phpdocumentor-element-found-in__line">689</span>
 </aside>
 
     
@@ -1806,7 +1967,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">673</span>
+    <span class="phpdocumentor-element-found-in__line">699</span>
 </aside>
 
     
@@ -1838,7 +1999,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">684</span>
+    <span class="phpdocumentor-element-found-in__line">710</span>
 </aside>
 
     
@@ -1870,7 +2031,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">694</span>
+    <span class="phpdocumentor-element-found-in__line">720</span>
 </aside>
 
     
@@ -1902,7 +2063,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">343</span>
+    <span class="phpdocumentor-element-found-in__line">369</span>
 </aside>
 
         <p class="phpdocumentor-summary">Test if cell value is within a set of values defined by a ruleset.</p>
@@ -1955,7 +2116,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">299</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 </aside>
 
         <p class="phpdocumentor-summary">Test if cell value is in the defined set of Excel date values.</p>
@@ -2008,7 +2169,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">468</span>
+    <span class="phpdocumentor-element-found-in__line">494</span>
 </aside>
 
         <p class="phpdocumentor-summary">Test if cell date value is matches a set of values defined by a set of months.</p>
@@ -2061,7 +2222,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 </aside>
 
         <p class="phpdocumentor-summary">Test if cell value is in the defined set of values.</p>
@@ -2114,7 +2275,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">527</span>
+    <span class="phpdocumentor-element-found-in__line">553</span>
 </aside>
 
     
@@ -2146,7 +2307,7 @@ Use with caution.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">486</span>
+    <span class="phpdocumentor-element-found-in__line">512</span>
 </aside>
 
     

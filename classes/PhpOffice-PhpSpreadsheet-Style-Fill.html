@@ -297,7 +297,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#property_parent">$parent</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>            </span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Supervisor">Supervisor</abbr></a>            </span>
 </dt>
 <dd>Parent. Only used for supervisor.</dd>
 
@@ -321,6 +321,13 @@
                 &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a>            </span>
 </dt>
 <dd>Start color.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_colorChanged">$colorChanged</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method___clone">__clone()</a>
@@ -370,6 +377,13 @@
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>    </span>
 </dt>
 <dd>Get the currently active sheet. Only used for supervisor.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getColorsChanged">getColorsChanged()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getEndColor">getEndColor()</a>
@@ -1201,7 +1215,7 @@ extends this class.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Supervisor">Supervisor</abbr></a></span>
     <span class="phpdocumentor-signature__name">$parent</span>
     </code>
 
@@ -1267,7 +1281,7 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">float</span>
     <span class="phpdocumentor-signature__name">$rotation</span>
-     = <span class="phpdocumentor-signature__default-value">0</span></code>
+     = <span class="phpdocumentor-signature__default-value">0.0</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1300,6 +1314,37 @@ extends this class.</dd>
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Color.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Color">Color</abbr></a></span>
     <span class="phpdocumentor-signature__name">$startColor</span>
     </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_colorChanged">
+        $colorChanged
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#property_colorChanged" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">69</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$colorChanged</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1360,7 +1405,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Fill.</p>
@@ -1419,7 +1464,7 @@ its ramifications are</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 </aside>
 
         <p class="phpdocumentor-summary">Apply styles from array.</p>
@@ -1432,7 +1477,7 @@ its ramifications are</p>
 $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
     [
         'fillType' => Fill::FILL_GRADIENT_LINEAR,
-        'rotation' => 0,
+        'rotation' => 0.0,
         'startColor' => [
             'rgb' => '000000'
         ],
@@ -1486,7 +1531,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">bindParent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parentPropertyName</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">bindParent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Supervisor">Supervisor</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parent</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parentPropertyName</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1494,7 +1539,7 @@ $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$parent</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Supervisor">Supervisor</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -1632,6 +1677,38 @@ NumberFormat, Protection, and Style.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getColorsChanged">
+        getColorsChanged()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getColorsChanged" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">302</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getColorsChanged</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getEndColor">
         getEndColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-Fill.html#method_getEndColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1639,7 +1716,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get End Color.</p>
@@ -1673,7 +1750,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Fill Type.</p>
@@ -1707,7 +1784,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">299</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get hash code.</p>
@@ -1776,7 +1853,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Rotation.</p>
@@ -1846,7 +1923,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
@@ -1881,7 +1958,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">239</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Start Color.</p>
@@ -1915,7 +1992,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 </aside>
 
         <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
@@ -1960,7 +2037,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">279</span>
+    <span class="phpdocumentor-element-found-in__line">286</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set End Color.</p>
@@ -2004,7 +2081,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Fill Type.</p>
@@ -2050,7 +2127,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">228</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Rotation.</p>
@@ -2095,7 +2172,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Start Color.</p>
@@ -2139,7 +2216,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Fill.php"><a href="files/src-phpspreadsheet-style-fill.html"><abbr title="src/PhpSpreadsheet/Style/Fill.php">Fill.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">315</span>
+    <span class="phpdocumentor-element-found-in__line">335</span>
 </aside>
 
         <p class="phpdocumentor-summary">Abstract method to be implemented in anything which
