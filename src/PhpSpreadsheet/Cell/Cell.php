@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -545,7 +545,7 @@ class Cell
      *
      * @return Style
      */
-    public function getStyle()
+    public function getStyle(): Style
     {
         return $this->getWorksheet()->getStyle($this->getCoordinate());
     }
@@ -555,18 +555,15 @@ class Cell
      *
      * @return Style
      */
-    public function getAppliedStyle()
+    public function getAppliedStyle(): Style
     {
         if ($this->getWorksheet()->conditionalStylesExists($this->getCoordinate()) === false) {
             return $this->getStyle();
         }
 
-        $matcher = new CellMatcher($this, $this->getStyle());
+        $matcher = new CellStyleAssessor($this, $this->getWorksheet()->getConditionalRange($this->getCoordinate()));
 
-        $conditionalRange = $this->getWorksheet()->getConditionalRange($this->getCoordinate());
-        $conditionals = $this->getWorksheet()->getConditionalStyles($this->getCoordinate());
-
-        return $matcher->matchConditions($conditionalRange, $conditionals);
+        return $matcher->matchConditions($this->getWorksheet()->getConditionalStyles($this->getCoordinate()));
     }
 
     /**
