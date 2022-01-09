@@ -51,12 +51,12 @@ class ConditionalStyles
 
     private function setConditionalStyles(Worksheet $worksheet, array $conditionals, $xmlExtLst): void
     {
-        foreach ($conditionals as $ref => $cfRules) {
+        foreach ($conditionals as $cellRangeReference => $cfRules) {
             ksort($cfRules);
             $conditionalStyles = $this->readStyleRules($cfRules, $xmlExtLst);
 
-            // Extract all cell references in $ref
-            $cellBlocks = explode(' ', str_replace('$', '', strtoupper($ref)));
+            // Extract all cell references in $cellRangeReference
+            $cellBlocks = explode(' ', str_replace('$', '', strtoupper($cellRangeReference)));
             foreach ($cellBlocks as $cellBlock) {
                 $worksheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
             }

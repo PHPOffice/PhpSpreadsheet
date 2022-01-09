@@ -70,7 +70,7 @@ class CellMatcher
 
     protected function setReferenceCellForExpressions(string $conditionalRange)
     {
-        $conditionalRange = Coordinate::splitRange(str_replace('$', '', $conditionalRange));
+        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
         [$this->referenceCell] = $conditionalRange[0];
 
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
@@ -97,6 +97,12 @@ class CellMatcher
                 // Expression is ISERROR(<Cell Reference>)
             case Conditional::CONDITION_NOTCONTAINSERRORS:
                 // Expression is NOT(ISERROR(<Cell Reference>))
+            case Conditional::CONDITION_TIMEPERIOD:
+                // Expression varies, depending on specified timePeriod value
+                // Yesterday FLOOR(<Cell Reference>,1)=TODAY()-1
+                // Today FLOOR(<Cell Reference>,1)=TODAY()
+                // Tomorrow FLOOR(<Cell Reference>,1)=TODAY()+1
+                // Last 7 Days AND(TODAY()-FLOOR(<Cell Reference>,1)<=6,FLOOR(<Cell Reference>,1)<=TODAY())
             case Conditional::CONDITION_EXPRESSION:
                 return $this->processExpression($conditional);
         }

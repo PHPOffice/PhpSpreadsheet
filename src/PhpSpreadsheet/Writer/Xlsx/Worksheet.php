@@ -470,7 +470,6 @@ class Worksheet extends WriterPart
     {
         if (
             $conditional->getConditionType() == Conditional::CONDITION_CELLIS
-            || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
             || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
         ) {
             foreach ($conditional->getConditions() as $formula) {
@@ -483,6 +482,12 @@ class Worksheet extends WriterPart
         } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
             // formula copied from ms xlsx xml source file
             $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSERRORS) {
+            // formula copied from ms xlsx xml source file
+            $objWriter->writeElement('formula', 'ISERROR(' . $cellCoordinate . ')');
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSERRORS) {
+            // formula copied from ms xlsx xml source file
+            $objWriter->writeElement('formula', 'NOT(ISERROR(' . $cellCoordinate . '))');
         }
     }
 
@@ -601,57 +606,58 @@ class Worksheet extends WriterPart
 
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
+            $objWriter->startElement('conditionalFormatting');
+            $objWriter->writeAttribute('sqref', $cellCoordinate);
+
             foreach ($conditionalStyles as $conditional) {
                 // WHY was this again?
                 // if ($this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode()) == '') {
                 //    continue;
                 // }
-                if ($conditional->getConditionType() != Conditional::CONDITION_NONE) {
-                    // conditionalFormatting
-                    $objWriter->startElement('conditionalFormatting');
-                    $objWriter->writeAttribute('sqref', $cellCoordinate);
+                // cfRule
+                $objWriter->startElement('cfRule');
+                $objWriter->writeAttribute('type', $conditional->getConditionType());
+                self::writeAttributeIf(
+                    $objWriter,
+                    ($conditional->getConditionType() != Conditional::CONDITION_DATABAR),
+                    'dxfId',
+                    (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
+                );
+                $objWriter->writeAttribute('priority', $id++);
 
-                    // cfRule
-                    $objWriter->startElement('cfRule');
-                    $objWriter->writeAttribute('type', $conditional->getConditionType());
-                    self::writeAttributeIf(
-                        $objWriter,
-                        ($conditional->getConditionType() != Conditional::CONDITION_DATABAR),
-                        'dxfId',
-                        (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
-                    );
-                    $objWriter->writeAttribute('priority', $id++);
-
-                    self::writeAttributeif(
-                        $objWriter,
-                        (
-                            $conditional->getConditionType() === Conditional::CONDITION_CELLIS
-                            || $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
-                            || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
-                        ) && $conditional->getOperatorType() !== Conditional::OPERATOR_NONE,
-                        'operator',
-                        $conditional->getOperatorType()
-                    );
-
-                    self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
-
-                    if (
-                        $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
+                self::writeAttributeif(
+                    $objWriter,
+                    (
+                        $conditional->getConditionType() === Conditional::CONDITION_CELLIS
+                        || $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
                         || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
-                    ) {
-                        self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
-                    } else {
-                        self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
-                    }
+                        || $conditional->getConditionType() === Conditional::CONDITION_BEGINSWITH
+                        || $conditional->getConditionType() === Conditional::CONDITION_ENDSWITH
+                    ) && $conditional->getOperatorType() !== Conditional::OPERATOR_NONE,
+                    'operator',
+                    $conditional->getOperatorType()
+                );
 
-                    //<dataBar>
-                    self::writeDataBarElements($objWriter, $conditional->getDataBar());
+                self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
 
-                    $objWriter->endElement(); //end cfRule
-
-                    $objWriter->endElement();
+                if (
+                    $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
+                    || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
+                    || $conditional->getConditionType() === Conditional::CONDITION_BEGINSWITH
+                    || $conditional->getConditionType() === Conditional::CONDITION_ENDSWITH
+                ) {
+                    self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
+                } else {
+                    self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
                 }
+
+                //<dataBar>
+                self::writeDataBarElements($objWriter, $conditional->getDataBar());
+
+                $objWriter->endElement(); //end cfRule
             }
+
+            $objWriter->endElement(); //end conditionalFormatting
         }
     }
 

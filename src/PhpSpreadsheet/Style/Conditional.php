@@ -20,6 +20,7 @@ class Conditional implements IComparable
     const CONDITION_NOTCONTAINSBLANKS = 'notContainsBlanks';
     const CONDITION_NOTCONTAINSERRORS = 'notContainsErrors';
     const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
+    const CONDITION_TIMEPERIOD = 'timePeriod';
 
     private const CONDITION_TYPES = [
         self::CONDITION_BEGINSWITH,
@@ -34,6 +35,7 @@ class Conditional implements IComparable
         self::CONDITION_NOTCONTAINSBLANKS,
         self::CONDITION_NOTCONTAINSERRORS,
         self::CONDITION_NOTCONTAINSTEXT,
+        self::CONDITION_TIMEPERIOD,
     ];
 
     // Operator types
