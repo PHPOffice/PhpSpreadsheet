@@ -53,6 +53,11 @@ class Conditional implements IComparable
     const OPERATOR_BETWEEN = 'between';
     const OPERATOR_NOTBETWEEN = 'notBetween';
 
+    const TIMEPERIOD_TODAY = 'today';
+    const TIMEPERIOD_YESTERDAY = 'yesterday';
+    const TIMEPERIOD_TOMORROW = 'tomorrow';
+    const TIMEPERIOD_LAST_7_DAYS = 'last7Days';
+
     /**
      * Condition type.
      *

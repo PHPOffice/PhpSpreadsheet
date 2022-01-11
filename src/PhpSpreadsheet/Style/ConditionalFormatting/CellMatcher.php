@@ -193,8 +193,9 @@ var_dump("{$column}{$row}");
     protected function processRangeOperator(Conditional $conditional): bool
     {
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
+        sort($conditions);
         $expression = sprintf(
-            str_replace('A1', $this->wrapCellValue(), self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]),
+            preg_replace('/\bA1\b/i', $this->wrapCellValue(), self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]),
             ...$conditions
         );
 
@@ -207,7 +208,7 @@ var_dump("{$column}{$row}");
         var_dump($conditions);
         $expression = array_pop($conditions);
 
-        $expression = str_replace($this->referenceCell, $this->wrapCellValue(), $expression);
+        $expression = preg_replace('/\b' . $this->referenceCell . '\b/i', $this->wrapCellValue(), $expression);
 
         return $this->evaluateExpression($expression);
     }

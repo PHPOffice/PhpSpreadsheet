@@ -66,8 +66,12 @@ class CellValue extends WizardAbstract
 
     protected function wrapValue($value, $isCellReference)
     {
-        if (!is_numeric($value) && !is_bool($value) && !is_null($value) && $isCellReference === false) {
-            return '"' . $value . '"';
+        if (!is_numeric($value) && !is_bool($value) && !is_null($value)) {
+            if ($isCellReference === false) {
+                return '"' . $value . '"';
+            }
+
+            return $this->cellConditionCheck($value);
         }
 
         return $value;

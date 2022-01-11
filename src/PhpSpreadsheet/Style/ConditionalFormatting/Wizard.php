@@ -12,6 +12,8 @@ class Wizard
     const NOT_BLANKS = Conditional::CONDITION_NOTCONTAINSBLANKS;
     const ERRORS = Conditional::CONDITION_CONTAINSERRORS;
     const NOT_ERRORS = Conditional::CONDITION_NOTCONTAINSERRORS;
+    const EXPRESSION = Conditional::CONDITION_EXPRESSION;
+    const DATES_OCCURING = 'DateValue';
 
     /**
      * @var string $cellRange
@@ -38,6 +40,10 @@ class Wizard
                 return new Wizard\Errors($this->cellRange, true);
             case self::NOT_ERRORS:
                 return new Wizard\Errors($this->cellRange, false);
+            case self::EXPRESSION:
+                return new Wizard\Expression($this->cellRange);
+            case self::DATES_OCCURING:
+                return new Wizard\DateValue($this->cellRange);
             default:
                 throw new \Exception('No wizard exists for this rule type');
         }

@@ -50,6 +50,20 @@ $conditionalStyles[] = $conditional;
 $spreadsheet->getActiveSheet()->getStyle('A1:A10')->setConditionalStyles($conditionalStyles);
 ```
 
+Since PHPSpreadsheet verson 1.22.0 there is also a wizard that can assist with creating Conditional Formatting rules:
+
+```php
+$wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('A1:A10');
+$wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
+$wizard->greaterThan(80);
+$wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
+$wizard->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+
+$conditional = $wizard->getConditional();
+```
+The wizard knows which operator types match up with condition types, and provides more meaningful method names for operators, and builds expressions when required; and it also works well with an IDE.
+
+
 Note that `$conditionalStyles` is an array: it is possible to apply several conditions to the same range of cells. If we also wanted to highlight values that were less than 10 in the the A1:A10 range, we can add a second style rule.
 
 In Excel, we would do this by selecting the range again, and going through the same process, this time selecting the "Highlight Cells Rules", then "Less Than" from the "Conditional Styles" menu, entering the value "10" in the prompt box, and selecting the appropriate style.
@@ -69,3 +83,9 @@ $conditionalStyles[] = $conditional2;
 
 $spreadsheet->getActiveSheet()->getStyle('A1:A10')->setConditionalStyles($conditionalStyles);
 ```
+
+Condition Type | Wizard Type | Operator Type | Wizard Operators
+---|---|---|---
+Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
+ | | | Conditional::OPERATOR_NOT_EQUAL | notEquals()
+

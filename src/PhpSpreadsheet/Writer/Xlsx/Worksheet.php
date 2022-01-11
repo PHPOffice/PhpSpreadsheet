@@ -491,6 +491,23 @@ class Worksheet extends WriterPart
         }
     }
 
+    private static function writeTimePeriodCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
+    {
+        $txt = $conditional->getText();
+        if ($txt !== null) {
+            $objWriter->writeAttribute('timePeriod', $txt);
+            if ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TODAY) {
+                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()');
+            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TOMORROW) {
+                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()+1');
+            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_YESTERDAY) {
+                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()-1');
+            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_LAST_7_DAYS) {
+                $objWriter->writeElement('formula', 'AND(TODAY()-FLOOR(' . $cellCoordinate . ',1)<=6,FLOOR(' . $cellCoordinate . ',1)<=TODAY())');
+            }
+        }
+    }
+
     private static function writeTextCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
@@ -647,6 +664,10 @@ class Worksheet extends WriterPart
                     || $conditional->getConditionType() === Conditional::CONDITION_ENDSWITH
                 ) {
                     self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
+                } elseif (
+                    $conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD
+                ) {
+                    self::writeTimePeriodCondElements($objWriter, $conditional, $cellCoordinate);
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
                 }

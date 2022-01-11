@@ -108,5 +108,7 @@ class TextValue extends WizardAbstract
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);
         $this->operand(...$arguments);
+
+        return $this;
     }
 }

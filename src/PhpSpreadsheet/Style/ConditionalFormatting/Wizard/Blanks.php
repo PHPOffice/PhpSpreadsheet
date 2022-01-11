@@ -5,6 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+/**
+ * @method Blanks not()
+ */
 class Blanks extends WizardAbstract
 {
     protected const OPERATORS = [
@@ -24,15 +27,25 @@ class Blanks extends WizardAbstract
     {
         parent::__construct($cellRange);
         $this->inverse = $inverse;
+    }
 
+    protected function inverse(bool $inverse)
+    {
+        $this->inverse = $inverse;
+    }
+
+    protected function getExpression()
+    {
         $this->expression = sprintf(
-            self::EXPRESSIONS[$inverse ? Wizard::BLANKS : Wizard::NOT_BLANKS],
+            self::EXPRESSIONS[$this->inverse ? Wizard::BLANKS : Wizard::NOT_BLANKS],
             $this->referenceCell
         );
     }
 
     public function getConditional()
     {
+        $this->getExpression();
+
         $conditional = new Conditional();
         $conditional->setConditionType(
             $this->inverse
@@ -43,5 +56,20 @@ class Blanks extends WizardAbstract
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+    /**
+     * @param $methodName
+     * @param $arguments
+     */
+    public function __call($methodName, $arguments)
+    {
+        if ($methodName !== 'not') {
+            throw new \Exception('Invalid Operation for Blanks CF Rule Wizard');
+        }
+
+        $this->inverse(false);
+
+        return $this;
     }
 }

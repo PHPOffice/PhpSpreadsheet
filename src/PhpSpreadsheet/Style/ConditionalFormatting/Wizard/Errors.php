@@ -5,6 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+/**
+ * @method Errors not()
+ */
 class Errors extends WizardAbstract
 {
     protected const OPERATORS = [
@@ -24,15 +27,25 @@ class Errors extends WizardAbstract
     {
         parent::__construct($cellRange);
         $this->inverse = $inverse;
+    }
 
+    protected function inverse(bool $inverse)
+    {
+        $this->inverse = $inverse;
+    }
+
+    protected function getExpression()
+    {
         $this->expression = sprintf(
-            self::EXPRESSIONS[$inverse ? Wizard::ERRORS : Wizard::NOT_ERRORS],
+            self::EXPRESSIONS[$this->inverse ? Wizard::ERRORS : Wizard::NOT_ERRORS],
             $this->referenceCell
         );
     }
 
     public function getConditional()
     {
+        $this->getExpression();
+
         $conditional = new Conditional();
         $conditional->setConditionType(
             $this->inverse
@@ -43,5 +56,21 @@ class Errors extends WizardAbstract
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+
+    /**
+     * @param $methodName
+     * @param $arguments
+     */
+    public function __call($methodName, $arguments)
+    {
+        if ($methodName !== 'not') {
+            throw new \Exception('Invalid Operation for Errors CF Rule Wizard');
+        }
+
+        $this->inverse(false);
+
+        return $this;
     }
 }
