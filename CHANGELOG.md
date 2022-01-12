@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Next
+
+### Changed
+- Replace ezyang/htmlpurifier (LGPL2.1) with tgalopin/html-sanitizer (MIT) due to more permissive license
+
 ## 1.21.0 - 2022-01-06
 
 ### Added
