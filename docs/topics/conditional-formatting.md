@@ -214,11 +214,13 @@ $wizard->equals('AVERAGE($B1:$C1)', Wizard::VALUE_TYPE_FORMULA);
 
 For the `TextValue` Wizard, we always need to provide an operator and a value.
 
-Condition Type | Wizard Type | Operator Type | Wizard Operators
----|---|---|---
+Condition Type | Wizard Type | Operator Type | Wizard Operators | Notes
+---|---|---|---|---
 Conditional::CONDITION_CONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_CONTAINSTEXT | contains()
 Conditional::CONDITION_NOTCONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_NOTCONTAINS | doesNotContain()
+| | |  | doesntContain() | synonym for `doesNotContain()`
 Conditional::CONDITION_BEGINSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_BEGINSWITH | beginsWith()
+| | |  | startsWith() | synonym for `beginsWith()`
 Conditional::CONDITION_ENDSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_ENDSWITH | endsWith()
 
 The Conditional actually uses a separate "Condition Type" for each, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these condition rules.

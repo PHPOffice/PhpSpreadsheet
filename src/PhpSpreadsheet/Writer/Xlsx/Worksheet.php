@@ -494,7 +494,6 @@ class Worksheet extends WriterPart
     private static function writeTimePeriodCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
-        var_dump($txt, $conditional->getConditions());
         if ($txt !== null && empty($conditional->getConditions())) {
             $objWriter->writeAttribute('timePeriod', $txt);
             if ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TODAY) {
@@ -512,7 +511,6 @@ class Worksheet extends WriterPart
     private static function writeTextCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
-        var_dump($txt, $conditional->getConditions());
         if ($txt !== null) {
             $objWriter->writeAttribute('text', $txt);
             if (empty($conditional->getConditions())) {
@@ -525,8 +523,9 @@ class Worksheet extends WriterPart
                 } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_NOTCONTAINS) {
                     $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $txt . '",' . $cellCoordinate . '))');
                 }
+            } else {
+                $objWriter->writeElement('formula', $conditional->getConditions()[0]);
             }
-            $objWriter->writeElement('formula', $conditional->getConditions()[0]);
         }
     }
 

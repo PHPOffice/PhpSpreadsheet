@@ -9,15 +9,19 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 /**
  * @method TextValue contains(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  * @method TextValue doesNotContain(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method TextValue doesntContain(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  * @method TextValue beginsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method TextValue startsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  * @method TextValue endsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  */
 class TextValue extends WizardAbstract
 {
     protected const MAGIC_OPERATIONS = [
         'contains' => Conditional::OPERATOR_CONTAINSTEXT,
+        'doesntContain' => Conditional::OPERATOR_NOTCONTAINS,
         'doesNotContain' => Conditional::OPERATOR_NOTCONTAINS,
         'beginsWith' => Conditional::OPERATOR_BEGINSWITH,
+        'startsWith' => Conditional::OPERATOR_BEGINSWITH,
         'endsWith' => Conditional::OPERATOR_ENDSWITH,
     ];
 
@@ -75,7 +79,7 @@ class TextValue extends WizardAbstract
     {
         $operand = $this->operandValueType === Wizard::VALUE_TYPE_LITERAL
             ? $this->wrapValue($this->operand)
-            : $this->operand;
+            : $this->cellConditionCheck($this->operand);
 
         if (
             $this->operator === Conditional::OPERATOR_CONTAINSTEXT ||
@@ -94,7 +98,11 @@ class TextValue extends WizardAbstract
         $conditional = new Conditional();
         $conditional->setConditionType(self::OPERATORS[$this->operator]);
         $conditional->setOperatorType($this->operator);
-        $conditional->setText($this->operand);
+        $conditional->setText(
+            $this->operandValueType !== Wizard::VALUE_TYPE_LITERAL
+                ? $this->cellConditionCheck($this->operand)
+                : $this->operand
+        );
         $conditional->setConditions($this->expression);
         $conditional->setStyle($this->getStyle());
 

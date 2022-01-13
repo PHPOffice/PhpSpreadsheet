@@ -43,14 +43,14 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
-        $textWizard->contains('$A$1', Wizard::VALUE_TYPE_CELL);
+        $textWizard->contains('$A1', Wizard::VALUE_TYPE_CELL);
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSTEXT, $conditional->getConditionType());
         self:self::assertSame(Conditional::OPERATOR_CONTAINSTEXT, $conditional->getOperatorType());
-        self::assertSame('', $conditional->getText());
+        self::assertSame('$A3', $conditional->getText());
         $conditions = $conditional->getConditions();
-        self::assertSame(['NOT(ISERROR(SEARCH($A$1,C3)))'], $conditions);
+        self::assertSame(['NOT(ISERROR(SEARCH($A3,C3)))'], $conditions);
     }
 
     public function testTextNotContainsWizardWithText(): void
