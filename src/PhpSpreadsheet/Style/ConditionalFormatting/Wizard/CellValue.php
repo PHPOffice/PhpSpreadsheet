@@ -60,13 +60,21 @@ class CellValue extends WizardAbstract
         $this->operator = $operator;
     }
 
-    protected function operand($index, $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
+    /**
+     * @param mixed $operand
+     */
+    protected function operand(int $index, $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
         $this->operand[$index] = $operand;
         $this->operandValueType[$index] = $operandValueType;
     }
 
-    protected function wrapValue($value, $operandValueType)
+    /**
+     * @param mixed $value
+     *
+     * @return bool|int|string|null
+     */
+    protected function wrapValue($value, string $operandValueType)
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {

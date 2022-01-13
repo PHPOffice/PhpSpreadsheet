@@ -25,10 +25,10 @@ class DateValueWizardTest extends TestCase
     public function testDateValueWizard(string $operator, string $expectedReference, string $expectedExpression): void
     {
         $ruleType = Wizard::DATES_OCCURRING;
-        /** @var Wizard\DateValue $wizard */
+        /** @var Wizard\DateValue $dateWizard */
         $dateWizard = $this->wizardFactory->newRule($ruleType);
 
-        call_user_func([$dateWizard, $operator]);
+        $dateWizard->$operator();
 
         $conditional = $dateWizard->getConditional();
         self::assertSame(Conditional::CONDITION_TIMEPERIOD, $conditional->getConditionType());

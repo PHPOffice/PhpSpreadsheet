@@ -66,7 +66,7 @@ class TextValue extends WizardAbstract
         $this->operandValueType = $operandValueType;
     }
 
-    protected function wrapValue($value): string
+    protected function wrapValue(string $value): string
     {
         return '"' . $value . '"';
     }
