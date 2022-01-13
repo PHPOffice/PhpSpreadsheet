@@ -21,8 +21,9 @@ class WizardFactoryTest extends TestCase
 
     /**
      * @dataProvider basicWizardFactoryProvider
+     * @param class-string<object> $expectedWizard
      */
-    public function testBasicWizardFactory(string $ruleType, string $expectedWizard): void
+    public function testBasicWizardFactory(string $ruleType, $expectedWizard): void
     {
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf($expectedWizard, $wizard);

@@ -7,11 +7,14 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
- * @method Errors not()
+ * @method Errors notError()
+ * @method Errors isError()
  */
 class Errors extends WizardAbstract
 {
     protected const OPERATORS = [
+        'notError' => false,
+        'isError' => true,
     ];
 
     private const EXPRESSIONS = [
@@ -63,11 +66,11 @@ class Errors extends WizardAbstract
      */
     public function __call($methodName, $arguments): self
     {
-        if ($methodName !== 'not') {
+        if (!array_key_exists($methodName, self::OPERATORS)) {
             throw new Exception('Invalid Operation for Errors CF Rule Wizard');
         }
 
-        $this->inverse(false);
+        $this->inverse(self::OPERATORS[$methodName]);
 
         return $this;
     }

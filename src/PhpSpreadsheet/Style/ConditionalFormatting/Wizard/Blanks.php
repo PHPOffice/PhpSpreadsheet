@@ -7,11 +7,14 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
- * @method Blanks not()
+ * @method Blanks notBlank()
+ * @method Blanks isBlank()
  */
 class Blanks extends WizardAbstract
 {
     protected const OPERATORS = [
+        'notBlank' => false,
+        'isBlank' => true,
     ];
 
     private const EXPRESSIONS = [
@@ -63,11 +66,11 @@ class Blanks extends WizardAbstract
      */
     public function __call($methodName, $arguments): self
     {
-        if ($methodName !== 'not') {
+        if (!array_key_exists($methodName, self::OPERATORS)) {
             throw new Exception('Invalid Operation for Blanks CF Rule Wizard');
         }
 
-        $this->inverse(false);
+        $this->inverse(self::OPERATORS[$methodName]);
 
         return $this;
     }

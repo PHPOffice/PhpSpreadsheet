@@ -45,18 +45,31 @@ class ErrorWizardTest extends TestCase
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
     }
 
-    public function testErrorWizardNot(): void
+    public function testErrorWizardNotError(): void
     {
         $ruleType = Wizard::ERRORS;
         /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
-        self::assertInstanceOf(Wizard\Errors::class, $wizard);
 
-        $wizard->not();
+        $wizard->notError();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSERRORS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
+    }
+
+    public function testErrorWizardIsError(): void
+    {
+        $ruleType = Wizard::NOT_ERRORS;
+        /** @var Wizard\Errors $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->isError();
+
+        $conditional = $wizard->getConditional();
+        self::assertSame(Conditional::CONDITION_CONTAINSERRORS, $conditional->getConditionType());
+        $conditions = $conditional->getConditions();
+        self::assertSame(['ISERROR(C3)'], $conditions);
     }
 }

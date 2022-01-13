@@ -137,7 +137,10 @@ class CellMatcher
         return $this->wrapValue($this->cell->getCalculatedValue());
     }
 
-    protected function conditionCellAdjustment(array $matches): string
+    /**
+     * @return mixed
+     */
+    protected function conditionCellAdjustment(array $matches)
     {
         var_dump($matches);
         $column = $matches[6];

@@ -2,7 +2,9 @@
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 require __DIR__ . '/../Header.php';
@@ -43,33 +45,34 @@ $betweenDataArray = [
     [4, 3, 8],
 ];
 
-$spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2', true);
-$spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A10', true);
-$spreadsheet->getActiveSheet()->fromArray($betweenDataArray, null, 'A18', true);
-$spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A24', true);
-$spreadsheet->getActiveSheet()->setCellValue('H9', 1);
+$spreadsheet->getActiveSheet()
+    ->fromArray($dataArray, null, 'A2', true)
+    ->fromArray($dataArray, null, 'A10', true)
+    ->fromArray($betweenDataArray, null, 'A18', true)
+    ->fromArray($dataArray, null, 'A24', true)
+    ->setCellValue('H9', 1);
 
 // Set title row bold
 $helper->log('Set title row bold');
-$spreadsheet->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
-$spreadsheet->getActiveSheet()->getStyle('A9:D9')->getFont()->setBold(true);
-$spreadsheet->getActiveSheet()->getStyle('A17:D17')->getFont()->setBold(true);
-$spreadsheet->getActiveSheet()->getStyle('A23:D23')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A1:EC1')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A9:E9')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A17:E17')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A23:E23')->getFont()->setBold(true);
 
 // Define some styles
 $helper->log('Define some styles');
 $yellowStyle = new Style();
 $yellowStyle->getFill()
-    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+    ->setFillType(Fill::FILL_SOLID)
+    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
 $greenStyle = new Style();
 $greenStyle->getFill()
-    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+    ->setFillType(Fill::FILL_SOLID)
+    ->getEndColor()->setARGB(Color::COLOR_GREEN);
 $redStyle = new Style();
 $redStyle->getFill()
-    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+    ->setFillType(Fill::FILL_SOLID)
+    ->getEndColor()->setARGB(Color::COLOR_RED);
 
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
@@ -78,59 +81,62 @@ $helper->log('Define conditional formatting and set styles');
 $cellRange = 'A2:E5';
 $conditionalStyles = [];
 $wizardFactory = new Wizard($cellRange);
-$wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-$wizard->equals(0)
+$cellWizard->equals(0)
     ->setStyle($yellowStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->greaterThan(0)
+$cellWizard->greaterThan(0)
     ->setStyle($greenStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->lessThan(0)
+$cellWizard->lessThan(0)
     ->setStyle($redStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
 $spreadsheet->getActiveSheet()
-    ->getStyle($wizard->getCellRange())
+    ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 
 // Set rules for Value Comparison with Absolute Cell Reference $H$9
 $cellRange = 'A10:E13';
 $conditionalStyles = [];
 $wizardFactory = new Wizard($cellRange);
-$wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-$wizard->equals('$H$9', Wizard::VALUE_TYPE_CELL)
+$cellWizard->equals('$H$9', Wizard::VALUE_TYPE_CELL)
     ->setStyle($yellowStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->greaterThan('$H$9', Wizard::VALUE_TYPE_CELL)
+$cellWizard->greaterThan('$H$9', Wizard::VALUE_TYPE_CELL)
     ->setStyle($greenStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->lessThan('$H$9', Wizard::VALUE_TYPE_CELL)
+$cellWizard->lessThan('$H$9', Wizard::VALUE_TYPE_CELL)
     ->setStyle($redStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
 $spreadsheet->getActiveSheet()
-    ->getStyle($wizard->getCellRange())
+    ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 
 // Set rules for Value Comparison with Relative Cell References
 $cellRange = 'A18:A20';
 $conditionalStyles = [];
 $wizardFactory = new Wizard($cellRange);
-$wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-$wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
+$cellWizard->between('$B1', Wizard::VALUE_TYPE_CELL)
     ->and('$C1', Wizard::VALUE_TYPE_CELL)
     ->setStyle($greenStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
 $spreadsheet->getActiveSheet()
-    ->getStyle($wizard->getCellRange())
+    ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 
 // Set rules for Value Comparison with Formula
@@ -144,23 +150,24 @@ $formulaRange = implode(
 );
 $conditionalStyles = [];
 $wizardFactory = new Wizard($cellRange);
-$wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
-$wizard->between('AVERAGE(' . $formulaRange . ')-STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
+$cellWizard->between('AVERAGE(' . $formulaRange . ')-STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
     ->and('AVERAGE(' . $formulaRange . ')+STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
     ->setStyle($yellowStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->greaterThan('AVERAGE(' . $formulaRange . ')+STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
+$cellWizard->greaterThan('AVERAGE(' . $formulaRange . ')+STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
     ->setStyle($greenStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
-$wizard->lessThan('AVERAGE(' . $formulaRange . ')-STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
+$cellWizard->lessThan('AVERAGE(' . $formulaRange . ')-STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
     ->setStyle($redStyle);
-$conditionalStyles[] = $wizard->getConditional();
+$conditionalStyles[] = $cellWizard->getConditional();
 
 $spreadsheet->getActiveSheet()
-    ->getStyle($wizard->getCellRange())
+    ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 
 // Save

@@ -81,7 +81,7 @@ class CellValue extends WizardAbstract
                 return '"' . $value . '"';
             }
 
-            return $this->cellConditionCheck((string) $value);
+            return $this->cellConditionCheck($value);
         }
 
         if (null === $value) {

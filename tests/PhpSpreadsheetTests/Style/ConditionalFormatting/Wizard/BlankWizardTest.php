@@ -45,18 +45,31 @@ class BlankWizardTest extends TestCase
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
     }
 
-    public function testBlankWizardWithNot(): void
+    public function testBlankWizardWithNotBlank(): void
     {
         $ruleType = Wizard::BLANKS;
         /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
-        self::assertInstanceOf(Wizard\Blanks::class, $wizard);
 
-        $wizard->not();
+        $wizard->notBlank();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSBLANKS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
+    }
+
+    public function testNonBlankWizardWithIsBlank(): void
+    {
+        $ruleType = Wizard::NOT_BLANKS;
+        /** @var Wizard\Blanks $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->isBlank();
+
+        $conditional = $wizard->getConditional();
+        self::assertSame(Conditional::CONDITION_CONTAINSBLANKS, $conditional->getConditionType());
+        $conditions = $conditional->getConditions();
+        self::assertSame(['LEN(TRIM(C3))=0'], $conditions);
     }
 }

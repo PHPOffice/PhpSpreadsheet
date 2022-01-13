@@ -94,7 +94,7 @@ class TextValue extends WizardAbstract
         $conditional = new Conditional();
         $conditional->setConditionType(self::OPERATORS[$this->operator]);
         $conditional->setOperatorType($this->operator);
-        $conditional->setText($this->operandValueType === Wizard::VALUE_TYPE_LITERAL ? $this->operand : '');
+        $conditional->setText($this->operand);
         $conditional->setConditions($this->expression);
         $conditional->setStyle($this->getStyle());
 
