@@ -110,11 +110,17 @@ class CellMatcher
         return false;
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
     protected function wrapValue($value)
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {
                 return $value ? 'TRUE' : 'FALSE';
+            } elseif ($value === null) {
+                return 'NULL';
             }
 
             return '"' . $value . '"';
@@ -123,6 +129,9 @@ class CellMatcher
         return $value;
     }
 
+    /**
+     * @return mixed
+     */
     protected function wrapCellValue()
     {
         return $this->wrapValue($this->cell->getCalculatedValue());
@@ -150,7 +159,7 @@ class CellMatcher
             ->getCalculatedValue());
     }
 
-    protected function cellConditionCheck($condition)
+    protected function cellConditionCheck(string $condition): string
     {
         $splitCondition = explode(Calculation::FORMULA_STRING_QUOTE, $condition);
         $i = false;
@@ -169,7 +178,7 @@ class CellMatcher
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
-    protected function adjustConditionsForCellReferences(array $conditions)
+    protected function adjustConditionsForCellReferences(array $conditions): array
     {
         return array_map(
             [$this, 'cellConditionCheck'],
@@ -220,7 +229,7 @@ class CellMatcher
 
         try {
             $this->engine->flushInstance();
-            $result = $this->engine->calculateFormula($expression);
+            $result = (bool) $this->engine->calculateFormula($expression);
         } catch (Exception $e) {
             return false;
         }

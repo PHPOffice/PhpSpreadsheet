@@ -77,7 +77,8 @@ class TextValue extends WizardAbstract
             ? $this->wrapValue($this->operand)
             : $this->operand;
 
-        if ($this->operator === Conditional::OPERATOR_CONTAINSTEXT ||
+        if (
+            $this->operator === Conditional::OPERATOR_CONTAINSTEXT ||
             $this->operator === Conditional::OPERATOR_NOTCONTAINS
         ) {
             $this->expression = sprintf(self::EXPRESSIONS[$this->operator], $operand, $this->referenceCell);
