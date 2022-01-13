@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardAbstract;
 
 class Wizard
 {
@@ -30,7 +31,7 @@ class Wizard
         $this->cellRange = $cellRange;
     }
 
-    public function newRule(string $ruleType)
+    public function newRule(string $ruleType): WizardAbstract
     {
         switch ($ruleType) {
             case self::CELL_VALUE:

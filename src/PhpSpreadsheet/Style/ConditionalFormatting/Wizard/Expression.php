@@ -21,7 +21,7 @@ class Expression extends WizardAbstract
         $this->expression = $expression;
     }
 
-    public function getConditional()
+    public function getConditional(): Conditional
     {
         $expression = $this->adjustConditionsForCellReferences([$this->expression]);
 

@@ -7,10 +7,10 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
- * @method TextValue contains(string $value, bool $isCellReference = false)
- * @method TextValue doesNotContain(string $value, bool $isCellReference = false)
- * @method TextValue beginsWith(string $value, bool $isCellReference = false)
- * @method TextValue endsWith(string $value, bool $isCellReference = false)
+ * @method TextValue contains(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method TextValue doesNotContain(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method TextValue beginsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method TextValue endsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  */
 class TextValue extends WizardAbstract
 {
@@ -66,7 +66,7 @@ class TextValue extends WizardAbstract
         $this->operandValueType = $operandValueType;
     }
 
-    protected function wrapValue($value)
+    protected function wrapValue($value): string
     {
         return '"' . $value . '"';
     }
@@ -86,7 +86,7 @@ class TextValue extends WizardAbstract
         }
     }
 
-    public function getConditional()
+    public function getConditional(): Conditional
     {
         $this->setExpression();
 
@@ -101,10 +101,10 @@ class TextValue extends WizardAbstract
     }
 
     /**
-     * @param $methodName
-     * @param $arguments
+     * @param string $methodName
+     * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments)
+    public function __call($methodName, $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
             throw new Exception('Invalid Operation for Text Value CF Rule Wizard');

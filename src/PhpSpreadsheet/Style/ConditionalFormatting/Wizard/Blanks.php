@@ -43,7 +43,7 @@ class Blanks extends WizardAbstract
         );
     }
 
-    public function getConditional()
+    public function getConditional(): Conditional
     {
         $this->getExpression();
 
@@ -58,10 +58,10 @@ class Blanks extends WizardAbstract
     }
 
     /**
-     * @param $methodName
-     * @param $arguments
+     * @param string $methodName
+     * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments)
+    public function __call($methodName, $arguments): self
     {
         if ($methodName !== 'not') {
             throw new Exception('Invalid Operation for Blanks CF Rule Wizard');

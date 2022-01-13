@@ -8,15 +8,15 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
- * @method CellValue equals($value, bool $isCellReference = false)
- * @method CellValue notEquals($value, bool $isCellReference = false)
- * @method CellValue greaterThan($value, bool $isCellReference = false)
- * @method CellValue greaterThanOrEqual($value, bool $isCellReference = false)
- * @method CellValue lessThan($value, bool $isCellReference = false)
- * @method CellValue lessThanOrEqual($value, bool $isCellReference = false)
- * @method CellValue between($value, bool $isCellReference = false)
- * @method CellValue notBetween($value, bool $isCellReference = false)
- * @method CellValue and($value, bool $isCellReference = false)
+ * @method CellValue equals($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue notEquals($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue greaterThan($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue greaterThanOrEqual($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue lessThan($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue lessThanOrEqual($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue between($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue notBetween($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
+ * @method CellValue and($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  */
 class CellValue extends WizardAbstract
 {
@@ -85,7 +85,7 @@ class CellValue extends WizardAbstract
         return $value;
     }
 
-    public function getConditional()
+    public function getConditional(): Conditional
     {
         if (!isset(self::RANGE_OPERATORS[$this->operator])) {
             unset($this->operand[1], $this->operandValueType[1]);
@@ -102,10 +102,10 @@ class CellValue extends WizardAbstract
     }
 
     /**
-     * @param $methodName
-     * @param $arguments
+     * @param string $methodName
+     * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments)
+    public function __call($methodName, $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName]) && $methodName !== 'and') {
             throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');

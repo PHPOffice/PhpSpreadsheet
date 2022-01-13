@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 abstract class WizardAbstract
 {
     /**
-     * @var Style
+     * @var ?Style
      */
     protected $style;
 
@@ -70,7 +70,7 @@ abstract class WizardAbstract
         return "{$column}{$row}";
     }
 
-    protected function cellConditionCheck($condition)
+    protected function cellConditionCheck(string $condition): string
     {
         $splitCondition = explode(Calculation::FORMULA_STRING_QUOTE, $condition);
         $i = false;
@@ -90,7 +90,7 @@ abstract class WizardAbstract
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
-    protected function adjustConditionsForCellReferences(array $conditions)
+    protected function adjustConditionsForCellReferences(array $conditions): array
     {
         return array_map(
             [$this, 'cellConditionCheck'],

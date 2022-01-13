@@ -21,6 +21,9 @@ class CellValueWizardTest extends TestCase
 
     /**
      * @dataProvider basicCellValueDataProvider
+     *
+     * @var mixed $operand
+     * @var mixed $expectedCondition
      */
     public function testBasicCellValueWizard(string $operator, $operand, string $expectedOperator, $expectedCondition): void
     {
@@ -54,6 +57,9 @@ class CellValueWizardTest extends TestCase
 
     /**
      * @dataProvider relativeCellValueDataProvider
+     *
+     * @var mixed $operand
+     * @var mixed $expectedCondition
      */
     public function testRelativeCellValueWizard($operand, $expectedCondition): void
     {

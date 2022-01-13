@@ -66,7 +66,7 @@ class DateValue extends WizardAbstract
         $this->expression = sprintf(self::EXPRESSIONS[$this->operator], ...$references);
     }
 
-    public function getConditional()
+    public function getConditional(): Conditional
     {
         $this->setExpression();
 
@@ -80,10 +80,10 @@ class DateValue extends WizardAbstract
     }
 
     /**
-     * @param $methodName
-     * @param $arguments
+     * @param string $methodName
+     * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments)
+    public function __call($methodName, $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
             throw new Exception('Invalid Operation for Date Value CF Rule Wizard');

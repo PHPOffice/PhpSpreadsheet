@@ -1438,7 +1438,7 @@ class Worksheet implements IComparable
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles($coordinate): array
+    public function getConditionalStyles(string $coordinate): array
     {
         $coordinate = strtoupper($coordinate);
         if (strpos($coordinate, ':') !== false) {
@@ -1455,7 +1455,7 @@ class Worksheet implements IComparable
         return [];
     }
 
-    public function getConditionalRange($coordinate): ?string
+    public function getConditionalRange(string $coordinate): ?string
     {
         $coordinate = strtoupper($coordinate);
         $cell = $this->getCell($coordinate);
