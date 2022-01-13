@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 class Expression extends WizardAbstract
 {
     /**
-     * @var string $expression
+     * @var string
      */
     protected $expression;
 
@@ -16,7 +16,7 @@ class Expression extends WizardAbstract
         parent::__construct($cellRange);
     }
 
-    public function expression(string $expression)
+    public function expression(string $expression): void
     {
         $this->expression = $expression;
     }

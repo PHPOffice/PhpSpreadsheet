@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
@@ -15,11 +16,11 @@ class Errors extends WizardAbstract
 
     private const EXPRESSIONS = [
         Wizard::NOT_ERRORS => 'NOT(ISERROR(%s))',
-        Wizard::ERRORS => 'ISERROR(%s)'
+        Wizard::ERRORS => 'ISERROR(%s)',
     ];
 
     /**
-     * @var bool $inverse
+     * @var bool
      */
     protected $inverse;
 
@@ -29,12 +30,12 @@ class Errors extends WizardAbstract
         $this->inverse = $inverse;
     }
 
-    protected function inverse(bool $inverse)
+    protected function inverse(bool $inverse): void
     {
         $this->inverse = $inverse;
     }
 
-    protected function getExpression()
+    protected function getExpression(): void
     {
         $this->expression = sprintf(
             self::EXPRESSIONS[$this->inverse ? Wizard::ERRORS : Wizard::NOT_ERRORS],
@@ -48,16 +49,13 @@ class Errors extends WizardAbstract
 
         $conditional = new Conditional();
         $conditional->setConditionType(
-            $this->inverse
-                ? Conditional::CONDITION_CONTAINSERRORS
-                : Conditional::CONDITION_NOTCONTAINSERRORS
+            $this->inverse ? Conditional::CONDITION_CONTAINSERRORS : Conditional::CONDITION_NOTCONTAINSERRORS
         );
         $conditional->setConditions($this->expression);
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
     }
-
 
     /**
      * @param $methodName
@@ -66,7 +64,7 @@ class Errors extends WizardAbstract
     public function __call($methodName, $arguments)
     {
         if ($methodName !== 'not') {
-            throw new \Exception('Invalid Operation for Errors CF Rule Wizard');
+            throw new Exception('Invalid Operation for Errors CF Rule Wizard');
         }
 
         $this->inverse(false);

@@ -9,17 +9,17 @@ use PHPUnit\Framework\TestCase;
 class TextValueWizardTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
     }
 
-    public function testTextContainsWizardWithText()
+    public function testTextContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
         /** @var Wizard\TextValue $textWizard */
@@ -36,14 +36,14 @@ class TextValueWizardTest extends TestCase
         self::assertSame(['NOT(ISERROR(SEARCH("LL",C3)))'], $conditions);
     }
 
-    public function testTextContainsWizardWithCellReference()
+    public function testTextContainsWizardWithCellReference(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
         /** @var Wizard\TextValue $textWizard */
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
-        $textWizard->contains('$A$1', true);
+        $textWizard->contains('$A$1', Wizard::VALUE_TYPE_CELL);
 
         $conditional = $textWizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSTEXT, $conditional->getConditionType());
@@ -53,7 +53,7 @@ class TextValueWizardTest extends TestCase
         self::assertSame(['NOT(ISERROR(SEARCH($A$1,C3)))'], $conditions);
     }
 
-    public function testTextNotContainsWizardWithText()
+    public function testTextNotContainsWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
         /** @var Wizard\TextValue $textWizard */
@@ -70,7 +70,7 @@ class TextValueWizardTest extends TestCase
         self::assertSame(['ISERROR(SEARCH("LL",C3))'], $conditions);
     }
 
-    public function testTextBeginsWithWizardWithText()
+    public function testTextBeginsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
         /** @var Wizard\TextValue $textWizard */
@@ -87,7 +87,7 @@ class TextValueWizardTest extends TestCase
         self::assertSame(['LEFT(C3,LEN("LL"))="LL"'], $conditions);
     }
 
-    public function testTextEndsWithWizardWithText()
+    public function testTextEndsWithWizardWithText(): void
     {
         $ruleType = Wizard::TEXT_VALUE;
         /** @var Wizard\TextValue $textWizard */

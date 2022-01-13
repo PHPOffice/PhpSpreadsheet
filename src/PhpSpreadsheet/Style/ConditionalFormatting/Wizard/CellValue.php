@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
  * @method CellValue equals($value, bool $isCellReference = false)
@@ -33,45 +35,51 @@ class CellValue extends WizardAbstract
 
     protected const RANGE_OPERATORS = CellMatcher::COMPARISON_RANGE_OPERATORS;
 
-    /** @var string $operator */
-    protected $operator;
+    /** @var string */
+    protected $operator = Conditional::OPERATOR_EQUAL;
 
-    /** @var array $operand */
-    protected $operand = [];
+    /** @var array */
+    protected $operand = [0];
 
     /**
-     * @var bool[] $isCellReference
+     * @var string[]
      */
-    protected $isCellReference = [];
+    protected $operandValueType = [];
 
     public function __construct(string $cellRange)
     {
         parent::__construct($cellRange);
     }
 
-    protected function operator(string $operator)
+    protected function operator(string $operator): void
     {
         if ((!isset(self::SINGLE_OPERATORS[$operator])) && (!isset(self::RANGE_OPERATORS[$operator]))) {
-            throw new \Exception('Invalid Operator for Cell Value CF Rule Wizard');
+            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');
         }
 
         $this->operator = $operator;
     }
 
-    protected function operand($index, $operand, bool $isCellReference = false)
+    protected function operand($index, $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
         $this->operand[$index] = $operand;
-        $this->isCellReference[$index] = $isCellReference;
+        $this->operandValueType[$index] = $operandValueType;
     }
 
-    protected function wrapValue($value, $isCellReference)
+    protected function wrapValue($value, $operandValueType)
     {
-        if (!is_numeric($value) && !is_bool($value) && !is_null($value)) {
-            if ($isCellReference === false) {
+        if (!is_numeric($value) && !is_bool($value) && null !== $value) {
+            if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {
                 return '"' . $value . '"';
             }
 
             return $this->cellConditionCheck($value);
+        }
+
+        if (null === $value) {
+            $value = 'NULL';
+        } elseif (is_bool($value)) {
+            $value = $value ? 'TRUE' : 'FALSE';
         }
 
         return $value;
@@ -79,7 +87,10 @@ class CellValue extends WizardAbstract
 
     public function getConditional()
     {
-        $values = array_map([$this, 'wrapValue'], $this->operand, $this->isCellReference);
+        if (!isset(self::RANGE_OPERATORS[$this->operator])) {
+            unset($this->operand[1], $this->operandValueType[1]);
+        }
+        $values = array_map([$this, 'wrapValue'], $this->operand, $this->operandValueType);
 
         $conditional = new Conditional();
         $conditional->setConditionType(Conditional::CONDITION_CELLIS);
@@ -97,15 +108,16 @@ class CellValue extends WizardAbstract
     public function __call($methodName, $arguments)
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName]) && $methodName !== 'and') {
-            throw new \Exception('Invalid Operator for Cell Value CF Rule Wizard');
+            throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');
         }
 
         if ($methodName === 'and') {
             if (!isset(self::RANGE_OPERATORS[$this->operator])) {
-                throw new \Exception('AND Value is only appropriate for range operators');
+                throw new Exception('AND Value is only appropriate for range operators');
             }
 
             $this->operand(1, ...$arguments);
+
             return $this;
         }
 

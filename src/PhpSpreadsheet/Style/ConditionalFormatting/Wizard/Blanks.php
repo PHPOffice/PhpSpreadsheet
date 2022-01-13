@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
@@ -15,11 +16,11 @@ class Blanks extends WizardAbstract
 
     private const EXPRESSIONS = [
         Wizard::NOT_BLANKS => 'LEN(TRIM(%s))>0',
-        Wizard::BLANKS => 'LEN(TRIM(%s))=0'
+        Wizard::BLANKS => 'LEN(TRIM(%s))=0',
     ];
 
     /**
-     * @var bool $inverse
+     * @var bool
      */
     protected $inverse;
 
@@ -29,12 +30,12 @@ class Blanks extends WizardAbstract
         $this->inverse = $inverse;
     }
 
-    protected function inverse(bool $inverse)
+    protected function inverse(bool $inverse): void
     {
         $this->inverse = $inverse;
     }
 
-    protected function getExpression()
+    protected function getExpression(): void
     {
         $this->expression = sprintf(
             self::EXPRESSIONS[$this->inverse ? Wizard::BLANKS : Wizard::NOT_BLANKS],
@@ -48,9 +49,7 @@ class Blanks extends WizardAbstract
 
         $conditional = new Conditional();
         $conditional->setConditionType(
-            $this->inverse
-                ? Conditional::CONDITION_CONTAINSBLANKS
-                : Conditional::CONDITION_NOTCONTAINSBLANKS
+            $this->inverse ? Conditional::CONDITION_CONTAINSBLANKS : Conditional::CONDITION_NOTCONTAINSBLANKS
         );
         $conditional->setConditions($this->expression);
         $conditional->setStyle($this->getStyle());
@@ -65,7 +64,7 @@ class Blanks extends WizardAbstract
     public function __call($methodName, $arguments)
     {
         if ($methodName !== 'not') {
-            throw new \Exception('Invalid Operation for Blanks CF Rule Wizard');
+            throw new Exception('Invalid Operation for Blanks CF Rule Wizard');
         }
 
         $this->inverse(false);

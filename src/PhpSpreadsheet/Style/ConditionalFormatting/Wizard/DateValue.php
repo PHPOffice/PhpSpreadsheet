@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 
 /**
@@ -45,7 +46,7 @@ class DateValue extends WizardAbstract
         'nextMonth' => 'AND(MONTH(%s)=MONTH(EDATE(TODAY(),0+1)),YEAR(%s)=YEAR(EDATE(TODAY(),0+1)))',
     ];
 
-    /** @var string $operator */
+    /** @var string */
     protected $operator;
 
     public function __construct(string $cellRange)
@@ -53,12 +54,12 @@ class DateValue extends WizardAbstract
         parent::__construct($cellRange);
     }
 
-    protected function operator(string $operator)
+    protected function operator(string $operator): void
     {
         $this->operator = $operator;
     }
 
-    protected function setExpression()
+    protected function setExpression(): void
     {
         $referenceCount = substr_count(self::EXPRESSIONS[$this->operator], '%s');
         $references = array_fill(0, $referenceCount, $this->referenceCell);
@@ -85,7 +86,7 @@ class DateValue extends WizardAbstract
     public function __call($methodName, $arguments)
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
-            throw new \Exception('Invalid Operation for Date Value CF Rule Wizard');
+            throw new Exception('Invalid Operation for Date Value CF Rule Wizard');
         }
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);

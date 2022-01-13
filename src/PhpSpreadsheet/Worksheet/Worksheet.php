@@ -1415,8 +1415,6 @@ class Worksheet implements IComparable
      * Get style for cell.
      *
      * @param string $cellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
-     *
-     * @return Style
      */
     public function getStyle($cellCoordinate): Style
     {
@@ -1478,8 +1476,6 @@ class Worksheet implements IComparable
      *               conditional style range.
      *          If a range of cells is specified, then true will only be returned if the range matches the entire
      *               range of the conditional.
-     *
-     * @return bool
      */
     public function conditionalStylesExists($coordinate): bool
     {

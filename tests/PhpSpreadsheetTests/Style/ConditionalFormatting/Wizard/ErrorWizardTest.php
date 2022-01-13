@@ -9,17 +9,17 @@ use PHPUnit\Framework\TestCase;
 class ErrorWizardTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
     }
 
-    public function testErrorWizard()
+    public function testErrorWizard(): void
     {
         $ruleType = Wizard::ERRORS;
         /** @var Wizard\Errors $wizard */
@@ -32,7 +32,7 @@ class ErrorWizardTest extends TestCase
         self::assertSame(['ISERROR(C3)'], $conditions);
     }
 
-    public function testNonErrorWizard()
+    public function testNonErrorWizard(): void
     {
         $ruleType = Wizard::NOT_ERRORS;
         /** @var Wizard\Errors $wizard */
@@ -45,7 +45,7 @@ class ErrorWizardTest extends TestCase
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
     }
 
-    public function testErrorWizardNot()
+    public function testErrorWizardNot(): void
     {
         $ruleType = Wizard::ERRORS;
         /** @var Wizard\Errors $wizard */

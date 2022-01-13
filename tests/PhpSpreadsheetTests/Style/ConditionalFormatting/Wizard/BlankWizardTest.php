@@ -9,17 +9,17 @@ use PHPUnit\Framework\TestCase;
 class BlankWizardTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
     }
 
-    public function testBlankWizard()
+    public function testBlankWizard(): void
     {
         $ruleType = Wizard::BLANKS;
         /** @var Wizard\Blanks $wizard */
@@ -32,7 +32,7 @@ class BlankWizardTest extends TestCase
         self::assertSame(['LEN(TRIM(C3))=0'], $conditions);
     }
 
-    public function testNonBlankWizard()
+    public function testNonBlankWizard(): void
     {
         $ruleType = Wizard::NOT_BLANKS;
         /** @var Wizard\Blanks $wizard */
@@ -45,7 +45,7 @@ class BlankWizardTest extends TestCase
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
     }
 
-    public function testBlankWizardWithNot()
+    public function testBlankWizardWithNot(): void
     {
         $ruleType = Wizard::BLANKS;
         /** @var Wizard\Blanks $wizard */
@@ -59,5 +59,4 @@ class BlankWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
     }
-
 }

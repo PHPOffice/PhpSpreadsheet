@@ -83,9 +83,126 @@ $conditionalStyles[] = $conditional2;
 
 $spreadsheet->getActiveSheet()->getStyle('A1:A10')->setConditionalStyles($conditionalStyles);
 ```
+or again, using the Wizard:
+```php
+$wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('A1:A10');
+$wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
+$wizard->lessThan(10);
+$wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
+$wizard->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
-Condition Type | Wizard Type | Operator Type | Wizard Operators
----|---|---|---
+$conditional = $wizard->getConditional();
+```
+
+## Wizards
+
+While the Wizard doesn't simplify defining the Conditional Style itself; it does make it easier to define the conditions where that style will be applied. 
+
+![11-07-CF-Wizard.png](./images/11-07-CF-Wizard.png)
+
+The Wizard Factory allows us to retrieve the appropriate Wizard for the CF Rule that we want to apply. Most of these fall under the "Format only cells that contain" category.
+MS Excel provides a whole series of different types of rule, each of which has it's own formatting and logic. The Wizards tr to replicate this logic and behaviour, similar to Excel's own "Formatting Rule" helper.
+
+MS Excel | Wizard newRule() Type Constant | Wizard Class Name
+---|---|---
+Cell Value | Wizard::CELL_VALUE | CellValue
+Specific Text | Wizard::TEXT_VALUE | TextValue
+Dates Occurring | Wizard::DATES_OCCURRING | DateValue
+Blanks | Wizard::BLANKS | Blanks
+No Blanks | Wizard::NOT_BLANKS | Blanks
+Errors | Wizard::ERRORS | Errors 
+No Errors | Wizard::NOT_ERRORS | Errors
+
+We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create to return the appropriate Wizard:
+
+```phpregexp
+$wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('C3:E5');
+$wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
+```
+That Wizard then provides methods allowing us to define the rule, setting the operator and the values that we want to compare for that rule.
+Note that not all rules require values, or even operators, but the individual Wizards provide whatever is necessary; and this document lists all options available for every Wizard.
+
+### CellValue Wizard
+
+For the `CellValue` Wizard, we always need to provide an operator and a value; and for the "between" and "notBetween" operators, we need to provide two values to specify a range.
+
+Condition Type | Wizard Type | Operator Type | Wizard Operators | Notes
+---|---|---|---|---
 Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
- | | | Conditional::OPERATOR_NOT_EQUAL | notEquals()
+| | | Conditional::OPERATOR_NOTEQUAL | notEquals()
+| | | Conditional::OPERATOR_GREATERTHAN | greaterThan()
+| | | Conditional::OPERATOR_GREATERTHANOREQUAL | greaterThanOrEqual()
+| | | Conditional::OPERATOR_LESSTHAN | lessThan()
+| | | Conditional::OPERATOR_LESSTHANOREQUAL | lessThanOrEqual()
+| | | Conditional::OPERATOR_BETWEEN | between()
+| | | Conditional::OPERATOR_NOTBETWEEN | notBetween()
+| | | | and() | Used to provide the second operand for `between()` and `notBetween() 
 
+A single operator call is required for every rule (except `between()` and `notBetween`, where the Wizard also provides `and()`); and providing a value is mandatory for all operators.
+The values that we need to provide for each operator can be numeric, boolean or string literals (even NULL); cell references; or formulae.
+
+So to set the rule using an operator, we would make a call like:
+```php
+$wizard->lessThan(10);
+```
+or when setting a `between()` or `notBetween()` rule, we can make use of the fluent interface with the `and()` method to set the range of values:
+```php
+$wizard->between(-10)->and(10);
+```
+
+To retrieve the Conditional, to add it to our `$conditionalStyles` array, we call the Wizard's `getConditional()` method.
+```php
+$conditional = $wizard->getConditional();
+$conditionalStyles = [];
+```
+or simply
+```php
+$conditionalStyles[] = $wizard->getConditional();
+```
+
+#### Value Types
+
+##### Literals
+
+If the value is a literal (even a string literal), we simply need to pass the value; the Wizard will ensure that strings are correctly quoted when we get the Conditional from the Wizard.
+
+```php
+$wizard->equals('Hello World');
+```
+If you weren't using the Wizard, you would need to remember to wrap this value in quotes yourself (`'"Hello"'`)  
+
+However, a cell reference or a formula are also string data, so we need to tell the Wizard if the value that we are passing in isn't just a string literal value, but should be treated as a cell reference or as a formula.
+
+##### Cell References
+
+If we want to use the value from cell `H9` in our rule; then we need to pass a value type of `VALUE_TYPE_CELL` to the operator, in addition to the cell reference itself.
+
+![11-08-CF-Absolute-Cell-Reference.png](./images/11-08-CF-Absolute-Cell-Reference.png)
+
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php "Conditional Formatting - Basic Comparisons") for the repo.
+
+```php
+$wizard->equals('$H$9', Wizard::VALUE_TYPE_CELL);
+```
+Note that we pass it as an absolute cell reference, "pinned" (with the `$` symbol) for both the row and the column.
+
+In this next example, we need to use relative cell references, so that the comparison will match the value in column `A` against the values in columns `B` and `C` for each row in our range (`A18:A20`); ie, test if the value in `A18` is between the values in `B18` and `C18`, test if the value in `A19` is between the values in `B19` and `C19`, etc.  
+
+![11-09-CF-Relative-Cell-Reference.png](./images/11-09-CF-Relative-Cell-Reference.png)
+
+```php
+$wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
+    ->and('$C1', Wizard::VALUE_TYPE_CELL)
+    ->setStyle($greenStyle);
+```
+
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php "Conditional Formatting - Basic Comparisons") for the repo.
+
+In this case, we "pin" the column for the address; but leave the row "unpinned".
+Notice also that we treat the first cell in our range as cell `A1`: the relative row number will be adjusted automatically to match each row in our defined range; that is, the range that we specified when we instantiated the Wizard, passed in through the Wizard Factory.
+
+##### Formulae
+
+```php
+$wizard->equals('AVERAGE($B1:$C1)', Wizard::VALUE_TYPE_FORMULA);
+```

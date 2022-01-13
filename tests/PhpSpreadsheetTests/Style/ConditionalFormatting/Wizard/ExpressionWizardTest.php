@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 class ExpressionWizardTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
@@ -22,7 +22,7 @@ class ExpressionWizardTest extends TestCase
     /**
      * @dataProvider expressionDataProvider
      */
-    public function testExpressionWizard(string $expression, string $expectedExpression)
+    public function testExpressionWizard(string $expression, string $expectedExpression): void
     {
         $ruleType = Wizard::EXPRESSION;
         /** @var Wizard\Expression $wizard */

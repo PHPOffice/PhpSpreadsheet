@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 class DateValueWizardTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
@@ -22,9 +22,9 @@ class DateValueWizardTest extends TestCase
     /**
      * @dataProvider dateValueWizardProvider
      */
-    public function testDateValueWizard(string $operator, string $expectedReference, string $expectedExpression)
+    public function testDateValueWizard(string $operator, string $expectedReference, string $expectedExpression): void
     {
-        $ruleType = Wizard::DATES_OCCURING;
+        $ruleType = Wizard::DATES_OCCURRING;
         /** @var Wizard\DateValue $wizard */
         $dateWizard = $this->wizardFactory->newRule($ruleType);
 

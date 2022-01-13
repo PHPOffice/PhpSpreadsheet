@@ -9,32 +9,32 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 abstract class WizardAbstract
 {
     /**
-     * @var Style $style
+     * @var Style
      */
     protected $style;
 
     /**
-     * @var string $expression
+     * @var string
      */
     protected $expression;
 
     /**
-     * @var string $cellRange
+     * @var string
      */
     protected $cellRange;
 
     /**
-     * @var string $referenceCell
+     * @var string
      */
     protected $referenceCell;
 
     /**
-     * @var int $referenceRow
+     * @var int
      */
     protected $referenceRow;
 
     /**
-     * @var int $referenceColumn
+     * @var int
      */
     protected $referenceColumn;
 
@@ -44,7 +44,7 @@ abstract class WizardAbstract
         $this->setReferenceCellForExpressions($cellRange);
     }
 
-    protected function setReferenceCellForExpressions(string $conditionalRange)
+    protected function setReferenceCellForExpressions(string $conditionalRange): void
     {
         $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
         [$this->referenceCell] = $conditionalRange[0];
@@ -85,6 +85,7 @@ abstract class WizardAbstract
             }
         }
         unset($value);
+
         //    Then rebuild the condition string to return it
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
@@ -102,8 +103,13 @@ abstract class WizardAbstract
         return $this->style ?? new Style(false, true);
     }
 
-    public function setStyle(Style $style)
+    public function setStyle(Style $style): void
     {
         $this->style = $style;
+    }
+
+    public function getCellRange(): string
+    {
+        return $this->cellRange;
     }
 }

@@ -25,37 +25,37 @@ class CellMatcher
     ];
 
     /**
-     * @var Cell $cell
+     * @var Cell
      */
     protected $cell;
 
     /**
-     * @var int $cellRow
+     * @var int
      */
     protected $cellRow;
 
     /**
-     * @var int $cellColumn
+     * @var int
      */
     protected $cellColumn;
 
     /**
-     * @var string $referenceCell
+     * @var string
      */
     protected $referenceCell;
 
     /**
-     * @var int $referenceRow
+     * @var int
      */
     protected $referenceRow;
 
     /**
-     * @var int $referenceColumn
+     * @var int
      */
     protected $referenceColumn;
 
     /**
-     * @var Calculation $engine
+     * @var Calculation
      */
     protected $engine;
 
@@ -68,7 +68,7 @@ class CellMatcher
         $this->engine = Calculation::getInstance($cell->getWorksheet()->getParent());
     }
 
-    protected function setReferenceCellForExpressions(string $conditionalRange)
+    protected function setReferenceCellForExpressions(string $conditionalRange): void
     {
         $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
         [$this->referenceCell] = $conditionalRange[0];
@@ -130,7 +130,7 @@ class CellMatcher
 
     protected function conditionCellAdjustment(array $matches): string
     {
-var_dump($matches);
+        var_dump($matches);
         $column = $matches[6];
         $row = $matches[7];
 
@@ -143,7 +143,7 @@ var_dump($matches);
         if (strpos($row, '$') === false) {
             $row += $this->cellRow - $this->referenceRow;
         }
-var_dump("{$column}{$row}");
+        var_dump("{$column}{$row}");
 
         return $this->wrapValue($this->cell->getWorksheet()
             ->getCell(str_replace('$', '', "{$column}{$row}"))
@@ -216,14 +216,16 @@ var_dump("{$column}{$row}");
     protected function evaluateExpression(string $expression): bool
     {
         $expression = "={$expression}";
-var_dump($expression);
+        var_dump($expression);
+
         try {
             $this->engine->flushInstance();
             $result = $this->engine->calculateFormula($expression);
         } catch (Exception $e) {
             return false;
         }
-var_dump($result);
+        var_dump($result);
+
         return $result;
     }
 }

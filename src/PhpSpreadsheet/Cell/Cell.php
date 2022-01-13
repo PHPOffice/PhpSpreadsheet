@@ -542,8 +542,6 @@ class Cell
 
     /**
      * Get cell style.
-     *
-     * @return Style
      */
     public function getStyle(): Style
     {
@@ -552,8 +550,6 @@ class Cell
 
     /**
      * Get cell style.
-     *
-     * @return Style
      */
     public function getAppliedStyle(): Style
     {

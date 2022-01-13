@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
  * @method TextValue contains(string $value, bool $isCellReference = false)
@@ -33,45 +35,47 @@ class TextValue extends WizardAbstract
         Conditional::OPERATOR_ENDSWITH => 'RIGHT(%s,LEN(%s))=%s',
     ];
 
-    /** @var string $operator */
+    /** @var string */
     protected $operator;
 
-    /** @var string $operand */
+    /** @var string */
     protected $operand;
 
     /**
-     * @var bool $isCellReference
+     * @var string
      */
-    protected $isCellReference;
+    protected $operandValueType;
 
     public function __construct(string $cellRange)
     {
         parent::__construct($cellRange);
     }
 
-    protected function operator(string $operator)
+    protected function operator(string $operator): void
     {
         if (!isset(self::OPERATORS[$operator])) {
-            throw new \Exception('Invalid Operator for Text Value CF Rule Wizard');
+            throw new Exception('Invalid Operator for Text Value CF Rule Wizard');
         }
 
         $this->operator = $operator;
     }
 
-    protected function operand(string $operand, bool $isCellReference = false)
+    protected function operand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
         $this->operand = $operand;
-        $this->isCellReference = $isCellReference;
+        $this->operandValueType = $operandValueType;
     }
 
     protected function wrapValue($value)
     {
-            return '"' . $value . '"';
+        return '"' . $value . '"';
     }
 
-    protected function setExpression()
+    protected function setExpression(): void
     {
-        $operand = $this->isCellReference ? $this->operand : $this->wrapValue($this->operand);
+        $operand = $this->operandValueType === Wizard::VALUE_TYPE_LITERAL
+            ? $this->wrapValue($this->operand)
+            : $this->operand;
 
         if ($this->operator === Conditional::OPERATOR_CONTAINSTEXT ||
             $this->operator === Conditional::OPERATOR_NOTCONTAINS
@@ -89,7 +93,7 @@ class TextValue extends WizardAbstract
         $conditional = new Conditional();
         $conditional->setConditionType(self::OPERATORS[$this->operator]);
         $conditional->setOperatorType($this->operator);
-        $conditional->setText($this->isCellReference ? '' : $this->operand);
+        $conditional->setText($this->operandValueType === Wizard::VALUE_TYPE_LITERAL ? $this->operand : '');
         $conditional->setConditions($this->expression);
         $conditional->setStyle($this->getStyle());
 
@@ -103,7 +107,7 @@ class TextValue extends WizardAbstract
     public function __call($methodName, $arguments)
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
-            throw new \Exception('Invalid Operation for Text Value CF Rule Wizard');
+            throw new Exception('Invalid Operation for Text Value CF Rule Wizard');
         }
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);

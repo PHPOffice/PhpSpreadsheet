@@ -2,17 +2,18 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PHPUnit\Framework\TestCase;
 
 class WizardFactoryTest extends TestCase
 {
     /**
-     * @var Wizard $wizardFactory
+     * @var Wizard
      */
     protected $wizardFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $range = '$C$3:$E$5';
         $this->wizardFactory = new Wizard($range);
@@ -21,7 +22,7 @@ class WizardFactoryTest extends TestCase
     /**
      * @dataProvider basicWizardFactoryProvider
      */
-    public function testBasicWizardFactory(string $ruleType, string $expectedWizard)
+    public function testBasicWizardFactory(string $ruleType, string $expectedWizard): void
     {
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf($expectedWizard, $wizard);
@@ -37,14 +38,15 @@ class WizardFactoryTest extends TestCase
             'Errors Wizard' => [Wizard::ERRORS, Wizard\Errors::class],
             'Errors Wizard (NOT)' => [Wizard::NOT_ERRORS, Wizard\Errors::class],
             'Expression Wizard' => [Wizard::EXPRESSION, Wizard\Expression::class],
-            'DateValue Wizard' => [Wizard::DATES_OCCURING, Wizard\DateValue::class],
+            'DateValue Wizard' => [Wizard::DATES_OCCURRING, Wizard\DateValue::class],
         ];
     }
 
-    public function testWizardFactoryException()
+    public function testWizardFactoryException(): void
     {
         $ruleType = 'Unknown';
-        self::expectException(\Exception::class);
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('No wizard exists for this rule type');
         $this->wizardFactory->newRule($ruleType);
     }
 }

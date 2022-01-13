@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 class StyleMerger
 {
     /**
-     * @var Style $baseStyle
+     * @var Style
      */
     protected $baseStyle;
 
@@ -25,7 +25,7 @@ class StyleMerger
         return $this->baseStyle;
     }
 
-    public function mergeStyle(Style $style)
+    public function mergeStyle(Style $style): void
     {
         if ($style->getNumberFormat() !== null && $style->getNumberFormat()->getFormatCode() !== null) {
             $this->baseStyle->getNumberFormat()->setFormatCode($style->getNumberFormat()->getFormatCode());
@@ -44,7 +44,7 @@ class StyleMerger
         }
     }
 
-    protected function mergeFontStyle(Font $baseFontStyle, Font $fontStyle)
+    protected function mergeFontStyle(Font $baseFontStyle, Font $fontStyle): void
     {
         if ($fontStyle->getBold() !== null) {
             $baseFontStyle->setBold($fontStyle->getBold());
@@ -67,7 +67,7 @@ class StyleMerger
         }
     }
 
-    protected function mergeFillStyle(Fill $baseFillStyle, Fill $fillStyle)
+    protected function mergeFillStyle(Fill $baseFillStyle, Fill $fillStyle): void
     {
         if ($fillStyle->getFillType() !== null) {
             $baseFillStyle->setFillType($fillStyle->getFillType());
@@ -86,7 +86,7 @@ class StyleMerger
         }
     }
 
-    protected function mergeBordersStyle(Borders $baseBordersStyle, Borders $bordersStyle)
+    protected function mergeBordersStyle(Borders $baseBordersStyle, Borders $bordersStyle): void
     {
         if ($bordersStyle->getTop() !== null) {
             $this->mergeBorderStyle($baseBordersStyle->getTop(), $bordersStyle->getTop());
@@ -105,7 +105,7 @@ class StyleMerger
         }
     }
 
-    protected function mergeBorderStyle(Border $baseBorderStyle, Border $borderStyle)
+    protected function mergeBorderStyle(Border $baseBorderStyle, Border $borderStyle): void
     {
         if ($borderStyle->getBorderStyle() !== null) {
             $baseBorderStyle->setBorderStyle($borderStyle->getBorderStyle());
