@@ -72,7 +72,7 @@ class CellValue extends WizardAbstract
     /**
      * @param mixed $value
      *
-     * @return bool|int|string|null
+     * @return mixed
      */
     protected function wrapValue($value, string $operandValueType)
     {

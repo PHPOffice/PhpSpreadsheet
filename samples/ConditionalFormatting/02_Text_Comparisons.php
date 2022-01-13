@@ -1,9 +1,9 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use \PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
-use \PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 require __DIR__ . '/../Header.php';
@@ -53,7 +53,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('D1', 'H')
     ->setCellValue('D7', 'OW')
     ->setCellValue('D13', 'LL')
-    ->setCellValue('D19', 'EE');
+    ->setCellValue('D19', 'EL');
 
 // Set title row bold
 $helper->log('Set title row bold');
@@ -177,7 +177,7 @@ $wizardFactory = new Wizard($cellRange);
 /** @var Wizard\TextValue $textWizard */
 $textWizard = $wizardFactory->newRule(Wizard::TEXT_VALUE);
 
-$textWizard->doesNotContain('EE')
+$textWizard->doesNotContain('EL')
     ->setStyle($redStyle);
 $conditionalStyles[] = $textWizard->getConditional();
 
