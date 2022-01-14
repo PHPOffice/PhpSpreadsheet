@@ -2101,6 +2101,7 @@ class Worksheet implements IComparable
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
 
+        $holdRowDimensions = $this->removeRowDimensions($row, $numberOfRows);
         $highestRow = $this->getHighestDataRow();
         $removedRowsCounter = 0;
 
@@ -2118,7 +2119,28 @@ class Worksheet implements IComparable
             --$highestRow;
         }
 
+        $this->rowDimensions = $holdRowDimensions;
+
         return $this;
+    }
+
+    private function removeRowDimensions(int $row, int $numberOfRows): array
+    {
+        $highRow = $row + $numberOfRows - 1;
+        $holdRowDimensions = [];
+        foreach ($this->rowDimensions as $rowDimension) {
+            $num = $rowDimension->getRowIndex();
+            if ($num < $row) {
+                $holdRowDimensions[$num] = $rowDimension;
+            } elseif ($num > $highRow) {
+                $num -= $numberOfRows;
+                $cloneDimension = clone $rowDimension;
+                $cloneDimension->setRowIndex($num);
+                $holdRowDimensions[$num] = $cloneDimension;
+            }
+        }
+
+        return $holdRowDimensions;
     }
 
     /**
@@ -2143,6 +2165,8 @@ class Worksheet implements IComparable
             return $this;
         }
 
+        $holdColumnDimensions = $this->removeColumnDimensions($pColumnIndex, $numberOfColumns);
+
         $column = Coordinate::stringFromColumnIndex($pColumnIndex + $numberOfColumns);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
@@ -2154,9 +2178,31 @@ class Worksheet implements IComparable
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
 
+        $this->columnDimensions = $holdColumnDimensions;
+
         $this->garbageCollect();
 
         return $this;
+    }
+
+    private function removeColumnDimensions(int $pColumnIndex, int $numberOfColumns): array
+    {
+        $highCol = $pColumnIndex + $numberOfColumns - 1;
+        $holdColumnDimensions = [];
+        foreach ($this->columnDimensions as $columnDimension) {
+            $num = $columnDimension->getColumnNumeric();
+            if ($num < $pColumnIndex) {
+                $str = $columnDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $columnDimension;
+            } elseif ($num > $highCol) {
+                $cloneDimension = clone $columnDimension;
+                $cloneDimension->setColumnNumeric($num - $numberOfColumns);
+                $str = $cloneDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $cloneDimension;
+            }
+        }
+
+        return $holdColumnDimensions;
     }
 
     /**
