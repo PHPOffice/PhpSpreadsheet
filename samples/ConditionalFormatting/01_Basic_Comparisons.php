@@ -54,7 +54,7 @@ $spreadsheet->getActiveSheet()
 
 // Set title row bold
 $helper->log('Set title row bold');
-$spreadsheet->getActiveSheet()->getStyle('A1:EC1')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A9:E9')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A17:E17')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A23:E23')->getFont()->setBold(true);

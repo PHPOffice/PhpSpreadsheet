@@ -57,6 +57,12 @@ class Conditional implements IComparable
     const TIMEPERIOD_YESTERDAY = 'yesterday';
     const TIMEPERIOD_TOMORROW = 'tomorrow';
     const TIMEPERIOD_LAST_7_DAYS = 'last7Days';
+    const TIMEPERIOD_LAST_WEEK = 'lastWeek';
+    const TIMEPERIOD_THIS_WEEK = 'thisWeek';
+    const TIMEPERIOD_NEXT_WEEK = 'nextWeek';
+    const TIMEPERIOD_LAST_MONTH = 'lastMonth';
+    const TIMEPERIOD_THIS_MONTH = 'thisMonth';
+    const TIMEPERIOD_NEXT_MONTH = 'nextMonth';
 
     /**
      * Condition type.

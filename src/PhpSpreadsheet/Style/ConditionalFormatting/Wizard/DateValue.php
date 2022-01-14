@@ -20,30 +20,30 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
 class DateValue extends WizardAbstract
 {
     protected const MAGIC_OPERATIONS = [
-        'yesterday' => 'yesterday',
-        'today' => 'today',
-        'tomorrow' => 'tomorrow',
-        'lastSevenDays' => 'last7Days',
-        'last7Days' => 'last7Days',
-        'lastWeek' => 'lastWeek',
-        'thisWeek' => 'thisWeek',
-        'nextWeek' => 'nextWeek',
-        'lastMonth' => 'lastMonth',
-        'thisMonth' => 'thisMonth',
-        'nextMonth' => 'nextMonth',
+        'yesterday' => Conditional::TIMEPERIOD_YESTERDAY,
+        'today' => Conditional::TIMEPERIOD_TODAY,
+        'tomorrow' => Conditional::TIMEPERIOD_TOMORROW,
+        'lastSevenDays' => Conditional::TIMEPERIOD_LAST_7_DAYS,
+        'last7Days' => Conditional::TIMEPERIOD_LAST_7_DAYS,
+        'lastWeek' => Conditional::TIMEPERIOD_LAST_WEEK,
+        'thisWeek' => Conditional::TIMEPERIOD_THIS_WEEK,
+        'nextWeek' => Conditional::TIMEPERIOD_NEXT_WEEK,
+        'lastMonth' => Conditional::TIMEPERIOD_LAST_MONTH,
+        'thisMonth' => Conditional::TIMEPERIOD_THIS_MONTH,
+        'nextMonth' => Conditional::TIMEPERIOD_NEXT_MONTH,
     ];
 
     private const EXPRESSIONS = [
-        'yesterday' => 'FLOOR(%s,1)=TODAY()-1',
-        'today' => 'FLOOR(%s,1)=TODAY()',
-        'tomorrow' => 'FLOOR(%s,1)=TODAY()+1',
-        'last7Days' => 'AND(TODAY()-FLOOR(%s,1)<=6,FLOOR(%s,1)<=TODAY())',
-        'lastWeek' => 'AND(TODAY()-ROUNDDOWN(%s,0)>=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(%s,0)<(WEEKDAY(TODAY())+7))',
-        'thisWeek' => 'AND(TODAY()-ROUNDDOWN(%s,0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(%s,0)-TODAY()<=7-WEEKDAY(TODAY()))',
-        'nextWeek' => 'AND(ROUNDDOWN(%s,0)-TODAY()>(7-WEEKDAY(TODAY())),ROUNDDOWN(%s,0)-TODAY()<(15-WEEKDAY(TODAY())))',
-        'lastMonth' => 'AND(MONTH(%s)=MONTH(EDATE(TODAY(),0-1)),YEAR(%s)=YEAR(EDATE(TODAY(),0-1)))',
-        'thisMonth' => 'AND(MONTH(%s)=MONTH(TODAY()),YEAR(%s)=YEAR(TODAY()))',
-        'nextMonth' => 'AND(MONTH(%s)=MONTH(EDATE(TODAY(),0+1)),YEAR(%s)=YEAR(EDATE(TODAY(),0+1)))',
+        Conditional::TIMEPERIOD_YESTERDAY => 'FLOOR(%s,1)=TODAY()-1',
+        Conditional::TIMEPERIOD_TODAY => 'FLOOR(%s,1)=TODAY()',
+        Conditional::TIMEPERIOD_TOMORROW => 'FLOOR(%s,1)=TODAY()+1',
+        Conditional::TIMEPERIOD_LAST_7_DAYS => 'AND(TODAY()-FLOOR(%s,1)<=6,FLOOR(%s,1)<=TODAY())',
+        Conditional::TIMEPERIOD_LAST_WEEK => 'AND(TODAY()-ROUNDDOWN(%s,0)>=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(%s,0)<(WEEKDAY(TODAY())+7))',
+        Conditional::TIMEPERIOD_THIS_WEEK => 'AND(TODAY()-ROUNDDOWN(%s,0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(%s,0)-TODAY()<=7-WEEKDAY(TODAY()))',
+        Conditional::TIMEPERIOD_NEXT_WEEK => 'AND(ROUNDDOWN(%s,0)-TODAY()>(7-WEEKDAY(TODAY())),ROUNDDOWN(%s,0)-TODAY()<(15-WEEKDAY(TODAY())))',
+        Conditional::TIMEPERIOD_LAST_MONTH => 'AND(MONTH(%s)=MONTH(EDATE(TODAY(),0-1)),YEAR(%s)=YEAR(EDATE(TODAY(),0-1)))',
+        Conditional::TIMEPERIOD_THIS_MONTH => 'AND(MONTH(%s)=MONTH(TODAY()),YEAR(%s)=YEAR(TODAY()))',
+        Conditional::TIMEPERIOD_NEXT_MONTH => 'AND(MONTH(%s)=MONTH(EDATE(TODAY(),0+1)),YEAR(%s)=YEAR(EDATE(TODAY(),0+1)))',
     ];
 
     /** @var string */

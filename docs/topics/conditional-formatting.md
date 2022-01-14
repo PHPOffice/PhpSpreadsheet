@@ -116,12 +116,17 @@ No Blanks | Wizard::NOT_BLANKS | Blanks
 Errors | Wizard::ERRORS | Errors 
 No Errors | Wizard::NOT_ERRORS | Errors
 
-We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create to return the appropriate Wizard:
+We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create in order to return the appropriate Wizard:
 
-```phpregexp
+```php
 $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('C3:E5');
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
 ```
+You can, of course, instantiate the Wizard that you want directly, rather than using the factory.
+```php
+$wizard = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\CellValue('C3:E5');
+```
+
 That Wizard then provides methods allowing us to define the rule, setting the operator and the values that we want to compare for that rule.
 Note that not all rules require values, or even operators, but the individual Wizards provide whatever is necessary; and this document lists all options available for every Wizard.
 
@@ -129,7 +134,7 @@ Note that not all rules require values, or even operators, but the individual Wi
 
 For the `CellValue` Wizard, we always need to provide an operator and a value; and for the "between" and "notBetween" operators, we need to provide two values to specify a range.
 
-Condition Type | Wizard Type | Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
 | | | Conditional::OPERATOR_NOTEQUAL | notEquals()
@@ -214,7 +219,7 @@ $wizard->equals('AVERAGE($B1:$C1)', Wizard::VALUE_TYPE_FORMULA);
 
 For the `TextValue` Wizard, we always need to provide an operator and a value.
 
-Condition Type | Wizard Type | Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_CONTAINSTEXT | contains()
 Conditional::CONDITION_NOTCONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_NOTCONTAINS | doesNotContain()
@@ -224,4 +229,144 @@ Conditional::CONDITION_BEGINSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_B
 Conditional::CONDITION_ENDSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_ENDSWITH | endsWith()
 
 The Conditional actually uses a separate "Condition Type" for each, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these condition rules.
+
+Conditional Type | Condition Expression
+---|---
+Conditional::CONDITION_CONTAINSTEXT | NOT(ISERROR(SEARCH(`<value>`,`<cell address>`)))
+Conditional::CONDITION_NOTCONTAINSTEXT | ISERROR(SEARCH(`<value>`,`<cell address>`))</
+Conditional::CONDITION_BEGINSWITH | LEFT(`<cell address>`,LEN(`<value>`))=`<value>`
+Conditional::CONDITION_ENDSWITH | RIGHT(`<cell address>`,LEN(`<value>`))=`<value>`
+
+The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+The `<value>` should be wrapped in double quotes (`"`) for string literal; unquoted if it is a value stored in a cell reference, or a formula. 
+
+### DateValue Wizard
+
+For the `DateValue` Wizard, we always need to provide an operator; but no value is required.
+
+Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+---|---|---|---|---
+Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEPERIOD_TODAY | today()
+| | | Conditional::TIMEPERIOD_YESTERDAY | yesterday()
+| | | Conditional::TIMEPERIOD_TOMORROW | tomorrow()
+| | | Conditional::TIMEPERIOD_LAST_7_DAYS | last7Days()
+| | |  | lastSevenDays() | synonym for `last7Days()`
+| | | Conditional::TIMEPERIOD_LAST_WEEK | lastWeek()
+| | | Conditional::TIMEPERIOD_THIS_WEEK | thisWeek()
+| | | Conditional::TIMEPERIOD_NEXT_WEEK | nextWeek()
+| | | Conditional::TIMEPERIOD_LAST_MONTH | lastMonth()
+| | | Conditional::TIMEPERIOD_THIS_MONTH | thisMonth()
+| | | Conditional::TIMEPERIOD_NEXT_MONTH | nextMonth()
+
+The Conditional has no actual "Operator Type", and the condition should be an Excel formula, and with a custom `timePeriod` attribute. The Wizard should make it a lot easier to create these condition rules.
+
+timePeriod Attribute | Condition Expression
+---|---
+today | FLOOR(`<cell address>`,1)=TODAY()-1
+yesterday | FLOOR(`<cell address>`,1)=TODAY()
+tomorrow | FLOOR(`<cell address>`,1)=TODAY()+1
+last7Days | AND(TODAY()-FLOOR(`<cell address>`,1)<=6,FLOOR(`<cell address>`,1)<=TODAY())
+lastWeek | AND(TODAY()-ROUNDDOWN(`<cell address>`,0)>=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(`<cell address>`,0)<(WEEKDAY(TODAY())+7))
+thisWeek | AND(TODAY()-ROUNDDOWN(`<cell address>`,0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(`<cell address>`,0)-TODAY()<=7-WEEKDAY(TODAY())) 
+nextWeek | AND(ROUNDDOWN(`<cell address>`,0)-TODAY()>(7-WEEKDAY(TODAY())),ROUNDDOWN(`<cell address>`,0)-TODAY()<(15-WEEKDAY(TODAY())))
+lastMonth | AND(MONTH(`<cell address>`)=MONTH(EDATE(TODAY(),0-1)),YEAR(`<cell address>`)=YEAR(EDATE(TODAY(),0-1)))
+thisMonth | AND(MONTH(`<cell address>`)=MONTH(TODAY()),YEAR(`<cell address>`)=YEAR(TODAY()))
+nextMonth | AND(MONTH(`<cell address>`)=MONTH(EDATE(TODAY(),0+1)),YEAR(`<cell address>`)=YEAR(EDATE(TODAY(),0+1)))
+
+The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+
+### Blanks Wizard
+
+This Wizard is used to define a simple boolean state rule, to determine whether a cell is blank or not blank.
+Whether created using the Wizard Factory with a rule type of `Wizard::BLANKS` or `Wizard::NOT_BLANKS`, the same `Blanks` Wizard is returned.
+The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSBLANKS`, in the other it is pre-set for `CONDITION_NOTCONTAINSBLANKS`.
+However, you can switch between the two rules using the `isBlank()` and `notBlank()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard. 
+
+Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+---|---|---|---|---
+Conditional::CONDITION_CONTAINSBLANKS | Wizard::BLANKS | - | isBlank() | Default state
+| | | | notBlank()
+Conditional::CONDITION_NOTCONTAINSBLANKS | Wizard::NOT_BLANKS | - | notBlank()| Default state
+| | | | isBlank()
+
+The following code shows the same Blanks Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.  
+```php
+$cellRange = 'A2:B3';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\Blanks $blanksWizard */
+$blanksWizard = $wizardFactory->newRule(Wizard::BLANKS);
+
+$blanksWizard->setStyle($redStyle);
+$conditionalStyles[] = $blanksWizard->getConditional();
+
+$blanksWizard->notBlank()
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $blanksWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($blanksWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/03_Blank_Comparisons.php#L58 "Conditional Formatting - Blank Comparisons") for the repo.
+
+![11-10-CF-Blanks-Example.png](./images/11-10-CF-Blanks-Example.png)
+
+No operand/value is required for the Blanks Wizard methods; but the Conditional that is returned contains a defined expression with an Excel formula: 
+
+Blanks Type | Condition Expression
+---|---
+isBlank() | LEN(TRIM(`<cell address>`))=0
+notBlank() | LEN(TRIM(`<cell address>`))>0
+
+The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+
+### Errors Wizard
+
+Like the `Blanks` Wizard, this Wizard is used to define a simple boolean state rule, to determine whether a cell with a formula value results in an error or not.
+Whether created using the Wizard Factory with a rule type of `Wizard::ERRORS` or `Wizard::NOT_ERRORS`, the same `Errors` Wizard is returned.
+The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSERRORS`, in the other it is pre-set for `CONDITION_NOTCONTAINSERRORS`.
+However, you can switch between the two rules using the `isError()` and `notError()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard.
+
+Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+---|---|---|---|---
+Conditional::CONDITION_CONTAINSERRORS | Wizard::ERRORS | - | isError() | Default state
+| | | | notError()
+Conditional::CONDITION_NOTCONTAINSERRORS | Wizard::NOT_ERRORS | - | notError()| Default state
+| | | | isError()
+
+The following code shows the same Errors Wizard being used to create both Error and Non-Error Conditionals, using a pre-defined `$redStyle` Style object for Errors, and a pre-defined `$greenStyle` Style object for Non-Errors.
+```php
+$cellRange = 'C2:C6';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\Errors $errorsWizard */
+$errorsWizard = $wizardFactory->newRule(Wizard::ERRORS);
+
+$errorsWizard->setStyle($redStyle);
+$conditionalStyles[] = $errorsWizard->getConditional();
+
+$errorsWizard->notError()
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $errorsWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($errorsWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/04_Error_Comparisons.php#L62 "Conditional Formatting - Error Comparisons") for the repo.
+
+![11-11-CF-Errors-Example.png](./images/11-11-CF-Errors-Example.png)
+
+No operand/value is required for the Errors Wizard methods; but the Conditional that is returned contains a defined expression with an Excel formula:
+
+Blanks Type | Condition Expression
+---|---
+isError() | ISERROR(`<cell address>`)
+notError() | NOT(ISERROR(`<cell address>`))
+
+The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+
+### Expression Wizard
 
