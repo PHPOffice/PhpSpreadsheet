@@ -228,7 +228,7 @@ class Date
      * @param mixed $dateValue PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged;
      *    not Y2038-safe on a 32-bit system, and no timezone info
      *
-     * @return bool|float Excel date/time value
+     * @return false|float Excel date/time value
      *                                  or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue)

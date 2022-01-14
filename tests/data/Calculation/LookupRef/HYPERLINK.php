@@ -14,7 +14,7 @@ return [
         'Read the Docs',
     ],
     [
-        Functions::REF(),
+        'exception',
         null,
         null,
     ],
