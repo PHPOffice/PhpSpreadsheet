@@ -33,7 +33,8 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('E1', 'Value Begins With using Cell Reference')
     ->setCellValue('E7', 'Value Ends With using Cell Reference')
     ->setCellValue('E13', 'Value Contains using Cell Reference')
-    ->setCellValue('E19', "Value Doesn't Contain using Cell Reference");
+    ->setCellValue('E19', "Value Doesn't Contain using Cell Reference")
+    ->setCellValue('A25', 'Simple Comparison using Concatenation Formula');
 
 $dataArray = [
     ['HELLO', 'WORLD'],
@@ -50,10 +51,14 @@ $spreadsheet->getActiveSheet()
     ->fromArray($dataArray, null, 'E8', true)
     ->fromArray($dataArray, null, 'E14', true)
     ->fromArray($dataArray, null, 'E20', true)
+    ->fromArray($dataArray, null, 'A26', true)
     ->setCellValue('D1', 'H')
     ->setCellValue('D7', 'OW')
     ->setCellValue('D13', 'LL')
-    ->setCellValue('D19', 'EL');
+    ->setCellValue('D19', 'EL')
+    ->setCellValue('C26', 'HELLO WORLD')
+    ->setCellValue('C27', 'SOYLENT GREEN')
+    ->setCellValue('C28', 'SLEEPY HOLLOW');
 
 // Set title row bold
 $helper->log('Set title row bold');
@@ -61,9 +66,10 @@ $spreadsheet->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A7:G7')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A13:G13')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A19:G19')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A25:C25')->getFont()->setBold(true);
 
-// Define some styles
-$helper->log('Define some styles');
+// Define some styles for our Conditionals
+$helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style();
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
@@ -199,6 +205,24 @@ $conditionalStyles[] = $textWizard->getConditional();
 $spreadsheet->getActiveSheet()
     ->getStyle($textWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
+
+// Set rules for Simple Comparison using Concatenation Formula
+$cellRange = 'C26:C28';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+$cellWizard->equals('CONCATENATE($A1," ",$B1)', Wizard::VALUE_TYPE_FORMULA)
+    ->setStyle($yellowStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($cellWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+
+
+$spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\Style\Conditional;
  * @method DateValue thisMonth()
  * @method DateValue nextMonth()
  */
-class DateValue extends WizardAbstract
+class DateValue extends WizardAbstract implements WizardInterface
 {
     protected const MAGIC_OPERATIONS = [
         'yesterday' => Conditional::TIMEPERIOD_YESTERDAY,
@@ -64,6 +64,7 @@ class DateValue extends WizardAbstract
         $referenceCount = substr_count(self::EXPRESSIONS[$this->operator], '%s');
         $references = array_fill(0, $referenceCount, $this->referenceCell);
         $this->expression = sprintf(self::EXPRESSIONS[$this->operator], ...$references);
+        var_dump($this->expression);
     }
 
     public function getConditional(): Conditional

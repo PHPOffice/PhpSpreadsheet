@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardAbstract;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardInterface;
 
 class Wizard
 {
@@ -15,6 +16,7 @@ class Wizard
     const ERRORS = Conditional::CONDITION_CONTAINSERRORS;
     const NOT_ERRORS = Conditional::CONDITION_NOTCONTAINSERRORS;
     const EXPRESSION = Conditional::CONDITION_EXPRESSION;
+    const FORMULA = Conditional::CONDITION_EXPRESSION;
     const DATES_OCCURRING = 'DateValue';
 
     const VALUE_TYPE_LITERAL = 'value';
@@ -31,7 +33,7 @@ class Wizard
         $this->cellRange = $cellRange;
     }
 
-    public function newRule(string $ruleType): WizardAbstract
+    public function newRule(string $ruleType): WizardInterface
     {
         switch ($ruleType) {
             case self::CELL_VALUE:
@@ -47,6 +49,7 @@ class Wizard
             case self::NOT_ERRORS:
                 return new Wizard\Errors($this->cellRange, false);
             case self::EXPRESSION:
+            case self::FORMULA:
                 return new Wizard\Expression($this->cellRange);
             case self::DATES_OCCURRING:
                 return new Wizard\DateValue($this->cellRange);

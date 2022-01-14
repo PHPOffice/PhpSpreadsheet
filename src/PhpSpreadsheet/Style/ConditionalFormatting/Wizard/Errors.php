@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
  * @method Errors notError()
  * @method Errors isError()
  */
-class Errors extends WizardAbstract
+class Errors extends WizardAbstract implements WizardInterface
 {
     protected const OPERATORS = [
         'notError' => false,

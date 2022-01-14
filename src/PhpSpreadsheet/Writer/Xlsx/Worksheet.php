@@ -494,16 +494,32 @@ class Worksheet extends WriterPart
     private static function writeTimePeriodCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
-        if ($txt !== null && empty($conditional->getConditions())) {
+        if ($txt !== null) {
             $objWriter->writeAttribute('timePeriod', $txt);
-            if ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TODAY) {
-                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()');
-            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TOMORROW) {
-                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()+1');
-            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_YESTERDAY) {
-                $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()-1');
-            } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_LAST_7_DAYS) {
-                $objWriter->writeElement('formula', 'AND(TODAY()-FLOOR(' . $cellCoordinate . ',1)<=6,FLOOR(' . $cellCoordinate . ',1)<=TODAY())');
+            if (empty($conditional->getConditions())) {
+                if ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TODAY) {
+                    $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TOMORROW) {
+                    $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()+1');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_YESTERDAY) {
+                    $objWriter->writeElement('formula', 'FLOOR(' . $cellCoordinate . ')=TODAY()-1');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_LAST_7_DAYS) {
+                    $objWriter->writeElement('formula', 'AND(TODAY()-FLOOR(' . $cellCoordinate . ',1)<=6,FLOOR(' . $cellCoordinate . ',1)<=TODAY())');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_LAST_WEEK) {
+                    $objWriter->writeElement('formula', 'AND(TODAY()-ROUNDDOWN(' . $cellCoordinate . ',0)>=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(' . $cellCoordinate . ',0)<(WEEKDAY(TODAY())+7))');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_THIS_WEEK) {
+                    $objWriter->writeElement('formula', 'AND(TODAY()-ROUNDDOWN(' . $cellCoordinate . ',0)<=WEEKDAY(TODAY())-1,ROUNDDOWN(' . $cellCoordinate . ',0)-TODAY()<=7-WEEKDAY(TODAY()))');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_NEXT_WEEK) {
+                    $objWriter->writeElement('formula', 'AND(ROUNDDOWN(' . $cellCoordinate . ',0)-TODAY()>(7-WEEKDAY(TODAY())),ROUNDDOWN(' . $cellCoordinate . ',0)-TODAY()<(15-WEEKDAY(TODAY())))');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_LAST_MONTH) {
+                    $objWriter->writeElement('formula', 'AND(MONTH(' . $cellCoordinate . ')=MONTH(EDATE(TODAY(),0-1)),YEAR(' . $cellCoordinate . ')=YEAR(EDATE(TODAY(),0-1)))');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_THIS_MONTH) {
+                    $objWriter->writeElement('formula', 'AND(MONTH(' . $cellCoordinate . ')=MONTH(TODAY()),YEAR(' . $cellCoordinate . ')=YEAR(TODAY()))');
+                } elseif ($conditional->getOperatorType() == Conditional::TIMEPERIOD_NEXT_MONTH) {
+                    $objWriter->writeElement('formula', 'AND(MONTH(' . $cellCoordinate . ')=MONTH(EDATE(TODAY(),0+1)),YEAR(' . $cellCoordinate . ')=YEAR(EDATE(TODAY(),0+1)))');
+                }
+            } else {
+                $objWriter->writeElement('formula', $conditional->getConditions()[0]);
             }
         }
     }
@@ -668,9 +684,7 @@ class Worksheet extends WriterPart
                     || $conditional->getConditionType() === Conditional::CONDITION_ENDSWITH
                 ) {
                     self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
-                } elseif (
-                    $conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD
-                ) {
+                } elseif ($conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD) {
                     self::writeTimePeriodCondElements($objWriter, $conditional, $cellCoordinate);
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);

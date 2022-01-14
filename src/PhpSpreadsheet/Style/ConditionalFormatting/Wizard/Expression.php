@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 
-class Expression extends WizardAbstract
+class Expression extends WizardAbstract implements WizardInterface
 {
     /**
      * @var string

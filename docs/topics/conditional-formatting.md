@@ -42,6 +42,7 @@ $conditional->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::COND
 $conditional->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHAN);
 $conditional->addCondition(80);
 $conditional->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
+$conditional->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
 $conditional->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1:A10')->getConditionalStyles();
@@ -50,20 +51,23 @@ $conditionalStyles[] = $conditional;
 $spreadsheet->getActiveSheet()->getStyle('A1:A10')->setConditionalStyles($conditionalStyles);
 ```
 
-Depending on the Rules that we might want to apply for a Condition, sometimes an "operator Type" is required, sometimes not (and not all Operator Types are appropriate for all Condition Types); sometimes a "Condition" is required (or even several conditions), sometimes not, and sometimes it must be a specific Excel formula expression. Creating conditions manually requires a good knowledge of when these different properties need to be set, and with what type of values. This isn't something that an end-user developer should be expected to know. 
+Depending on the Rules that we might want to apply for a Condition, sometimes an "operator Type" is required, sometimes not (and not all Operator Types are appropriate for all Condition Types); sometimes a "Condition" is required (or even several conditions), sometimes not, and sometimes it must be a specific Excel formula expression.
+Creating conditions manually requires a good knowledge of when these different properties need to be set, and with what type of values.
+This isn't something that an end-user developer should be expected to know. 
 
-So - to eliminate this need for complex and arcane knowledge - since PHPSpreadsheet verson 1.22.0 there is also a series of Wizards that can assist with creating Conditional Formatting rules, and which is capable of setting the appropriate operators and conditions for a Conditional Rule:
+So - to eliminate this need for complex and arcane knowledge - since PHPSpreadsheet verson 1.22.0 there is also a series of Wizards that can assist with creating Conditional Formatting rules, and which are capable of setting the appropriate operators and conditions (including the sometimes complex Excel formula expressions) for a Conditional Rule:
 
 ```php
 $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('A1:A10');
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
 $wizard->greaterThan(80);
 $wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
+$wizard->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
 $wizard->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditional = $wizard->getConditional();
 ```
-The Wizard knows which operator types match up with condition types, and provides more meaningful method names for operators, and builds expressions when required; and it also works well with an IDE.
+The Wizards know which operator types match up with condition types, and provide more meaningful method names for operators, and they build expressions and formulae when required; and also work well with an IDE such as PHPStorm.
 
 ---
 
@@ -79,6 +83,7 @@ $conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CON
 $conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
 $conditional2->addCondition(10);
 $conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKRED);
+$conditional2->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
 $conditional2->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1:A10')->getConditionalStyles();
@@ -92,6 +97,7 @@ $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizar
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
 $wizard->lessThan(10);
 $wizard->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN);
+$wizard->getStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
 $wizard->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 
 $conditional = $wizard->getConditional();
@@ -100,11 +106,14 @@ $conditional = $wizard->getConditional();
 ## Wizards
 
 While the Wizards don't simplify defining the Conditional Style itself; they do make it easier to define the conditions (the rules) where that style will be applied. 
+MS Excel itself has wizards to guide the creation of Conditional Formatting rules and styles.
 
 ![11-07-CF-Wizard.png](./images/11-07-CF-Wizard.png)
 
-The Wizard Factory allows us to retrieve the appropriate Wizard for the CF Rule that we want to apply. Most of those that have already been defined fall under the "Format only cells that contain" category.
-MS Excel provides a whole series of different types of rule, each of which has it's own formatting and logic. The Wizards try to replicate this logic and behaviour, similar to Excel's own "Formatting Rule" helper wizard.
+The Wizard Factory allows us to retrieve the appropriate Wizard for the CF Rule that we want to apply.
+Most of those that have already been defined fall under the "Format only cells that contain" category.
+MS Excel provides a whole series of different types of rule, each of which has it's own formatting and logic.
+The Wizards try to replicate this logic and behaviour, similar to Excel's own "Formatting Rule" helper wizard.
 
 MS Excel | Wizard newRule() Type Constant | Wizard Class Name
 ---|---|---
@@ -115,6 +124,12 @@ Blanks | Wizard::BLANKS | Blanks
 No Blanks | Wizard::NOT_BLANKS | Blanks
 Errors | Wizard::ERRORS | Errors 
 No Errors | Wizard::NOT_ERRORS | Errors
+
+Additionally, a Wizard also exists for "Use a formula to determine which cells to format":
+
+MS Excel | Wizard newRule() Type Constant | Wizard Class Name
+---|---|---
+Use a formula | Wizard::EXPRESSION or Wizard::FORMULA | Expression
 
 We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create in order to return the appropriate Wizard:
 
@@ -129,6 +144,9 @@ $wizard = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\CellV
 
 That Wizard then provides methods allowing us to define the rule, setting the operator and the values that we want to compare for that rule.
 Note that not all rules require values, or even operators, but the individual Wizards provide whatever is necessary; and this document lists all options available for every Wizard.
+
+Once we have used the Wizard to define the conditions and values that we want; then we call the Wizard's `getConditional()` method to return a Conditional object that can be added to the array of Conditional Styles that we pass to `setConditionalStyles()`.
+
 
 ### CellValue Wizard
 
@@ -168,7 +186,38 @@ or simply
 $conditionalStyles[] = $wizard->getConditional();
 ```
 
+Putting it all together, we can use a block of code like (using pre-defined Style objects):
+```php
+$cellRange = 'A2:E5';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+$cellWizard->equals(0)
+    ->setStyle($yellowStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$cellWizard->greaterThan(0)
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$cellWizard->lessThan(0)
+    ->setStyle($redStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($cellWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L81 "Conditional Formatting - Simple Example") for the repo.
+
+![11-12-CF-Simple-Example.png](./images/11-12-CF-Simple-Example.png)
+
+
 #### Value Types
+
+When we need to rovide a value for an operator, that value can be numeric, boolean or string literals (even NULL); cell references; or even an Excel formulae.
 
 ##### Literals
 
@@ -177,7 +226,7 @@ If the value is a literal (even a string literal), we simply need to pass the va
 ```php
 $wizard->equals('Hello World');
 ```
-If you weren't using the Wizard, you would need to remember to wrap this value in quotes yourself (`'"Hello World"'`)  
+If you weren't using the Wizard, but were creating the Conditional directly, you would need to remember to wrap this value in quotes yourself (`'"Hello World"'`)  
 
 However, a cell reference or a formula are also string data, so we need to tell the Wizard if the value that we are passing in isn't just a string literal value, but should be treated as a cell reference or as a formula.
 
@@ -185,14 +234,15 @@ However, a cell reference or a formula are also string data, so we need to tell 
 
 If we want to use the value from cell `H9` in our rule; then we need to pass a value type of `VALUE_TYPE_CELL` to the operator, in addition to the cell reference itself.
 
+```php
+$wizard->equals('$H$9', Wizard::VALUE_TYPE_CELL);
+```
+
 ![11-08-CF-Absolute-Cell-Reference.png](./images/11-08-CF-Absolute-Cell-Reference.png)
 
 You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L103 "Conditional Formatting - Basic Comparisons") for the repo.
 
-```php
-$wizard->equals('$H$9', Wizard::VALUE_TYPE_CELL);
-```
-Note that we pass it as an absolute cell reference, "pinned" (with the `$` symbol) for both the row and the column.
+Note that we are passing the cell as an absolute cell reference, "pinned" (with the `$` symbol) for both the row and the column.
 
 In this next example, we need to use relative cell references, so that the comparison will match the value in column `A` against the values in columns `B` and `C` for each row in our range (`A18:A20`); ie, test if the value in `A18` is between the values in `B18` and `C18`, test if the value in `A19` is between the values in `B19` and `C19`, etc.  
 
@@ -207,17 +257,42 @@ $wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
 This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L126 "Conditional Formatting - Basic Comparisons") for the repo.
 
 In this case, we "pin" the column for the address; but leave the row "unpinned".
-Notice also that we treat the first cell in our range as cell `A1`: the relative row number will be adjusted automatically to match each row in our defined range; that is, the range that we specified when we instantiated the Wizard, passed in through the Wizard Factory.
+Notice also that we treat the first cell in our range as cell `A1`: the relative row number will be adjusted automatically to match our defined range; that is, the range that we specified when we instantiated the Wizard (passed in through the Wizard Factory) when we make the call to `getConditional()`.
 
 ##### Formulae
 
+It is also possible to set the value/operand as an Excel formula expression, not simply a literal value or a cell reference.
+Again, we do need to specify that the value is a Formula.
+
 ```php
-$wizard->equals('AVERAGE($B1:$C1)', Wizard::VALUE_TYPE_FORMULA);
+$cellRange = 'C26:C28';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+$cellWizard->equals('CONCATENATE($A1," ",$B1)', Wizard::VALUE_TYPE_FORMULA)
+    ->setStyle($yellowStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($cellWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
 ```
+
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/02_Text_Comparisons.php#L209 "Conditional Formatting - Text Comparisons") for the repo.
+
+When the formula contains cell references, we again need to be careful with pinning to absolute columns/rows; and when unpinned, we reference based on the top-left cell of the range being cell `A1` when we define the formula.
+Here we're defining the formula as `CONCATENATE($A1," ",$B1)`, so we're "pinning" the column references for columns `A` and `B`; but leaving the row unpinned (explicitly set to start from row 1), which is then adjusted to the conditional range when we get the Conditional from the Wizard, and adjusted to the individual rows within that range when MS Excel displays the results.
+
+![11-13-CF-Formula-with-Relative-Cell-Reference.png](./images/11-13-CF-Formula-with-Relative-Cell-Reference.png)
+
 
 ### TextValue Wizard
 
-For the `TextValue` Wizard, we always need to provide an operator and a value.
+While we can use the `CellValue` Wizard to do basic string comparison rules, the `TextValue` Wizard provides roles for comparing parts of a string value.
+
+For the `TextValue` Wizard, we always need to provide an operator and a value. As with the `CellValue` Wizard, values can be literals (but should always be string literals), cell references, or formula.
 
 Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
@@ -228,7 +303,50 @@ Conditional::CONDITION_BEGINSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_B
 | | |  | startsWith() | synonym for `beginsWith()`
 Conditional::CONDITION_ENDSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_ENDSWITH | endsWith()
 
-The Conditional actually uses a separate "Condition Type" for each, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these condition rules.
+The Conditional actually uses a separate "Condition Type" for each option, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these conditional rules.
+
+To create a Conditional rule manually, you would need to do something like:
+```php
+$cellRange = 'A14:B16';
+$conditionalStyles = [];
+$conditional = new Conditional();
+// Remember to use the correct Condition Type
+$conditional->setConditionType(Conditional::CONDITION_CONTAINSTEXT);
+// Remember to use the correct Operator Type
+$conditional->setOperatorType(Conditional::OPERATOR_CONTAINSTEXT);
+// Remember to set the text attribute
+// Remember to wrap the string literal
+$conditional->setText('"LL"');
+// Remember that the condition should be the first element in an array
+// Remember that we need a specific formula for this Conditional 
+// Remember to wrap the string literal
+// Remember to use the top-left cell of the range that we want to apply this rule to
+$conditional->setConditions(['NOT(ISERROR(SEARCH("LL",A14)))']);
+$conditional->setStyle($greenStyle);
+
+$conditionalStyles[]
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($cellRange)
+    ->setConditionalStyles($conditionalStyles);
+```
+But using the Wizard, the same Conditional rule can be created by:
+```php
+$cellRange = 'A14:B16';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\TextValue $textWizard */
+$textWizard = $wizardFactory->newRule(Wizard::TEXT_VALUE);
+
+$textWizard->contains('LL')
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $textWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($textWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+
 
 Conditional Type | Condition Expression
 ---|---
@@ -238,7 +356,8 @@ Conditional::CONDITION_BEGINSWITH | LEFT(`<cell address>`,LEN(`<value>`))=`<valu
 Conditional::CONDITION_ENDSWITH | RIGHT(`<cell address>`,LEN(`<value>`))=`<value>`
 
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
-The `<value>` should be wrapped in double quotes (`"`) for string literal; unquoted if it is a value stored in a cell reference, or a formula. 
+The `<value>` should be wrapped in double quotes (`"`) for string literals; but unquoted if it is a value stored in a cell reference, or a formula. 
+
 
 ### DateValue Wizard
 
@@ -258,7 +377,7 @@ Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEP
 | | | Conditional::TIMEPERIOD_THIS_MONTH | thisMonth()
 | | | Conditional::TIMEPERIOD_NEXT_MONTH | nextMonth()
 
-The Conditional has no actual "Operator Type", and the condition should be an Excel formula, and with a custom `timePeriod` attribute. The Wizard should make it a lot easier to create these condition rules.
+The Conditional has no actual "Operator Type", and the condition/value should be an Excel formula, and with a custom `timePeriod` attribute. The Wizard should make it a lot easier to create these condition rules.
 
 timePeriod Attribute | Condition Expression
 ---|---
@@ -274,6 +393,7 @@ thisMonth | AND(MONTH(`<cell address>`)=MONTH(TODAY()),YEAR(`<cell address>`)=YE
 nextMonth | AND(MONTH(`<cell address>`)=MONTH(EDATE(TODAY(),0+1)),YEAR(`<cell address>`)=YEAR(EDATE(TODAY(),0+1)))
 
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+
 
 ### Blanks Wizard
 
@@ -321,6 +441,7 @@ notBlank() | LEN(TRIM(`<cell address>`))>0
 
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
 
+
 ### Errors Wizard
 
 Like the `Blanks` Wizard, this Wizard is used to define a simple boolean state rule, to determine whether a cell with a formula value results in an error or not.
@@ -367,6 +488,7 @@ isError() | ISERROR(`<cell address>`)
 notError() | NOT(ISERROR(`<cell address>`))
 
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
+
 
 ### Expression Wizard
 

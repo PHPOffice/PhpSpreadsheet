@@ -59,8 +59,8 @@ $spreadsheet->getActiveSheet()->getStyle('A9:E9')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A17:E17')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A23:E23')->getFont()->setBold(true);
 
-// Define some styles
-$helper->log('Define some styles');
+// Define some styles for our Conditionals
+$helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style();
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)

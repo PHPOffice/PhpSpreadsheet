@@ -43,8 +43,8 @@ $spreadsheet->getActiveSheet()
 $helper->log('Set title row bold');
 $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
 
-// Define some styles
-$helper->log('Define some styles');
+// Define some styles for our Conditionals
+$helper->log('Define some styles for our Conditionals');
 $greenStyle = new Style();
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)

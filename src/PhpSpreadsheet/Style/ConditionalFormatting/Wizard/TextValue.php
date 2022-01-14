@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
  * @method TextValue startsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  * @method TextValue endsWith(string $value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  */
-class TextValue extends WizardAbstract
+class TextValue extends WizardAbstract implements WizardInterface
 {
     protected const MAGIC_OPERATIONS = [
         'contains' => Conditional::OPERATOR_CONTAINSTEXT,

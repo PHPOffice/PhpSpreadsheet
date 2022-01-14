@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
  * @method Blanks notBlank()
  * @method Blanks isBlank()
  */
-class Blanks extends WizardAbstract
+class Blanks extends WizardAbstract implements WizardInterface
 {
     protected const OPERATORS = [
         'notBlank' => false,

@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
  * @method CellValue notBetween($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  * @method CellValue and($value, string $operandValueType = Wizard::VALUE_TYPE_LITERAL)
  */
-class CellValue extends WizardAbstract
+class CellValue extends WizardAbstract implements WizardInterface
 {
     public const MAGIC_OPERATIONS = [
         'equals' => Conditional::OPERATOR_EQUAL,
