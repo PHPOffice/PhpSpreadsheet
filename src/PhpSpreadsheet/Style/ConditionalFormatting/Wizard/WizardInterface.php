@@ -15,5 +15,5 @@ interface WizardInterface
 
     public function getCellRange(): string;
 
-    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self;
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface;
 }

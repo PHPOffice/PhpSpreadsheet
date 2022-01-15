@@ -34,7 +34,7 @@ class Expression extends WizardAbstract implements WizardInterface
         return $conditional;
     }
 
-    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if ($conditional->getConditionType() !== Conditional::CONDITION_EXPRESSION) {
             throw new Exception('Conditional is not an Expression CF Rule conditional');

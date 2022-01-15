@@ -110,7 +110,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         return $conditional;
     }
 
-    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if (!in_array($conditional->getConditionType(), self::OPERATORS, true)) {
             throw new Exception('Conditional is not a Text Value CF Rule conditional');

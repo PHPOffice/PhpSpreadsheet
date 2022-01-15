@@ -119,7 +119,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         return str_replace('""', '"', $condition);
     }
 
-    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if ($conditional->getConditionType() !== Conditional::CONDITION_CELLIS) {
             throw new Exception('Conditional is not a Cell Value CF Rule conditional');
