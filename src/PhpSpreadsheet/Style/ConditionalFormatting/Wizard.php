@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardAbstract;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardInterface;
 
 class Wizard

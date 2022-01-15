@@ -1,7 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use \PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Fill;

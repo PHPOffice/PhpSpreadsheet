@@ -46,5 +46,4 @@ class Expression extends WizardAbstract implements WizardInterface
 
         return $wizard;
     }
-
 }

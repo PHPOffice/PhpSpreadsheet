@@ -221,7 +221,6 @@ $spreadsheet->getActiveSheet()
     ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 
-
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 
 // Save

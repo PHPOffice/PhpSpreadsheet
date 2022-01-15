@@ -21,6 +21,7 @@ class WizardFactoryTest extends TestCase
 
     /**
      * @dataProvider basicWizardFactoryProvider
+     *
      * @param class-string<object> $expectedWizard
      */
     public function testBasicWizardFactory(string $ruleType, $expectedWizard): void

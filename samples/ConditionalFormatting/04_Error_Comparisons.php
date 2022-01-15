@@ -57,7 +57,6 @@ $redStyle->getFill()
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
 
-
 // Set rules for Blank Comparison
 $cellRange = 'C2:C6';
 $conditionalStyles = [];

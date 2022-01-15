@@ -112,6 +112,7 @@ class CellMatcher
 
     /**
      * @param mixed $value
+     *
      * @return mixed
      */
     protected function wrapValue($value)
