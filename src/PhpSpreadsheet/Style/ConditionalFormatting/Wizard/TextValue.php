@@ -117,7 +117,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         }
 
         $wizard = new self($cellRange);
-        $wizard->operator = array_search($conditional->getConditionType(), self::OPERATORS, true);
+        $wizard->operator = (string) array_search($conditional->getConditionType(), self::OPERATORS, true);
         $wizard->style = $conditional->getStyle();
 
         // Best-guess to try and identify if the text is a string literal, a cell reference or a formula?
@@ -134,7 +134,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         ) {
             $wizard->operandValueType = Wizard::VALUE_TYPE_FORMULA;
         }
-        $wizard->operand = $condition;
+        $wizard->operand = (string) $condition;
 
         return $wizard;
     }

@@ -198,7 +198,7 @@ class CellMatcher
 
         $operator = self::COMPARISON_OPERATORS[$conditional->getOperatorType()];
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
-        $expression = sprintf('%s%s%s', $this->wrapCellValue(), $operator, array_pop($conditions));
+        $expression = sprintf('%s%s%s', (string) $this->wrapCellValue(), $operator, (string) array_pop($conditions));
 
         return $this->evaluateExpression($expression);
     }
@@ -208,7 +208,11 @@ class CellMatcher
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
         sort($conditions);
         $expression = sprintf(
-            preg_replace('/\bA1\b/i', $this->wrapCellValue(), self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]),
+            (string) preg_replace(
+                '/\bA1\b/i',
+                (string) $this->wrapCellValue(),
+                self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]
+            ),
             ...$conditions
         );
 
@@ -218,10 +222,13 @@ class CellMatcher
     protected function processExpression(Conditional $conditional): bool
     {
         $conditions = $this->adjustConditionsForCellReferences($conditional->getConditions());
-        var_dump($conditions);
         $expression = array_pop($conditions);
 
-        $expression = preg_replace('/\b' . $this->referenceCell . '\b/i', $this->wrapCellValue(), $expression);
+        $expression = preg_replace(
+            '/\b' . $this->referenceCell . '\b/i',
+            (string) $this->wrapCellValue(),
+            $expression
+        );
 
         return $this->evaluateExpression($expression);
     }
@@ -229,7 +236,6 @@ class CellMatcher
     protected function evaluateExpression(string $expression): bool
     {
         $expression = "={$expression}";
-        var_dump($expression);
 
         try {
             $this->engine->flushInstance();
@@ -237,7 +243,6 @@ class CellMatcher
         } catch (Exception $e) {
             return false;
         }
-        var_dump($result);
 
         return $result;
     }
