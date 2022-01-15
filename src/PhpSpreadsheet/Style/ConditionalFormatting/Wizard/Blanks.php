@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
@@ -54,10 +54,26 @@ class Blanks extends WizardAbstract implements WizardInterface
         $conditional->setConditionType(
             $this->inverse ? Conditional::CONDITION_CONTAINSBLANKS : Conditional::CONDITION_NOTCONTAINSBLANKS
         );
-        $conditional->setConditions($this->expression);
+        $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    {
+        if (
+            $conditional->getConditionType() !== Conditional::CONDITION_CONTAINSBLANKS &&
+            $conditional->getConditionType() !== Conditional::CONDITION_NOTCONTAINSBLANKS
+        ) {
+            throw new Exception('Conditional is not a Blanks CF Rule conditional');
+        }
+
+        $wizard = new self($cellRange);
+        $wizard->style = $conditional->getStyle();
+        $wizard->inverse = $conditional->getConditionType() === Conditional::CONDITION_CONTAINSBLANKS;
+
+        return $wizard;
     }
 
     /**

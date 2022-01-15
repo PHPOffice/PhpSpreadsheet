@@ -4,10 +4,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class ErrorWizardTest extends TestCase
 {
+    /**
+     * @var Style
+     */
+    protected $style;
+
+    /**
+     * @var string
+     */
+    protected $range = '$C$3:$E$5';
+
     /**
      * @var Wizard
      */
@@ -15,8 +26,8 @@ class ErrorWizardTest extends TestCase
 
     protected function setUp(): void
     {
-        $range = '$C$3:$E$5';
-        $this->wizardFactory = new Wizard($range);
+        $this->wizardFactory = new Wizard($this->range);
+        $this->style = new Style();
     }
 
     public function testErrorWizard(): void
@@ -25,11 +36,16 @@ class ErrorWizardTest extends TestCase
         /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
+        $wizard->setStyle($this->style);
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSERRORS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(C3)'], $conditions);
+
+        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testNonErrorWizard(): void
@@ -38,11 +54,16 @@ class ErrorWizardTest extends TestCase
         /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Errors::class, $wizard);
+        $wizard->setStyle($this->style);
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSERRORS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
+
+        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testErrorWizardNotError(): void
@@ -51,12 +72,17 @@ class ErrorWizardTest extends TestCase
         /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
 
+        $wizard->setStyle($this->style);
         $wizard->notError();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSERRORS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
+
+        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testErrorWizardIsError(): void
@@ -65,11 +91,16 @@ class ErrorWizardTest extends TestCase
         /** @var Wizard\Errors $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
 
+        $wizard->setStyle($this->style);
         $wizard->isError();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSERRORS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(C3)'], $conditions);
+
+        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 }

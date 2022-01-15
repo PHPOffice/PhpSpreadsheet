@@ -4,10 +4,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class DateValueWizardTest extends TestCase
 {
+    /**
+     * @var Style
+     */
+    protected $style;
+
+    /**
+     * @var string
+     */
+    protected $range = '$C$3:$E$5';
+
     /**
      * @var Wizard
      */
@@ -15,8 +26,8 @@ class DateValueWizardTest extends TestCase
 
     protected function setUp(): void
     {
-        $range = '$C$3:$E$5';
-        $this->wizardFactory = new Wizard($range);
+        $this->wizardFactory = new Wizard($this->range);
+        $this->style = new Style();
     }
 
     /**
@@ -27,6 +38,7 @@ class DateValueWizardTest extends TestCase
         $ruleType = Wizard::DATES_OCCURRING;
         /** @var Wizard\DateValue $dateWizard */
         $dateWizard = $this->wizardFactory->newRule($ruleType);
+        $dateWizard->setStyle($this->style);
 
         $dateWizard->$operator();
 
@@ -35,12 +47,18 @@ class DateValueWizardTest extends TestCase
         self:self::assertSame($expectedReference, $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedExpression], $conditions);
+
+        $newWizard = Wizard\DateValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $dateWizard, 'fromConditional() Failure');
     }
 
     public function dateValueWizardProvider(): array
     {
         return [
             ['today', 'today', 'FLOOR(C3,1)=TODAY()'],
+            ['yesterday', 'yesterday', 'FLOOR(C3,1)=TODAY()-1'],
+            ['tomorrow', 'tomorrow', 'FLOOR(C3,1)=TODAY()+1'],
             ['lastSevenDays', 'last7Days', 'AND(TODAY()-FLOOR(C3,1)<=6,FLOOR(C3,1)<=TODAY())'],
         ];
     }

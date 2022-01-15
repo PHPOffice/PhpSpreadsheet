@@ -4,10 +4,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class BlankWizardTest extends TestCase
 {
+    /**
+     * @var Style
+     */
+    protected $style;
+
+    /**
+     * @var string
+     */
+    protected $range = '$C$3:$E$5';
+
     /**
      * @var Wizard
      */
@@ -15,8 +26,8 @@ class BlankWizardTest extends TestCase
 
     protected function setUp(): void
     {
-        $range = '$C$3:$E$5';
-        $this->wizardFactory = new Wizard($range);
+        $this->wizardFactory = new Wizard($this->range);
+        $this->style = new Style();
     }
 
     public function testBlankWizard(): void
@@ -25,11 +36,16 @@ class BlankWizardTest extends TestCase
         /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Blanks::class, $wizard);
+        $wizard->setStyle($this->style);
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSBLANKS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))=0'], $conditions);
+
+        $newWizard = Wizard\Blanks::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testNonBlankWizard(): void
@@ -38,11 +54,16 @@ class BlankWizardTest extends TestCase
         /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\Blanks::class, $wizard);
+        $wizard->setStyle($this->style);
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSBLANKS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
+
+        $newWizard = Wizard\Blanks::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testBlankWizardWithNotBlank(): void
@@ -51,12 +72,17 @@ class BlankWizardTest extends TestCase
         /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
 
+        $wizard->setStyle($this->style);
         $wizard->notBlank();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_NOTCONTAINSBLANKS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))>0'], $conditions);
+
+        $newWizard = Wizard\Blanks::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function testNonBlankWizardWithIsBlank(): void
@@ -65,11 +91,16 @@ class BlankWizardTest extends TestCase
         /** @var Wizard\Blanks $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
 
+        $wizard->setStyle($this->style);
         $wizard->isBlank();
 
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_CONTAINSBLANKS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEN(TRIM(C3))=0'], $conditions);
+
+        $newWizard = Wizard\Blanks::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 }

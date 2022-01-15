@@ -4,10 +4,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class CellValueWizardTest extends TestCase
 {
+    /**
+     * @var Style
+     */
+    protected $style;
+
+    /**
+     * @var string
+     */
+    protected $range = '$C$3:$E$5';
+
     /**
      * @var Wizard
      */
@@ -15,8 +26,8 @@ class CellValueWizardTest extends TestCase
 
     protected function setUp(): void
     {
-        $range = '$C$3:$E$5';
-        $this->wizardFactory = new Wizard($range);
+        $this->wizardFactory = new Wizard($this->range);
+        $this->style = new Style();
     }
 
     /**
@@ -30,6 +41,8 @@ class CellValueWizardTest extends TestCase
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
         $wizard->$operator($operand);
 
         $conditional = $wizard->getConditional();
@@ -37,6 +50,10 @@ class CellValueWizardTest extends TestCase
         self::assertSame($expectedOperator, $conditional->getOperatorType());
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedCondition], $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function basicCellValueDataProvider(): array
@@ -66,11 +83,17 @@ class CellValueWizardTest extends TestCase
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
         $wizard->equals($operand, Wizard::VALUE_TYPE_CELL);
 
         $conditional = $wizard->getConditional();
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedCondition], $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function relativeCellValueDataProvider(): array
@@ -84,6 +107,44 @@ class CellValueWizardTest extends TestCase
     }
 
     /**
+     * @dataProvider formulaCellValueDataProvider
+     *
+     * @param mixed $operand
+     * @param mixed $expectedCondition
+     */
+    public function testCellValueWizardWithFormula($operand, $expectedCondition): void
+    {
+        $ruleType = Wizard::CELL_VALUE;
+        /** @var Wizard\CellValue $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
+        $wizard->equals($operand, Wizard::VALUE_TYPE_FORMULA);
+
+        $conditional = $wizard->getConditional();
+        $conditions = $conditional->getConditions();
+        self::assertSame([$expectedCondition], $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
+    }
+
+    public function formulaCellValueDataProvider(): array
+    {
+        return [
+            '= Cell value unpinned in function' => ['SQRT(A1)', 'SQRT(C3)'],
+            '= Cell value pinned column in function' => ['SQRT($G1)', 'SQRT($G3)'],
+            '= Cell value pinned row in function' => ['SQRT(A$10)', 'SQRT(C$10)'],
+            '= Cell value pinned cell in function' => ['SQRT($A$1)', 'SQRT($A$1)'],
+            '= Cell value unpinned in expression' => ['A1+B2', 'C3+D4'],
+            '= Cell value pinned column in expression' => ['$G1+$H2', '$G3+$H4'],
+            '= Cell value pinned row in expression' => ['A$10+B$11', 'C$10+D$11'],
+            '= Cell value pinned cell in expression' => ['$A$1+$B$2', '$A$1+$B$2'],
+        ];
+    }
+
+    /**
      * @dataProvider rangeCellValueDataProvider
      */
     public function testRangeCellValueWizard(string $operator, array $operands, string $expectedOperator): void
@@ -91,6 +152,8 @@ class CellValueWizardTest extends TestCase
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
         $wizard->$operator($operands[0])->and($operands[1]);
 
         $conditional = $wizard->getConditional();
@@ -98,6 +161,10 @@ class CellValueWizardTest extends TestCase
         self::assertSame($expectedOperator, $conditional->getOperatorType());
         $conditions = $conditional->getConditions();
         self::assertSame($operands, $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function rangeCellValueDataProvider(): array
@@ -117,6 +184,8 @@ class CellValueWizardTest extends TestCase
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
         $wizard
             ->between($operands[0], is_string($operands[0]) ? Wizard::VALUE_TYPE_CELL : Wizard::VALUE_TYPE_LITERAL)
             ->and($operands[1], is_string($operands[1]) ? Wizard::VALUE_TYPE_CELL : Wizard::VALUE_TYPE_LITERAL);
@@ -125,6 +194,10 @@ class CellValueWizardTest extends TestCase
         self::assertSame(Conditional::CONDITION_CELLIS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame($expectedConditions, $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function rangeRelativeCellValueDataProvider(): array
@@ -143,6 +216,8 @@ class CellValueWizardTest extends TestCase
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
         $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
         $wizard
             ->between($operands[0], is_string($operands[0]) ? Wizard::VALUE_TYPE_FORMULA : Wizard::VALUE_TYPE_LITERAL)
             ->and($operands[1], is_string($operands[1]) ? Wizard::VALUE_TYPE_FORMULA : Wizard::VALUE_TYPE_LITERAL);
@@ -151,6 +226,10 @@ class CellValueWizardTest extends TestCase
         self::assertSame(Conditional::CONDITION_CELLIS, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
         self::assertSame($expectedConditions, $conditions);
+
+        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
     public function rangeFormulaCellValueDataProvider(): array

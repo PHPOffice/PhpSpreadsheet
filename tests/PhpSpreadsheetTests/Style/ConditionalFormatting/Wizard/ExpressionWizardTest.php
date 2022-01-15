@@ -32,7 +32,7 @@ class ExpressionWizardTest extends TestCase
         $conditional = $wizard->getConditional();
         self::assertSame(Conditional::CONDITION_EXPRESSION, $conditional->getConditionType());
         $conditions = $conditional->getConditions();
-        self::assertSame([$expectedExpression], $conditions);
+        self::assertSame([$expectedExpression], $conditions, 'fromConditional() Failure');
     }
 
     public function expressionDataProvider(): array

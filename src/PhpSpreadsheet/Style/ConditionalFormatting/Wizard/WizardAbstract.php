@@ -52,6 +52,39 @@ abstract class WizardAbstract
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
     }
 
+    protected static function reverseCellAdjustment(array $matches, $referenceColumnIndex, $referenceRow): string
+    {
+        $column = $matches[6];
+        $row = $matches[7];
+
+        if (strpos($column, '$') === false) {
+            $column = Coordinate::columnIndexFromString($column);
+            $column -= $referenceColumnIndex - 1;
+            $column = Coordinate::stringFromColumnIndex($column);
+        }
+
+        if (strpos($row, '$') === false) {
+            $row -= $referenceRow - 1;
+        }
+
+        return "{$column}{$row}";
+    }
+
+    protected static function reverseAdjustCellRef(string $condition, string $cellRange): string
+    {
+        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($cellRange)));
+        [$referenceCell] = $conditionalRange[0];
+        [$referenceColumnIndex, $referenceRow] = Coordinate::indexesFromString($referenceCell);
+
+        return preg_replace_callback(
+            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
+            function($matches) use ($referenceColumnIndex, $referenceRow) {
+                return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
+            },
+            $condition
+        );
+    }
+
     protected function conditionCellAdjustment(array $matches): string
     {
         $column = $matches[6];

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
@@ -54,10 +54,26 @@ class Errors extends WizardAbstract implements WizardInterface
         $conditional->setConditionType(
             $this->inverse ? Conditional::CONDITION_CONTAINSERRORS : Conditional::CONDITION_NOTCONTAINSERRORS
         );
-        $conditional->setConditions($this->expression);
+        $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    {
+        if (
+            $conditional->getConditionType() !== Conditional::CONDITION_CONTAINSERRORS &&
+            $conditional->getConditionType() !== Conditional::CONDITION_NOTCONTAINSERRORS
+        ) {
+            throw new Exception('Conditional is not an Errors CF Rule conditional');
+        }
+
+        $wizard = new self($cellRange);
+        $wizard->style = $conditional->getStyle();
+        $wizard->inverse = $conditional->getConditionType() === Conditional::CONDITION_CONTAINSERRORS;
+
+        return $wizard;
     }
 
     /**

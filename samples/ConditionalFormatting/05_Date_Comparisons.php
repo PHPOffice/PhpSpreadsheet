@@ -124,7 +124,6 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
     $conditionalStyles = [];
 
     $methodName = trim($spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue(), '()');
-    var_dump($methodName);
     $wizard->$methodName()
         ->setStyle($yellowStyle);
 

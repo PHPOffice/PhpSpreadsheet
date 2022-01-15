@@ -4,10 +4,21 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class TextValueWizardTest extends TestCase
 {
+    /**
+     * @var Style
+     */
+    protected $style;
+
+    /**
+     * @var string
+     */
+    protected $range = '$C$3:$E$5';
+
     /**
      * @var Wizard
      */
@@ -15,8 +26,8 @@ class TextValueWizardTest extends TestCase
 
     protected function setUp(): void
     {
-        $range = '$C$3:$E$5';
-        $this->wizardFactory = new Wizard($range);
+        $this->wizardFactory = new Wizard($this->range);
+        $this->style = new Style();
     }
 
     public function testTextContainsWizardWithText(): void
@@ -26,6 +37,7 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
+        $textWizard->setStyle($this->style);
         $textWizard->contains('LL');
 
         $conditional = $textWizard->getConditional();
@@ -34,6 +46,10 @@ class TextValueWizardTest extends TestCase
         self::assertSame('LL', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(SEARCH("LL",C3)))'], $conditions);
+
+        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
 
     public function testTextContainsWizardWithCellReference(): void
@@ -43,6 +59,7 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
+        $textWizard->setStyle($this->style);
         $textWizard->contains('$A1', Wizard::VALUE_TYPE_CELL);
 
         $conditional = $textWizard->getConditional();
@@ -51,6 +68,10 @@ class TextValueWizardTest extends TestCase
         self::assertSame('$A3', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(SEARCH($A3,C3)))'], $conditions);
+
+        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
 
     public function testTextNotContainsWizardWithText(): void
@@ -60,6 +81,7 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
+        $textWizard->setStyle($this->style);
         $textWizard->doesNotContain('LL');
 
         $conditional = $textWizard->getConditional();
@@ -68,6 +90,10 @@ class TextValueWizardTest extends TestCase
         self::assertSame('LL', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(SEARCH("LL",C3))'], $conditions);
+
+        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
 
     public function testTextBeginsWithWizardWithText(): void
@@ -77,6 +103,7 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
+        $textWizard->setStyle($this->style);
         $textWizard->beginsWith('LL');
 
         $conditional = $textWizard->getConditional();
@@ -85,6 +112,10 @@ class TextValueWizardTest extends TestCase
         self::assertSame('LL', $conditional->getText());
         $conditions = $conditional->getConditions();
         self::assertSame(['LEFT(C3,LEN("LL"))="LL"'], $conditions);
+
+        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
 
     public function testTextEndsWithWizardWithText(): void
@@ -94,6 +125,7 @@ class TextValueWizardTest extends TestCase
         $textWizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf(Wizard\TextValue::class, $textWizard);
 
+        $textWizard->setStyle($this->style);
         $textWizard->endsWith('LL');
 
         $conditional = $textWizard->getConditional();
@@ -101,5 +133,9 @@ class TextValueWizardTest extends TestCase
         self:self::assertSame(Conditional::OPERATOR_ENDSWITH, $conditional->getOperatorType());
         $conditions = $conditional->getConditions();
         self::assertSame(['RIGHT(C3,LEN("LL"))="LL"'], $conditions);
+
+        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard->getConditional();
+        self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
 }

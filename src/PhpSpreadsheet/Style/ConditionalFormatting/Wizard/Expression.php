@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 
 class Expression extends WizardAbstract implements WizardInterface
@@ -26,10 +27,24 @@ class Expression extends WizardAbstract implements WizardInterface
         $expression = $this->adjustConditionsForCellReferences([$this->expression]);
 
         $conditional = new Conditional();
+        $conditional->setStyle($this->getStyle());
         $conditional->setConditionType(Conditional::CONDITION_EXPRESSION);
         $conditional->setConditions($expression);
-        $conditional->setStyle($this->getStyle());
 
         return $conditional;
     }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    {
+        if ($conditional->getConditionType() !== Conditional::CONDITION_EXPRESSION) {
+            throw new Exception('Conditional is not an Expression CF Rule conditional');
+        }
+
+        $wizard = new self($cellRange);
+        $wizard->style = $conditional->getStyle();
+        $wizard->expression = $conditional->getConditions()[0];
+
+        return $wizard;
+    }
+
 }

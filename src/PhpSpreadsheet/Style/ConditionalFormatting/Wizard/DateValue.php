@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 
 /**
@@ -64,7 +64,6 @@ class DateValue extends WizardAbstract implements WizardInterface
         $referenceCount = substr_count(self::EXPRESSIONS[$this->operator], '%s');
         $references = array_fill(0, $referenceCount, $this->referenceCell);
         $this->expression = sprintf(self::EXPRESSIONS[$this->operator], ...$references);
-        var_dump($this->expression);
     }
 
     public function getConditional(): Conditional
@@ -74,10 +73,23 @@ class DateValue extends WizardAbstract implements WizardInterface
         $conditional = new Conditional();
         $conditional->setConditionType(Conditional::CONDITION_TIMEPERIOD);
         $conditional->setText($this->operator);
-        $conditional->setConditions($this->expression);
+        $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    {
+        if ($conditional->getConditionType() !== Conditional::CONDITION_TIMEPERIOD) {
+            throw new Exception('Conditional is not a Date Value CF Rule conditional');
+        }
+
+        $wizard = new self($cellRange);
+        $wizard->style = $conditional->getStyle();
+        $wizard->operator = $conditional->getText();
+
+        return $wizard;
     }
 
     /**

@@ -223,7 +223,7 @@ class Calculation
      *
      * @var array<string, mixed>
      */
-    private static $excelConstants = [
+    public static $excelConstants = [
         'TRUE' => true,
         'FALSE' => false,
         'NULL' => null,

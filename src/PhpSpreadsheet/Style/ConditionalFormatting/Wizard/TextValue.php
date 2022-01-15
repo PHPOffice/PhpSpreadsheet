@@ -2,7 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
@@ -78,7 +79,7 @@ class TextValue extends WizardAbstract implements WizardInterface
     protected function setExpression(): void
     {
         $operand = $this->operandValueType === Wizard::VALUE_TYPE_LITERAL
-            ? $this->wrapValue($this->operand)
+            ? $this->wrapValue(str_replace('"', '""', $this->operand))
             : $this->cellConditionCheck($this->operand);
 
         if (
@@ -103,10 +104,39 @@ class TextValue extends WizardAbstract implements WizardInterface
                 ? $this->cellConditionCheck($this->operand)
                 : $this->operand
         );
-        $conditional->setConditions($this->expression);
+        $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
 
         return $conditional;
+    }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self
+    {
+        if (!in_array($conditional->getConditionType(), self::OPERATORS, true)) {
+            throw new Exception('Conditional is not a Text Value CF Rule conditional');
+        }
+
+        $wizard = new self($cellRange);
+        $wizard->operator = array_search($conditional->getConditionType(), self::OPERATORS, true);
+        $wizard->style = $conditional->getStyle();
+
+        // Best-guess to try and identify if the text is a string literal, a cell reference or a formula?
+        $wizard->operandValueType = Wizard::VALUE_TYPE_LITERAL;
+        $condition = $conditional->getText();
+        if (is_string($condition) && array_key_exists($condition, Calculation::$excelConstants)) {
+            $condition = Calculation::$excelConstants[$condition];
+        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '$/i', $condition)) {
+            $wizard->operandValueType = Wizard::VALUE_TYPE_CELL;
+            $condition = self::reverseAdjustCellRef($condition, $cellRange);
+        } elseif (
+            preg_match('/\(\)/', $condition) ||
+            preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
+        ) {
+            $wizard->operandValueType = Wizard::VALUE_TYPE_FORMULA;
+        }
+        $wizard->operand = $condition;
+
+        return $wizard;
     }
 
     /**
