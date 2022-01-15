@@ -51,7 +51,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedCondition], $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -91,7 +91,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedCondition], $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -125,7 +125,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedCondition], $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -162,7 +162,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame($operands, $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -195,7 +195,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame($expectedConditions, $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -227,7 +227,7 @@ class CellValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame($expectedConditions, $conditions);
 
-        $newWizard = Wizard\CellValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }

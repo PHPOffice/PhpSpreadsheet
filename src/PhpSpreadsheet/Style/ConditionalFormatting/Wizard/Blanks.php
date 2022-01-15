@@ -17,7 +17,7 @@ class Blanks extends WizardAbstract implements WizardInterface
         'isBlank' => true,
     ];
 
-    private const EXPRESSIONS = [
+    protected const EXPRESSIONS = [
         Wizard::NOT_BLANKS => 'LEN(TRIM(%s))>0',
         Wizard::BLANKS => 'LEN(TRIM(%s))=0',
     ];

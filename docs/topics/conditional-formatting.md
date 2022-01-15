@@ -217,7 +217,7 @@ You can find an example that demonstrates this in the [code samples](https://git
 
 #### Value Types
 
-When we need to rovide a value for an operator, that value can be numeric, boolean or string literals (even NULL); cell references; or even an Excel formulae.
+When we need to provide a value for an operator, that value can be numeric, boolean or string literals (even NULL); cell references; or even an Excel formulae.
 
 ##### Literals
 
@@ -357,7 +357,15 @@ Conditional::CONDITION_ENDSWITH | RIGHT(`<cell address>`,LEN(`<value>`))=`<value
 
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
 The `<value>` should be wrapped in double quotes (`"`) for string literals; but unquoted if it is a value stored in a cell reference, or a formula. 
+The `TextValue` Wizard handles defining these expressions for you.
 
+As with the operand for the `CellValue` Wizard, you can specify the value passed to `contains()`, `doesNotContain()`, `beginsWith()` and `endsWith()` as a cell reference, or as a formula; and if you do so, then you need to pass a second argument to those methods specifying `Wizard::VALUE_TYPE_CELL` or `Wizard::VALUE_TYPE_FORMULA`.
+The same rules also apply to "pinning" cell references as described above for the `CellValue` Wizard.
+
+```php
+$textWizard->beginsWith('$D$1', Wizard::VALUE_TYPE_CELL)
+    ->setStyle($yellowStyle);
+```
 
 ### DateValue Wizard
 
@@ -492,3 +500,28 @@ The `<cell address>` always references the top-left cell in the range of cells f
 
 ### Expression Wizard
 
+
+
+## General Notes
+
+### Converting a Conditional to a Wizard
+
+If you already have a `Conditional` object; you can create a Wizard from that Conditional to manipulate it using all the benefits of the Wizard before using that to create a new version of the Conditional:
+
+```php
+$wizard = Wizard\CellValue::fromConditional($conditional, '$A$3:$E$8');
+$wizard->greaterThan(12.5);
+
+$newConditional = $wizard->getConditional();
+```
+This is ok if you know what type of Conditional you want to convert; but it will throw an Exception if the Conditional is not of an appropriate type (ie. not a `cellIs`).
+
+If you don't know what type of Conditional it is, then it's better to use the Wizard Factory `fromConditional()` method instead; and then test what type of Wizard object is returned: 
+```php
+$wizard = Wizard::fromConditional($conditional, '$A$3:$E$8');
+if ($wizard instanceof Wizard\CellValue) {
+    $wizard->greaterThan(12.5);
+
+    $newConditional = $wizard->getConditional();
+}
+```

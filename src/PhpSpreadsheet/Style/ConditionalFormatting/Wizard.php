@@ -8,19 +8,19 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\WizardInterface;
 
 class Wizard
 {
-    const CELL_VALUE = 'cellValue';
-    const TEXT_VALUE = 'textValue';
-    const BLANKS = Conditional::CONDITION_CONTAINSBLANKS;
-    const NOT_BLANKS = Conditional::CONDITION_NOTCONTAINSBLANKS;
-    const ERRORS = Conditional::CONDITION_CONTAINSERRORS;
-    const NOT_ERRORS = Conditional::CONDITION_NOTCONTAINSERRORS;
-    const EXPRESSION = Conditional::CONDITION_EXPRESSION;
-    const FORMULA = Conditional::CONDITION_EXPRESSION;
-    const DATES_OCCURRING = 'DateValue';
+    public const CELL_VALUE = 'cellValue';
+    public const TEXT_VALUE = 'textValue';
+    public const BLANKS = Conditional::CONDITION_CONTAINSBLANKS;
+    public const NOT_BLANKS = Conditional::CONDITION_NOTCONTAINSBLANKS;
+    public const ERRORS = Conditional::CONDITION_CONTAINSERRORS;
+    public const NOT_ERRORS = Conditional::CONDITION_NOTCONTAINSERRORS;
+    public const EXPRESSION = Conditional::CONDITION_EXPRESSION;
+    public const FORMULA = Conditional::CONDITION_EXPRESSION;
+    public const DATES_OCCURRING = 'DateValue';
 
-    const VALUE_TYPE_LITERAL = 'value';
-    const VALUE_TYPE_CELL = 'cell';
-    const VALUE_TYPE_FORMULA = 'formula';
+    public const VALUE_TYPE_LITERAL = 'value';
+    public const VALUE_TYPE_CELL = 'cell';
+    public const VALUE_TYPE_FORMULA = 'formula';
 
     /**
      * @var string
@@ -53,7 +53,34 @@ class Wizard
             case self::DATES_OCCURRING:
                 return new Wizard\DateValue($this->cellRange);
             default:
-                throw new Exception('No wizard exists for this rule type');
+                throw new Exception('No wizard exists for this CF rule type');
+        }
+    }
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
+    {
+        $conditionalType = $conditional->getConditionType();
+
+        switch ($conditionalType) {
+            case Conditional::CONDITION_CELLIS:
+                return Wizard\CellValue::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_CONTAINSTEXT:
+            case Conditional::CONDITION_NOTCONTAINSTEXT:
+            case Conditional::CONDITION_BEGINSWITH:
+            case Conditional::CONDITION_ENDSWITH:
+                return Wizard\TextValue::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_CONTAINSBLANKS:
+            case Conditional::CONDITION_NOTCONTAINSBLANKS:
+                return Wizard\Blanks::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_CONTAINSERRORS:
+            case Conditional::CONDITION_NOTCONTAINSERRORS:
+                return Wizard\Errors::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_TIMEPERIOD:
+                return Wizard\DateValue::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_EXPRESSION:
+                return Wizard\Expression::fromConditional($conditional, $cellRange);
+            default:
+                throw new Exception('No wizard exists for this CF rule type');
         }
     }
 }

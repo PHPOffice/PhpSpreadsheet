@@ -33,7 +33,7 @@ class DateValue extends WizardAbstract implements WizardInterface
         'nextMonth' => Conditional::TIMEPERIOD_NEXT_MONTH,
     ];
 
-    private const EXPRESSIONS = [
+    protected const EXPRESSIONS = [
         Conditional::TIMEPERIOD_YESTERDAY => 'FLOOR(%s,1)=TODAY()-1',
         Conditional::TIMEPERIOD_TODAY => 'FLOOR(%s,1)=TODAY()',
         Conditional::TIMEPERIOD_TOMORROW => 'FLOOR(%s,1)=TODAY()+1',

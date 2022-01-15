@@ -17,7 +17,7 @@ class Errors extends WizardAbstract implements WizardInterface
         'isError' => true,
     ];
 
-    private const EXPRESSIONS = [
+    protected const EXPRESSIONS = [
         Wizard::NOT_ERRORS => 'NOT(ISERROR(%s))',
         Wizard::ERRORS => 'ISERROR(%s)',
     ];

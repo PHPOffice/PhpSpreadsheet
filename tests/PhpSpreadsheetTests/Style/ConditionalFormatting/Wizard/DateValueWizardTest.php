@@ -48,7 +48,7 @@ class DateValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame([$expectedExpression], $conditions);
 
-        $newWizard = Wizard\DateValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $dateWizard, 'fromConditional() Failure');
     }

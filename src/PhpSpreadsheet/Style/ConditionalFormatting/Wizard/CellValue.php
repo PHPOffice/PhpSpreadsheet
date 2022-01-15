@@ -21,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
  */
 class CellValue extends WizardAbstract implements WizardInterface
 {
-    public const MAGIC_OPERATIONS = [
+    protected const MAGIC_OPERATIONS = [
         'equals' => Conditional::OPERATOR_EQUAL,
         'notEquals' => Conditional::OPERATOR_NOTEQUAL,
         'greaterThan' => Conditional::OPERATOR_GREATERTHAN,

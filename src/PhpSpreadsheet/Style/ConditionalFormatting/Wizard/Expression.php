@@ -42,7 +42,7 @@ class Expression extends WizardAbstract implements WizardInterface
 
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
-        $wizard->expression = $conditional->getConditions()[0];
+        $wizard->expression = self::reverseAdjustCellRef($conditional->getConditions()[0], $cellRange);
 
         return $wizard;
     }

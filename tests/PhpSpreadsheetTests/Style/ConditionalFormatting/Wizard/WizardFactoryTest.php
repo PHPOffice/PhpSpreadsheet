@@ -48,7 +48,7 @@ class WizardFactoryTest extends TestCase
     {
         $ruleType = 'Unknown';
         self::expectException(Exception::class);
-        self::expectExceptionMessage('No wizard exists for this rule type');
+        self::expectExceptionMessage('No wizard exists for this CF rule type');
         $this->wizardFactory->newRule($ruleType);
     }
 }

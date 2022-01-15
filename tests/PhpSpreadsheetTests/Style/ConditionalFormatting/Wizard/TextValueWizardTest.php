@@ -47,7 +47,7 @@ class TextValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(SEARCH("LL",C3)))'], $conditions);
 
-        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
@@ -69,7 +69,7 @@ class TextValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(SEARCH($A3,C3)))'], $conditions);
 
-        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
@@ -91,7 +91,7 @@ class TextValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(SEARCH("LL",C3))'], $conditions);
 
-        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
@@ -113,7 +113,7 @@ class TextValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['LEFT(C3,LEN("LL"))="LL"'], $conditions);
 
-        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }
@@ -134,7 +134,7 @@ class TextValueWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['RIGHT(C3,LEN("LL"))="LL"'], $conditions);
 
-        $newWizard = Wizard\TextValue::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
     }

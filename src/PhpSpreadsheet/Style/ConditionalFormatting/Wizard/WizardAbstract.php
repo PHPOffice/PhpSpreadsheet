@@ -40,6 +40,11 @@ abstract class WizardAbstract
 
     public function __construct(string $cellRange)
     {
+        $this->setCellRange($cellRange);
+    }
+
+    public function setCellRange(string $cellRange): void
+    {
         $this->cellRange = $cellRange;
         $this->setReferenceCellForExpressions($cellRange);
     }
@@ -52,14 +57,29 @@ abstract class WizardAbstract
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
     }
 
-    protected static function reverseCellAdjustment(array $matches, $referenceColumnIndex, $referenceRow): string
+    public function getCellRange(): string
+    {
+        return $this->cellRange;
+    }
+
+    public function getStyle(): Style
+    {
+        return $this->style ?? new Style(false, true);
+    }
+
+    public function setStyle(Style $style): void
+    {
+        $this->style = $style;
+    }
+
+    protected static function reverseCellAdjustment(array $matches, int $referenceColumn, int $referenceRow): string
     {
         $column = $matches[6];
         $row = $matches[7];
 
         if (strpos($column, '$') === false) {
             $column = Coordinate::columnIndexFromString($column);
-            $column -= $referenceColumnIndex - 1;
+            $column -= $referenceColumn - 1;
             $column = Coordinate::stringFromColumnIndex($column);
         }
 
@@ -76,13 +96,24 @@ abstract class WizardAbstract
         [$referenceCell] = $conditionalRange[0];
         [$referenceColumnIndex, $referenceRow] = Coordinate::indexesFromString($referenceCell);
 
-        return preg_replace_callback(
-            '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
-            function ($matches) use ($referenceColumnIndex, $referenceRow) {
-                return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
-            },
-            $condition
-        );
+        $splitCondition = explode(Calculation::FORMULA_STRING_QUOTE, $condition);
+        $i = false;
+        foreach ($splitCondition as &$value) {
+            //    Only count/replace in alternating array entries (ie. not in quoted strings)
+            if ($i = !$i) {
+                $value = preg_replace_callback(
+                    '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
+                    function ($matches) use ($referenceColumnIndex, $referenceRow) {
+                        return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
+                    },
+                    $value
+                );
+            }
+        }
+        unset($value);
+
+        //    Then rebuild the condition string to return it
+        return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
 
     protected function conditionCellAdjustment(array $matches): string
@@ -129,20 +160,5 @@ abstract class WizardAbstract
             [$this, 'cellConditionCheck'],
             $conditions
         );
-    }
-
-    public function getStyle(): Style
-    {
-        return $this->style ?? new Style(false, true);
-    }
-
-    public function setStyle(Style $style): void
-    {
-        $this->style = $style;
-    }
-
-    public function getCellRange(): string
-    {
-        return $this->cellRange;
     }
 }

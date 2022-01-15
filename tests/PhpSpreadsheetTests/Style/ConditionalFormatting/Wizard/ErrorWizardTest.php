@@ -43,7 +43,7 @@ class ErrorWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(C3)'], $conditions);
 
-        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -61,7 +61,7 @@ class ErrorWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
 
-        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -80,7 +80,7 @@ class ErrorWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['NOT(ISERROR(C3))'], $conditions);
 
-        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
@@ -99,7 +99,7 @@ class ErrorWizardTest extends TestCase
         $conditions = $conditional->getConditions();
         self::assertSame(['ISERROR(C3)'], $conditions);
 
-        $newWizard = Wizard\Errors::fromConditional($conditional, $this->range);
+        $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }

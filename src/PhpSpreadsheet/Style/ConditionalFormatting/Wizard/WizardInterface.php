@@ -7,13 +7,15 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 
 interface WizardInterface
 {
-    public function getConditional(): Conditional;
+    public function getCellRange(): string;
 
     public function getStyle(): Style;
 
     public function setStyle(Style $style): void;
 
-    public function getCellRange(): string;
+    public function setCellRange(string $cellRange): void;
 
-    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface;
+    public function getConditional(): Conditional;
+
+    public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): self;
 }

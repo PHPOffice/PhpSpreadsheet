@@ -33,7 +33,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         Conditional::OPERATOR_ENDSWITH => Conditional::CONDITION_ENDSWITH,
     ];
 
-    private const EXPRESSIONS = [
+    protected const EXPRESSIONS = [
         Conditional::OPERATOR_CONTAINSTEXT => 'NOT(ISERROR(SEARCH(%s,%s)))',
         Conditional::OPERATOR_NOTCONTAINS => 'ISERROR(SEARCH(%s,%s))',
         Conditional::OPERATOR_BEGINSWITH => 'LEFT(%s,LEN(%s))=%s',
