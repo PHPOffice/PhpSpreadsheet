@@ -106,6 +106,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         );
         $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
+        $conditional->setStopIfTrue($this->getStopIfTrue());
 
         return $conditional;
     }
@@ -119,6 +120,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         $wizard = new self($cellRange);
         $wizard->operator = (string) array_search($conditional->getConditionType(), self::OPERATORS, true);
         $wizard->style = $conditional->getStyle();
+        $wizard->stopIfTrue = $conditional->getStopIfTrue();
 
         // Best-guess to try and identify if the text is a string literal, a cell reference or a formula?
         $wizard->operandValueType = Wizard::VALUE_TYPE_LITERAL;

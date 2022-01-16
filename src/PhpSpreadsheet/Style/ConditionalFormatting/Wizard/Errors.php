@@ -56,6 +56,7 @@ class Errors extends WizardAbstract implements WizardInterface
         );
         $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
+        $conditional->setStopIfTrue($this->getStopIfTrue());
 
         return $conditional;
     }
@@ -71,6 +72,7 @@ class Errors extends WizardAbstract implements WizardInterface
 
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
+        $wizard->stopIfTrue = $conditional->getStopIfTrue();
         $wizard->inverse = $conditional->getConditionType() === Conditional::CONDITION_CONTAINSERRORS;
 
         return $wizard;

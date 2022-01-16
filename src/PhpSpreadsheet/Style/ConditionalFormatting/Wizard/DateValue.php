@@ -75,6 +75,7 @@ class DateValue extends WizardAbstract implements WizardInterface
         $conditional->setText($this->operator);
         $conditional->setConditions([$this->expression]);
         $conditional->setStyle($this->getStyle());
+        $conditional->setStopIfTrue($this->getStopIfTrue());
 
         return $conditional;
     }
@@ -87,6 +88,7 @@ class DateValue extends WizardAbstract implements WizardInterface
 
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
+        $wizard->stopIfTrue = $conditional->getStopIfTrue();
         $wizard->operator = $conditional->getText();
 
         return $wizard;

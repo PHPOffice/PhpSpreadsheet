@@ -106,6 +106,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $conditional->setOperatorType($this->operator);
         $conditional->setConditions($values);
         $conditional->setStyle($this->getStyle());
+        $conditional->setStopIfTrue($this->getStopIfTrue());
 
         return $conditional;
     }
@@ -127,6 +128,7 @@ class CellValue extends WizardAbstract implements WizardInterface
 
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
+        $wizard->stopIfTrue = $conditional->getStopIfTrue();
 
         $wizard->operator = $conditional->getOperatorType();
         $conditions = $conditional->getConditions();

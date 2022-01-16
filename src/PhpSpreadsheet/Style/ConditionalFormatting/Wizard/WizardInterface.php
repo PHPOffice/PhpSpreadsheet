@@ -9,11 +9,15 @@ interface WizardInterface
 {
     public function getCellRange(): string;
 
+    public function setCellRange(string $cellRange): void;
+
     public function getStyle(): Style;
 
     public function setStyle(Style $style): void;
 
-    public function setCellRange(string $cellRange): void;
+    public function getStopIfTrue(): bool;
+
+    public function setStopIfTrue(bool $stopIfTrue): void;
 
     public function getConditional(): Conditional;
 

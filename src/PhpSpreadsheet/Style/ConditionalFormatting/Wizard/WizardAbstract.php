@@ -34,6 +34,11 @@ abstract class WizardAbstract
     protected $referenceRow;
 
     /**
+     * @var bool
+     */
+    protected $stopIfTrue = false;
+
+    /**
      * @var int
      */
     protected $referenceColumn;
@@ -52,6 +57,16 @@ abstract class WizardAbstract
     {
         $this->cellRange = $cellRange;
         $this->setReferenceCellForExpressions($cellRange);
+    }
+
+    public function getStopIfTrue(): bool
+    {
+        return $this->stopIfTrue;
+    }
+
+    public function setStopIfTrue(bool $stopIfTrue): void
+    {
+        $this->stopIfTrue = $stopIfTrue;
     }
 
     protected function setReferenceCellForExpressions(string $conditionalRange): void

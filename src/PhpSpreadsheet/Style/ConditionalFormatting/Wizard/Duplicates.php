@@ -40,6 +40,7 @@ class Duplicates extends WizardAbstract implements WizardInterface
             $this->inverse ? Conditional::CONDITION_UNIQUE : Conditional::CONDITION_DUPLICATES
         );
         $conditional->setStyle($this->getStyle());
+        $conditional->setStopIfTrue($this->getStopIfTrue());
 
         return $conditional;
     }
@@ -55,6 +56,7 @@ class Duplicates extends WizardAbstract implements WizardInterface
 
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
+        $wizard->stopIfTrue = $conditional->getStopIfTrue();
         $wizard->inverse = $conditional->getConditionType() === Conditional::CONDITION_UNIQUE;
 
         return $wizard;
