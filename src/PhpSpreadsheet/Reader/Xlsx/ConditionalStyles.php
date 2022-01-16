@@ -74,6 +74,8 @@ class ConditionalStyles
 
             if ((string) $cfRule['text'] != '') {
                 $objConditional->setText((string) $cfRule['text']);
+            } elseif ((string) $cfRule['timePeriod'] != '') {
+                $objConditional->setText((string) $cfRule['timePeriod']);
             }
 
             if (isset($cfRule['stopIfTrue']) && (int) $cfRule['stopIfTrue'] === 1) {
