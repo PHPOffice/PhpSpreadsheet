@@ -8,13 +8,17 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
  * @method Blanks notBlank()
+ * @method Blanks notEmpty()
  * @method Blanks isBlank()
+ * @method Blanks isEmpty()
  */
 class Blanks extends WizardAbstract implements WizardInterface
 {
     protected const OPERATORS = [
         'notBlank' => false,
         'isBlank' => true,
+        'notEmpty' => false,
+        'empty' => true,
     ];
 
     protected const EXPRESSIONS = [

@@ -2,9 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 
+/**
+ * @method Expression formula(string $expression)
+ */
 class Expression extends WizardAbstract implements WizardInterface
 {
     /**
@@ -17,9 +21,11 @@ class Expression extends WizardAbstract implements WizardInterface
         parent::__construct($cellRange);
     }
 
-    public function expression(string $expression): void
+    public function expression(string $expression): self
     {
         $this->expression = $expression;
+
+        return $this;
     }
 
     public function getConditional(): Conditional
@@ -45,5 +51,20 @@ class Expression extends WizardAbstract implements WizardInterface
         $wizard->expression = self::reverseAdjustCellRef($conditional->getConditions()[0], $cellRange);
 
         return $wizard;
+    }
+
+    /**
+     * @param string $methodName
+     * @param mixed[] $arguments
+     */
+    public function __call($methodName, $arguments): self
+    {
+        if ($methodName !== 'formula') {
+            throw new Exception('Invalid Operation for Expression CF Rule Wizard');
+        }
+
+        $this->expression(...$arguments);
+
+        return $this;
     }
 }

@@ -153,7 +153,7 @@ Once we have used the Wizard to define the conditions and values that we want; t
 
 For the `CellValue` Wizard, we always need to provide an operator and a value; and for the "between" and "notBetween" operators, we need to provide two values to specify a range.
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
 | | | Conditional::OPERATOR_NOTEQUAL | notEquals()
@@ -295,7 +295,7 @@ While we can use the `CellValue` Wizard to do basic string comparison rules, the
 
 For the `TextValue` Wizard, we always need to provide an operator and a value. As with the `CellValue` Wizard, values can be literals (but should always be string literals), cell references, or formula.
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_CONTAINSTEXT | contains()
 Conditional::CONDITION_NOTCONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_NOTCONTAINS | doesNotContain()
@@ -372,7 +372,7 @@ $textWizard->beginsWith('$D$1', Wizard::VALUE_TYPE_CELL)
 
 For the `DateValue` Wizard, we always need to provide an operator; but no value is required.
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEPERIOD_TODAY | today()
 | | | Conditional::TIMEPERIOD_YESTERDAY | yesterday()
@@ -411,12 +411,16 @@ Whether created using the Wizard Factory with a rule type of `Wizard::BLANKS` or
 The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSBLANKS`, in the other it is pre-set for `CONDITION_NOTCONTAINSBLANKS`.
 However, you can switch between the two rules using the `isBlank()` and `notBlank()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard. 
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSBLANKS | Wizard::BLANKS | - | isBlank() | Default state
 | | | | notBlank()
+| | | | isEmpty() | Synonym for `isBlank()`
+| | | | notEmpty() | Synonym for `notBlank()`
 Conditional::CONDITION_NOTCONTAINSBLANKS | Wizard::NOT_BLANKS | - | notBlank()| Default state
 | | | | isBlank()
+| | | | isEmpty() | Synonym for `isBlank()`
+| | | | notEmpty() | Synonym for `notBlank()`
 
 The following code shows the same Blanks Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.  
 ```php
@@ -458,7 +462,7 @@ Whether created using the Wizard Factory with a rule type of `Wizard::ERRORS` or
 The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSERRORS`, in the other it is pre-set for `CONDITION_NOTCONTAINSERRORS`.
 However, you can switch between the two rules using the `isError()` and `notError()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard.
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSERRORS | Wizard::ERRORS | - | isError() | Default state
 | | | | notError()
@@ -507,7 +511,7 @@ Whether created using the Wizard Factory with a rule type of `Wizard::DUPLICATES
 The only difference is that in the one case the rule state is pre-set for `CONDITION_DUPLICATES`, in the other it is pre-set for `CONDITION_UNIQUE`.
 However, you can switch between the two rules using the `duplicates()` and `unique()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard.
 
-Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_DUPLICATES | Wizard::DUPLICATES | - | duplicates() | Default state
 | | | | unique()
@@ -538,6 +542,34 @@ This example can also be found in the [code samples](https://github.com/PHPOffic
 
 ### Expression Wizard
 
+The `Expression` Wizard expects to be provided with an Expression, an MS Excel formula that evaluates to either false or true.
+
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
+---|---|---|---|---
+Conditional::CONDITION_EXPRESSION | Wizard::EXPRESSION or Wizard::FORMULA | - | expression() | The argument is an Excel formula that evaluates to true or false
+ | | | | formula() | Synonym for `expression()`
+
+Just as a simple example, here's a code snippet demonstrating expressions to determine if a cell contains an odd or an even number value:
+```php
+$cellRange = 'A2:C11';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\Expression $expressionWizard */
+$expressionWizard = $wizardFactory->newRule(Wizard::EXPRESSION);
+
+$expressionWizard->expression('ISODD(A1)')
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $expressionWizard->getConditional();
+
+$expressionWizard->expression('ISEVEN(A1)')
+    ->setStyle($yellowStyle);
+$conditionalStyles[] = $expressionWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($expressionWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L65 "Conditional Formatting - Odd/Even Expression Comparisons") for the repo.
 
 
 ## General Notes
