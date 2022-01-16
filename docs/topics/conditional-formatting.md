@@ -569,8 +569,42 @@ $spreadsheet->getActiveSheet()
     ->getStyle($expressionWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L65 "Conditional Formatting - Odd/Even Expression Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L87 "Conditional Formatting - Odd/Even Expression Comparisons") for the repo.
 
+![11-14-CF-Expression-Example-Odd-Even.png](./images/11-14-CF-Expression-Example-Odd-Even.png)
+
+As a more complicated example, let's look at a Sales Grid, and use conditional formatting to highlight sales in the "USA" region:
+
+```php
+$greenStyleMoney = clone $greenStyle;
+$greenStyleMoney->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_ACCOUNTING_USD);
+
+$cellRange = 'A17:D22';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\Expression $expressionWizard */
+$expressionWizard = $wizardFactory->newRule(Wizard::EXPRESSION);
+
+$expressionWizard->expression('$C1="USA"')
+    ->setStyle($greenStyleMoney);
+$conditionalStyles[] = $expressionWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($expressionWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L107 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
+
+![11-15-CF-Expression-Sales-Grid-1.png](./images/11-15-CF-Expression-Sales-Grid-1.png)
+
+Or we could apply multiple comparisons in the same expression, so to check for all sales for the "USA" region in "Q4", combining them using an Excel `AND()`:
+```php
+$expressionWizard->expression('AND($C1="USA",$D1="Q4")')
+    ->setStyle($greenStyleMoney);
+```
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L121 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
+
+![11-16-CF-Expression-Sales-Grid-2.png](./images/11-16-CF-Expression-Sales-Grid-2.png)
 
 ## General Notes
 
