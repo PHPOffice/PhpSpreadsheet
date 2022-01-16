@@ -899,6 +899,8 @@ $spreadsheet->getActiveSheet()
     );
 ```
 
+More detailed documentation of the Conditional Formatting options and rules, and the use of Wizards to help create them, can be found in [a dedicated section of the documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/).
+
 ### DataBar of Conditional formatting
 The basics are the same as conditional formatting.
 Additional DataBar object to conditional formatting.

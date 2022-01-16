@@ -4,7 +4,7 @@
 
 In addition to standard cell formatting options, most spreadsheet software provides an option known as Conditional Formatting, which allows formatting options to be set based on the value of a cell.
 
-The cell's standard formatting defines most style elements that will always be applied, such as the font face and size; but Conditional Formatting allows you to override some elements of that cell style such as number format mask; font colour, bold, italic and underlining; borders and fill colour and pattern.
+The cell's standard formatting defines most style elements that will always be applied, such as the font face and size; but Conditional Formatting allows you to override some elements of that cell style such as number format mask; font colour, bold, italic and underlining; borders; and fill colour and pattern.
 
 Conditional Formatting can be applied to individual cells, or to a range of cells.
 
@@ -138,7 +138,7 @@ We instantiate the Wizard Factory, passing in the cell range where we want to ap
 $wizardFactory = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard('C3:E5');
 $wizard = $wizardFactory->newRule(\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard::CELL_VALUE);
 ```
-You can, of course, instantiate the Wizard that you want directly, rather than using the factory.
+You can, of course, instantiate the Wizard that you want directly, rather than using the factory; but still remember to pass in the cell range.
 ```php
 $wizard = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\CellValue('C3:E5');
 ```
@@ -146,7 +146,7 @@ $wizard = new \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard\CellV
 That Wizard then provides methods allowing us to define the rule, setting the operator and the values that we want to compare for that rule.
 Note that not all rules require values, or even operators, but the individual Wizards provide whatever is necessary; and this document lists all options available for every Wizard.
 
-Once we have used the Wizard to define the conditions and values that we want; then we call the Wizard's `getConditional()` method to return a Conditional object that can be added to the array of Conditional Styles that we pass to `setConditionalStyles()`.
+Once we have used the Wizard to define the conditions and values that we want; and have defined a style using the `setStyle()` method, then we call the Wizard's `getConditional()` method to return a Conditional object that can be added to the array of Conditional Styles that we pass to `setConditionalStyles()`.
 
 
 ### CellValue Wizard
@@ -176,11 +176,12 @@ or when setting a `between()` or `notBetween()` rule, we can make use of the flu
 ```php
 $wizard->between(-10)->and(10);
 ```
+Providing a second value using `and()` is mandatory for a `between()` or `notBetween()` range.
 
 To retrieve the Conditional, to add it to our `$conditionalStyles` array, we call the Wizard's `getConditional()` method.
 ```php
 $conditional = $wizard->getConditional();
-$conditionalStyles = [];
+$conditionalStyles = [$conditional];
 ```
 or simply
 ```php
@@ -347,7 +348,13 @@ $spreadsheet->getActiveSheet()
     ->getStyle($textWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/02_Text_Comparisons.php#L149 "Conditional Formatting - Text Comparisons") for the repo.
 
+![11-17-CF-Text-Contains.png](./images/11-17-CF-Text-Contains.png)
+
+There are also examples in that file for `notContains()`, `beginsWith()` and `endsWith()` comparisons; using literal text, and with cell references.
+
+The actual Excel Expressions used (and that you would need to set manually if you were defining the Conditional yourself rather than using the Wizard) are listed below:
 
 Conditional Type | Condition Expression
 ---|---
@@ -387,6 +394,29 @@ Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEP
 | | | Conditional::TIMEPERIOD_NEXT_MONTH | nextMonth()
 
 The Conditional has no actual "Operator Type", and the condition/value should be an Excel formula, and with a custom `timePeriod` attribute. The Wizard should make it a lot easier to create these condition rules.
+
+![11-18-CF-Date-Occurring-Examples.png](./images/11-18-CF-Date-Occurring-Examples.png)
+
+The above image shows a grid that demonstrate each of the possible Date Occurring rules, and was generated using [the code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/05_Date_Comparisons.php#L118 "Conditional Formatting - Dates Occurring Comparisons")
+
+Typical sample code wod look something like:
+```php
+$wizardFactory = new Wizard("E2:E19");
+/** @var Wizard\DateValue $dateWizard */
+$dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
+$conditionalStyles = [];
+
+$dateWizard->last7Days()
+    ->setStyle($yellowStyle);
+
+$conditionalStyles[] = $dateWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($dateWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+
+The actual Excel Expressions used (and that you would need to set manually if you were defining the Conditional yourself rather than using the Wizard) are listed below:
 
 timePeriod Attribute | Condition Expression
 ---|---
@@ -518,7 +548,7 @@ Conditional::CONDITION_DUPLICATES | Wizard::DUPLICATES | - | duplicates() | Defa
 Conditional::CONDITION_UNIQUE | Wizard::UNIQUE | - | unique()| Default state
 | | | | duplicates()
 
-The following code shows the same Dplicates Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
+The following code shows the same Duplicates Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
 ```php
 $cellRange = 'A2:E6';
 $conditionalStyles = [];
@@ -537,7 +567,11 @@ $spreadsheet->getActiveSheet()
     ->getStyle($duplicatesWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/06_Duplicate_Comparisons.php#L65 "Conditional Formatting - Duplicate/Unique Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/06_Duplicate_Comparisons.php#L66 "Conditional Formatting - Duplicate/Unique Comparisons") for the repo.
+
+![11-19-CF-Duplicates-Uniques-Examples.png](./images/11-19-CF-Duplicates-Uniques-Examples.png)
+
+Duplicates/Uniques Conditions are only identified by a Condition Type in Excel, with no operator and no expression.
 
 
 ### Expression Wizard

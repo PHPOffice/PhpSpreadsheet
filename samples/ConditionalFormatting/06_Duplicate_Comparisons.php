@@ -29,16 +29,17 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('A1', 'Duplicates Comparison');
 
 $dataArray = [
-    [1, 0],
-    [2, 1],
-    [3, 1],
-    [4, 2],
-    [5, 3],
-    [6, 5],
-    [7, 8],
-    [8, 13],
-    [9, 21],
-    [10, 34],
+    [1, 0, 3],
+    [2, 1, 1],
+    [3, 1, 4],
+    [4, 2, 1],
+    [5, 3, 5],
+    [6, 5, 9],
+    [7, 8, 2],
+    [8, 13, 6],
+    [9, 21, 5],
+    [10, 34, 3],
+    [11, 55, 5],
 ];
 
 $spreadsheet->getActiveSheet()
@@ -46,7 +47,7 @@ $spreadsheet->getActiveSheet()
 
 // Set title row bold
 $helper->log('Set title row bold');
-$spreadsheet->getActiveSheet()->getStyle('A1:B1')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
@@ -63,7 +64,7 @@ $yellowStyle->getFill()
 $helper->log('Define conditional formatting and set styles');
 
 // Set rules for Duplicates Comparison
-$cellRange = 'A2:B11';
+$cellRange = 'A2:C12';
 $conditionalStyles = [];
 $wizardFactory = new Wizard($cellRange);
 /** @var Wizard\Duplicates $duplicatesWizard */

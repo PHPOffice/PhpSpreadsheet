@@ -119,18 +119,18 @@ $yellowStyle->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');
 $helper->log('Define conditional formatting and set styles');
 for ($column = 'B'; $column !== 'L'; ++$column) {
     $wizardFactory = new Wizard("{$column}2:{$column}19");
-    /** @var Wizard\DateValue $blanksWizard */
-    $wizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
+    /** @var Wizard\DateValue $dateWizard */
+    $dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
     $conditionalStyles = [];
 
     $methodName = trim($spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue(), '()');
-    $wizard->$methodName()
+    $dateWizard->$methodName()
         ->setStyle($yellowStyle);
 
-    $conditionalStyles[] = $wizard->getConditional();
+    $conditionalStyles[] = $dateWizard->getConditional();
 
     $spreadsheet->getActiveSheet()
-        ->getStyle($wizard->getCellRange())
+        ->getStyle($dateWizard->getCellRange())
         ->setConditionalStyles($conditionalStyles);
 }
 
@@ -146,6 +146,7 @@ for ($column = 'A'; $column !== 'L'; ++$column) {
     $spreadsheet->getActiveSheet()->getColumnDimension($column)
         ->setAutoSize(true);
 }
+$spreadsheet->getActiveSheet()->getStyle('A:A')->getFont()->setBold(true);
 
 // Save
 $helper->write($spreadsheet, __FILE__);
