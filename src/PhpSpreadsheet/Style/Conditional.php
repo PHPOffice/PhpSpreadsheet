@@ -21,6 +21,8 @@ class Conditional implements IComparable
     const CONDITION_NOTCONTAINSERRORS = 'notContainsErrors';
     const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
     const CONDITION_TIMEPERIOD = 'timePeriod';
+    const CONDITION_DUPLICATES = 'duplicateValues';
+    const CONDITION_UNIQUE = 'uniqueValues';
 
     private const CONDITION_TYPES = [
         self::CONDITION_BEGINSWITH,

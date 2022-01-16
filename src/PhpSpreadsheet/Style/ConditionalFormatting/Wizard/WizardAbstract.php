@@ -43,6 +43,11 @@ abstract class WizardAbstract
         $this->setCellRange($cellRange);
     }
 
+    public function getCellRange(): string
+    {
+        return $this->cellRange;
+    }
+
     public function setCellRange(string $cellRange): void
     {
         $this->cellRange = $cellRange;
@@ -55,11 +60,6 @@ abstract class WizardAbstract
         [$this->referenceCell] = $conditionalRange[0];
 
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
-    }
-
-    public function getCellRange(): string
-    {
-        return $this->cellRange;
     }
 
     public function getStyle(): Style

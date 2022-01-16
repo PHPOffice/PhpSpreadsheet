@@ -134,7 +134,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         ) {
             $wizard->operandValueType = Wizard::VALUE_TYPE_FORMULA;
         }
-        $wizard->operand = (string) $condition;
+        $wizard->operand = $condition;
 
         return $wizard;
     }

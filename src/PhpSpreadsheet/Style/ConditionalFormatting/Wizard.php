@@ -17,6 +17,8 @@ class Wizard
     public const EXPRESSION = Conditional::CONDITION_EXPRESSION;
     public const FORMULA = Conditional::CONDITION_EXPRESSION;
     public const DATES_OCCURRING = 'DateValue';
+    public const DUPLICATES = Conditional::CONDITION_DUPLICATES;
+    public const UNIQUE = Conditional::CONDITION_UNIQUE;
 
     public const VALUE_TYPE_LITERAL = 'value';
     public const VALUE_TYPE_CELL = 'cell';
@@ -52,6 +54,10 @@ class Wizard
                 return new Wizard\Expression($this->cellRange);
             case self::DATES_OCCURRING:
                 return new Wizard\DateValue($this->cellRange);
+            case self::DUPLICATES:
+                return new Wizard\Duplicates($this->cellRange, false);
+            case self::UNIQUE:
+                return new Wizard\Duplicates($this->cellRange, true);
             default:
                 throw new Exception('No wizard exists for this CF rule type');
         }
@@ -79,6 +85,9 @@ class Wizard
                 return Wizard\DateValue::fromConditional($conditional, $cellRange);
             case Conditional::CONDITION_EXPRESSION:
                 return Wizard\Expression::fromConditional($conditional, $cellRange);
+            case Conditional::CONDITION_DUPLICATES:
+            case Conditional::CONDITION_UNIQUE:
+                return Wizard\Duplicates::fromConditional($conditional, $cellRange);
             default:
                 throw new Exception('No wizard exists for this CF rule type');
         }

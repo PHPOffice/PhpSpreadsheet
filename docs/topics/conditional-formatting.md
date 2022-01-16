@@ -115,7 +115,7 @@ Most of those that have already been defined fall under the "Format only cells t
 MS Excel provides a whole series of different types of rule, each of which has it's own formatting and logic.
 The Wizards try to replicate this logic and behaviour, similar to Excel's own "Formatting Rule" helper wizard.
 
-MS Excel | Wizard newRule() Type Constant | Wizard Class Name
+MS Excel | Wizard Factory newRule() Type Constant | Wizard Class Name
 ---|---|---
 Cell Value | Wizard::CELL_VALUE | CellValue
 Specific Text | Wizard::TEXT_VALUE | TextValue
@@ -125,10 +125,11 @@ No Blanks | Wizard::NOT_BLANKS | Blanks
 Errors | Wizard::ERRORS | Errors 
 No Errors | Wizard::NOT_ERRORS | Errors
 
-Additionally, a Wizard also exists for "Use a formula to determine which cells to format":
+Additionally, Wizards also exists for "Format only unique or duplicate values", and for "Use a formula to determine which cells to format":
 
-MS Excel | Wizard newRule() Type Constant | Wizard Class Name
+MS Excel | Wizard Factory newRule() Type Constant | Wizard Class Name
 ---|---|---
+Duplicates/Unique | Wizard::DUPLICATES or Wizard::UNIQUE | Duplicates
 Use a formula | Wizard::EXPRESSION or Wizard::FORMULA | Expression
 
 We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create in order to return the appropriate Wizard:
@@ -152,7 +153,7 @@ Once we have used the Wizard to define the conditions and values that we want; t
 
 For the `CellValue` Wizard, we always need to provide an operator and a value; and for the "between" and "notBetween" operators, we need to provide two values to specify a range.
 
-Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
 | | | Conditional::OPERATOR_NOTEQUAL | notEquals()
@@ -294,7 +295,7 @@ While we can use the `CellValue` Wizard to do basic string comparison rules, the
 
 For the `TextValue` Wizard, we always need to provide an operator and a value. As with the `CellValue` Wizard, values can be literals (but should always be string literals), cell references, or formula.
 
-Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_CONTAINSTEXT | contains()
 Conditional::CONDITION_NOTCONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_NOTCONTAINS | doesNotContain()
@@ -371,7 +372,7 @@ $textWizard->beginsWith('$D$1', Wizard::VALUE_TYPE_CELL)
 
 For the `DateValue` Wizard, we always need to provide an operator; but no value is required.
 
-Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEPERIOD_TODAY | today()
 | | | Conditional::TIMEPERIOD_YESTERDAY | yesterday()
@@ -410,7 +411,7 @@ Whether created using the Wizard Factory with a rule type of `Wizard::BLANKS` or
 The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSBLANKS`, in the other it is pre-set for `CONDITION_NOTCONTAINSBLANKS`.
 However, you can switch between the two rules using the `isBlank()` and `notBlank()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard. 
 
-Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSBLANKS | Wizard::BLANKS | - | isBlank() | Default state
 | | | | notBlank()
@@ -457,7 +458,7 @@ Whether created using the Wizard Factory with a rule type of `Wizard::ERRORS` or
 The only difference is that in the one case the rule state is pre-set for `CONDITION_CONTAINSERRORS`, in the other it is pre-set for `CONDITION_NOTCONTAINSERRORS`.
 However, you can switch between the two rules using the `isError()` and `notError()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard.
 
-Condition Type | Wizard Type | Conditional Operator Type | Wizard Operators | Notes
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSERRORS | Wizard::ERRORS | - | isError() | Default state
 | | | | notError()
@@ -498,11 +499,83 @@ notError() | NOT(ISERROR(`<cell address>`))
 The `<cell address>` always references the top-left cell in the range of cells for this Conditional Formatting Rule.
 
 
+### Duplicates/Unique Wizard
+
+This Wizard is used to define a simple boolean state rule, to determine whether a cell value matches any other cells with the same value within the conditional cell range, or if the value is unique in that range of cells.
+It only has any meaning if it is applied to a range of cells, not to an individual cell.
+Whether created using the Wizard Factory with a rule type of `Wizard::DUPLICATES` or `Wizard::UNIQUE`, the same `Duplicates` Wizard is returned.
+The only difference is that in the one case the rule state is pre-set for `CONDITION_DUPLICATES`, in the other it is pre-set for `CONDITION_UNIQUE`.
+However, you can switch between the two rules using the `duplicates()` and `unique()` methods; and it is only at the point when you call `getConditional()` that a Conditional will be returned based on the current state of the Wizard.
+
+Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Operators | Notes
+---|---|---|---|---
+Conditional::CONDITION_DUPLICATES | Wizard::DUPLICATES | - | duplicates() | Default state
+| | | | unique()
+Conditional::CONDITION_UNIQUE | Wizard::UNIQUE | - | unique()| Default state
+| | | | duplicates()
+
+The following code shows the same Dplicates Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
+```php
+$cellRange = 'A2:E6';
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\Duplicats $duplicatesWizard */
+$duplicatesWizard = $wizardFactory->newRule(Wizard::DUPLICATES);
+
+$duplicatesWizard->setStyle($redStyle);
+$conditionalStyles[] = $duplicatesWizard->getConditional();
+
+$duplicatesWizard->unique()
+    ->setStyle($greenStyle);
+$conditionalStyles[] = $duplicatesWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($duplicatesWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/06_Duplicate_Comparisons.php#L65 "Conditional Formatting - Duplicate/Unique Comparisons") for the repo.
+
+
 ### Expression Wizard
 
 
 
 ## General Notes
+
+### Changing the Cell Range
+
+If you want to apply the same Conditional Rule/Style to several different areas on your spreadsheet, then you can do this using the `setCellRange()` method between calls to `getConditional()`.
+
+```php
+$wizardFactory = new Wizard();
+/** @var Wizard\Errors $errorsWizard */
+$wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+// Apply the wizard conditional to cell range A2:A10
+$cellRange = 'A2:A10';
+$conditionalStyles = [];
+$wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
+    ->and('$C1', Wizard::VALUE_TYPE_CELL)
+    ->setStyle($greenStyle);
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($wizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+
+// Apply the same wizard conditional to cell range E2:E10
+$cellRange = 'E2:E10';
+$wizard->setCellRange($cellRange);
+$conditionalStyles = [];
+$wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
+    ->and('$C1', Wizard::VALUE_TYPE_CELL)
+    ->setStyle($greenStyle);
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($wizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+```
+
+Because we use cell `A1` as the baseline cell for relative references, the Wizard is able to handle the necessary adjustments for cell references and formulae to match the range of cells that it is being applied to when `getConditional()` is called, so it returns the correct expression.
 
 ### Converting a Conditional to a Wizard
 

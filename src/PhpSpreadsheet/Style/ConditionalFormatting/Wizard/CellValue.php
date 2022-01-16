@@ -79,10 +79,10 @@ class CellValue extends WizardAbstract implements WizardInterface
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {
-                return '"' . str_replace('"', '""', (string) $value) . '"';
+                return '"' . str_replace('"', '""', $value) . '"';
             }
 
-            return $this->cellConditionCheck((string) $value);
+            return $this->cellConditionCheck($value);
         }
 
         if (null === $value) {
