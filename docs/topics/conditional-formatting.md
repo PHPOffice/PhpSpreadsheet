@@ -648,7 +648,7 @@ If you want to apply the same Conditional Rule/Style to several different areas 
 
 ```php
 $wizardFactory = new Wizard();
-/** @var Wizard\Errors $errorsWizard */
+/** @var Wizard\CellValue $wizard */
 $wizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
 
 // Apply the wizard conditional to cell range A2:A10
