@@ -42,11 +42,11 @@ $spreadsheet->getActiveSheet()->getStyle('A1:B1')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-$greenStyle = new Style();
+$greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_GREEN);
-$redStyle = new Style();
+$redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_RED);

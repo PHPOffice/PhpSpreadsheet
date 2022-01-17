@@ -70,15 +70,15 @@ $spreadsheet->getActiveSheet()->getStyle('A25:C25')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-$yellowStyle = new Style();
+$yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
-$greenStyle = new Style();
+$greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_GREEN);
-$redStyle = new Style();
+$redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_RED);

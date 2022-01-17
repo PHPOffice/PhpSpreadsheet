@@ -69,11 +69,11 @@ $spreadsheet->getActiveSheet()->getStyle('A25:D26')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-$greenStyle = new Style();
+$greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_GREEN);
-$yellowStyle = new Style();
+$yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
@@ -136,9 +136,9 @@ $spreadsheet->getActiveSheet()
 // Set conditional formatting rules and styles
 $helper->log('Set some additional styling for money formats');
 
-$spreadsheet->getActiveSheet()->getStyle("B17:B22")
+$spreadsheet->getActiveSheet()->getStyle('B17:B22')
     ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_ACCOUNTING_USD);
-$spreadsheet->getActiveSheet()->getStyle("B27:B32")
+$spreadsheet->getActiveSheet()->getStyle('B27:B32')
     ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_ACCOUNTING_USD);
 $spreadsheet->getActiveSheet()->getColumnDimension('B')
     ->setAutoSize(true);

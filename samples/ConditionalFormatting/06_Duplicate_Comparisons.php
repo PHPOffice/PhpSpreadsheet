@@ -51,11 +51,11 @@ $spreadsheet->getActiveSheet()->getStyle('A1:C1')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-$greenStyle = new Style();
+$greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_GREEN);
-$yellowStyle = new Style();
+$yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
