@@ -1662,26 +1662,60 @@ class Worksheet implements IComparable
     {
         // Uppercase coordinate
         $range = strtoupper($range);
+        // Convert 'A:C' to 'A1:C1048576'
+        $range = self::pregReplace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $range);
+        // Convert '1:3' to 'A1:XFD3'
+        $range = self::pregReplace('/^(\\d+):(\\d+)$/', 'A${1}:XFD${2}', $range);
 
-        if (strpos($range, ':') !== false) {
+        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
             $this->mergeCells[$range] = $range;
-
-            // make sure cells are created
-
-            // get the cells in the range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
+            $firstRow = (int) $matches[2];
+            $lastRow = (int) $matches[4];
+            $firstColumn = $matches[1];
+            $lastColumn = $matches[3];
+            $firstColumnIndex = Coordinate::columnIndexFromString($firstColumn);
+            $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
+            $numberRows = $lastRow - $firstRow;
+            $numberColumns = $lastColumnIndex - $firstColumnIndex;
 
             // create upper left cell if it does not already exist
-            $upperLeft = $aReferences[0];
+            $upperLeft = "$firstColumn$firstRow";
             if (!$this->cellExists($upperLeft)) {
                 $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
             }
 
             // Blank out the rest of the cells in the range (if they exist)
-            $count = count($aReferences);
-            for ($i = 1; $i < $count; ++$i) {
-                if ($this->cellExists($aReferences[$i])) {
-                    $this->getCell($aReferences[$i])->setValueExplicit(null, DataType::TYPE_NULL);
+            if ($numberRows > $numberColumns) {
+                foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
+                    foreach ($column->getCellIterator($firstRow) as $cell) {
+                        if ($cell !== null) {
+                            $row = $cell->getRow();
+                            if ($row > $lastRow) {
+                                break;
+                            }
+                            $thisColumn = $cell->getColumn();
+                            $thisColumnIndex = Coordinate::columnIndexFromString($thisColumn);
+                            if ($upperLeft !== "$thisColumn$row") {
+                                $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                            }
+                        }
+                    }
+                }
+            } else {
+                foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
+                    foreach ($row->getCellIterator($firstColumn) as $cell) {
+                        if ($cell !== null) {
+                            $column = $cell->getColumn();
+                            $columnIndex = Coordinate::columnIndexFromString($column);
+                            if ($columnIndex > $lastColumnIndex) {
+                                break;
+                            }
+                            $thisRow = $cell->getRow();
+                            if ($upperLeft !== "$column$thisRow") {
+                                $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                            }
+                        }
+                    }
                 }
             }
         } else {
