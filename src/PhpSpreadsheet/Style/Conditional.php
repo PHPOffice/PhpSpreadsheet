@@ -31,6 +31,7 @@ class Conditional implements IComparable
         self::CONDITION_CONTAINSERRORS,
         self::CONDITION_CONTAINSTEXT,
         self::CONDITION_DATABAR,
+        self::CONDITION_DUPLICATES,
         self::CONDITION_ENDSWITH,
         self::CONDITION_EXPRESSION,
         self::CONDITION_NONE,
@@ -38,6 +39,7 @@ class Conditional implements IComparable
         self::CONDITION_NOTCONTAINSERRORS,
         self::CONDITION_NOTCONTAINSTEXT,
         self::CONDITION_TIMEPERIOD,
+        self::CONDITION_UNIQUE,
     ];
 
     // Operator types

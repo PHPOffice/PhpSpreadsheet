@@ -67,6 +67,7 @@ class ConditionalStyles
     {
         $conditionalFormattingRuleExtensions = ConditionalFormattingRuleExtension::parseExtLstXml($extLst);
         $conditionalStyles = [];
+
         foreach ($cfRules as $cfRule) {
             $objConditional = new Conditional();
             $objConditional->setConditionType((string) $cfRule['type']);
