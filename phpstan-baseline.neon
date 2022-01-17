@@ -931,11 +931,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
 
 		-
-			message: "#^Parameter \\#4 \\$x2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\NonPeriodic\\:\\:xirrPart3\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\Periodic\\:\\:presentValue\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
@@ -7914,11 +7909,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$message of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XNpvTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XirrTest.php
 
 		-
 			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"

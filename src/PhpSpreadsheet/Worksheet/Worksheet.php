@@ -1432,30 +1432,57 @@ class Worksheet implements IComparable
     /**
      * Get conditional styles for a cell.
      *
-     * @param string $coordinate eg: 'A1'
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a single cell is referenced, then the array of conditional styles will be returned if the cell is
+     *               included in a conditional style range.
+     *          If a range of cells is specified, then the styles will only be returned if the range matches the entire
+     *               range of the conditional.
      *
      * @return Conditional[]
      */
     public function getConditionalStyles($coordinate)
     {
         $coordinate = strtoupper($coordinate);
-        if (!isset($this->conditionalStylesCollection[$coordinate])) {
-            $this->conditionalStylesCollection[$coordinate] = [];
+        if (strpos($coordinate, ':') !== false) {
+            return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
-        return $this->conditionalStylesCollection[$coordinate];
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $this->conditionalStylesCollection[$conditionalRange];
+            }
+        }
+
+        return [];
     }
 
     /**
      * Do conditional styles exist for this cell?
      *
-     * @param string $coordinate eg: 'A1'
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a single cell is specified, then this method will return true if that cell is included in a
+     *               conditional style range.
+     *          If a range of cells is specified, then true will only be returned if the range matches the entire
+     *               range of the conditional.
      *
      * @return bool
      */
     public function conditionalStylesExists($coordinate)
     {
-        return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        $coordinate = strtoupper($coordinate);
+        if (strpos($coordinate, ':') !== false) {
+            return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        }
+
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -2074,6 +2101,7 @@ class Worksheet implements IComparable
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
 
+        $holdRowDimensions = $this->removeRowDimensions($row, $numberOfRows);
         $highestRow = $this->getHighestDataRow();
         $removedRowsCounter = 0;
 
@@ -2091,7 +2119,28 @@ class Worksheet implements IComparable
             --$highestRow;
         }
 
+        $this->rowDimensions = $holdRowDimensions;
+
         return $this;
+    }
+
+    private function removeRowDimensions(int $row, int $numberOfRows): array
+    {
+        $highRow = $row + $numberOfRows - 1;
+        $holdRowDimensions = [];
+        foreach ($this->rowDimensions as $rowDimension) {
+            $num = $rowDimension->getRowIndex();
+            if ($num < $row) {
+                $holdRowDimensions[$num] = $rowDimension;
+            } elseif ($num > $highRow) {
+                $num -= $numberOfRows;
+                $cloneDimension = clone $rowDimension;
+                $cloneDimension->setRowIndex($num);
+                $holdRowDimensions[$num] = $cloneDimension;
+            }
+        }
+
+        return $holdRowDimensions;
     }
 
     /**
@@ -2116,6 +2165,8 @@ class Worksheet implements IComparable
             return $this;
         }
 
+        $holdColumnDimensions = $this->removeColumnDimensions($pColumnIndex, $numberOfColumns);
+
         $column = Coordinate::stringFromColumnIndex($pColumnIndex + $numberOfColumns);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
@@ -2127,9 +2178,31 @@ class Worksheet implements IComparable
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
 
+        $this->columnDimensions = $holdColumnDimensions;
+
         $this->garbageCollect();
 
         return $this;
+    }
+
+    private function removeColumnDimensions(int $pColumnIndex, int $numberOfColumns): array
+    {
+        $highCol = $pColumnIndex + $numberOfColumns - 1;
+        $holdColumnDimensions = [];
+        foreach ($this->columnDimensions as $columnDimension) {
+            $num = $columnDimension->getColumnNumeric();
+            if ($num < $pColumnIndex) {
+                $str = $columnDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $columnDimension;
+            } elseif ($num > $highCol) {
+                $cloneDimension = clone $columnDimension;
+                $cloneDimension->setColumnNumeric($num - $numberOfColumns);
+                $str = $cloneDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $cloneDimension;
+            }
+        }
+
+        return $holdColumnDimensions;
     }
 
     /**
