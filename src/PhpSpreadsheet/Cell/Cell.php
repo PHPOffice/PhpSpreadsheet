@@ -556,7 +556,12 @@ class Cell
         if ($this->getWorksheet()->conditionalStylesExists($this->getCoordinate()) === false) {
             return $this->getStyle();
         }
-        $matcher = new CellStyleAssessor($this, $this->getWorksheet()->getConditionalRange($this->getCoordinate()));
+        $range = $this->getWorksheet()->getConditionalRange($this->getCoordinate());
+        if ($range === null) {
+            return $this->getStyle();
+        }
+
+        $matcher = new CellStyleAssessor($this, $range);
 
         return $matcher->matchConditions($this->getWorksheet()->getConditionalStyles($this->getCoordinate()));
     }

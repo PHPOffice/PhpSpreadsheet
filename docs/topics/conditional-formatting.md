@@ -103,6 +103,64 @@ $wizard->getStyle()->getFill()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\St
 $conditional = $wizard->getConditional();
 ```
 
+
+### Order of Evaluating Multiple Rules/Conditions
+
+`$conditionalStyles` is an array, which not only represents multiple conditions that can be applied to a cell (or range of cells), but also the order in which they are checked. MS Excel will check each of those conditions in turn in the order they are defined; and will stop checking once it finds a first matching rule. This means that the order of checking conditions can be important.
+
+Consider the following. We have one condition that checks if a cell value is between -10 and 10, styling the cell in yellow if that condition matches; and a second condition that checks if the cell value is equal to 0, styling the cell in red if that matches.
+ - Yellow if value is between -2 and 2
+ - Red if value equals 0 
+
+If they are evaluated in the order I've described above, and the cell has a value of 0, then the first rule will match (because 0 is between -2 and 2), and the cell will be styled in yellow, and no further conditions will be checked. So the rule that styles the cell in red if the value is 0 will never be assessed, even though that would also match (and is probably what we actually wanted, otherwise why have an explicit rule defined for that condition).
+
+![11-20-CF-Rule-Order-1.png](./images/11-20-CF-Rule-Order-1.png)
+
+If the rule order is reversed
+ - Red if value equals 0
+ - Yellow if value is between -2 and 2
+
+then the cell containing the value 0 will be rendered in red, because that is the first matching condition; and the between rule will not be assessed for that cell.
+
+![11-21-CF-Rule-Order-2.png](./images/11-21-CF-Rule-Order-2.png)
+
+So when you have multiple conditions where the rules might "overlap", the order of these is important.
+
+
+### Reader/Writer Support
+
+Currently, the following Conditional Types are supported for the following Readers and Writers:
+
+MS Excel | Conditional Type | Readers | Writers
+---|---|---|---
+Cell Value | Conditional::CONDITION_CELLIS | Xlsx | Xlsx, Xls
+Specific Text | Conditional::CONDITION_CONTAINSTEXT | Xlsx | Xlsx
+| | Conditional::CONDITION_NOTCONTAINSTEXT | Xlsx | Xlsx
+| | Conditional::CONDITION_BEGINSWITH | Xlsx | Xlsx
+| | Conditional::CONDITION_ENDSWITH | Xlsx | Xlsx
+Dates Occurring | Conditional::CONDITION_TIMEPERIOD | Xlsx | Xlsx
+Blanks | Conditional::CONDITION_CONTAINSBLANKS | Xlsx | Xlsx
+No Blanks | Conditional::CONDITION_NOTCONTAINSBLANKS | Xlsx | Xlsx
+Errors | Conditional::CONDITION_CONTAINSERRORS | Xlsx | Xlsx
+No Errors | Conditional::CONDITION_NOTCONTAINSERRORS | Xlsx | Xlsx
+Duplicates/Unique | Conditional::CONDITION_DUPLICATES | Xlsx | Xlsx
+| | Conditional::CONDITION_UNIQUE | Xlsx | Xlsx
+Use a formula | Conditional::CONDITION_EXPRESSION | Xlsx | Xlsx, Xls
+Data Bars | Conditional::CONDITION_DATABAR | Xlsx | Xlsx
+
+The following Conditional Types are currently not supported by any Readers or Writers:
+
+MS Excel | Conditional Type
+---|---
+Above/Below Average | ?
+Top/Bottom Items | ?
+Top/Bottom %age | ?
+Colour Scales |?
+Icon Sets | ?
+
+Unsupported types will by ignored by the Readers, and cannot be created through PHPSpreadsheet.
+
+
 ## Wizards
 
 While the Wizards don't simplify defining the Conditional Style itself; they do make it easier to define the conditions (the rules) where that style will be applied. 
@@ -122,7 +180,7 @@ Specific Text | Wizard::TEXT_VALUE | TextValue
 Dates Occurring | Wizard::DATES_OCCURRING | DateValue
 Blanks | Wizard::BLANKS | Blanks
 No Blanks | Wizard::NOT_BLANKS | Blanks
-Errors | Wizard::ERRORS | Errors 
+Errors | Wizard::ERRORS | Errors
 No Errors | Wizard::NOT_ERRORS | Errors
 
 Additionally, Wizards also exists for "Format only unique or duplicate values", and for "Use a formula to determine which cells to format":
@@ -131,6 +189,10 @@ MS Excel | Wizard Factory newRule() Type Constant | Wizard Class Name
 ---|---|---
 Duplicates/Unique | Wizard::DUPLICATES or Wizard::UNIQUE | Duplicates
 Use a formula | Wizard::EXPRESSION or Wizard::FORMULA | Expression
+
+There is currently no Wizard for Data Bars, even though this Conditional Type is supported by the Xlsx Reader and Writer. 
+
+---
 
 We instantiate the Wizard Factory, passing in the cell range where we want to apply Conditional Formatting rules; and can then call the `newRule()` method, passing in the type of Conditional Rule that we want to create in order to return the appropriate Wizard:
 
@@ -292,7 +354,7 @@ Here we're defining the formula as `CONCATENATE($A1," ",$B1)`, so we're "pinning
 
 ### TextValue Wizard
 
-While we can use the `CellValue` Wizard to do basic string comparison rules, the `TextValue` Wizard provides roles for comparing parts of a string value.
+While we can use the `CellValue` Wizard to do basic string comparison rules, the `TextValue` Wizard provides rules for comparing parts of a string value.
 
 For the `TextValue` Wizard, we always need to provide an operator and a value. As with the `CellValue` Wizard, values can be literals (but should always be string literals), cell references, or formula.
 
@@ -641,6 +703,9 @@ This example can also be found in the [code samples](https://github.com/PHPOffic
 ![11-16-CF-Expression-Sales-Grid-2.png](./images/11-16-CF-Expression-Sales-Grid-2.png)
 
 ## General Notes
+
+### Stop If True
+
 
 ### Changing the Cell Range
 

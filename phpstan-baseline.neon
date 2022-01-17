@@ -4346,11 +4346,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:readConditionalStyles\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:readConditionalStyles\\(\\) has parameter \\$xmlSheet with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php

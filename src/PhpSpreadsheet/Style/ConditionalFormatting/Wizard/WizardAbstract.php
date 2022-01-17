@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 abstract class WizardAbstract
@@ -59,6 +60,14 @@ abstract class WizardAbstract
         $this->setReferenceCellForExpressions($cellRange);
     }
 
+    protected function setReferenceCellForExpressions(string $conditionalRange): void
+    {
+        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
+        [$this->referenceCell] = $conditionalRange[0];
+
+        [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
+    }
+
     public function getStopIfTrue(): bool
     {
         return $this->stopIfTrue;
@@ -67,14 +76,6 @@ abstract class WizardAbstract
     public function setStopIfTrue(bool $stopIfTrue): void
     {
         $this->stopIfTrue = $stopIfTrue;
-    }
-
-    protected function setReferenceCellForExpressions(string $conditionalRange): void
-    {
-        $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
-        [$this->referenceCell] = $conditionalRange[0];
-
-        [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
     }
 
     public function getStyle(): Style
@@ -87,8 +88,24 @@ abstract class WizardAbstract
         $this->style = $style;
     }
 
+    protected function validateOperand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): string
+    {
+        if (
+            $operandValueType === Wizard::VALUE_TYPE_LITERAL &&
+            substr($operand, 0, 1) === '"' &&
+            substr($operand, -1) === '"'
+        ) {
+            $operand = str_replace('""', '"', substr($operand, 1, -1));
+        } elseif ($operandValueType === Wizard::VALUE_TYPE_FORMULA && substr($operand, 0, 1) === '=') {
+            $operand = substr($operand, 1);
+        }
+
+        return $operand;
+    }
+
     protected static function reverseCellAdjustment(array $matches, int $referenceColumn, int $referenceRow): string
     {
+        $worksheet = $matches[1];
         $column = $matches[6];
         $row = $matches[7];
 
@@ -102,7 +119,7 @@ abstract class WizardAbstract
             $row -= $referenceRow - 1;
         }
 
-        return "{$column}{$row}";
+        return "{$worksheet}{$column}{$row}";
     }
 
     protected static function reverseAdjustCellRef(string $condition, string $cellRange): string
@@ -133,6 +150,7 @@ abstract class WizardAbstract
 
     protected function conditionCellAdjustment(array $matches): string
     {
+        $worksheet = $matches[1];
         $column = $matches[6];
         $row = $matches[7];
 
@@ -146,7 +164,7 @@ abstract class WizardAbstract
             $row += $this->referenceRow - 1;
         }
 
-        return "{$column}{$row}";
+        return "{$worksheet}{$column}{$row}";
     }
 
     protected function cellConditionCheck(string $condition): string

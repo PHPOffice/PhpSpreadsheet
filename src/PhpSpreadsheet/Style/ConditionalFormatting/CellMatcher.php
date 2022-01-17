@@ -7,10 +7,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CellMatcher
 {
-    const COMPARISON_OPERATORS = [
+    public const COMPARISON_OPERATORS = [
         Conditional::OPERATOR_EQUAL => '=',
         Conditional::OPERATOR_GREATERTHAN => '>',
         Conditional::OPERATOR_GREATERTHANOREQUAL => '>=',
@@ -19,9 +20,14 @@ class CellMatcher
         Conditional::OPERATOR_NOTEQUAL => '<>',
     ];
 
-    const COMPARISON_RANGE_OPERATORS = [
+    public const COMPARISON_RANGE_OPERATORS = [
         Conditional::OPERATOR_BETWEEN => 'IF(AND(A1>=%s,A1<=%s),TRUE,FALSE)',
         Conditional::OPERATOR_NOTBETWEEN => 'IF(AND(A1>=%s,A1<=%s),FALSE,TRUE)',
+    ];
+
+    public const COMPARISON_DUPLICATES_OPERATORS = [
+        Conditional::CONDITION_DUPLICATES => "COUNTIF('%s'!%s,%s)>1",
+        Conditional::CONDITION_UNIQUE => "COUNTIF('%s'!%s,%s)=1",
     ];
 
     /**
@@ -35,9 +41,19 @@ class CellMatcher
     protected $cellRow;
 
     /**
+     * @var Worksheet
+     */
+    protected $worksheet;
+
+    /**
      * @var int
      */
     protected $cellColumn;
+
+    /**
+     * @var string
+     */
+    protected $conditionalRange;
 
     /**
      * @var string
@@ -62,10 +78,11 @@ class CellMatcher
     public function __construct(Cell $cell, string $conditionalRange)
     {
         $this->cell = $cell;
+        $this->worksheet = $cell->getWorksheet();
         [$this->cellColumn, $this->cellRow] = Coordinate::indexesFromString($this->cell->getCoordinate());
         $this->setReferenceCellForExpressions($conditionalRange);
 
-        $this->engine = Calculation::getInstance($cell->getWorksheet()->getParent());
+        $this->engine = Calculation::getInstance($this->worksheet->getParent());
     }
 
     protected function setReferenceCellForExpressions(string $conditionalRange): void
@@ -74,13 +91,32 @@ class CellMatcher
         [$this->referenceCell] = $conditionalRange[0];
 
         [$this->referenceColumn, $this->referenceRow] = Coordinate::indexesFromString($this->referenceCell);
+
+        // Convert our conditional range to an absolute conditional range, so it can be used  "pinned" in formulae
+        $rangeSets = [];
+        foreach ($conditionalRange as $rangeSet) {
+            $absoluteRangeSet = array_map(
+                [Coordinate::class, 'absoluteCoordinate'],
+                $rangeSet
+            );
+            $rangeSets[] = implode(':', $absoluteRangeSet);
+        }
+        $this->conditionalRange = implode(',', $rangeSets);
     }
 
     public function evaluateConditional(Conditional $conditional): bool
     {
+        // Some calculations may modify the stored cell; so reset it before every evaluation.
+        $cellColumn = Coordinate::stringFromColumnIndex($this->cellColumn);
+        $cellAddress = "{$cellColumn}{$this->cellRow}";
+        $this->cell = $this->worksheet->getCell($cellAddress);
+
         switch ($conditional->getConditionType()) {
             case Conditional::CONDITION_CELLIS:
                 return $this->processOperatorComparison($conditional);
+            case Conditional::CONDITION_DUPLICATES:
+            case Conditional::CONDITION_UNIQUE:
+                return $this->processDuplicatesComparison($conditional);
             case Conditional::CONDITION_CONTAINSTEXT:
                 // Expression is NOT(ISERROR(SEARCH("<TEXT>",<Cell Reference>)))
             case Conditional::CONDITION_NOTCONTAINSTEXT:
@@ -98,7 +134,7 @@ class CellMatcher
             case Conditional::CONDITION_NOTCONTAINSERRORS:
                 // Expression is NOT(ISERROR(<Cell Reference>))
             case Conditional::CONDITION_TIMEPERIOD:
-                // Expression varies, depending on specified timePeriod value
+                // Expression varies, depending on specified timePeriod value, e.g.
                 // Yesterday FLOOR(<Cell Reference>,1)=TODAY()-1
                 // Today FLOOR(<Cell Reference>,1)=TODAY()
                 // Tomorrow FLOOR(<Cell Reference>,1)=TODAY()+1
@@ -113,7 +149,7 @@ class CellMatcher
     /**
      * @param mixed $value
      *
-     * @return mixed
+     * @return float|int|string
      */
     protected function wrapValue($value)
     {
@@ -131,7 +167,7 @@ class CellMatcher
     }
 
     /**
-     * @return mixed
+     * @return float|int|string
      */
     protected function wrapCellValue()
     {
@@ -139,11 +175,10 @@ class CellMatcher
     }
 
     /**
-     * @return mixed
+     * @return float|int|string
      */
     protected function conditionCellAdjustment(array $matches)
     {
-        var_dump($matches);
         $column = $matches[6];
         $row = $matches[7];
 
@@ -156,11 +191,25 @@ class CellMatcher
         if (strpos($row, '$') === false) {
             $row += $this->cellRow - $this->referenceRow;
         }
-        var_dump("{$column}{$row}");
 
-        return $this->wrapValue($this->cell->getWorksheet()
-            ->getCell(str_replace('$', '', "{$column}{$row}"))
-            ->getCalculatedValue());
+        if (!empty($matches[4])) {
+            $worksheet = $this->worksheet->getParent()->getSheetByName(trim($matches[4], "'"));
+            if ($worksheet === null) {
+                return $this->wrapValue(null);
+            }
+
+            return $this->wrapValue(
+                $worksheet
+                    ->getCell(str_replace('$', '', "{$column}{$row}"))
+                    ->getCalculatedValue()
+            );
+        }
+
+        return $this->wrapValue(
+            $this->worksheet
+                ->getCell(str_replace('$', '', "{$column}{$row}"))
+                ->getCalculatedValue()
+        );
     }
 
     protected function cellConditionCheck(string $condition): string
@@ -214,6 +263,20 @@ class CellMatcher
                 self::COMPARISON_RANGE_OPERATORS[$conditional->getOperatorType()]
             ),
             ...$conditions
+        );
+
+        return $this->evaluateExpression($expression);
+    }
+
+    protected function processDuplicatesComparison(Conditional $conditional): bool
+    {
+        $worksheetName = $this->cell->getWorksheet()->getTitle();
+
+        $expression = sprintf(
+            self::COMPARISON_DUPLICATES_OPERATORS[$conditional->getConditionType()],
+            $worksheetName,
+            $this->conditionalRange,
+            $this->cellConditionCheck($this->cell->getCalculatedValue())
         );
 
         return $this->evaluateExpression($expression);

@@ -4,13 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Color;
-use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\Style;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PHPUnit\Framework\TestCase;
 
 class CellMatcherTest extends TestCase
@@ -22,12 +16,9 @@ class CellMatcherTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->spreadsheet = $this->buildTestSpreadsheet();
-        $writer = new Xlsx($this->spreadsheet);
-        $writer->save(getcwd() . '/testSpreadsheet.xlsx');
-//        $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
-//        $reader = IOFactory::createReader('Xlsx');
-//        $this->spreadsheet = $reader->load($filename);
+        $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $this->spreadsheet = $reader->load($filename);
     }
 
     /**
@@ -36,9 +27,15 @@ class CellMatcherTest extends TestCase
     public function testBasicCellIsComparison(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -52,15 +49,31 @@ class CellMatcherTest extends TestCase
     public function basicCellIsComparisonDataProvider(): array
     {
         return [
-            ['cellIs Comparison', 'A1', [false, false, true]],
-            ['cellIs Comparison', 'C2', [false, true, false]],
-            ['cellIs Comparison', 'E5', [true, false, false]],
-            ['cellIs Comparison', 'A12', [false, false, true]],
-            ['cellIs Comparison', 'C12', [false, true, false]],
-            ['cellIs Comparison', 'E12', [true, false, false]],
-            ['cellIs Comparison', 'A20', [true]],
-            ['cellIs Comparison', 'B20', [false]],
-            ['cellIs Comparison', 'C20', [true]],
+            // Less than/Equal/Greater than with Literal
+            'A2' => ['cellIs Comparison', 'A2', [false, false, true]],
+            'C3' => ['cellIs Comparison', 'C3', [false, true, false]],
+            'E6' => ['cellIs Comparison', 'E6', [true, false, false]],
+            // Less than/Equal/Greater than with Cell Reference
+            'A12' => ['cellIs Comparison', 'A12', [false, false, true]],
+            'C12' => ['cellIs Comparison', 'C12', [false, true, false]],
+            'E12' => ['cellIs Comparison', 'E12', [true, false, false]],
+            // Compare Text with Cell containing Formula
+            'A20' => ['cellIs Comparison', 'A20', [true]],
+            'B20' => ['cellIs Comparison', 'B20', [false]],
+            // Compare Text with Formula referencing relative cells
+            'A24' => ['cellIs Comparison', 'A24', [true]],
+            'B24' => ['cellIs Comparison', 'B24', [false]],
+            'A25' => ['cellIs Comparison', 'A25', [false]],
+            'B25' => ['cellIs Comparison', 'B25', [true]],
+            // Compare Cell Greater/Less with Vertical Cell Reference
+            'A30' => ['cellIs Comparison', 'A30', [false, true]],
+            'A31' => ['cellIs Comparison', 'A31', [true, false]],
+            'A32' => ['cellIs Comparison', 'A32', [false, true]],
+            'A33' => ['cellIs Comparison', 'A33', [true, false]],
+            'A34' => ['cellIs Comparison', 'A34', [false, false]],
+            'A35' => ['cellIs Comparison', 'A35', [false, true]],
+            'A36' => ['cellIs Comparison', 'A36', [true, false]],
+            'A37' => ['cellIs Comparison', 'A37', [true, false]],
         ];
     }
 
@@ -70,9 +83,15 @@ class CellMatcherTest extends TestCase
     public function testRangeCellIsComparison(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -84,16 +103,23 @@ class CellMatcherTest extends TestCase
     public function rangeCellIsComparisonDataProvider(): array
     {
         return [
-            ['cellIs Range Comparison', 'A1', false],
-            ['cellIs Range Comparison', 'A2', true],
-            ['cellIs Range Comparison', 'A3', true],
-            ['cellIs Range Comparison', 'A4', true],
-            ['cellIs Range Comparison', 'A5', false],
-            ['cellIs Range Comparison', 'A10', false],
-            ['cellIs Range Comparison', 'A11', false],
-            ['cellIs Range Comparison', 'A12', true],
-            ['cellIs Range Comparison', 'A16', true],
-            ['cellIs Range Comparison', 'A17', true],
+            // Range between Literals
+            'A2' => ['cellIs Range Comparison', 'A2', false],
+            'A3' => ['cellIs Range Comparison', 'A3', true],
+            'A4' => ['cellIs Range Comparison', 'A4', true],
+            'A5' => ['cellIs Range Comparison', 'A5', true],
+            'A6' => ['cellIs Range Comparison', 'A6', false],
+            // Range between Cell References
+            'A11' => ['cellIs Range Comparison', 'A11', false],
+            'A12' => ['cellIs Range Comparison', 'A12', false],
+            'A13' => ['cellIs Range Comparison', 'A13', true],
+            // Range between unordered Cell References
+            'A17' => ['cellIs Range Comparison', 'A17', true],
+            'A18' => ['cellIs Range Comparison', 'A18', true],
+            // Range between with Formula
+            'A22' => ['cellIs Range Comparison', 'A22', false],
+            'A23' => ['cellIs Range Comparison', 'A23', true],
+            'A24' => ['cellIs Range Comparison', 'A24', false],
         ];
     }
 
@@ -103,9 +129,15 @@ class CellMatcherTest extends TestCase
     public function testCellIsMultipleExpression(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -119,10 +151,14 @@ class CellMatcherTest extends TestCase
     public function cellIsExpressionMultipleDataProvider(): array
     {
         return [
-            ['cellIs Expression', 'A1', [false, true]],
-            ['cellIs Expression', 'A2', [true, false]],
-            ['cellIs Expression', 'C2', [true, false]],
-            ['cellIs Expression', 'E3', [false, true]],
+            // Odd/Even
+            'A2' => ['cellIs Expression', 'A2', [false, true]],
+            'A3' => ['cellIs Expression', 'A3', [true, false]],
+            'B3' => ['cellIs Expression', 'B3', [false, true]],
+            'C3' => ['cellIs Expression', 'C3', [true, false]],
+            'E4' => ['cellIs Expression', 'E4', [false, true]],
+            'E5' => ['cellIs Expression', 'E5', [true, false]],
+            'E6' => ['cellIs Expression', 'E6', [false, true]],
         ];
     }
 
@@ -132,9 +168,15 @@ class CellMatcherTest extends TestCase
     public function testCellIsExpression(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -146,24 +188,26 @@ class CellMatcherTest extends TestCase
     public function cellIsExpressionDataProvider(): array
     {
         return [
-            ['cellIs Expression', 'A11', false],
-            ['cellIs Expression', 'B11', false],
-            ['cellIs Expression', 'C11', false],
-            ['cellIs Expression', 'D11', false],
-            ['cellIs Expression', 'B12', true],
-            ['cellIs Expression', 'C12', true],
-            ['cellIs Expression', 'B14', true],
+            // Sales Grid for Country
+            ['cellIs Expression', 'A12', false],
+            ['cellIs Expression', 'B12', false],
+            ['cellIs Expression', 'C12', false],
+            ['cellIs Expression', 'D12', false],
+            ['cellIs Expression', 'B13', true],
+            ['cellIs Expression', 'C13', true],
             ['cellIs Expression', 'B15', true],
-            ['cellIs Expression', 'C16', false],
-            ['cellIs Expression', 'A21', false],
-            ['cellIs Expression', 'B21', false],
-            ['cellIs Expression', 'C21', false],
-            ['cellIs Expression', 'D21', false],
-            ['cellIs Expression', 'B22', true],
-            ['cellIs Expression', 'C22', true],
-            ['cellIs Expression', 'B24', false],
-            ['cellIs Expression', 'B25', true],
-            ['cellIs Expression', 'C26', false],
+            ['cellIs Expression', 'B16', true],
+            ['cellIs Expression', 'C17', false],
+            // Sales Grid for Country and Quarter
+            ['cellIs Expression', 'A22', false],
+            ['cellIs Expression', 'B22', false],
+            ['cellIs Expression', 'C22', false],
+            ['cellIs Expression', 'D22', false],
+            ['cellIs Expression', 'B23', true],
+            ['cellIs Expression', 'C23', true],
+            ['cellIs Expression', 'B25', false],
+            ['cellIs Expression', 'B26', true],
+            ['cellIs Expression', 'C27', false],
         ];
     }
 
@@ -173,10 +217,15 @@ class CellMatcherTest extends TestCase
     public function testTextExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        var_dump(array_keys($worksheet->getConditionalStylesCollection()));
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -188,49 +237,108 @@ class CellMatcherTest extends TestCase
     public function textExpressionsDataProvider(): array
     {
         return [
-            // Text Begins With
-            ['Text Expressions', 'A1', true],
-            ['Text Expressions', 'B1', false],
-            ['Text Expressions', 'A2', false],
+            // Text Begins With Literal
+            ['Text Expressions', 'A2', true],
             ['Text Expressions', 'B2', false],
             ['Text Expressions', 'A3', false],
-            ['Text Expressions', 'B3', true],
-            // Text Ends With
-            ['Text Expressions', 'A6', false],
-            ['Text Expressions', 'B6', false],
-            ['Text Expressions', 'A7', true],
-            ['Text Expressions', 'B7', true],
+            ['Text Expressions', 'B3', false],
+            ['Text Expressions', 'A4', false],
+            ['Text Expressions', 'B4', true],
+            // Text Ends With Literal
             ['Text Expressions', 'A8', false],
-            ['Text Expressions', 'B8', true],
-            // Text Contains
-            ['Text Expressions', 'A11', true],
-            ['Text Expressions', 'B11', false],
-            ['Text Expressions', 'A12', true],
-            ['Text Expressions', 'B12', true],
-            ['Text Expressions', 'A13', false],
-            ['Text Expressions', 'B13', true],
-            // Text Doesn't Contain
-            ['Text Expressions', 'A16', true],
+            ['Text Expressions', 'B8', false],
+            ['Text Expressions', 'A9', true],
+            ['Text Expressions', 'B9', true],
+            ['Text Expressions', 'A10', false],
+            ['Text Expressions', 'B10', true],
+            // Text Contains Literal
+            ['Text Expressions', 'A14', true],
+            ['Text Expressions', 'B14', false],
+            ['Text Expressions', 'A15', true],
+            ['Text Expressions', 'B15', true],
+            ['Text Expressions', 'A16', false],
             ['Text Expressions', 'B16', true],
-            ['Text Expressions', 'A17', true],
-            ['Text Expressions', 'B17', true],
-            ['Text Expressions', 'A18', false],
-            ['Text Expressions', 'B18', true],
+            // Text Doesn't Contain Literal
+            ['Text Expressions', 'A20', true],
+            ['Text Expressions', 'B20', true],
+            ['Text Expressions', 'A21', true],
+            ['Text Expressions', 'B21', true],
+            ['Text Expressions', 'A22', false],
+            ['Text Expressions', 'B22', true],
+            // Text Begins With Cell Reference
+            ['Text Expressions', 'D2', true],
+            ['Text Expressions', 'E2', false],
+            ['Text Expressions', 'D3', false],
+            ['Text Expressions', 'E3', false],
+            ['Text Expressions', 'D4', false],
+            ['Text Expressions', 'E4', true],
+            // Text Ends With Cell Reference
+            ['Text Expressions', 'D8', false],
+            ['Text Expressions', 'E8', false],
+            ['Text Expressions', 'D9', true],
+            ['Text Expressions', 'E9', true],
+            ['Text Expressions', 'D10', false],
+            ['Text Expressions', 'E10', true],
+            // Text Contains Cell Reference
+            ['Text Expressions', 'D14', true],
+            ['Text Expressions', 'E14', false],
+            ['Text Expressions', 'D15', true],
+            ['Text Expressions', 'E15', true],
+            ['Text Expressions', 'D16', false],
+            ['Text Expressions', 'E16', true],
+            // Text Doesn't Contain Cell Reference
+            ['Text Expressions', 'D20', true],
+            ['Text Expressions', 'E20', true],
+            ['Text Expressions', 'D21', true],
+            ['Text Expressions', 'E21', true],
+            ['Text Expressions', 'D22', false],
+            ['Text Expressions', 'E22', true],
+            // Text Begins With Formula
+            ['Text Expressions', 'G2', true],
+            ['Text Expressions', 'H2', false],
+            ['Text Expressions', 'G3', false],
+            ['Text Expressions', 'H3', false],
+            ['Text Expressions', 'G4', false],
+            ['Text Expressions', 'H4', true],
+            // Text Ends With Formula
+            ['Text Expressions', 'G8', false],
+            ['Text Expressions', 'H8', false],
+            ['Text Expressions', 'G9', true],
+            ['Text Expressions', 'H9', true],
+            ['Text Expressions', 'G10', false],
+            ['Text Expressions', 'H10', true],
+            // Text Contains Formula
+            ['Text Expressions', 'G14', true],
+            ['Text Expressions', 'H14', false],
+            ['Text Expressions', 'G15', true],
+            ['Text Expressions', 'H15', true],
+            ['Text Expressions', 'G16', false],
+            ['Text Expressions', 'H16', true],
+            // Text Doesn't Contain Formula
+            ['Text Expressions', 'G20', true],
+            ['Text Expressions', 'H20', true],
+            ['Text Expressions', 'G21', true],
+            ['Text Expressions', 'H21', true],
+            ['Text Expressions', 'G22', false],
+            ['Text Expressions', 'H22', true],
         ];
     }
 
     /**
-     * @dataProvider textBlanksDataProvider
+     * @dataProvider blanksDataProvider
      */
-    public function testTextBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
+    public function testBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        var_dump(array_keys($worksheet->getConditionalStylesCollection()));
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
-        var_dump($worksheet->getTitle());
-
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -241,26 +349,32 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function textBlanksDataProvider(): array
+    public function blanksDataProvider(): array
     {
         return [
-            ['Blank Expressions', 'A1', [true, false]],
-            ['Blank Expressions', 'A2', [false, true]],
-            ['Blank Expressions', 'B1', [false, true]],
-            ['Blank Expressions', 'B2', [true, false]],
+            // Blank/Not Blank
+            'A2' => ['Blank Expressions', 'A2', [false, true]],
+            'B2' => ['Blank Expressions', 'B2', [true, false]],
+            'A3' => ['Blank Expressions', 'A3', [true, false]],
+            'B3' => ['Blank Expressions', 'B3', [false, true]],
         ];
     }
 
     /**
-     * @dataProvider textErrorDataProvider
+     * @dataProvider errorDataProvider
      */
-    public function testTextErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
+    public function testErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        var_dump(array_keys($worksheet->getConditionalStylesCollection()));
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -271,422 +385,134 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function textErrorDataProvider(): array
+    public function errorDataProvider(): array
     {
         return [
-            ['Error Expressions', 'C1', [false, true]],
-            ['Error Expressions', 'C3', [true, false]],
+            // Error/Not Error
+            'C2' => ['Error Expressions', 'C2', [false, true]],
+            'C4' => ['Error Expressions', 'C4', [true, false]],
+            'C5' => ['Error Expressions', 'C5', [false, true]],
         ];
     }
 
-    protected function buildTestSpreadsheet(): Spreadsheet
+    /**
+     * @dataProvider dateOccurringDataProvider
+     */
+    public function testDateOccurringExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->removeSheetByIndex(0);
-
-        $worksheets = $this->worksheets();
-        foreach ($worksheets as $worksheet) {
-            $this->buildTestWorksheet($spreadsheet, $worksheet);
+        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
         }
+        $cell = $worksheet->getCell($cellAddress);
 
-        return $spreadsheet;
-    }
-
-    protected function buildTestWorksheet(Spreadsheet $spreadsheet, array $worksheet): void
-    {
-        $sheet = $spreadsheet->addSheet(new Worksheet($spreadsheet, $worksheet['Title']));
-
-        $dataSets = call_user_func($worksheet['Data']);
-        foreach ($dataSets as $cellReference => $dataSet) {
-            $sheet->fromArray($dataSet, null, $cellReference, true);
+        $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
         }
+        $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
-        $ruleSet = call_user_func($worksheet['Rules']);
-        foreach ($ruleSet as $ruleRange => $rules) {
-            $conditionalStyles = [];
-            foreach ($rules as $rule) {
-                $conditional = new Conditional();
-                $conditional->setConditionType($rule['Condition']);
-                if ($rule['Operator'] !== Conditional::OPERATOR_NONE) {
-                    $conditional->setOperatorType($rule['Operator']);
-                }
-                if (!empty($rule['Operands'])) {
-                    $conditional->setConditions($rule['Operands']);
-                }
-                $conditional->setStyle($rule['Style']);
-                $conditionalStyles[] = $conditional;
-            }
+        $matcher = new CellMatcher($cell, $cfRange);
 
-            $sheet->getStyle($ruleRange)->setConditionalStyles($conditionalStyles);
+        $match = $matcher->evaluateConditional($cfStyle[0]);
+        self::assertSame($expectedMatch, $match);
+    }
+
+    public function dateOccurringDataProvider(): array
+    {
+        return [
+            // Today
+            ['Date Expressions', 'B9', false],
+            ['Date Expressions', 'B10', true],
+            ['Date Expressions', 'B11', false],
+            // Yesterday
+            ['Date Expressions', 'C9', true],
+            ['Date Expressions', 'C10', false],
+            ['Date Expressions', 'C11', false],
+            // Tomorrow
+            ['Date Expressions', 'D9', false],
+            ['Date Expressions', 'D10', false],
+            ['Date Expressions', 'D11', true],
+            // Last  Daye
+            ['Date Expressions', 'E7', false],
+            ['Date Expressions', 'E8', true],
+            ['Date Expressions', 'E9', true],
+            ['Date Expressions', 'E10', true],
+            ['Date Expressions', 'E11', false],
+        ];
+    }
+
+    /**
+     * @dataProvider duplicatesDataProvider
+     */
+    public function testDuplicatesExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
+    {
+        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
+        $cell = $worksheet->getCell($cellAddress);
+
+        $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
+        $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
+
+        $matcher = new CellMatcher($cell, $cfRange);
+
+        foreach ($cfStyles as $cfIndex => $cfStyle) {
+            $match = $matcher->evaluateConditional($cfStyle);
+            self::assertSame($expectedMatches[$cfIndex], $match);
         }
     }
 
-    protected function worksheets()
+    public function duplicatesDataProvider(): array
     {
         return [
-            [
-                'Title' => 'cellIs Comparison',
-                'Data' => [$this, 'cellIsComparisonData'],
-                'Rules' => [$this, 'cellIsComparisonRules'],
-            ],
-            [
-                'Title' => 'cellIs Range Comparison',
-                'Data' => [$this, 'cellIsRangeComparisonData'],
-                'Rules' => [$this, 'cellIsRangeComparisonRules'],
-            ],
-            [
-                'Title' => 'cellIs Expression',
-                'Data' => [$this, 'cellExpressionData'],
-                'Rules' => [$this, 'cellExpressionRules'],
-            ],
-            [
-                'Title' => 'Text Expressions',
-                'Data' => [$this, 'textExpressionData'],
-                'Rules' => [$this, 'textExpressionRules'],
-            ],
-            [
-                'Title' => 'Blank Expressions',
-                'Data' => [$this, 'blankExpressionData'],
-                'Rules' => [$this, 'blankExpressionRules'],
-            ],
-            [
-                'Title' => 'Error Expressions',
-                'Data' => [$this, 'errorExpressionData'],
-                'Rules' => [$this, 'errorExpressionRules'],
-            ],
+            // Duplicate/Unique
+            'A2' => ['Duplicates Expressions', 'A2', [true, false]],
+            'B2' => ['Duplicates Expressions', 'B2', [false, true]],
+            'A4' => ['Duplicates Expressions', 'A4', [true, false]],
+            'A5' => ['Duplicates Expressions', 'A5', [false, true]],
+            'B5' => ['Duplicates Expressions', 'B5', [true, false]],
+            'A9' => ['Duplicates Expressions', 'A9', [true, false]],
+            'B9' => ['Duplicates Expressions', 'B9', [false, true]],
         ];
     }
 
-    protected function style($fontColor, $fillColor): Style
+    /**
+     * @dataProvider textCrossWorksheetDataProvider
+     */
+    public function testCrossWorksheetExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
-        $style = new Style();
-        $style->getFont()->getColor()->setARGB($fontColor);
-        $style->getFill()->setFillType(Fill::FILL_SOLID);
-        $style->getFill()->getEndColor()->setARGB($fillColor);
+        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetname} not found in test workbook");
+        }
+        $cell = $worksheet->getCell($cellAddress);
 
-        return $style;
+        $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
+        $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
+
+        $matcher = new CellMatcher($cell, $cfRange);
+
+        $match = $matcher->evaluateConditional($cfStyle[0]);
+        self::assertSame($expectedMatch, $match);
     }
 
-    protected function styleGreen(): Style
-    {
-        return $this->style(Color::COLOR_DARKGREEN, Color::COLOR_GREEN);
-    }
-
-    protected function styleRed(): Style
-    {
-        return $this->style(Color::COLOR_DARKRED, Color::COLOR_RED);
-    }
-
-    protected function styleBlue(): Style
-    {
-        return $this->style(Color::COLOR_DARKBLUE, Color::COLOR_BLUE);
-    }
-
-    protected function styleYellow(): Style
-    {
-        return $this->style(Color::COLOR_DARKBLUE, Color::COLOR_YELLOW);
-    }
-
-    protected function cellIsComparisonData()
+    public function textCrossWorksheetDataProvider(): array
     {
         return [
-            'A1' => $this->comparisonSimpleGrid(),
-            'A10' => $this->comparisonSimpleGrid(),
-            'G10' => [1],
-            'A20' => [
-                ['HELLO', 'WORLD', '="HE"&"LLO"'],
-            ],
-        ];
-    }
-
-    protected function cellIsComparisonRules()
-    {
-        return [
-            'A1:E5' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_GREATERTHAN,
-                    'Operands' => [0],
-                    'Style' => $this->styleGreen(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_EQUAL,
-                    'Operands' => [0],
-                    'Style' => $this->styleBlue(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_LESSTHAN,
-                    'Operands' => [0],
-                    'Style' => $this->styleRed(),
-                ],
-            ],
-            'A10:E14' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_GREATERTHAN,
-                    'Operands' => ['$G$10'],
-                    'Style' => $this->styleGreen(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_EQUAL,
-                    'Operands' => ['$G$10'],
-                    'Style' => $this->styleBlue(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_LESSTHAN,
-                    'Operands' => ['$G$10'],
-                    'Style' => $this->styleRed(),
-                ],
-            ],
-            'A20:C20' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_EQUAL,
-                    'Operands' => ['"HELLO"'],
-                    'Style' => $this->styleBlue(),
-                ],
-            ],
-        ];
-    }
-
-    protected function cellIsRangeComparisonData()
-    {
-        return [
-            'A1' => [
-                [-2],
-                [-1],
-                [0],
-                [1],
-                [2],
-            ],
-            'A10' => [
-                [2, 7, 6],
-                [9, 5, 1],
-                [4, 3, 8],
-            ],
-            'A16' => [
-                [5, 3, 7],
-                [5, 7, 3],
-            ],
-        ];
-    }
-
-    protected function cellIsRangeComparisonRules()
-    {
-        return [
-            'A1:A5' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_BETWEEN,
-                    'Operands' => [-1, 1],
-                    'Style' => $this->styleGreen(),
-                ],
-            ],
-            'A10:A12' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_BETWEEN,
-                    'Operands' => ['$B10', '$C10'],
-                    'Style' => $this->styleGreen(),
-                ],
-            ],
-            'A16:A18' => [
-                [
-                    'Condition' => Conditional::CONDITION_CELLIS,
-                    'Operator' => Conditional::OPERATOR_BETWEEN,
-                    'Operands' => ['$B16', '$C16'],
-                    'Style' => $this->styleGreen(),
-                ],
-            ],
-        ];
-    }
-
-    protected function cellExpressionData()
-    {
-        return [
-            'A1' => $this->comparisonSimpleGrid(),
-            'A10' => $this->salesGrid(),
-            'A20' => $this->salesGrid(),
-        ];
-    }
-
-    protected function cellExpressionRules()
-    {
-        return [
-            'A1:E5' => [
-                [
-                    'Condition' => Conditional::CONDITION_EXPRESSION,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Operands' => ['ISEVEN(A1)'],
-                    'Style' => $this->styleGreen(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_EXPRESSION,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Operands' => ['ISODD(A1)'],
-                    'Style' => $this->styleBlue(),
-                ],
-            ],
-            'A11:D16' => [
-                [
-                    'Condition' => Conditional::CONDITION_EXPRESSION,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Operands' => ['$C11="USA"'],
-                    'Style' => $this->styleBlue(),
-                ],
-            ],
-            'A21:D26' => [
-                [
-                    'Condition' => Conditional::CONDITION_EXPRESSION,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Operands' => ['AND($C21="USA",$D21="Q4")'],
-                    'Style' => $this->styleBlue(),
-                ],
-            ],
-        ];
-    }
-
-    protected function textExpressionData()
-    {
-        return [
-            'A1' => $this->textGrid(),
-            'A6' => $this->textGrid(),
-            'A11' => $this->textGrid(),
-            'A16' => $this->textGrid(),
-        ];
-    }
-
-    protected function textExpressionRules()
-    {
-        return [
-            'A1:B3' => [
-                [
-                    'Condition' => Conditional::CONDITION_BEGINSWITH,
-                    'Operator' => Conditional::OPERATOR_BEGINSWITH,
-                    'Operands' => ['"H"'],
-                    'Style' => $this->styleYellow(),
-                ],
-            ],
-            'A6:B8' => [
-                [
-                    'Condition' => Conditional::CONDITION_ENDSWITH,
-                    'Operator' => Conditional::OPERATOR_ENDSWITH,
-                    'Operands' => ['"OW"'],
-                    'Style' => $this->styleYellow(),
-                ],
-            ],
-            'A11:B13' => [
-                [
-                    'Condition' => Conditional::CONDITION_CONTAINSTEXT,
-                    'Operator' => Conditional::OPERATOR_CONTAINSTEXT,
-                    'Operands' => ['"LL"'],
-                    'Style' => $this->styleYellow(),
-                ],
-            ],
-            'A16:B18' => [
-                [
-                    'Condition' => Conditional::CONDITION_NOTCONTAINSTEXT,
-                    'Operator' => Conditional::OPERATOR_NOTCONTAINS,
-                    'Operands' => ['"EE"'],
-                    'Style' => $this->styleYellow(),
-                ],
-            ],
-        ];
-    }
-
-    protected function blankExpressionData()
-    {
-        return [
-            'A1' => [
-                ['HELLO', null],
-                [null, 'WORLD'],
-            ],
-        ];
-    }
-
-    protected function blankExpressionRules()
-    {
-        return [
-            'A1:B2' => [
-                [
-                    'Condition' => Conditional::CONDITION_NOTCONTAINSBLANKS,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Style' => $this->styleBlue(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_CONTAINSBLANKS,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Style' => $this->styleGreen(),
-                ],
-            ],
-        ];
-    }
-
-    protected function errorExpressionData()
-    {
-        return [
-            'A1' => [
-                [5, -2, '=A1/B1'],
-                [5, -1, '=A2/B2'],
-                [5, 0, '=A3/B3'],
-                [5, 1, '=A4/B4'],
-                [5, 2, '=A5/B5'],
-            ],
-        ];
-    }
-
-    protected function errorExpressionRules()
-    {
-        return [
-            'C1:C5' => [
-                [
-                    'Condition' => Conditional::CONDITION_CONTAINSERRORS,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Style' => $this->styleRed(),
-                ],
-                [
-                    'Condition' => Conditional::CONDITION_NOTCONTAINSERRORS,
-                    'Operator' => Conditional::OPERATOR_NONE,
-                    'Style' => $this->styleGreen(),
-                ],
-            ],
-        ];
-    }
-
-    protected function comparisonSimpleGrid(): array
-    {
-        return [
-            [-3, -2, -1, 0, 1],
-            [-2, -1, 0, 1, 2],
-            [-1, 0, 1, 2, 3],
-            [0, 1, 2, 3, 4],
-            [1, 2, 3, 4, 5],
-        ];
-    }
-
-    protected function salesGrid(): array
-    {
-        return [
-            ['Name', 'Sales', 'Country', 'Quarter'],
-            ['Smith', 16753, 'UK', 'Q3'],
-            ['Johnson', 14808, 'USA', 'Q4'],
-            ['Williams', 10644, 'UK', 'Q2'],
-            ['Jones', 1390, 'USA', 'Q3'],
-            ['Brown', 4865, 'USA', 'Q4'],
-            ['Williams', 12438, 'UK', 'Q2'],
-        ];
-    }
-
-    protected function textGrid(): array
-    {
-        return [
-            ['HELLO', 'WORLD'],
-            ['MELLOW', 'YELLOW'],
-            ['SLEEPY', 'HOLLOW'],
+            // Relative Cell References in another Worksheet
+            'A1' => ['CrossSheet References', 'A1', false],
+            'A2' => ['CrossSheet References', 'A2', false],
+            'A3' => ['CrossSheet References', 'A3', true],
+            'A4' => ['CrossSheet References', 'A4', false],
+            'A5' => ['CrossSheet References', 'A5', false],
         ];
     }
 }

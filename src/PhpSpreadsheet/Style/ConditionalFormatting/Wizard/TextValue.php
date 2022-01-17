@@ -67,6 +67,10 @@ class TextValue extends WizardAbstract implements WizardInterface
 
     protected function operand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
+        if (is_string($operand)) {
+            $operand = $this->validateOperand($operand, $operandValueType);
+        }
+
         $this->operand = $operand;
         $this->operandValueType = $operandValueType;
     }

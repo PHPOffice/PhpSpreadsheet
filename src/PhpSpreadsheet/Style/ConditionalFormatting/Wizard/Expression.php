@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 
 /**
  * @method Expression formula(string $expression)
@@ -22,6 +23,7 @@ class Expression extends WizardAbstract implements WizardInterface
 
     public function expression(string $expression): self
     {
+        $expression = $this->validateOperand($expression, Wizard::VALUE_TYPE_FORMULA);
         $this->expression = $expression;
 
         return $this;

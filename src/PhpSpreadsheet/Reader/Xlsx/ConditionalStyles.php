@@ -3,11 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles as StyleReader;
-use PhpOffice\PhpSpreadsheet\Style\Style as Style;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject;
+use PhpOffice\PhpSpreadsheet\Style\Style as Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
@@ -48,13 +48,15 @@ class ConditionalStyles
         );
     }
 
-    private function setConditionalsFromExt(array $conditionals)
+    private function setConditionalsFromExt(array $conditionals): void
     {
         foreach ($conditionals as $conditionalRange => $cfRules) {
             ksort($cfRules);
+            // Priority is used as the key for sorting; but may not start at 0,
+            // so we use array_values to reset the index after sorting.
             $this->worksheet->getStyle($conditionalRange)
-                ->setConditionalStyles($cfRules);
-        };
+                ->setConditionalStyles(array_values($cfRules));
+        }
     }
 
     private function readConditionalsFromExt(SimpleXMLElement $extLst, StyleReader $styleReader): array
@@ -62,33 +64,38 @@ class ConditionalStyles
         $conditionals = [];
 
         if (isset($extLst->ext['uri']) && (string) $extLst->ext['uri'] === '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
-            if ($extLst->ext) {
-                $conditionalFormattingRuleXml = $extLst->ext->children($this->ns['x14']);
-                if (!$conditionalFormattingRuleXml->conditionalFormattings) {
-                    return [];
+            $conditionalFormattingRuleXml = $extLst->ext->children($this->ns['x14']);
+            if (!$conditionalFormattingRuleXml->conditionalFormattings) {
+                return [];
+            }
+
+            foreach ($conditionalFormattingRuleXml->children($this->ns['x14']) as $extFormattingXml) {
+                $extFormattingRangeXml = $extFormattingXml->children($this->ns['xm']);
+                if (!$extFormattingRangeXml->sqref) {
+                    continue;
                 }
 
-                foreach ($conditionalFormattingRuleXml->children($this->ns['x14']) as $extFormattingXml) {
-                    $extFormattingRangeXml = $extFormattingXml->children($this->ns['xm']);
-                    if (!$extFormattingRangeXml->sqref) {
-                        continue;
-                    }
+                $sqref = (string) $extFormattingRangeXml->sqref;
+                $extCfRuleXml = $extFormattingXml->cfRule;
 
-                    $sqref = (string) $extFormattingRangeXml->sqref;
-                    $extCfRuleXml = $extFormattingXml->cfRule;
-
-                    $attributes = $extCfRuleXml->attributes();
-                    if (!$attributes) {
-                        continue;
-                    }
-
-                    $priority = (int) $attributes->priority;
-
-                    $conditional = $this->readConditionalRuleFromExt($extCfRuleXml, $attributes);
-                    $cfStyle = $this->readStyleFromExt($extCfRuleXml, $styleReader);
-                    $conditional->setStyle($cfStyle);
-                    $conditionals[$sqref][$priority] = $conditional;
+                $attributes = $extCfRuleXml->attributes();
+                if (!$attributes) {
+                    continue;
                 }
+                $conditionType = (string) $attributes->type;
+                if (
+                    !Conditional::isValidConditionType($conditionType) ||
+                    $conditionType === Conditional::CONDITION_DATABAR
+                ) {
+                    continue;
+                }
+
+                $priority = (int) $attributes->priority;
+
+                $conditional = $this->readConditionalRuleFromExt($extCfRuleXml, $attributes);
+                $cfStyle = $this->readStyleFromExt($extCfRuleXml, $styleReader);
+                $conditional->setStyle($cfStyle);
+                $conditionals[$sqref][$priority] = $conditional;
             }
         }
 
@@ -112,9 +119,10 @@ class ConditionalStyles
             $conditionType === Conditional::CONDITION_CONTAINSTEXT ||
             $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT ||
             $conditionType === Conditional::CONDITION_BEGINSWITH ||
-            $conditionType === Conditional::CONDITION_ENDSWITH
+            $conditionType === Conditional::CONDITION_ENDSWITH ||
+            $conditionType === Conditional::CONDITION_TIMEPERIOD
         ) {
-            $conditional->setText(array_pop($operands));
+            $conditional->setText(array_pop($operands) ?? '');
         }
         $conditional->setConditions($operands);
 
