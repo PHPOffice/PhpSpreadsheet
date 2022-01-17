@@ -1686,43 +1686,52 @@ class Worksheet implements IComparable
 
             // Blank out the rest of the cells in the range (if they exist)
             if ($numberRows > $numberColumns) {
-                foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
-                    foreach ($column->getCellIterator($firstRow) as $cell) {
-                        if ($cell !== null) {
-                            $row = $cell->getRow();
-                            if ($row > $lastRow) {
-                                break;
-                            }
-                            $thisColumn = $cell->getColumn();
-                            $thisColumnIndex = Coordinate::columnIndexFromString($thisColumn);
-                            if ($upperLeft !== "$thisColumn$row") {
-                                $cell->setValueExplicit(null, DataType::TYPE_NULL);
-                            }
-                        }
-                    }
-                }
+                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft);
             } else {
-                foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
-                    foreach ($row->getCellIterator($firstColumn) as $cell) {
-                        if ($cell !== null) {
-                            $column = $cell->getColumn();
-                            $columnIndex = Coordinate::columnIndexFromString($column);
-                            if ($columnIndex > $lastColumnIndex) {
-                                break;
-                            }
-                            $thisRow = $cell->getRow();
-                            if ($upperLeft !== "$column$thisRow") {
-                                $cell->setValueExplicit(null, DataType::TYPE_NULL);
-                            }
-                        }
-                    }
-                }
+                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft);
             }
         } else {
             throw new Exception('Merge must be set on a range of cells.');
         }
 
         return $this;
+    }
+
+    private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft): void
+    {
+        foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
+            foreach ($column->getCellIterator($firstRow) as $cell) {
+                if ($cell !== null) {
+                    $row = $cell->getRow();
+                    if ($row > $lastRow) {
+                        break;
+                    }
+                    $thisColumn = $cell->getColumn();
+                    if ($upperLeft !== "$thisColumn$row") {
+                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                    }
+                }
+            }
+        }
+    }
+
+    private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft): void
+    {
+        foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
+            foreach ($row->getCellIterator($firstColumn) as $cell) {
+                if ($cell !== null) {
+                    $column = $cell->getColumn();
+                    $columnIndex = Coordinate::columnIndexFromString($column);
+                    if ($columnIndex > $lastColumnIndex) {
+                        break;
+                    }
+                    $thisRow = $cell->getRow();
+                    if ($upperLeft !== "$column$thisRow") {
+                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                    }
+                }
+            }
+        }
     }
 
     /**

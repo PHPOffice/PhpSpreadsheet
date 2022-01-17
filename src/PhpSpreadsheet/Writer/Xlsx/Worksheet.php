@@ -1230,6 +1230,23 @@ class Worksheet extends WriterPart
         }
     }
 
+    private static function dontWriteNull(PhpspreadsheetWorksheet $worksheet, string $cellAddress, Cell $pCell, ?int $rowXfIndex, ?int $xfi): bool
+    {
+        if ($pCell->getDataType() === DataType::TYPE_NULL) {
+            if ($rowXfIndex === null) {
+                if (preg_match('/^[A-Z]+/', $cellAddress, $matches) === 1) {
+                    $col = $matches[0];
+                    $rowXfIndex = $worksheet->getColumnDimension($col)->getXfIndex();
+                }
+            }
+            if ($xfi === $rowXfIndex) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Write Cell.
      *
@@ -1243,16 +1260,8 @@ class Worksheet extends WriterPart
 
         // Sheet styles
         $xfi = $pCell->getXfIndex();
-        if ($pCell->getDataType() === Datatype::TYPE_NULL) {
-            if ($rowXfIndex === null) {
-                if (preg_match('/^[A-Z]+/', $cellAddress, $matches) === 1) {
-                    $col = $matches[0];
-                    $rowXfIndex = $worksheet->getColumnDimension($col)->getXfIndex();
-                }
-            }
-            if ($xfi === $rowXfIndex) {
-                return;
-            }
+        if (self::dontWriteNull($worksheet, $cellAddress, $pCell, $rowXfIndex, $xfi)) {
+            return;
         }
         $objWriter->startElement('c');
         $objWriter->writeAttribute('r', $cellAddress);
@@ -1260,7 +1269,7 @@ class Worksheet extends WriterPart
 
         // If cell value is supplied, write cell value
         $cellValue = $pCell->getValue();
-        if (is_object($cellValue) || $cellValue !== '') {
+        if ($cellValue !== '') {
             // Map type
             $mappedType = $pCell->getDataType();
 
