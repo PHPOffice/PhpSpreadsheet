@@ -1701,7 +1701,7 @@ class Worksheet implements IComparable
     {
         foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
             $iterator = $column->getCellIterator($firstRow);
-            $iterator->setIterateOnlyExistingCells(true, false);
+            $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
                 if ($cell !== null) {
                     $row = $cell->getRow();
@@ -1721,7 +1721,7 @@ class Worksheet implements IComparable
     {
         foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
             $iterator = $row->getCellIterator($firstColumn);
-            $iterator->setIterateOnlyExistingCells(true, false);
+            $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
                 if ($cell !== null) {
                     $column = $cell->getColumn();
