@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -1119,7 +1118,7 @@ class Worksheet extends WriterPart
                 if (isset($cellsByRow[$currentRow])) {
                     foreach ($cellsByRow[$currentRow] as $cellAddress) {
                         // Write cell
-                        $this->writeCell($objWriter, $worksheet, $cellAddress, $aFlippedStringTable, $rowDimension->getXfIndex());
+                        $this->writeCell($objWriter, $worksheet, $cellAddress, $aFlippedStringTable);
                     }
                 }
 
@@ -1230,46 +1229,26 @@ class Worksheet extends WriterPart
         }
     }
 
-    private static function dontWriteNull(PhpspreadsheetWorksheet $worksheet, string $cellAddress, Cell $pCell, ?int $rowXfIndex, ?int $xfi): bool
-    {
-        if ($pCell->getDataType() === DataType::TYPE_NULL) {
-            if ($rowXfIndex === null) {
-                if (preg_match('/^[A-Z]+/', $cellAddress, $matches) === 1) {
-                    $col = $matches[0];
-                    $rowXfIndex = $worksheet->getColumnDimension($col)->getXfIndex();
-                }
-            }
-            if ($xfi === $rowXfIndex) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Write Cell.
      *
      * @param string $cellAddress Cell Address
      * @param string[] $flippedStringTable String table (flipped), for faster index searching
      */
-    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, string $cellAddress, array $flippedStringTable, ?int $rowXfIndex): void
+    private function writeCell(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, string $cellAddress, array $flippedStringTable): void
     {
         // Cell
         $pCell = $worksheet->getCell($cellAddress);
+        $objWriter->startElement('c');
+        $objWriter->writeAttribute('r', $cellAddress);
 
         // Sheet styles
         $xfi = $pCell->getXfIndex();
-        if (self::dontWriteNull($worksheet, $cellAddress, $pCell, $rowXfIndex, $xfi)) {
-            return;
-        }
-        $objWriter->startElement('c');
-        $objWriter->writeAttribute('r', $cellAddress);
         self::writeAttributeIf($objWriter, $xfi, 's', $xfi);
 
         // If cell value is supplied, write cell value
         $cellValue = $pCell->getValue();
-        if ($cellValue !== '') {
+        if (is_object($cellValue) || $cellValue !== '') {
             // Map type
             $mappedType = $pCell->getDataType();
 

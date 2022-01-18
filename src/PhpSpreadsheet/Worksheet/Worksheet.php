@@ -1700,14 +1700,16 @@ class Worksheet implements IComparable
     private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft): void
     {
         foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
-            foreach ($column->getCellIterator($firstRow) as $cell) {
+            $iterator = $column->getCellIterator($firstRow);
+            $iterator->setIterateOnlyExistingCells(true, false);
+            foreach ($iterator as $cell) {
                 if ($cell !== null) {
                     $row = $cell->getRow();
                     if ($row > $lastRow) {
                         break;
                     }
-                    $thisColumn = $cell->getColumn();
-                    if ($upperLeft !== "$thisColumn$row") {
+                    $thisCell = $cell->getColumn() . $row;
+                    if ($upperLeft !== $thisCell) {
                         $cell->setValueExplicit(null, DataType::TYPE_NULL);
                     }
                 }
@@ -1718,15 +1720,17 @@ class Worksheet implements IComparable
     private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft): void
     {
         foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
-            foreach ($row->getCellIterator($firstColumn) as $cell) {
+            $iterator = $row->getCellIterator($firstColumn);
+            $iterator->setIterateOnlyExistingCells(true, false);
+            foreach ($iterator as $cell) {
                 if ($cell !== null) {
                     $column = $cell->getColumn();
                     $columnIndex = Coordinate::columnIndexFromString($column);
                     if ($columnIndex > $lastColumnIndex) {
                         break;
                     }
-                    $thisRow = $cell->getRow();
-                    if ($upperLeft !== "$column$thisRow") {
+                    $thisCell = $column . $cell->getRow();
+                    if ($upperLeft !== $thisCell) {
                         $cell->setValueExplicit(null, DataType::TYPE_NULL);
                     }
                 }
