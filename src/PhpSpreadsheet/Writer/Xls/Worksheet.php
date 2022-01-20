@@ -188,7 +188,7 @@ class Worksheet extends BIFFwriter
     /**
      * Escher object corresponding to MSODRAWING.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
+     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
@@ -1584,7 +1584,7 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane());
+        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane() ?? '');
         $x = $column - 1;
         $y = $row - 1;
 
@@ -2138,7 +2138,7 @@ class Worksheet extends BIFFwriter
     private function writePassword(): void
     {
         // Exit unless sheet protection and password have been specified
-        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword()) {
+        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
             return;
         }
 
@@ -2388,7 +2388,7 @@ class Worksheet extends BIFFwriter
             for ($i = 0; $i < $width; ++$i) {
                 $color = imagecolorsforindex($image, imagecolorat($image, $i, $j));
                 foreach (['red', 'green', 'blue'] as $key) {
-                    $color[$key] = $color[$key] + round((255 - $color[$key]) * $color['alpha'] / 127);
+                    $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
                 }
                 $data .= chr($color['blue']) . chr($color['green']) . chr($color['red']);
             }
@@ -2507,22 +2507,18 @@ class Worksheet extends BIFFwriter
 
     /**
      * Get Escher object.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    public function getEscher()
+    public function getEscher(): ?\PhpOffice\PhpSpreadsheet\Shared\Escher
     {
         return $this->escher;
     }
 
     /**
      * Set Escher object.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */
-    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $pValue = null): void
+    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher): void
     {
-        $this->escher = $pValue;
+        $this->escher = $escher;
     }
 
     /**

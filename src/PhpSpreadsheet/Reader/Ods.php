@@ -10,7 +10,6 @@ use DOMNode;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
@@ -28,6 +27,8 @@ use ZipArchive;
 
 class Ods extends BaseReader
 {
+    const INITIAL_FILE = 'content.xml';
+
     /**
      * Create a new Ods Reader instance.
      */
@@ -39,46 +40,42 @@ class Ods extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $filename): bool
     {
-        File::assertFile($pFilename);
-
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) === true) {
-            // check if it is an OOXML archive
-            $stat = $zip->statName('mimetype');
-            if ($stat && ($stat['size'] <= 255)) {
-                $mimeType = $zip->getFromName($stat['name']);
-            } elseif ($zip->statName('META-INF/manifest.xml')) {
-                $xml = simplexml_load_string(
-                    $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
-                    'SimpleXMLElement',
-                    Settings::getLibXmlLoaderOptions()
-                );
-                $namespacesContent = $xml->getNamespaces(true);
-                if (isset($namespacesContent['manifest'])) {
-                    $manifest = $xml->children($namespacesContent['manifest']);
-                    foreach ($manifest as $manifestDataSet) {
-                        $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
-                        if ($manifestAttributes->{'full-path'} == '/') {
-                            $mimeType = (string) $manifestAttributes->{'media-type'};
+        if (File::testFileNoThrow($filename, '')) {
+            $zip = new ZipArchive();
+            if ($zip->open($filename) === true) {
+                // check if it is an OOXML archive
+                $stat = $zip->statName('mimetype');
+                if ($stat && ($stat['size'] <= 255)) {
+                    $mimeType = $zip->getFromName($stat['name']);
+                } elseif ($zip->statName('META-INF/manifest.xml')) {
+                    $xml = simplexml_load_string(
+                        $this->securityScanner->scan($zip->getFromName('META-INF/manifest.xml')),
+                        'SimpleXMLElement',
+                        Settings::getLibXmlLoaderOptions()
+                    );
+                    $namespacesContent = $xml->getNamespaces(true);
+                    if (isset($namespacesContent['manifest'])) {
+                        $manifest = $xml->children($namespacesContent['manifest']);
+                        foreach ($manifest as $manifestDataSet) {
+                            $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
+                            if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
+                                $mimeType = (string) $manifestAttributes->{'media-type'};
 
-                            break;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            $zip->close();
+                $zip->close();
+            }
         }
 
         return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
@@ -87,24 +84,19 @@ class Ods extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return string[]
      */
-    public function listWorksheetNames($pFilename)
+    public function listWorksheetNames($filename)
     {
-        File::assertFile($pFilename);
-
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
-        }
+        File::assertFile($filename, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -139,24 +131,19 @@ class Ods extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
-        $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new ReaderException('Could not open ' . $pFilename . ' for reading! Error opening file.');
-        }
-
         $xml = new XMLReader();
         $xml->xml(
-            $this->securityScanner->scanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanner->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -233,7 +220,7 @@ class Ods extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -241,24 +228,22 @@ class Ods extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename, self::INITIAL_FILE);
 
         $zip = new ZipArchive();
-        if ($zip->open($pFilename) !== true) {
-            throw new Exception("Could not open {$pFilename} for reading! Error opening file.");
-        }
+        $zip->open($filename);
 
         // Meta
 
@@ -289,7 +274,7 @@ class Ods extends BaseReader
 
         $dom = new DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
-            $this->securityScanner->scan($zip->getFromName('content.xml')),
+            $this->securityScanner->scan($zip->getFromName(self::INITIAL_FILE)),
             Settings::getLibXmlLoaderOptions()
         );
 
@@ -372,7 +357,7 @@ class Ods extends BaseReader
                             break;
                         case 'table-row':
                             if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
-                                $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
                             } else {
                                 $rowRepeats = 1;
                             }
@@ -529,7 +514,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -647,6 +632,7 @@ class Ods extends BaseReader
         if ($zip->locateName('settings.xml') !== false) {
             $this->processSettings($zip, $spreadsheet);
         }
+
         // Return
         return $spreadsheet;
     }

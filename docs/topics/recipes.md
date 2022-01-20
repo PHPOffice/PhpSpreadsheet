@@ -303,6 +303,21 @@ $spreadsheet->getActiveSheet()->getPageSetup()
 Note that there are additional page settings available. Please refer to
 the [API documentation](https://phpoffice.github.io/PhpSpreadsheet) for all possible options.
 
+The default papersize is initially PAPERSIZE_LETTER. However, this default
+can be changed for new sheets with the following call:
+```php
+\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setPaperSizeDefault(
+    \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4
+);
+```
+
+The default orientation is ORIENTATION_DEFAULT, which will be treated as Portrait in Excel. However, this default can be changed for new sheets with the following call:
+```php
+\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setOrientationDefault(
+    \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE
+);
+```
+
 ### Page Setup: Scaling options
 
 The page setup scaling options in PhpSpreadsheet relate directly to the
@@ -475,7 +490,7 @@ $spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksh
 To show/hide gridlines when printing, use the following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setShowGridlines(true);
+$spreadsheet->getActiveSheet()->setPrintGridlines(true);
 ```
 
 ### Setting rows/columns to repeat at top/left
@@ -942,8 +957,25 @@ $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->getText()->createTextRun('Total amount on the current invoice, excluding VAT.');
 ```
-
 ![08-cell-comment.png](./images/08-cell-comment.png)
+
+## Add a comment with background image to a cell
+
+To add a comment with background image to a cell, use the following code:
+
+```php
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('B5', 'Gibli Chromo');
+// Add png image to comment background
+$drawing = new Drawing();
+$drawing->setName('Gibli Chromo');
+$drawing->setPath('/tmp/gibli_chromo.png');
+$comment = $sheet->getComment('B5');
+$comment->setBackgroundImage($drawing);
+// Set the size of the comment equal to the size of the image 
+$comment->setSizeAsBackgroundImage();
+```
+![08-cell-comment-with-image.png](./images/08-cell-comment-with-image.png)
 
 ## Apply autofilter to a range of cells
 
@@ -1104,7 +1136,7 @@ formula is allowed to be maximum 255 characters (not bytes). This sets a
 limit on how many items you can have in the string "Item A,Item B,Item
 C". Therefore it is normally a better idea to type the item values
 directly in some cell range, say A1:A3, and instead use, say,
-`$validation->setFormula1('Sheet!$A$1:$A$3')`. Another benefit is that
+`$validation->setFormula1('\'Sheet title\'!$A$1:$A$3')`. Another benefit is that
 the item values themselves can contain the comma `,` character itself.
 
 If you need data validation on multiple cells, one can clone the
@@ -1112,6 +1144,11 @@ ruleset:
 
 ```php
 $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validation);
+```
+
+Alternatively, one can apply the validation to a range of cells:
+```php
+$validation->setSqref('B5:B1048576');
 ```
 
 ## Setting a column's width
@@ -1372,9 +1409,11 @@ The following code extracts images from the current active worksheet,
 and writes each as a separate file.
 
 ```php
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 $i = 0;
+
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
-    if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+    if ($drawing instanceof MemoryDrawing) {
         ob_start();
         call_user_func(
             $drawing->getRenderingFunction(),
@@ -1383,24 +1422,39 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         $imageContents = ob_get_contents();
         ob_end_clean();
         switch ($drawing->getMimeType()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG :
+            case MemoryDrawing::MIMETYPE_PNG :
                 $extension = 'png';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_GIF:
+            case MemoryDrawing::MIMETYPE_GIF:
                 $extension = 'gif';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG :
+            case MemoryDrawing::MIMETYPE_JPEG :
                 $extension = 'jpg';
                 break;
         }
     } else {
-        $zipReader = fopen($drawing->getPath(),'r');
-        $imageContents = '';
-        while (!feof($zipReader)) {
-            $imageContents .= fread($zipReader,1024);
+        if ($drawing->getPath()) {
+            // Check if the source is a URL or a file path
+            if ($drawing->getIsURL()) {
+                $imageContents = file_get_contents($drawing->getPath());
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                file_put_contents($filePath , $imageContents);
+                $mimeType = mime_content_type($filePath);
+                // You could use the below to find the extension from mime type.
+                // https://gist.github.com/alexcorvi/df8faecb59e86bee93411f6a7967df2c#gistcomment-2722664
+                $extension = File::mime2ext($mimeType);
+                unlink($filePath);            
+            }
+            else {
+                $zipReader = fopen($drawing->getPath(),'r');
+                $imageContents = '';
+                while (!feof($zipReader)) {
+                    $imageContents .= fread($zipReader,1024);
+                }
+                fclose($zipReader);
+                $extension = $drawing->getExtension();            
+            }
         }
-        fclose($zipReader);
-        $extension = $drawing->getExtension();
     }
     $myFileName = '00_Image_'.++$i.'.'.$extension;
     file_put_contents($myFileName,$imageContents);

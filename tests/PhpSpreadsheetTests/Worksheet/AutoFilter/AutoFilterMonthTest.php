@@ -3,13 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PHPUnit\Framework\TestCase;
 
-class AutoFilterMonthTest extends TestCase
+class AutoFilterMonthTest extends SetupTeardown
 {
     public function providerMonth(): array
     {
@@ -20,10 +18,12 @@ class AutoFilterMonthTest extends TestCase
         ];
     }
 
-    private static function setCells(Worksheet $sheet, int $startMonth): void
+    private function setCells(Worksheet $sheet, int $startMonth): void
     {
         $sheet->getCell('A1')->setValue('Date');
         $sheet->getCell('A2')->setValue('=TODAY()');
+        // cache result for consistency in later calculations
+        $sheet->getCell('A2')->getCalculatedValue();
         $sheet->getCell('A3')->setValue('=DATE(YEAR(A2), MONTH(A2), 1)');
         if ($startMonth === 12) {
             $sheet->getCell('A4')->setValue('=DATE(YEAR(A2) + 1, 1, 1)');
@@ -47,6 +47,7 @@ class AutoFilterMonthTest extends TestCase
         }
         $sheet->getCell('A8')->setValue('=DATE(YEAR(A2) + 1, MONTH(A2), 1)');
         $sheet->getCell('A9')->setValue('=DATE(YEAR(A2) - 1, MONTH(A2), 1)');
+        $this->maxRow = 9;
     }
 
     /**
@@ -57,15 +58,14 @@ class AutoFilterMonthTest extends TestCase
         // Loop to avoid rare edge case where first calculation
         // and second do not take place in same day.
         do {
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
+            $sheet = $this->getSpreadsheet()->createSheet();
             $dtStart = new DateTimeImmutable();
             $startDay = (int) $dtStart->format('d');
             $startMonth = (int) $dtStart->format('m');
-            self::setCells($sheet, $startMonth);
+            $this->setCells($sheet, $startMonth);
 
-            $maxRow = 9;
-            $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
+            $maxRow = $this->maxRow;
+            $autoFilter = $sheet->getAutoFilter();
             $autoFilter->setRange("A1:A$maxRow");
             $columnFilter = $autoFilter->getColumn('A');
             $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
@@ -80,12 +80,7 @@ class AutoFilterMonthTest extends TestCase
             $dtEnd = new DateTimeImmutable();
             $endDay = (int) $dtEnd->format('d');
         } while ($startDay !== $endDay);
-        $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
-            }
-        }
-        self::assertEquals($expectedVisible, $actualVisible);
+
+        self::assertEquals($expectedVisible, $this->getVisibleSheet($sheet));
     }
 }

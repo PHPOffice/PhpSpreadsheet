@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use ZipArchive;
 
 class File
@@ -17,75 +17,81 @@ class File
 
     /**
      * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
-     *
-     * @param bool $useUploadTempDir Use File Upload Temporary directory (true or false)
      */
-    public static function setUseUploadTempDirectory($useUploadTempDir): void
+    public static function setUseUploadTempDirectory(bool $useUploadTempDir): void
     {
         self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }
 
     /**
      * Get the flag indicating whether the File Upload Temp directory should be used for temporary files.
-     *
-     * @return bool Use File Upload Temporary directory (true or false)
      */
-    public static function getUseUploadTempDirectory()
+    public static function getUseUploadTempDirectory(): bool
     {
         return self::$useUploadTempDirectory;
     }
 
+    // https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
+    // Section 4.3.7
+    // Looks like there might be endian-ness considerations
+    private const ZIP_FIRST_4 = [
+        "\x50\x4b\x03\x04", // what it looks like on my system
+        "\x04\x03\x4b\x50", // what it says in documentation
+    ];
+
+    private static function validateZipFirst4(string $zipFile): bool
+    {
+        $contents = @file_get_contents($zipFile, false, null, 0, 4);
+
+        return in_array($contents, self::ZIP_FIRST_4, true);
+    }
+
     /**
      * Verify if a file exists.
-     *
-     * @param string $pFilename Filename
-     *
-     * @return bool
      */
-    public static function fileExists($pFilename)
+    public static function fileExists(string $filename): bool
     {
         // Sick construction, but it seems that
         // file_exists returns strange values when
         // doing the original file_exists on ZIP archives...
-        if (strtolower(substr($pFilename, 0, 3)) == 'zip') {
+        if (strtolower(substr($filename, 0, 6)) == 'zip://') {
             // Open ZIP file and verify if the file exists
-            $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
-            $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
+            $zipFile = substr($filename, 6, strrpos($filename, '#') - 6);
+            $archiveFile = substr($filename, strrpos($filename, '#') + 1);
 
-            $zip = new ZipArchive();
-            if ($zip->open($zipFile) === true) {
-                $returnValue = ($zip->getFromName($archiveFile) !== false);
-                $zip->close();
+            if (self::validateZipFirst4($zipFile)) {
+                $zip = new ZipArchive();
+                $res = $zip->open($zipFile);
+                if ($res === true) {
+                    $returnValue = ($zip->getFromName($archiveFile) !== false);
+                    $zip->close();
 
-                return $returnValue;
+                    return $returnValue;
+                }
             }
 
             return false;
         }
 
-        return file_exists($pFilename);
+        return file_exists($filename);
     }
 
     /**
      * Returns canonicalized absolute pathname, also for ZIP archives.
-     *
-     * @param string $pFilename
-     *
-     * @return string
      */
-    public static function realpath($pFilename)
+    public static function realpath(string $filename): string
     {
         // Returnvalue
         $returnValue = '';
 
         // Try using realpath()
-        if (file_exists($pFilename)) {
-            $returnValue = realpath($pFilename);
+        if (file_exists($filename)) {
+            $returnValue = realpath($filename) ?: '';
         }
 
         // Found something?
-        if ($returnValue == '' || ($returnValue === null)) {
-            $pathArray = explode('/', $pFilename);
+        if ($returnValue === '') {
+            $pathArray = explode('/', $filename);
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
                 $iMax = count($pathArray);
                 for ($i = 0; $i < $iMax; ++$i) {
@@ -105,24 +111,23 @@ class File
 
     /**
      * Get the systems temporary directory.
-     *
-     * @return string
      */
-    public static function sysGetTempDir()
+    public static function sysGetTempDir(): string
     {
+        $path = sys_get_temp_dir();
         if (self::$useUploadTempDirectory) {
             //  use upload-directory when defined to allow running on environments having very restricted
             //      open_basedir configs
             if (ini_get('upload_tmp_dir') !== false) {
                 if ($temp = ini_get('upload_tmp_dir')) {
                     if (file_exists($temp)) {
-                        return realpath($temp);
+                        $path = $temp;
                     }
                 }
             }
         }
 
-        return realpath(sys_get_temp_dir());
+        return realpath($path) ?: '';
     }
 
     public static function temporaryFilename(): string
@@ -137,17 +142,44 @@ class File
 
     /**
      * Assert that given path is an existing file and is readable, otherwise throw exception.
-     *
-     * @param string $filename
      */
-    public static function assertFile($filename): void
+    public static function assertFile(string $filename, string $zipMember = ''): void
     {
         if (!is_file($filename)) {
-            throw new InvalidArgumentException('File "' . $filename . '" does not exist.');
+            throw new ReaderException('File "' . $filename . '" does not exist.');
         }
 
         if (!is_readable($filename)) {
-            throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+            throw new ReaderException('Could not open "' . $filename . '" for reading.');
         }
+
+        if ($zipMember !== '') {
+            $zipfile = "zip://$filename#$zipMember";
+            if (!self::fileExists($zipfile)) {
+                throw new ReaderException("Could not find zip member $zipfile");
+            }
+        }
+    }
+
+    /**
+     * Same as assertFile, except return true/false and don't throw Exception.
+     */
+    public static function testFileNoThrow(string $filename, ?string $zipMember = null): bool
+    {
+        if (!is_file($filename)) {
+            return false;
+        }
+        if (!is_readable($filename)) {
+            return false;
+        }
+        if ($zipMember === null) {
+            return true;
+        }
+        // validate zip, but don't check specific member
+        if ($zipMember === '') {
+            return self::validateZipFirst4($filename);
+        }
+
+        return self::fileExists("zip://$filename#$zipMember");
     }
 }

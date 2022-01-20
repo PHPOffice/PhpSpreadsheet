@@ -53,7 +53,10 @@ class Protection extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getProtection();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getProtection();
     }
 
     /**
@@ -80,20 +83,20 @@ class Protection extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['locked'])) {
-                $this->setLocked($pStyles['locked']);
+            if (isset($styleArray['locked'])) {
+                $this->setLocked($styleArray['locked']);
             }
-            if (isset($pStyles['hidden'])) {
-                $this->setHidden($pStyles['hidden']);
+            if (isset($styleArray['hidden'])) {
+                $this->setHidden($styleArray['hidden']);
             }
         }
 
@@ -117,17 +120,17 @@ class Protection extends Supervisor
     /**
      * Set locked.
      *
-     * @param string $pValue see self::PROTECTION_*
+     * @param string $lockType see self::PROTECTION_*
      *
      * @return $this
      */
-    public function setLocked($pValue)
+    public function setLocked($lockType)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['locked' => $pValue]);
+            $styleArray = $this->getStyleArray(['locked' => $lockType]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->locked = $pValue;
+            $this->locked = $lockType;
         }
 
         return $this;
@@ -150,17 +153,17 @@ class Protection extends Supervisor
     /**
      * Set hidden.
      *
-     * @param string $pValue see self::PROTECTION_*
+     * @param string $hiddenType see self::PROTECTION_*
      *
      * @return $this
      */
-    public function setHidden($pValue)
+    public function setHidden($hiddenType)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['hidden' => $pValue]);
+            $styleArray = $this->getStyleArray(['hidden' => $hiddenType]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->hidden = $pValue;
+            $this->hidden = $hiddenType;
         }
 
         return $this;

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
@@ -71,11 +72,7 @@ class ColumnAndRowAttributes extends BaseParserClass
         }
     }
 
-    /**
-     * @param IReadFilter $readFilter
-     * @param bool $readDataOnly
-     */
-    public function load(?IReadFilter $readFilter = null, $readDataOnly = false): void
+    public function load(?IReadFilter $readFilter = null, bool $readDataOnly = false): void
     {
         if ($this->worksheetXml === null) {
             return;
@@ -89,6 +86,10 @@ class ColumnAndRowAttributes extends BaseParserClass
 
         if ($this->worksheetXml->sheetData && $this->worksheetXml->sheetData->row) {
             $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly);
+        }
+
+        if ($readFilter !== null && get_class($readFilter) === DefaultReadFilter::class) {
+            $readFilter = null;
         }
 
         // set columns/rows attributes

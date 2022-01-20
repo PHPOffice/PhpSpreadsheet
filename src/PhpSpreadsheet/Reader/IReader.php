@@ -13,12 +13,8 @@ interface IReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename);
+    public function canRead(string $filename): bool;
 
     /**
      * Read data only?
@@ -34,11 +30,11 @@ interface IReader
      *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
      *        Set to false (the default) to advise the Reader to read both data and formatting for cells.
      *
-     * @param bool $pValue
+     * @param bool $readDataOnly
      *
      * @return IReader
      */
-    public function setReadDataOnly($pValue);
+    public function setReadDataOnly($readDataOnly);
 
     /**
      * Read empty cells?
@@ -54,11 +50,11 @@ interface IReader
      *        Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.
      *        Set to false to advise the Reader to ignore cells containing a null value or an empty string.
      *
-     * @param bool $pValue
+     * @param bool $readEmptyCells
      *
      * @return IReader
      */
-    public function setReadEmptyCells($pValue);
+    public function setReadEmptyCells($readEmptyCells);
 
     /**
      * Read charts in workbook?
@@ -76,11 +72,11 @@ interface IReader
      *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
      *        Set to false (the default) to discard charts.
      *
-     * @param bool $pValue
+     * @param bool $includeCharts
      *
      * @return IReader
      */
-    public function setIncludeCharts($pValue);
+    public function setIncludeCharts($includeCharts);
 
     /**
      * Get which sheets to load
@@ -122,12 +118,12 @@ interface IReader
      *
      * @return IReader
      */
-    public function setReadFilter(IReadFilter $pValue);
+    public function setReadFilter(IReadFilter $readFilter);
 
     /**
      * Loads PhpSpreadsheet from file.
      *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0);
+    public function load(string $filename, int $flags = 0);
 }

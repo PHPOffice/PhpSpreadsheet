@@ -133,13 +133,33 @@ return [
         false,
     ],
     [
-        '#REF!',
+        '#N/A',
         'B',
         [
             'Selection column',
             'Value to retrieve',
         ],
         2,
+        false,
+    ],
+    [
+        '#REF!',
+        'Selection column',
+        [
+            'Selection column',
+            'Value to retrieve',
+        ],
+        5,
+        false,
+    ],
+    [
+        'Selection column',
+        'Selection column',
+        [
+            'Selection column',
+            'Value to retrieve',
+        ],
+        1,
         false,
     ],
     [

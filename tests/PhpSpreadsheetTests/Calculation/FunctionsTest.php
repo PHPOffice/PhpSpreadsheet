@@ -3,9 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -324,59 +321,6 @@ class FunctionsTest extends TestCase
     public function providerN(): array
     {
         return require 'tests/data/Calculation/Functions/N.php';
-    }
-
-    /**
-     * @dataProvider providerIsFormula
-     *
-     * @param mixed $expectedResult
-     * @param mixed $reference       Reference to the cell we wish to test
-     * @param mixed $value           Value of the cell we wish to test
-     */
-    public function testIsFormula($expectedResult, $reference, $value = 'undefined'): void
-    {
-        $ourCell = null;
-        if ($value !== 'undefined') {
-            $remoteCell = $this->getMockBuilder(Cell::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-            $remoteCell->method('isFormula')
-                ->willReturn(substr($value ?? '', 0, 1) == '=');
-
-            $remoteSheet = $this->getMockBuilder(Worksheet::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-            $remoteSheet->method('getCell')
-                ->willReturn($remoteCell);
-
-            $workbook = $this->getMockBuilder(Spreadsheet::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-            $workbook->method('getSheetByName')
-                ->willReturn($remoteSheet);
-
-            $sheet = $this->getMockBuilder(Worksheet::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-            $sheet->method('getCell')
-                ->willReturn($remoteCell);
-            $sheet->method('getParent')
-                ->willReturn($workbook);
-
-            $ourCell = $this->getMockBuilder(Cell::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-            $ourCell->method('getWorksheet')
-                ->willReturn($sheet);
-        }
-
-        $result = Functions::isFormula($reference, $ourCell);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerIsFormula(): array
-    {
-        return require 'tests/data/Calculation/Functions/ISFORMULA.php';
     }
 
     /**

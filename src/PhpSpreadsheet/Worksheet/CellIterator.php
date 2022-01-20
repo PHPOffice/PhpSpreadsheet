@@ -3,7 +3,12 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use Iterator;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
+/**
+ * @template TKey
+ * @implements Iterator<TKey, Cell>
+ */
 abstract class CellIterator implements Iterator
 {
     /**

@@ -140,13 +140,13 @@ class DataValidation
     /**
      * Set Formula 1.
      *
-     * @param string $value
+     * @param string $formula
      *
      * @return $this
      */
-    public function setFormula1($value)
+    public function setFormula1($formula)
     {
-        $this->formula1 = $value;
+        $this->formula1 = $formula;
 
         return $this;
     }
@@ -164,13 +164,13 @@ class DataValidation
     /**
      * Set Formula 2.
      *
-     * @param string $value
+     * @param string $formula
      *
      * @return $this
      */
-    public function setFormula2($value)
+    public function setFormula2($formula)
     {
-        $this->formula2 = $value;
+        $this->formula2 = $formula;
 
         return $this;
     }
@@ -188,13 +188,13 @@ class DataValidation
     /**
      * Set Type.
      *
-     * @param string $value
+     * @param string $type
      *
      * @return $this
      */
-    public function setType($value)
+    public function setType($type)
     {
-        $this->type = $value;
+        $this->type = $type;
 
         return $this;
     }
@@ -212,13 +212,13 @@ class DataValidation
     /**
      * Set Error style.
      *
-     * @param string $value see self::STYLE_*
+     * @param string $errorStyle see self::STYLE_*
      *
      * @return $this
      */
-    public function setErrorStyle($value)
+    public function setErrorStyle($errorStyle)
     {
-        $this->errorStyle = $value;
+        $this->errorStyle = $errorStyle;
 
         return $this;
     }
@@ -236,13 +236,13 @@ class DataValidation
     /**
      * Set Operator.
      *
-     * @param string $value
+     * @param string $operator
      *
      * @return $this
      */
-    public function setOperator($value)
+    public function setOperator($operator)
     {
-        $this->operator = $value;
+        $this->operator = $operator;
 
         return $this;
     }
@@ -260,13 +260,13 @@ class DataValidation
     /**
      * Set Allow Blank.
      *
-     * @param bool $value
+     * @param bool $allowBlank
      *
      * @return $this
      */
-    public function setAllowBlank($value)
+    public function setAllowBlank($allowBlank)
     {
-        $this->allowBlank = $value;
+        $this->allowBlank = $allowBlank;
 
         return $this;
     }
@@ -284,13 +284,13 @@ class DataValidation
     /**
      * Set Show DropDown.
      *
-     * @param bool $value
+     * @param bool $showDropDown
      *
      * @return $this
      */
-    public function setShowDropDown($value)
+    public function setShowDropDown($showDropDown)
     {
-        $this->showDropDown = $value;
+        $this->showDropDown = $showDropDown;
 
         return $this;
     }
@@ -308,13 +308,13 @@ class DataValidation
     /**
      * Set Show InputMessage.
      *
-     * @param bool $value
+     * @param bool $showInputMessage
      *
      * @return $this
      */
-    public function setShowInputMessage($value)
+    public function setShowInputMessage($showInputMessage)
     {
-        $this->showInputMessage = $value;
+        $this->showInputMessage = $showInputMessage;
 
         return $this;
     }
@@ -332,13 +332,13 @@ class DataValidation
     /**
      * Set Show ErrorMessage.
      *
-     * @param bool $value
+     * @param bool $showErrorMessage
      *
      * @return $this
      */
-    public function setShowErrorMessage($value)
+    public function setShowErrorMessage($showErrorMessage)
     {
-        $this->showErrorMessage = $value;
+        $this->showErrorMessage = $showErrorMessage;
 
         return $this;
     }
@@ -356,13 +356,13 @@ class DataValidation
     /**
      * Set Error title.
      *
-     * @param string $value
+     * @param string $errorTitle
      *
      * @return $this
      */
-    public function setErrorTitle($value)
+    public function setErrorTitle($errorTitle)
     {
-        $this->errorTitle = $value;
+        $this->errorTitle = $errorTitle;
 
         return $this;
     }
@@ -380,13 +380,13 @@ class DataValidation
     /**
      * Set Error.
      *
-     * @param string $value
+     * @param string $error
      *
      * @return $this
      */
-    public function setError($value)
+    public function setError($error)
     {
-        $this->error = $value;
+        $this->error = $error;
 
         return $this;
     }
@@ -404,13 +404,13 @@ class DataValidation
     /**
      * Set Prompt title.
      *
-     * @param string $value
+     * @param string $promptTitle
      *
      * @return $this
      */
-    public function setPromptTitle($value)
+    public function setPromptTitle($promptTitle)
     {
-        $this->promptTitle = $value;
+        $this->promptTitle = $promptTitle;
 
         return $this;
     }
@@ -428,13 +428,13 @@ class DataValidation
     /**
      * Set Prompt.
      *
-     * @param string $value
+     * @param string $prompt
      *
      * @return $this
      */
-    public function setPrompt($value)
+    public function setPrompt($prompt)
     {
-        $this->prompt = $value;
+        $this->prompt = $prompt;
 
         return $this;
     }
@@ -460,6 +460,7 @@ class DataValidation
             $this->error .
             $this->promptTitle .
             $this->prompt .
+            $this->sqref .
             __CLASS__
         );
     }
@@ -477,5 +478,20 @@ class DataValidation
                 $this->$key = $value;
             }
         }
+    }
+
+    /** @var ?string */
+    private $sqref;
+
+    public function getSqref(): ?string
+    {
+        return $this->sqref;
+    }
+
+    public function setSqref(?string $str): self
+    {
+        $this->sqref = $str;
+
+        return $this;
     }
 }
