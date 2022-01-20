@@ -161,16 +161,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:raiseFormulaError\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:raiseFormulaError\\(\\) has parameter \\$errorMessage with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -939,11 +929,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\InterestAndPrincipal\\:\\:\\$principal has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
-
-		-
-			message: "#^Parameter \\#4 \\$x2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\NonPeriodic\\:\\:xirrPart3\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\Periodic\\:\\:presentValue\\(\\) has parameter \\$args with no type specified\\.$#"
@@ -7919,11 +7904,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$message of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XNpvTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XirrTest.php
 
 		-
 			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
