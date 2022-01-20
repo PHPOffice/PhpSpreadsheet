@@ -1458,14 +1458,10 @@ class Worksheet implements IComparable
     public function getConditionalRange(string $coordinate): ?string
     {
         $coordinate = strtoupper($coordinate);
-        if (strpos($coordinate, ':') !== false) {
-            return $this->conditionalStylesCollection[$coordinate] ?? [];
-        }
-
         $cell = $this->getCell($coordinate);
         foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
             if ($cell->isInRange($conditionalRange)) {
-                return $this->conditionalStylesCollection[$conditionalRange];
+                return $conditionalRange;
             }
         }
 

@@ -468,26 +468,30 @@ class Worksheet extends WriterPart
 
     private static function writeOtherCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
+        $conditions = $conditional->getConditions();
         if (
             $conditional->getConditionType() == Conditional::CONDITION_CELLIS
             || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+            || !empty($conditions)
         ) {
-            foreach ($conditional->getConditions() as $formula) {
+            foreach ($conditions as $formula) {
                 // Formula
                 $objWriter->writeElement('formula', Xlfn::addXlfn($formula));
             }
-        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
-            // formula copied from ms xlsx xml source file
-            $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
-        } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
-            // formula copied from ms xlsx xml source file
-            $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
-        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSERRORS) {
-            // formula copied from ms xlsx xml source file
-            $objWriter->writeElement('formula', 'ISERROR(' . $cellCoordinate . ')');
-        } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSERRORS) {
-            // formula copied from ms xlsx xml source file
-            $objWriter->writeElement('formula', 'NOT(ISERROR(' . $cellCoordinate . '))');
+        } else {
+            if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
+                // formula copied from ms xlsx xml source file
+                $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))=0');
+            } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSBLANKS) {
+                // formula copied from ms xlsx xml source file
+                $objWriter->writeElement('formula', 'LEN(TRIM(' . $cellCoordinate . '))>0');
+            } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSERRORS) {
+                // formula copied from ms xlsx xml source file
+                $objWriter->writeElement('formula', 'ISERROR(' . $cellCoordinate . ')');
+            } elseif ($conditional->getConditionType() == Conditional::CONDITION_NOTCONTAINSERRORS) {
+                // formula copied from ms xlsx xml source file
+                $objWriter->writeElement('formula', 'NOT(ISERROR(' . $cellCoordinate . '))');
+            }
         }
     }
 
@@ -533,9 +537,9 @@ class Worksheet extends WriterPart
                 if ($conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT) {
                     $objWriter->writeElement('formula', 'NOT(ISERROR(SEARCH("' . $txt . '",' . $cellCoordinate . ')))');
                 } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_BEGINSWITH) {
-                    $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',' . strlen($txt) . ')="' . $txt . '"');
+                    $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',LEN("' . $txt . '"))="' . $txt . '"');
                 } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_ENDSWITH) {
-                    $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',' . strlen($txt) . ')="' . $txt . '"');
+                    $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',LEN("' . $txt . '"))="' . $txt . '"');
                 } elseif ($conditional->getOperatorType() == Conditional::OPERATOR_NOTCONTAINS) {
                     $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $txt . '",' . $cellCoordinate . '))');
                 }
@@ -677,17 +681,20 @@ class Worksheet extends WriterPart
 
                 self::writeAttributeIf($objWriter, $conditional->getStopIfTrue(), 'stopIfTrue', '1');
 
+                $cellRange = Coordinate::splitRange(str_replace('$', '', strtoupper($cellCoordinate)));
+                [$topLeftCell] = $cellRange[0];
+
                 if (
                     $conditional->getConditionType() === Conditional::CONDITION_CONTAINSTEXT
                     || $conditional->getConditionType() === Conditional::CONDITION_NOTCONTAINSTEXT
                     || $conditional->getConditionType() === Conditional::CONDITION_BEGINSWITH
                     || $conditional->getConditionType() === Conditional::CONDITION_ENDSWITH
                 ) {
-                    self::writeTextCondElements($objWriter, $conditional, $cellCoordinate);
+                    self::writeTextCondElements($objWriter, $conditional, $topLeftCell);
                 } elseif ($conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD) {
-                    self::writeTimePeriodCondElements($objWriter, $conditional, $cellCoordinate);
+                    self::writeTimePeriodCondElements($objWriter, $conditional, $topLeftCell);
                 } else {
-                    self::writeOtherCondElements($objWriter, $conditional, $cellCoordinate);
+                    self::writeOtherCondElements($objWriter, $conditional, $topLeftCell);
                 }
 
                 //<dataBar>

@@ -52,6 +52,24 @@ class ExpressionWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
+    /**
+     * @dataProvider expressionDataProvider
+     */
+    public function testExpressionWizardUsingAlias(string $expression, string $expectedExpression): void
+    {
+        $ruleType = Wizard::EXPRESSION;
+        /** @var Wizard\Expression $wizard */
+        $wizard = $this->wizardFactory->newRule($ruleType);
+
+        $wizard->setStyle($this->style);
+        $wizard->formula($expression);
+
+        $conditional = $wizard->getConditional();
+        self::assertSame(Conditional::CONDITION_EXPRESSION, $conditional->getConditionType());
+        $conditions = $conditional->getConditions();
+        self::assertSame([$expectedExpression], $conditions);
+    }
+
     public function expressionDataProvider(): array
     {
         return [
