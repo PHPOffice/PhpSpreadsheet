@@ -767,7 +767,12 @@ class Xlsx extends BaseReader
                                                 break;
                                             case 'b':
                                                 if (!isset($c->f)) {
-                                                    $value = self::castToBoolean($c);
+                                                    if (isset($c->v)) {
+                                                        $value = self::castToBoolean($c);
+                                                    } else {
+                                                        $value = null;
+                                                        $cellDataType = DATATYPE::TYPE_NULL;
+                                                    }
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToBoolean');
@@ -821,10 +826,12 @@ class Xlsx extends BaseReader
                                             // Assign value
                                             if ($cellDataType != '') {
                                                 // it is possible, that datatype is numeric but with an empty string, which result in an error
-                                                if ($cellDataType === DataType::TYPE_NUMERIC && $value === '') {
-                                                    $cellDataType = DataType::TYPE_STRING;
+                                                if ($cellDataType === DataType::TYPE_NUMERIC && ($value === '' || $value === null)) {
+                                                    $cellDataType = DataType::TYPE_NULL;
                                                 }
-                                                $cell->setValueExplicit($value, $cellDataType);
+                                                if ($cellDataType !== DataType::TYPE_NULL) {
+                                                    $cell->setValueExplicit($value, $cellDataType);
+                                                }
                                             } else {
                                                 $cell->setValue($value);
                                             }
@@ -1250,8 +1257,8 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setOffsetX((int) Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
-                                                    $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem((int) self::getAttributes($oneCellAnchor->ext), 'cx')));
-                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem((int) self::getAttributes($oneCellAnchor->ext), 'cy')));
+                                                    $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cx')));
+                                                    $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
                                                         $objDrawing->setRotation((int) Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
                                                     }
