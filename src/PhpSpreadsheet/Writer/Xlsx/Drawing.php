@@ -183,7 +183,7 @@ class Drawing extends WriterPart
                 $objWriter->writeElement('xdr:row', $aCoordinates[1] - 1);
                 $objWriter->writeElement('xdr:rowOff', \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToEMU($drawing->getHeight()));
                 $objWriter->endElement();
-            };
+            }
 
             // xdr:pic
             $objWriter->startElement('xdr:pic');
@@ -433,6 +433,31 @@ class Drawing extends WriterPart
     }
 
     /**
+     * Get an array of all drawings.
+     *
+     * @return BaseDrawing[] All drawings in PhpSpreadsheet
+     */
+    public function allDrawings(Spreadsheet $spreadsheet)
+    {
+        // Get an array of all drawings
+        $aDrawings = [];
+
+        // Loop through PhpSpreadsheet
+        $sheetCount = $spreadsheet->getSheetCount();
+        for ($i = 0; $i < $sheetCount; ++$i) {
+            // Loop through images and add to array
+            $iterator = $spreadsheet->getSheet($i)->getDrawingCollection()->getIterator();
+            while ($iterator->valid()) {
+                $aDrawings[] = $iterator->current();
+
+                $iterator->next();
+            }
+        }
+
+        return $aDrawings;
+    }
+
+    /**
      * Write VML comment to XML format.
      *
      * @param string $reference Reference
@@ -469,31 +494,6 @@ class Drawing extends WriterPart
         $objWriter->endElement();
 
         $objWriter->endElement();
-    }
-
-    /**
-     * Get an array of all drawings.
-     *
-     * @return BaseDrawing[] All drawings in PhpSpreadsheet
-     */
-    public function allDrawings(Spreadsheet $spreadsheet)
-    {
-        // Get an array of all drawings
-        $aDrawings = [];
-
-        // Loop through PhpSpreadsheet
-        $sheetCount = $spreadsheet->getSheetCount();
-        for ($i = 0; $i < $sheetCount; ++$i) {
-            // Loop through images and add to array
-            $iterator = $spreadsheet->getSheet($i)->getDrawingCollection()->getIterator();
-            while ($iterator->valid()) {
-                $aDrawings[] = $iterator->current();
-
-                $iterator->next();
-            }
-        }
-
-        return $aDrawings;
     }
 
     /**
