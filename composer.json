@@ -12,7 +12,10 @@
         "spreadsheet"
     ],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
