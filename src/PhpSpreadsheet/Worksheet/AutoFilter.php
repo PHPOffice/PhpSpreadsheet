@@ -437,27 +437,27 @@ class AutoFilter
                 //    String values are always tested for equality, factoring in for wildcards (hence a regexp test)
                 switch ($ruleOperator) {
                     case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
-                        $retVal = (bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString);
+                        $retVal = (bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString ?? '');
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
-                        $retVal = !((bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString));
+                        $retVal = !((bool) preg_match('/^' . $ruleValue . '$/i', $cellValueString ?? ''));
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN:
-                        $retVal = strcasecmp($cellValueString, $ruleValue) > 0;
+                        $retVal = strcasecmp($cellValueString ?? '', $ruleValue) > 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL:
-                        $retVal = strcasecmp($cellValueString, $ruleValue) >= 0;
+                        $retVal = strcasecmp($cellValueString ?? '', $ruleValue) >= 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN:
-                        $retVal = strcasecmp($cellValueString, $ruleValue) < 0;
+                        $retVal = strcasecmp($cellValueString ?? '', $ruleValue) < 0;
 
                         break;
                     case Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL:
-                        $retVal = strcasecmp($cellValueString, $ruleValue) <= 0;
+                        $retVal = strcasecmp($cellValueString ?? '', $ruleValue) <= 0;
 
                         break;
                 }
