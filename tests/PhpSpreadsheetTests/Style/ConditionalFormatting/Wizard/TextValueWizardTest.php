@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -137,5 +138,16 @@ class TextValueWizardTest extends TestCase
         $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $textWizard, 'fromConditional() Failure');
+    }
+
+    public function testInvalidFromConditional(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Conditional is not a Text Value CF Rule conditional');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard\TextValue::fromConditional($conditional);
     }
 }

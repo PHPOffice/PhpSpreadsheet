@@ -13,16 +13,16 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 class ConditionalTest extends AbstractFunctional
 {
     /**
-     * @var string $cellRange
+     * @var string
      */
     protected $cellRange;
 
     /**
-     * @var Style $style
+     * @var Style
      */
     protected $style;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->cellRange = 'C3:E5';

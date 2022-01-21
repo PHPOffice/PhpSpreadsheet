@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -237,5 +238,16 @@ class CellValueWizardTest extends TestCase
         return [
             'between yesterday and tomorrow' => [['TODAY()-1', 'TODAY()+1'], ['TODAY()-1', 'TODAY()+1']],
         ];
+    }
+
+    public function testInvalidFromConditional(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Conditional is not a Cell Value CF Rule conditional');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard\CellValue::fromConditional($conditional);
     }
 }

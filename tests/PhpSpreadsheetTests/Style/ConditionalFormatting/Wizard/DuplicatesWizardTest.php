@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -94,5 +95,16 @@ class DuplicatesWizardTest extends TestCase
         $newWizard = Wizard::fromConditional($conditional, $this->range);
         $newWizard->getConditional();
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
+    }
+
+    public function testInvalidFromConditional(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Conditional is not a Duplicates CF Rule conditional');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard\Duplicates::fromConditional($conditional);
     }
 }

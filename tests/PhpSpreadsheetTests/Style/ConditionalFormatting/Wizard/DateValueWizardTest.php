@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -61,5 +62,16 @@ class DateValueWizardTest extends TestCase
             ['tomorrow', 'tomorrow', 'FLOOR(C3,1)=TODAY()+1'],
             ['lastSevenDays', 'last7Days', 'AND(TODAY()-FLOOR(C3,1)<=6,FLOOR(C3,1)<=TODAY())'],
         ];
+    }
+
+    public function testInvalidFromConditional(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Conditional is not a Date Value CF Rule conditional');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard\DateValue::fromConditional($conditional);
     }
 }

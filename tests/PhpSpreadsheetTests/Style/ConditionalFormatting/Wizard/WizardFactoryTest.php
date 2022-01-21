@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
-use Exception;
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PHPUnit\Framework\TestCase;
 
@@ -44,11 +46,68 @@ class WizardFactoryTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider conditionalProvider
+     */
+    public function testWizardFromConditional(string $sheetName, string $cellAddress, array $expectedWizads): void
+    {
+        $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getSheetByName($sheetName);
+        if ($worksheet === null) {
+            self::markTestSkipped("{$sheetName} not found in test workbook");
+        }
+        $cell = $worksheet->getCell($cellAddress);
+
+        $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
+        if ($cfRange === null) {
+            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
+        }
+        $conditionals = $worksheet->getConditionalStyles($cfRange);
+
+        foreach ($conditionals as $index => $conditional) {
+            $wizard = Wizard::fromConditional($conditional);
+            self::assertEquals($expectedWizads[$index], get_class($wizard));
+        }
+    }
+
+    public function conditionalProvider(): array
+    {
+        return [
+            'cellIs Comparison A2' => ['cellIs Comparison', 'A2', [Wizard\CellValue::class, Wizard\CellValue::class, Wizard\CellValue::class]],
+            'cellIs Expression A2' => ['cellIs Expression', 'A2', [Wizard\Expression::class, Wizard\Expression::class]],
+            'Text Expressions A2' => ['Text Expressions', 'A2', [Wizard\TextValue::class]],
+            'Text Expressions A8' => ['Text Expressions', 'A8', [Wizard\TextValue::class]],
+            'Text Expressions A14' => ['Text Expressions', 'A14', [Wizard\TextValue::class]],
+            'Text Expressions A20' => ['Text Expressions', 'A20', [Wizard\TextValue::class]],
+            'Blank Expressions A2' => ['Blank Expressions', 'A2', [Wizard\Blanks::class, Wizard\Blanks::class]],
+            'Error Expressions C2' => ['Error Expressions', 'C2', [Wizard\Errors::class, Wizard\Errors::class]],
+            'Date Expressions B10' => ['Date Expressions', 'B10', [Wizard\DateValue::class]],
+            'Duplicates Expressions A2' => ['Duplicates Expressions', 'A2', [Wizard\Duplicates::class, Wizard\Duplicates::class]],
+        ];
+    }
+
     public function testWizardFactoryException(): void
     {
         $ruleType = 'Unknown';
-        self::expectException(Exception::class);
-        self::expectExceptionMessage('No wizard exists for this CF rule type');
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('No wizard exists for this CF rule type');
         $this->wizardFactory->newRule($ruleType);
+
+        $conditional = new Conditional();
+        $conditional->setConditionType('UNKNOWN');
+        Wizard::fromConditional($conditional);
+    }
+
+    public function testWizardFactoryFromConditionalException(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('No wizard exists for this CF rule type');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard::fromConditional($conditional);
     }
 }

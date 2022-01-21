@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -76,5 +77,16 @@ class ExpressionWizardTest extends TestCase
             ['ISODD(A1)', 'ISODD(C3)'],
             ['AND($A1="USA",$B1="Q4")', 'AND($A3="USA",$B3="Q4")'],
         ];
+    }
+
+    public function testInvalidFromConditional(): void
+    {
+        $ruleType = 'Unknown';
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Conditional is not an Expression CF Rule conditional');
+
+        $conditional = new Conditional();
+        $conditional->setConditionType($ruleType);
+        Wizard\Expression::fromConditional($conditional);
     }
 }
