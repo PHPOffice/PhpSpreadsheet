@@ -149,6 +149,7 @@ class Xlsx extends BaseReader
 
     private const REL_TO_MAIN = [
         Namespaces::PURL_OFFICE_DOCUMENT => Namespaces::PURL_MAIN,
+        Namespaces::THUMBNAIL => '',
     ];
 
     private const REL_TO_DRAWING = [
