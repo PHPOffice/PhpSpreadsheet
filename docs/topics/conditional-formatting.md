@@ -133,18 +133,18 @@ Currently, the following Conditional Types are supported for the following Reade
 
 MS Excel | Conditional Type | Readers | Writers
 ---|---|---|---
-Cell Value | Conditional::CONDITION_CELLIS | Xlsx | Xlsx, Xls
+| Cell Value | Conditional::CONDITION_CELLIS | Xlsx | Xlsx, Xls
 Specific Text | Conditional::CONDITION_CONTAINSTEXT | Xlsx | Xlsx
-| | Conditional::CONDITION_NOTCONTAINSTEXT | Xlsx | Xlsx
-| | Conditional::CONDITION_BEGINSWITH | Xlsx | Xlsx
-| | Conditional::CONDITION_ENDSWITH | Xlsx | Xlsx
+ | Conditional::CONDITION_NOTCONTAINSTEXT | Xlsx | Xlsx
+ | Conditional::CONDITION_BEGINSWITH | Xlsx | Xlsx
+ | Conditional::CONDITION_ENDSWITH | Xlsx | Xlsx
 Dates Occurring | Conditional::CONDITION_TIMEPERIOD | Xlsx | Xlsx
 Blanks | Conditional::CONDITION_CONTAINSBLANKS | Xlsx | Xlsx
 No Blanks | Conditional::CONDITION_NOTCONTAINSBLANKS | Xlsx | Xlsx
 Errors | Conditional::CONDITION_CONTAINSERRORS | Xlsx | Xlsx
 No Errors | Conditional::CONDITION_NOTCONTAINSERRORS | Xlsx | Xlsx
 Duplicates/Unique | Conditional::CONDITION_DUPLICATES | Xlsx | Xlsx
-| | Conditional::CONDITION_UNIQUE | Xlsx | Xlsx
+ | Conditional::CONDITION_UNIQUE | Xlsx | Xlsx
 Use a formula | Conditional::CONDITION_EXPRESSION | Xlsx | Xlsx, Xls
 Data Bars | Conditional::CONDITION_DATABAR | Xlsx | Xlsx
 
@@ -218,14 +218,14 @@ For the `CellValue` Wizard, we always need to provide an operator and a value; a
 Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CELLIS | Wizard::CELL_VALUE | Conditional::OPERATOR_EQUAL | equals()
-| | | Conditional::OPERATOR_NOTEQUAL | notEquals()
-| | | Conditional::OPERATOR_GREATERTHAN | greaterThan()
-| | | Conditional::OPERATOR_GREATERTHANOREQUAL | greaterThanOrEqual()
-| | | Conditional::OPERATOR_LESSTHAN | lessThan()
-| | | Conditional::OPERATOR_LESSTHANOREQUAL | lessThanOrEqual()
-| | | Conditional::OPERATOR_BETWEEN | between()
-| | | Conditional::OPERATOR_NOTBETWEEN | notBetween()
-| | | | and() | Used to provide the second operand for `between()` and `notBetween() 
+| | Conditional::OPERATOR_NOTEQUAL | notEquals()
+| | Conditional::OPERATOR_GREATERTHAN | greaterThan()
+| | Conditional::OPERATOR_GREATERTHANOREQUAL | greaterThanOrEqual()
+| | Conditional::OPERATOR_LESSTHAN | lessThan()
+| | Conditional::OPERATOR_LESSTHANOREQUAL | lessThanOrEqual()
+| | Conditional::OPERATOR_BETWEEN | between()
+| | Conditional::OPERATOR_NOTBETWEEN | notBetween()
+| | | and() | Used to provide the second operand for `between()` and `notBetween() 
 
 A single operator call is required for every rule (except `between()` and `notBetween`, where the Wizard also provides `and()`); and providing a value is mandatory for all operators.
 The values that we need to provide for each operator can be numeric, boolean or string literals (even NULL); cell references; or formulae.
@@ -362,9 +362,9 @@ Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator T
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_CONTAINSTEXT | contains()
 Conditional::CONDITION_NOTCONTAINSTEXT | Wizard::TEXT_VALUE | Conditional::OPERATOR_NOTCONTAINS | doesNotContain()
-| | |  | doesntContain() | synonym for `doesNotContain()`
+| | | doesntContain() | synonym for `doesNotContain()`
 Conditional::CONDITION_BEGINSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_BEGINSWITH | beginsWith()
-| | |  | startsWith() | synonym for `beginsWith()`
+| | | startsWith() | synonym for `beginsWith()`
 Conditional::CONDITION_ENDSWITH | Wizard::TEXT_VALUE | Conditional::OPERATOR_ENDSWITH | endsWith()
 
 The Conditional actually uses a separate "Condition Type" for each option, each with its own "Operator Type", and the condition should be an Excel formula (not simply the string value to check), and with a custom `text` attribute. The Wizard should make it a lot easier to create these conditional rules.
@@ -444,16 +444,16 @@ For the `DateValue` Wizard, we always need to provide an operator; but no value 
 Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_TIMEPERIOD | Wizard::DATES_OCCURRING | Conditional::TIMEPERIOD_TODAY | today()
-| | | Conditional::TIMEPERIOD_YESTERDAY | yesterday()
-| | | Conditional::TIMEPERIOD_TOMORROW | tomorrow()
-| | | Conditional::TIMEPERIOD_LAST_7_DAYS | last7Days()
-| | |  | lastSevenDays() | synonym for `last7Days()`
-| | | Conditional::TIMEPERIOD_LAST_WEEK | lastWeek()
-| | | Conditional::TIMEPERIOD_THIS_WEEK | thisWeek()
-| | | Conditional::TIMEPERIOD_NEXT_WEEK | nextWeek()
-| | | Conditional::TIMEPERIOD_LAST_MONTH | lastMonth()
-| | | Conditional::TIMEPERIOD_THIS_MONTH | thisMonth()
-| | | Conditional::TIMEPERIOD_NEXT_MONTH | nextMonth()
+| | Conditional::TIMEPERIOD_YESTERDAY | yesterday()
+| | Conditional::TIMEPERIOD_TOMORROW | tomorrow()
+| | Conditional::TIMEPERIOD_LAST_7_DAYS | last7Days()
+| |  | lastSevenDays() | synonym for `last7Days()`
+| | Conditional::TIMEPERIOD_LAST_WEEK | lastWeek()
+| | Conditional::TIMEPERIOD_THIS_WEEK | thisWeek()
+| | Conditional::TIMEPERIOD_NEXT_WEEK | nextWeek()
+| | Conditional::TIMEPERIOD_LAST_MONTH | lastMonth()
+| | Conditional::TIMEPERIOD_THIS_MONTH | thisMonth()
+| | Conditional::TIMEPERIOD_NEXT_MONTH | nextMonth()
 
 The Conditional has no actual "Operator Type", and the condition/value should be an Excel formula, and with a custom `timePeriod` attribute. The Wizard should make it a lot easier to create these condition rules.
 
@@ -506,13 +506,13 @@ However, you can switch between the two rules using the `isBlank()` and `notBlan
 Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSBLANKS | Wizard::BLANKS | - | isBlank() | Default state
-| | | | notBlank()
-| | | | isEmpty() | Synonym for `isBlank()`
-| | | | notEmpty() | Synonym for `notBlank()`
+| | | notBlank()
+| | | isEmpty() | Synonym for `isBlank()`
+| | | notEmpty() | Synonym for `notBlank()`
 Conditional::CONDITION_NOTCONTAINSBLANKS | Wizard::NOT_BLANKS | - | notBlank()| Default state
-| | | | isBlank()
-| | | | isEmpty() | Synonym for `isBlank()`
-| | | | notEmpty() | Synonym for `notBlank()`
+| | | isBlank()
+| | | isEmpty() | Synonym for `isBlank()`
+| | | notEmpty() | Synonym for `notBlank()`
 
 The following code shows the same Blanks Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.  
 ```php
@@ -557,9 +557,9 @@ However, you can switch between the two rules using the `isError()` and `notErro
 Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_CONTAINSERRORS | Wizard::ERRORS | - | isError() | Default state
-| | | | notError()
+| | | notError()
 Conditional::CONDITION_NOTCONTAINSERRORS | Wizard::NOT_ERRORS | - | notError()| Default state
-| | | | isError()
+| | | isError()
 
 The following code shows the same Errors Wizard being used to create both Error and Non-Error Conditionals, using a pre-defined `$redStyle` Style object for Errors, and a pre-defined `$greenStyle` Style object for Non-Errors.
 ```php
@@ -606,9 +606,9 @@ However, you can switch between the two rules using the `duplicates()` and `uniq
 Condition Type | Wizard Factory newRule() Type Constant | Conditional Operator Type | Wizard Methods | Notes
 ---|---|---|---|---
 Conditional::CONDITION_DUPLICATES | Wizard::DUPLICATES | - | duplicates() | Default state
-| | | | unique()
+| | | unique()
 Conditional::CONDITION_UNIQUE | Wizard::UNIQUE | - | unique()| Default state
-| | | | duplicates()
+| | | duplicates()
 
 The following code shows the same Duplicates Wizard being used to create both Blank and Non-Blank Conditionals, using a pre-defined `$redStyle` Style object for Blanks, and a pre-defined `$greenStyle` Style object for Non-Blanks.
 ```php
