@@ -1415,10 +1415,8 @@ class Worksheet implements IComparable
      * Get style for cell.
      *
      * @param string $cellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
-     *
-     * @return Style
      */
-    public function getStyle($cellCoordinate)
+    public function getStyle($cellCoordinate): Style
     {
         // set this sheet as active
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
@@ -1440,7 +1438,7 @@ class Worksheet implements IComparable
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles($coordinate)
+    public function getConditionalStyles(string $coordinate): array
     {
         $coordinate = strtoupper($coordinate);
         if (strpos($coordinate, ':') !== false) {
@@ -1457,6 +1455,19 @@ class Worksheet implements IComparable
         return [];
     }
 
+    public function getConditionalRange(string $coordinate): ?string
+    {
+        $coordinate = strtoupper($coordinate);
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $conditionalRange;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Do conditional styles exist for this cell?
      *
@@ -1465,10 +1476,8 @@ class Worksheet implements IComparable
      *               conditional style range.
      *          If a range of cells is specified, then true will only be returned if the range matches the entire
      *               range of the conditional.
-     *
-     * @return bool
      */
-    public function conditionalStylesExists($coordinate)
+    public function conditionalStylesExists($coordinate): bool
     {
         $coordinate = strtoupper($coordinate);
         if (strpos($coordinate, ':') !== false) {

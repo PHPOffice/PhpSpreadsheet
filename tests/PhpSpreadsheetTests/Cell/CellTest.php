@@ -4,6 +4,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class CellTest extends TestCase
@@ -102,5 +106,133 @@ class CellTest extends TestCase
         $this->expectExceptionMessage('Coordinate no longer exists');
         $cell->getParent()->delete('A1');
         $cell->getCoordinate();
+    }
+
+    public function testAppliedStyleWithRange(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', -1);
+        $sheet->setCellValue('A2', 0);
+        $sheet->setCellValue('A3', 1);
+
+        $cellRange = 'A1:A3';
+        $sheet->getStyle($cellRange)->getFont()->setBold(true);
+
+        $yellowStyle = new Style(false, true);
+        $yellowStyle->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+        $greenStyle = new Style(false, true);
+        $greenStyle->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getEndColor()->setARGB(Color::COLOR_GREEN);
+        $redStyle = new Style(false, true);
+        $redStyle->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getEndColor()->setARGB(Color::COLOR_RED);
+
+        $conditionalStyles = [];
+        $wizardFactory = new Wizard($cellRange);
+        /** @var Wizard\CellValue $cellWizard */
+        $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+        $cellWizard->equals(0)
+            ->setStyle($yellowStyle);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->greaterThan(0)
+            ->setStyle($greenStyle);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->lessThan(0)
+            ->setStyle($redStyle);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $sheet->getStyle($cellWizard->getCellRange())
+            ->setConditionalStyles($conditionalStyles);
+
+        $style = $sheet->getCell('A1')->getAppliedStyle();
+        self::assertTrue($style->getFont()->getBold());
+        self::assertEquals($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertEquals($redStyle->getFill()->getEndColor()->getARGB(), $style->getFill()->getEndColor()->getARGB());
+
+        $style = $sheet->getCell('A2')->getAppliedStyle();
+        self::assertTrue($style->getFont()->getBold());
+        self::assertEquals($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertEquals(
+            $yellowStyle->getFill()->getEndColor()->getARGB(),
+            $style->getFill()->getEndColor()->getARGB()
+        );
+
+        $style = $sheet->getCell('A3')->getAppliedStyle();
+        self::assertTrue($style->getFont()->getBold());
+        self::assertEquals($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
+        self::assertEquals(
+            $greenStyle->getFill()->getEndColor()->getARGB(),
+            $style->getFill()->getEndColor()->getARGB()
+        );
+    }
+
+    /**
+     * @dataProvider appliedStyling
+     */
+    public function testAppliedStyleSingleCell(string $cellAddress, string $fillStyle, ?string $fillColor): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', -1);
+        $sheet->setCellValue('A2', 0);
+        $sheet->setCellValue('B1', 0);
+        $sheet->setCellValue('C1', 1);
+        $sheet->setCellValue('C2', -1);
+
+        $cellRange = 'A1:C2';
+        $sheet->getStyle($cellRange)->getFont()->setBold(true);
+
+        $yellowStyle = new Style(false, true);
+        $yellowStyle->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+        $redStyle = new Style(false, true);
+        $redStyle->getFill()
+            ->setFillType(Fill::FILL_SOLID)
+            ->getEndColor()->setARGB(Color::COLOR_RED);
+
+        $conditionalCellRange = 'A1:C1';
+        $conditionalStyles = [];
+        $wizardFactory = new Wizard($conditionalCellRange);
+        /** @var Wizard\CellValue $cellWizard */
+        $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+        $cellWizard->equals(0)
+            ->setStyle($yellowStyle);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->lessThan(0)
+            ->setStyle($redStyle);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $sheet->getStyle($cellWizard->getCellRange())
+            ->setConditionalStyles($conditionalStyles);
+
+        $style = $sheet->getCell($cellAddress)->getAppliedStyle();
+
+        self::assertTrue($style->getFont()->getBold());
+        self::assertEquals($fillStyle, $style->getFill()->getFillType());
+        if ($fillStyle === Fill::FILL_SOLID) {
+            self::assertEquals($fillColor, $style->getFill()->getEndColor()->getARGB());
+        }
+    }
+
+    public function appliedStyling(): array
+    {
+        return [
+            'A1 - Conditional with Match' => ['A1', Fill::FILL_SOLID, Color::COLOR_RED],
+            'A2 - No Conditionals' => ['A2', Fill::FILL_NONE, null],
+            'B1 - Conditional with Match' => ['B1', Fill::FILL_SOLID, Color::COLOR_YELLOW],
+            'C1 - Conditionals, but No Match' => ['C1', Fill::FILL_NONE, null],
+            'C2 - No Conditionals' => ['C2', Fill::FILL_NONE, null],
+        ];
     }
 }

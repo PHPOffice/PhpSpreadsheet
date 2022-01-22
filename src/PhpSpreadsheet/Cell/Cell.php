@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -559,12 +560,28 @@ class Cell
 
     /**
      * Get cell style.
-     *
-     * @return Style
      */
-    public function getStyle()
+    public function getStyle(): Style
     {
         return $this->getWorksheet()->getStyle($this->getCoordinate());
+    }
+
+    /**
+     * Get cell style.
+     */
+    public function getAppliedStyle(): Style
+    {
+        if ($this->getWorksheet()->conditionalStylesExists($this->getCoordinate()) === false) {
+            return $this->getStyle();
+        }
+        $range = $this->getWorksheet()->getConditionalRange($this->getCoordinate());
+        if ($range === null) {
+            return $this->getStyle();
+        }
+
+        $matcher = new CellStyleAssessor($this, $range);
+
+        return $matcher->matchConditions($this->getWorksheet()->getConditionalStyles($this->getCoordinate()));
     }
 
     /**

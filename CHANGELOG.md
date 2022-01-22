@@ -9,7 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
+  - Provide support for a wider range of Conditional Formatting Rules for Xlsx Reader/Writer:
+    - Cells Containing (cellIs)
+    - Specific Text (containing, notContaining, beginsWith, endsWith)
+    - Dates Occurring (all supported timePeriods)
+    - Blanks/NoBlanks
+    - Errors/NoErrors
+    - Duplicates/Unique
+    - Expression
+  - Provision of CF Wizards (for all the above listed rule types) to help create/modify CF Rules without having to manage all the combinations of types/operators, and the complexities of formula expressions, or the text/timePeriod attributes.
+
+    See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/) for details 
+
+  - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
+  - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
+  - Improved documentation and examples, covering all supported CF rule types.
 
 ### Changed
 
@@ -25,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
 
 ## 1.21.0 - 2022-01-06
 
