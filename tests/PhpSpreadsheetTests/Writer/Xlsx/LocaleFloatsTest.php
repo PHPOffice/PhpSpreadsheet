@@ -31,7 +31,7 @@ class LocaleFloatsTest extends TestCase
 
     protected function tearDown(): void
     {
-        if ($this->localeAdjusted) {
+        if ($this->localeAdjusted && is_string($this->currentLocale)) {
             setlocale(LC_ALL, $this->currentLocale);
         }
     }
@@ -55,12 +55,7 @@ class LocaleFloatsTest extends TestCase
 
         $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
 
-        ob_start();
-        var_dump($result);
-        preg_match('/(?:double|float)\(([^\)]+)\)/mui', ob_get_clean(), $matches);
-        self::assertArrayHasKey(1, $matches);
-        $actual = $matches[1];
-        // From PHP8, https://wiki.php.net/rfc/locale_independent_float_to_string applies
-        self::assertEquals('1,1', $actual);
+        $actual = sprintf('%f', $result);
+        self::assertStringContainsString('1,1', $actual);
     }
 }

@@ -24,11 +24,8 @@ class CsvContiguousFilter implements IReadFilter
 
     /**
      * Set the list of rows that we want to read.
-     *
-     * @param mixed $startRow
-     * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize): void
+    public function setRows(int $startRow, int $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
@@ -55,7 +52,7 @@ class CsvContiguousFilter implements IReadFilter
         return false;
     }
 
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = '')
     {
         if ($this->filterType == 1) {
             return $this->filter1($row);

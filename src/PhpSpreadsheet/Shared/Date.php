@@ -66,17 +66,17 @@ class Date
     /**
      * Set the Excel calendar (Windows 1900 or Mac 1904).
      *
-     * @param int $baseDate Excel base date (1900 or 1904)
+     * @param int $baseYear Excel base date (1900 or 1904)
      *
      * @return bool Success or failure
      */
-    public static function setExcelCalendar($baseDate)
+    public static function setExcelCalendar($baseYear)
     {
         if (
-            ($baseDate == self::CALENDAR_WINDOWS_1900) ||
-            ($baseDate == self::CALENDAR_MAC_1904)
+            ($baseYear == self::CALENDAR_WINDOWS_1900) ||
+            ($baseYear == self::CALENDAR_MAC_1904)
         ) {
-            self::$excelCalendar = $baseDate;
+            self::$excelCalendar = $baseYear;
 
             return true;
         }
@@ -163,7 +163,7 @@ class Date
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UST) unless you absolutely need a conversion
+     *                                                                    Use the default (UTC) unless you absolutely need a conversion
      *
      * @return DateTime PHP date/time object
      */
@@ -206,11 +206,13 @@ class Date
 
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp.
+     * The use of Unix timestamps, and therefore this function, is discouraged.
+     * They are not Y2038-safe on a 32-bit system, and have no timezone info.
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UST) unless you absolutely need a conversion
+     *                                                                    Use the default (UTC) unless you absolutely need a conversion
      *
      * @return int Unix timetamp for this date/time
      */
@@ -223,9 +225,10 @@ class Date
     /**
      * Convert a date from PHP to an MS Excel serialized date/time value.
      *
-     * @param mixed $dateValue Unix Timestamp or PHP DateTime object or a string
+     * @param mixed $dateValue PHP DateTime object or a string - Unix timestamp is also permitted, but discouraged;
+     *    not Y2038-safe on a 32-bit system, and no timezone info
      *
-     * @return bool|float Excel date/time value
+     * @return false|float Excel date/time value
      *                                  or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue)
@@ -262,18 +265,20 @@ class Date
 
     /**
      * Convert a Unix timestamp to an MS Excel serialized date/time value.
+     * The use of Unix timestamps, and therefore this function, is discouraged.
+     * They are not Y2038-safe on a 32-bit system, and have no timezone info.
      *
-     * @param int $dateValue Unix Timestamp
+     * @param int $unixTimestamp Unix Timestamp
      *
      * @return false|float MS Excel serialized date/time value
      */
-    public static function timestampToExcel($dateValue)
+    public static function timestampToExcel($unixTimestamp)
     {
-        if (!is_numeric($dateValue)) {
+        if (!is_numeric($unixTimestamp)) {
             return false;
         }
 
-        return self::dateTimeToExcel(new DateTime('@' . $dateValue));
+        return self::dateTimeToExcel(new DateTime('@' . $unixTimestamp));
     }
 
     /**
@@ -328,12 +333,12 @@ class Date
      *
      * @return bool
      */
-    public static function isDateTime(Cell $pCell)
+    public static function isDateTime(Cell $cell)
     {
-        return is_numeric($pCell->getCalculatedValue()) &&
+        return is_numeric($cell->getCalculatedValue()) &&
             self::isDateTimeFormat(
-                $pCell->getWorksheet()->getStyle(
-                    $pCell->getCoordinate()
+                $cell->getWorksheet()->getStyle(
+                    $cell->getCoordinate()
                 )->getNumberFormat()
             );
     }
@@ -343,9 +348,9 @@ class Date
      *
      * @return bool
      */
-    public static function isDateTimeFormat(NumberFormat $pFormat)
+    public static function isDateTimeFormat(NumberFormat $excelFormatCode)
     {
-        return self::isDateTimeFormatCode($pFormat->getFormatCode());
+        return self::isDateTimeFormatCode($excelFormatCode->getFormatCode());
     }
 
     private static $possibleDateFormatCharacters = 'eymdHs';
@@ -353,23 +358,23 @@ class Date
     /**
      * Is a given number format code a date/time?
      *
-     * @param string $pFormatCode
+     * @param string $excelFormatCode
      *
      * @return bool
      */
-    public static function isDateTimeFormatCode($pFormatCode)
+    public static function isDateTimeFormatCode($excelFormatCode)
     {
-        if (strtolower($pFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
+        if (strtolower($excelFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
-        if (preg_match('/[0#]E[+-]0/i', $pFormatCode)) {
+        if (preg_match('/[0#]E[+-]0/i', $excelFormatCode)) {
             //    Scientific format
             return false;
         }
 
         // Switch on formatcode
-        switch ($pFormatCode) {
+        switch ($excelFormatCode) {
             //    Explicitly defined date formats
             case NumberFormat::FORMAT_DATE_YYYYMMDD:
             case NumberFormat::FORMAT_DATE_YYYYMMDD2:
@@ -397,21 +402,21 @@ class Date
         }
 
         //    Typically number, currency or accounting (or occasionally fraction) formats
-        if ((substr($pFormatCode, 0, 1) == '_') || (substr($pFormatCode, 0, 2) == '0 ')) {
+        if ((substr($excelFormatCode, 0, 1) == '_') || (substr($excelFormatCode, 0, 2) == '0 ')) {
             return false;
         }
         // Some "special formats" provided in German Excel versions were detected as date time value,
         // so filter them out here - "\C\H\-00000" (Switzerland) and "\D-00000" (Germany).
-        if (\strpos($pFormatCode, '-00000') !== false) {
+        if (\strpos($excelFormatCode, '-00000') !== false) {
             return false;
         }
         // Try checking for any of the date formatting characters that don't appear within square braces
-        if (preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $pFormatCode)) {
+        if (preg_match('/(^|\])[^\[]*[' . self::$possibleDateFormatCharacters . ']/i', $excelFormatCode)) {
             //    We might also have a format mask containing quoted strings...
             //        we don't want to test for any of our characters within the quoted blocks
-            if (strpos($pFormatCode, '"') !== false) {
+            if (strpos($excelFormatCode, '"') !== false) {
                 $segMatcher = false;
-                foreach (explode('"', $pFormatCode) as $subVal) {
+                foreach (explode('"', $excelFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
                     if (
                         ($segMatcher = !$segMatcher) &&
@@ -467,21 +472,21 @@ class Date
     /**
      * Converts a month name (either a long or a short name) to a month number.
      *
-     * @param string $month Month name or abbreviation
+     * @param string $monthName Month name or abbreviation
      *
      * @return int|string Month number (1 - 12), or the original string argument if it isn't a valid month name
      */
-    public static function monthStringToNumber($month)
+    public static function monthStringToNumber($monthName)
     {
         $monthIndex = 1;
         foreach (self::$monthNames as $shortMonthName => $longMonthName) {
-            if (($month === $longMonthName) || ($month === $shortMonthName)) {
+            if (($monthName === $longMonthName) || ($monthName === $shortMonthName)) {
                 return $monthIndex;
             }
             ++$monthIndex;
         }
 
-        return $month;
+        return $monthName;
     }
 
     /**

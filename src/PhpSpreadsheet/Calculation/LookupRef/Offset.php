@@ -40,7 +40,7 @@ class Offset
      *
      * @return array|int|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $pCell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null)
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
@@ -48,14 +48,14 @@ class Offset
         $width = Functions::flattenSingleValue($width);
 
         if ($cellAddress === null || $cellAddress === '') {
-            return 0;
+            return Functions::VALUE();
         }
 
-        if (!is_object($pCell)) {
+        if (!is_object($cell)) {
             return Functions::REF();
         }
 
-        [$cellAddress, $pSheet] = self::extractWorksheet($cellAddress, $pCell);
+        [$cellAddress, $worksheet] = self::extractWorksheet($cellAddress, $cell);
 
         $startCell = $endCell = $cellAddress;
         if (strpos($cellAddress, ':')) {
@@ -87,16 +87,16 @@ class Offset
             $cellAddress .= ":{$endCellColumn}{$endCellRow}";
         }
 
-        return self::extractRequiredCells($pSheet, $cellAddress);
+        return self::extractRequiredCells($worksheet, $cellAddress);
     }
 
-    private static function extractRequiredCells(?Worksheet $pSheet, string $cellAddress)
+    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
     {
-        return Calculation::getInstance($pSheet !== null ? $pSheet->getParent() : null)
-            ->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
+            ->extractCellRange($cellAddress, $worksheet, false);
     }
 
-    private static function extractWorksheet($cellAddress, Cell $pCell): array
+    private static function extractWorksheet($cellAddress, Cell $cell): array
     {
         $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
@@ -104,11 +104,11 @@ class Offset
             $sheetName = trim($sheetName, "'");
         }
 
-        $pSheet = ($sheetName !== '')
-            ? $pCell->getWorksheet()->getParent()->getSheetByName($sheetName)
-            : $pCell->getWorksheet();
+        $worksheet = ($sheetName !== '')
+            ? $cell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            : $cell->getWorksheet();
 
-        return [$cellAddress, $pSheet];
+        return [$cellAddress, $worksheet];
     }
 
     private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns)

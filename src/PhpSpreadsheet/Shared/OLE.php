@@ -110,15 +110,15 @@ class OLE
      *
      * @acces public
      *
-     * @param string $file
+     * @param string $filename
      *
      * @return bool true on success, PEAR_Error on failure
      */
-    public function read($file)
+    public function read($filename)
     {
-        $fh = fopen($file, 'rb');
+        $fh = fopen($filename, 'rb');
         if (!$fh) {
-            throw new ReaderException("Can't open file $file");
+            throw new ReaderException("Can't open file $filename");
         }
         $this->_file_handle = $fh;
 
@@ -245,13 +245,13 @@ class OLE
     /**
      * Reads a signed char.
      *
-     * @param resource $fh file handle
+     * @param resource $fileHandle file handle
      *
      * @return int
      */
-    private static function readInt1($fh)
+    private static function readInt1($fileHandle)
     {
-        [, $tmp] = unpack('c', fread($fh, 1));
+        [, $tmp] = unpack('c', fread($fileHandle, 1));
 
         return $tmp;
     }
@@ -259,13 +259,13 @@ class OLE
     /**
      * Reads an unsigned short (2 octets).
      *
-     * @param resource $fh file handle
+     * @param resource $fileHandle file handle
      *
      * @return int
      */
-    private static function readInt2($fh)
+    private static function readInt2($fileHandle)
     {
-        [, $tmp] = unpack('v', fread($fh, 2));
+        [, $tmp] = unpack('v', fread($fileHandle, 2));
 
         return $tmp;
     }
@@ -273,13 +273,13 @@ class OLE
     /**
      * Reads an unsigned long (4 octets).
      *
-     * @param resource $fh file handle
+     * @param resource $fileHandle file handle
      *
      * @return int
      */
-    private static function readInt4($fh)
+    private static function readInt4($fileHandle)
     {
-        [, $tmp] = unpack('V', fread($fh, 4));
+        [, $tmp] = unpack('V', fread($fileHandle, 4));
 
         return $tmp;
     }
@@ -502,9 +502,6 @@ class OLE
         }
         $dateTime = Date::dateTimeFromTimestamp("$date");
 
-        // factor used for separating numbers into 4 bytes parts
-        $factor = 2 ** 32;
-
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
@@ -512,22 +509,15 @@ class OLE
         // multiply just to make MS happy
         $big_date *= 10000000;
 
-        $high_part = floor($big_date / $factor);
-        // lower 4 bytes
-        $low_part = floor((($big_date / $factor) - $high_part) * $factor);
-
         // Make HEX string
         $res = '';
 
-        for ($i = 0; $i < 4; ++$i) {
-            $hex = $low_part % 0x100;
-            $res .= pack('c', $hex);
-            $low_part /= 0x100;
-        }
-        for ($i = 0; $i < 4; ++$i) {
-            $hex = $high_part % 0x100;
-            $res .= pack('c', $hex);
-            $high_part /= 0x100;
+        $factor = 2 ** 56;
+        while ($factor >= 1) {
+            $hex = (int) floor($big_date / $factor);
+            $res = pack('c', $hex) . $res;
+            $big_date = fmod($big_date, $factor);
+            $factor /= 256;
         }
 
         return $res;

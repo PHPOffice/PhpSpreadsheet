@@ -93,22 +93,22 @@ class OLERead
     /**
      * Read the file.
      */
-    public function read(string $pFilename): void
+    public function read(string $filename): void
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($pFilename, false, null, 0, 8);
+        $this->data = file_get_contents($filename, false, null, 0, 8);
 
         // Check OLE identifier
         $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
         if ($this->data != $identifierOle) {
-            throw new ReaderException('The filename ' . $pFilename . ' is not recognised as an OLE file');
+            throw new ReaderException('The filename ' . $filename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
-        $this->data = file_get_contents($pFilename);
+        $this->data = file_get_contents($filename);
 
         // Total number of sectors used for the SAT
         $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
@@ -235,13 +235,12 @@ class OLERead
     /**
      * Read a standard stream (by joining sectors using information from SAT).
      *
-     * @param int $bl Sector ID where the stream starts
+     * @param int $block Sector ID where the stream starts
      *
      * @return string Data for standard stream
      */
-    private function readData($bl)
+    private function readData($block)
     {
-        $block = $bl;
         $data = '';
 
         while ($block != -2) {

@@ -70,8 +70,11 @@ class Border extends Supervisor
      */
     public function getSharedComponent()
     {
+        /** @var Style */
+        $parent = $this->parent;
+
         /** @var Borders $sharedComponent */
-        $sharedComponent = $this->parent->getSharedComponent();
+        $sharedComponent = $parent->getSharedComponent();
         switch ($this->parentPropertyName) {
             case 'bottom':
                 return $sharedComponent->getBottom();
@@ -97,7 +100,10 @@ class Border extends Supervisor
      */
     public function getStyleArray($array)
     {
-        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -114,20 +120,20 @@ class Border extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['borderStyle'])) {
-                $this->setBorderStyle($pStyles['borderStyle']);
+            if (isset($styleArray['borderStyle'])) {
+                $this->setBorderStyle($styleArray['borderStyle']);
             }
-            if (isset($pStyles['color'])) {
-                $this->getColor()->applyFromArray($pStyles['color']);
+            if (isset($styleArray['color'])) {
+                $this->getColor()->applyFromArray($styleArray['color']);
             }
         }
 
@@ -151,24 +157,25 @@ class Border extends Supervisor
     /**
      * Set Border style.
      *
-     * @param bool|string $pValue
+     * @param bool|string $style
      *                            When passing a boolean, FALSE equates Border::BORDER_NONE
      *                                and TRUE to Border::BORDER_MEDIUM
      *
      * @return $this
      */
-    public function setBorderStyle($pValue)
+    public function setBorderStyle($style)
     {
-        if (empty($pValue)) {
-            $pValue = self::BORDER_NONE;
-        } elseif (is_bool($pValue) && $pValue) {
-            $pValue = self::BORDER_MEDIUM;
+        if (empty($style)) {
+            $style = self::BORDER_NONE;
+        } elseif (is_bool($style)) {
+            $style = self::BORDER_MEDIUM;
         }
+
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['borderStyle' => $pValue]);
+            $styleArray = $this->getStyleArray(['borderStyle' => $style]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->borderStyle = $pValue;
+            $this->borderStyle = $style;
         }
 
         return $this;
@@ -189,10 +196,10 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function setColor(Color $pValue)
+    public function setColor(Color $color)
     {
         // make sure parameter is a real color and not a supervisor
-        $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
+        $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;
 
         if ($this->isSupervisor) {
             $styleArray = $this->getColor()->getStyleArray(['argb' => $color->getARGB()]);

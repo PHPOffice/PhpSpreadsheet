@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 
 class ColumnDimension extends Dimension
@@ -32,12 +33,12 @@ class ColumnDimension extends Dimension
     /**
      * Create a new ColumnDimension.
      *
-     * @param string $pIndex Character column index
+     * @param string $index Character column index
      */
-    public function __construct($pIndex = 'A')
+    public function __construct($index = 'A')
     {
         // Initialise values
-        $this->columnIndex = $pIndex;
+        $this->columnIndex = $index;
 
         // set dimension as unformatted by default
         parent::__construct(0);
@@ -53,12 +54,28 @@ class ColumnDimension extends Dimension
 
     /**
      * Set column index as string eg: 'A'.
-     *
-     * @return $this
      */
-    public function setColumnIndex(string $index)
+    public function setColumnIndex(string $index): self
     {
         $this->columnIndex = $index;
+
+        return $this;
+    }
+
+    /**
+     * Get column index as numeric.
+     */
+    public function getColumnNumeric(): int
+    {
+        return Coordinate::columnIndexFromString($this->columnIndex);
+    }
+
+    /**
+     * Set column index as numeric.
+     */
+    public function setColumnNumeric(int $index): self
+    {
+        $this->columnIndex = Coordinate::stringFromColumnIndex($index);
 
         return $this;
     }

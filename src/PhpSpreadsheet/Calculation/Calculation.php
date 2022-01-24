@@ -2893,11 +2893,11 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param bool $pValue
+     * @param bool $calculationCacheEnabled
      */
-    public function setCalculationCacheEnabled($pValue): void
+    public function setCalculationCacheEnabled($calculationCacheEnabled): void
     {
-        $this->calculationCacheEnabled = $pValue;
+        $this->calculationCacheEnabled = $calculationCacheEnabled;
         $this->clearCalculationCache();
     }
 
@@ -3161,9 +3161,9 @@ class Calculation
         return $formula;
     }
 
-    private static $functionReplaceFromExcel = null;
+    private static $functionReplaceFromExcel;
 
-    private static $functionReplaceToLocale = null;
+    private static $functionReplaceToLocale;
 
     public function _translateFormulaToLocale($formula)
     {
@@ -3190,9 +3190,9 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
     }
 
-    private static $functionReplaceFromLocale = null;
+    private static $functionReplaceFromLocale;
 
-    private static $functionReplaceToExcel = null;
+    private static $functionReplaceToExcel;
 
     public function _translateFormulaToEnglish($formula)
     {
@@ -3286,14 +3286,14 @@ class Calculation
      * Calculate cell value (using formula from a cell ID)
      * Retained for backward compatibility.
      *
-     * @param Cell $pCell Cell to calculate
+     * @param Cell $cell Cell to calculate
      *
      * @return mixed
      */
-    public function calculate(?Cell $pCell = null)
+    public function calculate(?Cell $cell = null)
     {
         try {
-            return $this->calculateCellValue($pCell);
+            return $this->calculateCellValue($cell);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -3302,14 +3302,14 @@ class Calculation
     /**
      * Calculate the value of a cell formula.
      *
-     * @param Cell $pCell Cell to calculate
+     * @param Cell $cell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
      *
      * @return mixed
      */
-    public function calculateCellValue(?Cell $pCell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $cell = null, $resetLog = true)
     {
-        if ($pCell === null) {
+        if ($cell === null) {
             return null;
         }
 
@@ -3326,12 +3326,12 @@ class Calculation
 
         //    Execute the calculation for the cell formula
         $this->cellStack[] = [
-            'sheet' => $pCell->getWorksheet()->getTitle(),
-            'cell' => $pCell->getCoordinate(),
+            'sheet' => $cell->getWorksheet()->getTitle(),
+            'cell' => $cell->getCoordinate(),
         ];
 
         try {
-            $result = self::unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
+            $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
             $cellAddress = array_pop($this->cellStack);
             $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
         } catch (\Exception $e) {
@@ -3367,7 +3367,7 @@ class Calculation
         }
         self::$returnArrayAsType = $returnArrayAsType;
 
-        if ($result === null && $pCell->getWorksheet()->getSheetView()->getShowZeros()) {
+        if ($result === null && $cell->getWorksheet()->getSheetView()->getShowZeros()) {
             return 0;
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
             return Functions::NAN();
@@ -3405,11 +3405,11 @@ class Calculation
      *
      * @param string $formula Formula to parse
      * @param string $cellID Address of the cell to calculate
-     * @param Cell $pCell Cell to calculate
+     * @param Cell $cell Cell to calculate
      *
      * @return mixed
      */
-    public function calculateFormula($formula, $cellID = null, ?Cell $pCell = null)
+    public function calculateFormula($formula, $cellID = null, ?Cell $cell = null)
     {
         //    Initialise the logging settings
         $this->formulaError = null;
@@ -3417,9 +3417,9 @@ class Calculation
         $this->cyclicReferenceStack->clear();
 
         $resetCache = $this->getCalculationCacheEnabled();
-        if ($this->spreadsheet !== null && $cellID === null && $pCell === null) {
+        if ($this->spreadsheet !== null && $cellID === null && $cell === null) {
             $cellID = 'A1';
-            $pCell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
+            $cell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
         } else {
             //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
             //    But don't actually flush any cache
@@ -3428,7 +3428,7 @@ class Calculation
 
         //    Execute the calculation
         try {
-            $result = self::unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
+            $result = self::unwrapResult($this->_calculateFormulaValue($formula, $cellID, $cell));
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -3477,16 +3477,16 @@ class Calculation
      *
      * @param string $formula The formula to parse and calculate
      * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
-     * @param Cell $pCell Cell to calculate
+     * @param Cell $cell Cell to calculate
      *
      * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $pCell = null)
+    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null)
     {
         $cellValue = null;
 
         //  Quote-Prefixed cell values cannot be formulae, but are treated as strings
-        if ($pCell !== null && $pCell->getStyle()->getQuotePrefix() === true) {
+        if ($cell !== null && $cell->getStyle()->getQuotePrefix() === true) {
             return self::wrapResult((string) $formula);
         }
 
@@ -3505,7 +3505,7 @@ class Calculation
             return self::wrapResult($formula);
         }
 
-        $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
+        $pCellParent = ($cell !== null) ? $cell->getWorksheet() : null;
         $wsTitle = ($pCellParent !== null) ? $pCellParent->getTitle() : "\x00Wrk";
         $wsCellReference = $wsTitle . '!' . $cellID;
 
@@ -3538,7 +3538,7 @@ class Calculation
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
 
-        $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $pCell), $cellID, $pCell);
+        $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $cell), $cellID, $cell);
         $this->cyclicReferenceStack->pop();
 
         // Save to calculation cache
@@ -3882,7 +3882,7 @@ class Calculation
      *
      * @return array<int, mixed>|false
      */
-    private function internalParseFormula($formula, ?Cell $pCell = null)
+    private function internalParseFormula($formula, ?Cell $cell = null)
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
@@ -3890,18 +3890,18 @@ class Calculation
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
         //        so we store the parent worksheet so that we can re-attach it when necessary
-        $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
+        $pCellParent = ($cell !== null) ? $cell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-            '|' . self::CALCULATION_REGEXP_CELLREF .
+                                '|' . self::CALCULATION_REGEXP_CELLREF .
             '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
             '|' . self::CALCULATION_REGEXP_ROW_RANGE .
-            '|' . self::CALCULATION_REGEXP_NUMBER .
-            '|' . self::CALCULATION_REGEXP_STRING .
-            '|' . self::CALCULATION_REGEXP_OPENBRACE .
-            '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
-            '|' . self::CALCULATION_REGEXP_ERROR .
-            ')/sui';
+                                '|' . self::CALCULATION_REGEXP_NUMBER .
+                                '|' . self::CALCULATION_REGEXP_STRING .
+                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
+                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
+                                '|' . self::CALCULATION_REGEXP_ERROR .
+                                ')/sui';
 
         //    Start with initialisation
         $index = 0;
@@ -4230,7 +4230,9 @@ class Calculation
                         if (ctype_digit($val) && $val <= 1048576) {
                             //    Row range
                             $stackItemType = 'Row Reference';
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($val) : 'XFD'; //    Max 16,384 columns for Excel2007
+                            /** @var int $valx */
+                            $valx = $val;
+                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
                             $val = "{$rangeWS2}{$endRowColRef}{$val}";
                         } elseif (ctype_alpha($val) && strlen($val) <= 3) {
                             //    Column range
@@ -4330,10 +4332,11 @@ class Calculation
                 //        Cell References) then we have an INTERSECTION operator
                 if (
                     ($expectingOperator) &&
-                    ((preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
+                    (
+                        (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
                         ($output[count($output) - 1]['type'] == 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
+                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
                     )
                 ) {
                     while (
@@ -4368,7 +4371,7 @@ class Calculation
             $rowKey = array_shift($rKeys);
             $cKeys = array_keys(array_keys($operand[$rowKey]));
             $colKey = array_shift($cKeys);
-            if (ctype_upper($colKey)) {
+            if (ctype_upper("$colKey")) {
                 $operandData['reference'] = $colKey . $rowKey;
             }
         }
@@ -4384,7 +4387,7 @@ class Calculation
      *
      * @return array<int, mixed>|false
      */
-    private function processTokenStack($tokens, $cellID = null, ?Cell $pCell = null)
+    private function processTokenStack($tokens, $cellID = null, ?Cell $cell = null)
     {
         if ($tokens == false) {
             return false;
@@ -4392,8 +4395,8 @@ class Calculation
 
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent cell collection),
         //        so we store the parent cell collection so that we can re-attach it when necessary
-        $pCellWorksheet = ($pCell !== null) ? $pCell->getWorksheet() : null;
-        $pCellParent = ($pCell !== null) ? $pCell->getParent() : null;
+        $pCellWorksheet = ($cell !== null) ? $cell->getWorksheet() : null;
+        $pCellParent = ($cell !== null) ? $cell->getParent() : null;
         $stack = new Stack();
 
         // Stores branches that have been pruned
@@ -4456,7 +4459,8 @@ class Calculation
                     && (
                         $storeValueAsBool
                         || Functions::isError($storeValue)
-                        || ($storeValue === 'Pruned branch'))
+                        || ($storeValue === 'Pruned branch')
+                    )
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
@@ -4477,7 +4481,7 @@ class Calculation
             }
 
             // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
-            if (isset(self::$binaryOperators[$token])) {
+            if (!is_numeric($token) && isset(self::$binaryOperators[$token])) {
                 //    We must have two operands, error if we don't
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
@@ -4524,23 +4528,23 @@ class Calculation
                             $sheet2 = $sheet1;
                         }
 
-                        if ($sheet1 == $sheet2) {
+                        if (trim($sheet1, "'") === trim($sheet2, "'")) {
                             if ($operand1Data['reference'] === null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
-                                    $operand1Data['reference'] = $pCell->getColumn() . $operand1Data['value'];
+                                    $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
                                 } elseif (trim($operand1Data['reference']) == '') {
-                                    $operand1Data['reference'] = $pCell->getCoordinate();
+                                    $operand1Data['reference'] = $cell->getCoordinate();
                                 } else {
-                                    $operand1Data['reference'] = $operand1Data['value'] . $pCell->getRow();
+                                    $operand1Data['reference'] = $operand1Data['value'] . $cell->getRow();
                                 }
                             }
                             if ($operand2Data['reference'] === null) {
                                 if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
-                                    $operand2Data['reference'] = $pCell->getColumn() . $operand2Data['value'];
+                                    $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
                                 } elseif (trim($operand2Data['reference']) == '') {
-                                    $operand2Data['reference'] = $pCell->getCoordinate();
+                                    $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {
-                                    $operand2Data['reference'] = $operand2Data['value'] . $pCell->getRow();
+                                    $operand2Data['reference'] = $operand2Data['value'] . $cell->getRow();
                                 }
                             }
 
@@ -4693,7 +4697,7 @@ class Calculation
                 $cellRef = null;
 
                 if (isset($matches[8])) {
-                    if ($pCell === null) {
+                    if ($cell === null) {
                         //                        We can't access the range, so return a REF error
                         $cellValue = Functions::REF();
                     } else {
@@ -4723,8 +4727,8 @@ class Calculation
                         }
                     }
                 } else {
-                    if ($pCell === null) {
-                        //  We can't access the cell, so return a REF error
+                    if ($cell === null) {
+                        // We can't access the cell, so return a REF error
                         $cellValue = Functions::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
@@ -4739,9 +4743,9 @@ class Calculation
                                 $cellSheet = $this->spreadsheet->getSheetByName($matches[2]);
                                 if ($cellSheet && $cellSheet->cellExists($cellRef)) {
                                     $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
-                                    $pCell->attach($pCellParent);
+                                    $cell->attach($pCellParent);
                                 } else {
-                                    $cellRef = ($cellSheet !== null) ? "{$matches[2]}!{$cellRef}" : $cellRef;
+                                    $cellRef = ($cellSheet !== null) ? "'{$matches[2]}'!{$cellRef}" : $cellRef;
                                     $cellValue = null;
                                 }
                             } else {
@@ -4752,7 +4756,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in current worksheet');
                             if ($pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
-                                $pCell->attach($pCellParent);
+                                $cell->attach($pCellParent);
                             } else {
                                 $cellValue = null;
                             }
@@ -4769,7 +4773,7 @@ class Calculation
                 // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
                 if ($pCellParent) {
-                    $pCell->attach($pCellParent);
+                    $cell->attach($pCellParent);
                 }
 
                 $functionName = $matches[1];
@@ -4844,7 +4848,7 @@ class Calculation
                     }
 
                     //    Process the argument with the appropriate function call
-                    $args = $this->addCellReference($args, $passCellReference, $functionCall, $pCell);
+                    $args = $this->addCellReference($args, $passCellReference, $functionCall, $cell);
 
                     if (!is_array($functionCall)) {
                         foreach ($args as &$arg) {
@@ -4880,7 +4884,7 @@ class Calculation
                     // if the token is a named range or formula, evaluate it and push the result onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
                     $definedName = $matches[6];
-                    if ($pCell === null || $pCellWorksheet === null) {
+                    if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");
                     }
 
@@ -4890,7 +4894,7 @@ class Calculation
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
 
-                    $result = $this->evaluateDefinedName($pCell, $namedRange, $pCellWorksheet, $stack);
+                    $result = $this->evaluateDefinedName($cell, $namedRange, $pCellWorksheet, $stack);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }
@@ -5225,15 +5229,22 @@ class Calculation
         return $result;
     }
 
-    // trigger an error, but nicely, if need be
-    protected function raiseFormulaError($errorMessage)
+    /**
+     * Trigger an error, but nicely, if need be.
+     *
+     * @return false
+     */
+    protected function raiseFormulaError(string $errorMessage)
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
         if (!$this->suppressFormulaErrors) {
             throw new Exception($errorMessage);
         }
-        trigger_error($errorMessage, E_USER_ERROR);
+
+        if (strlen($errorMessage) > 0) {
+            trigger_error($errorMessage, E_USER_ERROR);
+        }
 
         return false;
     }
@@ -5241,35 +5252,35 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string $pRange String based range representation
-     * @param Worksheet $pSheet Worksheet
+     * @param string $range String based range representation
+     * @param Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
+    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
 
-        if ($pSheet !== null) {
-            $pSheetName = $pSheet->getTitle();
+        if ($worksheet !== null) {
+            $worksheetName = $worksheet->getTitle();
 
-            if (strpos($pRange, '!') !== false) {
-                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
+            if (strpos($range, '!') !== false) {
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
             }
 
             // Extract range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
-            $pRange = $pSheetName . '!' . $pRange;
+            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
+            $range = "'" . $worksheetName . "'" . '!' . $range;
             if (!isset($aReferences[1])) {
                 $currentCol = '';
                 $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
-                if ($pSheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                if ($worksheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5280,8 +5291,8 @@ class Calculation
                     $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
-                    if ($pSheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    if ($worksheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5295,47 +5306,46 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param string $pRange String based range representation
-     * @param Worksheet $pSheet Worksheet
+     * @param string $range String based range representation
+     * @param null|Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(&$pRange = 'A1', ?Worksheet $pSheet = null, $resetLog = true)
+    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
     {
         // Return value
         $returnValue = [];
 
-        if ($pSheet !== null) {
-            $pSheetName = $pSheet->getTitle();
-            if (strpos($pRange, '!') !== false) {
-                [$pSheetName, $pRange] = Worksheet::extractSheetTitle($pRange, true);
-                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
+        if ($worksheet !== null) {
+            if (strpos($range, '!') !== false) {
+                [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
+                $worksheet = $this->spreadsheet->getSheetByName($worksheetName);
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($pRange, $pSheet);
+            $namedRange = DefinedName::resolveName($range, $worksheet);
             if ($namedRange === null) {
                 return Functions::REF();
             }
 
-            $pSheet = $namedRange->getWorksheet();
-            $pRange = $namedRange->getValue();
-            $splitRange = Coordinate::splitRange($pRange);
+            $worksheet = $namedRange->getWorksheet();
+            $range = $namedRange->getValue();
+            $splitRange = Coordinate::splitRange($range);
             //    Convert row and column references
             if (ctype_alpha($splitRange[0][0])) {
-                $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+                $range = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
             } elseif (ctype_digit($splitRange[0][0])) {
-                $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
+                $range = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
             }
 
             // Extract range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($pRange);
+            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
                 [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
-                if ($pSheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                if ($worksheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5344,8 +5354,8 @@ class Calculation
                 foreach ($aReferences as $reference) {
                     // Extract range
                     [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
-                    if ($pSheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    if ($worksheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5359,14 +5369,14 @@ class Calculation
     /**
      * Is a specific function implemented?
      *
-     * @param string $pFunction Function Name
+     * @param string $function Function Name
      *
      * @return bool
      */
-    public function isImplemented($pFunction)
+    public function isImplemented($function)
     {
-        $pFunction = strtoupper($pFunction);
-        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$pFunction]) || (is_array(self::$phpSpreadsheetFunctions[$pFunction]['functionCall']) && self::$phpSpreadsheetFunctions[$pFunction]['functionCall'][1] === 'DUMMY');
+        $function = strtoupper($function);
+        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');
 
         return !$notImplemented;
     }
@@ -5405,7 +5415,7 @@ class Calculation
             // Apply any defaults for empty argument values
             foreach ($emptyArguments as $argumentId => $isArgumentEmpty) {
                 if ($isArgumentEmpty === true) {
-                    $reflectedArgumentId = count($args) - $argumentId - 1;
+                    $reflectedArgumentId = count($args) - (int) $argumentId - 1;
                     if (
                         !array_key_exists($reflectedArgumentId, $methodArguments) ||
                         $methodArguments[$reflectedArgumentId]->isVariadic()
@@ -5455,7 +5465,7 @@ class Calculation
      *
      * @return array
      */
-    private function addCellReference(array $args, $passCellReference, $functionCall, ?Cell $pCell = null)
+    private function addCellReference(array $args, $passCellReference, $functionCall, ?Cell $cell = null)
     {
         if ($passCellReference) {
             if (is_array($functionCall)) {
@@ -5469,7 +5479,7 @@ class Calculation
                 }
             }
 
-            $args[] = $pCell;
+            $args[] = $cell;
         }
 
         return $args;
@@ -5500,10 +5510,10 @@ class Calculation
     /**
      * @return mixed|string
      */
-    private function evaluateDefinedName(Cell $pCell, DefinedName $namedRange, Worksheet $pCellWorksheet, Stack $stack)
+    private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack)
     {
         $definedNameScope = $namedRange->getScope();
-        if ($definedNameScope !== null && $definedNameScope !== $pCellWorksheet) {
+        if ($definedNameScope !== null && $definedNameScope !== $cellWorksheet) {
             // The defined name isn't in our current scope, so #REF
             $result = Functions::REF();
             $stack->push('Error', $result, $namedRange->getName());
@@ -5521,16 +5531,16 @@ class Calculation
 
         $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
 
-        $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $pCellWorksheet)
+        $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $cellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
-            : $pCell;
+            : $cell;
         $recursiveCalculationCellAddress = $recursiveCalculationCell->getCoordinate();
 
         // Adjust relative references in ranges and formulae so that we execute the calculation for the correct rows and columns
         $definedNameValue = self::$referenceHelper->updateFormulaReferencesAnyWorksheet(
             $definedNameValue,
-            Coordinate::columnIndexFromString($pCell->getColumn()) - 1,
-            $pCell->getRow() - 1
+            Coordinate::columnIndexFromString($cell->getColumn()) - 1,
+            $cell->getRow() - 1
         );
 
         $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");

@@ -66,8 +66,6 @@ class Workbook extends WriterPart
 
     /**
      * Write file version.
-     *
-     * @param XMLWriter $objWriter XML Writer
      */
     private function writeFileVersion(XMLWriter $objWriter): void
     {
@@ -81,8 +79,6 @@ class Workbook extends WriterPart
 
     /**
      * Write WorkbookPr.
-     *
-     * @param XMLWriter $objWriter XML Writer
      */
     private function writeWorkbookPr(XMLWriter $objWriter): void
     {
@@ -99,8 +95,6 @@ class Workbook extends WriterPart
 
     /**
      * Write BookViews.
-     *
-     * @param XMLWriter $objWriter XML Writer
      */
     private function writeBookViews(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
@@ -127,8 +121,6 @@ class Workbook extends WriterPart
 
     /**
      * Write WorkbookProtection.
-     *
-     * @param XMLWriter $objWriter XML Writer
      */
     private function writeWorkbookProtection(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
@@ -153,7 +145,6 @@ class Workbook extends WriterPart
     /**
      * Write calcPr.
      *
-     * @param XMLWriter $objWriter XML Writer
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      */
     private function writeCalcPr(XMLWriter $objWriter, $recalcRequired = true): void
@@ -175,8 +166,6 @@ class Workbook extends WriterPart
 
     /**
      * Write sheets.
-     *
-     * @param XMLWriter $objWriter XML Writer
      */
     private function writeSheets(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
@@ -200,23 +189,22 @@ class Workbook extends WriterPart
     /**
      * Write sheet.
      *
-     * @param XMLWriter $objWriter XML Writer
-     * @param string $pSheetname Sheet name
-     * @param int $pSheetId Sheet id
-     * @param int $pRelId Relationship ID
+     * @param string $worksheetName Sheet name
+     * @param int $worksheetId Sheet id
+     * @param int $relId Relationship ID
      * @param string $sheetState Sheet state (visible, hidden, veryHidden)
      */
-    private function writeSheet(XMLWriter $objWriter, $pSheetname, $pSheetId = 1, $pRelId = 1, $sheetState = 'visible'): void
+    private function writeSheet(XMLWriter $objWriter, $worksheetName, $worksheetId = 1, $relId = 1, $sheetState = 'visible'): void
     {
-        if ($pSheetname != '') {
+        if ($worksheetName != '') {
             // Write sheet
             $objWriter->startElement('sheet');
-            $objWriter->writeAttribute('name', $pSheetname);
-            $objWriter->writeAttribute('sheetId', $pSheetId);
+            $objWriter->writeAttribute('name', $worksheetName);
+            $objWriter->writeAttribute('sheetId', $worksheetId);
             if ($sheetState !== 'visible' && $sheetState != '') {
                 $objWriter->writeAttribute('state', $sheetState);
             }
-            $objWriter->writeAttribute('r:id', 'rId' . $pRelId);
+            $objWriter->writeAttribute('r:id', 'rId' . $relId);
             $objWriter->endElement();
         } else {
             throw new WriterException('Invalid parameters passed.');

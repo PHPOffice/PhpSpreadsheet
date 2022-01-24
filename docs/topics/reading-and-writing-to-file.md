@@ -124,7 +124,7 @@ the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -249,7 +249,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -308,7 +308,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -359,7 +359,7 @@ in the SYLK file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -404,7 +404,7 @@ in the Calc file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -916,6 +916,16 @@ which sheet to write to PDF:
 
 ```php
 $writer->setSheetIndex(0);
+```
+
+#### Setting Orientation and PaperSize
+
+PhpSpreadsheet will attempt to honor the orientation and paper size specified
+in the worksheet for each page it prints, if the renderer supports that. However, you can set all pages
+to have the same orientation and paper size, e.g.
+
+```php
+$writer->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 ```
 
 #### Formula pre-calculation

@@ -9,7 +9,7 @@ class NumberFormatter
 {
     private const NUMBER_REGEX = '/(0+)(\\.?)(0*)/';
 
-    private static function mergeComplexNumberFormatMasks($numbers, $masks): array
+    private static function mergeComplexNumberFormatMasks(array $numbers, array $masks): array
     {
         $decimalCount = strlen($numbers[1]);
         $postDecimalMasks = [];
@@ -28,8 +28,12 @@ class NumberFormatter
         ];
     }
 
-    private static function processComplexNumberFormatMask($number, $mask): string
+    /**
+     * @param mixed $number
+     */
+    private static function processComplexNumberFormatMask($number, string $mask): string
     {
+        /** @var string */
         $result = $number;
         $maskingBlockCount = preg_match_all('/0+/', $mask, $maskingBlocks, PREG_OFFSET_CAPTURE);
 
@@ -42,23 +46,32 @@ class NumberFormatter
                 $divisor = 10 ** $size;
                 $offset = $block[1];
 
-                $blockValue = sprintf("%0{$size}d", fmod($number, $divisor));
-                $number = floor($number / $divisor);
+                /** @var float */
+                $numberFloat = $number;
+                $blockValue = sprintf("%0{$size}d", fmod($numberFloat, $divisor));
+                $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
+            /** @var string */
+            $numberString = $number;
             if ($number > 0) {
-                $mask = substr_replace($mask, $number, $offset, 0);
+                $mask = substr_replace($mask, $numberString, $offset, 0);
             }
             $result = $mask;
         }
 
-        return $result;
+        return self::makeString($result);
     }
 
-    private static function complexNumberFormatMask($number, $mask, $splitOnPoint = true): string
+    /**
+     * @param mixed $number
+     */
+    private static function complexNumberFormatMask($number, string $mask, bool $splitOnPoint = true): string
     {
         $sign = ($number < 0.0) ? '-' : '';
-        $number = abs($number);
+        /** @var float */
+        $numberFloat = $number;
+        $number = (string) abs($numberFloat);
 
         if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
             $numbers = explode('.', $number);
@@ -77,8 +90,13 @@ class NumberFormatter
         return "{$sign}{$result}";
     }
 
-    private static function formatStraightNumericValue($value, $format, array $matches, $useThousands): string
+    /**
+     * @param mixed $value
+     */
+    private static function formatStraightNumericValue($value, string $format, array $matches, bool $useThousands): string
     {
+        /** @var float */
+        $valueFloat = $value;
         $left = $matches[1];
         $dec = $matches[2];
         $right = $matches[3];
@@ -87,20 +105,20 @@ class NumberFormatter
         $minWidth = strlen($left) + strlen($dec) + strlen($right);
         if ($useThousands) {
             $value = number_format(
-                $value,
+                $valueFloat,
                 strlen($right),
                 StringHelper::getDecimalSeparator(),
                 StringHelper::getThousandsSeparator()
             );
 
-            return preg_replace(self::NUMBER_REGEX, $value, $format);
+            return self::pregReplace(self::NUMBER_REGEX, $value, $format);
         }
 
         if (preg_match('/[0#]E[+-]0/i', $format)) {
             //    Scientific format
-            return sprintf('%5.2E', $value);
+            return sprintf('%5.2E', $valueFloat);
         } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
-            if ($value == (int) $value && substr_count($format, '.') === 1) {
+            if ($value == (int) $valueFloat && substr_count($format, '.') === 1) {
                 $value *= 10 ** strlen(explode('.', $format)[1]);
             }
 
@@ -108,12 +126,17 @@ class NumberFormatter
         }
 
         $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
-        $value = sprintf($sprintf_pattern, $value);
+        /** @var float */
+        $valueFloat = $value;
+        $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
 
-        return preg_replace(self::NUMBER_REGEX, $value, $format);
+        return self::pregReplace(self::NUMBER_REGEX, $value, $format);
     }
 
-    public static function format($value, $format): string
+    /**
+     * @param mixed $value
+     */
+    public static function format($value, string $format): string
     {
         // The "_" in this string has already been stripped out,
         // so this test is never true. Furthermore, testing
@@ -123,15 +146,15 @@ class NumberFormatter
         //}
 
         // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
-        $format = str_replace(['"', '*'], '', $format);
+        $format = self::makeString(str_replace(['"', '*'], '', $format));
 
         // Find out if we need thousands separator
         // This is indicated by a comma enclosed by a digit placeholder:
         //        #,#   or   0,0
-        $useThousands = preg_match('/(#,#|0,0)/', $format);
+        $useThousands = (bool) preg_match('/(#,#|0,0)/', $format);
         if ($useThousands) {
-            $format = preg_replace('/0,0/', '00', $format);
-            $format = preg_replace('/#,#/', '##', $format);
+            $format = self::pregReplace('/0,0/', '00', $format);
+            $format = self::pregReplace('/#,#/', '##', $format);
         }
 
         // Scale thousands, millions,...
@@ -143,32 +166,30 @@ class NumberFormatter
             $scale = 1000 ** strlen($matches[2]);
 
             // strip the commas
-            $format = preg_replace('/0,+/', '0', $format);
-            $format = preg_replace('/#,+/', '#', $format);
+            $format = self::pregReplace('/0,+/', '0', $format);
+            $format = self::pregReplace('/#,+/', '#', $format);
         }
         if (preg_match('/#?.*\?\/\?/', $format, $m)) {
-            if ($value != (int) $value) {
-                $value = FractionFormatter::format($value, $format);
-            }
+            $value = FractionFormatter::format($value, $format);
         } else {
             // Handle the number itself
 
             // scale number
             $value = $value / $scale;
             // Strip #
-            $format = preg_replace('/\\#/', '0', $format);
+            $format = self::pregReplace('/\\#/', '0', $format);
             // Remove locale code [$-###]
-            $format = preg_replace('/\[\$\-.*\]/', '', $format);
+            $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
             $n = '/\\[[^\\]]+\\]/';
-            $m = preg_replace($n, '', $format);
+            $m = self::pregReplace($n, '', $format);
             if (preg_match(self::NUMBER_REGEX, $m, $matches)) {
                 // There are placeholders for digits, so inject digits from the value into the mask
                 $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands);
             } elseif ($format !== NumberFormat::FORMAT_GENERAL) {
                 // Yes, I know that this is basically just a hack;
                 //      if there's no placeholders for digits, just return the format mask "as is"
-                $value = str_replace('?', '', $format ?? '');
+                $value = self::makeString(str_replace('?', '', $format));
             }
         }
 
@@ -179,9 +200,22 @@ class NumberFormatter
             if ($currencyCode == '') {
                 $currencyCode = StringHelper::getCurrencyCode();
             }
-            $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
+            $value = self::pregReplace('/\[\$([^\]]*)\]/u', $currencyCode, (string) $value);
         }
 
-        return $value;
+        return (string) $value;
+    }
+
+    /**
+     * @param array|string $value
+     */
+    private static function makeString($value): string
+    {
+        return is_array($value) ? '' : "$value";
+    }
+
+    private static function pregReplace(string $pattern, string $replacement, string $subject): string
+    {
+        return self::makeString(preg_replace($pattern, $replacement, $subject) ?? '');
     }
 }

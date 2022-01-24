@@ -122,7 +122,10 @@ class Font extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getFont();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getFont();
     }
 
     /**
@@ -155,41 +158,41 @@ class Font extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['name'])) {
-                $this->setName($pStyles['name']);
+            if (isset($styleArray['name'])) {
+                $this->setName($styleArray['name']);
             }
-            if (isset($pStyles['bold'])) {
-                $this->setBold($pStyles['bold']);
+            if (isset($styleArray['bold'])) {
+                $this->setBold($styleArray['bold']);
             }
-            if (isset($pStyles['italic'])) {
-                $this->setItalic($pStyles['italic']);
+            if (isset($styleArray['italic'])) {
+                $this->setItalic($styleArray['italic']);
             }
-            if (isset($pStyles['superscript'])) {
-                $this->setSuperscript($pStyles['superscript']);
+            if (isset($styleArray['superscript'])) {
+                $this->setSuperscript($styleArray['superscript']);
             }
-            if (isset($pStyles['subscript'])) {
-                $this->setSubscript($pStyles['subscript']);
+            if (isset($styleArray['subscript'])) {
+                $this->setSubscript($styleArray['subscript']);
             }
-            if (isset($pStyles['underline'])) {
-                $this->setUnderline($pStyles['underline']);
+            if (isset($styleArray['underline'])) {
+                $this->setUnderline($styleArray['underline']);
             }
-            if (isset($pStyles['strikethrough'])) {
-                $this->setStrikethrough($pStyles['strikethrough']);
+            if (isset($styleArray['strikethrough'])) {
+                $this->setStrikethrough($styleArray['strikethrough']);
             }
-            if (isset($pStyles['color'])) {
-                $this->getColor()->applyFromArray($pStyles['color']);
+            if (isset($styleArray['color'])) {
+                $this->getColor()->applyFromArray($styleArray['color']);
             }
-            if (isset($pStyles['size'])) {
-                $this->setSize($pStyles['size']);
+            if (isset($styleArray['size'])) {
+                $this->setSize($styleArray['size']);
             }
         }
 
@@ -292,20 +295,20 @@ class Font extends Supervisor
     /**
      * Set Bold.
      *
-     * @param bool $pValue
+     * @param bool $bold
      *
      * @return $this
      */
-    public function setBold($pValue)
+    public function setBold($bold)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($bold == '') {
+            $bold = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['bold' => $pValue]);
+            $styleArray = $this->getStyleArray(['bold' => $bold]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->bold = $pValue;
+            $this->bold = $bold;
         }
 
         return $this;
@@ -328,20 +331,20 @@ class Font extends Supervisor
     /**
      * Set Italic.
      *
-     * @param bool $pValue
+     * @param bool $italic
      *
      * @return $this
      */
-    public function setItalic($pValue)
+    public function setItalic($italic)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($italic == '') {
+            $italic = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['italic' => $pValue]);
+            $styleArray = $this->getStyleArray(['italic' => $italic]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->italic = $pValue;
+            $this->italic = $italic;
         }
 
         return $this;
@@ -366,13 +369,13 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSuperscript(bool $pValue)
+    public function setSuperscript(bool $superscript)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['superscript' => $pValue]);
+            $styleArray = $this->getStyleArray(['superscript' => $superscript]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->superscript = $pValue;
+            $this->superscript = $superscript;
             if ($this->superscript) {
                 $this->subscript = false;
             }
@@ -400,13 +403,13 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSubscript(bool $pValue)
+    public function setSubscript(bool $subscript)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['subscript' => $pValue]);
+            $styleArray = $this->getStyleArray(['subscript' => $subscript]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->subscript = $pValue;
+            $this->subscript = $subscript;
             if ($this->subscript) {
                 $this->superscript = false;
             }
@@ -432,24 +435,24 @@ class Font extends Supervisor
     /**
      * Set Underline.
      *
-     * @param bool|string $pValue \PhpOffice\PhpSpreadsheet\Style\Font underline type
+     * @param bool|string $underlineStyle \PhpOffice\PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
      *
      * @return $this
      */
-    public function setUnderline($pValue)
+    public function setUnderline($underlineStyle)
     {
-        if (is_bool($pValue)) {
-            $pValue = ($pValue) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
-        } elseif ($pValue == '') {
-            $pValue = self::UNDERLINE_NONE;
+        if (is_bool($underlineStyle)) {
+            $underlineStyle = ($underlineStyle) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
+        } elseif ($underlineStyle == '') {
+            $underlineStyle = self::UNDERLINE_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['underline' => $pValue]);
+            $styleArray = $this->getStyleArray(['underline' => $underlineStyle]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->underline = $pValue;
+            $this->underline = $underlineStyle;
         }
 
         return $this;
@@ -472,21 +475,21 @@ class Font extends Supervisor
     /**
      * Set Strikethrough.
      *
-     * @param bool $pValue
+     * @param bool $strikethru
      *
      * @return $this
      */
-    public function setStrikethrough($pValue)
+    public function setStrikethrough($strikethru)
     {
-        if ($pValue == '') {
-            $pValue = false;
+        if ($strikethru == '') {
+            $strikethru = false;
         }
 
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['strikethrough' => $pValue]);
+            $styleArray = $this->getStyleArray(['strikethrough' => $strikethru]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->strikethrough = $pValue;
+            $this->strikethrough = $strikethru;
         }
 
         return $this;
@@ -507,10 +510,10 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setColor(Color $pValue)
+    public function setColor(Color $color)
     {
         // make sure parameter is a real color and not a supervisor
-        $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
+        $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;
 
         if ($this->isSupervisor) {
             $styleArray = $this->getColor()->getStyleArray(['argb' => $color->getARGB()]);

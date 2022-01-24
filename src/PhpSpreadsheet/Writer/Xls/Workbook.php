@@ -169,7 +169,7 @@ class Workbook extends BIFFwriter
     /**
      * Escher object corresponding to MSODRAWINGGROUP.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
+     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
@@ -408,13 +408,13 @@ class Workbook extends BIFFwriter
      * Assemble worksheets into a workbook and send the BIFF data to an OLE
      * storage.
      *
-     * @param array $pWorksheetSizes The sizes in bytes of the binary worksheet streams
+     * @param array $worksheetSizes The sizes in bytes of the binary worksheet streams
      *
      * @return string Binary data for workbook stream
      */
-    public function writeWorkbook(array $pWorksheetSizes)
+    public function writeWorkbook(array $worksheetSizes)
     {
-        $this->worksheetSizes = $pWorksheetSizes;
+        $this->worksheetSizes = $worksheetSizes;
 
         // Calculate the number of selected worksheet tabs and call the finalization
         // methods for each worksheet
@@ -523,9 +523,9 @@ class Workbook extends BIFFwriter
         $this->writeStyle();
     }
 
-    private function parseDefinedNameValue(DefinedName $pDefinedName): string
+    private function parseDefinedNameValue(DefinedName $definedName): string
     {
-        $definedRange = $pDefinedName->getValue();
+        $definedRange = $definedName->getValue();
         $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
             $definedRange,
@@ -552,7 +552,7 @@ class Workbook extends BIFFwriter
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
                     // We should have a worksheet
-                    $worksheet = $pDefinedName->getWorksheet() ? $pDefinedName->getWorksheet()->getTitle() : null;
+                    $worksheet = $definedName->getWorksheet() ? $definedName->getWorksheet()->getTitle() : null;
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
@@ -600,7 +600,11 @@ class Workbook extends BIFFwriter
                     }
 
                     if ($definedName->getLocalOnly()) {
-                        // local scope
+                        /**
+                         * local scope.
+                         *
+                         * @phpstan-ignore-next-line
+                         */
                         $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
                         // global scope
@@ -1170,21 +1174,17 @@ class Workbook extends BIFFwriter
 
     /**
      * Get Escher object.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    public function getEscher()
+    public function getEscher(): ?\PhpOffice\PhpSpreadsheet\Shared\Escher
     {
         return $this->escher;
     }
 
     /**
      * Set Escher object.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */
-    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $pValue = null): void
+    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher): void
     {
-        $this->escher = $pValue;
+        $this->escher = $escher;
     }
 }

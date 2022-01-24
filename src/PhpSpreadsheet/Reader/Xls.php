@@ -419,21 +419,19 @@ class Xls extends BaseReader
 
     /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $filename): bool
     {
-        File::assertFile($pFilename);
+        if (!File::testFileNoThrow($filename)) {
+            return false;
+        }
 
         try {
             // Use ParseXL for the hard work.
             $ole = new OLERead();
 
             // get excel data
-            $ole->read($pFilename);
+            $ole->read($filename);
 
             return true;
         } catch (PhpSpreadsheetException $e) {
@@ -453,18 +451,18 @@ class Xls extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetNames($pFilename)
+    public function listWorksheetNames($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         $worksheetNames = [];
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -511,18 +509,18 @@ class Xls extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $pFilename
+     * @param string $filename
      *
      * @return array
      */
-    public function listWorksheetInfo($pFilename)
+    public function listWorksheetInfo($filename)
     {
-        File::assertFile($pFilename);
+        File::assertFile($filename);
 
         $worksheetInfo = [];
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -625,12 +623,12 @@ class Xls extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
         // Read the OLE file
-        $this->loadOLE($pFilename);
+        $this->loadOLE($filename);
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();
@@ -1299,7 +1297,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                //    TODO Provide support for named values
+                    //    TODO Provide support for named values
             }
         }
         $this->data = '';
@@ -1366,14 +1364,14 @@ class Xls extends BaseReader
     /**
      * Use OLE reader to extract the relevant data streams from the OLE file.
      *
-     * @param string $pFilename
+     * @param string $filename
      */
-    private function loadOLE($pFilename): void
+    private function loadOLE($filename): void
     {
         // OLE reader
         $ole = new OLERead();
         // get excel data,
-        $ole->read($pFilename);
+        $ole->read($filename);
         // Get workbook data: workbook stream + sheet streams
         $this->data = $ole->getStream($ole->wrkbook);
         // Get summary information data
@@ -2127,6 +2125,10 @@ class Xls extends BaseReader
             }
 
             $formatString = $string['value'];
+            // Apache Open Office sets wrong case writing to xls - issue 2239
+            if ($formatString === 'GENERAL') {
+                $formatString = NumberFormat::FORMAT_GENERAL;
+            }
             $this->formats[$indexCode] = $formatString;
         }
     }
@@ -2176,7 +2178,7 @@ class Xls extends BaseReader
                 $numberFormat = ['formatCode' => $code];
             } else {
                 // we set the general format code
-                $numberFormat = ['formatCode' => 'General'];
+                $numberFormat = ['formatCode' => NumberFormat::FORMAT_GENERAL];
             }
             $objStyle->getNumberFormat()->setFormatCode($numberFormat['formatCode']);
 
@@ -3030,7 +3032,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                                . chr(0);
+                            . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -3747,12 +3749,10 @@ class Xls extends BaseReader
                         } else {
                             $textRun = $richText->createTextRun($text);
                             if (isset($fmtRuns[$i - 1])) {
-                                if ($fmtRuns[$i - 1]['fontIndex'] < 4) {
-                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
-                                } else {
-                                    // this has to do with that index 4 is omitted in all BIFF versions for some strange reason
-                                    // check the OpenOffice documentation of the FONT record
-                                    $fontIndex = $fmtRuns[$i - 1]['fontIndex'] - 1;
+                                $fontIndex = $fmtRuns[$i - 1]['fontIndex'];
+
+                                if (array_key_exists($fontIndex, $this->objFonts) === false) {
+                                    $fontIndex = count($this->objFonts) - 1;
                                 }
                                 $textRun->setFont(clone $this->objFonts[$fontIndex]);
                             }
@@ -6941,7 +6941,7 @@ class Xls extends BaseReader
                 // offset: 1; size: 2; one-based index to definedname record
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used
-                $data = $this->definedname[$definedNameIndex]['name'];
+                $data = $this->definedname[$definedNameIndex]['name'] ?? '';
 
                 break;
             case 0x24:    //    single cell reference e.g. A5
@@ -7017,7 +7017,7 @@ class Xls extends BaseReader
                 // offset: 3; size: 2; one-based index to DEFINEDNAME or EXTERNNAME record
                 $index = self::getUInt2d($formulaData, 3);
                 // assume index is to EXTERNNAME record
-                $data = $this->externalNames[$index - 1]['name'];
+                $data = $this->externalNames[$index - 1]['name'] ?? '';
                 // offset: 5; size: 2; not used
                 break;
             case 0x3A:    //    3d reference to cell

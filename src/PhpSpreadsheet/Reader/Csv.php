@@ -2,9 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use InvalidArgumentException;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -35,7 +36,7 @@ class Csv extends BaseReader
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Fallback encoding if 'guess' strikes out.
+     * Fallback encoding if guess strikes out.
      *
      * @var string
      */
@@ -111,9 +112,9 @@ class Csv extends BaseReader
         return self::$constructorCallback;
     }
 
-    public function setInputEncoding(string $pValue): self
+    public function setInputEncoding(string $encoding): self
     {
-        $this->inputEncoding = $pValue;
+        $this->inputEncoding = $encoding;
 
         return $this;
     }
@@ -123,9 +124,9 @@ class Csv extends BaseReader
         return $this->inputEncoding;
     }
 
-    public function setFallbackEncoding(string $pValue): self
+    public function setFallbackEncoding(string $fallbackEncoding): self
     {
-        $this->fallbackEncoding = $pValue;
+        $this->fallbackEncoding = $fallbackEncoding;
 
         return $this;
     }
@@ -198,10 +199,10 @@ class Csv extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      */
-    public function listWorksheetInfo(string $pFilename): array
+    public function listWorksheetInfo(string $filename): array
     {
         // Open file
-        $this->openFileOrMemory($pFilename);
+        $this->openFileOrMemory($filename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -238,7 +239,7 @@ class Csv extends BaseReader
      *
      * @return Spreadsheet
      */
-    public function load(string $pFilename, int $flags = 0)
+    public function load(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -246,23 +247,23 @@ class Csv extends BaseReader
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $spreadsheet);
+        return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
-    private function openFileOrMemory(string $pFilename): void
+    private function openFileOrMemory(string $filename): void
     {
         // Open file
-        $fhandle = $this->canRead($pFilename);
+        $fhandle = $this->canRead($filename);
         if (!$fhandle) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
         }
         if ($this->inputEncoding === self::GUESS_ENCODING) {
-            $this->inputEncoding = self::guessEncoding($pFilename, $this->fallbackEncoding);
+            $this->inputEncoding = self::guessEncoding($filename, $this->fallbackEncoding);
         }
-        $this->openFile($pFilename);
+        $this->openFile($filename);
         if ($this->inputEncoding !== 'UTF-8') {
             fclose($this->fileHandle);
-            $entireFile = file_get_contents($pFilename);
+            $entireFile = file_get_contents($filename);
             $this->fileHandle = fopen('php://memory', 'r+b');
             if ($this->fileHandle !== false && $entireFile !== false) {
                 $data = StringHelper::convertEncoding($entireFile, 'UTF-8', $this->inputEncoding);
@@ -272,16 +273,29 @@ class Csv extends BaseReader
         }
     }
 
+    private static function setAutoDetect(?string $value): ?string
+    {
+        $retVal = null;
+        if ($value !== null) {
+            $retVal2 = @ini_set('auto_detect_line_endings', $value);
+            if (is_string($retVal2)) {
+                $retVal = $retVal2;
+            }
+        }
+
+        return $retVal;
+    }
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
-    public function loadIntoExisting(string $pFilename, Spreadsheet $spreadsheet): Spreadsheet
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
-        $lineEnding = ini_get('auto_detect_line_endings') ?: '0';
-        ini_set('auto_detect_line_endings', '1');
+        // Deprecated in Php8.1
+        $iniset = self::setAutoDetect('1');
 
         // Open file
-        $this->openFileOrMemory($pFilename);
+        $this->openFileOrMemory($filename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -301,11 +315,14 @@ class Csv extends BaseReader
 
         // Loop through each line of the file in turn
         $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+        $valueBinder = Cell::getValueBinder();
+        $preserveBooleanString = method_exists($valueBinder, 'getBooleanConversion') && $valueBinder->getBooleanConversion();
         while (is_array($rowData)) {
             $noOutputYet = true;
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
-                if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
+                $this->convertBoolean($rowDatum, $preserveBooleanString);
+                if ($rowDatum !== '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
                             $noOutputYet = false;
@@ -326,10 +343,28 @@ class Csv extends BaseReader
         // Close file
         fclose($fileHandle);
 
-        ini_set('auto_detect_line_endings', $lineEnding);
+        self::setAutoDetect($iniset);
 
         // Return
         return $spreadsheet;
+    }
+
+    /**
+     * Convert string true/false to boolean, and null to null-string.
+     *
+     * @param mixed $rowDatum
+     */
+    private function convertBoolean(&$rowDatum, bool $preserveBooleanString): void
+    {
+        if (is_string($rowDatum) && !$preserveBooleanString) {
+            if (strcasecmp('true', $rowDatum) === 0) {
+                $rowDatum = true;
+            } elseif (strcasecmp('false', $rowDatum) === 0) {
+                $rowDatum = false;
+            }
+        } elseif ($rowDatum === null) {
+            $rowDatum = '';
+        }
     }
 
     public function getDelimiter(): ?string
@@ -337,7 +372,7 @@ class Csv extends BaseReader
         return $this->delimiter;
     }
 
-    public function setDelimiter(string $delimiter): self
+    public function setDelimiter(?string $delimiter): self
     {
         $this->delimiter = $delimiter;
 
@@ -364,16 +399,16 @@ class Csv extends BaseReader
         return $this->sheetIndex;
     }
 
-    public function setSheetIndex(int $pValue): self
+    public function setSheetIndex(int $indexValue): self
     {
-        $this->sheetIndex = $pValue;
+        $this->sheetIndex = $indexValue;
 
         return $this;
     }
 
     public function setContiguous(bool $contiguous): self
     {
-        $this->contiguous = (bool) $contiguous;
+        $this->contiguous = $contiguous;
 
         return $this;
     }
@@ -396,44 +431,27 @@ class Csv extends BaseReader
     }
 
     /**
-     * Scrutinizer believes, incorrectly, that the specific pathinfo
-     * call in canRead can return something other than an array.
-     * Phpstan knows better.
-     * This function satisfies both.
-     *
-     * @param mixed $extension
-     */
-    private static function extractStringLower($extension): string
-    {
-        return is_string($extension) ? strtolower($extension) : '';
-    }
-
-    /**
      * Can the current IReader read the file?
-     *
-     * @param string $pFilename
-     *
-     * @return bool
      */
-    public function canRead($pFilename)
+    public function canRead(string $filename): bool
     {
         // Check if file exists
         try {
-            $this->openFile($pFilename);
-        } catch (InvalidArgumentException $e) {
+            $this->openFile($filename);
+        } catch (ReaderException $e) {
             return false;
         }
 
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = self::extractStringLower(pathinfo($pFilename, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
 
         // Attempt to guess mimetype
-        $type = mime_content_type($pFilename);
+        $type = mime_content_type($filename);
         $supportedTypes = [
             'application/csv',
             'text/csv',
