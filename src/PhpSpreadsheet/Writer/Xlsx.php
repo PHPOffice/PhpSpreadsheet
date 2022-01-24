@@ -360,13 +360,13 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * @param $filename
+     * @param string $filename
      * @param int $flags
      * @return $this
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function prepareBeforeSave($filename, int $flags = 0)
+    public function prepareBeforeSave(string $filename, int $flags = 0)
     {
         $this->processFlags($flags);
 
@@ -402,6 +402,9 @@ class Xlsx extends BaseWriter
         return $this;
     }
 
+    /**
+     * @return array
+     */
     private function commonBeforeSheetSave()
     {
         // Create styles dictionaries
@@ -489,6 +492,10 @@ class Xlsx extends BaseWriter
         return $this->releaseSheetAndRenew();
     }
 
+    /**
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     private function releaseSheetAndRenew()
     {
         $activeIndex = $this->spreadSheet->getActiveSheetIndex();
@@ -496,7 +503,7 @@ class Xlsx extends BaseWriter
         //get the value before remove sheet
         $title = $worksheet->getTitle();
         $mergeCells = $worksheet->getMergeCells();
-        $codeName = $worksheet->getCodeName();
+        $codeName = $worksheet->getCodeName() ?: '';
         $charts = $this->includeCharts ? $worksheet->getChartCollection() : [];
         $draws = $worksheet->getDrawingCollection();
         $hyperlink = $worksheet->getHyperlinkCollection();
@@ -516,18 +523,14 @@ class Xlsx extends BaseWriter
         if ($charts) {
             $worksheet->setChartCollection($charts);
         }
-        if ($draws) {
-            $worksheet->setDrawingCollection($draws);
-        }
+        $worksheet->setDrawingCollection($draws);
         if ($hyperlink) {
             $worksheet->setHyperlinkCollection($hyperlink);
         }
         if ($comments) {
             $worksheet->setComments($comments);
         }
-        if ($sheetHeader) {
-            $worksheet->setHeaderFooter($sheetHeader);
-        }
+        $worksheet->setHeaderFooter($sheetHeader);
         $this->stringTable = [];
 
         return $worksheet;
@@ -553,7 +556,7 @@ class Xlsx extends BaseWriter
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function finish()
+    public function finish(): void
     {
         $this->getWriterPartStringTable()->writeStringTableEnd();
 
@@ -578,7 +581,7 @@ class Xlsx extends BaseWriter
         $this->maybeCloseFileHandle();
     }
 
-    private function commonSaveEnd(&$zipContent)
+    private function commonSaveEnd(&$zipContent): void
     {
         // Add relationships to ZIP file
         $zipContent['_rels/.rels'] = $this->getWriterPartRels()->writeRelationships($this->spreadSheet);

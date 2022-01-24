@@ -57,7 +57,7 @@ class AutoFilter
         $this->workSheet = $worksheet;
     }
 
-    public function disconnectWorksheet()
+    public function disconnectWorksheet(): void
     {
         $this->workSheet = null;
     }
