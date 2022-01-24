@@ -216,7 +216,7 @@ class Spreadsheet
      */
     public function setHasMacros($hasMacros): void
     {
-        $this->hasMacros = (bool) $hasMacros;
+        $this->hasMacros = (bool)$hasMacros;
     }
 
     /**
@@ -342,9 +342,9 @@ class Spreadsheet
      * List of unparsed loaded data for export to same format with better compatibility.
      * It has to be minimized when the library start to support currently unparsed data.
      *
+     * @return array
      * @internal
      *
-     * @return array
      */
     public function getUnparsedLoadedData()
     {
@@ -661,7 +661,7 @@ class Spreadsheet
                 "You tried to remove a sheet by the out of bounds index: {$sheetIndex}. The actual number of sheets is {$numSheets}."
             );
         }
-        if ($disconnectedAll){
+        if ($disconnectedAll) {
             $this->workSheetCollection[$sheetIndex]->__destruct();
         }
         array_splice($this->workSheetCollection, $sheetIndex, 1);
@@ -1417,7 +1417,7 @@ class Spreadsheet
      */
     public function setShowHorizontalScroll($showHorizontalScroll): void
     {
-        $this->showHorizontalScroll = (bool) $showHorizontalScroll;
+        $this->showHorizontalScroll = (bool)$showHorizontalScroll;
     }
 
     /**
@@ -1437,7 +1437,7 @@ class Spreadsheet
      */
     public function setShowVerticalScroll($showVerticalScroll): void
     {
-        $this->showVerticalScroll = (bool) $showVerticalScroll;
+        $this->showVerticalScroll = (bool)$showVerticalScroll;
     }
 
     /**
@@ -1457,7 +1457,7 @@ class Spreadsheet
      */
     public function setShowSheetTabs($showSheetTabs): void
     {
-        $this->showSheetTabs = (bool) $showSheetTabs;
+        $this->showSheetTabs = (bool)$showSheetTabs;
     }
 
     /**
@@ -1477,7 +1477,7 @@ class Spreadsheet
      */
     public function setMinimized($minimized): void
     {
-        $this->minimized = (bool) $minimized;
+        $this->minimized = (bool)$minimized;
     }
 
     /**
@@ -1499,7 +1499,7 @@ class Spreadsheet
      */
     public function setAutoFilterDateGrouping($autoFilterDateGrouping): void
     {
-        $this->autoFilterDateGrouping = (bool) $autoFilterDateGrouping;
+        $this->autoFilterDateGrouping = (bool)$autoFilterDateGrouping;
     }
 
     /**
@@ -1520,7 +1520,7 @@ class Spreadsheet
     public function setFirstSheetIndex($firstSheetIndex): void
     {
         if ($firstSheetIndex >= 0) {
-            $this->firstSheetIndex = (int) $firstSheetIndex;
+            $this->firstSheetIndex = (int)$firstSheetIndex;
         } else {
             throw new Exception('First sheet index must be a positive integer.');
         }
@@ -1587,7 +1587,7 @@ class Spreadsheet
     public function setTabRatio($tabRatio): void
     {
         if ($tabRatio >= 0 || $tabRatio <= 1000) {
-            $this->tabRatio = (int) $tabRatio;
+            $this->tabRatio = (int)$tabRatio;
         } else {
             throw new Exception('Tab ratio must be between 0 and 1000.');
         }

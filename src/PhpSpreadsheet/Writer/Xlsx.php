@@ -361,6 +361,7 @@ class Xlsx extends BaseWriter
 
     /**
      * @param $filename
+     * @param int $flags
      * @return $this
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
