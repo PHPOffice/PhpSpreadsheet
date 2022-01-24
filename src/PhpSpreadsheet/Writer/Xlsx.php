@@ -306,7 +306,7 @@ class Xlsx extends BaseWriter
             $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
         }
 
-        $zipContent = $this->commonBeforeSheetSave();;
+        $zipContent = $this->commonBeforeSheetSave();
         $this->commonSaveEnd($zipContent);
 
         Functions::setReturnDateType($saveDateReturnType);
@@ -333,7 +333,6 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * 在保存之前，做部分数据的初始化
      * @param $filename
      * @return $this
      * @throws Exception
