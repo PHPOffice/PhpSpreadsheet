@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Unreleased - TBD
+
+### Added
+
+- Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
+  - Provide support for a wider range of Conditional Formatting Rules for Xlsx Reader/Writer:
+    - Cells Containing (cellIs)
+    - Specific Text (containing, notContaining, beginsWith, endsWith)
+    - Dates Occurring (all supported timePeriods)
+    - Blanks/NoBlanks
+    - Errors/NoErrors
+    - Duplicates/Unique
+    - Expression
+  - Provision of CF Wizards (for all the above listed rule types) to help create/modify CF Rules without having to manage all the combinations of types/operators, and the complexities of formula expressions, or the text/timePeriod attributes.
+
+    See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/) for details 
+
+  - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
+  - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
+  - Improved documentation and examples, covering all supported CF rule types.
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
+- Xlsx Reader merge range fixes.
+[Issue #2501](https://github.com/PHPOffice/PhpSpreadsheet/issues/2501)
+[PR #2504](https://github.com/PHPOffice/PhpSpreadsheet/pull/2504)
+- Handle explicit "date" type for Cell in Xlsx Reader.
+[Issue #2373](https://github.com/PHPOffice/PhpSpreadsheet/issues/2373)
+[PR #2485](https://github.com/PHPOffice/PhpSpreadsheet/pull/2485)
+- Recalibrate Row/Column Dimensions after removeRow/Column.
+[Issue #2442](https://github.com/PHPOffice/PhpSpreadsheet/issues/2442)
+[PR #2486](https://github.com/PHPOffice/PhpSpreadsheet/pull/2486)
+- Refinement for XIRR.
+[Issue #2469](https://github.com/PHPOffice/PhpSpreadsheet/issues/2469)
+[PR #2487](https://github.com/PHPOffice/PhpSpreadsheet/pull/2487)
+- Xlsx Reader handle cell with non-null explicit type but null value.
+[Issue #2488](https://github.com/PHPOffice/PhpSpreadsheet/issues/2488)
+[PR #2489](https://github.com/PHPOffice/PhpSpreadsheet/pull/2489)
+- Xlsx Reader fix height and width for oneCellAnchorDrawings.
+[PR #2492](https://github.com/PHPOffice/PhpSpreadsheet/pull/2492)
+
 ## 1.21.0 - 2022-01-06
 
 ### Added
