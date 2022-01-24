@@ -179,6 +179,33 @@ class Xlsx extends BaseWriter
     private $writerPartWorksheet;
 
     /**
+     * @var array
+     */
+    private $zipFiles = [];
+    /**
+     * @var array
+     */
+    private $zipContent = [];
+
+    /**
+     * sharedStrings temp path
+     * @var string
+     */
+    private $sharedStringsPath;
+
+    /**
+     * sheets's stored temp path
+     * @var array
+     */
+    private $sheetsPath;
+
+    /**
+     * if use low memory method to export
+     * @var bool
+     */
+    private $lowMemoryExport = false;
+
+    /**
      * Create a new Xlsx Writer.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -865,31 +892,7 @@ class Xlsx extends BaseWriter
 
     private $pathNames = [];
 
-    /**
-     * @var array
-     */
-    private $zipFiles = [];
-    /**
-     * @var array
-     */
-    private $zipContent = [];
-
-    /**
-     * @var string sharedStrings temp path
-     */
-    private $sharedStringsPath;
-
-    /**
-     * @var array sheets's stored temp path
-     */
-    private $sheetsPath;
-
-    /**
-     * @var bool if use low memory method to export
-     */
-    private $lowMemoryExport = false;
-
-    private function addZipFile(string $path, string $content): void
+        private function addZipFile(string $path, string $content): void
     {
         if (!in_array($path, $this->pathNames)) {
             $this->pathNames[] = $path;
