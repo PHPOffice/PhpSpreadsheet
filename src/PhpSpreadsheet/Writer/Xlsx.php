@@ -892,7 +892,7 @@ class Xlsx extends BaseWriter
 
     private $pathNames = [];
 
-        private function addZipFile(string $path, string $content): void
+    private function addZipFile(string $path, string $content): void
     {
         if (!in_array($path, $this->pathNames)) {
             $this->pathNames[] = $path;
