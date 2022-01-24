@@ -16,19 +16,24 @@ class StringTable extends WriterPart
      * @var XMLWriter
      */
     private $objWriter;
+
     /**
      * @var int
      */
     private $uniqueCount;
 
     /**
-     * @var string In appended mode,use a temporary path to store
+     * In appended mode,use a temporary path to store
+     * @var string
      */
     private $tempFilePath;
+
     /**
-     * @var string In appended mode,record file where to be stored
+     * In appended mode,record file where to be stored
+     * @var string
      */
     private $userPath;
+
     /**
      * Create worksheet stringtable.
      *
