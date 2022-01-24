@@ -581,6 +581,10 @@ class Xlsx extends BaseWriter
         $this->maybeCloseFileHandle();
     }
 
+    /**
+     * @param array $zipContent
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     private function commonSaveEnd(&$zipContent): void
     {
         // Add relationships to ZIP file
@@ -911,7 +915,7 @@ class Xlsx extends BaseWriter
         }
     }
 
-    private function addFileFromPath()
+    private function addFileFromPath(): void
     {
         foreach ($this->zipFiles as $path => $tempPath) {
             $this->zip->addFileFromPath($path, $tempPath);

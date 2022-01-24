@@ -142,7 +142,7 @@ class StringTable extends WriterPart
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $this->userPath = $this->getParentWriter()->getFileStorePath();
-            $this->tempFilePath = @tempnam(dirname($this->userPath), 'xml');
+            $this->tempFilePath = @tempnam(dirname($this->userPath), 'xml') ?: '';
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->tempFilePath, true);
             $objWriter->needUnlink = false;
         } else {
@@ -193,6 +193,7 @@ class StringTable extends WriterPart
      *
      * @param Worksheet $pSheet Worksheet
      * @param string[] $pExistingTable Existing table to eventually merge with
+     * @param array|null $existingTable
      *
      * @return string[] String table for worksheet
      */
@@ -242,11 +243,16 @@ class StringTable extends WriterPart
 
     /**
      * Write xml header and match right uniqueCount
+     * @throws WriterException
      */
-    public function writeStringTableEnd()
+    public function writeStringTableEnd(): void
     {
         $fp1 = fopen($this->tempFilePath, 'r');
         $fp = fopen($this->userPath, 'a+');
+        if (!is_resource($fp) || !is_resource($fp1)) {
+            throw new WriterException('unable to open file:' . $this->tempFilePath . ' or ' . $this->userPath);
+        }
+
         $str = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" uniqueCount="' . $this->uniqueCount . '">';
         fwrite($fp, $str);
