@@ -36,6 +36,13 @@ abstract class BaseWriter implements IWriter
     private $diskCachingDirectory = './';
 
     /**
+     * disk stored path
+     *
+     * @var string
+     */
+    private $fileStorePath = '';
+
+    /**
      * @var resource
      */
     protected $fileHandle;
@@ -74,6 +81,11 @@ abstract class BaseWriter implements IWriter
         return $this->useDiskCaching;
     }
 
+    public function getFileStorePath()
+    {
+        return $this->fileStorePath;
+    }
+
     public function setUseDiskCaching($useDiskCache, $cacheDirectory = null)
     {
         $this->useDiskCaching = $useDiskCache;
@@ -87,6 +99,12 @@ abstract class BaseWriter implements IWriter
         }
 
         return $this;
+    }
+
+    public function setUserDiskFileStore($pValue, $pFilePath)
+    {
+        $this->useDiskCaching = $pValue;
+        $this->fileStorePath = $pFilePath;
     }
 
     public function getDiskCachingDirectory()

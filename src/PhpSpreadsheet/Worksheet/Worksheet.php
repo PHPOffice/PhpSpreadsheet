@@ -399,6 +399,8 @@ class Worksheet implements IComparable
 
         $this->disconnectCells();
         $this->rowDimensions = [];
+        //make sure worksheet's reference is all disconnected, or it will cause memory leak
+        $this->autoFilter->disconnectWorksheet();
     }
 
     /**
@@ -544,6 +546,16 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Set collection of drawings.
+     *
+     * @param  ArrayObject<int, BaseDrawing> $drawingCollection
+     */
+    public function setDrawingCollection($drawingCollection)
+    {
+        $this->drawingCollection = $drawingCollection;
+    }
+
+    /**
      * Get collection of charts.
      *
      * @return ArrayObject<int, Chart>
@@ -551,6 +563,16 @@ class Worksheet implements IComparable
     public function getChartCollection()
     {
         return $this->chartCollection;
+    }
+
+    /**
+     * Set collection of charts.
+     *
+     * @param  ArrayObject<int, Chart> $chartCollection
+     */
+    public function setChartCollection($chartCollection)
+    {
+        $this->chartCollection = $chartCollection;
     }
 
     /**
@@ -2958,6 +2980,16 @@ class Worksheet implements IComparable
     public function getHyperlinkCollection()
     {
         return $this->hyperlinkCollection;
+    }
+
+    /**
+     * Set collection of hyperlinks.
+     *
+     * @param  Hyperlink[] hyperlinkCollection
+     */
+    public function setHyperlinkCollection($hyperlinkCollection)
+    {
+        $this->hyperlinkCollection = $hyperlinkCollection;
     }
 
     /**

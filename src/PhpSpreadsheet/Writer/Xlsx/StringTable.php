@@ -8,9 +8,27 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class StringTable extends WriterPart
 {
+    /**
+     * @var XMLWriter
+     */
+    private $objWriter;
+    /**
+     * @var int
+     */
+    private $uniqueCount;
+
+    /**
+     * @var string In appended mode,use a temporary path to store
+     */
+    private $tempFilePath;
+    /**
+     * @var string In appended mode,record file where to be stored
+     */
+    private $userPath;
     /**
      * Create worksheet stringtable.
      *
@@ -107,6 +125,129 @@ class StringTable extends WriterPart
         $objWriter->endElement();
 
         return $objWriter->getData();
+    }
+
+    /**
+     * @return StringTable
+     * @throws WriterException
+     */
+    public function createDiskCacheWriter()
+    {
+        // Create XML writer
+        $objWriter = null;
+        if ($this->getParentWriter()->getUseDiskCaching()) {
+            $this->userPath = $this->getParentWriter()->getFileStorePath();
+            $this->tempFilePath = @tempnam(dirname($this->userPath), 'xml');
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->tempFilePath, true);
+            $objWriter->needUnlink = false;
+        } else {
+            throw new WriterException("ParentWriter's useDiskCaching is false");
+        }
+        $this->objWriter = $objWriter;
+
+        return $this;
+    }
+
+    /**
+     * In order to write corrected content, flush data when each called
+     * @param array $stringTable
+     * @return $this
+     */
+    public function writeStringTableWithAppendedMode(array $stringTable)
+    {
+        //markdown the final uniqueCount
+        $this->uniqueCount += count($stringTable);
+        $objWriter = $this->objWriter;
+
+        // Loop through string table
+        foreach ($stringTable as $textElement) {
+            $objWriter->startElement('si');
+
+            if (!$textElement instanceof RichText) {
+                $textToWrite = StringHelper::controlCharacterPHP2OOXML($textElement);
+                $objWriter->startElement('t');
+                if ($textToWrite !== trim($textToWrite)) {
+                    $objWriter->writeAttribute('xml:space', 'preserve');
+                }
+                $objWriter->writeRawData($textToWrite);
+                $objWriter->endElement();
+            } elseif ($textElement instanceof RichText) {
+                $this->writeRichText($objWriter, $textElement);
+            }
+
+            $objWriter->endElement();
+        }
+
+        $objWriter->flush();
+
+        return $this;
+    }
+
+    /**
+     * Create worksheet stringtable.
+     *
+     * @param Worksheet $pSheet Worksheet
+     * @param string[] $pExistingTable Existing table to eventually merge with
+     *
+     * @return string[] String table for worksheet
+     */
+    public function createStringTableWithStartIndex(Worksheet $pSheet, $existingTable = null)
+    {
+        // Create string lookup table
+        $aStringTable = [];
+        $cellCollection = null;
+        $aFlippedStringTable = null; // For faster lookup
+
+        // Is an existing table given?
+        if (($existingTable !== null) && is_array($existingTable)) {
+            $aStringTable = $existingTable;
+        }
+
+        // Fill index array
+        $aFlippedStringTable = $this->flipStringTable($aStringTable);
+        $index = $this->uniqueCount;
+
+        // Loop through cells
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cell = $pSheet->getCell($coordinate);
+            $cellValue = $cell->getValue();
+            if (!is_object($cellValue) &&
+                ($cellValue !== null) &&
+                $cellValue !== '' &&
+                !isset($aFlippedStringTable[$cellValue]) &&
+                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)) {
+                $aStringTable[$index] = $cellValue;
+                ++$index;
+                $aFlippedStringTable[$cellValue] = true;
+            } elseif ($cellValue instanceof RichText &&
+                ($cellValue !== null) &&
+                !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
+                $aStringTable[$index] = $cellValue;
+                $aFlippedStringTable[$cellValue->getHashCode()] = true;
+                ++$index;
+            }
+        }
+
+        return $aStringTable;
+    }
+
+    /**
+     * Write xml header and match right uniqueCount
+     */
+    public function writeStringTableEnd()
+    {
+        $fp1 = fopen($this->tempFilePath, 'r');
+        $fp = fopen($this->userPath, 'a+');
+        $str = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" uniqueCount="' . $this->uniqueCount . '">';
+        fwrite($fp, $str);
+        while (!feof($fp1)) {
+            fwrite($fp, fread($fp1, 65536));
+        }
+        fwrite($fp, '</sst>');
+        fclose($fp1);
+        fclose($fp);
+        unlink($this->tempFilePath);
     }
 
     /**

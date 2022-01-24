@@ -18,12 +18,18 @@ class XMLWriter extends \XMLWriter
     private $tempFileName = '';
 
     /**
+     * Whether temporary file will be unlink when class is destructed
+     * @var bool
+     */
+    public $needUnlink = true;
+
+    /**
      * Create a new XMLWriter instance.
      *
      * @param int $temporaryStorage Temporary storage location
      * @param string $temporaryStorageFolder Temporary storage folder
      */
-    public function __construct($temporaryStorage = self::STORAGE_MEMORY, $temporaryStorageFolder = null)
+    public function __construct($temporaryStorage = self::STORAGE_MEMORY, $temporaryStorageFolder = null, bool $specifyPath = false)
     {
         // Open temporary storage
         if ($temporaryStorage == self::STORAGE_MEMORY) {
@@ -33,7 +39,7 @@ class XMLWriter extends \XMLWriter
             if ($temporaryStorageFolder === null) {
                 $temporaryStorageFolder = File::sysGetTempDir();
             }
-            $this->tempFileName = @tempnam($temporaryStorageFolder, 'xml');
+            $this->tempFileName = $specifyPath ? $temporaryStorageFolder : @tempnam($temporaryStorageFolder, 'xml');
 
             // Open storage
             if ($this->openUri($this->tempFileName) === false) {
@@ -54,7 +60,7 @@ class XMLWriter extends \XMLWriter
     public function __destruct()
     {
         // Unlink temporary files
-        if ($this->tempFileName != '') {
+        if ($this->tempFileName != '' && $this->needUnlink) {
             @unlink($this->tempFileName);
         }
     }

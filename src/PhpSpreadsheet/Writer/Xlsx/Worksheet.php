@@ -15,9 +15,22 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Worksheet extends WriterPart
 {
+    /**
+     * @var XMLWriter[]
+     */
+    private $objWriters;
+
+    /**
+     * @var int record the max col count
+     */
+    private $maxColCount;
+
+    private $lastHighestRow = 0;
+
     /**
      * Write worksheet to XML format.
      *
@@ -126,6 +139,196 @@ class Worksheet extends WriterPart
 
         // Return
         return $objWriter->getData();
+    }
+
+    public function beforeWriteSheetData(PhpspreadsheetWorksheet $pSheet)
+    {
+        $this->lastHighestRow = 0;
+        // Create XML writer
+        $index = $this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex();
+        if (!isset($this->objWriters[$index])) {
+            $objWriter = null;
+            if ($this->getParentWriter()->getUseDiskCaching()) {
+                $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getFileStorePath(), true);
+                $objWriter->needUnlink = false;
+            } else {
+                throw new WriterException("ParentWriter's useDiskCaching is false");
+            }
+            $this->objWriters[$index] = $objWriter;
+        } else {
+            $objWriter = $this->objWriters[$index];
+        }
+
+        // XML header
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
+
+        // Worksheet
+        $objWriter->startElement('worksheet');
+        $objWriter->writeAttribute('xml:space', 'preserve');
+        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+
+        $objWriter->writeAttribute('xmlns:xdr', 'http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing');
+        $objWriter->writeAttribute('xmlns:x14', 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main');
+        $objWriter->writeAttribute('xmlns:xm', 'http://schemas.microsoft.com/office/excel/2006/main');
+        $objWriter->writeAttribute('xmlns:mc', 'http://schemas.openxmlformats.org/markup-compatibility/2006');
+        $objWriter->writeAttribute('mc:Ignorable', 'x14ac');
+        $objWriter->writeAttribute('xmlns:x14ac', 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac');
+
+        // sheetPr
+        $this->writeSheetPr($objWriter, $pSheet);
+
+        // Dimension
+        $this->writeDimension($objWriter, $pSheet);
+
+        // sheetViews
+        $this->writeSheetViews($objWriter, $pSheet);
+
+        // sheetFormatPr
+        $this->writeSheetFormatPr($objWriter, $pSheet);
+
+        // cols
+        $this->writeCols($objWriter, $pSheet);
+
+        // sheetData
+        $objWriter->startElement('sheetData');
+
+        $objWriter->flush();
+
+        return $this;
+    }
+
+    public function writeSheetDataPortion(PhpspreadsheetWorksheet $pSheet, $pStringTable = null)
+    {
+        // Flipped stringtable, for faster index searching
+        $aFlippedStringTable = $this->getParentWriter()->getWriterPartStringTable()->flipStringTable($pStringTable);
+        $objWriter = $this->objWriters[$this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex()];
+        // Get column count
+        $colCount = Coordinate::columnIndexFromString($pSheet->getHighestColumn());
+        $colCount = $this->maxColCount = max($colCount, $this->maxColCount);
+
+        // Highest row number
+        $highestRow = $pSheet->getHighestRow();
+
+        // Loop through cells
+        $cellsByRow = [];
+
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cellAddress = Coordinate::coordinateFromString($coordinate);
+            $cellsByRow[$cellAddress[1]][] = $coordinate;
+        }
+        //avoid to foreach not existed rows
+        $currentRow = $this->lastHighestRow;
+        while ($currentRow++ < $highestRow) {
+            // Get row dimension
+            $rowDimension = $pSheet->getRowDimension($currentRow);
+            // Write current row?
+            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+
+            if ($writeCurrentRow) {
+                // Start a new row
+                $objWriter->startElement('row');
+                $objWriter->writeAttribute('r', $currentRow);
+                $objWriter->writeAttribute('spans', '1:' . $colCount);
+
+                // Row dimensions
+                if ($rowDimension->getRowHeight() >= 0) {
+                    $objWriter->writeAttribute('customHeight', '1');
+                    $objWriter->writeAttribute('ht', StringHelper::formatNumber($rowDimension->getRowHeight()));
+                }
+
+                // Row visibility
+                if (!$rowDimension->getVisible() === true) {
+                    $objWriter->writeAttribute('hidden', 'true');
+                }
+
+                // Collapsed
+                if ($rowDimension->getCollapsed() === true) {
+                    $objWriter->writeAttribute('collapsed', 'true');
+                }
+
+                // Outline level
+                if ($rowDimension->getOutlineLevel() > 0) {
+                    $objWriter->writeAttribute('outlineLevel', $rowDimension->getOutlineLevel());
+                }
+
+                // Style
+                if ($rowDimension->getXfIndex() !== null) {
+                    $objWriter->writeAttribute('s', $rowDimension->getXfIndex());
+                    $objWriter->writeAttribute('customFormat', '1');
+                }
+
+                // Write cells
+                if (isset($cellsByRow[$currentRow])) {
+                    foreach ($cellsByRow[$currentRow] as $cellAddress) {
+                        // Write cell
+                        $this->writeCell($objWriter, $pSheet, $cellAddress, $aFlippedStringTable);
+                    }
+                    $this->lastHighestRow = $currentRow;
+                }
+
+                // End row
+                $objWriter->endElement();
+            }
+        }
+        $objWriter->flush();
+        return $this;
+    }
+
+    public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = null)
+    {
+        $objWriter = $this->objWriters[$this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex()];
+        $objWriter->endElement();
+        // sheetProtection
+        $this->writeSheetProtection($objWriter, $pSheet);
+
+        // protectedRanges
+        $this->writeProtectedRanges($objWriter, $pSheet);
+
+        // autoFilter
+        $this->writeAutoFilter($objWriter, $pSheet);
+
+        // mergeCells
+        $this->writeMergeCells($objWriter, $pSheet);
+
+        // conditionalFormatting
+        $this->writeConditionalFormatting($objWriter, $pSheet);
+
+        // dataValidations
+        $this->writeDataValidations($objWriter, $pSheet);
+
+        // hyperlinks
+        $this->writeHyperlinks($objWriter, $pSheet);
+
+        // Print options
+        $this->writePrintOptions($objWriter, $pSheet);
+
+        // Page margins
+        $this->writePageMargins($objWriter, $pSheet);
+
+        // Page setup
+        $this->writePageSetup($objWriter, $pSheet);
+
+        // Header / footer
+        $this->writeHeaderFooter($objWriter, $pSheet);
+
+        // Breaks
+        $this->writeBreaks($objWriter, $pSheet);
+
+        // Drawings and/or Charts
+        $this->writeDrawings($objWriter, $pSheet, $includeCharts);
+
+        // LegacyDrawing
+        $this->writeLegacyDrawing($objWriter, $pSheet);
+
+        // LegacyDrawingHF
+        $this->writeLegacyDrawingHF($objWriter, $pSheet);
+
+        // AlternateContent
+        $this->writeAlternateContent($objWriter, $pSheet);
+
+        $objWriter->endElement();
+        $objWriter->flush();
     }
 
     /**

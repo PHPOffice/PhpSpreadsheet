@@ -57,6 +57,11 @@ class AutoFilter
         $this->workSheet = $worksheet;
     }
 
+    public function disconnectWorksheet()
+    {
+        $this->workSheet = null;
+    }
+
     /**
      * Get AutoFilter Parent Worksheet.
      *

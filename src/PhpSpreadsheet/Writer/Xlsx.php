@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -305,6 +306,77 @@ class Xlsx extends BaseWriter
             $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
         }
 
+        $zipContent = $this->commonBeforeSheetSave();;
+        $this->commonSaveEnd($zipContent);
+
+        Functions::setReturnDateType($saveDateReturnType);
+        Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+
+        $this->openFileHandle($filename);
+
+        $options = new Archive();
+        $options->setEnableZip64(false);
+        $options->setOutputStream($this->fileHandle);
+
+        $this->zip = new ZipStream(null, $options);
+
+        $this->addZipFiles($zipContent);
+
+        // Close file
+        try {
+            $this->zip->finish();
+        } catch (OverflowException $e) {
+            throw new WriterException('Could not close resource.');
+        }
+
+        $this->maybeCloseFileHandle();
+    }
+
+    /**
+     * 在保存之前，做部分数据的初始化
+     * @param $filename
+     * @return $this
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function prepareBeforeSave($filename, int $flags = 0)
+    {
+        $this->processFlags($flags);
+
+        // garbage collect
+        $this->pathNames = [];
+        $this->spreadSheet->garbageCollect();
+
+        Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
+        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+
+        $this->openFileHandle($filename);
+        $options = new Archive();
+        $options->setEnableZip64(false);
+        $options->setOutputStream($this->fileHandle);
+
+        $this->zip = new ZipStream(null, $options);
+
+        // Create string lookup table
+        $this->stringTable = [];
+        $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet(0), $this->stringTable);
+        $this->lowMemoryExport = true;
+
+        //set temp path to store  sharedStrings.xml and save
+        $this->sharedStringsPath = File::sysGetTempDir() . '/sharedStrings.xml';
+
+        $useDiskCaching = $this->getUseDiskCaching();
+        $fileStorePath = $this->getFileStorePath();
+
+        $this->setUserDiskFileStore(true, $this->sharedStringsPath);
+        $this->getWriterPartStringTable()->createDiskCacheWriter()->writeStringTableWithAppendedMode($this->stringTable);
+        $this->setUserDiskFileStore($useDiskCaching, $fileStorePath);
+
+        return $this;
+    }
+
+    private function commonBeforeSheetSave()
+    {
         // Create styles dictionaries
         $this->styleHashTable->addFromSource($this->getWriterPartStyle()->allStyles($this->spreadSheet));
         $this->stylesConditionalHashTable->addFromSource($this->getWriterPartStyle()->allConditionalStyles($this->spreadSheet));
@@ -349,6 +421,138 @@ class Xlsx extends BaseWriter
             }
         }
 
+        return $zipContent;
+    }
+
+    /**
+     * save a sheet header
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function saveSheetHeader()
+    {
+        $activeIndex = $this->spreadSheet->getActiveSheetIndex();
+        $this->sheetsPath[$activeIndex] = File::sysGetTempDir() . "/sheet" . ($activeIndex + 1) . ".xml";
+
+        $useDiskCaching = $this->getUseDiskCaching();
+        $fileStorePath = $this->getFileStorePath();
+
+        $this->setUserDiskFileStore(true, $this->sheetsPath[$activeIndex]);
+
+        $worksheet = $this->spreadSheet->getSheet($activeIndex);
+        $this->getWriterPartWorksheet()->beforeWriteSheetData($worksheet)->writeSheetDataPortion($worksheet, $this->stringTable);
+        $this->setUserDiskFileStore($useDiskCaching, $fileStorePath);
+
+        return $this->releaseSheetAndRenew();
+    }
+
+    /**
+     * save sheet data, specially using loop to load data into cells
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function saveSheetFormData()
+    {
+        $worksheet = $this->spreadSheet->getActiveSheet();
+
+        $this->stringTable = $this->getWriterPartStringTable()->createStringTableWithStartIndex($worksheet, $this->stringTable);
+        $this->getWriterPartStringTable()->writeStringTableWithAppendedMode($this->stringTable);
+        $this->getWriterPartWorksheet()->writeSheetDataPortion($worksheet, $this->stringTable);
+
+        return $this->releaseSheetAndRenew();
+    }
+
+    private function releaseSheetAndRenew()
+    {
+        $activeIndex = $this->spreadSheet->getActiveSheetIndex();
+        $worksheet = $this->spreadSheet->getSheet($activeIndex);
+        //get the value before remove sheet
+        $title = $worksheet->getTitle();
+        $mergeCells = $worksheet->getMergeCells();
+        $codeName = $worksheet->getCodeName();
+        $charts = $this->includeCharts ? $worksheet->getChartCollection() : [];
+        $draws = $worksheet->getDrawingCollection();
+        $hyperlink = $worksheet->getHyperlinkCollection();
+        $comments = $worksheet->getComments();
+        $sheetHeader = $worksheet->getHeaderFooter();
+
+        $this->spreadSheet->removeSheetByIndex($activeIndex, true);
+        $this->spreadSheet->createSheet($activeIndex);
+        $this->spreadSheet->setActiveSheetIndex($activeIndex);
+
+        $worksheet = $this->spreadSheet->getActiveSheet();
+
+        //set back value to new sheet
+        $worksheet->setTitle($title);
+        $worksheet->setMergeCells($mergeCells);
+        $worksheet->setCodeName($codeName, false);
+        if ($charts) {
+            $worksheet->setChartCollection($charts);
+        }
+        if ($draws) {
+            $worksheet->setDrawingCollection($draws);
+        }
+        if ($hyperlink) {
+            $worksheet->setHyperlinkCollection($hyperlink);
+        }
+        if ($comments) {
+            $worksheet->setComments($comments);
+        }
+        if ($sheetHeader) {
+            $worksheet->setHeaderFooter($sheetHeader);
+        }
+        $this->stringTable = [];
+
+        return $worksheet;
+    }
+
+    /**
+     * End of a sheet of excel, write the rest of sheet content
+     * @return $this
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function afterSaveSheetFormData()
+    {
+        $this->saveSheetFormData();
+        $activeIndex = $this->spreadSheet->getActiveSheetIndex();
+        $this->getWriterPartWorksheet()->afterWriteSheetData($this->spreadSheet->getActiveSheet(), $this->includeCharts);
+        $this->zipFiles['xl/worksheets/sheet' . ($activeIndex + 1) . '.xml'] = $this->sheetsPath[$activeIndex];
+
+        return $this;
+    }
+
+    /**
+     * Appended mode finished, write the rest of files to make sure a entire excel
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function finish()
+    {
+        $this->getWriterPartStringTable()->writeStringTableEnd();
+
+        $this->zipContent = $this->commonBeforeSheetSave();
+        $this->commonSaveEnd($this->zipContent);
+
+        $this->addZipFiles($this->zipContent);
+        $this->addFileFromPath();
+
+        // Close file
+        try {
+            $this->zip->finish();
+        } catch (OverflowException $e) {
+            throw new WriterException('Could not close resource.');
+        } finally {
+            unlink($this->sharedStringsPath);
+            foreach ($this->sheetsPath as $path) {
+                unlink($path);
+            }
+        }
+
+        $this->maybeCloseFileHandle();
+    }
+
+    private function commonSaveEnd(&$zipContent)
+    {
         // Add relationships to ZIP file
         $zipContent['_rels/.rels'] = $this->getWriterPartRels()->writeRelationships($this->spreadSheet);
         $zipContent['xl/_rels/workbook.xml.rels'] = $this->getWriterPartRels()->writeWorkbookRelationships($this->spreadSheet);
@@ -365,7 +569,11 @@ class Xlsx extends BaseWriter
         $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
 
         // Add string table to ZIP file
-        $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);
+        if ($this->lowMemoryExport) {
+            $this->zipFiles['xl/sharedStrings.xml'] = $this->sharedStringsPath;
+        } else {
+            $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);
+        }
 
         // Add styles to ZIP file
         $zipContent['xl/styles.xml'] = $this->getWriterPartStyle()->writeStyles($this->spreadSheet);
@@ -374,15 +582,30 @@ class Xlsx extends BaseWriter
         $zipContent['xl/workbook.xml'] = $this->getWriterPartWorkbook()->writeWorkbook($this->spreadSheet, $this->preCalculateFormulas);
 
         $chartCount = 0;
-        // Add worksheets
-        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts);
+        if ($this->lowMemoryExport) {
+            // Add chart
             if ($this->includeCharts) {
-                $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
-                if (count($charts) > 0) {
-                    foreach ($charts as $chart) {
-                        $zipContent['xl/charts/chart' . ($chartCount + 1) . '.xml'] = $this->getWriterPartChart()->writeChart($chart, $this->preCalculateFormulas);
-                        ++$chartCount;
+                for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+                    $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
+                    if (count($charts) > 0) {
+                        foreach ($charts as $chart) {
+                            $zipContent['xl/charts/chart' . ($chartCount + 1) . '.xml'] = $this->getWriterPartChart()->writeChart($chart, $this->preCalculateFormulas);
+                            ++$chartCount;
+                        }
+                    }
+                }
+            }
+        } else {
+            // Add worksheets
+            for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+                $zipContent['xl/worksheets/sheet' . ($i + 1) . '.xml'] = $this->getWriterPartWorksheet()->writeWorksheet($this->spreadSheet->getSheet($i), $this->stringTable, $this->includeCharts);
+                if ($this->includeCharts) {
+                    $charts = $this->spreadSheet->getSheet($i)->getChartCollection();
+                    if (count($charts) > 0) {
+                        foreach ($charts as $chart) {
+                            $zipContent['xl/charts/chart' . ($chartCount + 1) . '.xml'] = $this->getWriterPartChart()->writeChart($chart, $this->preCalculateFormulas);
+                            ++$chartCount;
+                        }
                     }
                 }
             }
@@ -511,28 +734,6 @@ class Xlsx extends BaseWriter
                 $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
             }
         }
-
-        Functions::setReturnDateType($saveDateReturnType);
-        Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
-
-        $this->openFileHandle($filename);
-
-        $options = new Archive();
-        $options->setEnableZip64(false);
-        $options->setOutputStream($this->fileHandle);
-
-        $this->zip = new ZipStream(null, $options);
-
-        $this->addZipFiles($zipContent);
-
-        // Close file
-        try {
-            $this->zip->finish();
-        } catch (OverflowException $e) {
-            throw new WriterException('Could not close resource.');
-        }
-
-        $this->maybeCloseFileHandle();
     }
 
     /**
@@ -665,6 +866,30 @@ class Xlsx extends BaseWriter
 
     private $pathNames = [];
 
+    /**
+     * @var array
+     */
+    private $zipFiles = [];
+    /**
+     * @var array
+     */
+    private $zipContent = [];
+
+    /**
+     * @var string sharedStrings temp path
+     */
+    private $sharedStringsPath;
+
+    /**
+     * @var array sheets's stored temp path
+     */
+    private $sheetsPath;
+
+    /**
+     * @var bool if use low memory method to export
+     */
+    private $lowMemoryExport = false;
+
     private function addZipFile(string $path, string $content): void
     {
         if (!in_array($path, $this->pathNames)) {
@@ -677,6 +902,13 @@ class Xlsx extends BaseWriter
     {
         foreach ($zipContent as $path => $content) {
             $this->addZipFile($path, $content);
+        }
+    }
+
+    private function addFileFromPath()
+    {
+        foreach ($this->zipFiles as $path => $tempPath) {
+            $this->zip->addFileFromPath($path, $tempPath);
         }
     }
 

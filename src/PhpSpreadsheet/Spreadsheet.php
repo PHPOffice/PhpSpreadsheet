@@ -653,13 +653,16 @@ class Spreadsheet
      *
      * @param int $sheetIndex Index position of the worksheet to remove
      */
-    public function removeSheetByIndex($sheetIndex): void
+    public function removeSheetByIndex($sheetIndex, bool $disconnectedAll = false): void
     {
         $numSheets = count($this->workSheetCollection);
         if ($sheetIndex > $numSheets - 1) {
             throw new Exception(
                 "You tried to remove a sheet by the out of bounds index: {$sheetIndex}. The actual number of sheets is {$numSheets}."
             );
+        }
+        if ($disconnectedAll){
+            $this->workSheetCollection[$sheetIndex]->__destruct();
         }
         array_splice($this->workSheetCollection, $sheetIndex, 1);
 
