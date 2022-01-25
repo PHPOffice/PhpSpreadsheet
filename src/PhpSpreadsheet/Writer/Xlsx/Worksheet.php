@@ -272,10 +272,11 @@ class Worksheet extends WriterPart
             }
         }
         $objWriter->flush();
+
         return $this;
     }
 
-    public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = null)
+    public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = null): void
     {
         $objWriter = $this->objWriters[$this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex()];
         $objWriter->endElement();

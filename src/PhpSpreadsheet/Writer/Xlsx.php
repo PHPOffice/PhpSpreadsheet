@@ -182,25 +182,29 @@ class Xlsx extends BaseWriter
      * @var array
      */
     private $zipFiles = [];
+
     /**
      * @var array
      */
     private $zipContent = [];
 
     /**
-     * sharedStrings temp path
+     * sharedStrings temp path.
+     *
      * @var string
      */
     private $sharedStringsPath;
 
     /**
-     * sheets's stored temp path
+     * sheets's stored temp path.
+     *
      * @var array
      */
     private $sheetsPath;
 
     /**
-     * if use low memory method to export
+     * if use low memory method to export.
+     *
      * @var bool
      */
     private $lowMemoryExport = false;
@@ -360,11 +364,7 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * @param string $filename
-     * @param int $flags
      * @return $this
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function prepareBeforeSave(string $filename, int $flags = 0)
     {
@@ -455,14 +455,14 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * save a sheet header
+     * save a sheet header.
+     *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function saveSheetHeader()
     {
         $activeIndex = $this->spreadSheet->getActiveSheetIndex();
-        $this->sheetsPath[$activeIndex] = File::sysGetTempDir() . "/sheet" . ($activeIndex + 1) . ".xml";
+        $this->sheetsPath[$activeIndex] = File::sysGetTempDir() . '/sheet' . ($activeIndex + 1) . '.xml';
 
         $useDiskCaching = $this->getUseDiskCaching();
         $fileStorePath = $this->getFileStorePath();
@@ -477,9 +477,9 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * save sheet data, specially using loop to load data into cells
+     * save sheet data, specially using loop to load data into cells.
+     *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function saveSheetFormData()
     {
@@ -494,7 +494,6 @@ class Xlsx extends BaseWriter
 
     /**
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     private function releaseSheetAndRenew()
     {
@@ -537,9 +536,9 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * End of a sheet of excel, write the rest of sheet content
+     * End of a sheet of excel, write the rest of sheet content.
+     *
      * @return $this
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function afterSaveSheetFormData()
     {
@@ -552,9 +551,7 @@ class Xlsx extends BaseWriter
     }
 
     /**
-     * Appended mode finished, write the rest of files to make sure a entire excel
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * Appended mode finished, write the rest of files to make sure a entire excel.
      */
     public function finish(): void
     {
@@ -583,7 +580,6 @@ class Xlsx extends BaseWriter
 
     /**
      * @param array $zipContent
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     private function commonSaveEnd(&$zipContent): void
     {

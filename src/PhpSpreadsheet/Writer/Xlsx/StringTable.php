@@ -23,13 +23,15 @@ class StringTable extends WriterPart
     private $uniqueCount;
 
     /**
-     * In appended mode,use a temporary path to store
+     * In appended mode,use a temporary path to store.
+     *
      * @var string
      */
     private $tempFilePath;
 
     /**
-     * In appended mode,record file where to be stored
+     * In appended mode,record file where to be stored.
+     *
      * @var string
      */
     private $userPath;
@@ -134,7 +136,6 @@ class StringTable extends WriterPart
 
     /**
      * @return StringTable
-     * @throws WriterException
      */
     public function createDiskCacheWriter()
     {
@@ -154,8 +155,8 @@ class StringTable extends WriterPart
     }
 
     /**
-     * In order to write corrected content, flush data when each called
-     * @param array $stringTable
+     * In order to write corrected content, flush data when each called.
+     *
      * @return $this
      */
     public function writeStringTableWithAppendedMode(array $stringTable)
@@ -192,8 +193,7 @@ class StringTable extends WriterPart
      * Create worksheet stringtable.
      *
      * @param Worksheet $pSheet Worksheet
-     * @param string[] $pExistingTable Existing table to eventually merge with
-     * @param array|null $existingTable
+     * @param null|array $existingTable
      *
      * @return string[] String table for worksheet
      */
@@ -242,13 +242,12 @@ class StringTable extends WriterPart
     }
 
     /**
-     * Write xml header and match right uniqueCount
-     * @throws WriterException
+     * Write xml header and match right uniqueCount.
      */
     public function writeStringTableEnd(): void
     {
-        $fp1 = fopen($this->tempFilePath, 'r');
-        $fp = fopen($this->userPath, 'a+');
+        $fp1 = fopen($this->tempFilePath, 'rb');
+        $fp = fopen($this->userPath, 'a+b');
         if (!is_resource($fp) || !is_resource($fp1)) {
             throw new WriterException('unable to open file:' . $this->tempFilePath . ' or ' . $this->userPath);
         }
