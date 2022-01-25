@@ -780,8 +780,8 @@ class Worksheet implements IComparable
 
                         if ($cellValue !== null && $cellValue !== '') {
                             $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
-                                (float)$autoSizes[$this->cellCollection->getCurrentColumn()],
-                                (float)Shared\Font::calculateColumnWidth(
+                                (float) $autoSizes[$this->cellCollection->getCurrentColumn()],
+                                (float) Shared\Font::calculateColumnWidth(
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
                                     $cellValue,
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
@@ -1727,8 +1727,8 @@ class Worksheet implements IComparable
 
         if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
             $this->mergeCells[$range] = $range;
-            $firstRow = (int)$matches[2];
-            $lastRow = (int)$matches[4];
+            $firstRow = (int) $matches[2];
+            $lastRow = (int) $matches[4];
             $firstColumn = $matches[1];
             $lastColumn = $matches[3];
             $firstColumnIndex = Coordinate::columnIndexFromString($firstColumn);
