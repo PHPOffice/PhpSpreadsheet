@@ -18,7 +18,8 @@ class XMLWriter extends \XMLWriter
     private $tempFileName = '';
 
     /**
-     * Whether temporary file will be unlink when class is destructed
+     * Whether temporary file will be unlink when class is destructed.
+     *
      * @var bool
      */
     public $needUnlink = true;
