@@ -36,7 +36,7 @@ abstract class BaseWriter implements IWriter
     private $diskCachingDirectory = './';
 
     /**
-     * disk stored path
+     * disk stored path.
      *
      * @var string
      */
@@ -59,7 +59,7 @@ abstract class BaseWriter implements IWriter
 
     public function setIncludeCharts($includeCharts)
     {
-        $this->includeCharts = (bool)$includeCharts;
+        $this->includeCharts = (bool) $includeCharts;
 
         return $this;
     }
@@ -71,7 +71,7 @@ abstract class BaseWriter implements IWriter
 
     public function setPreCalculateFormulas($precalculateFormulas)
     {
-        $this->preCalculateFormulas = (bool)$precalculateFormulas;
+        $this->preCalculateFormulas = (bool) $precalculateFormulas;
 
         return $this;
     }
@@ -121,7 +121,7 @@ abstract class BaseWriter implements IWriter
 
     protected function processFlags(int $flags): void
     {
-        if (((bool)($flags & self::SAVE_WITH_CHARTS)) === true) {
+        if (((bool) ($flags & self::SAVE_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);
         }
     }
