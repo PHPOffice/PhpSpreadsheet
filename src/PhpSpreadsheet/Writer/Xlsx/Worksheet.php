@@ -1068,7 +1068,7 @@ class Worksheet extends WriterPart
 
         // Loop through cells
         $cellsByRow = [];
-        foreach ($worksheet->getCoordinates() as $coordinate) {
+        foreach ($worksheet->getCoordinates(false) as $coordinate) {
             $cellAddress = Coordinate::coordinateFromString($coordinate);
             $cellsByRow[$cellAddress[1]][] = $coordinate;
         }

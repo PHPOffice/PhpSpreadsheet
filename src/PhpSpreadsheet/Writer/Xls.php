@@ -161,7 +161,7 @@ class Xls extends BaseWriter
 
         // add fonts from rich text eleemnts
         for ($i = 0; $i < $countSheets; ++$i) {
-            foreach ($this->writerWorksheets[$i]->phpSheet->getCoordinates() as $coordinate) {
+            foreach ($this->writerWorksheets[$i]->phpSheet->getCoordinates(false) as $coordinate) {
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCell($coordinate);
                 $cVal = $cell->getValue();
                 if ($cVal instanceof RichText) {

@@ -400,7 +400,7 @@ class Worksheet extends BIFFwriter
         }
 
         // Write Cells
-        foreach ($phpSheet->getCoordinates() as $coordinate) {
+        foreach ($phpSheet->getCoordinates(false) as $coordinate) {
             $cell = $phpSheet->getCell($coordinate);
             $row = $cell->getRow() - 1;
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
