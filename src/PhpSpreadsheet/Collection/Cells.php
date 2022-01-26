@@ -45,9 +45,9 @@ class Cells
     private $currentCellIsDirty = false;
 
     /**
-     * An index of existing cells. Booleans indexed by their coordinate.
+     * An index of existing cells. Cells indexed by 4-bytes (64 cells) blocks.
      *
-     * @var bool[]
+     * @var int[][]
      */
     private $index = [];
 
@@ -96,8 +96,17 @@ class Cells
             return true;
         }
 
+        $column = '';
+        $row = 0;
+        sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
+
+        $cellBlock = (int) (($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            return false;
+        }
+
         // Check if the requested entry exists in the index
-        return isset($this->index[$cellCoordinate]);
+        return (bool) ($this->index[$column][$cellBlock] >> (($row - 1) % 64) & 1);
     }
 
     /**
@@ -126,7 +135,25 @@ class Cells
             $this->currentCellIsDirty = false;
         }
 
-        unset($this->index[$cellCoordinate]);
+        $column = '';
+        $row = 0;
+        sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
+
+        $cellBlock = (int) (($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            return;
+        }
+
+        // Check if the requested entry exists in the index
+        $this->index[$column][$cellBlock] &= ~(1 << (($row - 1) % 64));
+
+        // Clean index
+        if ($this->index[$column][$cellBlock] === 0) {
+            unset($this->index[$column][$cellBlock]);
+            if (empty($this->index[$column])) {
+                unset($this->index[$column]);
+            }
+        }
 
         // Delete the entry from cache
         $this->cache->delete($this->cachePrefix . $cellCoordinate);
@@ -139,7 +166,25 @@ class Cells
      */
     public function getCoordinates()
     {
-        return array_keys($this->index);
+        $coordinates = [];
+
+        foreach ($this->index as $column => $cellBlocks) {
+            foreach ($cellBlocks as $cellBlockId => $cellBlock) {
+                $blocks = preg_split('//u', strrev(sprintf('%064b', $cellBlock)), -1, PREG_SPLIT_NO_EMPTY);
+
+                if ($blocks !== false) {
+                    foreach ($blocks as $pos => $char) {
+                        if ($char === '0') {
+                            continue;
+                        }
+
+                        $coordinates[] = $column . ($cellBlockId * 64 + $pos + 1);
+                    }
+                }
+            }
+        }
+
+        return $coordinates;
     }
 
     /**
@@ -149,16 +194,30 @@ class Cells
      */
     public function getSortedCoordinates()
     {
-        $sortKeys = [];
-        foreach ($this->getCoordinates() as $coord) {
-            $column = '';
-            $row = 0;
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
-        }
-        ksort($sortKeys);
+        $coordinates = [];
 
-        return array_values($sortKeys);
+        $existingBlocksIds = [];
+        foreach ($this->index as $cellBlocks) {
+            foreach ($cellBlocks as $cellBlockId => $cellBlock) {
+                $existingBlocksIds[$cellBlockId] = true;
+            }
+        }
+
+        foreach ($existingBlocksIds as $blocksId => $v) {
+            for ($offset = 0; $offset < 64; ++$offset) {
+                foreach ($this->index as $column => $cellBlocks) {
+                    if (!isset($cellBlocks[$blocksId])) {
+                        continue;
+                    }
+
+                    if (($cellBlocks[$blocksId] >> $offset) & 1) {
+                        $coordinates[] = $column . ($blocksId * 64 + $offset + 1);
+                    }
+                }
+            }
+        }
+
+        return $coordinates;
     }
 
     /**
@@ -169,19 +228,23 @@ class Cells
     public function getHighestRowAndColumn()
     {
         // Lookup highest column and highest row
-        $col = ['A' => '1A'];
-        $row = [1];
+        $highestRow = 1;
+        $highestColumn = '1A';
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
             sscanf($coord, '%[A-Z]%d', $c, $r);
-            $row[$r] = $r;
-            $col[$c] = strlen($c) . $c;
+            if ($r > $highestRow) {
+                $highestRow = $r;
+            }
+            $currentCol = strlen($c) . $c;
+            if ($currentCol > $highestColumn) {
+                $highestColumn = $currentCol;
+            }
         }
 
         // Determine highest column and row
-        $highestRow = max($row);
-        $highestColumn = substr((string) @max($col), 1);
+        $highestColumn = substr($highestColumn, 1);
 
         return [
             'row' => $highestRow,
@@ -226,7 +289,7 @@ class Cells
 
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
-        return (int) $row;
+        return $row;
     }
 
     /**
@@ -245,7 +308,7 @@ class Cells
             return $colRow['column'];
         }
 
-        $columnList = [1];
+        $maxColId = 1;
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
@@ -254,10 +317,13 @@ class Cells
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Coordinate::columnIndexFromString($c);
+            $colId = Coordinate::columnIndexFromString($c);
+            if ($colId > $maxColId) {
+                $maxColId = $colId;
+            }
         }
 
-        return Coordinate::stringFromColumnIndex((int) @max($columnList));
+        return Coordinate::stringFromColumnIndex($maxColId);
     }
 
     /**
@@ -276,7 +342,7 @@ class Cells
             return $colRow['row'];
         }
 
-        $rowList = [0];
+        $maxRow = 0;
         foreach ($this->getCoordinates() as $coord) {
             $c = '';
             $r = 0;
@@ -285,10 +351,12 @@ class Cells
             if ($c != $column) {
                 continue;
             }
-            $rowList[] = $r;
+            if ($r > $maxRow) {
+                $maxRow = $r;
+            }
         }
 
-        return max($rowList);
+        return $maxRow;
     }
 
     /**
@@ -304,6 +372,8 @@ class Cells
     /**
      * Clone the cell collection.
      *
+     * @param Worksheet $worksheet The new worksheet that we're copying to
+     *
      * @return self
      */
     public function cloneCellCollection(Worksheet $worksheet)
@@ -312,12 +382,13 @@ class Cells
         $newCollection = clone $this;
 
         $newCollection->parent = $worksheet;
-        if (is_object($newCollection->currentCell)) {
+        if (($newCollection->currentCell !== null) && (is_object($newCollection->currentCell))) {
             $newCollection->currentCell->attach($this);
         }
 
         // Get old values
         $oldKeys = $newCollection->getAllCacheKeys();
+        /** @var iterable<string, Cell> $oldValues */
         $oldValues = $newCollection->cache->getMultiple($oldKeys);
         $newValues = [];
         $oldCachePrefix = $newCollection->cachePrefix;
@@ -325,14 +396,16 @@ class Cells
         // Change prefix
         $newCollection->cachePrefix = $newCollection->getUniqueID();
         foreach ($oldValues as $oldKey => $value) {
-            /** @var string $newKey */
-            $newKey = str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey);
-            $newValues[$newKey] = clone $value;
+            $newValues[str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey)] = clone $value;
         }
 
         // Store new values
         $stored = $newCollection->cache->setMultiple($newValues);
-        $this->destructIfNeeded($stored, $newCollection, 'Failed to copy cells in cache');
+        if (!$stored) {
+            $newCollection->__destruct();
+
+            throw new PhpSpreadsheetException('Failed to copy cells in cache');
+        }
 
         return $newCollection;
     }
@@ -379,11 +452,15 @@ class Cells
      */
     private function storeCurrentCell(): void
     {
-        if ($this->currentCellIsDirty && isset($this->currentCoordinate, $this->currentCell)) {
+        if ($this->currentCellIsDirty && !empty($this->currentCoordinate) && $this->currentCell) {
             $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
-            $this->destructIfNeeded($stored, $this, "Failed to store cell {$this->currentCoordinate} in cache");
+            if (!$stored) {
+                $this->__destruct();
+
+                throw new PhpSpreadsheetException("Failed to store cell {$this->currentCoordinate} in cache");
+            }
             $this->currentCellIsDirty = false;
         }
 
@@ -391,29 +468,36 @@ class Cells
         $this->currentCell = null;
     }
 
-    private function destructIfNeeded(bool $stored, self $cells, string $message): void
-    {
-        if (!$stored) {
-            $cells->__destruct();
-
-            throw new PhpSpreadsheetException($message);
-        }
-    }
-
     /**
      * Add or update a cell identified by its coordinate into the collection.
      *
      * @param string $cellCoordinate Coordinate of the cell to update
-     * @param Cell $cell Cell to update
+     * @param Cell   $cell   Cell to update
      *
      * @return Cell
      */
     public function add($cellCoordinate, Cell $cell)
     {
-        if ($cellCoordinate !== $this->currentCoordinate) {
-            $this->storeCurrentCell();
+        if ($cellCoordinate === $this->currentCoordinate) {
+            return $cell;
         }
-        $this->index[$cellCoordinate] = true;
+
+        $this->storeCurrentCell();
+
+        $column = '';
+        $row = 0;
+        sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
+
+        $cellBlock = (int) (($row - 1) / 64);
+        if (!isset($this->index[$column][$cellBlock])) {
+            $this->index[$column][$cellBlock] = 0;
+        }
+
+        if ($row === 0) {
+            return $cell;
+        }
+
+        $this->index[$column][$cellBlock] |= (1 << (($row - 1) % 64));
 
         $this->currentCoordinate = $cellCoordinate;
         $this->currentCell = $cell;
