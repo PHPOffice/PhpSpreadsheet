@@ -27,6 +27,16 @@ return [
         '=CONCATENATE("""Hello ", B1, """,", " I said.")',
     ],
     [
+        '=ЕСЛИ(1;1;1)',
+        'ru',
+        '=IF(1,1,1)',
+    ],
+    [
+        '=ИСКЛИЛИ(1;1)',
+        'ru',
+        '=XOR(1,1)',
+    ],
+    [
         '=TEKST.SAMENVOEGEN(JAAR(VANDAAG());
             " is ";
             ALS(
