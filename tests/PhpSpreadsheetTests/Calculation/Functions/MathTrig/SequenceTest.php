@@ -10,9 +10,9 @@ class SequenceTest extends AllSetupTeardown
      * @dataProvider providerSEQUENCE
      *
      * @param mixed[] $arguments
-     * @param mixed[] $expectedResult
+     * @param mixed[]|string $expectedResult
      */
-    public function testSEQUENCE(array $arguments, array $expectedResult): void
+    public function testSEQUENCE(array $arguments, $expectedResult): void
     {
         $result = MathTrig\MatrixFunctions::sequence(...$arguments);
         self::assertEquals($expectedResult, $result);

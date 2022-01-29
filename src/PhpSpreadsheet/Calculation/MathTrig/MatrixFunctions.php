@@ -70,6 +70,13 @@ class MatrixFunctions
             return $e->getMessage();
         }
 
+        if ($step === 0) {
+            return array_chunk(
+                array_fill(0, $rows * $columns, $start),
+                $columns
+            );
+        }
+
         return array_chunk(
             range($start, $start + (($rows * $columns - 1) * $step), $step),
             $columns
