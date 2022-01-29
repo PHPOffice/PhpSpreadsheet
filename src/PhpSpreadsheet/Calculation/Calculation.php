@@ -3178,7 +3178,13 @@ class Calculation
             }
         }
 
-        return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
+        return self::translateFormula(
+            self::$functionReplaceFromExcel,
+            self::$functionReplaceToLocale,
+            $formula,
+            ',',
+            self::$localeArgumentSeparator
+        );
     }
 
     private static $functionReplaceFromLocale;
