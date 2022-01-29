@@ -2220,8 +2220,8 @@ class Calculation
         ],
         'SEQUENCE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'sequence'],
+            'argumentCount' => '1-4',
         ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
