@@ -1041,7 +1041,7 @@ class Calculation
         'FILTER' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3+',
+            'argumentCount' => '2-3',
         ],
         'FILTERXML' => [
             'category' => Category::CATEGORY_WEB,
