@@ -307,28 +307,34 @@ class Xlsx extends BaseReader
         return isset($c->v) ? (string) $c->v : null;
     }
 
-    private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
+    private function castToFormula(Worksheet $docSheet, $c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
     {
-        $attr = $c->f->attributes();
+        $formulaAttributes = $c->f->attributes();
         $cellDataType = 'f';
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?
-        if (isset($attr['t']) && strtolower((string) $attr['t']) == 'shared') {
-            $instance = (string) $attr['si'];
+        if (isset($formulaAttributes['t'])) {
+            if (strtolower((string) $formulaAttributes['t']) === 'shared') {
+                $instance = (string) $formulaAttributes['si'];
 
-            if (!isset($sharedFormulas[(string) $attr['si']])) {
-                $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
-            } else {
-                $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
-                $current = Coordinate::indexesFromString($r);
+                if (!isset($sharedFormulas[(string) $formulaAttributes['si']])) {
+                    $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
+                } else {
+                    $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
+                    $current = Coordinate::indexesFromString($r);
 
-                $difference = [0, 0];
-                $difference[0] = $current[0] - $master[0];
-                $difference[1] = $current[1] - $master[1];
+                    $difference = [0, 0];
+                    $difference[0] = $current[0] - $master[0];
+                    $difference[1] = $current[1] - $master[1];
 
-                $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
+                    $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
+                }
+            } elseif (strtolower((string) $formulaAttributes['t']) === 'array') {
+                $formulaType = (string) $formulaAttributes['t'];
+                $formulaRange = $formulaAttributes['ref'] ? (string) $formulaAttributes['ref'] : null;
+                $docSheet->getCell($r)->setFormulaAttributes(['t' => $formulaType, 'ref' => $formulaRange]);
             }
         }
     }
@@ -747,7 +753,7 @@ class Xlsx extends BaseReader
 
                                             if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
                                                 if (isset($cAttr->f)) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                    $this->castToFormula($docSheet, $c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 }
                                                 ++$rowIndex;
 
@@ -779,17 +785,13 @@ class Xlsx extends BaseReader
                                                     }
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToBoolean');
-                                                    if (isset($c->f['t'])) {
-                                                        $att = $c->f;
-                                                        $docSheet->getCell($r)->setFormulaAttributes($att);
-                                                    }
+                                                    $this->castToFormula($docSheet, $c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToBoolean');
                                                 }
 
                                                 break;
                                             case 'inlineStr':
                                                 if (isset($c->f)) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                    $this->castToFormula($docSheet, $c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 } else {
                                                     $value = $this->parseRichText($c->is);
                                                 }
@@ -800,7 +802,7 @@ class Xlsx extends BaseReader
                                                     $value = self::castToError($c);
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                    $this->castToFormula($docSheet, $c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 }
 
                                                 break;
@@ -809,13 +811,7 @@ class Xlsx extends BaseReader
                                                     $value = self::castToString($c);
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
-                                                    $formulaAttributes = $c->f->attributes();
-                                                    if (isset($formulaAttributes['t'])) {
-                                                        $formulaType = $formulaAttributes['t'];
-                                                        $formulaRange = $formulaAttributes['ref'] ? (string) $formulaAttributes['ref'] : null;
-                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $formulaType, 'ref' => $formulaRange]);
-                                                    }
+                                                    $this->castToFormula($docSheet, $c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
                                                 }
 
                                                 break;

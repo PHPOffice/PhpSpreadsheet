@@ -65,6 +65,8 @@ class Cell
 
     /**
      * Attributes of the formula.
+     *
+     * @var null|array
      */
     private $formulaAttributes;
 
@@ -701,11 +703,11 @@ class Cell
     /**
      * Set the formula attributes.
      *
-     * @param mixed $attributes
+     * @param mixed[] $attributes
      *
      * @return $this
      */
-    public function setFormulaAttributes($attributes)
+    public function setFormulaAttributes(array $attributes)
     {
         $this->formulaAttributes = $attributes;
 
@@ -715,7 +717,7 @@ class Cell
     /**
      * Get the formula attributes.
      */
-    public function getFormulaAttributes()
+    public function getFormulaAttributes(): ?array
     {
         return $this->formulaAttributes;
     }

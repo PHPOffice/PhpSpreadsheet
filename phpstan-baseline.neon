@@ -2066,22 +2066,12 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:getFormulaAttributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
 			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataType\\:\\:checkString\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
 		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:\\$formulaAttributes has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
