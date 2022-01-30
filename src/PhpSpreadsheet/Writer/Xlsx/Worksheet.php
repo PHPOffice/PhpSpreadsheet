@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -1246,9 +1247,11 @@ class Worksheet extends WriterPart
 
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas()
+            ? $cell->getCalculatedValue() : $cellValue;
+
         if (is_string($calculatedValue)) {
-            if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
+            if (Functions::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
 
                 return;
@@ -1271,14 +1274,15 @@ class Worksheet extends WriterPart
             $objWriter->endElement();
         } else {
             $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
-            self::writeElementIf(
-                $objWriter,
-                $this->getParentWriter()->getOffice2003Compatibility() === false,
-                'v',
-                ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
-                    ? StringHelper::formatNumber($calculatedValue) : '0'
-            );
         }
+
+        self::writeElementIf(
+            $objWriter,
+            $this->getParentWriter()->getOffice2003Compatibility() === false,
+            'v',
+            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue, 0, 1) !== '#')
+                ? StringHelper::formatNumber($calculatedValue) : '0'
+        );
     }
 
     /**

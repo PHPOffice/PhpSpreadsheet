@@ -810,9 +810,11 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
-                                                    if (isset($c->f['t'])) {
-                                                        $attributes = $c->f['t'];
-                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);
+                                                    $formulaAttributes = $c->f->attributes();
+                                                    if (isset($formulaAttributes['t'])) {
+                                                        $formulaType = $formulaAttributes['t'];
+                                                        $formulaRange = $formulaAttributes['ref'] ? (string) $formulaAttributes['ref'] : null;
+                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $formulaType, 'ref' => $formulaRange]);
                                                     }
                                                 }
 
