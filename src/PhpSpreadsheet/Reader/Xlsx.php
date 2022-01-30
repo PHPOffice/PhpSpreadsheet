@@ -314,9 +314,9 @@ class Xlsx extends BaseReader
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
-        // Shared formula?
         if (isset($formulaAttributes['t'])) {
             if (strtolower((string) $formulaAttributes['t']) === 'shared') {
+                // Shared formula
                 $instance = (string) $formulaAttributes['si'];
 
                 if (!isset($sharedFormulas[(string) $formulaAttributes['si']])) {
@@ -332,6 +332,7 @@ class Xlsx extends BaseReader
                     $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
                 }
             } elseif (strtolower((string) $formulaAttributes['t']) === 'array') {
+                // Array formula
                 $formulaType = (string) $formulaAttributes['t'];
                 $formulaRange = $formulaAttributes['ref'] ? (string) $formulaAttributes['ref'] : null;
                 $docSheet->getCell($r)->setFormulaAttributes(['t' => $formulaType, 'ref' => $formulaRange]);
