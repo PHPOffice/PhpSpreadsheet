@@ -1267,7 +1267,7 @@ class Worksheet extends WriterPart
         if (($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
-            $objWriter->writeAttribute('ref', $cell->getCoordinate());
+            $objWriter->writeAttribute('ref', $attributes['ref'] ?? $cell->getCoordinate());
             $objWriter->writeAttribute('aca', '1');
             $objWriter->writeAttribute('ca', '1');
             $objWriter->text(substr($cellValue, 1));
