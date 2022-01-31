@@ -398,6 +398,24 @@ class ReferenceHelper
             }
         }
 
+        // Find missing coordinates. This is important when inserting column before the last column
+        $missingCoordinates = array_filter(
+            array_map(function ($row) use ($highestColumn) {
+                return $highestColumn . $row;
+            }, range(1, $highestRow)),
+            function ($coordinate) use ($allCoordinates) {
+                return ! in_array($coordinate, $allCoordinates);
+            }
+        );
+
+        $allCoordinates = array_merge($allCoordinates, $missingCoordinates);
+
+        // Sort merged coordinates in correct order
+        usort($allCoordinates, function ($first, $second) {
+            return ($first[1] > $second[1]) ? 1 : -1;
+        });
+        $allCoordinates = array_values($allCoordinates);
+
         // Loop through cells, bottom-up, and change cell coordinate
         if ($remove) {
             // It's faster to reverse and pop than to use unshift, especially with large cell collections

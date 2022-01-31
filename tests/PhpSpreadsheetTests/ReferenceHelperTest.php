@@ -149,4 +149,17 @@ class ReferenceHelperTest extends TestCase
         self::assertSame($oldValue, $newValue);
         self::assertSame($oldDataType, $newDataType);
     }
+
+    public function testRemoveColumnShiftsCorrectColumnValueIntoRemovedColumnCoordinates(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            ['a1', 'b1', 'c1'],
+            ['a2', 'b2', null],
+        ]);
+        self::assertSame('b2', $sheet->getCell('B2')->getValue());
+        $sheet->removeColumn('B');
+        self::assertNull($sheet->getCell('B2')->getValue());
+    }
 }
