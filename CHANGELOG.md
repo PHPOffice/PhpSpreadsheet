@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
+- Fixed `ReferenceHelper@insertNewBefore` behavior when removing column before last column with null value
+
 ### Added
 
 - Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
