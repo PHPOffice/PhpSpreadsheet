@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536) 
+- Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536)
+- Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540) 
 
   Note that the Spill Operator is not yet supported in the Calculation Engine; but this can still be useful for defining array constants.
 - Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
