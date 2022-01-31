@@ -2078,7 +2078,7 @@ class Calculation
         ],
         'RANDARRAY' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [MathTrig\Random::class, 'randArray'],
             'argumentCount' => '0-5',
         ],
         'RANDBETWEEN' => [
