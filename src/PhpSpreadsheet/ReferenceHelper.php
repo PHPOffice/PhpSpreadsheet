@@ -404,7 +404,7 @@ class ReferenceHelper
                 return $highestColumn . $row;
             }, range(1, $highestRow)),
             function ($coordinate) use ($allCoordinates) {
-                return ! in_array($coordinate, $allCoordinates);
+                return !in_array($coordinate, $allCoordinates);
             }
         );
 
