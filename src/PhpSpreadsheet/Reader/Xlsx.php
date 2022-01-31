@@ -828,7 +828,7 @@ class Xlsx extends BaseReader
                                             $cell = $docSheet->getCell($r);
                                             $formulaAttributes = $cell->getFormulaAttributes();
                                             $isArrayFormula = isset($formulaAttributes['t']) && $formulaAttributes['t'] === 'array';
-                                            $arrayFormulaRange = isset($formulaAttributes['ref']) ? $formulaAttributes['ref'] : null;
+                                            $arrayFormulaRange = $formulaAttributes['ref'] ?? null;
                                             // Assign value
                                             if ($cellDataType != '') {
                                                 // it is possible, that datatype is numeric but with an empty string, which result in an error
