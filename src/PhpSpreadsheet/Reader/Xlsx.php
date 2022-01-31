@@ -826,6 +826,9 @@ class Xlsx extends BaseReader
                                             }
 
                                             $cell = $docSheet->getCell($r);
+                                            $formulaAttributes = $cell->getFormulaAttributes();
+                                            $isArrayFormula = isset($formulaAttributes['t']) && $formulaAttributes['t'] === 'array';
+                                            $arrayFormulaRange = isset($formulaAttributes['ref']) ? $formulaAttributes['ref'] : null;
                                             // Assign value
                                             if ($cellDataType != '') {
                                                 // it is possible, that datatype is numeric but with an empty string, which result in an error
@@ -833,10 +836,10 @@ class Xlsx extends BaseReader
                                                     $cellDataType = DataType::TYPE_NULL;
                                                 }
                                                 if ($cellDataType !== DataType::TYPE_NULL) {
-                                                    $cell->setValueExplicit($value, $cellDataType);
+                                                    $cell->setValueExplicit($value, $cellDataType, $isArrayFormula, $arrayFormulaRange);
                                                 }
                                             } else {
-                                                $cell->setValue($value);
+                                                $cell->setValue($value, $isArrayFormula, $arrayFormulaRange);
                                             }
                                             if ($calculatedValue !== null) {
                                                 $cell->setCalculatedValue($calculatedValue);

@@ -16,6 +16,7 @@ class ArrayFormulaTest extends AbstractFunctional
         $cellFormulaAttributes = $spreadsheet->getActiveSheet()->getCell('A1')->getFormulaAttributes();
 
         self::assertArrayHasKey('t', $cellFormulaAttributes);
+        self::assertSame('array', $cellFormulaAttributes['t']);
         self::assertArrayHasKey('ref', $cellFormulaAttributes);
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');

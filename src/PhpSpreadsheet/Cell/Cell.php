@@ -190,13 +190,25 @@ class Cell
      *
      * @return $this
      */
-    public function setValue($value)
+    public function setValue($value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
-        if (!self::getValueBinder()->bindValue($this, $value)) {
+        if (!self::getValueBinder()->bindValue($this, $value, $isArrayFormula, $arrayFormulaRange)) {
             throw new Exception('Value could not be bound to cell.');
         }
 
         return $this;
+    }
+
+    protected function formulaAttributes(bool $isArrayFormula, ?string $arrayFormulaRange): array
+    {
+        if ($isArrayFormula === true) {
+            return [
+                't' => 'array',
+                'ref' => $arrayFormulaRange === null ? $this->getCoordinate() : $arrayFormulaRange,
+            ];
+        }
+
+        return [];
     }
 
     /**
@@ -207,7 +219,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setValueExplicit($value, $dataType)
+    public function setValueExplicit($value, $dataType, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
         // set the value according to data type
         switch ($dataType) {
@@ -233,7 +245,17 @@ class Cell
 
                 break;
             case DataType::TYPE_FORMULA:
-                $this->value = (string) $value;
+                if (is_string($value) !== true || strpos($value, '=') !== 0) {
+                    $dataType = DataType::TYPE_STRING;
+                    if (in_array($value, Calculation::$excelConstants, true)) {
+                        $value = array_search($value, Calculation::$excelConstants, true);
+                    }
+                    $value = (string) $value;
+                    $this->formulaAttributes = [];
+                } else {
+                    $this->formulaAttributes = $this->formulaAttributes($isArrayFormula, $arrayFormulaRange);
+                }
+                $this->value = $value;
 
                 break;
             case DataType::TYPE_BOOL:
@@ -283,19 +305,42 @@ class Cell
     {
         if ($this->dataType == DataType::TYPE_FORMULA) {
             try {
+                $coordinate = $this->getCoordinate();
+                $worksheet = $this->getWorksheet();
+                $value = $this->value;
+                $datatype = $this->dataType;
+                $formulaAttributes = $this->formulaAttributes;
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
-                $this->getWorksheet()->setSelectedCells($selected);
-                $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
-                //    We don't yet handle array returns
+
                 if (is_array($result)) {
+                    // We'll need to do a check here for the Singular Operator (@) at some point
+                    //       and not populate the spillage cells if it's there
+                    if ($this->isArrayFormula()) {
+                        // Here is where we should set all cellRange values from the result (but within the range limit)
+                        // How are we going to handle a #SPILL! error?
+                        $worksheet->fromArray($result, null, $coordinate, true);
+                        // fromArray() will reset the value for this cell with the calculation result
+                        //      as well as updating the spillage cells,
+                        //  so we need to restore this cell to its formula value, attributes, and datatype
+                        $worksheet->getCell($coordinate);
+                        $this->updateInCollection();
+                        $this->value = $value;
+                        $this->dataType = $datatype;
+                        $this->formulaAttributes = $formulaAttributes;
+                    }
+
+                    // Now we just extract the top-left value from the array to get the result for this specific cell
                     while (is_array($result)) {
                         $result = array_shift($result);
                     }
                 }
+
+                $this->getWorksheet()->setSelectedCells($selected);
+                $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
@@ -380,12 +425,24 @@ class Cell
 
     /**
      * Identify if the cell contains a formula.
-     *
-     * @return bool
      */
-    public function isFormula()
+    public function isFormula(): bool
     {
         return $this->dataType == DataType::TYPE_FORMULA;
+    }
+
+    /**
+     * Identify if the cell contains an array formula.
+     */
+    public function isArrayFormula(): bool
+    {
+        if ($this->dataType === DataType::TYPE_FORMULA) {
+            $formulaAttributes = $this->getFormulaAttributes();
+
+            return isset($formulaAttributes['t']) && $formulaAttributes['t'] === 'array';
+        }
+
+        return false;
     }
 
     /**

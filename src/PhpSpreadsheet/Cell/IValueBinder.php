@@ -12,5 +12,5 @@ interface IValueBinder
      *
      * @return bool
      */
-    public function bindValue(Cell $cell, $value);
+    public function bindValue(Cell $cell, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null);
 }

@@ -1270,7 +1270,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('ref', $attributes['ref'] ?? $cell->getCoordinate());
             $objWriter->writeAttribute('aca', '1');
             $objWriter->writeAttribute('ca', '1');
-            $objWriter->text(substr($cellValue, 1));
+            $objWriter->text(Xlfn::addXlfnStripEquals($cellValue));
             $objWriter->endElement();
         } else {
             $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));

@@ -1110,9 +1110,9 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValue($coordinate, $value)
+    public function setCellValue($coordinate, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
-        $this->getCell($coordinate)->setValue($value);
+        $this->getCell($coordinate)->setValue($value, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1126,9 +1126,14 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueByColumnAndRow($columnIndex, $row, $value)
-    {
-        $this->getCellByColumnAndRow($columnIndex, $row)->setValue($value);
+    public function setCellValueByColumnAndRow(
+        $columnIndex,
+        $row,
+        $value,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
+        $this->getCellByColumnAndRow($columnIndex, $row)->setValue($value, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1142,10 +1147,15 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicit($coordinate, $value, $dataType)
-    {
+    public function setCellValueExplicit(
+        $coordinate,
+        $value,
+        $dataType,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
         // Set value
-        $this->getCell($coordinate)->setValueExplicit($value, $dataType);
+        $this->getCell($coordinate)->setValueExplicit($value, $dataType, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1160,9 +1170,15 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, $value, $dataType)
-    {
-        $this->getCellByColumnAndRow($columnIndex, $row)->setValueExplicit($value, $dataType);
+    public function setCellValueExplicitByColumnAndRow(
+        $columnIndex,
+        $row,
+        $value,
+        $dataType,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
+        $this->getCellByColumnAndRow($columnIndex, $row)->setValueExplicit($value, $dataType, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
