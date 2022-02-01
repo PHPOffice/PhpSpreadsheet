@@ -1265,11 +1265,13 @@ class Worksheet extends WriterPart
 
         $attributes = $cell->getFormulaAttributes();
         if (($attributes['t'] ?? null) === 'array') {
+            $objWriter->writeAttribute('cm', '1');
+
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
             $objWriter->writeAttribute('ref', $attributes['ref'] ?? $cell->getCoordinate());
-            $objWriter->writeAttribute('aca', '1');
-            $objWriter->writeAttribute('ca', '1');
+            $objWriter->writeAttribute('aca', '1');     // Always calculate array, true
+            $objWriter->writeAttribute('ca', '1');      // Calculate cell, true
             $objWriter->text(Xlfn::addXlfnStripEquals($cellValue));
             $objWriter->endElement();
         } else {

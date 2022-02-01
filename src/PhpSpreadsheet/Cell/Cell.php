@@ -327,10 +327,10 @@ class Cell
                         //      as well as updating the spillage cells,
                         //  so we need to restore this cell to its formula value, attributes, and datatype
                         $worksheet->getCell($coordinate);
-                        $this->updateInCollection();
                         $this->value = $value;
                         $this->dataType = $datatype;
                         $this->formulaAttributes = $formulaAttributes;
+                        $this->updateInCollection();
                     }
 
                     // Now we just extract the top-left value from the array to get the result for this specific cell

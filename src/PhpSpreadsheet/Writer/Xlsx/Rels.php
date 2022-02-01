@@ -137,6 +137,17 @@ class Rels extends WriterPart
                 'worksheets/sheet' . ($i + 1) . '.xml'
             );
         }
+
+        // Relationship sharedStrings.xml
+        // id : just after the last sheet
+        $this->writeRelationship(
+            $objWriter,
+            ($i + 1 + 3),
+            'http://schemas.openxmlformats.org/officeDocument/2006/relationships/sheetMetadata',
+            'metadata.xml'
+        );
+        ++$i; //increment i if needed for an another relation
+
         // Relationships for vbaProject if needed
         // id : just after the last sheet
         if ($spreadsheet->hasMacros()) {
