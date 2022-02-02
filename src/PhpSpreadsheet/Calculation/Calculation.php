@@ -2745,12 +2745,14 @@ class Calculation
             'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'anchorArray'],
             'argumentCount' => '1',
             'passCellReference' => true,
+            'passByReference' => [true],
         ],
         'SINGLE' => [
             'category' => Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION,
             'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'single'],
             'argumentCount' => '1',
             'passCellReference' => true,
+            'passByReference' => [true],
         ],
     ];
 
