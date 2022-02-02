@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -316,13 +317,25 @@ class Cell
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
 
+                $worksheet->getCell($coordinate);
+
                 if (is_array($result)) {
                     // We'll need to do a check here for the Singular Operator (@) at some point
                     //       and not populate the spillage cells if it's there
                     if ($this->isArrayFormula()) {
                         // Here is where we should set all cellRange values from the result (but within the range limit)
-                        // How are we going to handle a #SPILL! error?
-                        $worksheet->fromArray($result, null, $coordinate, true);
+                        // Ensure that our array result dimensions match the specified array formula range dimensions,
+                        //    expanding or shrinking it as necessary.
+                        // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
+                        $worksheet->fromArray(
+                            Functions::resizeMatrix(
+                                $result,
+                                ...Coordinate::rangeDimension($this->formulaAttributes['ref'])
+                            ),
+                            null,
+                            $coordinate,
+                            true
+                        );
                         // fromArray() will reset the value for this cell with the calculation result
                         //      as well as updating the spillage cells,
                         //  so we need to restore this cell to its formula value, attributes, and datatype

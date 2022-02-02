@@ -657,6 +657,51 @@ class Functions
         return $value;
     }
 
+    protected static function resizeMatrixColumns(array $matrix, int $columns): array
+    {
+        $matrix = array_map(
+            function ($row) use ($columns) {
+                if (count($row) > $columns) {
+                    // remove extra columns
+                    $row = array_slice($row, 0, $columns);
+                } elseif (count($row) < $columns) {
+                    // add new empty columns
+                    $row = array_merge($row, array_fill(0, $columns - count($row), null));
+                }
+
+                return $row;
+            },
+            $matrix
+        );
+
+        return $matrix;
+    }
+
+    protected static function resizeMatrixRows(array $matrix, int $columns, int $rows): array
+    {
+        if (count($matrix) > $rows) {
+            // remove extra rows
+            return array_slice($matrix, 0, $rows);
+        }
+
+        if (count($matrix) < $rows) {
+            // add new empty rows
+            for ($row = count($matrix); $row < $rows; ++$row) {
+                $matrix[] = array_fill(0, $columns-1, null);
+            }
+        }
+
+        return $matrix;
+    }
+
+    public static function resizeMatrix(array $matrix, int $columns, int $rows): array
+    {
+        $matrix = self::resizeMatrixRows($matrix, $columns, $rows);
+        $matrix = self::resizeMatrixColumns($matrix, $columns);
+
+        return $matrix;
+    }
+
     /**
      * ISFORMULA.
      *
