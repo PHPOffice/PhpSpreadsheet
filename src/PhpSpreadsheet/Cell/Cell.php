@@ -458,6 +458,17 @@ class Cell
         return false;
     }
 
+    public function arrayFormulaRange(): ?string
+    {
+        if ($this->isFormula() && $this->isArrayFormula()) {
+            $formulaAttributes = $this->getFormulaAttributes();
+
+            return $formulaAttributes['ref'] ?? null;
+        }
+
+        return null;
+    }
+
     /**
      *    Does this cell contain Data validation rules?
      *
