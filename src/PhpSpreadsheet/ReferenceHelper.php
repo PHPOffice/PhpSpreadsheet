@@ -426,7 +426,11 @@ class ReferenceHelper
                         ->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()));
                     if ($cell->arrayFormulaRange() !== null) {
                         $newArrayFormulaRange = $this->updateFormulaReferences(
-                            $cell->arrayFormulaRange(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()
+                            $cell->arrayFormulaRange(),
+                            $beforeCellAddress,
+                            $numberOfColumns,
+                            $numberOfRows,
+                            $worksheet->getTitle()
                         );
                         $worksheet->getCell($newCoordinate)->setFormulaAttributes(['t' => 'array', 'ref' => $newArrayFormulaRange]);
                     }

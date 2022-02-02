@@ -132,8 +132,10 @@ class Xlfn
         . '|sumifs'
         . '|textjoin'
         // functions added with Excel 365
+        . '|anchorarray'    // Pseudo-function used by the Spill Operator: =A1# => =ANCHORARRAY(A1)
         . '|filter'
         . '|randarray'
+        . '|single'         // Pseudo-function used by the Single Operator: =@A1 => =SINGLE(A1)
         . '|sequence'
         . '|sort'
         . '|sortby'

@@ -2739,6 +2739,19 @@ class Calculation
             'functionCall' => [Statistical\Distributions\StandardNormal::class, 'zTest'],
             'argumentCount' => '2-3',
         ],
+        // Internal MS Excel Functions
+        'ANCHORARRAY' => [
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'anchorArray'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+        ],
+        'SINGLE' => [
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'single'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+        ],
     ];
 
     //    Internal functions used for special control purposes
@@ -5382,11 +5395,16 @@ class Calculation
     }
 
     /**
-     * Get a list of all implemented functions as an array of function objects.
+     * Get a list of all functions as an array of function objects.
      */
     public function getFunctions(): array
     {
-        return self::$phpSpreadsheetFunctions;
+        return array_filter(
+            self::$phpSpreadsheetFunctions,
+            function ($function) {
+                return $function['category'] !== Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION;
+            }
+        );
     }
 
     /**
@@ -5397,7 +5415,7 @@ class Calculation
     public function getImplementedFunctionNames()
     {
         $returnValue = [];
-        foreach (self::$phpSpreadsheetFunctions as $functionName => $function) {
+        foreach ($this->getFunctions() as $functionName => $function) {
             if ($this->isImplemented($functionName)) {
                 $returnValue[] = $functionName;
             }

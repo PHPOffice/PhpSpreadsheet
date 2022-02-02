@@ -687,7 +687,7 @@ class Functions
         if (count($matrix) < $rows) {
             // add new empty rows
             for ($row = count($matrix); $row < $rows; ++$row) {
-                $matrix[] = array_fill(0, $columns-1, null);
+                $matrix[] = array_fill(0, $columns - 1, null);
             }
         }
 

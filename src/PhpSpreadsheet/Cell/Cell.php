@@ -330,7 +330,7 @@ class Cell
                         $worksheet->fromArray(
                             Functions::resizeMatrix(
                                 $result,
-                                ...Coordinate::rangeDimension($this->formulaAttributes['ref'])
+                                ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
                             ),
                             null,
                             $coordinate,
