@@ -2900,12 +2900,13 @@ class Worksheet implements IComparable
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
      *
-     * @return mixed
+     * @return string|string[]
      */
     public static function extractSheetTitle($range, $returnRange = false)
     {
         // Sheet title included?
-        if (($sep = strrpos($range, '!')) === false) {
+        $sep = strrpos($range, '!');
+        if ($sep === false) {
             return $returnRange ? ['', $range] : '';
         }
 

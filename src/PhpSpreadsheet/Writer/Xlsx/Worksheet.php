@@ -1245,6 +1245,16 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
+    private const CM_SPILLAGE_ARRAY_FUNCTIONS = '/\b(' .
+        'anchorarray|' .
+        'filter|' .
+        'randarray|' .
+        'sequence|' .
+        'sort|' .
+        'sortby|' .
+        'unique' .
+        ')\(/ui';
+
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas()
@@ -1265,7 +1275,9 @@ class Worksheet extends WriterPart
 
         $attributes = $cell->getFormulaAttributes();
         if (($attributes['t'] ?? null) === 'array') {
-            $objWriter->writeAttribute('cm', '1');
+            if (preg_match(self::CM_SPILLAGE_ARRAY_FUNCTIONS, $cellValue) === 1) {
+                $objWriter->writeAttribute('cm', '1');
+            }
 
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
