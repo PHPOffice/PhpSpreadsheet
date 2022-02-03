@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AbsTest extends AllSetupTeardown
 {
     /**
@@ -10,7 +12,7 @@ class AbsTest extends AllSetupTeardown
      * @param mixed $expectedResult
      * @param mixed $number
      */
-    public function testRound($expectedResult, $number = 'omitted'): void
+    public function testAbsolute($expectedResult, $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
@@ -27,5 +29,26 @@ class AbsTest extends AllSetupTeardown
     public function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
+    }
+
+    /**
+     * @dataProvider providerAbsArray
+     */
+    public function testAbsoluteArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ABS({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function providerAbsArray(): array
+    {
+        return [
+            'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],
+            'column vector' => [[[1], [0], [1]], '{-1; 0; 1}'],
+            'matrix' => [[[1, 0], [1, 1]], '{-1, 0; 1, -1}'],
+        ];
     }
 }

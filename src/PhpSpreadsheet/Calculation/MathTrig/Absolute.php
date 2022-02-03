@@ -6,17 +6,33 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Absolute
 {
+    private static function evaluateArray(array $numbers): array
+    {
+        $result = [];
+        foreach ($numbers as $number) {
+            $result[] = self::evaluate($number);
+        }
+
+        return $result;
+    }
+
     /**
      * ABS.
      *
      * Returns the result of builtin function abs after validating args.
      *
-     * @param mixed $number Should be numeric
+     * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return float|int|string Rounded number
+     * @return array|float|int|string rounded number
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function evaluate($number)
     {
+        if (is_array($number)) {
+            return self::evaluateArray($number);
+        }
+
         try {
             $number = Helpers::validateNumericNullBool($number);
         } catch (Exception $e) {
