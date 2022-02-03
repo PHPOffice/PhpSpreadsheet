@@ -1041,7 +1041,7 @@ class Calculation
         'FILTER' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3+',
+            'argumentCount' => '2-3',
         ],
         'FILTERXML' => [
             'category' => Category::CATEGORY_WEB,
@@ -2078,7 +2078,7 @@ class Calculation
         ],
         'RANDARRAY' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [MathTrig\Random::class, 'randArray'],
             'argumentCount' => '0-5',
         ],
         'RANDBETWEEN' => [
@@ -2220,8 +2220,8 @@ class Calculation
         ],
         'SEQUENCE' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
+            'functionCall' => [MathTrig\MatrixFunctions::class, 'sequence'],
+            'argumentCount' => '1-4',
         ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
