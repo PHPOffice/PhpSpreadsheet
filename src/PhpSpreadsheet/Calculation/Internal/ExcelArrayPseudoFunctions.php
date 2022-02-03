@@ -27,7 +27,7 @@ class ExcelArrayPseudoFunctions
         return [[$result]];
     }
 
-    public static function anchorArray($cellReference, Cell $cell): array
+    public static function anchorArray(string $cellReference, Cell $cell): array
     {
         $coordinate = $cell->getCoordinate();
         $worksheet = $cell->getWorksheet();
@@ -54,12 +54,10 @@ class ExcelArrayPseudoFunctions
 
         // Ensure that our array result dimensions match the specified array formula range dimensions,
         //    from the referenced cell, expanding or shrinking it as necessary.
-        if ($referenceRange !== null) {
-            $result = Functions::resizeMatrix(
-                $result,
-                ...Coordinate::rangeDimension($referenceRange ?? $coordinate)
-            );
-        }
+        $result = Functions::resizeMatrix(
+            $result,
+            ...Coordinate::rangeDimension($referenceRange ?? $coordinate)
+        );
 
         // Set the result for our target cell (with spillage)
         // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved

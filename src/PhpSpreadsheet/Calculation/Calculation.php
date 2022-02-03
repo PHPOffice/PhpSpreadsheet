@@ -3352,6 +3352,7 @@ class Calculation
         } catch (\Exception $e) {
             $cellAddress = array_pop($this->cellStack);
             $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
+
             throw new Exception($e->getMessage());
         }
 

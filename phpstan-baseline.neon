@@ -101,7 +101,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 6
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -176,21 +176,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$cellRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:extractAllCellReferencesInRange\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getHighestDataRow\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$definedName of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_calculateFormulaValue\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -226,11 +211,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function trim expects string, null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -246,18 +226,8 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:strCaseReverse\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -312,11 +282,6 @@ parameters:
 
 		-
 			message: "#^Part \\$token \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Part \\$val \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -1081,6 +1046,16 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
+			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Internal/ExcelArrayPseudoFunctions.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Internal/ExcelArrayPseudoFunctions.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
@@ -1256,12 +1231,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
 
@@ -1331,7 +1301,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
@@ -1376,23 +1346,13 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
 			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 2
+			count: 4
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
@@ -1402,16 +1362,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
@@ -2091,32 +2041,17 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Cell/Coordinate.php
+
+		-
 			message: "#^Cannot use array destructuring on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:absoluteCoordinate\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:coordinateFromString\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
 			message: "#^Parameter \\#1 \\$input of function array_chunk expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
@@ -2431,7 +2366,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
@@ -2452,11 +2387,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
@@ -3176,18 +3106,13 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
 			message: "#^Comparison operation \"\\<\" between int and SimpleXMLElement\\|null results in an error\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
@@ -3286,12 +3211,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
 
@@ -3461,18 +3381,8 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3516,11 +3426,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$operator of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setOperator\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3536,23 +3441,13 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$type of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setType\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<string\\>\\|string given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3573,11 +3468,6 @@ parameters:
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3706,11 +3596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3766,7 +3651,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3951,11 +3836,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#1 \\$sizeInCm of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:centimeterSizeToPixels\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3966,22 +3846,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, array\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -5836,7 +5701,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -5847,16 +5712,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:filterTestInSimpleDataSet\\(\\) should return bool but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeBoundaries\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -5877,11 +5732,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$length of function array_slice expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:\\$range \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
 
@@ -5996,16 +5846,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/SheetView.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -6078,16 +5918,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
@@ -6656,7 +6486,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
@@ -6681,11 +6511,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:cellToPackedRowcol\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRef2d\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -6698,11 +6523,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$errorCode of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertError\\(\\) expects string, mixed given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$ext_ref of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:getRefIndex\\(\\) expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
@@ -6738,11 +6558,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$token of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRange3d\\(\\) expects string, mixed given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
@@ -7161,7 +6976,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
 
@@ -7396,7 +7211,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
@@ -8664,16 +8479,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
-
-		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
