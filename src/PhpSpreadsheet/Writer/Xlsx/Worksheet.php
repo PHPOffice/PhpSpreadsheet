@@ -205,10 +205,10 @@ class Worksheet extends WriterPart
 
         // Zoom scales
         if ($worksheet->getSheetView()->getZoomScale() != 100) {
-            $objWriter->writeAttribute('zoomScale', $worksheet->getSheetView()->getZoomScale());
+            $objWriter->writeAttribute('zoomScale', (string) $worksheet->getSheetView()->getZoomScale());
         }
         if ($worksheet->getSheetView()->getZoomScaleNormal() != 100) {
-            $objWriter->writeAttribute('zoomScaleNormal', $worksheet->getSheetView()->getZoomScaleNormal());
+            $objWriter->writeAttribute('zoomScaleNormal', (string) $worksheet->getSheetView()->getZoomScaleNormal());
         }
 
         // Show zeros (Excel also writes this attribute only if set to false)
