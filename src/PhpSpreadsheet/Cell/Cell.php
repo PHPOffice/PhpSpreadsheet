@@ -302,7 +302,7 @@ class Cell
      *
      * @return mixed
      */
-    public function getCalculatedValue($resetLog = true)
+    public function getCalculatedValue($resetLog = true, bool $asArray = false)
     {
         if ($this->dataType == DataType::TYPE_FORMULA) {
             try {
@@ -313,6 +313,7 @@ class Cell
                 $formulaAttributes = $this->formulaAttributes;
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
+
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
@@ -326,17 +327,19 @@ class Cell
                         // Here is where we should set all cellRange values from the result (but within the range limit)
                         // Ensure that our array result dimensions match the specified array formula range dimensions,
                         //    expanding or shrinking it as necessary.
-                        // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
-                        $worksheet->fromArray(
-                            Functions::resizeMatrix(
-                                $result,
-                                ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
-                            ),
-                            null,
-                            $coordinate,
-                            true
+                        $result = Functions::resizeMatrix(
+                            $result,
+                            ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
                         );
-                        // fromArray() will reset the value for this cell with the calculation result
+                        // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
+                        // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
+//                        $worksheet->fromArray(
+//                            $result,
+//                            null,
+//                            $coordinate,
+//                            true
+//                        );
+                        // Using fromArray() would reset the value for this cell with the calculation result
                         //      as well as updating the spillage cells,
                         //  so we need to restore this cell to its formula value, attributes, and datatype
                         $worksheet->getCell($coordinate);
@@ -347,8 +350,10 @@ class Cell
                     }
 
                     // Now we just extract the top-left value from the array to get the result for this specific cell
-                    while (is_array($result)) {
-                        $result = array_shift($result);
+                    if ($asArray === false) {
+                        while (is_array($result)) {
+                            $result = array_shift($result);
+                        }
                     }
                 }
 
@@ -361,6 +366,7 @@ class Cell
                     return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
                 }
 
+//                var_dump($ex);
                 throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
