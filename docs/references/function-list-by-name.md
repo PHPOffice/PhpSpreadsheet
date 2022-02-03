@@ -18,6 +18,7 @@ AMORLINC                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpread
 AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 ARABIC                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Arabic::evaluate
 AREAS                    | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
+ARRAYTOTEXT              | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 ASC                      | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 ASIN                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::asin
 ASINH                    | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::asinh
@@ -126,6 +127,7 @@ Excel Function           | Category                       | PhpSpreadsheet Funct
 -------------------------|--------------------------------|--------------------------------------
 DATE                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date::fromYMD
 DATEDIF                  | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Difference::interval
+DATESTRING               | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
 DATEVALUE                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue::fromString
 DAVERAGE                 | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage::evaluate
 DAY                      | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts::day
@@ -302,6 +304,7 @@ ISOWEEKNUM               | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpread
 ISPMT                    | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Interest::schedulePayment
 ISREF                    | CATEGORY_INFORMATION           | **Not yet Implemented**
 ISTEXT                   | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::isText
+ISTHAIDIGIT              | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 
 ## J
 
@@ -390,6 +393,7 @@ NOT                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpread
 NOW                      | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::now
 NPER                     | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic::periods
 NPV                      | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic::presentValue
+NUMBERSTRING             | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 NUMBERVALUE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::NUMBERVALUE
 
 ## O
@@ -452,7 +456,7 @@ Excel Function           | Category                       | PhpSpreadsheet Funct
 -------------------------|--------------------------------|--------------------------------------
 RADIANS                  | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Angle::toRadians
 RAND                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::rand
-RANDARRAY                | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+RANDARRAY                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::randArray
 RANDBETWEEN              | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::randBetween
 RANK                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles::RANK
 RANK.AVG                 | CATEGORY_STATISTICAL           | **Not yet Implemented**
@@ -466,6 +470,8 @@ RIGHT                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpread
 RIGHTB                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::right
 ROMAN                    | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Roman::evaluate
 ROUND                    | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::round
+ROUNDBAHTDOWN            | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+ROUNDBAHTUP              | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
 ROUNDDOWN                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::down
 ROUNDUP                  | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::up
 ROW                      | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation::ROW
@@ -483,7 +489,7 @@ SEARCHB                  | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpread
 SEC                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sec
 SECH                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sech
 SECOND                   | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::second
-SEQUENCE                 | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
+SEQUENCE                 | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::sequence
 SERIESSUM                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SeriesSum::evaluate
 SHEET                    | CATEGORY_INFORMATION           | **Not yet Implemented**
 SHEETS                   | CATEGORY_INFORMATION           | **Not yet Implemented**
@@ -539,6 +545,13 @@ TBILLYIELD               | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpread
 TDIST                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::distribution
 TEXT                     | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::TEXTFORMAT
 TEXTJOIN                 | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::TEXTJOIN
+THAIDAYOFWEEK            | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
+THAIDIGIT                | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+THAIMONTHOFYEAR          | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
+THAINUMSOUND             | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+THAINUMSTRING            | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+THAISTRINGLENGTH         | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
+THAIYEAR                 | CATEGORY_DATE_AND_TIME         | **Not yet Implemented**
 TIME                     | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time::fromHMS
 TIMEVALUE                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue::fromString
 TINV                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT::inverse
@@ -567,6 +580,7 @@ USDOLLAR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpread
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 VALUE                    | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
+VALUETOTEXT              | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 VAR                      | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VAR
 VAR.P                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VARP
 VAR.S                    | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances::VAR

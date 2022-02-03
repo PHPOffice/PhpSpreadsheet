@@ -35,6 +35,7 @@ Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
 DATE                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date::fromYMD
 DATEDIF                  | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Difference::interval
+DATESTRING               | **Not yet Implemented**
 DATEVALUE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue::fromString
 DAY                      | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts::day
 DAYS                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days::between
@@ -49,6 +50,9 @@ NETWORKDAYS              | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\N
 NETWORKDAYS.INTL         | **Not yet Implemented**
 NOW                      | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::now
 SECOND                   | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts::second
+THAIDAYOFWEEK            | **Not yet Implemented**
+THAIMONTHOFYEAR          | **Not yet Implemented**
+THAIYEAR                 | **Not yet Implemented**
 TIME                     | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Time::fromHMS
 TIMEVALUE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue::fromString
 TODAY                    | \PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Current::today
@@ -309,15 +313,17 @@ PRODUCT                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operat
 QUOTIENT                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Operations::quotient
 RADIANS                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Angle::toRadians
 RAND                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::rand
-RANDARRAY                | **Not yet Implemented**
+RANDARRAY                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::randArray
 RANDBETWEEN              | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Random::randBetween
 ROMAN                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Roman::evaluate
 ROUND                    | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::round
+ROUNDBAHTDOWN            | **Not yet Implemented**
+ROUNDBAHTUP              | **Not yet Implemented**
 ROUNDDOWN                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::down
 ROUNDUP                  | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Round::up
 SEC                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sec
 SECH                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant::sech
-SEQUENCE                 | **Not yet Implemented**
+SEQUENCE                 | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions::sequence
 SERIESSUM                | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\SeriesSum::evaluate
 SIGN                     | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sign::evaluate
 SIN                      | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sin
@@ -496,6 +502,7 @@ ZTEST                    | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Dis
 
 Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
+ARRAYTOTEXT              | **Not yet Implemented**
 ASC                      | **Not yet Implemented**
 BAHTTEXT                 | **Not yet Implemented**
 CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
@@ -509,6 +516,7 @@ EXACT                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::
 FIND                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::sensitive
 FINDB                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Search::sensitive
 FIXED                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::FIXEDFORMAT
+ISTHAIDIGIT              | **Not yet Implemented**
 JIS                      | **Not yet Implemented**
 LEFT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::left
 LEFTB                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::left
@@ -517,6 +525,7 @@ LENB                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::
 LOWER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::lower
 MID                      | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::mid
 MIDB                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Extract::mid
+NUMBERSTRING             | **Not yet Implemented**
 NUMBERVALUE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::NUMBERVALUE
 PHONETIC                 | **Not yet Implemented**
 PROPER                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::proper
@@ -531,11 +540,16 @@ SUBSTITUTE               | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Replac
 T                        | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::test
 TEXT                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::TEXTFORMAT
 TEXTJOIN                 | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::TEXTJOIN
+THAIDIGIT                | **Not yet Implemented**
+THAINUMSOUND             | **Not yet Implemented**
+THAINUMSTRING            | **Not yet Implemented**
+THAISTRINGLENGTH         | **Not yet Implemented**
 TRIM                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::spaces
 UNICHAR                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::character
 UNICODE                  | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 UPPER                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CaseConvert::upper
 VALUE                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::VALUE
+VALUETOTEXT              | **Not yet Implemented**
 
 ## CATEGORY_WEB
 
