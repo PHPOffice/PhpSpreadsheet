@@ -174,13 +174,6 @@ class Calculation
     public $cyclicFormulaCount = 1;
 
     /**
-     * Epsilon Precision used for comparisons in calculations.
-     *
-     * @var float
-     */
-    private $delta = 0.1e-12;
-
-    /**
      * The current locale setting.
      *
      * @var string
@@ -2759,8 +2752,6 @@ class Calculation
 
     public function __construct(?Spreadsheet $spreadsheet = null)
     {
-        $this->delta = 1 * 10 ** (0 - ini_get('precision'));
-
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
@@ -3742,6 +3733,8 @@ class Calculation
                 return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
             } elseif (is_bool($value)) {
                 return ($value) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
+            } elseif ($value === null) {
+                return self::$localeBoolean['NULL'];
             }
         }
 
@@ -4509,7 +4502,7 @@ class Calculation
                     case '<=':            //    Less than or Equal to
                     case '=':            //    Equality
                     case '<>':            //    Inequality
-                        $result = $this->executeBinaryComparisonOperation($cellID, $operand1, $operand2, $token, $stack);
+                        $result = $this->executeBinaryComparisonOperation($operand1, $operand2, (string) $token, $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
@@ -4952,21 +4945,20 @@ class Calculation
     }
 
     /**
-     * @param null|string $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
      *
      * @return array
      */
-    private function executeArrayComparison($cellID, $operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays)
+    private function executeArrayComparison($operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays)
     {
         $result = [];
         if (!is_array($operand2)) {
             // Operand 1 is an array, Operand 2 is a scalar
             foreach ($operand1 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2));
-                $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2, $operation, $stack);
+                $this->executeBinaryComparisonOperation($operandData, $operand2, $operation, $stack);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -4974,7 +4966,7 @@ class Calculation
             // Operand 1 is a scalar, Operand 2 is an array
             foreach ($operand2 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operand1), ' ', $operation, ' ', $this->showValue($operandData));
-                $this->executeBinaryComparisonOperation($cellID, $operand1, $operandData, $operation, $stack);
+                $this->executeBinaryComparisonOperation($operand1, $operandData, $operation, $stack);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -4985,7 +4977,7 @@ class Calculation
             }
             foreach ($operand1 as $x => $operandData) {
                 $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2[$x]));
-                $this->executeBinaryComparisonOperation($cellID, $operandData, $operand2[$x], $operation, $stack, true);
+                $this->executeBinaryComparisonOperation($operandData, $operand2[$x], $operation, $stack, true);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
@@ -4999,7 +4991,6 @@ class Calculation
     }
 
     /**
-     * @param null|string $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
@@ -5007,97 +4998,14 @@ class Calculation
      *
      * @return mixed
      */
-    private function executeBinaryComparisonOperation($cellID, $operand1, $operand2, $operation, Stack &$stack, $recursingArrays = false)
+    private function executeBinaryComparisonOperation($operand1, $operand2, $operation, Stack &$stack, $recursingArrays = false)
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
-            return $this->executeArrayComparison($cellID, $operand1, $operand2, $operation, $stack, $recursingArrays);
+            return $this->executeArrayComparison($operand1, $operand2, $operation, $stack, $recursingArrays);
         }
 
-        //    Simple validate the two operands if they are string values
-        if (is_string($operand1) && $operand1 > '' && $operand1[0] == self::FORMULA_STRING_QUOTE) {
-            $operand1 = self::unwrapResult($operand1);
-        }
-        if (is_string($operand2) && $operand2 > '' && $operand2[0] == self::FORMULA_STRING_QUOTE) {
-            $operand2 = self::unwrapResult($operand2);
-        }
-
-        // Use case insensitive comparaison if not OpenOffice mode
-        if (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) {
-            if (is_string($operand1)) {
-                $operand1 = Shared\StringHelper::strToUpper($operand1);
-            }
-            if (is_string($operand2)) {
-                $operand2 = Shared\StringHelper::strToUpper($operand2);
-            }
-        }
-
-        $useLowercaseFirstComparison = is_string($operand1) && is_string($operand2) && Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE;
-
-        //    execute the necessary operation
-        switch ($operation) {
-            //    Greater than
-            case '>':
-                if ($useLowercaseFirstComparison) {
-                    $result = $this->strcmpLowercaseFirst($operand1, $operand2) > 0;
-                } else {
-                    $result = ($operand1 > $operand2);
-                }
-
-                break;
-            //    Less than
-            case '<':
-                if ($useLowercaseFirstComparison) {
-                    $result = $this->strcmpLowercaseFirst($operand1, $operand2) < 0;
-                } else {
-                    $result = ($operand1 < $operand2);
-                }
-
-                break;
-            //    Equality
-            case '=':
-                if (is_numeric($operand1) && is_numeric($operand2)) {
-                    $result = (abs($operand1 - $operand2) < $this->delta);
-                } else {
-                    $result = $this->strcmpAllowNull($operand1, $operand2) == 0;
-                }
-
-                break;
-            //    Greater than or equal
-            case '>=':
-                if (is_numeric($operand1) && is_numeric($operand2)) {
-                    $result = ((abs($operand1 - $operand2) < $this->delta) || ($operand1 > $operand2));
-                } elseif ($useLowercaseFirstComparison) {
-                    $result = $this->strcmpLowercaseFirst($operand1, $operand2) >= 0;
-                } else {
-                    $result = $this->strcmpAllowNull($operand1, $operand2) >= 0;
-                }
-
-                break;
-            //    Less than or equal
-            case '<=':
-                if (is_numeric($operand1) && is_numeric($operand2)) {
-                    $result = ((abs($operand1 - $operand2) < $this->delta) || ($operand1 < $operand2));
-                } elseif ($useLowercaseFirstComparison) {
-                    $result = $this->strcmpLowercaseFirst($operand1, $operand2) <= 0;
-                } else {
-                    $result = $this->strcmpAllowNull($operand1, $operand2) <= 0;
-                }
-
-                break;
-            //    Inequality
-            case '<>':
-                if (is_numeric($operand1) && is_numeric($operand2)) {
-                    $result = (abs($operand1 - $operand2) > 1E-14);
-                } else {
-                    $result = $this->strcmpAllowNull($operand1, $operand2) != 0;
-                }
-
-                break;
-
-            default:
-                throw new Exception('Unsupported binary comparison operation');
-        }
+        $result = BinaryComparison::compare($operand1, $operand2, $operation);
 
         //    Log the result details
         $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
@@ -5105,35 +5013,6 @@ class Calculation
         $stack->push('Value', $result);
 
         return $result;
-    }
-
-    /**
-     * Compare two strings in the same way as strcmp() except that lowercase come before uppercase letters.
-     *
-     * @param null|string $str1 First string value for the comparison
-     * @param null|string $str2 Second string value for the comparison
-     *
-     * @return int
-     */
-    private function strcmpLowercaseFirst($str1, $str2)
-    {
-        $inversedStr1 = Shared\StringHelper::strCaseReverse($str1);
-        $inversedStr2 = Shared\StringHelper::strCaseReverse($str2);
-
-        return strcmp($inversedStr1 ?? '', $inversedStr2 ?? '');
-    }
-
-    /**
-     * PHP8.1 deprecates passing null to strcmp.
-     *
-     * @param null|string $str1 First string value for the comparison
-     * @param null|string $str2 Second string value for the comparison
-     *
-     * @return int
-     */
-    private function strcmpAllowNull($str1, $str2)
-    {
-        return strcmp($str1 ?? '', $str2 ?? '');
     }
 
     /**
