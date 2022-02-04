@@ -1147,9 +1147,11 @@ class MathTrig
      * @See MathTrig\Absolute::evaluate()
      *      Use the evaluate method in the MathTrig\Absolute class instead
      *
-     * @param mixed $number Should be numeric
+     * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return float|int|string Rounded number
+     * @return array|float|int|string rounded number
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function builtinABS($number)
     {

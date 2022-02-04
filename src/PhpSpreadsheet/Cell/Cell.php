@@ -249,7 +249,6 @@ class Cell
                     $dataType = DataType::TYPE_STRING;
                     if (in_array($value, Calculation::$excelConstants, true)) {
                         $value = array_search($value, Calculation::$excelConstants, true);
-                        $dataType = $value === null ? DataType::TYPE_NULL : DataType::TYPE_BOOL;
                     }
                     $value = (string) $value;
                     $this->formulaAttributes = [];
