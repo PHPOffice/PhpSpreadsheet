@@ -1,6 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$str1 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
+
+		-
+			message: "#^Parameter \\#1 \\$str1 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpLowercaseFirst\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
+
+		-
+			message: "#^Parameter \\#2 \\$str2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
+
+		-
+			message: "#^Parameter \\#2 \\$str2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpLowercaseFirst\\(\\) expects string\\|null, mixed given\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
+
+		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -97,6 +117,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method has\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
