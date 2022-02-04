@@ -1034,7 +1034,7 @@ class Calculation
         'FILTER' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '3+',
+            'argumentCount' => '2-3',
         ],
         'FILTERXML' => [
             'category' => Category::CATEGORY_WEB,
@@ -2071,7 +2071,7 @@ class Calculation
         ],
         'RANDARRAY' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [MathTrig\Random::class, 'randArray'],
             'argumentCount' => '0-5',
         ],
         'RANDBETWEEN' => [
