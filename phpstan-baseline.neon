@@ -241,26 +241,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str1 of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$str1 of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:strcmpLowercaseFirst\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:strCaseReverse\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#2 \\$str2 of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
