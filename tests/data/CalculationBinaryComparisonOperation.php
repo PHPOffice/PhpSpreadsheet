@@ -239,6 +239,36 @@ return [
         true,
     ],
     [
+        '= NULL = 0',
+        true,
+        true,
+    ],
+    [
+        '= NULL < 0',
+        false,
+        false,
+    ],
+    [
+        '= NULL <= 0',
+        true,
+        true,
+    ],
+    [
+        '= NULL > 0',
+        false,
+        false,
+    ],
+    [
+        '= NULL >= 0',
+        true,
+        true,
+    ],
+    [
+        '= NULL <> 0',
+        false,
+        false,
+    ],
+    [
         '="A" > "b"',
         false,
         true,
