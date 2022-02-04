@@ -1,6 +1,7 @@
 <?php
 
 namespace PhpOffice\PhpSpreadsheetTests\Style;
+
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 //  value, format, result
@@ -629,17 +630,12 @@ return [
     ],
     [
         '1.2%',
-        '0.0115',
+        '0.0116',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
         '1.2%',
         '0.0119',
-        NumberFormat::FORMAT_PERCENTAGE_0,
-    ],
-    [
-        '1.1%',
-        '0.0114',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
 ];
