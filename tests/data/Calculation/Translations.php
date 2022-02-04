@@ -27,6 +27,16 @@ return [
         '=CONCATENATE("""Hello ", B1, """,", " I said.")',
     ],
     [
+        '=ЕСЛИ(1;1;1)',
+        'ru',
+        '=IF(1,1,1)',
+    ],
+    [
+        '=ИСКЛИЛИ(1;1)',
+        'ru',
+        '=XOR(1,1)',
+    ],
+    [
         '=TEKST.SAMENVOEGEN(JAAR(VANDAAG());
             " is ";
             ALS(
@@ -44,5 +54,25 @@ return [
                 "a Leap Year"
             )
         )',
+    ],
+    'Spanish with accented character' => [
+        '=AÑO(B1)',
+        'es',
+        '=YEAR(B1)',
+    ],
+    'Bulgarian with accent and period' => [
+        '=ПОЛУЧИТЬ.ДАННЫЕ.СВОДНОЙ.ТАБЛИЦЫ(B1)',
+        'bg',
+        '=GETPIVOTDATA(B1)',
+    ],
+    'Czech with accent and period' => [
+        '=DSMODCH.VÝBĚR(B1)',
+        'cs',
+        '=DSTDEV(B1)',
+    ],
+    'Turkish with accent and period' => [
+        '=İŞGÜNÜ.ULUSL(B1)',
+        'tr',
+        '=WORKDAY.INTL(B1)',
     ],
 ];
