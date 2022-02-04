@@ -354,7 +354,6 @@ class Cell
                     return \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAME();
                 }
 
-//                var_dump($ex);
                 throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
                 );
