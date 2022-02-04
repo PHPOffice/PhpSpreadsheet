@@ -1,5 +1,8 @@
 <?php
 
+namespace PhpOffice\PhpSpreadsheetTests\Style;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 //  value, format, result
 
 return [
@@ -538,5 +541,105 @@ return [
         'pfx. 25.26',
         25.255555555555555,
         '"pfx." 0.00;"pfx." -0.00;"pfx." 0.00;',
+    ],
+    [
+        '1.0',
+        '1.000',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '-1.0',
+        '-1.000',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.0',
+        '1',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '-1.0',
+        '-1',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.0',
+        '1',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '0.0',
+        '0',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.1',
+        '1.11',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.1',
+        '1.14',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.2',
+        '1.15',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.2',
+        '1.19',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
+        '1.0%',
+        '0.01000',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.0%',
+        '-0.01',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.0%',
+        '0.01',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.0%',
+        '-0.01',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '0.0%',
+        '0',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.1%',
+        '0.011',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.1%',
+        '0.0114',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.2%',
+        '0.0115',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.2%',
+        '0.0119',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.1%',
+        '0.0114',
+        NumberFormat::FORMAT_PERCENTAGE_0,
     ],
 ];
