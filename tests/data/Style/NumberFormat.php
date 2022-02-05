@@ -944,7 +944,7 @@ return [
     [
         '-1.2%',
         '-0.0119',
-        NumberFormat::FORMAT_PERCENTAGE_0,  
+        NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
         '0.00%',
