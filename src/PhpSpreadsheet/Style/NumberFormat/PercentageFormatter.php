@@ -40,5 +40,6 @@ class PercentageFormatter extends BaseFormatter
         /** @var float */
         $valueFloat = $value;
 
-        return sprintf($mask, round($valueFloat, $decimalPartSize));    }
+        return sprintf($mask, round($valueFloat, $decimalPartSize));
+    }
 }
