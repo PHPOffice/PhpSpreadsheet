@@ -73,13 +73,13 @@ class MatrixFunctions
         if ($step === 0) {
             return array_chunk(
                 array_fill(0, $rows * $columns, $start),
-                $columns
+                max($columns, 1)
             );
         }
 
         return array_chunk(
             range($start, $start + (($rows * $columns - 1) * $step), $step),
-            $columns
+            max($columns, 1)
         );
     }
 
