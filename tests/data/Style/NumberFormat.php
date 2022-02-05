@@ -1132,4 +1132,124 @@ return [
         '-1111.9',
         NumberFormat::FORMAT_CURRENCY_EUR,
     ],
+    [
+        ' $ - ',
+        '0',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ 1,000.00 ',
+        '1000',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ 1,111.11 ',
+        '1111.111',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ 1,111.11 ',
+        '1111.114',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ 1,111.12 ',
+        '1111.115',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ 1,111.12 ',
+        '1111.119',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ - ',
+        '-0',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ (1,111.00)',
+        '-1111',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ (1,111.11)',
+        '-1111.111',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ (1,111.11)',
+        '-1111.114',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ (1,111.12)',
+        '-1111.115',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' $ (1,111.12)',
+        '-1111.119',
+        NumberFormat::FORMAT_ACCOUNTING_USD,
+    ],
+    [
+        ' € - ',
+        '0',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € 1,000.00 ',
+        '1000',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € 1,111.11 ',
+        '1111.111',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € 1,111.11 ',
+        '1111.114',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € 1,111.12 ',
+        '1111.115',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € 1,111.12 ',
+        '1111.119',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € - ',
+        '-0',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € (1,111.00)',
+        '-1111',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € (1,111.11)',
+        '-1111.111',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € (1,111.11)',
+        '-1111.114',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € (1,111.12)',
+        '-1111.115',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
+    [
+        ' € (1,111.12)',
+        '-1111.119',
+        NumberFormat::FORMAT_ACCOUNTING_EUR,
+    ],
 ];
