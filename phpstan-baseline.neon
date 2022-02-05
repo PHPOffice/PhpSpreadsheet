@@ -66,7 +66,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot access offset int on mixed\\.$#"
+			message: "#^Cannot access offset int(<0, max>)? on mixed\\.$#"
 			count: 16
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -1461,7 +1461,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array(<T>)?, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
@@ -1471,7 +1471,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function uasort expects callable\\(mixed, mixed\\)\\: int, array\\{'self', 'vlookupSort'\\} given\\.$#"
+			message: "#^Parameter \\#2 \\$callback of function uasort expects callable\\((mixed|T), (mixed|T)\\)\\: int, array\\{'self', 'vlookupSort'\\} given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
@@ -5206,11 +5206,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$isIconvEnabled \\(bool\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$thousandsSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
@@ -5364,11 +5359,6 @@ parameters:
 			message: "#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
-
-		-
-			message: "#^Array \\(array\\<PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\>\\) does not accept object\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:getGoodnessOfFit\\(\\)\\.$#"
@@ -5706,16 +5696,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(\\)\\: mixed, array\\{'self', 'escapeQuotesCallback'\\} given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(\\)\\: mixed, array\\{'self', 'setLowercaseCallback'\\} given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
 			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
@@ -5727,11 +5707,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace_callback expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
 
@@ -5887,11 +5862,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
-
-		-
-			message: "#^Array \\(array\\<PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\\\Rule\\>\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
 
@@ -6076,7 +6046,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int given\\.$#"
+			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int(<1, max>)? given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -7026,7 +6996,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Cannot access offset int on mixed\\.$#"
+			message: "#^Cannot access offset int(<0, max>)? on mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -7191,7 +7161,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int given\\.$#"
+			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int(<0, max>)? given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
@@ -7431,7 +7401,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Offset int on array\\<string, non\\-empty\\-array\\<int, string\\>\\> in isset\\(\\) does not exist\\.$#"
+			message: "#^Offset int(<1, max>)? on array\\<string, non\\-empty\\-array\\<int, string\\>\\> in isset\\(\\) does not exist\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
@@ -7466,18 +7436,8 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 19
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<1, max\\> given\\.$#"
-			count: 7
+			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, (int|int\\<(0|1), max\\>) given\\.$#"
+			count: 27
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
