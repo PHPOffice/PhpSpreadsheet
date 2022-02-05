@@ -574,6 +574,11 @@ return [
         NumberFormat::FORMAT_NUMBER_0,
     ],
     [
+        '0.0',
+        '-0',
+        NumberFormat::FORMAT_NUMBER_0,
+    ],
+    [
         '1.1',
         '1.11',
         NumberFormat::FORMAT_NUMBER_0,
@@ -594,28 +599,13 @@ return [
         NumberFormat::FORMAT_NUMBER_0,
     ],
     [
-        '1.0%',
-        '0.01000',
-        NumberFormat::FORMAT_PERCENTAGE_0,
-    ],
-    [
-        '-1.0%',
-        '-0.01',
-        NumberFormat::FORMAT_PERCENTAGE_0,
-    ],
-    [
-        '1.0%',
-        '0.01',
-        NumberFormat::FORMAT_PERCENTAGE_0,
-    ],
-    [
-        '-1.0%',
-        '-0.01',
-        NumberFormat::FORMAT_PERCENTAGE_0,
-    ],
-    [
         '0.0%',
         '0',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '1.0%',
+        '0.1',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
@@ -630,12 +620,42 @@ return [
     ],
     [
         '1.2%',
-        '0.0116',
+        '0.0115',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
         '1.2%',
         '0.0119',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '0.0%',
+        '-0',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.0%',
+        '-0.1',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.1%',
+        '-0.011',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.1%',
+        '-0.0114',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.2%',
+        '-0.0115',
+        NumberFormat::FORMAT_PERCENTAGE_0,
+    ],
+    [
+        '-1.2%',
+        '-0.0119',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
 ];
