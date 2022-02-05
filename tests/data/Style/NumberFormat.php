@@ -711,4 +711,64 @@ return [
         '-1111.119',
         NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
     ],
+    [
+        '0.00 ',
+        '0',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '1,000.00 ',
+        '1000',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '1,111.11 ',
+        '1111.111',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '1,111.11 ',
+        '1111.114',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '1,111.12 ',
+        '1111.115',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '1,111.12 ',
+        '1111.119',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '0.00 ',
+        '-0',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '-1,111.00 ',
+        '-1111',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '-1,111.11 ',
+        '-1111.111',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '-1,111.11 ',
+        '-1111.114',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '-1,111.12 ',
+        '-1111.115',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
+    [
+        '-1,111.12 ',
+        '-1111.119',
+        NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED2,
+    ],
 ];
