@@ -832,4 +832,64 @@ return [
         '-1111.119',
         NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
     ],
+    [
+        '$0 ',
+        '0',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$1,000 ',
+        '1000',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$1,111 ',
+        '1111.1',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$1,111 ',
+        '1111.4',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$1,112 ',
+        '1111.5',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$1,112 ',
+        '1111.9',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$0 ',
+        '-0',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$-1,111 ',
+        '-1111',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$-1,111 ',
+        '-1111.1',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$-1,111 ',
+        '-1111.4',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$-1,112 ',
+        '-1111.5',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
+    [
+        '$-1,112 ',
+        '-1111.9',
+        NumberFormat::FORMAT_CURRENCY_USD,
+    ],
 ];
