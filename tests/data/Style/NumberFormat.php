@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 //  value, format, result
 
 return [
@@ -538,5 +540,55 @@ return [
         'pfx. 25.26',
         25.255555555555555,
         '"pfx." 0.00;"pfx." -0.00;"pfx." 0.00;',
+    ],
+    [
+        '1',
+        '1.000',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '-1',
+        '-1.000',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '1',
+        '1',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '-1',
+        '-1',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '0',
+        '0',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '0',
+        '-0',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '1',
+        '1.1',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '1',
+        '1.4',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '2',
+        '1.5',
+        NumberFormat::FORMAT_NUMBER,
+    ],
+    [
+        '2',
+        '1.9',
+        NumberFormat::FORMAT_NUMBER,
     ],
 ];
