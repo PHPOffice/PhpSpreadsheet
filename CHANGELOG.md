@@ -29,10 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
   - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
   - Improved documentation and examples, covering all supported CF rule types.
+  - Add support for one digit decimals (FORMAT_NUMBER_0, FORMAT_PERCENTAGE_0)
 
 ### Changed
 
-- Nothing
+- Additional Russian translations for Excel Functions (courtesy of aleks-samurai)
 
 ### Deprecated
 
@@ -44,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix rounding error in NumberFormat::NUMBER_PERCENTAGE, NumberFormat::NUMBER_PERCENTAGE_00
+- Fix partial function name matching when translating formulae from Russian to English [Issue #2533](https://github.com/PHPOffice/PhpSpreadsheet/issues/2533) [PR #2534](https://github.com/PHPOffice/PhpSpreadsheet/pull/2534)
 - Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
 - Xlsx Reader merge range fixes.
 [Issue #2501](https://github.com/PHPOffice/PhpSpreadsheet/issues/2501)
