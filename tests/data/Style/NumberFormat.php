@@ -542,6 +542,66 @@ return [
         '"pfx." 0.00;"pfx." -0.00;"pfx." 0.00;',
     ],
     [
+        '0%',
+        '0',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '1%',
+        '0.01',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '1%',
+        '0.011',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '1%',
+        '0.014',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '2%',
+        '0.015',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '2%',
+        '0.019',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '0%',
+        '-0',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '-1%',
+        '-0.01',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '-1%',
+        '-0.011',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '-1%',
+        '-0.014',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '-2%',
+        '-0.015',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
+        '-2%',
+        '-0.019',
+        NumberFormat::FORMAT_PERCENTAGE,
+    ],
+    [
         '0.00%',
         '0',
         NumberFormat::FORMAT_PERCENTAGE_00,
