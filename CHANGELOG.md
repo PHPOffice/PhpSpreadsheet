@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536)
+- Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540) 
+
+  Note that the Spill Operator is not yet supported in the Calculation Engine; but this can still be useful for defining array constants.
 - Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
   - Provide support for a wider range of Conditional Formatting Rules for Xlsx Reader/Writer:
     - Cells Containing (cellIs)
@@ -25,10 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
   - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
   - Improved documentation and examples, covering all supported CF rule types.
+  - Add support for one digit decimals (FORMAT_NUMBER_0, FORMAT_PERCENTAGE_0)
 
 ### Changed
 
-- Nothing
+- Additional Russian translations for Excel Functions (courtesy of aleks-samurai)
 
 ### Deprecated
 
@@ -40,7 +45,26 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix rounding error in NumberFormat::NUMBER_PERCENTAGE, NumberFormat::NUMBER_PERCENTAGE_00
+- Fix partial function name matching when translating formulae from Russian to English [Issue #2533](https://github.com/PHPOffice/PhpSpreadsheet/issues/2533) [PR #2534](https://github.com/PHPOffice/PhpSpreadsheet/pull/2534)
 - Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
+- Xlsx Reader merge range fixes.
+[Issue #2501](https://github.com/PHPOffice/PhpSpreadsheet/issues/2501)
+[PR #2504](https://github.com/PHPOffice/PhpSpreadsheet/pull/2504)
+- Handle explicit "date" type for Cell in Xlsx Reader.
+[Issue #2373](https://github.com/PHPOffice/PhpSpreadsheet/issues/2373)
+[PR #2485](https://github.com/PHPOffice/PhpSpreadsheet/pull/2485)
+- Recalibrate Row/Column Dimensions after removeRow/Column.
+[Issue #2442](https://github.com/PHPOffice/PhpSpreadsheet/issues/2442)
+[PR #2486](https://github.com/PHPOffice/PhpSpreadsheet/pull/2486)
+- Refinement for XIRR.
+[Issue #2469](https://github.com/PHPOffice/PhpSpreadsheet/issues/2469)
+[PR #2487](https://github.com/PHPOffice/PhpSpreadsheet/pull/2487)
+- Xlsx Reader handle cell with non-null explicit type but null value.
+[Issue #2488](https://github.com/PHPOffice/PhpSpreadsheet/issues/2488)
+[PR #2489](https://github.com/PHPOffice/PhpSpreadsheet/pull/2489)
+- Xlsx Reader fix height and width for oneCellAnchorDrawings.
+[PR #2492](https://github.com/PHPOffice/PhpSpreadsheet/pull/2492)
 
 ## 1.21.0 - 2022-01-06
 
