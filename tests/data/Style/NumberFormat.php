@@ -893,7 +893,7 @@ return [
     ],
     [
         '1.0%',
-        '0.1',
+        '0.01',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
@@ -923,7 +923,7 @@ return [
     ],
     [
         '-1.0%',
-        '-0.1',
+        '-0.01',
         NumberFormat::FORMAT_PERCENTAGE_0,
     ],
     [
