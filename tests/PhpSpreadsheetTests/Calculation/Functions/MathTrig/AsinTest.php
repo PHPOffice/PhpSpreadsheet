@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AsinTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class AsinTest extends AllSetupTeardown
     public function providerAsin(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASIN.php';
+    }
+
+    /**
+     * @dataProvider providerAsinArray
+     */
+    public function testAsinArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ASIN({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAsinArray(): array
+    {
+        return [
+            'row vector' => [[[1.57079632679490, 0.52359877559830, -1.57079632679490]], '{1, 0.5, -1}'],
+            'column vector' => [[[1.57079632679490], [0.52359877559830], [-1.57079632679490]], '{1; 0.5; -1}'],
+            'matrix' => [[[1.57079632679490, 0.52359877559830], [0.0, -1.57079632679490]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

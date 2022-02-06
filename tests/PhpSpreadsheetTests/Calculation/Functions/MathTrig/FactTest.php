@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class FactTest extends AllSetupTeardown
 {
     /**
@@ -57,5 +59,26 @@ class FactTest extends AllSetupTeardown
     public function providerFACTGnumeric(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTGNUMERIC.php';
+    }
+
+    /**
+     * @dataProvider providerFactArray
+     */
+    public function testFactArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=FACT({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerFactArray(): array
+    {
+        return [
+            'row vector' => [[['#NUM!', 120, 362880]], '{-2, 5, 9}'],
+            'column vector' => [[['#NUM!'], [120], [362880]], '{-2; 5; 9}'],
+            'matrix' => [[['#NUM!', 120], [362880, 6]], '{-2, 5; 9, 3.5}'],
+        ];
     }
 }
