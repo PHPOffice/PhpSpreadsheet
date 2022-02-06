@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 class MatrixFunctions
 {
     /**
-     * Convert parameter to matrix.
+     * Convert parameter to Matrix.
      *
      * @param mixed $matrixValues A matrix of values
      */
