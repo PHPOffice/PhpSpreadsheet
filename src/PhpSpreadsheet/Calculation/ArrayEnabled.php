@@ -54,63 +54,91 @@ trait ArrayEnabled
             return self::evaluateVectorPair($method, $singleRowVectorIndex, $singleColumnVectorIndex, ...$arguments);
         }
 
-        $rowVectorIndexes = self::$arrayArgumentHelper->getRowVectors();
-        $columnVectorIndexes = self::$arrayArgumentHelper->getColumnVectors();
-
-        // Logic for a two row vectors or two column vectors
-        if (count($rowVectorIndexes) === 2 && count($columnVectorIndexes) === 0) {
-            return self::evaluateRowVectorPair($method, $rowVectorIndexes, ...$arguments);
-        } elseif (count($rowVectorIndexes) === 0 && count($columnVectorIndexes) === 2) {
-            return self::evaluateColumnVectorPair($method, $columnVectorIndexes, ...$arguments);
+        $matrixPair = self::$arrayArgumentHelper->getMatrixPair();
+        if ($matrixPair !== []) {
+            if (
+                (self::$arrayArgumentHelper->isVector($matrixPair[0]) === true &&
+                    self::$arrayArgumentHelper->isVector($matrixPair[1]) === false) ||
+                (self::$arrayArgumentHelper->isVector($matrixPair[0]) === false &&
+                    self::$arrayArgumentHelper->isVector($matrixPair[1]) === true)
+            ) {
+                // Logic for a matrix and a vector (row or column)
+                return self::evaluateVectorMatrixPair($method, $matrixPair, ...$arguments);
+            }
+            // Logic for matrix/matrix, column vector/column vector or row vector/row vector
+            return self::evaluateMatrixPair($method, $matrixPair, ...$arguments);
         }
 
-        // If we have multiple arrays, and they don't match a row vector/column vector pattern,
-        //    or two row vectors and two column vectors,
-        //    then we drop through to an error return for the moment
-        // Still need to work out the logic for multiple matrices as array arguments,
-        //       or when we have more than two arrays
+        // Still need to work out the logic for more than two array arguments,
         return ['#VALUE!'];
     }
 
     /**
      * @param mixed ...$arguments
      */
-    private static function evaluateRowVectorPair(callable $method, array $vectorIndexes, ...$arguments): array
+    private static function evaluateVectorMatrixPair(callable $method, array $matrixIndexes, ...$arguments): array
     {
-        $vector2 = array_pop($vectorIndexes);
-        $vectorValues2 = Functions::flattenArray($arguments[$vector2]);
-        $vector1 = array_pop($vectorIndexes);
-        $vectorValues1 = Functions::flattenArray($arguments[$vector1]);
+        $matrix2 = array_pop($matrixIndexes);
+        /** @var array $matrixValues2 */
+        $matrixValues2 = $arguments[$matrix2];
+        $matrix1 = array_pop($matrixIndexes);
+        /** @var array $matrixValues1 */
+        $matrixValues1 = $arguments[$matrix1];
 
-        $result = [];
-        foreach ($vectorValues1 as $index => $value1) {
-            $value2 = $vectorValues2[$index];
-            $arguments[$vector1] = $value1;
-            $arguments[$vector2] = $value2;
+        $rows = min(array_map([self::$arrayArgumentHelper, 'rowCount'], [$matrix1, $matrix2]));
+        $columns = min(array_map([self::$arrayArgumentHelper, 'columnCount'], [$matrix1, $matrix2]));
 
-            $result[] = $method(...$arguments);
+        if ($rows === 1) {
+            $rows = max(array_map([self::$arrayArgumentHelper, 'rowCount'], [$matrix1, $matrix2]));
+        }
+        if ($columns === 1) {
+            $columns = max(array_map([self::$arrayArgumentHelper, 'columnCount'], [$matrix1, $matrix2]));
         }
 
-        return [$result];
+        $result = [];
+        for ($rowIndex = 0; $rowIndex < $rows; ++$rowIndex) {
+            for ($columnIndex = 0; $columnIndex < $columns; ++$columnIndex) {
+                $rowIndex1 = self::$arrayArgumentHelper->isRowVector($matrix1) ? 0 : $rowIndex;
+                $columnIndex1 = self::$arrayArgumentHelper->isColumnVector($matrix1) ? 0 : $columnIndex;
+                $value1 = $matrixValues1[$rowIndex1][$columnIndex1];
+                $rowIndex2 = self::$arrayArgumentHelper->isRowVector($matrix2) ? 0 : $rowIndex;
+                $columnIndex2 = self::$arrayArgumentHelper->isColumnVector($matrix2) ? 0 : $columnIndex;
+                $value2 = $matrixValues2[$rowIndex2][$columnIndex2];
+                $arguments[$matrix1] = $value1;
+                $arguments[$matrix2] = $value2;
+
+                $result[$rowIndex][$columnIndex] = $method(...$arguments);
+            }
+        }
+
+        return $result;
     }
 
     /**
      * @param mixed ...$arguments
      */
-    private static function evaluateColumnVectorPair(callable $method, array $vectorIndexes, ...$arguments): array
+    private static function evaluateMatrixPair(callable $method, array $matrixIndexes, ...$arguments): array
     {
-        $vector2 = array_pop($vectorIndexes);
-        $vectorValues2 = Functions::flattenArray($arguments[$vector2]);
-        $vector1 = array_pop($vectorIndexes);
-        $vectorValues1 = Functions::flattenArray($arguments[$vector1]);
+        $matrix2 = array_pop($matrixIndexes);
+        /** @var array $matrixValues2 */
+        $matrixValues2 = $arguments[$matrix2];
+        $matrix1 = array_pop($matrixIndexes);
+        /** @var array $matrixValues1 */
+        $matrixValues1 = $arguments[$matrix1];
 
         $result = [];
-        foreach ($vectorValues1 as $index => $value1) {
-            $value2 = $vectorValues2[$index];
-            $arguments[$vector1] = $value1;
-            $arguments[$vector2] = $value2;
+        foreach ($matrixValues1 as $rowIndex => $row) {
+            foreach ($row as $columnIndex => $value1) {
+                if (isset($matrixValues2[$rowIndex][$columnIndex]) === false) {
+                    continue;
+                }
 
-            $result[] = [$method(...$arguments)];
+                $value2 = $matrixValues2[$rowIndex][$columnIndex];
+                $arguments[$matrix1] = $value1;
+                $arguments[$matrix2] = $value2;
+
+                $result[$rowIndex][$columnIndex] = $method(...$arguments);
+            }
         }
 
         return $result;

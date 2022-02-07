@@ -75,7 +75,14 @@ class ArrayArgumentHelper
         return 0;
     }
 
-    public function getRowVectors(): array
+    public function getSingleRowVector(): ?int
+    {
+        $rowVectors = $this->getRowVectors();
+
+        return count($rowVectors) === 1 ? array_pop($rowVectors) : null;
+    }
+
+    private function getRowVectors(): array
     {
         $rowVectors = [];
         for ($index = 0; $index < $this->argumentCount; ++$index) {
@@ -87,14 +94,14 @@ class ArrayArgumentHelper
         return $rowVectors;
     }
 
-    public function getSingleRowVector(): ?int
+    public function getSingleColumnVector(): ?int
     {
-        $rowVectors = $this->getRowVectors();
+        $columnVectors = $this->getColumnVectors();
 
-        return count($rowVectors) === 1 ? array_pop($rowVectors) : null;
+        return count($columnVectors) === 1 ? array_pop($columnVectors) : null;
     }
 
-    public function getColumnVectors(): array
+    private function getColumnVectors(): array
     {
         $columnVectors = [];
         for ($index = 0; $index < $this->argumentCount; ++$index) {
@@ -106,11 +113,42 @@ class ArrayArgumentHelper
         return $columnVectors;
     }
 
-    public function getSingleColumnVector(): ?int
+    public function getMatrixPair(): array
     {
-        $columnVectors = $this->getColumnVectors();
+        for ($i = 0; $i < ($this->argumentCount - 1); ++$i) {
+            for ($j = $i + 1; $j < $this->argumentCount; ++$j) {
+                if (isset($this->rows[$i], $this->rows[$j])) {
+                    return [$i, $j];
+                }
+            }
+        }
 
-        return count($columnVectors) === 1 ? array_pop($columnVectors) : null;
+        return [];
+    }
+
+    public function isVector(int $argument): bool
+    {
+        return $this->rows[$argument] === 1 || $this->columns[$argument] === 1;
+    }
+
+    public function isRowVector(int $argument): bool
+    {
+        return $this->rows[$argument] === 1;
+    }
+
+    public function isColumnVector(int $argument): bool
+    {
+        return $this->columns[$argument] === 1;
+    }
+
+    public function rowCount(int $argument): int
+    {
+        return $this->rows[$argument];
+    }
+
+    public function columnCount(int $argument): int
+    {
+        return $this->columns[$argument];
     }
 
     private function rows(array $arguments): array
