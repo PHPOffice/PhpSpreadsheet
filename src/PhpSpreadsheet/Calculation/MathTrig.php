@@ -301,9 +301,9 @@ class MathTrig
      * @see MathTrig\IntClass::evaluate()
      *      Use the evaluate() method in the MathTrig\IntClass class instead
      *
-     * @param float $number Number to cast to an integer
+     * @param array|float $number Number to cast to an integer
      *
-     * @return int|string Integer value, or a string containing an error
+     * @return array|int|string Integer value, or a string containing an error
      */
     public static function INT($number)
     {
