@@ -134,7 +134,7 @@ class Coupons
             case FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL:
                 // Actual/actual
                 if ($frequency == FinancialConstants::FREQUENCY_ANNUAL) {
-                    $daysPerYear = Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
+                    $daysPerYear = (int) Helpers::daysPerYear(DateTimeExcel\DateParts::year($settlement), $basis);
 
                     return $daysPerYear / $frequency;
                 }

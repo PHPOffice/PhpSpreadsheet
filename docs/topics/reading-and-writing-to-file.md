@@ -860,7 +860,7 @@ $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf')
 Or you can instantiate directly the writer of your choice like so:
 
 ```php
-$writer = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 ```
 
 #### Custom implementation or configuration
