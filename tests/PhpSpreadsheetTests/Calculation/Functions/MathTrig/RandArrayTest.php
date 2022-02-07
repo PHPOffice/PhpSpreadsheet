@@ -53,8 +53,16 @@ class RandArrayTest extends AllSetupTeardown
         );
     }
 
-    public function testRANDARRAYException(): void
+    public function testRANDARRAYExceptions(): void
     {
+        $rows = 'THREE';
+        $cols = 2;
+        $min = 2;
+        $max = -2;
+
+        $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
+        self::assertSame(Functions::VALUE(), $result);
+
         $rows = 3;
         $cols = 2;
         $min = 2;
