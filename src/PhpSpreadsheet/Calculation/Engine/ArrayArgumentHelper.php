@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engine;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+
 class ArrayArgumentHelper
 {
     /**
@@ -34,6 +36,10 @@ class ArrayArgumentHelper
 
         $this->rows = $this->rows($arguments);
         $this->columns = $this->columns($arguments);
+
+        if ($this->arrayArguments() > 2) {
+            throw new Exception('Formulae with more than two array arguments are not supported');
+        }
     }
 
     public function arguments(): array
@@ -43,22 +49,7 @@ class ArrayArgumentHelper
 
     public function hasArrayArgument(): bool
     {
-        return $this->arrayArgumentCount() > 0;
-    }
-
-    public function arrayArgumentCount(): int
-    {
-        $rowArrays = $this->filterArray($this->rows);
-        $columnArrays = $this->filterArray($this->columns);
-
-        $count = 0;
-        for ($index = 0; $index < $this->argumentCount; ++$index) {
-            if (isset($rowArrays[$index]) || isset($columnArrays[$index])) {
-                ++$count;
-            }
-        }
-
-        return $count;
+        return $this->arrayArguments() > 0;
     }
 
     public function getFirstArrayArgumentNumber(): int
@@ -171,6 +162,18 @@ class ArrayArgumentHelper
             },
             $arguments
         );
+    }
+
+    public function arrayArguments(): int
+    {
+        $count = 0;
+        foreach (array_keys($this->arguments) as $argument) {
+            if ($this->rows[$argument] > 1 || $this->columns[$argument] > 1) {
+                ++$count;
+            }
+        }
+
+        return $count;
     }
 
     private function flattenSingleCellArrays(array $arguments, array $rows, array $columns): array

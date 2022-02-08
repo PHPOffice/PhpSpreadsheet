@@ -41,7 +41,7 @@ trait ArrayEnabled
             return [$method(...$arguments)];
         }
 
-        if (self::$arrayArgumentHelper->arrayArgumentCount() === 1) {
+        if (self::$arrayArgumentHelper->arrayArguments() === 1) {
             $nthArgument = self::$arrayArgumentHelper->getFirstArrayArgumentNumber();
 
             return self::evaluateNthArgumentAsArray($method, $nthArgument, ...$arguments);
@@ -70,6 +70,7 @@ trait ArrayEnabled
         }
 
         // Still need to work out the logic for more than two array arguments,
+        // For the moment, we're throwing an Exception when we initialise the ArrayArgumentHelper
         return ['#VALUE!'];
     }
 

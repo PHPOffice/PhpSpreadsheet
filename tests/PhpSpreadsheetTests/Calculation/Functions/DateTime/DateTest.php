@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class DateTest extends AllSetupTeardown
 {
@@ -110,6 +111,40 @@ class DateTest extends AllSetupTeardown
                 ],
                 '2022',
                 '{1; 4; 7; 10}',
+                '{0,1}',
+            ],
+            'matrices year and month' => [
+                [
+                    [43831, 44287],
+                    [44743, 45200],
+                ],
+                '{2020, 2021; 2022, 2023}',
+                '{1, 4; 7, 10}',
+                '1',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerDateArrayException
+     */
+    public function testDateArrayException(string $year, string $month, string $day): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
+
+        $formula = "=DATE({$year}, {$month}, {$day})";
+        $calculation->_calculateFormulaValue($formula);
+    }
+
+    public function providerDateArrayException(): array
+    {
+        return [
+            'matrix arguments with 3 array values' => [
+                '{2020, 2021; 2022, 2023}',
+                '{1, 4; 7, 10}',
                 '{0,1}',
             ],
         ];
