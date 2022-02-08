@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
 
 class DateTest extends AllSetupTeardown
@@ -55,5 +56,62 @@ class DateTest extends AllSetupTeardown
 
         $result = Date::fromYMD(1901, 1, 31);
         self::assertEquals($result, '#NUM!');
+    }
+
+    /**
+     * @dataProvider providerDateArray
+     */
+    public function testDateArray(array $expectedResult, string $year, string $month, string $day): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DATE({$year}, {$month}, {$day})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerDateArray(): array
+    {
+        return [
+            'row vector year' => [[[44197, 44562, 44927]], '{2021,2022,2023}', '1', '1'],
+            'column vector year' => [[[44197], [44562], [44927]], '{2021;2022;2023}', '1', '1'],
+            'matrix year' => [[[43831.00, 44197], [44562, 44927]], '{2020,2021;2022,2023}', '1', '1'],
+            'row vector month' => [[[44562, 44652, 44743, 44835]], '2022', '{1, 4, 7, 10}', '1'],
+            'column vector month' => [[[44562], [44652], [44743], [44835]], '2022', '{1; 4; 7; 10}', '1'],
+            'matrix month' => [[[44562, 44652], [44743, 44835]], '2022', '{1, 4; 7, 10}', '1'],
+            'row vector day' => [[[44561, 44562]], '2022', '1', '{0,1}'],
+            'column vector day' => [[[44561], [44562]], '2022', '1', '{0;1}'],
+            'vectors year and month' => [
+                [
+                    [44197, 44287, 44378, 44470],
+                    [44562, 44652, 44743, 44835],
+                    [44927, 45017, 45108, 45200],
+                ],
+                '{2021;2022;2023}',
+                '{1, 4, 7, 10}',
+                '1',
+            ],
+            'vectors year and day' => [
+                [
+                    [44196, 44197],
+                    [44561, 44562],
+                    [44926, 44927],
+                ],
+                '{2021;2022;2023}',
+                '1',
+                '{0,1}',
+            ],
+            'vectors month and day' => [
+                [
+                    [44561, 44562],
+                    [44651, 44652],
+                    [44742, 44743],
+                    [44834, 44835],
+                ],
+                '2022',
+                '{1; 4; 7; 10}',
+                '{0,1}',
+            ],
+        ];
     }
 }
