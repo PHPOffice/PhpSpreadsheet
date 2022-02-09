@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 use DateTime;
 use DateTimeImmutable;
 use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 
 class DaysTest extends AllSetupTeardown
@@ -41,5 +42,26 @@ class DaysTest extends AllSetupTeardown
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
         self::assertSame('#VALUE!', Days::between($obj1, $obj2));
+    }
+
+    /**
+     * @dataProvider providerDaysArray
+     */
+    public function testDaysArray(array $expectedResult, string $startDate, string $endDate): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DAYS({$startDate}, {$endDate})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerDaysArray(): array
+    {
+        return [
+            'row vector #1' => [[[-364, -202, 203]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"'],
+            'column vector #1' => [[[-364], [-362], [-359]], '{"2022-01-01"; "2022-01-03"; "2022-01-06"}', '"2022-12-31"'],
+            'matrix #1' => [[[1, 10], [227, 365]], '{"2022-01-01", "2022-01-10"; "2022-08-15", "2022-12-31"}', '"2021-12-31"'],
+        ];
     }
 }

@@ -464,7 +464,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Day of the month
+     * @return array|int|string Day of the month
      */
     public static function DAYOFMONTH($dateValue = 1)
     {
@@ -492,7 +492,7 @@ class DateTime
      *                                        2                Numbers 1 (Monday) through 7 (Sunday).
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
      *
-     * @return int|string Day of the week value
+     * @return array|int|string Day of the week value
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
@@ -704,7 +704,7 @@ class DateTime
      *                                        17               Week begins on Sunday.
      *                                        21               ISO (Jan. 4 is week 1, begins on Monday).
      *
-     * @return int|string Week Number
+     * @return array|int|string Week Number
      */
     public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
     {
@@ -727,7 +727,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Week Number
+     * @return array|int|string Week Number
      */
     public static function ISOWEEKNUM($dateValue = 1)
     {
@@ -751,7 +751,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Month of the year
+     * @return array|int|string Month of the year
      */
     public static function MONTHOFYEAR($dateValue = 1)
     {
@@ -775,7 +775,7 @@ class DateTime
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *
-     * @return int|string Year
+     * @return array|int|string Year
      */
     public static function YEAR($dateValue = 1)
     {
@@ -799,7 +799,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Hour
+     * @return array|int|string Hour
      */
     public static function HOUROFDAY($timeValue = 0)
     {
@@ -823,7 +823,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Minute
+     * @return array|int|string Minute
      */
     public static function MINUTE($timeValue = 0)
     {
@@ -847,7 +847,7 @@ class DateTime
      * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard time string
      *
-     * @return int|string Second
+     * @return array|int|string Second
      */
     public static function SECOND($timeValue = 0)
     {
