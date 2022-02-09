@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Improved support for passing of array arguments to Excel function implementations to return array results (where appropriate). [PR #2562](https://github.com/PHPOffice/PhpSpreadsheet/pull/2562)
+
+  This is the first stage in an ongoing process of adding array support to all appropriate function implementations, 
 - Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536)
 - Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540) 
 
