@@ -40,7 +40,7 @@ class AbsTest extends AllSetupTeardown
 
         $formula = "=ABS({$array})";
         $result = $calculation->_calculateFormulaValue($formula);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
     public function providerAbsArray(): array
@@ -48,7 +48,7 @@ class AbsTest extends AllSetupTeardown
         return [
             'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],
             'column vector' => [[[1], [0], [1]], '{-1; 0; 1}'],
-            'matrix' => [[[1, 0], [1, 1]], '{-1, 0; 1, -1}'],
+            'matrix' => [[[1, 0], [1, 1.4]], '{-1, 0; 1, -1.4}'],
         ];
     }
 }

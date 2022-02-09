@@ -2,19 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Absolute
 {
-    private static function evaluateArray(array $numbers): array
-    {
-        $result = [];
-        foreach ($numbers as $number) {
-            $result[] = self::evaluate($number);
-        }
-
-        return $result;
-    }
+    use ArrayEnabled;
 
     /**
      * ABS.
@@ -30,7 +23,7 @@ class Absolute
     public static function evaluate($number)
     {
         if (is_array($number)) {
-            return self::evaluateArray($number);
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $number);
         }
 
         try {

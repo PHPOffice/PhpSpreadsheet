@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 class MatrixFunctions
 {
     /**
-     * Convert parameter to matrix.
+     * Convert parameter to Matrix.
      *
      * @param mixed $matrixValues A matrix of values
      */
@@ -73,13 +73,13 @@ class MatrixFunctions
         if ($step === 0) {
             return array_chunk(
                 array_fill(0, $rows * $columns, $start),
-                $columns
+                max($columns, 1)
             );
         }
 
         return array_chunk(
             range($start, $start + (($rows * $columns - 1) * $step), $step),
-            $columns
+            max($columns, 1)
         );
     }
 
