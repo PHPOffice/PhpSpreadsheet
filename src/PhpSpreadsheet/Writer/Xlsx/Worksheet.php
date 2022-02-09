@@ -1189,10 +1189,12 @@ class Worksheet extends WriterPart
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
+            $objWriter->startElement('is');
             $objWriter->writeElement(
                 't',
                 StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue, Settings::htmlEntityFlags()))
             );
+            $objWriter->endElement();
         } elseif ($cellValue instanceof RichText) {
             $objWriter->startElement('is');
             $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $cellValue);
