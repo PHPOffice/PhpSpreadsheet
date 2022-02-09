@@ -283,6 +283,44 @@ class Cell
         return $this->updateInCollection();
     }
 
+    private function processArrayResult(
+        Worksheet $worksheet,
+        string $coordinate,
+        array $result,
+        string $value,
+        ?array $formulaAttributes
+    ): array {
+        // We'll need to do a check here for the Singular Operator (@) at some point
+        //       and not populate the spillage cells if it's there
+        if ($this->isArrayFormula()) {
+            // Here is where we should set all cellRange values from the result (but within the range limit)
+            // Ensure that our array result dimensions match the specified array formula range dimensions,
+            //    expanding or shrinking it as necessary.
+            $result = Functions::resizeMatrix(
+                $result,
+                ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
+            );
+            // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
+            // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
+//                        $worksheet->fromArray(
+//                            $result,
+//                            null,
+//                            $coordinate,
+//                            true
+//                        );
+            // Using fromArray() would reset the value for this cell with the calculation result
+            //      as well as updating the spillage cells,
+            //  so we need to restore this cell to its formula value, attributes, and datatype
+            $worksheet->getCell($coordinate);
+            $this->value = $value;
+            $this->dataType = DataType::TYPE_FORMULA;
+            $this->formulaAttributes = $formulaAttributes;
+            $this->updateInCollection();
+        }
+
+        return $result;
+    }
+
     /**
      * Get calculated cell value.
      *
@@ -297,7 +335,6 @@ class Cell
                 $coordinate = $this->getCoordinate();
                 $worksheet = $this->getWorksheet();
                 $value = $this->value;
-                $datatype = $this->dataType;
                 $formulaAttributes = $this->formulaAttributes;
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
@@ -309,33 +346,7 @@ class Cell
                 $worksheet->getCell($coordinate);
 
                 if (is_array($result)) {
-                    // We'll need to do a check here for the Singular Operator (@) at some point
-                    //       and not populate the spillage cells if it's there
-                    if ($this->isArrayFormula()) {
-                        // Here is where we should set all cellRange values from the result (but within the range limit)
-                        // Ensure that our array result dimensions match the specified array formula range dimensions,
-                        //    expanding or shrinking it as necessary.
-                        $result = Functions::resizeMatrix(
-                            $result,
-                            ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
-                        );
-                        // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
-                        // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
-//                        $worksheet->fromArray(
-//                            $result,
-//                            null,
-//                            $coordinate,
-//                            true
-//                        );
-                        // Using fromArray() would reset the value for this cell with the calculation result
-                        //      as well as updating the spillage cells,
-                        //  so we need to restore this cell to its formula value, attributes, and datatype
-                        $worksheet->getCell($coordinate);
-                        $this->value = $value;
-                        $this->dataType = $datatype;
-                        $this->formulaAttributes = $formulaAttributes;
-                        $this->updateInCollection();
-                    }
+                    $result = $this->processArrayResult($worksheet, $coordinate, $result, $value, $formulaAttributes);
 
                     // Now we just extract the top-left value from the array to get the result for this specific cell
                     if ($asArray === false) {

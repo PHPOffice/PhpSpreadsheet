@@ -1282,8 +1282,8 @@ class Worksheet extends WriterPart
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
             $objWriter->writeAttribute('ref', $attributes['ref'] ?? $cell->getCoordinate());
-            $objWriter->writeAttribute('aca', '1');     // Always calculate array, true
-            $objWriter->writeAttribute('ca', '1');      // Calculate cell, true
+            $objWriter->writeAttribute('aca', '1'); // Always calculate array, true
+            $objWriter->writeAttribute('ca', '1'); // Calculate cell, true
             $objWriter->text(Xlfn::addXlfnStripEquals($cellValue));
             $objWriter->endElement();
         } else {
