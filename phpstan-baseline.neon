@@ -66,8 +66,13 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot access offset int(<0, max>)? on mixed\\.$#"
-			count: 16
+			message: "#^Cannot access offset int on mixed\\.$#"
+			count: 10
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
+			count: 6
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -1461,7 +1466,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array(<T>)?, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array\\<T\\>, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
@@ -1471,39 +1476,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function uasort expects callable\\((mixed|T), (mixed|T)\\)\\: int, array\\{'self', 'vlookupSort'\\} given\\.$#"
+			message: "#^Parameter \\#2 \\$callback of function uasort expects callable\\(T, T\\)\\: int, array\\{'self', 'vlookupSort'\\} given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Cosine\\:\\:acos\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Cosine\\:\\:acosh\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Sine\\:\\:asin\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Sine\\:\\:asinh\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Tangent\\:\\:atan\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Trig\\\\Tangent\\:\\:atanh\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig.php
 
 		-
 			message: "#^Cannot cast mixed to string\\.$#"
@@ -1511,14 +1486,24 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
 
 		-
-			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
+			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
 
 		-
-			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int results in an error\\.$#"
+			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<min, \\-2\\>\\|int\\<0, max\\> given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and float\\|int results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\IntClass\\:\\:evaluate\\(\\) should return array\\|string but returns int\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
 
 		-
 			message: "#^Cannot call method getWorksheet\\(\\) on mixed\\.$#"
@@ -1811,6 +1796,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
 
 		-
+			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
+
+		-
 			message: "#^Binary operation \"\\-\" between float\\|string and float\\|int\\|numeric\\-string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
@@ -1841,7 +1831,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
 
 		-
-			message: "#^Binary operation \"/\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
+			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
 
@@ -6046,8 +6036,13 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int(<1, max>)? given\\.$#"
-			count: 2
+			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int\\<1, max\\> given\\.$#"
+			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
@@ -6996,7 +6991,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Cannot access offset int(<0, max>)? on mixed\\.$#"
+			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -7161,7 +7156,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int(<0, max>)? given\\.$#"
+			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
@@ -7401,7 +7396,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Offset int(<1, max>)? on array\\<string, non\\-empty\\-array\\<int, string\\>\\> in isset\\(\\) does not exist\\.$#"
+			message: "#^Offset int\\<1, max\\> on array\\<string, non\\-empty\\-array\\<int, string\\>\\> in isset\\(\\) does not exist\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
@@ -7436,8 +7431,18 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, (int|int\\<(0|1), max\\>) given\\.$#"
-			count: 27
+			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
+			count: 15
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<1, max\\> given\\.$#"
+			count: 9
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-

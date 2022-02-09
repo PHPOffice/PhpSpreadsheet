@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AtanTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class AtanTest extends AllSetupTeardown
     public function providerAtan(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATAN.php';
+    }
+
+    /**
+     * @dataProvider providerAtanArray
+     */
+    public function testAtanArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ATAN({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAtanArray(): array
+    {
+        return [
+            'row vector' => [[[0.78539816339745, 0.46364760900081, -0.78539816339745]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.78539816339745], [0.46364760900081], [-0.78539816339745]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.78539816339745, 0.46364760900081], [0.0, -0.78539816339745]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }
