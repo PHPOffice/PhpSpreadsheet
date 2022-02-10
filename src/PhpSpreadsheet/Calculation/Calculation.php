@@ -4368,6 +4368,12 @@ class Calculation
         if (($operandData['reference'] === null) && (is_array($operand))) {
             $rKeys = array_keys($operand);
             $rowKey = array_shift($rKeys);
+            if (is_array($operand[$rowKey]) === false) {
+                $operandData['value'] = $operand[$rowKey];
+
+                return $operand[$rowKey];
+            }
+
             $cKeys = array_keys(array_keys($operand[$rowKey]));
             $colKey = array_shift($cKeys);
             if (ctype_upper("$colKey")) {
