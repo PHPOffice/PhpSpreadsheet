@@ -856,6 +856,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial.php
 
 		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:isLeapYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
@@ -911,9 +916,19 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
 
 		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\NonPeriodic\\:\\:xnpvOrdered\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\Periodic\\:\\:presentValue\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
+
+		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no type specified\\.$#"
@@ -961,9 +976,69 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
 
 		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:atMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:periodic\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
+
+		-
 			message: "#^Binary operation \"/\" between float\\|string and float\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceAtMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceDiscounted\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:received\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:discount\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:interest\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldAtMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldDiscounted\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
+
+		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
+
+		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
 
 		-
 			message: "#^Cannot call method getTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
@@ -1901,7 +1976,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
 		-
-			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\DateValue\\:\\:fromString\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\DateValue\\:\\:fromString\\(\\) expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
@@ -1916,7 +1991,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
 		-
-			message: "#^Parameter \\#1 \\$timeValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\TimeValue\\:\\:fromString\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$timeValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\TimeValue\\:\\:fromString\\(\\) expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
