@@ -26,7 +26,6 @@ class Days360Test extends AllSetupTeardown
         return require 'tests/data/Calculation/DateTime/DAYS360.php';
     }
 
-
     /**
      * @dataProvider providerDays360Array
      */
