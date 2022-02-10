@@ -151,6 +151,7 @@ class WorkDay
             --$endDate;
             //    Adjust the calculated end date if it falls over a weekend
             $endDow = self::getWeekDay($endDate, 3);
+            /** int $endDoW */
             if ($endDow >= 5) {
                 $endDate += 4 - $endDow;
             }
@@ -183,6 +184,7 @@ class WorkDay
             }
             //    Adjust the calculated end date if it falls over a weekend
             $endDoW = self::getWeekDay($endDate, 3);
+            /** int $endDoW */
             if ($endDoW >= 5) {
                 $endDate += -$endDoW + 4;
             }

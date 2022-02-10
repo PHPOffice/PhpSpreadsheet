@@ -37,6 +37,27 @@ trait ArrayEnabled
         self::initialiseHelper($arguments);
         $arguments = self::$arrayArgumentHelper->arguments();
 
+        return self::processArguments($method, ...$arguments);
+    }
+
+    /**
+     * @param mixed ...$arguments
+     */
+    protected static function evaluateArrayArgumentsSubset(callable $method, int $limit, ...$arguments): array
+    {
+        self::initialiseHelper(array_slice($arguments, 0, $limit));
+        $trailingArguments = array_slice($arguments, $limit);
+        $arguments = self::$arrayArgumentHelper->arguments();
+        $arguments = array_merge($arguments, $trailingArguments);
+
+        return self::processArguments($method, ...$arguments);
+    }
+
+    /**
+     * @param mixed ...$arguments
+     */
+    private static function processArguments(callable $method, ...$arguments): array
+    {
         if (self::$arrayArgumentHelper->hasArrayArgument() === false) {
             return [$method(...$arguments)];
         }
