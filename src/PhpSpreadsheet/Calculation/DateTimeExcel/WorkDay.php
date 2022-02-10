@@ -28,7 +28,7 @@ class WorkDay
      *                                        startDate. A positive value for days yields a future date; a
      *                                        negative value yields a past date.
      *                         Or can be an array of int values
-     * @param mixed $dateArgs
+     * @param null|mixed $dateArgs An array of dates (such as holidays) to exclude from the calculation
      *
      * @return array|mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
@@ -194,8 +194,8 @@ class WorkDay
 
     private static function getWeekDay(float $date, int $wd): int
     {
-        $result = Week::day($date, $wd);
+        $result = Functions::scalar(Week::day($date, $wd));
 
-        return is_string($result) ? -1 : $result;
+        return is_int($result) ? $result : -1;
     }
 }

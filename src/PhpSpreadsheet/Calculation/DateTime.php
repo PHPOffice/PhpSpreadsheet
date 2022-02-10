@@ -278,9 +278,9 @@ class DateTime
      *                                    or a standard date string
      * @param mixed $endDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
-     * @param string $unit
+     * @param array|string $unit
      *
-     * @return int|string Interval between the dates
+     * @return array|int|string Interval between the dates
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
@@ -300,12 +300,12 @@ class DateTime
      * @See DateTimeExcel\Days::between()
      *      Use the between method in the DateTimeExcel\Days class instead
      *
-     * @param DateTimeInterface|float|int|string $endDate Excel date serial value (float),
+     * @param array|DateTimeInterface|float|int|string $endDate Excel date serial value (float),
      * PHP date timestamp (integer), PHP DateTime object, or a standard date string
-     * @param DateTimeInterface|float|int|string $startDate Excel date serial value (float),
+     * @param array|DateTimeInterface|float|int|string $startDate Excel date serial value (float),
      * PHP date timestamp (integer), PHP DateTime object, or a standard date string
      *
-     * @return int|string Number of days between start date and end date or an error
+     * @return array|int|string Number of days between start date and end date or an error
      */
     public static function DAYS($endDate = 0, $startDate = 0)
     {
@@ -331,7 +331,7 @@ class DateTime
      *                                        PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                        PHP DateTime object, or a standard date string
-     * @param bool $method US or European Method
+     * @param array|bool $method US or European Method
      *                                        FALSE or omitted: U.S. (NASD) method. If the starting date is
      *                                        the last day of a month, it becomes equal to the 30th of the
      *                                        same month. If the ending date is the last day of a month and
@@ -343,7 +343,7 @@ class DateTime
      *                                        occur on the 31st of a month become equal to the 30th of the
      *                                        same month.
      *
-     * @return int|string Number of days between start date and end date
+     * @return array|int|string Number of days between start date and end date
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
@@ -373,14 +373,14 @@ class DateTime
      *                                    PHP DateTime object, or a standard date string
      * @param mixed $endDate Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
-     * @param int $method Method used for the calculation
+     * @param array|int $method Method used for the calculation
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return float|string fraction of the year, or a string containing an error
+     * @return array|float|string fraction of the year, or a string containing an error
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
@@ -409,7 +409,7 @@ class DateTime
      *                                            PHP DateTime object, or a standard date string
      * @param mixed $dateArgs
      *
-     * @return int|string Interval between the dates
+     * @return array|int|string Interval between the dates
      */
     public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {

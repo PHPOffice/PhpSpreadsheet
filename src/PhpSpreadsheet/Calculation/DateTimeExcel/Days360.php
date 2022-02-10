@@ -46,7 +46,7 @@ class Days360
      */
     public static function between($startDate = 0, $endDate = 0, $method = false)
     {
-        if (is_array($endDate) || is_array($startDate) || is_array($method)) {
+        if (is_array($startDate) || is_array($endDate) || is_array($method)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $method);
         }
 

@@ -576,21 +576,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
 
 		-
-			message: "#^Binary operation \"/\" between int\\|string and \\(float\\|int\\) results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
-
-		-
-			message: "#^Binary operation \"/\" between int\\|string and 360 results in an error\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
-
-		-
-			message: "#^Binary operation \"/\" between int\\|string and 365 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\Logger\\:\\:writeDebugLog\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engine/Logger.php
