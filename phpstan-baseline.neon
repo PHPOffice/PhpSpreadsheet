@@ -927,7 +927,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
-			count: 3
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
+
+		-
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
@@ -976,12 +981,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:atMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:atMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:periodic\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:periodic\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
 
@@ -991,12 +996,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceAtMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
-			count: 3
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceAtMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
+			count: 4
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceDiscounted\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceDiscounted\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
@@ -1011,22 +1016,22 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:discount\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:discount\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:interest\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:interest\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldAtMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldAtMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldDiscounted\\(\\) should return float\\|string but returns array\\|string\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldDiscounted\\(\\) should return float\\|string but returns mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
 
@@ -1036,7 +1041,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
 
 		-
-			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
 

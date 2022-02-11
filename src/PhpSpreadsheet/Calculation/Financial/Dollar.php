@@ -2,21 +2,25 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
 class Dollar
 {
+    use ArrayEnabled;
+
     /**
      * DOLLAR.
      *
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param mixed $number The value to format
+     * @param mixed $number The value to format, or can be an array of numbers
      * @param mixed $precision The number of digits to display to the right of the decimal point (as an integer).
      *                            If precision is negative, number is rounded to the left of the decimal point.
      *                            If you omit precision, it is assumed to be 2
+     *              Or can be an array of precision values
      */
     public static function format($number, $precision = 2): string
     {
@@ -34,12 +38,18 @@ class Dollar
      *        DOLLARDE(fractional_dollar,fraction)
      *
      * @param mixed $fractionalDollar Fractional Dollar
+     *              Or can be an array of values
      * @param mixed $fraction Fraction
+     *              Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function decimal($fractionalDollar = null, $fraction = 0)
     {
+        if (is_array($fractionalDollar) || is_array($fraction)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $fractionalDollar, $fraction);
+        }
+
         $fractionalDollar = Functions::flattenSingleValue($fractionalDollar);
         $fraction = (int) Functions::flattenSingleValue($fraction);
 
@@ -51,8 +61,8 @@ class Dollar
             return Functions::DIV0();
         }
 
-        $dollars = floor($fractionalDollar);
-        $cents = fmod($fractionalDollar, 1);
+        $dollars = ($fractionalDollar < 0) ? ceil($fractionalDollar): floor($fractionalDollar);
+        $cents = fmod($fractionalDollar, 1.0);
         $cents /= $fraction;
         $cents *= 10 ** ceil(log10($fraction));
 
@@ -70,12 +80,18 @@ class Dollar
      *        DOLLARFR(decimal_dollar,fraction)
      *
      * @param mixed $decimalDollar Decimal Dollar
+     *              Or can be an array of values
      * @param mixed $fraction Fraction
+     *              Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function fractional($decimalDollar = null, $fraction = 0)
     {
+        if (is_array($decimalDollar) || is_array($fraction)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $decimalDollar, $fraction);
+        }
+
         $decimalDollar = Functions::flattenSingleValue($decimalDollar);
         $fraction = (int) Functions::flattenSingleValue($fraction);
 

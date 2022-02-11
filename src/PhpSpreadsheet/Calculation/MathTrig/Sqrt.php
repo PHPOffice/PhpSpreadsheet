@@ -16,7 +16,7 @@ class Sqrt
      *
      * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return array|float|string square roor
+     * @return array|float|string square root
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
