@@ -68,7 +68,7 @@ class Dollar
             return Functions::DIV0();
         }
 
-        $dollars = ($fractionalDollar < 0) ? ceil($fractionalDollar): floor($fractionalDollar);
+        $dollars = ($fractionalDollar < 0) ? ceil($fractionalDollar) : floor($fractionalDollar);
         $cents = fmod($fractionalDollar, 1.0);
         $cents /= $fraction;
         $cents *= 10 ** ceil(log10($fraction));

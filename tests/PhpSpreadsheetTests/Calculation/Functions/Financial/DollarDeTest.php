@@ -29,7 +29,7 @@ class DollarDeTest extends TestCase
     {
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
-    
+
     /**
      * @dataProvider providerDollarDeArray
      */

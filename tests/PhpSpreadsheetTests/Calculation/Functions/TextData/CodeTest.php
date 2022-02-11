@@ -30,7 +30,7 @@ class CodeTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }
-    
+
     /**
      * @dataProvider providerCodeArray
      */

@@ -18,7 +18,7 @@ class TextData
      *
      * @param string $character Value
      *
-     * @return string
+     * @return array|string
      */
     public static function CHARACTER($character)
     {
@@ -64,9 +64,9 @@ class TextData
      *
      * @see Use the code() method in the TextData\CharacterConvert class instead
      *
-     * @param string $characters Value
+     * @param array|string $characters Value
      *
-     * @return int|string A string if arguments are invalid
+     * @return array|int|string A string if arguments are invalid
      */
     public static function ASCIICODE($characters)
     {
@@ -234,15 +234,15 @@ class TextData
     /**
      * LOWERCASE.
      *
-     * Converts a string value to upper case.
+     * Converts a string value to lower case.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the lower() method in the TextData\CaseConvert class instead
      *
-     * @param string $mixedCaseString
+     * @param array|string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function LOWERCASE($mixedCaseString)
     {
@@ -260,7 +260,7 @@ class TextData
      *
      * @param string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function UPPERCASE($mixedCaseString)
     {
@@ -270,15 +270,15 @@ class TextData
     /**
      * PROPERCASE.
      *
-     * Converts a string value to upper case.
+     * Converts a string value to proper/title case.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the proper() method in the TextData\CaseConvert class instead
      *
-     * @param string $mixedCaseString
+     * @param array|string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function PROPERCASE($mixedCaseString)
     {
