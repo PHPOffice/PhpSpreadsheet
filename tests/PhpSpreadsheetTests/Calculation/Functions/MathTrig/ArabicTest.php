@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class ArabicTest extends AllSetupTeardown
 {
     /**
@@ -23,5 +25,26 @@ class ArabicTest extends AllSetupTeardown
     public function providerARABIC(): array
     {
         return require 'tests/data/Calculation/MathTrig/ARABIC.php';
+    }
+
+    /**
+     * @dataProvider providerArabicArray
+     */
+    public function testArabicArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ARABIC({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerArabicArray(): array
+    {
+        return [
+            'row vector' => [[[49, 2022, 499]], '{"XLIX", "MMXXII", "VDIV"}'],
+            'column vector' => [[[49], [2022], [499]], '{"XLIX"; "MMXXII"; "VDIV"}'],
+            'matrix' => [[[49, 2022], [-499, 499]], '{"XLIX", "MMXXII"; "-ID", "VDIV"}'],
+        ];
     }
 }

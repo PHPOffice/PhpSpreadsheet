@@ -371,7 +371,7 @@ class Worksheet implements IComparable
         $this->defaultRowDimension = new RowDimension(null);
         // Default column dimension
         $this->defaultColumnDimension = new ColumnDimension(null);
-        $this->autoFilter = new AutoFilter(null, $this);
+        $this->autoFilter = new AutoFilter('', $this);
     }
 
     /**
@@ -1415,10 +1415,8 @@ class Worksheet implements IComparable
      * Get style for cell.
      *
      * @param string $cellCoordinate Cell coordinate (or range) to get style for, eg: 'A1'
-     *
-     * @return Style
      */
-    public function getStyle($cellCoordinate)
+    public function getStyle($cellCoordinate): Style
     {
         // set this sheet as active
         $this->parent->setActiveSheetIndex($this->parent->getIndex($this));
@@ -1432,30 +1430,68 @@ class Worksheet implements IComparable
     /**
      * Get conditional styles for a cell.
      *
-     * @param string $coordinate eg: 'A1'
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a single cell is referenced, then the array of conditional styles will be returned if the cell is
+     *               included in a conditional style range.
+     *          If a range of cells is specified, then the styles will only be returned if the range matches the entire
+     *               range of the conditional.
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles($coordinate)
+    public function getConditionalStyles(string $coordinate): array
     {
         $coordinate = strtoupper($coordinate);
-        if (!isset($this->conditionalStylesCollection[$coordinate])) {
-            $this->conditionalStylesCollection[$coordinate] = [];
+        if (strpos($coordinate, ':') !== false) {
+            return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
-        return $this->conditionalStylesCollection[$coordinate];
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $this->conditionalStylesCollection[$conditionalRange];
+            }
+        }
+
+        return [];
+    }
+
+    public function getConditionalRange(string $coordinate): ?string
+    {
+        $coordinate = strtoupper($coordinate);
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return $conditionalRange;
+            }
+        }
+
+        return null;
     }
 
     /**
      * Do conditional styles exist for this cell?
      *
-     * @param string $coordinate eg: 'A1'
-     *
-     * @return bool
+     * @param string $coordinate eg: 'A1' or 'A1:A3'.
+     *          If a single cell is specified, then this method will return true if that cell is included in a
+     *               conditional style range.
+     *          If a range of cells is specified, then true will only be returned if the range matches the entire
+     *               range of the conditional.
      */
-    public function conditionalStylesExists($coordinate)
+    public function conditionalStylesExists($coordinate): bool
     {
-        return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        $coordinate = strtoupper($coordinate);
+        if (strpos($coordinate, ':') !== false) {
+            return isset($this->conditionalStylesCollection[strtoupper($coordinate)]);
+        }
+
+        $cell = $this->getCell($coordinate);
+        foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
+            if ($cell->isInRange($conditionalRange)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -1662,33 +1698,80 @@ class Worksheet implements IComparable
     {
         // Uppercase coordinate
         $range = strtoupper($range);
+        // Convert 'A:C' to 'A1:C1048576'
+        $range = self::pregReplace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $range);
+        // Convert '1:3' to 'A1:XFD3'
+        $range = self::pregReplace('/^(\\d+):(\\d+)$/', 'A${1}:XFD${2}', $range);
 
-        if (strpos($range, ':') !== false) {
+        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
             $this->mergeCells[$range] = $range;
-
-            // make sure cells are created
-
-            // get the cells in the range
-            $aReferences = Coordinate::extractAllCellReferencesInRange($range);
+            $firstRow = (int) $matches[2];
+            $lastRow = (int) $matches[4];
+            $firstColumn = $matches[1];
+            $lastColumn = $matches[3];
+            $firstColumnIndex = Coordinate::columnIndexFromString($firstColumn);
+            $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
+            $numberRows = $lastRow - $firstRow;
+            $numberColumns = $lastColumnIndex - $firstColumnIndex;
 
             // create upper left cell if it does not already exist
-            $upperLeft = $aReferences[0];
+            $upperLeft = "$firstColumn$firstRow";
             if (!$this->cellExists($upperLeft)) {
                 $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
             }
 
             // Blank out the rest of the cells in the range (if they exist)
-            $count = count($aReferences);
-            for ($i = 1; $i < $count; ++$i) {
-                if ($this->cellExists($aReferences[$i])) {
-                    $this->getCell($aReferences[$i])->setValueExplicit(null, DataType::TYPE_NULL);
-                }
+            if ($numberRows > $numberColumns) {
+                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft);
+            } else {
+                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft);
             }
         } else {
             throw new Exception('Merge must be set on a range of cells.');
         }
 
         return $this;
+    }
+
+    private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft): void
+    {
+        foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
+            $iterator = $column->getCellIterator($firstRow);
+            $iterator->setIterateOnlyExistingCells(true);
+            foreach ($iterator as $cell) {
+                if ($cell !== null) {
+                    $row = $cell->getRow();
+                    if ($row > $lastRow) {
+                        break;
+                    }
+                    $thisCell = $cell->getColumn() . $row;
+                    if ($upperLeft !== $thisCell) {
+                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                    }
+                }
+            }
+        }
+    }
+
+    private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft): void
+    {
+        foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
+            $iterator = $row->getCellIterator($firstColumn);
+            $iterator->setIterateOnlyExistingCells(true);
+            foreach ($iterator as $cell) {
+                if ($cell !== null) {
+                    $column = $cell->getColumn();
+                    $columnIndex = Coordinate::columnIndexFromString($column);
+                    if ($columnIndex > $lastColumnIndex) {
+                        break;
+                    }
+                    $thisCell = $column . $cell->getRow();
+                    if ($upperLeft !== $thisCell) {
+                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1914,12 +1997,10 @@ class Worksheet implements IComparable
 
     /**
      * Remove autofilter.
-     *
-     * @return $this
      */
-    public function removeAutoFilter()
+    public function removeAutoFilter(): self
     {
-        $this->autoFilter->setRange(null);
+        $this->autoFilter->setRange('');
 
         return $this;
     }
@@ -2076,6 +2157,7 @@ class Worksheet implements IComparable
             throw new Exception('Rows to be deleted should at least start from row 1.');
         }
 
+        $holdRowDimensions = $this->removeRowDimensions($row, $numberOfRows);
         $highestRow = $this->getHighestDataRow();
         $removedRowsCounter = 0;
 
@@ -2093,7 +2175,28 @@ class Worksheet implements IComparable
             --$highestRow;
         }
 
+        $this->rowDimensions = $holdRowDimensions;
+
         return $this;
+    }
+
+    private function removeRowDimensions(int $row, int $numberOfRows): array
+    {
+        $highRow = $row + $numberOfRows - 1;
+        $holdRowDimensions = [];
+        foreach ($this->rowDimensions as $rowDimension) {
+            $num = $rowDimension->getRowIndex();
+            if ($num < $row) {
+                $holdRowDimensions[$num] = $rowDimension;
+            } elseif ($num > $highRow) {
+                $num -= $numberOfRows;
+                $cloneDimension = clone $rowDimension;
+                $cloneDimension->setRowIndex($num);
+                $holdRowDimensions[$num] = $cloneDimension;
+            }
+        }
+
+        return $holdRowDimensions;
     }
 
     /**
@@ -2118,6 +2221,8 @@ class Worksheet implements IComparable
             return $this;
         }
 
+        $holdColumnDimensions = $this->removeColumnDimensions($pColumnIndex, $numberOfColumns);
+
         $column = Coordinate::stringFromColumnIndex($pColumnIndex + $numberOfColumns);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
@@ -2129,9 +2234,31 @@ class Worksheet implements IComparable
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
 
+        $this->columnDimensions = $holdColumnDimensions;
+
         $this->garbageCollect();
 
         return $this;
+    }
+
+    private function removeColumnDimensions(int $pColumnIndex, int $numberOfColumns): array
+    {
+        $highCol = $pColumnIndex + $numberOfColumns - 1;
+        $holdColumnDimensions = [];
+        foreach ($this->columnDimensions as $columnDimension) {
+            $num = $columnDimension->getColumnNumeric();
+            if ($num < $pColumnIndex) {
+                $str = $columnDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $columnDimension;
+            } elseif ($num > $highCol) {
+                $cloneDimension = clone $columnDimension;
+                $cloneDimension->setColumnNumeric($num - $numberOfColumns);
+                $str = $cloneDimension->getColumnIndex();
+                $holdColumnDimensions[$str] = $cloneDimension;
+            }
+        }
+
+        return $holdColumnDimensions;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class CotTest extends AllSetupTeardown
 {
     /**
@@ -26,5 +28,26 @@ class CotTest extends AllSetupTeardown
     public function providerCOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/COT.php';
+    }
+
+    /**
+     * @dataProvider providerCotArray
+     */
+    public function testCotArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=COT({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerCotArray(): array
+    {
+        return [
+            'row vector' => [[[0.64209261593433, 1.83048772171245, -0.64209261593433]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.64209261593433], [1.83048772171245], [-0.64209261593433]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.64209261593433, 1.83048772171245], ['#DIV/0!', -0.64209261593433]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

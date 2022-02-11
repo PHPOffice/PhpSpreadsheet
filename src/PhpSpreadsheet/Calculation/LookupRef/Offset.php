@@ -48,7 +48,7 @@ class Offset
         $width = Functions::flattenSingleValue($width);
 
         if ($cellAddress === null || $cellAddress === '') {
-            return 0;
+            return Functions::VALUE();
         }
 
         if (!is_object($cell)) {

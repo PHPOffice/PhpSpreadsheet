@@ -6941,7 +6941,7 @@ class Xls extends BaseReader
                 // offset: 1; size: 2; one-based index to definedname record
                 $definedNameIndex = self::getUInt2d($formulaData, 1) - 1;
                 // offset: 2; size: 2; not used
-                $data = $this->definedname[$definedNameIndex]['name'];
+                $data = $this->definedname[$definedNameIndex]['name'] ?? '';
 
                 break;
             case 0x24:    //    single cell reference e.g. A5
@@ -7911,5 +7911,18 @@ class Xls extends BaseReader
         $value->createText($is);
 
         return $value;
+    }
+
+    /**
+     * Phpstan 1.4.4 complains that this property is never read.
+     * So, we might be able to get rid of it altogether.
+     * For now, however, this function makes it readable,
+     * which satisfies Phpstan.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getMapCellStyleXfIndex(): array
+    {
+        return $this->mapCellStyleXfIndex;
     }
 }

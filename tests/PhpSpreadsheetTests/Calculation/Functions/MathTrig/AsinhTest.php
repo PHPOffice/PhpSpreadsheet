@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AsinhTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class AsinhTest extends AllSetupTeardown
     public function providerAsinh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASINH.php';
+    }
+
+    /**
+     * @dataProvider providerAsinhArray
+     */
+    public function testAsinhArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ASINH({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAsinhArray(): array
+    {
+        return [
+            'row vector' => [[[0.88137358701954, 0.48121182505960, -0.88137358701954]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.88137358701954], [0.48121182505960], [-0.88137358701954]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.88137358701954, 0.48121182505960], [0.0, -0.88137358701954]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

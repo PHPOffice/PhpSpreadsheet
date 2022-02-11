@@ -64,7 +64,7 @@ class Xlsx2Test extends TestCase
         $conditions = $conditionalRule->getConditions();
         self::assertNotEmpty($conditions);
         self::assertEquals(Conditional::CONDITION_NOTCONTAINSBLANKS, $conditionalRule->getConditionType());
-        self::assertEquals('LEN(TRIM(A2:A8))>0', $conditions[0]);
+        self::assertEquals('LEN(TRIM(A2))>0', $conditions[0]);
 
         $conditionalStyle = $worksheet->getConditionalStyles('B2:B8');
         self::assertNotEmpty($conditionalStyle);
@@ -72,7 +72,7 @@ class Xlsx2Test extends TestCase
         $conditions = $conditionalRule->getConditions();
         self::assertNotEmpty($conditions);
         self::assertEquals(Conditional::CONDITION_CONTAINSBLANKS, $conditionalRule->getConditionType());
-        self::assertEquals('LEN(TRIM(B2:B8))=0', $conditions[0]);
+        self::assertEquals('LEN(TRIM(B2))=0', $conditions[0]);
 
         $conditionalStyle = $worksheet->getConditionalStyles('C2:C8');
         self::assertNotEmpty($conditionalStyle);
@@ -112,6 +112,6 @@ class Xlsx2Test extends TestCase
         $conditions = $conditionalRule->getConditions();
         self::assertNotEmpty($conditions);
         self::assertEquals(Conditional::CONDITION_CONTAINSBLANKS, $conditionalRule->getConditionType());
-        self::assertEquals('LEN(TRIM(A1:A6))=0', $conditions[0]);
+        self::assertEquals('LEN(TRIM(A1))=0', $conditions[0]);
     }
 }
