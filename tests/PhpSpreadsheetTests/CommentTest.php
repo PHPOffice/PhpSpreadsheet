@@ -65,7 +65,7 @@ class CommentTest extends TestCase
     {
         $comment = new Comment();
         $comment->setFillColor(new Color('RED'));
-        self::assertEquals('RED', $comment->getFillColor()->getARGB());
+        self::assertEquals(Color::COLOR_RED, $comment->getFillColor()->getARGB());
     }
 
     public function testSetAlignment(): void
