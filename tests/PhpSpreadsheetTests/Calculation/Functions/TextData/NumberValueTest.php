@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class NumberValueTest extends AllSetupTeardown
 {
     /**
@@ -38,5 +40,25 @@ class NumberValueTest extends AllSetupTeardown
     public function providerNUMBERVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
+    }
+
+    /**
+     * @dataProvider providerNumberValueArray
+     */
+    public function testNumberValueArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=NumberValue({$argument1}, {$argument2}, {$argument3})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerNumberValueArray(): array
+    {
+        return [
+            'row vector #1' => [[[-123.321, 123.456, 12345.6789]], '{"-123,321", "123,456", "12 345,6789"}', '","', '" "'],
+            'column vector #1' => [[[-123.321], [123.456], [12345.6789]], '{"-123,321"; "123,456"; "12 345,6789"}', '","', '" "'],
+        ];
     }
 }

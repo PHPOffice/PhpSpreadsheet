@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class FixedTest extends AllSetupTeardown
 {
     /**
@@ -38,5 +40,26 @@ class FixedTest extends AllSetupTeardown
     public function providerFIXED(): array
     {
         return require 'tests/data/Calculation/TextData/FIXED.php';
+    }
+
+    /**
+     * @dataProvider providerFixedArray
+     */
+    public function testFixedArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=FIXED({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerFixedArray(): array
+    {
+        return [
+            'row vector #1' => [[['-123.32', '123.46', '12,345.68']], '{-123.321, 123.456, 12345.6789}', '2'],
+            'column vector #1' => [[['-123.32'], ['123.46'], ['12,345.68']], '{-123.321; 123.456; 12345.6789}', '2'],
+            'matrix #1' => [[['-123.46', '12,345.68'], ['-123.456', '12,345.679']], '{-123.456, 12345.6789}', '{2; 3}'],
+        ];
     }
 }

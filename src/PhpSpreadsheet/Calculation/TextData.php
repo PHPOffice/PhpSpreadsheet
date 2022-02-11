@@ -102,7 +102,7 @@ class TextData
      *                                    If decimals is negative, number is rounded to the left of the decimal point.
      *                                    If you omit decimals, it is assumed to be 2
      *
-     * @return string
+     * @return array|string
      */
     public static function DOLLAR($value = 0, $decimals = 2)
     {
@@ -156,7 +156,7 @@ class TextData
      * @param int $decimals
      * @param bool $no_commas
      *
-     * @return string
+     * @return array|string
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
@@ -224,7 +224,7 @@ class TextData
      *
      * @param string $value Value
      *
-     * @return int
+     * @return array|int
      */
     public static function STRINGLENGTH($value = '')
     {
@@ -297,7 +297,7 @@ class TextData
      * @param int $chars Number of characters
      * @param string $newText String to replace in defined position
      *
-     * @return string
+     * @return array|string
      */
     public static function REPLACE($oldText, $start, $chars, $newText)
     {
@@ -316,7 +316,7 @@ class TextData
      * @param string $toText To Value
      * @param int $instance Instance Number
      *
-     * @return string
+     * @return array|string
      */
     public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
     {
@@ -332,7 +332,7 @@ class TextData
      *
      * @param mixed $testValue Value to check
      *
-     * @return null|string
+     * @return null|array|string
      */
     public static function RETURNSTRING($testValue = '')
     {
@@ -349,7 +349,7 @@ class TextData
      * @param mixed $value Value to check
      * @param string $format Format mask to use
      *
-     * @return string
+     * @return array|string
      */
     public static function TEXTFORMAT($value, $format)
     {
@@ -365,7 +365,7 @@ class TextData
      *
      * @param mixed $value Value to check
      *
-     * @return DateTimeInterface|float|int|string A string if arguments are invalid
+     * @return array|DateTimeInterface|float|int|string A string if arguments are invalid
      */
     public static function VALUE($value = '')
     {
@@ -383,7 +383,7 @@ class TextData
      * @param string $decimalSeparator decimal separator, defaults to locale defined value
      * @param string $groupSeparator group/thosands separator, defaults to locale defined value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
     {
@@ -402,7 +402,7 @@ class TextData
      * @param mixed $value1
      * @param mixed $value2
      *
-     * @return bool
+     * @return array|bool
      */
     public static function EXACT($value1, $value2)
     {
