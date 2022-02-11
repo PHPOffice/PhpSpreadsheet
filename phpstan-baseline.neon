@@ -1931,21 +1931,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:SEARCHINSENSITIVE\\(\\) should return string but returns int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:SEARCHSENSITIVE\\(\\) should return string but returns int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:TRIMNONPRINTABLE\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
 			message: "#^Parameter \\#1 \\$glue of function implode expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
