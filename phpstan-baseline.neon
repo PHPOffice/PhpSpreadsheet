@@ -961,21 +961,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
-
-		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:atMaturity\\(\\) should return float\\|string but returns array\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
