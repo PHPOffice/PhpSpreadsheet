@@ -18,7 +18,7 @@ class TextData
      *
      * @param string $character Value
      *
-     * @return string
+     * @return array|string
      */
     public static function CHARACTER($character)
     {
@@ -34,7 +34,7 @@ class TextData
      *
      * @param mixed $stringValue Value to check
      *
-     * @return string
+     * @return null|array|string
      */
     public static function TRIMNONPRINTABLE($stringValue = '')
     {
@@ -50,7 +50,7 @@ class TextData
      *
      * @param mixed $stringValue Value to check
      *
-     * @return string
+     * @return array|string
      */
     public static function TRIMSPACES($stringValue = '')
     {
@@ -64,9 +64,9 @@ class TextData
      *
      * @see Use the code() method in the TextData\CharacterConvert class instead
      *
-     * @param string $characters Value
+     * @param array|string $characters Value
      *
-     * @return int|string A string if arguments are invalid
+     * @return array|int|string A string if arguments are invalid
      */
     public static function ASCIICODE($characters)
     {
@@ -110,17 +110,17 @@ class TextData
     }
 
     /**
-     * SEARCHSENSITIVE.
+     * FIND.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the sensitive() method in the TextData\Search class instead
      *
-     * @param string $needle The string to look for
-     * @param string $haystack The string in which to look
-     * @param int $offset Offset within $haystack
+     * @param array|string $needle The string to look for
+     * @param array|string $haystack The string in which to look
+     * @param array|int $offset Offset within $haystack
      *
-     * @return string
+     * @return array|int|string
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -128,17 +128,17 @@ class TextData
     }
 
     /**
-     * SEARCHINSENSITIVE.
+     * SEARCH.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the insensitive() method in the TextData\Search class instead
      *
-     * @param string $needle The string to look for
-     * @param string $haystack The string in which to look
-     * @param int $offset Offset within $haystack
+     * @param array|string $needle The string to look for
+     * @param array|string $haystack The string in which to look
+     * @param array|int $offset Offset within $haystack
      *
-     * @return string
+     * @return array|int|string
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -170,10 +170,10 @@ class TextData
      *
      * @see Use the left() method in the TextData\Extract class instead
      *
-     * @param string $value Value
-     * @param int $chars Number of characters
+     * @param array|string $value Value
+     * @param array|int $chars Number of characters
      *
-     * @return string
+     * @return array|string
      */
     public static function LEFT($value = '', $chars = 1)
     {
@@ -187,11 +187,11 @@ class TextData
      *
      * @see Use the mid() method in the TextData\Extract class instead
      *
-     * @param string $value Value
-     * @param int $start Start character
-     * @param int $chars Number of characters
+     * @param array|string $value Value
+     * @param array|int $start Start character
+     * @param array|int $chars Number of characters
      *
-     * @return string
+     * @return array|string
      */
     public static function MID($value = '', $start = 1, $chars = null)
     {
@@ -205,10 +205,10 @@ class TextData
      *
      * @see Use the right() method in the TextData\Extract class instead
      *
-     * @param string $value Value
-     * @param int $chars Number of characters
+     * @param array|string $value Value
+     * @param array|int $chars Number of characters
      *
-     * @return string
+     * @return array|string
      */
     public static function RIGHT($value = '', $chars = 1)
     {
@@ -234,15 +234,15 @@ class TextData
     /**
      * LOWERCASE.
      *
-     * Converts a string value to upper case.
+     * Converts a string value to lower case.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the lower() method in the TextData\CaseConvert class instead
      *
-     * @param string $mixedCaseString
+     * @param array|string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function LOWERCASE($mixedCaseString)
     {
@@ -260,7 +260,7 @@ class TextData
      *
      * @param string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function UPPERCASE($mixedCaseString)
     {
@@ -270,15 +270,15 @@ class TextData
     /**
      * PROPERCASE.
      *
-     * Converts a string value to upper case.
+     * Converts a string value to proper/title case.
      *
      * @Deprecated 1.18.0
      *
      * @see Use the proper() method in the TextData\CaseConvert class instead
      *
-     * @param string $mixedCaseString
+     * @param array|string $mixedCaseString
      *
-     * @return string
+     * @return array|string
      */
     public static function PROPERCASE($mixedCaseString)
     {
@@ -420,7 +420,7 @@ class TextData
      * @param mixed $ignoreEmpty
      * @param mixed $args
      *
-     * @return string
+     * @return array|string
      */
     public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
     {
@@ -436,10 +436,10 @@ class TextData
      *
      * @see Use the builtinREPT() method in the TextData\Concatenate class instead
      *
-     * @param string $str Should be numeric
+     * @param array|string $str Should be numeric
      * @param mixed $number Should be int
      *
-     * @return string
+     * @return array|string
      */
     public static function builtinREPT($str, $number)
     {

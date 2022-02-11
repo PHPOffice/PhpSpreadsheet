@@ -146,14 +146,14 @@ class Format
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
             if (strpos($value, ':') !== false) {
-                $timeValue = DateTimeExcel\TimeValue::fromString($value);
+                $timeValue = Functions::scalar(DateTimeExcel\TimeValue::fromString($value));
                 if ($timeValue !== Functions::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
 
                     return $timeValue;
                 }
             }
-            $dateValue = DateTimeExcel\DateValue::fromString($value);
+            $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
             if ($dateValue !== Functions::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
 
