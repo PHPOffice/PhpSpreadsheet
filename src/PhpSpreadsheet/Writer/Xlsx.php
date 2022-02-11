@@ -523,10 +523,10 @@ class Xlsx extends BaseWriter
             $worksheet->setChartCollection($charts);
         }
         $worksheet->setDrawingCollection($draws);
-        if ($hyperlink) {
+        if (!empty($hyperlink)) {
             $worksheet->setHyperlinkCollection($hyperlink);
         }
-        if ($comments) {
+        if (!empty($comments)) {
             $worksheet->setComments($comments);
         }
         $worksheet->setHeaderFooter($sheetHeader);

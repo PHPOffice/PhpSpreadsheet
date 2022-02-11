@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+
 class XMLWriter extends \XMLWriter
 {
     public static $debugEnabled = false;
@@ -41,6 +43,9 @@ class XMLWriter extends \XMLWriter
                 $temporaryStorageFolder = File::sysGetTempDir();
             }
             $this->tempFileName = $specifyPath ? $temporaryStorageFolder : @tempnam($temporaryStorageFolder, 'xml');
+            if (empty($this->tempFileName)) {
+                throw new WriterException('can not open an empty file');
+            }
 
             // Open storage
             if ($this->openUri($this->tempFileName) === false) {

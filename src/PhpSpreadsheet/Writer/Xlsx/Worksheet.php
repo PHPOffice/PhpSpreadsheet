@@ -145,9 +145,7 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param PhpspreadsheetWorksheet $pSheet
      * @return Worksheet
-     * @throws WriterException
      */
     public function beforeWriteSheetData(PhpspreadsheetWorksheet $pSheet)
     {
@@ -155,7 +153,6 @@ class Worksheet extends WriterPart
         // Create XML writer
         $index = $this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex();
         if (!isset($this->objWriters[$index])) {
-            $objWriter = null;
             if ($this->getParentWriter()->getUseDiskCaching()) {
                 $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getFileStorePath(), true);
                 $objWriter->needUnlink = false;
@@ -207,10 +204,9 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param PhpspreadsheetWorksheet $pSheet
      * @param array $pStringTable
+     *
      * @return Worksheet
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function writeSheetDataPortion(PhpspreadsheetWorksheet $pSheet, $pStringTable = [])
     {
@@ -234,7 +230,7 @@ class Worksheet extends WriterPart
         //avoid to foreach not existed rows
         $currentRow = $this->lastHighestRow;
         while ($currentRow++ < $highestRow) {
-            $stringCurrentRow = (string)$currentRow;
+            $stringCurrentRow = (string) $currentRow;
             // Get row dimension
             $rowDimension = $pSheet->getRowDimension($currentRow);
             // Write current row?
@@ -264,7 +260,7 @@ class Worksheet extends WriterPart
 
                 // Outline level
                 if ($rowDimension->getOutlineLevel() > 0) {
-                    $objWriter->writeAttribute('outlineLevel', (string)$rowDimension->getOutlineLevel());
+                    $objWriter->writeAttribute('outlineLevel', (string) $rowDimension->getOutlineLevel());
                 }
 
                 // Style
@@ -292,7 +288,6 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param PhpspreadsheetWorksheet $pSheet
      * @param bool $includeCharts
      */
     public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = false): void
@@ -1354,7 +1349,7 @@ class Worksheet extends WriterPart
             $rowDimension = $worksheet->getRowDimension($currentRow);
 
             // Write current row?
-            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() === false || $rowDimension->getCollapsed() === true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
 
             if ($writeCurrentRow) {
                 // Start a new row

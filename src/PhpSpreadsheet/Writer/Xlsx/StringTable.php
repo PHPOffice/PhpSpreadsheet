@@ -140,7 +140,6 @@ class StringTable extends WriterPart
     public function createDiskCacheWriter()
     {
         // Create XML writer
-        $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $this->userPath = $this->getParentWriter()->getFileStorePath();
             $this->tempFilePath = @tempnam(dirname($this->userPath), 'xml') ?: '';
@@ -201,8 +200,6 @@ class StringTable extends WriterPart
     {
         // Create string lookup table
         $aStringTable = [];
-        $cellCollection = null;
-        $aFlippedStringTable = null; // For faster lookup
 
         // Is an existing table given?
         if (($existingTable !== null) && is_array($existingTable)) {
