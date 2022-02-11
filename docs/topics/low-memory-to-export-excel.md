@@ -10,7 +10,7 @@ Control the data save
 
 ```
 $objPHPExcel = new Spreadsheet();
-$objWriter = new Writer\XlsxNew($objPHPExcel);
+$objWriter = new Writer\Xlsx($objPHPExcel);
 
 //before you start load data, or set other style,comment,image etc,
 // call method prepareBeforeSave

@@ -256,7 +256,7 @@ class StringTable extends WriterPart
 <sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" uniqueCount="' . $this->uniqueCount . '">';
         fwrite($fp, $str);
         while (!feof($fp1)) {
-            fwrite($fp, fread($fp1, 65536));
+            fwrite($fp, fread($fp1, 65536) ?: '');
         }
         fwrite($fp, '</sst>');
         fclose($fp1);

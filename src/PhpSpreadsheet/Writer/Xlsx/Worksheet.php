@@ -29,6 +29,9 @@ class Worksheet extends WriterPart
      */
     private $maxColCount;
 
+    /**
+     * @var int
+     */
     private $lastHighestRow = 0;
 
     /**
@@ -141,6 +144,11 @@ class Worksheet extends WriterPart
         return $objWriter->getData();
     }
 
+    /**
+     * @param PhpspreadsheetWorksheet $pSheet
+     * @return Worksheet
+     * @throws WriterException
+     */
     public function beforeWriteSheetData(PhpspreadsheetWorksheet $pSheet)
     {
         $this->lastHighestRow = 0;
@@ -198,7 +206,13 @@ class Worksheet extends WriterPart
         return $this;
     }
 
-    public function writeSheetDataPortion(PhpspreadsheetWorksheet $pSheet, $pStringTable = null)
+    /**
+     * @param PhpspreadsheetWorksheet $pSheet
+     * @param array $pStringTable
+     * @return Worksheet
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function writeSheetDataPortion(PhpspreadsheetWorksheet $pSheet, $pStringTable = [])
     {
         // Flipped stringtable, for faster index searching
         $aFlippedStringTable = $this->getParentWriter()->getWriterPartStringTable()->flipStringTable($pStringTable);
@@ -220,15 +234,16 @@ class Worksheet extends WriterPart
         //avoid to foreach not existed rows
         $currentRow = $this->lastHighestRow;
         while ($currentRow++ < $highestRow) {
+            $stringCurrentRow = (string)$currentRow;
             // Get row dimension
             $rowDimension = $pSheet->getRowDimension($currentRow);
             // Write current row?
-            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+            $writeCurrentRow = isset($cellsByRow[$stringCurrentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
 
             if ($writeCurrentRow) {
                 // Start a new row
                 $objWriter->startElement('row');
-                $objWriter->writeAttribute('r', $currentRow);
+                $objWriter->writeAttribute('r', $stringCurrentRow);
                 $objWriter->writeAttribute('spans', '1:' . $colCount);
 
                 // Row dimensions
@@ -238,7 +253,7 @@ class Worksheet extends WriterPart
                 }
 
                 // Row visibility
-                if (!$rowDimension->getVisible() === true) {
+                if (!$rowDimension->getVisible()) {
                     $objWriter->writeAttribute('hidden', 'true');
                 }
 
@@ -249,7 +264,7 @@ class Worksheet extends WriterPart
 
                 // Outline level
                 if ($rowDimension->getOutlineLevel() > 0) {
-                    $objWriter->writeAttribute('outlineLevel', $rowDimension->getOutlineLevel());
+                    $objWriter->writeAttribute('outlineLevel', (string)$rowDimension->getOutlineLevel());
                 }
 
                 // Style
@@ -276,7 +291,11 @@ class Worksheet extends WriterPart
         return $this;
     }
 
-    public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = null): void
+    /**
+     * @param PhpspreadsheetWorksheet $pSheet
+     * @param bool $includeCharts
+     */
+    public function afterWriteSheetData(PhpspreadsheetWorksheet $pSheet, $includeCharts = false): void
     {
         $objWriter = $this->objWriters[$this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex()];
         $objWriter->endElement();
