@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
@@ -40,18 +41,24 @@ class Dollar
      */
     public static function decimal($fractionalDollar = null, $fraction = 0)
     {
-        $fractionalDollar = Functions::flattenSingleValue($fractionalDollar);
-        $fraction = (int) Functions::flattenSingleValue($fraction);
+        try {
+            $fractionalDollar = FinancialValidations::validateFloat(
+                Functions::flattenSingleValue($fractionalDollar) ?? 0.0
+            );
+            $fraction = FinancialValidations::validateInt(Functions::flattenSingleValue($fraction));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
-        // Validate parameters
-        if ($fractionalDollar === null || $fraction < 0) {
+        // Additional parameter validations
+        if ($fraction < 0) {
             return Functions::NAN();
         }
         if ($fraction == 0) {
             return Functions::DIV0();
         }
 
-        $dollars = floor($fractionalDollar);
+        $dollars = ($fractionalDollar < 0.0) ? ceil($fractionalDollar) : floor($fractionalDollar);
         $cents = fmod($fractionalDollar, 1);
         $cents /= $fraction;
         $cents *= 10 ** ceil(log10($fraction));
@@ -76,18 +83,24 @@ class Dollar
      */
     public static function fractional($decimalDollar = null, $fraction = 0)
     {
-        $decimalDollar = Functions::flattenSingleValue($decimalDollar);
-        $fraction = (int) Functions::flattenSingleValue($fraction);
+        try {
+            $decimalDollar = FinancialValidations::validateFloat(
+                Functions::flattenSingleValue($decimalDollar) ?? 0.0
+            );
+            $fraction = FinancialValidations::validateInt(Functions::flattenSingleValue($fraction));
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
 
-        // Validate parameters
-        if ($decimalDollar === null || $fraction < 0) {
+        // Additional parameter validations
+        if ($fraction < 0) {
             return Functions::NAN();
         }
         if ($fraction == 0) {
             return Functions::DIV0();
         }
 
-        $dollars = floor($decimalDollar);
+        $dollars = ($decimalDollar < 0.0) ? ceil($decimalDollar) : floor($decimalDollar);
         $cents = fmod($decimalDollar, 1);
         $cents *= $fraction;
         $cents *= 10 ** (-ceil(log10($fraction)));

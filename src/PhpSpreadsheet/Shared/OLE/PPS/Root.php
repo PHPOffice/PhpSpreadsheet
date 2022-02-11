@@ -71,12 +71,12 @@ class Root extends PPS
         $this->fileHandle = $fileHandle;
 
         // Initial Setting for saving
-        $this->bigBlockSize = 2 ** (
+        $this->bigBlockSize = (int) (2 ** (
             (isset($this->bigBlockSize)) ? self::adjust2($this->bigBlockSize) : 9
-        );
-        $this->smallBlockSize = 2 ** (
+        ));
+        $this->smallBlockSize = (int) (2 ** (
             (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
-        );
+        ));
 
         // Make an array of PPS's (for Save)
         $aList = [];

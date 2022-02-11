@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AcotTest extends AllSetupTeardown
 {
     /**
@@ -26,5 +28,26 @@ class AcotTest extends AllSetupTeardown
     public function providerACOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOT.php';
+    }
+
+    /**
+     * @dataProvider providerAcotArray
+     */
+    public function testAcotArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ACOT({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAcotArray(): array
+    {
+        return [
+            'row vector' => [[[0.78539816339745, 1.10714871779409, 2.35619449019234]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.78539816339745], [1.10714871779409], [2.35619449019234]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.78539816339745, 1.10714871779409], [1.57079632679490, 2.35619449019234]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

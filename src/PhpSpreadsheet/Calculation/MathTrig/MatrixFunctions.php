@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 class MatrixFunctions
 {
     /**
-     * Convert parameter to matrix.
+     * Convert parameter to Matrix.
      *
      * @param mixed $matrixValues A matrix of values
      */
@@ -40,6 +40,47 @@ class MatrixFunctions
         }
 
         return new Matrix($matrixData);
+    }
+
+    /**
+     * SEQUENCE.
+     *
+     * Generates a list of sequential numbers in an array.
+     *
+     * Excel Function:
+     *      SEQUENCE(rows,[columns],[start],[step])
+     *
+     * @param mixed $rows the number of rows to return, defaults to 1
+     * @param mixed $columns the number of columns to return, defaults to 1
+     * @param mixed $start the first number in the sequence, defaults to 1
+     * @param mixed $step the amount to increment each subsequent value in the array, defaults to 1
+     *
+     * @return array|string The resulting array, or a string containing an error
+     */
+    public static function sequence($rows = 1, $columns = 1, $start = 1, $step = 1)
+    {
+        try {
+            $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);
+            Helpers::validatePositive($rows);
+            $columns = (int) Helpers::validateNumericNullSubstitution($columns, 1);
+            Helpers::validatePositive($columns);
+            $start = Helpers::validateNumericNullSubstitution($start, 1);
+            $step = Helpers::validateNumericNullSubstitution($step, 1);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if ($step === 0) {
+            return array_chunk(
+                array_fill(0, $rows * $columns, $start),
+                max($columns, 1)
+            );
+        }
+
+        return array_chunk(
+            range($start, $start + (($rows * $columns - 1) * $step), $step),
+            max($columns, 1)
+        );
     }
 
     /**

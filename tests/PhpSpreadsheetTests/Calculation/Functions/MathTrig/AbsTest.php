@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class AbsTest extends AllSetupTeardown
 {
     /**
@@ -27,5 +29,26 @@ class AbsTest extends AllSetupTeardown
     public function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
+    }
+
+    /**
+     * @dataProvider providerAbsArray
+     */
+    public function testAbsoluteArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ABS({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAbsArray(): array
+    {
+        return [
+            'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],
+            'column vector' => [[[1], [0], [1]], '{-1; 0; 1}'],
+            'matrix' => [[[1, 0], [1, 1.4]], '{-1, 0; 1, -1.4}'],
+        ];
     }
 }

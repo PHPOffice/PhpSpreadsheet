@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class CscTest extends AllSetupTeardown
 {
     /**
@@ -26,5 +28,26 @@ class CscTest extends AllSetupTeardown
     public function providerCSC(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSC.php';
+    }
+
+    /**
+     * @dataProvider providerCscArray
+     */
+    public function testCscArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=CSC({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerCscArray(): array
+    {
+        return [
+            'row vector' => [[[1.18839510577812, 2.08582964293349, -1.18839510577812]], '{1, 0.5, -1}'],
+            'column vector' => [[[1.18839510577812], [2.08582964293349], [-1.18839510577812]], '{1; 0.5; -1}'],
+            'matrix' => [[[1.18839510577812, 2.08582964293349], ['#DIV/0!', -1.18839510577812]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

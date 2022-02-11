@@ -313,7 +313,7 @@ class Spreadsheet
                 break;
             case 'target':
             case 'data':
-                if (is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
+                if (is_array($this->ribbonXMLData)) {
                     $returnData = $this->ribbonXMLData[$what];
                 }
 

@@ -7912,4 +7912,17 @@ class Xls extends BaseReader
 
         return $value;
     }
+
+    /**
+     * Phpstan 1.4.4 complains that this property is never read.
+     * So, we might be able to get rid of it altogether.
+     * For now, however, this function makes it readable,
+     * which satisfies Phpstan.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getMapCellStyleXfIndex(): array
+    {
+        return $this->mapCellStyleXfIndex;
+    }
 }
