@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
+- Fixed `ReferenceHelper@insertNewBefore` behavior when removing column before last column with null value
+
 ### Added
 
 - Improved support for passing of array arguments to Excel function implementations to return array results (where appropriate). [PR #2562](https://github.com/PHPOffice/PhpSpreadsheet/pull/2562)

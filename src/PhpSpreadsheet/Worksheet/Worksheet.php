@@ -1291,7 +1291,7 @@ class Worksheet implements IComparable
      *
      * @return Cell Cell that was created
      */
-    private function createNewCell($coordinate)
+    public function createNewCell($coordinate)
     {
         $cell = new Cell(null, DataType::TYPE_NULL, $this);
         $this->cellCollection->add($coordinate, $cell);
