@@ -158,8 +158,21 @@ class ReferenceHelperTest extends TestCase
             ['a1', 'b1', 'c1'],
             ['a2', 'b2', null],
         ]);
-        self::assertSame('b2', $sheet->getCell('B2')->getValue());
+
+        $cells = $sheet->toArray();
+        self::assertSame('a1', $cells[0][0]);
+        self::assertSame('b1', $cells[0][1]);
+        self::assertSame('c1', $cells[0][2]);
+        self::assertSame('a2', $cells[1][0]);
+        self::assertSame('b2', $cells[1][1]);
+        self::assertNull($cells[1][2]);
+
         $sheet->removeColumn('B');
-        self::assertNull($sheet->getCell('B2')->getValue());
+
+        $cells = $sheet->toArray();
+        self::assertSame('a1', $cells[0][0]);
+        self::assertSame('c1', $cells[0][1]);
+        self::assertSame('a2', $cells[1][0]);
+        self::assertNull($cells[1][1]);
     }
 }

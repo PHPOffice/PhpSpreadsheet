@@ -408,13 +408,15 @@ class ReferenceHelper
             }
         );
 
-        $allCoordinates = array_merge($allCoordinates, $missingCoordinates);
+        // Create missing cells with null values
+        if (!empty($missingCoordinates)) {
+            foreach ($missingCoordinates as $coordinate) {
+                $worksheet->createNewCell($coordinate);
+            }
 
-        // Sort merged coordinates in correct order
-        usort($allCoordinates, function ($first, $second) {
-            return ($first[1] > $second[1]) ? 1 : -1;
-        });
-        $allCoordinates = array_values($allCoordinates);
+            // Refresh all coordinates
+            $allCoordinates = $worksheet->getCoordinates();
+        }
 
         // Loop through cells, bottom-up, and change cell coordinate
         if ($remove) {
