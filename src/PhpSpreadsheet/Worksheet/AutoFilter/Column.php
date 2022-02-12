@@ -394,7 +394,6 @@ class Column
                 foreach ($value as $k => $v) {
                     $cloned = clone $v;
                     $cloned->setParent($this); // attach the new cloned Rule to this new cloned Autofilter Cloned object
-                    // @phpstan-ignore-next-line
                     $this->ruleset[$k] = $cloned;
                 }
             } else {
