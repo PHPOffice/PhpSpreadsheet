@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class CoshTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class CoshTest extends AllSetupTeardown
     public function providerCosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/COSH.php';
+    }
+
+    /**
+     * @dataProvider providerCoshArray
+     */
+    public function testCoshArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=COSH({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerCoshArray(): array
+    {
+        return [
+            'row vector' => [[[1.54308063481524, 1.12762596520638, 1.54308063481524]], '{1, 0.5, -1}'],
+            'column vector' => [[[1.54308063481524], [1.12762596520638], [1.54308063481524]], '{1; 0.5; -1}'],
+            'matrix' => [[[1.54308063481524, 1.12762596520638], [1.0, 1.54308063481524]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

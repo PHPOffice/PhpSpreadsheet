@@ -49,7 +49,7 @@ class StringHelper
     /**
      * Is iconv extension avalable?
      *
-     * @var bool
+     * @var ?bool
      */
     private static $isIconvEnabled;
 

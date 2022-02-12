@@ -82,7 +82,7 @@ class Random
                 },
                 array_fill(0, $rows * $columns, $min)
             ),
-            $columns
+            max($columns, 1)
         );
     }
 }

@@ -2,21 +2,30 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class Angle
 {
+    use ArrayEnabled;
+
     /**
      * DEGREES.
      *
      * Returns the result of builtin function rad2deg after validating args.
      *
-     * @param mixed $number Should be numeric
+     * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function toDegrees($number)
     {
+        if (is_array($number)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $number);
+        }
+
         try {
             $number = Helpers::validateNumericNullBool($number);
         } catch (Exception $e) {
@@ -31,12 +40,18 @@ class Angle
      *
      * Returns the result of builtin function deg2rad after validating args.
      *
-     * @param mixed $number Should be numeric
+     * @param mixed $number Should be numeric, or can be an array of numbers
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function toRadians($number)
     {
+        if (is_array($number)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $number);
+        }
+
         try {
             $number = Helpers::validateNumericNullBool($number);
         } catch (Exception $e) {

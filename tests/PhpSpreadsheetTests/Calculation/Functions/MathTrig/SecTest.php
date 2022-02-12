@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class SecTest extends AllSetupTeardown
 {
     /**
@@ -26,5 +28,26 @@ class SecTest extends AllSetupTeardown
     public function providerSEC(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEC.php';
+    }
+
+    /**
+     * @dataProvider providerSecArray
+     */
+    public function testSecArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=SEC({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerSecArray(): array
+    {
+        return [
+            'row vector' => [[[1.85081571768093, 1.13949392732455, 1.85081571768093]], '{1, 0.5, -1}'],
+            'column vector' => [[[1.85081571768093], [1.13949392732455], [1.85081571768093]], '{1; 0.5; -1}'],
+            'matrix' => [[[1.85081571768093, 1.13949392732455], [1.0, 1.85081571768093]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }
