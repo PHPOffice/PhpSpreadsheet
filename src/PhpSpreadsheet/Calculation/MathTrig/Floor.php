@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Floor
 {
+    use ArrayEnabled;
+
     private static function floorCheck1Arg(): void
     {
         $compatibility = Functions::getCompatibilityMode();
@@ -24,12 +27,20 @@ class Floor
      *        FLOOR(number[,significance])
      *
      * @param mixed $number Expect float. Number to round
+     *                      Or can be an array of values
      * @param mixed $significance Expect float. Significance
+     *                      Or can be an array of values
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function floor($number, $significance = null)
     {
+        if (is_array($number) || is_array($significance)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $significance);
+        }
+
         if ($significance === null) {
             self::floorCheck1Arg();
         }
@@ -53,13 +64,22 @@ class Floor
      *        FLOOR.MATH(number[,significance[,mode]])
      *
      * @param mixed $number Number to round
+     *                      Or can be an array of values
      * @param mixed $significance Significance
+     *                      Or can be an array of values
      * @param mixed $mode direction to round negative numbers
+     *                      Or can be an array of values
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function math($number, $significance = null, $mode = 0)
     {
+        if (is_array($number) || is_array($significance) || is_array($mode)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $significance, $mode);
+        }
+
         try {
             $number = Helpers::validateNumericNullBool($number);
             $significance = Helpers::validateNumericNullSubstitution($significance, ($number < 0) ? -1 : 1);
@@ -79,13 +99,21 @@ class Floor
      * Excel Function:
      *        FLOOR.PRECISE(number[,significance])
      *
-     * @param float $number Number to round
-     * @param float $significance Significance
+     * @param array|float $number Number to round
+     *                      Or can be an array of values
+     * @param array|float $significance Significance
+     *                      Or can be an array of values
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function precise($number, $significance = 1)
     {
+        if (is_array($number) || is_array($significance)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $significance);
+        }
+
         try {
             $number = Helpers::validateNumericNullBool($number);
             $significance = Helpers::validateNumericNullSubstitution($significance, null);

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class CeilingTest extends AllSetupTeardown
 {
     /**
@@ -53,5 +55,24 @@ class CeilingTest extends AllSetupTeardown
         $sheet->getCell('A1')->setValue('=CEILING(5.1)');
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta(6, $result, 1E-12);
+    }
+
+    /**
+     * @dataProvider providerCeilingArray
+     */
+    public function testCeilingArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=CEILING({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerCeilingArray(): array
+    {
+        return [
+            'matrix' => [[[3.15, 3.142], [3.1416, 3.141594]], '3.1415926536', '{0.01, 0.002; 0.00005, 0.000002}'],
+        ];
     }
 }
