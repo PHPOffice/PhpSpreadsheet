@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -143,6 +144,11 @@ $spreadsheet->getActiveSheet()
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
+
+$spreadsheet->getActiveSheet()
+    ->setCellValue('A20', 'String')
+    ->setCellValue('B20', 'inline')
+    ->setCellValueExplicit('C20', 'This will not be added to sharedStrings.xml', DataType::TYPE_INLINE);
 
 $spreadsheet->getActiveSheet()
     ->getColumnDimension('B')
