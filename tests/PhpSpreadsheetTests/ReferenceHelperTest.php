@@ -172,7 +172,9 @@ class ReferenceHelperTest extends TestCase
         $cells = $sheet->toArray();
         self::assertSame('a1', $cells[0][0]);
         self::assertSame('c1', $cells[0][1]);
+        self::assertArrayNotHasKey(2, $cells[0]);
         self::assertSame('a2', $cells[1][0]);
         self::assertNull($cells[1][1]);
+        self::assertArrayNotHasKey(2, $cells[1]);
     }
 }
