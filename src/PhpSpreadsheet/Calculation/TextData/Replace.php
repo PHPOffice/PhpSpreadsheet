@@ -88,6 +88,14 @@ class Replace
             return $e->getMessage();
         }
 
+        return self::executeSubstitution($text, $fromText, $toText, $instance);
+    }
+
+    /**
+     * @return string
+     */
+    private static function executeSubstitution(string $text, string $fromText, string $toText, int $instance)
+    {
         $pos = -1;
         while ($instance > 0) {
             $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');

@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
-- Fixed `ReferenceHelper@insertNewBefore` behavior when removing column before last column with null value
-
 ### Added
 
 - Improved support for passing of array arguments to Excel function implementations to return array results (where appropriate). [Issue #2551](https://github.com/PHPOffice/PhpSpreadsheet/issues/2551)
@@ -51,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fixed `ReferenceHelper@insertNewBefore` behavior when removing column before last column with null value
 - Fix bug with `DOLLARDE()` and `DOLLARFR()` functions when the dollar value is negative [Issue #2578](https://github.com/PHPOffice/PhpSpreadsheet/issues/2578) [PR #2579](https://github.com/PHPOffice/PhpSpreadsheet/pull/2579)
 - Fix partial function name matching when translating formulae from Russian to English [Issue #2533](https://github.com/PHPOffice/PhpSpreadsheet/issues/2533) [PR #2534](https://github.com/PHPOffice/PhpSpreadsheet/pull/2534)
 - Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)

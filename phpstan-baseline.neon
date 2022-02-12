@@ -1,78 +1,8 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$str1 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
-
-		-
-			message: "#^Parameter \\#1 \\$str1 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpLowercaseFirst\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
-
-		-
-			message: "#^Parameter \\#2 \\$str2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpAllowNull\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
-
-		-
-			message: "#^Parameter \\#2 \\$str2 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\BinaryComparison\\:\\:strcmpLowercaseFirst\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/BinaryComparison.php
-
-		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'onlyIf' on mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'onlyIfNot' on mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'reference' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'storeKey' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 16
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset int on mixed\\.$#"
-			count: 10
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
-			count: 6
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -123,16 +53,6 @@ parameters:
 		-
 			message: "#^Cannot call method has\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\|null\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 6
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -206,26 +126,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$cellRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:extractAllCellReferencesInRange\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getHighestDataRow\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$definedName of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_calculateFormulaValue\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$haystack of function stripos expects string, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -246,38 +146,13 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function trim expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function trim expects string, null given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
-			count: 4
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -287,41 +162,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#4 \\$storeKey of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:push\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#5 \\$onlyIf of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:push\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#6 \\$onlyIfNot of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:push\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Part \\$argumentCount \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Part \\$token \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Part \\$val \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -456,11 +296,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Database.php
 
 		-
-			message: "#^Cannot access offset int\\|string\\|null on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:buildCondition\\(\\) has parameter \\$criterion with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
@@ -491,84 +326,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, 'strtoupper' given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$criteriaNames of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:buildQuery\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:executeQuery\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Parameter \\#4 \\$fields of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:executeQuery\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
-
-		-
-			message: "#^Parameter \\#1 \\$day of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:dayStringToNumber\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
-
-		-
-			message: "#^Parameter \\#1 \\$monthName of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:monthStringToNumber\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
 			message: "#^Variable \\$dateValue on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Difference.php
-
-		-
-			message: "#^Parameter \\#1 \\$excelTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:excelToDateTimeObject\\(\\) expects float\\|int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
-
-		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeParts.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
 
 		-
 			message: "#^Variable \\$timeValue on left side of \\?\\? always exists and is not nullable\\.$#"
@@ -587,121 +347,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:BITRSHIFT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$category of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:getConversionCategoryUnitDetails\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$category of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:getConversionCategoryUnits\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBinary\\:\\:toDecimal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBinary\\:\\:toHex\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBinary\\:\\:toOctal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toBinary\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toHex\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toOctal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertHex\\:\\:toBinary\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertHex\\:\\:toDecimal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertHex\\:\\:toOctal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertOctal\\:\\:toBinary\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertOctal\\:\\:toDecimal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertOctal\\:\\:toHex\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBinary\\:\\:toHex\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBinary\\:\\:toOctal\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toBinary\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toHex\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertDecimal\\:\\:toOctal\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertHex\\:\\:toBinary\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertHex\\:\\:toOctal\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertOctal\\:\\:toBinary\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Parameter \\#2 \\$places of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertOctal\\:\\:toHex\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering.php
 
@@ -736,11 +381,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
 		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ComplexFunctions\\:\\:IMARGUMENT\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
-
-		-
 			message: "#^Parameter \\#1 \\$power of method Complex\\\\Complex\\:\\:pow\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
@@ -756,31 +396,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
 
 		-
-			message: "#^Cannot access offset 'AllowPrefix' on mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
-			message: "#^Cannot access offset 'Group' on mixed\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
-			message: "#^Cannot access offset 'Unit Name' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
-			message: "#^Cannot access offset 'multiplier' on mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:getUOMDetails\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
@@ -788,11 +403,6 @@ parameters:
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:resolveTemperatureSynonyms\\(\\) has no return type specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
-
-		-
-			message: "#^Parameter \\#1 \\$uom of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:getUOMDetails\\(\\) expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
 
 		-
@@ -824,16 +434,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:\\$oneSqrtPi has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of class PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Exception constructor expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Exception.php
-
-		-
-			message: "#^Parameter \\#2 \\$code of class PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Exception constructor expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Exception.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, array\\{'PhpOffice\\\\\\\\PhpSpreadsheet\\\\\\\\Calculation\\\\\\\\Exception', 'errorHandlerCallback'\\} given\\.$#"
@@ -931,11 +531,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
 
 		-
-			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
@@ -966,28 +561,8 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:atMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\AccruedInterest\\:\\:periodic\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/AccruedInterest.php
-
-		-
 			message: "#^Binary operation \"/\" between float\\|string and float\\|string results in an error\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceAtMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:priceDiscounted\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
 		-
@@ -1001,34 +576,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:discount\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Rates\\:\\:interest\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Rates.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldAtMaturity\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Yields\\:\\:yieldDiscounted\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
-
-		-
-			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Financial/TreasuryBill.php
 
 		-
 			message: "#^Cannot call method getTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
@@ -1062,11 +612,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
@@ -1121,11 +666,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function abs expects float\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
@@ -1146,11 +686,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:HYPERLINK\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) should return array\\|string but returns array\\|int\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
@@ -1159,46 +694,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#1 \\$row of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsA1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#1 \\$row of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsR1C1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#1 \\$sheetName of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$column of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsA1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#2 \\$column of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsR1C1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#3 \\$relativity of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsA1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Parameter \\#3 \\$relativity of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:formatAsR1C1\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchFirstValue\\(\\) has no return type specified\\.$#"
@@ -1281,56 +776,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Formula\\:\\:text\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Formula.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Formula.php
-
-		-
-			message: "#^Parameter \\#1 \\$lookupArray of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\HLookup\\:\\:convertLiteralArray\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:strToLower\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Hyperlink.php
-
-		-
-			message: "#^Parameter \\#1 \\$tooltip of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Hyperlink\\:\\:setTooltip\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Hyperlink.php
-
-		-
-			message: "#^Parameter \\#1 \\$url of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Hyperlink\\:\\:setUrl\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Hyperlink.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Indirect\\:\\:INDIRECT\\(\\) should return array\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Indirect.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
@@ -1361,24 +806,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
 
 		-
-			message: "#^Parameter \\#1 \\$message of class PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Exception constructor expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupRefValidations.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
-
-		-
-			message: "#^Binary operation \"\\+\\=\" between string and mixed results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has no return type specified\\.$#"
@@ -1421,23 +851,8 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
 			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
@@ -1449,31 +864,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Cannot access offset \\(int\\|string\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Cannot access offset int\\|string\\|null on mixed\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has no return type specified\\.$#"
@@ -1516,24 +906,9 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array\\<T\\>, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
 			message: "#^Parameter \\#2 \\$callback of function uasort expects callable\\(T, T\\)\\: int, array\\{'self', 'vlookupSort'\\} given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
 
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
@@ -1556,28 +931,8 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
 
 		-
-			message: "#^Cannot call method getWorksheet\\(\\) on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:evaluate\\(\\) should return float\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
 			message: "#^PHPDoc tag @var for constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:CALL_FUNCTIONS with type array\\<callable\\(\\)\\: mixed\\> is not subtype of value array\\{1\\: array\\{'PhpOffice…', 'average'\\}, 2\\: array\\{'PhpOffice…', 'COUNT'\\}, 3\\: array\\{'PhpOffice…', 'COUNTA'\\}, 4\\: array\\{'PhpOffice…', 'max'\\}, 5\\: array\\{'PhpOffice…', 'min'\\}, 6\\: array\\{'PhpOffice…', 'product'\\}, 7\\: array\\{'PhpOffice…', 'STDEV'\\}, 8\\: array\\{'PhpOffice…', 'STDEVP'\\}, \\.\\.\\.\\}\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_filter expects array, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
 
 		-
@@ -1589,21 +944,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MINIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:AVERAGEIF\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:COUNTIF\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
-			message: "#^Binary operation \"\\-\" between mixed and float\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:filterArguments\\(\\) has no return type specified\\.$#"
@@ -1657,36 +997,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildDatabaseWithValueRange\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:AVERAGEIF\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:COUNTIF\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:databaseFromRangeAndValue\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#2 \\$condition of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:AVERAGEIF\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#2 \\$valueRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:databaseFromRangeAndValue\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
-			message: "#^Parameter \\#3 \\$averageRange of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:AVERAGEIF\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
 
@@ -1772,11 +1082,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:pchisq\\(\\) has parameter \\$degrees with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
@@ -1931,79 +1236,14 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData.php
 
 		-
-			message: "#^Parameter \\#1 \\$glue of function implode expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
-
-		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Format\\:\\:VALUE\\(\\) should return array\\|DateTimeInterface\\|float\\|int\\|string but returns mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\DateValue\\:\\:fromString\\(\\) expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#1 \\$timeValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\TimeValue\\:\\:fromString\\(\\) expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match_all expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Helpers.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Helpers.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Replace\\:\\:substitute\\(\\) should return array\\|string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Replace.php
-
-		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has no return type specified\\.$#"
@@ -2041,57 +1281,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
 
 		-
-			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:stringToExcel\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\AdvancedValueBinder\\:\\:setPercentage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\AdvancedValueBinder\\:\\:setTimeHoursMinutes\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\AdvancedValueBinder\\:\\:setTimeHoursMinutesSeconds\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/AdvancedValueBinder.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
 			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:getFormulaAttributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataType\\:\\:checkString\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
@@ -2126,27 +1321,7 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:absoluteCoordinate\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:coordinateFromString\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
 			message: "#^Parameter \\#1 \\$input of function array_chunk expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
@@ -2166,104 +1341,9 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DataType.php
-
-		-
 			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:substring\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/DataType.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DataValidator.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DefaultValueBinder.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function ltrim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DefaultValueBinder.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DefaultValueBinder.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/StringValueBinder.php
-
-		-
-			message: "#^Cannot access offset 'alpha' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot access offset 'size' on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot access offset 'type' on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot access offset \\(int\\|string\\) on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:getAxisNumberFormat\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:getAxisOptionsProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:getFillProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:getLineProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:getSoftEdgesSize\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
 
 		-
 			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
@@ -2276,32 +1356,12 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Axis.php
 
 		-
-			message: "#^Parameter \\#1 \\$color of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setGlowColor\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#1 \\$color of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowColor\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
 			message: "#^Parameter \\#1 \\$distance of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowDistance\\(\\) expects float, float\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Axis.php
 
 		-
 			message: "#^Parameter \\#2 \\$alpha of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowColor\\(\\) expects int, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#3 \\$alphaType of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowColor\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#3 \\$colorType of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setGlowColor\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Axis.php
 
@@ -2396,17 +1456,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Chart.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$name \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$plotArea \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$plotVisibleOnly \\(bool\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Chart.php
 
@@ -2441,52 +1491,12 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Chart.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeries\\:\\:\\$plotGrouping \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeries.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeries\\:\\:\\$plotType \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeries.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:refresh\\(\\) has parameter \\$flatten with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_values expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Parameter \\#1 \\$stack of function array_shift expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
@@ -2501,29 +1511,9 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataValues \\(array\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$fillColor \\(array\\<string\\>\\|string\\) does not accept array\\<string\\>\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$formatCode \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$pointMarker \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Cannot access offset \\(int\\|string\\) on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/GridLines.php
 
 		-
 			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
@@ -2946,21 +1936,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Title.php
 
 		-
-			message: "#^Cannot call method attach\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:get\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:\\$currentCell \\(PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Cells.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Memory\\:\\:\\$cache has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Collection/Memory.php
@@ -2979,21 +1954,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/DefinedName.php
-
-		-
-			message: "#^Cannot cast mixed to float\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:intOrFloatTimestamp\\(\\) expects float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Document/Properties.php
 
 		-
 			message: "#^Cannot use array destructuring on array\\|null\\.$#"
@@ -3131,11 +2091,6 @@ parameters:
 			path: src/PhpSpreadsheet/Helper/Html.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Sample.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Sample\\:\\:getSamples\\(\\) should return array\\<array\\<string\\>\\> but returns array\\<string, array\\<string, array\\|string\\>\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Sample.php
@@ -3157,11 +2112,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$path of function pathinfo expects string, array\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Sample.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Sample.php
 
@@ -3206,18 +2156,8 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
 			message: "#^Comparison operation \"\\<\" between int and SimpleXMLElement\\|null results in an error\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
@@ -3244,11 +2184,6 @@ parameters:
 			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and int results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Gnumeric/Styles.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Html.php
 
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
@@ -3314,16 +2249,6 @@ parameters:
 			message: "#^While loop condition is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
 
 		-
 			message: "#^Cannot call method getElementsByTagNameNS\\(\\) on DOMElement\\|null\\.$#"
@@ -3436,11 +2361,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 
 		-
-			message: "#^Parameter \\#4 \\$cellData of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Slk\\:\\:processCFinal\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Slk.php
-
-		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3491,18 +2411,8 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3546,11 +2456,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$operator of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setOperator\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3566,23 +2471,8 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$type of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setType\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3603,11 +2493,6 @@ parameters:
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -3671,11 +2556,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls/ErrorCode.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\Escher\\:\\:\\$object \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/Escher.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\MD5\\:\\:f\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls/MD5.php
@@ -3736,11 +2616,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3792,11 +2667,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3981,11 +2851,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#1 \\$sizeInCm of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:centimeterSizeToPixels\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -3996,22 +2861,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -4049,11 +2904,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\BaseParserClass\\:\\:boolean\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/BaseParserClass.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
 		-
 			message: "#^Cannot call method getFont\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\|null\\.$#"
@@ -4227,41 +3077,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$position of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showBubbleSize of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowBubbleSize\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showCategoryName of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowCatName\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showDataLabelValues of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowVal\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showLeaderLines of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowLeaderLines\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showLegendKey of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowLegendKey\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showPercentage of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowPercent\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$showSeriesName of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\:\\:setShowSerName\\(\\) expects bool, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
@@ -4506,16 +3321,6 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\:\\:updateFormulaReferences\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4531,11 +3336,6 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4544,11 +3344,6 @@ parameters:
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\:\\:\\$instance \\(PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$text of class PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run constructor expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/RichText/RichText.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\:\\:\\$font \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
@@ -4579,11 +3374,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Settings.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:stringToExcel\\(\\) should return float\\|false but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Date.php
 
 		-
 			message: "#^Parameter \\#1 \\$excelFormatCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:isDateTimeFormatCode\\(\\) expects string, string\\|null given\\.$#"
@@ -4716,11 +3506,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
 
 		-
-			message: "#^Cannot call method setParent\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\:\\:getChildren\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer.php
@@ -4774,11 +3559,6 @@ parameters:
 			message: "#^Variable \\$cellText on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function abs expects float\\|int\\|string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$cdivi has no type specified\\.$#"
@@ -4886,11 +3666,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
-			message: "#^Parameter \\#3 \\$c of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:set\\(\\) expects float\\|int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-
-		-
 			message: "#^Parameter \\#3 \\$c of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:set\\(\\) expects float\\|int\\|null, string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
@@ -4906,21 +3681,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
-			message: "#^Cannot call method getArray\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-
-		-
-			message: "#^Cannot call method getColumnDimension\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-
-		-
-			message: "#^Cannot call method getRowDimension\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
@@ -4929,11 +3689,6 @@ parameters:
 			message: "#^Left side of && is always true\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function abs expects float\\|int\\|string, mixed given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Shared/JAMA/utils/Maths.php
 
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
@@ -5174,21 +3929,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
-
-		-
-			message: "#^Cannot access offset 'fontidx' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Cannot access offset 'strlen' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:formatNumber\\(\\) should return string but returns array\\|string\\.$#"
@@ -5446,11 +4186,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/XMLWriter.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Xls\\:\\:sizeCol\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Xls.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
@@ -5461,17 +4196,7 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of function pathinfo expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$worksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:\\$ribbonXMLData \\(array\\{target\\: string, data\\: string\\}\\|null\\) does not accept array\\{target\\: mixed, data\\: mixed\\}\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
@@ -5509,11 +4234,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$style \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/Conditional.php
-
-		-
-			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\CellMatcher\\:\\:cellConditionCheck\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/CellMatcher.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setConditionalFormattingRuleExt\\(\\) has no return type specified\\.$#"
@@ -5676,34 +4396,9 @@ parameters:
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
 
 		-
-			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\Wizard\\\\WizardAbstract\\:\\:cellConditionCheck\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/CellValue.php
-
-		-
 			message: "#^Parameter \\#1 \\$conditions of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\|int\\|string\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/CellValue.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/CellValue.php
-
-		-
-			message: "#^Parameter \\#1 \\$expression of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\Wizard\\\\Expression\\:\\:expression\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/Expression.php
-
-		-
-			message: "#^Parameter \\#1 \\$operand of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\Wizard\\\\TextValue\\:\\:operand\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/TextValue.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\Wizard\\\\TextValue\\:\\:\\$operand \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/TextValue.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
@@ -5791,11 +4486,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:toFormattedString\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
 			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
@@ -5806,11 +4496,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
 
 		-
-			message: "#^Cannot cast mixed to float\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/FractionFormatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
@@ -5819,101 +4504,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot access offset 'date' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot access offset 'dateTime' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot access offset 'time' on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:filterTestInDateGroupSet\\(\\) should return bool but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:filterTestInSimpleDataSet\\(\\) should return bool but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeBoundaries\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#1 \\$visible of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Dimension\\:\\:setVisible\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Parameter \\#3 \\$length of function array_slice expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:\\$range \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
-
-		-
-			message: "#^Cannot call method setParent\\(\\) on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
-
-		-
-			message: "#^Cannot clone non\\-object variable \\$v of type mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:getAttribute\\(\\) should return int\\|string\\|null but returns mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:getAttributes\\(\\) should return array\\<int\\|string\\> but returns array\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/AutoFilter/Column.php
 
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
@@ -5996,16 +4586,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/SheetView.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -6086,16 +4666,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -6129,11 +4699,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Csv.php
 
 		-
 			message: "#^Call to function array_key_exists\\(\\) with int and array\\{none\\: 'none', dashDot\\: '1px dashed', dashDotDot\\: '1px dotted', dashed\\: '1px dashed', dotted\\: '1px dotted', double\\: '3px double', hair\\: '1px solid', medium\\: '2px solid', \\.\\.\\.\\} will always evaluate to false\\.$#"
@@ -6486,22 +5051,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, mixed given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
@@ -6514,16 +5069,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
-			message: "#^Parameter \\#1 \\$date of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:dateTimeFromTimestamp\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/Meta.php
-
-		-
-			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Ods/Meta.php
 
 		-
 			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
@@ -6661,11 +5206,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:advance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -6686,92 +5226,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:cellToPackedRowcol\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRef2d\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$cell of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRef3d\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$errorCode of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertError\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$ext_ref of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:getRefIndex\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function substr_count expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertDefinedName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRange2d\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strrev expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertString\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#1 \\$token of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:convertRange3d\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, mixed given\\.$#"
-			count: 20
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Part \\$token \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$parseTree \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
@@ -6856,17 +5316,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$bitmap of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:processBitmap\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$errorCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\ErrorCode\\:\\:error\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -6916,27 +5366,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#3 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeFormula\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$num of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeNumber\\(\\) expects float, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$str of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeString\\(\\) expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeBoolErr\\(\\) expects int, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -7031,11 +5461,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
 			message: "#^Cannot call method getDataValues\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
@@ -7058,11 +5483,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, int given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -7166,11 +5586,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
 
 		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
@@ -7181,18 +5596,8 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
-
-		-
-			message: "#^Part \\$propertyValue \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
@@ -7296,11 +5701,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\StringTable\\:\\:createStringTable\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
-
-		-
 			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\:\\:createTextRun\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
@@ -7396,16 +5796,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Workbook.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Cannot use array destructuring on mixed\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -7441,33 +5831,8 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellFormula\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellNumeric\\(\\) expects float\\|int, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
@@ -7491,32 +5856,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, mixed given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellBoolean\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellError\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellInlineStr\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$cellValue of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeCellString\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
@@ -7541,704 +5881,9 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
 
 		-
-			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_calculateFormulaValue\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$source of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:fromArray\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/CalculationTest.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DAVERAGE\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DAverageTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DAVERAGE\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DAverageTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DAVERAGE\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DAverageTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNTA\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountATest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNTA\\(\\) expects int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountATest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNTA\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountATest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNT\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNT\\(\\) expects int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DCOUNT\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DCountTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DGET\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DGetTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DGET\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DGetTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DGET\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DGetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMAX\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMaxTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMAX\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMaxTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMAX\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMaxTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMIN\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMinTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMIN\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMinTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMIN\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DMinTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DPRODUCT\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DProductTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DPRODUCT\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DProductTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DPRODUCT\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DProductTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEVP\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevPTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEVP\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevPTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEVP\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevPTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEV\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEV\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEV\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DStDevTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSUM\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DSumTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSUM\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DSumTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSUM\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DSumTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVARP\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarPTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVARP\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarPTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVARP\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarPTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$database of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVAR\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVAR\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$criteria of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVAR\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Database/DVarTest.php
-
-		-
-			message: "#^Part \\$timeValue \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/DateTime/TimeValueTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2DecTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2HexTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Bin2OctTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2BinTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2HexTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Dec2OctTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2BinTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2DecTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Hex2OctTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMABS\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImAbsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMARGUMENT\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImArgumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCONJUGATE\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImConjugateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCOS\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImCosTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCOSH\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImCoshTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCOT\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImCotTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCSC\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImCscTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMCSCH\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImCschTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMEXP\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImExpTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMLN\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImLnTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMLOG10\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImLog10Test.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMLOG2\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImLog2Test.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMREAL\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImRealTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMSEC\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImSecTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMSECH\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImSechTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMSIN\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImSinTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMSINH\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImSinhTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMSQRT\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImSqrtTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMTAN\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImTanTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$complexNumber of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:IMAGINARY\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/ImaginaryTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2BinTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2DecTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Engineering/Oct2HexTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$nominalRate of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:EFFECT\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/EffectTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$periodsPerYear of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:EFFECT\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/EffectTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/HelpersTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$basis of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/HelpersTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$effectiveRate of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:NOMINAL\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/NominalTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$periodsPerYear of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:NOMINAL\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/NominalTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertEquals\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XNpvTest.php
-
-		-
-			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
-
-		-
-			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcothTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CotTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CothTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CscTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/CschTest.php
-
-		-
-			message: "#^Part \\$value \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/EvenTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MRoundTest.php
-
-		-
-			message: "#^Part \\$matrix \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/MdeTermTest.php
-
-		-
-			message: "#^Part \\$value \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/OddTest.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RandBetweenTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RomanTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundDownTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundTest.php
-
-		-
-			message: "#^Part \\$formula \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/RoundUpTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SecTest.php
-
-		-
-			message: "#^Part \\$angle \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SechTest.php
-
-		-
-			message: "#^Part \\$value \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SignTest.php
-
-		-
-			message: "#^Part \\$type \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/SubTotalTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$probability of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:CHIINV\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ChiInvRightTailTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$degrees of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:CHIINV\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ChiInvRightTailTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:FISHERINV\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/FisherInvTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:FISHER\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/FisherTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:GAMMALN\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/GammaLnTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:GAMMAFunction\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/GammaTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:GAUSS\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/GaussTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:GROWTH\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/GrowthTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LINEST\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LinEstTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$xValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LINEST\\(\\) expects array\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LinEstTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$const of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LINEST\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LinEstTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$stats of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LINEST\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LinEstTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LOGEST\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LogEstTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$xValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LOGEST\\(\\) expects array\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LogEstTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$const of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LOGEST\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LogEstTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$stats of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:LOGEST\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/LogEstTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TDIST\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TDistTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$degrees of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TDIST\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TDistTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$tails of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TDIST\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TDistTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$probability of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TINV\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TinvTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$degrees of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TINV\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TinvTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:TREND\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/TrendTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:WEIBULL\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/WeibullTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$alpha of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:WEIBULL\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/WeibullTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$beta of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:WEIBULL\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/WeibullTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$cumulative of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:WEIBULL\\(\\) expects bool, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/WeibullTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$dataSet of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:ZTEST\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ZTestTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$m0 of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:ZTEST\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ZTestTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sigma of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:ZTEST\\(\\) expects float\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/Statistical/ZTestTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/LeftTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/LowerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/MidTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/ProperTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/RightTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of static method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:setLocale\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/UpperTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/AdvancedValueBinderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$separator of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setDecimalSeparator\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/AdvancedValueBinderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$separator of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setThousandsSeparator\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/AdvancedValueBinderTest.php
-
-		-
-			message: "#^Cannot access offset \\(int\\|string\\) on mixed\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Cell/CoordinateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CoordinateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$coordinateCollection of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:mergeRangesInCollection\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CoordinateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:buildRange\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Cell/CoordinateTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
@@ -8254,41 +5899,6 @@ parameters:
 			message: "#^Cannot call method getParent\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$propertyName of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:getCustomPropertyType\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$propertyName of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:getCustomPropertyValue\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$propertyName of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:isCustomPropertySet\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$propertyName of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCustomProperty\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setCreated\\(\\) expects float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$timestamp of method PhpOffice\\\\PhpSpreadsheet\\\\Document\\\\Properties\\:\\:setModified\\(\\) expects float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
-
-		-
-			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Document/PropertiesTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\ColumnWidthTest\\:\\:testReadColumnWidth\\(\\) has parameter \\$format with no type specified\\.$#"
@@ -8336,16 +5946,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$format of method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\AbstractFunctional\\:\\:writeAndReload\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/ReadBlankCellsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$format of method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\AbstractFunctional\\:\\:writeAndReload\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/ReadFilterTest.php
-
-		-
 			message: "#^Cannot access offset 'size' on array\\{0\\: int, 1\\: int, 2\\: int, 3\\: int, 4\\: int, 5\\: int, 6\\: int, 7\\: int, \\.\\.\\.\\}\\|false\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
@@ -8361,19 +5961,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$html of method PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:toRichTextObject\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Helper/HtmlTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/IOFactoryTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$phpSpreadsheetFunctions of class PhpOffice\\\\PhpSpreadsheetInfra\\\\LocaleGenerator constructor expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/LocaleGeneratorTest.php
 
 		-
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedFormula\\|null\\.$#"
@@ -8384,11 +5974,6 @@ parameters:
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedRange\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/NamedRangeTest.php
-
-		-
-			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsPropertiesTest.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Ods\\\\OdsTest\\:\\:\\$spreadsheetData \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) in isset\\(\\) is not nullable\\.$#"
@@ -8417,11 +6002,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Security\\\\XmlScannerTest\\:\\:testValidXML\\(\\) has parameter \\$libxmlDisableEntityLoader with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strrev expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
@@ -8491,19 +6071,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
 
 		-
-			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/PropertiesTest.php
-
-		-
 			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/SheetsXlsxChartTest.php
-
-		-
-			message: "#^Part \\$creationDate \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlLoadTest.php
 
 		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
@@ -8516,89 +6086,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$codePage of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\CodePage\\:\\:numberToName\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/CodePageTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$dateValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:dateTimeToExcel\\(\\) expects DateTimeInterface, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$excelTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:excelToTimestamp\\(\\) expects float\\|int, mixed given\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$unixTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, mixed given\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$timeZone of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:excelToTimestamp\\(\\) expects DateTimeZone\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/DateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$fontSizeInPoints of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:fontSizeToPixels\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/FontTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$sizeInCm of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:centimeterSizeToPixels\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/FontTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$sizeInInch of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:inchSizeToPixels\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/FontTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Shared/StringHelperTest.php
-
-		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/Trend/ExponentialBestFitTest.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/Trend/ExponentialBestFitTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\ExponentialBestFit constructor expects array\\<float\\>, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/Trend/ExponentialBestFitTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$xValues of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\ExponentialBestFit constructor expects array\\<float\\>, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/Trend/ExponentialBestFitTest.php
-
-		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/Trend/LinearBestFitTest.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Shared/Trend/LinearBestFitTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$yValues of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\LinearBestFit constructor expects array\\<float\\>, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/Trend/LinearBestFitTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$xValues of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\LinearBestFit constructor expects array\\<float\\>, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/Trend/LinearBestFitTest.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$index with no type specified\\.$#"
@@ -8609,21 +6099,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$sheetName with no type specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$rgbValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getBlue\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/ColorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$rgbValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getGreen\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/ColorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$rgbValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getRed\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/ColorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
@@ -8639,11 +6114,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:setAttribute\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilter/ColumnTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\\\Rule\\:\\:setRule\\(\\) expects array\\<int\\|string\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilter/DateGroupTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
@@ -8671,16 +6141,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
 
 		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
-			message: "#^Cannot access offset 1 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/WorksheetTest.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Html/CallbackTest.php
@@ -8706,74 +6166,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
 
 		-
-			message: "#^Cannot call method getPlainText\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 3
 			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\Comment\\:\\:setText\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$formatCode of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:setFormatCode\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlNumberFormatTest.php
-
-		-
-			message: "#^Cannot access offset 10 on mixed\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Cannot access offset 12 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Cannot access offset 25 on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Cannot access offset 8 on mixed\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Cannot access offset 9 on mixed\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Cannot access offset int\\|string\\|false on mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$palette of method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Xls\\\\WorkbookTest\\:\\:paletteToColor\\(\\) expects array, mixed given\\.$#"
-			count: 6
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, mixed given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/LocaleFloatsTest.php
 
 		-
 			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
