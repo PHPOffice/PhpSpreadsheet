@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Improved support for passing of array arguments to Excel function implementations to return array results (where appropriate). [PR #2562](https://github.com/PHPOffice/PhpSpreadsheet/pull/2562)
+
+  This is the first stage in an ongoing process of adding array support to all appropriate function implementations, 
 - Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536)
 - Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540) 
 
@@ -46,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix bug with `DOLLARDE()` and `DOLLARFR()` functions when the dollar value is negative [Issue #2578](https://github.com/PHPOffice/PhpSpreadsheet/issues/2578) [PR #2579](https://github.com/PHPOffice/PhpSpreadsheet/pull/2579)
 - Fix partial function name matching when translating formulae from Russian to English [Issue #2533](https://github.com/PHPOffice/PhpSpreadsheet/issues/2533) [PR #2534](https://github.com/PHPOffice/PhpSpreadsheet/pull/2534)
 - Various bugs related to Conditional Formatting Rules, and errors in the Xlsx Writer for Conditional Formatting [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
 - Xlsx Reader merge range fixes.

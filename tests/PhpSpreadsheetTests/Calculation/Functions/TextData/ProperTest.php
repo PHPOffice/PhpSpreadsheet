@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 class ProperTest extends AllSetupTeardown
@@ -62,6 +63,27 @@ class ProperTest extends AllSetupTeardown
             ['Onwaar', 'nl_NL', false],
             ['Epätosi', 'fi', false],
             ['Ложь', 'bg', false],
+        ];
+    }
+
+    /**
+     * @dataProvider providerProperArray
+     */
+    public function testProperArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=PROPER({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerProperArray(): array
+    {
+        return [
+            'row vector' => [[["Let's", 'All Change', 'Case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],
+            'column vector' => [[["Let's"], ['All Change'], ['Case']], '{"lEt\'S"; "aLl chAngE"; "cAsE"}'],
+            'matrix' => [[['Build All', 'Your Workbooks'], ['With', 'Phpspreadsheet']], '{"bUIld aLL", "yOUr WOrkBOOks"; "wiTH", "PhpSpreadsheet"}'],
         ];
     }
 }

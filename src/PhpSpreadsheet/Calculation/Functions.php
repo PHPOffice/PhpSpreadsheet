@@ -609,6 +609,24 @@ class Functions
     }
 
     /**
+     * @param mixed $value
+     *
+     * @return null|mixed
+     */
+    public static function scalar($value)
+    {
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        do {
+            $value = array_pop($value);
+        } while (is_array($value));
+
+        return $value;
+    }
+
+    /**
      * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
      * @param array|mixed $array Array to be flattened

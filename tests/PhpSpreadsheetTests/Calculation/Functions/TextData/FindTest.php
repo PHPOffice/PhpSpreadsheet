@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class FindTest extends AllSetupTeardown
 {
     /**
@@ -38,5 +40,26 @@ class FindTest extends AllSetupTeardown
     public function providerFIND(): array
     {
         return require 'tests/data/Calculation/TextData/FIND.php';
+    }
+
+    /**
+     * @dataProvider providerFindArray
+     */
+    public function testFindArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=FIND({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerFindArray(): array
+    {
+        return [
+            'row vector #1' => [[[3, 4, '#VALUE!']], '"l"', '{"Hello", "World", "PhpSpreadsheet"}'],
+            'column vector #1' => [[[3], [4], ['#VALUE!']], '"l"', '{"Hello"; "World"; "PhpSpreadsheet"}'],
+            'matrix #1' => [[[3, 4], ['#VALUE!', 5]], '"l"', '{"Hello", "World"; "PhpSpreadsheet", "Excel"}'],
+        ];
     }
 }
