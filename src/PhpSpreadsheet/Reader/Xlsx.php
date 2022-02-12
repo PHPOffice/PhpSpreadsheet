@@ -1691,13 +1691,17 @@ class Xlsx extends BaseReader
                     } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
-                        $attr = $run->rPr->rFont->attributes();
-                        if (isset($attr['val'])) {
-                            $objText->getFont()->setName((string) $attr['val']);
+                        if (isset($run->rPr->rFont)) {
+                            $attr = $run->rPr->rFont->attributes();
+                            if (isset($attr['val'])) {
+                                $objText->getFont()->setName((string) $attr['val']);
+                            }
                         }
-                        $attr = $run->rPr->sz->attributes();
-                        if (isset($attr['val'])) {
-                            $objText->getFont()->setSize((float) $attr['val']);
+                        if (isset($run->rPr->sz)) {
+                            $attr = $run->rPr->sz->attributes();
+                            if (isset($attr['val'])) {
+                                $objText->getFont()->setSize((float) $attr['val']);
+                            }
                         }
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color($this->styleReader->readColor($run->rPr->color)));

@@ -1946,7 +1946,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Format\\:\\:VALUE\\(\\) should return DateTimeInterface\\|float\\|int\\|string but returns mixed\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Format\\:\\:VALUE\\(\\) should return array\\|DateTimeInterface\\|float\\|int\\|string but returns mixed\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
@@ -1989,6 +1989,11 @@ parameters:
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Helpers.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\\\Replace\\:\\:substitute\\(\\) should return array\\|string but returns mixed\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/TextData/Replace.php
 
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
