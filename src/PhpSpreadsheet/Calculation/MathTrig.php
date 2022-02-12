@@ -455,7 +455,7 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return float|int|string Remainder, or a string containing an error
+     * @return array|float|int|string Remainder, or a string containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
@@ -533,7 +533,7 @@ class MathTrig
      * @param float $x
      * @param float $y
      *
-     * @return float|int|string The result, or a string containing an error
+     * @return array|float|int|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
@@ -579,7 +579,7 @@ class MathTrig
      * @param mixed $numerator
      * @param mixed $denominator
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function QUOTIENT($numerator, $denominator)
     {
@@ -617,7 +617,7 @@ class MathTrig
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
      *
-     * @return string Roman numeral, or a string containing an error
+     * @return array|string Roman numeral, or a string containing an error
      */
     public static function ROMAN($aValue, $style = 0)
     {
