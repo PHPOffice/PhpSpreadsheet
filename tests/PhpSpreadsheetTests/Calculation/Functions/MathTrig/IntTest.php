@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class IntTest extends AllSetupTeardown
 {
     /**
@@ -26,5 +28,26 @@ class IntTest extends AllSetupTeardown
     public function providerINT(): array
     {
         return require 'tests/data/Calculation/MathTrig/INT.php';
+    }
+
+    /**
+     * @dataProvider providerIntArray
+     */
+    public function testIntArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=INT({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerIntArray(): array
+    {
+        return [
+            'row vector' => [[[-2, 0, 0]], '{-1.5, 0, 0.3}'],
+            'column vector' => [[[-2], [0], [0]], '{-1.5; 0; 0.3}'],
+            'matrix' => [[[-2, 0], [0, 12]], '{-1.5, 0; 0.3, 12.5}'],
+        ];
     }
 }

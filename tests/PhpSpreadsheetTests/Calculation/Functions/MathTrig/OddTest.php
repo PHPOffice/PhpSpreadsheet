@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class OddTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class OddTest extends AllSetupTeardown
     public function providerODD(): array
     {
         return require 'tests/data/Calculation/MathTrig/ODD.php';
+    }
+
+    /**
+     * @dataProvider providerOddArray
+     */
+    public function testOddArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ODD({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerOddArray(): array
+    {
+        return [
+            'row vector' => [[[-3, 1, 5]], '{-3, 1, 4}'],
+            'column vector' => [[[-3], [1], [5]], '{-3; 1; 4}'],
+            'matrix' => [[[-3, 1], [5, 3]], '{-3, 1; 4, 1.5}'],
+        ];
     }
 }
