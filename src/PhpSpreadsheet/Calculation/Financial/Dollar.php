@@ -18,12 +18,17 @@ class Dollar
      * The format used is $#,##0.00_);($#,##0.00)..
      *
      * @param mixed $number The value to format, or can be an array of numbers
+     *                         Or can be an array of values
      * @param mixed $precision The number of digits to display to the right of the decimal point (as an integer).
      *                            If precision is negative, number is rounded to the left of the decimal point.
      *                            If you omit precision, it is assumed to be 2
      *              Or can be an array of precision values
+     *
+     * @return array|string
+     *         If an array of values is passed for either of the arguments, then the returned result
+     *            will also be an array with matching dimensions
      */
-    public static function format($number, $precision = 2): string
+    public static function format($number, $precision = 2)
     {
         return Format::DOLLAR($number, $precision);
     }
