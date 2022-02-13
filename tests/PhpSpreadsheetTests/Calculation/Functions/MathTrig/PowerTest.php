@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class PowerTest extends AllSetupTeardown
 {
     /**
@@ -35,5 +37,24 @@ class PowerTest extends AllSetupTeardown
     public function providerPOWER(): array
     {
         return require 'tests/data/Calculation/MathTrig/POWER.php';
+    }
+
+    /**
+     * @dataProvider providerPowerArray
+     */
+    public function testPowerArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=POWER({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerPowerArray(): array
+    {
+        return [
+            'matrix' => [[[729, 512, 343], [216, 125, 64], [27, 8, 1]], '{9, 8, 7; 6, 5, 4; 3, 2, 1}', '3'],
+        ];
     }
 }

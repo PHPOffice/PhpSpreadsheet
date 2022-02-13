@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class SearchTest extends AllSetupTeardown
 {
     /**
@@ -38,5 +40,26 @@ class SearchTest extends AllSetupTeardown
     public function providerSEARCH(): array
     {
         return require 'tests/data/Calculation/TextData/SEARCH.php';
+    }
+
+    /**
+     * @dataProvider providerSearchArray
+     */
+    public function testSearchArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=SEARCH({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerSearchArray(): array
+    {
+        return [
+            'row vector #1' => [[[3, 4, '#VALUE!']], '"L"', '{"Hello", "World", "PhpSpreadsheet"}'],
+            'column vector #1' => [[[3], [4], ['#VALUE!']], '"L"', '{"Hello"; "World"; "PhpSpreadsheet"}'],
+            'matrix #1' => [[[3, 4], ['#VALUE!', 5]], '"L"', '{"Hello", "World"; "PhpSpreadsheet", "Excel"}'],
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 class UpperTest extends AllSetupTeardown
@@ -62,6 +63,27 @@ class UpperTest extends AllSetupTeardown
             ['ONWAAR', 'nl_NL', false],
             ['EPÄTOSI', 'fi', false],
             ['ЛОЖЬ', 'bg', false],
+        ];
+    }
+
+    /**
+     * @dataProvider providerUpperArray
+     */
+    public function testUpperArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=UPPER({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerUpperArray(): array
+    {
+        return [
+            'row vector' => [[["LET'S", 'ALL CHANGE', 'CASE']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],
+            'column vector' => [[["LET'S"], ['ALL CHANGE'], ['CASE']], '{"lEt\'S"; "aLl chAngE"; "cAsE"}'],
+            'matrix' => [[['BUILD ALL', 'YOUR WORKBOOKS'], ['WITH', 'PHPSPREADSHEET']], '{"bUIld aLL", "yOUr WOrkBOOks"; "wiTH", "PhpSpreadsheet"}'],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Settings;
 
@@ -178,6 +179,28 @@ class RightTest extends AllSetupTeardown
                 '',
                 '',
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerRightArray
+     */
+    public function testRightArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=RIGHT({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerRightArray(): array
+    {
+        return [
+            'row vector #1' => [[['llo', 'rld', 'eet']], '{"Hello", "World", "PhpSpreadsheet"}', '3'],
+            'column vector #1' => [[['llo'], ['rld'], ['eet']], '{"Hello"; "World"; "PhpSpreadsheet"}', '3'],
+            'matrix #1' => [[['llo', 'rld'], ['eet', 'cel']], '{"Hello", "World"; "PhpSpreadsheet", "Excel"}', '3'],
+            'column vector #2' => [[['eet'], ['sheet']], '"PhpSpreadsheet"', '{3; 5}'],
         ];
     }
 }

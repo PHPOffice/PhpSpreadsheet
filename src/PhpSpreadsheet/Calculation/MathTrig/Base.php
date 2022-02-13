@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Base
 {
+    use ArrayEnabled;
+
     /**
      * BASE.
      *
@@ -16,13 +19,22 @@ class Base
      *        BASE(Number, Radix [Min_length])
      *
      * @param mixed $number expect float
+     *                      Or can be an array of values
      * @param mixed $radix expect float
+     *                      Or can be an array of values
      * @param mixed $minLength expect int or null
+     *                      Or can be an array of values
      *
-     * @return string the text representation with the given radix (base)
+     * @return array|string the text representation with the given radix (base)
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function evaluate($number, $radix, $minLength = null)
     {
+        if (is_array($number) || is_array($radix) || is_array($minLength)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $radix, $minLength);
+        }
+
         try {
             $number = (float) floor(Helpers::validateNumericNullBool($number));
             $radix = (int) Helpers::validateNumericNullBool($radix);
@@ -31,6 +43,14 @@ class Base
         }
         $minLength = Functions::flattenSingleValue($minLength);
 
+        return self::calculate($number, $radix, $minLength);
+    }
+
+    /**
+     * @param mixed $minLength
+     */
+    private static function calculate(float $number, int $radix, $minLength): string
+    {
         if ($minLength === null || is_numeric($minLength)) {
             if ($number < 0 || $number >= 2 ** 53 || $radix < 2 || $radix > 36) {
                 return Functions::NAN(); // Numeric range constraints

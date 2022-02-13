@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Settings;
 
@@ -200,6 +201,26 @@ class MidTest extends AllSetupTeardown
                 '#VALUE!',
                 '',
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerMidArray
+     */
+    public function testMidArray(array $expectedResult, string $argument1, string $argument2, string $argument3): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=MID({$argument1}, {$argument2}, {$argument3})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerMidArray(): array
+    {
+        return [
+            'row vector #1' => [[['lo Wor', 'Spread']], '{"Hello World", "PhpSpreadsheet"}', '4', '6'],
+            'column vector #1' => [[[' Wor'], ['read']], '{"Hello World"; "PhpSpreadsheet"}', '6', '4'],
         ];
     }
 }

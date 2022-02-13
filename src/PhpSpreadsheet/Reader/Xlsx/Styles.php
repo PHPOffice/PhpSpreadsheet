@@ -33,6 +33,37 @@ class Styles extends BaseParserClass
     /** @var SimpleXMLElement */
     private $styleXml;
 
+    /** @var string */
+    private $namespace = '';
+
+    public function setNamespace(string $namespace): void
+    {
+        $this->namespace = $namespace;
+    }
+
+    /**
+     * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
+     *
+     * @param mixed $value
+     */
+    private static function castBool($value): bool
+    {
+        return (bool) $value;
+    }
+
+    private function getStyleAttributes(SimpleXMLElement $value): SimpleXMLElement
+    {
+        $attr = null;
+        if (self::castBool($value)) {
+            $attr = $value->attributes('');
+            if ($attr === null || count($attr) === 0) {
+                $attr = $value->attributes($this->namespace);
+            }
+        }
+
+        return Xlsx::testSimpleXml($attr);
+    }
+
     public function setStyleXml(SimpleXmlElement $styleXml): void
     {
         $this->styleXml = $styleXml;
@@ -52,48 +83,62 @@ class Styles extends BaseParserClass
 
     public function readFontStyle(Font $fontStyle, SimpleXMLElement $fontStyleXml): void
     {
-        if (isset($fontStyleXml->name, $fontStyleXml->name['val'])) {
-            $fontStyle->setName((string) $fontStyleXml->name['val']);
+        if (isset($fontStyleXml->name)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->name);
+            if (isset($attr['val'])) {
+                $fontStyle->setName((string) $attr['val']);
+            }
         }
-        if (isset($fontStyleXml->sz, $fontStyleXml->sz['val'])) {
-            $fontStyle->setSize((float) $fontStyleXml->sz['val']);
+        if (isset($fontStyleXml->sz)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->sz);
+            if (isset($attr['val'])) {
+                $fontStyle->setSize((float) $attr['val']);
+            }
         }
         if (isset($fontStyleXml->b)) {
-            $fontStyle->setBold(!isset($fontStyleXml->b['val']) || self::boolean((string) $fontStyleXml->b['val']));
+            $attr = $this->getStyleAttributes($fontStyleXml->b);
+            $fontStyle->setBold(!isset($attr['val']) || self::boolean((string) $attr['val']));
         }
         if (isset($fontStyleXml->i)) {
-            $fontStyle->setItalic(!isset($fontStyleXml->i['val']) || self::boolean((string) $fontStyleXml->i['val']));
+            $attr = $this->getStyleAttributes($fontStyleXml->i);
+            $fontStyle->setItalic(!isset($attr['val']) || self::boolean((string) $attr['val']));
         }
         if (isset($fontStyleXml->strike)) {
-            $fontStyle->setStrikethrough(
-                !isset($fontStyleXml->strike['val']) || self::boolean((string) $fontStyleXml->strike['val'])
-            );
+            $attr = $this->getStyleAttributes($fontStyleXml->strike);
+            $fontStyle->setStrikethrough(!isset($attr['val']) || self::boolean((string) $attr['val']));
         }
         $fontStyle->getColor()->setARGB($this->readColor($fontStyleXml->color));
 
-        if (isset($fontStyleXml->u) && !isset($fontStyleXml->u['val'])) {
-            $fontStyle->setUnderline(Font::UNDERLINE_SINGLE);
-        } elseif (isset($fontStyleXml->u, $fontStyleXml->u['val'])) {
-            $fontStyle->setUnderline((string) $fontStyleXml->u['val']);
+        if (isset($fontStyleXml->u)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->u);
+            if (!isset($attr['val'])) {
+                $fontStyle->setUnderline(Font::UNDERLINE_SINGLE);
+            } else {
+                $fontStyle->setUnderline((string) $attr['val']);
+            }
         }
-
-        if (isset($fontStyleXml->vertAlign, $fontStyleXml->vertAlign['val'])) {
-            $verticalAlign = strtolower((string) $fontStyleXml->vertAlign['val']);
-            if ($verticalAlign === 'superscript') {
-                $fontStyle->setSuperscript(true);
-            } elseif ($verticalAlign === 'subscript') {
-                $fontStyle->setSubscript(true);
+        if (isset($fontStyleXml->vertAlign)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->vertAlign);
+            if (!isset($attr['val'])) {
+                $verticalAlign = strtolower((string) $attr['val']);
+                if ($verticalAlign === 'superscript') {
+                    $fontStyle->setSuperscript(true);
+                } elseif ($verticalAlign === 'subscript') {
+                    $fontStyle->setSubscript(true);
+                }
             }
         }
     }
 
     private function readNumberFormat(NumberFormat $numfmtStyle, SimpleXMLElement $numfmtStyleXml): void
     {
-        if ($numfmtStyleXml->count() === 0) {
+        if ((string) $numfmtStyleXml['formatCode'] !== '') {
+            $numfmtStyle->setFormatCode(self::formatGeneral((string) $numfmtStyleXml['formatCode']));
+
             return;
         }
-        $numfmt = Xlsx::getAttributes($numfmtStyleXml);
-        if ($numfmt->count() > 0 && isset($numfmt['formatCode'])) {
+        $numfmt = $this->getStyleAttributes($numfmtStyleXml);
+        if (isset($numfmt['formatCode'])) {
             $numfmtStyle->setFormatCode(self::formatGeneral((string) $numfmt['formatCode']));
         }
     }
@@ -103,10 +148,11 @@ class Styles extends BaseParserClass
         if ($fillStyleXml->gradientFill) {
             /** @var SimpleXMLElement $gradientFill */
             $gradientFill = $fillStyleXml->gradientFill[0];
-            if (!empty($gradientFill['type'])) {
-                $fillStyle->setFillType((string) $gradientFill['type']);
+            $attr = $this->getStyleAttributes($gradientFill);
+            if (!empty($attr['type'])) {
+                $fillStyle->setFillType((string) $attr['type']);
             }
-            $fillStyle->setRotation((float) ($gradientFill['degree']));
+            $fillStyle->setRotation((float) ($attr['degree']));
             $gradientFill->registerXPathNamespace('sml', Namespaces::MAIN);
             $fillStyle->getStartColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=0]'))->color));
             $fillStyle->getEndColor()->setARGB($this->readColor(self::getArrayItem($gradientFill->xpath('sml:stop[@position=1]'))->color));
@@ -121,9 +167,14 @@ class Styles extends BaseParserClass
                 $defaultFillStyle = Fill::FILL_SOLID;
             }
 
-            $patternType = (string) $fillStyleXml->patternFill['patternType'] != ''
-                ? (string) $fillStyleXml->patternFill['patternType']
-                : $defaultFillStyle;
+            $type = '';
+            if ((string) $fillStyleXml->patternFill['patternType'] !== '') {
+                $type = (string) $fillStyleXml->patternFill['patternType'];
+            } else {
+                $attr = $this->getStyleAttributes($fillStyleXml->patternFill);
+                $type = (string) $attr['patternType'];
+            }
+            $patternType = ($type === '') ? $defaultFillStyle : $type;
 
             $fillStyle->setFillType($patternType);
         }
@@ -131,8 +182,10 @@ class Styles extends BaseParserClass
 
     public function readBorderStyle(Borders $borderStyle, SimpleXMLElement $borderStyleXml): void
     {
-        $diagonalUp = self::boolean((string) $borderStyleXml['diagonalUp']);
-        $diagonalDown = self::boolean((string) $borderStyleXml['diagonalDown']);
+        $diagonalUp = $this->getAttribute($borderStyleXml, 'diagonalUp');
+        $diagonalUp = self::boolean($diagonalUp);
+        $diagonalDown = $this->getAttribute($borderStyleXml, 'diagonalDown');
+        $diagonalDown = self::boolean($diagonalDown);
         if (!$diagonalUp && !$diagonalDown) {
             $borderStyle->setDiagonalDirection(Borders::DIAGONAL_NONE);
         } elseif ($diagonalUp && !$diagonalDown) {
@@ -150,10 +203,26 @@ class Styles extends BaseParserClass
         $this->readBorder($borderStyle->getDiagonal(), $borderStyleXml->diagonal);
     }
 
+    private function getAttribute(SimpleXMLElement $xml, string $attribute): string
+    {
+        $style = '';
+        if ((string) $xml[$attribute] !== '') {
+            $style = (string) $xml[$attribute];
+        } else {
+            $attr = $this->getStyleAttributes($xml);
+            if (isset($attr[$attribute])) {
+                $style = (string) $attr[$attribute];
+            }
+        }
+
+        return $style;
+    }
+
     private function readBorder(Border $border, SimpleXMLElement $borderXml): void
     {
-        if (isset($borderXml['style'])) {
-            $border->setBorderStyle((string) $borderXml['style']);
+        $style = $this->getAttribute($borderXml, 'style');
+        if ($style !== '') {
+            $border->setBorderStyle((string) $style);
         }
         if (isset($borderXml->color)) {
             $border->getColor()->setARGB($this->readColor($borderXml->color));
@@ -162,25 +231,25 @@ class Styles extends BaseParserClass
 
     public function readAlignmentStyle(Alignment $alignment, SimpleXMLElement $alignmentXml): void
     {
-        $alignment->setHorizontal((string) $alignmentXml['horizontal']);
-        $alignment->setVertical((string) $alignmentXml['vertical']);
+        $horizontal = $this->getAttribute($alignmentXml, 'horizontal');
+        $alignment->setHorizontal($horizontal);
+        $vertical = $this->getAttribute($alignmentXml, 'vertical');
+        $alignment->setVertical((string) $vertical);
 
-        $textRotation = 0;
-        if ((int) $alignmentXml['textRotation'] <= 90) {
-            $textRotation = (int) $alignmentXml['textRotation'];
-        } elseif ((int) $alignmentXml['textRotation'] > 90) {
-            $textRotation = 90 - (int) $alignmentXml['textRotation'];
+        $textRotation = (int) $this->getAttribute($alignmentXml, 'textRotation');
+        if ($textRotation > 90) {
+            $textRotation = 90 - $textRotation;
         }
+        $alignment->setTextRotation($textRotation);
 
-        $alignment->setTextRotation((int) $textRotation);
-        $alignment->setWrapText(self::boolean((string) $alignmentXml['wrapText']));
-        $alignment->setShrinkToFit(self::boolean((string) $alignmentXml['shrinkToFit']));
-        $alignment->setIndent(
-            (int) ((string) $alignmentXml['indent']) > 0 ? (int) ((string) $alignmentXml['indent']) : 0
-        );
-        $alignment->setReadOrder(
-            (int) ((string) $alignmentXml['readingOrder']) > 0 ? (int) ((string) $alignmentXml['readingOrder']) : 0
-        );
+        $wrapText = $this->getAttribute($alignmentXml, 'wrapText');
+        $alignment->setWrapText(self::boolean((string) $wrapText));
+        $shrinkToFit = $this->getAttribute($alignmentXml, 'shrinkToFit');
+        $alignment->setShrinkToFit(self::boolean((string) $shrinkToFit));
+        $indent = (int) $this->getAttribute($alignmentXml, 'indent');
+        $alignment->setIndent(max($indent, 0));
+        $readingOrder = (int) $this->getAttribute($alignmentXml, 'readingOrder');
+        $alignment->setReadOrder(max($readingOrder, 0));
     }
 
     private static function formatGeneral(string $formatString): string
@@ -223,8 +292,8 @@ class Styles extends BaseParserClass
 
         // protection
         if (isset($style->protection)) {
-            $this->readProtectionLocked($docStyle, $style);
-            $this->readProtectionHidden($docStyle, $style);
+            $this->readProtectionLocked($docStyle, $style->protection);
+            $this->readProtectionHidden($docStyle, $style->protection);
         }
 
         // top-level style settings
@@ -235,13 +304,20 @@ class Styles extends BaseParserClass
 
     /**
      * Read protection locked attribute.
-     *
-     * @param SimpleXMLElement|stdClass $style
      */
-    public function readProtectionLocked(Style $docStyle, $style): void
+    public function readProtectionLocked(Style $docStyle, SimpleXMLElement $style): void
     {
-        if (isset($style->protection['locked'])) {
-            if (self::boolean((string) $style->protection['locked'])) {
+        $locked = '';
+        if ((string) $style['locked'] !== '') {
+            $locked = (string) $style['locked'];
+        } else {
+            $attr = $this->getStyleAttributes($style);
+            if (isset($attr['locked'])) {
+                $locked = (string) $attr['locked'];
+            }
+        }
+        if ($locked !== '') {
+            if (self::boolean($locked)) {
                 $docStyle->getProtection()->setLocked(Protection::PROTECTION_PROTECTED);
             } else {
                 $docStyle->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
@@ -251,13 +327,20 @@ class Styles extends BaseParserClass
 
     /**
      * Read protection hidden attribute.
-     *
-     * @param SimpleXMLElement|stdClass $style
      */
-    public function readProtectionHidden(Style $docStyle, $style): void
+    public function readProtectionHidden(Style $docStyle, SimpleXMLElement $style): void
     {
-        if (isset($style->protection['hidden'])) {
-            if (self::boolean((string) $style->protection['hidden'])) {
+        $hidden = '';
+        if ((string) $style['hidden'] !== '') {
+            $hidden = (string) $style['hidden'];
+        } else {
+            $attr = $this->getStyleAttributes($style);
+            if (isset($attr['hidden'])) {
+                $hidden = (string) $attr['hidden'];
+            }
+        }
+        if ($hidden !== '') {
+            if (self::boolean((string) $hidden)) {
                 $docStyle->getProtection()->setHidden(Protection::PROTECTION_PROTECTED);
             } else {
                 $docStyle->getProtection()->setHidden(Protection::PROTECTION_UNPROTECTED);
@@ -267,15 +350,18 @@ class Styles extends BaseParserClass
 
     public function readColor(SimpleXMLElement $color, bool $background = false): string
     {
-        if (isset($color['rgb'])) {
-            return (string) $color['rgb'];
-        } elseif (isset($color['indexed'])) {
-            return Color::indexedColor((int) ($color['indexed'] - 7), $background)->getARGB() ?? '';
-        } elseif (isset($color['theme'])) {
+        $attr = $this->getStyleAttributes($color);
+        if (isset($attr['rgb'])) {
+            return (string) $attr['rgb'];
+        }
+        if (isset($attr['indexed'])) {
+            return Color::indexedColor((int) ($attr['indexed'] - 7), $background)->getARGB() ?? '';
+        }
+        if (isset($attr['theme'])) {
             if ($this->theme !== null) {
-                $returnColour = $this->theme->getColourByIndex((int) $color['theme']);
-                if (isset($color['tint'])) {
-                    $tintAdjust = (float) $color['tint'];
+                $returnColour = $this->theme->getColourByIndex((int) $attr['theme']);
+                if (isset($attr['tint'])) {
+                    $tintAdjust = (float) $attr['tint'];
                     $returnColour = Color::changeBrightness($returnColour ?? '', $tintAdjust);
                 }
 

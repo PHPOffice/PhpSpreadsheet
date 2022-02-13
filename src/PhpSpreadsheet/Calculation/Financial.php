@@ -587,10 +587,10 @@ class Financial
      * @see Financial\Dollar::decimal()
      *      Use the decimal() method in the Financial\Dollar class instead
      *
-     * @param float $fractional_dollar Fractional Dollar
-     * @param int $fraction Fraction
+     * @param array|float $fractional_dollar Fractional Dollar
+     * @param array|int $fraction Fraction
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
     {
@@ -612,10 +612,10 @@ class Financial
      * @see Financial\Dollar::fractional()
      *      Use the fractional() method in the Financial\Dollar class instead
      *
-     * @param float $decimal_dollar Decimal Dollar
-     * @param int $fraction Fraction
+     * @param array|float $decimal_dollar Decimal Dollar
+     * @param array|int $fraction Fraction
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
     {

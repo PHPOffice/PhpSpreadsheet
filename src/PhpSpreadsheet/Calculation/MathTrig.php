@@ -77,7 +77,7 @@ class MathTrig
      * @param float $radix
      * @param int $minLength
      *
-     * @return string the text representation with the given radix (base)
+     * @return array|string the text representation with the given radix (base)
      */
     public static function BASE($number, $radix, $minLength = null)
     {
@@ -100,7 +100,7 @@ class MathTrig
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      * @see MathTrig\Ceiling::ceiling()
      *      Use the ceiling() method in the MathTrig\Ceiling class instead
@@ -231,7 +231,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::floor()
      *      Use the floor() method in the MathTrig\Floor class instead
@@ -255,7 +255,7 @@ class MathTrig
      * @param float $significance Significance
      * @param int $mode direction to round negative numbers
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::math()
      *      Use the math() method in the MathTrig\Floor class instead
@@ -278,7 +278,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::precise()
      *      Use the precise() method in the MathTrig\Floor class instead
@@ -375,7 +375,7 @@ class MathTrig
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function logBase($number, $base = 10)
     {
@@ -455,7 +455,7 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return float|int|string Remainder, or a string containing an error
+     * @return array|float|int|string Remainder, or a string containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
@@ -533,7 +533,7 @@ class MathTrig
      * @param float $x
      * @param float $y
      *
-     * @return float|int|string The result, or a string containing an error
+     * @return array|float|int|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
@@ -579,7 +579,7 @@ class MathTrig
      * @param mixed $numerator
      * @param mixed $denominator
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function QUOTIENT($numerator, $denominator)
     {
@@ -597,7 +597,7 @@ class MathTrig
      * @param int $min Minimal value
      * @param int $max Maximal value
      *
-     * @return float|int|string Random number
+     * @return array|float|int|string Random number
      */
     public static function RAND($min = 0, $max = 0)
     {
@@ -617,7 +617,7 @@ class MathTrig
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
      *
-     * @return string Roman numeral, or a string containing an error
+     * @return array|string Roman numeral, or a string containing an error
      */
     public static function ROMAN($aValue, $style = 0)
     {
@@ -679,7 +679,7 @@ class MathTrig
      * @param mixed $m Step
      * @param mixed[] $args An array of coefficients for the Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function SERIESSUM($x, $n, $m, ...$args)
     {
@@ -941,7 +941,7 @@ class MathTrig
      * @param float $value
      * @param int $digits
      *
-     * @return float|string Truncated value, or a string containing an error
+     * @return array|float|string Truncated value, or a string containing an error
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
@@ -1360,7 +1360,7 @@ class MathTrig
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinLN($number)
     {
@@ -1379,7 +1379,7 @@ class MathTrig
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinLOG10($number)
     {
