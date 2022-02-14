@@ -84,7 +84,6 @@ class Format
         try {
             $value = Helpers::extractFloat($value);
             $decimals = Helpers::extractInt($decimals, -100, 0, true);
-            $noCommas = Functions::flattenSingleValue($noCommas);
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
@@ -140,7 +139,7 @@ class Format
      */
     private static function convertValue($value)
     {
-        $value = ($value === null) ? 0 : Functions::flattenSingleValue($value);
+        $value = $value ?? 0;
         if (is_bool($value)) {
             if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
                 $value = (int) $value;
@@ -213,8 +212,6 @@ class Format
      */
     private static function getDecimalSeparator($decimalSeparator): string
     {
-        $decimalSeparator = Functions::flattenSingleValue($decimalSeparator);
-
         return empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : (string) $decimalSeparator;
     }
 
@@ -223,8 +220,6 @@ class Format
      */
     private static function getGroupSeparator($groupSeparator): string
     {
-        $groupSeparator = Functions::flattenSingleValue($groupSeparator);
-
         return empty($groupSeparator) ? StringHelper::getThousandsSeparator() : (string) $groupSeparator;
     }
 

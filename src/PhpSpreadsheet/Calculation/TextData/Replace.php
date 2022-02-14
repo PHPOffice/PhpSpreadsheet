@@ -73,7 +73,6 @@ class Replace
             $text = Helpers::extractString($text);
             $fromText = Helpers::extractString($fromText);
             $toText = Helpers::extractString($toText);
-            $instance = Functions::flattenSingleValue($instance);
             if ($instance === null) {
                 return str_replace($fromText, $toText, $text);
             }
