@@ -41,7 +41,6 @@ class Base
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        $minLength = Functions::flattenSingleValue($minLength);
 
         return self::calculate($number, $radix, $minLength);
     }
