@@ -191,8 +191,6 @@ class Week
      */
     private static function validateStyle($style): int
     {
-        $style = Functions::flattenSingleValue($style);
-
         if (!is_numeric($style)) {
             throw new Exception(Functions::VALUE());
         }
@@ -251,7 +249,7 @@ class Week
         if ($method === null) {
             $method = Constants::STARTWEEK_SUNDAY;
         }
-        $method = Functions::flattenSingleValue($method);
+
         if (!is_numeric($method)) {
             throw new Exception(Functions::VALUE());
         }

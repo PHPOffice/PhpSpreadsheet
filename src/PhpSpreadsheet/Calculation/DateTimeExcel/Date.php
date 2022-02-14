@@ -93,7 +93,6 @@ class Date
      */
     private static function getYear($year, int $baseYear): int
     {
-        $year = Functions::flattenSingleValue($year);
         $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
         if (!is_numeric($year)) {
             throw new Exception(Functions::VALUE());
@@ -121,8 +120,6 @@ class Date
      */
     private static function getMonth($month): int
     {
-        $month = Functions::flattenSingleValue($month);
-
         if (($month !== null) && (!is_numeric($month))) {
             $month = SharedDateHelper::monthStringToNumber($month);
         }
@@ -142,8 +139,6 @@ class Date
      */
     private static function getDay($day): int
     {
-        $day = Functions::flattenSingleValue($day);
-
         if (($day !== null) && (!is_numeric($day))) {
             $day = SharedDateHelper::dayStringToNumber($day);
         }

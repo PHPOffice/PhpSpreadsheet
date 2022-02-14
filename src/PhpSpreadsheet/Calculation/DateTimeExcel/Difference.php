@@ -39,7 +39,7 @@ class Difference
             $startDate = Helpers::getDateValue($startDate);
             $endDate = Helpers::getDateValue($endDate);
             $difference = self::initialDiff($startDate, $endDate);
-            $unit = strtoupper(Functions::flattenSingleValue($unit));
+            $unit = strtoupper($unit);
         } catch (Exception $e) {
             return $e->getMessage();
         }
