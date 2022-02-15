@@ -86,7 +86,7 @@ class Arabic
         }
 
         // An empty string should return 0
-        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
+        $roman = substr(trim(strtoupper((string) $roman)), 0, 255);
         if ($roman === '') {
             return 0;
         }
