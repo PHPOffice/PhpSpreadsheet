@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Text
 {
@@ -71,8 +70,6 @@ class Text
         if (is_array($testValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $testValue);
         }
-
-        $testValue = Functions::flattenSingleValue($testValue);
 
         if (is_string($testValue)) {
             return $testValue;
