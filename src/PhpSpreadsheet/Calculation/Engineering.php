@@ -61,7 +61,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELI($x, $ord)
     {
@@ -86,7 +86,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELJ($x, $ord)
     {
@@ -112,7 +112,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELK($x, $ord)
     {
@@ -137,7 +137,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELY returns the #VALUE! error value.
      *                                If $ord < 0, BESSELY returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELY($x, $ord)
     {
@@ -163,7 +163,7 @@ class Engineering
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTODEC($x)
     {
@@ -195,7 +195,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -227,7 +227,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -263,7 +263,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -299,7 +299,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -335,7 +335,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOOCT($x, $places = null)
     {
@@ -371,7 +371,7 @@ class Engineering
      *                                    If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -398,7 +398,7 @@ class Engineering
      *                                If number is not a valid hexadecimal number, HEX2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTODEC($x)
     {
@@ -438,7 +438,7 @@ class Engineering
      *                                    value.
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -480,7 +480,7 @@ class Engineering
      *                                    If places is negative, OCT2BIN returns the #NUM! error
      *                                    value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -507,7 +507,7 @@ class Engineering
      *                                If number is not a valid octal number, OCT2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTODEC($x)
     {
@@ -544,7 +544,7 @@ class Engineering
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1123,7 +1123,7 @@ class Engineering
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
-     * @return int|string (string in the event of an error)
+     * @return array|int|string (string in the event of an error)
      */
     public static function DELTA($a, $b = 0)
     {
@@ -1147,7 +1147,7 @@ class Engineering
      * @param float $number the value to test against step
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
-     * @return int|string (string in the event of an error)
+     * @return array|int|string (string in the event of an error)
      */
     public static function GESTEP($number, $step = 0)
     {
@@ -1169,7 +1169,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITAND($number1, $number2)
     {
@@ -1191,7 +1191,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITOR($number1, $number2)
     {
@@ -1213,7 +1213,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITXOR($number1, $number2)
     {
@@ -1235,7 +1235,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return array|float|int|string
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -1257,7 +1257,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return array|float|int|string
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
@@ -1285,7 +1285,7 @@ class Engineering
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERF($lower, $upper = null)
     {
@@ -1306,7 +1306,7 @@ class Engineering
      *
      * @param float $limit bound for integrating ERF
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERFPRECISE($limit)
     {
@@ -1332,7 +1332,7 @@ class Engineering
      *
      * @param float $x The lower bound for integrating ERFC
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERFC($x)
     {
@@ -1437,7 +1437,7 @@ class Engineering
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {
