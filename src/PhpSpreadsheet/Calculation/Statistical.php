@@ -1155,7 +1155,7 @@ class Statistical
      * @param mixed $stdDev Standard Deviation
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
@@ -1176,7 +1176,7 @@ class Statistical
      * @param mixed $mean Mean Value
      * @param mixed $stdDev Standard Deviation
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
@@ -1197,7 +1197,7 @@ class Statistical
      *
      * @param mixed $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSDIST($value)
     {
@@ -1219,7 +1219,7 @@ class Statistical
      * @param mixed $value
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSDIST2($value, $cumulative)
     {
@@ -1238,7 +1238,7 @@ class Statistical
      *
      * @param mixed $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSINV($value)
     {
@@ -1331,7 +1331,7 @@ class Statistical
      * @param mixed $mean Mean Value
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function POISSON($value, $mean, $cumulative)
     {
@@ -1610,7 +1610,7 @@ class Statistical
      * @param float $degrees degrees of freedom
      * @param float $tails number of tails (1 or 2)
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function TDIST($value, $degrees, $tails)
     {
@@ -1630,7 +1630,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function TINV($probability, $degrees)
     {
@@ -1787,7 +1787,7 @@ class Statistical
      * @param float $beta Beta Parameter
      * @param bool $cumulative
      *
-     * @return float|string (string if result is an error)
+     * @return array|float|string (string if result is an error)
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {

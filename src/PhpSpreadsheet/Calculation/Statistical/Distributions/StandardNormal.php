@@ -18,9 +18,16 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed $value Float value for which we want the probability
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::distribution()
+     *       All we need to do is pass the value through as scalar or as array.
      *
-     * @return float|string The result, or a string containing an error
+     * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function cumulative($value)
     {
@@ -34,10 +41,18 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed $value Float value for which we want the probability
-     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::distribution()
+     *       All we need to do is pass the value and cumulative through as scalar or as array.
      *
-     * @return float|string The result, or a string containing an error
+     * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
+     *                      Or can be an array of values
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function distribution($value, $cumulative)
     {
@@ -49,9 +64,16 @@ class StandardNormal
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param mixed $value Float probability for which we want the value
+     * @param mixed $value float probability for which we want the value
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::inverse()
+     *       All we need to do is pass the value through as scalar or as array
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function inverse($value)
     {
