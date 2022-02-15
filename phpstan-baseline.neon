@@ -1016,11 +1016,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 
 		-
-			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:regularizedIncompleteBeta\\(\\) is unused\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
 			message: "#^Constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:MAX_ITERATIONS is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php

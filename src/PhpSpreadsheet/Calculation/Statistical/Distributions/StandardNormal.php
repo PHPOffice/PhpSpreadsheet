@@ -2,12 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
 class StandardNormal
 {
+    use ArrayEnabled;
+
     /**
      * NORMSDIST.
      *
@@ -62,12 +65,18 @@ class StandardNormal
      *     the mean and z standard deviations from the mean.
      *
      * @param mixed $value
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function gauss($value)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         if (!is_numeric($value)) {
             return Functions::VALUE();
         }

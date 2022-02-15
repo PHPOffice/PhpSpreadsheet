@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class LogNormal
 {
+    use ArrayEnabled;
+
     /**
      * LOGNORMDIST.
      *
@@ -14,16 +17,21 @@ class LogNormal
      * with parameters mean and standard_dev.
      *
      * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
      * @param mixed $mean Mean value as a float
+     *                      Or can be an array of values
      * @param mixed $stdDev Standard Deviation as a float
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function cumulative($value, $mean, $stdDev)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
+        if (is_array($value) || is_array($mean) || is_array($stdDev)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev);
+        }
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -47,18 +55,23 @@ class LogNormal
      * with parameters mean and standard_dev.
      *
      * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
      * @param mixed $mean Mean value as a float
+     *                      Or can be an array of values
      * @param mixed $stdDev Standard Deviation as a float
+     *                      Or can be an array of values
      * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function distribution($value, $mean, $stdDev, $cumulative = false)
     {
-        $value = Functions::flattenSingleValue($value);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
-        $cumulative = Functions::flattenSingleValue($cumulative);
+        if (is_array($value) || is_array($mean) || is_array($stdDev) || is_array($cumulative)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev, $cumulative);
+        }
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -87,10 +100,15 @@ class LogNormal
      * Returns the inverse of the lognormal cumulative distribution
      *
      * @param mixed $probability Float probability for which we want the value
+     *                      Or can be an array of values
      * @param mixed $mean Mean Value as a float
+     *                      Or can be an array of values
      * @param mixed $stdDev Standard Deviation as a float
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      *
      * @TODO    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
@@ -98,9 +116,9 @@ class LogNormal
      */
     public static function inverse($probability, $mean, $stdDev)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $mean = Functions::flattenSingleValue($mean);
-        $stdDev = Functions::flattenSingleValue($stdDev);
+        if (is_array($probability) || is_array($mean) || is_array($stdDev)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $mean, $stdDev);
+        }
 
         try {
             $probability = DistributionValidations::validateProbability($probability);
