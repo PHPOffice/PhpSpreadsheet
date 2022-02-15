@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class StudentT
 {
+    use ArrayEnabled;
+
     private const MAX_ITERATIONS = 256;
 
     /**
@@ -15,16 +18,21 @@ class StudentT
      * Returns the probability of Student's T distribution.
      *
      * @param mixed $value Float value for the distribution
+     *                      Or can be an array of values
      * @param mixed $degrees Integer value for degrees of freedom
+     *                      Or can be an array of values
      * @param mixed $tails Integer value for the number of tails (1 or 2)
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function distribution($value, $degrees, $tails)
     {
-        $value = Functions::flattenSingleValue($value);
-        $degrees = Functions::flattenSingleValue($degrees);
-        $tails = Functions::flattenSingleValue($tails);
+        if (is_array($value) || is_array($degrees) || is_array($tails)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $tails);
+        }
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -47,14 +55,19 @@ class StudentT
      * Returns the one-tailed probability of the chi-squared distribution.
      *
      * @param mixed $probability Float probability for the function
+     *                      Or can be an array of values
      * @param mixed $degrees Integer value for degrees of freedom
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function inverse($probability, $degrees)
     {
-        $probability = Functions::flattenSingleValue($probability);
-        $degrees = Functions::flattenSingleValue($degrees);
+        if (is_array($probability) || is_array($degrees)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
+        }
 
         try {
             $probability = DistributionValidations::validateProbability($probability);
