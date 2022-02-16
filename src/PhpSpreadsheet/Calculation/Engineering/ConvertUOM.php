@@ -553,6 +553,7 @@ class ConvertUOM
             return Functions::NA();
         }
 
+        // @var float $value
         $value *= $fromMultiplier;
 
         if (($fromUOM === $toUOM) && ($fromMultiplier === $toMultiplier)) {

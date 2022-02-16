@@ -371,11 +371,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
 		-
-			message: "#^Parameter \\#1 \\$power of method Complex\\\\Complex\\:\\:pow\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
