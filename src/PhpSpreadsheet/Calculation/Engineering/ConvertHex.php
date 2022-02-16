@@ -15,7 +15,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @param string $value The hexadecimal number you want to convert.
+     * @param array|string $value The hexadecimal number you want to convert.
      *                      Number cannot contain more than 10 characters.
      *                      The most significant bit of number is the sign bit (40th bit from the right).
      *                      The remaining 9 bits are magnitude bits.
@@ -25,19 +25,29 @@ class ConvertHex extends ConvertBase
      *                          and if number is positive, it cannot be greater than 1FF.
      *                      If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
      *                      If HEX2BIN requires more than places characters, it returns the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted,
+     *                      Or can be an array of values
+     * @param array|int $places The number of characters to use. If places is omitted,
      *                          HEX2BIN uses the minimum number of characters necessary. Places
      *                          is useful for padding the return value with leading 0s (zeros).
      *                      If places is not an integer, it is truncated.
      *                      If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
      *                      If places is negative, HEX2BIN returns the #NUM! error value.
+     *                      Or can be an array of values
+     *
+     * @return array|string Result, or an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
-    public static function toBinary($value, $places = null): string
+    public static function toBinary($value, $places = null)
     {
+        if (is_array($value) || is_array($places)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $places);
+        }
+
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue($value);
             $value = self::validateHex($value);
-            $places = self::validatePlaces(Functions::flattenSingleValue($places));
+            $places = self::validatePlaces($places);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -55,18 +65,27 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @param string $value The hexadecimal number you want to convert. This number cannot
+     * @param array|string $value The hexadecimal number you want to convert. This number cannot
      *                          contain more than 10 characters (40 bits). The most significant
      *                          bit of number is the sign bit. The remaining 39 bits are magnitude
      *                          bits. Negative numbers are represented using two's-complement
      *                          notation.
      *                      If number is not a valid hexadecimal number, HEX2DEC returns the
      *                          #NUM! error value.
+     *                      Or can be an array of values
+     *
+     * @return array|string Result, or an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
-    public static function toDecimal($value): string
+    public static function toDecimal($value)
     {
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue($value);
             $value = self::validateHex($value);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -99,7 +118,7 @@ class ConvertHex extends ConvertBase
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @param string $value The hexadecimal number you want to convert. Number cannot
+     * @param array|string $value The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
      *                                    number is the sign bit. The remaining 39 bits are magnitude
      *                                    bits. Negative numbers are represented using two's-complement
@@ -112,20 +131,30 @@ class ConvertHex extends ConvertBase
      *                                    the #NUM! error value.
      *                                    If HEX2OCT requires more than places characters, it returns
      *                                    the #NUM! error value.
-     * @param int $places The number of characters to use. If places is omitted, HEX2OCT
+     *                      Or can be an array of values
+     * @param array|int $places The number of characters to use. If places is omitted, HEX2OCT
      *                                    uses the minimum number of characters necessary. Places is
      *                                    useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
      *                                    If places is nonnumeric, HEX2OCT returns the #VALUE! error
      *                                    value.
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
+     *                      Or can be an array of values
+     *
+     * @return array|string Result, or an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
-    public static function toOctal($value, $places = null): string
+    public static function toOctal($value, $places = null)
     {
+        if (is_array($value) || is_array($places)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $places);
+        }
+
         try {
-            $value = self::validateValue(Functions::flattenSingleValue($value));
+            $value = self::validateValue($value);
             $value = self::validateHex($value);
-            $places = self::validatePlaces(Functions::flattenSingleValue($places));
+            $places = self::validatePlaces($places);
         } catch (Exception $e) {
             return $e->getMessage();
         }

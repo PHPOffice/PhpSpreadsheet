@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
-class ConvertBase
+abstract class ConvertBase
 {
+    use ArrayEnabled;
+
     protected static function validateValue($value): string
     {
         if (is_bool($value)) {

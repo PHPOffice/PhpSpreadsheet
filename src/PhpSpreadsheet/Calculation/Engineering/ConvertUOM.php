@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class ConvertUOM
 {
+    use ArrayEnabled;
+
     public const CATEGORY_WEIGHT_AND_MASS = 'Weight and Mass';
     public const CATEGORY_DISTANCE = 'Distance';
     public const CATEGORY_TIME = 'Time';
@@ -518,17 +521,22 @@ class ConvertUOM
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @param float|int $value the value in fromUOM to convert
-     * @param string $fromUOM the units for value
-     * @param string $toUOM the units for the result
+     * @param array|float|int|string $value the value in fromUOM to convert
+     *                      Or can be an array of values
+     * @param array|string $fromUOM the units for value
+     *                      Or can be an array of values
+     * @param array|string $toUOM the units for the result
+     *                      Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string Result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function CONVERT($value, $fromUOM, $toUOM)
     {
-        $value = Functions::flattenSingleValue($value);
-        $fromUOM = Functions::flattenSingleValue($fromUOM);
-        $toUOM = Functions::flattenSingleValue($toUOM);
+        if (is_array($value) || is_array($fromUOM) || is_array($toUOM)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $fromUOM, $toUOM);
+        }
 
         if (!is_numeric($value)) {
             return Functions::VALUE();

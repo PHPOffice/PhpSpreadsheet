@@ -2,10 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Erf
 {
+    use ArrayEnabled;
+
     private static $twoSqrtPi = 1.128379167095512574;
 
     /**
@@ -22,15 +25,20 @@ class Erf
      *        ERF(lower[,upper])
      *
      * @param mixed $lower Lower bound float for integrating ERF
+     *                      Or can be an array of values
      * @param mixed $upper Upper bound float for integrating ERF.
      *                           If omitted, ERF integrates between zero and lower_limit
+     *                      Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function ERF($lower, $upper = null)
     {
-        $lower = Functions::flattenSingleValue($lower);
-        $upper = Functions::flattenSingleValue($upper);
+        if (is_array($lower) || is_array($upper)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $lower, $upper);
+        }
 
         if (is_numeric($lower)) {
             if ($upper === null) {
@@ -53,12 +61,17 @@ class Erf
      *        ERF.PRECISE(limit)
      *
      * @param mixed $limit Float bound for integrating ERF, other bound is zero
+     *                      Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function ERFPRECISE($limit)
     {
-        $limit = Functions::flattenSingleValue($limit);
+        if (is_array($limit)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $limit);
+        }
 
         return self::ERF($limit);
     }
