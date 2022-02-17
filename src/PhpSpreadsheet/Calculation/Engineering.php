@@ -563,12 +563,12 @@ class Engineering
      *
      * @see Use the COMPLEX() method in the Engineering\Complex class instead
      *
-     * @param float $realNumber the real coefficient of the complex number
-     * @param float $imaginary the imaginary coefficient of the complex number
-     * @param string $suffix The suffix for the imaginary component of the complex number.
+     * @param array|float $realNumber the real coefficient of the complex number
+     * @param array|float $imaginary the imaginary coefficient of the complex number
+     * @param array|string $suffix The suffix for the imaginary component of the complex number.
      *                                        If omitted, the suffix is assumed to be "i".
      *
-     * @return string
+     * @return array|string
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
@@ -590,7 +590,7 @@ class Engineering
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMAGINARY($complexNumber)
     {
@@ -611,7 +611,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMREAL($complexNumber)
     {
@@ -632,7 +632,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the absolute value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMABS($complexNumber)
     {
@@ -652,9 +652,9 @@ class Engineering
      *
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the argument theta
+     * @param array|string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -673,9 +673,9 @@ class Engineering
      *
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the conjugate
+     * @param array|string $complexNumber the complex number for which you want the conjugate
      *
-     * @return string
+     * @return array|string
      */
     public static function IMCONJUGATE($complexNumber)
     {
@@ -694,9 +694,9 @@ class Engineering
      *
      * @see Use the IMCOS() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cosine
+     * @param array|string $complexNumber the complex number for which you want the cosine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOS($complexNumber)
     {
@@ -715,9 +715,9 @@ class Engineering
      *
      * @see Use the IMCOSH() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the hyperbolic cosine
+     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOSH($complexNumber)
     {
@@ -736,9 +736,9 @@ class Engineering
      *
      * @see Use the IMCOT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cotangent
+     * @param array|string $complexNumber the complex number for which you want the cotangent
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOT($complexNumber)
     {
@@ -757,9 +757,9 @@ class Engineering
      *
      * @see Use the IMCSC() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cosecant
+     * @param array|string $complexNumber the complex number for which you want the cosecant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCSC($complexNumber)
     {
@@ -778,9 +778,9 @@ class Engineering
      *
      * @see Use the IMCSCH() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the hyperbolic cosecant
+     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCSCH($complexNumber)
     {
@@ -801,7 +801,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the sine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSIN($complexNumber)
     {
@@ -822,7 +822,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic sine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSINH($complexNumber)
     {
@@ -843,7 +843,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the secant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSEC($complexNumber)
     {
@@ -864,7 +864,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic secant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSECH($complexNumber)
     {
@@ -885,7 +885,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the tangent
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMTAN($complexNumber)
     {
@@ -906,7 +906,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the square root
      *
-     * @return string
+     * @return array|string
      */
     public static function IMSQRT($complexNumber)
     {
@@ -927,7 +927,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLN($complexNumber)
     {
@@ -948,7 +948,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLOG10($complexNumber)
     {
@@ -969,7 +969,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLOG2($complexNumber)
     {
@@ -990,7 +990,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the exponential
      *
-     * @return string
+     * @return array|string
      */
     public static function IMEXP($complexNumber)
     {
@@ -1012,7 +1012,7 @@ class Engineering
      * @param string $complexNumber the complex number you want to raise to a power
      * @param float $realNumber the power to which you want to raise the complex number
      *
-     * @return string
+     * @return array|string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
@@ -1034,7 +1034,7 @@ class Engineering
      * @param string $complexDividend the complex numerator or dividend
      * @param string $complexDivisor the complex denominator or divisor
      *
-     * @return string
+     * @return array|string
      */
     public static function IMDIV($complexDividend, $complexDivisor)
     {
@@ -1056,7 +1056,7 @@ class Engineering
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
      * @param string $complexNumber2 the complex number to subtract from complexNumber1
      *
-     * @return string
+     * @return array|string
      */
     public static function IMSUB($complexNumber1, $complexNumber2)
     {
