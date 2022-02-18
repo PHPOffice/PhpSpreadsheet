@@ -24,7 +24,7 @@ class DMaxTest extends TestCase
     public function testDMax($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DMAX($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array
