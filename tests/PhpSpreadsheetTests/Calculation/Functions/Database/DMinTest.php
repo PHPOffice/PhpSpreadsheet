@@ -24,7 +24,7 @@ class DMinTest extends TestCase
     public function testDMin($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DMIN($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array
