@@ -55,6 +55,22 @@ class ArrayFormulaTest extends TestCase
                 '=SUM(SEQUENCE(3,3,0,1))',
                 36,
             ],
+            [
+                '=IFERROR({5/2, 5/0}, MAX(ABS({-2,4,-6})))',
+                [[2.5, 6]],
+            ],
+            [
+                '=MAX(IFERROR({5/2, 5/0}, 2.1))',
+                2.5,
+            ],
+            [
+                '=IF(FALSE,{1,2,3},{4,5,6})',
+                [[4, 5, 6]],
+            ],
+            [
+                '=IFS(FALSE, {1,2,3}, TRUE, {4,5,6})',
+                [[4, 5, 6]],
+            ],
         ];
     }
 }
