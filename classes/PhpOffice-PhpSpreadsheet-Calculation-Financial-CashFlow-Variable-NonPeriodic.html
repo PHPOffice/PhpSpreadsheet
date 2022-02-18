@@ -113,6 +113,13 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Variable-NonPeriodic.html#constant_DEFAULT_GUESS">DEFAULT_GUESS</a>
+    <span>
+        &nbsp;= 0.1                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Variable-NonPeriodic.html#constant_FINANCIAL_MAX_ITERATIONS">FINANCIAL_MAX_ITERATIONS</a>
     <span>
         &nbsp;= 128                    </span>
@@ -193,6 +200,31 @@
             <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Variable-NonPeriodic.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_DEFAULT_GUESS">
+        DEFAULT_GUESS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Variable-NonPeriodic.html#constant_DEFAULT_GUESS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">15</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DEFAULT_GUESS</span>
+    = <span class="phpdocumentor-signature__default-value">0.1</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_FINANCIAL_MAX_ITERATIONS">
         FINANCIAL_MAX_ITERATIONS
         <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Financial-CashFlow-Variable-NonPeriodic.html#constant_FINANCIAL_MAX_ITERATIONS" class="headerlink"><i class="fas fa-link"></i></a>
@@ -264,7 +296,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 </aside>
 
         <p class="phpdocumentor-summary">XNPV.</p>
@@ -339,14 +371,14 @@ All other dates must be later than this date, but they may occur in any order.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 </aside>
 
         <p class="phpdocumentor-summary">XIRR.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">rate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, float&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$values</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dates</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$guess</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0.1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">rate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, float&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$values</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dates</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$guess</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_GUESS</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float|string</span></code>
 
         <section class="phpdocumentor-description"><p>Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic.</p>
 <p>Excel Function:
@@ -378,8 +410,8 @@ All other dates must be later than this date, but they may occur in any order</p
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$guess</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">0.1</span>            </dt>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::DEFAULT_GUESS</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>An optional guess at the expected answer</p>
 </section>
@@ -409,7 +441,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 </aside>
 
     
@@ -458,7 +490,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">231</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 </aside>
 
     
@@ -516,7 +548,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 </aside>
 
     
@@ -568,7 +600,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 </aside>
 
     
@@ -610,7 +642,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 </aside>
 
     
@@ -674,7 +706,7 @@ All other dates must be later than this date, but they may occur in any order</p
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php"><a href="files/src-phpspreadsheet-calculation-financial-cashflow-variable-nonperiodic.html"><abbr title="src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php">NonPeriodic.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">199</span>
 </aside>
 
     

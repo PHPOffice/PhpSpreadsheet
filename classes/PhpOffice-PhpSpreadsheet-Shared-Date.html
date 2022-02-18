@@ -268,7 +268,7 @@ Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Date.html#method_PHPToExcel">PHPToExcel()</a>
     <span>
-                        &nbsp;: bool|float    </span>
+                        &nbsp;: false|float    </span>
 </dt>
 <dd>Convert a date from PHP to an MS Excel serialized date/time value.</dd>
 
@@ -1283,7 +1283,7 @@ Use the default (UTC) unless you absolutely need a conversion</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">PHPToExcel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dateValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|float</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">PHPToExcel</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dateValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|float</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1304,7 +1304,7 @@ not Y2038-safe on a 32-bit system, and no timezone info</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool|float</span>
+    <span class="phpdocumentor-signature__response_type">false|float</span>
             &mdash;
             <section class="phpdocumentor-description"><p>Excel date/time value
 or boolean FALSE on failure</p>

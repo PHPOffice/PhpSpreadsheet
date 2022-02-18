@@ -94,7 +94,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 </aside>
 
         
@@ -162,13 +162,6 @@
 <dd>Index to cellXf. Null value means row has no explicit cellXf format.</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Dimension.html#method___clone">__clone()</a>
-    <span>
-                        &nbsp;: mixed    </span>
-</dt>
-<dd>Implement PHP __clone to create a deep clone, not just a shallow copy.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method___construct">__construct()</a>
     <span>
                         &nbsp;: mixed    </span>
@@ -195,6 +188,13 @@
                         &nbsp;: string    </span>
 </dt>
 <dd>Get column index as string eg: &#039;A&#039;.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_getColumnNumeric">getColumnNumeric()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get column index as numeric.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Dimension.html#method_getOutlineLevel">getOutlineLevel()</a>
@@ -241,9 +241,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_setColumnIndex">setColumnIndex()</a>
     <span>
-                        &nbsp;: $this    </span>
+                        &nbsp;: self    </span>
 </dt>
 <dd>Set column index as string eg: &#039;A&#039;.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_setColumnNumeric">setColumnNumeric()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd>Set column index as numeric.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Dimension.html#method_setOutlineLevel">setOutlineLevel()</a>
@@ -301,7 +308,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 </aside>
 
         <p class="phpdocumentor-summary">Auto size?</p>
@@ -365,7 +372,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 </aside>
 
         <p class="phpdocumentor-summary">Column index.</p>
@@ -461,7 +468,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 </aside>
 
         <p class="phpdocumentor-summary">Column width.</p>
@@ -523,40 +530,6 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___clone">
-        __clone()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Dimension.html#method___clone" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Dimension.php"><a href="files/src-phpspreadsheet-worksheet-dimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/Dimension.php">Dimension.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">138</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__clone</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
@@ -564,7 +537,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new ColumnDimension.</p>
@@ -610,7 +583,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Auto Size.</p>
@@ -678,7 +651,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get column index as string eg: &#039;A&#039;.</p>
@@ -694,6 +667,40 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getColumnNumeric">
+        getColumnNumeric()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_getColumnNumeric" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">68</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get column index as numeric.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getColumnNumeric</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -780,7 +787,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Width.</p>
@@ -861,7 +868,7 @@ return the value converted to the specified UoM using an approximation method.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Auto Size.</p>
@@ -949,14 +956,14 @@ return the value converted to the specified UoM using an approximation method.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set column index as string eg: &#039;A&#039;.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setColumnIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setColumnIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -974,7 +981,51 @@ return the value converted to the specified UoM using an approximation method.</
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setColumnNumeric">
+        setColumnNumeric()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html#method_setColumnNumeric" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set column index as numeric.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setColumnNumeric</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$index</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1082,7 +1133,7 @@ return the value converted to the specified UoM using an approximation method.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Width.</p>

@@ -1048,6 +1048,13 @@ Returns either an array of worksheet names (the list of worksheets that should b
        indicating that all worksheets in the workbook should be loaded.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getMapCellStyleXfIndex">getMapCellStyleXfIndex()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Phpstan 1.4.4 complains that this property is never read.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadDataOnly">getReadDataOnly()</a>
     <span>
                         &nbsp;: bool    </span>
@@ -5690,6 +5697,57 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getMapCellStyleXfIndex">
+        getMapCellStyleXfIndex()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls.html#method_getMapCellStyleXfIndex" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls.php"><a href="files/src-phpspreadsheet-reader-xls.html"><abbr title="src/PhpSpreadsheet/Reader/Xls.php">Xls.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">7924</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Phpstan 1.4.4 complains that this property is never read.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getMapCellStyleXfIndex</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+        <section class="phpdocumentor-description"><p>So, we might be able to get rid of it altogether.
+For now, however, this function makes it readable,
+which satisfies Phpstan.</p>
+</section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
