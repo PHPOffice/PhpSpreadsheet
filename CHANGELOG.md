@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## Unreleased - TBD
+## 1.22.0 - 2022-02-18
 
 ### Added
 
@@ -36,11 +36,16 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
   - Improved documentation and examples, covering all supported CF rule types.
 - Add support for one digit decimals (FORMAT_NUMBER_0, FORMAT_PERCENTAGE_0). [PR #2525](https://github.com/PHPOffice/PhpSpreadsheet/pull/2525)
+- Initial work enabling Excel function implementations for handling arrays as arguments when used in "array formulae" [#2562](https://github.com/PHPOffice/PhpSpreadsheet/issues/2562)
+- Enable most of the Date/Time functions to accept array arguments [#2573](https://github.com/PHPOffice/PhpSpreadsheet/issues/2573)
+- Array ready functions - Text, Math/Trig, Statistical, Engineering and Logical [#2580](https://github.com/PHPOffice/PhpSpreadsheet/issues/2580)
 
 ### Changed
 
 - Additional Russian translations for Excel Functions (courtesy of aleks-samurai).
 - Improved code coverage for NumberFormat. [PR #2556](https://github.com/PHPOffice/PhpSpreadsheet/pull/2556)
+- Extract some methods from the Calculation Engine into dedicated classes [#2537](https://github.com/PHPOffice/PhpSpreadsheet/issues/2537)
+- Eliminate calls to `flattenSingleValue()` that are no longer required when we're checking for array values as arguments [#2590](https://github.com/PHPOffice/PhpSpreadsheet/issues/2590)
 
 ### Deprecated
 
@@ -84,6 +89,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix Xlsx/Xls Writer handling of inline strings.
 [Issue #353](https://github.com/PHPOffice/PhpSpreadsheet/issues/353)
 [PR #2569](https://github.com/PHPOffice/PhpSpreadsheet/pull/2569)
+- Richtext colors were not being read correctly after namespace change [#2458](https://github.com/PHPOffice/PhpSpreadsheet/issues/2458)
+- Fix discrepancy between the way markdown tables are rendered in ReadTheDocs and in PHPStorm [#2520](https://github.com/PHPOffice/PhpSpreadsheet/issues/2520)
+- Update Russian Functions Text File [#2557](https://github.com/PHPOffice/PhpSpreadsheet/issues/2557)
+- Fix documentation, instantiation example [#2564](https://github.com/PHPOffice/PhpSpreadsheet/issues/2564)
 
 
 ## 1.21.0 - 2022-01-06
