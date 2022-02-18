@@ -24,7 +24,7 @@ class DGetTest extends TestCase
     public function testDGet($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DGET($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array
