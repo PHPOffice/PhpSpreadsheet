@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Subtotal
@@ -39,7 +40,10 @@ class Subtotal
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
                     //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
                     $isFormula = $cellReference->getWorksheet()->getCell($column . $row)->isFormula();
-                    $cellFormula = !preg_match('/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i', $cellReference->getWorksheet()->getCell($column . $row)->getValue());
+                    $cellFormula = !preg_match(
+                        '/^=.*\b(SUBTOTAL|AGGREGATE)\s*\(/i',
+                        $cellReference->getWorksheet()->getCell($column . $row)->getValue() ?? ''
+                    );
 
                     $retVal = !$isFormula || $cellFormula;
                 }
@@ -106,6 +110,6 @@ class Subtotal
             return call_user_func_array($call, $aArgs);
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 }

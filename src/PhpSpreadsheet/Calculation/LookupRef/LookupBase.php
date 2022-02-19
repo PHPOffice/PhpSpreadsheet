@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 abstract class LookupBase
 {
@@ -11,12 +11,12 @@ abstract class LookupBase
     {
         // index_number must be a number greater than or equal to 1
         if (!is_numeric($index_number) || $index_number < 1) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         // index_number must be less than or equal to the number of columns in lookup_array
         if ((!is_array($lookup_array)) || (empty($lookup_array))) {
-            throw new Exception(Functions::REF());
+            throw new Exception(ExcelError::REF());
         }
 
         return (int) $index_number;

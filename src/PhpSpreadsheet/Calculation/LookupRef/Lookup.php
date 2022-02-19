@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class Lookup
@@ -22,7 +23,7 @@ class Lookup
         $lookupValue = Functions::flattenSingleValue($lookupValue);
 
         if (!is_array($lookupVector)) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
         $hasResultVector = isset($resultVector);
         $lookupRows = self::rowCount($lookupVector);

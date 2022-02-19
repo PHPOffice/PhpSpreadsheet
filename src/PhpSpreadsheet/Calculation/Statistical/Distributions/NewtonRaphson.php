@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class NewtonRaphson
 {
@@ -54,7 +55,7 @@ class NewtonRaphson
         }
 
         if ($i == self::MAX_ITERATIONS) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
 
         return $x;

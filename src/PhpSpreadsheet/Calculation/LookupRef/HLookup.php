@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -38,7 +39,7 @@ class HLookup extends LookupBase
         $f = array_keys($lookupArray);
         $firstRow = reset($f);
         if ((!is_array($lookupArray[$firstRow])) || ($indexNumber > count($lookupArray))) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         $firstkey = $f[0] - 1;
@@ -51,7 +52,7 @@ class HLookup extends LookupBase
             return $lookupArray[$returnColumn][Coordinate::stringFromColumnIndex($rowNumber)];
         }
 
-        return Functions::NA();
+        return ExcelError::NA();
     }
 
     /**

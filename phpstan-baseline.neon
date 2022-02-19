@@ -351,16 +351,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engine/Logger.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:BITLSHIFT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:BITRSHIFT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2a\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
@@ -389,11 +379,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
-
-		-
-			message: "#^Parameter \\#1 \\$power of method Complex\\\\Complex\\:\\:pow\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
@@ -619,11 +604,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
@@ -1047,11 +1027,6 @@ parameters:
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheResult has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:regularizedIncompleteBeta\\(\\) is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 

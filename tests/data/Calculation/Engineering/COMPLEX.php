@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -16,15 +16,15 @@ return [
         12.34, 5.6699999999999999, 'j',
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         3.5, 'NaN',
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         'NaN', 3.5,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         1.5, 3.5, 'invalid suffix',
     ],
     [
