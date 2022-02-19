@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Depreciation
 {
@@ -117,7 +118,7 @@ class Depreciation
         }
 
         if ($period > $life) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         // Loop through each period calculating the depreciation
@@ -161,7 +162,7 @@ class Depreciation
         }
 
         if ($life === 0.0) {
-            return Functions::DIV0();
+            return ExcelError::DIV0();
         }
 
         return ($cost - $salvage) / $life;
@@ -196,7 +197,7 @@ class Depreciation
         }
 
         if ($period > $life) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $syd = (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
@@ -208,7 +209,7 @@ class Depreciation
     {
         $cost = FinancialValidations::validateFloat($cost);
         if ($cost < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $cost;
@@ -218,7 +219,7 @@ class Depreciation
     {
         $salvage = FinancialValidations::validateFloat($salvage);
         if ($salvage < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $salvage;
@@ -228,7 +229,7 @@ class Depreciation
     {
         $life = FinancialValidations::validateFloat($life);
         if ($life < 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $life;
@@ -238,7 +239,7 @@ class Depreciation
     {
         $period = FinancialValidations::validateFloat($period);
         if ($period <= 0.0 && $negativeValueAllowed === false) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $period;
@@ -248,7 +249,7 @@ class Depreciation
     {
         $month = FinancialValidations::validateInt($month);
         if ($month < 1) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $month;
@@ -258,7 +259,7 @@ class Depreciation
     {
         $factor = FinancialValidations::validateFloat($factor);
         if ($factor <= 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $factor;

@@ -46,7 +46,7 @@ class RowColumnReferenceTest extends TestCase
         $worksheet->setCellValue('A1', $formula);
 
         $result = $worksheet->getCell('A1')->getCalculatedValue();
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerCurrentWorksheetFormulae(): array

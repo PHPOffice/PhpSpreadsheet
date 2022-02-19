@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PHPUnit\Framework\TestCase;
 
 class DGetTest extends TestCase
@@ -24,7 +25,7 @@ class DGetTest extends TestCase
     public function testDGet($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DGET($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array
@@ -67,7 +68,7 @@ class DGetTest extends TestCase
     {
         return [
             [
-                Functions::NAN(),
+                ExcelError::NAN(),
                 $this->database1(),
                 'Yield',
                 [
@@ -96,7 +97,7 @@ class DGetTest extends TestCase
                 ],
             ],
             [
-                Functions::NAN(),
+                ExcelError::NAN(),
                 $this->database2(),
                 'Sales',
                 [

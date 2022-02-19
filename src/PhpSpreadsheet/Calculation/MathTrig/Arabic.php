@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Arabic
 {
@@ -86,7 +86,7 @@ class Arabic
         }
 
         // An empty string should return 0
-        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
+        $roman = substr(trim(strtoupper((string) $roman)), 0, 255);
         if ($roman === '') {
             return 0;
         }
@@ -100,7 +100,7 @@ class Arabic
         try {
             $arabic = self::calculateArabic(self::strSplit($roman));
         } catch (Exception $e) {
-            return Functions::VALUE(); // Invalid character detected
+            return ExcelError::VALUE(); // Invalid character detected
         }
 
         if ($negativeNumber) {

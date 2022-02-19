@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
@@ -414,7 +414,7 @@ class Chart
                     $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                     if ($dataType == 's') {
                         $seriesVal[$pointVal] = (string) $seriesValue->v;
-                    } elseif ($seriesValue->v === Functions::NA()) {
+                    } elseif ($seriesValue->v === ExcelError::NA()) {
                         $seriesVal[$pointVal] = null;
                     } else {
                         $seriesVal[$pointVal] = (float) $seriesValue->v;
@@ -452,7 +452,7 @@ class Chart
                         $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                         if ($dataType == 's') {
                             $seriesVal[$pointVal][] = (string) $seriesValue->v;
-                        } elseif ($seriesValue->v === Functions::NA()) {
+                        } elseif ($seriesValue->v === ExcelError::NA()) {
                             $seriesVal[$pointVal] = null;
                         } else {
                             $seriesVal[$pointVal][] = (float) $seriesValue->v;

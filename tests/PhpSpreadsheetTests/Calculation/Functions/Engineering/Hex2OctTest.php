@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -89,5 +90,27 @@ class Hex2OctTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=HEX2OCT(10.1)');
         self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+    }
+
+    /**
+     * @dataProvider providerHex2OctArray
+     */
+    public function testHex2OctArray(array $expectedResult, string $value): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=HEX2OCT({$value})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerHex2OctArray(): array
+    {
+        return [
+            'row/column vector' => [
+                [['4', '7', '77', '231', '314', '525']],
+                '{"4", "7", "3F", "99", "CC", "155"}',
+            ],
+        ];
     }
 }

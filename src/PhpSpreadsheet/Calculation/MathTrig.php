@@ -597,7 +597,7 @@ class MathTrig
      * @param int $min Minimal value
      * @param int $max Maximal value
      *
-     * @return float|int|string Random number
+     * @return array|float|int|string Random number
      */
     public static function RAND($min = 0, $max = 0)
     {
@@ -679,7 +679,7 @@ class MathTrig
      * @param mixed $m Step
      * @param mixed[] $args An array of coefficients for the Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function SERIESSUM($x, $n, $m, ...$args)
     {

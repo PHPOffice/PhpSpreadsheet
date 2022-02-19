@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -89,5 +90,27 @@ class Dec2OctTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=DEC2OCT(17.1)');
         self::assertEquals(21, $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+    }
+
+    /**
+     * @dataProvider providerDec2OctArray
+     */
+    public function testDec2OctArray(array $expectedResult, string $value): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DEC2OCT({$value})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerDec2OctArray(): array
+    {
+        return [
+            'row/column vector' => [
+                [['4', '7', '77', '231', '314', '525']],
+                '{4, 7, 63, 153, 204, 341}',
+            ],
+        ];
     }
 }
