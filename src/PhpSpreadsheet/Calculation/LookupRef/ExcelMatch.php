@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -10,6 +11,8 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class ExcelMatch
 {
+    use ArrayEnabled;
+
     public const MATCHTYPE_SMALLEST_VALUE = -1;
     public const MATCHTYPE_FIRST_VALUE = 0;
     public const MATCHTYPE_LARGEST_VALUE = 1;
@@ -27,15 +30,16 @@ class ExcelMatch
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return int|string The relative position of the found item
+     * @return array|int|string The relative position of the found item
      */
     public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
     {
+        if (is_array($lookupValue)) {
+            return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);
+        }
+
         $lookupArray = Functions::flattenArray($lookupArray);
-        $lookupValue = Functions::flattenSingleValue($lookupValue);
-        $matchType = ($matchType === null)
-            ? self::MATCHTYPE_LARGEST_VALUE
-            : (int) Functions::flattenSingleValue($matchType);
+        $matchType = (int) ($matchType ?? self::MATCHTYPE_LARGEST_VALUE);
 
         try {
             // Input validation

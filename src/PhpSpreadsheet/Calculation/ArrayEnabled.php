@@ -53,4 +53,25 @@ trait ArrayEnabled
 
         return ArrayArgumentProcessor::processArguments(self::$arrayArgumentHelper, $method, ...$arguments);
     }
+
+    /**
+     * @param mixed ...$arguments
+     */
+    protected static function evaluateArrayArgumentsSubsetFrom(callable $method, int $start, ...$arguments): array
+    {
+        $arrayArgumentsSubset = array_combine(
+            range($start, count($arguments) - $start),
+            array_slice($arguments, $start)
+        );
+        if ($arrayArgumentsSubset === false) {
+            return ['#VALUE!'];
+        }
+
+        self::initialiseHelper($arrayArgumentsSubset);
+        $leadingArguments = array_slice($arguments, 0, $start);
+        $arguments = self::$arrayArgumentHelper->arguments();
+        $arguments = array_merge($leadingArguments, $arguments);
+
+        return ArrayArgumentProcessor::processArguments(self::$arrayArgumentHelper, $method, ...$arguments);
+    }
 }

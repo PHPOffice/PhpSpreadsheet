@@ -518,7 +518,7 @@ class Functions
      *
      * @param null|mixed $value The value you want converted
      *
-     * @return number N converts values listed in the following table
+     * @return number|string N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            That number
      *        A date                The serial number of that date

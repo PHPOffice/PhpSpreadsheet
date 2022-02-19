@@ -2,12 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Matrix
 {
+    use ArrayEnabled;
+
     /**
      * TRANSPOSE.
      *
@@ -46,17 +48,25 @@ class Matrix
      * @param mixed $matrix A range of cells or an array constant
      * @param mixed $rowNum The row in the array or range from which to return a value.
      *                          If row_num is omitted, column_num is required.
+     *                      Or can be an array of values
      * @param mixed $columnNum The column in the array or range from which to return a value.
      *                          If column_num is omitted, row_num is required.
+     *                      Or can be an array of values
      *
      * TODO Provide support for area_num, currently not supported
      *
      * @return mixed the value of a specified cell or array of cells
+     *         If an array of values is passed as the $rowNum and/or $columnNum arguments, then the returned result
+     *            will also be an array with the same dimensions
      */
     public static function index($matrix, $rowNum = 0, $columnNum = 0)
     {
-        $rowNum = ($rowNum === null) ? 0 : Functions::flattenSingleValue($rowNum);
-        $columnNum = ($columnNum === null) ? 0 : Functions::flattenSingleValue($columnNum);
+        if (is_array($rowNum) || is_array($columnNum)) {
+            return self::evaluateArrayArgumentsSubsetFrom([self::class, __FUNCTION__], 1, $matrix, $rowNum, $columnNum);
+        }
+
+        $rowNum = $rowNum ?? 0;
+        $columnNum = $columnNum ?? 0;
 
         try {
             $rowNum = LookupRefValidations::validatePositiveInt($rowNum);

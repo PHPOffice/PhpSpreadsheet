@@ -33,6 +33,7 @@ class ArrayArgumentProcessor
 
         $singleRowVectorIndex = self::$arrayArgumentHelper->getSingleRowVector();
         $singleColumnVectorIndex = self::$arrayArgumentHelper->getSingleColumnVector();
+
         if ($singleRowVectorIndex !== null && $singleColumnVectorIndex !== null) {
             // Basic logic for a single row vector and a single column vector
             return self::evaluateVectorPair($method, $singleRowVectorIndex, $singleColumnVectorIndex, ...$arguments);
