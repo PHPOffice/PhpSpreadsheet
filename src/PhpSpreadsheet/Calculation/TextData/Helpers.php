@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Helpers
 {
@@ -42,11 +43,11 @@ class Helpers
             $value = (int) $value;
         }
         if (!is_numeric($value)) {
-            throw new CalcExp(Functions::VALUE());
+            throw new CalcExp(ExcelError::VALUE());
         }
         $value = (int) $value;
         if ($value < $minValue) {
-            throw new CalcExp(Functions::VALUE());
+            throw new CalcExp(ExcelError::VALUE());
         }
 
         return (int) $value;
@@ -64,7 +65,7 @@ class Helpers
             $value = (float) $value;
         }
         if (!is_numeric($value)) {
-            throw new CalcExp(Functions::VALUE());
+            throw new CalcExp(ExcelError::VALUE());
         }
 
         return (float) $value;

@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use Complex\Complex as ComplexObject;
 use Complex\Exception as ComplexException;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ComplexFunctions
 {
@@ -35,7 +35,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return $complex->abs();
@@ -66,11 +66,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
-            return Functions::DIV0();
+            return ExcelError::DIV0();
         }
 
         return $complex->argument();
@@ -100,7 +100,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->conjugate();
@@ -130,7 +130,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->cos();
@@ -160,7 +160,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->cosh();
@@ -190,7 +190,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->cot();
@@ -220,7 +220,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->csc();
@@ -250,7 +250,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->csch();
@@ -280,7 +280,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->sin();
@@ -310,7 +310,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->sinh();
@@ -340,7 +340,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->sec();
@@ -370,7 +370,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->sech();
@@ -400,7 +400,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->tan();
@@ -430,11 +430,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $theta = self::IMARGUMENT($complexNumber);
-        if ($theta === Functions::DIV0()) {
+        if ($theta === ExcelError::DIV0()) {
             return '0';
         }
 
@@ -465,11 +465,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->ln();
@@ -499,11 +499,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->log10();
@@ -533,11 +533,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($complex->getReal() == 0.0 && $complex->getImaginary() == 0.0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->log2();
@@ -567,7 +567,7 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (string) $complex->exp();
@@ -599,11 +599,11 @@ class ComplexFunctions
         try {
             $complex = new ComplexObject($complexNumber);
         } catch (ComplexException $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if (!is_numeric($realNumber)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return (string) $complex->pow((float) $realNumber);

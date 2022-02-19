@@ -596,11 +596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php

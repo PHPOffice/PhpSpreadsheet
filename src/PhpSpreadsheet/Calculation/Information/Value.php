@@ -36,9 +36,9 @@ class Value
         $value = Functions::flattenSingleValue($value);
 
         if ($value === null) {
-            return Functions::NAME();
+            return ExcelError::NAME();
         } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return $value % 2 == 0;
@@ -56,9 +56,9 @@ class Value
         $value = Functions::flattenSingleValue($value);
 
         if ($value === null) {
-            return Functions::NAME();
+            return ExcelError::NAME();
         } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return abs($value) % 2 == 1;
@@ -107,7 +107,7 @@ class Value
     {
         $value = Functions::flattenSingleValue($value);
 
-        return is_string($value) && !Error::isError($value);
+        return is_string($value) && !self::isError($value);
     }
 
     /**
@@ -133,7 +133,7 @@ class Value
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
         $cellReference = Functions::expandDefinedName((string) $cellReference, $cell);
         $cellReference = Functions::trimTrailingRange($cellReference);
@@ -147,7 +147,7 @@ class Value
             ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
-        return $worksheet->getCell($cellReference)->isFormula();
+        return ($worksheet !== null) ? $worksheet->getCell($cellReference)->isFormula() : ExcelError::REF();
     }
 
     /**
@@ -179,7 +179,7 @@ class Value
             return false;
         }
 
-        return in_array($value, Error::$errorCodes);
+        return in_array($value, ExcelError::$errorCodes);
     }
 
     /**
@@ -193,7 +193,7 @@ class Value
     {
         $value = Functions::flattenSingleValue($value);
 
-        return $value === Functions::NA();
+        return $value === ExcelError::NA();
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [360, 2020, FinancialConstants::BASIS_DAYS_PER_YEAR_NASD],
@@ -10,6 +10,6 @@ return [
     [360, 2020, FinancialConstants::BASIS_DAYS_PER_YEAR_360],
     [365, 2020, FinancialConstants::BASIS_DAYS_PER_YEAR_365],
     [360, 2020, FinancialConstants::BASIS_DAYS_PER_YEAR_360_EUROPEAN],
-    [Functions::NAN(), 2020, 'Invalid'],
-    [Functions::NAN(), 2020, 999],
+    [ExcelError::NAN(), 2020, 'Invalid'],
+    [ExcelError::NAN(), 2020, 999],
 ];

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Matrix
 {
@@ -65,14 +66,14 @@ class Matrix
         }
 
         if (!is_array($matrix) || ($rowNum > count($matrix))) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         $rowKeys = array_keys($matrix);
         $columnKeys = @array_keys($matrix[$rowKeys[0]]);
 
         if ($columnNum > count($columnKeys)) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         if ($columnNum === 0) {

@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ChiSquared
 {
@@ -42,14 +43,14 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if ($value < 0) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
                 return 1;
             }
 
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2) / Gamma::gammaValue($degrees / 2));
@@ -86,14 +87,14 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if ($value < 0) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
                 return 1;
             }
 
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($cumulative === true) {
@@ -132,7 +133,7 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $callback = function ($value) use ($degrees) {
@@ -173,7 +174,7 @@ class ChiSquared
         }
 
         if ($degrees < 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::inverseLeftTailCalculation($probability, $degrees);
@@ -201,15 +202,15 @@ class ChiSquared
         $countActuals = count($actual);
         $countExpected = count($expected);
         if ($countActuals !== $countExpected || $countActuals === 1) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $result = 0.0;
         for ($i = 0; $i < $countActuals; ++$i) {
             if ($expected[$i] == 0.0) {
-                return Functions::DIV0();
+                return ExcelError::DIV0();
             } elseif ($expected[$i] < 0.0) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
             $result += (($actual[$i] - $expected[$i]) ** 2) / $expected[$i];
         }

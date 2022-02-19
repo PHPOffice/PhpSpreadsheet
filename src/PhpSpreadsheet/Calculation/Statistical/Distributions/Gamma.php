@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Gamma extends GammaBase
 {
@@ -35,7 +35,7 @@ class Gamma extends GammaBase
         }
 
         if ((((int) $value) == ((float) $value)) && $value <= 0.0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::gammaValue($value);
@@ -75,7 +75,7 @@ class Gamma extends GammaBase
         }
 
         if (($value < 0) || ($a <= 0) || ($b <= 0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::calculateDistribution($value, $a, $b, $cumulative);
@@ -112,7 +112,7 @@ class Gamma extends GammaBase
         }
 
         if (($alpha <= 0.0) || ($beta <= 0.0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::calculateInverse($probability, $alpha, $beta);
@@ -143,7 +143,7 @@ class Gamma extends GammaBase
         }
 
         if ($value <= 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return log(self::gammaValue($value));

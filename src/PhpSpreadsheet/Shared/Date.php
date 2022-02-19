@@ -7,6 +7,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -454,13 +455,13 @@ class Date
 
         $dateValueNew = DateTimeExcel\DateValue::fromString($dateValue);
 
-        if ($dateValueNew === Functions::VALUE()) {
+        if ($dateValueNew === ExcelError::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
             $timeValue = DateTimeExcel\TimeValue::fromString($dateValue);
-            if ($timeValue === Functions::VALUE()) {
+            if ($timeValue === ExcelError::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

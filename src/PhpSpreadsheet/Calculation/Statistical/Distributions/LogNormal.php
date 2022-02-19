@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class LogNormal
 {
@@ -42,7 +42,7 @@ class LogNormal
         }
 
         if (($value <= 0) || ($stdDev <= 0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return StandardNormal::cumulative((log($value) - $mean) / $stdDev);
@@ -83,7 +83,7 @@ class LogNormal
         }
 
         if (($value <= 0) || ($stdDev <= 0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($cumulative === true) {
@@ -129,7 +129,7 @@ class LogNormal
         }
 
         if ($stdDev <= 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return exp($mean + $stdDev * StandardNormal::inverse($probability));

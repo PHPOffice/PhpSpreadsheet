@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class VLookup extends LookupBase
@@ -36,7 +37,7 @@ class VLookup extends LookupBase
         $f = array_keys($lookupArray);
         $firstRow = array_pop($f);
         if ((!is_array($lookupArray[$firstRow])) || ($indexNumber > count($lookupArray[$firstRow]))) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
         $columnKeys = array_keys($lookupArray[$firstRow]);
         $returnColumn = $columnKeys[--$indexNumber];
@@ -53,7 +54,7 @@ class VLookup extends LookupBase
             return $lookupArray[$rowNumber][$returnColumn];
         }
 
-        return Functions::NA();
+        return ExcelError::NA();
     }
 
     private static function vlookupSort($a, $b)

@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -8,27 +8,27 @@ return [
         '31-Mar-2008', '1-Jun-2008', 0.0914,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         'Not a Valid Date', '1-Jun-2008', 0.09,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         '31-Mar-2008', 'Not a Valid Date', 0.09,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         '31-Mar-2008', '1-Jun-2008', 'NaN',
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         '31-Mar-2008', '1-Jun-2008', -0.09,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         '31-Mar-2000', '1-Jun-2021', 0.09,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         '1-Jun-2008', '31-Mar-2008', 0.09,
     ],
     [

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Standardize extends StatisticalValidations
 {
@@ -41,7 +41,7 @@ class Standardize extends StatisticalValidations
         }
 
         if ($stdDev <= 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return ($value - $mean) / $stdDev;

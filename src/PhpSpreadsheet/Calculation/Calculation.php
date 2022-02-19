@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -973,7 +974,7 @@ class Calculation
         ],
         'ERROR.TYPE' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Error::class, 'type'],
+            'functionCall' => [Information\ExcelError::class, 'type'],
             'argumentCount' => '1',
         ],
         'EVEN' => [
@@ -3252,7 +3253,7 @@ class Calculation
             return self::FORMULA_STRING_QUOTE . $value . self::FORMULA_STRING_QUOTE;
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
             //    Convert numeric errors to NaN error
-            return Functions::NAN();
+            return Information\ExcelError::NAN();
         }
 
         return $value;
@@ -3273,7 +3274,7 @@ class Calculation
             }
             //    Convert numeric errors to NAN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
-            return Functions::NAN();
+            return Information\ExcelError::NAN();
         }
 
         return $value;
@@ -3342,7 +3343,7 @@ class Calculation
             self::$returnArrayAsType = $returnArrayAsType;
             $testResult = Functions::flattenArray($result);
             if (self::$returnArrayAsType == self::RETURN_ARRAY_AS_ERROR) {
-                return Functions::VALUE();
+                return Information\ExcelError::VALUE();
             }
             //    If there's only a single cell in the array, then we allow it
             if (count($testResult) != 1) {
@@ -3350,13 +3351,13 @@ class Calculation
                 $r = array_keys($result);
                 $r = array_shift($r);
                 if (!is_numeric($r)) {
-                    return Functions::VALUE();
+                    return Information\ExcelError::VALUE();
                 }
                 if (is_array($result[$r])) {
                     $c = array_keys($result[$r]);
                     $c = array_shift($c);
                     if (!is_numeric($c)) {
-                        return Functions::VALUE();
+                        return Information\ExcelError::VALUE();
                     }
                 }
             }
@@ -3367,7 +3368,7 @@ class Calculation
         if ($result === null && $cell->getWorksheet()->getSheetView()->getShowZeros()) {
             return 0;
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
-            return Functions::NAN();
+            return Information\ExcelError::NAN();
         }
 
         return $result;
@@ -4428,7 +4429,7 @@ class Calculation
                     isset($storeValue)
                     && (
                         !$storeValueAsBool
-                        || Functions::isError($storeValue)
+                        || Value::isError($storeValue)
                         || ($storeValue === 'Pruned branch')
                     )
                 ) {
@@ -4463,7 +4464,7 @@ class Calculation
                     isset($storeValue)
                     && (
                         $storeValueAsBool
-                        || Functions::isError($storeValue)
+                        || Value::isError($storeValue)
                         || ($storeValue === 'Pruned branch')
                     )
                 ) {
@@ -4569,7 +4570,7 @@ class Calculation
 
                             $stack->push('Cell Reference', $cellValue, $cellRef);
                         } else {
-                            $stack->push('Error', Functions::REF(), null);
+                            $stack->push('Error', Information\ExcelError::REF(), null);
                         }
 
                         break;
@@ -4704,7 +4705,7 @@ class Calculation
                 if (isset($matches[8])) {
                     if ($cell === null) {
                         //                        We can't access the range, so return a REF error
-                        $cellValue = Functions::REF();
+                        $cellValue = Information\ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[9] . $matches[10];
                         if ($matches[2] > '') {
@@ -4734,7 +4735,7 @@ class Calculation
                 } else {
                     if ($cell === null) {
                         // We can't access the cell, so return a REF error
-                        $cellValue = Functions::REF();
+                        $cellValue = Information\ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7];
                         if ($matches[2] > '') {
@@ -5069,7 +5070,7 @@ class Calculation
                 ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1) > 0) ||
                     (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))
             ) {
-                $result = Functions::VALUE();
+                $result = Information\ExcelError::VALUE();
             } else {
                 //    If we're dealing with non-matrix operations, execute the necessary operation
                 switch ($operation) {
@@ -5217,7 +5218,7 @@ class Calculation
             // Named range?
             $namedRange = DefinedName::resolveName($range, $worksheet);
             if ($namedRange === null) {
-                return Functions::REF();
+                return Information\ExcelError::REF();
             }
 
             $worksheet = $namedRange->getWorksheet();
@@ -5406,7 +5407,7 @@ class Calculation
         $definedNameScope = $namedRange->getScope();
         if ($definedNameScope !== null && $definedNameScope !== $cellWorksheet) {
             // The defined name isn't in our current scope, so #REF
-            $result = Functions::REF();
+            $result = Information\ExcelError::REF();
             $stack->push('Error', $result, $namedRange->getName());
 
             return $result;
