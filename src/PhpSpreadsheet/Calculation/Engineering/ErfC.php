@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ErfC
 {
@@ -39,7 +40,7 @@ class ErfC
             return self::erfcValue($value);
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 
     //

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ConvertHex extends ConvertBase
 {
@@ -92,7 +92,7 @@ class ConvertHex extends ConvertBase
         }
 
         if (strlen($value) > 10) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $binX = '';
@@ -167,7 +167,7 @@ class ConvertHex extends ConvertBase
     protected static function validateHex(string $value): string
     {
         if (strlen($value) > preg_match_all('/[0123456789ABCDEF]/', $value)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $value;

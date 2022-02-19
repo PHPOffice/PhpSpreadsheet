@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Selection
 {
@@ -34,11 +35,11 @@ class Selection
         if (is_numeric($chosenEntry)) {
             --$chosenEntry;
         } else {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
         $chosenEntry = floor($chosenEntry);
         if (($chosenEntry < 0) || ($chosenEntry > $entryCount)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         if (is_array($chooseArgs[$chosenEntry])) {

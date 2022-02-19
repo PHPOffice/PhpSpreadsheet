@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Replace
 {
@@ -78,7 +79,7 @@ class Replace
             }
             if (is_bool($instance)) {
                 if ($instance === false || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
-                    return Functions::Value();
+                    return ExcelError::Value();
                 }
                 $instance = 1;
             }

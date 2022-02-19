@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -124,7 +124,7 @@ return [
         '-3.5-2.5i',
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         'Invalid Complex Number',
     ],
 ];

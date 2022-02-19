@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
@@ -100,7 +101,7 @@ class StandardNormal
         }
 
         if (!is_numeric($value)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return self::distribution($value, true) - 0.5;
@@ -128,7 +129,7 @@ class StandardNormal
         $sigma = Functions::flattenSingleValue($sigma);
 
         if (!is_numeric($m0) || ($sigma !== null && !is_numeric($sigma))) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         if ($sigma === null) {

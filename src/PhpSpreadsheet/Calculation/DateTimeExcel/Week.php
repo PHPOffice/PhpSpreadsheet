@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Week
@@ -192,11 +192,11 @@ class Week
     private static function validateStyle($style): int
     {
         if (!is_numeric($style)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
         $style = (int) $style;
         if (($style < 1) || ($style > 3)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $style;
@@ -233,7 +233,7 @@ class Week
     private static function validateDateValue($dateValue): float
     {
         if (is_bool($dateValue)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return Helpers::getDateValue($dateValue);
@@ -251,12 +251,12 @@ class Week
         }
 
         if (!is_numeric($method)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         $method = (int) $method;
         if (!array_key_exists($method, Constants::METHODARR)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
         $method = Constants::METHODARR[$method];
 

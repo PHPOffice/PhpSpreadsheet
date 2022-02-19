@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Random
 {
@@ -78,7 +78,7 @@ class Random
             $max = Helpers::validateNumericNullSubstitution($max, 1);
 
             if ($max <= $min) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
         } catch (Exception $e) {
             return $e->getMessage();

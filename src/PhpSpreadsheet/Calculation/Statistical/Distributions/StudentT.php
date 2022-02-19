@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class StudentT
 {
@@ -43,7 +44,7 @@ class StudentT
         }
 
         if (($value < 0) || ($degrees < 1) || ($tails < 1) || ($tails > 2)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::calculateDistribution($value, $degrees, $tails);
@@ -77,7 +78,7 @@ class StudentT
         }
 
         if ($degrees <= 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $callback = function ($value) use ($degrees) {

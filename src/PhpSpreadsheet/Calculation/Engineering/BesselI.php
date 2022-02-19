@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class BesselI
 {
@@ -49,12 +49,12 @@ class BesselI
         }
 
         if ($ord < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $fResult = self::calculate($x, $ord);
 
-        return (is_nan($fResult)) ? Functions::NAN() : $fResult;
+        return (is_nan($fResult)) ? ExcelError::NAN() : $fResult;
     }
 
     private static function calculate(float $x, int $ord): float

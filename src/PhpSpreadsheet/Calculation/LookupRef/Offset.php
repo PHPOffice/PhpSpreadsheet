@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -48,11 +49,11 @@ class Offset
         $width = Functions::flattenSingleValue($width);
 
         if ($cellAddress === null || $cellAddress === '') {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         if (!is_object($cell)) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         [$cellAddress, $worksheet] = self::extractWorksheet($cellAddress, $cell);
@@ -69,7 +70,7 @@ class Offset
         $startCellColumn += $columns;
 
         if (($startCellRow <= 0) || ($startCellColumn < 0)) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         $endCellColumn = self::adjustEndCellColumnForWidth($endCellColumn, $width, $startCellColumn, $columns);
@@ -78,7 +79,7 @@ class Offset
         $endCellRow = self::adustEndCellRowForHeight($height, $startCellRow, $rows, $endCellRow);
 
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
         $endCellColumn = Coordinate::stringFromColumnIndex($endCellColumn + 1);
 

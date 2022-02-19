@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ConvertOctal extends ConvertBase
 {
@@ -166,7 +166,7 @@ class ConvertOctal extends ConvertBase
     {
         $numDigits = (int) preg_match_all('/[01234567]/', $value);
         if (strlen($value) > $numDigits || $numDigits > 10) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $value;

@@ -42,29 +42,13 @@ class Functions
     protected static $returnDateType = self::RETURNDATE_EXCEL;
 
     /**
-     * List of error codes.
-     *
-     * @var array
-     */
-    protected static $errorCodes = [
-        'null' => '#NULL!',
-        'divisionbyzero' => '#DIV/0!',
-        'value' => '#VALUE!',
-        'reference' => '#REF!',
-        'name' => '#NAME?',
-        'num' => '#NUM!',
-        'na' => '#N/A',
-        'gettingdata' => '#GETTING_DATA',
-    ];
-
-    /**
      * Set the Compatibility Mode.
      *
      * @param string $compatibilityMode Compatibility Mode
-     *                                                Permitted values are:
-     *                                                    Functions::COMPATIBILITY_EXCEL            'Excel'
-     *                                                    Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
-     *                                                    Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
+     *                                  Permitted values are:
+     *                                      Functions::COMPATIBILITY_EXCEL        'Excel'
+     *                                      Functions::COMPATIBILITY_GNUMERIC     'Gnumeric'
+     *                                      Functions::COMPATIBILITY_OPENOFFICE   'OpenOfficeCalc'
      *
      * @return bool (Success or Failure)
      */
@@ -87,10 +71,10 @@ class Functions
      * Return the current Compatibility Mode.
      *
      * @return string Compatibility Mode
-     *                            Possible Return values are:
-     *                                Functions::COMPATIBILITY_EXCEL            'Excel'
-     *                                Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
-     *                                Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
+     *                Possible Return values are:
+     *                    Functions::COMPATIBILITY_EXCEL        'Excel'
+     *                    Functions::COMPATIBILITY_GNUMERIC     'Gnumeric'
+     *                    Functions::COMPATIBILITY_OPENOFFICE   'OpenOfficeCalc'
      */
     public static function getCompatibilityMode()
     {
@@ -98,13 +82,13 @@ class Functions
     }
 
     /**
-     * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
+     * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP DateTime Object).
      *
      * @param string $returnDateType Return Date Format
-     *                                                Permitted values are:
-     *                                                    Functions::RETURNDATE_UNIX_TIMESTAMP        'P'
-     *                                                    Functions::RETURNDATE_PHP_DATETIME_OBJECT        'O'
-     *                                                    Functions::RETURNDATE_EXCEL            'E'
+     *                               Permitted values are:
+     *                                   Functions::RETURNDATE_UNIX_TIMESTAMP       'P'
+     *                                   Functions::RETURNDATE_PHP_DATETIME_OBJECT  'O'
+     *                                   Functions::RETURNDATE_EXCEL                'E'
      *
      * @return bool Success or failure
      */
@@ -127,10 +111,10 @@ class Functions
      * Return the current Return Date Format for functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
      * @return string Return Date Format
-     *                            Possible Return values are:
-     *                                Functions::RETURNDATE_UNIX_TIMESTAMP        'P'
-     *                                Functions::RETURNDATE_PHP_DATETIME_OBJECT        'O'
-     *                                Functions::RETURNDATE_EXCEL            'E'
+     *                Possible Return values are:
+     *                    Functions::RETURNDATE_UNIX_TIMESTAMP         'P'
+     *                    Functions::RETURNDATE_PHP_DATETIME_OBJECT    'O'
+     *                    Functions::RETURNDATE_EXCEL            '     'E'
      */
     public static function getReturnDateType()
     {
@@ -148,89 +132,20 @@ class Functions
     }
 
     /**
-     * DIV0.
-     *
-     * @return string #Not Yet Implemented
-     */
-    public static function DIV0()
-    {
-        return self::$errorCodes['divisionbyzero'];
-    }
-
-    /**
-     * NA.
-     *
-     * Excel Function:
-     *        =NA()
-     *
-     * Returns the error value #N/A
-     *        #N/A is the error value that means "no value is available."
-     *
-     * @return string #N/A!
-     */
-    public static function NA()
-    {
-        return self::$errorCodes['na'];
-    }
-
-    /**
-     * NaN.
-     *
-     * Returns the error value #NUM!
-     *
-     * @return string #NUM!
-     */
-    public static function NAN()
-    {
-        return self::$errorCodes['num'];
-    }
-
-    /**
-     * NAME.
-     *
-     * Returns the error value #NAME?
-     *
-     * @return string #NAME?
-     */
-    public static function NAME()
-    {
-        return self::$errorCodes['name'];
-    }
-
-    /**
-     * REF.
-     *
-     * Returns the error value #REF!
-     *
-     * @return string #REF!
-     */
-    public static function REF()
-    {
-        return self::$errorCodes['reference'];
-    }
-
-    /**
      * NULL.
      *
      * Returns the error value #NULL!
      *
+     * @Deprecated 1.23.0
+     *
      * @return string #NULL!
+     *
+     *@see Information\ExcelError::null()
+     * Use the null() method in the Information\Error class instead
      */
     public static function null()
     {
-        return self::$errorCodes['null'];
-    }
-
-    /**
-     * VALUE.
-     *
-     * Returns the error value #VALUE!
-     *
-     * @return string #VALUE!
-     */
-    public static function VALUE()
-    {
-        return self::$errorCodes['value'];
+        return Information\ExcelError::null();
     }
 
     public static function isMatrixValue($idx)
@@ -240,7 +155,7 @@ class Functions
 
     public static function isValue($idx)
     {
-        return substr_count($idx, '.') == 0;
+        return substr_count($idx, '.') === 0;
     }
 
     public static function isCellValue($idx)
@@ -301,25 +216,124 @@ class Functions
     }
 
     /**
+     * NaN.
+     *
+     * Returns the error value #NUM!
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #NUM!
+     *
+     * @see Information\ExcelError::NAN()
+     * Use the NAN() method in the Information\Error class instead
+     */
+    public static function NAN()
+    {
+        return Information\ExcelError::NAN();
+    }
+
+    /**
+     * REF.
+     *
+     * Returns the error value #REF!
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #REF!
+     *
+     * @see Information\ExcelError::REF()
+     * Use the REF() method in the Information\Error class instead
+     */
+    public static function REF()
+    {
+        return Information\ExcelError::REF();
+    }
+
+    /**
+     * NA.
+     *
+     * Excel Function:
+     *        =NA()
+     *
+     * Returns the error value #N/A
+     *        #N/A is the error value that means "no value is available."
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #N/A!
+     *
+     * @see Information\ExcelError::NA()
+     * Use the NA() method in the Information\Error class instead
+     */
+    public static function NA()
+    {
+        return Information\ExcelError::NA();
+    }
+
+    /**
+     * VALUE.
+     *
+     * Returns the error value #VALUE!
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #VALUE!
+     *
+     * @see Information\ExcelError::VALUE()
+     * Use the VALUE() method in the Information\Error class instead
+     */
+    public static function VALUE()
+    {
+        return Information\ExcelError::VALUE();
+    }
+
+    /**
+     * NAME.
+     *
+     * Returns the error value #NAME?
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #NAME?
+     *
+     * @see Information\ExcelError::NAME()
+     * Use the NAME() method in the Information\Error class instead
+     */
+    public static function NAME()
+    {
+        return Information\ExcelError::NAME();
+    }
+
+    /**
+     * DIV0.
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #Not Yet Implemented
+     *
+     *@see Information\ExcelError::DIV0()
+     * Use the DIV0() method in the Information\Error class instead
+     */
+    public static function DIV0()
+    {
+        return Information\ExcelError::DIV0();
+    }
+
+    /**
      * ERROR_TYPE.
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
      * @return int|string
+     *
+     * @see Information\ExcelError::type()
+     * Use the type() method in the Information\Error class instead
      */
     public static function errorType($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        $i = 1;
-        foreach (self::$errorCodes as $errorCode) {
-            if ($value === $errorCode) {
-                return $i;
-            }
-            ++$i;
-        }
-
-        return self::NA();
+        return Information\ExcelError::type($value);
     }
 
     /**
@@ -327,15 +341,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isBlank()
+     * Use the isBlank() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isBlank($value = null)
     {
-        if ($value !== null) {
-            $value = self::flattenSingleValue($value);
-        }
-
-        return $value === null;
+        return Information\Value::isBlank($value);
     }
 
     /**
@@ -343,13 +358,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isErr()
+     * Use the isErr() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isErr($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        return self::isError($value) && (!self::isNa(($value)));
+        return Information\Value::isErr($value);
     }
 
     /**
@@ -357,17 +375,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isError()
+     * Use the isError() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isError($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return in_array($value, self::$errorCodes);
+        return Information\Value::isError($value);
     }
 
     /**
@@ -375,13 +392,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isNa()
+     * Use the isNa() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isNa($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        return $value === self::NA();
+        return Information\Value::isNa($value);
     }
 
     /**
@@ -389,19 +409,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isEven()
+     * Use the isEven() method in the Information\Value class instead
+     *
      * @return bool|string
      */
     public static function isEven($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if ($value === null) {
-            return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return self::VALUE();
-        }
-
-        return $value % 2 == 0;
+        return Information\Value::isEven($value);
     }
 
     /**
@@ -409,19 +426,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isOdd()
+     * Use the isOdd() method in the Information\Value class instead
+     *
      * @return bool|string
      */
     public static function isOdd($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if ($value === null) {
-            return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return self::VALUE();
-        }
-
-        return abs($value) % 2 == 1;
+        return Information\Value::isOdd($value);
     }
 
     /**
@@ -429,17 +443,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isNumber()
+     * Use the isNumber() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isNumber($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if (is_string($value)) {
-            return false;
-        }
-
-        return is_numeric($value);
+        return Information\Value::isNumber($value);
     }
 
     /**
@@ -447,13 +460,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isLogical()
+     * Use the isLogical() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isLogical($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        return is_bool($value);
+        return Information\Value::isLogical($value);
     }
 
     /**
@@ -461,13 +477,16 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isText()
+     * Use the isText() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isText($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        return is_string($value) && !self::isError($value);
+        return Information\Value::isText($value);
     }
 
     /**
@@ -475,17 +494,27 @@ class Functions
      *
      * @param mixed $value Value to check
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isNonText()
+     * Use the isNonText() method in the Information\Value class instead
+     *
      * @return bool
      */
     public static function isNonText($value = null)
     {
-        return !self::isText($value);
+        return Information\Value::isNonText($value);
     }
 
     /**
      * N.
      *
      * Returns a value converted to a number
+     *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::asNumber()
+     * Use the asNumber() method in the Information\Value class instead
      *
      * @param null|mixed $value The value you want converted
      *
@@ -500,33 +529,18 @@ class Functions
      */
     public static function n($value = null)
     {
-        while (is_array($value)) {
-            $value = array_shift($value);
-        }
-
-        switch (gettype($value)) {
-            case 'double':
-            case 'float':
-            case 'integer':
-                return $value;
-            case 'boolean':
-                return (int) $value;
-            case 'string':
-                //    Errors
-                if ((strlen($value) > 0) && ($value[0] == '#')) {
-                    return $value;
-                }
-
-                break;
-        }
-
-        return 0;
+        return Information\Value::asNumber($value);
     }
 
     /**
      * TYPE.
      *
      * Returns a number that identifies the type of a value
+     *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::type()
+     * Use the type() method in the Information\Value class instead
      *
      * @param null|mixed $value The value you want tested
      *
@@ -540,39 +554,7 @@ class Functions
      */
     public static function TYPE($value = null)
     {
-        $value = self::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
-            end($value);
-            $a = key($value);
-            //    Range of cells is an error
-            if (self::isCellValue($a)) {
-                return 16;
-            //    Test for Matrix
-            } elseif (self::isMatrixValue($a)) {
-                return 64;
-            }
-        } elseif (empty($value)) {
-            //    Empty Cell
-            return 1;
-        }
-        $value = self::flattenSingleValue($value);
-
-        if (($value === null) || (is_float($value)) || (is_int($value))) {
-            return 1;
-        } elseif (is_bool($value)) {
-            return 4;
-        } elseif (is_array($value)) {
-            return 64;
-        } elseif (is_string($value)) {
-            //    Errors
-            if ((strlen($value) > 0) && ($value[0] == '#')) {
-                return 16;
-            }
-
-            return 2;
-        }
-
-        return 0;
+        return Information\Value::type($value);
     }
 
     /**
@@ -678,6 +660,11 @@ class Functions
     /**
      * ISFORMULA.
      *
+     * @Deprecated 1.23.0
+     *
+     * @see Information\Value::isFormula()
+     * Use the isFormula() method in the Information\Value class instead
+     *
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
@@ -685,22 +672,7 @@ class Functions
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
-        if ($cell === null) {
-            return self::REF();
-        }
-        $cellReference = self::expandDefinedName((string) $cellReference, $cell);
-        $cellReference = self::trimTrailingRange($cellReference);
-
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
-
-        $cellReference = $matches[6] . $matches[7];
-        $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
-
-        $worksheet = (!empty($worksheetName))
-            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
-            : $cell->getWorksheet();
-
-        return $worksheet->getCell($cellReference)->isFormula();
+        return Information\Value::isFormula($cellReference, $cell);
     }
 
     public static function expandDefinedName(string $coordinate, Cell $cell): string

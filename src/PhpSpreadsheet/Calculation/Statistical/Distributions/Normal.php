@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Normal
 {
@@ -49,7 +49,7 @@ class Normal
         }
 
         if ($stdDev < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($cumulative) {
@@ -90,7 +90,7 @@ class Normal
         }
 
         if ($stdDev < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return (self::inverseNcdf($probability) * $stdDev) + $mean;
