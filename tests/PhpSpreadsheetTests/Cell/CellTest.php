@@ -24,7 +24,7 @@ class CellTest extends TestCase
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValueExplicit($value, $dataType);
 
-        self::assertSame($expected, $cell->getValue());
+        self::assertEqualsWithDelta($expected, $cell->getValue(), 1.0e-12);
         $spreadsheet->disconnectWorksheets();
     }
 
