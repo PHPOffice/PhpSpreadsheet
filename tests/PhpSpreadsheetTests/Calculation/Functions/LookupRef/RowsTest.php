@@ -33,7 +33,7 @@ class RowsTest extends TestCase
     /**
      * @dataProvider providerRowsArray
      */
-    public function testRowsArray($expectedResult, string $argument): void
+    public function testRowsArray(int $expectedResult, string $argument): void
     {
         $calculation = Calculation::getInstance();
 
