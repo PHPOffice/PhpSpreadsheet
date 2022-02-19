@@ -46,7 +46,7 @@ class Functions
      *
      * @var array
      */
-    protected static $errorCodes = [
+    public static $errorCodes = [
         'null' => '#NULL!',
         'divisionbyzero' => '#DIV/0!',
         'value' => '#VALUE!',
@@ -309,17 +309,7 @@ class Functions
      */
     public static function errorType($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        $i = 1;
-        foreach (self::$errorCodes as $errorCode) {
-            if ($value === $errorCode) {
-                return $i;
-            }
-            ++$i;
-        }
-
-        return self::NA();
+        return Information\Error::type($value);
     }
 
     /**
@@ -331,11 +321,7 @@ class Functions
      */
     public static function isBlank($value = null)
     {
-        if ($value !== null) {
-            $value = self::flattenSingleValue($value);
-        }
-
-        return $value === null;
+        return Information\Value::isBlank($value);
     }
 
     /**
@@ -347,9 +333,7 @@ class Functions
      */
     public static function isErr($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        return self::isError($value) && (!self::isNa(($value)));
+        return Information\Error::isErr($value);
     }
 
     /**
@@ -361,13 +345,7 @@ class Functions
      */
     public static function isError($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return in_array($value, self::$errorCodes);
+        return Information\Error::isError($value);
     }
 
     /**
@@ -379,9 +357,7 @@ class Functions
      */
     public static function isNa($value = '')
     {
-        $value = self::flattenSingleValue($value);
-
-        return $value === self::NA();
+        return Information\Error::isNa($value);
     }
 
     /**
@@ -393,15 +369,7 @@ class Functions
      */
     public static function isEven($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if ($value === null) {
-            return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return self::VALUE();
-        }
-
-        return $value % 2 == 0;
+        return Information\Value::isEven($value);
     }
 
     /**
@@ -413,15 +381,7 @@ class Functions
      */
     public static function isOdd($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if ($value === null) {
-            return self::NAME();
-        } elseif ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-            return self::VALUE();
-        }
-
-        return abs($value) % 2 == 1;
+        return Information\Value::isOdd($value);
     }
 
     /**
@@ -433,13 +393,7 @@ class Functions
      */
     public static function isNumber($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        if (is_string($value)) {
-            return false;
-        }
-
-        return is_numeric($value);
+        return Information\Value::isNumber($value);
     }
 
     /**
@@ -451,9 +405,7 @@ class Functions
      */
     public static function isLogical($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        return is_bool($value);
+        return Information\Value::isLogical($value);
     }
 
     /**
@@ -465,9 +417,7 @@ class Functions
      */
     public static function isText($value = null)
     {
-        $value = self::flattenSingleValue($value);
-
-        return is_string($value) && !self::isError($value);
+        return Information\Value::isText($value);
     }
 
     /**
@@ -479,7 +429,7 @@ class Functions
      */
     public static function isNonText($value = null)
     {
-        return !self::isText($value);
+        return Information\Value::isNonText($value);
     }
 
     /**
@@ -500,27 +450,7 @@ class Functions
      */
     public static function n($value = null)
     {
-        while (is_array($value)) {
-            $value = array_shift($value);
-        }
-
-        switch (gettype($value)) {
-            case 'double':
-            case 'float':
-            case 'integer':
-                return $value;
-            case 'boolean':
-                return (int) $value;
-            case 'string':
-                //    Errors
-                if ((strlen($value) > 0) && ($value[0] == '#')) {
-                    return $value;
-                }
-
-                break;
-        }
-
-        return 0;
+        return Information\Value::asNumber($value);
     }
 
     /**
@@ -540,39 +470,7 @@ class Functions
      */
     public static function TYPE($value = null)
     {
-        $value = self::flattenArrayIndexed($value);
-        if (is_array($value) && (count($value) > 1)) {
-            end($value);
-            $a = key($value);
-            //    Range of cells is an error
-            if (self::isCellValue($a)) {
-                return 16;
-            //    Test for Matrix
-            } elseif (self::isMatrixValue($a)) {
-                return 64;
-            }
-        } elseif (empty($value)) {
-            //    Empty Cell
-            return 1;
-        }
-        $value = self::flattenSingleValue($value);
-
-        if (($value === null) || (is_float($value)) || (is_int($value))) {
-            return 1;
-        } elseif (is_bool($value)) {
-            return 4;
-        } elseif (is_array($value)) {
-            return 64;
-        } elseif (is_string($value)) {
-            //    Errors
-            if ((strlen($value) > 0) && ($value[0] == '#')) {
-                return 16;
-            }
-
-            return 2;
-        }
-
-        return 0;
+        return Information\Value::type($value);
     }
 
     /**
@@ -685,22 +583,7 @@ class Functions
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
-        if ($cell === null) {
-            return self::REF();
-        }
-        $cellReference = self::expandDefinedName((string) $cellReference, $cell);
-        $cellReference = self::trimTrailingRange($cellReference);
-
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
-
-        $cellReference = $matches[6] . $matches[7];
-        $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
-
-        $worksheet = (!empty($worksheetName))
-            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
-            : $cell->getWorksheet();
-
-        return $worksheet->getCell($cellReference)->isFormula();
+        return Information\Value::isFormula($cellReference, $cell);
     }
 
     public static function expandDefinedName(string $coordinate, Cell $cell): string

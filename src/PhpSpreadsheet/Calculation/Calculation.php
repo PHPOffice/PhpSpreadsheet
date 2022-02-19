@@ -973,7 +973,7 @@ class Calculation
         ],
         'ERROR.TYPE' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'errorType'],
+            'functionCall' => [Information\Error::class, 'type'],
             'argumentCount' => '1',
         ],
         'EVEN' => [
@@ -1457,49 +1457,49 @@ class Calculation
         ],
         'ISBLANK' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isBlank'],
+            'functionCall' => [Information\Value::class, 'isBlank'],
             'argumentCount' => '1',
         ],
         'ISERR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isErr'],
+            'functionCall' => [Information\Value::class, 'isErr'],
             'argumentCount' => '1',
         ],
         'ISERROR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isError'],
+            'functionCall' => [Information\Value::class, 'isError'],
             'argumentCount' => '1',
         ],
         'ISEVEN' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isEven'],
+            'functionCall' => [Information\Value::class, 'isEven'],
             'argumentCount' => '1',
         ],
         'ISFORMULA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isFormula'],
+            'functionCall' => [Information\Value::class, 'isFormula'],
             'argumentCount' => '1',
             'passCellReference' => true,
             'passByReference' => [true],
         ],
         'ISLOGICAL' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isLogical'],
+            'functionCall' => [Information\Value::class, 'isLogical'],
             'argumentCount' => '1',
         ],
         'ISNA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isNa'],
+            'functionCall' => [Information\Value::class, 'isNa'],
             'argumentCount' => '1',
         ],
         'ISNONTEXT' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isNonText'],
+            'functionCall' => [Information\Value::class, 'isNonText'],
             'argumentCount' => '1',
         ],
         'ISNUMBER' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isNumber'],
+            'functionCall' => [Information\Value::class, 'isNumber'],
             'argumentCount' => '1',
         ],
         'ISO.CEILING' => [
@@ -1509,7 +1509,7 @@ class Calculation
         ],
         'ISODD' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isOdd'],
+            'functionCall' => [Information\Value::class, 'isOdd'],
             'argumentCount' => '1',
         ],
         'ISOWEEKNUM' => [
@@ -1529,7 +1529,7 @@ class Calculation
         ],
         'ISTEXT' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'isText'],
+            'functionCall' => [Information\Value::class, 'isText'],
             'argumentCount' => '1',
         ],
         'ISTHAIDIGIT' => [
@@ -1759,7 +1759,7 @@ class Calculation
         ],
         'N' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'n'],
+            'functionCall' => [Information\Value::class, 'asNumber'],
             'argumentCount' => '1',
         ],
         'NA' => [
@@ -2559,7 +2559,7 @@ class Calculation
         ],
         'TYPE' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'TYPE'],
+            'functionCall' => [Information\Value::class, 'type'],
             'argumentCount' => '1',
         ],
         'UNICHAR' => [
