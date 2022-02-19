@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -23,7 +24,7 @@ class Indirect
             return Helpers::CELLADDRESS_USE_A1;
         }
         if (is_string($a1fmt)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (bool) $a1fmt;
@@ -38,7 +39,7 @@ class Indirect
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
         if (!is_string($cellAddress) || !$cellAddress) {
-            throw new Exception(Functions::REF());
+            throw new Exception(ExcelError::REF());
         }
 
         return $cellAddress;
@@ -77,7 +78,7 @@ class Indirect
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
             (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
         ) {
-            return Functions::REF();
+            return ExcelError::REF();
         }
 
         return self::extractRequiredCells($worksheet, $cellAddress);

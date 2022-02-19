@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ConvertDecimal extends ConvertBase
 {
@@ -61,7 +61,7 @@ class ConvertDecimal extends ConvertBase
 
         $value = (int) floor((float) $value);
         if ($value > self::LARGEST_BINARY_IN_DECIMAL || $value < self::SMALLEST_BINARY_IN_DECIMAL) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $r = decbin($value);
@@ -118,7 +118,7 @@ class ConvertDecimal extends ConvertBase
 
         $value = floor((float) $value);
         if ($value > self::LARGEST_HEX_IN_DECIMAL || $value < self::SMALLEST_HEX_IN_DECIMAL) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         $r = strtoupper(dechex((int) $value));
         $r = self::hex32bit($value, $r);
@@ -194,7 +194,7 @@ class ConvertDecimal extends ConvertBase
 
         $value = (int) floor((float) $value);
         if ($value > self::LARGEST_OCTAL_IN_DECIMAL || $value < self::SMALLEST_OCTAL_IN_DECIMAL) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         $r = decoct($value);
         $r = substr($r, -10);
@@ -205,7 +205,7 @@ class ConvertDecimal extends ConvertBase
     protected static function validateDecimal(string $value): string
     {
         if (strlen($value) > preg_match_all('/[-0123456789.]/', $value)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return $value;

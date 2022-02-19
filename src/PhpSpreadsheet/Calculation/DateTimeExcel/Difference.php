@@ -6,7 +6,7 @@ use DateInterval;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Difference
@@ -65,14 +65,14 @@ class Difference
         $retVal = self::replaceRetValue($retVal, $unit, 'YD') ?? self::datedifYD($difference, $startYears, $endYears, $PHPStartDateObject, $PHPEndDateObject);
         $retVal = self::replaceRetValue($retVal, $unit, 'YM') ?? self::datedifYM($PHPDiffDateObject);
 
-        return is_bool($retVal) ? Functions::VALUE() : $retVal;
+        return is_bool($retVal) ? ExcelError::VALUE() : $retVal;
     }
 
     private static function initialDiff(float $startDate, float $endDate): float
     {
         // Validate parameters
         if ($startDate > $endDate) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $endDate - $startDate;

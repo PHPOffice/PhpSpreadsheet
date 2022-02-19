@@ -6,6 +6,7 @@ use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Time
@@ -62,7 +63,7 @@ class Time
         if ($hour > 23) {
             $hour = $hour % 24;
         } elseif ($hour < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         // Execute function
@@ -121,7 +122,7 @@ class Time
             $value = (int) $value;
         }
         if (!is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (int) $value;

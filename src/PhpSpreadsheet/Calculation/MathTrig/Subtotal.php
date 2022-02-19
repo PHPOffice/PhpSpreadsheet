@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Subtotal
@@ -109,6 +110,6 @@ class Subtotal
             return call_user_func_array($call, $aArgs);
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 }

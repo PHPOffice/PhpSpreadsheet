@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
@@ -95,15 +95,15 @@ class Date
     {
         $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
         if (!is_numeric($year)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
         $year = (int) $year;
 
         if ($year < ($baseYear - 1900)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
         if ((($baseYear - 1900) !== 0) && ($year < $baseYear) && ($year >= 1900)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         if (($year < $baseYear) && ($year >= ($baseYear - 1900))) {
@@ -126,7 +126,7 @@ class Date
 
         $month = ($month !== null) ? StringHelper::testStringAsNumeric((string) $month) : 0;
         if (!is_numeric($month)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (int) $month;
@@ -145,7 +145,7 @@ class Date
 
         $day = ($day !== null) ? StringHelper::testStringAsNumeric((string) $day) : 0;
         if (!is_numeric($day)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (int) $day;
@@ -166,7 +166,7 @@ class Date
 
         // Re-validate the year parameter after adjustments
         if (($year < $baseYear) || ($year >= 10000)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
     }
 }

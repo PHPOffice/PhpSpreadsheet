@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - 
 ### Deprecated
 
-- Nothing
+- All Excel Function implementations in `Calculation\Functions` (including the Error functions) have been moved to dedicated classes for groups of related functions. See the docblocks against all the deprecated methods for details of the new methods to call instead. At some point, these old classes will be deleted.
 
 ### Removed
 

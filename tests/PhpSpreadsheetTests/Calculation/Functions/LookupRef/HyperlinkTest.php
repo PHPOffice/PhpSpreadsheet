@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class HyperlinkTest extends AllSetupTeardown
@@ -97,6 +97,6 @@ class HyperlinkTest extends AllSetupTeardown
     public function testHYPERLINKwithoutCell(): void
     {
         $result = LookupRef\Hyperlink::set('https://phpspreadsheet.readthedocs.io/en/latest/', 'Read the Docs');
-        self::assertSame(Functions::REF(), $result);
+        self::assertSame(ExcelError::REF(), $result);
     }
 }

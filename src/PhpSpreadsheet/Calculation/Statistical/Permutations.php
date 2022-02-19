@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Shared\IntOrFloat;
 
@@ -44,7 +44,7 @@ class Permutations
         }
 
         if ($numObjs < $numInSet) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         $result = round(MathTrig\Factorial::fact($numObjs) / MathTrig\Factorial::fact($numObjs - $numInSet));
 
@@ -80,7 +80,7 @@ class Permutations
         }
 
         if ($numObjs < 0 || $numInSet < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $result = $numObjs ** $numInSet;

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -75,31 +76,31 @@ class FunctionsTest extends TestCase
 
     public function testDIV0(): void
     {
-        $result = Functions::DIV0();
+        $result = ExcelError::DIV0();
         self::assertEquals('#DIV/0!', $result);
     }
 
     public function testNA(): void
     {
-        $result = Functions::NA();
+        $result = ExcelError::NA();
         self::assertEquals('#N/A', $result);
     }
 
     public function testNAN(): void
     {
-        $result = Functions::NAN();
+        $result = ExcelError::NAN();
         self::assertEquals('#NUM!', $result);
     }
 
     public function testNAME(): void
     {
-        $result = Functions::NAME();
+        $result = ExcelError::NAME();
         self::assertEquals('#NAME?', $result);
     }
 
     public function testREF(): void
     {
-        $result = Functions::REF();
+        $result = ExcelError::REF();
         self::assertEquals('#REF!', $result);
     }
 
@@ -111,7 +112,7 @@ class FunctionsTest extends TestCase
 
     public function testVALUE(): void
     {
-        $result = Functions::VALUE();
+        $result = ExcelError::VALUE();
         self::assertEquals('#VALUE!', $result);
     }
 
@@ -337,5 +338,18 @@ class FunctionsTest extends TestCase
     public function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
+    }
+
+    public function testDeprecatedIsFormula(): void
+    {
+        $result = Functions::isFormula('="STRING"');
+        self::assertEquals(ExcelError::REF(), $result);
+    }
+
+    public function testScalar(): void
+    {
+        $value = 'scalar';
+        $result = Functions::scalar([[$value]]);
+        self::assertSame($value, $result);
     }
 }

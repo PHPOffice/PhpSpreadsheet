@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Beta
 {
@@ -61,7 +62,7 @@ class Beta
             $rMax = $tmp;
         }
         if (($value < $rMin) || ($value > $rMax) || ($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $value -= $rMin;
@@ -115,7 +116,7 @@ class Beta
             $rMax = $tmp;
         }
         if (($alpha <= 0) || ($beta <= 0) || ($rMin == $rMax) || ($probability <= 0.0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::calculateInverse($probability, $alpha, $beta, $rMin, $rMax);
@@ -143,7 +144,7 @@ class Beta
         }
 
         if ($i === self::MAX_ITERATIONS) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
 
         return round($rMin + $guess * ($rMax - $rMin), 12);

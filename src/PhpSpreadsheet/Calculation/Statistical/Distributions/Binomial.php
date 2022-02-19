@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations;
 
 class Binomial
@@ -49,7 +50,7 @@ class Binomial
         }
 
         if (($value < 0) || ($value > $trials)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         if ($cumulative) {
@@ -98,10 +99,10 @@ class Binomial
         }
 
         if (($successes < 0) || ($successes > $trials)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if (($limit < 0) || ($limit > $trials) || $limit < $successes) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $summer = 0;
@@ -151,11 +152,11 @@ class Binomial
         }
 
         if (($failures < 0) || ($successes < 1)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             if (($failures + $successes - 1) <= 0) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
         }
 
@@ -195,9 +196,9 @@ class Binomial
         }
 
         if ($trials < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         } elseif (($alpha < 0.0) || ($alpha > 1.0)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $successes = 0;

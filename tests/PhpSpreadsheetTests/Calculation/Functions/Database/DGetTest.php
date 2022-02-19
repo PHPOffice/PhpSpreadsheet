@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PHPUnit\Framework\TestCase;
 
 class DGetTest extends TestCase
@@ -67,7 +68,7 @@ class DGetTest extends TestCase
     {
         return [
             [
-                Functions::NAN(),
+                ExcelError::NAN(),
                 $this->database1(),
                 'Yield',
                 [
@@ -96,7 +97,7 @@ class DGetTest extends TestCase
                 ],
             ],
             [
-                Functions::NAN(),
+                ExcelError::NAN(),
                 $this->database2(),
                 'Sales',
                 [

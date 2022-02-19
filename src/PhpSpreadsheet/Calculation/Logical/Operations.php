@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Operations
 {
@@ -35,7 +36,7 @@ class Operations
         $args = Functions::flattenArray($args);
 
         if (count($args) == 0) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         $args = array_filter($args, function ($value) {
@@ -76,7 +77,7 @@ class Operations
         $args = Functions::flattenArray($args);
 
         if (count($args) == 0) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         $args = array_filter($args, function ($value) {
@@ -118,7 +119,7 @@ class Operations
         $args = Functions::flattenArray($args);
 
         if (count($args) == 0) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         $args = array_filter($args, function ($value) {
@@ -169,7 +170,7 @@ class Operations
                 return true;
             }
 
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return !$logical;
@@ -195,7 +196,7 @@ class Operations
                 } elseif (($arg == 'FALSE') || ($arg == Calculation::getFALSE())) {
                     $arg = false;
                 } else {
-                    return Functions::VALUE();
+                    return ExcelError::VALUE();
                 }
                 $trueValueCount += ($arg != 0);
             }

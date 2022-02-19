@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations;
 
 class HyperGeometric
@@ -55,13 +55,13 @@ class HyperGeometric
         }
 
         if (($sampleSuccesses < 0) || ($sampleSuccesses > $sampleNumber) || ($sampleSuccesses > $populationSuccesses)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if (($sampleNumber <= 0) || ($sampleNumber > $populationNumber)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
         if (($populationSuccesses <= 0) || ($populationSuccesses > $populationNumber)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $successesPopulationAndSample = (float) Combinations::withoutRepetition($populationSuccesses, $sampleSuccesses);

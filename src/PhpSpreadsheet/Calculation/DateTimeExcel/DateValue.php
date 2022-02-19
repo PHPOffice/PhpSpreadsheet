@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class DateValue
@@ -59,7 +59,7 @@ class DateValue
         foreach ($t1 as &$t) {
             if ((is_numeric($t)) && ($t > 31)) {
                 if ($yearFound) {
-                    return Functions::VALUE();
+                    return ExcelError::VALUE();
                 }
                 if ($t < 100) {
                     $t += 1900;
@@ -69,7 +69,7 @@ class DateValue
         }
         if (count($t1) === 1) {
             //    We've been fed a time value without any date
-            return ((strpos((string) $t, ':') === false)) ? Functions::Value() : 0.0;
+            return ((strpos((string) $t, ':') === false)) ? ExcelError::Value() : 0.0;
         }
         unset($t);
 
@@ -131,12 +131,12 @@ class DateValue
      */
     private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear)
     {
-        $retValue = Functions::Value();
+        $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
             // Execute function
             Helpers::replaceIfEmpty($PHPDateArray['year'], $dti->format('Y'));
             if ($PHPDateArray['year'] < $baseYear) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
             Helpers::replaceIfEmpty($PHPDateArray['month'], $dti->format('m'));
             Helpers::replaceIfEmpty($PHPDateArray['day'], $dti->format('d'));
@@ -147,7 +147,7 @@ class DateValue
             $day = (int) $PHPDateArray['day'];
             $year = (int) $PHPDateArray['year'];
             if (!checkdate($month, $day, $year)) {
-                return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0) : Functions::VALUE();
+                return ($year === 1900 && $month === 2 && $day === 29) ? Helpers::returnIn3FormatsFloat(60.0) : ExcelError::VALUE();
             }
             $retValue = Helpers::returnIn3FormatsArray($PHPDateArray, true);
         }

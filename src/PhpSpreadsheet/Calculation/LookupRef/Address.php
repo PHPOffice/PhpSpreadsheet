@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class Address
@@ -46,7 +47,7 @@ class Address
         $sheetName = Functions::flattenSingleValue($sheetName);
 
         if (($row < 1) || ($column < 1)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         $sheetName = self::sheetName($sheetName);
