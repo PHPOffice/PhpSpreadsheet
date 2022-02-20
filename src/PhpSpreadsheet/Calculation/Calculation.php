@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -1463,12 +1464,12 @@ class Calculation
         ],
         'ISERR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isErr'],
+            'functionCall' => [Information\ErrorValue::class, 'isErr'],
             'argumentCount' => '1',
         ],
         'ISERROR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isError'],
+            'functionCall' => [Information\ErrorValue::class, 'isError'],
             'argumentCount' => '1',
         ],
         'ISEVEN' => [
@@ -1490,7 +1491,7 @@ class Calculation
         ],
         'ISNA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isNa'],
+            'functionCall' => [Information\ErrorValue::class, 'isNa'],
             'argumentCount' => '1',
         ],
         'ISNONTEXT' => [
@@ -1765,7 +1766,7 @@ class Calculation
         ],
         'NA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'NA'],
+            'functionCall' => [Information\ExcelError::class, 'NA'],
             'argumentCount' => '0',
         ],
         'NEGBINOMDIST' => [
@@ -3894,8 +3895,8 @@ class Calculation
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
                                 '|' . self::CALCULATION_REGEXP_CELLREF .
-            '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
-            '|' . self::CALCULATION_REGEXP_ROW_RANGE .
+                                '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
+                                '|' . self::CALCULATION_REGEXP_ROW_RANGE .
                                 '|' . self::CALCULATION_REGEXP_NUMBER .
                                 '|' . self::CALCULATION_REGEXP_STRING .
                                 '|' . self::CALCULATION_REGEXP_OPENBRACE .
@@ -4009,10 +4010,11 @@ class Calculation
                     --$parenthesisDepthMap[$pendingStoreKey];
                 }
 
-                if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
+                if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {
+                    //    Did this parenthesis just close a function?
                     if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
-                        if ($d['value'] != 'IF(') {
+                        if ($d['value'] !== 'IF(') {
                             return $this->raiseFormulaError('Parser bug we should be in an "IF("');
                         }
                         if ($expectingConditionMap[$pendingStoreKey]) {
@@ -4427,11 +4429,7 @@ class Calculation
 
                 if (
                     isset($storeValue)
-                    && (
-                        !$storeValueAsBool
-                        || Value::isError($storeValue)
-                        || ($storeValue === 'Pruned branch')
-                    )
+                    && (!$storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
@@ -4462,11 +4460,7 @@ class Calculation
                 }
                 if (
                     isset($storeValue)
-                    && (
-                        $storeValueAsBool
-                        || Value::isError($storeValue)
-                        || ($storeValue === 'Pruned branch')
-                    )
+                    && ($storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {

@@ -3,9 +3,6 @@
 return [
     [
         false,
-    ],
-    [
-        false,
         null,
     ],
     [
@@ -45,7 +42,7 @@ return [
         'ABC',
     ],
     [
-        true,
+        false,
         '#VALUE!',
     ],
     [

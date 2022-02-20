@@ -3,9 +3,6 @@
 return [
     [
         false,
-    ],
-    [
-        false,
         null,
     ],
     [

@@ -346,7 +346,7 @@ class Functions
      * @see Information\Value::isBlank()
      * Use the isBlank() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isBlank($value = null)
     {
@@ -363,11 +363,11 @@ class Functions
      * @see Information\Value::isErr()
      * Use the isErr() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isErr($value = '')
     {
-        return Information\Value::isErr($value);
+        return Information\ErrorValue::isErr($value);
     }
 
     /**
@@ -380,11 +380,11 @@ class Functions
      * @see Information\Value::isError()
      * Use the isError() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isError($value = '')
     {
-        return Information\Value::isError($value);
+        return Information\ErrorValue::isError($value);
     }
 
     /**
@@ -397,11 +397,11 @@ class Functions
      * @see Information\Value::isNa()
      * Use the isNa() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNa($value = '')
     {
-        return Information\Value::isNa($value);
+        return Information\ErrorValue::isNa($value);
     }
 
     /**
@@ -414,7 +414,7 @@ class Functions
      * @see Information\Value::isEven()
      * Use the isEven() method in the Information\Value class instead
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isEven($value = null)
     {
@@ -431,7 +431,7 @@ class Functions
      * @see Information\Value::isOdd()
      * Use the isOdd() method in the Information\Value class instead
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isOdd($value = null)
     {
@@ -448,7 +448,7 @@ class Functions
      * @see Information\Value::isNumber()
      * Use the isNumber() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNumber($value = null)
     {
@@ -465,7 +465,7 @@ class Functions
      * @see Information\Value::isLogical()
      * Use the isLogical() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isLogical($value = null)
     {
@@ -482,7 +482,7 @@ class Functions
      * @see Information\Value::isText()
      * Use the isText() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isText($value = null)
     {
@@ -499,7 +499,7 @@ class Functions
      * @see Information\Value::isNonText()
      * Use the isNonText() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNonText($value = null)
     {

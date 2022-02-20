@@ -2,10 +2,7 @@
 
 return [
     [
-        true,
-    ],
-    [
-        true,
+        false,
         null,
     ],
     [
@@ -45,11 +42,11 @@ return [
         'ABC',
     ],
     [
-        true,
+        false,
         '#VALUE!',
     ],
     [
-        true,
+        false,
         '#N/A',
     ],
     [
@@ -57,11 +54,11 @@ return [
         'TRUE',
     ],
     [
-        true,
+        false,
         true,
     ],
     [
-        true,
+        false,
         false,
     ],
 ];
