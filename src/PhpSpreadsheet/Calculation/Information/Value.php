@@ -142,7 +142,7 @@ class Value
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
         }
 
-        return is_string($value) && !self::isError($value);
+        return is_string($value) && !ErrorValue::isError($value);
     }
 
     /**
@@ -193,67 +193,6 @@ class Value
     }
 
     /**
-     * IS_ERR.
-     *
-     * @param mixed $value Value to check
-     *                      Or can be an array of values
-     *
-     * @return array|bool
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
-     */
-    public static function isErr($value = '')
-    {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
-
-        return self::isError($value) && (!self::isNa(($value)));
-    }
-
-    /**
-     * IS_ERROR.
-     *
-     * @param mixed $value Value to check
-     *                      Or can be an array of values
-     *
-     * @return array|bool
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
-     */
-    public static function isError($value = '')
-    {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
-
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return in_array($value, ExcelError::$errorCodes);
-    }
-
-    /**
-     * IS_NA.
-     *
-     * @param mixed $value Value to check
-     *                      Or can be an array of values
-     *
-     * @return array|bool
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
-     *            with the same dimensions
-     */
-    public static function isNa($value = '')
-    {
-        if (is_array($value)) {
-            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
-        }
-
-        return $value === ExcelError::NA();
-    }
-
-    /**
      * N.
      *
      * Returns a value converted to a number
@@ -262,12 +201,12 @@ class Value
      *
      * @return number N converts values listed in the following table
      *        If value is or refers to N returns
-     *        A number            That number
-     *        A date                The serial number of that date
+     *        A number            That number value
+     *        A date              The Excel serialized number of that date
      *        TRUE                1
-     *        FALSE                0
-     *        An error value        The error value
-     *        Anything else        0
+     *        FALSE               0
+     *        An error value      The error value
+     *        Anything else       0
      */
     public static function asNumber($value = null)
     {
@@ -305,9 +244,9 @@ class Value
      *        If value is or refers to N returns
      *        A number            1
      *        Text                2
-     *        Logical Value        4
-     *        An error value        16
-     *        Array or Matrix        64
+     *        Logical Value       4
+     *        An error value      16
+     *        Array or Matrix     64
      */
     public static function type($value = null)
     {
@@ -326,8 +265,8 @@ class Value
             //    Empty Cell
             return 1;
         }
-        $value = Functions::flattenSingleValue($value);
 
+        $value = Functions::flattenSingleValue($value);
         if (($value === null) || (is_float($value)) || (is_int($value))) {
             return 1;
         } elseif (is_bool($value)) {

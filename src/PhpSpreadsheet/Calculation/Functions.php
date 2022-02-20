@@ -367,7 +367,7 @@ class Functions
      */
     public static function isErr($value = '')
     {
-        return Information\Value::isErr($value);
+        return Information\ErrorValue::isErr($value);
     }
 
     /**
@@ -384,7 +384,7 @@ class Functions
      */
     public static function isError($value = '')
     {
-        return Information\Value::isError($value);
+        return Information\ErrorValue::isError($value);
     }
 
     /**
@@ -401,7 +401,7 @@ class Functions
      */
     public static function isNa($value = '')
     {
-        return Information\Value::isNa($value);
+        return Information\ErrorValue::isNa($value);
     }
 
     /**
