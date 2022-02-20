@@ -2,21 +2,31 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Information;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 
 class Value
 {
+    use ArrayEnabled;
+
     /**
      * IS_BLANK.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isBlank($value = null)
     {
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         if ($value !== null) {
             $value = Functions::flattenSingleValue($value);
         }
@@ -28,12 +38,17 @@ class Value
      * IS_EVEN.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool|string
+     * @return array|bool|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isEven($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if ($value === null) {
             return ExcelError::NAME();
@@ -48,12 +63,17 @@ class Value
      * IS_ODD.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool|string
+     * @return array|bool|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isOdd($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if ($value === null) {
             return ExcelError::NAME();
@@ -68,12 +88,17 @@ class Value
      * IS_NUMBER.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isNumber($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if (is_string($value)) {
             return false;
@@ -86,12 +111,17 @@ class Value
      * IS_LOGICAL.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isLogical($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         return is_bool($value);
     }
@@ -100,12 +130,17 @@ class Value
      * IS_TEXT.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isText($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         return is_string($value) && !self::isError($value);
     }
@@ -114,11 +149,18 @@ class Value
      * IS_NONTEXT.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isNonText($value = null)
     {
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         return !self::isText($value);
     }
 
@@ -154,12 +196,17 @@ class Value
      * IS_ERR.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isErr($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         return self::isError($value) && (!self::isNa(($value)));
     }
@@ -168,12 +215,17 @@ class Value
      * IS_ERROR.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isError($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if (!is_string($value)) {
             return false;
@@ -186,12 +238,17 @@ class Value
      * IS_NA.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isNa($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         return $value === ExcelError::NA();
     }
