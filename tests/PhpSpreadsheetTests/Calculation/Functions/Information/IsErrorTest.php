@@ -46,8 +46,8 @@ class IsErrorTest extends TestCase
     {
         return [
             'vector' => [
-                [[true, true, true, false, false, false]],
-                '{5/0, "#REF!", "#N/A", 1.2, TRUE, "PHP"}',
+                [[true, true, true, false, false, false, false]],
+                '{5/0, "#REF!", "#N/A", 1.2, TRUE, "PHP", null}',
             ],
         ];
     }

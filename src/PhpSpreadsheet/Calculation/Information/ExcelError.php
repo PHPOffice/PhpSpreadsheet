@@ -2,10 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Information;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 
 class ExcelError
 {
+    use ArrayEnabled;
+
     /**
      * List of error codes.
      *
@@ -27,11 +29,13 @@ class ExcelError
      *
      * @param mixed $value Value to check
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function type($value = '')
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         $i = 1;
         foreach (self::$errorCodes as $errorCode) {

@@ -74,64 +74,6 @@ class FunctionsTest extends TestCase
         self::assertEquals('#Not Yet Implemented', $result);
     }
 
-    public function testDIV0(): void
-    {
-        $result = ExcelError::DIV0();
-        self::assertEquals('#DIV/0!', $result);
-    }
-
-    public function testNA(): void
-    {
-        $result = ExcelError::NA();
-        self::assertEquals('#N/A', $result);
-    }
-
-    public function testNAN(): void
-    {
-        $result = ExcelError::NAN();
-        self::assertEquals('#NUM!', $result);
-    }
-
-    public function testNAME(): void
-    {
-        $result = ExcelError::NAME();
-        self::assertEquals('#NAME?', $result);
-    }
-
-    public function testREF(): void
-    {
-        $result = ExcelError::REF();
-        self::assertEquals('#REF!', $result);
-    }
-
-    public function testNULL(): void
-    {
-        $result = Functions::null();
-        self::assertEquals('#NULL!', $result);
-    }
-
-    public function testVALUE(): void
-    {
-        $result = ExcelError::VALUE();
-        self::assertEquals('#VALUE!', $result);
-    }
-
-    /**
-     * @dataProvider providerErrorType
-     *
-     * @param mixed $expectedResult
-     */
-    public function testErrorType($expectedResult, ...$args): void
-    {
-        $result = Functions::errorType(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
-    }
-
-    public function providerErrorType(): array
-    {
-        return require 'tests/data/Calculation/Functions/ERROR_TYPE.php';
-    }
-
     /**
      * @dataProvider providerIfCondition
      *
