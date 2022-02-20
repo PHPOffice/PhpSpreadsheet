@@ -131,23 +131,6 @@ class Functions
         return '#Not Yet Implemented';
     }
 
-    /**
-     * NULL.
-     *
-     * Returns the error value #NULL!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #NULL!
-     *
-     *@see Information\ExcelError::null()
-     * Use the null() method in the Information\Error class instead
-     */
-    public static function null()
-    {
-        return Information\ExcelError::null();
-    }
-
     public static function isMatrixValue($idx)
     {
         return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
@@ -213,6 +196,23 @@ class Functions
         }
 
         return $operand;
+    }
+
+    /**
+     * NULL.
+     *
+     * Returns the error value #NULL!
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #NULL!
+     *
+     *@see Information\ExcelError::null()
+     * Use the null() method in the Information\Error class instead
+     */
+    public static function null()
+    {
+        return Information\ExcelError::null();
     }
 
     /**
@@ -326,7 +326,7 @@ class Functions
      *
      * @Deprecated 1.23.0
      *
-     * @return int|string
+     * @return array|int|string
      *
      * @see Information\ExcelError::type()
      * Use the type() method in the Information\Error class instead
@@ -668,7 +668,7 @@ class Functions
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
@@ -697,5 +697,14 @@ class Functions
     public static function trimTrailingRange(string $coordinate): string
     {
         return Worksheet::pregReplace('/:[\\w\$]+$/', '', $coordinate);
+    }
+
+    public static function trimSheetFromCellReference(string $coordinate): string
+    {
+        while (strpos($coordinate, '!') !== false) {
+            $coordinate = substr($coordinate, strpos($coordinate, '!') + 1);
+        }
+
+        return $coordinate;
     }
 }

@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class Value
 {
@@ -170,26 +171,36 @@ class Value
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();
         }
-        $cellReference = Functions::expandDefinedName((string) $cellReference, $cell);
-        $cellReference = Functions::trimTrailingRange($cellReference);
 
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+        $fullCellReference = Functions::expandDefinedName((string) $cellReference, $cell);
 
-        $cellReference = $matches[6] . $matches[7];
+        if (strpos($cellReference, '!') !== false) {
+            $cellReference = Functions::trimSheetFromCellReference($cellReference);
+            $cellReferences = Coordinate::extractAllCellReferencesInRange($cellReference);
+            if (count($cellReferences) > 1) {
+                return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $cellReferences, $cell);
+            }
+        }
+
+        $fullCellReference = Functions::trimTrailingRange($fullCellReference);
+
+        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $fullCellReference, $matches);
+
+        $fullCellReference = $matches[6] . $matches[7];
         $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
 
         $worksheet = (!empty($worksheetName))
             ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
-        return ($worksheet !== null) ? $worksheet->getCell($cellReference)->isFormula() : ExcelError::REF();
+        return ($worksheet !== null) ? $worksheet->getCell($fullCellReference)->isFormula() : ExcelError::REF();
     }
 
     /**
