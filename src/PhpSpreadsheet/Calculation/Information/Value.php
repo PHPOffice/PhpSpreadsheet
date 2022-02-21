@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Value
 {
@@ -28,11 +30,39 @@ class Value
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
         }
 
-        if ($value !== null) {
-            $value = Functions::flattenSingleValue($value);
+        return $value === null;
+    }
+
+    /**
+     * IS_REF.
+     *
+     * @param mixed $value Value to check
+     *
+     * @return bool
+     */
+    public static function isRef($value, ?Cell $cell = null)
+    {
+        if ($cell === null || $value === $cell->getCoordinate()) {
+            return false;
         }
 
-        return $value === null;
+        $cellValue = Functions::trimTrailingRange($value);
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/ui', $cellValue) === 1) {
+            [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true);
+            if (!empty($worksheet) && $cell->getWorksheet()->getParent()->getSheetByName($worksheet) === null) {
+                return false;
+            }
+            [$column, $row] = Coordinate::indexesFromString($cellValue);
+            if ($column > 16384 || $row > 1048576) {
+                return false;
+            }
+
+            return true;
+        }
+
+        $namedRange = $cell->getWorksheet()->getParent()->getNamedRange($value);
+
+        return $namedRange instanceof NamedRange;
     }
 
     /**
