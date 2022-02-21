@@ -766,22 +766,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:checkMatch\\(\\) has parameter \\$notExactMatch with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$index_number with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$lookup_array with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
 
@@ -844,31 +829,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$column with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$notExactMatch with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vlookupSort\\(\\) has no return type specified\\.$#"

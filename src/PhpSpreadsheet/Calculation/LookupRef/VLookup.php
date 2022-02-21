@@ -2,13 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class VLookup extends LookupBase
 {
+    use ArrayEnabled;
+
     /**
      * VLOOKUP
      * The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value
@@ -24,9 +26,11 @@ class VLookup extends LookupBase
      */
     public static function lookup($lookupValue, $lookupArray, $indexNumber, $notExactMatch = true)
     {
-        $lookupValue = Functions::flattenSingleValue($lookupValue);
-        $indexNumber = Functions::flattenSingleValue($indexNumber);
-        $notExactMatch = ($notExactMatch === null) ? true : Functions::flattenSingleValue($notExactMatch);
+        if (is_array($lookupValue)) {
+            return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $indexNumber, $notExactMatch);
+        }
+
+        $notExactMatch = (bool) ($notExactMatch ?? true);
 
         try {
             $indexNumber = self::validateIndexLookup($lookupArray, $indexNumber);
@@ -41,7 +45,7 @@ class VLookup extends LookupBase
         }
         $columnKeys = array_keys($lookupArray[$firstRow]);
         $returnColumn = $columnKeys[--$indexNumber];
-        $firstColumn = array_shift($columnKeys);
+        $firstColumn = array_shift($columnKeys) ?? 1;
 
         if (!$notExactMatch) {
             uasort($lookupArray, ['self', 'vlookupSort']);
@@ -71,7 +75,11 @@ class VLookup extends LookupBase
         return ($aLower < $bLower) ? -1 : 1;
     }
 
-    private static function vLookupSearch($lookupValue, $lookupArray, $column, $notExactMatch)
+    /**
+     * @param mixed $lookupValue The value that you want to match in lookup_array
+     * @param  int|string $column
+     */
+    private static function vLookupSearch($lookupValue, array $lookupArray, $column, bool $notExactMatch): ?int
     {
         $lookupLower = StringHelper::strToLower($lookupValue);
 
