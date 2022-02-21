@@ -35,7 +35,7 @@ class ExcelMatch
     public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
     {
         if (is_array($lookupValue)) {
-            return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);
+            return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);
         }
 
         $lookupArray = Functions::flattenArray($lookupArray);
