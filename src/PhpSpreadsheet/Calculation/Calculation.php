@@ -1526,8 +1526,10 @@ class Calculation
         ],
         'ISREF' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Information\Value::class, 'isRef'],
             'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
         ],
         'ISTEXT' => [
             'category' => Category::CATEGORY_INFORMATION,
