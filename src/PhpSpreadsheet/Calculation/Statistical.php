@@ -1811,7 +1811,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float|string (string if result is an error)
+     * @return array|float|string (string if result is an error)
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {

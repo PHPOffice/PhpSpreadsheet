@@ -131,23 +131,6 @@ class Functions
         return '#Not Yet Implemented';
     }
 
-    /**
-     * NULL.
-     *
-     * Returns the error value #NULL!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #NULL!
-     *
-     *@see Information\ExcelError::null()
-     * Use the null() method in the Information\Error class instead
-     */
-    public static function null()
-    {
-        return Information\ExcelError::null();
-    }
-
     public static function isMatrixValue($idx)
     {
         return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
@@ -213,6 +196,23 @@ class Functions
         }
 
         return $operand;
+    }
+
+    /**
+     * NULL.
+     *
+     * Returns the error value #NULL!
+     *
+     * @Deprecated 1.23.0
+     *
+     * @return string #NULL!
+     *
+     *@see Information\ExcelError::null()
+     * Use the null() method in the Information\Error class instead
+     */
+    public static function null()
+    {
+        return Information\ExcelError::null();
     }
 
     /**
@@ -326,7 +326,7 @@ class Functions
      *
      * @Deprecated 1.23.0
      *
-     * @return int|string
+     * @return array|int|string
      *
      * @see Information\ExcelError::type()
      * Use the type() method in the Information\Error class instead
@@ -346,7 +346,7 @@ class Functions
      * @see Information\Value::isBlank()
      * Use the isBlank() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isBlank($value = null)
     {
@@ -363,11 +363,11 @@ class Functions
      * @see Information\Value::isErr()
      * Use the isErr() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isErr($value = '')
     {
-        return Information\Value::isErr($value);
+        return Information\ErrorValue::isErr($value);
     }
 
     /**
@@ -380,11 +380,11 @@ class Functions
      * @see Information\Value::isError()
      * Use the isError() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isError($value = '')
     {
-        return Information\Value::isError($value);
+        return Information\ErrorValue::isError($value);
     }
 
     /**
@@ -397,11 +397,11 @@ class Functions
      * @see Information\Value::isNa()
      * Use the isNa() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNa($value = '')
     {
-        return Information\Value::isNa($value);
+        return Information\ErrorValue::isNa($value);
     }
 
     /**
@@ -414,7 +414,7 @@ class Functions
      * @see Information\Value::isEven()
      * Use the isEven() method in the Information\Value class instead
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isEven($value = null)
     {
@@ -431,7 +431,7 @@ class Functions
      * @see Information\Value::isOdd()
      * Use the isOdd() method in the Information\Value class instead
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isOdd($value = null)
     {
@@ -448,7 +448,7 @@ class Functions
      * @see Information\Value::isNumber()
      * Use the isNumber() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNumber($value = null)
     {
@@ -465,7 +465,7 @@ class Functions
      * @see Information\Value::isLogical()
      * Use the isLogical() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isLogical($value = null)
     {
@@ -482,7 +482,7 @@ class Functions
      * @see Information\Value::isText()
      * Use the isText() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isText($value = null)
     {
@@ -499,7 +499,7 @@ class Functions
      * @see Information\Value::isNonText()
      * Use the isNonText() method in the Information\Value class instead
      *
-     * @return bool
+     * @return array|bool
      */
     public static function isNonText($value = null)
     {
@@ -518,7 +518,7 @@ class Functions
      *
      * @param null|mixed $value The value you want converted
      *
-     * @return number N converts values listed in the following table
+     * @return number|string N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            That number
      *        A date                The serial number of that date
@@ -713,7 +713,7 @@ class Functions
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
@@ -742,5 +742,14 @@ class Functions
     public static function trimTrailingRange(string $coordinate): string
     {
         return Worksheet::pregReplace('/:[\\w\$]+$/', '', $coordinate);
+    }
+
+    public static function trimSheetFromCellReference(string $coordinate): string
+    {
+        while (strpos($coordinate, '!') !== false) {
+            $coordinate = substr($coordinate, strpos($coordinate, '!') + 1);
+        }
+
+        return $coordinate;
     }
 }

@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -30,17 +31,17 @@ class Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
-    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?[a-z]{1,3})):(?![.*])';
-    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
     const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
     const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
     //    Defined Names: Named Range of cells, or Named Formulae
-    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -1463,12 +1464,12 @@ class Calculation
         ],
         'ISERR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isErr'],
+            'functionCall' => [Information\ErrorValue::class, 'isErr'],
             'argumentCount' => '1',
         ],
         'ISERROR' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isError'],
+            'functionCall' => [Information\ErrorValue::class, 'isError'],
             'argumentCount' => '1',
         ],
         'ISEVEN' => [
@@ -1490,7 +1491,7 @@ class Calculation
         ],
         'ISNA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Information\Value::class, 'isNa'],
+            'functionCall' => [Information\ErrorValue::class, 'isNa'],
             'argumentCount' => '1',
         ],
         'ISNONTEXT' => [
@@ -1525,8 +1526,10 @@ class Calculation
         ],
         'ISREF' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Information\Value::class, 'isRef'],
             'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
         ],
         'ISTEXT' => [
             'category' => Category::CATEGORY_INFORMATION,
@@ -1765,7 +1768,7 @@ class Calculation
         ],
         'NA' => [
             'category' => Category::CATEGORY_INFORMATION,
-            'functionCall' => [Functions::class, 'NA'],
+            'functionCall' => [Information\ExcelError::class, 'NA'],
             'argumentCount' => '0',
         ],
         'NEGBINOMDIST' => [
@@ -3907,12 +3910,12 @@ class Calculation
         //        so we store the parent worksheet so that we can re-attach it when necessary
         $pCellParent = ($cell !== null) ? $cell->getWorksheet() : null;
 
-        $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
+        $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_STRING .
+                                '|' . self::CALCULATION_REGEXP_FUNCTION .
                                 '|' . self::CALCULATION_REGEXP_CELLREF .
-            '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
-            '|' . self::CALCULATION_REGEXP_ROW_RANGE .
+                                '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
+                                '|' . self::CALCULATION_REGEXP_ROW_RANGE .
                                 '|' . self::CALCULATION_REGEXP_NUMBER .
-                                '|' . self::CALCULATION_REGEXP_STRING .
                                 '|' . self::CALCULATION_REGEXP_OPENBRACE .
                                 '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
                                 '|' . self::CALCULATION_REGEXP_ERROR .
@@ -4024,10 +4027,11 @@ class Calculation
                     --$parenthesisDepthMap[$pendingStoreKey];
                 }
 
-                if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
+                if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {
+                    //    Did this parenthesis just close a function?
                     if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
                         // we are closing an IF(
-                        if ($d['value'] != 'IF(') {
+                        if ($d['value'] !== 'IF(') {
                             return $this->raiseFormulaError('Parser bug we should be in an "IF("');
                         }
                         if ($expectingConditionMap[$pendingStoreKey]) {
@@ -4210,7 +4214,8 @@ class Calculation
                         $worksheet = $pCellParent->getTitle();
                         $val = "'{$worksheet}'!{$val}";
                     }
-
+                    // unescape any apostrophes or double quotes in worksheet name
+                    $val = str_replace(["''", '""'], ["'", '"'], $val);
                     $outputItem = $stack->getStackItem('Cell Reference', $val, $val, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
 
                     $output[] = $outputItem;
@@ -4442,11 +4447,7 @@ class Calculation
 
                 if (
                     isset($storeValue)
-                    && (
-                        !$storeValueAsBool
-                        || Value::isError($storeValue)
-                        || ($storeValue === 'Pruned branch')
-                    )
+                    && (!$storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
@@ -4477,11 +4478,7 @@ class Calculation
                 }
                 if (
                     isset($storeValue)
-                    && (
-                        $storeValueAsBool
-                        || Value::isError($storeValue)
-                        || ($storeValue === 'Pruned branch')
-                    )
+                    && ($storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {

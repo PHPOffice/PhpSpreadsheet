@@ -2,38 +2,84 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Information;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Value
 {
+    use ArrayEnabled;
+
     /**
      * IS_BLANK.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isBlank($value = null)
     {
-        if ($value !== null) {
-            $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
         }
 
         return $value === null;
     }
 
     /**
-     * IS_EVEN.
+     * IS_REF.
      *
      * @param mixed $value Value to check
      *
-     * @return bool|string
+     * @return bool
+     */
+    public static function isRef($value, ?Cell $cell = null)
+    {
+        if ($cell === null || $value === $cell->getCoordinate()) {
+            return false;
+        }
+
+        $cellValue = Functions::trimTrailingRange($value);
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/ui', $cellValue) === 1) {
+            [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true);
+            if (!empty($worksheet) && $cell->getWorksheet()->getParent()->getSheetByName($worksheet) === null) {
+                return false;
+            }
+            [$column, $row] = Coordinate::indexesFromString($cellValue);
+            if ($column > 16384 || $row > 1048576) {
+                return false;
+            }
+
+            return true;
+        }
+
+        $namedRange = $cell->getWorksheet()->getParent()->getNamedRange($value);
+
+        return $namedRange instanceof NamedRange;
+    }
+
+    /**
+     * IS_EVEN.
+     *
+     * @param mixed $value Value to check
+     *                      Or can be an array of values
+     *
+     * @return array|bool|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isEven($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if ($value === null) {
             return ExcelError::NAME();
@@ -48,12 +94,17 @@ class Value
      * IS_ODD.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool|string
+     * @return array|bool|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isOdd($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if ($value === null) {
             return ExcelError::NAME();
@@ -68,12 +119,17 @@ class Value
      * IS_NUMBER.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isNumber($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if (is_string($value)) {
             return false;
@@ -86,12 +142,17 @@ class Value
      * IS_LOGICAL.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isLogical($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         return is_bool($value);
     }
@@ -100,25 +161,37 @@ class Value
      * IS_TEXT.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isText($value = null)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
-        return is_string($value) && !self::isError($value);
+        return is_string($value) && !ErrorValue::isError($value);
     }
 
     /**
      * IS_NONTEXT.
      *
      * @param mixed $value Value to check
+     *                      Or can be an array of values
      *
-     * @return bool
+     * @return array|bool
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isNonText($value = null)
     {
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         return !self::isText($value);
     }
 
@@ -128,72 +201,36 @@ class Value
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
-     * @return bool|string
+     * @return array|bool|string
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();
         }
-        $cellReference = Functions::expandDefinedName((string) $cellReference, $cell);
-        $cellReference = Functions::trimTrailingRange($cellReference);
 
-        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellReference, $matches);
+        $fullCellReference = Functions::expandDefinedName((string) $cellReference, $cell);
 
-        $cellReference = $matches[6] . $matches[7];
+        if (strpos($cellReference, '!') !== false) {
+            $cellReference = Functions::trimSheetFromCellReference($cellReference);
+            $cellReferences = Coordinate::extractAllCellReferencesInRange($cellReference);
+            if (count($cellReferences) > 1) {
+                return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $cellReferences, $cell);
+            }
+        }
+
+        $fullCellReference = Functions::trimTrailingRange($fullCellReference);
+
+        preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $fullCellReference, $matches);
+
+        $fullCellReference = $matches[6] . $matches[7];
         $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
 
         $worksheet = (!empty($worksheetName))
             ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
-        return ($worksheet !== null) ? $worksheet->getCell($cellReference)->isFormula() : ExcelError::REF();
-    }
-
-    /**
-     * IS_ERR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @return bool
-     */
-    public static function isErr($value = '')
-    {
-        $value = Functions::flattenSingleValue($value);
-
-        return self::isError($value) && (!self::isNa(($value)));
-    }
-
-    /**
-     * IS_ERROR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @return bool
-     */
-    public static function isError($value = '')
-    {
-        $value = Functions::flattenSingleValue($value);
-
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return in_array($value, ExcelError::$errorCodes);
-    }
-
-    /**
-     * IS_NA.
-     *
-     * @param mixed $value Value to check
-     *
-     * @return bool
-     */
-    public static function isNa($value = '')
-    {
-        $value = Functions::flattenSingleValue($value);
-
-        return $value === ExcelError::NA();
+        return ($worksheet !== null) ? $worksheet->getCell($fullCellReference)->isFormula() : ExcelError::REF();
     }
 
     /**
@@ -205,12 +242,12 @@ class Value
      *
      * @return number N converts values listed in the following table
      *        If value is or refers to N returns
-     *        A number            That number
-     *        A date                The serial number of that date
+     *        A number            That number value
+     *        A date              The Excel serialized number of that date
      *        TRUE                1
-     *        FALSE                0
-     *        An error value        The error value
-     *        Anything else        0
+     *        FALSE               0
+     *        An error value      The error value
+     *        Anything else       0
      */
     public static function asNumber($value = null)
     {
@@ -248,9 +285,9 @@ class Value
      *        If value is or refers to N returns
      *        A number            1
      *        Text                2
-     *        Logical Value        4
-     *        An error value        16
-     *        Array or Matrix        64
+     *        Logical Value       4
+     *        An error value      16
+     *        Array or Matrix     64
      */
     public static function type($value = null)
     {
@@ -269,8 +306,8 @@ class Value
             //    Empty Cell
             return 1;
         }
-        $value = Functions::flattenSingleValue($value);
 
+        $value = Functions::flattenSingleValue($value);
         if (($value === null) || (is_float($value)) || (is_int($value))) {
             return 1;
         } elseif (is_bool($value)) {

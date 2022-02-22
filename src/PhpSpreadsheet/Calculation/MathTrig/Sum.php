@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
@@ -29,7 +30,7 @@ class Sum
             // Is it a numeric value?
             if (is_numeric($arg)) {
                 $returnValue += $arg;
-            } elseif (Value::isError($arg)) {
+            } elseif (ErrorValue::isError($arg)) {
                 return $arg;
             }
         }
@@ -63,7 +64,7 @@ class Sum
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
                 $returnValue += (int) $arg;
-            } elseif (Value::isError($arg)) {
+            } elseif (ErrorValue::isError($arg)) {
                 return $arg;
             // ignore non-numerics from cell, but fail as literals (except null)
             } elseif ($arg !== null && !Functions::isCellValue($k)) {

@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 abstract class LookupBase
 {
-    protected static function validateIndexLookup($lookup_array, $index_number)
+    protected static function validateIndexLookup(array $lookup_array, $index_number): int
     {
         // index_number must be a number greater than or equal to 1
         if (!is_numeric($index_number) || $index_number < 1) {
@@ -25,7 +25,7 @@ abstract class LookupBase
     protected static function checkMatch(
         bool $bothNumeric,
         bool $bothNotNumeric,
-        $notExactMatch,
+        bool $notExactMatch,
         int $rowKey,
         string $cellDataLower,
         string $lookupLower,

@@ -331,7 +331,7 @@ class Cell
      */
     public function getCalculatedValue($resetLog = true, bool $asArray = false)
     {
-        if ($this->dataType == DataType::TYPE_FORMULA) {
+        if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
                 $coordinate = $this->getCoordinate();
                 $worksheet = $this->getWorksheet();
@@ -446,7 +446,7 @@ class Cell
      */
     public function isFormula(): bool
     {
-        return $this->dataType == DataType::TYPE_FORMULA;
+        return $this->dataType === DataType::TYPE_FORMULA && $this->getStyle()->getQuotePrefix() === false;
     }
 
     /**
@@ -476,10 +476,8 @@ class Cell
 
     /**
      *    Does this cell contain Data validation rules?
-     *
-     * @return bool
      */
-    public function hasDataValidation()
+    public function hasDataValidation(): bool
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot check for data validation when cell is not bound to a worksheet');
