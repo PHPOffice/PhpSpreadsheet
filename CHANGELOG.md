@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fixed behaviour of XLSX font style vertical align settings
+
 ## 1.22.0 - 2022-02-18
 
 ### Added
