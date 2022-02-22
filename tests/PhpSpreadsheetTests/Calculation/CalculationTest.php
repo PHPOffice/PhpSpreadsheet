@@ -195,6 +195,42 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
     }
 
+    public function testFormulaReferencingWorksheetWithEscapedApostrophe(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $workSheet->setTitle("Catégorie d'absence");
+
+        $workSheet->setCellValue('A1', 'HELLO');
+        $workSheet->setCellValue('B1', ' ');
+        $workSheet->setCellValue('C1', 'WORLD');
+        $workSheet->setCellValue(
+            'A2',
+            "=CONCAT('Catégorie d''absence'!A1, 'Catégorie d''absence'!B1, 'Catégorie d''absence'!C1)"
+        );
+
+        $cellValue = $workSheet->getCell('A2')->getCalculatedValue();
+        self::assertSame('HELLO WORLD', $cellValue);
+    }
+
+    public function testFormulaReferencingWorksheetWithUnescapedApostrophe(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $workSheet->setTitle("Catégorie d'absence");
+
+        $workSheet->setCellValue('A1', 'HELLO');
+        $workSheet->setCellValue('B1', ' ');
+        $workSheet->setCellValue('C1', 'WORLD');
+        $workSheet->setCellValue(
+            'A2',
+            "=CONCAT('Catégorie d'absence'!A1, 'Catégorie d'absence'!B1, 'Catégorie d'absence'!C1)"
+        );
+
+        $cellValue = $workSheet->getCell('A2')->getCalculatedValue();
+        self::assertSame('HELLO WORLD', $cellValue);
+    }
+
     public function testCellWithFormulaTwoIndirect(): void
     {
         $spreadsheet = new Spreadsheet();
