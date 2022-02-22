@@ -23,8 +23,9 @@ class IsRefTest extends AllSetupTeardown
         $sheet->getCell('A8')->setValue('=ISREF(INDIRECT("' . $sheet->getTitle() . '" & "!" & "A1"))');
         $sheet->getCell('A9')->setValue('=ISREF(INDIRECT("A1"))');
         $sheet->getCell('A10')->setValue('=ISREF(INDIRECT("Invalid Worksheet" & "!" & "A1"))');
-        $sheet->getCell('A11')->setValue('=ISREF(ZZZ1)');
-        $sheet->getCell('A12')->setValue('=ISREF(CHOOSE(2, A1, B1, C1))');
+        $sheet->getCell('A11')->setValue('=ISREF(INDIRECT("Invalid Worksheet" & "!A1"))');
+        $sheet->getCell('A12')->setValue('=ISREF(ZZZ1)');
+        $sheet->getCell('A13')->setValue('=ISREF(CHOOSE(2, A1, B1, C1))');
 
         self::assertTrue($sheet->getCell('A1')->getCalculatedValue()); // Cell Reference
         self::assertTrue($sheet->getCell('A2')->getCalculatedValue()); // Cell Range
@@ -36,7 +37,8 @@ class IsRefTest extends AllSetupTeardown
         self::assertTrue($sheet->getCell('A8')->getCalculatedValue()); // Indirect to a Cell Reference
         self::assertTrue($sheet->getCell('A9')->getCalculatedValue()); // Indirect to a Worksheet/Cell Reference
         self::assertFalse($sheet->getCell('A10')->getCalculatedValue()); // Indirect to an Invalid Worksheet/Cell Reference
-        self::assertFalse($sheet->getCell('A11')->getCalculatedValue()); // Invalid Cell Reference
-        self::assertTrue($sheet->getCell('A12')->getCalculatedValue()); // returned Cell Reference
+        self::assertFalse($sheet->getCell('A11')->getCalculatedValue()); // Indirect to an Invalid Worksheet/Cell Reference
+        self::assertFalse($sheet->getCell('A12')->getCalculatedValue()); // Invalid Cell Reference
+        self::assertTrue($sheet->getCell('A13')->getCalculatedValue()); // returned Cell Reference
     }
 }
