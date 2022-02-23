@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class VerticalAlignTest extends TestCase
 {
-
     public function testVerticalAlignStyle(): void
     {
         $filename = 'tests/data/Reader/XLSX/verticalAlignTest.xlsx';
