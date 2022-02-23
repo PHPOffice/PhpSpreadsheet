@@ -65,7 +65,7 @@ class Cell
     private $xfIndex = 0;
 
     /**
-     * @var string
+     * @var ?string
      */
     private $arrayFormulaRange;
 
@@ -217,12 +217,11 @@ class Cell
 
     private function arrayFormulaRangeCheck(?string $arrayFormulaRange = null): bool
     {
-        var_dump('CHECKING RANGE', $arrayFormulaRange);
         if ($arrayFormulaRange !== null) {
             if ($this->isInRange($arrayFormulaRange) && $this->isTopLeftRangeCell($arrayFormulaRange) === false) {
                 if (IOFactory::isLoading() === false) {
                     throw new Exception(sprintf(
-                        'Cell %s is within the spill range of a formula, and cannot be changed',
+                        'Cell %s is within the spillage range of a formula, and cannot be changed',
                         $this->getCoordinate()
                     ));
                 }
@@ -236,29 +235,29 @@ class Cell
 
     private function clearSpillageRange(string $arrayFormulaRange): void
     {
-        var_dump('CLEAR OLD SPILLAGE RANGE');
-        $cellList = Coordinate::extractAllCellReferencesInRange($arrayFormulaRange);
-        var_dump($cellList);
-        foreach ($cellList as $cellAddress) {
-            if ($this->getWorksheet()->cellExists($cellAddress)) {
-                var_dump("CLEARING SPILLAGE FOR CELL {$cellAddress}");
+        $thisCell = $this->getCoordinate();
+        $worksheet = $this->getWorksheet();
+
+        foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
+            if ($worksheet->cellExists($cellAddress)) {
+                $cell = $worksheet->getCell($cellAddress);
+                $cell->arrayFormulaRange = null;
             }
         }
+
+        $worksheet->getCell($thisCell);
     }
 
     private function setSpillageRange(string $arrayFormulaRange): void
     {
-        var_dump('SET NEW SPILLAGE RANGE');
-        $cellList = Coordinate::extractAllCellReferencesInRange($arrayFormulaRange);
-        var_dump($cellList);
         $thisCell = $this->getCoordinate();
         $worksheet = $this->getWorksheet();
-        foreach ($cellList as $cellAddress) {
-            var_dump("SETTING SPILLAGE FOR CELL {$cellAddress}");
+
+        foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
             $cell = $worksheet->getCell($cellAddress);
             $cell->arrayFormulaRange = $arrayFormulaRange;
         }
-        var_dump("RESETTING CURRENT CELL TO {$thisCell}");
+
         $worksheet->getCell($thisCell);
     }
 
@@ -273,15 +272,12 @@ class Cell
      */
     public function setValueExplicit($value, $dataType, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
-        var_dump($this->getCoordinate());
-        var_dump('CHECKING CURRENT RANGE');
         if ($this->arrayFormulaRangeCheck($this->arrayFormulaRange)) {
-            $this->clearSpillageRange($arrayFormulaRange);
+            $this->clearSpillageRange((string) $this->arrayFormulaRange);
         }
 
-        var_dump('CHECKING NEW RANGE');
         if ($this->arrayFormulaRangeCheck($arrayFormulaRange)) {
-            $this->setSpillageRange($arrayFormulaRange);
+            $this->setSpillageRange((string) $arrayFormulaRange);
         }
 
         // set the value according to data type
@@ -486,8 +482,10 @@ class Cell
      * Set cell data type.
      *
      * @param string $dataType see DataType::TYPE_*
+     *
+     * @return Cell
      */
-    public function setDataType($dataType): self
+    public function setDataType($dataType)
     {
         if ($dataType == DataType::TYPE_STRING2) {
             $dataType = DataType::TYPE_STRING;
@@ -544,8 +542,10 @@ class Cell
 
     /**
      * Get Data validation rules.
+     *
+     * @return DataValidation
      */
-    public function getDataValidation(): DataValidation
+    public function getDataValidation()
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot get data validation for cell that is not bound to a worksheet');
@@ -627,14 +627,13 @@ class Cell
     /**
      * Get parent worksheet.
      */
-    public function getWorksheet(): ?Worksheet
+    public function getWorksheet(): Worksheet
     {
         try {
             $worksheet = $this->parent->getParent();
         } catch (Throwable $e) {
-            return null;
+            $worksheet = null;
         }
-
         if ($worksheet === null) {
             throw new Exception('Worksheet no longer exists');
         }
@@ -650,13 +649,20 @@ class Cell
         return (bool) $this->getMergeRange();
     }
 
+    /**
+     * Is this cell in an array formula spillage range.
+     */
+    public function isInSpillageRange(): bool
+    {
+        return $this->arrayFormulaRange !== null;
+    }
 
-    private function isTopLeftRangeCell($cellRange): bool
+    private function isTopLeftRangeCell(string $cellRange): bool
     {
         $mergeRange = Coordinate::splitRange($cellRange);
         [$startCell] = $mergeRange[0];
 
-        return ($this->getCoordinate() === $startCell);
+        return $this->getCoordinate() === $startCell;
     }
 
     /**
@@ -664,11 +670,12 @@ class Cell
      */
     public function isMergeRangeValueCell(): bool
     {
-        if ($mergeRange = $this->getMergeRange()) {
-            return $this->isTopLeftRangeCell($mergeRange);
+        $mergeRange = $this->getMergeRange();
+        if ($mergeRange === false) {
+            return false;
         }
 
-        return false;
+        return $this->isTopLeftRangeCell($mergeRange);
     }
 
     /**

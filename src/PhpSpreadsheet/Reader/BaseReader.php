@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -158,10 +159,14 @@ abstract class BaseReader implements IReader
     {
         $this->processFlags($flags);
 
+        IOFactory::setLoading(true);
+
         try {
             return $this->loadSpreadsheetFromFile($filename);
         } catch (ReaderException $e) {
             throw $e;
+        } finally {
+            IOFactory::setLoading(false);
         }
     }
 
@@ -178,7 +183,7 @@ abstract class BaseReader implements IReader
             $fileHandle = fopen($filename, 'rb');
         }
         if ($fileHandle === false) {
-            throw new ReaderException('Could not open file ' . $filename . ' for reading.');
+            throw new ReaderException("Could not open file {$filename} for reading.");
         }
 
         $this->fileHandle = $fileHandle;

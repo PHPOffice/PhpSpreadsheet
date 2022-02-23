@@ -20,7 +20,6 @@ class InternalFunctionsTest extends TestCase
 
         $sheet1->setCellValue('C3', '=SEQUENCE(3,3,-4)', true, 'C3:E5');
         $sheet2->setCellValue('C3', '=SEQUENCE(3,3, 9, -1)', true, 'C3:E5');
-
         $sheet1->setCellValue('A8', "=ANCHORARRAY({$reference})", true, $range);
 
         $result1 = $sheet1->getCell('A8')->getCalculatedValue(true, true);
