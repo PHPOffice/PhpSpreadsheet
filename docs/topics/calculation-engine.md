@@ -103,6 +103,11 @@ formula calculation is subject to PHP's language characteristics.
 Not all functions are supported, for a comprehensive list, read the
 [function list by name](../references/function-list-by-name.md).
 
+#### Array arguments for Function Calls in Formulae
+
+While most of the Excel function implementations now support array arguments, there are a few that should accept arrays as arguments but don't do so.
+In these cases, the result may be a single value rather than an array; or it may be a `#VALUE!` error.
+
 #### Operator precedence
 
 In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
@@ -124,7 +129,7 @@ content.
 
 - [Reference for this behaviour in PHP](https://php.net/manual/en/language.types.string.php#language.types.string.conversion)
 
-#### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
+#### Formulae don’t seem to be calculated in Excel2003 using compatibility pack?
 
 This is normal behaviour of the compatibility pack, Xlsx displays this
 correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need

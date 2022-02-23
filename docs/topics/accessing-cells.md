@@ -133,10 +133,10 @@ Formats handled by the advanced value binder include:
 - TRUE or FALSE (dependent on locale settings) are converted to booleans.
 - Numeric strings identified as scientific (exponential) format are
   converted to numbers.
-- Fractions and vulgar fractions are converted to numbers, and
+- Fractions and "vulgar" fractions are converted to numbers, and
   an appropriate number format mask applied.
-- Percentages are converted
-  to numbers, divided by 100, and an appropriate number format mask
+- Percentages are converted to numbers, divided by 100, and an
+  appropriate number format mask
   applied.
 - Dates and times are converted to Excel timestamp values
   (numbers), and an appropriate number format mask applied.

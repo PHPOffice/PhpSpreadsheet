@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart;
@@ -395,6 +396,8 @@ class Xlsx extends BaseReader
     {
         File::assertFile($filename, self::INITIAL_FILE);
         $this->processFlags($flags);
+
+        IOFactory::setLoading(true);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -1670,6 +1673,8 @@ class Xlsx extends BaseReader
         $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
+
+        IOFactory::setLoading(false);
 
         return $excel;
     }
