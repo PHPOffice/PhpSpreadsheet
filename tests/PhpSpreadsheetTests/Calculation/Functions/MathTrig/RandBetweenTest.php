@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class RandBetweenTest extends AllSetupTeardown
 {
     /**
@@ -42,5 +44,31 @@ class RandBetweenTest extends AllSetupTeardown
     public function providerRANDBETWEEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/RANDBETWEEN.php';
+    }
+
+    /**
+     * @dataProvider providerRandBetweenArray
+     */
+    public function testRandBetweenArray(
+        int $expectedRows,
+        int $expectedColumns,
+        string $argument1,
+        string $argument2
+    ): void {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=RandBetween({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertIsArray($result);
+        self::assertCount($expectedRows, $result);
+        self::assertIsArray($result[0]);
+        self::assertCount($expectedColumns, $result[0]);
+    }
+
+    public function providerRandBetweenArray(): array
+    {
+        return [
+            'row/column vectors' => [2, 2, '{1, 10}', '{10; 100}'],
+        ];
     }
 }

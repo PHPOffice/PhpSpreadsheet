@@ -2,7 +2,7 @@
 
 // effect_rate, npery, result
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -26,22 +26,22 @@ return [
         12,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         -0.025,
         12,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         0.025,
         -12,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         'NaN',
         12,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         0.025,
         'NaN',
     ],

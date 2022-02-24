@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
@@ -36,7 +37,7 @@ class Mean
             }
         }
 
-        return Functions::NAN();
+        return ExcelError::NAN();
     }
 
     /**
@@ -57,7 +58,7 @@ class Mean
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         if (Minimum::min($aArgs) < 0) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $returnValue = 0;
@@ -66,7 +67,7 @@ class Mean
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 if ($arg <= 0) {
-                    return Functions::NAN();
+                    return ExcelError::NAN();
                 }
                 $returnValue += (1 / $arg);
                 ++$aCount;
@@ -78,7 +79,7 @@ class Mean
             return 1 / ($returnValue / $aCount);
         }
 
-        return Functions::NA();
+        return ExcelError::NA();
     }
 
     /**
@@ -104,7 +105,7 @@ class Mean
 
         if ((is_numeric($percent)) && (!is_string($percent))) {
             if (($percent < 0) || ($percent > 1)) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
 
             $mArgs = [];
@@ -126,6 +127,6 @@ class Mean
             return Averages::average($mArgs);
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 }

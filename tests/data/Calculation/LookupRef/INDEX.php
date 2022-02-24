@@ -112,7 +112,7 @@ return [
         2,
     ],
     [
-        4, // Expected
+        [4], // Expected
         // Input
         [
             '20' => ['R' => 1, 'S' => 3],

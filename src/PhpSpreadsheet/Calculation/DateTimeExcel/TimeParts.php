@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class TimeParts
@@ -35,7 +34,6 @@ class TimeParts
         }
 
         try {
-            $timeValue = Functions::flattenSingleValue($timeValue);
             Helpers::nullFalseTrueToNumber($timeValue);
             if (!is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);
@@ -76,7 +74,6 @@ class TimeParts
         }
 
         try {
-            $timeValue = Functions::flattenSingleValue($timeValue);
             Helpers::nullFalseTrueToNumber($timeValue);
             if (!is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);
@@ -117,7 +114,6 @@ class TimeParts
         }
 
         try {
-            $timeValue = Functions::flattenSingleValue($timeValue);
             Helpers::nullFalseTrueToNumber($timeValue);
             if (!is_numeric($timeValue)) {
                 $timeValue = Helpers::getTimeValue($timeValue);

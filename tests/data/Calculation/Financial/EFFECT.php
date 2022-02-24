@@ -2,7 +2,7 @@
 
 // nominal_rate, npery, Result
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -26,22 +26,22 @@ return [
         2,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         0.025,
         -1,
     ],
     [
-        Functions::NAN(),
+        ExcelError::NAN(),
         -0.025,
         1,
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         0.025,
         'NaN',
     ],
     [
-        Functions::VALUE(),
+        ExcelError::VALUE(),
         'NaN',
         1,
     ],

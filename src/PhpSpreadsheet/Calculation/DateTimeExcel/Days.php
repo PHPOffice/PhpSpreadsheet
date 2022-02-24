@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Days
@@ -48,7 +48,7 @@ class Days
         $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
 
-        $days = Functions::VALUE();
+        $days = ExcelError::VALUE();
         $diff = $PHPStartDateObject->diff($PHPEndDateObject);
         if ($diff !== false && !is_bool($diff->days)) {
             $days = $diff->days;

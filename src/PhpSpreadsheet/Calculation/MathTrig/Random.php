@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Random
 {
+    use ArrayEnabled;
+
     /**
      * RAND.
      *
@@ -21,12 +24,20 @@ class Random
      * RANDBETWEEN.
      *
      * @param mixed $min Minimal value
+     *                      Or can be an array of values
      * @param mixed $max Maximal value
+     *                      Or can be an array of values
      *
-     * @return float|int|string Random number
+     * @return array|float|int|string Random number
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function randBetween($min, $max)
     {
+        if (is_array($min) || is_array($max)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $min, $max);
+        }
+
         try {
             $min = (int) Helpers::validateNumericNullBool($min);
             $max = (int) Helpers::validateNumericNullBool($max);
@@ -67,7 +78,7 @@ class Random
             $max = Helpers::validateNumericNullSubstitution($max, 1);
 
             if ($max <= $min) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
         } catch (Exception $e) {
             return $e->getMessage();

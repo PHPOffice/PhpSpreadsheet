@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\FinancialValidations;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class SecurityValidations extends FinancialValidations
 {
@@ -23,7 +23,7 @@ class SecurityValidations extends FinancialValidations
     public static function validateSecurityPeriod($settlement, $maturity): void
     {
         if ($settlement >= $maturity) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
     }
 
@@ -34,7 +34,7 @@ class SecurityValidations extends FinancialValidations
     {
         $redemption = self::validateFloat($redemption);
         if ($redemption <= 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $redemption;

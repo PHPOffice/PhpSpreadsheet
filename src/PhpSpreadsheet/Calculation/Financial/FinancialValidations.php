@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class FinancialValidations
 {
@@ -39,7 +39,7 @@ class FinancialValidations
     public static function validateFloat($value): float
     {
         if (!is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (float) $value;
@@ -51,7 +51,7 @@ class FinancialValidations
     public static function validateInt($value): int
     {
         if (!is_numeric($value)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return (int) floor((float) $value);
@@ -64,7 +64,7 @@ class FinancialValidations
     {
         $rate = self::validateFloat($rate);
         if ($rate < 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $rate;
@@ -81,7 +81,7 @@ class FinancialValidations
             ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL) &&
             ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
         ) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $frequency;
@@ -93,12 +93,12 @@ class FinancialValidations
     public static function validateBasis($basis): int
     {
         if (!is_numeric($basis)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         $basis = (int) $basis;
         if (($basis < 0) || ($basis > 4)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $basis;
@@ -111,7 +111,7 @@ class FinancialValidations
     {
         $price = self::validateFloat($price);
         if ($price < 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $price;
@@ -124,7 +124,7 @@ class FinancialValidations
     {
         $parValue = self::validateFloat($parValue);
         if ($parValue < 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $parValue;
@@ -137,7 +137,7 @@ class FinancialValidations
     {
         $yield = self::validateFloat($yield);
         if ($yield < 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $yield;
@@ -150,7 +150,7 @@ class FinancialValidations
     {
         $discount = self::validateFloat($discount);
         if ($discount <= 0.0) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $discount;

@@ -341,16 +341,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engine/Logger.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:BITLSHIFT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\:\\:BITRSHIFT\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2a\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
@@ -379,11 +369,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
-
-		-
-			message: "#^Parameter \\#1 \\$power of method Complex\\\\Complex\\:\\:pow\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
@@ -611,11 +596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
@@ -786,22 +766,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:checkMatch\\(\\) has parameter \\$notExactMatch with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$index_number with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$lookup_array with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
 
@@ -864,31 +829,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$column with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vLookupSearch\\(\\) has parameter \\$notExactMatch with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vlookupSort\\(\\) has no return type specified\\.$#"
@@ -1012,11 +952,6 @@ parameters:
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheResult has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
-
-		-
-			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:regularizedIncompleteBeta\\(\\) is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
 

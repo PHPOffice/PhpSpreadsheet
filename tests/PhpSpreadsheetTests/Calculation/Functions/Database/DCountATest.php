@@ -24,7 +24,7 @@ class DCountATest extends TestCase
     public function testDCountA($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DCOUNTA($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array

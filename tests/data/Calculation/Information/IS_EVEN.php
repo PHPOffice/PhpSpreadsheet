@@ -3,37 +3,34 @@
 return [
     [
         '#NAME?',
-    ],
-    [
-        '#NAME?',
         null,
     ],
     [
-        true,
+        false,
         -1,
     ],
     [
-        false,
+        true,
         0,
     ],
     [
-        true,
+        false,
         9,
     ],
     [
-        true,
+        false,
         1.25,
     ],
     [
-        true,
+        false,
         1.5,
     ],
     [
-        false,
+        true,
         2.25,
     ],
     [
-        false,
+        true,
         2.5,
     ],
     [
@@ -41,19 +38,19 @@ return [
         '',
     ],
     [
-        true,
+        false,
         '-1',
     ],
     [
-        false,
+        true,
         '2',
     ],
     [
-        true,
+        false,
         '-1.5',
     ],
     [
-        false,
+        true,
         '2.5',
     ],
     [
