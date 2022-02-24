@@ -365,12 +365,14 @@ class Cell
             );
             // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
             // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
-//            $worksheet->fromArray(
-//                $result,
-//                null,
-//                $coordinate,
-//                true
-//            );
+            IOFactory::setLoading(true);
+            $worksheet->fromArray(
+                $result,
+                null,
+                $coordinate,
+                true
+            );
+            IOFactory::setLoading(false);
             // Using fromArray() would reset the value for this cell with the calculation result
             //      as well as updating the spillage cells,
             //  so we need to restore this cell to its formula value, attributes, and datatype

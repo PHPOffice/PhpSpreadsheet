@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExcelArrayPseudoFunctions
@@ -62,12 +61,14 @@ class ExcelArrayPseudoFunctions
         // Set the result for our target cell (with spillage)
         // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
         // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
+//        IOFactory::setLoading(true);
 //        $worksheet->fromArray(
 //            $result,
 //            null,
 //            $coordinate,
 //            true
 //        );
+//        IOFactory::setLoading(true);
 
         // Calculate the array formula range that we should set for our target, based on our target cell coordinate
 //        [$col, $row] = Coordinate::indexesFromString($coordinate);
