@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +44,23 @@ class CellArrayFormulaTest extends TestCase
         $cellAddress = 'C3';
         $spillageCell = $spreadsheet->getActiveSheet()->getCell($cellAddress);
         self::assertTrue($spillageCell->isInSpillageRange());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUpdateValueInSpillageRangeCell(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell->setValueExplicit('=SEQUENCE(3, 3, 1, 1)', DataType::TYPE_FORMULA, true, 'A1:C3');
+
+        $cellAddress = 'C3';
+        $spillageCell = $spreadsheet->getActiveSheet()->getCell($cellAddress);
+        self::assertTrue($spillageCell->isInSpillageRange());
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage("Cell {$cellAddress} is within the spillage range of a formula, and cannot be changed");
+        $spillageCell->setValue('PHP');
 
         $spreadsheet->disconnectWorksheets();
     }

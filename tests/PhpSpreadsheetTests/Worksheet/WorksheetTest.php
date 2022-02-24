@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -123,6 +124,26 @@ class WorksheetTest extends TestCase
         $sheet = $spreadsheet->getSheet(2);
         $sheet->setCodeName('Test Code Name', false);
         self::assertSame('Test Code Name', $sheet->getCodeName());
+    }
+
+    public function testFromAndToArray(): void
+    {
+        $testData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $currentCell = 'B2';
+        $cell = $worksheet->getCell($currentCell);
+
+        $worksheet->fromArray($testData);
+        self::assertSame($currentCell, $cell->getCoordinate(), 'Cell retained after fromArray()');
+
+        self::assertSame($testData, $worksheet->toArray());
+        self::assertSame($currentCell, $cell->getCoordinate(), 'Cell retained after toArray()');
+
+        $workbook->addNamedRange(new NamedRange('NAMED_RANGE', $worksheet, 'A1:C3'));
+        self::assertSame($testData, $worksheet->namedRangeToArray('NAMED_RANGE'));
+        self::assertSame($currentCell, $cell->getCoordinate(), 'Cell retained after namedRangeToArray()');
     }
 
     public function testFreezePaneSelectedCell(): void

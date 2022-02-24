@@ -2639,6 +2639,8 @@ class Worksheet implements IComparable
             $source = [$source];
         }
 
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // start coordinate
         [$startColumn, $startRow] = Coordinate::coordinateFromString($startCell);
 
@@ -2646,20 +2648,25 @@ class Worksheet implements IComparable
         foreach ($source as $rowData) {
             $currentColumn = $startColumn;
             foreach ($rowData as $cellValue) {
+                $cell = $this->getCell($currentColumn . $startRow);
                 if ($strictNullComparison) {
                     if ($cellValue !== $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $cell->setValue($cellValue, $cell->isArrayFormula(), $cell->arrayFormulaRange());
                     }
                 } else {
                     if ($cellValue != $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $cell->setValue($cellValue, $cell->isArrayFormula(), $cell->arrayFormulaRange());
                     }
                 }
                 ++$currentColumn;
             }
             ++$startRow;
+        }
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
         }
 
         return $this;
@@ -2679,6 +2686,8 @@ class Worksheet implements IComparable
      */
     public function rangeToArray($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
     {
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
@@ -2729,6 +2738,10 @@ class Worksheet implements IComparable
                     $returnValue[$rRef][$cRef] = $nullValue;
                 }
             }
+        }
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
         }
 
         // Return
@@ -2802,12 +2815,18 @@ class Worksheet implements IComparable
      */
     public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
     {
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // Garbage collect...
         $this->garbageCollect();
 
         //    Identify the range that we need to extract from the worksheet
         $maxCol = $this->getHighestColumn();
         $maxRow = $this->getHighestRow();
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
+        }
 
         // Return
         return $this->rangeToArray('A1:' . $maxCol . $maxRow, $nullValue, $calculateFormulas, $formatData, $returnCellRef);

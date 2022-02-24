@@ -241,7 +241,10 @@ class Cell
         foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
             if ($worksheet->cellExists($cellAddress)) {
                 $cell = $worksheet->getCell($cellAddress);
+                $cell->value = null;
+                $cell->dataType = DataType::TYPE_NULL;
                 $cell->arrayFormulaRange = null;
+                $cell->updateInCollection();
             }
         }
 
@@ -256,6 +259,7 @@ class Cell
         foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
             $cell = $worksheet->getCell($cellAddress);
             $cell->arrayFormulaRange = $arrayFormulaRange;
+            $cell->updateInCollection();
         }
 
         $worksheet->getCell($thisCell);
@@ -361,12 +365,12 @@ class Cell
             );
             // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
             // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
-//                        $worksheet->fromArray(
-//                            $result,
-//                            null,
-//                            $coordinate,
-//                            true
-//                        );
+//            $worksheet->fromArray(
+//                $result,
+//                null,
+//                $coordinate,
+//                true
+//            );
             // Using fromArray() would reset the value for this cell with the calculation result
             //      as well as updating the spillage cells,
             //  so we need to restore this cell to its formula value, attributes, and datatype
@@ -387,7 +391,7 @@ class Cell
      *
      * @return mixed
      */
-    public function getCalculatedValue($resetLog = true, bool $asArray = false)
+    public function getCalculatedValue(bool $resetLog = true, bool $asArray = false)
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
@@ -400,7 +404,7 @@ class Cell
 
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
-                )->calculateCellValue($this, $resetLog);
+                )->calculateCellValue($this, $resetLog, $asArray);
 
                 $worksheet->getCell($coordinate);
 

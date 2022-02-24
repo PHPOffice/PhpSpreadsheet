@@ -3323,7 +3323,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculateCellValue(?Cell $cell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $cell = null, bool $resetLog = true, bool $asArray = false)
     {
         if ($cell === null) {
             return null;
