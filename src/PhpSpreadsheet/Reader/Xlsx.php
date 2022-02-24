@@ -541,6 +541,8 @@ class Xlsx extends BaseReader
                         $xmlStyles = $this->loadZip("$dir/$xpath[Target]", $mainNS);
                     }
 
+                    $palette = self::extractPalette($xmlStyles);
+                    $this->styleReader->setWorkbookPalette($palette);
                     $fills = self::extractStyles($xmlStyles, 'fills', 'fill');
                     $fonts = self::extractStyles($xmlStyles, 'fonts', 'font');
                     $borders = self::extractStyles($xmlStyles, 'borders', 'border');
@@ -2102,5 +2104,22 @@ class Xlsx extends BaseReader
         }
 
         return $array;
+    }
+
+    private static function extractPalette(?SimpleXMLElement $sxml): array
+    {
+        $array = [];
+        if ($sxml && $sxml->colors->indexedColors) {
+            foreach ($sxml->colors->indexedColors->rgbColor as $node) {
+                if ($node !== null) {
+                    $attr = $node->attributes();
+                    if (isset($attr['rgb'])) {
+                        $array[] = (string) $attr['rgb'];
+                    }
+                }
+            }
+        }
+
+        return (count($array) === 64) ? $array : [];
     }
 }
