@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
-class CalclationFunctionListTest extends TestCase
+class CalculationFunctionListTest extends TestCase
 {
     /**
      * @var string
