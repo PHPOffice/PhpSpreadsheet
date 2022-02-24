@@ -58,8 +58,8 @@ class CellArrayFormulaTest extends TestCase
         $spillageCell = $spreadsheet->getActiveSheet()->getCell($cellAddress);
         self::assertTrue($spillageCell->isInSpillageRange());
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Cell {$cellAddress} is within the spillage range of a formula, and cannot be changed");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Cell {$cellAddress} is within the spillage range of a formula, and cannot be changed");
         $spillageCell->setValue('PHP');
 
         $spreadsheet->disconnectWorksheets();
