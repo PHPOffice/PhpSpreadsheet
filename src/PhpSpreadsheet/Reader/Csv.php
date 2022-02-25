@@ -85,6 +85,13 @@ class Csv extends BaseReader
     private static $constructorCallback;
 
     /**
+     * Attempt autodetect line endings (deprecated after PHP8.1)?
+     *
+     * @var bool
+     */
+    private $testAutodetect = true;
+
+    /**
      * Create a new CSV Reader instance.
      */
     public function __construct()
@@ -273,10 +280,15 @@ class Csv extends BaseReader
         }
     }
 
-    private static function setAutoDetect(?string $value): ?string
+    public function setTestAutoDetect(bool $value): void
+    {
+        $this->testAutodetect = $value;
+    }
+
+    private function setAutoDetect(?string $value): ?string
     {
         $retVal = null;
-        if ($value !== null) {
+        if ($value !== null && $this->testAutodetect) {
             $retVal2 = @ini_set('auto_detect_line_endings', $value);
             if (is_string($retVal2)) {
                 $retVal = $retVal2;
@@ -292,7 +304,7 @@ class Csv extends BaseReader
     public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Deprecated in Php8.1
-        $iniset = self::setAutoDetect('1');
+        $iniset = $this->setAutoDetect('1');
 
         // Open file
         $this->openFileOrMemory($filename);
@@ -343,7 +355,7 @@ class Csv extends BaseReader
         // Close file
         fclose($fileHandle);
 
-        self::setAutoDetect($iniset);
+        $this->setAutoDetect($iniset);
 
         // Return
         return $spreadsheet;
