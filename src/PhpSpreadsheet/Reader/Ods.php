@@ -218,7 +218,7 @@ class Ods extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    public function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -374,9 +374,12 @@ class Ods extends BaseReader
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
 
+                                $arrayAttributeRows = $arrayAttributeColumns = null;
                                 if ($cellData->hasAttributeNS($tableNs, 'formula')) {
                                     $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
+                                    $arrayAttributeRows = $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                                    $arrayAttributeColumns = $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
                                 }
 
                                 // Annotations
@@ -524,10 +527,14 @@ class Ods extends BaseReader
                                     $dataValue = null;
                                 }
 
+                                $isArrayFormula = false;
+                                $arrayFormulaRange = null;
                                 if ($hasCalculatedValue) {
                                     $type = DataType::TYPE_FORMULA;
                                     $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
                                     $cellDataFormula = $this->convertToExcelFormulaValue($cellDataFormula);
+                                    $isArrayFormula = (!empty($arrayAttributeRows) && !empty($arrayAttributeColumns));
+                                    $arrayFormulaRange = null;
                                 }
 
                                 if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -551,7 +558,22 @@ class Ods extends BaseReader
 
                                                 // Set value
                                                 if ($hasCalculatedValue) {
-                                                    $cell->setValueExplicit($cellDataFormula, $type);
+                                                    $arrayFormulaRange = null;
+                                                    if ($isArrayFormula === true) {
+                                                        $arrayFormulaRange = $columnID . $rID;
+                                                        $arrayAttributeRows = (int) $arrayAttributeRows;
+                                                        $arrayAttributeColumns = (int) $arrayAttributeColumns;
+                                                        if ($arrayAttributeRows > 1 || $arrayAttributeColumns > 1) {
+                                                            $arrayFormulaRange .= ':' .
+                                                                Coordinate::stringFromColumnIndex(
+                                                                    Coordinate::columnIndexFromString($columnID)
+                                                                    + $arrayAttributeColumns - 1
+                                                                ) .
+                                                                (string) ($rID + $arrayAttributeRows - 1);
+                                                        }
+                                                    }
+
+                                                    $cell->setValueExplicit($cellDataFormula, $type, $isArrayFormula, $arrayFormulaRange);
                                                 } else {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }
@@ -769,6 +791,7 @@ class Ods extends BaseReader
                 $value = str_replace('$$', '', $value ?? '');
 
                 $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+                $value = preg_replace('/COM\.MICROSOFT\./ui', '_xlfn.', $value);
             }
         }
 

@@ -66,6 +66,7 @@ abstract class BaseReader
                 $value = str_replace('$$', '', $value ?? '');
 
                 $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+                $value = preg_replace('/COM\.MICROSOFT\./ui', '', $value);
             }
         }
 
