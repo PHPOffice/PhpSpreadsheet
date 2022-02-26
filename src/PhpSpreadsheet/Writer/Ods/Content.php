@@ -210,6 +210,11 @@ class Content extends WriterPart
                             // don't do anything
                         }
                     }
+                    if ($cell->isArrayFormula()) {
+                        [$columnSpan, $rowSpan] = Coordinate::rangeDimension((string) $cell->arrayFormulaRange());
+                        $objWriter->writeAttribute('table:number-matrix-rows-spanned', $rowSpan);
+                        $objWriter->writeAttribute('table:number-matrix-columns-spanned', $columnSpan);
+                    }
                     $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
                     if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
