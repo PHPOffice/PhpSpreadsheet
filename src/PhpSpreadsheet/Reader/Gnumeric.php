@@ -331,7 +331,13 @@ class Gnumeric extends BaseReader
                         $cell = $cell == 'TRUE';
                     }
                 }
+
                 $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
+                if (isset($cellAttributes->ValueFormat)) {
+                    $this->spreadsheet->getActiveSheet()->getCell($column . $row)
+                        ->getStyle()->getNumberFormat()
+                        ->setFormatCode((string) $cellAttributes->ValueFormat);
+                }
             }
 
             if ($sheet->Styles !== null) {
