@@ -284,12 +284,8 @@ class Gnumeric extends BaseReader
                 $row = (int) $cellAttributes->Row + 1;
                 $column = (int) $cellAttributes->Col;
 
-                if ($row > $maxRow) {
-                    $maxRow = $row;
-                }
-                if ($column > $maxCol) {
-                    $maxCol = $column;
-                }
+                $maxRow = max($maxRow, $row);
+                $maxCol = max($maxCol, $column);
 
                 $column = Coordinate::stringFromColumnIndex($column + 1);
 
@@ -318,8 +314,19 @@ class Gnumeric extends BaseReader
 
         $this->processDefinedNames($gnmXML);
 
+        $this->setSelectedSheet($gnmXML);
+
         // Return
         return $this->spreadsheet;
+    }
+
+    private function setSelectedSheet(SimpleXMLElement $gnmXML): void
+    {
+        if (isset($gnmXML->UIData)) {
+            $attributes = self::testSimpleXml($gnmXML->UIData->attributes());
+            $selectedSheet = (int) $attributes['SelectedTab'];
+            $this->spreadsheet->setActiveSheetIndex($selectedSheet);
+        }
     }
 
     private function processMergedCells(?SimpleXMLElement $sheet): void
