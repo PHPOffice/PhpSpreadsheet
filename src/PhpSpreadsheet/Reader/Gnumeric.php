@@ -300,6 +300,8 @@ class Gnumeric extends BaseReader
                     }
                 }
 
+                $isArrayFormula = false;
+                $arrayFormulaRange = null;
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
                 $type = DataType::TYPE_FORMULA;
@@ -323,15 +325,29 @@ class Gnumeric extends BaseReader
                     }
                     $type = DataType::TYPE_FORMULA;
                 } else {
+                    $cell = (string) $cell;
                     $vtype = (string) $ValueType;
                     if (array_key_exists($vtype, self::$mappings['dataType'])) {
                         $type = self::$mappings['dataType'][$vtype];
                     }
                     if ($vtype === '20') {        //    Boolean
                         $cell = $cell == 'TRUE';
+                    } elseif ($vtype === '' && strlen($cell) > 0 && substr($cell, 0, 1) === '=') {
+                        // Array formula with possible spillage
+                        $type = DataType::TYPE_FORMULA;
+                        $isArrayFormula = true;
+                        $arrayFormulaRange = $column . $row;
+                        $cols = (int) $cellAttributes->Cols;
+                        $rows = (int) $cellAttributes->Rows;
+                        if ($cols > 1 || $rows > 1) {
+                            $arrayFormulaRange .= ':' .
+                                Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($column) + $cols - 1) .
+                                (string) ($row + $rows - 1);
+                        }
                     }
                 }
-                $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
+                $this->spreadsheet->getActiveSheet()->getCell($column . $row)
+                    ->setValueExplicit($cell, $type, $isArrayFormula, $arrayFormulaRange);
             }
 
             if ($sheet->Styles !== null) {
