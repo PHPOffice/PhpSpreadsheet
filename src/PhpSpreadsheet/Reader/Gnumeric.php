@@ -300,44 +300,7 @@ class Gnumeric extends BaseReader
                     }
                 }
 
-                $ValueType = $cellAttributes->ValueType;
-                $ExprID = (string) $cellAttributes->ExprID;
-                $type = DataType::TYPE_FORMULA;
-                if ($ExprID > '') {
-                    if (((string) $cell) > '') {
-                        $this->expressions[$ExprID] = [
-                            'column' => $cellAttributes->Col,
-                            'row' => $cellAttributes->Row,
-                            'formula' => (string) $cell,
-                        ];
-                    } else {
-                        $expression = $this->expressions[$ExprID];
-
-                        $cell = $this->referenceHelper->updateFormulaReferences(
-                            $expression['formula'],
-                            'A1',
-                            $cellAttributes->Col - $expression['column'],
-                            $cellAttributes->Row - $expression['row'],
-                            $worksheetName
-                        );
-                    }
-                    $type = DataType::TYPE_FORMULA;
-                } else {
-                    $vtype = (string) $ValueType;
-                    if (array_key_exists($vtype, self::$mappings['dataType'])) {
-                        $type = self::$mappings['dataType'][$vtype];
-                    }
-                    if ($vtype === '20') {        //    Boolean
-                        $cell = $cell == 'TRUE';
-                    }
-                }
-
-                $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
-                if (isset($cellAttributes->ValueFormat)) {
-                    $this->spreadsheet->getActiveSheet()->getCell($column . $row)
-                        ->getStyle()->getNumberFormat()
-                        ->setFormatCode((string) $cellAttributes->ValueFormat);
-                }
+                $this->loadCell($cell, $worksheetName, $cellAttributes, $column, $row);
             }
 
             if ($sheet->Styles !== null) {
@@ -535,5 +498,52 @@ class Gnumeric extends BaseReader
         $value->createText($is);
 
         return $value;
+    }
+
+    private function loadCell(
+        SimpleXMLElement $cell,
+        string $worksheetName,
+        SimpleXMLElement $cellAttributes,
+        string $column,
+        int $row
+    ): void {
+        $ValueType = $cellAttributes->ValueType;
+        $ExprID = (string) $cellAttributes->ExprID;
+        $type = DataType::TYPE_FORMULA;
+        if ($ExprID > '') {
+            if (((string) $cell) > '') {
+                $this->expressions[$ExprID] = [
+                    'column' => $cellAttributes->Col,
+                    'row' => $cellAttributes->Row,
+                    'formula' => (string) $cell,
+                ];
+            } else {
+                $expression = $this->expressions[$ExprID];
+
+                $cell = $this->referenceHelper->updateFormulaReferences(
+                    $expression['formula'],
+                    'A1',
+                    $cellAttributes->Col - $expression['column'],
+                    $cellAttributes->Row - $expression['row'],
+                    $worksheetName
+                );
+            }
+            $type = DataType::TYPE_FORMULA;
+        } else {
+            $vtype = (string) $ValueType;
+            if (array_key_exists($vtype, self::$mappings['dataType'])) {
+                $type = self::$mappings['dataType'][$vtype];
+            }
+            if ($vtype === '20') {        //    Boolean
+                $cell = $cell == 'TRUE';
+            }
+        }
+
+        $this->spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit((string) $cell, $type);
+        if (isset($cellAttributes->ValueFormat)) {
+            $this->spreadsheet->getActiveSheet()->getCell($column . $row)
+                ->getStyle()->getNumberFormat()
+                ->setFormatCode((string) $cellAttributes->ValueFormat);
+        }
     }
 }
