@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -31,6 +32,19 @@ class CellTest extends TestCase
     public function providerSetValueExplicit(): array
     {
         return require 'tests/data/Cell/SetValueExplicit.php';
+    }
+
+    public function testInvalidIsoDateSetValueExplicit(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+
+        $dateValue = '2022-02-29'; // Invalid leap year
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid string {$dateValue} supplied for datatype Date");
+        $cell->setValueExplicit($dateValue, DataType::TYPE_ISO_DATE);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

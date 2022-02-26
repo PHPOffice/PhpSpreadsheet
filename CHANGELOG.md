@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- Gnumeric Reader now loads number formatting for cells.
+- Gnumeric Reader now correctly identifies selected worksheet.
 
 ### Deprecated
 

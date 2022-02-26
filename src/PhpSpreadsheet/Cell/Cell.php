@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
-use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
@@ -240,18 +239,7 @@ class Cell
 
                 break;
             case DataType::TYPE_ISO_DATE:
-                if (!is_string($value)) {
-                    throw new Exception('Non-string supplied for datatype Date');
-                }
-                $date = new DateTime($value);
-                $newValue = SharedDate::PHPToExcel($date);
-                if ($newValue === false) {
-                    throw new Exception("Invalid string $value supplied for datatype Date");
-                }
-                if (preg_match('/^\\d\\d:\\d\\d:\\d\\d/', $value) == 1) {
-                    $newValue = fmod($newValue, 1.0);
-                }
-                $this->value = $newValue;
+                $this->value = SharedDate::convertIsoDate($value);
                 $dataType = DataType::TYPE_NUMERIC;
 
                 break;
