@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTime;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -478,21 +477,7 @@ class Ods extends BaseReader
                                         case 'date':
                                             $type = DataType::TYPE_NUMERIC;
                                             $value = $cellData->getAttributeNS($officeNs, 'date-value');
-
-                                            $dateObj = new DateTime($value);
-                                            [$year, $month, $day, $hour, $minute, $second] = explode(
-                                                ' ',
-                                                $dateObj->format('Y m d H i s')
-                                            );
-
-                                            $dataValue = Date::formattedPHPToExcel(
-                                                (int) $year,
-                                                (int) $month,
-                                                (int) $day,
-                                                (int) $hour,
-                                                (int) $minute,
-                                                (int) $second
-                                            );
+                                            $dataValue = Date::convertIsoDate($value);
 
                                             if ($dataValue != floor($dataValue)) {
                                                 $formatting = NumberFormat::FORMAT_DATE_XLSX15
