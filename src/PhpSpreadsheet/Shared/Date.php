@@ -5,11 +5,11 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -75,10 +75,7 @@ class Date
      */
     public static function setExcelCalendar($baseYear)
     {
-        if (
-            ($baseYear == self::CALENDAR_WINDOWS_1900) ||
-            ($baseYear == self::CALENDAR_MAC_1904)
-        ) {
+        if (($baseYear == self::CALENDAR_WINDOWS_1900) || ($baseYear == self::CALENDAR_MAC_1904)) {
             self::$excelCalendar = $baseYear;
 
             return true;
@@ -168,19 +165,23 @@ class Date
     public static function convertIsoDate($value)
     {
         if (!is_string($value)) {
-            throw new Exception('Non-string value supplied for Iso Date conversion');
+            throw new PhpSpreadsheetException('Non-string value supplied for Iso Date conversion');
         }
 
-        $date = new DateTime($value);
+        try {
+            $date = new DateTime($value);
+        } catch (Exception $e) {
+            throw new PhpSpreadsheetException("Invalid string $value supplied for datatype Date");
+        }
         $dateErrors = DateTime::getLastErrors();
 
         if (is_array($dateErrors) && ($dateErrors['warning_count'] > 0 || $dateErrors['error_count'] > 0)) {
-            throw new Exception("Invalid string $value supplied for datatype Date");
+            throw new PhpSpreadsheetException("Invalid string $value supplied for datatype Date");
         }
 
         $newValue = SharedDate::PHPToExcel($date);
         if ($newValue === false) {
-            throw new Exception("Invalid string $value supplied for datatype Date");
+            throw new PhpSpreadsheetException("Invalid string $value supplied for datatype Date");
         }
 
         if (preg_match('/^\\d\\d:\\d\\d:\\d\\d/', $value) == 1) {
@@ -194,9 +195,9 @@ class Date
      * Convert a MS serialized datetime value from Excel to a PHP Date/Time object.
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
-     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
-     *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UTC) unless you absolutely need a conversion
+     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp
+     *                                               if you don't want to treat it as a UTC value
+     *                                           Use the default (UTC) unless you absolutely need a conversion
      *
      * @return DateTime PHP date/time object
      */
@@ -211,7 +212,9 @@ class Date
                 // MS Excel calendar base dates
                 if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
                     // Allow adjustment for 1900 Leap Year in MS Excel
-                    $baseDate = ($excelTimestamp < 60) ? new DateTime('1899-12-31', $timeZone) : new DateTime('1899-12-30', $timeZone);
+                    $baseDate = ($excelTimestamp < 60)
+                        ? new DateTime('1899-12-31', $timeZone)
+                        : new DateTime('1899-12-30', $timeZone);
                 } else {
                     $baseDate = new DateTime('1904-01-01', $timeZone);
                 }
@@ -243,9 +246,9 @@ class Date
      * They are not Y2038-safe on a 32-bit system, and have no timezone info.
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
-     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
-     *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UTC) unless you absolutely need a conversion
+     * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp
+     *                                               if you don't want to treat it as a UTC value
+     *                                           Use the default (UTC) unless you absolutely need a conversion
      *
      * @return int Unix timetamp for this date/time
      */
@@ -527,7 +530,8 @@ class Date
      *
      * @param string $day Day number with an ordinal
      *
-     * @return int|string The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
+     * @return int|string The integer value with any ordinal stripped,
+     *                        or the original string argument if it isn't a valid numeric
      */
     public static function dayStringToNumber($day)
     {

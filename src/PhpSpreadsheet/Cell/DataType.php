@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
-use DateTime;
-use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class DataType
@@ -85,34 +82,5 @@ class DataType
         }
 
         return $value;
-    }
-
-    /**
-     * @param mixed $value
-     *
-     * @return float|int
-     */
-    public static function checkIsoDate($value)
-    {
-        if (!is_string($value)) {
-            throw new Exception('Non-string supplied for datatype Date');
-        }
-
-        try {
-            $date = new DateTime($value);
-            $newValue = SharedDate::PHPToExcel($date);
-        } catch (\Exception $e) {
-            throw new Exception("Invalid string $value supplied for datatype Date");
-        }
-
-        if ($newValue === false) {
-            throw new Exception("Invalid string $value supplied for datatype Date");
-        }
-
-        if (preg_match('/^\\d\\d:\\d\\d:\\d\\d/', $value) == 1) {
-            $newValue = fmod($newValue, 1.0);
-        }
-
-        return $newValue;
     }
 }

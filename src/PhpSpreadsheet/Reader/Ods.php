@@ -512,14 +512,10 @@ class Ods extends BaseReader
                                     $dataValue = null;
                                 }
 
-                                $isArrayFormula = false;
-                                $arrayFormulaRange = null;
                                 if ($hasCalculatedValue) {
                                     $type = DataType::TYPE_FORMULA;
                                     $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
                                     $cellDataFormula = $this->convertToExcelFormulaValue($cellDataFormula);
-                                    $isArrayFormula = (!empty($arrayAttributeRows) && !empty($arrayAttributeColumns));
-                                    $arrayFormulaRange = null;
                                 }
 
                                 if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -544,6 +540,7 @@ class Ods extends BaseReader
                                                 // Set value
                                                 if ($hasCalculatedValue) {
                                                     $arrayFormulaRange = null;
+                                                    $isArrayFormula = (!empty($arrayAttributeRows) && !empty($arrayAttributeColumns));
                                                     if ($isArrayFormula === true) {
                                                         $arrayFormulaRange = $columnID . $rID;
                                                         $arrayAttributeRows = (int) $arrayAttributeRows;
@@ -568,17 +565,10 @@ class Ods extends BaseReader
                                                 }
 
                                                 // Set other properties
-                                                if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode($formatting);
-                                                } else {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                                                }
+                                                $spreadsheet->getActiveSheet()
+                                                    ->getStyle($columnID . $rID)
+                                                    ->getNumberFormat()
+                                                    ->setFormatCode($formatting ?? NumberFormat::FORMAT_GENERAL);
 
                                                 if ($hyperlink !== null) {
                                                     $cell->getHyperlink()
@@ -590,31 +580,7 @@ class Ods extends BaseReader
                                 }
 
                                 // Merged cells
-                                if (
-                                    $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
-                                    || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
-                                ) {
-                                    if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
-                                        $columnTo = $columnID;
-
-                                        if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = Coordinate::columnIndexFromString($columnID);
-                                            $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
-                                            $columnIndex -= 2;
-
-                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
-                                        }
-
-                                        $rowTo = $rowID;
-
-                                        if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
-                                            $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
-                                        }
-
-                                        $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
-                                        $spreadsheet->getActiveSheet()->mergeCells($cellRange);
-                                    }
-                                }
+                                $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
 
                                 ++$columnID;
                             }
@@ -653,11 +619,13 @@ class Ods extends BaseReader
         $officeNs = $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
             ->item(0);
-        $this->lookForActiveSheet($settings, $spreadsheet, $configNs);
-        $this->lookForSelectedCells($settings, $spreadsheet, $configNs);
+        if ($settings !== null) {
+            $this->activeSheet($settings, $spreadsheet, $configNs);
+            $this->selectedCells($settings, $spreadsheet, $configNs);
+        }
     }
 
-    private function lookForActiveSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function activeSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
@@ -673,7 +641,7 @@ class Ods extends BaseReader
         }
     }
 
-    private function lookForSelectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function selectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {
@@ -784,5 +752,40 @@ class Ods extends BaseReader
         $excelFormula = implode('"', $temp);
 
         return $excelFormula;
+    }
+
+    private function processMergedCells(
+        DOMElement $cellData,
+        string $tableNs,
+        string $type,
+        string $columnID,
+        int $rowID,
+        Spreadsheet $spreadsheet
+    ): void {
+        if (
+            $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+            || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
+        ) {
+            if (($type !== DataType::TYPE_NULL) || ($this->readDataOnly === false)) {
+                $columnTo = $columnID;
+
+                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
+                    $columnIndex = Coordinate::columnIndexFromString($columnID);
+                    $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $columnIndex -= 2;
+
+                    $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
+                }
+
+                $rowTo = $rowID;
+
+                if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
+                    $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
+                }
+
+                $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
+                $spreadsheet->getActiveSheet()->mergeCells($cellRange);
+            }
+        }
     }
 }
