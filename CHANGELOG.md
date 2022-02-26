@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- Gnumeric Reader now loads number formatting for cells.
+- Gnumeric Reader now correctly identifies selected worksheet.
 
 ### Deprecated
 
@@ -24,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Nothing
 
 ### Fixed
+
+- Fixed behaviour of XLSX font style vertical align settings
 
 ## 1.22.0 - 2022-02-18
 

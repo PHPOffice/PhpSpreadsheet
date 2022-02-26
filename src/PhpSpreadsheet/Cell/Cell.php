@@ -326,7 +326,7 @@ class Cell
 
                 break;
             case DataType::TYPE_ISO_DATE:
-                $this->value = DataType::checkIsoDate($value);
+                $this->value = SharedDate::convertIsoDate($value);
                 $dataType = DataType::TYPE_NUMERIC;
 
                 break;
