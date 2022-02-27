@@ -73,4 +73,26 @@ class ArrayFormulaTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider providerArrayArithmetic
+     *
+     * @param mixed $expectedResult
+     */
+    public function testArrayArithmetic(string $formula, $expectedResult): void
+    {
+        $result = Calculation::getInstance()->_calculateFormulaValue($formula);
+        var_dump($result);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerArrayArithmetic(): array
+    {
+        return [
+            [
+                '={2,3}*{4;5}',
+                [[8, 12], [10, 15]],
+            ],
+        ];
+    }
 }

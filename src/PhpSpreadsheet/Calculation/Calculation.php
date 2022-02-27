@@ -3364,6 +3364,7 @@ class Calculation
 
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
+
             $cellAddress = array_pop($this->cellStack);
             $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
         } catch (\Exception $e) {
@@ -4942,6 +4943,7 @@ class Calculation
             return $this->raiseFormulaError('internal error');
         }
         $output = $stack->pop();
+
         $output = $output['value'];
 
         return $output;
