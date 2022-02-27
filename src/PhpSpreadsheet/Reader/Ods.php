@@ -625,7 +625,7 @@ class Ods extends BaseReader
         }
     }
 
-    private function activeSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function activeSheet(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
@@ -641,7 +641,7 @@ class Ods extends BaseReader
         }
     }
 
-    private function selectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function selectedCells(DOMNode $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {
