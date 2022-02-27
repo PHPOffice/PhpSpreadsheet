@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the ISREF() information function
+- Implementation of the ISREF() information function.
+- Allow Boolean Conversion in Csv Reader to be locale-aware when using the String Value Binder.
+
+  (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 
 ### Changed
 
@@ -27,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Fixed behaviour of XLSX font style vertical align settings
+- Fixed behaviour of XLSX font style vertical align settings.
 - Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
 
   Note that this method is used when translating Excel functions between en and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).

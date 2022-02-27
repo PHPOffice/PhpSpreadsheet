@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Csv extends BaseReader
 {
@@ -84,6 +85,16 @@ class Csv extends BaseReader
      * @var ?callable
      */
     private static $constructorCallback;
+
+    /**
+     * @var bool
+     */
+    protected $castFormattedNumberToNumeric = false;
+
+    /**
+     * @var bool
+     */
+    protected $preserveNumericFormatting = false;
 
     /**
      * Create a new CSV Reader instance.
@@ -283,6 +294,14 @@ class Csv extends BaseReader
         return $retVal;
     }
 
+    public function castFormattedNumberToNumeric(
+        bool $castFormattedNumberToNumeric,
+        bool $preserveNumericFormatting = false
+    ): void {
+        $this->castFormattedNumberToNumeric = $castFormattedNumberToNumeric;
+        $this->preserveNumericFormatting = $preserveNumericFormatting;
+    }
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
@@ -319,6 +338,7 @@ class Csv extends BaseReader
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 $this->convertBoolean($rowDatum, $preserveBooleanString);
+                $numberFormatMask = $this->convertFormattedNumber($rowDatum);
                 if ($rowDatum !== '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
@@ -328,6 +348,10 @@ class Csv extends BaseReader
                     } else {
                         $outRow = $currentRow;
                     }
+                    // Set basic styling for the value (Note that this could be overloaded by styling in a value binder)
+                    $sheet->getCell($columnLetter . $outRow)->getStyle()
+                        ->getNumberFormat()
+                        ->setFormatCode($numberFormatMask);
                     // Set cell value
                     $sheet->getCell($columnLetter . $outRow)->setValue($rowDatum);
                 }
@@ -362,6 +386,39 @@ class Csv extends BaseReader
         } elseif ($rowDatum === null) {
             $rowDatum = '';
         }
+    }
+
+    /**
+     * Convert numeric strings to int or float values.
+     *
+     * @param mixed $rowDatum
+     */
+    private function convertFormattedNumber(&$rowDatum): string
+    {
+        $numberFormatMask = NumberFormat::FORMAT_GENERAL;
+        if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {
+            $numeric = str_replace(
+                [StringHelper::getThousandsSeparator(), StringHelper::getDecimalSeparator()],
+                ['', '.'],
+                $rowDatum
+            );
+
+            if (is_numeric($numeric)) {
+                $decimalPos = strpos($rowDatum, StringHelper::getDecimalSeparator());
+                if ($this->preserveNumericFormatting === true) {
+                    $numberFormatMask = (strpos($rowDatum, StringHelper::getThousandsSeparator()) !== false)
+                        ? '#,##0' : '0';
+                    if ($decimalPos !== false) {
+                        $decimals = strlen($rowDatum) - $decimalPos - 1;
+                        $numberFormatMask .= '.' . str_repeat('0', min($decimals, 6));
+                    }
+                }
+
+                $rowDatum = ($decimalPos !== false) ? (float) $numeric : (int) $numeric;
+            }
+        }
+
+        return $numberFormatMask;
     }
 
     public function getDelimiter(): ?string
