@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -20,12 +21,14 @@ class ArrayFormulaTest extends TestCase
         $this->spreadsheet = $reader->load($filename);
     }
 
-    public function testAutoFilterRange(): void
+    public function testArrayFormulaReader(): void
     {
         $worksheet = $this->spreadsheet->getActiveSheet();
 
         $cell = $worksheet->getCell('B2');
         self::assertTrue($cell->isArrayFormula());
         self::assertSame('B2:C3', $cell->arrayFormulaRange());
+        Calculation::getInstance($this->spreadsheet)->flushInstance();
+        self::assertSame('={2,3}*{4;5}', $cell->getValue());
     }
 }
