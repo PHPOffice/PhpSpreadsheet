@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Gnumeric Reader now loads number formatting for cells.
 - Gnumeric Reader now correctly identifies selected worksheet.
+- Some Refactoring of the Ods Reader, moving all formula and address translation from Ods to Excel into a separate class to eliminate code duplication and ensure consistency.
 
 ### Deprecated
 
@@ -27,6 +28,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fixed behaviour of XLSX font style vertical align settings
+- Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
+
+  Note that this method is used when translating Excel functions between en and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).
+
+  Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
+
 
 ## 1.22.0 - 2022-02-18
 
