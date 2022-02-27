@@ -50,8 +50,10 @@ class Calculation
     const RETURN_ARRAY_AS_VALUE = 'value';
     const RETURN_ARRAY_AS_ARRAY = 'array';
 
-    const FORMULA_OPEN_FUNCTION_BRACE = '{';
-    const FORMULA_CLOSE_FUNCTION_BRACE = '}';
+    const FORMULA_OPEN_FUNCTION_BRACE = '(';
+    const FORMULA_CLOSE_FUNCTION_BRACE = ')';
+    const FORMULA_OPEN_MATRIX_BRACE = '{';
+    const FORMULA_CLOSE_MATRIX_BRACE = '}';
     const FORMULA_STRING_QUOTE = '"';
 
     private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
@@ -3084,30 +3086,28 @@ class Calculation
         return false;
     }
 
-    /**
-     * @param string $fromSeparator
-     * @param string $toSeparator
-     * @param string $formula
-     * @param bool $inBraces
-     *
-     * @return string
-     */
-    public static function translateSeparator($fromSeparator, $toSeparator, $formula, &$inBraces)
-    {
+    public static function translateSeparator(
+        string $fromSeparator,
+        string $toSeparator,
+        string $formula,
+        int &$inBracesLevel,
+        string $openBrace = self::FORMULA_OPEN_FUNCTION_BRACE,
+        string $closeBrace = self::FORMULA_CLOSE_FUNCTION_BRACE
+    ): string {
         $strlen = mb_strlen($formula);
         for ($i = 0; $i < $strlen; ++$i) {
             $chr = mb_substr($formula, $i, 1);
             switch ($chr) {
-                case self::FORMULA_OPEN_FUNCTION_BRACE:
-                    $inBraces = true;
+                case $openBrace:
+                    ++$inBracesLevel;
 
                     break;
-                case self::FORMULA_CLOSE_FUNCTION_BRACE:
-                    $inBraces = false;
+                case $closeBrace:
+                    --$inBracesLevel;
 
                     break;
                 case $fromSeparator:
-                    if (!$inBraces) {
+                    if ($inBracesLevel > 0) {
                         $formula = mb_substr($formula, 0, $i) . $toSeparator . mb_substr($formula, $i + 1);
                     }
             }
@@ -3116,31 +3116,47 @@ class Calculation
         return $formula;
     }
 
-    /**
-     * @param string[] $from
-     * @param string[] $to
-     * @param string $formula
-     * @param string $fromSeparator
-     * @param string $toSeparator
-     *
-     * @return string
-     */
-    private static function translateFormula(array $from, array $to, $formula, $fromSeparator, $toSeparator)
+    private static function translateFormulaBlock(
+        array $from,
+        array $to,
+        string $formula,
+        int &$inFunctionBracesLevel,
+        int &$inMatrixBracesLevel,
+        string $fromSeparator,
+        string $toSeparator
+    ): string {
+        // Function Names
+        $formula = preg_replace($from, $to, $formula);
+
+        // Temporarily adjust matrix separators so that they won't be confused with function arguments
+        $formula = self::translateSeparator(';', '|', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
+        $formula = self::translateSeparator(',', '!', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
+        // Function Argument Separators
+        $formula = self::translateSeparator($fromSeparator, $toSeparator, $formula, $inFunctionBracesLevel);
+        // Restore matrix separators
+        $formula = self::translateSeparator('|', ';', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
+        $formula = self::translateSeparator('!', ',', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
+
+        return $formula;
+    }
+
+    private static function translateFormula(array $from, array $to, string $formula, string $fromSeparator, string $toSeparator): string
     {
-        //    Convert any Excel function names to the required language
+        // Convert any Excel function names and constant names to the required language;
+        //     and adjust function argument separators
         if (self::$localeLanguage !== 'en_us') {
-            $inBraces = false;
-            //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
+            $inFunctionBracesLevel = 0;
+            $inMatrixBracesLevel = 0;
+            //    If there is the possibility of separators within a quoted string, then we treat them as literals
             if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
-                //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
-                //        the formula
+                //    So instead we skip replacing in any quoted strings by only replacing in every other array element
+                //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 $i = false;
                 foreach ($temp as &$value) {
-                    //    Only count/replace in alternating array entries
+                    //    Only adjust in alternating array entries
                     if ($i = !$i) {
-                        $value = preg_replace($from, $to, $value);
-                        $value = self::translateSeparator($fromSeparator, $toSeparator, $value, $inBraces);
+                        $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
                 }
                 unset($value);
@@ -3148,8 +3164,7 @@ class Calculation
                 $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
-                $formula = preg_replace($from, $to, $formula);
-                $formula = self::translateSeparator($fromSeparator, $toSeparator, $formula, $inBraces);
+                $formula = self::translateFormulaBlock($from, $to, $formula, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
             }
         }
 
@@ -3162,6 +3177,7 @@ class Calculation
 
     public function _translateFormulaToLocale($formula)
     {
+        // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
             self::$functionReplaceFromExcel = [];
             foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
@@ -3798,11 +3814,11 @@ class Calculation
      */
     private function convertMatrixReferences($formula)
     {
-        static $matrixReplaceFrom = [self::FORMULA_OPEN_FUNCTION_BRACE, ';', self::FORMULA_CLOSE_FUNCTION_BRACE];
+        static $matrixReplaceFrom = [self::FORMULA_OPEN_MATRIX_BRACE, ';', self::FORMULA_CLOSE_MATRIX_BRACE];
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
 
         //    Convert any Excel matrix references to the MKMATRIX() function
-        if (strpos($formula, self::FORMULA_OPEN_FUNCTION_BRACE) !== false) {
+        if (strpos($formula, self::FORMULA_OPEN_MATRIX_BRACE) !== false) {
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
             if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
@@ -3814,8 +3830,8 @@ class Calculation
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
                     if ($i = !$i) {
-                        $openCount += substr_count($value, self::FORMULA_OPEN_FUNCTION_BRACE);
-                        $closeCount += substr_count($value, self::FORMULA_CLOSE_FUNCTION_BRACE);
+                        $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
+                        $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
                     }
                 }
@@ -3824,8 +3840,8 @@ class Calculation
                 $formula = implode(self::FORMULA_STRING_QUOTE, $temp);
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
-                $openCount = substr_count($formula, self::FORMULA_OPEN_FUNCTION_BRACE);
-                $closeCount = substr_count($formula, self::FORMULA_CLOSE_FUNCTION_BRACE);
+                $openCount = substr_count($formula, self::FORMULA_OPEN_MATRIX_BRACE);
+                $closeCount = substr_count($formula, self::FORMULA_CLOSE_MATRIX_BRACE);
                 $formula = str_replace($matrixReplaceFrom, $matrixReplaceTo, $formula);
             }
             //    Trap for mismatched braces and trigger an appropriate error

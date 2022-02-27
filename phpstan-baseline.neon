@@ -162,7 +162,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
