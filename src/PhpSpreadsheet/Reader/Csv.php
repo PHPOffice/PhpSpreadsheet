@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
@@ -353,9 +354,9 @@ class Csv extends BaseReader
     private function convertBoolean(&$rowDatum, bool $preserveBooleanString): void
     {
         if (is_string($rowDatum) && !$preserveBooleanString) {
-            if (strcasecmp('true', $rowDatum) === 0) {
+            if (strcasecmp(Calculation::getTRUE(), $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
                 $rowDatum = true;
-            } elseif (strcasecmp('false', $rowDatum) === 0) {
+            } elseif (strcasecmp(Calculation::getFALSE(), $rowDatum) === 0 || strcasecmp('false', $rowDatum) === 0) {
                 $rowDatum = false;
             }
         } elseif ($rowDatum === null) {
