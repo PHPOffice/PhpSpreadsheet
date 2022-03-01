@@ -69,7 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Initial work enabling Excel function implementations for handling arrays as arguments when used in "array formulae" [#2562](https://github.com/PHPOffice/PhpSpreadsheet/issues/2562)
   - Enable most of the Date/Time functions to accept array arguments [#2573](https://github.com/PHPOffice/PhpSpreadsheet/issues/2573)
   - Array ready functions - Text, Math/Trig, Statistical, Engineering and Logical [#2580](https://github.com/PHPOffice/PhpSpreadsheet/issues/2580)
-  - Support for two cell anchor drawing of images.
+  - Support for two cell anchor drawing of images.  [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
 
 ### Changed
 
