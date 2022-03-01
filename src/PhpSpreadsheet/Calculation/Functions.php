@@ -401,7 +401,7 @@ class Functions
             return self::VALUE();
         }
 
-        return $value % 2 == 0;
+        return (int) fmod($value, 2.0) === 0;
     }
 
     /**
@@ -421,7 +421,7 @@ class Functions
             return self::VALUE();
         }
 
-        return abs($value) % 2 == 1;
+        return (int) fmod($value, 2.0) !== 0;
     }
 
     /**
