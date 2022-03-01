@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class RomanTest extends AllSetupTeardown
 {
     /**
@@ -23,5 +25,26 @@ class RomanTest extends AllSetupTeardown
     public function providerROMAN(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
+    }
+
+    /**
+     * @dataProvider providerRomanArray
+     */
+    public function testRomanArray(array $expectedResult, string $values, string $styles): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ROMAN({$values}, {$styles})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerRomanArray(): array
+    {
+        return [
+            'row vector' => [[['XLIX', 'MMXXII', 'CDXCIX']], '{49, 2022, 499}', '0'],
+            'column vector' => [[['XLIX'], ['MMXXII'], ['CDXCIX']], '{49; 2022; 499}', '0'],
+            'matrix' => [[['XLIX', 'MMXXII'], ['LXIV', 'CDXCIX']], '{49, 2022; 64, 499}', '0'],
+        ];
     }
 }

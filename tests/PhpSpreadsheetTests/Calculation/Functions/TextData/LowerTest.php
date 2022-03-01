@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 class LowerTest extends AllSetupTeardown
@@ -62,6 +63,27 @@ class LowerTest extends AllSetupTeardown
             ['onwaar', 'nl_NL', false],
             ['epätosi', 'fi', false],
             ['ложь', 'bg', false],
+        ];
+    }
+
+    /**
+     * @dataProvider providerLowerArray
+     */
+    public function testLowerArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=LOWER({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerLowerArray(): array
+    {
+        return [
+            'row vector' => [[["let's", 'all change', 'case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],
+            'column vector' => [[["let's"], ['all change'], ['case']], '{"lEt\'S"; "aLl chAngE"; "cAsE"}'],
+            'matrix' => [[['build all', 'your workbooks'], ['with', 'phpspreadsheet']], '{"bUIld aLL", "yOUr WOrkBOOks"; "wiTH", "PhpSpreadsheet"}'],
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Variances extends VarianceBase
 {
@@ -20,7 +21,7 @@ class Variances extends VarianceBase
      */
     public static function VAR(...$args)
     {
-        $returnValue = Functions::DIV0();
+        $returnValue = ExcelError::DIV0();
 
         $summerA = $summerB = 0.0;
 
@@ -62,7 +63,7 @@ class Variances extends VarianceBase
      */
     public static function VARA(...$args)
     {
-        $returnValue = Functions::DIV0();
+        $returnValue = ExcelError::DIV0();
 
         $summerA = $summerB = 0.0;
 
@@ -71,7 +72,7 @@ class Variances extends VarianceBase
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
             if ((is_string($arg)) && (Functions::isValue($k))) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
@@ -109,7 +110,7 @@ class Variances extends VarianceBase
     public static function VARP(...$args)
     {
         // Return value
-        $returnValue = Functions::DIV0();
+        $returnValue = ExcelError::DIV0();
 
         $summerA = $summerB = 0.0;
 
@@ -151,7 +152,7 @@ class Variances extends VarianceBase
      */
     public static function VARPA(...$args)
     {
-        $returnValue = Functions::DIV0();
+        $returnValue = ExcelError::DIV0();
 
         $summerA = $summerB = 0.0;
 
@@ -160,7 +161,7 @@ class Variances extends VarianceBase
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
             if ((is_string($arg)) && (Functions::isValue($k))) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 /**
@@ -64,8 +64,11 @@ class DataValidator
 
                 try {
                     $result = $calculation->calculateFormula($matchFormula, $cell->getCoordinate(), $cell);
+                    while (is_array($result)) {
+                        $result = array_pop($result);
+                    }
 
-                    return $result !== Functions::NA();
+                    return $result !== ExcelError::NA();
                 } catch (Exception $ex) {
                     return false;
                 }

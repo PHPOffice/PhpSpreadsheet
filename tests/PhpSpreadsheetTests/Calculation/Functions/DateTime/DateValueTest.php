@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateValue;
 
 class DateValueTest extends AllSetupTeardown
@@ -71,5 +72,26 @@ class DateValueTest extends AllSetupTeardown
         self::assertEquals(0, DateValue::fromString('1904-01-01'));
         self::assertEquals('#VALUE!', DateValue::fromString('1903-12-31'));
         self::assertEquals('#VALUE!', DateValue::fromString('1900-02-29'));
+    }
+
+    /**
+     * @dataProvider providerDateValueArray
+     */
+    public function testDateValueArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DATEVALUE({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerDateValueArray(): array
+    {
+        return [
+            'row vector' => [[[44562, 44724, 45129]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],
+            'column vector' => [[[44562], [44564], [44567]], '{"2022-01-01"; "2022-01-03"; "2022-01-06"}'],
+            'matrix' => [[[44562, 44571], [44788, 44926]], '{"2022-01-01", "2022-01-10"; "2022-08-15", "2022-12-31"}'],
+        ];
     }
 }

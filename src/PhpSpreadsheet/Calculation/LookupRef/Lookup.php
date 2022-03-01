@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class Lookup
 {
+    use ArrayEnabled;
+
     /**
      * LOOKUP
      * The LOOKUP function searches for value either from a one-row or one-column range or from an array.
@@ -19,10 +22,12 @@ class Lookup
      */
     public static function lookup($lookupValue, $lookupVector, $resultVector = null)
     {
-        $lookupValue = Functions::flattenSingleValue($lookupValue);
+        if (is_array($lookupValue)) {
+            return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $lookupValue, $lookupVector, $resultVector);
+        }
 
         if (!is_array($lookupVector)) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
         $hasResultVector = isset($resultVector);
         $lookupRows = self::rowCount($lookupVector);

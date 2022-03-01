@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Arabic
 {
+    use ArrayEnabled;
+
     private const ROMAN_LOOKUP = [
         'M' => 1000,
         'D' => 500,
@@ -70,14 +73,20 @@ class Arabic
      * Excel Function:
      *        ARABIC(text)
      *
-     * @param string $roman
+     * @param mixed $roman Should be a string, or can be an array of strings
      *
-     * @return int|string the arabic numberal contrived from the roman numeral
+     * @return array|int|string the arabic numberal contrived from the roman numeral
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function evaluate($roman)
     {
+        if (is_array($roman)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $roman);
+        }
+
         // An empty string should return 0
-        $roman = substr(trim(strtoupper((string) Functions::flattenSingleValue($roman))), 0, 255);
+        $roman = substr(trim(strtoupper((string) $roman)), 0, 255);
         if ($roman === '') {
             return 0;
         }
@@ -91,7 +100,7 @@ class Arabic
         try {
             $arabic = self::calculateArabic(self::strSplit($roman));
         } catch (Exception $e) {
-            return Functions::VALUE(); // Invalid character detected
+            return ExcelError::VALUE(); // Invalid character detected
         }
 
         if ($negativeNumber) {

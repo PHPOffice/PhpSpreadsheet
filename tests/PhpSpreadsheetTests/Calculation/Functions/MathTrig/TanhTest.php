@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class TanhTest extends AllSetupTeardown
 {
     /**
@@ -22,5 +24,26 @@ class TanhTest extends AllSetupTeardown
     public function providerTanh(): array
     {
         return require 'tests/data/Calculation/MathTrig/TANH.php';
+    }
+
+    /**
+     * @dataProvider providerTanhArray
+     */
+    public function testTanhArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=TANH({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerTanhArray(): array
+    {
+        return [
+            'row vector' => [[[0.76159415595577, 0.46211715726001, -0.76159415595577]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.76159415595577], [0.46211715726001], [-0.76159415595577]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.76159415595577, 0.46211715726001], [0.0, -0.76159415595577]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

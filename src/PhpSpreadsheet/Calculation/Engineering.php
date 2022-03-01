@@ -61,7 +61,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELI($x, $ord)
     {
@@ -86,7 +86,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELJ($x, $ord)
     {
@@ -112,7 +112,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELK($x, $ord)
     {
@@ -137,7 +137,7 @@ class Engineering
      *                                If $ord is nonnumeric, BESSELY returns the #VALUE! error value.
      *                                If $ord < 0, BESSELY returns the #NUM! error value.
      *
-     * @return float|string Result, or a string containing an error
+     * @return array|float|string Result, or a string containing an error
      */
     public static function BESSELY($x, $ord)
     {
@@ -163,7 +163,7 @@ class Engineering
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTODEC($x)
     {
@@ -195,7 +195,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
      *                                If places is negative, BIN2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -227,7 +227,7 @@ class Engineering
      *                                If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
      *                                If places is negative, BIN2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -263,7 +263,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -299,7 +299,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -335,7 +335,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function DECTOOCT($x, $places = null)
     {
@@ -371,7 +371,7 @@ class Engineering
      *                                    If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
      *                                    If places is negative, HEX2BIN returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -398,7 +398,7 @@ class Engineering
      *                                If number is not a valid hexadecimal number, HEX2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTODEC($x)
     {
@@ -438,7 +438,7 @@ class Engineering
      *                                    value.
      *                                    If places is negative, HEX2OCT returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -480,7 +480,7 @@ class Engineering
      *                                    If places is negative, OCT2BIN returns the #NUM! error
      *                                    value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -507,7 +507,7 @@ class Engineering
      *                                If number is not a valid octal number, OCT2DEC returns the
      *                                #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTODEC($x)
     {
@@ -544,7 +544,7 @@ class Engineering
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      *
-     * @return string
+     * @return array|string
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -563,12 +563,12 @@ class Engineering
      *
      * @see Use the COMPLEX() method in the Engineering\Complex class instead
      *
-     * @param float $realNumber the real coefficient of the complex number
-     * @param float $imaginary the imaginary coefficient of the complex number
-     * @param string $suffix The suffix for the imaginary component of the complex number.
+     * @param array|float $realNumber the real coefficient of the complex number
+     * @param array|float $imaginary the imaginary coefficient of the complex number
+     * @param array|string $suffix The suffix for the imaginary component of the complex number.
      *                                        If omitted, the suffix is assumed to be "i".
      *
-     * @return string
+     * @return array|string
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
@@ -590,7 +590,7 @@ class Engineering
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMAGINARY($complexNumber)
     {
@@ -611,7 +611,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMREAL($complexNumber)
     {
@@ -632,7 +632,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the absolute value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMABS($complexNumber)
     {
@@ -652,9 +652,9 @@ class Engineering
      *
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the argument theta
+     * @param array|string $complexNumber the complex number for which you want the argument theta
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -673,9 +673,9 @@ class Engineering
      *
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the conjugate
+     * @param array|string $complexNumber the complex number for which you want the conjugate
      *
-     * @return string
+     * @return array|string
      */
     public static function IMCONJUGATE($complexNumber)
     {
@@ -694,9 +694,9 @@ class Engineering
      *
      * @see Use the IMCOS() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cosine
+     * @param array|string $complexNumber the complex number for which you want the cosine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOS($complexNumber)
     {
@@ -715,9 +715,9 @@ class Engineering
      *
      * @see Use the IMCOSH() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the hyperbolic cosine
+     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOSH($complexNumber)
     {
@@ -736,9 +736,9 @@ class Engineering
      *
      * @see Use the IMCOT() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cotangent
+     * @param array|string $complexNumber the complex number for which you want the cotangent
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCOT($complexNumber)
     {
@@ -757,9 +757,9 @@ class Engineering
      *
      * @see Use the IMCSC() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the cosecant
+     * @param array|string $complexNumber the complex number for which you want the cosecant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCSC($complexNumber)
     {
@@ -778,9 +778,9 @@ class Engineering
      *
      * @see Use the IMCSCH() method in the Engineering\ComplexFunctions class instead
      *
-     * @param string $complexNumber the complex number for which you want the hyperbolic cosecant
+     * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMCSCH($complexNumber)
     {
@@ -801,7 +801,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the sine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSIN($complexNumber)
     {
@@ -822,7 +822,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic sine
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSINH($complexNumber)
     {
@@ -843,7 +843,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the secant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSEC($complexNumber)
     {
@@ -864,7 +864,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic secant
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMSECH($complexNumber)
     {
@@ -885,7 +885,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the tangent
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function IMTAN($complexNumber)
     {
@@ -906,7 +906,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the square root
      *
-     * @return string
+     * @return array|string
      */
     public static function IMSQRT($complexNumber)
     {
@@ -927,7 +927,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLN($complexNumber)
     {
@@ -948,7 +948,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLOG10($complexNumber)
     {
@@ -969,7 +969,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
-     * @return string
+     * @return array|string
      */
     public static function IMLOG2($complexNumber)
     {
@@ -990,7 +990,7 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the exponential
      *
-     * @return string
+     * @return array|string
      */
     public static function IMEXP($complexNumber)
     {
@@ -1012,7 +1012,7 @@ class Engineering
      * @param string $complexNumber the complex number you want to raise to a power
      * @param float $realNumber the power to which you want to raise the complex number
      *
-     * @return string
+     * @return array|string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
@@ -1034,7 +1034,7 @@ class Engineering
      * @param string $complexDividend the complex numerator or dividend
      * @param string $complexDivisor the complex denominator or divisor
      *
-     * @return string
+     * @return array|string
      */
     public static function IMDIV($complexDividend, $complexDivisor)
     {
@@ -1056,7 +1056,7 @@ class Engineering
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
      * @param string $complexNumber2 the complex number to subtract from complexNumber1
      *
-     * @return string
+     * @return array|string
      */
     public static function IMSUB($complexNumber1, $complexNumber2)
     {
@@ -1123,7 +1123,7 @@ class Engineering
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
      *
-     * @return int|string (string in the event of an error)
+     * @return array|int|string (string in the event of an error)
      */
     public static function DELTA($a, $b = 0)
     {
@@ -1147,7 +1147,7 @@ class Engineering
      * @param float $number the value to test against step
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *
-     * @return int|string (string in the event of an error)
+     * @return array|int|string (string in the event of an error)
      */
     public static function GESTEP($number, $step = 0)
     {
@@ -1169,7 +1169,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITAND($number1, $number2)
     {
@@ -1191,7 +1191,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITOR($number1, $number2)
     {
@@ -1213,7 +1213,7 @@ class Engineering
      * @param int $number1
      * @param int $number2
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function BITXOR($number1, $number2)
     {
@@ -1235,7 +1235,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return array|float|int|string
      */
     public static function BITLSHIFT($number, $shiftAmount)
     {
@@ -1257,7 +1257,7 @@ class Engineering
      * @param int $number
      * @param int $shiftAmount
      *
-     * @return int|string
+     * @return array|float|int|string
      */
     public static function BITRSHIFT($number, $shiftAmount)
     {
@@ -1285,7 +1285,7 @@ class Engineering
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERF($lower, $upper = null)
     {
@@ -1306,7 +1306,7 @@ class Engineering
      *
      * @param float $limit bound for integrating ERF
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERFPRECISE($limit)
     {
@@ -1332,7 +1332,7 @@ class Engineering
      *
      * @param float $x The lower bound for integrating ERFC
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function ERFC($x)
     {
@@ -1437,7 +1437,7 @@ class Engineering
      * @param string $fromUOM the units for value
      * @param string $toUOM the units for the result
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {

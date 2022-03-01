@@ -20,9 +20,9 @@ class MathTrig
      * @See MathTrig\Arabic::evaluate()
      *      Use the evaluate method in the MathTrig\Arabic class instead
      *
-     * @param string $roman
+     * @param array|string $roman
      *
-     * @return int|string the arabic numberal contrived from the roman numeral
+     * @return array|int|string the arabic numberal contrived from the roman numeral
      */
     public static function ARABIC($roman)
     {
@@ -50,10 +50,10 @@ class MathTrig
      * @See MathTrig\Trig\Tangent::atan2()
      *      Use the atan2 method in the MathTrig\Trig\Tangent class instead
      *
-     * @param float $xCoordinate the x-coordinate of the point
-     * @param float $yCoordinate the y-coordinate of the point
+     * @param array|float $xCoordinate the x-coordinate of the point
+     * @param array|float $yCoordinate the y-coordinate of the point
      *
-     * @return float|string the inverse tangent of the specified x- and y-coordinates, or a string containing an error
+     * @return array|float|string the inverse tangent of the specified x- and y-coordinates, or a string containing an error
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
@@ -77,7 +77,7 @@ class MathTrig
      * @param float $radix
      * @param int $minLength
      *
-     * @return string the text representation with the given radix (base)
+     * @return array|string the text representation with the given radix (base)
      */
     public static function BASE($number, $radix, $minLength = null)
     {
@@ -100,7 +100,7 @@ class MathTrig
      * @param float $number the number you want to round
      * @param float $significance the multiple to which you want to round
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      * @see MathTrig\Ceiling::ceiling()
      *      Use the ceiling() method in the MathTrig\Ceiling class instead
@@ -124,10 +124,10 @@ class MathTrig
      * @see MathTrig\Combinations::withoutRepetition()
      *      Use the withoutRepetition() method in the MathTrig\Combinations class instead
      *
-     * @param int $numObjs Number of different objects
-     * @param int $numInSet Number of objects in each combination
+     * @param array|int $numObjs Number of different objects
+     * @param array|int $numInSet Number of objects in each combination
      *
-     * @return float|int|string Number of combinations, or a string containing an error
+     * @return array|float|int|string Number of combinations, or a string containing an error
      */
     public static function COMBIN($numObjs, $numInSet)
     {
@@ -151,9 +151,9 @@ class MathTrig
      * @see MathTrig\Round::even()
      *      Use the even() method in the MathTrig\Round class instead
      *
-     * @param float $number Number to round
+     * @param array|float $number Number to round
      *
-     * @return float|int|string Rounded Number, or a string containing an error
+     * @return array|float|int|string Rounded Number, or a string containing an error
      */
     public static function EVEN($number)
     {
@@ -184,9 +184,9 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @param float $factVal Factorial Value
+     * @param array|float $factVal Factorial Value
      *
-     * @return float|int|string Factorial, or a string containing an error
+     * @return array|float|int|string Factorial, or a string containing an error
      *
      *@see MathTrig\Factorial::fact()
      *      Use the fact() method in the MathTrig\Factorial class instead
@@ -206,9 +206,9 @@ class MathTrig
      *
      * @Deprecated 1.18.0
      *
-     * @param float $factVal Factorial Value
+     * @param array|float $factVal Factorial Value
      *
-     * @return float|int|string Double Factorial, or a string containing an error
+     * @return array|float|int|string Double Factorial, or a string containing an error
      *
      *@see MathTrig\Factorial::factDouble()
      *      Use the factDouble() method in the MathTrig\Factorial class instead
@@ -231,7 +231,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::floor()
      *      Use the floor() method in the MathTrig\Floor class instead
@@ -255,7 +255,7 @@ class MathTrig
      * @param float $significance Significance
      * @param int $mode direction to round negative numbers
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::math()
      *      Use the math() method in the MathTrig\Floor class instead
@@ -278,7 +278,7 @@ class MathTrig
      * @param float $number Number to round
      * @param float $significance Significance
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Floor::precise()
      *      Use the precise() method in the MathTrig\Floor class instead
@@ -301,9 +301,9 @@ class MathTrig
      * @see MathTrig\IntClass::evaluate()
      *      Use the evaluate() method in the MathTrig\IntClass class instead
      *
-     * @param float $number Number to cast to an integer
+     * @param array|float $number Number to cast to an integer
      *
-     * @return int|string Integer value, or a string containing an error
+     * @return array|int|string Integer value, or a string containing an error
      */
     public static function INT($number)
     {
@@ -375,7 +375,7 @@ class MathTrig
      * @param float $number The positive real number for which you want the logarithm
      * @param float $base The base of the logarithm. If base is omitted, it is assumed to be 10.
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function logBase($number, $base = 10)
     {
@@ -455,7 +455,7 @@ class MathTrig
      * @param int $a Dividend
      * @param int $b Divisor
      *
-     * @return float|int|string Remainder, or a string containing an error
+     * @return array|float|int|string Remainder, or a string containing an error
      */
     public static function MOD($a = 1, $b = 1)
     {
@@ -470,9 +470,9 @@ class MathTrig
      * @Deprecated 1.17.0
      *
      * @param float $number Number to round
-     * @param int $multiple Multiple to which you want to round $number
+     * @param array|int $multiple Multiple to which you want to round $number
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      *
      *@see MathTrig\Round::multiple()
      *      Use the multiple() method in the MathTrig\Mround class instead
@@ -511,9 +511,9 @@ class MathTrig
      * @See MathTrig\Round::odd()
      *      Use the odd method in the MathTrig\Round class instead
      *
-     * @param float $number Number to round
+     * @param array|float $number Number to round
      *
-     * @return float|int|string Rounded Number, or a string containing an error
+     * @return array|float|int|string Rounded Number, or a string containing an error
      */
     public static function ODD($number)
     {
@@ -533,7 +533,7 @@ class MathTrig
      * @param float $x
      * @param float $y
      *
-     * @return float|int|string The result, or a string containing an error
+     * @return array|float|int|string The result, or a string containing an error
      */
     public static function POWER($x = 0, $y = 2)
     {
@@ -579,7 +579,7 @@ class MathTrig
      * @param mixed $numerator
      * @param mixed $denominator
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function QUOTIENT($numerator, $denominator)
     {
@@ -597,7 +597,7 @@ class MathTrig
      * @param int $min Minimal value
      * @param int $max Maximal value
      *
-     * @return float|int|string Random number
+     * @return array|float|int|string Random number
      */
     public static function RAND($min = 0, $max = 0)
     {
@@ -617,7 +617,7 @@ class MathTrig
      * @param mixed $aValue Number to convert
      * @param mixed $style Number indicating one of five possible forms
      *
-     * @return string Roman numeral, or a string containing an error
+     * @return array|string Roman numeral, or a string containing an error
      */
     public static function ROMAN($aValue, $style = 0)
     {
@@ -634,10 +634,10 @@ class MathTrig
      * @See MathTrig\Round::up()
      *      Use the up() method in the MathTrig\Round class instead
      *
-     * @param float $number Number to round
-     * @param int $digits Number of digits to which you want to round $number
+     * @param array|float $number Number to round
+     * @param array|int $digits Number of digits to which you want to round $number
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      */
     public static function ROUNDUP($number, $digits)
     {
@@ -654,10 +654,10 @@ class MathTrig
      * @See MathTrig\Round::down()
      *      Use the down() method in the MathTrig\Round class instead
      *
-     * @param float $number Number to round
-     * @param int $digits Number of digits to which you want to round $number
+     * @param array|float $number Number to round
+     * @param array|int $digits Number of digits to which you want to round $number
      *
-     * @return float|string Rounded Number, or a string containing an error
+     * @return array|float|string Rounded Number, or a string containing an error
      */
     public static function ROUNDDOWN($number, $digits)
     {
@@ -679,7 +679,7 @@ class MathTrig
      * @param mixed $m Step
      * @param mixed[] $args An array of coefficients for the Data Series
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function SERIESSUM($x, $n, $m, ...$args)
     {
@@ -697,9 +697,9 @@ class MathTrig
      * @See MathTrig\Sign::evaluate()
      *      Use the evaluate method in the MathTrig\Sign class instead
      *
-     * @param float $number Number to round
+     * @param array|float $number Number to round
      *
-     * @return int|string sign value, or a string containing an error
+     * @return array|int|string sign value, or a string containing an error
      */
     public static function SIGN($number)
     {
@@ -729,9 +729,9 @@ class MathTrig
      * @See MathTrig\Sqrt::sqrt()
      *      Use the pi method in the MathTrig\Sqrt class instead
      *
-     * @param float $number Number
+     * @param array|float $number Number
      *
-     * @return float|string Square Root of Number * Pi, or a string containing an error
+     * @return array|float|string Square Root of Number * Pi, or a string containing an error
      */
     public static function SQRTPI($number)
     {
@@ -941,7 +941,7 @@ class MathTrig
      * @param float $value
      * @param int $digits
      *
-     * @return float|string Truncated value, or a string containing an error
+     * @return array|float|string Truncated value, or a string containing an error
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
@@ -958,9 +958,9 @@ class MathTrig
      * @See MathTrig\Trig\Secant::sec()
      *      Use the sec method in the MathTrig\Trig\Secant class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The secant of the angle
+     * @return array|float|string The secant of the angle
      */
     public static function SEC($angle)
     {
@@ -977,9 +977,9 @@ class MathTrig
      * @See MathTrig\Trig\Secant::sech()
      *      Use the sech method in the MathTrig\Trig\Secant class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The hyperbolic secant of the angle
+     * @return array|float|string The hyperbolic secant of the angle
      */
     public static function SECH($angle)
     {
@@ -996,9 +996,9 @@ class MathTrig
      * @See MathTrig\Trig\Cosecant::csc()
      *      Use the csc method in the MathTrig\Trig\Cosecant class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The cosecant of the angle
+     * @return array|float|string The cosecant of the angle
      */
     public static function CSC($angle)
     {
@@ -1015,9 +1015,9 @@ class MathTrig
      * @See MathTrig\Trig\Cosecant::csch()
      *      Use the csch method in the MathTrig\Trig\Cosecant class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The hyperbolic cosecant of the angle
+     * @return array|float|string The hyperbolic cosecant of the angle
      */
     public static function CSCH($angle)
     {
@@ -1034,9 +1034,9 @@ class MathTrig
      * @See MathTrig\Trig\Cotangent::cot()
      *      Use the cot method in the MathTrig\Trig\Cotangent class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The cotangent of the angle
+     * @return array|float|string The cotangent of the angle
      */
     public static function COT($angle)
     {
@@ -1053,9 +1053,9 @@ class MathTrig
      * @See MathTrig\Trig\Cotangent::coth()
      *      Use the coth method in the MathTrig\Trig\Cotangent class instead
      *
-     * @param float $angle Number
+     * @param array|float $angle Number
      *
-     * @return float|string The hyperbolic cotangent of the angle
+     * @return array|float|string The hyperbolic cotangent of the angle
      */
     public static function COTH($angle)
     {
@@ -1072,9 +1072,9 @@ class MathTrig
      * @See MathTrig\Trig\Cotangent::acot()
      *      Use the acot method in the MathTrig\Trig\Cotangent class instead
      *
-     * @param float $number Number
+     * @param array|float $number Number
      *
-     * @return float|string The arccotangent of the number
+     * @return array|float|string The arccotangent of the number
      */
     public static function ACOT($number)
     {
@@ -1108,9 +1108,9 @@ class MathTrig
      * @See MathTrig\Trig\Cotangent::acoth()
      *      Use the acoth method in the MathTrig\Trig\Cotangent class instead
      *
-     * @param float $number Number
+     * @param array|float $number Number
      *
-     * @return float|string The hyperbolic arccotangent of the number
+     * @return array|float|string The hyperbolic arccotangent of the number
      */
     public static function ACOTH($number)
     {
@@ -1127,10 +1127,10 @@ class MathTrig
      * @See MathTrig\Round::round()
      *      Use the round() method in the MathTrig\Round class instead
      *
-     * @param mixed $number Should be numeric
-     * @param mixed $precision Should be int
+     * @param array|mixed $number Should be numeric
+     * @param array|mixed $precision Should be int
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinROUND($number, $precision)
     {
@@ -1147,9 +1147,9 @@ class MathTrig
      * @See MathTrig\Absolute::evaluate()
      *      Use the evaluate method in the MathTrig\Absolute class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|int|string Rounded number
+     * @return array|float|int|string Rounded number
      */
     public static function builtinABS($number)
     {
@@ -1166,9 +1166,9 @@ class MathTrig
      *
      * Returns the result of builtin function acos after validating args.
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinACOS($number)
     {
@@ -1185,9 +1185,9 @@ class MathTrig
      * @See MathTrig\Trig\Cosine::acosh()
      *      Use the acosh method in the MathTrig\Trig\Cosine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinACOSH($number)
     {
@@ -1204,9 +1204,9 @@ class MathTrig
      * @See MathTrig\Trig\Sine::asin()
      *      Use the asin method in the MathTrig\Trig\Sine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinASIN($number)
     {
@@ -1223,9 +1223,9 @@ class MathTrig
      * @See MathTrig\Trig\Sine::asinh()
      *      Use the asinh method in the MathTrig\Trig\Sine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinASINH($number)
     {
@@ -1242,9 +1242,9 @@ class MathTrig
      * @See MathTrig\Trig\Tangent::atan()
      *      Use the atan method in the MathTrig\Trig\Tangent class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinATAN($number)
     {
@@ -1261,9 +1261,9 @@ class MathTrig
      * @See MathTrig\Trig\Tangent::atanh()
      *      Use the atanh method in the MathTrig\Trig\Tangent class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|float $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinATANH($number)
     {
@@ -1280,9 +1280,9 @@ class MathTrig
      * @See MathTrig\Trig\Cosine::cos()
      *      Use the cos method in the MathTrig\Trig\Cosine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinCOS($number)
     {
@@ -1299,9 +1299,9 @@ class MathTrig
      * @See MathTrig\Trig\Cosine::cosh()
      *      Use the cosh method in the MathTrig\Trig\Cosine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinCOSH($number)
     {
@@ -1318,9 +1318,9 @@ class MathTrig
      * @See MathTrig\Angle::toDegrees()
      *      Use the toDegrees method in the MathTrig\Angle class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinDEGREES($number)
     {
@@ -1337,9 +1337,9 @@ class MathTrig
      * @See MathTrig\Exp::evaluate()
      *      Use the evaluate method in the MathTrig\Exp class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinEXP($number)
     {
@@ -1358,7 +1358,7 @@ class MathTrig
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinLN($number)
     {
@@ -1377,7 +1377,7 @@ class MathTrig
      *
      * @param mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinLOG10($number)
     {
@@ -1394,9 +1394,9 @@ class MathTrig
      * @See MathTrig\Angle::toRadians()
      *      Use the toRadians method in the MathTrig\Angle class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinRADIANS($number)
     {
@@ -1413,9 +1413,9 @@ class MathTrig
      * @See MathTrig\Trig\Sine::evaluate()
      *      Use the sin method in the MathTrig\Trig\Sine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string sine
+     * @return array|float|string sine
      */
     public static function builtinSIN($number)
     {
@@ -1432,9 +1432,9 @@ class MathTrig
      * @See MathTrig\Trig\Sine::sinh()
      *      Use the sinh method in the MathTrig\Trig\Sine class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinSINH($number)
     {
@@ -1451,9 +1451,9 @@ class MathTrig
      * @See MathTrig\Sqrt::sqrt()
      *      Use the sqrt method in the MathTrig\Sqrt class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinSQRT($number)
     {
@@ -1470,9 +1470,9 @@ class MathTrig
      * @See MathTrig\Trig\Tangent::tan()
      *      Use the tan method in the MathTrig\Trig\Tangent class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinTAN($number)
     {
@@ -1489,9 +1489,9 @@ class MathTrig
      * @See MathTrig\Trig\Tangent::tanh()
      *      Use the tanh method in the MathTrig\Trig\Tangent class instead
      *
-     * @param mixed $number Should be numeric
+     * @param array|mixed $number Should be numeric
      *
-     * @return float|string Rounded number
+     * @return array|float|string Rounded number
      */
     public static function builtinTANH($number)
     {

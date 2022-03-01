@@ -2,11 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Roman
 {
+    use ArrayEnabled;
+
     private const VALUES = [
         45 => ['VL'],
         46 => ['VLI'],
@@ -800,12 +803,12 @@ class Roman
 
     private static function styleOk(int $aValue, int $style): string
     {
-        return ($aValue < 0 || $aValue > self::MAX_ROMAN_VALUE) ? Functions::VALUE() : self::valueOk($aValue, $style);
+        return ($aValue < 0 || $aValue > self::MAX_ROMAN_VALUE) ? ExcelError::VALUE() : self::valueOk($aValue, $style);
     }
 
     public static function calculateRoman(int $aValue, int $style): string
     {
-        return ($style < 0 || $style > self::MAX_ROMAN_STYLE) ? Functions::VALUE() : self::styleOk($aValue, $style);
+        return ($style < 0 || $style > self::MAX_ROMAN_STYLE) ? ExcelError::VALUE() : self::styleOk($aValue, $style);
     }
 
     /**
@@ -814,12 +817,20 @@ class Roman
      * Converts a number to Roman numeral
      *
      * @param mixed $aValue Number to convert
+     *                      Or can be an array of numbers
      * @param mixed $style Number indicating one of five possible forms
+     *                      Or can be an array of styles
      *
-     * @return string Roman numeral, or a string containing an error
+     * @return array|string Roman numeral, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function evaluate($aValue, $style = 0)
     {
+        if (is_array($aValue) || is_array($style)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $aValue, $style);
+        }
+
         try {
             $aValue = Helpers::validateNumericNullBool($aValue);
             if (is_bool($style)) {

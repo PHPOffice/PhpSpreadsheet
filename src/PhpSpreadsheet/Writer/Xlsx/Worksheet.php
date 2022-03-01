@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -205,10 +207,10 @@ class Worksheet extends WriterPart
 
         // Zoom scales
         if ($worksheet->getSheetView()->getZoomScale() != 100) {
-            $objWriter->writeAttribute('zoomScale', $worksheet->getSheetView()->getZoomScale());
+            $objWriter->writeAttribute('zoomScale', (string) $worksheet->getSheetView()->getZoomScale());
         }
         if ($worksheet->getSheetView()->getZoomScaleNormal() != 100) {
-            $objWriter->writeAttribute('zoomScaleNormal', $worksheet->getSheetView()->getZoomScaleNormal());
+            $objWriter->writeAttribute('zoomScaleNormal', (string) $worksheet->getSheetView()->getZoomScaleNormal());
         }
 
         // Show zeros (Excel also writes this attribute only if set to false)
@@ -1189,10 +1191,12 @@ class Worksheet extends WriterPart
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
+            $objWriter->startElement('is');
             $objWriter->writeElement(
                 't',
                 StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue, Settings::htmlEntityFlags()))
             );
+            $objWriter->endElement();
         } elseif ($cellValue instanceof RichText) {
             $objWriter->startElement('is');
             $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $cellValue);
@@ -1248,7 +1252,7 @@ class Worksheet extends WriterPart
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
         if (is_string($calculatedValue)) {
-            if (\PhpOffice\PhpSpreadsheet\Calculation\Functions::isError($calculatedValue)) {
+            if (ErrorValue::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
 
                 return;

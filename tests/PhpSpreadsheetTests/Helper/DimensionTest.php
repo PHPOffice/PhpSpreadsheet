@@ -23,7 +23,7 @@ class DimensionTest extends TestCase
     public function testConvertDimension(float $expectedResult, string $dimension, string $unitOfMeasure): void
     {
         $result = (new Dimension($dimension))->toUnit($unitOfMeasure);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function testConvertDimensionInvalidUoM(): void

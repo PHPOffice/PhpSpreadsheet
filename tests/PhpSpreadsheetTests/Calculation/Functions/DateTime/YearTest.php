@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class YearTest extends AllSetupTeardown
 {
     /**
@@ -21,5 +23,26 @@ class YearTest extends AllSetupTeardown
     public function providerYEAR(): array
     {
         return require 'tests/data/Calculation/DateTime/YEAR.php';
+    }
+
+    /**
+     * @dataProvider providerYearArray
+     */
+    public function testYearArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=YEAR({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerYearArray(): array
+    {
+        return [
+            'row vector' => [[[2021, 2022, 2023]], '{"2021-01-01", "2022-01-01", "2023-01-01"}'],
+            'column vector' => [[[2021], [2022], [2023]], '{"2021-01-01"; "2022-01-01"; "2023-01-01"}'],
+            'matrix' => [[[2021, 2022], [2023, 1999]], '{"2021-01-01", "2022-01-01"; "2023-01-01", "1999-12-31"}'],
+        ];
     }
 }

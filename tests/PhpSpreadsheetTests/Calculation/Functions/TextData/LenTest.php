@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class LenTest extends AllSetupTeardown
 {
     /**
@@ -27,5 +29,26 @@ class LenTest extends AllSetupTeardown
     public function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
+    }
+
+    /**
+     * @dataProvider providerLenArray
+     */
+    public function testLenArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=LEN({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerLenArray(): array
+    {
+        return [
+            'row vector' => [[[3, 11, 14]], '{"PHP", "Hello World", "PhpSpreadsheet"}'],
+            'column vector' => [[[3], [11], [14]], '{"PHP"; "Hello World"; "PhpSpreadsheet"}'],
+            'matrix' => [[[3, 9], [11, 14]], '{"PHP", "ElePHPant"; "Hello World", "PhpSpreadsheet"}'],
+        ];
     }
 }

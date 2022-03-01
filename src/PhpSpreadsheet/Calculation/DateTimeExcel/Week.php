@@ -3,12 +3,15 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Week
 {
+    use ArrayEnabled;
+
     /**
      * WEEKNUM.
      *
@@ -24,7 +27,8 @@ class Week
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
-     * @param int $method Week begins on Sunday or Monday
+     *                         Or can be an array of date values
+     * @param array|int $method Week begins on Sunday or Monday
      *                                        1 or omitted    Week begins on Sunday.
      *                                        2                Week begins on Monday.
      *                                        11               Week begins on Monday.
@@ -35,11 +39,18 @@ class Week
      *                                        16               Week begins on Saturday.
      *                                        17               Week begins on Sunday.
      *                                        21               ISO (Jan. 4 is week 1, begins on Monday).
+     *                         Or can be an array of methods
      *
-     * @return int|string Week Number
+     * @return array|int|string Week Number
+     *         If an array of values is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function number($dateValue, $method = Constants::STARTWEEK_SUNDAY)
     {
+        if (is_array($dateValue) || is_array($method)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $dateValue, $method);
+        }
+
         $origDateValueNull = empty($dateValue);
 
         try {
@@ -88,11 +99,18 @@ class Week
      *
      * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
+     *                         Or can be an array of date values
      *
-     * @return int|string Week Number
+     * @return array|int|string Week Number
+     *         If an array of numbers is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function isoWeekNumber($dateValue)
     {
+        if (is_array($dateValue)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
+        }
+
         if (self::apparentBug($dateValue)) {
             return 52;
         }
@@ -119,17 +137,25 @@ class Week
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param null|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     * @param null|array|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
+     *                         Or can be an array of date values
      * @param mixed $style A number that determines the type of return value
      *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
      *                                        2                Numbers 1 (Monday) through 7 (Sunday).
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
+     *                         Or can be an array of styles
      *
-     * @return int|string Day of the week value
+     * @return array|int|string Day of the week value
+     *         If an array of values is passed as the argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function day($dateValue, $style = 1)
     {
+        if (is_array($dateValue) || is_array($style)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $dateValue, $style);
+        }
+
         try {
             $dateValue = Helpers::getDateValue($dateValue);
             $style = self::validateStyle($style);
@@ -165,14 +191,12 @@ class Week
      */
     private static function validateStyle($style): int
     {
-        $style = Functions::flattenSingleValue($style);
-
         if (!is_numeric($style)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
         $style = (int) $style;
         if (($style < 1) || ($style > 3)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $style;
@@ -209,7 +233,7 @@ class Week
     private static function validateDateValue($dateValue): float
     {
         if (is_bool($dateValue)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         return Helpers::getDateValue($dateValue);
@@ -225,14 +249,14 @@ class Week
         if ($method === null) {
             $method = Constants::STARTWEEK_SUNDAY;
         }
-        $method = Functions::flattenSingleValue($method);
+
         if (!is_numeric($method)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
 
         $method = (int) $method;
         if (!array_key_exists($method, Constants::METHODARR)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
         $method = Constants::METHODARR[$method];
 

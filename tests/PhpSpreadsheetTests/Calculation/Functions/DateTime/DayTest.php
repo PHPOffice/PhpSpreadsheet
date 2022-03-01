@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class DayTest extends AllSetupTeardown
 {
     /**
@@ -40,5 +42,26 @@ class DayTest extends AllSetupTeardown
     public function providerDAYOpenOffice(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYOpenOffice.php';
+    }
+
+    /**
+     * @dataProvider providerDayArray
+     */
+    public function testDayArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DAY({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerDayArray(): array
+    {
+        return [
+            'row vector' => [[[1, 12, 22]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],
+            'column vector' => [[[1], [3], [6]], '{"2022-01-01"; "2022-01-03"; "2022-01-06"}'],
+            'matrix' => [[[1, 10], [15, 31]], '{"2022-01-01", "2022-01-10"; "2022-08-15", "2022-12-31"}'],
+        ];
     }
 }

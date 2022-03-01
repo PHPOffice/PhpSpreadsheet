@@ -5,7 +5,7 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
-    level: max
+    level: 8
     paths:
         - src/
         - tests/

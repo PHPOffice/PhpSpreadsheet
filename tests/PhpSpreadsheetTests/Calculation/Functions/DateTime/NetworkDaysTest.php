@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class NetworkDaysTest extends AllSetupTeardown
 {
     /**
@@ -48,5 +50,34 @@ class NetworkDaysTest extends AllSetupTeardown
     public function providerNETWORKDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
+    }
+
+    /**
+     * @dataProvider providerNetWorkDaysArray
+     */
+    public function testNetWorkDaysArray(array $expectedResult, string $startDate, string $endDays, ?string $holidays): void
+    {
+        $calculation = Calculation::getInstance();
+
+        if ($holidays === null) {
+            $formula = "=NETWORKDAYS({$startDate}, {$endDays})";
+        } else {
+            $formula = "=NETWORKDAYS({$startDate}, {$endDays}, {$holidays})";
+        }
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerNetWorkDaysArray(): array
+    {
+        return [
+            'row vector #1' => [[[234, 233, 232]], '{"2022-02-01", "2022-02-02", "2022-02-03"}', '"2022-12-25"', null],
+            'column vector #1' => [[[234], [233], [232]], '{"2022-02-01"; "2022-02-02"; "2022-02-03"}', '"2022-12-25"', null],
+            'matrix #1' => [[[234, 233], [232, 231]], '{"2022-02-01", "2022-02-02"; "2022-02-03", "2022-02-04"}', '"2022-12-25"', null],
+            'row vector #2' => [[[234, -27]], '"2022-02-01"', '{"2022-12-25", "2021-12-25"}', null],
+            'column vector #2' => [[[234], [-27]], '"2022-02-01"', '{"2022-12-25"; "2021-12-25"}', null],
+            'row vector with Holiday' => [[[233, -27]], '"2022-02-01"', '{"2022-12-25", "2021-12-25"}', '{"2022-02-02"}'],
+            'row vector with Holidays' => [[[232, -27]], '"2022-02-01"', '{"2022-12-25", "2021-12-25"}', '{"2022-02-02", "2022-02-03"}'],
+        ];
     }
 }

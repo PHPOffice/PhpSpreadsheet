@@ -931,6 +931,9 @@ class AutoFilter
                             $averageFormula = '=AVERAGE(' . $columnID . ($rangeStart[1] + 1) . ':' . $columnID . $rangeEnd[1] . ')';
                             $spreadsheet = ($this->workSheet === null) ? null : $this->workSheet->getParent();
                             $average = Calculation::getInstance($spreadsheet)->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
+                            while (is_array($average)) {
+                                $average = array_pop($average);
+                            }
                             //    Set above/below rule based on greaterThan or LessTan
                             $operator = ($dynamicRuleType === Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
                                 ? Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN

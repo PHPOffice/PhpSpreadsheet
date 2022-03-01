@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class QuotientTest extends AllSetupTeardown
 {
     /**
@@ -35,5 +37,24 @@ class QuotientTest extends AllSetupTeardown
     public function providerQUOTIENT(): array
     {
         return require 'tests/data/Calculation/MathTrig/QUOTIENT.php';
+    }
+
+    /**
+     * @dataProvider providerQuotientArray
+     */
+    public function testQuotientArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=QUOTIENT({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerQuotientArray(): array
+    {
+        return [
+            'matrix' => [[[3, 3, 2], [2, 2, 1], [1, 0, 0]], '{9, 8, 7; 6, 5, 4; 3, 2, 1}', '2.5'],
+        ];
     }
 }

@@ -4,30 +4,42 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
 use DateInterval;
 use DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDateHelper;
 
 class Difference
 {
+    use ArrayEnabled;
+
     /**
      * DATEDIF.
      *
      * @param mixed $startDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
+     *                         Or can be an array of date values
      * @param mixed $endDate Excel date serial value, PHP date/time stamp, PHP DateTime object
      *                                    or a standard date string
-     * @param string $unit
+     *                         Or can be an array of date values
+     * @param array|string $unit
+     *                         Or can be an array of unit values
      *
-     * @return int|string Interval between the dates
+     * @return array|int|string Interval between the dates
+     *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
+     *            will also be an array with matching dimensions
      */
     public static function interval($startDate, $endDate, $unit = 'D')
     {
+        if (is_array($startDate) || is_array($endDate) || is_array($unit)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $unit);
+        }
+
         try {
             $startDate = Helpers::getDateValue($startDate);
             $endDate = Helpers::getDateValue($endDate);
             $difference = self::initialDiff($startDate, $endDate);
-            $unit = strtoupper(Functions::flattenSingleValue($unit));
+            $unit = strtoupper($unit);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -53,14 +65,14 @@ class Difference
         $retVal = self::replaceRetValue($retVal, $unit, 'YD') ?? self::datedifYD($difference, $startYears, $endYears, $PHPStartDateObject, $PHPEndDateObject);
         $retVal = self::replaceRetValue($retVal, $unit, 'YM') ?? self::datedifYM($PHPDiffDateObject);
 
-        return is_bool($retVal) ? Functions::VALUE() : $retVal;
+        return is_bool($retVal) ? ExcelError::VALUE() : $retVal;
     }
 
     private static function initialDiff(float $startDate, float $endDate): float
     {
         // Validate parameters
         if ($startDate > $endDate) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
 
         return $endDate - $startDate;

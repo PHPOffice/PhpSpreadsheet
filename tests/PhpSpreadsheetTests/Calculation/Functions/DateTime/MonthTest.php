@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class MonthTest extends AllSetupTeardown
 {
     /**
@@ -21,5 +23,26 @@ class MonthTest extends AllSetupTeardown
     public function providerMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/MONTH.php';
+    }
+
+    /**
+     * @dataProvider providerMonthArray
+     */
+    public function testMonthArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=MONTH({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerMonthArray(): array
+    {
+        return [
+            'row vector' => [[[1, 6, 1]], '{"2022-01-01", "2022-06-01", "2023-01-01"}'],
+            'column vector' => [[[1], [3], [6]], '{"2022-01-01"; "2022-03-01"; "2022-06-01"}'],
+            'matrix' => [[[1, 4], [8, 12]], '{"2022-01-01", "2022-04-01"; "2022-08-01", "2022-12-01"}'],
+        ];
     }
 }

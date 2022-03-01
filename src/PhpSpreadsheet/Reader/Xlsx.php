@@ -384,10 +384,9 @@ class Xlsx extends BaseReader
     /**
      * Loads Spreadsheet from file.
      */
-    public function load(string $filename, int $flags = 0): Spreadsheet
+    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
         File::assertFile($filename, self::INITIAL_FILE);
-        $this->processFlags($flags);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -539,16 +538,16 @@ class Xlsx extends BaseReader
                     if ($xpath === null) {
                         $xmlStyles = self::testSimpleXml(null);
                     } else {
-                        // I think Nonamespace is okay because I'm using xpath.
-                        $xmlStyles = $this->loadZipNonamespace("$dir/$xpath[Target]", $mainNS);
+                        $xmlStyles = $this->loadZip("$dir/$xpath[Target]", $mainNS);
                     }
 
-                    $xmlStyles->registerXPathNamespace('smm', Namespaces::MAIN);
-                    $fills = self::xpathNoFalse($xmlStyles, 'smm:fills/smm:fill');
-                    $fonts = self::xpathNoFalse($xmlStyles, 'smm:fonts/smm:font');
-                    $borders = self::xpathNoFalse($xmlStyles, 'smm:borders/smm:border');
-                    $xfTags = self::xpathNoFalse($xmlStyles, 'smm:cellXfs/smm:xf');
-                    $cellXfTags = self::xpathNoFalse($xmlStyles, 'smm:cellStyleXfs/smm:xf');
+                    $palette = self::extractPalette($xmlStyles);
+                    $this->styleReader->setWorkbookPalette($palette);
+                    $fills = self::extractStyles($xmlStyles, 'fills', 'fill');
+                    $fonts = self::extractStyles($xmlStyles, 'fonts', 'font');
+                    $borders = self::extractStyles($xmlStyles, 'borders', 'border');
+                    $xfTags = self::extractStyles($xmlStyles, 'cellXfs', 'xf');
+                    $cellXfTags = self::extractStyles($xmlStyles, 'cellStyleXfs', 'xf');
 
                     $styles = [];
                     $cellStyles = [];
@@ -559,6 +558,7 @@ class Xlsx extends BaseReader
                     if (isset($numFmts) && ($numFmts !== null)) {
                         $numFmts->registerXPathNamespace('sml', $mainNS);
                     }
+                    $this->styleReader->setNamespace($mainNS);
                     if (!$this->readDataOnly/* && $xmlStyles*/) {
                         foreach ($xfTags as $xfTag) {
                             $xf = self::getAttributes($xfTag);
@@ -643,6 +643,7 @@ class Xlsx extends BaseReader
                         }
                     }
                     $this->styleReader->setStyleXml($xmlStyles);
+                    $this->styleReader->setNamespace($mainNS);
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
                     $styles = $this->styleReader->styles();
@@ -1697,13 +1698,17 @@ class Xlsx extends BaseReader
                     } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
-                        $attr = $run->rPr->rFont->attributes();
-                        if (isset($attr['val'])) {
-                            $objText->getFont()->setName((string) $attr['val']);
+                        if (isset($run->rPr->rFont)) {
+                            $attr = $run->rPr->rFont->attributes();
+                            if (isset($attr['val'])) {
+                                $objText->getFont()->setName((string) $attr['val']);
+                            }
                         }
-                        $attr = $run->rPr->sz->attributes();
-                        if (isset($attr['val'])) {
-                            $objText->getFont()->setSize((float) $attr['val']);
+                        if (isset($run->rPr->sz)) {
+                            $attr = $run->rPr->sz->attributes();
+                            if (isset($attr['val'])) {
+                                $objText->getFont()->setSize((float) $attr['val']);
+                            }
                         }
                         if (isset($run->rPr->color)) {
                             $objText->getFont()->setColor(new Color($this->styleReader->readColor($run->rPr->color)));
@@ -2093,5 +2098,34 @@ class Xlsx extends BaseReader
                 }
             }
         }
+    }
+
+    private static function extractStyles(?SimpleXMLElement $sxml, string $node1, string $node2): array
+    {
+        $array = [];
+        if ($sxml && $sxml->{$node1}->{$node2}) {
+            foreach ($sxml->{$node1}->{$node2} as $node) {
+                $array[] = $node;
+            }
+        }
+
+        return $array;
+    }
+
+    private static function extractPalette(?SimpleXMLElement $sxml): array
+    {
+        $array = [];
+        if ($sxml && $sxml->colors->indexedColors) {
+            foreach ($sxml->colors->indexedColors->rgbColor as $node) {
+                if ($node !== null) {
+                    $attr = $node->attributes();
+                    if (isset($attr['rgb'])) {
+                        $array[] = (string) $attr['rgb'];
+                    }
+                }
+            }
+        }
+
+        return (count($array) === 64) ? $array : [];
     }
 }

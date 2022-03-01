@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class ReplaceTest extends AllSetupTeardown
 {
     /**
@@ -45,5 +47,29 @@ class ReplaceTest extends AllSetupTeardown
     public function providerREPLACE(): array
     {
         return require 'tests/data/Calculation/TextData/REPLACE.php';
+    }
+
+    /**
+     * @dataProvider providerReplaceArray
+     */
+    public function testReplaceArray(
+        array $expectedResult,
+        string $oldText,
+        string $start,
+        string $chars,
+        string $newText
+    ): void {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=REPLACE({$oldText}, {$start}, {$chars}, {$newText})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerReplaceArray(): array
+    {
+        return [
+            'row vector' => [[['Elephpant', 'ElePHPant']], '"Elephant"', '4', '2', '{"php", "PHP"}'],
+        ];
     }
 }

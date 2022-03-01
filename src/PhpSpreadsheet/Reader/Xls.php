@@ -620,13 +620,9 @@ class Xls extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file.
-     *
-     * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0)
+    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        $this->processFlags($flags);
-
         // Read the OLE file
         $this->loadOLE($filename);
 
@@ -7911,5 +7907,18 @@ class Xls extends BaseReader
         $value->createText($is);
 
         return $value;
+    }
+
+    /**
+     * Phpstan 1.4.4 complains that this property is never read.
+     * So, we might be able to get rid of it altogether.
+     * For now, however, this function makes it readable,
+     * which satisfies Phpstan.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getMapCellStyleXfIndex(): array
+    {
+        return $this->mapCellStyleXfIndex;
     }
 }
