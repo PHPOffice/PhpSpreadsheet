@@ -544,6 +544,25 @@ $reader->setSheetIndex(5);
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
 ```
 
+#### Line endings
+
+Line endings for Unix (`\n`) and Windows (`\r\n`) are supported.
+
+Mac line endings (`\r`) are supported as long as PHP itself
+supports them, which it does through release 8.0.
+Support for Mac line endings is deprecated for 8.1,
+and is scheduled to remain deprecated for all later PHP8 releases;
+PhpSpreadsheet will continue to support them for 8.*.
+Support is scheduled to be dropped with release 9;
+PhpSpreadsheet will then no longer handle CSV files
+with Mac line endings correctly.
+
+You can suppress testing for Mac line endings as follows:
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$reader->setTestAutoDetect(false);
+```
+
 ### \PhpOffice\PhpSpreadsheet\Writer\Csv
 
 #### Writing a CSV file
