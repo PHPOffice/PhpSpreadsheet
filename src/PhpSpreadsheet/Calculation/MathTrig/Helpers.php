@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Helpers
 {
@@ -14,7 +15,7 @@ class Helpers
      */
     public static function verySmallDenominator(float $numerator, float $denominator)
     {
-        return (abs($denominator) < 1.0E-12) ? Functions::DIV0() : ($numerator / $denominator);
+        return (abs($denominator) < 1.0E-12) ? ExcelError::DIV0() : ($numerator / $denominator);
     }
 
     /**
@@ -37,7 +38,7 @@ class Helpers
             return 0 + $number;
         }
 
-        throw new Exception(Functions::VALUE());
+        throw new Exception(ExcelError::VALUE());
     }
 
     /**
@@ -58,7 +59,7 @@ class Helpers
             return 0 + $number;
         }
 
-        throw new Exception(Functions::VALUE());
+        throw new Exception(ExcelError::VALUE());
     }
 
     /**
@@ -72,7 +73,7 @@ class Helpers
             return;
         }
 
-        throw new Exception($except ?? Functions::NAN());
+        throw new Exception($except ?? ExcelError::NAN());
     }
 
     /**
@@ -86,7 +87,7 @@ class Helpers
             return;
         }
 
-        throw new Exception($except ?? Functions::NAN());
+        throw new Exception($except ?? ExcelError::NAN());
     }
 
     /**
@@ -100,7 +101,7 @@ class Helpers
             return;
         }
 
-        throw new Exception(Functions::DIV0());
+        throw new Exception(ExcelError::DIV0());
     }
 
     public static function returnSign(float $number): int
@@ -124,6 +125,6 @@ class Helpers
      */
     public static function numberOrNan($result)
     {
-        return is_nan($result) ? Functions::NAN() : $result;
+        return is_nan($result) ? ExcelError::NAN() : $result;
     }
 }

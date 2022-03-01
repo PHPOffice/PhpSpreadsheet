@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Helpers;
 
 class Tangent
@@ -153,7 +153,7 @@ class Tangent
         }
 
         if (($xCoordinate == 0) && ($yCoordinate == 0)) {
-            return Functions::DIV0();
+            return ExcelError::DIV0();
         }
 
         return atan2($yCoordinate, $xCoordinate);

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class CaseConvert
@@ -28,7 +27,6 @@ class CaseConvert
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);
         }
 
-        $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
         $mixedCaseValue = Helpers::extractString($mixedCaseValue);
 
         return StringHelper::strToLower($mixedCaseValue);
@@ -52,7 +50,6 @@ class CaseConvert
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);
         }
 
-        $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
         $mixedCaseValue = Helpers::extractString($mixedCaseValue);
 
         return StringHelper::strToUpper($mixedCaseValue);
@@ -76,7 +73,6 @@ class CaseConvert
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);
         }
 
-        $mixedCaseValue = Functions::flattenSingleValue($mixedCaseValue);
         $mixedCaseValue = Helpers::extractString($mixedCaseValue);
 
         return StringHelper::strToTitle($mixedCaseValue);

@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
     [
@@ -41,7 +41,7 @@ return [
     [
         [
             [0.600378787879, 0.0],
-            [0.3130441135917, Functions::NA()],
+            [0.3130441135917, ExcelError::NA()],
             [0.2901220667036, 7.193206086629],
             [3.6782360429317, 9],
             [190.3200757575760, 465.679924242424],

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Size
 {
@@ -31,14 +32,14 @@ class Size
             $count = Counts::COUNT($mArgs);
             --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
             rsort($mArgs);
 
             return $mArgs[$entry];
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 
     /**
@@ -67,14 +68,14 @@ class Size
             $count = Counts::COUNT($mArgs);
             --$entry;
             if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
-                return Functions::NAN();
+                return ExcelError::NAN();
             }
             sort($mArgs);
 
             return $mArgs[$entry];
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 
     /**

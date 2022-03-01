@@ -1,7 +1,9 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\NamedRange as NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -84,6 +86,28 @@ class IsFormulaTest extends TestCase
         $sheet1->getCell('H3')->setValue('=ISFORMULA(C2:C3)');
         self::assertFalse($sheet1->getCell('H1')->getCalculatedValue());
         self::assertTrue($sheet1->getCell('H3')->getCalculatedValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testIsFormulaArray(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('=5/2');
+        $sheet->getCell('A2')->setValueExplicit('=5/2', DataType::TYPE_STRING);
+        $sheet->getCell('A3')->setValue('=5/0');
+        $sheet->getCell('A4')->setValue(2.5);
+        $sheet->getCell('A5')->setValue('=NA()');
+        $sheet->getCell('A6')->setValue(true);
+        $sheet->getCell('A7')->setValue('=5/0');
+        $sheet->getCell('A7')->getStyle()->setQuotePrefix(true);
+
+        $calculation = Calculation::getInstance($spreadsheet);
+
+        $formula = '=ISFORMULA(A1:A7)';
+        $result = $calculation->_calculateFormulaValue($formula, 'C1', $sheet->getCell('C1'));
+        self::assertEquals([true, false, true, false, true, false, false], $result);
 
         $spreadsheet->disconnectWorksheets();
     }

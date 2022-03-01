@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class RandArrayTest extends AllSetupTeardown
@@ -61,7 +62,7 @@ class RandArrayTest extends AllSetupTeardown
         $max = -2;
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
-        self::assertSame(Functions::VALUE(), $result);
+        self::assertSame(ExcelError::VALUE(), $result);
 
         $rows = 3;
         $cols = 2;
@@ -69,6 +70,6 @@ class RandArrayTest extends AllSetupTeardown
         $max = -2;
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
-        self::assertSame(Functions::VALUE(), $result);
+        self::assertSame(ExcelError::VALUE(), $result);
     }
 }

@@ -24,7 +24,7 @@ class DAverageTest extends TestCase
     public function testDAverage($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DAVERAGE($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database1(): array

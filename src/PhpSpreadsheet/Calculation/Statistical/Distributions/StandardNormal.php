@@ -2,12 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
 class StandardNormal
 {
+    use ArrayEnabled;
+
     /**
      * NORMSDIST.
      *
@@ -15,9 +19,16 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed $value Float value for which we want the probability
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::distribution()
+     *       All we need to do is pass the value through as scalar or as array.
      *
-     * @return float|string The result, or a string containing an error
+     * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function cumulative($value)
     {
@@ -31,10 +42,18 @@ class StandardNormal
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param mixed $value Float value for which we want the probability
-     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::distribution()
+     *       All we need to do is pass the value and cumulative through as scalar or as array.
      *
-     * @return float|string The result, or a string containing an error
+     * @param mixed $value Float value for which we want the probability
+     *                      Or can be an array of values
+     * @param mixed $cumulative Boolean value indicating if we want the cdf (true) or the pdf (false)
+     *                      Or can be an array of values
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function distribution($value, $cumulative)
     {
@@ -46,9 +65,16 @@ class StandardNormal
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param mixed $value Float probability for which we want the value
+     * @param mixed $value float probability for which we want the value
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * NOTE: We don't need to check for arrays to array-enable this function, because that is already
+     *       handled by the logic in Normal::inverse()
+     *       All we need to do is pass the value through as scalar or as array
+     *
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function inverse($value)
     {
@@ -62,14 +88,20 @@ class StandardNormal
      *     the mean and z standard deviations from the mean.
      *
      * @param mixed $value
+     *                      Or can be an array of values
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function gauss($value)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
+
         if (!is_numeric($value)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return self::distribution($value, true) - 0.5;
@@ -85,19 +117,25 @@ class StandardNormal
      *
      * @param mixed $dataSet The dataset should be an array of float values for the observations
      * @param mixed $m0 Alpha Parameter
+     *                      Or can be an array of values
      * @param mixed $sigma A null or float value for the Beta (Standard Deviation) Parameter;
      *                       if null, we use the standard deviation of the dataset
+     *                      Or can be an array of values
      *
-     * @return float|string (string if result is an error)
+     * @return array|float|string (string if result is an error)
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function zTest($dataSet, $m0, $sigma = null)
     {
+        if (is_array($m0) || is_array($sigma)) {
+            return self::evaluateArrayArgumentsSubsetFrom([self::class, __FUNCTION__], 1, $dataSet, $m0, $sigma);
+        }
+
         $dataSet = Functions::flattenArrayIndexed($dataSet);
-        $m0 = Functions::flattenSingleValue($m0);
-        $sigma = Functions::flattenSingleValue($sigma);
 
         if (!is_numeric($m0) || ($sigma !== null && !is_numeric($sigma))) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         if ($sigma === null) {

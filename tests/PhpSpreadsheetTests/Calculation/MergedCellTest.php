@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -47,7 +47,7 @@ class MergedCellTest extends TestCase
             ['=COUNTA(A1:A5)', 3],
             ['=SUM(A3:A4)', 0],
             ['=A2+A3+A4', 2.2],
-            ['=A2/A3', Functions::DIV0()],
+            ['=A2/A3', ExcelError::DIV0()],
             ['=SUM(B1:C2)', 8.8],
         ];
     }
@@ -89,7 +89,7 @@ class MergedCellTest extends TestCase
             ['=COUNTA(A1:E1)', 3],
             ['=SUM(C1:D1)', 0],
             ['=B1+C1+D1', 2.2],
-            ['=B1/C1', Functions::DIV0()],
+            ['=B1/C1', ExcelError::DIV0()],
             ['=SUM(A2:B3)', 8.8],
         ];
     }

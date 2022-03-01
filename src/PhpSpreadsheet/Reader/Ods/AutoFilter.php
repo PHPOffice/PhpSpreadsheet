@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 use DOMElement;
 use DOMNode;
 
-class AutoFilter extends BaseReader
+class AutoFilter extends BaseLoader
 {
     public function read(DOMElement $workbookData): void
     {
@@ -20,7 +20,7 @@ class AutoFilter extends BaseReader
             foreach ($autofilters->childNodes as $autofilter) {
                 $autofilterRange = $this->getAttributeValue($autofilter, 'target-range-address');
                 if ($autofilterRange !== null) {
-                    $baseAddress = $this->convertToExcelAddressValue($autofilterRange);
+                    $baseAddress = FormulaTranslator::convertToExcelAddressValue($autofilterRange);
                     $this->spreadsheet->getActiveSheet()->setAutoFilter($baseAddress);
                 }
             }
