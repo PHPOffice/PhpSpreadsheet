@@ -12,7 +12,7 @@ class AbsTest extends AllSetupTeardown
      * @param mixed $expectedResult
      * @param mixed $number
      */
-    public function testRound($expectedResult, $number = 'omitted'): void
+    public function testAbs($expectedResult, $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);

@@ -130,7 +130,7 @@ class Statistical
      * @param mixed $rMin
      * @param mixed $rMax
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -153,7 +153,7 @@ class Statistical
      * @param float $rMin Minimum value
      * @param float $rMax Maximum value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -179,7 +179,7 @@ class Statistical
      * @param mixed $probability Probability of success on each trial
      * @param mixed $cumulative
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function BINOMDIST($value, $trials, $probability, $cumulative)
     {
@@ -199,7 +199,7 @@ class Statistical
      * @param float $value Value for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function CHIDIST($value, $degrees)
     {
@@ -219,7 +219,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function CHIINV($probability, $degrees)
     {
@@ -240,7 +240,7 @@ class Statistical
      * @param float $stdDev Standard Deviation
      * @param float $size
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function CONFIDENCE($alpha, $stdDev, $size)
     {
@@ -415,7 +415,7 @@ class Statistical
      * @param float $probability probability of a success on each trial
      * @param float $alpha criterion value
      *
-     * @return int|string
+     * @return array|int|string
      */
     public static function CRITBINOM($trials, $probability, $alpha)
     {
@@ -460,7 +460,7 @@ class Statistical
      * @param float $lambda The parameter value
      * @param bool $cumulative
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
@@ -486,7 +486,7 @@ class Statistical
      * @param bool $cumulative If cumulative is TRUE, F.DIST returns the cumulative distribution function;
      *                         if FALSE, it returns the probability density function.
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function FDIST2($value, $u, $v, $cumulative)
     {
@@ -507,7 +507,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function FISHER($value)
     {
@@ -528,7 +528,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function FISHERINV($value)
     {
@@ -549,7 +549,7 @@ class Statistical
      * @param mixed $yValues array of mixed Data Series Y
      * @param mixed $xValues of mixed Data Series X
      *
-     * @return bool|float|string
+     * @return array|bool|float|string
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
@@ -568,7 +568,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function GAMMAFunction($value)
     {
@@ -590,7 +590,7 @@ class Statistical
      * @param float $b Parameter to the distribution
      * @param bool $cumulative
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function GAMMADIST($value, $a, $b, $cumulative)
     {
@@ -611,7 +611,7 @@ class Statistical
      * @param float $alpha Parameter to the distribution
      * @param float $beta Parameter to the distribution
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function GAMMAINV($probability, $alpha, $beta)
     {
@@ -630,7 +630,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function GAMMALN($value)
     {
@@ -650,7 +650,7 @@ class Statistical
      *
      * @param float $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function GAUSS($value)
     {
@@ -742,7 +742,7 @@ class Statistical
      * @param mixed $populationSuccesses Number of successes in the population
      * @param mixed $populationNumber Population size
      *
-     * @return float|string
+     * @return array|float|string
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
@@ -879,7 +879,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      *
      * @TODO    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
@@ -905,7 +905,7 @@ class Statistical
      * @param float $mean
      * @param float $stdDev
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
@@ -928,7 +928,7 @@ class Statistical
      * @param float $stdDev
      * @param bool $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function LOGNORMDIST2($value, $mean, $stdDev, $cumulative = false)
     {
@@ -1131,7 +1131,7 @@ class Statistical
      * @param mixed $successes Threshold number of Successes
      * @param mixed $probability Probability of success on each trial
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
@@ -1155,7 +1155,7 @@ class Statistical
      * @param mixed $stdDev Standard Deviation
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
@@ -1176,7 +1176,7 @@ class Statistical
      * @param mixed $mean Mean Value
      * @param mixed $stdDev Standard Deviation
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
@@ -1197,7 +1197,7 @@ class Statistical
      *
      * @param mixed $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSDIST($value)
     {
@@ -1219,7 +1219,7 @@ class Statistical
      * @param mixed $value
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSDIST2($value, $cumulative)
     {
@@ -1238,7 +1238,7 @@ class Statistical
      *
      * @param mixed $value
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function NORMSINV($value)
     {
@@ -1308,7 +1308,7 @@ class Statistical
      * @param int $numObjs Number of different objects
      * @param int $numInSet Number of objects in each permutation
      *
-     * @return float|int|string Number of permutations, or a string containing an error
+     * @return array|float|int|string Number of permutations, or a string containing an error
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -1331,7 +1331,7 @@ class Statistical
      * @param mixed $mean Mean Value
      * @param mixed $cumulative
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function POISSON($value, $mean, $cumulative)
     {
@@ -1480,7 +1480,7 @@ class Statistical
      * @param float $mean Mean Value
      * @param float $stdDev Standard Deviation
      *
-     * @return float|string Standardized value, or a string containing an error
+     * @return array|float|string Standardized value, or a string containing an error
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
@@ -1610,7 +1610,7 @@ class Statistical
      * @param float $degrees degrees of freedom
      * @param float $tails number of tails (1 or 2)
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function TDIST($value, $degrees, $tails)
     {
@@ -1630,7 +1630,7 @@ class Statistical
      * @param float $probability Probability for the function
      * @param float $degrees degrees of freedom
      *
-     * @return float|string The result, or a string containing an error
+     * @return array|float|string The result, or a string containing an error
      */
     public static function TINV($probability, $degrees)
     {
@@ -1787,7 +1787,7 @@ class Statistical
      * @param float $beta Beta Parameter
      * @param bool $cumulative
      *
-     * @return float|string (string if result is an error)
+     * @return array|float|string (string if result is an error)
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
@@ -1811,7 +1811,7 @@ class Statistical
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
-     * @return float|string (string if result is an error)
+     * @return array|float|string (string if result is an error)
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {

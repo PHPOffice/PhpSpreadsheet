@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -84,7 +85,6 @@ class Format
         try {
             $value = Helpers::extractFloat($value);
             $decimals = Helpers::extractInt($decimals, -100, 0, true);
-            $noCommas = Functions::flattenSingleValue($noCommas);
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
@@ -140,12 +140,12 @@ class Format
      */
     private static function convertValue($value)
     {
-        $value = ($value === null) ? 0 : Functions::flattenSingleValue($value);
+        $value = $value ?? 0;
         if (is_bool($value)) {
             if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
                 $value = (int) $value;
             } else {
-                throw new CalcExp(Functions::VALUE());
+                throw new CalcExp(ExcelError::VALUE());
             }
         }
 
@@ -188,21 +188,21 @@ class Format
 
             if (strpos($value, ':') !== false) {
                 $timeValue = Functions::scalar(DateTimeExcel\TimeValue::fromString($value));
-                if ($timeValue !== Functions::VALUE()) {
+                if ($timeValue !== ExcelError::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
 
                     return $timeValue;
                 }
             }
             $dateValue = Functions::scalar(DateTimeExcel\DateValue::fromString($value));
-            if ($dateValue !== Functions::VALUE()) {
+            if ($dateValue !== ExcelError::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
 
                 return $dateValue;
             }
             Functions::setReturnDateType($dateSetting);
 
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
 
         return (float) $value;
@@ -213,8 +213,6 @@ class Format
      */
     private static function getDecimalSeparator($decimalSeparator): string
     {
-        $decimalSeparator = Functions::flattenSingleValue($decimalSeparator);
-
         return empty($decimalSeparator) ? StringHelper::getDecimalSeparator() : (string) $decimalSeparator;
     }
 
@@ -223,8 +221,6 @@ class Format
      */
     private static function getGroupSeparator($groupSeparator): string
     {
-        $groupSeparator = Functions::flattenSingleValue($groupSeparator);
-
         return empty($groupSeparator) ? StringHelper::getThousandsSeparator() : (string) $groupSeparator;
     }
 
@@ -257,11 +253,11 @@ class Format
         if (!is_numeric($value)) {
             $decimalPositions = preg_match_all('/' . preg_quote($decimalSeparator) . '/', $value, $matches, PREG_OFFSET_CAPTURE);
             if ($decimalPositions > 1) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
             $decimalOffset = array_pop($matches[0])[1];
             if (strpos($value, $groupSeparator, $decimalOffset) !== false) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
 
             $value = str_replace([$groupSeparator, $decimalSeparator], ['', '.'], $value);
@@ -269,7 +265,7 @@ class Format
             // Handle the special case of trailing % signs
             $percentageString = rtrim($value, '%');
             if (!is_numeric($percentageString)) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
 
             $percentageAdjustment = strlen($value) - strlen($percentageString);
@@ -279,6 +275,6 @@ class Format
             }
         }
 
-        return is_array($value) ? Functions::VALUE() : (float) $value;
+        return is_array($value) ? ExcelError::VALUE() : (float) $value;
     }
 }

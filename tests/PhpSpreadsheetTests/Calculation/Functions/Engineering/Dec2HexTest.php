@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -97,5 +98,27 @@ class Dec2HexTest extends TestCase
         self::assertEquals('A2DE246000', Engineering\ConvertDecimal::hex32bit(-400000000000, 'DE246000', true));
         self::assertEquals('7FFFFFFFFF', Engineering\ConvertDecimal::hex32bit(549755813887, 'FFFFFFFF', true));
         self::assertEquals('FFFFFFFFFF', Engineering\ConvertDecimal::hex32bit(-1, 'FFFFFFFF', true));
+    }
+
+    /**
+     * @dataProvider providerDec2HexArray
+     */
+    public function testDec2HexArray(array $expectedResult, string $value): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=DEC2HEX({$value})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerDec2HexArray(): array
+    {
+        return [
+            'row/column vector' => [
+                [['4', '7', '3F', '99', 'CC', '155']],
+                '{4, 7, 63, 153, 204, 341}',
+            ],
+        ];
     }
 }

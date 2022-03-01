@@ -2,10 +2,7 @@
 
 return [
     [
-        '#NAME?',
-    ],
-    [
-        '#NAME?',
+        false,
         null,
     ],
     [
@@ -13,7 +10,7 @@ return [
         -1,
     ],
     [
-        true,
+        false,
         0,
     ],
     [
@@ -22,22 +19,10 @@ return [
     ],
     [
         false,
-        1.25,
-    ],
-    [
-        false,
         1.5,
     ],
     [
-        true,
-        2.25,
-    ],
-    [
-        true,
-        2.5,
-    ],
-    [
-        '#VALUE!',
+        false,
         '',
     ],
     [
@@ -45,7 +30,7 @@ return [
         '-1',
     ],
     [
-        true,
+        false,
         '2',
     ],
     [
@@ -53,31 +38,27 @@ return [
         '-1.5',
     ],
     [
-        true,
-        '2.5',
-    ],
-    [
-        '#VALUE!',
+        false,
         'ABC',
     ],
     [
-        '#VALUE!',
+        true,
         '#VALUE!',
     ],
     [
-        '#VALUE!',
+        false,
         '#N/A',
     ],
     [
-        '#VALUE!',
+        false,
         'TRUE',
     ],
     [
-        '#VALUE!',
+        false,
         true,
     ],
     [
-        '#VALUE!',
+        false,
         false,
     ],
 ];

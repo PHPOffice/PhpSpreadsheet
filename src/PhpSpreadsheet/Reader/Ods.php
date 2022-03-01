@@ -2,16 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use DateTime;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
+use PhpOffice\PhpSpreadsheet\Reader\Ods\FormulaTranslator;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\PageSettings;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\Properties as DocumentProperties;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
@@ -217,13 +216,9 @@ class Ods extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file.
-     *
-     * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0)
+    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        $this->processFlags($flags);
-
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
@@ -482,21 +477,7 @@ class Ods extends BaseReader
                                         case 'date':
                                             $type = DataType::TYPE_NUMERIC;
                                             $value = $cellData->getAttributeNS($officeNs, 'date-value');
-
-                                            $dateObj = new DateTime($value);
-                                            [$year, $month, $day, $hour, $minute, $second] = explode(
-                                                ' ',
-                                                $dateObj->format('Y m d H i s')
-                                            );
-
-                                            $dataValue = Date::formattedPHPToExcel(
-                                                (int) $year,
-                                                (int) $month,
-                                                (int) $day,
-                                                (int) $hour,
-                                                (int) $minute,
-                                                (int) $second
-                                            );
+                                            $dataValue = Date::convertIsoDate($value);
 
                                             if ($dataValue != floor($dataValue)) {
                                                 $formatting = NumberFormat::FORMAT_DATE_XLSX15
@@ -531,7 +512,7 @@ class Ods extends BaseReader
                                 if ($hasCalculatedValue) {
                                     $type = DataType::TYPE_FORMULA;
                                     $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
-                                    $cellDataFormula = $this->convertToExcelFormulaValue($cellDataFormula);
+                                    $cellDataFormula = FormulaTranslator::convertToExcelFormulaValue($cellDataFormula);
                                 }
 
                                 if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
@@ -587,31 +568,7 @@ class Ods extends BaseReader
                                 }
 
                                 // Merged cells
-                                if (
-                                    $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
-                                    || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
-                                ) {
-                                    if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
-                                        $columnTo = $columnID;
-
-                                        if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = Coordinate::columnIndexFromString($columnID);
-                                            $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
-                                            $columnIndex -= 2;
-
-                                            $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
-                                        }
-
-                                        $rowTo = $rowID;
-
-                                        if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
-                                            $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
-                                        }
-
-                                        $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
-                                        $spreadsheet->getActiveSheet()->mergeCells($cellRange);
-                                    }
-                                }
+                                $this->processMergedCells($cellData, $tableNs, $type, $columnID, $rowID, $spreadsheet);
 
                                 ++$columnID;
                             }
@@ -754,31 +711,38 @@ class Ods extends BaseReader
         return $value;
     }
 
-    private function convertToExcelFormulaValue(string $openOfficeFormula): string
-    {
-        $temp = explode('"', $openOfficeFormula);
-        $tKey = false;
-        foreach ($temp as &$value) {
-            // Only replace in alternate array entries (i.e. non-quoted blocks)
-            if ($tKey = !$tKey) {
-                // Cell range reference in another sheet
-                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', '$1!$2:$3', $value);
-                // Cell reference in another sheet
-                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+)\]/miu', '$1!$2', $value ?? '');
-                // Cell range reference
-                $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value ?? '');
-                // Simple cell reference
-                $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value ?? '');
-                // Convert references to defined names/formulae
-                $value = str_replace('$$', '', $value ?? '');
+    private function processMergedCells(
+        DOMElement $cellData,
+        string $tableNs,
+        string $type,
+        string $columnID,
+        int $rowID,
+        Spreadsheet $spreadsheet
+    ): void {
+        if (
+            $cellData->hasAttributeNS($tableNs, 'number-columns-spanned')
+            || $cellData->hasAttributeNS($tableNs, 'number-rows-spanned')
+        ) {
+            if (($type !== DataType::TYPE_NULL) || ($this->readDataOnly === false)) {
+                $columnTo = $columnID;
 
-                $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+                if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
+                    $columnIndex = Coordinate::columnIndexFromString($columnID);
+                    $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $columnIndex -= 2;
+
+                    $columnTo = Coordinate::stringFromColumnIndex($columnIndex + 1);
+                }
+
+                $rowTo = $rowID;
+
+                if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
+                    $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
+                }
+
+                $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
+                $spreadsheet->getActiveSheet()->mergeCells($cellRange);
             }
         }
-
-        // Then rebuild the formula string
-        $excelFormula = implode('"', $temp);
-
-        return $excelFormula;
     }
 }

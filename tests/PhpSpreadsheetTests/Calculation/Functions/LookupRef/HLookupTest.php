@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -88,5 +89,41 @@ class HLookupTest extends TestCase
             false
         );
         self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerHLookupArray
+     */
+    public function testHLookupArray(array $expectedResult, string $values, string $database, string $index): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=HLOOKUP({$values}, {$database}, {$index}, false)";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerHLookupArray(): array
+    {
+        return [
+            'row vector #1' => [
+                [[4, 9]],
+                '{"Axles", "Bolts"}',
+                '{"Axles", "Bearings", "Bolts"; 4, 4, 9; 5, 7, 10; 6, 8, 11}',
+                '2',
+            ],
+            'row vector #2' => [
+                [[5, 7]],
+                '{"Axles", "Bearings"}',
+                '{"Axles", "Bearings", "Bolts"; 4, 4, 9; 5, 7, 10; 6, 8, 11}',
+                '3',
+            ],
+            'row/column vectors' => [
+                [[4, 9], [5, 10]],
+                '{"Axles", "Bolts"}',
+                '{"Axles", "Bearings", "Bolts"; 4, 4, 9; 5, 7, 10; 6, 8, 11}',
+                '{2; 3}',
+            ],
+        ];
     }
 }

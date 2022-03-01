@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class NonPeriodic
 {
@@ -41,7 +42,7 @@ class NonPeriodic
         // create an initial range, with a root somewhere between 0 and guess
         $guess = Functions::flattenSingleValue($guess) ?? self::DEFAULT_GUESS;
         if (!is_numeric($guess)) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         }
         $guess = ($guess + 0.0) ?: self::DEFAULT_GUESS;
         $x1 = 0.0;
@@ -68,7 +69,7 @@ class NonPeriodic
             }
         }
         if (!$found) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return self::xirrPart3($values, $dates, $x1, $x2);
@@ -117,10 +118,10 @@ class NonPeriodic
         $valuesIsArray = count($values) > 1;
         $datesIsArray = count($dates) > 1;
         if (!$valuesIsArray && !$datesIsArray) {
-            return Functions::NA();
+            return ExcelError::NA();
         }
         if (count($values) != count($dates)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         $datesCount = count($dates);
@@ -143,7 +144,7 @@ class NonPeriodic
         for ($i = 0; $i < $valCount; ++$i) {
             $fld = $values[$i];
             if (!is_numeric($fld)) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             } elseif ($fld > 0) {
                 $foundpos = true;
             } elseif ($fld < 0) {
@@ -151,7 +152,7 @@ class NonPeriodic
             }
         }
         if (!self::bothNegAndPos($foundneg, $foundpos)) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         }
 
         return '';
@@ -171,7 +172,7 @@ class NonPeriodic
             $dx = $x1 - $x2;
         }
 
-        $rslt = Functions::VALUE();
+        $rslt = ExcelError::VALUE();
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
@@ -213,7 +214,7 @@ class NonPeriodic
         $xnpv = 0.0;
         for ($i = 0; $i < $valCount; ++$i) {
             if (!is_numeric($values[$i])) {
-                return Functions::VALUE();
+                return ExcelError::VALUE();
             }
 
             try {
@@ -222,7 +223,7 @@ class NonPeriodic
                 return $e->getMessage();
             }
             if ($date0 > $datei) {
-                $dif = $ordered ? Functions::NAN() : -((int) DateTimeExcel\Difference::interval($datei, $date0, 'd'));
+                $dif = $ordered ? ExcelError::NAN() : -((int) DateTimeExcel\Difference::interval($datei, $date0, 'd'));
             } else {
                 $dif = DateTimeExcel\Difference::interval($date0, $datei, 'd');
             }
@@ -236,7 +237,7 @@ class NonPeriodic
             }
         }
 
-        return is_finite($xnpv) ? $xnpv : Functions::VALUE();
+        return is_finite($xnpv) ? $xnpv : ExcelError::VALUE();
     }
 
     /**
@@ -245,14 +246,14 @@ class NonPeriodic
     private static function validateXnpv($rate, array $values, array $dates): void
     {
         if (!is_numeric($rate)) {
-            throw new Exception(Functions::VALUE());
+            throw new Exception(ExcelError::VALUE());
         }
         $valCount = count($values);
         if ($valCount != count($dates)) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
         if ($valCount > 1 && ((min($values) > 0) || (max($values) < 0))) {
-            throw new Exception(Functions::NAN());
+            throw new Exception(ExcelError::NAN());
         }
     }
 }

@@ -2,31 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Ods;
 
-use DOMElement;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-abstract class BaseReader
+class FormulaTranslator
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadsheet;
-
-    /**
-     * @var string
-     */
-    protected $tableNs;
-
-    public function __construct(Spreadsheet $spreadsheet, string $tableNs)
-    {
-        $this->spreadsheet = $spreadsheet;
-        $this->tableNs = $tableNs;
-    }
-
-    abstract public function read(DOMElement $workbookData): void;
-
-    protected function convertToExcelAddressValue(string $openOfficeAddress): string
+    public static function convertToExcelAddressValue(string $openOfficeAddress): string
     {
         $excelAddress = $openOfficeAddress;
 
@@ -46,13 +26,16 @@ abstract class BaseReader
         return $excelAddress ?? '';
     }
 
-    protected function convertToExcelFormulaValue(string $openOfficeFormula): string
+    public static function convertToExcelFormulaValue(string $openOfficeFormula): string
     {
-        $temp = explode('"', $openOfficeFormula);
+        $temp = explode(Calculation::FORMULA_STRING_QUOTE, $openOfficeFormula);
         $tKey = false;
+        $inMatrixBracesLevel = 0;
+        $inFunctionBracesLevel = 0;
         foreach ($temp as &$value) {
             // @var string $value
             // Only replace in alternate array entries (i.e. non-quoted blocks)
+            //      so that conversion isn't done in string values
             if ($tKey = !$tKey) {
                 // Cell range reference in another sheet
                 $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', '$1!$2:$3', $value);
@@ -65,7 +48,28 @@ abstract class BaseReader
                 // Convert references to defined names/formulae
                 $value = str_replace('$$', '', $value ?? '');
 
-                $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
+                // Convert ODS function argument separators to Excel function argument separators
+                $value = Calculation::translateSeparator(';', ',', $value, $inFunctionBracesLevel);
+
+                // Convert ODS matrix separators to Excel matrix separators
+                $value = Calculation::translateSeparator(
+                    ';',
+                    ',',
+                    $value,
+                    $inMatrixBracesLevel,
+                    Calculation::FORMULA_OPEN_MATRIX_BRACE,
+                    Calculation::FORMULA_CLOSE_MATRIX_BRACE
+                );
+                $value = Calculation::translateSeparator(
+                    '|',
+                    ';',
+                    $value,
+                    $inMatrixBracesLevel,
+                    Calculation::FORMULA_OPEN_MATRIX_BRACE,
+                    Calculation::FORMULA_CLOSE_MATRIX_BRACE
+                );
+
+                $value = preg_replace('/COM\.MICROSOFT\./ui', '', $value);
             }
         }
 

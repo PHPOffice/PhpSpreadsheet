@@ -2,10 +2,7 @@
 
 return [
     [
-        false,
-    ],
-    [
-        false,
+        true,
         null,
     ],
     [
@@ -25,23 +22,23 @@ return [
         1.5,
     ],
     [
-        true,
+        false,
         '',
     ],
     [
-        true,
+        false,
         '-1',
     ],
     [
-        true,
+        false,
         '2',
     ],
     [
-        true,
+        false,
         '-1.5',
     ],
     [
-        true,
+        false,
         'ABC',
     ],
     [
@@ -53,7 +50,7 @@ return [
         '#N/A',
     ],
     [
-        true,
+        false,
         'TRUE',
     ],
     [

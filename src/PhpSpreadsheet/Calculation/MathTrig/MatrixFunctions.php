@@ -7,7 +7,7 @@ use Matrix\Div0Exception as MatrixDiv0Exception;
 use Matrix\Exception as MatrixException;
 use Matrix\Matrix;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class MatrixFunctions
 {
@@ -31,7 +31,7 @@ class MatrixFunctions
             $column = 0;
             foreach ($matrixRow as $matrixCell) {
                 if ((is_string($matrixCell)) || ($matrixCell === null)) {
-                    throw new Exception(Functions::VALUE());
+                    throw new Exception(ExcelError::VALUE());
                 }
                 $matrixData[$row][$column] = $matrixCell;
                 ++$column;
@@ -102,7 +102,7 @@ class MatrixFunctions
 
             return $matrix->determinant();
         } catch (MatrixException $ex) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -127,9 +127,9 @@ class MatrixFunctions
 
             return $matrix->inverse()->toArray();
         } catch (MatrixDiv0Exception $e) {
-            return Functions::NAN();
+            return ExcelError::NAN();
         } catch (MatrixException $e) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -151,7 +151,7 @@ class MatrixFunctions
 
             return $matrixA->multiply($matrixB)->toArray();
         } catch (MatrixException $ex) {
-            return Functions::VALUE();
+            return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -168,7 +168,7 @@ class MatrixFunctions
     {
         try {
             $dimension = (int) Helpers::validateNumericNullBool($dimension);
-            Helpers::validatePositive($dimension, Functions::VALUE());
+            Helpers::validatePositive($dimension, ExcelError::VALUE());
             $matrix = Builder::createIdentityMatrix($dimension, 0)->toArray();
 
             return $matrix;

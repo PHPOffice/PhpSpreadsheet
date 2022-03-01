@@ -3,9 +3,6 @@
 return [
     [
         false,
-    ],
-    [
-        false,
         null,
     ],
     [
@@ -49,7 +46,7 @@ return [
         '#VALUE!',
     ],
     [
-        false,
+        true,
         '#N/A',
     ],
     [
