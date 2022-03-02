@@ -39,12 +39,22 @@ class StreamTest extends TestCase
         $writer = IOFactory::createWriter($spreadsheet, $format);
 
         $stream = fopen('php://memory', 'wb+');
-        self::assertSame(0, fstat($stream)['size']);
+        $stat = ($stream === false) ? false : fstat($stream);
+        if ($stream === false || $stat === false) {
+            self::fail('fopen or fstat failed');
+        } else {
+            self::assertSame(0, $stat['size']);
 
-        $writer->save($stream);
+            $writer->save($stream);
 
-        self::assertIsResource($stream, 'should not close the stream for further usage out of PhpSpreadsheet');
-        self::assertGreaterThan(0, fstat($stream)['size'], 'something should have been written to the stream');
-        self::assertGreaterThan(0, ftell($stream), 'should not be rewinded, because not all streams support it');
+            self::assertIsResource($stream, 'should not close the stream for further usage out of PhpSpreadsheet');
+            $stat = fstat($stream);
+            if ($stat === false) {
+                self::fail('fstat failed');
+            } else {
+                self::assertGreaterThan(0, $stat['size'], 'something should have been written to the stream');
+            }
+            self::assertGreaterThan(0, ftell($stream), 'should not be rewinded, because not all streams support it');
+        }
     }
 }

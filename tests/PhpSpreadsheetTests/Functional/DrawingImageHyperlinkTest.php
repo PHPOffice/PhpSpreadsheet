@@ -10,33 +10,43 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
 {
     public function testDrawingImageHyperlinkTest(): void
     {
-        $baseUrl = 'https://github.com/PHPOffice/PhpSpreadsheet';
-        $spreadsheet = new Spreadsheet();
-
-        $aSheet = $spreadsheet->getActiveSheet();
-
         $gdImage = @imagecreatetruecolor(120, 20);
-        $textColor = imagecolorallocate($gdImage, 255, 255, 255);
-        imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
+        $textColor = ($gdImage === false) ? false : imagecolorallocate($gdImage, 255, 255, 255);
+        if ($gdImage === false || $textColor === false) {
+            self::fail('imagecreatetruecolor or imagecolorallocate failed');
+        } else {
+            $baseUrl = 'https://github.com/PHPOffice/PhpSpreadsheet';
+            $spreadsheet = new Spreadsheet();
 
-        $drawing = new MemoryDrawing();
-        $drawing->setName('In-Memory image 1');
-        $drawing->setDescription('In-Memory image 1');
-        $drawing->setCoordinates('A1');
-        $drawing->setImageResource($gdImage);
-        $drawing->setRenderingFunction(
-            MemoryDrawing::RENDERING_JPEG
-        );
-        $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
-        $drawing->setHeight(36);
-        $hyperLink = new Hyperlink($baseUrl, 'test image');
-        $drawing->setHyperlink($hyperLink);
-        $drawing->setWorksheet($aSheet);
+            $aSheet = $spreadsheet->getActiveSheet();
+            imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+            $drawing = new MemoryDrawing();
+            $drawing->setName('In-Memory image 1');
+            $drawing->setDescription('In-Memory image 1');
+            $drawing->setCoordinates('A1');
+            $drawing->setImageResource($gdImage);
+            $drawing->setRenderingFunction(
+                MemoryDrawing::RENDERING_JPEG
+            );
+            $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+            $drawing->setHeight(36);
+            $hyperLink = new Hyperlink($baseUrl, 'test image');
+            $drawing->setHyperlink($hyperLink);
+            $drawing->setWorksheet($aSheet);
 
-        foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
-            self::assertEquals('https://github.com/PHPOffice/PhpSpreadsheet', $pDrawing->getHyperlink()->getUrl(), 'functional test drawing hyperlink');
+            $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+            $spreadsheet->disconnectWorksheets();
+
+            foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
+                $getHyperlink = $pDrawing->getHyperlink();
+                if ($getHyperlink === null) {
+                    self::fail('getHyperlink returned null');
+                } else {
+                    self::assertEquals('https://github.com/PHPOffice/PhpSpreadsheet', $getHyperlink->getUrl(), 'functional test drawing hyperlink');
+                }
+            }
+            $reloadedSpreadsheet->disconnectWorksheets();
         }
     }
 }
