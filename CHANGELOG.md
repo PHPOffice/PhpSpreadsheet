@@ -10,15 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implementation of the ISREF() information function.
-- Allow Boolean Conversion in Csv Reader to be locale-aware when using the String Value Binder.
+- Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
-  (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
+  (i.e a value of "12,345.67" will be read as numeric `1235.67`, not as a string `"12,345.67"`.
+
+  This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
 ### Changed
 
 - Gnumeric Reader now loads number formatting for cells.
 - Gnumeric Reader now correctly identifies selected worksheet.
 - Some Refactoring of the Ods Reader, moving all formula and address translation from Ods to Excel into a separate class to eliminate code duplication and ensure consistency.
+- Make Boolean Conversion in Csv Reader locale-aware when using the String Value Binder.
+
+  This is determined b the Calculation Engine locale setting.
+
+  (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 
 ### Deprecated
 
