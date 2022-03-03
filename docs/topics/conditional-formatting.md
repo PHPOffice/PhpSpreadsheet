@@ -653,11 +653,11 @@ $wizardFactory = new Wizard($cellRange);
 /** @var Wizard\Expression $expressionWizard */
 $expressionWizard = $wizardFactory->newRule(Wizard::EXPRESSION);
 
-$expressionWizard->expression('ISODD(A1)')
+$expressionWizard->expression('ISODD(A2)')
     ->setStyle($greenStyle);
 $conditionalStyles[] = $expressionWizard->getConditional();
 
-$expressionWizard->expression('ISEVEN(A1)')
+$expressionWizard->expression('ISEVEN(A2)')
     ->setStyle($yellowStyle);
 $conditionalStyles[] = $expressionWizard->getConditional();
 
