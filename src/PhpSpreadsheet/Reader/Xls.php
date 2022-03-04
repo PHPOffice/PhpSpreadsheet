@@ -1101,8 +1101,8 @@ class Xls extends BaseReader
                     $height = SharedXls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
 
                     // calculate offsetX and offsetY of the shape
-                    $offsetX = $startOffsetX * SharedXls::sizeCol($this->phpSheet, $startColumn) / 1024;
-                    $offsetY = $startOffsetY * SharedXls::sizeRow($this->phpSheet, $startRow) / 256;
+                    $offsetX = (int) ($startOffsetX * SharedXls::sizeCol($this->phpSheet, $startColumn) / 1024);
+                    $offsetY = (int) ($startOffsetY * SharedXls::sizeRow($this->phpSheet, $startRow) / 256);
 
                     switch ($obj['otObjType']) {
                         case 0x19:
