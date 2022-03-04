@@ -2,9 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -87,12 +89,13 @@ class Calculation
     private $calculationCacheEnabled = true;
 
     /**
-     * Used to generate unique store keys.
-     *
-     * @var int
+     * @var BranchPruner
      */
-    private $branchStoreKeyCounter = 0;
+    private $branchPruner;
 
+    /**
+     * @var bool
+     */
     private $branchPruningEnabled = true;
 
     /**
@@ -2761,6 +2764,7 @@ class Calculation
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
+        $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
         self::$referenceHelper = ReferenceHelper::getInstance();
     }
 
@@ -2804,7 +2808,7 @@ class Calculation
     public function flushInstance(): void
     {
         $this->clearCalculationCache();
-        $this->clearBranchStore();
+        $this->branchPruner->clearBranchStore();
     }
 
     /**
@@ -2956,6 +2960,7 @@ class Calculation
     public function setBranchPruningEnabled($enabled): void
     {
         $this->branchPruningEnabled = $enabled;
+        $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
     }
 
     public function enableBranchPruning(): void
@@ -2966,11 +2971,6 @@ class Calculation
     public function disableBranchPruning(): void
     {
         $this->setBranchPruningEnabled(false);
-    }
-
-    public function clearBranchStore(): void
-    {
-        $this->branchStoreKeyCounter = 0;
     }
 
     /**
@@ -3924,58 +3924,19 @@ class Calculation
 
         //    Start with initialisation
         $index = 0;
-        $stack = new Stack();
+        $stack = new Stack($this->branchPruner);
         $output = [];
         $expectingOperator = false; //    We use this test in syntax-checking the expression to determine when a
         //        - is a negation or + is a positive operator rather than an operation
         $expectingOperand = false; //    We use this test in syntax-checking the expression to determine whether an operand
         //        should be null in a function call
 
-        // IF branch pruning
-        // currently pending storeKey (last item of the storeKeysStack
-        $pendingStoreKey = null;
-        // stores a list of storeKeys (string[])
-        $pendingStoreKeysStack = [];
-        $expectingConditionMap = []; // ['storeKey' => true, ...]
-        $expectingThenMap = []; // ['storeKey' => true, ...]
-        $expectingElseMap = []; // ['storeKey' => true, ...]
-        $parenthesisDepthMap = []; // ['storeKey' => 4, ...]
-
         //    The guts of the lexical parser
         //    Loop through the formula extracting each operator and operand in turn
         while (true) {
             // Branch pruning: we adapt the output item to the context (it will
             // be used to limit its computation)
-            $currentCondition = null;
-            $currentOnlyIf = null;
-            $currentOnlyIfNot = null;
-            $previousStoreKey = null;
-            $pendingStoreKey = end($pendingStoreKeysStack);
-
-            if ($this->branchPruningEnabled) {
-                // this is a condition ?
-                if (isset($expectingConditionMap[$pendingStoreKey]) && $expectingConditionMap[$pendingStoreKey]) {
-                    $currentCondition = $pendingStoreKey;
-                    $stackDepth = count($pendingStoreKeysStack);
-                    if ($stackDepth > 1) { // nested if
-                        $previousStoreKey = $pendingStoreKeysStack[$stackDepth - 2];
-                    }
-                }
-                if (isset($expectingThenMap[$pendingStoreKey]) && $expectingThenMap[$pendingStoreKey]) {
-                    $currentOnlyIf = $pendingStoreKey;
-                } elseif (isset($previousStoreKey)) {
-                    if (isset($expectingThenMap[$previousStoreKey]) && $expectingThenMap[$previousStoreKey]) {
-                        $currentOnlyIf = $previousStoreKey;
-                    }
-                }
-                if (isset($expectingElseMap[$pendingStoreKey]) && $expectingElseMap[$pendingStoreKey]) {
-                    $currentOnlyIfNot = $pendingStoreKey;
-                } elseif (isset($previousStoreKey)) {
-                    if (isset($expectingElseMap[$previousStoreKey]) && $expectingElseMap[$previousStoreKey]) {
-                        $currentOnlyIfNot = $previousStoreKey;
-                    }
-                }
-            }
+            $this->branchPruner->initialiseForLoop();
 
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
 
@@ -3987,11 +3948,11 @@ class Calculation
 
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
-                $stack->push('Unary Operator', '~', null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                $stack->push('Unary Operator', '~');
                 ++$index; //        and drop the negation symbol
             } elseif ($opCharacter == '%' && $expectingOperator) {
                 //    Put a percentage on the stack
-                $stack->push('Unary Operator', '%', null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                $stack->push('Unary Operator', '%');
                 ++$index;
             } elseif ($opCharacter == '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
                 ++$index; //    Drop the redundant plus symbol
@@ -4008,13 +3969,13 @@ class Calculation
                 }
 
                 //    Finally put our current operator onto the stack
-                $stack->push('Binary Operator', $opCharacter, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                $stack->push('Binary Operator', $opCharacter);
 
                 ++$index;
                 $expectingOperator = false;
-            } elseif ($opCharacter == ')' && $expectingOperator) {            //    Are we expecting to close a parenthesis?
+            } elseif ($opCharacter == ')' && $expectingOperator) { //    Are we expecting to close a parenthesis?
                 $expectingOperand = false;
-                while (($o2 = $stack->pop()) && $o2['value'] != '(') {        //    Pop off the stack back to the last (
+                while (($o2 = $stack->pop()) && $o2['value'] !== '(') { //    Pop off the stack back to the last (
                     if ($o2 === null) {
                         return $this->raiseFormulaError('Formula Error: Unexpected closing brace ")"');
                     }
@@ -4024,30 +3985,19 @@ class Calculation
 
                 // Branch pruning we decrease the depth whether is it a function
                 // call or a parenthesis
-                if (!empty($pendingStoreKey)) {
-                    --$parenthesisDepthMap[$pendingStoreKey];
-                }
+                $this->branchPruner->decrementDepth();
 
                 if (is_array($d) && preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {
                     //    Did this parenthesis just close a function?
-                    if (!empty($pendingStoreKey) && $parenthesisDepthMap[$pendingStoreKey] == -1) {
-                        // we are closing an IF(
-                        if ($d['value'] !== 'IF(') {
-                            return $this->raiseFormulaError('Parser bug we should be in an "IF("');
-                        }
-                        if ($expectingConditionMap[$pendingStoreKey]) {
-                            return $this->raiseFormulaError('We should not be expecting a condition');
-                        }
-                        $expectingThenMap[$pendingStoreKey] = false;
-                        $expectingElseMap[$pendingStoreKey] = false;
-                        --$parenthesisDepthMap[$pendingStoreKey];
-                        array_pop($pendingStoreKeysStack);
-                        unset($pendingStoreKey);
+                    try {
+                        $this->branchPruner->closingBrace($d['value']);
+                    } catch (Exception $e) {
+                        return $this->raiseFormulaError($e->getMessage());
                     }
 
                     $functionName = $matches[1]; //    Get the function name
                     $d = $stack->pop();
-                    $argumentCount = $d['value']; //    See how many arguments there were (argument count is the next value stored on the stack)
+                    $argumentCount = $d['value'] ?? 0; //    See how many arguments there were (argument count is the next value stored on the stack)
                     $output[] = $d; //    Dump the argument count on the output
                     $output[] = $stack->pop(); //    Pop the function and push onto the output
                     if (isset(self::$controlFunctions[$functionName])) {
@@ -4105,23 +4055,14 @@ class Calculation
                     }
                 }
                 ++$index;
-            } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
-                if (
-                    !empty($pendingStoreKey) &&
-                    $parenthesisDepthMap[$pendingStoreKey] == 0
-                ) {
-                    // We must go to the IF next argument
-                    if ($expectingConditionMap[$pendingStoreKey]) {
-                        $expectingConditionMap[$pendingStoreKey] = false;
-                        $expectingThenMap[$pendingStoreKey] = true;
-                    } elseif ($expectingThenMap[$pendingStoreKey]) {
-                        $expectingThenMap[$pendingStoreKey] = false;
-                        $expectingElseMap[$pendingStoreKey] = true;
-                    } elseif ($expectingElseMap[$pendingStoreKey]) {
-                        return $this->raiseFormulaError('Reaching fourth argument of an IF');
-                    }
+            } elseif ($opCharacter == ',') { // Is this the separator for function arguments?
+                try {
+                    $this->branchPruner->argumentSeparator();
+                } catch (Exception $e) {
+                    return $this->raiseFormulaError($e->getMessage());
                 }
-                while (($o2 = $stack->pop()) && $o2['value'] != '(') {        //    Pop off the stack back to the last (
+
+                while (($o2 = $stack->pop()) && $o2['value'] !== '(') {        //    Pop off the stack back to the last (
                     if ($o2 === null) {
                         return $this->raiseFormulaError('Formula Error: Unexpected ,');
                     }
@@ -4130,27 +4071,32 @@ class Calculation
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
                 //        so push a null onto the stack
                 if (($expectingOperand) || (!$expectingOperator)) {
-                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => 'NULL'];
                 }
                 // make sure there was a function
                 $d = $stack->last(2);
-                if (!preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'], $matches)) {
+                if (!preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $d['value'] ?? '', $matches)) {
+                    // Can we inject a dummy function at this point so that the braces at least have some context
+                    //     because at least the braces are paired up (at this stage in the formula)
+                    // MS Excel allows this if the content is cell references; but doesn't allow actual values,
+                    //    but at this point, we can't differentiate (so allow both)
                     return $this->raiseFormulaError('Formula Error: Unexpected ,');
                 }
+
+                /** @var array $d */
                 $d = $stack->pop();
-                $itemStoreKey = $d['storeKey'] ?? null;
-                $itemOnlyIf = $d['onlyIf'] ?? null;
-                $itemOnlyIfNot = $d['onlyIfNot'] ?? null;
-                $stack->push($d['type'], ++$d['value'], $d['reference'], $itemStoreKey, $itemOnlyIf, $itemOnlyIfNot); // increment the argument count
-                $stack->push('Brace', '(', null, $itemStoreKey, $itemOnlyIf, $itemOnlyIfNot); // put the ( back on, we'll need to pop back to it again
+                ++$d['value']; // increment the argument count
+
+                $stack->pushStackItem($d);
+                $stack->push('Brace', '('); // put the ( back on, we'll need to pop back to it again
+
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
             } elseif ($opCharacter == '(' && !$expectingOperator) {
-                if (!empty($pendingStoreKey)) { // Branch pruning: we go deeper
-                    ++$parenthesisDepthMap[$pendingStoreKey];
-                }
-                $stack->push('Brace', '(', null, $currentCondition, $currentOnlyIf, $currentOnlyIf);
+                // Branch pruning: we go deeper
+                $this->branchPruner->incrementDepth();
+                $stack->push('Brace', '(', null);
                 ++$index;
             } elseif ($isOperandOrFunction && !$expectingOperator) {    // do we now have a function/variable/number?
                 $expectingOperator = true;
@@ -4167,25 +4113,17 @@ class Calculation
                     }
                     // here $matches[1] will contain values like "IF"
                     // and $val "IF("
-                    if ($this->branchPruningEnabled && ($valToUpper == 'IF(')) { // we handle a new if
-                        $pendingStoreKey = $this->getUnusedBranchStoreKey();
-                        $pendingStoreKeysStack[] = $pendingStoreKey;
-                        $expectingConditionMap[$pendingStoreKey] = true;
-                        $parenthesisDepthMap[$pendingStoreKey] = 0;
-                    } else { // this is not an if but we go deeper
-                        if (!empty($pendingStoreKey) && array_key_exists($pendingStoreKey, $parenthesisDepthMap)) {
-                            ++$parenthesisDepthMap[$pendingStoreKey];
-                        }
-                    }
 
-                    $stack->push('Function', $valToUpper, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    $this->branchPruner->functionCall($valToUpper);
+
+                    $stack->push('Function', $valToUpper);
                     // tests if the function is closed right after opening
                     $ax = preg_match('/^\s*\)/u', substr($formula, $index + $length));
                     if ($ax) {
-                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 0, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 0);
                         $expectingOperator = true;
                     } else {
-                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 1, null, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                        $stack->push('Operand Count for Function ' . $valToUpper . ')', 1);
                         $expectingOperator = false;
                     }
                     $stack->push('Brace', '(');
@@ -4217,7 +4155,7 @@ class Calculation
                     }
                     // unescape any apostrophes or double quotes in worksheet name
                     $val = str_replace(["''", '""'], ["'", '"'], $val);
-                    $outputItem = $stack->getStackItem('Cell Reference', $val, $val, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    $outputItem = $stack->getStackItem('Cell Reference', $val, $val);
 
                     $output[] = $outputItem;
                 } else {    // it's a variable, constant, string, number or boolean
@@ -4307,18 +4245,18 @@ class Calculation
                         }
                     }
 
-                    $details = $stack->getStackItem($stackItemType, $val, $stackItemReference, $currentCondition, $currentOnlyIf, $currentOnlyIfNot);
+                    $details = $stack->getStackItem($stackItemType, $val, $stackItemReference);
                     if ($localeConstant) {
                         $details['localeValue'] = $localeConstant;
                     }
                     $output[] = $details;
                 }
                 $index += $length;
-            } elseif ($opCharacter == '$') {    // absolute row or column range
+            } elseif ($opCharacter == '$') { // absolute row or column range
                 ++$index;
-            } elseif ($opCharacter == ')') {    // miscellaneous error checking
+            } elseif ($opCharacter == ')') { // miscellaneous error checking
                 if ($expectingOperand) {
-                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => null];
+                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => 'NULL'];
                     $expectingOperand = false;
                     $expectingOperator = true;
                 } else {
@@ -4345,7 +4283,7 @@ class Calculation
             }
 
             if ($formula[$index] == ' ') {
-                while ($formula[$index] == ' ') {
+                while ($formula[$index] === ' ') {
                     ++$index;
                 }
 
@@ -4355,9 +4293,9 @@ class Calculation
                     ($expectingOperator) &&
                     (
                         (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] == 'Cell Reference') ||
+                        ($output[count($output) - 1]['type'] === 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] == 'Defined Name' || $output[count($output) - 1]['type'] == 'Value')
+                            ($output[count($output) - 1]['type'] === 'Defined Name' || $output[count($output) - 1]['type'] === 'Value')
                     )
                 ) {
                     while (
@@ -4374,7 +4312,8 @@ class Calculation
             }
         }
 
-        while (($op = $stack->pop()) !== null) {    // pop everything off the stack and push onto output
+        while (($op = $stack->pop()) !== null) {
+            // pop everything off the stack and push onto output
             if ((is_array($op) && $op['value'] == '(') || ($op === '(')) {
                 return $this->raiseFormulaError("Formula Error: Expecting ')'"); // if there are any opening braces on the stack, then braces were unbalanced
             }
@@ -4416,7 +4355,7 @@ class Calculation
      */
     private function processTokenStack($tokens, $cellID = null, ?Cell $cell = null)
     {
-        if ($tokens == false) {
+        if ($tokens === false) {
             return false;
         }
 
@@ -4424,7 +4363,7 @@ class Calculation
         //        so we store the parent cell collection so that we can re-attach it when necessary
         $pCellWorksheet = ($cell !== null) ? $cell->getWorksheet() : null;
         $pCellParent = ($cell !== null) ? $cell->getParent() : null;
-        $stack = new Stack();
+        $stack = new Stack($this->branchPruner);
 
         // Stores branches that have been pruned
         $fakedForBranchPruning = [];
@@ -4433,7 +4372,6 @@ class Calculation
         //    Loop through each token in turn
         foreach ($tokens as $tokenData) {
             $token = $tokenData['value'];
-
             // Branch pruning: skip useless resolutions
             $storeKey = $tokenData['storeKey'] ?? null;
             if ($this->branchPruningEnabled && isset($tokenData['onlyIf'])) {
@@ -4447,7 +4385,7 @@ class Calculation
                 }
 
                 if (
-                    isset($storeValue)
+                    (isset($storeValue) || $tokenData['reference'] === 'NULL')
                     && (!$storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is not true, we don't need to compute
@@ -4477,8 +4415,9 @@ class Calculation
                     $wrappedItem = end($storeValue);
                     $storeValue = end($wrappedItem);
                 }
+
                 if (
-                    isset($storeValue)
+                    (isset($storeValue) || $tokenData['reference'] === 'NULL')
                     && ($storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute
@@ -5106,8 +5045,8 @@ class Calculation
                     case '/':
                         if ($operand2 == 0) {
                             //    Trap for Divide by Zero error
-                            $stack->push('Error', '#DIV/0!');
-                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails('#DIV/0!'));
+                            $stack->push('Error', ExcelError::DIV0());
+                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails(ExcelError::DIV0()));
 
                             return false;
                         }
@@ -5388,14 +5327,6 @@ class Calculation
         }
 
         return $args;
-    }
-
-    private function getUnusedBranchStoreKey()
-    {
-        $storeKeyValue = 'storeKey-' . $this->branchStoreKeyCounter;
-        ++$this->branchStoreKeyCounter;
-
-        return $storeKeyValue;
     }
 
     private function getTokensAsString($tokens)
