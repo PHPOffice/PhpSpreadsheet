@@ -3614,7 +3614,7 @@ class Calculation
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
         [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
-            $resize = 1;
+            $resize = 2;
         }
 
         if ($resize == 2) {
@@ -5025,10 +5025,14 @@ class Calculation
 
             try {
                 //    Convert operand 1 from a PHP array to a matrix
+//                $matrix = new \Matrix\Matrix($operand1);
                 $matrix = new Shared\JAMA\Matrix($operand1);
                 //    Perform the required operation against the operand 1 matrix, passing in operand 2
                 $matrixResult = $matrix->$matrixFunction($operand2);
                 $result = $matrixResult->getArray();
+//                $matrixResult = $matrix->$matrixFunction($operand2);
+//                $result = $matrixResult->toArray();
+//                var_dump($operand1, $matrixFunction, $operand2, $result);
             } catch (\Exception $ex) {
                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
                 $result = '#VALUE!';

@@ -82,16 +82,35 @@ class ArrayFormulaTest extends TestCase
     public function testArrayArithmetic(string $formula, $expectedResult): void
     {
         $result = Calculation::getInstance()->_calculateFormulaValue($formula);
-//        var_dump($result);
-//        self::assertEquals($expectedResult, $result);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerArrayArithmetic(): array
     {
         return [
             [
+                '={2,3}+{4;5}',
+                [[6, 7], [7, 8]],
+            ],
+            [
+                '={2,3}-{4;5}',
+                [[-2, -1], [-3, -2]],
+            ],
+            [
                 '={2,3}*{4;5}',
                 [[8, 12], [10, 15]],
+            ],
+            [
+                '={2,3}/{4;5}',
+                [[0.5, 0.75], [0.4, 0.6]],
+            ],
+            [
+                '={2,3}^{4;5}',
+                [[16, 81], [32, 243]],
+            ],
+            [
+                '={"A",",B"}&{"C";";D"}',
+                [['AC', ',BC'], ['A;D', ',B;D']],
             ],
         ];
     }
