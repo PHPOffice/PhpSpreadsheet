@@ -34,7 +34,7 @@ class ArrayFormulaTest extends TestCase
         $cell = $worksheet->getCell($cellAddress);
         self::assertTrue($cell->isArrayFormula());
         self::assertSame($expectedRange, $cell->arrayFormulaRange());
-        self::assertSame($expectedFormula, $cell->getValue());
+        self::assertSame($expectedFormula, strtoupper($cell->getValue()));
         self::assertSame($expectedValue, $cell->getCalculatedValue(true, true));
 //        self::assertSame(8, $cell->getCalculatedValue());
 //        self::assertSame(8, $cell->getCalculatedValue());
@@ -51,6 +51,12 @@ class ArrayFormulaTest extends TestCase
                 'D1:E2',
                 '=A1:B1*A1:A2',
                 [[4, 6], [8, 12]],
+            ],
+            [
+                'G1',
+                'G1:J1',
+                '=SIN({-1,0,1,2})',
+                [[-0.8414709848078965, 0.0, 0.8414709848078965, 0.9092974268256817]],
             ],
             [
                 'D4',
