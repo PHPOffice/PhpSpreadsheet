@@ -101,11 +101,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:getUnusedBranchStoreKey\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:localeFunc\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -128,6 +123,16 @@ parameters:
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has parameter \\$stack with no type specified\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 'type' does not exist on array\\|null\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
+			count: 3
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -167,11 +172,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:\\$branchPruningEnabled has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -251,7 +251,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between mixed and null will always evaluate to false\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between array and '\\(' will always evaluate to false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-array and null will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -1219,41 +1224,6 @@ parameters:
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$onlyIf with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$onlyIfNot with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$reference with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$storeKey with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$type with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Token\\\\Stack\\:\\:getStackItem\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Token/Stack.php
 
 		-
 			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
@@ -5921,49 +5891,9 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
 
 		-
-			message: "#^Cannot call method getUrl\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Hyperlink\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagestring expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
-
-		-
-			message: "#^Parameter \\#6 \\$col of function imagestring expects int, int\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
-
-		-
 			message: "#^Cannot call method getPageSetup\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
-
-		-
-			message: "#^Cannot access offset 'size' on array\\{0\\: int, 1\\: int, 2\\: int, 3\\: int, 4\\: int, 5\\: int, 6\\: int, 7\\: int, \\.\\.\\.\\}\\|false\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filename of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter\\:\\:save\\(\\) expects resource\\|string, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fstat expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
@@ -6119,26 +6049,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:setAttribute\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilter/ColumnTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagestring expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
-
-		-
-			message: "#^Parameter \\#6 \\$col of function imagestring expects int, int\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
