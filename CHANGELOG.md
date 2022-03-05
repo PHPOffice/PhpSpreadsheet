@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   Note that this method is used when translating Excel functions between `en_us` and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
-
+- Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
 
 ## 1.22.0 - 2022-02-18
 
