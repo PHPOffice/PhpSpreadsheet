@@ -394,7 +394,7 @@ class Cell
      *
      * @return mixed
      */
-    public function getCalculatedValue(bool $resetLog = true, bool $asArray = false)
+    public function getCalculatedValue(bool $asArray = false, bool $resetLog = true)
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
@@ -407,7 +407,7 @@ class Cell
 
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
-                )->calculateCellValue($this, $resetLog, $asArray);
+                )->calculateCellValue($this, $asArray, $resetLog);
 
                 $worksheet->getCell($coordinate);
 

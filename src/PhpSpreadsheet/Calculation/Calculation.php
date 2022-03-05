@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use ReflectionClassConstant;
 use ReflectionMethod;
 use ReflectionParameter;
+use Throwable;
 
 class Calculation
 {
@@ -3322,10 +3323,10 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculate(?Cell $cell = null)
+    public function calculate(?Cell $cell = null, bool $asArray = false, bool $resetLog = true)
     {
         try {
-            return $this->calculateCellValue($cell);
+            return $this->calculateCellValue($cell, $asArray, $resetLog);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -3339,7 +3340,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculateCellValue(?Cell $cell = null, bool $resetLog = true, bool $asArray = false)
+    public function calculateCellValue(?Cell $cell = null, bool $asArray = false, bool $resetLog = true)
     {
         if ($cell === null) {
             return null;
@@ -5026,14 +5027,15 @@ class Calculation
             try {
                 //    Convert operand 1 from a PHP array to a matrix
 //                $matrix = new \Matrix\Matrix($operand1);
+//                var_dump($operand1, $matrixFunction, $operand2);
                 $matrix = new Shared\JAMA\Matrix($operand1);
                 //    Perform the required operation against the operand 1 matrix, passing in operand 2
                 $matrixResult = $matrix->$matrixFunction($operand2);
                 $result = $matrixResult->getArray();
-//                $matrixResult = $matrix->$matrixFunction($operand2);
 //                $result = $matrixResult->toArray();
-//                var_dump($operand1, $matrixFunction, $operand2, $result);
-            } catch (\Exception $ex) {
+//                var_dump('=>', $result);
+            } catch (Throwable $ex) {
+//                var_dump($ex->getMessage());
                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
                 $result = '#VALUE!';
             }
@@ -5145,7 +5147,7 @@ class Calculation
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue(false, $resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5157,7 +5159,7 @@ class Calculation
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue(false, $resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5210,7 +5212,7 @@ class Calculation
                 //    Single cell (or single column or row) in range
                 [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
                 if ($worksheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue(true, $resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5220,7 +5222,7 @@ class Calculation
                     // Extract range
                     [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
                     if ($worksheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue(true, $resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
