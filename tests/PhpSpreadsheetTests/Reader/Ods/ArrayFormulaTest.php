@@ -59,7 +59,7 @@ class ArrayFormulaTest extends TestCase
                 'E3',
                 'E3',
                 '=MAX(SIN({-1,0,1,2}))',
-                0.90929742682568,
+                0.9092974268256817,
             ],
             [
                 'D5',
