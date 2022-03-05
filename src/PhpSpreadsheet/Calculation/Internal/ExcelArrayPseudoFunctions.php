@@ -46,7 +46,7 @@ class ExcelArrayPseudoFunctions
         }
 
         $calcEngine = Calculation::getInstance($worksheet->getParent());
-        $result = $calcEngine->calculateCellValue($referenceCell, false, true);
+        $result = $calcEngine->calculateCellValue($referenceCell, true, false);
         if (!is_array($result)) {
             $result = [[$result]];
         }
