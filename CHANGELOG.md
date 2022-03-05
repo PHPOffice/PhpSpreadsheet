@@ -19,11 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - Gnumeric Reader now loads number formatting for cells.
-- Gnumeric Reader now correctly identifies selected worksheet.
+- Gnumeric Reader now correctly identifies selected worksheet and selected cells in a worksheet.
 - Some Refactoring of the Ods Reader, moving all formula and address translation from Ods to Excel into a separate class to eliminate code duplication and ensure consistency.
 - Make Boolean Conversion in Csv Reader locale-aware when using the String Value Binder.
 
-  This is determined b the Calculation Engine locale setting.
+  This is determined by the Calculation Engine locale setting.
 
   (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 
