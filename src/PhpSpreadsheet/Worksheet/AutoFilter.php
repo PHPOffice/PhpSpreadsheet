@@ -386,7 +386,7 @@ class AutoFilter
             /** @var string */
             $ruleOperator = $rule['operator'];
             /** @var string */
-            $cellValueString = $cellValue;
+            $cellValueString = $cellValue ?? '';
             $retVal = false;
 
             if (is_numeric($ruleValue)) {

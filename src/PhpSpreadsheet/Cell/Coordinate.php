@@ -92,6 +92,7 @@ abstract class Coordinate
         }
 
         // Create absolute coordinate
+        $cellAddress = "$cellAddress";
         if (ctype_digit($cellAddress)) {
             return $worksheet . '$' . $cellAddress;
         } elseif (ctype_alpha($cellAddress)) {
