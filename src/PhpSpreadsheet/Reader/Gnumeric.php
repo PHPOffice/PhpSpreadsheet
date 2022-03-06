@@ -309,6 +309,7 @@ class Gnumeric extends BaseReader
             $this->processMergedCells($sheet);
             $this->processAutofilter($sheet);
 
+            $this->setSelectedCells($sheet);
             ++$worksheetID;
         }
 
@@ -326,6 +327,28 @@ class Gnumeric extends BaseReader
             $attributes = self::testSimpleXml($gnmXML->UIData->attributes());
             $selectedSheet = (int) $attributes['SelectedTab'];
             $this->spreadsheet->setActiveSheetIndex($selectedSheet);
+        }
+    }
+
+    private function setSelectedCells(?SimpleXMLElement $sheet): void
+    {
+        if ($sheet !== null && isset($sheet->Selections)) {
+            foreach ($sheet->Selections as $selection) {
+                $startCol = (int) ($selection->StartCol ?? 0);
+                $startRow = (int) ($selection->StartRow ?? 0) + 1;
+                $endCol = (int) ($selection->EndCol ?? $startCol);
+                $endRow = (int) ($selection->endRow ?? 0) + 1;
+
+                $startColumn = Coordinate::stringFromColumnIndex($startCol + 1);
+                $endColumn = Coordinate::stringFromColumnIndex($endCol + 1);
+
+                $startCell = "{$startColumn}{$startRow}";
+                $endCell = "{$endColumn}{$endRow}";
+                $selectedRange = $startCell . (($endCell !== $startCell) ? ':' . $endCell : '');
+                $this->spreadsheet->getActiveSheet()->setSelectedCell($selectedRange);
+
+                break;
+            }
         }
     }
 
@@ -357,7 +380,8 @@ class Gnumeric extends BaseReader
 
     private function setColumnWidth(int $whichColumn, float $defaultWidth): void
     {
-        $columnDimension = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
+        $columnDimension = $this->spreadsheet->getActiveSheet()
+            ->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
         if ($columnDimension !== null) {
             $columnDimension->setWidth($defaultWidth);
         }
@@ -365,7 +389,8 @@ class Gnumeric extends BaseReader
 
     private function setColumnInvisible(int $whichColumn): void
     {
-        $columnDimension = $this->spreadsheet->getActiveSheet()->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
+        $columnDimension = $this->spreadsheet->getActiveSheet()
+            ->getColumnDimension(Coordinate::stringFromColumnIndex($whichColumn + 1));
         if ($columnDimension !== null) {
             $columnDimension->setVisible(false);
         }
