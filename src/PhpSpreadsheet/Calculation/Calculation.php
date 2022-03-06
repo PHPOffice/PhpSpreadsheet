@@ -3463,11 +3463,11 @@ class Calculation
      */
     public function getValueFromCache(string $cellReference, &$cellValue): bool
     {
-        $this->debugLog->writeDebugLog("Testing cache value for cell {$cellReference}");
+        $this->debugLog->writeDebugLog('Testing cache value for cell %s', $cellReference);
         // Is calculation cacheing enabled?
         // If so, is the required value present in calculation cache?
         if (($this->calculationCacheEnabled) && (isset($this->calculationCache[$cellReference]))) {
-            $this->debugLog->writeDebugLog("Retrieving value for cell {$cellReference} from cache");
+            $this->debugLog->writeDebugLog('Retrieving value for cell %s from cache', $cellReference);
             // Return the cached result
 
             $cellValue = $this->calculationCache[$cellReference];
@@ -3529,7 +3529,7 @@ class Calculation
         if (($cellID !== null) && ($this->getValueFromCache($wsCellReference, $cellValue))) {
             return $cellValue;
         }
-        $this->debugLog->writeDebugLog("Evaluating formula for cell {$wsCellReference}");
+        $this->debugLog->writeDebugLog('Evaluating formula for cell %s', $wsCellReference);
 
         if (($wsTitle[0] !== "\x00") && ($this->cyclicReferenceStack->onStack($wsCellReference))) {
             if ($this->cyclicFormulaCount <= 0) {
@@ -3551,7 +3551,7 @@ class Calculation
             }
         }
 
-        $this->debugLog->writeDebugLog("Formula for cell {$wsCellReference} is {$formula}");
+        $this->debugLog->writeDebugLog('Formula for cell %s is %s', $wsCellReference, $formula);
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
 
@@ -4453,9 +4453,9 @@ class Calculation
 
                 //    Log what we're doing
                 if ($token == ':') {
-                    $this->debugLog->writeDebugLog('Evaluating Range ', $this->showValue($operand1Data['reference']), ' ', $token, ' ', $this->showValue($operand2Data['reference']));
+                    $this->debugLog->writeDebugLog('Evaluating Range %s %s %s', $this->showValue($operand1Data['reference']), $token, $this->showValue($operand2Data['reference']));
                 } else {
-                    $this->debugLog->writeDebugLog('Evaluating ', $this->showValue($operand1), ' ', $token, ' ', $this->showValue($operand2));
+                    $this->debugLog->writeDebugLog('Evaluating %s %s %s', $this->showValue($operand1), $token, $this->showValue($operand2));
                 }
 
                 //    Process the operation in the appropriate manner
@@ -4582,13 +4582,13 @@ class Calculation
                                 $matrixResult = $matrix->concat($operand2);
                                 $result = $matrixResult->getArray();
                             } catch (\Exception $ex) {
-                                $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
+                                $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                                 $result = '#VALUE!';
                             }
                         } else {
                             $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
                         }
-                        $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
+                        $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
 
                         if (isset($storeKey)) {
@@ -4607,12 +4607,12 @@ class Calculation
                             }
                         }
                         if (count(Functions::flattenArray($cellIntersect)) === 0) {
-                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
                             $stack->push('Error', Functions::null(), null);
                         } else {
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
                                 Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
-                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($cellIntersect));
+                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
                             $stack->push('Value', $cellIntersect, $cellRef);
                         }
 
@@ -4626,10 +4626,10 @@ class Calculation
                 }
                 $arg = $arg['value'];
                 if ($token === '~') {
-                    $this->debugLog->writeDebugLog('Evaluating Negation of ', $this->showValue($arg));
+                    $this->debugLog->writeDebugLog('Evaluating Negation of %s', $this->showValue($arg));
                     $multiplier = -1;
                 } else {
-                    $this->debugLog->writeDebugLog('Evaluating Percentile of ', $this->showValue($arg));
+                    $this->debugLog->writeDebugLog('Evaluating Percentile of %s', $this->showValue($arg));
                     $multiplier = 0.01;
                 }
                 if (is_array($arg)) {
@@ -4640,10 +4640,10 @@ class Calculation
                         $matrixResult = $matrix1->arrayTimesEquals($multiplier);
                         $result = $matrixResult->getArray();
                     } catch (\Exception $ex) {
-                        $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
+                        $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                         $result = '#VALUE!';
                     }
-                    $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
+                    $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
@@ -4667,21 +4667,21 @@ class Calculation
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
                             $matches[2] = trim($matches[2], "\"'");
-                            $this->debugLog->writeDebugLog('Evaluating Cell Range ', $cellRef, ' in worksheet ', $matches[2]);
+                            $this->debugLog->writeDebugLog('Evaluating Cell Range %s in worksheet %s', $cellRef, $matches[2]);
                             if ($pCellParent !== null) {
                                 $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
-                            $this->debugLog->writeDebugLog('Evaluation Result for cells ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->showTypeDetails($cellValue));
+                            $this->debugLog->writeDebugLog('Evaluation Result for cells %s in worksheet %s is %s', $cellRef, $matches[2], $this->showTypeDetails($cellValue));
                         } else {
-                            $this->debugLog->writeDebugLog('Evaluating Cell Range ', $cellRef, ' in current worksheet');
+                            $this->debugLog->writeDebugLog('Evaluating Cell Range %s in current worksheet', $cellRef);
                             if ($pCellParent !== null) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
-                            $this->debugLog->writeDebugLog('Evaluation Result for cells ', $cellRef, ' is ', $this->showTypeDetails($cellValue));
+                            $this->debugLog->writeDebugLog('Evaluation Result for cells %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                         }
                     }
                 } else {
@@ -4696,7 +4696,7 @@ class Calculation
                                 //    It's a Reference to an external spreadsheet (not currently supported)
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
-                            $this->debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
+                            $this->debugLog->writeDebugLog('Evaluating Cell %s in worksheet %s', $cellRef, $matches[2]);
                             if ($pCellParent !== null) {
                                 $cellSheet = $this->spreadsheet->getSheetByName($matches[2]);
                                 if ($cellSheet && $cellSheet->cellExists($cellRef)) {
@@ -4709,16 +4709,16 @@ class Calculation
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
-                            $this->debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->showTypeDetails($cellValue));
+                            $this->debugLog->writeDebugLog('Evaluation Result for cell %s in worksheet %s is %s', $cellRef, $matches[2], $this->showTypeDetails($cellValue));
                         } else {
-                            $this->debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in current worksheet');
+                            $this->debugLog->writeDebugLog('Evaluating Cell %s in current worksheet', $cellRef);
                             if ($pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $cell->attach($pCellParent);
                             } else {
                                 $cellValue = null;
                             }
-                            $this->debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' is ', $this->showTypeDetails($cellValue));
+                            $this->debugLog->writeDebugLog('Evaluation Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
                         }
                     }
                 }
@@ -4738,7 +4738,7 @@ class Calculation
                 $argCount = $stack->pop();
                 $argCount = $argCount['value'];
                 if ($functionName !== 'MKMATRIX') {
-                    $this->debugLog->writeDebugLog('Evaluating Function ', self::localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
+                    $this->debugLog->writeDebugLog('Evaluating Function %s() with %s argument%s', self::localeFunc($functionName), (($argCount == 0) ? 'no' : $argCount), (($argCount == 1) ? '' : 's'));
                 }
                 if ((isset(self::$phpSpreadsheetFunctions[$functionName])) || (isset(self::$controlFunctions[$functionName]))) {    // function
                     $passByReference = false;
@@ -4801,7 +4801,7 @@ class Calculation
                     if ($functionName !== 'MKMATRIX') {
                         if ($this->debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
-                            $this->debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)), ' )');
+                            $this->debugLog->writeDebugLog('Evaluating %s ( %s )', self::localeFunc($functionName), implode(self::$localeArgumentSeparator . ' ', Functions::flattenArray($argArrayVals)));
                         }
                     }
 
@@ -4818,7 +4818,7 @@ class Calculation
                     $result = call_user_func_array($functionCall, $args);
 
                     if ($functionName !== 'MKMATRIX') {
-                        $this->debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
+                        $this->debugLog->writeDebugLog('Evaluation Result for %s() function call is %s', self::localeFunc($functionName), $this->showTypeDetails($result));
                     }
                     $stack->push('Value', self::wrapResult($result));
                     if (isset($storeKey)) {
@@ -4833,7 +4833,7 @@ class Calculation
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = self::$excelConstants[$excelConstant];
                     }
-                    $this->debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->showTypeDetails(self::$excelConstants[$excelConstant]));
+                    $this->debugLog->writeDebugLog('Evaluating Constant %s as %s', $excelConstant, $this->showTypeDetails(self::$excelConstants[$excelConstant]));
                 } elseif ((is_numeric($token)) || ($token === null) || (is_bool($token)) || ($token == '') || ($token[0] == self::FORMULA_STRING_QUOTE) || ($token[0] == '#')) {
                     $stack->push($tokenData['type'], $token, $tokenData['reference']);
                     if (isset($storeKey)) {
@@ -4846,7 +4846,7 @@ class Calculation
                         return $this->raiseFormulaError("undefined name '$token'");
                     }
 
-                    $this->debugLog->writeDebugLog('Evaluating Defined Name ', $definedName);
+                    $this->debugLog->writeDebugLog('Evaluating Defined Name %s', $definedName);
                     $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet);
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined name '$definedName'");
@@ -4892,13 +4892,13 @@ class Calculation
                 //    If not a numeric, test to see if the value is an Excel error, and so can't be used in normal binary operations
                 if ($operand > '' && $operand[0] == '#') {
                     $stack->push('Value', $operand);
-                    $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($operand));
+                    $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($operand));
 
                     return false;
                 } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
                     $stack->push('Error', '#VALUE!');
-                    $this->debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
+                    $this->debugLog->writeDebugLog('Evaluation Result is a %s', $this->showTypeDetails('#VALUE!'));
 
                     return false;
                 }
@@ -4922,7 +4922,7 @@ class Calculation
         if (!is_array($operand2)) {
             // Operand 1 is an array, Operand 2 is a scalar
             foreach ($operand1 as $x => $operandData) {
-                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2));
+                $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operandData), $operation, $this->showValue($operand2));
                 $this->executeBinaryComparisonOperation($operandData, $operand2, $operation, $stack);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
@@ -4930,7 +4930,7 @@ class Calculation
         } elseif (!is_array($operand1)) {
             // Operand 1 is a scalar, Operand 2 is an array
             foreach ($operand2 as $x => $operandData) {
-                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operand1), ' ', $operation, ' ', $this->showValue($operandData));
+                $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operand1), $operation, $this->showValue($operandData));
                 $this->executeBinaryComparisonOperation($operand1, $operandData, $operation, $stack);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
@@ -4941,14 +4941,14 @@ class Calculation
                 self::checkMatrixOperands($operand1, $operand2, 2);
             }
             foreach ($operand1 as $x => $operandData) {
-                $this->debugLog->writeDebugLog('Evaluating Comparison ', $this->showValue($operandData), ' ', $operation, ' ', $this->showValue($operand2[$x]));
+                $this->debugLog->writeDebugLog('Evaluating Comparison %s %s %s', $this->showValue($operandData), $operation, $this->showValue($operand2[$x]));
                 $this->executeBinaryComparisonOperation($operandData, $operand2[$x], $operation, $stack, true);
                 $r = $stack->pop();
                 $result[$x] = $r['value'];
             }
         }
         //    Log the result details
-        $this->debugLog->writeDebugLog('Comparison Evaluation Result is ', $this->showTypeDetails($result));
+        $this->debugLog->writeDebugLog('Comparison Evaluation Result is %s', $this->showTypeDetails($result));
         //    And push the result onto the stack
         $stack->push('Array', $result);
 
@@ -4973,7 +4973,7 @@ class Calculation
         $result = BinaryComparison::compare($operand1, $operand2, $operation);
 
         //    Log the result details
-        $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
+        $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
         //    And push the result onto the stack
         $stack->push('Value', $result);
 
@@ -5013,7 +5013,7 @@ class Calculation
                 $matrixResult = $matrix->$matrixFunction($operand2);
                 $result = $matrixResult->getArray();
             } catch (\Exception $ex) {
-                $this->debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
+                $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                 $result = '#VALUE!';
             }
         } else {
@@ -5046,7 +5046,7 @@ class Calculation
                         if ($operand2 == 0) {
                             //    Trap for Divide by Zero error
                             $stack->push('Error', ExcelError::DIV0());
-                            $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails(ExcelError::DIV0()));
+                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails(ExcelError::DIV0()));
 
                             return false;
                         }
@@ -5066,7 +5066,7 @@ class Calculation
         }
 
         //    Log the result details
-        $this->debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
+        $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
         //    And push the result onto the stack
         $stack->push('Value', $result);
 
@@ -5365,7 +5365,7 @@ class Calculation
             $definedNameValue = '=' . $definedNameValue;
         }
 
-        $this->debugLog->writeDebugLog("Defined Name is a {$definedNameType} with a value of {$definedNameValue}");
+        $this->debugLog->writeDebugLog('Defined Name is a %s with a value of %s', $definedNameType, $definedNameValue);
 
         $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $cellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
@@ -5379,7 +5379,7 @@ class Calculation
             $cell->getRow() - 1
         );
 
-        $this->debugLog->writeDebugLog("Value adjusted for relative references is {$definedNameValue}");
+        $this->debugLog->writeDebugLog('Value adjusted for relative references is %s', $definedNameValue);
 
         $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
@@ -5388,7 +5388,7 @@ class Calculation
 
         if ($this->getDebugLog()->getWriteDebugLog()) {
             $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
-            $this->debugLog->writeDebugLog("Evaluation Result for Named {$definedNameType} {$namedRange->getName()} is {$this->showTypeDetails($result)}");
+            $this->debugLog->writeDebugLog('Evaluation Result for Named %s %s is %s', $definedNameType, $namedRange->getName(), $this->showTypeDetails($result));
         }
 
         $stack->push('Defined Name', $result, $namedRange->getName());
