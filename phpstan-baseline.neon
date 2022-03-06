@@ -341,11 +341,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\Logger\\:\\:writeDebugLog\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engine/Logger.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2a\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
