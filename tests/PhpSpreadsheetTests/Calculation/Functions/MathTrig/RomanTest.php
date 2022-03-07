@@ -2,11 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class RomanTest extends TestCase
+class RomanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerROMAN
@@ -16,26 +14,37 @@ class RomanTest extends TestCase
      */
     public function testROMAN($expectedResult, $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A3', 49);
         $sheet->getCell('A1')->setValue("=ROMAN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerROMAN()
+    public function providerROMAN(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }
 
-    // Confirm that deprecated stub left in MathTrig works.
-    // Delete this test when stub is finally deleted.
-    public function testDeprecated(): void
+    /**
+     * @dataProvider providerRomanArray
+     */
+    public function testRomanArray(array $expectedResult, string $values, string $styles): void
     {
-        self::assertEquals('I', \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::ROMAN(1));
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ROMAN({$values}, {$styles})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerRomanArray(): array
+    {
+        return [
+            'row vector' => [[['XLIX', 'MMXXII', 'CDXCIX']], '{49, 2022, 499}', '0'],
+            'column vector' => [[['XLIX'], ['MMXXII'], ['CDXCIX']], '{49; 2022; 499}', '0'],
+            'matrix' => [[['XLIX', 'MMXXII'], ['LXIV', 'CDXCIX']], '{49, 2022; 64, 499}', '0'],
+        ];
     }
 }

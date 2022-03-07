@@ -24,10 +24,10 @@ class DAverageTest extends TestCase
     public function testDAverage($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DAVERAGE($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,7 +40,7 @@ class DAverageTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Quarter', 'Area', 'Sales Rep.', 'Sales'],
@@ -63,7 +63,7 @@ class DAverageTest extends TestCase
         ];
     }
 
-    public function providerDAverage()
+    public function providerDAverage(): array
     {
         return [
             [

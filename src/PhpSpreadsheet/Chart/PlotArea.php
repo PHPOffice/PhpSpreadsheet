@@ -43,10 +43,8 @@ class PlotArea
 
     /**
      * Get Number of Plot Groups.
-     *
-     * @return array of DataSeries
      */
-    public function getPlotGroupCount()
+    public function getPlotGroupCount(): int
     {
         return count($this->plotSeries);
     }
@@ -69,7 +67,7 @@ class PlotArea
     /**
      * Get Plot Series.
      *
-     * @return array of DataSeries
+     * @return DataSeries[]
      */
     public function getPlotGroup()
     {

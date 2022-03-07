@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use DOMDocument;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
@@ -10,10 +11,19 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
+    /**
+     * @var string
+     */
     private $currency;
 
+    /**
+     * @var string
+     */
     private $decsep;
 
+    /**
+     * @var string
+     */
     private $thosep;
 
     protected function setUp(): void
@@ -166,13 +176,13 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $rows = $tbod[0]->getElementsByTagName('tr');
 
         $tds = $rows[0]->getElementsByTagName('td');
-        $nbsp = html_entity_decode('&nbsp;');
+        $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
         self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
 
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormat()
+    public function providerNumberFormat(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormat.php';
     }
@@ -202,13 +212,13 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $rows = $tbod[0]->getElementsByTagName('tr');
 
         $tds = $rows[0]->getElementsByTagName('td');
-        $nbsp = html_entity_decode('&nbsp;');
+        $nbsp = html_entity_decode('&nbsp;', Settings::htmlEntityFlags());
         self::assertEquals($expectedResult, str_replace($nbsp, ' ', $tds[0]->textContent));
 
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormatDates()
+    public function providerNumberFormatDates(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
     }

@@ -47,8 +47,15 @@ return [
         1.3,
     ],
     [
-        0,
+        '#VALUE!', // had been 0, which was wrong
         '',
         1,
     ],
+    [0, null, 5],
+    [0, false, 5],
+    [1, true, 5],
+    ['#VALUE!', 'XYZ', 2],
+    ['#VALUE!', 2, 'XYZ'],
+    ['exception', 2],
+    ['exception'],
 ];

@@ -24,7 +24,7 @@ class YieldMatTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerYIELDMAT()
+    public function providerYIELDMAT(): array
     {
         return require 'tests/data/Calculation/Financial/YIELDMAT.php';
     }

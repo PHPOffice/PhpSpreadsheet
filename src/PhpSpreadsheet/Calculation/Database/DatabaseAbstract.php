@@ -27,7 +27,7 @@ abstract class DatabaseAbstract
      */
     protected static function fieldExtract(array $database, $field): ?int
     {
-        $field = strtoupper(Functions::flattenSingleValue($field));
+        $field = strtoupper(Functions::flattenSingleValue($field ?? ''));
         if ($field === '') {
             return null;
         }
@@ -57,7 +57,7 @@ abstract class DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return array of mixed
+     * @return mixed[]
      */
     protected static function filter(array $database, array $criteria): array
     {
@@ -95,7 +95,7 @@ abstract class DatabaseAbstract
         foreach ($criteria as $key => $criterion) {
             foreach ($criterion as $field => $value) {
                 $criterionName = $criteriaNames[$field];
-                if ($value !== null && $value !== '') {
+                if ($value !== null) {
                     $condition = self::buildCondition($value, $criterionName);
                     $baseQuery[$key][] = $condition;
                 }
@@ -104,12 +104,12 @@ abstract class DatabaseAbstract
 
         $rowQuery = array_map(
             function ($rowValue) {
-                return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : $rowValue[0];
+                return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : ($rowValue[0] ?? '');
             },
             $baseQuery
         );
 
-        return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : $rowQuery[0];
+        return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : ($rowQuery[0] ?? '');
     }
 
     private static function buildCondition($criterion, string $criterionName): string

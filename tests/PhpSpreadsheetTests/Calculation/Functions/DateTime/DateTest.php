@@ -2,63 +2,44 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
-class DateTest extends TestCase
+class DateTest extends AllSetupTeardown
 {
-    private $returnDateType;
-
-    private $excelCalendar;
-
-    protected function setUp(): void
-    {
-        $this->returnDateType = Functions::getReturnDateType();
-        $this->excelCalendar = Date::getExcelCalendar();
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-    }
-
-    protected function tearDown(): void
-    {
-        Functions::setReturnDateType($this->returnDateType);
-        Date::setExcelCalendar($this->excelCalendar);
-    }
-
     /**
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
-     * @param $year
-     * @param $month
-     * @param $day
      */
-    public function testDATE($expectedResult, $year, $month, $day): void
+    public function testDATE($expectedResult, string $formula): void
     {
-        $result = DateTime::DATE($year, $month, $day);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=DATE($formula)");
+        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerDATE()
+    public function providerDATE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
     public function testDATEtoUnixTimestamp(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
+        self::setUnixReturn();
 
-        $result = DateTime::DATE(2012, 1, 31);
+        $result = Date::fromYMD(2012, 1, 31); // 32-bit safe
         self::assertEquals(1327968000, $result);
-        self::assertEqualsWithDelta(1327968000, $result, 1E-8);
     }
 
     public function testDATEtoDateTimeObject(): void
     {
-        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
+        self::setObjectReturn();
 
-        $result = DateTime::DATE(2012, 1, 31);
+        $result = Date::fromYMD(2012, 1, 31);
         //    Must return an object...
         self::assertIsObject($result);
         //    ... of the correct type
@@ -69,17 +50,103 @@ class DateTest extends TestCase
 
     public function testDATEwith1904Calendar(): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+        self::setMac1904();
 
-        $result = DateTime::DATE(1918, 11, 11);
+        $result = Date::fromYMD(1918, 11, 11);
         self::assertEquals($result, 5428);
+
+        $result = Date::fromYMD(1901, 1, 31);
+        self::assertEquals($result, '#NUM!');
     }
 
-    public function testDATEwith1904CalendarError(): void
+    /**
+     * @dataProvider providerDateArray
+     */
+    public function testDateArray(array $expectedResult, string $year, string $month, string $day): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+        $calculation = Calculation::getInstance();
 
-        $result = DateTime::DATE(1901, 1, 31);
-        self::assertEquals($result, '#NUM!');
+        $formula = "=DATE({$year}, {$month}, {$day})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerDateArray(): array
+    {
+        return [
+            'row vector year' => [[[44197, 44562, 44927]], '{2021,2022,2023}', '1', '1'],
+            'column vector year' => [[[44197], [44562], [44927]], '{2021;2022;2023}', '1', '1'],
+            'matrix year' => [[[43831.00, 44197], [44562, 44927]], '{2020,2021;2022,2023}', '1', '1'],
+            'row vector month' => [[[44562, 44652, 44743, 44835]], '2022', '{1, 4, 7, 10}', '1'],
+            'column vector month' => [[[44562], [44652], [44743], [44835]], '2022', '{1; 4; 7; 10}', '1'],
+            'matrix month' => [[[44562, 44652], [44743, 44835]], '2022', '{1, 4; 7, 10}', '1'],
+            'row vector day' => [[[44561, 44562]], '2022', '1', '{0,1}'],
+            'column vector day' => [[[44561], [44562]], '2022', '1', '{0;1}'],
+            'vectors year and month' => [
+                [
+                    [44197, 44287, 44378, 44470],
+                    [44562, 44652, 44743, 44835],
+                    [44927, 45017, 45108, 45200],
+                ],
+                '{2021;2022;2023}',
+                '{1, 4, 7, 10}',
+                '1',
+            ],
+            'vectors year and day' => [
+                [
+                    [44196, 44197],
+                    [44561, 44562],
+                    [44926, 44927],
+                ],
+                '{2021;2022;2023}',
+                '1',
+                '{0,1}',
+            ],
+            'vectors month and day' => [
+                [
+                    [44561, 44562],
+                    [44651, 44652],
+                    [44742, 44743],
+                    [44834, 44835],
+                ],
+                '2022',
+                '{1; 4; 7; 10}',
+                '{0,1}',
+            ],
+            'matrices year and month' => [
+                [
+                    [43831, 44287],
+                    [44743, 45200],
+                ],
+                '{2020, 2021; 2022, 2023}',
+                '{1, 4; 7, 10}',
+                '1',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerDateArrayException
+     */
+    public function testDateArrayException(string $year, string $month, string $day): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
+
+        $formula = "=DATE({$year}, {$month}, {$day})";
+        $calculation->_calculateFormulaValue($formula);
+    }
+
+    public function providerDateArrayException(): array
+    {
+        return [
+            'matrix arguments with 3 array values' => [
+                '{2020, 2021; 2022, 2023}',
+                '{1, 4; 7, 10}',
+                '{0,1}',
+            ],
+        ];
     }
 }

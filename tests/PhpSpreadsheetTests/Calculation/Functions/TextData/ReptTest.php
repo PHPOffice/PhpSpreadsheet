@@ -1,12 +1,10 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class ReptTest extends TestCase
+class ReptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPT
@@ -15,26 +13,48 @@ class ReptTest extends TestCase
      * @param mixed $val
      * @param mixed $rpt
      */
-    public function testRound($expectedResult, $val = null, $rpt = null): void
+    public function testReptThroughEngine($expectedResult, $val = 'omitted', $rpt = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=REPT()';
-        } elseif ($rpt === null) {
-            $this->expectException(CalcExp::class);
-            $formula = "=REPT($val)";
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($val === 'omitted') {
+            $sheet->getCell('B1')->setValue('=REPT()');
+        } elseif ($rpt === 'omitted') {
+            $this->setCell('A1', $val);
+            $sheet->getCell('B1')->setValue('=REPT(A1)');
         } else {
-            $formula = "=REPT($val, $rpt)";
+            $this->setCell('A1', $val);
+            $this->setCell('A2', $rpt);
+            $sheet->getCell('B1')->setValue('=REPT(A1, A2)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPT()
+    public function providerREPT(): array
     {
         return require 'tests/data/Calculation/TextData/REPT.php';
+    }
+
+    /**
+     * @dataProvider providerReptArray
+     */
+    public function testReptArray(array $expectedResult, string $argument1, string $argument2): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=REPT({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerReptArray(): array
+    {
+        return [
+            'row vector #1' => [[['PHPPHPPHP', 'HAHAHA', 'HOHOHO']], '{"PHP", "HA", "HO"}', '3'],
+            'column vector #1' => [[['PHPPHPPHP'], ['HAHAHA'], ['HOHOHO']], '{"PHP"; "HA"; "HO"}', '3'],
+            'matrix #1' => [[['PHPPHP', '❤️🐘💚❤️🐘💚'], ['HAHA', 'HOHO']], '{"PHP", "❤️🐘💚"; "HA", "HO"}', '2'],
+            'row vector #2' => [[[' PHP  PHP  PHP ', ' PHP  PHP ']], '" PHP "', '{3, 2}'],
+        ];
     }
 }

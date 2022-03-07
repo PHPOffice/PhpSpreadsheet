@@ -684,9 +684,9 @@ class Html
         $this->stringData = '';
     }
 
-    protected function rgbToColour($rgb)
+    protected function rgbToColour(string $rgbValue): string
     {
-        preg_match_all('/\d+/', $rgb, $values);
+        preg_match_all('/\d+/', $rgbValue, $values);
         foreach ($values[0] as &$value) {
             $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
         }
@@ -694,9 +694,9 @@ class Html
         return implode('', $values[0]);
     }
 
-    public static function colourNameLookup(string $rgb): string
+    public static function colourNameLookup(string $colorName): string
     {
-        return self::$colourMap[$rgb] ?? '';
+        return self::$colourMap[$colorName] ?? '';
     }
 
     protected function startFontTag($tag): void

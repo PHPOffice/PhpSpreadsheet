@@ -2,35 +2,48 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class SinTest extends TestCase
+class SinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSin
      *
      * @param mixed $expectedResult
-     * @param mixed $val
      */
-    public function testSin($expectedResult, $val = null): void
+    public function testSin($expectedResult, string $formula): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=SIN()';
-        } else {
-            $formula = "=SIN($val)";
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->setCellValue('A2', 2);
+        $sheet->getCell('A1')->setValue("=SIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerSin()
+    public function providerSin(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIN.php';
+    }
+
+    /**
+     * @dataProvider providerSinArray
+     */
+    public function testSinArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=SIN({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerSinArray(): array
+    {
+        return [
+            'row vector' => [[[0.84147098480790, 0.47942553860420, -0.84147098480790]], '{1, 0.5, -1}'],
+            'column vector' => [[[0.84147098480790], [0.47942553860420], [-0.84147098480790]], '{1; 0.5; -1}'],
+            'matrix' => [[[0.84147098480790, 0.47942553860420], [0.0, -0.84147098480790]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

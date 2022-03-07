@@ -2,31 +2,51 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class SignTest extends TestCase
+class SignTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSIGN
      *
      * @param mixed $expectedResult
-     * @param $value
+     * @param mixed $value
      */
     public function testSIGN($expectedResult, $value): void
     {
-        $result = MathTrig::SIGN($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->setCellValue('A2', 1.3);
+        $sheet->setCellValue('A3', 0);
+        $sheet->setCellValue('A4', -3.8);
+        $sheet->getCell('A1')->setValue("=SIGN($value)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSIGN()
+    public function providerSIGN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIGN.php';
+    }
+
+    /**
+     * @dataProvider providerSignArray
+     */
+    public function testSignArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=SIGN({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerSignArray(): array
+    {
+        return [
+            'row vector' => [[[-1, 0, 1]], '{-1.5, 0, 0.3}'],
+            'column vector' => [[[-1], [0], [1]], '{-1.5; 0; 0.3}'],
+            'matrix' => [[[-1, 0], [1, 1]], '{-1.5, 0; 0.3, 12.5}'],
+        ];
     }
 }

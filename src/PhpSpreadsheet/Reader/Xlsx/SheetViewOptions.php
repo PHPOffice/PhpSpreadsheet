@@ -17,17 +17,14 @@ class SheetViewOptions extends BaseParserClass
         $this->worksheetXml = $worksheetXml;
     }
 
-    /**
-     * @param bool $readDataOnly
-     */
-    public function load($readDataOnly = false): void
+    public function load(bool $readDataOnly, Styles $styleReader): void
     {
         if ($this->worksheetXml === null) {
             return;
         }
 
         if (isset($this->worksheetXml->sheetPr)) {
-            $this->tabColor($this->worksheetXml->sheetPr);
+            $this->tabColor($this->worksheetXml->sheetPr, $styleReader);
             $this->codeName($this->worksheetXml->sheetPr);
             $this->outlines($this->worksheetXml->sheetPr);
             $this->pageSetup($this->worksheetXml->sheetPr);
@@ -42,10 +39,10 @@ class SheetViewOptions extends BaseParserClass
         }
     }
 
-    private function tabColor(SimpleXMLElement $sheetPr): void
+    private function tabColor(SimpleXMLElement $sheetPr, Styles $styleReader): void
     {
-        if (isset($sheetPr->tabColor, $sheetPr->tabColor['rgb'])) {
-            $this->worksheet->getTabColor()->setARGB((string) $sheetPr->tabColor['rgb']);
+        if (isset($sheetPr->tabColor)) {
+            $this->worksheet->getTabColor()->setARGB($styleReader->readColor($sheetPr->tabColor));
         }
     }
 

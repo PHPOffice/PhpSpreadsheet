@@ -24,7 +24,7 @@ class TBillPriceTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerTBILLPRICE()
+    public function providerTBILLPRICE(): array
     {
         return require 'tests/data/Calculation/Financial/TBILLPRICE.php';
     }

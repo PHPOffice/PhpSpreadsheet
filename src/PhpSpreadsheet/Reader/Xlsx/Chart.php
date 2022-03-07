@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
@@ -31,7 +31,9 @@ class Chart
             } elseif ($format == 'integer') {
                 return (int) $attributes[$name];
             } elseif ($format == 'boolean') {
-                return (bool) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
+                $value = (string) $attributes[$name];
+
+                return $value === 'true' || $value === '1';
             }
 
             return (float) $attributes[$name];
@@ -61,7 +63,7 @@ class Chart
 
         $XaxisLabel = $YaxisLabel = $legend = $title = null;
         $dispBlanksAs = $plotVisOnly = null;
-
+        $plotArea = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
@@ -90,7 +92,7 @@ class Chart
 
                                             break;
                                         case 'valAx':
-                                            if (isset($chartDetail->title)) {
+                                            if (isset($chartDetail->title, $chartDetail->axPos)) {
                                                 $axisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                                 $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
 
@@ -355,7 +357,7 @@ class Chart
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
             $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker);
-            if (isset($seriesDetail->strRef->strCache)) {
+            if (isset($seriesDetail->numRef->numCache)) {
                 $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
                 $seriesValues
                     ->setFormatCode($seriesData['formatCode'])
@@ -412,7 +414,7 @@ class Chart
                     $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                     if ($dataType == 's') {
                         $seriesVal[$pointVal] = (string) $seriesValue->v;
-                    } elseif ($seriesValue->v === Functions::NA()) {
+                    } elseif ($seriesValue->v === ExcelError::NA()) {
                         $seriesVal[$pointVal] = null;
                     } else {
                         $seriesVal[$pointVal] = (float) $seriesValue->v;
@@ -450,7 +452,7 @@ class Chart
                         $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                         if ($dataType == 's') {
                             $seriesVal[$pointVal][] = (string) $seriesValue->v;
-                        } elseif ($seriesValue->v === Functions::NA()) {
+                        } elseif ($seriesValue->v === ExcelError::NA()) {
                             $seriesVal[$pointVal] = null;
                         } else {
                             $seriesVal[$pointVal][] = (float) $seriesValue->v;
@@ -482,7 +484,7 @@ class Chart
                 }
 
                 $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
-                if ($fontSize !== null) {
+                if (is_int($fontSize)) {
                     $objText->getFont()->setSize(floor($fontSize / 100));
                 }
 
@@ -539,7 +541,7 @@ class Chart
     {
         $plotAttributes = [];
         if (isset($chartDetail->dLbls)) {
-            if (isset($chartDetail->dLbls->howLegendKey)) {
+            if (isset($chartDetail->dLbls->showLegendKey)) {
                 $plotAttributes['showLegendKey'] = self::getAttribute($chartDetail->dLbls->showLegendKey, 'val', 'string');
             }
             if (isset($chartDetail->dLbls->showVal)) {

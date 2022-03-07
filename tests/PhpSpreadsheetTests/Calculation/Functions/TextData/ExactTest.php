@@ -2,28 +2,58 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class ExactTest extends TestCase
+class ExactTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXACT
      *
      * @param mixed $expectedResult
-     * @param array $args
+     * @param mixed $string1
+     * @param mixed $string2
      */
-    public function testEXACT($expectedResult, ...$args): void
+    public function testEXACT($expectedResult, $string1 = 'omitted', $string2 = 'omitted'): void
     {
-        $result = TextData::EXACT(...$args);
-        self::assertSame($expectedResult, $result);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($string1 === 'omitted') {
+            $sheet->getCell('B1')->setValue('=EXACT()');
+        } elseif ($string2 === 'omitted') {
+            $this->setCell('A1', $string1);
+            $sheet->getCell('B1')->setValue('=EXACT(A1)');
+        } else {
+            $this->setCell('A1', $string1);
+            $this->setCell('A2', $string2);
+            $sheet->getCell('B1')->setValue('=EXACT(A1, A2)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerEXACT(): array
+    {
+        return require 'tests/data/Calculation/TextData/EXACT.php';
     }
 
     /**
-     * @return array
+     * @dataProvider providerExactArray
      */
-    public function providerEXACT()
+    public function testExactArray(array $expectedResult, string $argument1, string $argument2): void
     {
-        return require 'tests/data/Calculation/TextData/EXACT.php';
+        $calculation = Calculation::getInstance();
+
+        $formula = "=EXACT({$argument1}, {$argument2})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerExactArray(): array
+    {
+        return [
+            'row vector #1' => [[[true, false, false]], '{"PHP", "php", "PHP8"}', '"PHP"'],
+            'column vector #1' => [[[false], [true], [false]], '{"php"; "PHP"; "PHP8"}', '"PHP"'],
+            'matrix #1' => [[[false, true], [false, true]], '{"TRUE", "FALSE"; TRUE, FALSE}', '"FALSE"'],
+        ];
     }
 }

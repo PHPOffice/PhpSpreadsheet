@@ -13,7 +13,7 @@ class Rule
     const AUTOFILTER_RULETYPE_DYNAMICFILTER = 'dynamicFilter';
     const AUTOFILTER_RULETYPE_TOPTENFILTER = 'top10Filter';
 
-    private static $ruleTypes = [
+    private const RULE_TYPES = [
         //    Currently we're not handling
         //        colorFilter
         //        extLst
@@ -32,7 +32,7 @@ class Rule
     const AUTOFILTER_RULETYPE_DATEGROUP_MINUTE = 'minute';
     const AUTOFILTER_RULETYPE_DATEGROUP_SECOND = 'second';
 
-    private static $dateTimeGroups = [
+    private const DATE_TIME_GROUPS = [
         self::AUTOFILTER_RULETYPE_DATEGROUP_YEAR,
         self::AUTOFILTER_RULETYPE_DATEGROUP_MONTH,
         self::AUTOFILTER_RULETYPE_DATEGROUP_DAY,
@@ -88,7 +88,7 @@ class Rule
     const AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE = 'aboveAverage';
     const AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE = 'belowAverage';
 
-    private static $dynamicTypes = [
+    private const DYNAMIC_TYPES = [
         self::AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY,
         self::AUTOFILTER_RULETYPE_DYNAMIC_TODAY,
         self::AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW,
@@ -125,15 +125,7 @@ class Rule
         self::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE,
     ];
 
-    /*
-     *    The only valid filter rule operators for filter and customFilter types are:
-     *        <xsd:enumeration value="equal"/>
-     *        <xsd:enumeration value="lessThan"/>
-     *        <xsd:enumeration value="lessThanOrEqual"/>
-     *        <xsd:enumeration value="notEqual"/>
-     *        <xsd:enumeration value="greaterThanOrEqual"/>
-     *        <xsd:enumeration value="greaterThan"/>
-     */
+    // Filter rule operators for filter and customFilter types.
     const AUTOFILTER_COLUMN_RULE_EQUAL = 'equal';
     const AUTOFILTER_COLUMN_RULE_NOTEQUAL = 'notEqual';
     const AUTOFILTER_COLUMN_RULE_GREATERTHAN = 'greaterThan';
@@ -141,7 +133,7 @@ class Rule
     const AUTOFILTER_COLUMN_RULE_LESSTHAN = 'lessThan';
     const AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL = 'lessThanOrEqual';
 
-    private static $operators = [
+    private const OPERATORS = [
         self::AUTOFILTER_COLUMN_RULE_EQUAL,
         self::AUTOFILTER_COLUMN_RULE_NOTEQUAL,
         self::AUTOFILTER_COLUMN_RULE_GREATERTHAN,
@@ -153,7 +145,7 @@ class Rule
     const AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE = 'byValue';
     const AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT = 'byPercent';
 
-    private static $topTenValue = [
+    private const TOP_TEN_VALUE = [
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
     ];
@@ -161,49 +153,27 @@ class Rule
     const AUTOFILTER_COLUMN_RULE_TOPTEN_TOP = 'top';
     const AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM = 'bottom';
 
-    private static $topTenType = [
+    private const TOP_TEN_TYPE = [
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP,
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM,
     ];
 
-    // Rule Operators (Numeric, Boolean etc)
-//    const AUTOFILTER_COLUMN_RULE_BETWEEN            = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
+    //  Unimplented Rule Operators (Numeric, Boolean etc)
+    //    const AUTOFILTER_COLUMN_RULE_BETWEEN = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
     // Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values
-//    const AUTOFILTER_COLUMN_RULE_TOPTEN                = 'topTen';            //    greaterThan calculated value
-//    const AUTOFILTER_COLUMN_RULE_TOPTENPERCENT        = 'topTenPercent';    //    greaterThan calculated value
-//    const AUTOFILTER_COLUMN_RULE_ABOVEAVERAGE        = 'aboveAverage';    //    Value is calculated as the average
-//    const AUTOFILTER_COLUMN_RULE_BELOWAVERAGE        = 'belowAverage';    //    Value is calculated as the average
     // Rule Operators (String) which are set as wild-carded values
-//    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
-//    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
-//    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
-//    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
+    //    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
+    //    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
+    //    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
+    //    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
     // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
-//    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
-//    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
-//    const AUTOFILTER_COLUMN_RULE_YESTERDAY            = 'yesterday';
-//    const AUTOFILTER_COLUMN_RULE_TODAY                = 'today';
-//    const AUTOFILTER_COLUMN_RULE_TOMORROW            = 'tomorrow';
-//    const AUTOFILTER_COLUMN_RULE_LASTWEEK            = 'lastWeek';
-//    const AUTOFILTER_COLUMN_RULE_THISWEEK            = 'thisWeek';
-//    const AUTOFILTER_COLUMN_RULE_NEXTWEEK            = 'nextWeek';
-//    const AUTOFILTER_COLUMN_RULE_LASTMONTH            = 'lastMonth';
-//    const AUTOFILTER_COLUMN_RULE_THISMONTH            = 'thisMonth';
-//    const AUTOFILTER_COLUMN_RULE_NEXTMONTH            = 'nextMonth';
-//    const AUTOFILTER_COLUMN_RULE_LASTQUARTER        = 'lastQuarter';
-//    const AUTOFILTER_COLUMN_RULE_THISQUARTER        = 'thisQuarter';
-//    const AUTOFILTER_COLUMN_RULE_NEXTQUARTER        = 'nextQuarter';
-//    const AUTOFILTER_COLUMN_RULE_LASTYEAR            = 'lastYear';
-//    const AUTOFILTER_COLUMN_RULE_THISYEAR            = 'thisYear';
-//    const AUTOFILTER_COLUMN_RULE_NEXTYEAR            = 'nextYear';
-//    const AUTOFILTER_COLUMN_RULE_YEARTODATE            = 'yearToDate';            //    <dynamicFilter val="40909" type="yearToDate" maxVal="41113"/>
-//    const AUTOFILTER_COLUMN_RULE_ALLDATESINMONTH    = 'allDatesInMonth';    //    <dynamicFilter type="M2"/> for Month/February
-//    const AUTOFILTER_COLUMN_RULE_ALLDATESINQUARTER    = 'allDatesInQuarter';    //    <dynamicFilter type="Q2"/> for Quarter 2
+    //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
+    //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
 
     /**
      * Autofilter Column.
      *
-     * @var Column
+     * @var ?Column
      */
     private $parent;
 
@@ -217,7 +187,7 @@ class Rule
     /**
      * Autofilter Rule Value.
      *
-     * @var string
+     * @var int|int[]|string|string[]
      */
     private $value = '';
 
@@ -237,12 +207,17 @@ class Rule
 
     /**
      * Create a new Rule.
-     *
-     * @param Column $pParent
      */
-    public function __construct(?Column $pParent = null)
+    public function __construct(?Column $parent = null)
     {
-        $this->parent = $pParent;
+        $this->parent = $parent;
+    }
+
+    private function setEvaluatedFalse(): void
+    {
+        if ($this->parent !== null) {
+            $this->parent->setEvaluatedFalse();
+        }
     }
 
     /**
@@ -258,17 +233,18 @@ class Rule
     /**
      * Set AutoFilter Rule Type.
      *
-     * @param string $pRuleType see self::AUTOFILTER_RULETYPE_*
+     * @param string $ruleType see self::AUTOFILTER_RULETYPE_*
      *
      * @return $this
      */
-    public function setRuleType($pRuleType)
+    public function setRuleType($ruleType)
     {
-        if (!in_array($pRuleType, self::$ruleTypes)) {
+        $this->setEvaluatedFalse();
+        if (!in_array($ruleType, self::RULE_TYPES)) {
             throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
 
-        $this->ruleType = $pRuleType;
+        $this->ruleType = $ruleType;
 
         return $this;
     }
@@ -276,7 +252,7 @@ class Rule
     /**
      * Get AutoFilter Rule Value.
      *
-     * @return string
+     * @return int|int[]|string|string[]
      */
     public function getValue()
     {
@@ -286,31 +262,32 @@ class Rule
     /**
      * Set AutoFilter Rule Value.
      *
-     * @param string|string[] $pValue
+     * @param int|int[]|string|string[] $value
      *
      * @return $this
      */
-    public function setValue($pValue)
+    public function setValue($value)
     {
-        if (is_array($pValue)) {
+        $this->setEvaluatedFalse();
+        if (is_array($value)) {
             $grouping = -1;
-            foreach ($pValue as $key => $value) {
+            foreach ($value as $key => $v) {
                 //    Validate array entries
-                if (!in_array($key, self::$dateTimeGroups)) {
+                if (!in_array($key, self::DATE_TIME_GROUPS)) {
                     //    Remove any invalid entries from the value array
-                    unset($pValue[$key]);
+                    unset($value[$key]);
                 } else {
                     //    Work out what the dateTime grouping will be
-                    $grouping = max($grouping, array_search($key, self::$dateTimeGroups));
+                    $grouping = max($grouping, array_search($key, self::DATE_TIME_GROUPS));
                 }
             }
-            if (count($pValue) == 0) {
+            if (count($value) == 0) {
                 throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
-            $this->setGrouping(self::$dateTimeGroups[$grouping]);
+            $this->setGrouping(self::DATE_TIME_GROUPS[$grouping]);
         }
-        $this->value = $pValue;
+        $this->value = $value;
 
         return $this;
     }
@@ -328,22 +305,23 @@ class Rule
     /**
      * Set AutoFilter Rule Operator.
      *
-     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
+     * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
      *
      * @return $this
      */
-    public function setOperator($pOperator)
+    public function setOperator($operator)
     {
-        if (empty($pOperator)) {
-            $pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
+        $this->setEvaluatedFalse();
+        if (empty($operator)) {
+            $operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
         }
         if (
-            (!in_array($pOperator, self::$operators)) &&
-            (!in_array($pOperator, self::$topTenValue))
+            (!in_array($operator, self::OPERATORS)) &&
+            (!in_array($operator, self::TOP_TEN_VALUE))
         ) {
             throw new PhpSpreadsheetException('Invalid operator for column AutoFilter Rule.');
         }
-        $this->operator = $pOperator;
+        $this->operator = $operator;
 
         return $this;
     }
@@ -361,21 +339,22 @@ class Rule
     /**
      * Set AutoFilter Rule Grouping.
      *
-     * @param string $pGrouping
+     * @param string $grouping
      *
      * @return $this
      */
-    public function setGrouping($pGrouping)
+    public function setGrouping($grouping)
     {
+        $this->setEvaluatedFalse();
         if (
-            ($pGrouping !== null) &&
-            (!in_array($pGrouping, self::$dateTimeGroups)) &&
-            (!in_array($pGrouping, self::$dynamicTypes)) &&
-            (!in_array($pGrouping, self::$topTenType))
+            ($grouping !== null) &&
+            (!in_array($grouping, self::DATE_TIME_GROUPS)) &&
+            (!in_array($grouping, self::DYNAMIC_TYPES)) &&
+            (!in_array($grouping, self::TOP_TEN_TYPE))
         ) {
-            throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
+            throw new PhpSpreadsheetException('Invalid grouping for column AutoFilter Rule.');
         }
-        $this->grouping = $pGrouping;
+        $this->grouping = $grouping;
 
         return $this;
     }
@@ -383,21 +362,22 @@ class Rule
     /**
      * Set AutoFilter Rule.
      *
-     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
-     * @param string|string[] $pValue
-     * @param string $pGrouping
+     * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
+     * @param int|int[]|string|string[] $value
+     * @param string $grouping
      *
      * @return $this
      */
-    public function setRule($pOperator, $pValue, $pGrouping = null)
+    public function setRule($operator, $value, $grouping = null)
     {
-        $this->setOperator($pOperator);
-        $this->setValue($pValue);
+        $this->setEvaluatedFalse();
+        $this->setOperator($operator);
+        $this->setValue($value);
         //  Only set grouping if it's been passed in as a user-supplied argument,
         //      otherwise we're calculating it when we setValue() and don't want to overwrite that
         //      If the user supplies an argumnet for grouping, then on their own head be it
-        if ($pGrouping !== null) {
-            $this->setGrouping($pGrouping);
+        if ($grouping !== null) {
+            $this->setGrouping($grouping);
         }
 
         return $this;
@@ -406,7 +386,7 @@ class Rule
     /**
      * Get this Rule's AutoFilter Column Parent.
      *
-     * @return Column
+     * @return ?Column
      */
     public function getParent()
     {
@@ -416,13 +396,12 @@ class Rule
     /**
      * Set this Rule's AutoFilter Column Parent.
      *
-     * @param Column $pParent
-     *
      * @return $this
      */
-    public function setParent(?Column $pParent = null)
+    public function setParent(?Column $parent = null)
     {
-        $this->parent = $pParent;
+        $this->setEvaluatedFalse();
+        $this->parent = $parent;
 
         return $this;
     }
@@ -435,11 +414,9 @@ class Rule
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {
-                if ($key == 'parent') {
+                if ($key == 'parent') { // this is only object
                     //    Detach from autofilter column parent
                     $this->$key = null;
-                } else {
-                    $this->$key = clone $value;
                 }
             } else {
                 $this->$key = $value;

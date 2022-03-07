@@ -24,10 +24,10 @@ class DVarTest extends TestCase
     public function testDVar($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DVAR($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,7 +40,7 @@ class DVarTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Name', 'Gender', 'Age', 'Subject', 'Score'],
@@ -59,7 +59,7 @@ class DVarTest extends TestCase
         ];
     }
 
-    public function providerDVar()
+    public function providerDVar(): array
     {
         return [
             [

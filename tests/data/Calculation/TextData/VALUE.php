@@ -41,4 +41,7 @@ return [
         '0.11527777777778',
         '2:46 AM',
     ],
+    'no arguments' => ['exception'],
+    'bool argument' => ['#VALUE!', false],
+    'null argument' => ['0', null],
 ];

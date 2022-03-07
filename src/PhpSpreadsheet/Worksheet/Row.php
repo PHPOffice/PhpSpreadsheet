@@ -21,7 +21,6 @@ class Row
     /**
      * Create a new row.
      *
-     * @param Worksheet $worksheet
      * @param int $rowIndex
      */
     public function __construct(?Worksheet $worksheet = null, $rowIndex = 1)
@@ -36,6 +35,7 @@ class Row
      */
     public function __destruct()
     {
+        // @phpstan-ignore-next-line
         $this->worksheet = null;
     }
 

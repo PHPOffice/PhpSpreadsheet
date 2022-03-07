@@ -90,6 +90,28 @@ return [
             [6],
         ],
     ],
+    [
+        '#VALUE!', // null in first array
+        [
+            [1, 2],
+            [null, 4],
+        ],
+        [
+            [5],
+            [6],
+        ],
+    ],
+    [
+        '#VALUE!', // string in second array
+        [
+            [1, 2],
+            [3, 4],
+        ],
+        [
+            ['5'],
+            [6],
+        ],
+    ],
     // Mismatched dimensions (2x2) and (1x1)
     [
         '#VALUE!',

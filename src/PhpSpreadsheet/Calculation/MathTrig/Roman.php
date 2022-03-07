@@ -2,10 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Roman
 {
+    use ArrayEnabled;
+
     private const VALUES = [
         45 => ['VL'],
         46 => ['VLI'],
@@ -768,6 +772,7 @@ class Roman
         3998 => ['MMMLMVLIII', 'MMMXMVIII', 'MMMVMIII'],
         3999 => ['MMMLMVLIV', 'MMMXMIX', 'MMMVMIV', 'MMMIM'],
     ];
+
     private const THOUSANDS = ['', 'M', 'MM', 'MMM'];
     private const HUNDREDS = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
     private const TENS = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
@@ -775,19 +780,14 @@ class Roman
     const MAX_ROMAN_VALUE = 3999;
     const MAX_ROMAN_STYLE = 4;
 
-    private static function romanCut($num, $n)
-    {
-        return ($num - ($num % $n)) / $n;
-    }
-
     private static function valueOk(int $aValue, int $style): string
     {
         $origValue = $aValue;
-        $m = self::romanCut($aValue, 1000);
+        $m = \intdiv($aValue, 1000);
         $aValue %= 1000;
-        $c = self::romanCut($aValue, 100);
+        $c = \intdiv($aValue, 100);
         $aValue %= 100;
-        $t = self::romanCut($aValue, 10);
+        $t = \intdiv($aValue, 10);
         $aValue %= 10;
         $result = self::THOUSANDS[$m] . self::HUNDREDS[$c] . self::TENS[$t] . self::ONES[$aValue];
         if ($style > 0) {
@@ -803,12 +803,12 @@ class Roman
 
     private static function styleOk(int $aValue, int $style): string
     {
-        return ($aValue < 0 || $aValue > self::MAX_ROMAN_VALUE) ? Functions::VALUE() : self::valueOk($aValue, $style);
+        return ($aValue < 0 || $aValue > self::MAX_ROMAN_VALUE) ? ExcelError::VALUE() : self::valueOk($aValue, $style);
     }
 
     public static function calculateRoman(int $aValue, int $style): string
     {
-        return ($style < 0 || $style > self::MAX_ROMAN_STYLE) ? Functions::VALUE() : self::styleOk($aValue, $style);
+        return ($style < 0 || $style > self::MAX_ROMAN_STYLE) ? ExcelError::VALUE() : self::styleOk($aValue, $style);
     }
 
     /**
@@ -817,37 +817,30 @@ class Roman
      * Converts a number to Roman numeral
      *
      * @param mixed $aValue Number to convert
+     *                      Or can be an array of numbers
      * @param mixed $style Number indicating one of five possible forms
+     *                      Or can be an array of styles
      *
-     * @return string Roman numeral, or a string containing an error
+     * @return array|string Roman numeral, or a string containing an error
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
-    public static function funcRoman($aValue, $style = 0)
+    public static function evaluate($aValue, $style = 0)
     {
-        $aValue = Functions::flattenSingleValue($aValue);
-        self::nullFalseTrueToNumber($aValue);
-        $style = Functions::flattenSingleValue($style);
-        if (is_bool($style)) {
-            $style = $style ? 0 : 4;
+        if (is_array($aValue) || is_array($style)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $aValue, $style);
         }
-        if (!is_numeric($aValue) || !is_numeric($style)) {
-            return Functions::VALUE();
+
+        try {
+            $aValue = Helpers::validateNumericNullBool($aValue);
+            if (is_bool($style)) {
+                $style = $style ? 0 : 4;
+            }
+            $style = Helpers::validateNumericNullSubstitution($style, null);
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
 
         return self::calculateRoman((int) $aValue, (int) $style);
-    }
-
-    /**
-     * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @param mixed $number
-     */
-    private static function nullFalseTrueToNumber(&$number): void
-    {
-        $number = Functions::flattenSingleValue($number);
-        if ($number === null) {
-            $number = 0;
-        } elseif (is_bool($number)) {
-            $number = (int) $number;
-        }
     }
 }

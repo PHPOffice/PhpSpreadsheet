@@ -201,7 +201,7 @@ $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
 Currently, formula translation only translates the function names, the
-constants TRUE and FALSE, and the function argument separators.
+constants TRUE and FALSE, and the function argument separators. Cell addressing using R1C1 formatting is not supported.
 
 At present, the following locale settings are supported:
 
@@ -216,7 +216,7 @@ French               | Français             | fr
 Hungarian            | Magyar               | hu
 Italian              | Italiano             | it
 Dutch                | Nederlands           | nl
-Norwegian            | Norsk                | no
+Norwegian            | Norsk Bokmål         | nb
 Polish               | Jezyk polski         | pl
 Portuguese           | Português            | pt
 Brazilian Portuguese | Português Brasileiro | pt_br
@@ -302,6 +302,21 @@ $spreadsheet->getActiveSheet()->getPageSetup()
 
 Note that there are additional page settings available. Please refer to
 the [API documentation](https://phpoffice.github.io/PhpSpreadsheet) for all possible options.
+
+The default papersize is initially PAPERSIZE_LETTER. However, this default
+can be changed for new sheets with the following call:
+```php
+\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setPaperSizeDefault(
+    \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4
+);
+```
+
+The default orientation is ORIENTATION_DEFAULT, which will be treated as Portrait in Excel. However, this default can be changed for new sheets with the following call:
+```php
+\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::setOrientationDefault(
+    \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE
+);
+```
 
 ### Page Setup: Scaling options
 
@@ -475,7 +490,7 @@ $spreadsheet->getActiveSheet()->setBreak('D10', \PhpOffice\PhpSpreadsheet\Worksh
 To show/hide gridlines when printing, use the following code:
 
 ```php
-$spreadsheet->getActiveSheet()->setShowGridlines(true);
+$spreadsheet->getActiveSheet()->setPrintGridlines(true);
 ```
 
 ### Setting rows/columns to repeat at top/left
@@ -884,6 +899,8 @@ $spreadsheet->getActiveSheet()
     );
 ```
 
+More detailed documentation of the Conditional Formatting options and rules, and the use of Wizards to help create them, can be found in [a dedicated section of the documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/).
+
 ### DataBar of Conditional formatting
 The basics are the same as conditional formatting.
 Additional DataBar object to conditional formatting.
@@ -942,8 +959,25 @@ $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->getText()->createTextRun('Total amount on the current invoice, excluding VAT.');
 ```
-
 ![08-cell-comment.png](./images/08-cell-comment.png)
+
+## Add a comment with background image to a cell
+
+To add a comment with background image to a cell, use the following code:
+
+```php
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('B5', 'Gibli Chromo');
+// Add png image to comment background
+$drawing = new Drawing();
+$drawing->setName('Gibli Chromo');
+$drawing->setPath('/tmp/gibli_chromo.png');
+$comment = $sheet->getComment('B5');
+$comment->setBackgroundImage($drawing);
+// Set the size of the comment equal to the size of the image 
+$comment->setSizeAsBackgroundImage();
+```
+![08-cell-comment-with-image.png](./images/08-cell-comment-with-image.png)
 
 ## Apply autofilter to a range of cells
 
@@ -987,6 +1021,9 @@ $security->setLockWindows(true);
 $security->setLockStructure(true);
 $security->setWorkbookPassword("PhpSpreadsheet");
 ```
+
+Note that there are additional methods setLockRevision and setRevisionsPassword
+which apply only to change tracking and history for shared workbooks.
 
 ### Worksheet
 
@@ -1101,7 +1138,7 @@ formula is allowed to be maximum 255 characters (not bytes). This sets a
 limit on how many items you can have in the string "Item A,Item B,Item
 C". Therefore it is normally a better idea to type the item values
 directly in some cell range, say A1:A3, and instead use, say,
-`$validation->setFormula1('Sheet!$A$1:$A$3')`. Another benefit is that
+`$validation->setFormula1('\'Sheet title\'!$A$1:$A$3')`. Another benefit is that
 the item values themselves can contain the comma `,` character itself.
 
 If you need data validation on multiple cells, one can clone the
@@ -1111,12 +1148,27 @@ ruleset:
 $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validation);
 ```
 
+Alternatively, one can apply the validation to a range of cells:
+```php
+$validation->setSqref('B5:B1048576');
+```
+
 ## Setting a column's width
 
 A column's width can be set using the following code:
 
 ```php
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(12);
+```
+
+If you want to set a column width using a different unit of measure,
+then you can do so by telling PhpSpreadsheet what UoM the width value
+that you are setting is measured in.
+Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
+`cm` (centimeters) and `mm` (millimeters).
+
+```php
+$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(120, 'pt');
 ```
 
 If you want PhpSpreadsheet to perform an automatic width calculation,
@@ -1203,6 +1255,16 @@ $spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(100);
 Excel measures row height in points, where 1 pt is 1/72 of an inch (or
 about 0.35mm). The default value is 12.75 pts; and the permitted range
 of values is between 0 and 409 pts, where 0 pts is a hidden row.
+
+If you want to set a row height using a different unit of measure,
+then you can do so by telling PhpSpreadsheet what UoM the height value
+that you are setting is measured in.
+Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
+`cm` (centimeters) and `mm` (millimeters).
+
+```php
+$spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(100, 'pt');
+```
 
 ## Show/hide a row
 
@@ -1349,9 +1411,11 @@ The following code extracts images from the current active worksheet,
 and writes each as a separate file.
 
 ```php
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 $i = 0;
+
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
-    if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+    if ($drawing instanceof MemoryDrawing) {
         ob_start();
         call_user_func(
             $drawing->getRenderingFunction(),
@@ -1360,24 +1424,39 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         $imageContents = ob_get_contents();
         ob_end_clean();
         switch ($drawing->getMimeType()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG :
+            case MemoryDrawing::MIMETYPE_PNG :
                 $extension = 'png';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_GIF:
+            case MemoryDrawing::MIMETYPE_GIF:
                 $extension = 'gif';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG :
+            case MemoryDrawing::MIMETYPE_JPEG :
                 $extension = 'jpg';
                 break;
         }
     } else {
-        $zipReader = fopen($drawing->getPath(),'r');
-        $imageContents = '';
-        while (!feof($zipReader)) {
-            $imageContents .= fread($zipReader,1024);
+        if ($drawing->getPath()) {
+            // Check if the source is a URL or a file path
+            if ($drawing->getIsURL()) {
+                $imageContents = file_get_contents($drawing->getPath());
+                $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
+                file_put_contents($filePath , $imageContents);
+                $mimeType = mime_content_type($filePath);
+                // You could use the below to find the extension from mime type.
+                // https://gist.github.com/alexcorvi/df8faecb59e86bee93411f6a7967df2c#gistcomment-2722664
+                $extension = File::mime2ext($mimeType);
+                unlink($filePath);            
+            }
+            else {
+                $zipReader = fopen($drawing->getPath(),'r');
+                $imageContents = '';
+                while (!feof($zipReader)) {
+                    $imageContents .= fread($zipReader,1024);
+                }
+                fclose($zipReader);
+                $extension = $drawing->getExtension();            
+            }
         }
-        fclose($zipReader);
-        $extension = $drawing->getExtension();
     }
     $myFileName = '00_Image_'.++$i.'.'.$extension;
     file_put_contents($myFileName,$imageContents);
@@ -1557,6 +1636,20 @@ Default column width can be set using the following code:
 $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 ```
 
+Excel measures column width in its own proprietary units, based on the number
+of characters that will be displayed in the default font.
+
+If you want to set the default column width using a different unit of measure,
+then you can do so by telling PhpSpreadsheet what UoM the width value
+that you are setting is measured in.
+Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
+`cm` (centimeters) and `mm` (millimeters).
+
+```php
+$spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(400, 'pt');
+```
+and PhpSpreadsheet will handle the internal conversion.
+
 ## Setting the default row height
 
 Default row height can be set using the following code:
@@ -1564,6 +1657,21 @@ Default row height can be set using the following code:
 ```php
 $spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
 ```
+
+Excel measures row height in points, where 1 pt is 1/72 of an inch (or
+about 0.35mm). The default value is 12.75 pts; and the permitted range
+of values is between 0 and 409 pts, where 0 pts is a hidden row.
+
+If you want to set a row height using a different unit of measure,
+then you can do so by telling PhpSpreadsheet what UoM the height value
+that you are setting is measured in.
+Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
+`cm` (centimeters) and `mm` (millimeters).
+
+```php
+$spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight(100, 'pt');
+```
+
 
 ## Add a GD drawing to a worksheet
 

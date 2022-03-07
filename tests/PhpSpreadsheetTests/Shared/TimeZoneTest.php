@@ -3,20 +3,27 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use DateTime;
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\TimeZone;
 use PHPUnit\Framework\TestCase;
 
 class TimeZoneTest extends TestCase
 {
+    /**
+     * @var string
+     */
     private $tztimezone;
 
+    /**
+     * @var null|DateTimeZone
+     */
     private $dttimezone;
 
     protected function setUp(): void
     {
         $this->tztimezone = TimeZone::getTimeZone();
-        $this->dttimezone = Date::getDefaultTimeZone();
+        $this->dttimezone = Date::getDefaultTimeZoneOrNull();
     }
 
     protected function tearDown(): void
@@ -65,24 +72,32 @@ class TimeZoneTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
         $dtobj = DateTime::createFromFormat('Y-m-d H:i:s', '2008-09-22 00:00:00');
-        $tstmp = $dtobj->getTimestamp();
-        $unsupportedTimeZone = 'XEtc/GMT+10';
-        TimeZone::getTimeZoneAdjustment($unsupportedTimeZone, $tstmp);
+        if ($dtobj === false) {
+            self::fail('DateTime createFromFormat failed');
+        } else {
+            $tstmp = $dtobj->getTimestamp();
+            $unsupportedTimeZone = 'XEtc/GMT+10';
+            TimeZone::getTimeZoneAdjustment($unsupportedTimeZone, $tstmp);
+        }
     }
 
     public function testTimeZoneAdjustments(): void
     {
         $dtobj = DateTime::createFromFormat('Y-m-d H:i:s', '2008-01-01 00:00:00');
-        $tstmp = $dtobj->getTimestamp();
-        $supportedTimeZone = 'UTC';
-        $adj = TimeZone::getTimeZoneAdjustment($supportedTimeZone, $tstmp);
-        self::assertEquals(0, $adj);
-        $supportedTimeZone = 'America/Toronto';
-        $adj = TimeZone::getTimeZoneAdjustment($supportedTimeZone, $tstmp);
-        self::assertEquals(-18000, $adj);
-        $supportedTimeZone = 'America/Chicago';
-        TimeZone::setTimeZone($supportedTimeZone);
-        $adj = TimeZone::getTimeZoneAdjustment(null, $tstmp);
-        self::assertEquals(-21600, $adj);
+        if ($dtobj === false) {
+            self::fail('DateTime createFromFormat failed');
+        } else {
+            $tstmp = $dtobj->getTimestamp();
+            $supportedTimeZone = 'UTC';
+            $adj = TimeZone::getTimeZoneAdjustment($supportedTimeZone, $tstmp);
+            self::assertEquals(0, $adj);
+            $supportedTimeZone = 'America/Toronto';
+            $adj = TimeZone::getTimeZoneAdjustment($supportedTimeZone, $tstmp);
+            self::assertEquals(-18000, $adj);
+            $supportedTimeZone = 'America/Chicago';
+            TimeZone::setTimeZone($supportedTimeZone);
+            $adj = TimeZone::getTimeZoneAdjustment(null, $tstmp);
+            self::assertEquals(-21600, $adj);
+        }
     }
 }

@@ -24,7 +24,7 @@ class RriTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerRRI()
+    public function providerRRI(): array
     {
         return require 'tests/data/Calculation/Financial/RRI.php';
     }

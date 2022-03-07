@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperTest extends TestCase
@@ -128,5 +130,51 @@ class ReferenceHelperTest extends TestCase
     public function providerMultipleWorksheetFormulaUpdates(): array
     {
         return require 'tests/data/ReferenceHelperFormulaUpdatesMultipleSheet.php';
+    }
+
+    public function testInsertNewBeforeRetainDataType(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $cell = $sheet->getCell('A1');
+        $cell->setValueExplicit('+1', DataType::TYPE_STRING);
+        $oldDataType = $cell->getDataType();
+        $oldValue = $cell->getValue();
+
+        $sheet->insertNewRowBefore(1);
+        $newCell = $sheet->getCell('A2');
+        $newDataType = $newCell->getDataType();
+        $newValue = $newCell->getValue();
+
+        self::assertSame($oldValue, $newValue);
+        self::assertSame($oldDataType, $newDataType);
+    }
+
+    public function testRemoveColumnShiftsCorrectColumnValueIntoRemovedColumnCoordinates(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            ['a1', 'b1', 'c1'],
+            ['a2', 'b2', null],
+        ]);
+
+        $cells = $sheet->toArray();
+        self::assertSame('a1', $cells[0][0]);
+        self::assertSame('b1', $cells[0][1]);
+        self::assertSame('c1', $cells[0][2]);
+        self::assertSame('a2', $cells[1][0]);
+        self::assertSame('b2', $cells[1][1]);
+        self::assertNull($cells[1][2]);
+
+        $sheet->removeColumn('B');
+
+        $cells = $sheet->toArray();
+        self::assertSame('a1', $cells[0][0]);
+        self::assertSame('c1', $cells[0][1]);
+        self::assertArrayNotHasKey(2, $cells[0]);
+        self::assertSame('a2', $cells[1][0]);
+        self::assertNull($cells[1][1]);
+        self::assertArrayNotHasKey(2, $cells[1]);
     }
 }

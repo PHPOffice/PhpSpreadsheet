@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as Except;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -9,65 +11,85 @@ use PHPUnit\Framework\TestCase;
 
 class RowIteratorTest extends TestCase
 {
-    public $mockWorksheet;
+    private const CELL_VALUES =
+        [
+            [110, 120, 130],
+            [210, 220],
+            [310, 320, 330],
+            [410, 420],
+            [510, 520, 530],
+            [610, 620],
+        ];
 
-    public $mockRow;
-
-    protected function setUp(): void
+    private static function getPopulatedSheet(Spreadsheet $spreadsheet): Worksheet
     {
-        $this->mockRow = $this->getMockBuilder(Row::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray(self::CELL_VALUES);
 
-        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->mockWorksheet->expects(self::any())
-            ->method('getHighestRow')
-            ->willReturn(5);
+        return $sheet;
     }
 
     public function testIteratorFullRange(): void
     {
-        $iterator = new RowIterator($this->mockWorksheet);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $iterator = new RowIterator($sheet);
         $rowIndexResult = 1;
         self::assertEquals($rowIndexResult, $iterator->key());
 
+        $counter = 0;
         foreach ($iterator as $key => $row) {
+            ++$counter;
             self::assertEquals($rowIndexResult++, $key);
             self::assertInstanceOf(Row::class, $row);
         }
+        self::assertCount($counter, self::CELL_VALUES);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIteratorStartEndRange(): void
     {
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $iterator = new RowIterator($sheet, 2, 4);
         $rowIndexResult = 2;
         self::assertEquals($rowIndexResult, $iterator->key());
 
+        $counter = 0;
         foreach ($iterator as $key => $row) {
+            ++$counter;
             self::assertEquals($rowIndexResult++, $key);
             self::assertInstanceOf(Row::class, $row);
         }
+        self::assertSame(3, $counter);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIteratorSeekAndPrev(): void
     {
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $iterator = new RowIterator($sheet, 2, 4);
         $columnIndexResult = 4;
         $iterator->seek(4);
         self::assertEquals($columnIndexResult, $iterator->key());
 
-        for ($i = 1; $i < $columnIndexResult - 1; ++$i) {
+        $counter = 0;
+        while ($iterator->valid() !== false) {
+            ++$counter;
+            self::assertEquals($columnIndexResult, $iterator->key());
+            --$columnIndexResult;
             $iterator->prev();
-            self::assertEquals($columnIndexResult - $i, $iterator->key());
         }
+        self::assertSame(3, $counter);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIteratorResetStart(): void
     {
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $iterator = new RowIterator($sheet, 2, 4);
         $iterator->resetStart(5);
 
         $key = $iterator->key();
@@ -79,28 +101,35 @@ class RowIteratorTest extends TestCase
             $lastRow = $iterator->key();
         }
         self::assertSame(6, $lastRow);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSeekOutOfRange(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $this->expectException(Except::class);
 
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($sheet, 2, 4);
         $iterator->seek(1);
     }
 
     public function testPrevOutOfRange(): void
     {
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $iterator = new RowIterator($sheet, 2, 4);
         $iterator->prev();
         self::assertFalse($iterator->valid());
     }
 
     public function testResetStartOutOfRange(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $this->expectException(Except::class);
 
-        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($sheet, 2, 4);
         $iterator->resetStart(10);
     }
 }

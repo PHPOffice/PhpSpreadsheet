@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## русский язык (Russian)
 ##
-##	(For future use)
-##
-currencySymbol	= р
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #ПУСТО!
-DIV0	= #ДЕЛ/0!
-VALUE	= #ЗНАЧ!
-REF	= #ССЫЛ!
-NAME	= #ИМЯ?
-NUM	= #ЧИСЛО!
-NA	= #Н/Д
+NULL = #ПУСТО!
+DIV0 = #ДЕЛ/0!
+VALUE = #ЗНАЧ!
+REF = #ССЫЛКА!
+NAME = #ИМЯ?
+NUM = #ЧИСЛО!
+NA = #Н/Д

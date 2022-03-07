@@ -23,7 +23,7 @@ class CsvWriteTest extends Functional\AbstractFunctional
         $writer = new CsvWriter($spreadsheet);
         $writer->setSheetIndex(1);
         self::assertEquals(1, $writer->getSheetIndex());
-        $filename = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $filename = File::temporaryFilename();
         $writer->save($filename);
         $reader = new CsvReader();
         $newspreadsheet = $reader->load($filename);

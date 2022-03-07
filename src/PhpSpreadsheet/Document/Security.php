@@ -50,94 +50,57 @@ class Security
 
     /**
      * Is some sort of document security enabled?
-     *
-     * @return bool
      */
-    public function isSecurityEnabled()
+    public function isSecurityEnabled(): bool
     {
         return  $this->lockRevision ||
                 $this->lockStructure ||
                 $this->lockWindows;
     }
 
-    /**
-     * Get LockRevision.
-     *
-     * @return bool
-     */
-    public function getLockRevision()
+    public function getLockRevision(): bool
     {
         return $this->lockRevision;
     }
 
-    /**
-     * Set LockRevision.
-     *
-     * @param bool $pValue
-     *
-     * @return $this
-     */
-    public function setLockRevision($pValue)
+    public function setLockRevision(?bool $locked): self
     {
-        $this->lockRevision = $pValue;
+        if ($locked !== null) {
+            $this->lockRevision = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get LockStructure.
-     *
-     * @return bool
-     */
-    public function getLockStructure()
+    public function getLockStructure(): bool
     {
         return $this->lockStructure;
     }
 
-    /**
-     * Set LockStructure.
-     *
-     * @param bool $pValue
-     *
-     * @return $this
-     */
-    public function setLockStructure($pValue)
+    public function setLockStructure(?bool $locked): self
     {
-        $this->lockStructure = $pValue;
+        if ($locked !== null) {
+            $this->lockStructure = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get LockWindows.
-     *
-     * @return bool
-     */
-    public function getLockWindows()
+    public function getLockWindows(): bool
     {
         return $this->lockWindows;
     }
 
-    /**
-     * Set LockWindows.
-     *
-     * @param bool $pValue
-     *
-     * @return $this
-     */
-    public function setLockWindows($pValue)
+    public function setLockWindows(?bool $locked): self
     {
-        $this->lockWindows = $pValue;
+        if ($locked !== null) {
+            $this->lockWindows = $locked;
+        }
 
         return $this;
     }
 
-    /**
-     * Get RevisionsPassword (hashed).
-     *
-     * @return string
-     */
-    public function getRevisionsPassword()
+    public function getRevisionsPassword(): string
     {
         return $this->revisionsPassword;
     }
@@ -145,27 +108,24 @@ class Security
     /**
      * Set RevisionsPassword.
      *
-     * @param string $pValue
-     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $password
+     * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setRevisionsPassword($pValue, $pAlreadyHashed = false)
+    public function setRevisionsPassword(?string $password, bool $alreadyHashed = false)
     {
-        if (!$pAlreadyHashed) {
-            $pValue = PasswordHasher::hashPassword($pValue);
+        if ($password !== null) {
+            if (!$alreadyHashed) {
+                $password = PasswordHasher::hashPassword($password);
+            }
+            $this->revisionsPassword = $password;
         }
-        $this->revisionsPassword = $pValue;
 
         return $this;
     }
 
-    /**
-     * Get WorkbookPassword (hashed).
-     *
-     * @return string
-     */
-    public function getWorkbookPassword()
+    public function getWorkbookPassword(): string
     {
         return $this->workbookPassword;
     }
@@ -173,33 +133,20 @@ class Security
     /**
      * Set WorkbookPassword.
      *
-     * @param string $pValue
-     * @param bool $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $password
+     * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setWorkbookPassword($pValue, $pAlreadyHashed = false)
+    public function setWorkbookPassword(?string $password, bool $alreadyHashed = false)
     {
-        if (!$pAlreadyHashed) {
-            $pValue = PasswordHasher::hashPassword($pValue);
+        if ($password !== null) {
+            if (!$alreadyHashed) {
+                $password = PasswordHasher::hashPassword($password);
+            }
+            $this->workbookPassword = $password;
         }
-        $this->workbookPassword = $pValue;
 
         return $this;
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 }

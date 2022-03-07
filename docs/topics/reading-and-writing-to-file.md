@@ -1,8 +1,7 @@
 # Reading and writing to file
 
 As you already know from the [architecture](./architecture.md#readers-and-writers),
-reading and writing to a
-persisted storage is not possible using the base PhpSpreadsheet classes.
+reading and writing to a persisted storage is not possible using the base PhpSpreadsheet classes.
 For this purpose, PhpSpreadsheet provides readers and writers, which are
 implementations of `\PhpOffice\PhpSpreadsheet\Reader\IReader` and
 `\PhpOffice\PhpSpreadsheet\Writer\IWriter`.
@@ -125,7 +124,7 @@ the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -138,6 +137,11 @@ $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 $reader->setReadFilter( new MyReadFilter() );
 $spreadsheet = $reader->load("06largescale.xlsx");
 ```
+
+Read Filtering does not renumber cell rows and columns. If you filter to read only rows 100-200, cells that you read will still be numbered A100-A200, not A1-A101. Cells A1-A99 will not be loaded, but if you then try to call `getCell()` for a cell outside your loaded range, then PHPSpreadsheet will create a new cell with a null value.
+
+Methods such as `toArray()` assume that all cells in a spreadsheet has been loaded from A1, so will return null values for rows and columns that fall outside your filter range: it is recommended that you keep track of the range that your filter has requested, and use `rangeToArray()` instead.
+
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Xlsx
 
@@ -161,6 +165,9 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 $writer->save("05featuredemo.xlsx");
 ```
+
+**Note** Formulas will still be calculated in any column set to be autosized
+even if pre-calculated is set to false
 
 #### Office 2003 compatibility pack
 
@@ -242,7 +249,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -301,7 +308,7 @@ in the Excel file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -352,7 +359,7 @@ in the SYLK file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -397,7 +404,7 @@ in the Calc file:
 ```php
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
         if ($row == 1 || ($row >= 20 && $row <= 30)) {
             return true;
@@ -477,6 +484,41 @@ $reader->setSheetIndex(0);
 $spreadsheet = $reader->load('sample.csv');
 ```
 
+You can also set the reader to guess the encoding
+rather than calling guessEncoding directly. In this case,
+the user-settable fallback encoding is used if nothing else works.
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+$reader->setFallbackEncoding('ISO-8859-2');  // default CP1252 without this statement
+$reader->setDelimiter(';');
+$reader->setEnclosure('');
+$reader->setSheetIndex(0);
+
+$spreadsheet = $reader->load('sample.csv');
+```
+
+Finally, you can set a callback to be invoked when the constructor is executed,
+either through `new Csv()` or `IOFactory::load`,
+and have that callback set the customizable attributes to whatever
+defaults are appropriate for your environment.
+
+```php
+function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
+{
+    $reader->setInputEncoding(\PhpOffice\PhpSpreadsheet\Reader\Csv::GUESS_ENCODING);
+    $reader->setFallbackEncoding('ISO-8859-2');
+    $reader->setDelimiter(',');
+    $reader->setEnclosure('"');
+    // Following represents how Excel behaves better than the default escape character
+    $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
+}
+
+\PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
+$spreadsheet = \PhpSpreadsheet\IOFactory::load('sample.csv');
+```
+
 #### Read a specific worksheet
 
 CSV files can only contain one worksheet. Therefore, you can specify
@@ -500,6 +542,25 @@ $reader->setEnclosure('"');
 $reader->setSheetIndex(5);
 
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
+```
+
+#### Line endings
+
+Line endings for Unix (`\n`) and Windows (`\r\n`) are supported.
+
+Mac line endings (`\r`) are supported as long as PHP itself
+supports them, which it does through release 8.0.
+Support for Mac line endings is deprecated for 8.1,
+and is scheduled to remain deprecated for all later PHP8 releases;
+PhpSpreadsheet will continue to support them for 8.*.
+Support is scheduled to be dropped with release 9;
+PhpSpreadsheet will then no longer handle CSV files
+with Mac line endings correctly.
+
+You can suppress testing for Mac line endings as follows:
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$reader->setTestAutoDetect(false);
 ```
 
 ### \PhpOffice\PhpSpreadsheet\Writer\Csv
@@ -577,6 +638,18 @@ This can be enabled by using the following code:
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setUseBOM(true);
+$writer->save("05featuredemo.csv");
+```
+
+#### Writing CSV files with desired encoding
+
+It can be set to output with the encoding that can be specified by PHP's mb_convert_encoding.
+This looks like the following code:
+
+```php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setUseBOM(false);
+$writer->setOutputEncoding('SJIS-WIN');
 $writer->save("05featuredemo.csv");
 ```
 
@@ -806,7 +879,7 @@ $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf')
 Or you can instantiate directly the writer of your choice like so:
 
 ```php
-$writer = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 ```
 
 #### Custom implementation or configuration
@@ -837,8 +910,7 @@ class My_Custom_TCPDF_Writer extends \PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf
 
 #### Writing a spreadsheet
 
-Once you have identified the Renderer that you wish to use for PDF
-generation, you can write a .pdf file using the following code:
+Once you have identified the Renderer that you wish to use for PDF generation, you can write a .pdf file using the following code:
 
 ```php
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
@@ -850,8 +922,7 @@ first worksheet by default.
 
 #### Write all worksheets
 
-PDF files can contain one or more worksheets. If you want to write all
-sheets into a single PDF file, use the following code:
+PDF files can contain one or more worksheets. If you want to write all sheets into a single PDF file, use the following code:
 
 ```php
 $writer->writeAllSheets();
@@ -864,6 +935,16 @@ which sheet to write to PDF:
 
 ```php
 $writer->setSheetIndex(0);
+```
+
+#### Setting Orientation and PaperSize
+
+PhpSpreadsheet will attempt to honor the orientation and paper size specified
+in the worksheet for each page it prints, if the renderer supports that. However, you can set all pages
+to have the same orientation and paper size, e.g.
+
+```php
+$writer->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 ```
 
 #### Formula pre-calculation
@@ -965,3 +1046,64 @@ $spreadhseet = $reader->loadFromString($secondHtmlString, $spreadsheet);
 $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
 ```
+
+## Reader/Writer Flags
+
+Some Readers and Writers support special "Feature Flags" that need to be explicitly enabled.
+An example of this is Charts in a spreadsheet. By default, when you load a spreadsheet that contains Charts, the charts will not be loaded. If all you want to do is read the data in the spreadsheet, then loading charts is an overhead for both speed of loading and memory usage.
+However, there are times when you may want to load any charts in the spreadsheet as well as the data. To do so, you need to tell the Reader explicitly to include Charts.
+
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+$reader->setIncludeCharts(true);
+$reader->load("spreadsheetWithCharts.xlsx");
+```
+Alternatively, you can specify this in the call to load the spreadsheet:
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("spreadsheetWithCharts.xlsx");
+$reader->load("spreadsheetWithCharts.xlsx", $reader::LOAD_WITH_CHARTS);
+```
+
+If you wish to use the IOFactory `load()` method rather than instantiating a specific Reader, then you can still pass these flags.
+
+```php
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
+```
+
+Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
+
+```php
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->setIncludeCharts(true);
+$writer->save('mySavedFileWithCharts.xlsx');
+```
+
+As with the `load()` method, you can also pass flags in the `save()` method:
+```php
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save('mySavedFileWithCharts.xlsx', \PhpOffice\PhpSpreadsheet\Writer\IWriter::SAVE_WITH_CHARTS);
+```
+
+Currently, the only special "Feature Flag" that is supported in this way is the inclusion of Charts, and only for certain formats.
+
+Readers  | LOAD_WITH_CHARTS |
+---------|------------------|
+Xlsx     |       YES        |
+Xls      |       NO         |
+Xml      |       NO         |
+Ods      |       NO         |
+Gnumeric |       NO         |
+Html     |       N/A        |
+Slk      |       N/A        |
+Csv      |       N/A        |
+
+
+Writers | SAVE_WITH_CHARTS |
+--------|------------------|
+Xlsx    |        YES       |
+Xls     |        NO        |
+Ods     |        NO        |
+Html    |        YES       |
+Pdf     |        YES       |
+Csv     |        N/A       |
+

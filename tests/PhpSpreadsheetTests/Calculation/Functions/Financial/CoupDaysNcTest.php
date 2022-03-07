@@ -24,7 +24,7 @@ class CoupDaysNcTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCOUPDAYSNC()
+    public function providerCOUPDAYSNC(): array
     {
         return require 'tests/data/Calculation/Financial/COUPDAYSNC.php';
     }

@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 require __DIR__ . '/../Header.php';
 
@@ -18,9 +19,8 @@ $helper->log('<b>Document Creator: </b>' . $creator);
 
 // Read the Date when the workbook was created (as a PHP timestamp value)
 $creationDatestamp = $spreadsheet->getProperties()->getCreated();
-// Format the date and time using the standard PHP date() function
-$creationDate = date('l, d<\s\up>S</\s\up> F Y', $creationDatestamp);
-$creationTime = date('g:i A', $creationDatestamp);
+$creationDate = Date::formattedDateTimeFromTimestamp("$creationDatestamp", 'l, d<\s\up>S</\s\up> F Y');
+$creationTime = Date::formattedDateTimeFromTimestamp("$creationDatestamp", 'g:i A');
 $helper->log('<b>Created On: </b>' . $creationDate . ' at ' . $creationTime);
 
 // Read the name of the last person to modify this workbook
@@ -30,8 +30,8 @@ $helper->log('<b>Last Modified By: </b>' . $modifiedBy);
 // Read the Date when the workbook was last modified (as a PHP timestamp value)
 $modifiedDatestamp = $spreadsheet->getProperties()->getModified();
 // Format the date and time using the standard PHP date() function
-$modifiedDate = date('l, d<\s\up>S</\s\up> F Y', $modifiedDatestamp);
-$modifiedTime = date('g:i A', $modifiedDatestamp);
+$modifiedDate = Date::formattedDateTimeFromTimestamp("$modifiedDatestamp", 'l, d<\s\up>S</\s\up> F Y');
+$modifiedTime = Date::formattedDateTimeFromTimestamp("$modifiedDatestamp", 'g:i A');
 $helper->log('<b>Last Modified On: </b>' . $modifiedDate . ' at ' . $modifiedTime);
 
 // Read the workbook title property
