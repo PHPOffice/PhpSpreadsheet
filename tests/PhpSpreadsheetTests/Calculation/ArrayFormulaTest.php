@@ -88,29 +88,185 @@ class ArrayFormulaTest extends TestCase
     public function providerArrayArithmetic(): array
     {
         return [
-            [
-                '={2,3}+{4;5}',
+            // Addition
+            'Addition: row vector 2 + column vector 2' => [
+                '={2,3} + {4;5}',
                 [[6, 7], [7, 8]],
             ],
-            [
-                '={2,3}-{4;5}',
+            'Addition: square matrix 2x2 + 2x2' => [
+                '={1,2;3,4} + {-2,4;-6,8}',
+                [[-1, 6], [-3, 12]],
+            ],
+            'Addition: row vector + row vector' => [
+                '={1,2,3} + {4,5,6}',
+                [[5, 7, 9]],
+            ],
+            'Addition: column vector + column vector' => [
+                '={1;2;3} + {4;5;6}',
+                [[5], [7], [9]],
+            ],
+            'Addition: row vector + column vector' => [
+                '={1,2,3} + {4;5;6}',
+                [[5, 6, 7], [6, 7, 8], [7, 8, 9]],
+            ],
+            'Addition: column vector + row vector' => [
+                '={1;2;3} + {4,5,6}',
+                [[5, 6, 7], [6, 7, 8], [7, 8, 9]],
+            ],
+            'Addition: matrix 3x2 + 3x2' => [
+                '={1,2,3;4,5,6} + {7,8,9;10,11,12}',
+                [[8, 10, 12], [14, 16, 18]],
+            ],
+            'Addition: matrix 2x3 + 2x3' => [
+                '={1,4;2,5;3,6} + {7,10;8,11;9,12}',
+                [[8, 14], [10, 16], [12, 18]],
+            ],
+            // Subtraction
+            'Subtraction: row vector 2 - column vector 2' => [
+                '={2,3} - {4;5}',
                 [[-2, -1], [-3, -2]],
             ],
-            [
-                '={2,3}*{4;5}',
+            'Subtraction: square matrix 2x2 - 2x2' => [
+                '={1,2;3,4} - {-2,4;-6,8}',
+                [[3, -2], [9, -4]],
+            ],
+            'Subtraction: row vector - row vector' => [
+                '={1,2,3} - {4,5,6}',
+                [[-3, -3, -3]],
+            ],
+            'Subtraction: column vector - column vector' => [
+                '={1;2;3} - {4;5;6}',
+                [[-3], [-3], [-3]],
+            ],
+            'Subtraction: row vector - column vector' => [
+                '={1,2,3} - {4;5;6}',
+                [[-3, -2, -1], [-4, -3, -2], [-5, -4, -3]],
+            ],
+            'Subtraction: column vector - row vector' => [
+                '={1;2;3} - {4,5,6}',
+                [[-3, -4, -5], [-2, -3, -4], [-1, -2, -3]],
+            ],
+            'Subtraction: matrix 3x2 - 3x2' => [
+                '={1,2,3;4,5,6} - {7,8,9;10,11,12}',
+                [[-6, -6, -6], [-6, -6, -6]],
+            ],
+            'Subtraction: matrix 2x3 - 2x3' => [
+                '={1,4;2,5;3,6} - {7,10;8,11;9,12}',
+                [[-6, -6], [-6, -6], [-6, -6]],
+            ],
+            // Multiplication
+            'Multiplication: square matrix 2x2 * 2x2' => [
+                '={1,2;3,4} * {-2,4;-6,8}',
+                [[-2, 8], [-18, 32]],
+            ],
+            'Multiplication: row vector * row vector' => [
+                '={1,2,3} * {4,5,6}',
+                [[4, 10, 18]],
+            ],
+            'Multiplication: column vector * column vector' => [
+                '={1;2;3} * {4;5;6}',
+                [[4], [10], [18]],
+            ],
+            'Multiplication: row vector * column vector' => [
+                '={1,2,3} * {4;5;6}',
+                [[4, 8, 12], [5, 10, 15], [6, 12, 18]],
+            ],
+            'Multiplication: column vector * row vector' => [
+                '={1;2;3} * {4,5,6}',
+                [[4, 5, 6], [8, 10, 12], [12, 15, 18]],
+            ],
+            'Multiplication: matrix 3x2 * 3x2' => [
+                '={1,2,3;4,5,6} * {7,8,9;10,11,12}',
+                [[7, 16, 27], [40, 55, 72]],
+            ],
+            'Multiplication: matrix 2x3 * 2x3' => [
+                '={1,4;2,5;3,6} * {7,10;8,11;9,12}',
+                [[7, 40], [16, 55], [27, 72]],
+            ],
+            'Multiplication: row vector 2 * column vector 2' => [
+                '={2,3} * {4;5}',
                 [[8, 12], [10, 15]],
             ],
-            [
-                '={2,3}/{4;5}',
+            // Division
+            'Division: square matrix 2x2 / 2x2' => [
+                '={1,2;3,4} / {-2,4;-6,8}',
+                [[-0.5, 0.5], [-0.5, 0.5]],
+            ],
+            'Division: row vector / row vector' => [
+                '={1,2,3} / {4,5,6}',
+                [[0.25, 0.4, 0.5]],
+            ],
+            'Division: column vector / column vector' => [
+                '={1;2;3} / {4;5;6}',
+                [[0.25], [0.4], [0.5]],
+            ],
+            'Division: row vector / column vector' => [
+                '={1,2,3} / {4;5;6}',
+                [[0.25, 0.5, 0.75], [0.2, 0.4, 0.6], [0.16666666666667, 0.33333333333333, 0.5]],
+            ],
+            'Division: column vector / row vector' => [
+                '={1;2;3} / {4,5,6}',
+                [[0.25, 0.2, 0.16666666666667], [0.5, 0.4, 0.33333333333333], [0.75, 0.6, 0.5]],
+            ],
+            'Division: matrix 3x2 / 3x2' => [
+                '={1,2,3;4,5,6} / {7,8,9;10,11,12}',
+                [[0.142857142857143, 0.25, 0.33333333333333], [0.4, 0.45454545454545, 0.5]],
+            ],
+            'Division: matrix 2x3 / 2x3' => [
+                '={1,4;2,5;3,6} / {7,10;8,11;9,12}',
+                [[0.142857142857143, 0.4], [0.25, 0.45454545454545], [0.33333333333333, 0.5]],
+            ],
+            'Division: row vector 2 / column vector 2' => [
+                '={2,3} / {4;5}',
                 [[0.5, 0.75], [0.4, 0.6]],
             ],
-            [
-                '={2,3}^{4;5}',
+            // Power
+            'Power: square matrix 2x2 ^ 2x2' => [
+                '={1,2;3,4} ^ {-2,4;-6,8}',
+                [[1, 16], [0.00137174211248, 65536]],
+            ],
+            'Power: row vector ^ row vector' => [
+                '={1,2,3} ^ {4,5,6}',
+                [[1, 32, 729]],
+            ],
+            'Power: column vector / column vector' => [
+                '={1;2;3} ^ {4;5;6}',
+                [[1], [32], [729]],
+            ],
+            'Power: row vector ^ column vector' => [
+                '={1,2,3} ^ {4;5;6}',
+                [[1, 16, 81], [1, 32, 243], [1, 64, 729]],
+            ],
+            'Power: column vector ^ row vector' => [
+                '={1;2;3} ^ {4,5,6}',
+                [[1, 1, 1], [16, 32, 64], [81, 243, 729]],
+            ],
+            'Power: matrix 3x2 ^ 3x2' => [
+                '={1,2,3;4,5,6} ^ {7,8,9;10,11,12}',
+                [[1, 256, 19683], [1048576, 48828125, 2176782336]],
+            ],
+            'Power: matrix 2x3 ^ 2x3' => [
+                '={1,4;2,5;3,6} ^ {7,10;8,11;9,12}',
+                [[1, 1048576], [256, 48828125], [19683, 2176782336]],
+            ],
+            'Power: row vector 2 ^ column vector 2' => [
+                '={2,3} ^ {4;5}',
                 [[16, 81], [32, 243]],
             ],
-            [
-                '={"A",",B"}&{"C";";D"}',
+            // Concatenation
+            'Concatenation: row vector 2 & column vector 2' => [
+                '={"A",",B"} & {"C";";D"}',
                 [['AC', ',BC'], ['A;D', ',B;D']],
+            ],
+            // Unary Negation
+            'Unary Negation: square matrix - 2x2' => [
+                '= - {-2,4;-6,8}',
+                [[2, -4], [6, -8]],
+            ],
+            // Percentage
+            'Percentage: square matrix % 2x2' => [
+                '={-2,4;-6,8} %',
+                [[-0.02, 0.04], [-0.06, 0.08]],
             ],
         ];
     }
