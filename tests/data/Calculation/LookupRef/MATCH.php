@@ -26,7 +26,6 @@ return [
         [2, 0, 0, 3],
         0,
     ],
-
     // Third argument = 1
     [
         1, // Expected
@@ -52,7 +51,6 @@ return [
         [2, 0, 0, 3],
         1,
     ],
-
     // Third argument = -1
     [
         1, // Expected
@@ -96,7 +94,12 @@ return [
         [8, 8, 3, 2],
         -1,
     ],
-
+    [ // Default matchtype
+        4, // Expected
+        4, // Input
+        [2, 0, 0, 3],
+        null,
+    ],
     // match on ranges with empty cells
     [
         3, // Expected
@@ -110,7 +113,6 @@ return [
         [1, null, 4, null, null],
         1,
     ],
-
     // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
     [
         3,
@@ -233,7 +235,7 @@ return [
     [
         2, // Expected
         'a*~*c',
-        ['aAAAAA', 'a123456*c', 'az'],
+        ['aAAAAA', 'a123456*c', 'az', 'alembic'],
         0,
     ],
     [
@@ -270,6 +272,90 @@ return [
         3, // Expected
         '*',
         [1, 22, 'aaa'],
+        0,
+    ],
+    [
+        '#N/A', // Expected
+        'abc',
+        [1, 22, 'aaa'],
+        0,
+    ],
+    [
+        '#N/A', // Expected (Invalid lookup value)
+        new DateTime('2021-03-11'),
+        [1, 22, 'aaa'],
+        1,
+    ],
+    [
+        '#N/A', // Expected (Invalid match type)
+        'abc',
+        [1, 22, 'aaa'],
+        123,
+    ],
+    [
+        '#N/A', // Expected (Empty lookup array)
+        'abc',
+        [],
+        1,
+    ],
+    [
+        8,
+        'A*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        -1,
+    ],
+    [
+        2,
+        'A*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        0,
+    ],
+    [
+        '#N/A',
+        'A*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        1,
+    ],
+    [
+        8,
+        'A?s*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        -1,
+    ],
+    [
+        5,
+        'A?s*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        0,
+    ],
+    [
+        '#N/A',
+        'A*e',
+        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        1,
+    ],
+    [
+        8,
+        '*verse',
+        ['Obtuse', 'Amuse', 'Obverse', 'Inverse', 'Assurance', 'Amplitude', 'Adverse', 'Apartment'],
+        -1,
+    ],
+    [
+        3,
+        '*verse',
+        ['Obtuse', 'Amuse', 'Obverse', 'Inverse', 'Assurance', 'Amplitude', 'Adverse', 'Apartment'],
+        0,
+    ],
+    [
+        3, // Expected
+        '*~~*', // contains a tilde
+        ['aAAAAA', 'a123456*c', 'abc~xyz', 'alembic'],
+        0,
+    ],
+    [
+        2, // Expected
+        'abc/123*', // wildcard search contains a forward slash
+        ['abc123fff', 'abc/123fff'],
         0,
     ],
 ];

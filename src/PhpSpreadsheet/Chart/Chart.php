@@ -186,13 +186,11 @@ class Chart
     /**
      * Set Worksheet.
      *
-     * @param Worksheet $pValue
-     *
      * @return $this
      */
-    public function setWorksheet(?Worksheet $pValue = null)
+    public function setWorksheet(?Worksheet $worksheet = null)
     {
-        $this->worksheet = $pValue;
+        $this->worksheet = $worksheet;
 
         return $this;
     }
@@ -424,7 +422,7 @@ class Chart
     /**
      * Get the top left position of the chart.
      *
-     * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
+     * @return array{cell: string, xOffset: int, yOffset: int} an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
     public function getTopLeftPosition()
     {

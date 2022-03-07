@@ -2,35 +2,53 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class AbsTest extends TestCase
+class AbsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAbs
      *
      * @param mixed $expectedResult
-     * @param mixed $val
+     * @param mixed $number
      */
-    public function testRound($expectedResult, $val = null): void
+    public function testAbs($expectedResult, $number = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=ABS()';
+        $sheet = $this->getSheet();
+        $this->mightHaveException($expectedResult);
+        $this->setCell('A1', $number);
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=ABS()');
         } else {
-            $formula = "=ABS($val)";
+            $sheet->getCell('B1')->setValue('=ABS(A1)');
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerAbs()
+    public function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
+    }
+
+    /**
+     * @dataProvider providerAbsArray
+     */
+    public function testAbsoluteArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ABS({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerAbsArray(): array
+    {
+        return [
+            'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],
+            'column vector' => [[[1], [0], [1]], '{-1; 0; 1}'],
+            'matrix' => [[[1, 0], [1, 1.4]], '{-1, 0; 1, -1.4}'],
+        ];
     }
 }

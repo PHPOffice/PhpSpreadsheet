@@ -2,17 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class SecTest extends TestCase
+class SecTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSEC
      *
@@ -21,12 +14,40 @@ class SecTest extends TestCase
      */
     public function testSEC($expectedResult, $angle): void
     {
-        $result = MathTrig::SEC($angle);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->setCellValue('A2', 1.3);
+        $sheet->setCellValue('A3', 2.7);
+        $sheet->setCellValue('A4', -3.8);
+        $sheet->setCellValue('A5', -5.2);
+        $sheet->getCell('A1')->setValue("=SEC($angle)");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSEC()
+    public function providerSEC(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEC.php';
+    }
+
+    /**
+     * @dataProvider providerSecArray
+     */
+    public function testSecArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=SEC({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerSecArray(): array
+    {
+        return [
+            'row vector' => [[[1.85081571768093, 1.13949392732455, 1.85081571768093]], '{1, 0.5, -1}'],
+            'column vector' => [[[1.85081571768093], [1.13949392732455], [1.85081571768093]], '{1; 0.5; -1}'],
+            'matrix' => [[[1.85081571768093, 1.13949392732455], [1.0, 1.85081571768093]], '{1, 0.5; 0, -1}'],
+        ];
     }
 }

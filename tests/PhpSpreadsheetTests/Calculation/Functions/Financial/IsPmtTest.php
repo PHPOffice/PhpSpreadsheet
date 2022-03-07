@@ -24,7 +24,7 @@ class IsPmtTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerISPMT()
+    public function providerISPMT(): array
     {
         return require 'tests/data/Calculation/Financial/ISPMT.php';
     }

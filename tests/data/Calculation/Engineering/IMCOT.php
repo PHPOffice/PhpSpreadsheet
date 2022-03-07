@@ -1,9 +1,15 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 return [
     [
         '-0.0000104004141424230319-1.00002138037057154j',
         '12.34+5.67j',
+    ],
+    [
+        ExcelError::NAN(),
+        'Invalid Complex Number',
     ],
     [
         '0.00894394174578834370-1.01017158348808170i',

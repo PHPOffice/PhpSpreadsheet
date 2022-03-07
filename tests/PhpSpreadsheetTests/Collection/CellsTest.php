@@ -91,7 +91,7 @@ class CellsTest extends TestCase
 
         $collection = $this->getMockBuilder(Cells::class)
             ->setConstructorArgs([new Worksheet(), new Memory()])
-            ->setMethods(['has'])
+            ->onlyMethods(['has'])
             ->getMock();
 
         $collection->method('has')

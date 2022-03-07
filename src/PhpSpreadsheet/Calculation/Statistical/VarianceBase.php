@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 abstract class VarianceBase
 {
     protected static function datatypeAdjustmentAllowStrings($value)
@@ -17,7 +19,7 @@ abstract class VarianceBase
 
     protected static function datatypeAdjustmentBooleans($value)
     {
-        if (is_bool($value)) {
+        if (is_bool($value) && (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE)) {
             return (int) $value;
         }
 

@@ -65,7 +65,7 @@ class SingularValueDecomposition
     public function __construct($Arg)
     {
         // Initialize.
-        $A = $Arg->getArrayCopy();
+        $A = $Arg->getArray();
         $this->m = $Arg->getRowDimension();
         $this->n = $Arg->getColumnDimension();
         $nu = min($this->m, $this->n);
@@ -476,6 +476,7 @@ class SingularValueDecomposition
      */
     public function getS()
     {
+        $S = [];
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
                 $S[$i][$j] = 0.0;

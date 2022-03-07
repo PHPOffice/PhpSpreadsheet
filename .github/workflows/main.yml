@@ -8,14 +8,10 @@ jobs:
         experimental:
           - false
         php-version:
-          - '7.2'
           - '7.3'
           - '7.4'
           - '8.0'
-
-        include:
-          - php-version: '8.1'
-            experimental: true
+          - '8.1'
 
     name: PHP ${{ matrix.php-version }}
 
@@ -43,7 +39,7 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.0' || matrix.php-version == '8.1' }}
+        if: ${{ matrix.php-version == '8.1' }}
         run: |
           rm composer.lock
           echo "::set-output name=flags::--ignore-platform-reqs"
@@ -123,6 +119,68 @@ jobs:
 
       - name: Code style with PHP_CodeSniffer
         run: ./vendor/bin/phpcs -q --report=checkstyle | cs2pr
+
+  versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+          tools: cs2pr
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Code Version Compatibility check with PHP_CodeSniffer
+        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 7.3-
+
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+          tools: cs2pr
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Static analysis with PHPStan
+        run: ./vendor/bin/phpstan analyse
 
   coverage:
     runs-on: ubuntu-latest

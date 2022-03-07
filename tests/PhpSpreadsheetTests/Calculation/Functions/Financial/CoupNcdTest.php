@@ -24,7 +24,7 @@ class CoupNcdTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCOUPNCD()
+    public function providerCOUPNCD(): array
     {
         return require 'tests/data/Calculation/Financial/COUPNCD.php';
     }

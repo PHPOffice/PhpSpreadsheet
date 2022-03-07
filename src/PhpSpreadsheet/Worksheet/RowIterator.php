@@ -5,6 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use Iterator;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
+/**
+ * @implements Iterator<int, Row>
+ */
 class RowIterator implements Iterator
 {
     /**
@@ -48,14 +51,6 @@ class RowIterator implements Iterator
         $this->subject = $subject;
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
-    }
-
-    /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->subject = null;
     }
 
     /**
@@ -123,10 +118,8 @@ class RowIterator implements Iterator
 
     /**
      * Return the current row in this worksheet.
-     *
-     * @return Row
      */
-    public function current()
+    public function current(): Row
     {
         return new Row($this->subject, $this->position);
     }

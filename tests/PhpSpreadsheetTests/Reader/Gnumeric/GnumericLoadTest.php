@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -26,6 +28,12 @@ class GnumericLoadTest extends TestCase
         self::assertEquals('BCD', $sheet->getCell('A4')->getValue());
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
+        $creationDate = $props->getCreated();
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        self::assertEquals('2010-09-02T20:48:39Z', $result);
+        $creationDate = $props->getModified();
+        $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
+        self::assertEquals('2020-06-05T05:15:21Z', $result);
 
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Sample Data', $sheet->getTitle());
@@ -115,7 +123,10 @@ class GnumericLoadTest extends TestCase
         self::assertEquals(Font::UNDERLINE_DOUBLE, $sheet->getCell('A24')->getStyle()->getFont()->getUnderline());
         self::assertTrue($sheet->getCell('B23')->getStyle()->getFont()->getSubScript());
         self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
-        self::assertFalse($sheet->getRowDimension(30)->getVisible());
+        $rowDimension = $sheet->getRowDimension(30);
+        self::assertFalse($rowDimension->getVisible());
+
+        self::assertSame('B24', $sheet->getSelectedCells());
     }
 
     public function testLoadFilter(): void
@@ -158,5 +169,7 @@ class GnumericLoadTest extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
+
+        self::assertSame('A1', $sheet->getSelectedCells());
     }
 }

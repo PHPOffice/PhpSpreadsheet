@@ -1,8 +1,8 @@
 <?php
 
 return [
-    ['#VALUE!'], // exception not enough args
-    ['#VALUE!', '"ABC"'],
+    ['exception'], // exception not enough args
+    ['#VALUE!', 'ABC'],
     ['#NUM!', 0],
     ['#NUM!', -1],
     [-1, 0.1],

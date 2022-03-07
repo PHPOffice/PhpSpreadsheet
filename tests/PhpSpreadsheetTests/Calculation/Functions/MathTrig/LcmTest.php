@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
-use PHPUnit\Framework\TestCase;
-
-class LcmTest extends TestCase
+class LcmTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerLCM
      *
@@ -20,11 +11,18 @@ class LcmTest extends TestCase
      */
     public function testLCM($expectedResult, ...$args): void
     {
-        $result = MathTrig::LCM(...$args);
+        $sheet = $this->getSheet();
+        $row = 0;
+        foreach ($args as $arg) {
+            ++$row;
+            $sheet->getCell("A$row")->setValue($arg);
+        }
+        $sheet->getCell('B1')->setValue("=LCM(A1:A$row)");
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerLCM()
+    public function providerLCM(): array
     {
         return require 'tests/data/Calculation/MathTrig/LCM.php';
     }

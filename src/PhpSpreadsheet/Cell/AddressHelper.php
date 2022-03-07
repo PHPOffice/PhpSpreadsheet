@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
 {
+    public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
+
     /**
      * Converts an R1C1 format cell address to an A1 format cell address.
      */
@@ -27,7 +29,7 @@ class AddressHelper
         }
         //    Bracketed R references are relative to the current row
         if ($rowReference[0] === '[') {
-            $rowReference = $currentRowNumber + trim($rowReference, '[]');
+            $rowReference = $currentRowNumber + (int) trim($rowReference, '[]');
         }
         $columnReference = $cellReference[4];
         //    Empty C reference is the current column
@@ -36,7 +38,7 @@ class AddressHelper
         }
         //    Bracketed C references are relative to the current column
         if (is_string($columnReference) && $columnReference[0] === '[') {
-            $columnReference = $currentColumnNumber + trim($columnReference, '[]');
+            $columnReference = $currentColumnNumber + (int) trim($columnReference, '[]');
         }
 
         if ($columnReference <= 0 || $rowReference <= 0) {
@@ -47,8 +49,24 @@ class AddressHelper
         return $A1CellReference;
     }
 
+    protected static function convertSpreadsheetMLFormula(string $formula): string
+    {
+        $formula = substr($formula, 3);
+        $temp = explode('"', $formula);
+        $key = false;
+        foreach ($temp as &$value) {
+            //    Only replace in alternate array entries (i.e. non-quoted blocks)
+            if ($key = !$key) {
+                $value = str_replace(['[.', ':.', ']'], ['', ':', ''], $value);
+            }
+        }
+        unset($value);
+
+        return implode('"', $temp);
+    }
+
     /**
-     * Converts a formula that uses R1C1 format cell address to an A1 format cell address.
+     * Converts a formula that uses R1C1/SpreadsheetXML format cell address to an A1 format cell address.
      */
     public static function convertFormulaToA1(
         string $formula,
@@ -56,41 +74,33 @@ class AddressHelper
         int $currentColumnNumber = 1
     ): string {
         if (substr($formula, 0, 3) == 'of:') {
-            $formula = substr($formula, 3);
-            $temp = explode('"', $formula);
-            $key = false;
-            foreach ($temp as &$value) {
-                //    Only replace in alternate array entries (i.e. non-quoted blocks)
-                if ($key = !$key) {
-                    $value = str_replace(['[.', '.', ']'], '', $value);
-                }
-            }
-        } else {
-            //    Convert R1C1 style references to A1 style references (but only when not quoted)
-            $temp = explode('"', $formula);
-            $key = false;
-            foreach ($temp as &$value) {
-                //    Only replace in alternate array entries (i.e. non-quoted blocks)
-                if ($key = !$key) {
-                    preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-                    //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
-                    //        through the formula from left to right. Reversing means that we work right to left.through
-                    //        the formula
-                    $cellReferences = array_reverse($cellReferences);
-                    //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
-                    //        then modify the formula to use that new reference
-                    foreach ($cellReferences as $cellReference) {
-                        $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber);
-                        $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
-                    }
+            // We have an old-style SpreadsheetML Formula
+            return self::convertSpreadsheetMLFormula($formula);
+        }
+
+        //    Convert R1C1 style references to A1 style references (but only when not quoted)
+        $temp = explode('"', $formula);
+        $key = false;
+        foreach ($temp as &$value) {
+            //    Only replace in alternate array entries (i.e. non-quoted blocks)
+            if ($key = !$key) {
+                preg_match_all(self::R1C1_COORDINATE_REGEX, $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
+                //        through the formula from left to right. Reversing means that we work right to left.through
+                //        the formula
+                $cellReferences = array_reverse($cellReferences);
+                //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
+                //        then modify the formula to use that new reference
+                foreach ($cellReferences as $cellReference) {
+                    $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber);
+                    $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                 }
             }
         }
         unset($value);
-        //    Then rebuild the formula string
-        $formula = implode('"', $temp);
 
-        return $formula;
+        //    Then rebuild the formula string
+        return implode('"', $temp);
     }
 
     /**
@@ -102,14 +112,23 @@ class AddressHelper
         ?int $currentRowNumber = null,
         ?int $currentColumnNumber = null
     ): string {
-        $validityCheck = preg_match('/^\$?([A-Z]{1,3})\$?(\d{1,7})$/i', $address, $cellReference);
+        $validityCheck = preg_match(Coordinate::A1_COORDINATE_REGEX, $address, $cellReference);
 
         if ($validityCheck === 0) {
             throw new Exception('Invalid A1-format Cell Reference');
         }
 
-        $columnId = Coordinate::columnIndexFromString($cellReference[1]);
-        $rowId = (int) $cellReference[2];
+        $columnId = Coordinate::columnIndexFromString($cellReference['col_ref']);
+        if ($cellReference['absolute_col'] === '$') {
+            // Column must be absolute address
+            $currentColumnNumber = null;
+        }
+
+        $rowId = (int) $cellReference['row_ref'];
+        if ($cellReference['absolute_row'] === '$') {
+            // Row must be absolute address
+            $currentRowNumber = null;
+        }
 
         if ($currentRowNumber !== null) {
             if ($rowId === $currentRowNumber) {

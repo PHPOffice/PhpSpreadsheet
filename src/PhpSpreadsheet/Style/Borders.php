@@ -95,21 +95,18 @@ class Borders extends Supervisor
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param bool $isConditional Flag indicating if this is a conditional style or not
-     *                                    Leave this value at default unless you understand exactly what
-     *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct($isSupervisor = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
 
         // Initialise values
-        $this->left = new Border($isSupervisor, $isConditional);
-        $this->right = new Border($isSupervisor, $isConditional);
-        $this->top = new Border($isSupervisor, $isConditional);
-        $this->bottom = new Border($isSupervisor, $isConditional);
-        $this->diagonal = new Border($isSupervisor, $isConditional);
+        $this->left = new Border($isSupervisor);
+        $this->right = new Border($isSupervisor);
+        $this->top = new Border($isSupervisor);
+        $this->bottom = new Border($isSupervisor);
+        $this->diagonal = new Border($isSupervisor);
         $this->diagonalDirection = self::DIAGONAL_NONE;
 
         // Specially for supervisor
@@ -143,7 +140,10 @@ class Borders extends Supervisor
      */
     public function getSharedComponent()
     {
-        return $this->parent->getSharedComponent()->getBorders();
+        /** @var Style */
+        $parent = $this->parent;
+
+        return $parent->getSharedComponent()->getBorders();
     }
 
     /**
@@ -193,38 +193,38 @@ class Borders extends Supervisor
      * );
      * </code>
      *
-     * @param array $pStyles Array containing style information
+     * @param array $styleArray Array containing style information
      *
      * @return $this
      */
-    public function applyFromArray(array $pStyles)
+    public function applyFromArray(array $styleArray)
     {
         if ($this->isSupervisor) {
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
         } else {
-            if (isset($pStyles['left'])) {
-                $this->getLeft()->applyFromArray($pStyles['left']);
+            if (isset($styleArray['left'])) {
+                $this->getLeft()->applyFromArray($styleArray['left']);
             }
-            if (isset($pStyles['right'])) {
-                $this->getRight()->applyFromArray($pStyles['right']);
+            if (isset($styleArray['right'])) {
+                $this->getRight()->applyFromArray($styleArray['right']);
             }
-            if (isset($pStyles['top'])) {
-                $this->getTop()->applyFromArray($pStyles['top']);
+            if (isset($styleArray['top'])) {
+                $this->getTop()->applyFromArray($styleArray['top']);
             }
-            if (isset($pStyles['bottom'])) {
-                $this->getBottom()->applyFromArray($pStyles['bottom']);
+            if (isset($styleArray['bottom'])) {
+                $this->getBottom()->applyFromArray($styleArray['bottom']);
             }
-            if (isset($pStyles['diagonal'])) {
-                $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
+            if (isset($styleArray['diagonal'])) {
+                $this->getDiagonal()->applyFromArray($styleArray['diagonal']);
             }
-            if (isset($pStyles['diagonalDirection'])) {
-                $this->setDiagonalDirection($pStyles['diagonalDirection']);
+            if (isset($styleArray['diagonalDirection'])) {
+                $this->setDiagonalDirection($styleArray['diagonalDirection']);
             }
-            if (isset($pStyles['allBorders'])) {
-                $this->getLeft()->applyFromArray($pStyles['allBorders']);
-                $this->getRight()->applyFromArray($pStyles['allBorders']);
-                $this->getTop()->applyFromArray($pStyles['allBorders']);
-                $this->getBottom()->applyFromArray($pStyles['allBorders']);
+            if (isset($styleArray['allBorders'])) {
+                $this->getLeft()->applyFromArray($styleArray['allBorders']);
+                $this->getRight()->applyFromArray($styleArray['allBorders']);
+                $this->getTop()->applyFromArray($styleArray['allBorders']);
+                $this->getBottom()->applyFromArray($styleArray['allBorders']);
             }
         }
 
@@ -368,20 +368,20 @@ class Borders extends Supervisor
     /**
      * Set DiagonalDirection.
      *
-     * @param int $pValue see self::DIAGONAL_*
+     * @param int $direction see self::DIAGONAL_*
      *
      * @return $this
      */
-    public function setDiagonalDirection($pValue)
+    public function setDiagonalDirection($direction)
     {
-        if ($pValue == '') {
-            $pValue = self::DIAGONAL_NONE;
+        if ($direction == '') {
+            $direction = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['diagonalDirection' => $pValue]);
+            $styleArray = $this->getStyleArray(['diagonalDirection' => $direction]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->diagonalDirection = $pValue;
+            $this->diagonalDirection = $direction;
         }
 
         return $this;

@@ -2,35 +2,55 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class Log10Test extends TestCase
+class Log10Test extends AllSetupTeardown
 {
     /**
-     * @dataProvider providerLN
+     * @dataProvider providerLOG10
      *
      * @param mixed $expectedResult
-     * @param mixed $val
+     * @param mixed $number
      */
-    public function testLN($expectedResult, $val = null): void
+    public function testLOG10($expectedResult, $number = 'omitted'): void
     {
-        if ($val === null) {
-            $this->expectException(CalcExp::class);
-            $formula = '=LOG10()';
-        } else {
-            $formula = "=LOG10($val)";
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        if ($number !== null) {
+            $sheet->getCell('A1')->setValue($number);
         }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->getCell('A1')->setValue($formula);
-        $result = $sheet->getCell('A1')->getCalculatedValue();
+        if ($number === 'omitted') {
+            $sheet->getCell('B1')->setValue('=LOG10()');
+        } else {
+            $sheet->getCell('B1')->setValue('=LOG10(A1)');
+        }
+        $result = $sheet->getCell('B1')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerLN()
+    public function providerLOG10(): array
     {
         return require 'tests/data/Calculation/MathTrig/LOG10.php';
+    }
+
+    /**
+     * @dataProvider providerLog10Array
+     */
+    public function testLog10Array(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=LOG10({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerLog10Array(): array
+    {
+        return [
+            'row vector' => [[[-0.90308998699194, 0.3701428470511, 1.09691001300806]], '{0.125, 2.345, 12.5}'],
+            'column vector' => [[[-0.90308998699194], [0.3701428470511], [1.09691001300806]], '{0.125; 2.345; 12.5}'],
+            'matrix' => [[[-0.90308998699194, 0.3701428470511], [0.0, 1.09691001300806]], '{0.125, 2.345; 1.0, 12.5}'],
+        ];
     }
 }

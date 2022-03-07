@@ -2,34 +2,47 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class YearTest extends TestCase
+class YearTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
-    }
-
     /**
      * @dataProvider providerYEAR
      *
      * @param mixed $expectedResult
-     * @param $dateTimeValue
      */
-    public function testYEAR($expectedResult, $dateTimeValue): void
+    public function testYEAR($expectedResult, string $dateTimeValue): void
     {
-        $result = DateTime::YEAR($dateTimeValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue("=YEAR($dateTimeValue)");
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerYEAR()
+    public function providerYEAR(): array
     {
         return require 'tests/data/Calculation/DateTime/YEAR.php';
+    }
+
+    /**
+     * @dataProvider providerYearArray
+     */
+    public function testYearArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=YEAR({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerYearArray(): array
+    {
+        return [
+            'row vector' => [[[2021, 2022, 2023]], '{"2021-01-01", "2022-01-01", "2023-01-01"}'],
+            'column vector' => [[[2021], [2022], [2023]], '{"2021-01-01"; "2022-01-01"; "2023-01-01"}'],
+            'matrix' => [[[2021, 2022], [2023, 1999]], '{"2021-01-01", "2022-01-01"; "2023-01-01", "1999-12-31"}'],
+        ];
     }
 }

@@ -27,7 +27,7 @@ class PercentRankTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerPERCENTRANK()
+    public function providerPERCENTRANK(): array
     {
         return require 'tests/data/Calculation/Statistical/PERCENTRANK.php';
     }

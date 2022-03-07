@@ -14,7 +14,7 @@ interface ITextElement
     /**
      * Set text.
      *
-     * @param $text string Text
+     * @param string $text Text
      *
      * @return ITextElement
      */

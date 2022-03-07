@@ -24,10 +24,10 @@ class DStDevTest extends TestCase
     public function testDStDev($expectedResult, $database, $field, $criteria): void
     {
         $result = Database::DSTDEV($database, $field, $criteria);
-        self::assertSame($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    protected function database1()
+    private function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -40,7 +40,7 @@ class DStDevTest extends TestCase
         ];
     }
 
-    protected function database2()
+    private function database2(): array
     {
         return [
             ['Name', 'Gender', 'Age', 'Subject', 'Score'],
@@ -59,7 +59,7 @@ class DStDevTest extends TestCase
         ];
     }
 
-    public function providerDStDev()
+    public function providerDStDev(): array
     {
         return [
             [

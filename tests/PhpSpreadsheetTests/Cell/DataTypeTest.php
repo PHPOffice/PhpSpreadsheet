@@ -25,6 +25,7 @@ class DataTypeTest extends TestCase
         $stringLimit = 32767;
         $randString = $this->randr($stringLimit + 10);
         $result2 = DataType::checkString($randString);
+        self::assertIsString($result2);
         self::assertSame($stringLimit, strlen($result2));
 
         $dirtyString = "bla bla\r\n bla\r test\n";

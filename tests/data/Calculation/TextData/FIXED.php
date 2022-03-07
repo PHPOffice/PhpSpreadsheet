@@ -59,4 +59,9 @@ return [
         'ABC',
         null,
     ],
+    'no arguments' => ['exception'],
+    'just one argument is okay' => ['123.00', 123],
+    'null second argument' => ['123', 123, null],
+    'false second argument' => ['123', 123, false],
+    'true second argument' => ['123.0', 123, true],
 ];

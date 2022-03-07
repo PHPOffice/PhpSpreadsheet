@@ -169,7 +169,7 @@ class Workbook extends BIFFwriter
     /**
      * Escher object corresponding to MSODRAWINGGROUP.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
+     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
@@ -408,13 +408,13 @@ class Workbook extends BIFFwriter
      * Assemble worksheets into a workbook and send the BIFF data to an OLE
      * storage.
      *
-     * @param array $pWorksheetSizes The sizes in bytes of the binary worksheet streams
+     * @param array $worksheetSizes The sizes in bytes of the binary worksheet streams
      *
      * @return string Binary data for workbook stream
      */
-    public function writeWorkbook(array $pWorksheetSizes)
+    public function writeWorkbook(array $worksheetSizes)
     {
-        $this->worksheetSizes = $pWorksheetSizes;
+        $this->worksheetSizes = $worksheetSizes;
 
         // Calculate the number of selected worksheet tabs and call the finalization
         // methods for each worksheet
@@ -523,9 +523,9 @@ class Workbook extends BIFFwriter
         $this->writeStyle();
     }
 
-    private function parseDefinedNameValue(DefinedName $pDefinedName): string
+    private function parseDefinedNameValue(DefinedName $definedName): string
     {
-        $definedRange = $pDefinedName->getValue();
+        $definedRange = $definedName->getValue();
         $splitCount = preg_match_all(
             '/' . Calculation::CALCULATION_REGEXP_CELLREF . '/mui',
             $definedRange,
@@ -551,8 +551,8 @@ class Workbook extends BIFFwriter
             $newRange = '';
             if (empty($worksheet)) {
                 if (($offset === 0) || ($definedRange[$offset - 1] !== ':')) {
-                    // We need a worksheet
-                    $worksheet = $pDefinedName->getWorksheet()->getTitle();
+                    // We should have a worksheet
+                    $worksheet = $definedName->getWorksheet() ? $definedName->getWorksheet()->getTitle() : null;
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));
@@ -600,7 +600,11 @@ class Workbook extends BIFFwriter
                     }
 
                     if ($definedName->getLocalOnly()) {
-                        // local scope
+                        /**
+                         * local scope.
+                         *
+                         * @phpstan-ignore-next-line
+                         */
                         $scope = $this->spreadsheet->getIndex($definedName->getScope()) + 1;
                     } else {
                         // global scope
@@ -678,13 +682,13 @@ class Workbook extends BIFFwriter
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
-                    $printAreaRect[0] = Coordinate::coordinateFromString($printAreaRect[0]);
-                    $printAreaRect[1] = Coordinate::coordinateFromString($printAreaRect[1]);
+                    $printAreaRect[0] = Coordinate::indexesFromString($printAreaRect[0]);
+                    $printAreaRect[1] = Coordinate::indexesFromString($printAreaRect[1]);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;
-                    $print_colmin = Coordinate::columnIndexFromString($printAreaRect[0][0]) - 1;
-                    $print_colmax = Coordinate::columnIndexFromString($printAreaRect[1][0]) - 1;
+                    $print_colmin = $printAreaRect[0][0] - 1;
+                    $print_colmax = $printAreaRect[1][0] - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
                     $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
@@ -756,7 +760,7 @@ class Workbook extends BIFFwriter
      * Write a short NAME record.
      *
      * @param string $name
-     * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
+     * @param int $sheetIndex 1-based sheet index the defined name applies to. 0 = global
      * @param int[][] $rangeBounds range boundaries
      * @param bool $isHidden
      *
@@ -839,10 +843,9 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param Worksheet $sheet Worksheet name
      * @param int $offset Location of worksheet BOF
      */
-    private function writeBoundSheet($sheet, $offset): void
+    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, $offset): void
     {
         $sheetname = $sheet->getTitle();
         $record = 0x0085; // Record identifier
@@ -1171,21 +1174,17 @@ class Workbook extends BIFFwriter
 
     /**
      * Get Escher object.
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    public function getEscher()
+    public function getEscher(): ?\PhpOffice\PhpSpreadsheet\Shared\Escher
     {
         return $this->escher;
     }
 
     /**
      * Set Escher object.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */
-    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $pValue = null): void
+    public function setEscher(?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher): void
     {
-        $this->escher = $pValue;
+        $this->escher = $escher;
     }
 }

@@ -2,30 +2,38 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
-use PHPUnit\Framework\TestCase;
 
-class RowTest extends TestCase
+class RowTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerROW
      *
      * @param mixed $expectedResult
+     * @param null|array|string $cellReference
      */
-    public function testROW($expectedResult, string $cellReference): void
+    public function testROW($expectedResult, $cellReference = null): void
     {
-        $result = LookupRef::ROW($cellReference);
+        $result = LookupRef\RowColumnInformation::ROW($cellReference);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROW()
+    public function providerROW(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROW.php';
+    }
+
+    public function testROWwithNull(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('C4')->setValue('=ROW()');
+        self::assertSame(4, $sheet->getCell('C4')->getCalculatedValue());
+        $sheet->getCell('D2')->setValue('=ROW(C13)');
+        self::assertSame(13, $sheet->getCell('D2')->getCalculatedValue());
+        // Sheetnames don't have to exist
+        $sheet->getCell('D3')->setValue('=ROW(Sheet17!E15)');
+        self::assertSame(15, $sheet->getCell('D3')->getCalculatedValue());
+        $sheet->getCell('D4')->setValue("=ROW('Worksheet #5'!X500)");
+        self::assertSame(500, $sheet->getCell('D4')->getCalculatedValue());
     }
 }

@@ -29,7 +29,7 @@ class DProduct extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return null|float|string
      */
     public static function evaluate($database, $field, $criteria)
     {
@@ -38,7 +38,7 @@ class DProduct extends DatabaseAbstract
             return null;
         }
 
-        return MathTrig::PRODUCT(
+        return MathTrig\Operations::product(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

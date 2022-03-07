@@ -31,7 +31,7 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
     {
         // Make sure conditionals from existing file are maintained across save
         $filename = 'tests/data/Reader/XLSX/conditionalFormattingDataBarTest.xlsx';
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outfile = File::temporaryFilename();
         $reader = IOFactory::createReader('Xlsx');
         $spreadshee1 = $reader->load($filename);
         $writer = IOFactory::createWriter($spreadshee1, 'Xlsx');
@@ -49,7 +49,7 @@ class ConditionalFormattingDataBarXlsxTest extends TestCase
     public function testNewXlsxConditionalFormattingDataBar(): void
     {
         // Make sure blanks/non-blanks added by PhpSpreadsheet are handled correctly
-        $outfile = tempnam(File::sysGetTempDir(), 'phpspreadsheet-test');
+        $outfile = File::temporaryFilename();
         $spreadshee1 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadshee1->getActiveSheet();
         $sheet->setCellValue('A1', 1);

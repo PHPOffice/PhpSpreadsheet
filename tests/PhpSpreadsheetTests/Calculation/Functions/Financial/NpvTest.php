@@ -24,7 +24,7 @@ class NpvTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerNPV()
+    public function providerNPV(): array
     {
         return require 'tests/data/Calculation/Financial/NPV.php';
     }

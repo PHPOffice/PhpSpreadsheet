@@ -1,0 +1,54 @@
+<?php
+
+namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
+
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PHPUnit\Framework\TestCase;
+
+class IsNaTest extends TestCase
+{
+    public function testIsNaNoArgument(): void
+    {
+        $result = Functions::isNa();
+        self::assertFalse($result);
+    }
+
+    /**
+     * @dataProvider providerIsNa
+     *
+     * @param mixed $value
+     */
+    public function testIsNa(bool $expectedResult, $value): void
+    {
+        $result = Functions::isNa($value);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerIsNa(): array
+    {
+        return require 'tests/data/Calculation/Information/IS_NA.php';
+    }
+
+    /**
+     * @dataProvider providerIsNaArray
+     */
+    public function testIsNaArray(array $expectedResult, string $values): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=ISNA({$values})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerIsNaArray(): array
+    {
+        return [
+            'vector' => [
+                [[false, false, true, false, false, false]],
+                '{5/0, "#REF!", "#N/A", 1.2, TRUE, "PHP"}',
+            ],
+        ];
+    }
+}

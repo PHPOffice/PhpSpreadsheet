@@ -10,24 +10,29 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class NamedExpressions
 {
+    /** @var XMLWriter */
     private $objWriter;
 
+    /** @var Spreadsheet */
     private $spreadsheet;
 
+    /** @var Formula */
     private $formulaConvertor;
 
-    public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet, $formulaConvertor)
+    public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet, Formula $formulaConvertor)
     {
         $this->objWriter = $objWriter;
         $this->spreadsheet = $spreadsheet;
         $this->formulaConvertor = $formulaConvertor;
     }
 
-    public function write(): void
+    public function write(): string
     {
         $this->objWriter->startElement('table:named-expressions');
         $this->writeExpressions();
         $this->objWriter->endElement();
+
+        return '';
     }
 
     private function writeExpressions(): void
@@ -49,23 +54,29 @@ class NamedExpressions
 
     private function writeNamedFormula(DefinedName $definedName, Worksheet $defaultWorksheet): void
     {
+        $title = ($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle();
         $this->objWriter->writeAttribute('table:name', $definedName->getName());
         $this->objWriter->writeAttribute(
             'table:expression',
-            $this->formulaConvertor->convertFormula($definedName->getValue(), $definedName->getWorksheet()->getTitle())
+            $this->formulaConvertor->convertFormula($definedName->getValue(), $title)
         );
         $this->objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
             $definedName,
-            "'" . (($definedName->getWorksheet() !== null) ? $definedName->getWorksheet()->getTitle() : $defaultWorksheet->getTitle()) . "'!\$A\$1"
+            "'" . $title . "'!\$A\$1"
         ));
     }
 
     private function writeNamedRange(DefinedName $definedName): void
     {
+        $baseCell = '$A$1';
+        $ws = $definedName->getWorksheet();
+        if ($ws !== null) {
+            $baseCell = "'" . $ws->getTitle() . "'!$baseCell";
+        }
         $this->objWriter->writeAttribute('table:name', $definedName->getName());
         $this->objWriter->writeAttribute('table:base-cell-address', $this->convertAddress(
             $definedName,
-            "'" . $definedName->getWorksheet()->getTitle() . "'!\$A\$1"
+            $baseCell
         ));
         $this->objWriter->writeAttribute('table:cell-range-address', $this->convertAddress($definedName, $definedName->getValue()));
     }
@@ -98,7 +109,10 @@ class NamedExpressions
             if (empty($worksheet)) {
                 if (($offset === 0) || ($address[$offset - 1] !== ':')) {
                     // We need a worksheet
-                    $worksheet = $definedName->getWorksheet()->getTitle();
+                    $ws = $definedName->getWorksheet();
+                    if ($ws !== null) {
+                        $worksheet = $ws->getTitle();
+                    }
                 }
             } else {
                 $worksheet = str_replace("''", "'", trim($worksheet, "'"));

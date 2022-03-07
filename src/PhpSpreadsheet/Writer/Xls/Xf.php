@@ -3,11 +3,12 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Style\CellAlignment;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Style\CellBorder;
+use PhpOffice\PhpSpreadsheet\Writer\Xls\Style\CellFill;
 
 // Original file header of PEAR::Spreadsheet_Excel_Writer_Format (used as the base for this class):
 // -----------------------------------------------------------------------------------------
@@ -116,6 +117,21 @@ class Xf
     private $rightBorderColor;
 
     /**
+     * @var int
+     */
+    private $diag;
+
+    /**
+     * @var int
+     */
+    private $diagColor;
+
+    /**
+     * @var Style
+     */
+    private $style;
+
+    /**
      * Constructor.
      *
      * @param Style $style The XF format
@@ -132,14 +148,14 @@ class Xf
         $this->foregroundColor = 0x40;
         $this->backgroundColor = 0x41;
 
-        $this->_diag = 0;
+        $this->diag = 0;
 
         $this->bottomBorderColor = 0x40;
         $this->topBorderColor = 0x40;
         $this->leftBorderColor = 0x40;
         $this->rightBorderColor = 0x40;
-        $this->_diag_color = 0x40;
-        $this->_style = $style;
+        $this->diagColor = 0x40;
+        $this->style = $style;
     }
 
     /**
@@ -153,39 +169,39 @@ class Xf
         if ($this->isStyleXf) {
             $style = 0xFFF5;
         } else {
-            $style = self::mapLocked($this->_style->getProtection()->getLocked());
-            $style |= self::mapHidden($this->_style->getProtection()->getHidden()) << 1;
+            $style = self::mapLocked($this->style->getProtection()->getLocked());
+            $style |= self::mapHidden($this->style->getProtection()->getHidden()) << 1;
         }
 
         // Flags to indicate if attributes have been set.
         $atr_num = ($this->numberFormatIndex != 0) ? 1 : 0;
         $atr_fnt = ($this->fontIndex != 0) ? 1 : 0;
-        $atr_alc = ((int) $this->_style->getAlignment()->getWrapText()) ? 1 : 0;
-        $atr_bdr = (self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())) ? 1 : 0;
+        $atr_alc = ((int) $this->style->getAlignment()->getWrapText()) ? 1 : 0;
+        $atr_bdr = (CellBorder::style($this->style->getBorders()->getBottom()) ||
+            CellBorder::style($this->style->getBorders()->getTop()) ||
+            CellBorder::style($this->style->getBorders()->getLeft()) ||
+            CellBorder::style($this->style->getBorders()->getRight())) ? 1 : 0;
         $atr_pat = ($this->foregroundColor != 0x40) ? 1 : 0;
         $atr_pat = ($this->backgroundColor != 0x41) ? 1 : $atr_pat;
-        $atr_pat = self::mapFillType($this->_style->getFill()->getFillType()) ? 1 : $atr_pat;
-        $atr_prot = self::mapLocked($this->_style->getProtection()->getLocked())
-                        | self::mapHidden($this->_style->getProtection()->getHidden());
+        $atr_pat = CellFill::style($this->style->getFill()) ? 1 : $atr_pat;
+        $atr_prot = self::mapLocked($this->style->getProtection()->getLocked())
+            | self::mapHidden($this->style->getProtection()->getHidden());
 
         // Zero the default border colour if the border has not been set.
-        if (self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) == 0) {
+        if (CellBorder::style($this->style->getBorders()->getBottom()) == 0) {
             $this->bottomBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) == 0) {
+        if (CellBorder::style($this->style->getBorders()->getTop()) == 0) {
             $this->topBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()) == 0) {
+        if (CellBorder::style($this->style->getBorders()->getRight()) == 0) {
             $this->rightBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) == 0) {
+        if (CellBorder::style($this->style->getBorders()->getLeft()) == 0) {
             $this->leftBorderColor = 0;
         }
-        if (self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) == 0) {
-            $this->_diag_color = 0;
+        if (CellBorder::style($this->style->getBorders()->getDiagonal()) == 0) {
+            $this->diagColor = 0;
         }
 
         $record = 0x00E0; // Record identifier
@@ -194,9 +210,10 @@ class Xf
         $ifnt = $this->fontIndex; // Index to FONT record
         $ifmt = $this->numberFormatIndex; // Index to FORMAT record
 
-        $align = $this->mapHAlign($this->_style->getAlignment()->getHorizontal()); // Alignment
-        $align |= (int) $this->_style->getAlignment()->getWrapText() << 3;
-        $align |= self::mapVAlign($this->_style->getAlignment()->getVertical()) << 4;
+        // Alignment
+        $align = CellAlignment::horizontal($this->style->getAlignment());
+        $align |= CellAlignment::wrap($this->style->getAlignment()) << 3;
+        $align |= CellAlignment::vertical($this->style->getAlignment()) << 4;
         $align |= $this->textJustLast << 7;
 
         $used_attrib = $atr_num << 2;
@@ -209,35 +226,35 @@ class Xf
         $icv = $this->foregroundColor; // fg and bg pattern colors
         $icv |= $this->backgroundColor << 7;
 
-        $border1 = self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()); // Border line style and color
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()) << 4;
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) << 8;
-        $border1 |= self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) << 12;
+        $border1 = CellBorder::style($this->style->getBorders()->getLeft()); // Border line style and color
+        $border1 |= CellBorder::style($this->style->getBorders()->getRight()) << 4;
+        $border1 |= CellBorder::style($this->style->getBorders()->getTop()) << 8;
+        $border1 |= CellBorder::style($this->style->getBorders()->getBottom()) << 12;
         $border1 |= $this->leftBorderColor << 16;
         $border1 |= $this->rightBorderColor << 23;
 
-        $diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
+        $diagonalDirection = $this->style->getBorders()->getDiagonalDirection();
         $diag_tl_to_rb = $diagonalDirection == Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == Borders::DIAGONAL_DOWN;
+            || $diagonalDirection == Borders::DIAGONAL_DOWN;
         $diag_tr_to_lb = $diagonalDirection == Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == Borders::DIAGONAL_UP;
+            || $diagonalDirection == Borders::DIAGONAL_UP;
         $border1 |= $diag_tl_to_rb << 30;
         $border1 |= $diag_tr_to_lb << 31;
 
         $border2 = $this->topBorderColor; // Border color
         $border2 |= $this->bottomBorderColor << 7;
-        $border2 |= $this->_diag_color << 14;
-        $border2 |= self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) << 21;
-        $border2 |= self::mapFillType($this->_style->getFill()->getFillType()) << 26;
+        $border2 |= $this->diagColor << 14;
+        $border2 |= CellBorder::style($this->style->getBorders()->getDiagonal()) << 21;
+        $border2 |= CellFill::style($this->style->getFill()) << 26;
 
         $header = pack('vv', $record, $length);
 
         //BIFF8 options: identation, shrinkToFit and  text direction
-        $biff8_options = $this->_style->getAlignment()->getIndent();
-        $biff8_options |= (int) $this->_style->getAlignment()->getShrinkToFit() << 4;
+        $biff8_options = $this->style->getAlignment()->getIndent();
+        $biff8_options |= (int) $this->style->getAlignment()->getShrinkToFit() << 4;
 
         $data = pack('vvvC', $ifnt, $ifmt, $style, $align);
-        $data .= pack('CCC', self::mapTextRotation($this->_style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
+        $data .= pack('CCC', self::mapTextRotation($this->style->getAlignment()->getTextRotation()), $biff8_options, $used_attrib);
         $data .= pack('VVv', $border1, $border2, $icv);
 
         return $header . $data;
@@ -300,7 +317,7 @@ class Xf
      */
     public function setDiagColor($colorIndex): void
     {
-        $this->_diag_color = $colorIndex;
+        $this->diagColor = $colorIndex;
     }
 
     /**
@@ -342,132 +359,6 @@ class Xf
     public function setFontIndex($value): void
     {
         $this->fontIndex = $value;
-    }
-
-    /**
-     * Map of BIFF2-BIFF8 codes for border styles.
-     *
-     * @var array of int
-     */
-    private static $mapBorderStyles = [
-        Border::BORDER_NONE => 0x00,
-        Border::BORDER_THIN => 0x01,
-        Border::BORDER_MEDIUM => 0x02,
-        Border::BORDER_DASHED => 0x03,
-        Border::BORDER_DOTTED => 0x04,
-        Border::BORDER_THICK => 0x05,
-        Border::BORDER_DOUBLE => 0x06,
-        Border::BORDER_HAIR => 0x07,
-        Border::BORDER_MEDIUMDASHED => 0x08,
-        Border::BORDER_DASHDOT => 0x09,
-        Border::BORDER_MEDIUMDASHDOT => 0x0A,
-        Border::BORDER_DASHDOTDOT => 0x0B,
-        Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
-        Border::BORDER_SLANTDASHDOT => 0x0D,
-    ];
-
-    /**
-     * Map border style.
-     *
-     * @param string $borderStyle
-     *
-     * @return int
-     */
-    private static function mapBorderStyle($borderStyle)
-    {
-        return self::$mapBorderStyles[$borderStyle] ?? 0;
-    }
-
-    /**
-     * Map of BIFF2-BIFF8 codes for fill types.
-     *
-     * @var array of int
-     */
-    private static $mapFillTypes = [
-        Fill::FILL_NONE => 0x00,
-        Fill::FILL_SOLID => 0x01,
-        Fill::FILL_PATTERN_MEDIUMGRAY => 0x02,
-        Fill::FILL_PATTERN_DARKGRAY => 0x03,
-        Fill::FILL_PATTERN_LIGHTGRAY => 0x04,
-        Fill::FILL_PATTERN_DARKHORIZONTAL => 0x05,
-        Fill::FILL_PATTERN_DARKVERTICAL => 0x06,
-        Fill::FILL_PATTERN_DARKDOWN => 0x07,
-        Fill::FILL_PATTERN_DARKUP => 0x08,
-        Fill::FILL_PATTERN_DARKGRID => 0x09,
-        Fill::FILL_PATTERN_DARKTRELLIS => 0x0A,
-        Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
-        Fill::FILL_PATTERN_LIGHTVERTICAL => 0x0C,
-        Fill::FILL_PATTERN_LIGHTDOWN => 0x0D,
-        Fill::FILL_PATTERN_LIGHTUP => 0x0E,
-        Fill::FILL_PATTERN_LIGHTGRID => 0x0F,
-        Fill::FILL_PATTERN_LIGHTTRELLIS => 0x10,
-        Fill::FILL_PATTERN_GRAY125 => 0x11,
-        Fill::FILL_PATTERN_GRAY0625 => 0x12,
-        Fill::FILL_GRADIENT_LINEAR => 0x00, // does not exist in BIFF8
-        Fill::FILL_GRADIENT_PATH => 0x00, // does not exist in BIFF8
-    ];
-
-    /**
-     * Map fill type.
-     *
-     * @param string $fillType
-     *
-     * @return int
-     */
-    private static function mapFillType($fillType)
-    {
-        return self::$mapFillTypes[$fillType] ?? 0;
-    }
-
-    /**
-     * Map of BIFF2-BIFF8 codes for horizontal alignment.
-     *
-     * @var array of int
-     */
-    private static $mapHAlignments = [
-        Alignment::HORIZONTAL_GENERAL => 0,
-        Alignment::HORIZONTAL_LEFT => 1,
-        Alignment::HORIZONTAL_CENTER => 2,
-        Alignment::HORIZONTAL_RIGHT => 3,
-        Alignment::HORIZONTAL_FILL => 4,
-        Alignment::HORIZONTAL_JUSTIFY => 5,
-        Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
-    ];
-
-    /**
-     * Map to BIFF2-BIFF8 codes for horizontal alignment.
-     *
-     * @param string $hAlign
-     *
-     * @return int
-     */
-    private function mapHAlign($hAlign)
-    {
-        return self::$mapHAlignments[$hAlign] ?? 0;
-    }
-
-    /**
-     * Map of BIFF2-BIFF8 codes for vertical alignment.
-     *
-     * @var array of int
-     */
-    private static $mapVAlignments = [
-        Alignment::VERTICAL_TOP => 0,
-        Alignment::VERTICAL_CENTER => 1,
-        Alignment::VERTICAL_BOTTOM => 2,
-        Alignment::VERTICAL_JUSTIFY => 3,
-    ];
-
-    /**
-     * Map to BIFF2-BIFF8 codes for vertical alignment.
-     *
-     * @param string $vAlign
-     *
-     * @return int
-     */
-    private static function mapVAlign($vAlign)
-    {
-        return self::$mapVAlignments[$vAlign] ?? 2;
     }
 
     /**

@@ -2,11 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as SpException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Protection;
 
 class PasswordHasher
 {
+    const MAX_PASSWORD_LENGTH = 255;
+
     /**
      * Get algorithm name for PHP.
      */
@@ -34,36 +36,40 @@ class PasswordHasher
             return $mapping[$algorithmName];
         }
 
-        throw new Exception('Unsupported password algorithm: ' . $algorithmName);
+        throw new SpException('Unsupported password algorithm: ' . $algorithmName);
     }
 
     /**
      * Create a password hash from a given string.
      *
-     * This method is based on the algorithm provided by
+     * This method is based on the spec at:
+     * https://interoperability.blob.core.windows.net/files/MS-OFFCRYPTO/[MS-OFFCRYPTO].pdf
+     * 2.3.7.1 Binary Document Password Verifier Derivation Method 1
+     *
+     * It replaces a method based on the algorithm provided by
      * Daniel Rentz of OpenOffice and the PEAR package
      * Spreadsheet_Excel_Writer by Xavier Noguer <xnoguer@rezebra.com>.
      *
-     * @param string $pPassword Password to hash
+     * Scrutinizer will squawk at the use of bitwise operations here,
+     * but it should ultimately pass.
+     *
+     * @param string $password Password to hash
      */
-    private static function defaultHashPassword(string $pPassword): string
+    private static function defaultHashPassword(string $password): string
     {
-        $password = 0x0000;
-        $charPos = 1; // char position
-
-        // split the plain text password in its component characters
-        $chars = preg_split('//', $pPassword, -1, PREG_SPLIT_NO_EMPTY);
-        foreach ($chars as $char) {
-            $value = ord($char) << $charPos++; // shifted ASCII value
-            $rotated_bits = $value >> 15; // rotated bits beyond bit 15
-            $value &= 0x7fff; // first 15 bits
-            $password ^= ($value | $rotated_bits);
+        $verifier = 0;
+        $pwlen = strlen($password);
+        $passwordArray = pack('c', $pwlen) . $password;
+        for ($i = $pwlen; $i >= 0; --$i) {
+            $intermediate1 = (($verifier & 0x4000) === 0) ? 0 : 1;
+            $intermediate2 = 2 * $verifier;
+            $intermediate2 = $intermediate2 & 0x7fff;
+            $intermediate3 = $intermediate1 | $intermediate2;
+            $verifier = $intermediate3 ^ ord($passwordArray[$i]);
         }
+        $verifier ^= 0xCE4B;
 
-        $password ^= strlen($pPassword);
-        $password ^= 0xCE4B;
-
-        return strtoupper(dechex($password));
+        return strtoupper(dechex($verifier));
     }
 
     /**
@@ -82,6 +88,9 @@ class PasswordHasher
      */
     public static function hashPassword(string $password, string $algorithm = '', string $salt = '', int $spinCount = 10000): string
     {
+        if (strlen($password) > self::MAX_PASSWORD_LENGTH) {
+            throw new SpException('Password exceeds ' . self::MAX_PASSWORD_LENGTH . ' characters');
+        }
         $phpAlgorithm = self::getAlgorithm($algorithm);
         if (!$phpAlgorithm) {
             return self::defaultHashPassword($password);

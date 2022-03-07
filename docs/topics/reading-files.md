@@ -256,7 +256,7 @@ $sheetname = 'Data Sheet #3';
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
 class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Read rows 1 to 7 and columns A to E only
         if ($row >= 1 && $row <= 7) {
             if (in_array($column,range('A','E'))) {
@@ -301,7 +301,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
         $this->columns  = $columns;
     }
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Only read the rows and columns that were configured
         if ($row >= $this->startRow && $row <= $this->endRow) {
             if (in_array($column,$this->columns)) {
@@ -324,6 +324,10 @@ to read and process a large workbook in "chunks": an example of this
 usage might be when transferring data from an Excel worksheet to a
 database.
 
+Read Filtering does not renumber cell rows and columns. If you filter to read only rows 100-200, cells that you read will still be numbered A100-A200, not A1-A101. Cells A1-A99 will not be loaded, but if you then try to call `getCell()` for a cell outside your loaded range, then PHPSpreadsheet will create a new cell with a null value.
+
+Methods such as `toArray()` assume that all cells in a spreadsheet has been loaded from A1, so will return null values for rows and columns that fall outside your filter range: it is recommended that you keep track of the range that your filter has requested, and use `rangeToArray()` instead.
+
 ```php
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
@@ -340,7 +344,7 @@ class ChunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
         $this->endRow   = $startRow + $chunkSize;
     }
 
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Only read the heading row, and the configured rows
         if (($row == 1) || ($row >= $this->startRow && $row < $this->endRow)) {
             return true;
@@ -549,6 +553,44 @@ setEnclosure()     | `"`
 setInputEncoding() | `UTF-8`
 
 Setting CSV delimiter applies to:
+
+Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
+----------|:---:|--------|:---:|--------------|:---:|
+Xlsx      | NO  | Xls    | NO  | Xml | NO  |
+Ods       | NO  | SYLK   | NO  | Gnumeric     | NO  |
+CSV       | YES | HTML   | NO
+
+
+### Reading formatted Numbers from a CSV File
+
+Unfortunately, numbers in a CSV file may be formatted as strings.
+If that number is a simple integer or float (with a decimal `.` separator) without any thousands separator, then it will be treated as a number.
+However, if the value has a thousands separator (e.g. `12,345`), or a decimal separator that isn't a `.` (e.g. `123,45` for a European locale), then it will be loaded as a string with that formatting.
+If you want the Csv Reader to convert that value to a numeric when it loads the file, the you need to tell it to do so. The `castFormattedNumberToNumeric()` lets you do this.
+
+(Assuming that our server is configured with German locale settings: otherwise it may be necessary to call `setlocale()` before loading the file.)
+```php
+$inputFileType = 'Csv';
+$inputFileName = './sampleData/example1.de.csv';
+
+/** It may be necessary to call setlocale() first if this is not your default locale  */
+// setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu');
+
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Enable loading numeric values formatted with German , decimal separator and . thousands separator  **/
+$reader->castFormattedNumberToNumeric(true);
+
+/**  Load the file to a Spreadsheet Object  **/
+$spreadsheet = $reader->load($inputFileName);
+```
+This will attempt to load those formatted numeric values as numbers, based on the server's locale settings.
+
+If you want to load those values as numbers, but also to retain the formatting as a number format mask, then you can pass a boolean `true` as a second argument to the `castFormattedNumberToNumeric()` method to tell the Reader to identify the format masking to use for that value. This option does have an arbitrary limit of 6 decimal places.
+
+If your Csv file includes other formats for numbers (currencies, scientific format, etc); then you should probably also use the Advanced Value Binder to handle these cases.  
+
+Applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|

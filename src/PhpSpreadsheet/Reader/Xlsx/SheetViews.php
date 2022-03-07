@@ -3,23 +3,31 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
 class SheetViews extends BaseParserClass
 {
+    /** @var SimpleXMLElement */
     private $sheetViewXml;
 
+    /** @var SimpleXMLElement */
+    private $sheetViewAttributes;
+
+    /** @var Worksheet */
     private $worksheet;
 
     public function __construct(SimpleXMLElement $sheetViewXml, Worksheet $workSheet)
     {
         $this->sheetViewXml = $sheetViewXml;
+        $this->sheetViewAttributes = Xlsx::testSimpleXml($sheetViewXml->attributes());
         $this->worksheet = $workSheet;
     }
 
     public function load(): void
     {
+        $this->topLeft();
         $this->zoomScale();
         $this->view();
         $this->gridLines();
@@ -30,15 +38,15 @@ class SheetViews extends BaseParserClass
         if (isset($this->sheetViewXml->pane)) {
             $this->pane();
         }
-        if (isset($this->sheetViewXml->selection, $this->sheetViewXml->selection['sqref'])) {
+        if (isset($this->sheetViewXml->selection, $this->sheetViewXml->selection->attributes()->sqref)) {
             $this->selection();
         }
     }
 
     private function zoomScale(): void
     {
-        if (isset($this->sheetViewXml['zoomScale'])) {
-            $zoomScale = (int) ($this->sheetViewXml['zoomScale']);
+        if (isset($this->sheetViewAttributes->zoomScale)) {
+            $zoomScale = (int) ($this->sheetViewAttributes->zoomScale);
             if ($zoomScale <= 0) {
                 // setZoomScale will throw an Exception if the scale is less than or equals 0
                 // that is OK when manually creating documents, but we should be able to read all documents
@@ -48,8 +56,8 @@ class SheetViews extends BaseParserClass
             $this->worksheet->getSheetView()->setZoomScale($zoomScale);
         }
 
-        if (isset($this->sheetViewXml['zoomScaleNormal'])) {
-            $zoomScaleNormal = (int) ($this->sheetViewXml['zoomScaleNormal']);
+        if (isset($this->sheetViewAttributes->zoomScaleNormal)) {
+            $zoomScaleNormal = (int) ($this->sheetViewAttributes->zoomScaleNormal);
             if ($zoomScaleNormal <= 0) {
                 // setZoomScaleNormal will throw an Exception if the scale is less than or equals 0
                 // that is OK when manually creating documents, but we should be able to read all documents
@@ -62,43 +70,50 @@ class SheetViews extends BaseParserClass
 
     private function view(): void
     {
-        if (isset($this->sheetViewXml['view'])) {
-            $this->worksheet->getSheetView()->setView((string) $this->sheetViewXml['view']);
+        if (isset($this->sheetViewAttributes->view)) {
+            $this->worksheet->getSheetView()->setView((string) $this->sheetViewAttributes->view);
+        }
+    }
+
+    private function topLeft(): void
+    {
+        if (isset($this->sheetViewAttributes->topLeftCell)) {
+            $this->worksheet->setTopLeftCell($this->sheetViewAttributes->topLeftCell);
         }
     }
 
     private function gridLines(): void
     {
-        if (isset($this->sheetViewXml['showGridLines'])) {
+        if (isset($this->sheetViewAttributes->showGridLines)) {
             $this->worksheet->setShowGridLines(
-                self::boolean((string) $this->sheetViewXml['showGridLines'])
+                self::boolean((string) $this->sheetViewAttributes->showGridLines)
             );
         }
     }
 
     private function headers(): void
     {
-        if (isset($this->sheetViewXml['showRowColHeaders'])) {
+        if (isset($this->sheetViewAttributes->showRowColHeaders)) {
             $this->worksheet->setShowRowColHeaders(
-                self::boolean((string) $this->sheetViewXml['showRowColHeaders'])
+                self::boolean((string) $this->sheetViewAttributes->showRowColHeaders)
             );
         }
     }
 
     private function direction(): void
     {
-        if (isset($this->sheetViewXml['rightToLeft'])) {
+        if (isset($this->sheetViewAttributes->rightToLeft)) {
             $this->worksheet->setRightToLeft(
-                self::boolean((string) $this->sheetViewXml['rightToLeft'])
+                self::boolean((string) $this->sheetViewAttributes->rightToLeft)
             );
         }
     }
 
     private function showZeros(): void
     {
-        if (isset($this->sheetViewXml['showZeros'])) {
+        if (isset($this->sheetViewAttributes->showZeros)) {
             $this->worksheet->getSheetView()->setShowZeros(
-                self::boolean((string) $this->sheetViewXml['showZeros'])
+                self::boolean((string) $this->sheetViewAttributes->showZeros)
             );
         }
     }
@@ -108,17 +123,18 @@ class SheetViews extends BaseParserClass
         $xSplit = 0;
         $ySplit = 0;
         $topLeftCell = null;
+        $paneAttributes = $this->sheetViewXml->pane->attributes();
 
-        if (isset($this->sheetViewXml->pane['xSplit'])) {
-            $xSplit = (int) ($this->sheetViewXml->pane['xSplit']);
+        if (isset($paneAttributes->xSplit)) {
+            $xSplit = (int) ($paneAttributes->xSplit);
         }
 
-        if (isset($this->sheetViewXml->pane['ySplit'])) {
-            $ySplit = (int) ($this->sheetViewXml->pane['ySplit']);
+        if (isset($paneAttributes->ySplit)) {
+            $ySplit = (int) ($paneAttributes->ySplit);
         }
 
-        if (isset($this->sheetViewXml->pane['topLeftCell'])) {
-            $topLeftCell = (string) $this->sheetViewXml->pane['topLeftCell'];
+        if (isset($paneAttributes->topLeftCell)) {
+            $topLeftCell = (string) $paneAttributes->topLeftCell;
         }
 
         $this->worksheet->freezePane(
@@ -129,10 +145,12 @@ class SheetViews extends BaseParserClass
 
     private function selection(): void
     {
-        $sqref = (string) $this->sheetViewXml->selection['sqref'];
-        $sqref = explode(' ', $sqref);
-        $sqref = $sqref[0];
-
-        $this->worksheet->setSelectedCells($sqref);
+        $attributes = $this->sheetViewXml->selection->attributes();
+        if ($attributes !== null) {
+            $sqref = (string) $attributes->sqref;
+            $sqref = explode(' ', $sqref);
+            $sqref = $sqref[0];
+            $this->worksheet->setSelectedCells($sqref);
+        }
     }
 }

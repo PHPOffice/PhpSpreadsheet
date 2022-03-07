@@ -2,10 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ErfC
 {
+    use ArrayEnabled;
+
     /**
      * ERFC.
      *
@@ -19,19 +23,24 @@ class ErfC
      *    Excel Function:
      *        ERFC(x)
      *
-     * @param float $value The lower bound for integrating ERFC
+     * @param mixed $value The float lower bound for integrating ERFC
+     *                      Or can be an array of values
      *
-     * @return float|string
+     * @return array|float|string
+     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     *            with the same dimensions
      */
     public static function ERFC($value)
     {
-        $value = Functions::flattenSingleValue($value);
+        if (is_array($value)) {
+            return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
+        }
 
         if (is_numeric($value)) {
             return self::erfcValue($value);
         }
 
-        return Functions::VALUE();
+        return ExcelError::VALUE();
     }
 
     //
@@ -45,7 +54,7 @@ class ErfC
             return 1 - Erf::erfValue($value);
         }
         if ($value < 0) {
-            return 2 - self::ERFC(-$value);
+            return 2 - self::erfcValue(-$value);
         }
         $a = $n = 1;
         $b = $c = $value;

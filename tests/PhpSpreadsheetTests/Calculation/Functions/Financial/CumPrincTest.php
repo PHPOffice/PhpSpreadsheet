@@ -24,7 +24,7 @@ class CumPrincTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCUMPRINC()
+    public function providerCUMPRINC(): array
     {
         return require 'tests/data/Calculation/Financial/CUMPRINC.php';
     }

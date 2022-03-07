@@ -41,14 +41,15 @@ class FontTest extends TestCase
      * @dataProvider providerFontSizeToPixels
      *
      * @param mixed $expectedResult
+     * @param mixed $size
      */
-    public function testFontSizeToPixels($expectedResult, ...$args): void
+    public function testFontSizeToPixels($expectedResult, $size): void
     {
-        $result = Font::fontSizeToPixels(...$args);
+        $result = Font::fontSizeToPixels($size);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFontSizeToPixels()
+    public function providerFontSizeToPixels(): array
     {
         return require 'tests/data/Shared/FontSizeToPixels.php';
     }
@@ -57,14 +58,15 @@ class FontTest extends TestCase
      * @dataProvider providerInchSizeToPixels
      *
      * @param mixed $expectedResult
+     * @param mixed $size
      */
-    public function testInchSizeToPixels($expectedResult, ...$args): void
+    public function testInchSizeToPixels($expectedResult, $size): void
     {
-        $result = Font::inchSizeToPixels(...$args);
+        $result = Font::inchSizeToPixels($size);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerInchSizeToPixels()
+    public function providerInchSizeToPixels(): array
     {
         return require 'tests/data/Shared/InchSizeToPixels.php';
     }
@@ -73,14 +75,15 @@ class FontTest extends TestCase
      * @dataProvider providerCentimeterSizeToPixels
      *
      * @param mixed $expectedResult
+     * @param mixed $size
      */
-    public function testCentimeterSizeToPixels($expectedResult, ...$args): void
+    public function testCentimeterSizeToPixels($expectedResult, $size): void
     {
-        $result = Font::centimeterSizeToPixels(...$args);
+        $result = Font::centimeterSizeToPixels($size);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCentimeterSizeToPixels()
+    public function providerCentimeterSizeToPixels(): array
     {
         return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }

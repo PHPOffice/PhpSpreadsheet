@@ -2,45 +2,58 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week;
 
-class WeekDayTest extends TestCase
+class WeekDayTest extends AllSetupTeardown
 {
-    private $excelCalendar;
-
-    protected function setUp(): void
-    {
-        $this->excelCalendar = Date::getExcelCalendar();
-    }
-
-    protected function tearDown(): void
-    {
-        Date::setExcelCalendar($this->excelCalendar);
-    }
-
     /**
      * @dataProvider providerWEEKDAY
      *
      * @param mixed $expectedResult
      */
-    public function testWEEKDAY($expectedResult, ...$args): void
+    public function testWEEKDAY($expectedResult, string $formula): void
     {
-        $result = DateTime::WEEKDAY(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $sheet->getCell('B1')->setValue('1954-11-23');
+        $sheet->getCell('A1')->setValue("=WEEKDAY($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerWEEKDAY()
+    public function providerWEEKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 
     public function testWEEKDAYwith1904Calendar(): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
-        self::assertEquals(7, DateTime::WEEKDAY('1904-01-02'));
-        self::assertEquals(6, DateTime::WEEKDAY('1904-01-01'));
-        self::assertEquals(6, DateTime::WEEKDAY(null));
+        self::setMac1904();
+        self::assertEquals(7, Week::day('1904-01-02'));
+        self::assertEquals(6, Week::day('1904-01-01'));
+        self::assertEquals(6, Week::day(null));
+    }
+
+    /**
+     * @dataProvider providerWeekDayArray
+     */
+    public function testWeekDayArray(array $expectedResult, string $dateValues, string $styles): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=WEEKDAY({$dateValues}, {$styles})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerWeekDayArray(): array
+    {
+        return [
+            'row vector #1' => [[[7, 1, 7]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '1'],
+            'column vector #1' => [[[1], [7], [7]], '{"2023-01-01"; "2023-04-01"; "2023-07-01"}', '1'],
+            'matrix #1' => [[[6, 6], [1, 1]], '{"2021-01-01", "2021-12-31"; "2023-01-01", "2023-12-31"}', '1'],
+            'row vector #2' => [[[7, 6]], '"2022-01-01"', '{1, 2}'],
+            'column vector #2' => [[[1], [7]], '"2023-01-01"', '{1; 2}'],
+        ];
     }
 }

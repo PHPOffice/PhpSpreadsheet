@@ -2,11 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
-class IntTest extends TestCase
+class IntTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINT
@@ -16,11 +14,8 @@ class IntTest extends TestCase
      */
     public function testINT($expectedResult, $formula): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
         $sheet->setCellValue('A2', 1.3);
         $sheet->setCellValue('A3', 2.7);
         $sheet->setCellValue('A4', -3.8);
@@ -30,8 +25,29 @@ class IntTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerINT()
+    public function providerINT(): array
     {
         return require 'tests/data/Calculation/MathTrig/INT.php';
+    }
+
+    /**
+     * @dataProvider providerIntArray
+     */
+    public function testIntArray(array $expectedResult, string $array): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=INT({$array})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+    }
+
+    public function providerIntArray(): array
+    {
+        return [
+            'row vector' => [[[-2, 0, 0]], '{-1.5, 0, 0.3}'],
+            'column vector' => [[[-2], [0], [0]], '{-1.5; 0; 0.3}'],
+            'matrix' => [[[-2, 0], [0, 12]], '{-1.5, 0; 0.3, 12.5}'],
+        ];
     }
 }

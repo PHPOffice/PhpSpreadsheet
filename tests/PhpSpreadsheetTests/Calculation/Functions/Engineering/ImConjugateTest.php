@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
@@ -14,17 +15,12 @@ class ImConjugateTest extends TestCase
     /**
      * @var ComplexAssert
      */
-    protected $complexAssert;
+    private $complexAssert;
 
     protected function setUp(): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->complexAssert = null;
     }
 
     /**
@@ -42,8 +38,35 @@ class ImConjugateTest extends TestCase
         );
     }
 
-    public function providerIMCONJUGATE()
+    public function providerIMCONJUGATE(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
+    }
+
+    /**
+     * @dataProvider providerImConjugateArray
+     */
+    public function testImConjugateArray(array $expectedResult, string $complex): void
+    {
+        $calculation = Calculation::getInstance();
+
+        $formula = "=IMCONJUGATE({$complex})";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerImConjugateArray(): array
+    {
+        return [
+            'row/column vector' => [
+                [
+                    ['-1+2.5i', '2.5i', '1+2.5i'],
+                    ['-1+i', 'i', '1+i'],
+                    ['-1-i', '-i', '1-i'],
+                    ['-1-2.5i', '-2.5i', '1-2.5i'],
+                ],
+                '{"-1-2.5i", "-2.5i", "1-2.5i"; "-1-i", "-i", "1-i"; "-1+i", "i", "1+1"; "-1+2.5i", "+2.5i", "1+2.5i"}',
+            ],
+        ];
     }
 }

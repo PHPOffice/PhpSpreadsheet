@@ -1,24 +1,20 @@
+############################################################
 ##
-## PhpSpreadsheet
+## PhpSpreadsheet - locale settings
 ##
-
-ArgumentSeparator	= ;
-
-
+## Français (French)
 ##
-##	(For future use)
-##
-currencySymbol	= €
+############################################################
 
+ArgumentSeparator = ;
 
 ##
-##	Excel Error Codes	(For future use)
-
+## Error Codes
 ##
-NULL	= #NUL!
-DIV0	= #DIV/0!
-VALUE	= #VALEUR!
-REF	= #REF!
-NAME	= #NOM?
-NUM	= #NOMBRE!
-NA	= #N/A
+NULL = #NUL!
+DIV0
+VALUE = #VALEUR!
+REF
+NAME = #NOM?
+NUM = #NOMBRE!
+NA

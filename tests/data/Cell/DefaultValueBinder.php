@@ -77,4 +77,8 @@ return [
         's',
         '123456\n',
     ],
+    'Numeric that exceeds PHP MAX_INT Size' => [
+        's',
+        '1234567890123459012345689012345690',
+    ],
 ];

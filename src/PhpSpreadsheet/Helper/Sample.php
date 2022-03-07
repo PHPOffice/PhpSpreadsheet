@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
@@ -71,7 +70,7 @@ class Sample
     /**
      * Returns an array of all known samples.
      *
-     * @return string[] [$name => $path]
+     * @return string[][] [$name => $path]
      */
     public function getSamples()
     {
@@ -119,17 +118,17 @@ class Sample
         foreach ($writers as $writerType) {
             $path = $this->getFilename($filename, mb_strtolower($writerType));
             $writer = IOFactory::createWriter($spreadsheet, $writerType);
-            if ($writer instanceof Pdf) {
-                // PDF writer needs temporary directory
-                $tempDir = $this->getTemporaryFolder();
-                $writer->setTempDir($tempDir);
-            }
             $callStartTime = microtime(true);
             $writer->save($path);
             $this->logWrite($writer, $path, $callStartTime);
         }
 
         $this->logEndingNotes();
+    }
+
+    protected function isDirOrMkdir(string $folder): bool
+    {
+        return \is_dir($folder) || \mkdir($folder);
     }
 
     /**
@@ -140,10 +139,8 @@ class Sample
     private function getTemporaryFolder()
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
-        if (!is_dir($tempFolder)) {
-            if (!mkdir($tempFolder) && !is_dir($tempFolder)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
-            }
+        if (!$this->isDirOrMkdir($tempFolder)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $tempFolder));
         }
 
         return $tempFolder;

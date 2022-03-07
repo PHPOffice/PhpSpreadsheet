@@ -46,8 +46,8 @@ class Root extends PPS
     private $bigBlockSize;
 
     /**
-     * @param int $time_1st A timestamp
-     * @param int $time_2nd A timestamp
+     * @param null|float|int $time_1st A timestamp
+     * @param null|float|int $time_2nd A timestamp
      * @param File[] $raChild
      */
     public function __construct($time_1st, $time_2nd, $raChild)
@@ -71,12 +71,12 @@ class Root extends PPS
         $this->fileHandle = $fileHandle;
 
         // Initial Setting for saving
-        $this->bigBlockSize = 2 ** (
+        $this->bigBlockSize = (int) (2 ** (
             (isset($this->bigBlockSize)) ? self::adjust2($this->bigBlockSize) : 9
-            );
-        $this->smallBlockSize = 2 ** (
+        ));
+        $this->smallBlockSize = (int) (2 ** (
             (isset($this->smallBlockSize)) ? self::adjust2($this->smallBlockSize) : 6
-            );
+        ));
 
         // Make an array of PPS's (for Save)
         $aList = [];
@@ -237,7 +237,7 @@ class Root extends PPS
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param int $iStBlk
-     * @param array &$raList Reference to array of PPS's
+     * @param array $raList Reference to array of PPS's
      */
     private function saveBigData($iStBlk, &$raList): void
     {
@@ -267,7 +267,7 @@ class Root extends PPS
     /**
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param array &$raList Reference to array of PPS's
+     * @param array $raList Reference to array of PPS's
      *
      * @return string
      */

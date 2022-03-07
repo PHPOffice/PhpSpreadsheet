@@ -24,7 +24,7 @@ class CoupDayBsTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerCOUPDAYBS()
+    public function providerCOUPDAYBS(): array
     {
         return require 'tests/data/Calculation/Financial/COUPDAYBS.php';
     }

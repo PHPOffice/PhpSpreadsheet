@@ -24,7 +24,7 @@ class SydTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerSYD()
+    public function providerSYD(): array
     {
         return require 'tests/data/Calculation/Financial/SYD.php';
     }

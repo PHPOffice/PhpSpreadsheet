@@ -34,7 +34,7 @@ class HyperlinkTest extends TestCase
     {
         $tooltipValue = 'PhpSpreadsheet Web Site';
 
-        $testInstance = new Hyperlink(null, $tooltipValue);
+        $testInstance = new Hyperlink('', $tooltipValue);
 
         $result = $testInstance->getTooltip();
         self::assertEquals($tooltipValue, $result);
@@ -45,7 +45,7 @@ class HyperlinkTest extends TestCase
         $initialTooltipValue = 'PhpSpreadsheet Web Site';
         $newTooltipValue = 'PhpSpreadsheet Repository on Github';
 
-        $testInstance = new Hyperlink(null, $initialTooltipValue);
+        $testInstance = new Hyperlink('', $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
         self::assertInstanceOf(Hyperlink::class, $result);
 

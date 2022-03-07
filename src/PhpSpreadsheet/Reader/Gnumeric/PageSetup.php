@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 
+use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageMargins;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup as WorksheetPageSetup;
@@ -14,21 +15,19 @@ class PageSetup
      */
     private $spreadsheet;
 
-    /**
-     * @var string
-     */
-    private $gnm;
-
-    public function __construct(Spreadsheet $spreadsheet, string $gnm)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
-        $this->gnm = $gnm;
     }
 
     public function printInformation(SimpleXMLElement $sheet): self
     {
         if (isset($sheet->PrintInformation)) {
             $printInformation = $sheet->PrintInformation[0];
+            if (!$printInformation) {
+                return $this;
+            }
+
             $scale = (string) $printInformation->Scale->attributes()['percentage'];
             $pageOrder = (string) $printInformation->order;
             $orientation = (string) $printInformation->orientation;
@@ -68,7 +67,7 @@ class PageSetup
 
     private function buildMarginSet(SimpleXMLElement $sheet, array $marginSet): array
     {
-        foreach ($sheet->PrintInformation->Margins->children($this->gnm, true) as $key => $margin) {
+        foreach ($sheet->PrintInformation->Margins->children(Gnumeric::NAMESPACE_GNM) as $key => $margin) {
             $marginAttributes = $margin->attributes();
             $marginSize = ($marginAttributes['Points']) ?? 72; //    Default is 72pt
             // Convert value in points to inches
