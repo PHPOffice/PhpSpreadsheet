@@ -532,7 +532,7 @@ class Cell
             return $formulaAttributes['ref'] ?? null;
         }
 
-        return null;
+        return $this->arrayFormulaRange;
     }
 
     /**
