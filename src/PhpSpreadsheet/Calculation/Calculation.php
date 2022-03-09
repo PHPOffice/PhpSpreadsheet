@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-use Matrix\Matrix;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
@@ -4545,32 +4544,28 @@ class Calculation
 
                         break;
                     case '+':            //    Addition
-//                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'plusEquals', $stack);
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'add', $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'plusEquals', $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
 
                         break;
                     case '-':            //    Subtraction
-//                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'minusEquals', $stack);
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'subtract', $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'minusEquals', $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
 
                         break;
                     case '*':            //    Multiplication
-//                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayTimesEquals', $stack);
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'multiply', $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayTimesEquals', $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
 
                         break;
                     case '/':            //    Division
-//                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayRightDivide', $stack);
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'divideby', $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayRightDivide', $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
@@ -4658,20 +4653,13 @@ class Calculation
                     self::checkMatrixOperands($arg, $multiplier, 2);
 
                     try {
-                        $matrix1 = new Matrix($arg);
-                        $matrixResult = $matrix1->multiply($multiplier);
-                        $result = $matrixResult->toArray();
-                    } catch (\Matrix\Exception $ex) {
-                        $this->debugLog->writeDebugLog('Matrix Exception: %s', $ex->getMessage());
+                        $matrix1 = new Shared\JAMA\Matrix($arg);
+                        $matrixResult = $matrix1->arrayTimesEquals($multiplier);
+                        $result = $matrixResult->getArray();
+                    } catch (\Exception $ex) {
+                        $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                         $result = '#VALUE!';
                     }
-//                        $matrix1 = new Shared\JAMA\Matrix($arg);
-//                        $matrixResult = $matrix1->arrayTimesEquals($multiplier);
-//                        $result = $matrixResult->getArray();
-//                    } catch (\Exception $ex) {
-//                        $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
-//                        $result = '#VALUE!';
-//                    }
                     $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
                     if (isset($storeKey)) {
@@ -5037,21 +5025,18 @@ class Calculation
             self::checkMatrixOperands($operand1, $operand2, 2);
 
             try {
-//                var_dump($operand1, $matrixFunction, $operand2);
                 //    Convert operand 1 from a PHP array to a matrix
-                $matrix = new Matrix($operand1);
-                /** @var Matrix $matrixResult */
+//                $matrix = new \Matrix\Matrix($operand1);
+//                var_dump($operand1, $matrixFunction, $operand2);
+                $matrix = new Shared\JAMA\Matrix($operand1);
                 //    Perform the required operation against the operand 1 matrix, passing in operand 2
                 $matrixResult = $matrix->$matrixFunction($operand2);
-                $result = $matrixResult->toArray();
-//                $matrix = new Shared\JAMA\Matrix($operand1);
-                //    Perform the required operation against the operand 1 matrix, passing in operand 2
-//                $matrixResult = $matrix->$matrixFunction($operand2);
-//                $result = $matrixResult->getArray();
+                $result = $matrixResult->getArray();
+//                $result = $matrixResult->toArray();
 //                var_dump('=>', $result);
             } catch (Throwable $ex) {
 //                var_dump($ex->getMessage());
-                $this->debugLog->writeDebugLog('Matrix Exception: %s', $ex->getMessage());
+                $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                 $result = '#VALUE!';
             }
         } else {
