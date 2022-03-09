@@ -46,7 +46,7 @@ foreach ($continents as $key => $filename) {
         new NamedRange(
             $continent,
             $spreadsheet->getActiveSheet(),
-            $column . '1:' . $column . $countryCount
+            '$' . $column . '$1:$' . $column . '$' . $countryCount
         )
     );
     $spreadsheet->getActiveSheet()
@@ -68,7 +68,7 @@ $spreadsheet->addNamedRange(
     new NamedRange(
         'Continents',
         $spreadsheet->getActiveSheet(),
-        $continentColumn . '1:' . $continentColumn . count($continents)
+        '$' . $continentColumn . '$1:$' . $continentColumn . '$' . count($continents)
     )
 );
 
@@ -126,4 +126,5 @@ $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(12);
 $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(30);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->log('Not writing to Xls - formulae with defined names not yet supported');
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);
