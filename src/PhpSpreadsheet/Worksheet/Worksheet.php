@@ -108,6 +108,13 @@ class Worksheet implements IComparable
     private $chartCollection;
 
     /**
+     * Collection of Table objects.
+     *
+     * @var ArrayObject<int, Table>
+     */
+    private $tableCollection;
+
+    /**
      * Worksheet title.
      *
      * @var string
@@ -371,7 +378,10 @@ class Worksheet implements IComparable
         $this->defaultRowDimension = new RowDimension(null);
         // Default column dimension
         $this->defaultColumnDimension = new ColumnDimension(null);
+        // AutoFilter
         $this->autoFilter = new AutoFilter('', $this);
+        // Table collection
+        $this->tableCollection = new ArrayObject();
     }
 
     /**
@@ -2001,6 +2011,56 @@ class Worksheet implements IComparable
     public function removeAutoFilter(): self
     {
         $this->autoFilter->setRange('');
+
+        return $this;
+    }
+
+    /**
+     * Get collection of Tables.
+     *
+     * @return ArrayObject<int, Table>
+     */
+    public function getTableCollection()
+    {
+        return $this->tableCollection;
+    }
+
+    /**
+     * Add Table.
+     *
+     * @return $this
+     */
+    public function addTable(Table $table): self
+    {
+        $table->setWorksheet($this);
+        $this->tableCollection[] = $table;
+
+        return $this;
+    }
+
+    /**
+     * Add Table Range by using numeric cell coordinates.
+     *
+     * @param int $columnIndex1 Numeric column coordinate of the first cell
+     * @param int $row1 Numeric row coordinate of the first cell
+     * @param int $columnIndex2 Numeric column coordinate of the second cell
+     * @param int $row2 Numeric row coordinate of the second cell
+     *
+     * @return $this
+     */
+    public function addTableByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2): self
+    {
+        $cellRange = Coordinate::stringFromColumnIndex($columnIndex1) . $row1 . ':' . Coordinate::stringFromColumnIndex($columnIndex2) . $row2;
+
+        return $this->addTable(new Table($cellRange, $this));
+    }
+
+    /**
+     * Remove collection of Tables.
+     */
+    public function removeTableCollection(): self
+    {
+        $this->tableCollection = new ArrayObject();
 
         return $this;
     }
