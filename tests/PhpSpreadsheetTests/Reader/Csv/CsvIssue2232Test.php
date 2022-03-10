@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
@@ -31,7 +32,7 @@ class CsvIssue2232Test extends TestCase
      * @param mixed $b2Value
      * @param mixed $b3Value
      */
-    public function testEncodings(bool $useStringBinder, ?bool $preserveBoolString, $b2Value, $b3Value): void
+    public function testBooleanConversions(bool $useStringBinder, ?bool $preserveBoolString, $b2Value, $b3Value): void
     {
         if ($useStringBinder) {
             $binder = new StringValueBinder();
@@ -58,6 +59,43 @@ class CsvIssue2232Test extends TestCase
             [true, false, false, true],
             [true, null, 'FaLSe', 'tRUE'],
             [true, true, 'FaLSe', 'tRUE'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerIssue2232locale
+     *
+     * @param mixed $b4Value
+     * @param mixed $b5Value
+     */
+    public function testBooleanConversionsLocaleAware(bool $useStringBinder, ?bool $preserveBoolString, $b4Value, $b5Value): void
+    {
+        if ($useStringBinder) {
+            $binder = new StringValueBinder();
+            if (is_bool($preserveBoolString)) {
+                $binder->setBooleanConversion($preserveBoolString);
+            }
+            Cell::setValueBinder($binder);
+        }
+
+        Calculation::getInstance()->setLocale('fr');
+
+        $reader = new Csv();
+        $filename = 'tests/data/Reader/CSV/issue.2232.csv';
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame($b4Value, $sheet->getCell('B4')->getValue());
+        self::assertSame($b5Value, $sheet->getCell('B5')->getValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerIssue2232locale(): array
+    {
+        return [
+            [true, true, 'Faux', 'Vrai'],
+            [true, true, 'Faux', 'Vrai'],
+            [false, false, false, true],
+            [false, false, false, true],
         ];
     }
 }
