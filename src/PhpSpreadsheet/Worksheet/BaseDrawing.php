@@ -65,6 +65,27 @@ class BaseDrawing implements IComparable
     protected $offsetY;
 
     /**
+     * Coordinates2.
+     *
+     * @var null|string
+     */
+    protected $coordinates2;
+
+    /**
+     * Offset X2.
+     *
+     * @var int
+     */
+    protected $offsetX2;
+
+    /**
+     * Offset Y2.
+     *
+     * @var int
+     */
+    protected $offsetY2;
+
+    /**
      * Width.
      *
      * @var int
@@ -125,6 +146,9 @@ class BaseDrawing implements IComparable
         $this->coordinates = 'A1';
         $this->offsetX = 0;
         $this->offsetY = 0;
+        $this->coordinates2 = null;
+        $this->offsetX2 = 0;
+        $this->offsetY2 = 0;
         $this->width = 0;
         $this->height = 0;
         $this->resizeProportional = true;
@@ -299,6 +323,78 @@ class BaseDrawing implements IComparable
     public function getOffsetY()
     {
         return $this->offsetY;
+    }
+
+    /**
+     * Get Coordinates2.
+     *
+     * @return null|string
+     */
+    public function getCoordinates2()
+    {
+        return $this->coordinates2;
+    }
+
+    /**
+     * Set Coordinates2.
+     *
+     * @param null|string $coordinates2 eg: 'A1'
+     *
+     * @return $this
+     */
+    public function setCoordinates2($coordinates2)
+    {
+        $this->coordinates2 = $coordinates2;
+
+        return $this;
+    }
+
+    /**
+     * Get OffsetX2.
+     *
+     * @return int
+     */
+    public function getOffsetX2()
+    {
+        return $this->offsetX2;
+    }
+
+    /**
+     * Set OffsetX2.
+     *
+     * @param int $offsetX2
+     *
+     * @return $this
+     */
+    public function setOffsetX2($offsetX2)
+    {
+        $this->offsetX2 = $offsetX2;
+
+        return $this;
+    }
+
+    /**
+     * Get OffsetY2.
+     *
+     * @return int
+     */
+    public function getOffsetY2()
+    {
+        return $this->offsetY2;
+    }
+
+    /**
+     * Set OffsetY2.
+     *
+     * @param int $offsetY2
+     *
+     * @return $this
+     */
+    public function setOffsetY2($offsetY2)
+    {
+        $this->offsetY2 = $offsetY2;
+
+        return $this;
     }
 
     /**
@@ -497,6 +593,9 @@ class BaseDrawing implements IComparable
             $this->coordinates .
             $this->offsetX .
             $this->offsetY .
+            $this->coordinates2 .
+            $this->offsetX2 .
+            $this->offsetY2 .
             $this->width .
             $this->height .
             $this->rotation .
