@@ -5486,6 +5486,11 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
+			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
+
+		-
 			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
@@ -5497,12 +5502,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 12
+			count: 20
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 8
+			count: 10
 			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
 		-
@@ -6009,4 +6014,3 @@ parameters:
 			message: "#^Cannot call method getExtension\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\|null\\.$#"
 			count: 2
 			path: tests/PhpSpreadsheetTests/Writer/Xlsx/WmfTest.php
-

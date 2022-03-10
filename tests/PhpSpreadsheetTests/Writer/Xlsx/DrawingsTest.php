@@ -430,4 +430,56 @@ class DrawingsTest extends AbstractFunctional
 
         self::assertNotNull($reloadedSpreadsheet);
     }
+
+    /**
+     * Test save and load XLSX file with drawing image that coordinate is two cell anchor.
+     */
+    public function testTwoCellAnchorDrawing(): void
+    {
+        $reader = new Xlsx();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Add gif image that coordinates is two cell anchor.
+        $drawing = new Drawing();
+        $drawing->setName('Green Square');
+        $drawing->setPath('tests/data/Writer/XLSX/green_square.gif');
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
+        $drawing->setCoordinates('A1');
+        $drawing->setOffsetX(30);
+        $drawing->setOffsetY(10);
+        $drawing->setCoordinates2('E8');
+        $drawing->setOffsetX2(-50);
+        $drawing->setOffsetY2(-20);
+        $drawing->setWorksheet($sheet);
+
+        // Write file
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $tempFileName = File::sysGetTempDir() . '/drawings_image_that_two_cell_anchor.xlsx';
+        $writer->save($tempFileName);
+
+        // Read new file
+        $reloadedSpreadsheet = $reader->load($tempFileName);
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+
+        // Check image coordinates.
+        $drawingCollection = $sheet->getDrawingCollection();
+        $drawing = $drawingCollection[0];
+        self::assertNotNull($drawing);
+
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
+        self::assertEquals($drawing->getCoordinates(), 'A1');
+        self::assertEquals($drawing->getOffsetX(), 30);
+        self::assertEquals($drawing->getOffsetY(), 10);
+        self::assertEquals($drawing->getCoordinates2(), 'E8');
+        self::assertEquals($drawing->getOffsetX2(), -50);
+        self::assertEquals($drawing->getOffsetY2(), -20);
+        self::assertEquals($drawing->getWorksheet(), $sheet);
+
+        unlink($tempFileName);
+
+        self::assertNotNull($reloadedSpreadsheet);
+    }
 }
