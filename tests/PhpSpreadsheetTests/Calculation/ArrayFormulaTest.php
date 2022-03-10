@@ -125,6 +125,14 @@ class ArrayFormulaTest extends TestCase
                 '={1,4;2,5;3,6} + {7,10;8,11;9,12}',
                 [[8, 14], [10, 16], [12, 18]],
             ],
+            'Addition: matrix 3x2 + 2x3' => [
+                '={1,2,3;4,5,6} + {7,10;8,11;9,12}',
+                [[8, 12], [12, 16]],
+            ],
+            'Addition: matrix 2x3 + 3x2' => [
+                '={7,10;8,11;9,12} + {1,2,3;4,5,6}',
+                [[8, 12], [12, 16]],
+            ],
             // Subtraction
             'Subtraction: row vector 2 - column vector 2' => [
                 '={2,3} - {4;5}',
@@ -161,6 +169,14 @@ class ArrayFormulaTest extends TestCase
             'Subtraction: matrix 2x3 - 2x3' => [
                 '={1,4;2,5;3,6} - {7,10;8,11;9,12}',
                 [[-6, -6], [-6, -6], [-6, -6]],
+            ],
+            'Subtraction: matrix 3x2 - 2x3' => [
+                '={1,2,3;4,5,6} - {7,10;8,11;9,12}',
+                [[-6, -8], [-4, -6]],
+            ],
+            'Subtraction: matrix 2x3 - 3x2' => [
+                '={7,10;8,11;9,12} - {1,2,3;4,5,6}',
+                [[6, 8], [4, 6]],
             ],
             // Multiplication
             'Multiplication: square matrix 2x2 * 2x2' => [
@@ -199,6 +215,14 @@ class ArrayFormulaTest extends TestCase
                 '={2,3} * {4;5}',
                 [[8, 12], [10, 15]],
             ],
+            'Multiplication: matrix 3x2 * 2x3' => [
+                '={1,2,3;4,5,6} * {7,10;8,11;9,12}',
+                [[7, 20], [32, 55]],
+            ],
+            'Multiplication: matrix 2x3 * 3x2' => [
+                '={7,10;8,11;9,12} * {1,2,3;4,5,6}',
+                [[7, 20], [32, 55]],
+            ],
             // Division
             'Division: square matrix 2x2 / 2x2' => [
                 '={1,2;3,4} / {-2,4;-6,8}',
@@ -235,6 +259,14 @@ class ArrayFormulaTest extends TestCase
             'Division: row vector 2 / column vector 2' => [
                 '={2,3} / {4;5}',
                 [[0.5, 0.75], [0.4, 0.6]],
+            ],
+            'Division: matrix 3x2 / 2x3' => [
+                '={1,2,3;4,5,6} / {7,10;8,11;9,12}',
+                [[0.14285714285714, 0.2], [0.5, 0.45454545454545]],
+            ],
+            'Division: matrix 2x3 / 3x2' => [
+                '={7,10;8,11;9,12} / {1,2,3;4,5,6}',
+                [[7, 5], [2, 2.2]],
             ],
             // Power
             'Power: square matrix 2x2 ^ 2x2' => [
@@ -273,10 +305,26 @@ class ArrayFormulaTest extends TestCase
                 '={2,3} ^ {4;5}',
                 [[16, 81], [32, 243]],
             ],
+            'Power: matrix 3x2 ^ 2x3' => [
+                '={1,2,3;4,5,6} ^ {7,10;8,11;9,12}',
+                [[1, 1024], [65536, 48828125]],
+            ],
+            'Power: matrix 2x3 ^ 3x2' => [
+                '={7,10;8,11;9,12} ^ {1,2,3;4,5,6}',
+                [[7, 100], [4096, 161051]],
+            ],
             // Concatenation
             'Concatenation: row vector 2 & column vector 2' => [
                 '={"A",",B"} & {"C";";D"}',
                 [['AC', ',BC'], ['A;D', ',B;D']],
+            ],
+            'Concatenation: matrix 3x2 & 3x2' => [
+                '={"A","B","C";"D","E","F"} & {"G","H","I";"J","K","L"}',
+                [['AG', 'BH', 'CI'], ['DJ', 'EK', 'FL']],
+            ],
+            'Concatenation: matrix 2x3 & 2x3' => [
+                '={"A","B";"C","D";"E","F"} & {"G","H";"I","J";"K","L"}',
+                [['AG', 'BH'], ['CI', 'DJ'], ['EK', 'FL']],
             ],
             'Concatenation: 2x2 matrix & scalar' => [
                 '={"A","B";"C","D"} & "E"',
@@ -285,6 +333,14 @@ class ArrayFormulaTest extends TestCase
             'Concatenation: scalar & 2x2 matrix' => [
                 '="E" & {"A","B";"C","D"}',
                 [['EA', 'EB'], ['EC', 'ED']],
+            ],
+            'Concatenation: 2x2 & 2x1 vector' => [
+                '={"A","B";"C","D"} & {"E","F"}',
+                [['AE', 'BF'], ['CE', 'DF']],
+            ],
+            'Concatenation: 2x2 & 1x2 vector' => [
+                '={"A","B";"C","D"} & {"E";"F"}',
+                [['AE', 'BE'], ['CF', 'DF']],
             ],
 
             // Unary Negation

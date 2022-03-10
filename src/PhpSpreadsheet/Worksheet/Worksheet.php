@@ -839,7 +839,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setTitle($title, $updateFormulaCellReferences = true, $validate = true)
+    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $title) {

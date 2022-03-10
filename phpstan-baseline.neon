@@ -61,26 +61,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToEnglish\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToEnglish\\(\\) has parameter \\$formula with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToLocale\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToLocale\\(\\) has parameter \\$formula with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:dataTestReference\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -91,37 +71,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:getTokensAsString\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:getTokensAsString\\(\\) has parameter \\$tokens with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:localeFunc\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:localeFunc\\(\\) has parameter \\$function with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has parameter \\$operand with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has parameter \\$stack with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 

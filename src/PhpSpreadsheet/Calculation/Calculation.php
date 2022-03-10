@@ -2872,7 +2872,7 @@ class Calculation
      *
      * @return bool Success or failure
      */
-    public static function setArrayReturnType($returnType)
+    public static function setArrayReturnType(string $returnType): bool
     {
         if (
             ($returnType == self::RETURN_ARRAY_AS_VALUE) ||
@@ -2892,17 +2892,15 @@ class Calculation
      *
      * @return string $returnType Array return type
      */
-    public static function getArrayReturnType()
+    public static function getArrayReturnType(): string
     {
         return self::$returnArrayAsType;
     }
 
     /**
      * Is calculation caching enabled?
-     *
-     * @return bool
      */
-    public function getCalculationCacheEnabled()
+    public function getCalculationCacheEnabled(): bool
     {
         return $this->calculationCacheEnabled;
     }
@@ -2944,10 +2942,8 @@ class Calculation
 
     /**
      * Clear calculation cache for a specified worksheet.
-     *
-     * @param string $worksheetName
      */
-    public function clearCalculationCacheForWorksheet($worksheetName): void
+    public function clearCalculationCacheForWorksheet(string $worksheetName): void
     {
         if (isset($this->calculationCache[$worksheetName])) {
             unset($this->calculationCache[$worksheetName]);
@@ -2956,13 +2952,10 @@ class Calculation
 
     /**
      * Rename calculation cache for a specified worksheet.
-     *
-     * @param string $fromWorksheetName
-     * @param string $toWorksheetName
      */
-    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName): void
+    public function renameCalculationCacheForWorksheet(?string $fromWorksheetName, string $toWorksheetName): void
     {
-        if (isset($this->calculationCache[$fromWorksheetName])) {
+        if ($fromWorksheetName !== null && isset($this->calculationCache[$fromWorksheetName])) {
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
             unset($this->calculationCache[$fromWorksheetName]);
         }
@@ -2971,7 +2964,7 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param mixed $enabled
+     * @param bool $enabled
      */
     public function setBranchPruningEnabled($enabled): void
     {
@@ -2991,10 +2984,8 @@ class Calculation
 
     /**
      * Get the currently defined locale code.
-     *
-     * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return self::$localeLanguage;
     }
@@ -3018,10 +3009,8 @@ class Calculation
      * Set the locale code.
      *
      * @param string $locale The locale to use for formula translation, eg: 'en_us'
-     *
-     * @return bool
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): bool
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -3191,7 +3180,7 @@ class Calculation
 
     private static $functionReplaceToLocale;
 
-    public function _translateFormulaToLocale($formula)
+    public function _translateFormulaToLocale(string $formula): string
     {
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
@@ -3227,7 +3216,7 @@ class Calculation
 
     private static $functionReplaceToExcel;
 
-    public function _translateFormulaToEnglish($formula)
+    public function _translateFormulaToEnglish(string $formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
@@ -3252,7 +3241,7 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
-    public static function localeFunc($function)
+    public static function localeFunc(string $function): string
     {
         if (self::$localeLanguage !== 'en_us') {
             $functionName = trim($function, '(');
@@ -3596,7 +3585,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      *
-     * @return array
+     * @return array<int, int>
      */
     private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1)
     {
@@ -3615,7 +3604,9 @@ class Calculation
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
         [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
-            $resize = 2;
+            // Vectors increase size to match to build a square matrix;
+            // Non-vectors reduce size to a square that reflects min(rows1, rows2) and min(cols1, cols2)
+            $resize = ($matrix1Rows === 1 || $matrix2Rows === 1) ? 2 : 1;
         }
 
         if ($resize == 2) {
@@ -3634,7 +3625,7 @@ class Calculation
      *
      * @param array $matrix matrix operand
      *
-     * @return int[] An array comprising the number of rows, and number of columns
+     * @return array<int, int> An array comprising the number of rows, and number of columns
      */
     public static function getMatrixDimensions(array &$matrix)
     {
@@ -3747,7 +3738,7 @@ class Calculation
     /**
      * Format details of an operand for display in the log (based on operand type).
      *
-     * @param mixed $value First matrix operand
+     * @param mixed $value Operand value
      *
      * @return mixed
      */
@@ -3787,7 +3778,7 @@ class Calculation
     /**
      * Format type and details of an operand for display in the log (based on operand type).
      *
-     * @param mixed $value First matrix operand
+     * @param mixed $value Operand value
      *
      * @return null|string
      */
@@ -4889,7 +4880,7 @@ class Calculation
         return $output;
     }
 
-    private function validateBinaryOperand(&$operand, &$stack)
+    private function validateBinaryOperand(&$operand, Stack &$stack): bool
     {
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
@@ -5357,7 +5348,7 @@ class Calculation
         return $args;
     }
 
-    private function getTokensAsString($tokens)
+    private function getTokensAsString(array $tokens): string
     {
         $tokensStr = array_map(function ($token) {
             $value = $token['value'] ?? 'no value';
