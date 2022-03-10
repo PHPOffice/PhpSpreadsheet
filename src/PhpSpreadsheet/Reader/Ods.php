@@ -617,7 +617,7 @@ class Ods extends BaseReader
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
             if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
                 try {
-                    $spreadsheet->setActiveSheetIndexByName($t->nodeValue);
+                    $spreadsheet->setActiveSheetIndexByName($t->nodeValue ?: '');
                 } catch (Throwable $e) {
                     // do nothing
                 }

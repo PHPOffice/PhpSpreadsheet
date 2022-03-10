@@ -125,6 +125,8 @@ class GnumericLoadTest extends TestCase
         self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
         $rowDimension = $sheet->getRowDimension(30);
         self::assertFalse($rowDimension->getVisible());
+
+        self::assertSame('B24', $sheet->getSelectedCells());
     }
 
     public function testLoadFilter(): void
@@ -167,5 +169,7 @@ class GnumericLoadTest extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
+
+        self::assertSame('A1', $sheet->getSelectedCells());
     }
 }

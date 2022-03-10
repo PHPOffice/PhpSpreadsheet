@@ -37,9 +37,7 @@ $spreadsheet->getActiveSheet()
 ### Creating a new Cell
 
 If you make a call to `getCell()`, and the cell doesn't already exist, then
-PhpSpreadsheet will (by default) create the cell for you. If you don't want
-to create a new cell, then you can pass a second argument of false, and then
-`getCell()` will return a null if the cell doesn't exist.
+PhpSpreadsheet will create that cell for you.
 
 ### BEWARE: Cells assigned to variables as a Detached Reference
 
@@ -532,7 +530,7 @@ types of entered data using a cell's `setValue()` method (the
 Optionally, the default behaviour of PhpSpreadsheet can be modified,
 allowing easier data entry. For example, a
 `\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder` class is available.
-It automatically converts percentages, number in scientific format, and
+It automatically converts percentages, numbers in scientific format, and
 dates entered as strings to the correct format, also setting the cell's
 style information. The following example demonstrates how to set the
 value binder in PhpSpreadsheet:
@@ -577,7 +575,9 @@ $stringValueBinder->setNumericConversion(false)
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
 ```
 
-**Creating your own value binder is relatively straightforward.** When more specialised
+### Creating your own value binder
+
+Creating your own value binder is relatively straightforward. When more specialised
 value binding is required, you can implement the
 `\PhpOffice\PhpSpreadsheet\Cell\IValueBinder` interface or extend the existing
 `\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder` or

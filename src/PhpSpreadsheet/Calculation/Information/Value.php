@@ -87,7 +87,7 @@ class Value
             return ExcelError::VALUE();
         }
 
-        return $value % 2 == 0;
+        return ((int) fmod($value, 2)) === 0;
     }
 
     /**
@@ -112,7 +112,7 @@ class Value
             return ExcelError::VALUE();
         }
 
-        return abs($value) % 2 == 1;
+        return ((int) fmod($value, 2)) !== 0;
     }
 
     /**

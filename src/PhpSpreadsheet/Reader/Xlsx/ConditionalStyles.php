@@ -196,12 +196,19 @@ class ConditionalStyles
                 $objConditional->setStopIfTrue(true);
             }
 
-            if (count($cfRule->formula) > 1) {
-                foreach ($cfRule->formula as $formula) {
-                    $objConditional->addCondition((string) $formula);
+            if (count($cfRule->formula) >= 1) {
+                foreach ($cfRule->formula as $formulax) {
+                    $formula = (string) $formulax;
+                    if ($formula === 'TRUE') {
+                        $objConditional->addCondition(true);
+                    } elseif ($formula === 'FALSE') {
+                        $objConditional->addCondition(false);
+                    } else {
+                        $objConditional->addCondition($formula);
+                    }
                 }
             } else {
-                $objConditional->addCondition((string) $cfRule->formula);
+                $objConditional->addCondition('');
             }
 
             if (isset($cfRule->dataBar)) {
