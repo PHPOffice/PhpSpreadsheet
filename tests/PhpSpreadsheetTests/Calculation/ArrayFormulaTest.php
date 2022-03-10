@@ -93,6 +93,10 @@ class ArrayFormulaTest extends TestCase
                 '={2,3} + {4;5}',
                 [[6, 7], [7, 8]],
             ],
+            'Addition: square matrix 2x2 + scalar' => [
+                '={1,2;3,4} + 1',
+                [[2, 3], [4, 5]],
+            ],
             'Addition: square matrix 2x2 + 2x2' => [
                 '={1,2;3,4} + {-2,4;-6,8}',
                 [[-1, 6], [-3, 12]],
@@ -125,6 +129,10 @@ class ArrayFormulaTest extends TestCase
             'Subtraction: row vector 2 - column vector 2' => [
                 '={2,3} - {4;5}',
                 [[-2, -1], [-3, -2]],
+            ],
+            'Subtraction: square matrix 2x2 - scalar' => [
+                '={1,2;3,4} - 1',
+                [[0, 1], [2, 3]],
             ],
             'Subtraction: square matrix 2x2 - 2x2' => [
                 '={1,2;3,4} - {-2,4;-6,8}',
@@ -159,6 +167,10 @@ class ArrayFormulaTest extends TestCase
                 '={1,2;3,4} * {-2,4;-6,8}',
                 [[-2, 8], [-18, 32]],
             ],
+            'Multiplication: square matrix 2x2 * scalar' => [
+                '={1,2;3,4} * 2',
+                [[2, 4], [6, 8]],
+            ],
             'Multiplication: row vector * row vector' => [
                 '={1,2,3} * {4,5,6}',
                 [[4, 10, 18]],
@@ -191,6 +203,10 @@ class ArrayFormulaTest extends TestCase
             'Division: square matrix 2x2 / 2x2' => [
                 '={1,2;3,4} / {-2,4;-6,8}',
                 [[-0.5, 0.5], [-0.5, 0.5]],
+            ],
+            'Division: square matrix 2x2 / scalar' => [
+                '={1,2;3,4} / 0.5',
+                [[2, 4], [6, 8]],
             ],
             'Division: row vector / row vector' => [
                 '={1,2,3} / {4,5,6}',
@@ -225,6 +241,10 @@ class ArrayFormulaTest extends TestCase
                 '={1,2;3,4} ^ {-2,4;-6,8}',
                 [[1, 16], [0.00137174211248, 65536]],
             ],
+            'Power: square matrix 2x2 ^ scalar' => [
+                '={1,2;3,4} ^ 2',
+                [[1, 4], [9, 16]],
+            ],
             'Power: row vector ^ row vector' => [
                 '={1,2,3} ^ {4,5,6}',
                 [[1, 32, 729]],
@@ -258,6 +278,15 @@ class ArrayFormulaTest extends TestCase
                 '={"A",",B"} & {"C";";D"}',
                 [['AC', ',BC'], ['A;D', ',B;D']],
             ],
+            'Concatenation: 2x2 matrix & scalar' => [
+                '={"A","B";"C","D"} & "E"',
+                [['AE', 'BE'], ['CE', 'DE']],
+            ],
+            'Concatenation: scalar & 2x2 matrix' => [
+                '="E" & {"A","B";"C","D"}',
+                [['EA', 'EB'], ['EC', 'ED']],
+            ],
+
             // Unary Negation
             'Unary Negation: square matrix - 2x2' => [
                 '= - {-2,4;-6,8}',
