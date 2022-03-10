@@ -4126,16 +4126,6 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$condition \\(array\\<string\\>\\) does not accept array\\<bool\\|float\\|int\\|string\\>\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Conditional.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$style \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Conditional.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setConditionalFormattingRuleExt\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBar.php
@@ -4294,11 +4284,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:\\$id has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
-
-		-
-			message: "#^Parameter \\#1 \\$conditions of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\|int\\|string\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/ConditionalFormatting/Wizard/CellValue.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
@@ -5811,11 +5796,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Functional/ConditionalStopIfTrueTest.php
-
-		-
 			message: "#^Cannot call method getPageSetup\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
@@ -5959,16 +5939,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$sheetName with no type specified\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$condition of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:addCondition\\(\\) expects string, float given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$conditions of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:setConditions\\(\\) expects array\\<string\\>\\|bool\\|float\\|int\\|string, array\\<int, float\\> given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Style/ConditionalTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:setAttribute\\(\\) expects string, int given\\.$#"
