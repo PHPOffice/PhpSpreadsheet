@@ -51,7 +51,7 @@ class Expression extends WizardAbstract implements WizardInterface
         $wizard = new self($cellRange);
         $wizard->style = $conditional->getStyle();
         $wizard->stopIfTrue = $conditional->getStopIfTrue();
-        $wizard->expression = self::reverseAdjustCellRef($conditional->getConditions()[0], $cellRange);
+        $wizard->expression = self::reverseAdjustCellRef((string) ($conditional->getConditions()[0]), $cellRange);
 
         return $wizard;
     }
