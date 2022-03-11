@@ -151,16 +151,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Parameter \\#2 \\$worksheet of static method PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:resolveName\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -354,21 +344,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:besselK2\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BitWise\\:\\:validateBitwiseArgument\\(\\) never returns int so it can be removed from the return type\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\<0, 281474976710655\\>\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
@@ -821,16 +796,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
-			message: "#^Parameter \\#1 \\$low of function range expects float\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
-			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\VLookup\\:\\:vlookupSort\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
@@ -1217,16 +1182,6 @@ parameters:
 
 		-
 			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_chunk expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array\\<int, string\\>\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
@@ -1911,11 +1866,6 @@ parameters:
 			path: src/PhpSpreadsheet/Helper/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, array\\{\\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\), mixed\\} given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\ITextElement\\:\\:setText\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
@@ -2482,11 +2432,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\MD5\\:\\:step\\(\\) has parameter \\$func with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls/MD5.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls/MD5.php
 
@@ -3301,71 +3246,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:imagecreatefrombmp\\(\\) should return GdImage\\|resource but returns resource\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagesetpixel expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$x_size of function imagecreatetruecolor expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$red of function imagecolorallocate expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$y_size of function imagecreatetruecolor expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#3 \\$green of function imagecolorallocate expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#3 \\$y of function imagesetpixel expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#4 \\$blue of function imagecolorallocate expects int, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
-			message: "#^Parameter \\#4 \\$col of function imagesetpixel expects int, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
@@ -3561,11 +3441,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, float\\|int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-
-		-
 			message: "#^Parameter \\#3 \\$c of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:set\\(\\) expects float\\|int\\|null, string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
@@ -3611,11 +3486,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
@@ -3638,11 +3508,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
 		-
@@ -3679,11 +3544,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:\\$root \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
-
-		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/ChainedBlockStream.php
 
 		-
 			message: "#^Parameter \\#2 \\$offset of function array_slice expects int, float given\\.$#"
@@ -4026,11 +3886,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:getGoodnessOfFit\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
@@ -4311,11 +4166,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
@@ -4436,11 +4286,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|null given\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:\\$pageOrder has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
@@ -4486,11 +4331,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Cannot call method getWorksheet\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -4531,11 +4371,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_splice expects array, ArrayObject\\<int, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeDimension\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -4552,11 +4387,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -4881,16 +4711,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function base64_encode expects string, string\\|false given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -5012,16 +4832,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$font of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:addFont\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
@@ -5206,11 +5016,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorat expects resource, GdImage\\|resource given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -5221,22 +5026,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$col of function imagecolorsforindex expects int, int\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<0, max\\>, int\\<0, max\\>\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$pieces of function implode expects array, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -5317,11 +5107,6 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
@@ -5769,248 +5554,3 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Xlfn\\:\\:addXlfn\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Engine/RangeTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell, null and 'should get exact…' will always evaluate to false\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method getCoordinate\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Cannot call method getParent\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Collection/CellsTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\ColumnWidthTest\\:\\:testReadColumnWidth\\(\\) has parameter \\$format with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/ColumnWidthTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Functional\\\\CommentsTest\\:\\:testComments\\(\\) has parameter \\$format with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Functional/CommentsTest.php
-
-		-
-			message: "#^Cannot call method getPageSetup\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Functional/PrintAreaTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/IOFactoryTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedFormula\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/NamedFormulaTest.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedRange\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/NamedRangeTest.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Ods\\\\OdsTest\\:\\:\\$spreadsheetData \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Ods\\\\OdsTest\\:\\:\\$spreadsheetOdsTest \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Ods/OdsTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Security\\\\XmlScannerTest\\:\\:testInvalidXML\\(\\) has parameter \\$libxmlDisableEntityLoader with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Security\\\\XmlScannerTest\\:\\:testValidXML\\(\\) has parameter \\$libxmlDisableEntityLoader with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getAutoFilterInstance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getWorksheetInstance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getXMLInstance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xlsx\\\\AutoFilterTest\\:\\:getXMLInstance\\(\\) has parameter \\$ref with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/AutoFilterTest.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
-
-		-
-			message: "#^Cannot call method getXAxisLabel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
-
-		-
-			message: "#^Cannot call method getYAxisLabel\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ChartsTitleTest.php
-
-		-
-			message: "#^Cannot call method getColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getConditionalFormattingRuleExt\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 8
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getMaximumConditionalFormatValueObject\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getMinimumConditionalFormatValueObject\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 13
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getShowValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method setMinimumConditionalFormatValueObject\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/SheetsXlsxChartTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Xml\\\\XmlTest\\:\\:testInvalidSimpleXML\\(\\) has parameter \\$filename with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xml/XmlTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Shared/StringHelperTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$index with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\SpreadsheetTest\\:\\:testGetSheetByName\\(\\) has parameter \\$sheetName with no type specified\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/SpreadsheetTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\:\\:setAttribute\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilter/ColumnTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$rowIndex of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowCellIterator constructor expects int, string given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Worksheet/RowCellIterator2Test.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheetTests\\\\Writer\\\\Html\\\\CallbackTest\\:\\:yellowBody\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/CallbackTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/CallbackTest.php
-
-		-
-			message: "#^Cannot call method getColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
-
-		-
-			message: "#^Cannot call method setSubScript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
-
-		-
-			message: "#^Cannot call method setSuperScript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Html/GridlinesTest.php
-
-		-
-			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 3
-			path: tests/PhpSpreadsheetTests/Writer/Html/HtmlCommentsTest.php
-
-		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 4
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php
-
-		-
-			message: "#^Cannot access property \\$pageSetup on SimpleXMLElement\\|false\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
-
-		-
-			message: "#^Cannot access property \\$sheetProtection on SimpleXMLElement\\|false\\.$#"
-			count: 5
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$data of function simplexml_load_string expects string, string\\|false given\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataTest.php
-
-		-
-			message: "#^Cannot call method getExtension\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\|null\\.$#"
-			count: 2
-			path: tests/PhpSpreadsheetTests/Writer/Xlsx/WmfTest.php

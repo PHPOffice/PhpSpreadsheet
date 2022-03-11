@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class WmfTest extends AbstractFunctional
@@ -19,6 +20,7 @@ class WmfTest extends AbstractFunctional
         $drawings = $spreadsheet->getActiveSheet()->getDrawingCollection();
         self::assertCount(1, $drawings);
         $drawing = $drawings[0];
+        self::assertInstanceOf(Drawing::class, $drawing);
         self::assertSame('wmf', $drawing->getExtension());
 
         // Save spreadsheet to file and read it back
@@ -26,6 +28,7 @@ class WmfTest extends AbstractFunctional
         $drawings = $reloadedSpreadsheet->getActiveSheet()->getDrawingCollection();
         self::assertCount(1, $drawings);
         $drawing = $drawings[0];
+        self::assertInstanceOf(Drawing::class, $drawing);
         self::assertSame('wmf', $drawing->getExtension());
 
         $spreadsheet->disconnectWorksheets();

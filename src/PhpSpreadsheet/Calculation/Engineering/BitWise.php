@@ -211,13 +211,14 @@ class BitWise
      *
      * @param mixed $value
      *
-     * @return float|int
+     * @return float
      */
     private static function validateBitwiseArgument($value)
     {
         $value = self::nullFalseTrueToNumber($value);
 
         if (is_numeric($value)) {
+            $value = (float) $value;
             if ($value == floor($value)) {
                 if (($value > 2 ** 48 - 1) || ($value < 0)) {
                     throw new Exception(ExcelError::NAN());
