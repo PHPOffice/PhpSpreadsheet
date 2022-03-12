@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
+- Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
+
 ### Changed
 
 - Gnumeric Reader now loads number formatting for cells.
@@ -37,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix for setting Active Sheet to the first loaded worksheet when bookViews element isn't defined [Issue #2666](https://github.com/PHPOffice/PhpSpreadsheet/issues/2666) [PR #2669](https://github.com/PHPOffice/PhpSpreadsheet/pull/2669)
 - Fixed behaviour of XLSX font style vertical align settings.
 - Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
 
@@ -79,7 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Initial work enabling Excel function implementations for handling arrays as arguments when used in "array formulae" [#2562](https://github.com/PHPOffice/PhpSpreadsheet/issues/2562)
   - Enable most of the Date/Time functions to accept array arguments [#2573](https://github.com/PHPOffice/PhpSpreadsheet/issues/2573)
   - Array ready functions - Text, Math/Trig, Statistical, Engineering and Logical [#2580](https://github.com/PHPOffice/PhpSpreadsheet/issues/2580)
-  - Support for two cell anchor drawing of images.  [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
 
 ### Changed
 
