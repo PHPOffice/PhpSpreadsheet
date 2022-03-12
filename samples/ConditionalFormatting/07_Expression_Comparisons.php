@@ -69,14 +69,16 @@ $spreadsheet->getActiveSheet()->getStyle('A25:D26')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-$greenStyle = new Style(false, true);
-$greenStyle->getFill()
-    ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_GREEN);
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+$yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
+$greenStyle = new Style(false, true);
+$greenStyle->getFill()
+    ->setFillType(Fill::FILL_SOLID)
+    ->getEndColor()->setARGB(Color::COLOR_GREEN);
+$greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 
 $greenStyleMoney = clone $greenStyle;
 $greenStyleMoney->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_ACCOUNTING_USD);
