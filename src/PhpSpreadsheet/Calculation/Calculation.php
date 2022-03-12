@@ -3226,6 +3226,7 @@ class Calculation
         if (self::$functionReplaceToExcel === null) {
             self::$functionReplaceToExcel = [];
             foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
+                // @phpstan-ignore-next-line
                 self::$functionReplaceToExcel[] = '$1' . trim($excelFunctionName) . '$2';
             }
             foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
@@ -4490,6 +4491,7 @@ class Calculation
                             if ($operand1Data['reference'] === null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
+                                // @phpstan-ignore-next-line
                                 } elseif (trim($operand1Data['reference']) == '') {
                                     $operand1Data['reference'] = $cell->getCoordinate();
                                 } else {
@@ -4499,6 +4501,7 @@ class Calculation
                             if ($operand2Data['reference'] === null) {
                                 if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
+                                // @phpstan-ignore-next-line
                                 } elseif (trim($operand2Data['reference']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {

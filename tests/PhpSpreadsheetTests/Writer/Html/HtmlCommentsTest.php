@@ -25,14 +25,20 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
         $plainMulti->createText($valueMulti);
 
         $richSingle = new RichText();
-        $richSingle->createTextRun($valueSingle)->getFont()->setBold(true);
+        $font = $richSingle->createTextRun($valueSingle)->getFont();
+        self::assertNotNull($font);
+        $font->setBold(true);
 
         $richMultiSimple = new RichText();
-        $richMultiSimple->createTextRun($valueMulti)->getFont()->setBold(true);
+        $font = $richMultiSimple->createTextRun($valueMulti)->getFont();
+        self::assertNotNull($font);
+        $font->setBold(true);
 
         $richMultiMixed = new RichText();
         $richMultiMixed->createText('I am' . PHP_EOL);
-        $richMultiMixed->createTextRun('multi-line')->getFont()->setBold(true);
+        $font = $richMultiMixed->createTextRun('multi-line')->getFont();
+        self::assertNotNull($font);
+        $font->setBold(true);
         $richMultiMixed->createText(PHP_EOL . 'comment!');
 
         return [

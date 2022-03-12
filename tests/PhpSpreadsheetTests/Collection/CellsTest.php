@@ -20,7 +20,8 @@ class CellsTest extends TestCase
         // Assert empty state
         self::assertEquals([], $collection->getCoordinates(), 'cell list should be empty');
         self::assertEquals([], $collection->getSortedCoordinates(), 'sorted cell list should be empty');
-        self::assertNull($collection->get('B2'), 'getting non-existing cell must return null');
+        $getB2 = $collection->get('B2');
+        self::assertNull($getB2, 'getting non-existing cell must return null');
         self::assertFalse($collection->has('B2'), 'non-existing cell should be non-existent');
 
         // Add one cell
@@ -44,6 +45,7 @@ class CellsTest extends TestCase
         $collection2 = $collection->cloneCellCollection($sheet2);
         self::assertTrue($collection2->has('A1'));
         $copiedCell2 = $collection2->get('A1');
+        self::assertNotNull($copiedCell2);
         self::assertNotSame($cell2, $copiedCell2, 'copied cell should not be the same object any more');
         self::assertSame($collection2, $copiedCell2->getParent(), 'copied cell should be owned by the copied collection');
         self::assertSame('A1', $copiedCell2->getCoordinate(), 'copied cell should keep attributes');
