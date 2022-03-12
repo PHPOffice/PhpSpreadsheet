@@ -85,6 +85,8 @@ class DateFormatter
         $format = preg_replace_callback('/(?:^|")([^"]*)(?:$|")/', $callable, $format);
 
         // Only process the non-quoted blocks for date format characters
+
+        /** @phpstan-ignore-next-line */
         $blocks = explode('"', $format);
         foreach ($blocks as $key => &$block) {
             if ($key % 2 == 0) {

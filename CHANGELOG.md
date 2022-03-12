@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix for setting Active Sheet to the first loaded worksheet when bookViews element isn't defined [Issue #2666](https://github.com/PHPOffice/PhpSpreadsheet/issues/2666) [PR #2669](https://github.com/PHPOffice/PhpSpreadsheet/pull/2669)
 - Fixed behaviour of XLSX font style vertical align settings.
 - Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
 

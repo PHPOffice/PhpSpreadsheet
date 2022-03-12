@@ -96,6 +96,8 @@ class CsvNumberFormatLocaleTest extends TestCase
      * @dataProvider providerNumberValueConversionTest
      *
      * @param mixed $expectedValue
+     *
+     * @runInSeparateProcess
      */
     public function testNumberValueConversion($expectedValue, string $cellAddress): void
     {

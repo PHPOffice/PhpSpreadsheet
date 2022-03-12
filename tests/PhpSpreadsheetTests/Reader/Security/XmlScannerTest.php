@@ -24,7 +24,7 @@ class XmlScannerTest extends TestCase
      * @param mixed $filename
      * @param mixed $expectedResult
      */
-    public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader): void
+    public function testValidXML($filename, $expectedResult, bool $libxmlDisableEntityLoader): void
     {
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
         if (\PHP_VERSION_ID < 80000) {
@@ -44,7 +44,9 @@ class XmlScannerTest extends TestCase
     public function providerValidXML(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/XEETestValid*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/XEETestValid*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $filename = realpath($file);
             $expectedResult = file_get_contents($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
@@ -59,7 +61,7 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      */
-    public function testInvalidXML($filename, $libxmlDisableEntityLoader): void
+    public function testInvalidXML($filename, bool $libxmlDisableEntityLoader): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
@@ -81,7 +83,9 @@ class XmlScannerTest extends TestCase
     public function providerInvalidXML(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $filename = realpath($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
             $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
@@ -128,7 +132,9 @@ class XmlScannerTest extends TestCase
     public function providerValidXMLForCallback(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 

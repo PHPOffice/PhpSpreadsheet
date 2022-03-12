@@ -808,6 +808,7 @@ class Html
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
             if (method_exists($this, $elementHandler)) {
+                // @phpstan-ignore-next-line
                 call_user_func([$this, $elementHandler], $element);
             }
         }

@@ -697,10 +697,12 @@ class Html extends BaseWriter
                 $imageResource = $drawing->getImageResource();
                 if ($imageResource) {
                     ob_start(); //  Let's start output buffering.
+                    // @phpstan-ignore-next-line
                     imagepng($imageResource); //  This will normally output the image, but because of ob_start(), it won't.
                     $contents = ob_get_contents(); //  Instead, output above is saved to $contents
                     ob_end_clean(); //  End the output buffer.
 
+                    /** @phpstan-ignore-next-line */
                     $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
 
                     //  Because of the nature of tables, width is more important than height.
@@ -748,7 +750,7 @@ class Html extends BaseWriter
                     if ($fp = fopen($chartFileName, 'rb', 0)) {
                         $picture = fread($fp, filesize($chartFileName));
                         fclose($fp);
-                        // base64 encode the binary data
+                        /** @phpstan-ignore-next-line */
                         $base64 = base64_encode($picture);
                         $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
 

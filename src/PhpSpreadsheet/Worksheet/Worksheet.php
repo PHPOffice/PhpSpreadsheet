@@ -577,6 +577,7 @@ class Worksheet implements IComparable
             $this->chartCollection[] = $chart;
         } else {
             // Insert the chart at the requested index
+            // @phpstan-ignore-next-line
             array_splice($this->chartCollection, $chartIndex, 0, [$chart]);
         }
 
@@ -1234,6 +1235,7 @@ class Worksheet implements IComparable
                     throw new Exception('Sheet not found for named range: ' . $namedRange->getName());
                 }
 
+                /** @phpstan-ignore-next-line */
                 $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
                 $finalCoordinate = str_replace('$', '', $cellCoordinate);
             }
@@ -2827,6 +2829,7 @@ class Worksheet implements IComparable
     {
         $namedRange = $this->validateNamedRange($definedName);
         $workSheet = $namedRange->getWorksheet();
+        /** @phpstan-ignore-next-line */
         $cellRange = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
         $cellRange = str_replace('$', '', $cellRange);
 

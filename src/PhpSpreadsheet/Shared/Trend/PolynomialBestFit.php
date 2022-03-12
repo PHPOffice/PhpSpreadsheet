@@ -114,6 +114,7 @@ class PolynomialBestFit extends BestFit
 
     public function getCoefficients($dp = 0)
     {
+        // @phpstan-ignore-next-line
         return array_merge([$this->getIntersect($dp)], $this->getSlope($dp));
     }
 
