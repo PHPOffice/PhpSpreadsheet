@@ -166,6 +166,7 @@ class RowColumnInformation
                 function ($value) {
                     return [$value];
                 },
+                // @phpstan-ignore-next-line
                 range($startAddress, $endAddress)
             );
         }

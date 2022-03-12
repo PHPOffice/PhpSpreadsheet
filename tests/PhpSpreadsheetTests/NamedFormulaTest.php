@@ -48,9 +48,11 @@ class NamedFormulaTest extends TestCase
         );
 
         self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        $formula = $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet());
+        self::assertNotNull($formula);
         self::assertSame(
             '=16%',
-            $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet())->getValue()
+            $formula->getValue()
         );
     }
 
@@ -64,13 +66,17 @@ class NamedFormulaTest extends TestCase
         );
 
         self::assertCount(2, $this->spreadsheet->getNamedFormulae());
+        $formula = $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet());
+        self::assertNotNull($formula);
         self::assertSame(
             '=19%',
-            $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getActiveSheet())->getValue()
+            $formula->getValue()
         );
+        $formula = $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+        self::assertNotNull($formula);
         self::assertSame(
             '=16%',
-            $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+            $formula->getValue()
         );
     }
 
@@ -100,9 +106,11 @@ class NamedFormulaTest extends TestCase
         $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getActiveSheet());
 
         self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        $formula = $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+        self::assertNotNull($formula);
         self::assertSame(
             '=16%',
-            $this->spreadsheet->getNamedFormula('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+            $formula->getValue()
         );
     }
 
@@ -118,9 +126,11 @@ class NamedFormulaTest extends TestCase
         $this->spreadsheet->removeNamedFormula('Foo', $this->spreadsheet->getSheetByName('Sheet #2'));
 
         self::assertCount(1, $this->spreadsheet->getNamedFormulae());
+        $formula = $this->spreadsheet->getNamedFormula('foo');
+        self::assertNotNull($formula);
         self::assertSame(
             '=19%',
-            $this->spreadsheet->getNamedFormula('foo')->getValue()
+            $formula->getValue()
         );
     }
 }

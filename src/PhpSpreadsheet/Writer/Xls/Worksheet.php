@@ -989,6 +989,8 @@ class Worksheet extends BIFFwriter
         $options = pack('V', 0x03);
 
         // Convert URL to a null terminated wchar string
+
+        /** @phpstan-ignore-next-line */
         $url = implode("\0", preg_split("''", $url, -1, PREG_SPLIT_NO_EMPTY));
         $url = $url . "\0\0\0";
 
@@ -2387,6 +2389,7 @@ class Worksheet extends BIFFwriter
         $data = pack('Vvvvv', 0x000c, $width, $height, 0x01, 0x18);
         for ($j = $height; --$j;) {
             for ($i = 0; $i < $width; ++$i) {
+                /** @phpstan-ignore-next-line */
                 $color = imagecolorsforindex($image, imagecolorat($image, $i, $j));
                 foreach (['red', 'green', 'blue'] as $key) {
                     $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
@@ -2427,6 +2430,8 @@ class Worksheet extends BIFFwriter
         }
 
         // The first 2 bytes are used to identify the bitmap.
+
+        /** @phpstan-ignore-next-line */
         $identity = unpack('A2ident', $data);
         if ($identity['ident'] != 'BM') {
             throw new WriterException("$bitmap doesn't appear to be a valid bitmap image.\n");

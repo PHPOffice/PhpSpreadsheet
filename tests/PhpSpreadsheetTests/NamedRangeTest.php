@@ -48,9 +48,11 @@ class NamedRangeTest extends TestCase
         );
 
         self::assertCount(1, $this->spreadsheet->getNamedRanges());
+        $range = $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getActiveSheet());
+        self::assertNotNull($range);
         self::assertSame(
             '=B1',
-            $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getActiveSheet())->getValue()
+            $range->getValue()
         );
     }
 
@@ -64,13 +66,17 @@ class NamedRangeTest extends TestCase
         );
 
         self::assertCount(2, $this->spreadsheet->getNamedRanges());
+        $range = $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getActiveSheet());
+        self::assertNotNull($range);
         self::assertSame(
             '=A1',
-            $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getActiveSheet())->getValue()
+            $range->getValue()
         );
+        $range = $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+        self::assertNotNull($range);
         self::assertSame(
             '=B1',
-            $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+            $range->getValue()
         );
     }
 
@@ -100,9 +106,11 @@ class NamedRangeTest extends TestCase
         $this->spreadsheet->removeNamedRange('Foo', $this->spreadsheet->getActiveSheet());
 
         self::assertCount(1, $this->spreadsheet->getNamedRanges());
+        $sheet = $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getSheetByName('Sheet #2'));
+        self::assertNotNull($sheet);
         self::assertSame(
             '=B1',
-            $this->spreadsheet->getNamedRange('foo', $this->spreadsheet->getSheetByName('Sheet #2'))->getValue()
+            $sheet->getValue()
         );
     }
 
@@ -118,9 +126,11 @@ class NamedRangeTest extends TestCase
         $this->spreadsheet->removeNamedRange('Foo', $this->spreadsheet->getSheetByName('Sheet #2'));
 
         self::assertCount(1, $this->spreadsheet->getNamedRanges());
+        $range = $this->spreadsheet->getNamedRange('foo');
+        self::AssertNotNull($range);
         self::assertSame(
             '=A1',
-            $this->spreadsheet->getNamedRange('foo')->getValue()
+            $range->getValue()
         );
     }
 }

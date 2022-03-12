@@ -9,13 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the ISREF() information function
+- Implementation of the ISREF() information function.
+- Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
+
+  (i.e a value of "12,345.67" can be read as numeric `1235.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
+
+  This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
+
+- Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
 
 ### Changed
 
 - Gnumeric Reader now loads number formatting for cells.
-- Gnumeric Reader now correctly identifies selected worksheet.
+- Gnumeric Reader now correctly identifies selected worksheet and selected cells in a worksheet.
 - Some Refactoring of the Ods Reader, moving all formula and address translation from Ods to Excel into a separate class to eliminate code duplication and ensure consistency.
+- Make Boolean Conversion in Csv Reader locale-aware when using the String Value Binder.
+
+  This is determined by the Calculation Engine locale setting.
+
+  (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 
 ### Deprecated
 
@@ -27,13 +39,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Fixed behaviour of XLSX font style vertical align settings
+- Fix for setting Active Sheet to the first loaded worksheet when bookViews element isn't defined [Issue #2666](https://github.com/PHPOffice/PhpSpreadsheet/issues/2666) [PR #2669](https://github.com/PHPOffice/PhpSpreadsheet/pull/2669)
+- Fixed behaviour of XLSX font style vertical align settings.
 - Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
 
-  Note that this method is used when translating Excel functions between en and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).
+  Note that this method is used when translating Excel functions between `en_us` and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
-
+- Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
 
 ## 1.22.0 - 2022-02-18
 
@@ -65,10 +78,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
   - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
   - Improved documentation and examples, covering all supported CF rule types.
-- Add support for one digit decimals (FORMAT_NUMBER_0, FORMAT_PERCENTAGE_0). [PR #2525](https://github.com/PHPOffice/PhpSpreadsheet/pull/2525)
-- Initial work enabling Excel function implementations for handling arrays as arguments when used in "array formulae" [#2562](https://github.com/PHPOffice/PhpSpreadsheet/issues/2562)
-- Enable most of the Date/Time functions to accept array arguments [#2573](https://github.com/PHPOffice/PhpSpreadsheet/issues/2573)
-- Array ready functions - Text, Math/Trig, Statistical, Engineering and Logical [#2580](https://github.com/PHPOffice/PhpSpreadsheet/issues/2580)
+  - Add support for one digit decimals (FORMAT_NUMBER_0, FORMAT_PERCENTAGE_0). [PR #2525](https://github.com/PHPOffice/PhpSpreadsheet/pull/2525)
+  - Initial work enabling Excel function implementations for handling arrays as arguments when used in "array formulae" [#2562](https://github.com/PHPOffice/PhpSpreadsheet/issues/2562)
+  - Enable most of the Date/Time functions to accept array arguments [#2573](https://github.com/PHPOffice/PhpSpreadsheet/issues/2573)
+  - Array ready functions - Text, Math/Trig, Statistical, Engineering and Logical [#2580](https://github.com/PHPOffice/PhpSpreadsheet/issues/2580)
 
 ### Changed
 

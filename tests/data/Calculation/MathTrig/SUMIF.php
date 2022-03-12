@@ -23,7 +23,7 @@ return [
         ],
     ],
     [
-        'incomplete', // 10,
+        10, // fixed by PR #2561
         [
             ['"text with quotes"'],
             [2],

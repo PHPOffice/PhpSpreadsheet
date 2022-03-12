@@ -44,15 +44,23 @@ class PrintAreaTest extends AbstractFunctional
             $reader->setLoadSheetsOnly(['Sheet 1', 'Sheet 3', 'Sheet 4', 'Sheet 5', 'Sheet 6']);
         });
 
-        $actual1 = $reloadedSpreadsheet->getSheetByName('Sheet 1')->getPageSetup()->getPrintArea();
-        $actual3 = $reloadedSpreadsheet->getSheetByName('Sheet 3')->getPageSetup()->getPrintArea();
-        $actual4 = $reloadedSpreadsheet->getSheetByName('Sheet 4')->getPageSetup()->getPrintArea();
-        $actual5 = $reloadedSpreadsheet->getSheetByName('Sheet 5')->getPageSetup()->getPrintArea();
-        $actual6 = $reloadedSpreadsheet->getSheetByName('Sheet 6')->getPageSetup()->getPrintArea();
+        $actual1 = self::getPrintArea($reloadedSpreadsheet, 'Sheet 1');
+        $actual3 = self::getPrintArea($reloadedSpreadsheet, 'Sheet 3');
+        $actual4 = self::getPrintArea($reloadedSpreadsheet, 'Sheet 4');
+        $actual5 = self::getPrintArea($reloadedSpreadsheet, 'Sheet 5');
+        $actual6 = self::getPrintArea($reloadedSpreadsheet, 'Sheet 6');
         self::assertSame('A1:B1', $actual1, 'should be able to write and read normal page setup');
         self::assertSame('A3:B3', $actual3, 'should be able to write and read page setup even when skipping sheets');
         self::assertSame('A4:B4,D1:E4', $actual4, 'should be able to write and read page setup with multiple print areas');
         self::assertSame('A1:J10', $actual5, 'add by column and row');
         self::assertSame('A1:J10,L1:L10', $actual6, 'multiple add by column and row');
+    }
+
+    private static function getPrintArea(Spreadsheet $spreadsheet, string $name): string
+    {
+        $sheet = $spreadsheet->getSheetByName($name);
+        self::assertNotNull($sheet, "Unable to get sheet $name");
+
+        return $sheet->getPageSetup()->getPrintArea();
     }
 }

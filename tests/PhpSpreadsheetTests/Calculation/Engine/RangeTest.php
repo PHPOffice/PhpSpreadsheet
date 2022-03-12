@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class RangeTest extends TestCase
 {
+    /** @var string */
+    private $incompleteMessage = 'Must be revisited';
+
     /**
      * @var Spreadsheet
      */
@@ -140,7 +143,9 @@ class RangeTest extends TestCase
      */
     public function testCompositeNamedRangeEvaluation(string $composite, int $expectedSum, int $expectedCount): void
     {
-        self::markTestSkipped('must be revisited.');
+        if ($this->incompleteMessage !== '') {
+            self::markTestIncomplete($this->incompleteMessage);
+        }
 
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('COMPOSITE', $workSheet, $composite));

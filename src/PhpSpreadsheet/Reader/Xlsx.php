@@ -20,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\WorkbookView;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -1340,6 +1341,12 @@ class Xlsx extends BaseReader
 
                                                     $objDrawing->setOffsetX(Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
+
+                                                    $objDrawing->setCoordinates2(Coordinate::stringFromColumnIndex(((int) $twoCellAnchor->to->col) + 1) . ($twoCellAnchor->to->row + 1));
+
+                                                    $objDrawing->setOffsetX2(Drawing::EMUToPixels($twoCellAnchor->to->colOff));
+                                                    $objDrawing->setOffsetY2(Drawing::EMUToPixels($twoCellAnchor->to->rowOff));
+
                                                     $objDrawing->setResizeProportional(false);
 
                                                     if ($xfrm) {
@@ -1558,62 +1565,7 @@ class Xlsx extends BaseReader
                         }
                     }
 
-                    $workbookView = $xmlWorkbook->children($mainNS)->bookViews->workbookView;
-                    if ((!$this->readDataOnly || !empty($this->loadSheetsOnly)) && !empty($workbookView)) {
-                        $workbookViewAttributes = self::testSimpleXml(self::getAttributes($workbookView));
-                        // active sheet index
-                        $activeTab = (int) $workbookViewAttributes->activeTab; // refers to old sheet index
-
-                        // keep active sheet index if sheet is still loaded, else first sheet is set as the active
-                        if (isset($mapSheetId[$activeTab]) && $mapSheetId[$activeTab] !== null) {
-                            $excel->setActiveSheetIndex($mapSheetId[$activeTab]);
-                        } else {
-                            if ($excel->getSheetCount() == 0) {
-                                $excel->createSheet();
-                            }
-                            $excel->setActiveSheetIndex(0);
-                        }
-
-                        if (isset($workbookViewAttributes->showHorizontalScroll)) {
-                            $showHorizontalScroll = (string) $workbookViewAttributes->showHorizontalScroll;
-                            $excel->setShowHorizontalScroll($this->castXsdBooleanToBool($showHorizontalScroll));
-                        }
-
-                        if (isset($workbookViewAttributes->showVerticalScroll)) {
-                            $showVerticalScroll = (string) $workbookViewAttributes->showVerticalScroll;
-                            $excel->setShowVerticalScroll($this->castXsdBooleanToBool($showVerticalScroll));
-                        }
-
-                        if (isset($workbookViewAttributes->showSheetTabs)) {
-                            $showSheetTabs = (string) $workbookViewAttributes->showSheetTabs;
-                            $excel->setShowSheetTabs($this->castXsdBooleanToBool($showSheetTabs));
-                        }
-
-                        if (isset($workbookViewAttributes->minimized)) {
-                            $minimized = (string) $workbookViewAttributes->minimized;
-                            $excel->setMinimized($this->castXsdBooleanToBool($minimized));
-                        }
-
-                        if (isset($workbookViewAttributes->autoFilterDateGrouping)) {
-                            $autoFilterDateGrouping = (string) $workbookViewAttributes->autoFilterDateGrouping;
-                            $excel->setAutoFilterDateGrouping($this->castXsdBooleanToBool($autoFilterDateGrouping));
-                        }
-
-                        if (isset($workbookViewAttributes->firstSheet)) {
-                            $firstSheet = (string) $workbookViewAttributes->firstSheet;
-                            $excel->setFirstSheetIndex((int) $firstSheet);
-                        }
-
-                        if (isset($workbookViewAttributes->visibility)) {
-                            $visibility = (string) $workbookViewAttributes->visibility;
-                            $excel->setVisibility($visibility);
-                        }
-
-                        if (isset($workbookViewAttributes->tabRatio)) {
-                            $tabRatio = (string) $workbookViewAttributes->tabRatio;
-                            $excel->setTabRatio((int) $tabRatio);
-                        }
-                    }
+                    (new WorkbookView($excel))->viewSettings($xmlWorkbook, $mainNS, $mapSheetId, $this->readDataOnly);
 
                     break;
             }
@@ -1970,29 +1922,6 @@ class Xlsx extends BaseReader
             $unparsedPrinterSettings[$rId]['content'] = $this->securityScanner->scan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
         }
         unset($unparsedPrinterSettings);
-    }
-
-    /**
-     * Convert an 'xsd:boolean' XML value to a PHP boolean value.
-     * A valid 'xsd:boolean' XML value can be one of the following
-     * four values: 'true', 'false', '1', '0'.  It is case sensitive.
-     *
-     * Note that just doing '(bool) $xsdBoolean' is not safe,
-     * since '(bool) "false"' returns true.
-     *
-     * @see https://www.w3.org/TR/xmlschema11-2/#boolean
-     *
-     * @param string $xsdBoolean An XML string value of type 'xsd:boolean'
-     *
-     * @return bool  Boolean value
-     */
-    private function castXsdBooleanToBool($xsdBoolean)
-    {
-        if ($xsdBoolean === 'false') {
-            return false;
-        }
-
-        return (bool) $xsdBoolean;
     }
 
     private function getWorkbookBaseName(): array
