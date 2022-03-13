@@ -4509,7 +4509,6 @@ class Calculation
                             if ($operand2Data['reference'] === null) {
                                 if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
-                                // @phpstan-ignore-next-line
                                 } elseif (trim($operand2Data['reference']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {
