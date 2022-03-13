@@ -457,7 +457,6 @@ class DrawingsTest extends AbstractFunctional
      */
     public function testTwoCellAnchorDrawing(): void
     {
-        $reader = new Xlsx();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
