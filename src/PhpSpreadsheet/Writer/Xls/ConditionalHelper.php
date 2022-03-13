@@ -55,11 +55,11 @@ class ConditionalHelper
                 $formula = Wizard\WizardAbstract::reverseAdjustCellRef((string) $condition, $cellRange);
                 $this->parser->parse($formula);
                 $this->tokens = $this->parser->toReversePolish();
-                $this->size = strlen($this->tokens);
+                $this->size = strlen($this->tokens ?? '');
             } catch (PhpSpreadsheetException $e) {
-                var_dump("PARSER EXCEPTION: {$e->getMessage()}");
-                $this->tokens = null;
-                $this->size = 0;
+                // In the event of a parser error with a formula value, we set the expression to ptgInt + 0
+                $this->tokens = pack('Cv', 0x1E, 0);
+                $this->size = 3;
             }
         }
     }

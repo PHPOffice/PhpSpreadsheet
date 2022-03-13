@@ -2787,8 +2787,8 @@ class Worksheet extends BIFFwriter
         string $cellRange
     ): void {
         $record = 0x01B1; // Record identifier
-        $type = null;  //  Type of the CF
-        $operatorType = null;   //  Comparison operator
+        $type = null; // Type of the CF
+        $operatorType = null; // Comparison operator
 
         if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;

@@ -102,9 +102,9 @@ $expressionWizard->expression('ISEVEN(A1)')
     ->setStyle($yellowStyle);
 $conditionalStyles[] = $expressionWizard->getConditional();
 
-//$spreadsheet->getActiveSheet()
-//    ->getStyle($expressionWizard->getCellRange())
-//    ->setConditionalStyles($conditionalStyles);
+$spreadsheet->getActiveSheet()
+    ->getStyle($expressionWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
 
 // Set rules for Sales Grid Row match against Country Comparison
 $cellRange = 'A17:D22';
