@@ -21,7 +21,7 @@ class IOFactoryTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $actual = IOFactory::createWriter($spreadsheet, $name);
-        self::assertInstanceOf($expected, $actual);
+        self::assertSame($expected, get_class($actual));
     }
 
     public function providerCreateWriter(): array
@@ -55,7 +55,7 @@ class IOFactoryTest extends TestCase
     public function testCreateReader($name, $expected): void
     {
         $actual = IOFactory::createReader($name);
-        self::assertInstanceOf($expected, $actual);
+        self::assertSame($expected, get_class($actual));
     }
 
     public function providerCreateReader(): array
@@ -102,7 +102,7 @@ class IOFactoryTest extends TestCase
     public function testCreateReaderForFile($file, $expectedName, $expectedClass): void
     {
         $actual = IOFactory::createReaderForFile($file);
-        self::assertInstanceOf($expectedClass, $actual);
+        self::assertSame($expectedClass, get_class($actual));
     }
 
     /**

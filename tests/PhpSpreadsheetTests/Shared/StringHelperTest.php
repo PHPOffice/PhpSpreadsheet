@@ -28,9 +28,6 @@ class StringHelperTest extends TestCase
         $this->currencyCode = StringHelper::getCurrencyCode();
         $this->decimalSeparator = StringHelper::getDecimalSeparator();
         $this->thousandsSeparator = StringHelper::getThousandsSeparator();
-
-        // Reset Currency Code
-        StringHelper::setCurrencyCode(null);
     }
 
     protected function tearDown(): void

@@ -43,7 +43,7 @@ class SpreadsheetTest extends TestCase
     /**
      * @dataProvider dataProviderForSheetNames
      */
-    public function testGetSheetByName($index, $sheetName): void
+    public function testGetSheetByName(int $index, string $sheetName): void
     {
         self::assertSame($this->object->getSheet($index), $this->object->getSheetByName($sheetName));
     }
