@@ -372,30 +372,12 @@ class ReferenceHelper
 
         // 1. Clear column strips if we are removing columns
         if ($numberOfColumns < 0 && $beforeColumn - 2 + $numberOfColumns > 0) {
-            for ($i = 1; $i <= $highestRow - 1; ++$i) {
-                for ($j = $beforeColumn - 1 + $numberOfColumns; $j <= $beforeColumn - 2; ++$j) {
-                    $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
-                    $worksheet->removeConditionalStyles($coordinate);
-                    if ($worksheet->cellExists($coordinate)) {
-                        $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
-                        $worksheet->getCell($coordinate)->setXfIndex(0);
-                    }
-                }
-            }
+            $this->clearColumnStrips($highestRow, $beforeColumn, $numberOfColumns, $worksheet);
         }
 
         // 2. Clear row strips if we are removing rows
         if ($numberOfRows < 0 && $beforeRow - 1 + $numberOfRows > 0) {
-            for ($i = $beforeColumn - 1; $i <= Coordinate::columnIndexFromString($highestColumn) - 1; ++$i) {
-                for ($j = $beforeRow + $numberOfRows; $j <= $beforeRow - 1; ++$j) {
-                    $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
-                    $worksheet->removeConditionalStyles($coordinate);
-                    if ($worksheet->cellExists($coordinate)) {
-                        $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
-                        $worksheet->getCell($coordinate)->setXfIndex(0);
-                    }
-                }
-            }
+            $this->clearRowStrips($highestColumn, $beforeColumn, $beforeRow, $numberOfRows, $worksheet);
         }
 
         // Find missing coordinates. This is important when inserting column before the last column
@@ -466,9 +448,10 @@ class ReferenceHelper
         $highestRow = $worksheet->getHighestRow();
 
         if ($numberOfColumns > 0 && $beforeColumn - 2 > 0) {
+            $beforeColumnName = Coordinate::stringFromColumnIndex($beforeColumn - 1);
             for ($i = $beforeRow; $i <= $highestRow - 1; ++$i) {
                 // Style
-                $coordinate = Coordinate::stringFromColumnIndex($beforeColumn - 1) . $i;
+                $coordinate = $beforeColumnName . $i;
                 if ($worksheet->cellExists($coordinate)) {
                     $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                     $conditionalStyles = $worksheet->conditionalStylesExists($coordinate) ?
@@ -488,7 +471,8 @@ class ReferenceHelper
         }
 
         if ($numberOfRows > 0 && $beforeRow - 1 > 0) {
-            for ($i = $beforeColumn; $i <= Coordinate::columnIndexFromString($highestColumn); ++$i) {
+            $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
+            for ($i = $beforeColumn; $i <= $highestColumnIndex; ++$i) {
                 // Style
                 $coordinate = Coordinate::stringFromColumnIndex($i) . ($beforeRow - 1);
                 if ($worksheet->cellExists($coordinate)) {
@@ -534,59 +518,7 @@ class ReferenceHelper
         $this->adjustProtectedCells($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: autofilter
-        $autoFilter = $worksheet->getAutoFilter();
-        $autoFilterRange = $autoFilter->getRange();
-        if (!empty($autoFilterRange)) {
-            if ($numberOfColumns != 0) {
-                $autoFilterColumns = $autoFilter->getColumns();
-                if (count($autoFilterColumns) > 0) {
-                    $column = '';
-                    $row = 0;
-                    sscanf($beforeCellAddress, '%[A-Z]%d', $column, $row);
-                    $columnIndex = Coordinate::columnIndexFromString($column);
-                    [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($autoFilterRange);
-                    if ($columnIndex <= $rangeEnd[0]) {
-                        if ($numberOfColumns < 0) {
-                            //    If we're actually deleting any columns that fall within the autofilter range,
-                            //        then we delete any rules for those columns
-                            $deleteColumn = $columnIndex + $numberOfColumns - 1;
-                            $deleteCount = abs($numberOfColumns);
-                            for ($i = 1; $i <= $deleteCount; ++$i) {
-                                if (isset($autoFilterColumns[Coordinate::stringFromColumnIndex($deleteColumn + 1)])) {
-                                    $autoFilter->clearColumn(Coordinate::stringFromColumnIndex($deleteColumn + 1));
-                                }
-                                ++$deleteColumn;
-                            }
-                        }
-                        $startCol = ($columnIndex > $rangeStart[0]) ? $columnIndex : $rangeStart[0];
-
-                        //    Shuffle columns in autofilter range
-                        if ($numberOfColumns > 0) {
-                            $startColRef = $startCol;
-                            $endColRef = $rangeEnd[0];
-                            $toColRef = $rangeEnd[0] + $numberOfColumns;
-
-                            do {
-                                $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
-                                --$endColRef;
-                                --$toColRef;
-                            } while ($startColRef <= $endColRef);
-                        } else {
-                            //    For delete, we shuffle from beginning to end to avoid overwriting
-                            $startColID = Coordinate::stringFromColumnIndex($startCol);
-                            $toColID = Coordinate::stringFromColumnIndex($startCol + $numberOfColumns);
-                            $endColID = Coordinate::stringFromColumnIndex($rangeEnd[0] + 1);
-                            do {
-                                $autoFilter->shiftColumn($startColID, $toColID);
-                                ++$startColID;
-                                ++$toColID;
-                            } while ($startColID != $endColID);
-                        }
-                    }
-                }
-            }
-            $worksheet->setAutoFilter($this->updateCellReference($autoFilterRange, $beforeCellAddress, $numberOfColumns, $numberOfRows));
-        }
+        $this->adjustAutoFilter($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
 
         // Update worksheet: freeze pane
         if ($worksheet->getFreezePane()) {
@@ -1036,6 +968,93 @@ class ReferenceHelper
 
         // Return new reference
         return $newColumn . $newRow;
+    }
+
+    private function clearColumnStrips(int $highestRow, int $beforeColumn, int $numberOfColumns, Worksheet $worksheet): void
+    {
+        for ($i = 1; $i <= $highestRow - 1; ++$i) {
+            for ($j = $beforeColumn - 1 + $numberOfColumns; $j <= $beforeColumn - 2; ++$j) {
+                $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
+                $worksheet->removeConditionalStyles($coordinate);
+                if ($worksheet->cellExists($coordinate)) {
+                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
+                    $worksheet->getCell($coordinate)->setXfIndex(0);
+                }
+            }
+        }
+    }
+
+    private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
+    {
+        $lastColumnIndex = Coordinate::columnIndexFromString($highestColumn) - 1;
+
+        for ($i = $beforeColumn - 1; $i <= $lastColumnIndex; ++$i) {
+            for ($j = $beforeRow + $numberOfRows; $j <= $beforeRow - 1; ++$j) {
+                $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
+                $worksheet->removeConditionalStyles($coordinate);
+                if ($worksheet->cellExists($coordinate)) {
+                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
+                    $worksheet->getCell($coordinate)->setXfIndex(0);
+                }
+            }
+        }
+    }
+
+    private function adjustAutoFilter(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        $autoFilter = $worksheet->getAutoFilter();
+        $autoFilterRange = $autoFilter->getRange();
+        if (!empty($autoFilterRange)) {
+            if ($numberOfColumns != 0) {
+                $autoFilterColumns = $autoFilter->getColumns();
+                if (count($autoFilterColumns) > 0) {
+                    $column = '';
+                    $row = 0;
+                    sscanf($beforeCellAddress, '%[A-Z]%d', $column, $row);
+                    $columnIndex = Coordinate::columnIndexFromString($column);
+                    [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($autoFilterRange);
+                    if ($columnIndex <= $rangeEnd[0]) {
+                        if ($numberOfColumns < 0) {
+                            //    If we're actually deleting any columns that fall within the autofilter range,
+                            //        then we delete any rules for those columns
+                            $deleteColumn = $columnIndex + $numberOfColumns - 1;
+                            $deleteCount = abs($numberOfColumns);
+                            for ($i = 1; $i <= $deleteCount; ++$i) {
+                                if (isset($autoFilterColumns[Coordinate::stringFromColumnIndex($deleteColumn + 1)])) {
+                                    $autoFilter->clearColumn(Coordinate::stringFromColumnIndex($deleteColumn + 1));
+                                }
+                                ++$deleteColumn;
+                            }
+                        }
+                        $startCol = ($columnIndex > $rangeStart[0]) ? $columnIndex : $rangeStart[0];
+
+                        //    Shuffle columns in autofilter range
+                        if ($numberOfColumns > 0) {
+                            $startColRef = $startCol;
+                            $endColRef = $rangeEnd[0];
+                            $toColRef = $rangeEnd[0] + $numberOfColumns;
+
+                            do {
+                                $autoFilter->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+                                --$endColRef;
+                                --$toColRef;
+                            } while ($startColRef <= $endColRef);
+                        } else {
+                            //    For delete, we shuffle from beginning to end to avoid overwriting
+                            $startColID = Coordinate::stringFromColumnIndex($startCol);
+                            $toColID = Coordinate::stringFromColumnIndex($startCol + $numberOfColumns);
+                            $endColID = Coordinate::stringFromColumnIndex($rangeEnd[0] + 1);
+                            do {
+                                $autoFilter->shiftColumn($startColID, $toColID);
+                                ++$startColID;
+                                ++$toColID;
+                            } while ($startColID != $endColID);
+                        }
+                    }
+                }
+            }
+            $worksheet->setAutoFilter($this->updateCellReference($autoFilterRange, $beforeCellAddress, $numberOfColumns, $numberOfRows));
+        }
     }
 
     /**
