@@ -13,7 +13,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
@@ -548,6 +547,8 @@ class Worksheet extends BIFFwriter
 
     private function writeConditionalFormatting(): void
     {
+        $conditionalFormulaHelper = new ConditionalHelper($this->parser);
+
         $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
@@ -570,7 +571,7 @@ class Worksheet extends BIFFwriter
                             $arrConditional[$conditional->getHashCode()] = true;
 
                             // Write CFRULE record
-                            $this->writeCFRule($conditional, $cellCoordinate);
+                            $this->writeCFRule($conditionalFormulaHelper, $conditional, $cellCoordinate);
                         }
                     }
                 }
@@ -2780,8 +2781,11 @@ class Worksheet extends BIFFwriter
     /**
      * Write CFRule Record.
      */
-    private function writeCFRule(Conditional $conditional, string $cellRange): void
-    {
+    private function writeCFRule(
+        ConditionalHelper $conditionalFormulaHelper,
+        Conditional $conditional,
+        string $cellRange
+    ): void {
         $record = 0x01B1; // Record identifier
         $type = null;  //  Type of the CF
         $operatorType = null;   //  Comparison operator
@@ -2839,53 +2843,17 @@ class Worksheet extends BIFFwriter
         $operand1 = null;
         $operand2 = null;
 
-        if ($numConditions == 1) {
-            if (is_int($arrConditions[0]) || is_float($arrConditions[0])) {
-                $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
-                $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
-            } else {
-                try {
-                    $formula1 = Wizard\WizardAbstract::reverseAdjustCellRef((string) $arrConditions[0], $cellRange);
-                    $this->parser->parse($formula1);
-                    $formula1 = $this->parser->toReversePolish();
-                    $szValue1 = strlen($formula1);
-                } catch (PhpSpreadsheetException $e) {
-                    var_dump("PARSER EXCEPTION: {$e->getMessage()}");
-                    $formula1 = null;
-                }
-                $operand1 = $formula1;
-            }
-        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == Conditional::OPERATOR_BETWEEN)) {
-            if (is_int($arrConditions[0]) || is_float($arrConditions[0])) {
-                $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
-                $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
-            } else {
-                try {
-                    $formula1 = Wizard\WizardAbstract::reverseAdjustCellRef((string) $arrConditions[0], $cellRange);
-                    $this->parser->parse($formula1);
-                    $formula1 = $this->parser->toReversePolish();
-                    $szValue1 = strlen($formula1);
-                } catch (PhpSpreadsheetException $e) {
-                    var_dump("PARSER EXCEPTION: {$e->getMessage()}");
-                    $formula1 = null;
-                }
-                $operand1 = $formula1;
-            }
-            if (is_int($arrConditions[1]) || is_float($arrConditions[1])) {
-                $szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
-                $operand2 = pack('Cv', 0x1E, $arrConditions[1]);
-            } else {
-                try {
-                    $formula2 = Wizard\WizardAbstract::reverseAdjustCellRef((string) $arrConditions[1], $cellRange);
-                    $this->parser->parse($formula2);
-                    $formula2 = $this->parser->toReversePolish();
-                    $szValue2 = strlen($formula2);
-                } catch (PhpSpreadsheetException $e) {
-                    var_dump("PARSER EXCEPTION: {$e->getMessage()}");
-                    $formula2 = null;
-                }
-                $operand2 = $formula2;
-            }
+        if ($numConditions === 1) {
+            $conditionalFormulaHelper->processCondition($arrConditions[0], $cellRange);
+            $szValue1 = $conditionalFormulaHelper->size();
+            $operand1 = $conditionalFormulaHelper->tokens();
+        } elseif ($numConditions === 2 && ($conditional->getOperatorType() === Conditional::OPERATOR_BETWEEN)) {
+            $conditionalFormulaHelper->processCondition($arrConditions[0], $cellRange);
+            $szValue1 = $conditionalFormulaHelper->size();
+            $operand1 = $conditionalFormulaHelper->tokens();
+            $conditionalFormulaHelper->processCondition($arrConditions[1], $cellRange);
+            $szValue2 = $conditionalFormulaHelper->size();
+            $operand2 = $conditionalFormulaHelper->tokens();
         }
 
         // $flags : Option flags
