@@ -28,6 +28,7 @@ $helper->log('Add data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()
     ->setCellValue('A1', 'Odd/Even Expression Comparison')
+    ->setCellValue('A4', 'Note that these functions are not available for Xls files')
     ->setCellValue('A15', 'Sales Grid Expression Comparison')
     ->setCellValue('A25', 'Sales Grid Multiple Expression Comparison');
 
@@ -101,9 +102,9 @@ $expressionWizard->expression('ISEVEN(A1)')
     ->setStyle($yellowStyle);
 $conditionalStyles[] = $expressionWizard->getConditional();
 
-$spreadsheet->getActiveSheet()
-    ->getStyle($expressionWizard->getCellRange())
-    ->setConditionalStyles($conditionalStyles);
+//$spreadsheet->getActiveSheet()
+//    ->getStyle($expressionWizard->getCellRange())
+//    ->setConditionalStyles($conditionalStyles);
 
 // Set rules for Sales Grid Row match against Country Comparison
 $cellRange = 'A17:D22';
