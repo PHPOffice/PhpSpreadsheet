@@ -44,6 +44,8 @@ $spreadsheet->getActiveSheet()->getCell('E11')->arrayFormulaRange();
 which returns a string containing a cell reference (e.g. `E11`) or a cell range reference (e.g. `E11:G13`).
 
 
+For more details on working with array formulae, see the [the recipes documentationn](./recipes.md/#array-formulae). 
+
 ### Adjustments to formulae when Inserting/Deleting Columns/Rows
 
 Another nice feature of PhpSpreadsheet's formula parser, is that it can

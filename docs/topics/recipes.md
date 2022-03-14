@@ -239,6 +239,46 @@ $spreadsheet->getActiveSheet()
     );
 ```
 
+Simply setting an array formula in a cell and specifying the range won't populate the spillage area for that formula.
+```php
+$spreadsheet->getActiveSheet()
+    ->setCellValue(
+        'A10',
+        '=SEQUENCE(3,3)',
+        true,
+        'A1:C3'
+    );
+
+// Will return a null, because the formula for A1 hasn't been calculated to populate the spillage area 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+To do that, we need to retrieve the calculated value for the cell.
+```php
+$spreadsheet->getActiveSheet()
+    ->setCellValue(
+        'A10',
+        '=SEQUENCE(3,3)',
+        true,
+        'A1:C3'
+    );
+
+$spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+
+// Will return 9, because the formula for A1 has now been calculated, and the spillage area is populated 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+When we call `getCalculatedValue()` for a cell that contains an array formula, PhpSpreadsheet returns the single value that would appear in that cell in MS Excel.
+```php
+// Will return integer 1, the value for that cell within the array
+$a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+```
+
+If we want to return the full array, then we need to call `getCalculatedValue()` with an additional argument, a boolean `true` to return the value as an array.
+```php
+// Will return an array [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+$a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue(true);
+```
+
 ---
 
 Excel365 introduced a number of new functions that return arrays of results.
