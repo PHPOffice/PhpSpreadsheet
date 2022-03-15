@@ -898,8 +898,8 @@ class Xlsx extends BaseReader
                                     foreach ($item->attributes() ?? [] as $attr) {
                                         $node->addAttribute($attr->getName(), $attr);
                                     }
-                                    $node->addAttribute('sqref', $item->children('xm', true)->sqref);
-                                    $node->addChild('formula1', $item->formula1->children('xm', true)->f);
+                                    $node->addAttribute('sqref', $item->children('xm', true)->sqref ?? '');
+                                    $node->addChild('formula1', $item->formula1->children('xm', true)->f ?? '');
                                 }
                             }
 
