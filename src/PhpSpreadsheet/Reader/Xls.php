@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\ConditionalFormatting;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
@@ -142,6 +143,8 @@ class Xls extends BaseReader
     const XLS_TYPE_SHEETLAYOUT = 0x0862;
     const XLS_TYPE_XFEXT = 0x087d;
     const XLS_TYPE_PAGELAYOUTVIEW = 0x088b;
+    const XLS_TYPE_CFHEADER = 0x01b0;
+    const XLS_TYPE_CFRULE = 0x01b1;
     const XLS_TYPE_UNKNOWN = 0xffff;
 
     // Encryption type
@@ -1030,6 +1033,14 @@ class Xls extends BaseReader
                         break;
                     case self::XLS_TYPE_DATAVALIDATION:
                         $this->readDataValidation();
+
+                        break;
+                    case self::XLS_TYPE_CFHEADER:
+                        $this->readCFHeader();
+
+                        break;
+                    case self::XLS_TYPE_CFRULE:
+                        $this->readCFRule();
 
                         break;
                     case self::XLS_TYPE_SHEETLAYOUT:
@@ -7920,5 +7931,129 @@ class Xls extends BaseReader
     public function getMapCellStyleXfIndex(): array
     {
         return $this->mapCellStyleXfIndex;
+    }
+
+    private function readCFHeader(): void
+    {
+        var_dump('FOUND CF HEADER');
+        $length = self::getUInt2d($this->data, $this->pos + 2);
+        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+
+        // move stream pointer forward to next record
+        $this->pos += 4 + $length;
+
+        if ($this->readDataOnly) {
+            return;
+        }
+
+        // offset: 0; size: 2; Rule Count
+        $ruleCount = self::getUInt2d($recordData, 0);
+
+        // offset: var; size: var; cell range address list with
+        $cellRangeAddressList = ($this->version == self::XLS_BIFF8)
+            ? $this->readBIFF8CellRangeAddressList(substr($recordData, 12))
+            : $this->readBIFF5CellRangeAddressList(substr($recordData, 12));
+        $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
+
+        var_dump($ruleCount, $cellRangeAddresses);
+    }
+
+    private function readCFRule(): void
+    {
+        var_dump('FOUND CF RULE');
+        $length = self::getUInt2d($this->data, $this->pos + 2);
+        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+
+        // move stream pointer forward to next record
+        $this->pos += 4 + $length;
+
+        if ($this->readDataOnly) {
+            return;
+        }
+
+        // offset: 0; size: 2; Options
+        $cfRule = self::getUInt2d($recordData, 0);
+
+        // bit: 8-15; mask: 0x00FF; type
+        $type = (0x00FF & $cfRule) >> 0;
+        $type = ConditionalFormatting::type($type);
+
+        // bit: 0-7; mask: 0xFF00; type
+        $operator = (0xFF00 & $cfRule) >> 8;
+        $operator = ConditionalFormatting::operator($operator);
+
+        if ($type === null || $operator === null) {
+            return;
+        }
+
+        // offset: 2; size: 2; Size1
+        $size1 = self::getUInt2d($recordData, 2);
+
+        // offset: 4; size: 2; Size2
+        $size2 = self::getUInt2d($recordData, 4);
+
+        // offset: 6; size: 4; Options
+        $options = self::getInt4d($recordData, 6);
+
+        $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
+        $hasAlignmentRecord = (bool) ((0x08000000 & $options) >> 27);
+        $hasBorderRecord = (bool) ((0x10000000 & $options) >> 28);
+        $hasFillRecord = (bool) ((0x20000000 & $options) >> 29);
+        $hasProtectionRecord = (bool) ((0x40000000 & $options) >> 30);
+
+        $offset = 12;
+
+        if ($hasFontRecord === true) {
+            $offset += 118;
+        }
+
+        if ($hasAlignmentRecord === true) {
+            $offset += 8;
+        }
+
+        if ($hasBorderRecord === true) {
+            $offset += 8;
+        }
+
+        if ($hasFillRecord === true) {
+            $offset += 4;
+        }
+
+        if ($hasProtectionRecord === true) {
+            $offset += 2;
+        }
+
+        var_dump($type, $operator);
+
+        if ($size1 > 0) {
+            $formula1 = $this->readCFFormula($recordData, $offset, $size1);
+            if ($formula1 === null) {
+                return;
+            }
+            var_dump($formula1);
+
+            $offset += $size1;
+        }
+
+        if ($size2 > 0) {
+            $formula2 = $this->readCFFormula($recordData, $offset, $size2);
+            if ($formula2 === null) {
+                return;
+            }
+            var_dump($formula2);
+        }
+    }
+
+    private function readCFFormula(string $recordData, int $offset, int $size): ?string
+    {
+        try {
+            $formula = substr($recordData, $offset, $size);
+            $formula = pack('v', $size) . $formula; // prepend the length
+
+            return $this->getFormulaFromStructure($formula);
+        } catch (PhpSpreadsheetException $e) {
+        }
+
+        return null;
     }
 }
