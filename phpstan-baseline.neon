@@ -3166,27 +3166,7 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\{'self', 'cellReverseSort'\\} given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\{'self', 'cellSort'\\} given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\:\\:\\$instance \\(PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 

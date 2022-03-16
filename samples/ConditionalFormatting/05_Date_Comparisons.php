@@ -108,12 +108,11 @@ $spreadsheet->getActiveSheet()->getStyle('B1:K1')->getAlignment()->setHorizontal
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
-
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
-$yellowStyle->getNumberFormat()->setFormatCode('ddd dd-mmm-yyyy');
+$yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
