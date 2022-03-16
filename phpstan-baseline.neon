@@ -4221,26 +4221,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
 		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\:\\:\\$shadow \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
@@ -5249,36 +5229,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
-
-		-
-			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$chart of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Drawing\\:\\:writeChart\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 20
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 10
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeUnparsedRelationship\\(\\) has parameter \\$relationship with no type specified\\.$#"
