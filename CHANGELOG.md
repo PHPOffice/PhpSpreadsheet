@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix bug when deleting cells with hyperlinks, where the hyperlink was then being "inherited" by whatever cell moved to that cell address.
 - Fix bug in Conditional Formatting in the Xls Writer that resulted in a broken file when there were multiple conditional ranges in a worksheet.
 - Fix Conditional Formatting in the Xls Writer to work with rules that contain string literals, cell references and formulae.
 - Fix for setting Active Sheet to the first loaded worksheet when bookViews element isn't defined [Issue #2666](https://github.com/PHPOffice/PhpSpreadsheet/issues/2666) [PR #2669](https://github.com/PHPOffice/PhpSpreadsheet/pull/2669)
