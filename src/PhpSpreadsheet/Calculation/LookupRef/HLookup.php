@@ -32,9 +32,10 @@ class HLookup extends LookupBase
         }
 
         $notExactMatch = (bool) ($notExactMatch ?? true);
-        $lookupArray = self::convertLiteralArray($lookupArray);
 
         try {
+            self::validateLookupArray($lookupArray);
+            $lookupArray = self::convertLiteralArray($lookupArray);
             $indexNumber = self::validateIndexLookup($lookupArray, $indexNumber);
         } catch (Exception $e) {
             return $e->getMessage();
