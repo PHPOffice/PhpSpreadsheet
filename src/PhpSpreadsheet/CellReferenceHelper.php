@@ -50,7 +50,7 @@ class CellReferenceHelper
             $this->numberOfRows !== $numberOfRows;
     }
 
-    public function updateCellReference(string $cellReference = 'A1'): string
+    public function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false): string
     {
         if (Coordinate::coordinateIsRange($cellReference)) {
             throw new Exception('Only single cell references may be passed to this method.');
@@ -61,18 +61,29 @@ class CellReferenceHelper
         $newColumnIndex = (int) Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
         $newRowIndex = (int) str_replace('$', '', $newRow);
 
+        $absoluteColumn = $newColumn[0] === '$' ? '$' : '';
+        $absoluteRow = $newRow[0] === '$' ? '$' : '';
         // Verify which parts should be updated
-        $updateColumn = (($newColumn[0] !== '$') && $newColumnIndex >= $this->beforeColumn);
-        $updateRow = (($newRow[0] !== '$') && $newRow >= $this->beforeRow);
+        if ($includeAbsoluteReferences === false) {
+            $updateColumn = (($absoluteColumn !== '$') && $newColumnIndex >= $this->beforeColumn);
+            $updateRow = (($absoluteRow !== '$') && $newRowIndex >= $this->beforeRow);
+        } else {
+            $updateColumn = ($newColumnIndex >= $this->beforeColumn);
+            $updateRow = ($newRowIndex >= $this->beforeRow);
+        }
 
         // Create new column reference
         if ($updateColumn) {
-            $newColumn = Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns);
+            $newColumn = ($includeAbsoluteReferences === false)
+                ? Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns)
+                : $absoluteColumn . Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns);
         }
 
         // Create new row reference
         if ($updateRow) {
-            $newRow = $newRowIndex + $this->numberOfRows;
+            $newRow = ($includeAbsoluteReferences === false)
+                ? $newRowIndex + $this->numberOfRows
+                : $absoluteRow . (string) ($newRowIndex + $this->numberOfRows);
         }
 
         // Return new reference
