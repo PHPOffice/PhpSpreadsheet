@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
-use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -73,7 +73,7 @@ $layout1->setShowPercent(true);
 // Set the series in the plot area
 $plotArea1 = new PlotArea($layout1, [$series1]);
 // Set the chart legend
-$legend1 = new Legend(Legend::POSITION_RIGHT, null, false);
+$legend1 = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
 
 $title1 = new Title('Test Pie Chart');
 
