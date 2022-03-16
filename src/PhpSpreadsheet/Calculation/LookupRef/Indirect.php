@@ -72,11 +72,17 @@ class Indirect
 
         [$cellAddress, $worksheet, $sheetName] = Helpers::extractWorksheet($cellAddress, $cell);
 
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_COLUMNRANGE_RELATIVE . '$/miu', $cellAddress, $matches)) {
+            $cellAddress = self::handleRowColumnRanges($worksheet, ...explode(':', $cellAddress));
+        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_ROWRANGE_RELATIVE . '$/miu', $cellAddress, $matches)) {
+            $cellAddress = self::handleRowColumnRanges($worksheet, ...explode(':', $cellAddress));
+        }
+
         [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName);
 
         if (
-            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress1, $matches)) ||
+            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress2, $matches)))
         ) {
             return ExcelError::REF();
         }
@@ -94,5 +100,23 @@ class Indirect
     {
         return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
             ->extractCellRange($cellAddress, $worksheet, false);
+    }
+
+    private static function handleRowColumnRanges(?Worksheet $worksheet, string $start, string $end): string
+    {
+        // Being lazy, we're only checking a single row/column to get the max
+        if (ctype_digit($start) && $start <= 1048576) {
+            // Max 16,384 columns for Excel2007
+            $endColRef = ($worksheet !== null) ? $worksheet->getHighestDataColumn((int) $start) : 'XFD';
+
+            return "A{$start}:{$endColRef}{$end}";
+        } elseif (ctype_alpha($start) && strlen($start) <= 3) {
+            // Max 1,048,576 rows for Excel2007
+            $endRowRef = ($worksheet !== null) ? $worksheet->getHighestDataRow($start) : 1048576;
+
+            return "{$start}1:{$end}{$endRowRef}";
+        }
+
+        return "{$start}:{$end}";
     }
 }

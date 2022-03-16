@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Allow `INDIRECT()` to accept row/column ranges as well as cell ranges [PR #2687](https://github.com/PHPOffice/PhpSpreadsheet/pull/2687)
 - Fix bug when deleting cells with hyperlinks, where the hyperlink was then being "inherited" by whatever cell moved to that cell address.
 - Fix bug in Conditional Formatting in the Xls Writer that resulted in a broken file when there were multiple conditional ranges in a worksheet.
 - Fix Conditional Formatting in the Xls Writer to work with rules that contain string literals, cell references and formulae.
