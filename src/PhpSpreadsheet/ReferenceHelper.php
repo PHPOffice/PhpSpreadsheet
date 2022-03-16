@@ -189,7 +189,9 @@ class ReferenceHelper
 
         foreach ($aHyperlinkCollection as $cellAddress => $value) {
             $newReference = $this->updateCellReference($cellAddress);
-            if ($cellAddress !== $newReference) {
+            if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
+                $worksheet->setHyperlink($cellAddress, null);
+            } elseif ($cellAddress !== $newReference) {
                 $worksheet->setHyperlink($newReference, $value);
                 $worksheet->setHyperlink($cellAddress, null);
             }
