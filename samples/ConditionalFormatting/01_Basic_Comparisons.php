@@ -30,7 +30,8 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('A1', 'Literal Value Comparison')
     ->setCellValue('A9', 'Value Comparison with Absolute Cell Reference $H$9')
     ->setCellValue('A17', 'Value Comparison with Relative Cell References')
-    ->setCellValue('A23', 'Value Comparison with Formula based on AVERAGE() ± STDEV()');
+    ->setCellValue('A23', 'Value Comparison with Formula based on AVERAGE() ± STDEV()')
+    ->setCellValue('A30', 'Literal String Value Comparison');
 
 $dataArray = [
     [-2, -1, 0, 1, 2],
@@ -45,11 +46,18 @@ $betweenDataArray = [
     [4, 3, 8],
 ];
 
+$stringArray = [
+    ['I'],
+    ['Love'],
+    ['PHP'],
+];
+
 $spreadsheet->getActiveSheet()
     ->fromArray($dataArray, null, 'A2', true)
     ->fromArray($dataArray, null, 'A10', true)
     ->fromArray($betweenDataArray, null, 'A18', true)
     ->fromArray($dataArray, null, 'A24', true)
+    ->fromArray($stringArray, null, 'A31', true)
     ->setCellValue('H9', 1);
 
 // Set title row bold
@@ -58,21 +66,31 @@ $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A9:E9')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A17:E17')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A23:E23')->getFont()->setBold(true);
+$spreadsheet->getActiveSheet()->getStyle('A30:E30')->getFont()->setBold(true);
 
 // Define some styles for our Conditionals
 $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
+$yellowStyle->getFill()
     ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+$yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 $greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
+    ->getStartColor()->setARGB(Color::COLOR_GREEN);
+$greenStyle->getFill()
     ->getEndColor()->setARGB(Color::COLOR_GREEN);
+$greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 $redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
+    ->getStartColor()->setARGB(Color::COLOR_RED);
+$redStyle->getFill()
     ->getEndColor()->setARGB(Color::COLOR_RED);
+$redStyle->getFont()->setColor(new Color(Color::COLOR_GREEN));
 
 // Set conditional formatting rules and styles
 $helper->log('Define conditional formatting and set styles');
@@ -164,6 +182,32 @@ $conditionalStyles[] = $cellWizard->getConditional();
 
 $cellWizard->lessThan('AVERAGE(' . $formulaRange . ')-STDEV(' . $formulaRange . ')', Wizard::VALUE_TYPE_FORMULA)
     ->setStyle($redStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$spreadsheet->getActiveSheet()
+    ->getStyle($cellWizard->getCellRange())
+    ->setConditionalStyles($conditionalStyles);
+
+// Set rules for Value Comparison with String Literal
+$cellRange = 'A31:A33';
+$formulaRange = implode(
+    ':',
+    array_map(
+        [Coordinate::class, 'absoluteCoordinate'],
+        Coordinate::splitRange($cellRange)[0]
+    )
+);
+$conditionalStyles = [];
+$wizardFactory = new Wizard($cellRange);
+/** @var Wizard\CellValue $cellWizard */
+$cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+$cellWizard->equals('LOVE')
+    ->setStyle($redStyle);
+$conditionalStyles[] = $cellWizard->getConditional();
+
+$cellWizard->equals('PHP')
+    ->setStyle($greenStyle);
 $conditionalStyles[] = $cellWizard->getConditional();
 
 $spreadsheet->getActiveSheet()
