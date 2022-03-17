@@ -4216,6 +4216,11 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
@@ -5494,3 +5499,4 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Xlfn\\:\\:addXlfn\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
+

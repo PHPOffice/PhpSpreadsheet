@@ -23,7 +23,7 @@ class SequenceTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SEQUENCE.php';
     }
 
-    public function testSequenceAsCellFormula()
+    public function testSequenceAsCellFormula(): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('B2')->setValue('=SEQUENCE(3,3,9,-1)', true, 'B2:D4');
@@ -35,7 +35,7 @@ class SequenceTest extends AllSetupTeardown
         self::assertSame(5, $sheet->getCell('C3')->getCalculatedValue());
     }
 
-    public function testSequenceAsCellFormulaAsArray()
+    public function testSequenceAsCellFormulaAsArray(): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('B2')->setValue('=SEQUENCE(3,3,9,-1)', true, 'B2:D4');
