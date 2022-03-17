@@ -298,6 +298,83 @@ class ReferenceHelperTest extends TestCase
         self::assertSame(['A3' => 'https://phpspreadsheet.readthedocs.io/en/latest/'], $hyperlinks);
     }
 
+    public function testInsertRowsWithDataValidation(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
+        $cellAddress = 'E5';
+        $this->setDataValidation($sheet, $cellAddress);
+
+        $sheet->insertNewRowBefore(2, 2);
+
+        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
+        self::assertTrue($sheet->getCell('E7')->hasDataValidation());
+    }
+
+    public function testDeleteRowsWithDataValidation(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
+        $cellAddress = 'E5';
+        $this->setDataValidation($sheet, $cellAddress);
+
+        $sheet->removeRow(2, 2);
+
+        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
+        self::assertTrue($sheet->getCell('E3')->hasDataValidation());
+    }
+
+    public function testDeleteColumnsWithDataValidation(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
+        $cellAddress = 'E5';
+        $this->setDataValidation($sheet, $cellAddress);
+
+        $sheet->removeColumn('B', 2);
+
+        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
+        self::assertTrue($sheet->getCell('C5')->hasDataValidation());
+    }
+
+    public function testInsertColumnsWithDataValidation(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->fromArray([['First'], ['Second'], ['Third'], ['Fourth']], null, 'A5', true);
+        $cellAddress = 'E5';
+        $this->setDataValidation($sheet, $cellAddress);
+
+        $sheet->insertNewColumnBefore('C', 2);
+
+        self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
+        self::assertTrue($sheet->getCell('G5')->hasDataValidation());
+    }
+
+    private function setDataValidation(Worksheet $sheet, string $cellAddress): void
+    {
+        $validation = $sheet->getCell($cellAddress)
+            ->getDataValidation();
+        $validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
+        $validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+        $validation->setAllowBlank(false);
+        $validation->setShowInputMessage(true);
+        $validation->setShowErrorMessage(true);
+        $validation->setShowDropDown(true);
+        $validation->setErrorTitle('Input error');
+        $validation->setError('Value is not in list.');
+        $validation->setPromptTitle('Pick from list');
+        $validation->setPrompt('Please pick a value from the drop-down list.');
+        $validation->setFormula1('$A5:$A8');
+    }
+
     public function testInsertRowsWithConditionalFormatting(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -306,6 +383,92 @@ class ReferenceHelperTest extends TestCase
         $sheet->getCell('H5')->setValue(5);
 
         $cellRange = 'C3:F7';
+        $this->setConditionalFormatting($sheet, $cellRange);
+
+        $sheet->insertNewRowBefore(4, 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('C3:F9', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$H$7', $conditions->getConditions()[0]);
+            }
+        }
+    }
+
+    public function testInsertColumnssWithConditionalFormatting(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4], [3, 4, 5, 6], [5, 6, 7, 8], [7, 8, 9, 10], [9, 10, 11, 12]], null, 'C3', true);
+        $sheet->getCell('H5')->setValue(5);
+
+        $cellRange = 'C3:F7';
+        $this->setConditionalFormatting($sheet, $cellRange);
+
+        $sheet->insertNewColumnBefore('C', 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('E3:H7', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$J$5', $conditions->getConditions()[0]);
+            }
+        }
+    }
+
+    public function testDeleteRowsWithConditionalFormatting(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4], [3, 4, 5, 6], [5, 6, 7, 8], [7, 8, 9, 10], [9, 10, 11, 12]], null, 'C3', true);
+        $sheet->getCell('H5')->setValue(5);
+
+        $cellRange = 'C3:F7';
+        $this->setConditionalFormatting($sheet, $cellRange);
+
+        $sheet->removeRow(4, 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('C3:F5', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$H$5', $conditions->getConditions()[0]);
+            }
+        }
+    }
+
+    public function testDeleteColumnsWithConditionalFormatting(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4], [3, 4, 5, 6], [5, 6, 7, 8], [7, 8, 9, 10], [9, 10, 11, 12]], null, 'C3', true);
+        $sheet->getCell('H5')->setValue(5);
+
+        $cellRange = 'C3:F7';
+        $this->setConditionalFormatting($sheet, $cellRange);
+
+        $sheet->removeColumn('D', 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('C3:D7', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$F$5', $conditions->getConditions()[0]);
+            }
+        }
+    }
+
+    private function setConditionalFormatting(Worksheet $sheet, string $cellRange): void
+    {
         $conditionalStyles = [];
         $wizardFactory = new Wizard($cellRange);
         /** @var Wizard\CellValue $cellWizard */
@@ -320,19 +483,55 @@ class ReferenceHelperTest extends TestCase
         $cellWizard->lessThan('$H$5', Wizard::VALUE_TYPE_CELL);
         $conditionalStyles[] = $cellWizard->getConditional();
 
-        $spreadsheet->getActiveSheet()
-            ->getStyle($cellWizard->getCellRange())
+        $sheet->getStyle($cellWizard->getCellRange())
             ->setConditionalStyles($conditionalStyles);
-        $sheet->insertNewRowBefore(4, 2);
+    }
 
-        $styles = $sheet->getConditionalStylesCollection();
-        // verify that the conditional range has been updated
-        self::assertSame('C3:F9', array_keys($styles)[0]);
-        // verify that the conditions have been updated
-        foreach ($styles as $style) {
-            foreach ($style as $conditions) {
-                self::assertSame('$H$7', $conditions->getConditions()[0]);
-            }
-        }
+    public function testInsertRowsWithPrintArea(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getPageSetup()->setPrintArea('A1:J10');
+
+        $sheet->insertNewRowBefore(2, 2);
+
+        $printArea = $sheet->getPageSetup()->getPrintArea();
+        self::assertSame('A1:J12', $printArea);
+    }
+
+    public function testInsertColumnsWithPrintArea(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getPageSetup()->setPrintArea('A1:J10');
+
+        $sheet->insertNewColumnBefore('B', 2);
+
+        $printArea = $sheet->getPageSetup()->getPrintArea();
+        self::assertSame('A1:L10', $printArea);
+    }
+
+    public function testDeleteRowsWithPrintArea(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getPageSetup()->setPrintArea('A1:J10');
+
+        $sheet->removeRow(2, 2);
+
+        $printArea = $sheet->getPageSetup()->getPrintArea();
+        self::assertSame('A1:J8', $printArea);
+    }
+
+    public function testDeleteColumnsWithPrintArea(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getPageSetup()->setPrintArea('A1:J10');
+
+        $sheet->removeColumn('B', 2);
+
+        $printArea = $sheet->getPageSetup()->getPrintArea();
+        self::assertSame('A1:H10', $printArea);
     }
 }
