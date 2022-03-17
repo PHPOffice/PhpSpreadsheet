@@ -3,8 +3,12 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperTest extends TestCase
@@ -176,5 +180,159 @@ class ReferenceHelperTest extends TestCase
         self::assertSame('a2', $cells[1][0]);
         self::assertNull($cells[1][1]);
         self::assertArrayNotHasKey(2, $cells[1]);
+    }
+
+    public function testInsertRowsWithPageBreaks(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->setBreak('A2', Worksheet::BREAK_ROW);
+        $sheet->setBreak('A5', Worksheet::BREAK_ROW);
+
+        $sheet->insertNewRowBefore(2, 2);
+
+        $breaks = $sheet->getBreaks();
+        ksort($breaks);
+        self::assertSame(['A4' => Worksheet::BREAK_ROW, 'A7' => Worksheet::BREAK_ROW], $breaks);
+    }
+
+    public function testDeleteRowsWithPageBreaks(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->setBreak('A2', Worksheet::BREAK_ROW);
+        $sheet->setBreak('A5', Worksheet::BREAK_ROW);
+
+        $sheet->removeRow(2, 2);
+
+        $breaks = $sheet->getBreaks();
+        self::assertSame(['A3' => Worksheet::BREAK_ROW], $breaks);
+    }
+
+    public function testInsertRowsWithComments(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->getComment('A2')->getText()->createText('First Comment');
+        $sheet->getComment('A5')->getText()->createText('Second Comment');
+
+        $sheet->insertNewRowBefore(2, 2);
+
+        $comments = array_map(
+            function (Comment $value) {
+                return $value->getText()->getPlainText();
+            },
+            $sheet->getComments()
+        );
+
+        self::assertSame(['A4' => 'First Comment', 'A7' => 'Second Comment'], $comments);
+    }
+
+    public function testDeleteRowsWithComments(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->getComment('A2')->getText()->createText('First Comment');
+        $sheet->getComment('A5')->getText()->createText('Second Comment');
+
+        $sheet->removeRow(2, 2);
+
+        $comments = array_map(
+            function (Comment $value) {
+                return $value->getText()->getPlainText();
+            },
+            $sheet->getComments()
+        );
+
+        self::assertSame(['A3' => 'Second Comment'], $comments);
+    }
+
+    public function testInsertRowsWithHyperlinks(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->getCell('A2')->getHyperlink()->setUrl('https://github.com/PHPOffice/PhpSpreadsheet');
+        $sheet->getCell('A5')->getHyperlink()->setUrl('https://phpspreadsheet.readthedocs.io/en/latest/');
+
+        $sheet->insertNewRowBefore(2, 2);
+
+        $hyperlinks = array_map(
+            function (Hyperlink $value) {
+                return $value->getUrl();
+            },
+            $sheet->getHyperlinkCollection()
+        );
+        ksort($hyperlinks);
+
+        self::assertSame(
+            [
+                'A4' => 'https://github.com/PHPOffice/PhpSpreadsheet',
+                'A7' => 'https://phpspreadsheet.readthedocs.io/en/latest/',
+            ],
+            $hyperlinks
+        );
+    }
+
+    public function testDeleteRowsWithHyperlinks(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]], null, 'A1', true);
+        $sheet->getCell('A2')->getHyperlink()->setUrl('https://github.com/PHPOffice/PhpSpreadsheet');
+        $sheet->getCell('A5')->getHyperlink()->setUrl('https://phpspreadsheet.readthedocs.io/en/latest/');
+
+        $sheet->removeRow(2, 2);
+
+        $hyperlinks = array_map(
+            function (Hyperlink $value) {
+                return $value->getUrl();
+            },
+            $sheet->getHyperlinkCollection()
+        );
+
+        self::assertSame(['A3' => 'https://phpspreadsheet.readthedocs.io/en/latest/'], $hyperlinks);
+    }
+
+    public function testInsertRowsWithConditionalFormatting(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4], [3, 4, 5, 6], [5, 6, 7, 8], [7, 8, 9, 10], [9, 10, 11, 12]], null, 'C3', true);
+        $sheet->getCell('H5')->setValue(5);
+
+        $cellRange = 'C3:F7';
+        $conditionalStyles = [];
+        $wizardFactory = new Wizard($cellRange);
+        /** @var Wizard\CellValue $cellWizard */
+        $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+        $cellWizard->equals('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->greaterThan('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->lessThan('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $spreadsheet->getActiveSheet()
+            ->getStyle($cellWizard->getCellRange())
+            ->setConditionalStyles($conditionalStyles);
+        $sheet->insertNewRowBefore(4, 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('C3:F9', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$H$7', $conditions->getConditions()[0]);
+            }
+        }
     }
 }

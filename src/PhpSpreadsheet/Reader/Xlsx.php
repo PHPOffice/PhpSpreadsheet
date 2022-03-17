@@ -1317,6 +1317,11 @@ class Xlsx extends BaseReader
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
                                                     $hlinkClick = $twoCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                                                    /** @scrutinizer ignore-call */
+                                                    $editAs = $twoCellAnchor->attributes();
+                                                    if (isset($editAs, $editAs['editAs'])) {
+                                                        $objDrawing->setEditAs($editAs['editAs']);
+                                                    }
                                                     $objDrawing->setName((string) self::getArrayItem(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem(self::getAttributes($twoCellAnchor->pic->nvPicPr->cNvPr), 'descr'));
                                                     $embedImageKey = (string) self::getArrayItem(
