@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
@@ -1036,11 +1037,11 @@ class Xls extends BaseReader
 
                         break;
                     case self::XLS_TYPE_CFHEADER:
-                        $this->readCFHeader();
+                        $cellRangeAddresses = $this->readCFHeader();
 
                         break;
                     case self::XLS_TYPE_CFRULE:
-                        $this->readCFRule();
+                        $this->readCFRule($cellRangeAddresses ?? []);
 
                         break;
                     case self::XLS_TYPE_SHEETLAYOUT:
@@ -7933,9 +7934,9 @@ class Xls extends BaseReader
         return $this->mapCellStyleXfIndex;
     }
 
-    private function readCFHeader(): void
+    private function readCFHeader(): array
     {
-        var_dump('FOUND CF HEADER');
+//        var_dump('FOUND CF HEADER');
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
@@ -7943,7 +7944,7 @@ class Xls extends BaseReader
         $this->pos += 4 + $length;
 
         if ($this->readDataOnly) {
-            return;
+            return [];
         }
 
         // offset: 0; size: 2; Rule Count
@@ -7955,12 +7956,14 @@ class Xls extends BaseReader
             : $this->readBIFF5CellRangeAddressList(substr($recordData, 12));
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
 
-        var_dump($ruleCount, $cellRangeAddresses);
+//        var_dump($ruleCount, $cellRangeAddresses);
+//
+        return $cellRangeAddresses;
     }
 
-    private function readCFRule(): void
+    private function readCFRule(array $cellRangeAddresses): void
     {
-        var_dump('FOUND CF RULE');
+//        var_dump('FOUND CF RULE');
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
@@ -8023,14 +8026,15 @@ class Xls extends BaseReader
             $offset += 2;
         }
 
-        var_dump($type, $operator);
-
+//        var_dump($type, $operator);
+//
+        $formula1 = $formula2 = null;
         if ($size1 > 0) {
             $formula1 = $this->readCFFormula($recordData, $offset, $size1);
             if ($formula1 === null) {
                 return;
             }
-            var_dump($formula1);
+//            var_dump($formula1);
 
             $offset += $size1;
         }
@@ -8040,20 +8044,57 @@ class Xls extends BaseReader
             if ($formula2 === null) {
                 return;
             }
-            var_dump($formula2);
+//            var_dump($formula2);
+
+            $offset += $size2;
         }
+
+        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2);
     }
 
-    private function readCFFormula(string $recordData, int $offset, int $size): ?string
+    /**
+     * @return null|float|int|string
+     */
+    private function readCFFormula(string $recordData, int $offset, int $size)
     {
         try {
             $formula = substr($recordData, $offset, $size);
             $formula = pack('v', $size) . $formula; // prepend the length
 
-            return $this->getFormulaFromStructure($formula);
+            $formula = $this->getFormulaFromStructure($formula);
+            if (is_numeric($formula)) {
+                return (strpos($formula, '.') !== false) ? (float) $formula : (int) $formula;
+            }
+
+            return $formula;
         } catch (PhpSpreadsheetException $e) {
         }
 
         return null;
+    }
+
+    /**
+     * @param null|float|int|string $formula1
+     * @param null|float|int|string $formula2
+     */
+    private function setCFRules(array $cellRanges, string $type, string $operator, $formula1, $formula2): void
+    {
+        foreach ($cellRanges as $cellRange) {
+            $conditional = new Conditional();
+            $conditional->setConditionType($type);
+            $conditional->setOperatorType($operator);
+            if ($formula1 !== null) {
+                $conditional->addCondition($formula1);
+            }
+            if ($formula2 !== null) {
+                $conditional->addCondition($formula2);
+            }
+
+            $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
+            $conditionalStyles[] = $conditional;
+
+            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
+            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
+        }
     }
 }
