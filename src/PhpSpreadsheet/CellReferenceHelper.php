@@ -43,6 +43,11 @@ class CellReferenceHelper
         $this->beforeRow = (int) $beforeRow;
     }
 
+    public function beforeCellAddress(): string
+    {
+        return $this->beforeCellAddress;
+    }
+
     public function refreshRequired(string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): bool
     {
         return $this->beforeCellAddress !== $beforeCellAddress ||

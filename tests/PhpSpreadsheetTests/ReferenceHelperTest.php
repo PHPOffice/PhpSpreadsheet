@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -295,5 +296,43 @@ class ReferenceHelperTest extends TestCase
         );
 
         self::assertSame(['A3' => 'https://phpspreadsheet.readthedocs.io/en/latest/'], $hyperlinks);
+    }
+
+    public function testInsertRowsWithConditionalFormatting(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([[1, 2, 3, 4], [3, 4, 5, 6], [5, 6, 7, 8], [7, 8, 9, 10], [9, 10, 11, 12]], null, 'C3', true);
+        $sheet->getCell('H5')->setValue(5);
+
+        $cellRange = 'C3:F7';
+        $conditionalStyles = [];
+        $wizardFactory = new Wizard($cellRange);
+        /** @var Wizard\CellValue $cellWizard */
+        $cellWizard = $wizardFactory->newRule(Wizard::CELL_VALUE);
+
+        $cellWizard->equals('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->greaterThan('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $cellWizard->lessThan('$H$5', Wizard::VALUE_TYPE_CELL);
+        $conditionalStyles[] = $cellWizard->getConditional();
+
+        $spreadsheet->getActiveSheet()
+            ->getStyle($cellWizard->getCellRange())
+            ->setConditionalStyles($conditionalStyles);
+        $sheet->insertNewRowBefore(4, 2);
+
+        $styles = $sheet->getConditionalStylesCollection();
+        // verify that the conditional range has been updated
+        self::assertSame('C3:F9', array_keys($styles)[0]);
+        // verify that the conditions have been updated
+        foreach ($styles as $style) {
+            foreach ($style as $conditions) {
+                self::assertSame('$H$7', $conditions->getConditions()[0]);
+            }
+        }
     }
 }
