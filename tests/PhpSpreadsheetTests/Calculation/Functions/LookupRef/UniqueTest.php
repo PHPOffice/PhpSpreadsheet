@@ -11,9 +11,9 @@ class UniqueTest extends TestCase
     /**
      * @dataProvider uniqueTestProvider
      */
-    public function testUnique(array $expectedResult, ...$args): void
+    public function testUnique(array $expectedResult, array $lookupRef, bool $byColumn = false, bool $exactlyOnce = false): void
     {
-        $result = LookupRef\Unique::unique(...$args);
+        $result = LookupRef\Unique::unique($lookupRef, $byColumn, $exactlyOnce);
         self::assertEquals($expectedResult, $result);
     }
 
