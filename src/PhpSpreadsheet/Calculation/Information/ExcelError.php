@@ -127,10 +127,20 @@ class ExcelError
     /**
      * DIV0.
      *
-     * @return string #Not Yet Implemented
+     * @return string #DIV/0!
      */
     public static function DIV0()
     {
         return self::$errorCodes['divisionbyzero'];
+    }
+
+    /**
+     * CALC.
+     *
+     * @return string #Not Yet Implemented
+     */
+    public static function CALC()
+    {
+        return '#CALC!';
     }
 }
