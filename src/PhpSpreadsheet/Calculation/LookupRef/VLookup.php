@@ -33,6 +33,7 @@ class VLookup extends LookupBase
         $notExactMatch = (bool) ($notExactMatch ?? true);
 
         try {
+            self::validateLookupArray($lookupArray);
             $indexNumber = self::validateIndexLookup($lookupArray, $indexNumber);
         } catch (Exception $e) {
             return $e->getMessage();

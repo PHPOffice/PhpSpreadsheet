@@ -243,7 +243,7 @@ class Column
      * Set An AutoFilter Attribute.
      *
      * @param string $name Attribute Name
-     * @param string $value Attribute Value
+     * @param int|string $value Attribute Value
      *
      * @return $this
      */

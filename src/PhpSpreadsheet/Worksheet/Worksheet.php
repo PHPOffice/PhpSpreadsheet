@@ -567,6 +567,7 @@ class Worksheet implements IComparable
             $this->chartCollection[] = $chart;
         } else {
             // Insert the chart at the requested index
+            // @phpstan-ignore-next-line
             array_splice($this->chartCollection, $chartIndex, 0, [$chart]);
         }
 
@@ -1224,6 +1225,7 @@ class Worksheet implements IComparable
                     throw new Exception('Sheet not found for named range: ' . $namedRange->getName());
                 }
 
+                /** @phpstan-ignore-next-line */
                 $cellCoordinate = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
                 $finalCoordinate = str_replace('$', '', $cellCoordinate);
             }
@@ -2217,15 +2219,17 @@ class Worksheet implements IComparable
         $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
         $pColumnIndex = Coordinate::columnIndexFromString($column);
 
-        if ($pColumnIndex > $highestColumnIndex) {
-            return $this;
-        }
-
         $holdColumnDimensions = $this->removeColumnDimensions($pColumnIndex, $numberOfColumns);
 
         $column = Coordinate::stringFromColumnIndex($pColumnIndex + $numberOfColumns);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
+
+        $this->columnDimensions = $holdColumnDimensions;
+
+        if ($pColumnIndex > $highestColumnIndex) {
+            return $this;
+        }
 
         $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
 
@@ -2233,8 +2237,6 @@ class Worksheet implements IComparable
             $this->getCellCollection()->removeColumn($highestColumn);
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
-
-        $this->columnDimensions = $holdColumnDimensions;
 
         $this->garbageCollect();
 
@@ -2767,6 +2769,7 @@ class Worksheet implements IComparable
     {
         $namedRange = $this->validateNamedRange($definedName);
         $workSheet = $namedRange->getWorksheet();
+        /** @phpstan-ignore-next-line */
         $cellRange = ltrim(substr($namedRange->getValue(), strrpos($namedRange->getValue(), '!')), '!');
         $cellRange = str_replace('$', '', $cellRange);
 

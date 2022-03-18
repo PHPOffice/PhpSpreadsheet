@@ -71,6 +71,7 @@ class MD5
      */
     public function add(string $data): void
     {
+        // @phpstan-ignore-next-line
         $words = array_values(unpack('V16', $data));
 
         $A = $this->a;

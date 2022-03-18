@@ -25,6 +25,13 @@ return [
         false,
     ],
     [
+        '#REF!',
+        1,
+        'HELLO WORLD',
+        2,
+        false,
+    ],
+    [
         100,
         1,
         densityGrid(),

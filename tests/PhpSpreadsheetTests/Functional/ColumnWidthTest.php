@@ -17,7 +17,7 @@ class ColumnWidthTest extends AbstractFunctional
     /**
      * @dataProvider providerFormats
      */
-    public function testReadColumnWidth($format): void
+    public function testReadColumnWidth(string $format): void
     {
         // create new sheet with column width
         $spreadsheet = new Spreadsheet();

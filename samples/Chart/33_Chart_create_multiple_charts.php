@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -71,7 +71,7 @@ $series1 = new DataSeries(
 // Set the series in the plot area
 $plotArea1 = new PlotArea(null, [$series1]);
 // Set the chart legend
-$legend1 = new Legend(Legend::POSITION_TOPRIGHT, null, false);
+$legend1 = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
 
 $title1 = new Title('Test %age-Stacked Area Chart');
 $yAxisLabel1 = new Title('Value ($k)');
@@ -146,7 +146,7 @@ $series2->setPlotDirection(DataSeries::DIRECTION_COL);
 // Set the series in the plot area
 $plotArea2 = new PlotArea(null, [$series2]);
 // Set the chart legend
-$legend2 = new Legend(Legend::POSITION_RIGHT, null, false);
+$legend2 = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
 
 $title2 = new Title('Test Column Chart');
 $yAxisLabel2 = new Title('Value ($k)');

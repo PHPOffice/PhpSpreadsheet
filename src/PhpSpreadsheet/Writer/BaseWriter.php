@@ -115,7 +115,7 @@ abstract class BaseWriter implements IWriter
             return;
         }
 
-        $mode = 'wb+';
+        $mode = 'wb';
         $scheme = parse_url($filename, PHP_URL_SCHEME);
         if ($scheme === 's3') {
             $mode = 'w';

@@ -34,4 +34,8 @@ return [
     'supply a1 argument as int' => [900, 'A2:A4', 1],
     'supply a1 argument as float' => [900, 'A2:A4', 7.3],
     'supply a1 argument as string not permitted' => ['#VALUE!', 'A2:A4', '1'],
+    'row range' => [600, '1:3'],
+    'column range' => [1500, 'A:C'],
+    'row range on different sheet' => [66, 'OtherSheet!1:3'],
+    'column range on different sheet' => [165, 'OtherSheet!A:C'],
 ];

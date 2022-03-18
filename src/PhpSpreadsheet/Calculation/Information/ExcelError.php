@@ -22,6 +22,7 @@ class ExcelError
         'num' => '#NUM!',
         'na' => '#N/A',
         'gettingdata' => '#GETTING_DATA',
+        'spill' => '#SPILL!',
     ];
 
     /**
@@ -43,6 +44,10 @@ class ExcelError
                 return $i;
             }
             ++$i;
+        }
+
+        if ($value === self::CALC()) {
+            return 14;
         }
 
         return self::NA();
@@ -127,10 +132,20 @@ class ExcelError
     /**
      * DIV0.
      *
-     * @return string #Not Yet Implemented
+     * @return string #DIV/0!
      */
     public static function DIV0()
     {
         return self::$errorCodes['divisionbyzero'];
+    }
+
+    /**
+     * CALC.
+     *
+     * @return string #Not Yet Implemented
+     */
+    public static function CALC()
+    {
+        return '#CALC!';
     }
 }
