@@ -71,6 +71,24 @@ class ArrayFormulaTest extends TestCase
                 '=IFS(FALSE, {1,2,3}, TRUE, {4,5,6})',
                 [[4, 5, 6]],
             ],
+            [
+                '=UNIQUE(
+                    {"Grant";"Barbara";"Frances";"Alicia";"Alicia";"Lynn";"Barbara";"Anthony";"Anthony";"Frances"}
+                    &" "&
+                    {"Fife";"Pruitt";"Horn";"Barrett";"Barrett";"Larson";"Pruitt";"Snook";"Snook";"Horn"}
+                )',
+                [['Grant Fife'], ['Barbara Pruitt'], ['Frances Horn'], ['Alicia Barrett'], ['Lynn Larson'], ['Anthony Snook']],
+            ],
+            [
+                '=UNIQUE(
+                    {"Grant";"Barbara";"Frances";"Alicia";"Alicia";"Lynn";"Barbara";"Anthony";"Anthony";"Frances"}
+                    &" "&
+                    {"Fife";"Pruitt";"Horn";"Barrett";"Barrett";"Larson";"Pruitt";"Snook";"Snook";"Horn"},
+                    false,
+                    true
+                )',
+                [['Grant Fife'], ['Lynn Larson']],
+            ],
         ];
     }
 
