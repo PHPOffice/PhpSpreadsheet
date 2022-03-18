@@ -2583,7 +2583,7 @@ class Calculation
         ],
         'UNIQUE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\Unique::class, 'unique'],
             'argumentCount' => '1+',
         ],
         'UPPER' => [
