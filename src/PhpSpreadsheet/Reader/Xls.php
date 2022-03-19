@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\ConditionalFormatting;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\FillPattern;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -23,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
@@ -8013,6 +8015,25 @@ class Xls extends BaseReader
 
     private function getCFFillStyle(string $options, Style $style): void
     {
+        $fillPattern = self::getUInt2d($options, 0);
+        // bit: 10-15; mask: 0xFC00; type
+        $fillPattern = (0xFC00 & $fillPattern) >> 10;
+        $fillPattern = FillPattern::lookup($fillPattern);
+        $fillPattern = $fillPattern === Fill::FILL_NONE ? Fill::FILL_SOLID : $fillPattern;
+
+        if ($fillPattern !== Fill::FILL_NONE) {
+            $style->getFill()->setFillType($fillPattern);
+
+            $fillColors = self::getUInt2d($options, 2);
+
+            // bit: 0-6; mask: 0x007F; type
+            $color1 = (0x007F & $fillColors) >> 0;
+            $style->getFill()->getStartColor()->setRGB(Xls\Color::map($color1, $this->palette, $this->version)['rgb']);
+
+            // bit: 7-13; mask: 0x3F80; type
+            $color2 = (0x3F80 & $fillColors) >> 7;
+            $style->getFill()->getEndColor()->setRGB(Xls\Color::map($color2, $this->palette, $this->version)['rgb']);
+        }
     }
 
     private function getCFProtectionStyle(string $options, Style $style): void
