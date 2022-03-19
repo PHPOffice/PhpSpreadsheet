@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\ConditionalFormatting;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\CodePage;
@@ -21,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
@@ -142,6 +144,8 @@ class Xls extends BaseReader
     const XLS_TYPE_SHEETLAYOUT = 0x0862;
     const XLS_TYPE_XFEXT = 0x087d;
     const XLS_TYPE_PAGELAYOUTVIEW = 0x088b;
+    const XLS_TYPE_CFHEADER = 0x01b0;
+    const XLS_TYPE_CFRULE = 0x01b1;
     const XLS_TYPE_UNKNOWN = 0xffff;
 
     // Encryption type
@@ -1030,6 +1034,14 @@ class Xls extends BaseReader
                         break;
                     case self::XLS_TYPE_DATAVALIDATION:
                         $this->readDataValidation();
+
+                        break;
+                    case self::XLS_TYPE_CFHEADER:
+                        $cellRangeAddresses = $this->readCFHeader();
+
+                        break;
+                    case self::XLS_TYPE_CFRULE:
+                        $this->readCFRule($cellRangeAddresses ?? []);
 
                         break;
                     case self::XLS_TYPE_SHEETLAYOUT:
@@ -7845,5 +7857,212 @@ class Xls extends BaseReader
     public function getMapCellStyleXfIndex(): array
     {
         return $this->mapCellStyleXfIndex;
+    }
+
+    private function readCFHeader(): array
+    {
+        $length = self::getUInt2d($this->data, $this->pos + 2);
+        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+
+        // move stream pointer forward to next record
+        $this->pos += 4 + $length;
+
+        if ($this->readDataOnly) {
+            return [];
+        }
+
+        // offset: 0; size: 2; Rule Count
+//        $ruleCount = self::getUInt2d($recordData, 0);
+
+        // offset: var; size: var; cell range address list with
+        $cellRangeAddressList = ($this->version == self::XLS_BIFF8)
+            ? $this->readBIFF8CellRangeAddressList(substr($recordData, 12))
+            : $this->readBIFF5CellRangeAddressList(substr($recordData, 12));
+        $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
+
+        return $cellRangeAddresses;
+    }
+
+    private function readCFRule(array $cellRangeAddresses): void
+    {
+        $length = self::getUInt2d($this->data, $this->pos + 2);
+        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+
+        // move stream pointer forward to next record
+        $this->pos += 4 + $length;
+
+        if ($this->readDataOnly) {
+            return;
+        }
+
+        // offset: 0; size: 2; Options
+        $cfRule = self::getUInt2d($recordData, 0);
+
+        // bit: 8-15; mask: 0x00FF; type
+        $type = (0x00FF & $cfRule) >> 0;
+        $type = ConditionalFormatting::type($type);
+
+        // bit: 0-7; mask: 0xFF00; type
+        $operator = (0xFF00 & $cfRule) >> 8;
+        $operator = ConditionalFormatting::operator($operator);
+
+        if ($type === null || $operator === null) {
+            return;
+        }
+
+        // offset: 2; size: 2; Size1
+        $size1 = self::getUInt2d($recordData, 2);
+
+        // offset: 4; size: 2; Size2
+        $size2 = self::getUInt2d($recordData, 4);
+
+        // offset: 6; size: 4; Options
+        $options = self::getInt4d($recordData, 6);
+
+        $style = new Style();
+        $this->getCFStyleOptions($options, $style);
+
+        $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
+        $hasAlignmentRecord = (bool) ((0x08000000 & $options) >> 27);
+        $hasBorderRecord = (bool) ((0x10000000 & $options) >> 28);
+        $hasFillRecord = (bool) ((0x20000000 & $options) >> 29);
+        $hasProtectionRecord = (bool) ((0x40000000 & $options) >> 30);
+
+        $offset = 12;
+
+        if ($hasFontRecord === true) {
+            $fontStyle = substr($recordData, $offset, 118);
+            $this->getCFFontStyle($fontStyle, $style);
+            $offset += 118;
+        }
+
+        if ($hasAlignmentRecord === true) {
+            $alignmentStyle = substr($recordData, $offset, 8);
+            $this->getCFAlignmentStyle($alignmentStyle, $style);
+            $offset += 8;
+        }
+
+        if ($hasBorderRecord === true) {
+            $borderStyle = substr($recordData, $offset, 8);
+            $this->getCFBorderStyle($borderStyle, $style);
+            $offset += 8;
+        }
+
+        if ($hasFillRecord === true) {
+            $fillStyle = substr($recordData, $offset, 4);
+            $this->getCFFillStyle($fillStyle, $style);
+            $offset += 4;
+        }
+
+        if ($hasProtectionRecord === true) {
+            $protectionStyle = substr($recordData, $offset, 4);
+            $this->getCFProtectionStyle($protectionStyle, $style);
+            $offset += 2;
+        }
+
+        $formula1 = $formula2 = null;
+        if ($size1 > 0) {
+            $formula1 = $this->readCFFormula($recordData, $offset, $size1);
+            if ($formula1 === null) {
+                return;
+            }
+
+            $offset += $size1;
+        }
+
+        if ($size2 > 0) {
+            $formula2 = $this->readCFFormula($recordData, $offset, $size2);
+            if ($formula2 === null) {
+                return;
+            }
+
+            $offset += $size2;
+        }
+
+        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style);
+    }
+
+    private function getCFStyleOptions(int $options, Style $style): void
+    {
+    }
+
+    private function getCFFontStyle(string $options, Style $style): void
+    {
+        $fontSize = self::getInt4d($options, 64);
+        if ($fontSize !== -1) {
+            $style->getFont()->setSize($fontSize / 20); // Convert twips to points
+        }
+
+        $bold = self::getUInt2d($options, 72) === 700; // 400 = normal, 700 = bold
+        $style->getFont()->setBold($bold);
+
+        $color = self::getInt4d($options, 80);
+
+        if ($color !== -1) {
+            $style->getFont()->getColor()->setRGB(Xls\Color::map($color, $this->palette, $this->version)['rgb']);
+        }
+    }
+
+    private function getCFAlignmentStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFBorderStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFFillStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFProtectionStyle(string $options, Style $style): void
+    {
+    }
+
+    /**
+     * @return null|float|int|string
+     */
+    private function readCFFormula(string $recordData, int $offset, int $size)
+    {
+        try {
+            $formula = substr($recordData, $offset, $size);
+            $formula = pack('v', $size) . $formula; // prepend the length
+
+            $formula = $this->getFormulaFromStructure($formula);
+            if (is_numeric($formula)) {
+                return (strpos($formula, '.') !== false) ? (float) $formula : (int) $formula;
+            }
+
+            return $formula;
+        } catch (PhpSpreadsheetException $e) {
+        }
+
+        return null;
+    }
+
+    /**
+     * @param null|float|int|string $formula1
+     * @param null|float|int|string $formula2
+     */
+    private function setCFRules(array $cellRanges, string $type, string $operator, $formula1, $formula2, Style $style): void
+    {
+        foreach ($cellRanges as $cellRange) {
+            $conditional = new Conditional();
+            $conditional->setConditionType($type);
+            $conditional->setOperatorType($operator);
+            if ($formula1 !== null) {
+                $conditional->addCondition($formula1);
+            }
+            if ($formula2 !== null) {
+                $conditional->addCondition($formula2);
+            }
+            $conditional->setStyle($style);
+
+            $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
+            $conditionalStyles[] = $conditional;
+
+            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
+            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
+        }
     }
 }
