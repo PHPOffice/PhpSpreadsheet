@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
 - Limited support for Xls Reader to handle Conditional Formatting:
 
-  Ranges and Rules are read, but style is currently limited to font size, weight and color.
+  Ranges and Rules are read, but style is currently limited to font size, weight and color; and to fill style and color.
 
 ### Changed
 
