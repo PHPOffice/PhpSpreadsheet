@@ -4788,57 +4788,11 @@ class Xls extends BaseReader
 
         // bit: 0-3; mask: 0x0000000F; type
         $type = (0x0000000F & $options) >> 0;
-        switch ($type) {
-            case 0x00:
-                $type = DataValidation::TYPE_NONE;
-
-                break;
-            case 0x01:
-                $type = DataValidation::TYPE_WHOLE;
-
-                break;
-            case 0x02:
-                $type = DataValidation::TYPE_DECIMAL;
-
-                break;
-            case 0x03:
-                $type = DataValidation::TYPE_LIST;
-
-                break;
-            case 0x04:
-                $type = DataValidation::TYPE_DATE;
-
-                break;
-            case 0x05:
-                $type = DataValidation::TYPE_TIME;
-
-                break;
-            case 0x06:
-                $type = DataValidation::TYPE_TEXTLENGTH;
-
-                break;
-            case 0x07:
-                $type = DataValidation::TYPE_CUSTOM;
-
-                break;
-        }
+        $type = Xls\DataValidationHelper::type($type);
 
         // bit: 4-6; mask: 0x00000070; error type
         $errorStyle = (0x00000070 & $options) >> 4;
-        switch ($errorStyle) {
-            case 0x00:
-                $errorStyle = DataValidation::STYLE_STOP;
-
-                break;
-            case 0x01:
-                $errorStyle = DataValidation::STYLE_WARNING;
-
-                break;
-            case 0x02:
-                $errorStyle = DataValidation::STYLE_INFORMATION;
-
-                break;
-        }
+        $errorStyle = Xls\DataValidationHelper::errorStyle($errorStyle);
 
         // bit: 7; mask: 0x00000080; 1= formula is explicit (only applies to list)
         // I have only seen cases where this is 1
@@ -4858,39 +4812,10 @@ class Xls extends BaseReader
 
         // bit: 20-23; mask: 0x00F00000; condition operator
         $operator = (0x00F00000 & $options) >> 20;
-        switch ($operator) {
-            case 0x00:
-                $operator = DataValidation::OPERATOR_BETWEEN;
+        $operator = Xls\DataValidationHelper::operator($operator);
 
-                break;
-            case 0x01:
-                $operator = DataValidation::OPERATOR_NOTBETWEEN;
-
-                break;
-            case 0x02:
-                $operator = DataValidation::OPERATOR_EQUAL;
-
-                break;
-            case 0x03:
-                $operator = DataValidation::OPERATOR_NOTEQUAL;
-
-                break;
-            case 0x04:
-                $operator = DataValidation::OPERATOR_GREATERTHAN;
-
-                break;
-            case 0x05:
-                $operator = DataValidation::OPERATOR_LESSTHAN;
-
-                break;
-            case 0x06:
-                $operator = DataValidation::OPERATOR_GREATERTHANOREQUAL;
-
-                break;
-            case 0x07:
-                $operator = DataValidation::OPERATOR_LESSTHANOREQUAL;
-
-                break;
+        if ($type === null || $errorStyle === null || $operator === null) {
+            return;
         }
 
         // offset: 4; size: var; title of the prompt box

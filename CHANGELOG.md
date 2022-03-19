@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the ISREF() information function.
+- Implementation of the UNIQUE() Lookup/Reference (array) function
+- Implementation of the ISREF() Information function.
 - Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
   (i.e a value of "12,345.67" can be read as numeric `1235.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
@@ -31,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   This is determined by the Calculation Engine locale setting.
 
   (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
+- Allow `psr/simple-cache` 2.x
 
 ### Deprecated
 
