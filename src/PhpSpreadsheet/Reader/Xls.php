@@ -7998,6 +7998,9 @@ class Xls extends BaseReader
         // offset: 6; size: 4; Options
         $options = self::getInt4d($recordData, 6);
 
+        $style = new Style();
+        $this->getCFStyleOptions($options, $style);
+
         $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
         $hasAlignmentRecord = (bool) ((0x08000000 & $options) >> 27);
         $hasBorderRecord = (bool) ((0x10000000 & $options) >> 28);
@@ -8007,22 +8010,32 @@ class Xls extends BaseReader
         $offset = 12;
 
         if ($hasFontRecord === true) {
+            $fontStyle = substr($recordData, $offset, 118);
+            $this->getCFFontStyle($fontStyle, $style);
             $offset += 118;
         }
 
         if ($hasAlignmentRecord === true) {
+            $alignmentStyle = substr($recordData, $offset, 8);
+            $this->getCFAlignmentStyle($alignmentStyle, $style);
             $offset += 8;
         }
 
         if ($hasBorderRecord === true) {
+            $borderStyle = substr($recordData, $offset, 8);
+            $this->getCFBorderStyle($borderStyle, $style);
             $offset += 8;
         }
 
         if ($hasFillRecord === true) {
+            $fillStyle = substr($recordData, $offset, 4);
+            $this->getCFFillStyle($fillStyle, $style);
             $offset += 4;
         }
 
         if ($hasProtectionRecord === true) {
+            $protectionStyle = substr($recordData, $offset, 4);
+            $this->getCFProtectionStyle($protectionStyle, $style);
             $offset += 2;
         }
 
@@ -8049,7 +8062,31 @@ class Xls extends BaseReader
             $offset += $size2;
         }
 
-        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2);
+        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style);
+    }
+
+    private function getCFStyleOptions(int $options, Style $style): void
+    {
+    }
+
+    private function getCFFontStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFAlignmentStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFBorderStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFFillStyle(string $options, Style $style): void
+    {
+    }
+
+    private function getCFProtectionStyle(string $options, Style $style): void
+    {
     }
 
     /**
@@ -8077,7 +8114,7 @@ class Xls extends BaseReader
      * @param null|float|int|string $formula1
      * @param null|float|int|string $formula2
      */
-    private function setCFRules(array $cellRanges, string $type, string $operator, $formula1, $formula2): void
+    private function setCFRules(array $cellRanges, string $type, string $operator, $formula1, $formula2, Style $style): void
     {
         foreach ($cellRanges as $cellRange) {
             $conditional = new Conditional();
@@ -8089,6 +8126,7 @@ class Xls extends BaseReader
             if ($formula2 !== null) {
                 $conditional->addCondition($formula2);
             }
+            $conditional->setStyle($style);
 
             $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
             $conditionalStyles[] = $conditional;
