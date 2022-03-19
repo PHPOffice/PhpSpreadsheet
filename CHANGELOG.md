@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   This is determined by the Calculation Engine locale setting.
 
   (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
+- Allow `psr/simple-cache` 2.x
 
 ### Deprecated
 
