@@ -2301,6 +2301,11 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
