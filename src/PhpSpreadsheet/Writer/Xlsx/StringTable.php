@@ -238,6 +238,13 @@ class StringTable extends WriterPart
             $objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
 
             // rFont
+            if ($element->getFont()->getColor()->getRGB() !== null) {
+                $objWriter->startElement('a:solidFill');
+                $objWriter->startElement("a:srgbClr");
+                $objWriter->writeAttribute('val', $element->getFont()->getColor()->getRGB());
+                $objWriter->endElement(); //end srgbClr
+                $objWriter->endElement(); //end solidFill
+            }
             $objWriter->startElement($prefix . 'latin');
             $objWriter->writeAttribute('typeface', $element->getFont()->getName());
             $objWriter->endElement();

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Title
 {
@@ -21,6 +22,12 @@ class Title
     private $layout;
 
     /**
+     * Title Font
+     * @var Font
+     */
+    private $font;
+
+    /**
      * Create a new Title.
      *
      * @param array|RichText|string $caption
@@ -29,6 +36,7 @@ class Title
     {
         $this->caption = $caption;
         $this->layout = $layout;
+        $this->font = new Font();
     }
 
     /**
@@ -86,5 +94,24 @@ class Title
     public function getLayout()
     {
         return $this->layout;
+    }
+    /**
+     * Get font
+     *
+     * @return Font
+     */
+    public function getFont() {
+        return $this->font;
+    }
+
+    /**
+     * Set font
+     *
+     * @param Font $font
+     * @return Title
+     */
+    public function setFont(Font $font = null)  {
+        $this->font = $font;
+        return $this;
     }
 }

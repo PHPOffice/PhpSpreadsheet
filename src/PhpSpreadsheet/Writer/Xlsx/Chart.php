@@ -409,6 +409,15 @@ class Chart extends WriterPart
             if (is_array($caption)) {
                 $caption = $caption[0];
             }
+            if ($xAxisLabel->getFont()->getColor()->getRGB() !== null) {
+                $objWriter->startElement('a:rPr');
+                $objWriter->startElement('a:solidFill');
+                $objWriter->startElement("a:srgbClr");
+                $objWriter->writeAttribute('val', $xAxisLabel->getFont()->getColor()->getRGB());
+                $objWriter->endElement(); //end srgbClr
+                $objWriter->endElement(); //end solidFill
+                $objWriter->endElement(); //end rPr
+            }
             $objWriter->startElement('a:t');
             $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($caption));
             $objWriter->endElement();
@@ -751,6 +760,16 @@ class Chart extends WriterPart
             $caption = $yAxisLabel->getCaption();
             if (is_array($caption)) {
                 $caption = $caption[0];
+            }
+
+            if ($yAxisLabel->getFont()->getColor()->getRGB() !== null) {
+                $objWriter->startElement('a:rPr');
+                $objWriter->startElement('a:solidFill');
+                $objWriter->startElement("a:srgbClr");
+                $objWriter->writeAttribute('val', $yAxisLabel->getFont()->getColor()->getRGB());
+                $objWriter->endElement(); //end srgbClr
+                $objWriter->endElement(); //end solidFill
+                $objWriter->endElement(); //end rPr
             }
 
             $objWriter->startElement('a:t');
