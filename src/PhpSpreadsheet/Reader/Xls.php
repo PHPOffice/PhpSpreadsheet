@@ -7937,7 +7937,6 @@ class Xls extends BaseReader
 
     private function readCFHeader(): array
     {
-//        var_dump('FOUND CF HEADER');
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
@@ -7949,7 +7948,7 @@ class Xls extends BaseReader
         }
 
         // offset: 0; size: 2; Rule Count
-        $ruleCount = self::getUInt2d($recordData, 0);
+//        $ruleCount = self::getUInt2d($recordData, 0);
 
         // offset: var; size: var; cell range address list with
         $cellRangeAddressList = ($this->version == self::XLS_BIFF8)
@@ -7957,14 +7956,11 @@ class Xls extends BaseReader
             : $this->readBIFF5CellRangeAddressList(substr($recordData, 12));
         $cellRangeAddresses = $cellRangeAddressList['cellRangeAddresses'];
 
-//        var_dump($ruleCount, $cellRangeAddresses);
-//
         return $cellRangeAddresses;
     }
 
     private function readCFRule(array $cellRangeAddresses): void
     {
-//        var_dump('FOUND CF RULE');
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
@@ -8040,15 +8036,12 @@ class Xls extends BaseReader
             $offset += 2;
         }
 
-//        var_dump($type, $operator);
-//
         $formula1 = $formula2 = null;
         if ($size1 > 0) {
             $formula1 = $this->readCFFormula($recordData, $offset, $size1);
             if ($formula1 === null) {
                 return;
             }
-//            var_dump($formula1);
 
             $offset += $size1;
         }
@@ -8058,7 +8051,6 @@ class Xls extends BaseReader
             if ($formula2 === null) {
                 return;
             }
-//            var_dump($formula2);
 
             $offset += $size2;
         }
@@ -8073,20 +8065,19 @@ class Xls extends BaseReader
     private function getCFFontStyle(string $options, Style $style): void
     {
         $fontSize = self::getInt4d($options, 64);
-        $fontSize = ($fontSize !== -1) ? $fontSize / 20 : -1;
+        if ($fontSize !== -1) {
+            $style->getFont()->setSize($fontSize / 20); // Convert twips to points
+        }
+
+
         $bold = self::getUInt2d($options, 72) === 700; // 400 = normal, 700 = bold
+        $style->getFont()->setBold($bold);
+
         $color = self::getInt4d($options, 80);
 
-        if ($fontSize !== -1) {
-            $style->getFont()->setSize($fontSize);
-        }
         if ($color !== -1) {
-            $style->getFont()->setColor(
-                new \PhpOffice\PhpSpreadsheet\Style\Color(Color::map($color, $this->palette, $this->version)['rgb'])
-            );
+            $style->getFont()->getColor()->setRGB(Color::map($color, $this->palette, $this->version)['rgb']);
         }
-        $style->getFont()
-            ->setBold($bold);
     }
 
     private function getCFAlignmentStyle(string $options, Style $style): void
