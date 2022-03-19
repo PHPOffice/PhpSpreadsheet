@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\Color;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\ConditionalFormatting;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -8071,6 +8072,21 @@ class Xls extends BaseReader
 
     private function getCFFontStyle(string $options, Style $style): void
     {
+        $fontSize = self::getInt4d($options, 64);
+        $fontSize = ($fontSize !== -1) ? $fontSize / 20 : -1;
+        $bold = self::getUInt2d($options, 72) === 700; // 400 = normal, 700 = bold
+        $color = self::getInt4d($options, 80);
+
+        if ($fontSize !== -1) {
+            $style->getFont()->setSize($fontSize);
+        }
+        if ($color !== -1) {
+            $style->getFont()->setColor(
+                new \PhpOffice\PhpSpreadsheet\Style\Color(Color::map($color, $this->palette, $this->version)['rgb'])
+            );
+        }
+        $style->getFont()
+            ->setBold($bold);
     }
 
     private function getCFAlignmentStyle(string $options, Style $style): void
