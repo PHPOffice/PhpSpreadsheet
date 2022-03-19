@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
-use PhpOffice\PhpSpreadsheet\Reader\Xls\Color;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\ConditionalFormatting;
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Style\CellFont;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -8069,14 +8068,13 @@ class Xls extends BaseReader
             $style->getFont()->setSize($fontSize / 20); // Convert twips to points
         }
 
-
         $bold = self::getUInt2d($options, 72) === 700; // 400 = normal, 700 = bold
         $style->getFont()->setBold($bold);
 
         $color = self::getInt4d($options, 80);
 
         if ($color !== -1) {
-            $style->getFont()->getColor()->setRGB(Color::map($color, $this->palette, $this->version)['rgb']);
+            $style->getFont()->getColor()->setRGB(Xls\Color::map($color, $this->palette, $this->version)['rgb']);
         }
     }
 

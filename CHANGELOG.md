@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
 - Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
+- Limited support for Xls Reader to handle Conditional Formatting:
+
+  Ranges and Rules are read, but style is currently limited to font size, weight and color.
 
 ### Changed
 
