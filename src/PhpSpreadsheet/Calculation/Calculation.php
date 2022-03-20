@@ -1040,7 +1040,7 @@ class Calculation
         ],
         'FILTER' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\Filter::class, 'filter'],
             'argumentCount' => '2-3',
         ],
         'FILTERXML' => [

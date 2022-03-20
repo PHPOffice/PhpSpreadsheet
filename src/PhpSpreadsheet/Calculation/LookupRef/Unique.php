@@ -29,8 +29,8 @@ class Unique
         $exactlyOnce = (bool) $exactlyOnce;
 
         return ($byColumn === true)
-                ? self::uniqueByColumn($lookupVector, $exactlyOnce)
-                : self::uniqueByRow($lookupVector, $exactlyOnce);
+            ? self::uniqueByColumn($lookupVector, $exactlyOnce)
+            : self::uniqueByRow($lookupVector, $exactlyOnce);
     }
 
     /**
