@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PHPUnit\Framework\TestCase;
 
 class NotTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNOT
      *
@@ -21,7 +15,11 @@ class NotTest extends TestCase
      */
     public function testNOT($expectedResult, ...$args): void
     {
-        $result = Logical::NOT(...$args);
+        if (count($args) === 0) {
+            $result = Logical::NOT();
+        } else {
+            $result = Logical::NOT($args[0]);
+        }
         self::assertEquals($expectedResult, $result);
     }
 

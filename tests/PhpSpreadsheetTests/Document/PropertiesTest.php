@@ -155,11 +155,17 @@ class PropertiesTest extends TestCase
      *
      * @param mixed $expectedType
      * @param mixed $expectedValue
-     * @param mixed $propertyName
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @param ?string $propertyType
      */
-    public function testSetCustomProperties($expectedType, $expectedValue, $propertyName, ...$args): void
+    public function testSetCustomProperties($expectedType, $expectedValue, $propertyName, $propertyValue, $propertyType = null): void
     {
-        $this->properties->setCustomProperty($propertyName, ...$args);
+        if ($propertyType === null) {
+            $this->properties->setCustomProperty($propertyName, $propertyValue);
+        } else {
+            $this->properties->setCustomProperty($propertyName, $propertyValue, $propertyType);
+        }
         self::assertTrue($this->properties->isCustomPropertySet($propertyName));
         self::assertSame($expectedType, $this->properties->getCustomPropertyType($propertyName));
         $result = $this->properties->getCustomPropertyValue($propertyName);

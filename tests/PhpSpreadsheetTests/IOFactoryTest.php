@@ -81,39 +81,13 @@ class IOFactoryTest extends TestCase
 
     /**
      * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
      */
-    public function testIdentify($file, $expectedName, $expectedClass): void
+    public function testIdentifyCreateLoad(string $file, string $expectedName, string $expectedClass): void
     {
         $actual = IOFactory::identify($file);
         self::assertSame($expectedName, $actual);
-    }
-
-    /**
-     * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
-     */
-    public function testCreateReaderForFile($file, $expectedName, $expectedClass): void
-    {
         $actual = IOFactory::createReaderForFile($file);
         self::assertSame($expectedClass, get_class($actual));
-    }
-
-    /**
-     * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
-     */
-    public function testLoad($file, $expectedName, $expectedClass): void
-    {
         $actual = IOFactory::load($file);
         self::assertInstanceOf(Spreadsheet::class, $actual);
     }
