@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class NPerTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNPER
      *
@@ -20,7 +14,19 @@ class NPerTest extends TestCase
      */
     public function testNPER($expectedResult, array $args): void
     {
-        $result = Financial::NPER(...$args);
+        if (count($args) === 0) {
+            $result = Financial::NPER();
+        } elseif (count($args) === 1) {
+            $result = Financial::NPER($args[0]);
+        } elseif (count($args) === 2) {
+            $result = Financial::NPER($args[0], $args[1]);
+        } elseif (count($args) === 3) {
+            $result = Financial::NPER($args[0], $args[1], $args[2]);
+        } elseif (count($args) === 4) {
+            $result = Financial::NPER($args[0], $args[1], $args[2], $args[3]);
+        } else {
+            $result = Financial::NPER($args[0], $args[1], $args[2], $args[3], $args[4]);
+        }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

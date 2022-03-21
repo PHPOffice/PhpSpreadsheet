@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DollarFrTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDOLLARFR
      *
@@ -20,7 +14,13 @@ class DollarFrTest extends TestCase
      */
     public function testDOLLARFR($expectedResult, ...$args): void
     {
-        $result = Financial::DOLLARFR(...$args);
+        if (count($args) === 0) {
+            $result = Financial::DOLLARFR();
+        } elseif (count($args) === 1) {
+            $result = Financial::DOLLARFR($args[0]);
+        } else {
+            $result = Financial::DOLLARFR($args[0], $args[1]);
+        }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
