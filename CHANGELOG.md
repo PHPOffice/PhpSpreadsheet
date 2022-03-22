@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the FILTER() and UNIQUE() Lookup/Reference (array) function
+- Implementation of the FILTER(), SORT(), SORTBY() and UNIQUE() Lookup/Reference (array) functions
 - Implementation of the ISREF() Information function.
 - Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
