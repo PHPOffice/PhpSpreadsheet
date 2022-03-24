@@ -1041,7 +1041,7 @@ class Calculation
         ],
         'FILTER' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\Filter::class, 'filter'],
             'argumentCount' => '2-3',
         ],
         'FILTERXML' => [
@@ -2283,12 +2283,12 @@ class Calculation
         ],
         'SORT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '1+',
+            'functionCall' => [LookupRef\Sort::class, 'sort'],
+            'argumentCount' => '1-4',
         ],
         'SORTBY' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\Sort::class, 'sortBy'],
             'argumentCount' => '2+',
         ],
         'SQRT' => [

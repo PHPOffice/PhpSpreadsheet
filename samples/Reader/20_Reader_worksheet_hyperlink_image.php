@@ -13,6 +13,9 @@ $spreadsheet = new Spreadsheet();
 $aSheet = $spreadsheet->getActiveSheet();
 
 $gdImage = @imagecreatetruecolor(120, 20);
+if ($gdImage === false) {
+    throw new \Exception('imagecreatetruecolor failed');
+}
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 

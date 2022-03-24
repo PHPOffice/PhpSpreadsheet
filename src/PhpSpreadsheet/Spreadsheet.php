@@ -1602,4 +1602,14 @@ class Spreadsheet
             }
         }
     }
+
+    /**
+     * Silliness to mollify Scrutinizer.
+     *
+     * @codeCoverageIgnore
+     */
+    public function getSharedComponent(): Style
+    {
+        return new Style();
+    }
 }

@@ -78,11 +78,14 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetRed
      *
      * @param mixed $expectedResult
-     * @param mixed $color
      */
-    public function testGetRed($expectedResult, $color, ...$args): void
+    public function testGetRed($expectedResult, string $color, ?bool $bool = null): void
     {
-        $result = Color::getRed($color, ...$args);
+        if ($bool === null) {
+            $result = Color::getRed($color);
+        } else {
+            $result = Color::getRed($color, $bool);
+        }
         self::assertEquals($expectedResult, $result);
     }
 
@@ -95,11 +98,14 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetGreen
      *
      * @param mixed $expectedResult
-     * @param mixed $color
      */
-    public function testGetGreen($expectedResult, $color, ...$args): void
+    public function testGetGreen($expectedResult, string $color, ?bool $bool = null): void
     {
-        $result = Color::getGreen($color, ...$args);
+        if ($bool === null) {
+            $result = Color::getGreen($color);
+        } else {
+            $result = Color::getGreen($color, $bool);
+        }
         self::assertEquals($expectedResult, $result);
     }
 
@@ -112,11 +118,14 @@ class ColorTest extends TestCase
      * @dataProvider providerColorGetBlue
      *
      * @param mixed $expectedResult
-     * @param mixed $color
      */
-    public function testGetBlue($expectedResult, $color, ...$args): void
+    public function testGetBlue($expectedResult, string $color, ?bool $bool = null): void
     {
-        $result = Color::getBlue($color, ...$args);
+        if ($bool === null) {
+            $result = Color::getBlue($color);
+        } else {
+            $result = Color::getBlue($color, $bool);
+        }
         self::assertEquals($expectedResult, $result);
     }
 
