@@ -29,7 +29,7 @@ class Filter
             return $ifEmpty ?? ExcelError::CALC();
         }
 
-        return array_values($result);
+        return array_values(array_map('array_values', $result));
     }
 
     private static function enumerateArrayKeys(array $sortArray): array
