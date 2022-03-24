@@ -15,7 +15,7 @@ class FilterTest extends TestCase
             ['East', 'Tom', 'Apple', 6830],
             ['East', 'Fritz', 'Apple', 4394],
             ['South', 'Sal', 'Apple', 1310],
-            ['South', 'Hector', 'Apple', 98144],
+            ['South', 'Hector', 'Apple', 8144],
         ];
         $result = Filter::filter($this->sampleDataForRow(), $criteria);
         self::assertSame($expectedResult, $result);
@@ -70,7 +70,7 @@ class FilterTest extends TestCase
             ['East', 'Fritz', 'Banana', 6274],
             ['West', 'Sravan', 'Pear', 4894],
             ['North', 'Xi', 'Grape', 7580],
-            ['South', 'Hector', 'Apple', 98144],
+            ['South', 'Hector', 'Apple', 8144],
         ];
     }
 
