@@ -12,7 +12,7 @@ class SortByTest extends TestCase
     {
         $value = 'NON-ARRAY';
 
-        $result = Sort::sort($value, [1]);
+        $result = Sort::sortBy($value);
         self::assertSame($value, $result);
     }
 
@@ -45,16 +45,16 @@ class SortByTest extends TestCase
     /**
      * @dataProvider providerSortByRow
      */
-    public function testSortByRow(array $expectedResult, array $matrix, array $sortIndex, int $sortOrder = Sort::ORDER_ASCENDING): void
+    public function testSortByRow(array $expectedResult, array $matrix, ...$args): void
     {
-        $result = Sort::sortBy($matrix, $sortIndex, $sortOrder);
+        $result = Sort::sortBy($matrix, ...$args);
         self::assertSame($expectedResult, $result);
     }
 
     public function providerSortByRow(): array
     {
         return [
-            [
+            'Simple sort by age' => [
                 [
                     ['Fritz', 19],
                     ['Xi', 19],
@@ -65,10 +65,10 @@ class SortByTest extends TestCase
                     ['Hector', 66],
                     ['Sal', 73],
                 ],
-                $this->sampleDataForRow(),
-                array_column($this->sampleDataForRow(), 1),
+                $this->sampleDataForSimpleSort(),
+                array_column($this->sampleDataForSimpleSort(), 1),
             ],
-            [
+            'Simple sort by name' => [
                 [
                     ['Amy', 22],
                     ['Fred', 65],
@@ -79,10 +79,10 @@ class SortByTest extends TestCase
                     ['Tom', 52],
                     ['Xi', 19],
                 ],
-                $this->sampleDataForRow(),
-                array_column($this->sampleDataForRow(), 0),
+                $this->sampleDataForSimpleSort(),
+                array_column($this->sampleDataForSimpleSort(), 0),
             ],
-            [
+            'Row vector' => [
                 [
                     ['Amy', 22],
                     ['Fred', 65],
@@ -93,10 +93,10 @@ class SortByTest extends TestCase
                     ['Tom', 52],
                     ['Xi', 19],
                 ],
-                $this->sampleDataForRow(),
+                $this->sampleDataForSimpleSort(),
                 ['Tom', 'Fred', 'Amy', 'Sal', 'Fritz', 'Srivan', 'Xi', 'Hector'],
             ],
-            [
+            'Column vector' => [
                 [
                     ['Amy', 22],
                     ['Fred', 65],
@@ -107,13 +107,46 @@ class SortByTest extends TestCase
                     ['Tom', 52],
                     ['Xi', 19],
                 ],
-                $this->sampleDataForRow(),
+                $this->sampleDataForSimpleSort(),
                 [['Tom'], ['Fred'], ['Amy'], ['Sal'], ['Fritz'], ['Srivan'], ['Xi'], ['Hector']],
+            ],
+            'Sort by region asc, name asc' => [
+                [
+                    ['East', 'Fritz', 19],
+                    ['East', 'Tom', 52],
+                    ['North', 'Amy', 22],
+                    ['North', 'Xi', 19],
+                    ['South', 'Hector', 66],
+                    ['South', 'Sal', 73],
+                    ['West', 'Fred', 65],
+                    ['West', 'Srivan', 39],
+                ],
+                $this->sampleDataForMultiSort(),
+                array_column($this->sampleDataForMultiSort(), 0),
+                Sort::ORDER_ASCENDING,
+                array_column($this->sampleDataForMultiSort(), 1),
+            ],
+            'Sort by region asc, age desc' => [
+                [
+                    ['East', 'Tom', 52],
+                    ['East', 'Fritz', 19],
+                    ['North', 'Amy', 22],
+                    ['North', 'Xi', 19],
+                    ['South', 'Sal', 73],
+                    ['South', 'Hector', 66],
+                    ['West', 'Fred', 65],
+                    ['West', 'Srivan', 39],
+                ],
+                $this->sampleDataForMultiSort(),
+                array_column($this->sampleDataForMultiSort(), 0),
+                Sort::ORDER_ASCENDING,
+                array_column($this->sampleDataForMultiSort(), 2),
+                Sort::ORDER_DESCENDING,
             ],
         ];
     }
 
-    private function sampleDataForRow(): array
+    private function sampleDataForSimpleSort(): array
     {
         return [
             ['Tom', 52],
@@ -124,6 +157,20 @@ class SortByTest extends TestCase
             ['Srivan', 39],
             ['Xi', 19],
             ['Hector', 66],
+        ];
+    }
+
+    private function sampleDataForMultiSort(): array
+    {
+        return [
+            ['North', 'Amy', 22],
+            ['West', 'Fred', 65],
+            ['East', 'Fritz', 19],
+            ['South', 'Hector', 66],
+            ['South', 'Sal', 73],
+            ['West', 'Srivan', 39],
+            ['East', 'Tom', 52],
+            ['North', 'Xi', 19],
         ];
     }
 }

@@ -19,6 +19,8 @@ class Filter
             return ExcelError::VALUE();
         }
 
+        $matchArray = self::enumerateArrayKeys($matchArray);
+
         $result = (Matrix::isColumnVector($matchArray))
             ? self::filterByRow($lookupArray, $matchArray)
             : self::filterByColumn($lookupArray, $matchArray);
@@ -28,6 +30,20 @@ class Filter
         }
 
         return array_values($result);
+    }
+
+    private static function enumerateArrayKeys(array $sortArray): array
+    {
+        array_walk(
+            $sortArray,
+            function (&$columns): void {
+                if (is_array($columns)) {
+                    $columns = array_values($columns);
+                }
+            }
+        );
+
+        return array_values($sortArray);
     }
 
     private static function filterByRow(array $lookupArray, array $matchArray): array
