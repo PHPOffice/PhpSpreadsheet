@@ -1043,6 +1043,7 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Filter::class, 'filter'],
             'argumentCount' => '2-3',
+            'spillageFunction' => true,
         ],
         'FILTERXML' => [
             'category' => Category::CATEGORY_WEB,
@@ -2083,6 +2084,7 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Random::class, 'randArray'],
             'argumentCount' => '0-5',
+            'spillageFunction' => true,
         ],
         'RANDBETWEEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2225,6 +2227,7 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\MatrixFunctions::class, 'sequence'],
             'argumentCount' => '1-4',
+            'spillageFunction' => true,
         ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2285,11 +2288,13 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Sort::class, 'sort'],
             'argumentCount' => '1-4',
+            'spillageFunction' => true,
         ],
         'SORTBY' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Sort::class, 'sortBy'],
             'argumentCount' => '2+',
+            'spillageFunction' => true,
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2586,6 +2591,7 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Unique::class, 'unique'],
             'argumentCount' => '1+',
+            'spillageFunction' => true,
         ],
         'UPPER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
