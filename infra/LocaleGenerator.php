@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetInfra;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\ExcelFunctions;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -37,6 +38,9 @@ class LocaleGenerator
      */
     protected $translationBaseFolder;
 
+    /**
+     * @var ExcelFunctions
+     */
     protected $phpSpreadsheetFunctions;
 
     /**
@@ -67,7 +71,7 @@ class LocaleGenerator
     public function __construct(
         string $translationBaseFolder,
         string $translationSpreadsheetName,
-        array $phpSpreadsheetFunctions,
+        ExcelFunctions $phpSpreadsheetFunctions,
         bool $verbose = false
     ) {
         $this->translationBaseFolder = $translationBaseFolder;
@@ -146,7 +150,7 @@ class LocaleGenerator
             $translationValue = $translationCell->getValue();
             if ($this->isFunctionCategoryEntry($translationCell)) {
                 $this->writeFileSectionHeader($functionFile, "{$translationValue} ({$functionName})");
-            } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions)) {
+            } elseif (!$this->phpSpreadsheetFunctions->isRecognisedExcelFunction($functionName)) {
                 $this->log("Function {$functionName} is not defined in PhpSpreadsheet");
             } elseif (!empty($translationValue)) {
                 $functionTranslation = "{$functionName} = {$translationValue}" . self::EOL;
