@@ -44,7 +44,7 @@ class ColumnCellIteratorTest extends TestCase
             self::assertEquals($ColumnCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $ColumnCell);
         }
-        $transposed = array_map(null, ...self::CELL_VALUES);
+        $transposed = array_map(/** @scrutinizer ignore-type */ null, ...self::CELL_VALUES);
         self::assertSame($transposed[0], $values);
         $spreadsheet->disconnectWorksheets();
     }

@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -82,7 +82,7 @@ $series->setPlotDirection(DataSeries::DIRECTION_COL);
 // Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
-$legend = new Legend(Legend::POSITION_BOTTOM, null, false);
+$legend = new ChartLegend(ChartLegend::POSITION_BOTTOM, null, false);
 
 $title = new Title('Test Grouped Column Chart');
 $xAxisLabel = new Title('Financial Period');

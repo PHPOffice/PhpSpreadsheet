@@ -2301,27 +2301,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$errorStyle of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setErrorStyle\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$operator of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setOperator\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Parameter \\#1 \\$showSummaryBelow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryBelow\\(\\) expects bool, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
 			message: "#^Parameter \\#1 \\$showSummaryRight of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryRight\\(\\) expects bool, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$type of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setType\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -3166,27 +3151,7 @@ parameters:
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension\\:\\:setRowIndex\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\{'self', 'cellReverseSort'\\} given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function uksort expects callable\\(\\(int\\|string\\), \\(int\\|string\\)\\)\\: int, array\\{'self', 'cellSort'\\} given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\:\\:\\$instance \\(PhpOffice\\\\PhpSpreadsheet\\\\ReferenceHelper\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -4241,26 +4206,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
 		-
-			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Cannot call method getDrawingCollection\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\BaseDrawing\\:\\:\\$shadow \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/BaseDrawing.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
@@ -5271,36 +5216,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
-			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByIndex\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$chart of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Drawing\\:\\:writeChart\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 20
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 10
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeUnparsedRelationship\\(\\) has parameter \\$relationship with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
@@ -5554,3 +5469,4 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Xlfn\\:\\:addXlfn\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
+

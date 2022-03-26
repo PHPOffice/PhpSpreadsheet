@@ -176,9 +176,9 @@ class DateTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testIsDateTimeFormatCode($expectedResult, ...$args): void
+    public function testIsDateTimeFormatCode($expectedResult, string $format): void
     {
-        $result = Date::isDateTimeFormatCode(...$args);
+        $result = Date::isDateTimeFormatCode($format);
         self::assertEquals($expectedResult, $result);
     }
 

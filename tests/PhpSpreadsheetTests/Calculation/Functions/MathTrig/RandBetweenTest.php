@@ -62,7 +62,7 @@ class RandBetweenTest extends AllSetupTeardown
         self::assertIsArray($result);
         self::assertCount($expectedRows, $result);
         self::assertIsArray($result[0]);
-        self::assertCount($expectedColumns, $result[0]);
+        self::assertCount($expectedColumns, /** @scrutinizer ignore-type */ $result[0]);
     }
 
     public function providerRandBetweenArray(): array

@@ -265,7 +265,7 @@ class CoordinateTest extends TestCase
 
         $cellRange = null;
         // @phpstan-ignore-next-line
-        Coordinate::buildRange($cellRange);
+        Coordinate::buildRange(/** @scrutinizer ignore-type */ $cellRange);
     }
 
     public function testBuildRangeInvalid2(): void

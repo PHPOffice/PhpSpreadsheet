@@ -2,20 +2,19 @@
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 
 require __DIR__ . '/../Header.php';
 
 Cell::setValueBinder(new AdvancedValueBinder());
 
-$inputFileType = 'Csv';
 $inputFileName = __DIR__ . '/sampleData/example1.tsv';
 
-$reader = IOFactory::createReader($inputFileType);
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using IOFactory with a defined reader type of ' . $inputFileType);
+$reader = new Csv();
+$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using Csv reader');
 $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);
-$spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
+$spreadsheet->getActiveSheet()->setTitle(/** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME));
 
 $helper->log($spreadsheet->getSheetCount() . ' worksheet' . (($spreadsheet->getSheetCount() == 1) ? '' : 's') . ' loaded');
 $loadedSheetNames = $spreadsheet->getSheetNames();

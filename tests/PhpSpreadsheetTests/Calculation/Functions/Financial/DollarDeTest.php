@@ -4,16 +4,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DollarDeTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDOLLARDE
      *
@@ -21,7 +15,13 @@ class DollarDeTest extends TestCase
      */
     public function testDOLLARDE($expectedResult, ...$args): void
     {
-        $result = Financial::DOLLARDE(...$args);
+        if (count($args) === 0) {
+            $result = Financial::DOLLARDE();
+        } elseif (count($args) === 1) {
+            $result = Financial::DOLLARDE($args[0]);
+        } else {
+            $result = Financial::DOLLARDE($args[0], $args[1]);
+        }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

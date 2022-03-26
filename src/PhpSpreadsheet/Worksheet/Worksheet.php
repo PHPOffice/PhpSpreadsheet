@@ -2279,15 +2279,17 @@ class Worksheet implements IComparable
         $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
         $pColumnIndex = Coordinate::columnIndexFromString($column);
 
-        if ($pColumnIndex > $highestColumnIndex) {
-            return $this;
-        }
-
         $holdColumnDimensions = $this->removeColumnDimensions($pColumnIndex, $numberOfColumns);
 
         $column = Coordinate::stringFromColumnIndex($pColumnIndex + $numberOfColumns);
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore($column . '1', -$numberOfColumns, 0, $this);
+
+        $this->columnDimensions = $holdColumnDimensions;
+
+        if ($pColumnIndex > $highestColumnIndex) {
+            return $this;
+        }
 
         $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
 
@@ -2295,8 +2297,6 @@ class Worksheet implements IComparable
             $this->getCellCollection()->removeColumn($highestColumn);
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
-
-        $this->columnDimensions = $holdColumnDimensions;
 
         $this->garbageCollect();
 
