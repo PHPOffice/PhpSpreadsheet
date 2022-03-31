@@ -120,6 +120,9 @@ class Worksheet extends WriterPart
         // AlternateContent
         $this->writeAlternateContent($objWriter, $worksheet);
 
+        // Ignore Errors
+        $this->writeIgnoredErrors($objWriter, $worksheet);
+
         // ConditionalFormattingRuleExtensionList
         // (Must be inserted last. Not insert last, an Excel parse error will occur)
         $this->writeExtLst($objWriter, $worksheet);
@@ -1439,6 +1442,51 @@ class Worksheet extends WriterPart
             $objWriter->endElement(); //end conditionalFormattings
             $objWriter->endElement(); //end ext
             $objWriter->endElement(); //end extLst
+        }
+    }
+
+    /**
+     * Write Ignored Errors
+     *
+     *  <xsd:complexType name="CT_IgnoredErrors">
+     *   <xsd:sequence>
+     *     <xsd:element name="ignoredError" type="CT_IgnoredError" minOccurs="0" maxOccurs="unbounded"/>
+     *     <xsd:element name="extLst" type="x:CT_ExtensionList" minOccurs="0" maxOccurs="1"/>
+     *   </xsd:sequence>
+     * </xsd:complexType>
+     * <xsd:complexType name="CT_IgnoredError">
+     *   <xsd:sequence>
+     *     <xsd:element ref="xm:sqref" minOccurs="1" maxOccurs="1"/>
+     *   </xsd:sequence>
+     *   <xsd:attribute name="evalError" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="twoDigitTextYear" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="numberStoredAsText" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="formula" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="formulaRange" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="unlockedFormula" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="emptyCellReference" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="listDataValidation" type="xsd:boolean" use="optional" default="false"/>
+     *   <xsd:attribute name="calculatedColumn" type="xsd:boolean" use="optional" default="false"/>
+     * </xsd:complexType>
+     *
+     * @see https://docs.microsoft.com/en-us/openspecs/office_standards/ms-xlsx/0a377581-c743-4ace-bfcd-22f359e70165
+     */
+    private function writeIgnoredErrors(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
+    {
+        if (count($worksheet->getIgnoreErrors()) > 0) {
+            // ignoredErrors
+            $objWriter->startElement('ignoredErrors');
+
+            // Loop ignoredErrors
+            foreach ($worksheet->getIgnoredErrors() as $errorType => $ignoreRange) {
+                // ignoredError
+                $objWriter->startElement('ignoreError');
+                $objWriter->writeAttribute('sref', $ignoreRange);
+                $objWriter->writeAttribute($errorType, 1);
+                $objWriter->endElement();
+            }
+
+            $objWriter->endElement();
         }
     }
 }

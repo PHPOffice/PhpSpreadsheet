@@ -338,6 +338,14 @@ class Worksheet implements IComparable
      */
     private $codeName;
 
+
+    /**
+     * Ignored Errors.
+     *
+     * @var array
+     */
+    private $ignoredErrors = [];
+
     /**
      * Create a new worksheet.
      *
@@ -3216,5 +3224,47 @@ class Worksheet implements IComparable
     public function hasCodeName()
     {
         return $this->codeName !== null;
+    }
+
+    /**
+     * Ignore Errors
+     *
+     * @param string $range Cell range (e.g. A1:E1)
+     *
+     * @return $this
+     */
+    public function ignoreError(string $range, string $errorType)
+    {
+        if (!in_array($errorType, [
+            'evalError',
+            'twoDigitTextYear',
+            'numberStoredAsText',
+            'formula',
+            'formulaRange',
+            'unlockedFormula',
+            'emptyCellReference',
+            'listDataValidation',
+            'calculatedColumn',
+        ])) {
+            throw new Exception('Ignored errors must have a valid error type specified.');
+        }
+
+        // Uppercase coordinate
+        $range = strtoupper($range);
+        // Convert 'A:C' to 'A1:C1048576'
+        $range = self::pregReplace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $range);
+        // Convert '1:3' to 'A1:XFD3'
+        $range = self::pregReplace('/^(\\d+):(\\d+)$/', 'A${1}:XFD${2}', $range);
+
+        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
+            if (!\array_key_exists($errorType, $this->ignoredErrors)) {
+                $this->ignoredErrors[$errorType] = [];
+            }
+            $this->ignoredErrors[$errorType][$range] = $range;
+        } else {
+            throw new Exception('Ignored errors must be set on a range of cells.');
+        }
+
+        return $this;
     }
 }
