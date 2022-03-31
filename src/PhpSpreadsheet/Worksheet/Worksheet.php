@@ -3227,6 +3227,16 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Get Ignored Errors.
+     *
+     * @return string[]
+     */
+    public function getIgnoredErrors()
+    {
+        return $this->ignoredErrors;
+    }
+
+    /**
      * Ignore Errors
      *
      * @param string $range Cell range (e.g. A1:E1)

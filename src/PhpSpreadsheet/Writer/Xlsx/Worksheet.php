@@ -1473,15 +1473,15 @@ class Worksheet extends WriterPart
      */
     private function writeIgnoredErrors(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
-        if (count($worksheet->getIgnoreErrors()) > 0) {
+        if (count($worksheet->getIgnoredErrors()) > 0) {
             // ignoredErrors
             $objWriter->startElement('ignoredErrors');
 
             // Loop ignoredErrors
             foreach ($worksheet->getIgnoredErrors() as $errorType => $ignoreRange) {
-                // ignoredError
-                $objWriter->startElement('ignoreError');
-                $objWriter->writeAttribute('sref', $ignoreRange);
+                // ignoreError
+                $objWriter->startElement('ignoredError');
+                $objWriter->writeAttribute('sqref', implode(" ", array_values($ignoreRange)));
                 $objWriter->writeAttribute($errorType, 1);
                 $objWriter->endElement();
             }
