@@ -149,7 +149,7 @@ class Worksheet extends WriterPart
         }
         $autoFilterRange = $worksheet->getAutoFilter()->getRange();
         if (!empty($autoFilterRange)) {
-            $objWriter->writeAttribute('filterMode', 1);
+            $objWriter->writeAttribute('filterMode', '1');
             if (!$worksheet->getAutoFilter()->getEvaluated()) {
                 $worksheet->getAutoFilter()->showHideRows();
             }
@@ -1482,7 +1482,7 @@ class Worksheet extends WriterPart
                 // ignoredError
                 $objWriter->startElement('ignoredError');
                 $objWriter->writeAttribute('sqref', implode(' ', array_values($ignoreRange)));
-                $objWriter->writeAttribute($errorType, 1);
+                $objWriter->writeAttribute($errorType, '1');
                 $objWriter->endElement();
             }
 
