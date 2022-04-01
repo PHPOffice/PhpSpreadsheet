@@ -32,7 +32,7 @@ class CellAddress
      */
     protected $rowId;
 
-    protected function __construct(string $cellAddress, ?Worksheet $worksheet)
+    public function __construct(string $cellAddress, ?Worksheet $worksheet)
     {
         $this->cellAddress = str_replace('$', '', $cellAddress);
         [$this->columnName, $rowId] = Coordinate::coordinateFromString($cellAddress);

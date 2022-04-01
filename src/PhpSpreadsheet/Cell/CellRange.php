@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CellRange
+class CellRange implements AddressRange
 {
     /**
      * @var CellAddress
@@ -34,8 +34,8 @@ class CellRange
         $toWorksheet = $to->worksheet();
         $this->validateWorksheets($fromWorksheet, $toWorksheet);
 
-        $this->from = CellAddress::fromColumnAndRow($firstColumn, $firstRow, $fromWorksheet);
-        $this->to = CellAddress::fromColumnAndRow($lastColumn, $lastRow, $toWorksheet);
+        $this->from = $this->cellAddressWrapper($firstColumn, $firstRow, $fromWorksheet);
+        $this->to = $this->cellAddressWrapper($lastColumn, $lastRow, $toWorksheet);
     }
 
     private function validateWorksheets(?Worksheet $fromWorksheet, ?Worksheet $toWorksheet): void
@@ -54,18 +54,76 @@ class CellRange
         }
     }
 
+    private function cellAddressWrapper(int $column, int $row, ?Worksheet $worksheet = null): CellAddress
+    {
+        $cellAddress = Coordinate::stringFromColumnIndex($column) . (string) $row;
+
+        return new class ($cellAddress, $worksheet) extends CellAddress {
+            public function nextRow(int $offset = 1): CellAddress
+            {
+                /** @var CellAddress $result */
+                $result = parent::nextRow($offset);
+                $this->rowId = $result->rowId;
+                $this->cellAddress = $result->cellAddress;
+
+                return $this;
+            }
+
+            public function previousRow(int $offset = 1): CellAddress
+            {
+                /** @var CellAddress $result */
+                $result = parent::previousRow($offset);
+                $this->rowId = $result->rowId;
+                $this->cellAddress = $result->cellAddress;
+
+                return $this;
+            }
+
+            public function nextColumn(int $offset = 1): CellAddress
+            {
+                /** @var CellAddress $result */
+                $result = parent::nextColumn($offset);
+                $this->columnId = $result->columnId;
+                $this->columnName = $result->columnName;
+                $this->cellAddress = $result->cellAddress;
+
+                return $this;
+            }
+
+            public function previousColumn(int $offset = 1): CellAddress
+            {
+                /** @var CellAddress $result */
+                $result = parent::previousColumn($offset);
+                $this->columnId = $result->columnId;
+                $this->columnName = $result->columnName;
+                $this->cellAddress = $result->cellAddress;
+
+                return $this;
+            }
+        };
+    }
+
     public function from(): CellAddress
     {
+        // Re-order from/to in case the cell addresses have been modified
+        $this->validateFromTo($this->from, $this->to);
+
         return $this->from;
     }
 
     public function to(): CellAddress
     {
+        // Re-order from/to in case the cell addresses have been modified
+        $this->validateFromTo($this->from, $this->to);
+
         return $this->to;
     }
 
     public function __toString(): string
     {
+        // Re-order from/to in case the cell addresses have been modified
+        $this->validateFromTo($this->from, $this->to);
+
         if ($this->from->cellAddress() === $this->to->cellAddress()) {
             return "{$this->from->fullCellAddress()}";
         }

@@ -4,10 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class RowRange
+class RowRange implements AddressRange
 {
-    private const MAX_COLUMN = 'XFD';
-
     /**
      * @var ?Worksheet
      */
@@ -78,7 +76,7 @@ class RowRange
     {
         return new CellRange(
             CellAddress::fromColumnAndRow(Coordinate::columnIndexFromString('A'), $this->from, $this->worksheet),
-            CellAddress::fromColumnAndRow(Coordinate::columnIndexFromString(self::MAX_COLUMN), $this->to)
+            CellAddress::fromColumnAndRow(Coordinate::columnIndexFromString(AddressRange::MAX_COLUMN), $this->to)
         );
     }
 

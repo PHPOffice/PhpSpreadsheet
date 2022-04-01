@@ -110,4 +110,44 @@ class CellRangeTest extends TestCase
         $to = CellAddress::fromCellAddress('E2', $worksheet2);
         new CellRange($from, $to);
     }
+
+    public function testShiftRangeTo(): void
+    {
+        $from = CellAddress::fromCellAddress('B5');
+        $to = CellAddress::fromCellAddress('E2');
+        $cellRange = new CellRange($from, $to);
+        self::assertSame('B2:E5', (string) $cellRange);
+
+        $cellRange->to()
+            ->nextColumn(2)
+            ->nextRow(2);
+
+        self::assertSame('B2', (string) $cellRange->from());
+        self::assertSame('G7', (string) $cellRange->to());
+        self::assertSame('B2:G7', (string) $cellRange);
+
+        $cellRange->to()
+            ->previousColumn()
+            ->previousRow();
+
+        self::assertSame('B2', (string) $cellRange->from());
+        self::assertSame('F6', (string) $cellRange->to());
+        self::assertSame('B2:F6', (string) $cellRange);
+    }
+
+    public function testShiftRangeFrom(): void
+    {
+        $from = CellAddress::fromCellAddress('B5');
+        $to = CellAddress::fromCellAddress('E2');
+        $cellRange = new CellRange($from, $to);
+        self::assertSame('B2:E5', (string) $cellRange);
+
+        $cellRange->from()
+            ->nextColumn(5)
+            ->nextRow(5);
+
+        self::assertSame('E5', (string) $cellRange->from());
+        self::assertSame('G7', (string) $cellRange->to());
+        self::assertSame('E5:G7', (string) $cellRange);
+    }
 }
