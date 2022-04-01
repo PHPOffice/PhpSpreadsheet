@@ -62,4 +62,28 @@ class ColumnRangeTest extends TestCase
         self::assertSame(3, $columnRange->columnCount());
         self::assertSame('C1:E1048576', (string) $columnRange->toCellRange());
     }
+
+    public function testColumnRangeNext(): void
+    {
+        $columnRange = new ColumnRange('C', 'E');
+        $columnRangeNext = $columnRange->shiftDown(3);
+
+        self::assertSame('F', $columnRangeNext->from());
+        self::assertSame('H', $columnRangeNext->to());
+
+        // Check that original Column Range isn't changed
+        self::assertSame('C:E', (string) $columnRange);
+    }
+
+    public function testColumnRangePrevious(): void
+    {
+        $columnRange = new ColumnRange('C', 'E');
+        $columnRangeNext = $columnRange->shiftUp();
+
+        self::assertSame('B', $columnRangeNext->from());
+        self::assertSame('D', $columnRangeNext->to());
+
+        // Check that original Column Range isn't changed
+        self::assertSame('C:E', (string) $columnRange);
+    }
 }

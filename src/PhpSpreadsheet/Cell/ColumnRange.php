@@ -67,6 +67,22 @@ class ColumnRange
         return $this->to - $this->from + 1;
     }
 
+    public function shiftDown(int $offset = 1): self
+    {
+        $newFrom = $this->from + $offset;
+        $newFrom = ($newFrom < 1) ? 1 : $newFrom;
+
+        $newTo = $this->to + $offset;
+        $newTo = ($newTo < 1) ? 1 : $newTo;
+
+        return self::fromColumnIndexes($newFrom, $newTo, $this->worksheet);
+    }
+
+    public function shiftUp(int $offset = 1): self
+    {
+        return $this->shiftDown(0 - $offset);
+    }
+
     public function from(): string
     {
         return Coordinate::stringFromColumnIndex($this->from);

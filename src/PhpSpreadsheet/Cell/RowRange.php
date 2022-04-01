@@ -58,6 +58,22 @@ class RowRange
         return $this->to - $this->from + 1;
     }
 
+    public function shiftRight(int $offset = 1): self
+    {
+        $newFrom = $this->from + $offset;
+        $newFrom = ($newFrom < 1) ? 1 : $newFrom;
+
+        $newTo = $this->to + $offset;
+        $newTo = ($newTo < 1) ? 1 : $newTo;
+
+        return new self($newFrom, $newTo, $this->worksheet);
+    }
+
+    public function shiftLeft(int $offset = 1): self
+    {
+        return $this->shiftRight(0 - $offset);
+    }
+
     public function toCellRange(): CellRange
     {
         return new CellRange(

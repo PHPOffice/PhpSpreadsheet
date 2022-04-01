@@ -48,4 +48,28 @@ class RowRangeTest extends TestCase
         self::assertSame(3, $rowRange->rowCount());
         self::assertSame('A3:XFD5', (string) $rowRange->toCellRange());
     }
+
+    public function testRowRangeNext(): void
+    {
+        $rowRange = new RowRange(3, 5);
+        $rowRangeNext = $rowRange->shiftRight(3);
+
+        self::assertSame(6, $rowRangeNext->from());
+        self::assertSame(8, $rowRangeNext->to());
+
+        // Check that original Row Range isn't changed
+        self::assertSame('3:5', (string) $rowRange);
+    }
+
+    public function testRowRangePrevious(): void
+    {
+        $rowRange = new RowRange(3, 5);
+        $rowRangeNext = $rowRange->shiftLeft();
+
+        self::assertSame(2, $rowRangeNext->from());
+        self::assertSame(4, $rowRangeNext->to());
+
+        // Check that original Row Range isn't changed
+        self::assertSame('3:5', (string) $rowRange);
+    }
 }

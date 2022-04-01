@@ -66,6 +66,7 @@ class CellAddress
     {
         self::validateColumnAndRow($columnId, $rowId);
 
+        /** @phpstan-ignore-next-line */
         return new static(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
     }
 
@@ -81,6 +82,7 @@ class CellAddress
      */
     public static function fromCellAddress($cellAddress, ?Worksheet $worksheet = null): self
     {
+        /** @phpstan-ignore-next-line */
         return new static($cellAddress, $worksheet);
     }
 
