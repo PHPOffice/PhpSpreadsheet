@@ -108,6 +108,9 @@ class Worksheet extends WriterPart
         // Breaks
         $this->writeBreaks($objWriter, $worksheet);
 
+        // Ignore Errors
+        $this->writeIgnoredErrors($objWriter, $worksheet);
+
         // Drawings and/or Charts
         $this->writeDrawings($objWriter, $worksheet, $includeCharts);
 
@@ -119,9 +122,6 @@ class Worksheet extends WriterPart
 
         // AlternateContent
         $this->writeAlternateContent($objWriter, $worksheet);
-
-        // Ignore Errors
-        $this->writeIgnoredErrors($objWriter, $worksheet);
 
         // ConditionalFormattingRuleExtensionList
         // (Must be inserted last. Not insert last, an Excel parse error will occur)
@@ -1479,7 +1479,7 @@ class Worksheet extends WriterPart
 
             // Loop ignoredErrors
             foreach ($worksheet->getIgnoredErrors() as $errorType => $ignoreRange) {
-                // ignoreError
+                // ignoredError
                 $objWriter->startElement('ignoredError');
                 $objWriter->writeAttribute('sqref', implode(" ", array_values($ignoreRange)));
                 $objWriter->writeAttribute($errorType, 1);
