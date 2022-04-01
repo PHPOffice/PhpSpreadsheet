@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Limited support for Xls Reader to handle Conditional Formatting:
 
   Ranges and Rules are read, but style is currently limited to font size, weight and color; and to fill style and color.
-- Added support for ignored errors for cell ranges.
+- Added support for ignored errors for cell ranges. [#2723](https://github.com/PHPOffice/PhpSpreadsheet/pull/2723)
 
 ### Changed
 
