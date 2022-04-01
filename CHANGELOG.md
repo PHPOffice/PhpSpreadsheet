@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 - Allow `psr/simple-cache` 2.x
+- Allow setting fill colors for bar chart data points
 
 ### Deprecated
 
@@ -57,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
 - Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
+
 
 ## 1.22.0 - 2022-02-18
 
