@@ -3228,7 +3228,7 @@ class Worksheet implements IComparable
     /**
      * Get Ignored Errors.
      *
-     * @return string[]
+     * @return array
      */
     public function getIgnoredErrors()
     {
@@ -3244,17 +3244,22 @@ class Worksheet implements IComparable
      */
     public function ignoreError(string $range, string $errorType)
     {
-        if (!in_array($errorType, [
-            'evalError',
-            'twoDigitTextYear',
-            'numberStoredAsText',
-            'formula',
-            'formulaRange',
-            'unlockedFormula',
-            'emptyCellReference',
-            'listDataValidation',
-            'calculatedColumn',
-        ])) {
+        if (
+            !in_array(
+                $errorType,
+                [
+                    'evalError',
+                    'twoDigitTextYear',
+                    'numberStoredAsText',
+                    'formula',
+                    'formulaRange',
+                    'unlockedFormula',
+                    'emptyCellReference',
+                    'listDataValidation',
+                    'calculatedColumn',
+                ]
+            )
+        ) {
             throw new Exception('Ignored errors must have a valid error type specified.');
         }
 
