@@ -218,7 +218,7 @@ class Worksheet extends WriterPart
 
         // Show zeros (Excel also writes this attribute only if set to false)
         if ($worksheet->getSheetView()->getShowZeros() === false) {
-            $objWriter->writeAttribute('showZeros', 0);
+            $objWriter->writeAttribute('showZeros', '0');
         }
 
         // View Layout Type
