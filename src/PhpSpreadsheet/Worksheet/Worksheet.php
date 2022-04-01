@@ -338,7 +338,6 @@ class Worksheet implements IComparable
      */
     private $codeName;
 
-
     /**
      * Ignored Errors.
      *
@@ -3237,7 +3236,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Ignore Errors
+     * Ignore Errors.
      *
      * @param string $range Cell range (e.g. A1:E1)
      *

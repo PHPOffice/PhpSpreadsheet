@@ -1446,7 +1446,7 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * Write Ignored Errors
+     * Write Ignored Errors.
      *
      *  <xsd:complexType name="CT_IgnoredErrors">
      *   <xsd:sequence>
@@ -1481,7 +1481,7 @@ class Worksheet extends WriterPart
             foreach ($worksheet->getIgnoredErrors() as $errorType => $ignoreRange) {
                 // ignoredError
                 $objWriter->startElement('ignoredError');
-                $objWriter->writeAttribute('sqref', implode(" ", array_values($ignoreRange)));
+                $objWriter->writeAttribute('sqref', implode(' ', array_values($ignoreRange)));
                 $objWriter->writeAttribute($errorType, 1);
                 $objWriter->endElement();
             }
