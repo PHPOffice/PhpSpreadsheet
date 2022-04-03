@@ -381,6 +381,36 @@ class Table
     }
 
     /**
+     * Shift an Table Column Rule to a different column.
+     *
+     * Note: This method bypasses validation of the destination column to ensure it is within this Table range.
+     *        Nor does it verify whether any column rule already exists at $toColumn, but will simply override any existing value.
+     *        Use with caution.
+     *
+     * @param string $fromColumn Column name (e.g. A)
+     * @param string $toColumn Column name (e.g. B)
+     *
+     * @return $this
+     */
+    public function shiftColumn($fromColumn, $toColumn)
+    {
+        $fromColumn = strtoupper($fromColumn);
+        $toColumn = strtoupper($toColumn);
+
+        if (($fromColumn !== null) && (isset($this->columns[$fromColumn])) && ($toColumn !== null)) {
+            $this->columns[$fromColumn]->setTable();
+            $this->columns[$fromColumn]->setColumnIndex($toColumn);
+            $this->columns[$toColumn] = $this->columns[$fromColumn];
+            $this->columns[$toColumn]->setTable($this);
+            unset($this->columns[$fromColumn]);
+
+            ksort($this->columns);
+        }
+
+        return $this;
+    }
+
+    /**
      * Get table Style.
      *
      * @return TableStyle
