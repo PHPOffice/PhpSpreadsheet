@@ -53,7 +53,7 @@ $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
 // Create Table
 $helper->log('Create Table');
 $table = new Table();
-$table->setName('Sales Data');
+$table->setName('Sales_Data');
 $table->setRange('A1:D17');
 
 // Create Columns

@@ -22,15 +22,78 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testVariousSets(): void
+    /**
+     * @dataProvider validTableNamesProvider
+     */
+    public function testValidTableNames(string $name, string $expected): void
     {
         $sheet = $this->getSheet();
         $table = new Table(self::INITIAL_RANGE, $sheet);
 
-        $result = $table->setName('Table 1');
+        $result = $table->setName($name);
         self::assertInstanceOf(Table::class, $result);
-        // Spaces will be converted to underscore
-        self::assertEquals('Table_1', $table->getName());
+        self::assertEquals($expected, $table->getName());
+    }
+
+    public function validTableNamesProvider(): array
+    {
+        return [
+            ['Table_1', 'Table_1'],
+            ['_table_2', '_table_2'],
+            ['\table_3', '\table_3'],
+            ["	Table_4 \n", 'Table_4'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidTableNamesProvider
+     */
+    public function testInvalidTableNames(string $name): void
+    {
+        $sheet = $this->getSheet();
+        $table = new Table(self::INITIAL_RANGE, $sheet);
+
+        $this->expectException(PhpSpreadsheetException::class);
+
+        $table->setName($name);
+    }
+
+    public function invalidTableNamesProvider(): array
+    {
+        return [
+            ['C'],
+            ['c'],
+            ['R'],
+            ['r'],
+            ['Z100'],
+            ['Z$100'],
+            ['R1C1'],
+            ['R1C'],
+            ['R11C11'],
+            ['123'],
+            ['=Table'],
+            [bin2hex(random_bytes(255))], // random string with length greater than 255
+        ];
+    }
+
+    public function testUniqueTableName(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $sheet = $this->getSheet();
+
+        $table1 = new Table();
+        $table1->setName('Table_1');
+        $sheet->addTable($table1);
+
+        $table2 = new Table();
+        $table2->setName('Table_1');
+        $sheet->addTable($table2);
+    }
+
+    public function testVariousSets(): void
+    {
+        $sheet = $this->getSheet();
+        $table = new Table(self::INITIAL_RANGE, $sheet);
 
         $result = $table->setShowHeaderRow(false);
         self::assertInstanceOf(Table::class, $result);
