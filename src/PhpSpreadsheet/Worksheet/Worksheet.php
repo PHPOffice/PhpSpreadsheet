@@ -2058,6 +2058,24 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Remove Table by name.
+     *
+     * @param string $name Table name
+     *
+     * @return $this
+     */
+    public function removeTableByName(string $name): self
+    {
+        foreach($this->tableCollection as $key => $table) {
+            if ($table->getName() === $name) {
+                unset($this->tableCollection[$key]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Remove collection of Tables.
      */
     public function removeTableCollection(): self
