@@ -74,6 +74,11 @@ class ColumnTest extends SetupTeardown
         $result = $column->setTotalsRowFunction($function);
         self::assertInstanceOf(Column::class, $result);
         self::assertEquals($function, $column->getTotalsRowFunction());
+
+        $formula = '=SUM(Sales_Data[[#This Row],[Q1]:[Q4]])';
+        $result = $column->setColumnFormula($formula);
+        self::assertInstanceOf(Column::class, $result);
+        self::assertEquals($formula, $column->getColumnFormula());
     }
 
     public function testTable(): void

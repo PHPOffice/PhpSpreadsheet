@@ -42,6 +42,13 @@ class Column
     private $totalsRowFormula;
 
     /**
+     * Column Formula.
+     *
+     * @var string
+     */
+    private $columnFormula;
+
+    /**
      * Table.
      *
      * @var null|Table
@@ -174,6 +181,28 @@ class Column
     public function setTotalsRowFormula(string $totalsRowFormula)
     {
         $this->totalsRowFormula = $totalsRowFormula;
+
+        return $this;
+    }
+
+    /**
+     * Get column Formula.
+     *
+     * @return string
+     */
+    public function getColumnFormula()
+    {
+        return $this->columnFormula;
+    }
+
+    /**
+     * Set column Formula.
+     *
+     * @return  $this
+     */
+    public function setColumnFormula(string $columnFormula)
+    {
+        $this->columnFormula = $columnFormula;
 
         return $this;
     }

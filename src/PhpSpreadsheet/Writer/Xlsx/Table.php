@@ -86,6 +86,10 @@ class Table extends WriterPart
                     $objWriter->writeAttribute('totalsRowFunction', $column->getTotalsRowFunction());
                 }
             }
+            if ($column->getColumnFormula()) {
+                $objWriter->writeElement('calculatedColumnFormula', $column->getColumnFormula());
+            }
+
             $objWriter->endElement();
         }
         $objWriter->endElement();
