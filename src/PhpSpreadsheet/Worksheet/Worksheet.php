@@ -2066,7 +2066,7 @@ class Worksheet implements IComparable
      */
     public function removeTableByName(string $name): self
     {
-        foreach($this->tableCollection as $key => $table) {
+        foreach ($this->tableCollection as $key => $table) {
             if ($table->getName() === $name) {
                 unset($this->tableCollection[$key]);
             }
