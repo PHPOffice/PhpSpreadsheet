@@ -26,9 +26,12 @@ class FractionFormatter extends BaseFormatter
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = 10 ** $decimalLength;
 
+        /** @var float */
         $GCD = MathTrig\Gcd::evaluate($decimalPart, $decimalDivisor);
+        /** @var float */
+        $decimalPartx = $decimalPart;
 
-        $adjustedDecimalPart = $decimalPart / $GCD;
+        $adjustedDecimalPart = $decimalPartx / $GCD;
         $adjustedDecimalDivisor = $decimalDivisor / $GCD;
 
         if ((strpos($format, '0') !== false)) {
