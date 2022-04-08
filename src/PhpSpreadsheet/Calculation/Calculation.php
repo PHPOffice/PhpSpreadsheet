@@ -2720,7 +2720,8 @@ class Calculation
     public function isImplemented($function)
     {
         $function = strtoupper($function);
-        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');
+        $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) ||
+            (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');
 
         return !$notImplemented;
     }
@@ -2730,6 +2731,10 @@ class Calculation
      */
     public function getFunctions(): ExcelFunctions
     {
+        if (count(self::$phpSpreadsheetFunctions) < 499) {
+            self::$phpSpreadsheetFunctions->loadAll();
+        }
+
         return self::$phpSpreadsheetFunctions;
     }
 
