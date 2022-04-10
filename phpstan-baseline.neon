@@ -341,11 +341,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:besselK2\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
@@ -2071,11 +2066,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:listWorksheetNames\\(\\) should return array\\<string\\> but returns array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
@@ -2093,11 +2083,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
@@ -3878,11 +3863,6 @@ parameters:
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$yValues with no type specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
-
-		-
-			message: "#^Parameter \\#1 \\$order of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\PolynomialBestFit constructor expects int, string given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
