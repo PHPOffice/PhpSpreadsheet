@@ -17,11 +17,16 @@ class GrowthTest extends TestCase
      * @dataProvider providerGROWTH
      *
      * @param mixed $expectedResult
-     * @param mixed $yValues
      */
-    public function testGROWTH($expectedResult, $yValues, ...$args): void
+    public function testGROWTH($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
-        $result = Statistical::GROWTH($yValues, ...$args);
+        if ($newValues === null) {
+            $result = Statistical::GROWTH($yValues, $xValues);
+        } elseif ($const === null) {
+            $result = Statistical::GROWTH($yValues, $xValues, $newValues);
+        } else {
+            $result = Statistical::GROWTH($yValues, $xValues, $newValues, $const);
+        }
 
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }

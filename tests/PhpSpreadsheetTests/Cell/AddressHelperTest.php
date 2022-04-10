@@ -32,15 +32,17 @@ class AddressHelperTest extends TestCase
         ?int $row = null,
         ?int $column = null
     ): void {
-        $args = [];
-        if ($row !== null) {
-            $args[] = $row;
+        if ($row === null) {
+            if ($column === null) {
+                $actualValue = AddressHelper::convertToA1($address);
+            } else {
+                $actualValue = AddressHelper::convertToA1($address, $column);
+            }
+        } elseif ($column === null) {
+            $actualValue = AddressHelper::convertToA1($address, $row);
+        } else {
+            $actualValue = AddressHelper::convertToA1($address, $row, $column);
         }
-        if ($column !== null) {
-            $args[] = $column;
-        }
-
-        $actualValue = AddressHelper::convertToA1($address, ...$args);
 
         self::assertSame($expectedValue, $actualValue);
     }

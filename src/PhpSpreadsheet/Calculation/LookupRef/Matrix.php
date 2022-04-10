@@ -11,6 +11,23 @@ class Matrix
     use ArrayEnabled;
 
     /**
+     * Helper function; NOT an implementation of any Excel Function.
+     */
+    public static function isColumnVector(array $values): bool
+    {
+        return count($values, COUNT_RECURSIVE) === (count($values, COUNT_NORMAL) * 2);
+    }
+
+    /**
+     * Helper function; NOT an implementation of any Excel Function.
+     */
+    public static function isRowVector(array $values): bool
+    {
+        return count($values, COUNT_RECURSIVE) > 1 &&
+            (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
+    }
+
+    /**
      * TRANSPOSE.
      *
      * @param array|mixed $matrixData A matrix of values

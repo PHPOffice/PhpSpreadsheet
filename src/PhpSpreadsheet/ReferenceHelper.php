@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -195,6 +196,45 @@ class ReferenceHelper
                 $worksheet->setHyperlink($newReference, $value);
                 $worksheet->setHyperlink($cellAddress, null);
             }
+        }
+    }
+
+    /**
+     * Update conditional formatting styles when inserting/deleting rows/columns.
+     *
+     * @param Worksheet $worksheet The worksheet that we're editing
+     * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
+     * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
+     */
+    protected function adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows): void
+    {
+        $aStyles = $worksheet->getConditionalStylesCollection();
+        ($numberOfColumns > 0 || $numberOfRows > 0)
+            ? uksort($aStyles, [self::class, 'cellReverseSort'])
+            : uksort($aStyles, [self::class, 'cellSort']);
+
+        foreach ($aStyles as $cellAddress => $cfRules) {
+            $worksheet->removeConditionalStyles($cellAddress);
+            $newReference = $this->updateCellReference($cellAddress);
+
+            foreach ($cfRules as &$cfRule) {
+                /** @var Conditional $cfRule */
+                $conditions = $cfRule->getConditions();
+                foreach ($conditions as &$condition) {
+                    if (is_string($condition)) {
+                        $condition = $this->updateFormulaReferences(
+                            $condition,
+                            $this->cellReferenceHelper->beforeCellAddress(),
+                            $numberOfColumns,
+                            $numberOfRows,
+                            $worksheet->getTitle(),
+                            true
+                        );
+                    }
+                }
+                $cfRule->setConditions($conditions);
+            }
+            $worksheet->setConditionalStyles($newReference, $cfRules);
         }
     }
 
@@ -442,6 +482,9 @@ class ReferenceHelper
         // Update worksheet: hyperlinks
         $this->adjustHyperlinks($worksheet, $numberOfColumns, $numberOfRows);
 
+        // Update worksheet: conditional formatting styles
+        $this->adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows);
+
         // Update worksheet: data validations
         $this->adjustDataValidations($worksheet, $numberOfColumns, $numberOfRows);
 
@@ -505,8 +548,14 @@ class ReferenceHelper
      *
      * @return string Updated formula
      */
-    public function updateFormulaReferences($formula = '', $beforeCellAddress = 'A1', $numberOfColumns = 0, $numberOfRows = 0, $worksheetName = '')
-    {
+    public function updateFormulaReferences(
+        $formula = '',
+        $beforeCellAddress = 'A1',
+        $numberOfColumns = 0,
+        $numberOfRows = 0,
+        $worksheetName = '',
+        bool $includeAbsoluteReferences = false
+    ) {
         if (
             $this->cellReferenceHelper === null ||
             $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
@@ -528,8 +577,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference('$A' . $match[3]), 2);
-                        $modified4 = substr($this->updateCellReference('$A' . $match[4]), 2);
+                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $includeAbsoluteReferences), 2);
+                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $includeAbsoluteReferences), 2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -553,8 +602,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference($match[3] . '$1'), 0, -2);
-                        $modified4 = substr($this->updateCellReference($match[4] . '$1'), 0, -2);
+                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $includeAbsoluteReferences), 0, -2);
+                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $includeAbsoluteReferences), 0, -2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -578,8 +627,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = $this->updateCellReference($match[3]);
-                        $modified4 = $this->updateCellReference($match[4]);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences);
+                        $modified4 = $this->updateCellReference($match[4], $includeAbsoluteReferences);
 
                         if ($match[3] . $match[4] !== $modified3 . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -606,7 +655,7 @@ class ReferenceHelper
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3];
 
-                        $modified3 = $this->updateCellReference($match[3]);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences);
                         if ($match[3] !== $modified3) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
                                 $toString = ($match[2] > '') ? $match[2] . '!' : '';
@@ -786,7 +835,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellReference($cellReference = 'A1')
+    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false)
     {
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($cellReference, '!') !== false) {
@@ -794,10 +843,10 @@ class ReferenceHelper
         // Is it a range or a single cell?
         } elseif (!Coordinate::coordinateIsRange($cellReference)) {
             // Single cell
-            return $this->cellReferenceHelper->updateCellReference($cellReference);
+            return $this->cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences);
         } elseif (Coordinate::coordinateIsRange($cellReference)) {
             // Range
-            return $this->updateCellRange($cellReference);
+            return $this->updateCellRange($cellReference, $includeAbsoluteReferences);
         }
 
         // Return original
@@ -839,7 +888,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellRange(string $cellRange = 'A1:A1'): string
+    private function updateCellRange(string $cellRange = 'A1:A1', bool $includeAbsoluteReferences = false): string
     {
         if (!Coordinate::coordinateIsRange($cellRange)) {
             throw new Exception('Only cell ranges may be passed to this method.');
@@ -853,14 +902,14 @@ class ReferenceHelper
             for ($j = 0; $j < $jc; ++$j) {
                 if (ctype_alpha($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference($range[$i][$j] . '1')
+                        $this->cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences)
                     )[0];
                 } elseif (ctype_digit($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference('A' . $range[$i][$j])
+                        $this->cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences)
                     )[1];
                 } else {
-                    $range[$i][$j] = $this->cellReferenceHelper->updateCellReference($range[$i][$j]);
+                    $range[$i][$j] = $this->cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences);
                 }
             }
         }
@@ -985,17 +1034,8 @@ class ReferenceHelper
             $coordinate = $beforeColumnName . $i;
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
-                $conditionalStyles = $worksheet->conditionalStylesExists($coordinate) ?
-                    $worksheet->getConditionalStyles($coordinate) : false;
                 for ($j = $beforeColumn; $j <= $beforeColumn - 1 + $numberOfColumns; ++$j) {
                     $worksheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
-                    if ($conditionalStyles) {
-                        $cloned = [];
-                        foreach ($conditionalStyles as $conditionalStyle) {
-                            $cloned[] = clone $conditionalStyle;
-                        }
-                        $worksheet->setConditionalStyles(Coordinate::stringFromColumnIndex($j) . $i, $cloned);
-                    }
                 }
             }
         }
@@ -1009,17 +1049,8 @@ class ReferenceHelper
             $coordinate = Coordinate::stringFromColumnIndex($i) . ($beforeRow - 1);
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
-                $conditionalStyles = $worksheet->conditionalStylesExists($coordinate) ?
-                    $worksheet->getConditionalStyles($coordinate) : false;
                 for ($j = $beforeRow; $j <= $beforeRow - 1 + $numberOfRows; ++$j) {
                     $worksheet->getCell(Coordinate::stringFromColumnIndex($i) . $j)->setXfIndex($xfIndex);
-                    if ($conditionalStyles) {
-                        $cloned = [];
-                        foreach ($conditionalStyles as $conditionalStyle) {
-                            $cloned[] = clone $conditionalStyle;
-                        }
-                        $worksheet->setConditionalStyles(Coordinate::stringFromColumnIndex($i) . $j, $cloned);
-                    }
                 }
             }
         }

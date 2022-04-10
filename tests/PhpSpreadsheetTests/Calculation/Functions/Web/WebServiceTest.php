@@ -23,7 +23,7 @@ class WebServiceTest extends TestCase
      */
     public function testWEBSERVICE(string $expectedResult, string $url, ?array $responseData): void
     {
-        if ($responseData) {
+        if (!empty($responseData)) {
             $body = $this->createMock(StreamInterface::class);
             $body->expects(self::atMost(1))->method('getContents')->willReturn($responseData[1]);
 
