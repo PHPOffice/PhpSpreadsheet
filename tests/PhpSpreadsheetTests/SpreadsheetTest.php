@@ -195,7 +195,7 @@ class SpreadsheetTest extends TestCase
         $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
         $sheet1->getCell('A1')->setValue(1);
         $sheet1->getCell('A1')->getStyle()->getFont()->setItalic(true);
-        $sheet1->getColumnDimension('B')->setWidth('10')->setXfIndex($sheet1->getCell('A1')->getXfIndex());
+        $sheet1->getColumnDimension('B')->setWidth(10)->setXfIndex($sheet1->getCell('A1')->getXfIndex());
         $index = $sheet1->getColumnDimension('B')->getXfIndex();
         self::assertEquals(1, $index);
         self::assertCount(2, $spreadsheet1->getCellXfCollection());
