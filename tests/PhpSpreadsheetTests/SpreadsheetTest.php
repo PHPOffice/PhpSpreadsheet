@@ -217,6 +217,4 @@ class SpreadsheetTest extends TestCase
         self::assertEquals($countXfs + $index, $sheet3->getCell('B1')->getXfIndex());
         self::assertEquals($countXfs + $index, $sheet3->getColumnDimension('B')->getXfIndex());
     }
-
-
 }
