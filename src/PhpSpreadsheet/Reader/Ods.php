@@ -655,7 +655,7 @@ class Ods extends BaseReader
                             $setRow = $configItem->nodeValue;
                         }
                     }
-                    $this->setSelected($spreadsheet, $wsname, $setCol, $setRow);
+                    $this->setSelected($spreadsheet, $wsname, "$setCol", "$setRow");
                 }
 
                 break;
