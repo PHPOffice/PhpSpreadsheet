@@ -11,7 +11,7 @@ class XlsxRootZipFilesTest extends TestCase
      * @var string
      */
     private static $testbook = 'tests/data/Reader/XLSX/rootZipFiles.xlsx';
-    
+
     public function testXlsxRootZipFiles(): void
     {
         $filename = self::$testbook;
