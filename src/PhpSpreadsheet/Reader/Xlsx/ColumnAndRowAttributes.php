@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter;
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
@@ -12,12 +13,15 @@ class ColumnAndRowAttributes extends BaseParserClass
 {
     private $worksheet;
 
-    private $worksheetXml;
+    private $xmlMap;
 
-    public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
+    private $securityScanner;
+
+    public function __construct(Worksheet $workSheet, array $xmlMap, XmlScanner $securityScanner)
     {
         $this->worksheet = $workSheet;
-        $this->worksheetXml = $worksheetXml;
+        $this->xmlMap = $xmlMap;
+        $this->securityScanner = $securityScanner;
     }
 
     /**
@@ -74,18 +78,14 @@ class ColumnAndRowAttributes extends BaseParserClass
 
     public function load(?IReadFilter $readFilter = null, bool $readDataOnly = false): void
     {
-        if ($this->worksheetXml === null) {
-            return;
-        }
-
         $columnsAttributes = [];
         $rowsAttributes = [];
-        if (isset($this->worksheetXml->cols)) {
-            $columnsAttributes = $this->readColumnAttributes($this->worksheetXml->cols, $readDataOnly);
+        if (!empty($this->xmlMap['col'])) {
+            $columnsAttributes = $this->readColumnAttributes($this->xmlMap['col'], $readDataOnly);
         }
 
-        if ($this->worksheetXml->sheetData && $this->worksheetXml->sheetData->row) {
-            $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly);
+        if (!empty($this->xmlMap['row'])) {
+            $rowsAttributes = $this->readRowAttributes($this->xmlMap['row'], $readDataOnly);
         }
 
         if ($readFilter !== null && get_class($readFilter) === DefaultReadFilter::class) {
@@ -131,11 +131,13 @@ class ColumnAndRowAttributes extends BaseParserClass
         return false;
     }
 
-    private function readColumnAttributes(SimpleXMLElement $worksheetCols, $readDataOnly)
+    private function readColumnAttributes(array $worksheetCols, $readDataOnly)
     {
         $columnAttributes = [];
 
-        foreach ($worksheetCols->col as $column) {
+        foreach ($worksheetCols as $stringColumn) {
+            $column = XmlParser::loadXml($this->securityScanner, $stringColumn);
+
             $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
             $endColumn = Coordinate::stringFromColumnIndex((int) $column['max']);
             ++$endColumn;
@@ -183,11 +185,13 @@ class ColumnAndRowAttributes extends BaseParserClass
         return false;
     }
 
-    private function readRowAttributes(SimpleXMLElement $worksheetRow, $readDataOnly)
+    private function readRowAttributes(array $worksheetRows, $readDataOnly)
     {
         $rowAttributes = [];
 
-        foreach ($worksheetRow as $row) {
+        foreach ($worksheetRows as $stringRow) {
+            $row = XmlParser::loadXml($this->securityScanner, $stringRow);
+
             if ($row['ht'] && !$readDataOnly) {
                 $rowAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
             }

@@ -11,29 +11,29 @@ class AutoFilter
 {
     private $worksheet;
 
-    private $worksheetXml;
+    private $autoFilter;
 
-    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
+    public function __construct(Worksheet $workSheet, SimpleXMLElement $autoFilter)
     {
         $this->worksheet = $workSheet;
-        $this->worksheetXml = $worksheetXml;
+        $this->autoFilter = $autoFilter;
     }
 
     public function load(): void
     {
         // Remove all "$" in the auto filter range
-        $autoFilterRange = preg_replace('/\$/', '', $this->worksheetXml->autoFilter['ref'] ?? '');
+        $autoFilterRange = preg_replace('/\$/', '', $this->autoFilter['ref'] ?? '');
         if (strpos($autoFilterRange, ':') !== false) {
-            $this->readAutoFilter($autoFilterRange, $this->worksheetXml);
+            $this->readAutoFilter($autoFilterRange, $this->autoFilter);
         }
     }
 
-    private function readAutoFilter($autoFilterRange, $xmlSheet): void
+    private function readAutoFilter($autoFilterRange, $xmlAutoFilter): void
     {
         $autoFilter = $this->worksheet->getAutoFilter();
         $autoFilter->setRange($autoFilterRange);
 
-        foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
+        foreach ($xmlAutoFilter->filterColumn as $filterColumn) {
             $column = $autoFilter->getColumnByOffset((int) $filterColumn['colId']);
             //    Check for standard filters
             if ($filterColumn->filters) {

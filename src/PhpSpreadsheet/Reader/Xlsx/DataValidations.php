@@ -3,26 +3,30 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use SimpleXMLElement;
 
 class DataValidations
 {
     private $worksheet;
 
-    private $worksheetXml;
+    private $securityScanner;
 
-    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
+    private $dataValidations;
+
+    public function __construct(Worksheet $workSheet, array $dataValidations, XmlScanner $securityScanner)
     {
         $this->worksheet = $workSheet;
-        $this->worksheetXml = $worksheetXml;
+        $this->dataValidations = $dataValidations;
+        $this->securityScanner = $securityScanner;
     }
 
     public function load(): void
     {
-        foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
+        foreach ($this->dataValidations as $stringDataValidation) {
+            $dataValidation = XmlParser::loadXml($this->securityScanner, $stringDataValidation);
             // Uppercase coordinate
-            $range = strtoupper($dataValidation['sqref']);
+            $range = strtoupper((string) $dataValidation['sqref']);
             $rangeSet = explode(' ', $range);
             foreach ($rangeSet as $range) {
                 $stRange = $this->worksheet->shrinkRangeToFit($range);

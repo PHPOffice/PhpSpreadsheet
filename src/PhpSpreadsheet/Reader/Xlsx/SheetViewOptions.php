@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
 
@@ -9,33 +10,38 @@ class SheetViewOptions extends BaseParserClass
 {
     private $worksheet;
 
-    private $worksheetXml;
+    private $xmlMap;
 
-    public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
+    private $securityScanner;
+
+    public function __construct(Worksheet $workSheet, array $xmlMap, XmlScanner $securityScanner)
     {
         $this->worksheet = $workSheet;
-        $this->worksheetXml = $worksheetXml;
+        $this->xmlMap = $xmlMap;
+        $this->securityScanner = $securityScanner;
     }
 
     public function load(bool $readDataOnly, Styles $styleReader): void
     {
-        if ($this->worksheetXml === null) {
-            return;
+        if (!empty($this->xmlMap[SheetStructure::SHEET_PR])) {
+            $sheetPr = XmlParser::loadXml($this->securityScanner, reset($this->xmlMap[SheetStructure::SHEET_PR]));
+
+            $this->tabColor($sheetPr, $styleReader);
+            $this->codeName($sheetPr);
+            $this->outlines($sheetPr);
+            $this->pageSetup($sheetPr);
         }
 
-        if (isset($this->worksheetXml->sheetPr)) {
-            $this->tabColor($this->worksheetXml->sheetPr, $styleReader);
-            $this->codeName($this->worksheetXml->sheetPr);
-            $this->outlines($this->worksheetXml->sheetPr);
-            $this->pageSetup($this->worksheetXml->sheetPr);
+        if (!empty($this->xmlMap[SheetStructure::SHEET_FORMAT_PR])) {
+            $sheetFormatPr = XmlParser::loadXml($this->securityScanner, reset($this->xmlMap[SheetStructure::SHEET_FORMAT_PR]));
+
+            $this->sheetFormat($sheetFormatPr);
         }
 
-        if (isset($this->worksheetXml->sheetFormatPr)) {
-            $this->sheetFormat($this->worksheetXml->sheetFormatPr);
-        }
+        if (!$readDataOnly && !empty($this->xmlMap[SheetStructure::PRINT_OPTIONS])) {
+            $printOptions = XmlParser::loadXml($this->securityScanner, reset($this->xmlMap[SheetStructure::PRINT_OPTIONS]));
 
-        if (!$readDataOnly && isset($this->worksheetXml->printOptions)) {
-            $this->printOptions($this->worksheetXml->printOptions);
+            $this->printOptions($printOptions);
         }
     }
 

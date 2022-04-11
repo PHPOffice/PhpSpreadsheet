@@ -14,9 +14,7 @@ class AutoFilterTest extends TestCase
     {
         return new SimpleXMLElement(
             '<?xml version="1.0" encoding="UTF-8"?>' .
-            '<root>' .
-                '<autoFilter ref="' . $ref . '"></autoFilter>' .
-            '</root>'
+            '<autoFilter ref="' . $ref . '"></autoFilter>'
         );
     }
 

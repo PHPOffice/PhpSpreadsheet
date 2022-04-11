@@ -16,11 +16,13 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetStructure;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\WorkbookView;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\XmlParser;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -99,6 +101,19 @@ class Xlsx extends BaseReader
         return ($value instanceof SimpleXMLElement) ? $value : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
     }
 
+    /**
+     * @param mixed $value
+     */
+    public static function testXMLReader($value): XMLReader
+    {
+        if (!$value instanceof XMLReader) {
+            $value = new XMLReader();
+            $value->XML('<?xml version="1.0" encoding="UTF-8"?><root></root>');
+        }
+
+        return $value;
+    }
+
     public static function getAttributes(?SimpleXMLElement $value, string $ns = ''): SimpleXMLElement
     {
         return self::testSimpleXml($value === null ? $value : $value->attributes($ns));
@@ -120,17 +135,58 @@ class Xlsx extends BaseReader
         return is_array($value) ? $value : [];
     }
 
+    private static function readXml(XMLReader $xml, array $elements): array
+    {
+        $map = [];
+        $namespaces = [];
+
+        foreach ($elements as $namespace => $fields) {
+            $map[$namespace] = [];
+        }
+
+        while ($xml->read()) {
+            foreach ($elements as $namespace => $fields) {
+                if (
+                    $namespace === $xml->namespaceURI
+                    && $xml->nodeType === XMLReader::ELEMENT
+                    && isset($fields[$xml->localName])
+                ) {
+                    $map[$namespace][$xml->localName][] = $xml->readOuterXml();
+
+                    break;
+                }
+            }
+
+            if ($xml->hasAttributes) {
+                while ($xml->moveToNextAttribute()) {
+                    if ($xml->prefix === 'xmlns') {
+                        $namespaces[$xml->localName] = $xml->value;
+                    }
+                }
+            }
+        }
+
+        return [$map, $namespaces];
+    }
+
     private function loadZip(string $filename, string $ns = ''): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
-        $rels = simplexml_load_string(
+
+        return XmlParser::loadXml($this->securityScanner, $contents, $ns);
+    }
+
+    private function loadZipReader(string $filename): XMLReader
+    {
+        $contents = $this->getFromZipArchive($this->zip, $filename);
+        $reader = new XMLReader();
+        $reader->XML(
             $this->securityScanner->scan($contents),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions(),
-            $ns
+            null,
+            Settings::getLibXmlLoaderOptions()
         );
 
-        return self::testSimpleXml($rels);
+        return self::testXMLReader($reader);
     }
 
     // This function is just to identify cases where I'm not sure
@@ -699,39 +755,48 @@ class Xlsx extends BaseReader
                             //        reverse
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
                             $fileWorksheet = (string) $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id')];
-                            $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
-                            $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
+
+                            $xmlSheetReader = $this->loadZipReader("$dir/$fileWorksheet");
+                            [$xmlMap, $namespaces] = self::readXml($xmlSheetReader, $this->getMainXmlMap($mainNS));
 
                             $sharedFormulas = [];
 
                             if (isset($eleSheetAttr['state']) && (string) $eleSheetAttr['state'] != '') {
                                 $docSheet->setSheetState((string) $eleSheetAttr['state']);
                             }
-                            if ($xmlSheetNS) {
-                                $xmlSheetMain = $xmlSheetNS->children($mainNS);
+                            if (!empty($xmlMap[$mainNS])) {
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
-                                if (!$this->readDataOnly && ($xmlSheet->conditionalFormatting)) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
+                                $conditionalStyles = new ConditionalStyles(
+                                    $this->securityScanner,
+                                    $docSheet,
+                                    !empty($xmlMap[$mainNS][SheetStructure::EXT_LST]) ? $xmlMap[$mainNS][SheetStructure::EXT_LST] : [],
+                                    $dxfs
+                                );
+
+                                if (!$this->readDataOnly && !empty($xmlMap[$mainNS][SheetStructure::CONDITIONAL_FORMATTING])) {
+                                    $conditionalStyles->load($xmlMap[$mainNS][SheetStructure::CONDITIONAL_FORMATTING]);
                                 }
-                                if (!$this->readDataOnly && $xmlSheet->extLst) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->loadFromExt($this->styleReader);
+                                if (!$this->readDataOnly && !empty($xmlMap[$mainNS][SheetStructure::EXT_LST])) {
+                                    $conditionalStyles->loadFromExt($this->styleReader, $namespaces);
                                 }
-                                if (isset($xmlSheetMain->sheetViews, $xmlSheetMain->sheetViews->sheetView)) {
-                                    $sheetViews = new SheetViews($xmlSheetMain->sheetViews->sheetView, $docSheet);
-                                    $sheetViews->load();
+                                if (!empty($xmlMap[$mainNS][SheetStructure::SHEET_VIEW])) {
+                                    $stringSheetView = reset($xmlMap[$mainNS][SheetStructure::SHEET_VIEW]);
+                                    $sheetView = XmlParser::loadXml($this->securityScanner, $stringSheetView, $mainNS);
+                                    (new SheetViews($sheetView, $docSheet))->load();
                                 }
 
-                                $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
-                                $sheetViewOptions->load($this->getReadDataOnly(), $this->styleReader);
+                                (new SheetViewOptions($docSheet, $xmlMap[$mainNS], $this->securityScanner))
+                                    ->load($this->getReadDataOnly(), $this->styleReader);
 
-                                (new ColumnAndRowAttributes($docSheet, $xmlSheet))
+                                (new ColumnAndRowAttributes($docSheet, $xmlMap[$mainNS], $this->securityScanner))
                                     ->load($this->getReadFilter(), $this->getReadDataOnly());
                             }
 
-                            if ($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row) {
+                            if (!empty($xmlMap[$mainNS][SheetStructure::ROW])) {
                                 $cIndex = 1; // Cell Start from 1
-                                foreach ($xmlSheetNS->sheetData->row as $row) {
+                                foreach ($xmlMap[$mainNS][SheetStructure::ROW] as $stringRow) {
+                                    $row = XmlParser::loadXml($this->securityScanner, $stringRow, $mainNS);
                                     $rowIndex = 1;
                                     foreach ($row->c as $c) {
                                         $cAttr = self::getAttributes($c);
@@ -859,23 +924,27 @@ class Xlsx extends BaseReader
                             }
 
                             $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
-                            if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
+                            if (!$this->readDataOnly && !empty($xmlMap[$mainNS][SheetStructure::SHEET_PROTECTION])) {
+                                $sheetProtectionXml = reset($xmlMap[$mainNS][SheetStructure::SHEET_PROTECTION]);
+                                $sheetProtection = XmlParser::loadXml($this->securityScanner, $sheetProtectionXml);
+
                                 foreach ($aKeys as $key) {
                                     $method = 'set' . ucfirst($key);
-                                    $docSheet->getProtection()->$method(self::boolean((string) $xmlSheet->sheetProtection[$key]));
+                                    $docSheet->getProtection()->$method(self::boolean((string) $sheetProtection[$key]));
                                 }
                             }
 
-                            if ($xmlSheet) {
-                                $this->readSheetProtection($docSheet, $xmlSheet);
+                            if (!empty($xmlMap[$mainNS][SheetStructure::SHEET_PROTECTION])) {
+                                $this->readSheetProtection($docSheet, $xmlMap[$mainNS]);
                             }
 
                             if ($this->readDataOnly === false) {
-                                $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
+                                $this->readAutoFilterTables($xmlMap[$mainNS], $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
-                            if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
-                                foreach ($xmlSheet->mergeCells->mergeCell as $mergeCell) {
+                            if (!empty($xmlMap[$mainNS][SheetStructure::MERGE_CELL]) && !$this->readDataOnly) {
+                                foreach ($xmlMap[$mainNS][SheetStructure::MERGE_CELL] as $stringMergeCell) {
+                                    $mergeCell = XmlParser::loadXml($this->securityScanner, $stringMergeCell);
                                     $mergeRef = (string) $mergeCell['ref'];
                                     if (strpos($mergeRef, ':') !== false) {
                                         $docSheet->mergeCells((string) $mergeCell['ref']);
@@ -883,44 +952,49 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            if ($xmlSheet && !$this->readDataOnly) {
-                                $unparsedLoadedData = (new PageSetup($docSheet, $xmlSheet))->load($unparsedLoadedData);
+                            if (!$this->readDataOnly && !empty($xmlMap[$mainNS])) {
+                                $unparsedLoadedData = (new PageSetup($docSheet, $xmlMap[$mainNS], $this->securityScanner))->load($unparsedLoadedData);
                             }
 
-                            if ($xmlSheet !== false && isset($xmlSheet->extLst, $xmlSheet->extLst->ext, $xmlSheet->extLst->ext['uri']) && ($xmlSheet->extLst->ext['uri'] == '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}')) {
-                                // Create dataValidations node if does not exists, maybe is better inside the foreach ?
-                                if (!$xmlSheet->dataValidations) {
-                                    $xmlSheet->addChild('dataValidations');
+                            if (!empty($xmlMap[$mainNS][SheetStructure::EXT_LST])) {
+                                if (!isset($xmlMap[$mainNS][SheetStructure::DATA_VALIDATION])) {
+                                    $xmlMap[$mainNS][SheetStructure::DATA_VALIDATION] = [];
                                 }
 
-                                foreach ($xmlSheet->extLst->ext->children('x14', true)->dataValidations->dataValidation as $item) {
-                                    $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
-                                    foreach ($item->attributes() ?? [] as $attr) {
-                                        $node->addAttribute($attr->getName(), $attr);
+                                $stringExtLst = reset($xmlMap[$mainNS][SheetStructure::EXT_LST]);
+                                $extLst = XmlParser::loadXml($this->securityScanner, $stringExtLst);
+                                if (
+                                    isset($extLst->ext, $extLst->ext['uri'])
+                                    && ($extLst->ext['uri'] == '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}')
+                                ) {
+                                    foreach ($extLst->ext->children('x14', true)->dataValidations->dataValidation as $item) {
+                                        // new SimpleXMLElement just to get node for asXML()
+                                        $node = (new SimpleXMLElement('<root/>'))->addChild(SheetStructure::DATA_VALIDATION);
+                                        foreach ($item->attributes() ?? [] as $attr) {
+                                            $node->addAttribute($attr->getName(), $attr);
+                                        }
+                                        $node->addAttribute('sqref', $item->children('xm', true)->sqref);
+                                        $node->addChild('formula1', $item->formula1->children('xm', true)->f);
+
+                                        $xmlMap[$mainNS][SheetStructure::DATA_VALIDATION][] = $node->asXML();
                                     }
-                                    $node->addAttribute('sqref', $item->children('xm', true)->sqref);
-                                    $node->addChild('formula1', $item->formula1->children('xm', true)->f);
                                 }
                             }
 
-                            if ($xmlSheet && $xmlSheet->dataValidations && !$this->readDataOnly) {
-                                (new DataValidations($docSheet, $xmlSheet))->load();
+                            if (!empty($xmlMap[$mainNS][SheetStructure::DATA_VALIDATION]) && !$this->readDataOnly) {
+                                (new DataValidations($docSheet, $xmlMap[$mainNS][SheetStructure::DATA_VALIDATION], $this->securityScanner))->load();
                             }
 
                             // unparsed sheet AlternateContent
-                            if ($xmlSheet && !$this->readDataOnly) {
-                                $mc = $xmlSheet->children(Namespaces::COMPATIBILITY);
-                                if ($mc->AlternateContent) {
-                                    foreach ($mc->AlternateContent as $alternateContent) {
-                                        $alternateContent = self::testSimpleXml($alternateContent);
-                                        $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['AlternateContents'][] = $alternateContent->asXML();
-                                    }
+                            if (!empty($xmlMap[Namespaces::COMPATIBILITY][SheetStructure::ALTERNATE_CONTENT]) && !$this->readDataOnly) {
+                                foreach ($xmlMap[Namespaces::COMPATIBILITY][SheetStructure::ALTERNATE_CONTENT] as $stringAlternateContent) {
+                                    $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['AlternateContents'][] = $stringAlternateContent;
                                 }
                             }
 
                             // Add hyperlinks
                             if (!$this->readDataOnly) {
-                                $hyperlinkReader = new Hyperlinks($docSheet);
+                                $hyperlinkReader = new Hyperlinks($docSheet, $this->securityScanner);
                                 // Locate hyperlink relations
                                 $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
                                 if ($zip->locateName($relationsFileName)) {
@@ -929,8 +1003,8 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Loop through hyperlinks
-                                if ($xmlSheetNS && $xmlSheetNS->children($mainNS)->hyperlinks) {
-                                    $hyperlinkReader->setHyperlinks($xmlSheetNS->children($mainNS)->hyperlinks);
+                                if (!empty($xmlMap[$mainNS][SheetStructure::HYPERLINK])) {
+                                    $hyperlinkReader->setHyperlinks($xmlMap[$mainNS][SheetStructure::HYPERLINK]);
                                 }
                             }
 
@@ -1115,7 +1189,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Header/footer images
-                                if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
+                                if (!empty($xmlMap[$mainNS][SheetStructure::LEGACY_DRAWING_HF]) && !$this->readDataOnly) {
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         $relsWorksheet = $this->loadZipNoNamespace(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels', Namespaces::RELATIONSHIPS);
                                         $vmlRelationship = '';
@@ -1192,10 +1266,11 @@ class Xlsx extends BaseReader
                                         $drawings[(string) $ele['Id']] = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
                                     }
                                 }
-                                if ($xmlSheet->drawing && !$this->readDataOnly) {
+                                if (!empty($xmlMap[$mainNS][SheetStructure::DRAWING]) && !$this->readDataOnly) {
                                     $unparsedDrawings = [];
                                     $fileDrawing = null;
-                                    foreach ($xmlSheet->drawing as $drawing) {
+                                    foreach ($xmlMap[$mainNS][SheetStructure::DRAWING] as $stringDrawing) {
+                                        $drawing = XmlParser::loadXml($this->securityScanner, $stringDrawing);
                                         $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
                                         $drawingFilename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
@@ -1955,55 +2030,59 @@ class Xlsx extends BaseReader
         return [$workbookBasename, $xmlNamespaceBase];
     }
 
-    private function readSheetProtection(Worksheet $docSheet, SimpleXMLElement $xmlSheet): void
+    private function readSheetProtection(Worksheet $docSheet, array $xmlMap): void
     {
-        if ($this->readDataOnly || !$xmlSheet->sheetProtection) {
+        if ($this->readDataOnly || empty($xmlMap[SheetStructure::SHEET_PROTECTION])) {
             return;
         }
 
-        $algorithmName = (string) $xmlSheet->sheetProtection['algorithmName'];
+        $sheetProtection = XmlParser::loadXml($this->securityScanner, reset($xmlMap[SheetStructure::SHEET_PROTECTION]));
+        $algorithmName = (string) $sheetProtection['algorithmName'];
         $protection = $docSheet->getProtection();
         $protection->setAlgorithm($algorithmName);
 
         if ($algorithmName) {
-            $protection->setPassword((string) $xmlSheet->sheetProtection['hashValue'], true);
-            $protection->setSalt((string) $xmlSheet->sheetProtection['saltValue']);
-            $protection->setSpinCount((int) $xmlSheet->sheetProtection['spinCount']);
+            $protection->setPassword((string) $sheetProtection['hashValue'], true);
+            $protection->setSalt((string) $sheetProtection['saltValue']);
+            $protection->setSpinCount((int) $sheetProtection['spinCount']);
         } else {
-            $protection->setPassword((string) $xmlSheet->sheetProtection['password'], true);
+            $protection->setPassword((string) $sheetProtection['password'], true);
         }
 
-        if ($xmlSheet->protectedRanges->protectedRange) {
-            foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
+        if (!empty($xmlMap[SheetStructure::PROTECTED_RANGE])) {
+            foreach ($xmlMap[SheetStructure::PROTECTED_RANGE] as $stringProtectedRange) {
+                $protectedRange = XmlParser::loadXml($this->securityScanner, $stringProtectedRange);
                 $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
             }
         }
     }
 
     private function readAutoFilterTables(
-        SimpleXMLElement $xmlSheet,
+        array $xmlMap,
         Worksheet $docSheet,
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip
     ): void {
-        if ($xmlSheet && $xmlSheet->autoFilter) {
+        if (!empty($xmlMap[SheetStructure::AUTO_FILTER])) {
+            $autoFilter = XmlParser::loadXml($this->securityScanner, reset($xmlMap[SheetStructure::AUTO_FILTER]));
             // In older files, autofilter structure is defined in the worksheet file
-            (new AutoFilter($docSheet, $xmlSheet))->load();
-        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+            (new AutoFilter($docSheet, $autoFilter))->load();
+        } elseif (!empty($xmlMap[SheetStructure::TABLE_PART])) {
             // But for Office365, MS decided to make it all just a bit more complicated
-            $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+            $this->readAutoFilterTablesInTablesFile($xmlMap[SheetStructure::TABLE_PART], $dir, $fileWorksheet, $zip, $docSheet);
         }
     }
 
     private function readAutoFilterTablesInTablesFile(
-        SimpleXMLElement $xmlSheet,
+        array $tableParts,
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip,
         Worksheet $docSheet
     ): void {
-        foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
+        foreach ($tableParts as $stringTablePart) {
+            $tablePart = XmlParser::loadXml($this->securityScanner, $stringTablePart);
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
             $tablePartRel = (string) $relation['id'];
             $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
@@ -2020,7 +2099,7 @@ class Xlsx extends BaseReader
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
                             $autoFilter = $this->loadZip($relationshipFilePath);
-                            (new AutoFilter($docSheet, $autoFilter))->load();
+                            (new AutoFilter($docSheet, $autoFilter->autoFilter))->load();
                         }
                     }
                 }
@@ -2055,5 +2134,38 @@ class Xlsx extends BaseReader
         }
 
         return (count($array) === 64) ? $array : [];
+    }
+
+    private function getMainXmlMap(string $ns): array
+    {
+        return [
+            $ns => [
+                SheetStructure::CONDITIONAL_FORMATTING => true,
+                SheetStructure::SHEET_PROTECTION => true,
+                SheetStructure::SHEET_VIEW => true,
+                SheetStructure::MERGE_CELL => true,
+                SheetStructure::EXT_LST => true,
+                SheetStructure::DATA_VALIDATION => true,
+                SheetStructure::LEGACY_DRAWING_HF => true,
+                SheetStructure::DRAWING => true,
+                SheetStructure::AUTO_FILTER => true,
+                SheetStructure::TABLE_PART => true,
+                SheetStructure::HYPERLINK => true,
+                SheetStructure::ROW => true,
+                SheetStructure::COL => true,
+                SheetStructure::PROTECTED_RANGE => true,
+                SheetStructure::SHEET_PR => true,
+                SheetStructure::SHEET_FORMAT_PR => true,
+                SheetStructure::PRINT_OPTIONS => true,
+                SheetStructure::PAGE_MARGINS => true,
+                SheetStructure::PAGE_SETUP => true,
+                SheetStructure::HEADER_FOOTER => true,
+                SheetStructure::ROW_BREAKS => true,
+                SheetStructure::COL_BREAKS => true,
+            ],
+            Namespaces::COMPATIBILITY => [
+                SheetStructure::ALTERNATE_CONTENT => true,
+            ],
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use SimpleXMLElement;
@@ -13,9 +14,12 @@ class Hyperlinks
 
     private $hyperlinks = [];
 
-    public function __construct(Worksheet $workSheet)
+    private $securityScanner;
+
+    public function __construct(Worksheet $workSheet, XmlScanner $securityScanner)
     {
         $this->worksheet = $workSheet;
+        $this->securityScanner = $securityScanner;
     }
 
     public function readHyperlinks(SimpleXMLElement $relsWorksheet): void
@@ -28,12 +32,13 @@ class Hyperlinks
         }
     }
 
-    public function setHyperlinks(SimpleXMLElement $worksheetXml): void
+    /**
+     * @param string[] $hyperlinks
+     */
+    public function setHyperlinks(array $hyperlinks): void
     {
-        foreach ($worksheetXml->children(Namespaces::MAIN)->hyperlink as $hyperlink) {
-            if ($hyperlink !== null) {
-                $this->setHyperlink($hyperlink, $this->worksheet);
-            }
+        foreach ($hyperlinks as $hyperlink) {
+            $this->setHyperlink(XmlParser::loadXml($this->securityScanner, $hyperlink), $this->worksheet);
         }
     }
 

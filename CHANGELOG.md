@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   (i.e. `"Vrai"` wil be converted to a boolean `true` if the Locale is set to `fr`.)
 - Allow `psr/simple-cache` 2.x
+- Decrease xlsx reader memory consumption by using `XMLReader` to read each node in a loop instead of reading a whole sheet with `simplexml_load_string`. 
 
 ### Deprecated
 

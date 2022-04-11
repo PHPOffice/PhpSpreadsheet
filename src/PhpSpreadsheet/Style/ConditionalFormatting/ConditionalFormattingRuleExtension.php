@@ -55,7 +55,7 @@ class ConditionalFormattingRuleExtension
     {
         $conditionalFormattingRuleExtensions = [];
         $conditionalFormattingRuleExtensionXml = null;
-        if ($extLstXml instanceof SimpleXMLElement) {
+        if (!empty($extLstXml)) {
             foreach ((count($extLstXml) > 0 ? $extLstXml : [$extLstXml]) as $extLst) {
                 //this uri is conditionalFormattings
                 //https://docs.microsoft.com/en-us/openspecs/office_standards/ms-xlsx/07d607af-5618-4ca2-b683-6a78dc0d9627

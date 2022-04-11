@@ -2486,11 +2486,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -2691,7 +2686,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:readAutoFilter\\(\\) has parameter \\$xmlSheet with no type specified\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:readAutoFilter\\(\\) has parameter \\$xmlAutoFilter with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
 
@@ -2706,7 +2701,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:\\$autoFilter has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
 
@@ -2976,14 +2971,14 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ColumnAndRowAttributes\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ColumnAndRowAttributes\\:\\:\\$xmlMap has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:readConditionalStyles\\(\\) has parameter \\$xmlSheet with no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ColumnAndRowAttributes\\:\\:\\$securityScanner has no type specified\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
+			path: src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:readDataBarExtLstOfConditionalRule\\(\\) has parameter \\$cfRule with no type specified\\.$#"
@@ -3016,16 +3011,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:readStyleRules\\(\\) has parameter \\$extLst with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:setConditionalStyles\\(\\) has parameter \\$xmlExtLst with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:\\$dxfs has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
@@ -3036,7 +3021,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ConditionalStyles\\:\\:\\$securityScanner has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
 
@@ -3046,12 +3031,22 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/DataValidations.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\DataValidations\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\DataValidations\\:\\:\\$securityScanner has no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx/DataValidations.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\DataValidations\\:\\:\\$dataValidations has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/DataValidations.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Hyperlinks\\:\\:\\$hyperlinks has no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Hyperlinks\\:\\:\\$securityScanner has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Hyperlinks.php
 
@@ -3076,7 +3071,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\PageSetup\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\PageSetup\\:\\:\\$xmlMap has no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\PageSetup\\:\\:\\$securityScanner has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
 
@@ -3086,7 +3086,12 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$worksheetXml has no type specified\\.$#"
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$xmlMap has no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
+
+		-
+			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$securityScanner has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
 
