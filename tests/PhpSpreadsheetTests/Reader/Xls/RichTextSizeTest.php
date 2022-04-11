@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class RichTextSizeTest extends AbstractFunctional
