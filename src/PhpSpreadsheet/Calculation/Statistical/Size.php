@@ -31,7 +31,7 @@ class Size
             $mArgs = self::filter($aArgs);
             $count = Counts::COUNT($mArgs);
             --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
+            if ($count === 0 || $entry < 0 || $entry >= $count) {
                 return ExcelError::NAN();
             }
             rsort($mArgs);
@@ -67,7 +67,7 @@ class Size
             $mArgs = self::filter($aArgs);
             $count = Counts::COUNT($mArgs);
             --$entry;
-            if (($entry < 0) || ($entry >= $count) || ($count == 0)) {
+            if ($count === 0 || $entry < 0 || $entry >= $count) {
                 return ExcelError::NAN();
             }
             sort($mArgs);

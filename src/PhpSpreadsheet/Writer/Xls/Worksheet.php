@@ -54,6 +54,12 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 // */
 class Worksheet extends BIFFwriter
 {
+    /** @var int */
+    private static $always0 = 0;
+
+    /** @var int */
+    private static $always1 = 1;
+
     /**
      * Formula parser.
      *
@@ -2923,11 +2929,11 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
         $flags |= (1 == $bTxRotation ? 0x00000008 : 0);
         // Justify last line flag
-        $flags |= (1 == 1 ? 0x00000010 : 0);
+        $flags |= (1 == self::$always1 ? 0x00000010 : 0);
         $flags |= (1 == $bIndent ? 0x00000020 : 0);
         $flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
         // Default
-        $flags |= (1 == 1 ? 0x00000080 : 0);
+        $flags |= (1 == self::$always1 ? 0x00000080 : 0);
         // Protection
         $flags |= (1 == $bProtLocked ? 0x00000100 : 0);
         $flags |= (1 == $bProtHidden ? 0x00000200 : 0);
@@ -2936,13 +2942,13 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == $bBorderRight ? 0x00000800 : 0);
         $flags |= (1 == $bBorderTop ? 0x00001000 : 0);
         $flags |= (1 == $bBorderBottom ? 0x00002000 : 0);
-        $flags |= (1 == 1 ? 0x00004000 : 0); // Top left to Bottom right border
-        $flags |= (1 == 1 ? 0x00008000 : 0); // Bottom left to Top right border
+        $flags |= (1 == self::$always1 ? 0x00004000 : 0); // Top left to Bottom right border
+        $flags |= (1 == self::$always1 ? 0x00008000 : 0); // Bottom left to Top right border
         // Pattern
         $flags |= (1 == $bFillStyle ? 0x00010000 : 0);
         $flags |= (1 == $bFillColor ? 0x00020000 : 0);
         $flags |= (1 == $bFillColorBg ? 0x00040000 : 0);
-        $flags |= (1 == 1 ? 0x00380000 : 0);
+        $flags |= (1 == self::$always1 ? 0x00380000 : 0);
         // Font
         $flags |= (1 == $bFormatFont ? 0x04000000 : 0);
         // Alignment:
@@ -2954,7 +2960,7 @@ class Worksheet extends BIFFwriter
         // Protection
         $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
-        $flags |= (1 == 0 ? 0x80000000 : 0);
+        $flags |= (1 == self::$always0 ? 0x80000000 : 0);
 
         $dataBlockFont = null;
         $dataBlockAlign = null;
@@ -3040,10 +3046,10 @@ class Worksheet extends BIFFwriter
             $optionsFlags = 0;
             $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() === null ? 1 : 0);
             $optionsFlags |= (1 == $optionsFlagsBold ? 0x00000002 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000008 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000010 : 0);
-            $optionsFlags |= (1 == 0 ? 0x00000020 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000080 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000008 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000010 : 0);
+            $optionsFlags |= (1 == self::$always0 ? 0x00000020 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000080 : 0);
             $dataBlockFont .= pack('V', $optionsFlags);
             // Escapement type
             $dataBlockFont .= pack('V', $fontEscapement);
