@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
 - Fix invalid style of cells in empty columns with columnDimensions in added external sheet. [PR #2739](https://github.com/PHPOffice/PhpSpreadsheet/pull/2739)
 
+
 ## 1.22.0 - 2022-02-18
 
 ### Added
@@ -293,7 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Use of `nb` rather than `no` as the locale code for Norsk Bokmal.
+- Use of `nb` rather than `no` as the locale code for Norsk Bokmål.
 
 ### Deprecated
 
@@ -301,7 +302,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Removed
 
-- Use of `nb` rather than `no` as the locale language code for Norsk Bokmal.
+- Use of `nb` rather than `no` as the locale language code for Norsk Bokmål.
 
 ### Fixed
 
