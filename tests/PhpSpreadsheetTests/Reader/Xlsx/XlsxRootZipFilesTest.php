@@ -19,6 +19,6 @@ class XlsxRootZipFilesTest extends TestCase
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         $value = $sheet->getCell('A1')->getValue();
-        self::assertSame("TEST CELL", $value->getPlainText());
+        self::assertSame('TEST CELL', $value->getPlainText());
     }
 }
