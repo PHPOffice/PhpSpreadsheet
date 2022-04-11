@@ -869,6 +869,11 @@ class Spreadsheet
             $cell->setXfIndex($cell->getXfIndex() + $countCellXfs);
         }
 
+        // update the column dimensions Xfs
+        foreach ($worksheet->getColumnDimensions() as $columnDimension) {
+            $columnDimension->setXfIndex($columnDimension->getXfIndex() + $countCellXfs);
+        }
+
         return $this->addSheet($worksheet, $sheetIndex);
     }
 

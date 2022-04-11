@@ -188,4 +188,35 @@ class SpreadsheetTest extends TestCase
         $sheet->getCell('A1')->getStyle()->getFont()->setBold(true);
         $this->object->addExternalSheet($sheet);
     }
+
+    public function testAddExternalColumnDimensionStyles(): void
+    {
+        $spreadsheet1 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
+        $sheet1->getCell('A1')->setValue(1);
+        $sheet1->getCell('A1')->getStyle()->getFont()->setItalic(true);
+        $sheet1->getColumnDimension('B')->setWidth('10')->setXfIndex($sheet1->getCell('A1')->getXfIndex());
+        $index = $sheet1->getColumnDimension('B')->getXfIndex();
+        self::assertEquals(1, $index);
+        self::assertCount(2, $spreadsheet1->getCellXfCollection());
+
+        $spreadsheet2 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet2 = $spreadsheet2->createSheet()->setTitle('sheetWithTwoStyles');
+        $sheet2->getCell('A1')->setValue(1);
+        $sheet2->getCell('A1')->getStyle()->getFont()->setBold(true);
+        $sheet2->getCell('B2')->getStyle()->getFont()->setSuperscript(true);
+        $countXfs = count($spreadsheet2->getCellXfCollection());
+        self::assertEquals(3, $countXfs);
+
+        $sheet3 = $spreadsheet2->addExternalSheet($sheet1);
+        self::assertCount(5, $spreadsheet2->getCellXfCollection());
+        self::assertTrue($sheet3->getCell('A1')->getStyle()->getFont()->getItalic());
+        self::assertTrue($sheet3->getCell('B1')->getStyle()->getFont()->getItalic());
+        self::assertFalse($sheet3->getCell('B1')->getStyle()->getFont()->getBold());
+        // Prove Xf index changed although style is same.
+        self::assertEquals($countXfs + $index, $sheet3->getCell('B1')->getXfIndex());
+        self::assertEquals($countXfs + $index, $sheet3->getColumnDimension('B')->getXfIndex());
+    }
+
+
 }
