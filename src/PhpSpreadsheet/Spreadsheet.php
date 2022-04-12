@@ -874,6 +874,14 @@ class Spreadsheet
             $columnDimension->setXfIndex($columnDimension->getXfIndex() + $countCellXfs);
         }
 
+        // update the row dimensions Xfs
+        foreach ($worksheet->getRowDimensions() as $rowDimension) {
+            $xfIndex = $rowDimension->getXfIndex();
+            if ($xfIndex !== null) {
+                $rowDimension->setXfIndex($xfIndex + $countCellXfs);
+            }
+        }
+        
         return $this->addSheet($worksheet, $sheetIndex);
     }
 
