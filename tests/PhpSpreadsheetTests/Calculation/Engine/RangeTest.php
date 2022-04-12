@@ -21,15 +21,7 @@ class RangeTest extends TestCase
     {
         $this->spreadSheet = new Spreadsheet();
         $this->spreadSheet->getActiveSheet()
-            ->setCellValue('A1', 1)
-            ->setCellValue('B1', 2)
-            ->setCellValue('C1', 3)
-            ->setCellValue('A2', 4)
-            ->setCellValue('B2', 5)
-            ->setCellValue('C2', 6)
-            ->setCellValue('A3', 7)
-            ->setCellValue('B3', 8)
-            ->setCellValue('C3', 9);
+            ->fromArray(array_chunk(range(1, 240), 6), null, 'A1', true);
     }
 
     /**
@@ -40,33 +32,39 @@ class RangeTest extends TestCase
     public function testRangeEvaluation(string $formula, $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
-        $workSheet->setCellValue('E1', $formula);
+        $workSheet->setCellValue('H1', $formula);
 
-        $actualRresult = $workSheet->getCell('E1')->getCalculatedValue();
+        $actualRresult = $workSheet->getCell('H1')->getCalculatedValue();
         self::assertSame($expectedResult, $actualRresult);
     }
 
     public function providerRangeEvaluation(): array
     {
         return[
-            ['=SUM(A1:B3,A1:C2)', 48],
-            ['=COUNT(A1:B3,A1:C2)', 12],
-            ['=SUM(A1:B3 A1:C2)', 12],
-            ['=COUNT(A1:B3 A1:C2)', 4],
-            ['=SUM(A1:A3,C1:C3)', 30],
-            ['=COUNT(A1:A3,C1:C3)', 6],
-            ['=SUM(A1:A3 C1:C3)', Functions::null()],
-            ['=COUNT(A1:A3 C1:C3)', 0],
-            ['=SUM(A1:B2,B2:C3)', 40],
-            ['=COUNT(A1:B2,B2:C3)', 8],
-            ['=SUM(A1:B2 B2:C3)', 5],
-            ['=COUNT(A1:B2 B2:C3)', 1],
-            ['=SUM(A1:C1,A3:C3,B1:C3)', 63],
-            ['=COUNT(A1:C1,A3:C3,B1:C3)', 12],
-            ['=SUM(A1:C1,A3:C3 B1:C3)', 23],
-            ['=COUNT(A1:C1,A3:C3 B1:C3)', 5],
-            ['=SUM(Worksheet!A1:B3,Worksheet!A1:C2)', 48],
-            ['=SUM(Worksheet!A1:Worksheet!B3,Worksheet!A1:Worksheet!C2)', 48],
+            'Sum with Simple Range' => ['=SUM(A1:C3)', 72],
+            'Count with Simple Range' => ['=COUNT(A1:C3)', 9],
+            'Sum with UNION #1' => ['=SUM(A1:B3,A1:C2)', 75],
+            'Count with UNION #1' => ['=COUNT(A1:B3,A1:C2)', 12],
+            'Sum with INTERSECTION #1' => ['=SUM(A1:B3 A1:C2)', 18],
+            'Count with INTERSECTION #1' => ['=COUNT(A1:B3 A1:C2)', 4],
+            'Sum with UNION #2' => ['=SUM(A1:A3,C1:C3)', 48],
+            'Count with UNION #2' => ['=COUNT(A1:A3,C1:C3)', 6],
+            'Sum with INTERSECTION #2 - No Intersect' => ['=SUM(A1:A3 C1:C3)', Functions::null()],
+            'Count with INTERSECTION #2 - No Intersect' => ['=COUNT(A1:A3 C1:C3)', 0],
+            'Sum with UNION #3' => ['=SUM(A1:B2,B2:C3)', 64],
+            'Count with UNION #3' => ['=COUNT(A1:B2,B2:C3)', 8],
+            'Sum with INTERSECTION #3 - Single Cell' => ['=SUM(A1:B2 B2:C3)', 8],
+            'Count with INTERSECTION #3 - Single Cell' => ['=COUNT(A1:B2 B2:C3)', 1],
+            'Sum with Triple UNION' => ['=SUM(A1:C1,A3:C3,B1:C3)', 99],
+            'Count with Triple UNION' => ['=COUNT(A1:C1,A3:C3,B1:C3)', 12],
+            'Sum with UNION and INTERSECTION' => ['=SUM(A1:C1,A3:C3 B1:C3)', 35],
+            'Count with UNION and INTERSECTION' => ['=COUNT(A1:C1,A3:C3 B1:C3)', 5],
+            'Sum with UNION with Worksheet Reference' => ['=SUM(Worksheet!A1:B3,Worksheet!A1:C2)', 75],
+            'Sum with UNION with full Worksheet Reference' => ['=SUM(Worksheet!A1:Worksheet!B3,Worksheet!A1:Worksheet!C2)', 75],
+            'Sum with Chained UNION #1' => ['=SUM(A3:B1:C2)', 72],
+            'Count with Chained UNION #1' => ['=COUNT(A3:B1:C2)', 9],
+            'Sum with Chained UNION #2' => ['=SUM(A5:C10:C20:F1)', 7260],
+            'Count with Chained UNION#2' => ['=COUNT(A5:C10:C20:F1)', 120],
         ];
     }
 
@@ -97,16 +95,16 @@ class RangeTest extends TestCase
     public function providerNamedRangeEvaluation(): array
     {
         return[
-            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1,GROUP2)', 48],
+            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1,GROUP2)', 75],
             ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1,GROUP2)', 12],
-            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1 GROUP2)', 12],
+            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1 GROUP2)', 18],
             ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1 GROUP2)', 4],
-            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 40],
+            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 64],
             ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1,GROUP2)', 8],
-            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1 GROUP2)', 5],
+            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1 GROUP2)', 8],
             ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1 GROUP2)', 1],
-            ['Worksheet!$A$1:$B$2', 'Worksheet!$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 40],
-            ['Worksheet!$A$1:Worksheet!$B$2', 'Worksheet!$B$2:Worksheet!$C$3', '=SUM(GROUP1,GROUP2)', 40],
+            ['Worksheet!$A$1:$B$2', 'Worksheet!$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 64],
+            ['Worksheet!$A$1:Worksheet!$B$2', 'Worksheet!$B$2:Worksheet!$C$3', '=SUM(GROUP1,GROUP2)', 64],
         ];
     }
 
@@ -132,9 +130,9 @@ class RangeTest extends TestCase
     public function providerUTF8NamedRangeEvaluation(): array
     {
         return[
-            [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 26],
+            [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 38],
             [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=COUNT(Γειά,σου,Κόσμε)', 6],
-            [['Здравствуй', 'мир'], ['$A$1:$A$3', '$C$1:$C$3'], '=SUM(Здравствуй,мир)', 30],
+            [['Здравствуй', 'мир'], ['$A$1:$A$3', '$C$1:$C$3'], '=SUM(Здравствуй,мир)', 48],
         ];
     }
 

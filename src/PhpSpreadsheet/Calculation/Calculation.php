@@ -33,11 +33,11 @@ class Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
-    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
-    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
     const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
@@ -4135,17 +4135,25 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         //    If we have a worksheet reference, then we're playing with a 3D reference
-                        if ($matches[2] == '') {
+                        if ($matches[2] === '') {
                             //    Otherwise, we 'inherit' the worksheet reference from the start cell reference
                             //    The start of the cell range reference should be the last entry in $output
                             $rangeStartCellRef = $output[count($output) - 1]['value'];
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            if ($rangeStartCellRef === ':') {
+                                // Do we have chained range operators?
+                                $rangeStartCellRef = $output[count($output) - 2]['value'];
+                            }
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $rangeStartCellRef, $rangeStartMatches);
                             if ($rangeStartMatches[2] > '') {
                                 $val = $rangeStartMatches[2] . '!' . $val;
                             }
                         } else {
                             $rangeStartCellRef = $output[count($output) - 1]['value'];
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            if ($rangeStartCellRef === ':') {
+                                // Do we have chained range operators?
+                                $rangeStartCellRef = $output[count($output) - 2]['value'];
+                            }
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $rangeStartCellRef, $rangeStartMatches);
                             if ($rangeStartMatches[2] !== $matches[2]) {
                                 return $this->raiseFormulaError('3D Range references are not yet supported');
                             }
@@ -4461,21 +4469,21 @@ class Calculation
 
                 //    Process the operation in the appropriate manner
                 switch ($token) {
-                    //    Comparison (Boolean) Operators
-                    case '>':            //    Greater than
-                    case '<':            //    Less than
-                    case '>=':            //    Greater than or Equal to
-                    case '<=':            //    Less than or Equal to
-                    case '=':            //    Equality
-                    case '<>':            //    Inequality
+                    // Comparison (Boolean) Operators
+                    case '>': // Greater than
+                    case '<': // Less than
+                    case '>=': // Greater than or Equal to
+                    case '<=': // Less than or Equal to
+                    case '=': // Equality
+                    case '<>': // Inequality
                         $result = $this->executeBinaryComparisonOperation($operand1, $operand2, (string) $token, $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
 
                         break;
-                    //    Binary Operators
-                    case ':':            //    Range
+                    // Binary Operators
+                    case ':': // Range
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
