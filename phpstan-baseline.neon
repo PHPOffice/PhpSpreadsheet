@@ -2071,16 +2071,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForActiveSheet\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
 			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
@@ -4278,6 +4268,11 @@ parameters:
 		-
 			message: "#^Cannot call method rangeToArray\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-

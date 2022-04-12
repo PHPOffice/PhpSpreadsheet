@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Filter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
