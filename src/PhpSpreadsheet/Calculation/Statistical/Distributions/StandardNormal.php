@@ -103,8 +103,10 @@ class StandardNormal
         if (!is_numeric($value)) {
             return ExcelError::VALUE();
         }
+        /** @var float */
+        $dist = self::distribution($value, true);
 
-        return self::distribution($value, true) - 0.5;
+        return $dist - 0.5;
     }
 
     /**
@@ -139,6 +141,7 @@ class StandardNormal
         }
 
         if ($sigma === null) {
+            /** @var float */
             $sigma = StandardDeviations::STDEV($dataSet);
         }
         $n = count($dataSet);
