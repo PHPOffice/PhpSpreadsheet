@@ -58,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - `setSelectedCellByColumnAndRow()` use the equivalent `setSelectedCells()`
 
   This change provides more consistency in the methods (not every "by cell address" method has an equivalent "byColumnAndRow" method);
-  and the "by cell address" methods often provide more flexibility, such as allowing a range of cells, or referencig them by passing the defined name of a named range as the argument.
+  and the "by cell address" methods often provide more flexibility, such as allowing a range of cells, or referencing them by passing the defined name of a named range as the argument.
 
 ### Removed
 
