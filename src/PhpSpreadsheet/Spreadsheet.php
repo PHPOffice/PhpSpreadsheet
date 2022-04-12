@@ -881,7 +881,7 @@ class Spreadsheet
                 $rowDimension->setXfIndex($xfIndex + $countCellXfs);
             }
         }
-        
+
         return $this->addSheet($worksheet, $sheetIndex);
     }
 
