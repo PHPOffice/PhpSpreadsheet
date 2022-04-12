@@ -105,7 +105,7 @@ class Ods extends BaseReader
         $xml->read();
         while ($xml->read()) {
             // Quickly jump through to the office:body node
-            while ($xml->name !== 'office:body') {
+            while (self::getXmlName($xml) !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
                 } else {
@@ -114,12 +114,13 @@ class Ods extends BaseReader
             }
             // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                $xmlName = self::getXmlName($xml);
+                if ($xmlName == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     // Loop through each table:table node reading the table:name attribute for each worksheet name
                     do {
                         $worksheetNames[] = $xml->getAttribute('table:name');
                         $xml->next();
-                    } while ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
+                    } while (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
                 }
             }
         }
@@ -152,7 +153,7 @@ class Ods extends BaseReader
         $xml->read();
         while ($xml->read()) {
             // Quickly jump through to the office:body node
-            while ($xml->name !== 'office:body') {
+            while (self::getXmlName($xml) !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
                 } else {
@@ -161,7 +162,7 @@ class Ods extends BaseReader
             }
             // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                if (self::getXmlName($xml) == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
 
                     $tmpInfo = [
@@ -176,7 +177,7 @@ class Ods extends BaseReader
                     $currCells = 0;
                     do {
                         $xml->read();
-                        if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        if (self::getXmlName($xml) == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
@@ -186,22 +187,22 @@ class Ods extends BaseReader
                             $xml->read();
                             do {
                                 $doread = true;
-                                if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                if (self::getXmlName($xml) == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
                                         ++$currCells;
                                         $xml->next();
                                         $doread = false;
                                     }
-                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                } elseif (self::getXmlName($xml) == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += (int) $mergeSize;
                                 }
                                 if ($doread) {
                                     $xml->read();
                                 }
-                            } while ($xml->name != 'table:table-row');
+                            } while (self::getXmlName($xml) != 'table:table-row');
                         }
-                    } while ($xml->name != 'table:table');
+                    } while (self::getXmlName($xml) != 'table:table');
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
@@ -212,6 +213,16 @@ class Ods extends BaseReader
         }
 
         return $worksheetInfo;
+    }
+
+    /**
+     * Counteract Phpstan caching.
+     *
+     * @phpstan-impure
+     */
+    private static function getXmlName(XMLReader $xml): string
+    {
+        return $xml->name;
     }
 
     /**
@@ -644,7 +655,7 @@ class Ods extends BaseReader
                             $setRow = $configItem->nodeValue;
                         }
                     }
-                    $this->setSelected($spreadsheet, $wsname, $setCol, $setRow);
+                    $this->setSelected($spreadsheet, $wsname, "$setCol", "$setRow");
                 }
 
                 break;
@@ -681,12 +692,7 @@ class Ods extends BaseReader
                 // Multiple spaces?
                 /** @var DOMAttr $cAttr */
                 $cAttr = $child->attributes->getNamedItem('c');
-                if ($cAttr) {
-                    $multiplier = (int) $cAttr->nodeValue;
-                } else {
-                    $multiplier = 1;
-                }
-
+                $multiplier = self::getMultiplier($cAttr);
                 $str .= str_repeat(' ', $multiplier);
             }
 
@@ -696,6 +702,17 @@ class Ods extends BaseReader
         }
 
         return $str;
+    }
+
+    private static function getMultiplier(?DOMAttr $cAttr): int
+    {
+        if ($cAttr) {
+            $multiplier = (int) $cAttr->nodeValue;
+        } else {
+            $multiplier = 1;
+        }
+
+        return $multiplier;
     }
 
     /**

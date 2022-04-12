@@ -70,10 +70,12 @@ class Amortization
             return $e->getMessage();
         }
 
-        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
-        if (is_string($yearFrac)) {
-            return $yearFrac;
+        $yearFracx = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
+        if (is_string($yearFracx)) {
+            return $yearFracx;
         }
+        /** @var float */
+        $yearFrac = $yearFracx;
 
         $amortiseCoeff = self::getAmortizationCoefficient($rate);
 
@@ -161,10 +163,12 @@ class Amortization
         $fCostDelta = $cost - $salvage;
         //    Note, quirky variation for leap years on the YEARFRAC for this function
         $purchasedYear = DateTimeExcel\DateParts::year($purchased);
-        $yearFrac = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
-        if (is_string($yearFrac)) {
-            return $yearFrac;
+        $yearFracx = DateTimeExcel\YearFrac::fraction($purchased, $firstPeriod, $basis);
+        if (is_string($yearFracx)) {
+            return $yearFracx;
         }
+        /** @var float */
+        $yearFrac = $yearFracx;
 
         if (
             ($basis == FinancialConstants::BASIS_DAYS_PER_YEAR_ACTUAL) &&

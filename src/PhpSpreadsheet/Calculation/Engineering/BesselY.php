@@ -66,6 +66,21 @@ class BesselY
         return self::besselY2($x, $ord);
     }
 
+    /**
+     * Mollify Phpstan.
+     *
+     * @codeCoverageIgnore
+     */
+    private static function callBesselJ(float $x, int $ord): float
+    {
+        $rslt = BesselJ::BESSELJ($x, $ord);
+        if (!is_float($rslt)) {
+            throw new Exception('Unexpected array or string');
+        }
+
+        return $rslt;
+    }
+
     private static function besselY0(float $x): float
     {
         if ($x < 8.0) {
@@ -75,7 +90,7 @@ class BesselY
             $ans2 = 40076544269.0 + $y * (745249964.8 + $y * (7189466.438 + $y *
                         (47447.26470 + $y * (226.1030244 + $y))));
 
-            return $ans1 / $ans2 + 0.636619772 * BesselJ::BESSELJ($x, 0) * log($x);
+            return $ans1 / $ans2 + 0.636619772 * self::callBesselJ($x, 0) * log($x);
         }
 
         $z = 8.0 / $x;
@@ -97,7 +112,7 @@ class BesselY
             $ans2 = 0.2499580570e14 + $y * (0.4244419664e12 + $y * (0.3733650367e10 + $y * (0.2245904002e8 + $y *
                             (0.1020426050e6 + $y * (0.3549632885e3 + $y)))));
 
-            return ($ans1 / $ans2) + 0.636619772 * (BesselJ::BESSELJ($x, 1) * log($x) - 1 / $x);
+            return ($ans1 / $ans2) + 0.636619772 * (self::callBesselJ($x, 1) * log($x) - 1 / $x);
         }
 
         $z = 8.0 / $x;
