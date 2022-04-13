@@ -4167,7 +4167,7 @@ class Calculation
                     $outputItem = $stack->getStackItem('Cell Reference', $val, $val);
 
                     $output[] = $outputItem;
-                } else {    // it's a variable, constant, string, number or boolean
+                } else { // it's a variable, constant, string, number or boolean
                     $localeConstant = false;
                     $stackItemType = 'Value';
                     $stackItemReference = null;
@@ -4176,39 +4176,62 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         $stackItemType = 'Cell Reference';
-                        $startRowColRef = $output[count($output) - 1]['value'];
-                        [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
-                        $rangeSheetRef = $rangeWS1;
-                        if ($rangeWS1 !== '') {
-                            $rangeWS1 .= '!';
-                        }
-                        $rangeSheetRef = trim($rangeSheetRef, "'");
-                        [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
-                        if ($rangeWS2 !== '') {
-                            $rangeWS2 .= '!';
+                        if (
+                            (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $val) !== false) &&
+                            ($this->spreadsheet->getNamedRange($val) !== null)
+                        ) {
+                            $namedRange = $this->spreadsheet->getNamedRange($val);
+                            if ($namedRange !== null) {
+                                $stackItemType = 'Defined Name';
+                                $address = str_replace('$', '', $namedRange->getValue());
+                                $stackItemReference = $val;
+                                if (strpos($address, ':') !== false) {
+                                    // We'll need to manipulate the stack for an actual named range rather than a named cell
+                                    $fromTo = explode(':', $address);
+                                    $to = array_pop($fromTo);
+                                    foreach ($fromTo as $from) {
+                                        $output[] = $stack->getStackItem($stackItemType, $from, $stackItemReference);
+                                        $output[] = $stack->getStackItem('Binary Operator', ':');
+                                    }
+                                    $address = $to;
+                                }
+                                $val = $address;
+                            }
                         } else {
-                            $rangeWS2 = $rangeWS1;
-                        }
+                            $startRowColRef = $output[count($output) - 1]['value'];
+                            [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
+                            $rangeSheetRef = $rangeWS1;
+                            if ($rangeWS1 !== '') {
+                                $rangeWS1 .= '!';
+                            }
+                            $rangeSheetRef = trim($rangeSheetRef, "'");
+                            [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
+                            if ($rangeWS2 !== '') {
+                                $rangeWS2 .= '!';
+                            } else {
+                                $rangeWS2 = $rangeWS1;
+                            }
 
-                        $refSheet = $pCellParent;
-                        if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
-                            $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
-                        }
+                            $refSheet = $pCellParent;
+                            if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
+                                $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
+                            }
 
-                        if (ctype_digit($val) && $val <= 1048576) {
-                            //    Row range
-                            $stackItemType = 'Row Reference';
-                            /** @var int $valx */
-                            $valx = $val;
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
-                            $val = "{$rangeWS2}{$endRowColRef}{$val}";
-                        } elseif (ctype_alpha($val) && strlen($val) <= 3) {
-                            //    Column range
-                            $stackItemType = 'Column Reference';
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
-                            $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            if (ctype_digit($val) && $val <= 1048576) {
+                                //    Row range
+                                $stackItemType = 'Row Reference';
+                                /** @var int $valx */
+                                $valx = $val;
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
+                                $val = "{$rangeWS2}{$endRowColRef}{$val}";
+                            } elseif (ctype_alpha($val) && strlen($val) <= 3) {
+                                //    Column range
+                                $stackItemType = 'Column Reference';
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
+                                $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            }
+                            $stackItemReference = $val;
                         }
-                        $stackItemReference = $val;
                     } elseif ($opCharacter == self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
@@ -4484,6 +4507,14 @@ class Calculation
                         break;
                     // Binary Operators
                     case ':': // Range
+                        if ($operand1Data['type'] === 'Defined Name') {
+                            if (preg_match('/$' . self::CALCULATION_REGEXP_DEFINEDNAME . '^/mui', $operand1Data['reference']) !== false) {
+                                $definedName = $this->spreadsheet->getNamedRange($operand1Data['reference']);
+                                if ($definedName !== null) {
+                                    $operand1Data['reference'] = $operand1Data['value'] = str_replace('$', '', $definedName->getValue());
+                                }
+                            }
+                        }
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {

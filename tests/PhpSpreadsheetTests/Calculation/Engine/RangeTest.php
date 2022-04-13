@@ -80,31 +80,35 @@ class RangeTest extends TestCase
     /**
      * @dataProvider providerNamedRangeEvaluation
      */
-    public function testNamedRangeEvaluation(string $group1, string $group2, string $formula, int $expectedResult): void
+    public function testNamedRangeEvaluation(array $ranges, string $formula, int $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
-        $this->spreadSheet->addNamedRange(new NamedRange('GROUP1', $workSheet, $group1));
-        $this->spreadSheet->addNamedRange(new NamedRange('GROUP2', $workSheet, $group2));
+        foreach ($ranges as $id => $range) {
+            $this->spreadSheet->addNamedRange(new NamedRange('GROUP' . ++$id, $workSheet, $range));
+        }
 
-        $workSheet->setCellValue('E1', $formula);
+        $workSheet->setCellValue('H1', $formula);
 
-        $sumRresult = $workSheet->getCell('E1')->getCalculatedValue();
+        $sumRresult = $workSheet->getCell('H1')->getCalculatedValue();
         self::assertSame($expectedResult, $sumRresult);
     }
 
     public function providerNamedRangeEvaluation(): array
     {
         return[
-            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1,GROUP2)', 75],
-            ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1,GROUP2)', 12],
-            ['$A$1:$B$3', '$A$1:$C$2', '=SUM(GROUP1 GROUP2)', 18],
-            ['$A$1:$B$3', '$A$1:$C$2', '=COUNT(GROUP1 GROUP2)', 4],
-            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 64],
-            ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1,GROUP2)', 8],
-            ['$A$1:$B$2', '$B$2:$C$3', '=SUM(GROUP1 GROUP2)', 8],
-            ['$A$1:$B$2', '$B$2:$C$3', '=COUNT(GROUP1 GROUP2)', 1],
-            ['Worksheet!$A$1:$B$2', 'Worksheet!$B$2:$C$3', '=SUM(GROUP1,GROUP2)', 64],
-            ['Worksheet!$A$1:Worksheet!$B$2', 'Worksheet!$B$2:Worksheet!$C$3', '=SUM(GROUP1,GROUP2)', 64],
+            [['$A$1:$B$3', '$A$1:$C$2'], '=SUM(GROUP1,GROUP2)', 75],
+            [['$A$1:$B$3', '$A$1:$C$2'], '=COUNT(GROUP1,GROUP2)', 12],
+            [['$A$1:$B$3', '$A$1:$C$2'], '=SUM(GROUP1 GROUP2)', 18],
+            [['$A$1:$B$3', '$A$1:$C$2'], '=COUNT(GROUP1 GROUP2)', 4],
+            [['$A$1:$B$2', '$B$2:$C$3'], '=SUM(GROUP1,GROUP2)', 64],
+            [['$A$1:$B$2', '$B$2:$C$3'], '=COUNT(GROUP1,GROUP2)', 8],
+            [['$A$1:$B$2', '$B$2:$C$3'], '=SUM(GROUP1 GROUP2)', 8],
+            [['$A$1:$B$2', '$B$2:$C$3'], '=COUNT(GROUP1 GROUP2)', 1],
+            [['$A$5', '$C$10:$C$20', '$F$1'], '=SUM(GROUP1:GROUP2:GROUP3)', 7260],
+            [['$A$5:$A$7', '$C$20', '$F$1'], '=SUM(GROUP1:GROUP2:GROUP3)', 7260],
+            [['$A$5:$A$7', '$C$10:$C$20', '$F$1'], '=SUM(GROUP1:GROUP2:GROUP3)', 7260],
+            [['Worksheet!$A$1:$B$2', 'Worksheet!$B$2:$C$3'], '=SUM(GROUP1,GROUP2)', 64],
+            [['Worksheet!$A$1:Worksheet!$B$2', 'Worksheet!$B$2:Worksheet!$C$3'], '=SUM(GROUP1,GROUP2)', 64],
         ];
     }
 
