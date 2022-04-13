@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the FILTER(), SORT(), SORTBY() and UNIQUE() Lookup/Reference (array) functions
+- Introduced CellAddress, CellRange, RowRange and ColumnRange value objects that can be used as an alternative to a string value (e.g. `'C5'`, `'B2:D4'`, `'2:2'` or `'B:C'`) in appropriate contexts.
+- Implementation of the FILTER(), SORT(), SORTBY() and UNIQUE() Lookup/Reference (array) functions.
 - Implementation of the ISREF() Information function.
 - Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
@@ -37,6 +38,27 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Deprecated
 
 - All Excel Function implementations in `Calculation\Functions` (including the Error functions) have been moved to dedicated classes for groups of related functions. See the docblocks against all the deprecated methods for details of the new methods to call instead. At some point, these old classes will be deleted.
+- Worksheet methods that reference cells "byColumnandRow". All such methods have an equivalent that references the cell by its address (e.g. '`E3'` rather than `5, 3`).
+
+  These functions now accept either a cell address string (`'E3')` or an array with columnId and rowId (`[5, 3]`) or a new `CellAddress` object as their `cellAddress`/`coordinate` argument.
+  This includes the methods:
+  - `setCellValueByColumnAndRow()` use the equivalent `setCellValue()`
+  - `setCellValueExplicitByColumnAndRow()` use the equivalent `setCellValueExplicit()`
+  - `getCellByColumnAndRow()` use the equivalent `getCell()`
+  - `cellExistsByColumnAndRow()` use the equivalent `cellExists()`
+  - `getStyleByColumnAndRow()` use the equivalent `getStyle()`
+  - `setBreakByColumnAndRow()` use the equivalent `setBreak()`
+  - `mergeCellsByColumnAndRow()` use the equivalent `mergeCells()`
+  - `unmergeCellsByColumnAndRow()` use the equivalent `unmergeCells()`
+  - `protectCellsByColumnAndRow()` use the equivalent `protectCells()`
+  - `unprotectCellsByColumnAndRow()` use the equivalent `unprotectCells()`
+  - `setAutoFilterByColumnAndRow()` use the equivalent `setAutoFilter()`
+  - `freezePaneByColumnAndRow()` use the equivalent `freezePane()`
+  - `getCommentByColumnAndRow()` use the equivalent `getComment()`
+  - `setSelectedCellByColumnAndRow()` use the equivalent `setSelectedCells()`
+
+  This change provides more consistency in the methods (not every "by cell address" method has an equivalent "byColumnAndRow" method);
+  and the "by cell address" methods often provide more flexibility, such as allowing a range of cells, or referencing them by passing the defined name of a named range as the argument.
 
 ### Removed
 
