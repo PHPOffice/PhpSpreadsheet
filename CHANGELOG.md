@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Implementation of the ISREF() Information function.
 - Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
-  (i.e a value of "12,345.67" can be read as numeric `1235.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
+  (i.e a value of "12,345.67" can be read as numeric `12345.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
 
   This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Support for "chained" ranges (e.g. `A5:C10:C20:F1`) in the Calculation Engine; and also support for using named ranges with the Range operator (e.g. `NamedRange1:NamedRange2`) [Issue #2730](https://github.com/PHPOffice/PhpSpreadsheet/issues/2730) [PR #2746](https://github.com/PHPOffice/PhpSpreadsheet/pull/2746)
 - Update Conditional Formatting ranges and rule conditions when inserting/deleting rows/columns [Issue #2678](https://github.com/PHPOffice/PhpSpreadsheet/issues/2678) [PR #2689](https://github.com/PHPOffice/PhpSpreadsheet/pull/2689)
 - Allow `INDIRECT()` to accept row/column ranges as well as cell ranges [PR #2687](https://github.com/PHPOffice/PhpSpreadsheet/pull/2687)
 - Fix bug when deleting cells with hyperlinks, where the hyperlink was then being "inherited" by whatever cell moved to that cell address.
@@ -79,6 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
 - Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
+- Fix invalid style of cells in empty columns with columnDimensions and rows with rowDimensions in added external sheet. [PR #2739](https://github.com/PHPOffice/PhpSpreadsheet/pull/2739)
+
 
 ## 1.22.0 - 2022-02-18
 
