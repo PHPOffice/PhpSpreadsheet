@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Implementation of the ISREF() Information function.
 - Added support for reading "formatted" numeric values from Csv files; although default behaviour of reading these values as strings is preserved.
 
-  (i.e a value of "12,345.67" can be read as numeric `1235.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
+  (i.e a value of "12,345.67" can be read as numeric `12345.67`, not simply as a string `"12,345.67"`, if the `castFormattedNumberToNumeric()` setting is enabled.
 
   This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
