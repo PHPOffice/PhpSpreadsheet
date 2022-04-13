@@ -4413,7 +4413,7 @@ class Calculation
                     true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
-                    $storeValue = end($wrappedItem);
+                    $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
@@ -4445,7 +4445,7 @@ class Calculation
                     true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
-                    $storeValue = end($wrappedItem);
+                    $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
