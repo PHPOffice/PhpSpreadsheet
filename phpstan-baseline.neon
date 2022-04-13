@@ -127,7 +127,7 @@ parameters:
 
 		-
 			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
-			count: 3
+			count: 5
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
