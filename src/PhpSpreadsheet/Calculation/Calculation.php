@@ -108,7 +108,8 @@ class Calculation
         '+' => true, '-' => true, '*' => true, '/' => true,
         '^' => true, '&' => true, '%' => false, '~' => false,
         '>' => true, '<' => true, '=' => true, '>=' => true,
-        '<=' => true, '<>' => true, '|' => true, ':' => true,
+        '<=' => true, '<>' => true, '∩' => true, '∪' => true,
+        ':' => true,
     ];
 
     /**
@@ -120,7 +121,7 @@ class Calculation
         '+' => true, '-' => true, '*' => true, '/' => true,
         '^' => true, '&' => true, '>' => true, '<' => true,
         '=' => true, '>=' => true, '<=' => true, '<>' => true,
-        '|' => true, ':' => true,
+        '∩' => true, '∪' => true, ':' => true,
     ];
 
     /**
@@ -3872,7 +3873,7 @@ class Calculation
         '*' => 0, '/' => 0, //    Multiplication and Division
         '+' => 0, '-' => 0, //    Addition and Subtraction
         '&' => 0, //    Concatenation
-        '|' => 0, ':' => 0, //    Intersect and Range
+        '∪' => 0, '∩' => 0, ':' => 0, //    Union, Intersect and Range
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
@@ -3884,8 +3885,9 @@ class Calculation
     //    This list includes all valid operators, whether binary (including boolean) or unary (such as %)
     //    Array key is the operator, the value is its precedence
     private static $operatorPrecedence = [
-        ':' => 8, //    Range
-        '|' => 7, //    Intersect
+        ':' => 9, //    Range
+        '∩' => 8, //    Intersect
+        '∪' => 7, //    Union
         '~' => 6, //    Negation
         '%' => 5, //    Percentage
         '^' => 4, //    Exponentiation
@@ -3957,7 +3959,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
                 ++$index; //    Drop the redundant plus symbol
-            } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
+            } elseif ((($opCharacter == '~') || ($opCharacter == '∩') || ($opCharacter == '∪')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde, union or intersect because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::$operators[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
                 while (
@@ -4338,7 +4340,7 @@ class Calculation
                     ) {
                         $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                     }
-                    $stack->push('Binary Operator', '|'); //    Put an Intersect Operator on the stack
+                    $stack->push('Binary Operator', '∩'); //    Put an Intersect Operator on the stack
                     $expectingOperator = false;
                 }
             }
@@ -4638,7 +4640,7 @@ class Calculation
                         }
 
                         break;
-                    case '|':            //    Intersect
+                    case '∩':            //    Intersect
                         $rowIntersect = array_intersect_key($operand1, $operand2);
                         $cellIntersect = $oCol = $oRow = [];
                         foreach (array_keys($rowIntersect) as $row) {
