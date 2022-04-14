@@ -23,6 +23,7 @@ class ExcelFunctionsCollectionTest extends TestCase
         $excelFunctionDefinition = $excelFunctionCollection['ABS'];
 
         self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
     }
 
     public function testReadOnlyArrayAccess(): void
@@ -31,7 +32,10 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
-        $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        $excelFunctionDefinition = $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
+
         $excelFunctionCollection['ABS'] = 'NO LONGER ABS';
     }
 
@@ -41,7 +45,10 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
-        $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        $excelFunctionDefinition = $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
+
         unset($excelFunctionCollection['ABS']);
     }
 
@@ -50,6 +57,7 @@ class ExcelFunctionsCollectionTest extends TestCase
         $excelFunctionCollection = new ExcelFunctions();
         $excelFunctionDefinition = $excelFunctionCollection->ABS; // @phpstan-ignore-line
         self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
     }
 
     public function testReadOnlyObjectAccess(): void
@@ -58,6 +66,10 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
+        $excelFunctionDefinition = $excelFunctionCollection->ABS; // @phpstan-ignore-line
+        self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
+
         $excelFunctionCollection->ABS = 'NO LONGER ABS'; // @phpstan-ignore-line
     }
 
@@ -67,6 +79,10 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
+        $excelFunctionDefinition = $excelFunctionCollection->ABS; // @phpstan-ignore-line
+        self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
+        self::assertSame('ABS', $excelFunctionDefinition->name);
+
         unset($excelFunctionCollection->ABS);
     }
 }
