@@ -4178,7 +4178,10 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         $stackItemType = 'Cell Reference';
+
                         if (
+                            !is_numeric($val) &&
+                            ((ctype_alpha($val) === false || strlen($val) > 3)) &&
                             (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $val) !== false) &&
                             ($this->spreadsheet->getNamedRange($val) !== null)
                         ) {
