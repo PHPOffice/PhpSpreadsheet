@@ -4676,11 +4676,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
