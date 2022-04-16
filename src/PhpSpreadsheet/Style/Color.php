@@ -293,7 +293,10 @@ class Color extends Supervisor
      */
     private static function getColourComponent($rgbValue, $offset, $hex = true)
     {
-        $colour = substr($rgbValue, $offset, 2);
+        $colour = substr($rgbValue, $offset, 2) ?: '';
+        if (preg_match('/^[0-9a-f]{2}$/i', $colour) !== 1) {
+            $colour = '00';
+        }
 
         return ($hex) ? $colour : (int) hexdec($colour);
     }

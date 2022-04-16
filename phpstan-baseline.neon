@@ -127,7 +127,7 @@ parameters:
 
 		-
 			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
-			count: 3
+			count: 5
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -339,11 +339,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2b\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselK\\:\\:besselK2\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
@@ -2071,11 +2066,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:listWorksheetNames\\(\\) should return array\\<string\\> but returns array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
@@ -2093,11 +2083,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
@@ -3881,11 +3866,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
-			message: "#^Parameter \\#1 \\$order of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\PolynomialBestFit constructor expects int, string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/XMLWriter.php
@@ -4342,11 +4322,6 @@ parameters:
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$parent \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Result of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
