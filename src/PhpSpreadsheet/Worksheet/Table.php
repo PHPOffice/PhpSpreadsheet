@@ -272,7 +272,7 @@ class Table
      *
      * @return int The column offset within the table range
      */
-    public function testColumnInRange($column)
+    public function isColumnInRange($column)
     {
         if (empty($this->range)) {
             throw new PhpSpreadsheetException('No table range is defined.');
@@ -296,7 +296,7 @@ class Table
      */
     public function getColumnOffset($column)
     {
-        return $this->testColumnInRange($column);
+        return $this->isColumnInRange($column);
     }
 
     /**
@@ -308,7 +308,7 @@ class Table
      */
     public function getColumn($column)
     {
-        $this->testColumnInRange($column);
+        $this->isColumnInRange($column);
 
         if (!isset($this->columns[$column])) {
             $this->columns[$column] = new Table\Column($column, $this);
@@ -349,7 +349,7 @@ class Table
         } else {
             throw new PhpSpreadsheetException('Column is not within the table range.');
         }
-        $this->testColumnInRange($column);
+        $this->isColumnInRange($column);
 
         if (is_string($columnObjectOrString)) {
             $this->columns[$columnObjectOrString] = new Table\Column($columnObjectOrString, $this);
@@ -371,7 +371,7 @@ class Table
      */
     public function clearColumn($column)
     {
-        $this->testColumnInRange($column);
+        $this->isColumnInRange($column);
 
         if (isset($this->columns[$column])) {
             unset($this->columns[$column]);

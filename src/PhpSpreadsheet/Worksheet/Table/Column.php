@@ -89,7 +89,7 @@ class Column
         // Uppercase coordinate
         $column = strtoupper($column);
         if ($this->table !== null) {
-            $this->table->testColumnInRange($column);
+            $this->table->isColumnInRange($column);
         }
 
         $this->columnIndex = $column;
