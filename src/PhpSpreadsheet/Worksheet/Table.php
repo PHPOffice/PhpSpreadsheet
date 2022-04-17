@@ -90,7 +90,7 @@ class Table
     {
         $name = trim($name);
 
-        if (strlen($name) == 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
+        if (strlen($name) === 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
             throw new PhpSpreadsheetException('The table name is invalid');
         }
         if (strlen($name) > 255) {
@@ -238,12 +238,12 @@ class Table
      */
     public function setWorksheet(?Worksheet $worksheet = null)
     {
-        if ($this->name != '' && $worksheet != null) {
+        if ($this->name !== '' && $worksheet !== null) {
             $spreadsheet = $worksheet->getParent();
 
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
                 foreach ($sheet->getTableCollection() as $table) {
-                    if ($table->getName() == $this->name) {
+                    if ($table->getName() === $this->name) {
                         throw new PhpSpreadsheetException("Workbook already contains a table named '{$this->name}'");
                     }
                 }
@@ -446,7 +446,7 @@ class Table
                 } else {
                     $this->{$key} = clone $value;
                 }
-            } elseif ((is_array($value)) && ($key == 'columns')) {
+            } elseif ((is_array($value)) && ($key === 'columns')) {
                 //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table objects
                 $this->{$key} = [];
                 foreach ($value as $k => $v) {
