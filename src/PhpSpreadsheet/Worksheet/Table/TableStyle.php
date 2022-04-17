@@ -122,20 +122,16 @@ class TableStyle
 
     /**
      * Get theme.
-     *
-     * @return string
      */
-    public function getTheme()
+    public function getTheme(): string
     {
         return $this->theme;
     }
 
     /**
      * Set theme.
-     *
-     * @return  $this
      */
-    public function setTheme(string $theme)
+    public function setTheme(string $theme): self
     {
         $this->theme = $theme;
 
@@ -144,20 +140,16 @@ class TableStyle
 
     /**
      * Get show First Column.
-     *
-     * @return bool
      */
-    public function getShowFirstColumn()
+    public function getShowFirstColumn(): bool
     {
         return $this->showFirstColumn;
     }
 
     /**
      * Set show First Column.
-     *
-     * @return  $this
      */
-    public function setShowFirstColumn(bool $showFirstColumn)
+    public function setShowFirstColumn(bool $showFirstColumn): self
     {
         $this->showFirstColumn = $showFirstColumn;
 
@@ -166,20 +158,16 @@ class TableStyle
 
     /**
      * Get show Last Column.
-     *
-     * @return bool
      */
-    public function getShowLastColumn()
+    public function getShowLastColumn(): bool
     {
         return $this->showLastColumn;
     }
 
     /**
      * Set show Last Column.
-     *
-     * @return  $this
      */
-    public function setShowLastColumn(bool $showLastColumn)
+    public function setShowLastColumn(bool $showLastColumn): self
     {
         $this->showLastColumn = $showLastColumn;
 
@@ -188,20 +176,16 @@ class TableStyle
 
     /**
      * Get show Row Stripes.
-     *
-     * @return bool
      */
-    public function getShowRowStripes()
+    public function getShowRowStripes(): bool
     {
         return $this->showRowStripes;
     }
 
     /**
      * Set show Row Stripes.
-     *
-     * @return  $this
      */
-    public function setShowRowStripes(bool $showRowStripes)
+    public function setShowRowStripes(bool $showRowStripes): self
     {
         $this->showRowStripes = $showRowStripes;
 
@@ -210,20 +194,16 @@ class TableStyle
 
     /**
      * Get show Column Stripes.
-     *
-     * @return bool
      */
-    public function getShowColumnStripes()
+    public function getShowColumnStripes(): bool
     {
         return $this->showColumnStripes;
     }
 
     /**
      * Set show Column Stripes.
-     *
-     * @return  $this
      */
-    public function setShowColumnStripes(bool $showColumnStripes)
+    public function setShowColumnStripes(bool $showColumnStripes): self
     {
         $this->showColumnStripes = $showColumnStripes;
 
@@ -232,20 +212,16 @@ class TableStyle
 
     /**
      * Get this Style's Table.
-     *
-     * @return null|Table
      */
-    public function getTable()
+    public function getTable(): ?Table
     {
         return $this->table;
     }
 
     /**
      * Set this Style's Table.
-     *
-     * @return $this
      */
-    public function setTable(?Table $table = null)
+    public function setTable(?Table $table = null): self
     {
         $this->table = $table;
 

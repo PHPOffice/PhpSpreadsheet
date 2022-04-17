@@ -69,10 +69,8 @@ class Column
 
     /**
      * Get Table column index as string eg: 'A'.
-     *
-     * @return string
      */
-    public function getColumnIndex()
+    public function getColumnIndex(): string
     {
         return $this->columnIndex;
     }
@@ -81,10 +79,8 @@ class Column
      * Set Table column index as string eg: 'A'.
      *
      * @param string $column Column (e.g. A)
-     *
-     * @return $this
      */
-    public function setColumnIndex($column)
+    public function setColumnIndex($column): self
     {
         // Uppercase coordinate
         $column = strtoupper($column);
@@ -99,20 +95,16 @@ class Column
 
     /**
      * Get show Filter Button.
-     *
-     * @return bool
      */
-    public function getShowFilterButton()
+    public function getShowFilterButton(): bool
     {
         return $this->showFilterButton;
     }
 
     /**
      * Set show Filter Button.
-     *
-     * @return  $this
      */
-    public function setShowFilterButton(bool $showFilterButton)
+    public function setShowFilterButton(bool $showFilterButton): self
     {
         $this->showFilterButton = $showFilterButton;
 
@@ -121,20 +113,16 @@ class Column
 
     /**
      * Get total Row Label.
-     *
-     * @return string
      */
-    public function getTotalsRowLabel()
+    public function getTotalsRowLabel(): ?string
     {
         return $this->totalsRowLabel;
     }
 
     /**
      * Set total Row Label.
-     *
-     * @return  $this
      */
-    public function setTotalsRowLabel(string $totalsRowLabel)
+    public function setTotalsRowLabel(string $totalsRowLabel): self
     {
         $this->totalsRowLabel = $totalsRowLabel;
 
@@ -143,20 +131,16 @@ class Column
 
     /**
      * Get total Row Function.
-     *
-     * @return string
      */
-    public function getTotalsRowFunction()
+    public function getTotalsRowFunction(): ?string
     {
         return $this->totalsRowFunction;
     }
 
     /**
      * Set total Row Function.
-     *
-     * @return  $this
      */
-    public function setTotalsRowFunction(string $totalsRowFunction)
+    public function setTotalsRowFunction(string $totalsRowFunction): self
     {
         $this->totalsRowFunction = $totalsRowFunction;
 
@@ -165,20 +149,16 @@ class Column
 
     /**
      * Get total Row Formula.
-     *
-     * @return string
      */
-    public function getTotalsRowFormula()
+    public function getTotalsRowFormula(): ?string
     {
         return $this->totalsRowFormula;
     }
 
     /**
      * Set total Row Formula.
-     *
-     * @return  $this
      */
-    public function setTotalsRowFormula(string $totalsRowFormula)
+    public function setTotalsRowFormula(string $totalsRowFormula): self
     {
         $this->totalsRowFormula = $totalsRowFormula;
 
@@ -187,20 +167,16 @@ class Column
 
     /**
      * Get column Formula.
-     *
-     * @return string
      */
-    public function getColumnFormula()
+    public function getColumnFormula(): ?string
     {
         return $this->columnFormula;
     }
 
     /**
      * Set column Formula.
-     *
-     * @return  $this
      */
-    public function setColumnFormula(string $columnFormula)
+    public function setColumnFormula(string $columnFormula): self
     {
         $this->columnFormula = $columnFormula;
 
@@ -209,20 +185,16 @@ class Column
 
     /**
      * Get this Column's Table.
-     *
-     * @return null|Table
      */
-    public function getTable()
+    public function getTable(): ?Table
     {
         return $this->table;
     }
 
     /**
      * Set this Column's Table.
-     *
-     * @return $this
      */
-    public function setTable(?Table $table = null)
+    public function setTable(?Table $table = null): self
     {
         $this->table = $table;
 

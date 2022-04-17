@@ -73,20 +73,16 @@ class Table
 
     /**
      * Get Table name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Set Table name.
-     *
-     * @return $this
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $name = trim($name);
 
@@ -117,20 +113,16 @@ class Table
 
     /**
      * Get show Header Row.
-     *
-     * @return bool
      */
-    public function getShowHeaderRow()
+    public function getShowHeaderRow(): bool
     {
         return $this->showHeaderRow;
     }
 
     /**
      * Set show Header Row.
-     *
-     * @return  $this
      */
-    public function setShowHeaderRow(bool $showHeaderRow)
+    public function setShowHeaderRow(bool $showHeaderRow): self
     {
         $this->showHeaderRow = $showHeaderRow;
 
@@ -139,20 +131,16 @@ class Table
 
     /**
      * Get show Totals Row.
-     *
-     * @return bool
      */
-    public function getShowTotalsRow()
+    public function getShowTotalsRow(): bool
     {
         return $this->showTotalsRow;
     }
 
     /**
      * Set show Totals Row.
-     *
-     * @return  $this
      */
-    public function setShowTotalsRow(bool $showTotalsRow)
+    public function setShowTotalsRow(bool $showTotalsRow): self
     {
         $this->showTotalsRow = $showTotalsRow;
 
@@ -161,18 +149,14 @@ class Table
 
     /**
      * Get Table Range.
-     *
-     * @return string
      */
-    public function getRange()
+    public function getRange(): string
     {
         return $this->range;
     }
 
     /**
      * Set Table Cell Range.
-     *
-     * @return $this
      */
     public function setRange(string $range): self
     {
@@ -210,8 +194,6 @@ class Table
 
     /**
      * Set Table Cell Range to max row.
-     *
-     * @return $this
      */
     public function setRangeToMaxRow(): self
     {
@@ -228,20 +210,16 @@ class Table
 
     /**
      * Get Table's Worksheet.
-     *
-     * @return null|Worksheet
      */
-    public function getWorksheet()
+    public function getWorksheet(): ?Worksheet
     {
         return $this->workSheet;
     }
 
     /**
      * Set Table's Worksheet.
-     *
-     * @return $this
      */
-    public function setWorksheet(?Worksheet $worksheet = null)
+    public function setWorksheet(?Worksheet $worksheet = null): self
     {
         if ($this->name !== '' && $worksheet !== null) {
             $spreadsheet = $worksheet->getParent();
@@ -265,7 +243,7 @@ class Table
      *
      * @return Table\Column[]
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
@@ -277,7 +255,7 @@ class Table
      *
      * @return int The column offset within the table range
      */
-    public function isColumnInRange($column)
+    public function isColumnInRange(string $column): int
     {
         if (empty($this->range)) {
             throw new PhpSpreadsheetException('No table range is defined.');
@@ -299,7 +277,7 @@ class Table
      *
      * @return int The offset of the specified column within the table range
      */
-    public function getColumnOffset($column)
+    public function getColumnOffset($column): int
     {
         return $this->isColumnInRange($column);
     }
@@ -308,10 +286,8 @@ class Table
      * Get a specified Table Column.
      *
      * @param string $column Column name (e.g. A)
-     *
-     * @return Table\Column
      */
-    public function getColumn($column)
+    public function getColumn($column): Table\Column
     {
         $this->isColumnInRange($column);
 
@@ -326,10 +302,8 @@ class Table
      * Get a specified Table Column by it's offset.
      *
      * @param int $columnOffset Column offset within range (starting from 0)
-     *
-     * @return Table\Column
      */
-    public function getColumnByOffset($columnOffset)
+    public function getColumnByOffset($columnOffset): Table\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -342,10 +316,8 @@ class Table
      *
      * @param string|Table\Column $columnObjectOrString
      *            A simple string containing a Column ID like 'A' is permitted
-     *
-     * @return $this
      */
-    public function setColumn($columnObjectOrString)
+    public function setColumn($columnObjectOrString): self
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
@@ -371,10 +343,8 @@ class Table
      * Clear a specified Table Column.
      *
      * @param string $column Column name (e.g. A)
-     *
-     * @return $this
      */
-    public function clearColumn($column)
+    public function clearColumn($column): self
     {
         $this->isColumnInRange($column);
 
@@ -394,10 +364,8 @@ class Table
      *
      * @param string $fromColumn Column name (e.g. A)
      * @param string $toColumn Column name (e.g. B)
-     *
-     * @return $this
      */
-    public function shiftColumn($fromColumn, $toColumn)
+    public function shiftColumn($fromColumn, $toColumn): self
     {
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);
@@ -417,20 +385,16 @@ class Table
 
     /**
      * Get table Style.
-     *
-     * @return TableStyle
      */
-    public function getStyle()
+    public function getStyle(): Table\TableStyle
     {
         return $this->style;
     }
 
     /**
      * Set table Style.
-     *
-     * @return  $this
      */
-    public function setStyle(TableStyle $style)
+    public function setStyle(TableStyle $style): self
     {
         $this->style = $style;
 
