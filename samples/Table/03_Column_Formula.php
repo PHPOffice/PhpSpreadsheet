@@ -49,8 +49,7 @@ $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A1');
 
 // Create Table
 $helper->log('Create Table');
-$table = new Table();
-$table->setName('Sales_Data');
+$table = new Table('A1:G15', 'Sales_Data');
 $table->setRange('A1:G15');
 
 // Set Column Formula

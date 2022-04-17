@@ -12,7 +12,7 @@ class RemoveTableTest extends SetupTeardown
     {
         $sheet = $this->getSheet();
 
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $table->setName('Table1');
         $sheet->addTable($table);
 
@@ -26,7 +26,7 @@ class RemoveTableTest extends SetupTeardown
     {
         $sheet = $this->getSheet();
 
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $table->setName('Table1');
         $sheet->addTable($table);
 

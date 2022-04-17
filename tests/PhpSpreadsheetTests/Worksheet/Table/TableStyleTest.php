@@ -11,8 +11,7 @@ class TableStyleTest extends SetupTeardown
 
     public function testVariousSets(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $style = $table->getStyle();
 
         $result = $style->setTheme(TableStyle::TABLE_STYLE_DARK1);
@@ -38,8 +37,7 @@ class TableStyleTest extends SetupTeardown
 
     public function testTable(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $style = new TableStyle();
         $style->setTable($table);
         self::assertEquals($table, $style->getTable());

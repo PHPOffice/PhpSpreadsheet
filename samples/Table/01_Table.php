@@ -52,9 +52,7 @@ $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
 
 // Create Table
 $helper->log('Create Table');
-$table = new Table();
-$table->setName('Sales_Data');
-$table->setRange('A1:D17');
+$table = new Table('A1:D17', 'Sales_Data');
 
 // Create Columns
 $table->getColumn('D')->setShowFilterButton(false);

@@ -2212,7 +2212,11 @@ class Worksheet implements IComparable
     {
         $cellRange = Coordinate::stringFromColumnIndex($columnIndex1) . $row1 . ':' . Coordinate::stringFromColumnIndex($columnIndex2) . $row2;
 
-        return $this->addTable(new Table($cellRange, $this));
+        $table = new Table($cellRange);
+        $table->setWorksheet($this);
+        $this->addTable($table);
+
+        return $this;
     }
 
     /**

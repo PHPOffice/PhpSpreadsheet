@@ -14,8 +14,7 @@ class TableTest extends SetupTeardown
     public function testToString(): void
     {
         $expectedResult = self::INITIAL_RANGE;
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  magic __toString should return the active table range
         $result = (string) $table;
@@ -27,8 +26,7 @@ class TableTest extends SetupTeardown
      */
     public function testValidTableNames(string $name, string $expected): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setName($name);
         self::assertInstanceOf(Table::class, $result);
@@ -38,6 +36,7 @@ class TableTest extends SetupTeardown
     public function validTableNamesProvider(): array
     {
         return [
+            ['', ''],
             ['Table_1', 'Table_1'],
             ['_table_2', '_table_2'],
             ['\table_3', '\table_3'],
@@ -52,8 +51,7 @@ class TableTest extends SetupTeardown
      */
     public function testInvalidTableNames(string $name): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $this->expectException(PhpSpreadsheetException::class);
 
@@ -95,8 +93,7 @@ class TableTest extends SetupTeardown
 
     public function testVariousSets(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $result = $table->setShowHeaderRow(false);
         self::assertInstanceOf(Table::class, $result);
@@ -110,15 +107,15 @@ class TableTest extends SetupTeardown
     public function testGetWorksheet(): void
     {
         $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
+        $sheet->addTable($table);
         $result = $table->getWorksheet();
         self::assertSame($sheet, $result);
     }
 
     public function testSetWorksheet(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $spreadsheet = $this->getSpreadsheet();
         $sheet2 = $spreadsheet->createSheet();
         //  Setters return the instance to implement the fluent interface
@@ -129,8 +126,7 @@ class TableTest extends SetupTeardown
     public function testGetRange(): void
     {
         $expectedResult = self::INITIAL_RANGE;
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  Result should be the active table range
         $result = $table->getRange();
@@ -141,7 +137,7 @@ class TableTest extends SetupTeardown
     {
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $ranges = [
             'G1:J512' => "$title!G1:J512",
             'K1:N20' => 'K1:N20',
@@ -161,8 +157,7 @@ class TableTest extends SetupTeardown
     public function testClearRange(): void
     {
         $expectedResult = '';
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setRange('');
@@ -180,8 +175,7 @@ class TableTest extends SetupTeardown
     {
         $this->expectException(PhpSpreadsheetException::class);
 
-        $sheet = $this->getSheet();
-        new Table($range, $sheet);
+        new Table($range);
     }
 
     public function invalidTableRangeProvider(): array
@@ -198,8 +192,7 @@ class TableTest extends SetupTeardown
     public function testGetColumnsEmpty(): void
     {
         //  There should be no columns yet defined
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $result = $table->getColumns();
         self::assertIsArray($result);
         self::assertCount(0, $result);
@@ -212,8 +205,7 @@ class TableTest extends SetupTeardown
             'K' => 3,
             'M' => 5,
         ];
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  If we request a specific column by its column ID, we should get an
         //    integer returned representing the column offset within the range
@@ -296,8 +288,7 @@ class TableTest extends SetupTeardown
     public function testSetColumnWithString(): void
     {
         $expectedResult = 'L';
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($expectedResult);
@@ -315,8 +306,7 @@ class TableTest extends SetupTeardown
     public function testSetInvalidColumnWithString(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $invalidColumn = 'A';
         $table->setColumn($invalidColumn);
@@ -326,8 +316,7 @@ class TableTest extends SetupTeardown
     {
         $expectedResult = 'M';
         $columnObject = new Column($expectedResult);
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  Setters return the instance to implement the fluent interface
         $result = $table->setColumn($columnObject);
@@ -347,8 +336,7 @@ class TableTest extends SetupTeardown
         $this->expectException(PhpSpreadsheetException::class);
 
         $invalidColumn = 'E';
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $table->setColumn($invalidColumn);
     }
 
@@ -356,8 +344,7 @@ class TableTest extends SetupTeardown
     {
         $this->expectException(PhpSpreadsheetException::class);
 
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $invalidColumn = 123.456;
         // @phpstan-ignore-next-line
         $table->setColumn($invalidColumn);
@@ -365,8 +352,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumns(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $columnIndexes = ['L', 'M'];
 
@@ -391,8 +377,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumn(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $columnIndexes = ['L', 'M'];
 
@@ -410,8 +395,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnByOffset(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         $columnIndexes = [
             0 => 'H',
@@ -430,8 +414,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnIfNotSet(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         //  If we request a specific column by its column ID, we should
         //    get a \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\Table\Column object returned
         $result = $table->getColumn('K');
@@ -441,8 +424,7 @@ class TableTest extends SetupTeardown
     public function testGetColumnWithoutRangeSet(): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
 
         //  Clear the range
         $table->setRange('');
@@ -451,8 +433,7 @@ class TableTest extends SetupTeardown
 
     public function testClearRangeWithExistingColumns(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $expectedResult = '';
 
         $columnIndexes = ['L', 'M', 'N'];
@@ -476,8 +457,7 @@ class TableTest extends SetupTeardown
 
     public function testSetRangeWithExistingColumns(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $expectedResult = 'G1:J512';
 
         //  These columns should be retained
@@ -509,7 +489,8 @@ class TableTest extends SetupTeardown
     public function testClone(): void
     {
         $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
+        $sheet->addTable($table);
         $columnIndexes = ['L', 'M'];
 
         foreach ($columnIndexes as $columnIndex) {
@@ -546,8 +527,7 @@ class TableTest extends SetupTeardown
 
     public function testClearColumn(): void
     {
-        $sheet = $this->getSheet();
-        $table = new Table(self::INITIAL_RANGE, $sheet);
+        $table = new Table(self::INITIAL_RANGE);
         $columnIndexes = ['J', 'K', 'L', 'M'];
 
         foreach ($columnIndexes as $columnIndex) {

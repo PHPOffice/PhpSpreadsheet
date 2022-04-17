@@ -61,13 +61,14 @@ class Table
      * Create a new Table.
      *
      * @param string $range (e.g. A1:D4)
+     * @param string $name (e.g. Table1)
      *
      * @return $this
      */
-    public function __construct(string $range = '', ?Worksheet $worksheet = null)
+    public function __construct(string $range = '', string $name = '')
     {
         $this->setRange($range);
-        $this->setWorksheet($worksheet);
+        $this->setName($name);
         $this->style = new TableStyle();
     }
 
@@ -86,24 +87,26 @@ class Table
     {
         $name = trim($name);
 
-        if (strlen($name) === 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
-            throw new PhpSpreadsheetException('The table name is invalid');
-        }
-        if (strlen($name) > 255) {
-            throw new PhpSpreadsheetException('The table name cannot be longer than 255 characters');
-        }
-        // Check for A1 or R1C1 cell reference notation
-        if (
-            preg_match(Coordinate::A1_COORDINATE_REGEX, $name) ||
-            preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
-        ) {
-            throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
-        }
-        if (!preg_match('/^[\p{L}_\\\\]/iu', $name)) {
-            throw new PhpSpreadsheetException('The table name must begin a name with a letter, an underscore character (_), or a backslash (\)');
-        }
-        if (!preg_match('/^[\p{L}_\\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
-            throw new PhpSpreadsheetException('The table name contains invalid characters');
+        if (!empty($name)) {
+            if (strlen($name) === 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
+                throw new PhpSpreadsheetException('The table name is invalid');
+            }
+            if (strlen($name) > 255) {
+                throw new PhpSpreadsheetException('The table name cannot be longer than 255 characters');
+            }
+            // Check for A1 or R1C1 cell reference notation
+            if (
+                preg_match(Coordinate::A1_COORDINATE_REGEX, $name) ||
+                preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
+            ) {
+                throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
+            }
+            if (!preg_match('/^[\p{L}_\\\\]/iu', $name)) {
+                throw new PhpSpreadsheetException('The table name must begin a name with a letter, an underscore character (_), or a backslash (\)');
+            }
+            if (!preg_match('/^[\p{L}_\\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
+                throw new PhpSpreadsheetException('The table name contains invalid characters');
+            }
         }
 
         $this->name = $name;
