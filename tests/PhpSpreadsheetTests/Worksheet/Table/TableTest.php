@@ -173,14 +173,26 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetRangeInvalidRange(): void
+    /**
+     * @dataProvider invalidTableRangeProvider
+     */
+    public function testSetRangeInvalidRange(string $range): void
     {
         $this->expectException(PhpSpreadsheetException::class);
 
-        $expectedResult = 'A1';
-
         $sheet = $this->getSheet();
-        $table = new Table($expectedResult, $sheet);
+        new Table($range, $sheet);
+    }
+
+    public function invalidTableRangeProvider(): array
+    {
+        return [
+            ['A1'],
+            ['A1:A1'],
+            ['B1:A4'],
+            ['A1:D1'],
+            ['D1:A1'],
+        ];
     }
 
     public function testGetColumnsEmpty(): void

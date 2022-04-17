@@ -190,6 +190,11 @@ class Table
             throw new PhpSpreadsheetException('Table must be set on a range of cells.');
         }
 
+        [$width, $height] = Coordinate::rangeDimension($range);
+        if ($width < 1 || $height < 2) {
+            throw new PhpSpreadsheetException('The table range must be at least 1 column and 2 rows');
+        }
+
         $this->range = $range;
         //    Discard any column ruless that are no longer valid within this range
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
