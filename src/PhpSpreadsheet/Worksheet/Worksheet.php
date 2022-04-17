@@ -733,9 +733,19 @@ class Worksheet implements IComparable
                 }
             }
 
+            $autoFilterRange = $autoFilterFirstRowRange = $this->autoFilter->getRange();
+            if (!empty($autoFilterRange)) {
+                $autoFilterRangeBoundaries = Coordinate::rangeBoundaries($autoFilterRange);
+                $autoFilterFirstRowRange = (string) new CellRange(
+                    CellAddress::fromColumnAndRow($autoFilterRangeBoundaries[0][0], $autoFilterRangeBoundaries[0][1]),
+                    CellAddress::fromColumnAndRow($autoFilterRangeBoundaries[1][0], $autoFilterRangeBoundaries[0][1])
+                );
+            }
+
             // loop through all cells in the worksheet
             foreach ($this->getCoordinates(false) as $coordinate) {
                 $cell = $this->getCellOrNull($coordinate);
+
                 if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
                     //Determine if cell is in merge range
                     $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
@@ -752,13 +762,21 @@ class Worksheet implements IComparable
                         }
                     }
 
-                    // Determine width if cell does not participate in a merge or does and is a value cell of 1-column wide range
+                    // Determine width if cell is not part of a merge or does and is a value cell of 1-column wide range
                     if (!$isMerged || $isMergedButProceed) {
+                        // Determine if we need to make an adjustment for the first row in an AutoFilter range that
+                        //    has a column filter dropdown
+                        $filterAdjustment = false;
+                        if (!empty($autoFilterRange) && $cell->isInRange($autoFilterFirstRowRange)) {
+                            $filterAdjustment = true;
+                        }
+
                         // Calculated value
                         // To formatted string
                         $cellValue = NumberFormat::toFormattedString(
                             $cell->getCalculatedValue(),
-                            $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode()
+                            $this->getParent()->getCellXfByIndex($cell->getXfIndex())
+                                ->getNumberFormat()->getFormatCode()
                         );
 
                         if ($cellValue !== null && $cellValue !== '') {
@@ -767,8 +785,10 @@ class Worksheet implements IComparable
                                 (float) Shared\Font::calculateColumnWidth(
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
                                     $cellValue,
-                                    $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
-                                    $this->getParent()->getDefaultStyle()->getFont()
+                                    $this->getParent()->getCellXfByIndex($cell->getXfIndex())
+                                        ->getAlignment()->getTextRotation(),
+                                    $this->getParent()->getDefaultStyle()->getFont(),
+                                    $filterAdjustment
                                 )
                             );
                         }
