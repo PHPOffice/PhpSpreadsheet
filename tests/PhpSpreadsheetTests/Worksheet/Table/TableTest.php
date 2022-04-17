@@ -42,6 +42,8 @@ class TableTest extends SetupTeardown
             ['_table_2', '_table_2'],
             ['\table_3', '\table_3'],
             ["	Table_4 \n", 'Table_4'],
+            ['table.5', 'table.5'],
+            ['தமிழ்', 'தமிழ்'], // UTF-8 letters with combined character
         ];
     }
 
@@ -72,6 +74,7 @@ class TableTest extends SetupTeardown
             ['R11C11'],
             ['123'],
             ['=Table'],
+            ['ிக'], // starting with UTF-8 combined character
             [bin2hex(random_bytes(255))], // random string with length greater than 255
         ];
     }
