@@ -64,7 +64,7 @@ class UnparsedDataTest extends TestCase
         self::assertNotEmpty($resultVbaProjectRaw, 'vbaProject.bin not found!');
 
         // xl/workbook.xml
-        $xmlWorkbook = simplexml_load_string($resultWorkbookRaw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorkbook = simplexml_load_string($resultWorkbookRaw ?: '', 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         self::assertNotFalse($xmlWorkbook);
         if (!$xmlWorkbook->workbookProtection) {
             self::fail('workbook.xml/workbookProtection not found!');
@@ -86,7 +86,8 @@ class UnparsedDataTest extends TestCase
 
         // xl/worksheets/sheet1.xml
         self::assertStringContainsString('<mc:AlternateContent', $resultSheet1Raw, 'AlternateContent at sheet1.xml not found!');
-        $xmlWorksheet = simplexml_load_string($resultSheet1Raw, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        $xmlWorksheet = simplexml_load_string($resultSheet1Raw ?: '', 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        self::assertNotFalse($xmlWorksheet);
         $pageSetupAttributes = $xmlWorksheet->pageSetup->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
         self::assertTrue(isset($pageSetupAttributes->id), 'sheet1.xml/pageSetup[r:id] not found!');
         if (!$xmlWorksheet->sheetProtection) {

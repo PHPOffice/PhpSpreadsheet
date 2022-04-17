@@ -101,9 +101,12 @@ class GridlinesTest extends Functional\AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $emc2 = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
         $part1 = $emc2->createTextRun('e=mc');
-        $part1->getFont()->getColor()->setARGB(Color::COLOR_BLUE);
+        $font = $part1->getFont();
+        self::assertNotNull($font);
+        $font->getColor()->setARGB(Color::COLOR_BLUE);
         $part2 = $emc2->createTextRun('2');
         $font = $part2->getFont();
+        self::assertNotNull($font);
         $font->getColor()->setARGB(Color::COLOR_DARKGREEN);
         $font->setSuperScript(true);
         $sheet->setCellValue('A1', $emc2);
@@ -111,6 +114,7 @@ class GridlinesTest extends Functional\AbstractFunctional
         $h2o->createTextRun('H');
         $part2 = $h2o->createTextRun('2');
         $font = $part2->getFont();
+        self::assertNotNull($font);
         $font->setSubScript(true);
         $font->getColor()->setARGB(Color::COLOR_RED);
         $h2o->createTextRun('O');
@@ -119,10 +123,13 @@ class GridlinesTest extends Functional\AbstractFunctional
         $h2so4->createTextRun('H');
         $part2 = $h2so4->createTextRun('2');
         $font = $part2->getFont();
+        self::assertNotNull($font);
         $font->setSubScript(true);
         $h2so4->createTextRun('SO');
         $part4 = $h2so4->createTextRun('4');
-        $part4->getFont()->setSubScript(true);
+        $font = $part4->getFont();
+        self::assertNotNull($font);
+        $font->setSubScript(true);
         $sheet->setCellValue('A3', $h2so4);
         $sheet->setCellValue('A4', '5');
         $sheet->getCell('A4')->getStyle()->getFont()->setSuperScript(true);

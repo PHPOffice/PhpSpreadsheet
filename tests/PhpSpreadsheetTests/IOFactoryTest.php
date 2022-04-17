@@ -21,7 +21,7 @@ class IOFactoryTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $actual = IOFactory::createWriter($spreadsheet, $name);
-        self::assertInstanceOf($expected, $actual);
+        self::assertSame($expected, get_class($actual));
     }
 
     public function providerCreateWriter(): array
@@ -55,7 +55,7 @@ class IOFactoryTest extends TestCase
     public function testCreateReader($name, $expected): void
     {
         $actual = IOFactory::createReader($name);
-        self::assertInstanceOf($expected, $actual);
+        self::assertSame($expected, get_class($actual));
     }
 
     public function providerCreateReader(): array
@@ -81,39 +81,13 @@ class IOFactoryTest extends TestCase
 
     /**
      * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
      */
-    public function testIdentify($file, $expectedName, $expectedClass): void
+    public function testIdentifyCreateLoad(string $file, string $expectedName, string $expectedClass): void
     {
         $actual = IOFactory::identify($file);
         self::assertSame($expectedName, $actual);
-    }
-
-    /**
-     * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
-     */
-    public function testCreateReaderForFile($file, $expectedName, $expectedClass): void
-    {
         $actual = IOFactory::createReaderForFile($file);
-        self::assertInstanceOf($expectedClass, $actual);
-    }
-
-    /**
-     * @dataProvider providerIdentify
-     *
-     * @param string $file
-     * @param string $expectedName
-     * @param string $expectedClass
-     */
-    public function testLoad($file, $expectedName, $expectedClass): void
-    {
+        self::assertSame($expectedClass, get_class($actual));
         $actual = IOFactory::load($file);
         self::assertInstanceOf(Spreadsheet::class, $actual);
     }

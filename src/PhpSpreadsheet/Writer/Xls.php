@@ -434,6 +434,7 @@ class Xls extends BaseWriter
             case 1: // GIF, not supported by BIFF8, we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
                 ob_start();
+                // @phpstan-ignore-next-line
                 imagepng(imagecreatefromgif($filename));
                 $blipData = ob_get_contents();
                 ob_end_clean();
@@ -452,6 +453,7 @@ class Xls extends BaseWriter
             case 6: // Windows DIB (BMP), we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
                 ob_start();
+                // @phpstan-ignore-next-line
                 imagepng(SharedDrawing::imagecreatefrombmp($filename));
                 $blipData = ob_get_contents();
                 ob_end_clean();

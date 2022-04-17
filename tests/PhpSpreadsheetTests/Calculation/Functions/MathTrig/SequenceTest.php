@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
-use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions;
 
 class SequenceTest extends AllSetupTeardown
 {
@@ -14,7 +14,17 @@ class SequenceTest extends AllSetupTeardown
      */
     public function testSEQUENCE(array $arguments, $expectedResult): void
     {
-        $result = MathTrig\MatrixFunctions::sequence(...$arguments);
+        if (count($arguments) === 0) {
+            $result = MatrixFunctions::sequence();
+        } elseif (count($arguments) === 1) {
+            $result = MatrixFunctions::sequence($arguments[0]);
+        } elseif (count($arguments) === 2) {
+            $result = MatrixFunctions::sequence($arguments[0], $arguments[1]);
+        } elseif (count($arguments) === 3) {
+            $result = MatrixFunctions::sequence($arguments[0], $arguments[1], $arguments[2]);
+        } else {
+            $result = MatrixFunctions::sequence($arguments[0], $arguments[1], $arguments[2], $arguments[3]);
+        }
         self::assertEquals($expectedResult, $result);
     }
 

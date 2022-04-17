@@ -54,6 +54,12 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 // */
 class Worksheet extends BIFFwriter
 {
+    /** @var int */
+    private static $always0 = 0;
+
+    /** @var int */
+    private static $always1 = 1;
+
     /**
      * Formula parser.
      *
@@ -539,37 +545,44 @@ class Worksheet extends BIFFwriter
         $this->writeSheetProtection();
         $this->writeRangeProtection();
 
-        $arrConditionalStyles = $phpSheet->getConditionalStylesCollection();
+        // Write Conditional Formatting Rules and Styles
+        $this->writeConditionalFormatting();
+
+        $this->storeEof();
+    }
+
+    private function writeConditionalFormatting(): void
+    {
+        $conditionalFormulaHelper = new ConditionalHelper($this->parser);
+
+        $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
             $arrConditional = [];
 
-            $cfHeaderWritten = false;
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
+                $cfHeaderWritten = false;
                 foreach ($conditionalStyles as $conditional) {
                     /** @var Conditional $conditional */
                     if (
-                        $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION ||
-                        $conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                        $conditional->getConditionType() === Conditional::CONDITION_EXPRESSION ||
+                        $conditional->getConditionType() === Conditional::CONDITION_CELLIS
                     ) {
                         // Write CFHEADER record (only if there are Conditional Styles that we are able to write)
                         if ($cfHeaderWritten === false) {
-                            $this->writeCFHeader();
-                            $cfHeaderWritten = true;
+                            $cfHeaderWritten = $this->writeCFHeader($cellCoordinate, $conditionalStyles);
                         }
-                        if (!isset($arrConditional[$conditional->getHashCode()])) {
+                        if ($cfHeaderWritten === true && !isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
 
                             // Write CFRULE record
-                            $this->writeCFRule($conditional);
+                            $this->writeCFRule($conditionalFormulaHelper, $conditional, $cellCoordinate);
                         }
                     }
                 }
             }
         }
-
-        $this->storeEof();
     }
 
     /**
@@ -989,6 +1002,8 @@ class Worksheet extends BIFFwriter
         $options = pack('V', 0x03);
 
         // Convert URL to a null terminated wchar string
+
+        /** @phpstan-ignore-next-line */
         $url = implode("\0", preg_split("''", $url, -1, PREG_SPLIT_NO_EMPTY));
         $url = $url . "\0\0\0";
 
@@ -2387,6 +2402,7 @@ class Worksheet extends BIFFwriter
         $data = pack('Vvvvv', 0x000c, $width, $height, 0x01, 0x18);
         for ($j = $height; --$j;) {
             for ($i = 0; $i < $width; ++$i) {
+                /** @phpstan-ignore-next-line */
                 $color = imagecolorsforindex($image, imagecolorat($image, $i, $j));
                 foreach (['red', 'green', 'blue'] as $key) {
                     $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
@@ -2427,6 +2443,8 @@ class Worksheet extends BIFFwriter
         }
 
         // The first 2 bytes are used to identify the bitmap.
+
+        /** @phpstan-ignore-next-line */
         $identity = unpack('A2ident', $data);
         if ($identity['ident'] != 'BM') {
             throw new WriterException("$bitmap doesn't appear to be a valid bitmap image.\n");
@@ -2769,11 +2787,14 @@ class Worksheet extends BIFFwriter
     /**
      * Write CFRule Record.
      */
-    private function writeCFRule(Conditional $conditional): void
-    {
+    private function writeCFRule(
+        ConditionalHelper $conditionalFormulaHelper,
+        Conditional $conditional,
+        string $cellRange
+    ): void {
         $record = 0x01B1; // Record identifier
-        $type = null;  //  Type of the CF
-        $operatorType = null;   //  Comparison operator
+        $type = null; // Type of the CF
+        $operatorType = null; // Comparison operator
 
         if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;
@@ -2822,21 +2843,23 @@ class Worksheet extends BIFFwriter
         // $szValue2 : size of the formula data for second value or formula
         $arrConditions = $conditional->getConditions();
         $numConditions = count($arrConditions);
-        if ($numConditions == 1) {
-            $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
-            $szValue2 = 0x0000;
-            $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
-            $operand2 = null;
-        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == Conditional::OPERATOR_BETWEEN)) {
-            $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
-            $szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
-            $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
-            $operand2 = pack('Cv', 0x1E, $arrConditions[1]);
-        } else {
-            $szValue1 = 0x0000;
-            $szValue2 = 0x0000;
-            $operand1 = null;
-            $operand2 = null;
+
+        $szValue1 = 0x0000;
+        $szValue2 = 0x0000;
+        $operand1 = null;
+        $operand2 = null;
+
+        if ($numConditions === 1) {
+            $conditionalFormulaHelper->processCondition($arrConditions[0], $cellRange);
+            $szValue1 = $conditionalFormulaHelper->size();
+            $operand1 = $conditionalFormulaHelper->tokens();
+        } elseif ($numConditions === 2 && ($conditional->getOperatorType() === Conditional::OPERATOR_BETWEEN)) {
+            $conditionalFormulaHelper->processCondition($arrConditions[0], $cellRange);
+            $szValue1 = $conditionalFormulaHelper->size();
+            $operand1 = $conditionalFormulaHelper->tokens();
+            $conditionalFormulaHelper->processCondition($arrConditions[1], $cellRange);
+            $szValue2 = $conditionalFormulaHelper->size();
+            $operand2 = $conditionalFormulaHelper->tokens();
         }
 
         // $flags : Option flags
@@ -2906,11 +2929,11 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
         $flags |= (1 == $bTxRotation ? 0x00000008 : 0);
         // Justify last line flag
-        $flags |= (1 == 1 ? 0x00000010 : 0);
+        $flags |= (1 == self::$always1 ? 0x00000010 : 0);
         $flags |= (1 == $bIndent ? 0x00000020 : 0);
         $flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
         // Default
-        $flags |= (1 == 1 ? 0x00000080 : 0);
+        $flags |= (1 == self::$always1 ? 0x00000080 : 0);
         // Protection
         $flags |= (1 == $bProtLocked ? 0x00000100 : 0);
         $flags |= (1 == $bProtHidden ? 0x00000200 : 0);
@@ -2919,13 +2942,13 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == $bBorderRight ? 0x00000800 : 0);
         $flags |= (1 == $bBorderTop ? 0x00001000 : 0);
         $flags |= (1 == $bBorderBottom ? 0x00002000 : 0);
-        $flags |= (1 == 1 ? 0x00004000 : 0); // Top left to Bottom right border
-        $flags |= (1 == 1 ? 0x00008000 : 0); // Bottom left to Top right border
+        $flags |= (1 == self::$always1 ? 0x00004000 : 0); // Top left to Bottom right border
+        $flags |= (1 == self::$always1 ? 0x00008000 : 0); // Bottom left to Top right border
         // Pattern
         $flags |= (1 == $bFillStyle ? 0x00010000 : 0);
         $flags |= (1 == $bFillColor ? 0x00020000 : 0);
         $flags |= (1 == $bFillColorBg ? 0x00040000 : 0);
-        $flags |= (1 == 1 ? 0x00380000 : 0);
+        $flags |= (1 == self::$always1 ? 0x00380000 : 0);
         // Font
         $flags |= (1 == $bFormatFont ? 0x04000000 : 0);
         // Alignment:
@@ -2937,7 +2960,7 @@ class Worksheet extends BIFFwriter
         // Protection
         $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
-        $flags |= (1 == 0 ? 0x80000000 : 0);
+        $flags |= (1 == self::$always0 ? 0x80000000 : 0);
 
         $dataBlockFont = null;
         $dataBlockAlign = null;
@@ -3023,10 +3046,10 @@ class Worksheet extends BIFFwriter
             $optionsFlags = 0;
             $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() === null ? 1 : 0);
             $optionsFlags |= (1 == $optionsFlagsBold ? 0x00000002 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000008 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000010 : 0);
-            $optionsFlags |= (1 == 0 ? 0x00000020 : 0);
-            $optionsFlags |= (1 == 1 ? 0x00000080 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000008 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000010 : 0);
+            $optionsFlags |= (1 == self::$always0 ? 0x00000020 : 0);
+            $optionsFlags |= (1 == self::$always1 ? 0x00000080 : 0);
             $dataBlockFont .= pack('V', $optionsFlags);
             // Escapement type
             $dataBlockFont .= pack('V', $fontEscapement);
@@ -3122,8 +3145,10 @@ class Worksheet extends BIFFwriter
 
     /**
      * Write CFHeader record.
+     *
+     * @param Conditional[] $conditionalStyles
      */
-    private function writeCFHeader(): void
+    private function writeCFHeader(string $cellCoordinate, array $conditionalStyles): bool
     {
         $record = 0x01B0; // Record identifier
         $length = 0x0016; // Bytes to follow
@@ -3132,33 +3157,32 @@ class Worksheet extends BIFFwriter
         $numColumnMax = null;
         $numRowMin = null;
         $numRowMax = null;
+
         $arrConditional = [];
-        foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
-            foreach ($conditionalStyles as $conditional) {
-                if (
-                    $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION ||
-                    $conditional->getConditionType() == Conditional::CONDITION_CELLIS
-                ) {
-                    if (!in_array($conditional->getHashCode(), $arrConditional)) {
-                        $arrConditional[] = $conditional->getHashCode();
-                    }
-                    // Cells
-                    $rangeCoordinates = Coordinate::rangeBoundaries($cellCoordinate);
-                    if ($numColumnMin === null || ($numColumnMin > $rangeCoordinates[0][0])) {
-                        $numColumnMin = $rangeCoordinates[0][0];
-                    }
-                    if ($numColumnMax === null || ($numColumnMax < $rangeCoordinates[1][0])) {
-                        $numColumnMax = $rangeCoordinates[1][0];
-                    }
-                    if ($numRowMin === null || ($numRowMin > $rangeCoordinates[0][1])) {
-                        $numRowMin = (int) $rangeCoordinates[0][1];
-                    }
-                    if ($numRowMax === null || ($numRowMax < $rangeCoordinates[1][1])) {
-                        $numRowMax = (int) $rangeCoordinates[1][1];
-                    }
-                }
+        foreach ($conditionalStyles as $conditional) {
+            if (!in_array($conditional->getHashCode(), $arrConditional)) {
+                $arrConditional[] = $conditional->getHashCode();
+            }
+            // Cells
+            $rangeCoordinates = Coordinate::rangeBoundaries($cellCoordinate);
+            if ($numColumnMin === null || ($numColumnMin > $rangeCoordinates[0][0])) {
+                $numColumnMin = $rangeCoordinates[0][0];
+            }
+            if ($numColumnMax === null || ($numColumnMax < $rangeCoordinates[1][0])) {
+                $numColumnMax = $rangeCoordinates[1][0];
+            }
+            if ($numRowMin === null || ($numRowMin > $rangeCoordinates[0][1])) {
+                $numRowMin = (int) $rangeCoordinates[0][1];
+            }
+            if ($numRowMax === null || ($numRowMax < $rangeCoordinates[1][1])) {
+                $numRowMax = (int) $rangeCoordinates[1][1];
             }
         }
+
+        if (count($arrConditional) === 0) {
+            return false;
+        }
+
         $needRedraw = 1;
         $cellRange = pack('vvvv', $numRowMin - 1, $numRowMax - 1, $numColumnMin - 1, $numColumnMax - 1);
 
@@ -3168,6 +3192,8 @@ class Worksheet extends BIFFwriter
         $data .= pack('v', 0x0001);
         $data .= $cellRange;
         $this->append($header . $data);
+
+        return true;
     }
 
     private function getDataBlockProtection(Conditional $conditional): int

@@ -15,6 +15,9 @@ use PHPUnit\Framework\TestCase;
  */
 class OdsTest extends TestCase
 {
+    /** @var string */
+    private $incompleteMessage = 'Features not implemented yet';
+
     /**
      * @var string
      */
@@ -32,12 +35,12 @@ class OdsTest extends TestCase
     }
 
     /**
-     * @var Spreadsheet
+     * @var ?Spreadsheet
      */
     private $spreadsheetOdsTest;
 
     /**
-     * @var Spreadsheet
+     * @var ?Spreadsheet
      */
     private $spreadsheetData;
 
@@ -46,13 +49,13 @@ class OdsTest extends TestCase
      */
     private function loadOdsTestFile()
     {
-        if (!isset($this->spreadsheetOdsTest)) {
-            $filename = 'samples/templates/OOCalcTest.ods';
-
-            // Load into this instance
-            $reader = new Ods();
-            $this->spreadsheetOdsTest = $reader->loadIntoExisting($filename, new Spreadsheet());
+        if (isset($this->spreadsheetOdsTest)) {
+            return $this->spreadsheetOdsTest;
         }
+        $filename = 'samples/templates/OOCalcTest.ods';
+        // Load into this instance
+        $reader = new Ods();
+        $this->spreadsheetOdsTest = $reader->loadIntoExisting($filename, new Spreadsheet());
 
         return $this->spreadsheetOdsTest;
     }
@@ -62,13 +65,13 @@ class OdsTest extends TestCase
      */
     protected function loadDataFile()
     {
-        if (!isset($this->spreadsheetData)) {
-            $filename = 'tests/data/Reader/Ods/data.ods';
-
-            // Load into this instance
-            $reader = new Ods();
-            $this->spreadsheetData = $reader->load($filename);
+        if (isset($this->spreadsheetData)) {
+            return $this->spreadsheetData;
         }
+        $filename = 'tests/data/Reader/Ods/data.ods';
+        // Load into this instance
+        $reader = new Ods();
+        $this->spreadsheetData = $reader->load($filename);
 
         return $this->spreadsheetData;
     }
@@ -271,8 +274,9 @@ class OdsTest extends TestCase
 
     public function testReadBoldItalicUnderline(): void
     {
-        self::markTestIncomplete('Features not implemented yet');
-
+        if ($this->incompleteMessage !== '') {
+            self::markTestIncomplete($this->incompleteMessage);
+        }
         $spreadsheet = $this->loadOdsTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 

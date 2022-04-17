@@ -52,6 +52,18 @@ class ImCscTest extends TestCase
 
         $formula = "=IMCSC({$complex})";
         $result = $calculation->_calculateFormulaValue($formula);
+        // Avoid testing for excess precision
+        foreach ($expectedResult as &$array) {
+            foreach ($array as &$string) {
+                $string = preg_replace('/(\\d{8})\\d+/', '$1', $string);
+            }
+        }
+        foreach ($result as &$array) {
+            foreach ($array as &$string) {
+                $string = preg_replace('/(\\d{8})\\d+/', '$1', $string);
+            }
+        }
+
         self::assertEquals($expectedResult, $result);
     }
 

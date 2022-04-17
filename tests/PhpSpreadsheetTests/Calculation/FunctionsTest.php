@@ -76,12 +76,10 @@ class FunctionsTest extends TestCase
 
     /**
      * @dataProvider providerIfCondition
-     *
-     * @param mixed $expectedResult
      */
-    public function testIfCondition($expectedResult, ...$args): void
+    public function testIfCondition(string $expectedResult, string $args): void
     {
-        $result = Functions::ifCondition(...$args);
+        $result = Functions::ifCondition($args);
         self::assertEquals($expectedResult, $result);
     }
 

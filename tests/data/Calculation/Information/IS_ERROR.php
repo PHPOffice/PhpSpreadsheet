@@ -50,6 +50,14 @@ return [
         '#N/A',
     ],
     [
+        true,
+        '#SPILL!',
+    ],
+    [
+        true,
+        '#CALC!',
+    ],
+    [
         false,
         'TRUE',
     ],

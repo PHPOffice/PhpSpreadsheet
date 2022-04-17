@@ -12,9 +12,13 @@ class UsDollarTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testUSDOLLAR($expectedResult, ...$args): void
+    public function testUSDOLLAR($expectedResult, float $amount, ?int $precision = null): void
     {
-        $result = Dollar::format(...$args);
+        if ($precision === null) {
+            $result = Dollar::format($amount);
+        } else {
+            $result = Dollar::format($amount, $precision);
+        }
         self::assertSame($expectedResult, $result);
     }
 

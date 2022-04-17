@@ -21,12 +21,12 @@ $config
         'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
-        'class_definition' => true,
+        'class_definition' => false,
         'class_keyword_remove' => false, // ::class keyword gives us better support in IDE
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'combine_nested_dirname' => true,
-        'comment_to_phpdoc' => true,
+        'comment_to_phpdoc' => false, // interferes with annotations
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
         'constant_case' => true,
@@ -171,7 +171,7 @@ $config
         'phpdoc_separation' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_summary' => true,
-        'phpdoc_to_comment' => true,
+        'phpdoc_to_comment' => false, // interferes with annotations
         'phpdoc_to_param_type' => false, // Because experimental, but interesting for one shot use
         'phpdoc_to_return_type' => false, // idem
         'phpdoc_trim' => true,

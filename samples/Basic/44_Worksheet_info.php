@@ -1,18 +1,19 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
 
 require __DIR__ . '/../Header.php';
 
 // Create temporary file that will be read
 $sampleSpreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new Xlsx($sampleSpreadsheet);
+$writer = new Writer($sampleSpreadsheet);
 $writer->save($filename);
 
 $inputFileType = IOFactory::identify($filename);
-$reader = IOFactory::createReader($inputFileType);
+$reader = new Reader();
 $sheetList = $reader->listWorksheetNames($filename);
 $sheetInfo = $reader->listWorksheetInfo($filename);
 

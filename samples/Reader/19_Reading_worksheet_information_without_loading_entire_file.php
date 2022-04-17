@@ -1,15 +1,15 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 require __DIR__ . '/../Header.php';
 
 $inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
 
-$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' information using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' information using Xls reader');
 
-$reader = IOFactory::createReader($inputFileType);
+$reader = new Xls();
 $worksheetData = $reader->listWorksheetInfo($inputFileName);
 
 $helper->log('<h3>Worksheet Information</h3>');

@@ -12,12 +12,15 @@ trait ArrayEnabled
      */
     private static $arrayArgumentHelper;
 
-    private static function initialiseHelper(array $arguments): void
+    /**
+     * @param array|false $arguments Can be changed to array for Php8.1+
+     */
+    private static function initialiseHelper($arguments): void
     {
         if (self::$arrayArgumentHelper === null) {
             self::$arrayArgumentHelper = new ArrayArgumentHelper();
         }
-        self::$arrayArgumentHelper->initialise($arguments);
+        self::$arrayArgumentHelper->initialise($arguments ?: []);
     }
 
     /**
@@ -71,6 +74,14 @@ trait ArrayEnabled
     }
 
     /**
+     * @param mixed $value
+     */
+    private static function testFalse($value): bool
+    {
+        return $value === false;
+    }
+
+    /**
      * Handles array argument processing when the function accepts multiple arguments,
      *     but only the last few (from start) can be an array arguments.
      * Example use for:
@@ -85,7 +96,7 @@ trait ArrayEnabled
             range($start, count($arguments) - $start),
             array_slice($arguments, $start)
         );
-        if ($arrayArgumentsSubset === false) {
+        if (self::testFalse($arrayArgumentsSubset)) {
             return ['#VALUE!'];
         }
 

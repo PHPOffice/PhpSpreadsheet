@@ -251,6 +251,7 @@ class OLE
      */
     private static function readInt1($fileHandle)
     {
+        // @phpstan-ignore-next-line
         [, $tmp] = unpack('c', fread($fileHandle, 1));
 
         return $tmp;
@@ -265,6 +266,7 @@ class OLE
      */
     private static function readInt2($fileHandle)
     {
+        // @phpstan-ignore-next-line
         [, $tmp] = unpack('v', fread($fileHandle, 2));
 
         return $tmp;
@@ -279,6 +281,7 @@ class OLE
      */
     private static function readInt4($fileHandle)
     {
+        // @phpstan-ignore-next-line
         [, $tmp] = unpack('V', fread($fileHandle, 4));
 
         return $tmp;

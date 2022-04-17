@@ -134,6 +134,64 @@ class AutoFilterTest extends SetupTeardown
         }
     }
 
+    public function testRemoveColumns(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray(range('H', 'O'), null, 'H2');
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange(self::INITIAL_RANGE);
+        $autoFilter->getColumn('L')->addRule((new Column\Rule())->setValue(5));
+
+        $sheet->removeColumn('K', 2);
+        $result = $autoFilter->getRange();
+        self::assertEquals('H2:M256', $result);
+
+        // Check that the rule that was set for column L is no longer set
+        self::assertEmpty($autoFilter->getColumn('L')->getRule(0)->getValue());
+    }
+
+    public function testRemoveRows(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray(range('H', 'O'), null, 'H2');
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange(self::INITIAL_RANGE);
+
+        $sheet->removeRow(42, 128);
+        $result = $autoFilter->getRange();
+        self::assertEquals('H2:O128', $result);
+    }
+
+    public function testInsertColumns(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray(range('H', 'O'), null, 'H2');
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange(self::INITIAL_RANGE);
+        $autoFilter->getColumn('N')->addRule((new Column\Rule())->setValue(5));
+
+        $sheet->insertNewColumnBefore('N', 3);
+        $result = $autoFilter->getRange();
+        self::assertEquals('H2:R256', $result);
+
+        // Check that column N no longer has a rule set
+        self::assertEmpty($autoFilter->getColumn('N')->getRule(0)->getValue());
+        // Check that the rule originally set in column N has been moved to column Q
+        self::assertSame(5, $autoFilter->getColumn('Q')->getRule(0)->getValue());
+    }
+
+    public function testInsertRows(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray(range('H', 'O'), null, 'H2');
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange(self::INITIAL_RANGE);
+
+        $sheet->insertNewRowBefore(3, 4);
+        $result = $autoFilter->getRange();
+        self::assertEquals('H2:O260', $result);
+    }
+
     public function testGetInvalidColumnOffset(): void
     {
         $this->expectException(PhpSpreadsheetException::class);

@@ -122,7 +122,7 @@ abstract class WizardAbstract
         return "{$worksheet}{$column}{$row}";
     }
 
-    protected static function reverseAdjustCellRef(string $condition, string $cellRange): string
+    public static function reverseAdjustCellRef(string $condition, string $cellRange): string
     {
         $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($cellRange)));
         [$referenceCell] = $conditionalRange[0];
