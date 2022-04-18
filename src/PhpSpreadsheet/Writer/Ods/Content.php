@@ -294,7 +294,9 @@ class Content extends WriterPart
             $worksheet = $spreadsheet->getSheet($i);
             $worksheet->calculateColumnWidths();
             foreach ($worksheet->getColumnDimensions() as $columnDimension) {
-                $styleWriter->writeColumnStyles($columnDimension, $i);
+                if ($columnDimension->getWidth() !== -1.0) {
+                    $styleWriter->writeColumnStyles($columnDimension, $i);
+                }
             }
         }
         for ($i = 0; $i < $sheetCount; ++$i) {
