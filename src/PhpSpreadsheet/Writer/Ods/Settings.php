@@ -2,8 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Settings extends WriterPart
 {
@@ -45,28 +48,9 @@ class Settings extends WriterPart
         $objWriter->text('view1');
         $objWriter->endElement(); // ViewId
         $objWriter->startElement('config:config-item-map-named');
-        $objWriter->writeAttribute('config:name', 'Tables');
-        foreach ($spreadsheet->getWorksheetIterator() as $ws) {
-            $objWriter->startElement('config:config-item-map-entry');
-            $objWriter->writeAttribute('config:name', $ws->getTitle());
-            $selected = $ws->getSelectedCells();
-            if (preg_match('/^([a-z]+)([0-9]+)/i', $selected, $matches) === 1) {
-                $colSel = Coordinate::columnIndexFromString($matches[1]) - 1;
-                $rowSel = (int) $matches[2] - 1;
-                $objWriter->startElement('config:config-item');
-                $objWriter->writeAttribute('config:name', 'CursorPositionX');
-                $objWriter->writeAttribute('config:type', 'int');
-                $objWriter->text($colSel);
-                $objWriter->endElement();
-                $objWriter->startElement('config:config-item');
-                $objWriter->writeAttribute('config:name', 'CursorPositionY');
-                $objWriter->writeAttribute('config:type', 'int');
-                $objWriter->text($rowSel);
-                $objWriter->endElement();
-            }
-            $objWriter->endElement(); // config:config-item-map-entry
-        }
-        $objWriter->endElement(); // config:config-item-map-named
+
+        $this->writeAllWorksheetSettings($objWriter, $spreadsheet);
+
         $wstitle = $spreadsheet->getActiveSheet()->getTitle();
         $objWriter->startElement('config:config-item');
         $objWriter->writeAttribute('config:name', 'ActiveTable');
@@ -84,5 +68,85 @@ class Settings extends WriterPart
         $objWriter->endElement(); // office:document-settings
 
         return $objWriter->getData();
+    }
+
+    private function writeAllWorksheetSettings(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    {
+        $objWriter->writeAttribute('config:name', 'Tables');
+
+        foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
+            $this->writeWorksheetSettings($objWriter, $worksheet);
+        }
+
+        $objWriter->endElement(); // config:config-item-map-entry Tables
+    }
+
+    private function writeWorksheetSettings(XMLWriter $objWriter, Worksheet $worksheet): void
+    {
+        $objWriter->startElement('config:config-item-map-entry');
+        $objWriter->writeAttribute('config:name', $worksheet->getTitle());
+
+        $this->writeSelectedCells($objWriter, $worksheet);
+        if ($worksheet->getFreezePane() !== null) {
+            $this->writeFreezePane($objWriter, $worksheet);
+        }
+
+        $objWriter->endElement(); // config:config-item-map-entry Worksheet
+    }
+
+    private function writeSelectedCells(XMLWriter $objWriter, Worksheet $worksheet): void
+    {
+        $selected = $worksheet->getSelectedCells();
+        if (preg_match('/^([a-z]+)([0-9]+)/i', $selected, $matches) === 1) {
+            $colSel = Coordinate::columnIndexFromString($matches[1]) - 1;
+            $rowSel = (int) $matches[2] - 1;
+            $objWriter->startElement('config:config-item');
+            $objWriter->writeAttribute('config:name', 'CursorPositionX');
+            $objWriter->writeAttribute('config:type', 'int');
+            $objWriter->text((string) $colSel);
+            $objWriter->endElement();
+            $objWriter->startElement('config:config-item');
+            $objWriter->writeAttribute('config:name', 'CursorPositionY');
+            $objWriter->writeAttribute('config:type', 'int');
+            $objWriter->text((string) $rowSel);
+            $objWriter->endElement();
+        }
+    }
+
+    private function writeSplitValue(XMLWriter $objWriter, string $splitMode, string $type, string $value): void
+    {
+        $objWriter->startElement('config:config-item');
+        $objWriter->writeAttribute('config:name', $splitMode);
+        $objWriter->writeAttribute('config:type', $type);
+        $objWriter->text($value);
+        $objWriter->endElement();
+    }
+
+    private function writeFreezePane(XMLWriter $objWriter, Worksheet $worksheet): void
+    {
+        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane());
+        if ($freezePane->cellAddress() === 'A1') {
+            return;
+        }
+
+        $columnId = $freezePane->columnId();
+        $columnName = $freezePane->columnName();
+        $row = $freezePane->rowId();
+
+        $this->writeSplitValue($objWriter, 'HorizontalSplitMode', 'short', '2');
+        $this->writeSplitValue($objWriter, 'HorizontalSplitPosition', 'int', (string) ($columnId - 1));
+        $this->writeSplitValue($objWriter, 'PositionLeft', 'short', '0');
+        $this->writeSplitValue($objWriter, 'PositionRight', 'short', (string) ($columnId - 1));
+
+        for ($column = 'A'; $column !== $columnName; ++$column) {
+            $worksheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        $this->writeSplitValue($objWriter, 'VerticalSplitMode', 'short', '2');
+        $this->writeSplitValue($objWriter, 'VerticalSplitPosition', 'int', (string) ($row - 1));
+        $this->writeSplitValue($objWriter, 'PositionTop', 'short', '0');
+        $this->writeSplitValue($objWriter, 'PositionBottom', 'short', (string) ($row - 1));
+
+        $this->writeSplitValue($objWriter, 'ActiveSplitRange', 'short', '3');
     }
 }

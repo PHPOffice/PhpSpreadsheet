@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Ods Writer support for Freeze Pane [Issue #2013](https://github.com/PHPOffice/PhpSpreadsheet/issues/2013) [PR #2755](https://github.com/PHPOffice/PhpSpreadsheet/pull/2755)
 - Ods Writer support for setting column width/row height (including the use of AutoSize) [Issue #2346](https://github.com/PHPOffice/PhpSpreadsheet/issues/2346) [PR #2753](https://github.com/PHPOffice/PhpSpreadsheet/pull/2753)
 - Introduced CellAddress, CellRange, RowRange and ColumnRange value objects that can be used as an alternative to a string value (e.g. `'C5'`, `'B2:D4'`, `'2:2'` or `'B:C'`) in appropriate contexts.
 - Implementation of the FILTER(), SORT(), SORTBY() and UNIQUE() Lookup/Reference (array) functions.
