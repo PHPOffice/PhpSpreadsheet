@@ -82,8 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
 - Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
+- Fix for reading files in the root directory of a ZipFile, which should not be prefixed by relative paths ("./") as dirname($filename) does by default. 
 - Fix invalid style of cells in empty columns with columnDimensions and rows with rowDimensions in added external sheet. [PR #2739](https://github.com/PHPOffice/PhpSpreadsheet/pull/2739)
-
 
 ## 1.22.0 - 2022-02-18
 
