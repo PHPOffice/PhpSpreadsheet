@@ -65,8 +65,9 @@ class RowDimension extends Dimension
 
     /**
      * Get Row Height.
-     * By default, this will be in points; but this method accepts a unit of measure
-     *    argument, and will convert the value to the specified UoM.
+     * By default, this will be in points; but this method also accepts an optional unit of measure
+     *    argument, and will convert the value from points to the specified UoM.
+     *    A value of -1 tells Excel to display this column in its default height.
      *
      * @return float
      */
@@ -80,8 +81,8 @@ class RowDimension extends Dimension
     /**
      * Set Row Height.
      *
-     * @param float $height in points
-     * By default, this will be the passed argument value; but this method accepts a unit of measure
+     * @param float $height in points. A value of -1 tells Excel to display this column in its default height.
+     * By default, this will be the passed argument value; but this method also accepts an optional unit of measure
      *    argument, and will convert the passed argument value to points from the specified UoM
      *
      * @return $this
