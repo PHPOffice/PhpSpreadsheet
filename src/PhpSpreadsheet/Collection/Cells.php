@@ -6,6 +6,7 @@ use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
 
@@ -298,7 +299,9 @@ class Cells
      */
     private function getUniqueID()
     {
-        return uniqid('phpspreadsheet.', true) . '.';
+        return Settings::getCache() instanceof Memory
+            ? random_bytes(7) . ':'
+            : uniqid('phpspreadsheet.', true) . '.';
     }
 
     /**
