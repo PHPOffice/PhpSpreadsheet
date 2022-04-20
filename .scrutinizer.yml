@@ -10,6 +10,7 @@ coding_style:
                 concatenation: true
 
 build:
+    image: default-bionic
     nodes:
         analysis:
             tests:
