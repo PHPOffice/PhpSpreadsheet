@@ -172,9 +172,9 @@ class Cells
         // Lookup highest column and highest row
         $col = ['A' => '1A'];
         $row = [1];
+        $c = '';
+        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
-            $c = '';
-            $r = 0;
             sscanf($coord, '%[A-Z]%d', $c, $r);
             $row[$r] = $r;
             $col[$c] = strlen($c) . $c;
@@ -241,24 +241,21 @@ class Cells
     public function getHighestColumn($row = null)
     {
         if ($row === null) {
-            $colRow = $this->getHighestRowAndColumn();
-
-            return $colRow['column'];
+            return $this->getHighestRowAndColumn()['column'];
         }
 
-        $columnList = [1];
+        $maxColumn = '1A';
+        $c = '';
+        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
-            $c = '';
-            $r = 0;
-
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = Coordinate::columnIndexFromString($c);
+            $maxColumn = max($maxColumn, strlen($c) . $c);
         }
 
-        return Coordinate::stringFromColumnIndex((int) @max($columnList));
+        return substr($maxColumn, 1);
     }
 
     /**
@@ -272,24 +269,21 @@ class Cells
     public function getHighestRow($column = null)
     {
         if ($column === null) {
-            $colRow = $this->getHighestRowAndColumn();
-
-            return $colRow['row'];
+            return $this->getHighestRowAndColumn()['row'];
         }
 
-        $rowList = [0];
+        $maxRow = 1;
+        $c = '';
+        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
-            $c = '';
-            $r = 0;
-
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c != $column) {
                 continue;
             }
-            $rowList[] = $r;
+            $maxRow = max($maxRow, $r);
         }
 
-        return max($rowList);
+        return $maxRow;
     }
 
     /**
@@ -347,10 +341,9 @@ class Cells
      */
     public function removeRow($row): void
     {
+        $c = '';
+        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
-            $c = '';
-            $r = 0;
-
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r == $row) {
                 $this->delete($coord);
@@ -365,10 +358,9 @@ class Cells
      */
     public function removeColumn($column): void
     {
+        $c = '';
+        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
-            $c = '';
-            $r = 0;
-
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c == $column) {
                 $this->delete($coord);
