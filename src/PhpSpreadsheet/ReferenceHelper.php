@@ -90,8 +90,8 @@ class ReferenceHelper
      */
     public static function cellSort($a, $b)
     {
-        [$ac, $ar] = sscanf($a, '%[A-Z]%d');
-        [$bc, $br] = sscanf($b, '%[A-Z]%d');
+        sscanf($a, '%[A-Z]%d', $ac, $ar);
+        sscanf($b, '%[A-Z]%d', $bc, $br);
 
         if ($ar === $br) {
             return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
@@ -111,8 +111,8 @@ class ReferenceHelper
      */
     public static function cellReverseSort($a, $b)
     {
-        [$ac, $ar] = sscanf($a, '%[A-Z]%d');
-        [$bc, $br] = sscanf($b, '%[A-Z]%d');
+        sscanf($a, '%[A-Z]%d', $ac, $ar);
+        sscanf($b, '%[A-Z]%d', $bc, $br);
 
         if ($ar === $br) {
             return -strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
