@@ -1176,11 +1176,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
 			message: "#^Parameter \\#4 \\$currentRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
@@ -3119,11 +3114,6 @@ parameters:
 			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
-
-		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
 
 		-
 			message: "#^Elseif condition is always true\\.$#"

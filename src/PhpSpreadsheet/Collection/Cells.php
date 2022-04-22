@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -152,8 +151,6 @@ class Cells
     {
         $sortKeys = [];
         foreach ($this->getCoordinates() as $coord) {
-            $column = '';
-            $row = 0;
             sscanf($coord, '%[A-Z]%d', $column, $row);
             $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
         }
@@ -172,8 +169,6 @@ class Cells
         // Lookup highest column and highest row
         $col = ['A' => '1A'];
         $row = [1];
-        $c = '';
-        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             $row[$r] = $r;
@@ -207,9 +202,6 @@ class Cells
      */
     public function getCurrentColumn()
     {
-        $column = '';
-        $row = 0;
-
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return $column;
@@ -222,9 +214,6 @@ class Cells
      */
     public function getCurrentRow()
     {
-        $column = '';
-        $row = 0;
-
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return (int) $row;
@@ -245,8 +234,6 @@ class Cells
         }
 
         $maxColumn = '1A';
-        $c = '';
-        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r != $row) {
@@ -273,8 +260,6 @@ class Cells
         }
 
         $maxRow = 1;
-        $c = '';
-        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c != $column) {
@@ -341,8 +326,6 @@ class Cells
      */
     public function removeRow($row): void
     {
-        $c = '';
-        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r == $row) {
@@ -358,8 +341,6 @@ class Cells
      */
     public function removeColumn($column): void
     {
-        $c = '';
-        $r = 0;
         foreach ($this->getCoordinates() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c == $column) {

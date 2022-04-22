@@ -383,7 +383,7 @@ abstract class Coordinate
         //    Sort the result by column and row
         $sortKeys = [];
         foreach ($cellList as $coord) {
-            [$column, $row] = sscanf($coord, '%[A-Z]%d');
+            sscanf($coord, '%[A-Z]%d', $column, $row);
             $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
         }
         ksort($sortKeys);
