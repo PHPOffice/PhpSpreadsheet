@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Ods Writer support for Freeze Pane [Issue #2013](https://github.com/PHPOffice/PhpSpreadsheet/issues/2013) [PR #2755](https://github.com/PHPOffice/PhpSpreadsheet/pull/2755)
+- Ods Writer support for setting column width/row height (including the use of AutoSize) [Issue #2346](https://github.com/PHPOffice/PhpSpreadsheet/issues/2346) [PR #2753](https://github.com/PHPOffice/PhpSpreadsheet/pull/2753)
 - Introduced CellAddress, CellRange, RowRange and ColumnRange value objects that can be used as an alternative to a string value (e.g. `'C5'`, `'B2:D4'`, `'2:2'` or `'B:C'`) in appropriate contexts.
 - Implementation of the FILTER(), SORT(), SORTBY() and UNIQUE() Lookup/Reference (array) functions.
 - Implementation of the ISREF() Information function.
@@ -18,10 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   This functionality is locale-aware, using the server's locale settings to identify the thousands and decimal separators.
 
-- Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532)
+- Support for two cell anchor drawing of images. [#2532](https://github.com/PHPOffice/PhpSpreadsheet/pull/2532) [#2674](https://github.com/PHPOffice/PhpSpreadsheet/pull/2674)
 - Limited support for Xls Reader to handle Conditional Formatting:
 
   Ranges and Rules are read, but style is currently limited to font size, weight and color; and to fill style and color.
+
+- Add ability to suppress Mac line ending check for CSV [#2623](https://github.com/PHPOffice/PhpSpreadsheet/pull/2623)
 
 ### Changed
 
@@ -66,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Make allowance for the AutoFilter dropdown icon in the first row of an Autofilter range when using Autosize columns. [Issue #2413](https://github.com/PHPOffice/PhpSpreadsheet/issues/2413) [PR #2754](https://github.com/PHPOffice/PhpSpreadsheet/pull/2754)
 - Support for "chained" ranges (e.g. `A5:C10:C20:F1`) in the Calculation Engine; and also support for using named ranges with the Range operator (e.g. `NamedRange1:NamedRange2`) [Issue #2730](https://github.com/PHPOffice/PhpSpreadsheet/issues/2730) [PR #2746](https://github.com/PHPOffice/PhpSpreadsheet/pull/2746)
 - Update Conditional Formatting ranges and rule conditions when inserting/deleting rows/columns [Issue #2678](https://github.com/PHPOffice/PhpSpreadsheet/issues/2678) [PR #2689](https://github.com/PHPOffice/PhpSpreadsheet/pull/2689)
 - Allow `INDIRECT()` to accept row/column ranges as well as cell ranges [PR #2687](https://github.com/PHPOffice/PhpSpreadsheet/pull/2687)
@@ -73,15 +78,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Fix bug in Conditional Formatting in the Xls Writer that resulted in a broken file when there were multiple conditional ranges in a worksheet.
 - Fix Conditional Formatting in the Xls Writer to work with rules that contain string literals, cell references and formulae.
 - Fix for setting Active Sheet to the first loaded worksheet when bookViews element isn't defined [Issue #2666](https://github.com/PHPOffice/PhpSpreadsheet/issues/2666) [PR #2669](https://github.com/PHPOffice/PhpSpreadsheet/pull/2669)
-- Fixed behaviour of XLSX font style vertical align settings.
+- Fixed behaviour of XLSX font style vertical align settings [PR #2619](https://github.com/PHPOffice/PhpSpreadsheet/pull/2619)
 - Resolved formula translations to handle separators (row and column) for array functions as well as for function argument separators; and cleanly handle nesting levels.
 
   Note that this method is used when translating Excel functions between `en_us` and other locale languages, as well as when converting formulae between different spreadsheet formats (e.g. Ods to Excel).
 
   Nor is this a perfect solution, as there may still be issues when function calls have array arguments that themselves contain function calls; but it's still better than the current logic.
 - Fix for escaping double quotes within a formula [Issue #1971](https://github.com/PHPOffice/PhpSpreadsheet/issues/1971) [PR #2651](https://github.com/PHPOffice/PhpSpreadsheet/pull/2651)
+- Change open mode for output from `wb+` to `wb` [Issue #2372](https://github.com/PHPOffice/PhpSpreadsheet/issues/2372) [PR #2657](https://github.com/PHPOffice/PhpSpreadsheet/pull/2657)
+- Use color palette if supplied [Issue #2499](https://github.com/PHPOffice/PhpSpreadsheet/issues/2499) [PR #2595](https://github.com/PHPOffice/PhpSpreadsheet/pull/2595)
+- Xls reader treat drawing offsets as int rather than float [PR #2648](https://github.com/PHPOffice/PhpSpreadsheet/pull/2648)
+- Handle booleans in conditional styles properly [PR #2654](https://github.com/PHPOffice/PhpSpreadsheet/pull/2654)
+- Fix for reading files in the root directory of a ZipFile, which should not be prefixed by relative paths ("./") as dirname($filename) does by default. 
 - Fix invalid style of cells in empty columns with columnDimensions and rows with rowDimensions in added external sheet. [PR #2739](https://github.com/PHPOffice/PhpSpreadsheet/pull/2739)
-
 
 ## 1.22.0 - 2022-02-18
 

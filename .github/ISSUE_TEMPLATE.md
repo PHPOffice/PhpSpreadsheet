@@ -26,6 +26,20 @@ $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // add code that show the issue here...
 ```
+If this is an issue with reading a specific spreadsheet file, then it may be appropriate to provide a sample file that demonstrates the problem; but please keep it as small as possible, and sanitize any confidential information before uploading.
+
+### What features do you think are causing the issue
+
+- [ ] Reader
+- [ ] Writer
+- [ ] Styles
+- [ ] Data Validations
+- [ ] Formula Calulations
+- [ ] Charts
+- [ ] AutoFilter
+- [ ] Form Elements
+
+### Does an issue affect all spreadsheet file formats? If not, which formats are affected?
 
 
 ### Which versions of PhpSpreadsheet and PHP are affected?

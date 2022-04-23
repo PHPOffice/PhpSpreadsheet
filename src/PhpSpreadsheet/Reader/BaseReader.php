@@ -153,6 +153,10 @@ abstract class BaseReader implements IReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param int $flags the optional second parameter flags may be used to identify specific elements
+     *                       that should be loaded, but which won't be loaded by default, using these values:
+     *                            IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file
      */
     public function load(string $filename, int $flags = 0): Spreadsheet
     {

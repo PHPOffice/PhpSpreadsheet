@@ -1176,11 +1176,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
 			message: "#^Parameter \\#4 \\$currentRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
@@ -3121,11 +3116,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4676,11 +4666,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
@@ -4694,11 +4679,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
-			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"

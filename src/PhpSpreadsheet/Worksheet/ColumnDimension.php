@@ -83,9 +83,10 @@ class ColumnDimension extends Dimension
     /**
      * Get Width.
      *
-     * Each unit of column width is equal to the width of one character in the default font size.
-     * By default, this will be the return value; but this method also accepts a unit of measure argument and will
-     *     return the value converted to the specified UoM using an approximation method.
+     * Each unit of column width is equal to the width of one character in the default font size. A value of -1
+     *      tells Excel to display this column in its default width.
+     * By default, this will be the return value; but this method also accepts an optional unit of measure argument
+     *    and will convert the returned value to the specified UoM..
      */
     public function getWidth(?string $unitOfMeasure = null): float
     {
@@ -97,9 +98,11 @@ class ColumnDimension extends Dimension
     /**
      * Set Width.
      *
-     * Each unit of column width is equal to the width of one character in the default font size.
-     * By default, this will be the unit of measure for the passed value; but this method accepts a unit of measure
-     *    argument, and will convert the value from the specified UoM using an approximation method.
+     * Each unit of column width is equal to the width of one character in the default font size. A value of -1
+     *      tells Excel to display this column in its default width.
+     * By default, this will be the unit of measure for the passed value; but this method also accepts an
+     *    optional unit of measure argument, and will convert the value from the specified UoM using an
+     *    approximation method.
      *
      * @return $this
      */
