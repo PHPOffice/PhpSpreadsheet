@@ -64,7 +64,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    private const AUTOSIZE_TYPES = ['Xlsx', 'Xls', 'Html'];
+    private const AUTOSIZE_TYPES = ['Xlsx', 'Xls', 'Html', 'Ods'];
 
     private static function verifyA3B2(Calculation $calculation, string $title, ?bool $preCalc, string $type): void
     {

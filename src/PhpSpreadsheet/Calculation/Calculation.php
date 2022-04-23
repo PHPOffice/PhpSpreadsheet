@@ -33,11 +33,11 @@ class Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
-    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
-    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
     const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
@@ -108,7 +108,8 @@ class Calculation
         '+' => true, '-' => true, '*' => true, '/' => true,
         '^' => true, '&' => true, '%' => false, '~' => false,
         '>' => true, '<' => true, '=' => true, '>=' => true,
-        '<=' => true, '<>' => true, '|' => true, ':' => true,
+        '<=' => true, '<>' => true, '∩' => true, '∪' => true,
+        ':' => true,
     ];
 
     /**
@@ -120,7 +121,7 @@ class Calculation
         '+' => true, '-' => true, '*' => true, '/' => true,
         '^' => true, '&' => true, '>' => true, '<' => true,
         '=' => true, '>=' => true, '<=' => true, '<>' => true,
-        '|' => true, ':' => true,
+        '∩' => true, '∪' => true, ':' => true,
     ];
 
     /**
@@ -3872,7 +3873,7 @@ class Calculation
         '*' => 0, '/' => 0, //    Multiplication and Division
         '+' => 0, '-' => 0, //    Addition and Subtraction
         '&' => 0, //    Concatenation
-        '|' => 0, ':' => 0, //    Intersect and Range
+        '∪' => 0, '∩' => 0, ':' => 0, //    Union, Intersect and Range
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
@@ -3884,8 +3885,9 @@ class Calculation
     //    This list includes all valid operators, whether binary (including boolean) or unary (such as %)
     //    Array key is the operator, the value is its precedence
     private static $operatorPrecedence = [
-        ':' => 8, //    Range
-        '|' => 7, //    Intersect
+        ':' => 9, //    Range
+        '∩' => 8, //    Intersect
+        '∪' => 7, //    Union
         '~' => 6, //    Negation
         '%' => 5, //    Percentage
         '^' => 4, //    Exponentiation
@@ -3957,7 +3959,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter == '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
                 ++$index; //    Drop the redundant plus symbol
-            } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
+            } elseif ((($opCharacter == '~') || ($opCharacter == '∩') || ($opCharacter == '∪')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde, union or intersect because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::$operators[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
                 while (
@@ -4135,17 +4137,25 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         //    If we have a worksheet reference, then we're playing with a 3D reference
-                        if ($matches[2] == '') {
+                        if ($matches[2] === '') {
                             //    Otherwise, we 'inherit' the worksheet reference from the start cell reference
                             //    The start of the cell range reference should be the last entry in $output
                             $rangeStartCellRef = $output[count($output) - 1]['value'];
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            if ($rangeStartCellRef === ':') {
+                                // Do we have chained range operators?
+                                $rangeStartCellRef = $output[count($output) - 2]['value'];
+                            }
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $rangeStartCellRef, $rangeStartMatches);
                             if ($rangeStartMatches[2] > '') {
                                 $val = $rangeStartMatches[2] . '!' . $val;
                             }
                         } else {
                             $rangeStartCellRef = $output[count($output) - 1]['value'];
-                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $rangeStartCellRef, $rangeStartMatches);
+                            if ($rangeStartCellRef === ':') {
+                                // Do we have chained range operators?
+                                $rangeStartCellRef = $output[count($output) - 2]['value'];
+                            }
+                            preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $rangeStartCellRef, $rangeStartMatches);
                             if ($rangeStartMatches[2] !== $matches[2]) {
                                 return $this->raiseFormulaError('3D Range references are not yet supported');
                             }
@@ -4159,7 +4169,7 @@ class Calculation
                     $outputItem = $stack->getStackItem('Cell Reference', $val, $val);
 
                     $output[] = $outputItem;
-                } else {    // it's a variable, constant, string, number or boolean
+                } else { // it's a variable, constant, string, number or boolean
                     $localeConstant = false;
                     $stackItemType = 'Value';
                     $stackItemReference = null;
@@ -4168,39 +4178,65 @@ class Calculation
                     $testPrevOp = $stack->last(1);
                     if ($testPrevOp !== null && $testPrevOp['value'] === ':') {
                         $stackItemType = 'Cell Reference';
-                        $startRowColRef = $output[count($output) - 1]['value'];
-                        [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
-                        $rangeSheetRef = $rangeWS1;
-                        if ($rangeWS1 !== '') {
-                            $rangeWS1 .= '!';
-                        }
-                        $rangeSheetRef = trim($rangeSheetRef, "'");
-                        [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
-                        if ($rangeWS2 !== '') {
-                            $rangeWS2 .= '!';
+
+                        if (
+                            !is_numeric($val) &&
+                            ((ctype_alpha($val) === false || strlen($val) > 3)) &&
+                            (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $val) !== false) &&
+                            ($this->spreadsheet->getNamedRange($val) !== null)
+                        ) {
+                            $namedRange = $this->spreadsheet->getNamedRange($val);
+                            if ($namedRange !== null) {
+                                $stackItemType = 'Defined Name';
+                                $address = str_replace('$', '', $namedRange->getValue());
+                                $stackItemReference = $val;
+                                if (strpos($address, ':') !== false) {
+                                    // We'll need to manipulate the stack for an actual named range rather than a named cell
+                                    $fromTo = explode(':', $address);
+                                    $to = array_pop($fromTo);
+                                    foreach ($fromTo as $from) {
+                                        $output[] = $stack->getStackItem($stackItemType, $from, $stackItemReference);
+                                        $output[] = $stack->getStackItem('Binary Operator', ':');
+                                    }
+                                    $address = $to;
+                                }
+                                $val = $address;
+                            }
                         } else {
-                            $rangeWS2 = $rangeWS1;
-                        }
+                            $startRowColRef = $output[count($output) - 1]['value'];
+                            [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
+                            $rangeSheetRef = $rangeWS1;
+                            if ($rangeWS1 !== '') {
+                                $rangeWS1 .= '!';
+                            }
+                            $rangeSheetRef = trim($rangeSheetRef, "'");
+                            [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
+                            if ($rangeWS2 !== '') {
+                                $rangeWS2 .= '!';
+                            } else {
+                                $rangeWS2 = $rangeWS1;
+                            }
 
-                        $refSheet = $pCellParent;
-                        if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
-                            $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
-                        }
+                            $refSheet = $pCellParent;
+                            if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
+                                $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
+                            }
 
-                        if (ctype_digit($val) && $val <= 1048576) {
-                            //    Row range
-                            $stackItemType = 'Row Reference';
-                            /** @var int $valx */
-                            $valx = $val;
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
-                            $val = "{$rangeWS2}{$endRowColRef}{$val}";
-                        } elseif (ctype_alpha($val) && strlen($val) <= 3) {
-                            //    Column range
-                            $stackItemType = 'Column Reference';
-                            $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
-                            $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            if (ctype_digit($val) && $val <= 1048576) {
+                                //    Row range
+                                $stackItemType = 'Row Reference';
+                                /** @var int $valx */
+                                $valx = $val;
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
+                                $val = "{$rangeWS2}{$endRowColRef}{$val}";
+                            } elseif (ctype_alpha($val) && strlen($val) <= 3) {
+                                //    Column range
+                                $stackItemType = 'Column Reference';
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
+                                $val = "{$rangeWS2}{$val}{$endRowColRef}";
+                            }
+                            $stackItemReference = $val;
                         }
-                        $stackItemReference = $val;
                     } elseif ($opCharacter == self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
@@ -4307,7 +4343,7 @@ class Calculation
                     ) {
                         $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                     }
-                    $stack->push('Binary Operator', '|'); //    Put an Intersect Operator on the stack
+                    $stack->push('Binary Operator', '∩'); //    Put an Intersect Operator on the stack
                     $expectingOperator = false;
                 }
             }
@@ -4382,7 +4418,7 @@ class Calculation
                     true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
-                    $storeValue = end($wrappedItem);
+                    $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
@@ -4414,7 +4450,7 @@ class Calculation
                     true : (bool) Functions::flattenSingleValue($storeValue);
                 if (is_array($storeValue)) {
                     $wrappedItem = end($storeValue);
-                    $storeValue = end($wrappedItem);
+                    $storeValue = is_array($wrappedItem) ? end($wrappedItem) : $wrappedItem;
                 }
 
                 if (
@@ -4461,21 +4497,29 @@ class Calculation
 
                 //    Process the operation in the appropriate manner
                 switch ($token) {
-                    //    Comparison (Boolean) Operators
-                    case '>':            //    Greater than
-                    case '<':            //    Less than
-                    case '>=':            //    Greater than or Equal to
-                    case '<=':            //    Less than or Equal to
-                    case '=':            //    Equality
-                    case '<>':            //    Inequality
+                    // Comparison (Boolean) Operators
+                    case '>': // Greater than
+                    case '<': // Less than
+                    case '>=': // Greater than or Equal to
+                    case '<=': // Less than or Equal to
+                    case '=': // Equality
+                    case '<>': // Inequality
                         $result = $this->executeBinaryComparisonOperation($operand1, $operand2, (string) $token, $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
 
                         break;
-                    //    Binary Operators
-                    case ':':            //    Range
+                    // Binary Operators
+                    case ':': // Range
+                        if ($operand1Data['type'] === 'Defined Name') {
+                            if (preg_match('/$' . self::CALCULATION_REGEXP_DEFINEDNAME . '^/mui', $operand1Data['reference']) !== false) {
+                                $definedName = $this->spreadsheet->getNamedRange($operand1Data['reference']);
+                                if ($definedName !== null) {
+                                    $operand1Data['reference'] = $operand1Data['value'] = str_replace('$', '', $definedName->getValue());
+                                }
+                            }
+                        }
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
@@ -4599,7 +4643,7 @@ class Calculation
                         }
 
                         break;
-                    case '|':            //    Intersect
+                    case '∩':            //    Intersect
                         $rowIntersect = array_intersect_key($operand1, $operand2);
                         $cellIntersect = $oCol = $oRow = [];
                         foreach (array_keys($rowIntersect) as $row) {

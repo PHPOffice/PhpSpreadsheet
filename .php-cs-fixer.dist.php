@@ -21,7 +21,7 @@ $config
         'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
-        'class_definition' => true,
+        'class_definition' => false,
         'class_keyword_remove' => false, // ::class keyword gives us better support in IDE
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
