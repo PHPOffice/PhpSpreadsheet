@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\Column;
@@ -133,25 +135,32 @@ class TableTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetRange(): void
+    /**
+     * @dataProvider validTableRangeProvider
+     *
+     * @param AddressRange|array<int>|string $fullRange
+     * @param string $fullRange
+     */
+    public function testSetRangeValidRange($fullRange, string $actualRange): void
+    {
+        $table = new Table(self::INITIAL_RANGE);
+
+        $result = $table->setRange($fullRange);
+        self::assertInstanceOf(Table::class, $result);
+        self::assertEquals($actualRange, $table->getRange());
+    }
+
+    public function validTableRangeProvider(): array
     {
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
-        $table = new Table(self::INITIAL_RANGE);
-        $ranges = [
-            'G1:J512' => "$title!G1:J512",
-            'K1:N20' => 'K1:N20',
+
+        return [
+            ["$title!G1:J512", 'G1:J512'],
+            ['K1:N20', 'K1:N20'],
+            [[3, 5, 6, 8], 'C5:F8'],
+            [new CellRange(new CellAddress('C5', $sheet), new CellAddress('F8', $sheet)), 'C5:F8'],
         ];
-
-        foreach ($ranges as $actualRange => $fullRange) {
-            //  Setters return the instance to implement the fluent interface
-            $result = $table->setRange($fullRange);
-            self::assertInstanceOf(Table::class, $result);
-
-            //  Result should be the new table range
-            $result = $table->getRange();
-            self::assertEquals($actualRange, $result);
-        }
     }
 
     public function testClearRange(): void

@@ -2129,27 +2129,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Add Table Range by using numeric cell coordinates.
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the second cell
-     * @param int $row2 Numeric row coordinate of the second cell
-     *
-     * @return $this
-     */
-    public function addTableByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2): self
-    {
-        $cellRange = Coordinate::stringFromColumnIndex($columnIndex1) . $row1 . ':' . Coordinate::stringFromColumnIndex($columnIndex2) . $row2;
-
-        $table = new Table($cellRange);
-        $table->setWorksheet($this);
-        $this->addTable($table);
-
-        return $this;
-    }
-
-    /**
      * Remove Table by name.
      *
      * @param string $name Table name

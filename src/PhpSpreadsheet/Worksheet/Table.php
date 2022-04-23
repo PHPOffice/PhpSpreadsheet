@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -61,12 +62,13 @@ class Table
     /**
      * Create a new Table.
      *
-     * @param string $range (e.g. A1:D4)
+     * @param AddressRange|array<int>|string $range
+     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
+     *              or an AddressRange object.
      * @param string $name (e.g. Table1)
-     *
-     * @return $this
      */
-    public function __construct(string $range = '', string $name = '')
+    public function __construct($range = '', string $name = '')
     {
         $this->setRange($range);
         $this->setName($name);
@@ -161,11 +163,18 @@ class Table
 
     /**
      * Set Table Cell Range.
+     *
+     * @param AddressRange|array<int>|string $range
+     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
+     *              or an AddressRange object.
      */
-    public function setRange(string $range): self
+    public function setRange($range = ''): self
     {
         // extract coordinate
-        [$worksheet, $range] = Worksheet::extractSheetTitle($range, true);
+        if ($range !== '') {
+            [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
+        }
         if (empty($range)) {
             //    Discard all column rules
             $this->columns = [];
