@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Functions
 {
@@ -686,12 +685,13 @@ class Functions
         // Uppercase coordinate
         $pCoordinatex = strtoupper($coordinate);
         // Eliminate leading equal sign
-        $pCoordinatex = Worksheet::pregReplace('/^=/', '', $pCoordinatex);
+        $pCoordinatex = (string) preg_replace('/^=/', '', $pCoordinatex);
         $defined = $spreadsheet->getDefinedName($pCoordinatex, $worksheet);
         if ($defined !== null) {
             $worksheet2 = $defined->getWorkSheet();
             if (!$defined->isFormula() && $worksheet2 !== null) {
-                $coordinate = "'" . $worksheet2->getTitle() . "'!" . Worksheet::pregReplace('/^=/', '', $defined->getValue());
+                $coordinate = "'" . $worksheet2->getTitle() . "'!" .
+                    (string) preg_replace('/^=/', '', $defined->getValue());
             }
         }
 
@@ -700,7 +700,7 @@ class Functions
 
     public static function trimTrailingRange(string $coordinate): string
     {
-        return Worksheet::pregReplace('/:[\\w\$]+$/', '', $coordinate);
+        return (string) preg_replace('/:[\\w\$]+$/', '', $coordinate);
     }
 
     public static function trimSheetFromCellReference(string $coordinate): string
