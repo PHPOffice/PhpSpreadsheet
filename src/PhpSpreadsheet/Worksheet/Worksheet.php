@@ -112,6 +112,13 @@ class Worksheet implements IComparable
     private $chartCollection;
 
     /**
+     * Collection of Table objects.
+     *
+     * @var ArrayObject<int, Table>
+     */
+    private $tableCollection;
+
+    /**
      * Worksheet title.
      *
      * @var string
@@ -375,7 +382,10 @@ class Worksheet implements IComparable
         $this->defaultRowDimension = new RowDimension(null);
         // Default column dimension
         $this->defaultColumnDimension = new ColumnDimension(null);
+        // AutoFilter
         $this->autoFilter = new AutoFilter('', $this);
+        // Table collection
+        $this->tableCollection = new ArrayObject();
     }
 
     /**
@@ -2091,6 +2101,58 @@ class Worksheet implements IComparable
     public function removeAutoFilter(): self
     {
         $this->autoFilter->setRange('');
+
+        return $this;
+    }
+
+    /**
+     * Get collection of Tables.
+     *
+     * @return ArrayObject<int, Table>
+     */
+    public function getTableCollection()
+    {
+        return $this->tableCollection;
+    }
+
+    /**
+     * Add Table.
+     *
+     * @return $this
+     */
+    public function addTable(Table $table): self
+    {
+        $table->setWorksheet($this);
+        $this->tableCollection[] = $table;
+
+        return $this;
+    }
+
+    /**
+     * Remove Table by name.
+     *
+     * @param string $name Table name
+     *
+     * @return $this
+     */
+    public function removeTableByName(string $name): self
+    {
+        $name = Shared\StringHelper::strToUpper($name);
+        foreach ($this->tableCollection as $key => $table) {
+            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+                unset($this->tableCollection[$key]);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove collection of Tables.
+     */
+    public function removeTableCollection(): self
+    {
+        $this->tableCollection = new ArrayObject();
 
         return $this;
     }
