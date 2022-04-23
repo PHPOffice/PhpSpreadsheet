@@ -20,4 +20,4 @@ Checklist:
 ### Why this change is needed?
 
 Provide an explanation of why this change is needed, with links to any Issues (if appropriate).
-If this is a bugfix or a new feature, and there are no existing Issues, then please also create an issue that will mae it easier to track progress with this PR.
+If this is a bugfix or a new feature, and there are no existing Issues, then please also create an issue that will make it easier to track progress with this PR.
