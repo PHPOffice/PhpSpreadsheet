@@ -26,6 +26,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   Ranges and Rules are read, but style is currently limited to font size, weight and color; and to fill style and color.
 
 - Add ability to suppress Mac line ending check for CSV [#2623](https://github.com/PHPOffice/PhpSpreadsheet/pull/2623)
+- Initial support for creating and writing Tables (Xlsx Writer only) [PR #2671](https://github.com/PHPOffice/PhpSpreadsheet/pull/2671)
+
+  See `/samples/Table` for examples of use.
+
+  Note that PreCalculateFormulas needs to be disabled when saving spreadsheets containing tables with formulae (totals or column formulae).
 
 ### Changed
 
