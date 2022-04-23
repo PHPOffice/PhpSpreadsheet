@@ -5182,7 +5182,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$id of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeRelationship\\(\\) expects int, string given\\.$#"
-			count: 4
+			count: 5
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
