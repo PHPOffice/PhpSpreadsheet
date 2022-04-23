@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 
 class Table
@@ -226,10 +227,11 @@ class Table
     {
         if ($this->name !== '' && $worksheet !== null) {
             $spreadsheet = $worksheet->getParent();
+            $tableName = StringHelper::strToUpper($this->name);
 
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
                 foreach ($sheet->getTableCollection() as $table) {
-                    if ($table->getName() === $this->name) {
+                    if (StringHelper::strToUpper($table->getName()) === $tableName) {
                         throw new PhpSpreadsheetException("Workbook already contains a table named '{$this->name}'");
                     }
                 }

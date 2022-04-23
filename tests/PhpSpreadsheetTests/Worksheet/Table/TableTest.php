@@ -87,7 +87,7 @@ class TableTest extends SetupTeardown
         $sheet->addTable($table1);
 
         $table2 = new Table();
-        $table2->setName('Table_1');
+        $table2->setName('table_1'); // case insensitive
         $sheet->addTable($table2);
     }
 

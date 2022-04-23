@@ -18,7 +18,7 @@ class RemoveTableTest extends SetupTeardown
 
         self::assertEquals(1, $sheet->getTableCollection()->count());
 
-        $sheet->removeTableByName('Table1');
+        $sheet->removeTableByName('table1'); // case insensitive
         self::assertEquals(0, $sheet->getTableCollection()->count());
     }
 

@@ -2158,8 +2158,9 @@ class Worksheet implements IComparable
      */
     public function removeTableByName(string $name): self
     {
+        $name = Shared\StringHelper::strToUpper($name);
         foreach ($this->tableCollection as $key => $table) {
-            if ($table->getName() === $name) {
+            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
                 unset($this->tableCollection[$key]);
             }
         }
