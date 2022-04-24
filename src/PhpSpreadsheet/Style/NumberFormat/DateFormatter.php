@@ -123,12 +123,12 @@ class DateFormatter
         // general syntax: [$<Currency string>-<language info>]
         // language info is in hexadecimal
         // strip off chinese part like [DBNum1][$-804]
-        $format = preg_replace('/^(\[DBNum\d\])*(\[\$[^\]]*\])/i', '', $format) ?? '';
+        $format = (string) preg_replace('/^(\[DBNum\d\])*(\[\$[^\]]*\])/i', '', $format);
 
         // OpenOffice.org uses upper-case number formats, e.g. 'YYYY', convert to lower-case;
         //    but we don't want to change any quoted strings
         /** @var callable */
-        $callable = ['self', 'setLowercaseCallback'];
+        $callable = [self::class, 'setLowercaseCallback'];
         $format = preg_replace_callback('/(?:^|")([^"]*)(?:$|")/', $callable, $format);
 
         // Only process the non-quoted blocks for date format characters
@@ -159,14 +159,14 @@ class DateFormatter
 
         // escape any quoted characters so that DateTime format() will render them correctly
         /** @var callable */
-        $callback = ['self', 'escapeQuotesCallback'];
-        $format = preg_replace_callback('/"(.*)"/U', $callback, $format) ?? '';
+        $callback = [self::class, 'escapeQuotesCallback'];
+        $format = (string) preg_replace_callback('/"(.*)"/U', $callback, $format);
 
         $dateObj = Date::excelToDateTimeObject($value);
         // If the colon preceding minute had been quoted, as happens in
         // Excel 2003 XML formats, m will not have been changed to i above.
         // Change it now.
-        $format = \preg_replace('/\\\\:m/', ':i', $format) ?? '';
+        $format = (string) \preg_replace('/\\\\:m/', ':i', $format);
 
         return $dateObj->format($format);
     }
