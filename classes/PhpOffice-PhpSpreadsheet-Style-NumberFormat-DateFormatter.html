@@ -110,86 +110,10 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements">$dateFormatReplacements</a>
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS">DATE_FORMAT_REPLACEMENTS</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-<dd>Search/replace values to convert Excel date/time format masks to PHP format masks.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements12">$dateFormatReplacements12</a>
-    <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-<dd>Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements24">$dateFormatReplacements24</a>
-    <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-<dd>Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).</dd>
-
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_format">format()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_escapeQuotesCallback">escapeQuotesCallback()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_setLowercaseCallback">setLowercaseCallback()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd></dd>
-
-        </dl>
-
-
-
-        
-
-        
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
-        </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_dateFormatReplacements">
-        $dateFormatReplacements
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">14</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks to PHP format masks.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$dateFormatReplacements</span>
-     = <span class="phpdocumentor-signature__default-value">[
+        &nbsp;= [
     // first remove escapes related to non-format characters
     &#039;\&#039; =&gt; &#039;&#039;,
     //    12-hour suffix
@@ -210,10 +134,6 @@
     //    It isn&#039;t perfect, but the best way I know how
     &#039;:mm&#039; =&gt; &#039;:i&#039;,
     &#039;mm:&#039; =&gt; &#039;i:&#039;,
-    //    month leading zero
-    &#039;mm&#039; =&gt; &#039;m&#039;,
-    //    month no leading zero
-    &#039;m&#039; =&gt; &#039;n&#039;,
     //    full day of week name
     &#039;dddd&#039; =&gt; &#039;l&#039;,
     //    short day of week name
@@ -222,82 +142,457 @@
     &#039;dd&#039; =&gt; &#039;d&#039;,
     //    days no leading zero
     &#039;d&#039; =&gt; &#039;j&#039;,
-    //    seconds
-    &#039;ss&#039; =&gt; &#039;s&#039;,
     //    fractional seconds - no php equivalent
     &#039;.s&#039; =&gt; &#039;&#039;,
-]</span></code>
+]                    </span>
+</dt>
+<dd>Search/replace values to convert Excel date/time format masks to PHP format masks.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS12">DATE_FORMAT_REPLACEMENTS12</a>
+    <span>
+        &nbsp;= [
+    &#039;hh&#039; =&gt; &#039;h&#039;,
+    &#039;h&#039; =&gt; &#039;g&#039;,
+    //    month leading zero
+    &#039;mm&#039; =&gt; &#039;m&#039;,
+    //    month no leading zero
+    &#039;m&#039; =&gt; &#039;n&#039;,
+    //    seconds
+    &#039;ss&#039; =&gt; &#039;s&#039;,
+]                    </span>
+</dt>
+<dd>Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS24">DATE_FORMAT_REPLACEMENTS24</a>
+    <span>
+        &nbsp;= [
+    &#039;hh&#039; =&gt; &#039;H&#039;,
+    &#039;h&#039; =&gt; &#039;G&#039;,
+    //    month leading zero
+    &#039;mm&#039; =&gt; &#039;m&#039;,
+    //    month no leading zero
+    &#039;m&#039; =&gt; &#039;n&#039;,
+    //    seconds
+    &#039;ss&#039; =&gt; &#039;s&#039;,
+]                    </span>
+</dt>
+<dd>Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_HOURS_IN_DAY">HOURS_IN_DAY</a>
+    <span>
+        &nbsp;= 24                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_LEADING_ZERO">INTERVAL_LEADING_ZERO</a>
+    <span>
+        &nbsp;= [&#039;[hh]&#039;, &#039;[mm]&#039;, &#039;[ss]&#039;]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_MULTIPLIER">INTERVAL_MULTIPLIER</a>
+    <span>
+        &nbsp;= [&#039;[h]&#039; =&gt; self::HOURS_IN_DAY, &#039;[hh]&#039; =&gt; self::HOURS_IN_DAY, &#039;[m]&#039; =&gt; self::MINUTES_IN_DAY, &#039;[mm]&#039; =&gt; self::MINUTES_IN_DAY, &#039;[s]&#039; =&gt; self::SECONDS_IN_DAY, &#039;[ss]&#039; =&gt; self::SECONDS_IN_DAY]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_PRECISION">INTERVAL_PRECISION</a>
+    <span>
+        &nbsp;= 10                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_ROUND_PRECISION">INTERVAL_ROUND_PRECISION</a>
+    <span>
+        &nbsp;= [
+    // hours and minutes truncate
+    &#039;[h]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[hh]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[m]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[mm]&#039; =&gt; self::INTERVAL_PRECISION,
+    // seconds round
+    &#039;[s]&#039; =&gt; 0,
+    &#039;[ss]&#039; =&gt; 0,
+]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_MINUTES_IN_DAY">MINUTES_IN_DAY</a>
+    <span>
+        &nbsp;= 60 * self::HOURS_IN_DAY                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_SECONDS_IN_DAY">SECONDS_IN_DAY</a>
+    <span>
+        &nbsp;= 60 * self::MINUTES_IN_DAY                    </span>
+</dt>
+<dd></dd>
+
+                    <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_format">format()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_escapeQuotesCallback">escapeQuotesCallback()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_setLowercaseCallback">setLowercaseCallback()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_tryInterval">tryInterval()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+        </dl>
+
+
+
+        
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_DATE_FORMAT_REPLACEMENTS">
+        DATE_FORMAT_REPLACEMENTS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks to PHP format masks.</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DATE_FORMAT_REPLACEMENTS</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    // first remove escapes related to non-format characters
+    &#039;\&#039; =&gt; &#039;&#039;,
+    //    12-hour suffix
+    &#039;am/pm&#039; =&gt; &#039;A&#039;,
+    //    4-digit year
+    &#039;e&#039; =&gt; &#039;Y&#039;,
+    &#039;yyyy&#039; =&gt; &#039;Y&#039;,
+    //    2-digit year
+    &#039;yy&#039; =&gt; &#039;y&#039;,
+    //    first letter of month - no php equivalent
+    &#039;mmmmm&#039; =&gt; &#039;M&#039;,
+    //    full month name
+    &#039;mmmm&#039; =&gt; &#039;F&#039;,
+    //    short month name
+    &#039;mmm&#039; =&gt; &#039;M&#039;,
+    //    mm is minutes if time, but can also be month w/leading zero
+    //    so we try to identify times be the inclusion of a : separator in the mask
+    //    It isn&#039;t perfect, but the best way I know how
+    &#039;:mm&#039; =&gt; &#039;:i&#039;,
+    &#039;mm:&#039; =&gt; &#039;i:&#039;,
+    //    full day of week name
+    &#039;dddd&#039; =&gt; &#039;l&#039;,
+    //    short day of week name
+    &#039;ddd&#039; =&gt; &#039;D&#039;,
+    //    days leading zero
+    &#039;dd&#039; =&gt; &#039;d&#039;,
+    //    days no leading zero
+    &#039;d&#039; =&gt; &#039;j&#039;,
+    //    fractional seconds - no php equivalent
+    &#039;.s&#039; =&gt; &#039;&#039;,
+]</span>
+</code>
+
 
         <section class="phpdocumentor-description"></section>
 
     
 
 </article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_dateFormatReplacements12">
-        $dateFormatReplacements12
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements12" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_DATE_FORMAT_REPLACEMENTS12">
+        DATE_FORMAT_REPLACEMENTS12
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS12" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
+
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 </aside>
 
         <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$dateFormatReplacements12</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;hh&#039; =&gt; &#039;h&#039;, &#039;h&#039; =&gt; &#039;g&#039;]</span></code>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DATE_FORMAT_REPLACEMENTS12</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    &#039;hh&#039; =&gt; &#039;h&#039;,
+    &#039;h&#039; =&gt; &#039;g&#039;,
+    //    month leading zero
+    &#039;mm&#039; =&gt; &#039;m&#039;,
+    //    month no leading zero
+    &#039;m&#039; =&gt; &#039;n&#039;,
+    //    seconds
+    &#039;ss&#039; =&gt; &#039;s&#039;,
+]</span>
+</code>
+
 
         <section class="phpdocumentor-description"></section>
 
     
 
 </article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_dateFormatReplacements24">
-        $dateFormatReplacements24
-        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#property_dateFormatReplacements24" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_DATE_FORMAT_REPLACEMENTS24">
+        DATE_FORMAT_REPLACEMENTS24
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_DATE_FORMAT_REPLACEMENTS24" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
+
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 </aside>
 
         <p class="phpdocumentor-summary">Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$dateFormatReplacements24</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;hh&#039; =&gt; &#039;H&#039;, &#039;h&#039; =&gt; &#039;G&#039;]</span></code>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DATE_FORMAT_REPLACEMENTS24</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    &#039;hh&#039; =&gt; &#039;H&#039;,
+    &#039;h&#039; =&gt; &#039;G&#039;,
+    //    month leading zero
+    &#039;mm&#039; =&gt; &#039;m&#039;,
+    //    month no leading zero
+    &#039;m&#039; =&gt; &#039;n&#039;,
+    //    seconds
+    &#039;ss&#039; =&gt; &#039;s&#039;,
+]</span>
+</code>
+
 
         <section class="phpdocumentor-description"></section>
 
     
 
 </article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_HOURS_IN_DAY">
+        HOURS_IN_DAY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_HOURS_IN_DAY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">73</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">HOURS_IN_DAY</span>
+    = <span class="phpdocumentor-signature__default-value">24</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_INTERVAL_LEADING_ZERO">
+        INTERVAL_LEADING_ZERO
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_LEADING_ZERO" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">INTERVAL_LEADING_ZERO</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;[hh]&#039;, &#039;[mm]&#039;, &#039;[ss]&#039;]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_INTERVAL_MULTIPLIER">
+        INTERVAL_MULTIPLIER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_MULTIPLIER" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">92</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">INTERVAL_MULTIPLIER</span>
+    = <span class="phpdocumentor-signature__default-value">[&#039;[h]&#039; =&gt; self::HOURS_IN_DAY, &#039;[hh]&#039; =&gt; self::HOURS_IN_DAY, &#039;[m]&#039; =&gt; self::MINUTES_IN_DAY, &#039;[mm]&#039; =&gt; self::MINUTES_IN_DAY, &#039;[s]&#039; =&gt; self::SECONDS_IN_DAY, &#039;[ss]&#039; =&gt; self::SECONDS_IN_DAY]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_INTERVAL_PRECISION">
+        INTERVAL_PRECISION
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_PRECISION" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">INTERVAL_PRECISION</span>
+    = <span class="phpdocumentor-signature__default-value">10</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_INTERVAL_ROUND_PRECISION">
+        INTERVAL_ROUND_PRECISION
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_INTERVAL_ROUND_PRECISION" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">82</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">INTERVAL_ROUND_PRECISION</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    // hours and minutes truncate
+    &#039;[h]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[hh]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[m]&#039; =&gt; self::INTERVAL_PRECISION,
+    &#039;[mm]&#039; =&gt; self::INTERVAL_PRECISION,
+    // seconds round
+    &#039;[s]&#039; =&gt; 0,
+    &#039;[ss]&#039; =&gt; 0,
+]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_MINUTES_IN_DAY">
+        MINUTES_IN_DAY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_MINUTES_IN_DAY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">74</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MINUTES_IN_DAY</span>
+    = <span class="phpdocumentor-signature__default-value">60 * self::HOURS_IN_DAY</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_SECONDS_IN_DAY">
+        SECONDS_IN_DAY
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#constant_SECONDS_IN_DAY" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">75</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SECONDS_IN_DAY</span>
+    = <span class="phpdocumentor-signature__default-value">60 * self::MINUTES_IN_DAY</span>
+</code>
+
+
+    
+    
+
+</article>
             </section>
+
+        
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -317,7 +612,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">120</span>
 </aside>
 
     
@@ -325,7 +620,8 @@
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">format</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-    
+        <section class="phpdocumentor-description"></section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -333,7 +629,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"></section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$format</span>
@@ -366,20 +663,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">escapeQuotesCallback</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matches</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">escapeQuotesCallback</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matches</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$matches</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -408,20 +705,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setLowercaseCallback</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matches</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setLowercaseCallback</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$matches</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$matches</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -432,6 +729,71 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tryInterval">
+        tryInterval()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-DateFormatter.html#method_tryInterval" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-dateformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php">DateFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">102</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">tryInterval</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$seekingBracket</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$block</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$seekingBracket</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$block</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$format</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

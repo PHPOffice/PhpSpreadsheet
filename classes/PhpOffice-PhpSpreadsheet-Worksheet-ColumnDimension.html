@@ -583,7 +583,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Auto Size.</p>
@@ -787,7 +787,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Width.</p>
@@ -796,9 +796,10 @@
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">getWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unitOfMeasure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
-        <section class="phpdocumentor-description"><p>Each unit of column width is equal to the width of one character in the default font size.
-By default, this will be the return value; but this method also accepts a unit of measure argument and will
-return the value converted to the specified UoM using an approximation method.</p>
+        <section class="phpdocumentor-description"><p>Each unit of column width is equal to the width of one character in the default font size. A value of -1
+tells Excel to display this column in its default width.
+By default, this will be the return value; but this method also accepts an optional unit of measure argument
+and will convert the returned value to the specified UoM..</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -868,7 +869,7 @@ return the value converted to the specified UoM using an approximation method.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Auto Size.</p>
@@ -1133,7 +1134,7 @@ return the value converted to the specified UoM using an approximation method.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php"><a href="files/src-phpspreadsheet-worksheet-columndimension.html"><abbr title="src/PhpSpreadsheet/Worksheet/ColumnDimension.php">ColumnDimension.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Width.</p>
@@ -1142,9 +1143,11 @@ return the value converted to the specified UoM using an approximation method.</
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">setWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$width</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unitOfMeasure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
-        <section class="phpdocumentor-description"><p>Each unit of column width is equal to the width of one character in the default font size.
-By default, this will be the unit of measure for the passed value; but this method accepts a unit of measure
-argument, and will convert the value from the specified UoM using an approximation method.</p>
+        <section class="phpdocumentor-description"><p>Each unit of column width is equal to the width of one character in the default font size. A value of -1
+tells Excel to display this column in its default width.
+By default, this will be the unit of measure for the passed value; but this method also accepts an
+optional unit of measure argument, and will convert the value from the specified UoM using an
+approximation method.</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
