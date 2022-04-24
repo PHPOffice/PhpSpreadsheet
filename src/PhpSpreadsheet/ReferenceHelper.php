@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ReferenceHelper
@@ -90,8 +91,8 @@ class ReferenceHelper
      */
     public static function cellSort($a, $b)
     {
-        [$ac, $ar] = sscanf($a, '%[A-Z]%d');
-        [$bc, $br] = sscanf($b, '%[A-Z]%d');
+        sscanf($a, '%[A-Z]%d', $ac, $ar);
+        sscanf($b, '%[A-Z]%d', $bc, $br);
 
         if ($ar === $br) {
             return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
@@ -111,8 +112,8 @@ class ReferenceHelper
      */
     public static function cellReverseSort($a, $b)
     {
-        [$ac, $ar] = sscanf($a, '%[A-Z]%d');
-        [$bc, $br] = sscanf($b, '%[A-Z]%d');
+        sscanf($a, '%[A-Z]%d', $ac, $ar);
+        sscanf($b, '%[A-Z]%d', $bc, $br);
 
         if ($ar === $br) {
             return -strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
@@ -496,6 +497,9 @@ class ReferenceHelper
 
         // Update worksheet: autofilter
         $this->adjustAutoFilter($worksheet, $beforeCellAddress, $numberOfColumns);
+
+        // Update worksheet: table
+        $this->adjustTable($worksheet, $beforeCellAddress, $numberOfColumns);
 
         // Update worksheet: freeze pane
         if ($worksheet->getFreezePane()) {
@@ -1021,6 +1025,85 @@ class ReferenceHelper
 
         do {
             $autoFilter->shiftColumn($startColID, $toColID);
+            ++$startColID;
+            ++$toColID;
+        } while ($startColID !== $endColID);
+    }
+
+    private function adjustTable(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns): void
+    {
+        $tableCollection = $worksheet->getTableCollection();
+
+        foreach ($tableCollection as $table) {
+            $tableRange = $table->getRange();
+            if (!empty($tableRange)) {
+                if ($numberOfColumns !== 0) {
+                    $tableColumns = $table->getColumns();
+                    if (count($tableColumns) > 0) {
+                        $column = '';
+                        $row = 0;
+                        sscanf($beforeCellAddress, '%[A-Z]%d', $column, $row);
+                        $columnIndex = Coordinate::columnIndexFromString($column);
+                        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($tableRange);
+                        if ($columnIndex <= $rangeEnd[0]) {
+                            if ($numberOfColumns < 0) {
+                                $this->adjustTableDeleteRules($columnIndex, $numberOfColumns, $tableColumns, $table);
+                            }
+                            $startCol = ($columnIndex > $rangeStart[0]) ? $columnIndex : $rangeStart[0];
+
+                            //    Shuffle columns in table range
+                            if ($numberOfColumns > 0) {
+                                $this->adjustTableInsert($startCol, $numberOfColumns, $rangeEnd[0], $table);
+                            } else {
+                                $this->adjustTableDelete($startCol, $numberOfColumns, $rangeEnd[0], $table);
+                            }
+                        }
+                    }
+                }
+
+                $table->setRange($this->updateCellReference($tableRange));
+            }
+        }
+    }
+
+    private function adjustTableDeleteRules(int $columnIndex, int $numberOfColumns, array $tableColumns, Table $table): void
+    {
+        // If we're actually deleting any columns that fall within the table range,
+        //    then we delete any rules for those columns
+        $deleteColumn = $columnIndex + $numberOfColumns - 1;
+        $deleteCount = abs($numberOfColumns);
+
+        for ($i = 1; $i <= $deleteCount; ++$i) {
+            $columnName = Coordinate::stringFromColumnIndex($deleteColumn + 1);
+            if (isset($tableColumns[$columnName])) {
+                $table->clearColumn($columnName);
+            }
+            ++$deleteColumn;
+        }
+    }
+
+    private function adjustTableInsert(int $startCol, int $numberOfColumns, int $rangeEnd, Table $table): void
+    {
+        $startColRef = $startCol;
+        $endColRef = $rangeEnd;
+        $toColRef = $rangeEnd + $numberOfColumns;
+
+        do {
+            $table->shiftColumn(Coordinate::stringFromColumnIndex($endColRef), Coordinate::stringFromColumnIndex($toColRef));
+            --$endColRef;
+            --$toColRef;
+        } while ($startColRef <= $endColRef);
+    }
+
+    private function adjustTableDelete(int $startCol, int $numberOfColumns, int $rangeEnd, Table $table): void
+    {
+        // For delete, we shuffle from beginning to end to avoid overwriting
+        $startColID = Coordinate::stringFromColumnIndex($startCol);
+        $toColID = Coordinate::stringFromColumnIndex($startCol + $numberOfColumns);
+        $endColID = Coordinate::stringFromColumnIndex($rangeEnd + 1);
+
+        do {
+            $table->shiftColumn($startColID, $toColID);
             ++$startColID;
             ++$toColID;
         } while ($startColID !== $endColID);

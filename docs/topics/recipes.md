@@ -1167,13 +1167,15 @@ that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
 `cm` (centimeters) and `mm` (millimeters).
 
+Setting the column width to `-1` tells MS Excel to display the column using its default width.  
+
 ```php
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(120, 'pt');
 ```
 
 If you want PhpSpreadsheet to perform an automatic width calculation,
-use the following code. PhpSpreadsheet will approximate the column with
-to the width of the widest column value.
+use the following code. PhpSpreadsheet will approximate the column width
+to the width of the widest value displayed in that column.
 
 ```php
 $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -1265,6 +1267,18 @@ Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
 ```php
 $spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(100, 'pt');
 ```
+
+Setting the row height to `-1` tells MS Excel to display the column using its default height, which is based on the character font size.
+
+If you have wrapped text in a cell, then the `-1` default will only set the row height to display a single line of that wrapped text.
+If you need to calculate the actual height for the row, then count the lines that should be displayed (count the `\n` and add 1); then adjust for the font.
+The adjustment for Calibri 11 is approximately 14.5; for Calibri 12 15.9, etc.
+```php
+$spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(
+    14.5 * (substr_count($sheet->getCell('A1')->getValue(), "\n") + 1)
+);
+```
+
 
 ## Show/hide a row
 

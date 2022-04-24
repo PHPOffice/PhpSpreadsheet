@@ -163,10 +163,11 @@ class Rels extends WriterPart
      *
      * @param int $worksheetId
      * @param bool $includeCharts Flag indicating if we should write charts
+     * @param int $tableRef Table ID
      *
      * @return string XML Output
      */
-    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $worksheetId = 1, $includeCharts = false)
+    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $worksheetId = 1, $includeCharts = false, $tableRef = 1)
     {
         // Create XML writer
         $objWriter = null;
@@ -249,6 +250,17 @@ class Rels extends WriterPart
                 '_comments' . $i,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments',
                 '../comments' . $worksheetId . '.xml'
+            );
+        }
+
+        // Write Table
+        $tableCount = $worksheet->getTableCollection()->count();
+        for ($i = 1; $i <= $tableCount; ++$i) {
+            $this->writeRelationship(
+                $objWriter,
+                '_table_' . $i,
+                'http://schemas.openxmlformats.org/officeDocument/2006/relationships/table',
+                '../tables/table' . $tableRef++ . '.xml'
             );
         }
 

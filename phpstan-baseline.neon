@@ -127,7 +127,7 @@ parameters:
 
 		-
 			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
-			count: 3
+			count: 5
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -1172,11 +1172,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:getHashCode\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
@@ -3121,11 +3116,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4296,11 +4286,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Result of && is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -4651,11 +4636,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
@@ -4669,11 +4649,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
-			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
@@ -5177,7 +5152,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$id of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeRelationship\\(\\) expects int, string given\\.$#"
-			count: 4
+			count: 5
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-
