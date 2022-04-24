@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Standardize;
 use PHPUnit\Framework\TestCase;
 
 class StandardizeTest extends TestCase
@@ -15,7 +15,7 @@ class StandardizeTest extends TestCase
      */
     public function testSTANDARDIZE($expectedResult, ...$args): void
     {
-        $result = Statistical::STANDARDIZE(...$args);
+        $result = Standardize::execute(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

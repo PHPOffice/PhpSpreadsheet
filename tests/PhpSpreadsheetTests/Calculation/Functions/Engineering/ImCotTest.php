@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +31,7 @@ class ImCotTest extends TestCase
      */
     public function testIMCOT($expectedResult, $value): void
     {
-        $result = Engineering::IMCOT($value);
+        $result = ComplexFunctions::IMCOT($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

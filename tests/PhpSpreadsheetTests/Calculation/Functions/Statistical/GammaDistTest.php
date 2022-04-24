@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma;
 use PHPUnit\Framework\TestCase;
 
 class GammaDistTest extends TestCase
@@ -21,7 +21,7 @@ class GammaDistTest extends TestCase
      */
     public function testGAMMADIST($expectedResult, ...$args): void
     {
-        $result = Statistical::GAMMADIST(...$args);
+        $result = Gamma::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

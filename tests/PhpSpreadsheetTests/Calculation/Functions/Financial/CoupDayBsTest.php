@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CoupDayBsTest extends TestCase
      */
     public function testCOUPDAYBS($expectedResult, ...$args): void
     {
-        $result = Financial::COUPDAYBS(...$args);
+        $result = Coupons::COUPDAYBS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

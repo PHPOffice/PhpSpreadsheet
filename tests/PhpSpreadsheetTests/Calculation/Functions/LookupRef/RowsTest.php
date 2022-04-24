@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PHPUnit\Framework\TestCase;
 
 class RowsTest extends TestCase
@@ -21,7 +21,7 @@ class RowsTest extends TestCase
      */
     public function testROWS($expectedResult, ...$args): void
     {
-        $result = LookupRef::ROWS(...$args);
+        $result = RowColumnInformation::ROWS(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

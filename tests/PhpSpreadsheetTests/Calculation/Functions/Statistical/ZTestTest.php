@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal;
 use PHPUnit\Framework\TestCase;
 
 class ZTestTest extends TestCase
@@ -18,7 +18,7 @@ class ZTestTest extends TestCase
      */
     public function testZTEST($expectedResult, $dataSet, $value, $sigma = null): void
     {
-        $result = Statistical::ZTEST($dataSet, $value, $sigma);
+        $result = StandardNormal::zTest($dataSet, $value, $sigma);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

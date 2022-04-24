@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations;
 use PHPUnit\Framework\TestCase;
 
 class DevSqTest extends TestCase
@@ -20,7 +20,7 @@ class DevSqTest extends TestCase
      */
     public function testDEVSQ($expectedResult, ...$args): void
     {
-        $result = Statistical::DEVSQ(...$args);
+        $result = Deviations::sumSquares(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

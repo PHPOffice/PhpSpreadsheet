@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
 use PHPUnit\Framework\TestCase;
 
 class PermutTest extends TestCase
@@ -21,7 +21,7 @@ class PermutTest extends TestCase
      */
     public function testPERMUT($expectedResult, ...$args): void
     {
-        $result = Statistical::PERMUT(...$args);
+        $result = Permutations::PERMUT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

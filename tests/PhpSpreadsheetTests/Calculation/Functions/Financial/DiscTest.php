@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class DiscTest extends TestCase
      */
     public function testDISC($expectedResult, ...$args): void
     {
-        $result = Financial::DISC(...$args);
+        $result = Rates::discount(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +30,7 @@ class ImPowerTest extends TestCase
      */
     public function testIMPOWER($expectedResult, ...$args): void
     {
-        $result = Engineering::IMPOWER(...$args);
+        $result = ComplexFunctions::IMPOWER(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

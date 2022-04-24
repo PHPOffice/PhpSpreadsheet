@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +31,7 @@ class ImLnTest extends TestCase
      */
     public function testIMLN($expectedResult, $value): void
     {
-        $result = Engineering::IMLN($value);
+        $result = ComplexFunctions::IMLN($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

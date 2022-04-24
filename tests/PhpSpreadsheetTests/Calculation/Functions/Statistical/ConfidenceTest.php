@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence;
 use PHPUnit\Framework\TestCase;
 
 class ConfidenceTest extends TestCase
@@ -21,7 +21,7 @@ class ConfidenceTest extends TestCase
      */
     public function testCONFIDENCE($expectedResult, ...$args): void
     {
-        $result = Statistical::CONFIDENCE(...$args);
+        $result = Confidence::CONFIDENCE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

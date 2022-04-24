@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
 use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
@@ -21,7 +21,7 @@ class IndexTest extends TestCase
      */
     public function testINDEX($expectedResult, ...$args): void
     {
-        $result = LookupRef::INDEX(...$args);
+        $result = Matrix::index(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

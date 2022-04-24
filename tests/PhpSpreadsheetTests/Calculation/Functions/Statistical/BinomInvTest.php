@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial;
 use PHPUnit\Framework\TestCase;
 
 class BinomInvTest extends TestCase
@@ -21,7 +21,7 @@ class BinomInvTest extends TestCase
      */
     public function testBINOMINV($expectedResult, ...$args): void
     {
-        $result = Statistical::CRITBINOM(...$args);
+        $result = Binomial::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

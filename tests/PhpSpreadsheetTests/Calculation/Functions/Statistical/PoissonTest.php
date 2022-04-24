@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Poisson;
 use PHPUnit\Framework\TestCase;
 
 class PoissonTest extends TestCase
@@ -21,7 +21,7 @@ class PoissonTest extends TestCase
      */
     public function testPOISSON($expectedResult, ...$args): void
     {
-        $result = Statistical::POISSON(...$args);
+        $result = Poisson::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class CountIfsTest extends TestCase
@@ -20,7 +20,7 @@ class CountIfsTest extends TestCase
      */
     public function testCOUNTIFS($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNTIFS(...$args);
+        $result = Conditional::COUNTIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

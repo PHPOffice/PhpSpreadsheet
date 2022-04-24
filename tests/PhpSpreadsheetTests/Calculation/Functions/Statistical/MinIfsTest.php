@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class MinIfsTest extends TestCase
@@ -20,7 +20,7 @@ class MinIfsTest extends TestCase
      */
     public function testMINIFS($expectedResult, ...$args): void
     {
-        $result = Statistical::MINIFS(...$args);
+        $result = Conditional::MINIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

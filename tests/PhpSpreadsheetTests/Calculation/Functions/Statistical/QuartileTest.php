@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles;
 use PHPUnit\Framework\TestCase;
 
 class QuartileTest extends TestCase
@@ -20,7 +20,7 @@ class QuartileTest extends TestCase
      */
     public function testQUARTILE($expectedResult, ...$args): void
     {
-        $result = Statistical::QUARTILE(...$args);
+        $result = Percentiles::QUARTILE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

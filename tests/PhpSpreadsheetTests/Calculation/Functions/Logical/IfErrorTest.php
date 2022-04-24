@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class IfErrorTest extends TestCase
@@ -23,7 +23,7 @@ class IfErrorTest extends TestCase
      */
     public function testIFERROR($expectedResult, $value, $return): void
     {
-        $result = Logical::IFERROR($value, $return);
+        $result = Conditional::IFERROR($value, $return);
         self::assertEquals($expectedResult, $result);
     }
 

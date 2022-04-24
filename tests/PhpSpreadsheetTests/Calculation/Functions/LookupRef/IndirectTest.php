@@ -122,14 +122,4 @@ class IndirectTest extends AllSetupTeardown
             self::assertSame('INDIRECT("CURRENCY_"&Sheet1!$D$1)', $formula->getFormula());
         }
     }
-
-    public function testDeprecatedCall(): void
-    {
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue('A2');
-        $sheet->getCell('A2')->setValue('This is it');
-        $result = \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));
-        $result = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenSingleValue($result);
-        self::assertSame('This is it', $result);
-    }
 }

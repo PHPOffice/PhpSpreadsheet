@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Address;
 use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
@@ -21,7 +21,7 @@ class AddressTest extends TestCase
      */
     public function testADDRESS($expectedResult, ...$args): void
     {
-        $result = LookupRef::cellAddress(...$args);
+        $result = Address::cell(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

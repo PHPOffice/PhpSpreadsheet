@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial;
 use PHPUnit\Framework\TestCase;
 
 class BinomDistTest extends TestCase
@@ -21,7 +21,7 @@ class BinomDistTest extends TestCase
      */
     public function testBINOMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::BINOMDIST(...$args);
+        $result = Binomial::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

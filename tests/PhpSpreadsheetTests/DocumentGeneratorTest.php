@@ -33,7 +33,7 @@ class DocumentGeneratorTest extends TestCase
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical\Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -44,7 +44,7 @@ class DocumentGeneratorTest extends TestCase
 Excel Function           | Category                       | PhpSpreadsheet Function
 -------------------------|--------------------------------|--------------------------------------
 ABS                      | CATEGORY_MATH_AND_TRIG         | abs
-AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 
 ## I
 
@@ -64,7 +64,7 @@ EXPECTED
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical\Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -104,7 +104,7 @@ Excel Function           | PhpSpreadsheet Function
 
 Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
-AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 IFS                      | **Not yet Implemented**
 
 ## CATEGORY_LOOKUP_AND_REFERENCE

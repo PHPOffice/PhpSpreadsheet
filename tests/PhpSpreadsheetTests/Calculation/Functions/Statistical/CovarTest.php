@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class CovarTest extends TestCase
@@ -20,7 +20,7 @@ class CovarTest extends TestCase
      */
     public function testCOVAR($expectedResult, ...$args): void
     {
-        $result = Statistical::COVAR(...$args);
+        $result = Trends::COVAR(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Counts;
 use PHPUnit\Framework\TestCase;
 
 class CountBlankTest extends TestCase
@@ -20,7 +20,7 @@ class CountBlankTest extends TestCase
      */
     public function testCOUNTBLANK($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNTBLANK(...$args);
+        $result = Counts::COUNTBLANK(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

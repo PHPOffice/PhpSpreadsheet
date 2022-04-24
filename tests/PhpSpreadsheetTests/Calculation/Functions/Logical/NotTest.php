@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PHPUnit\Framework\TestCase;
 
 class NotTest extends TestCase
@@ -16,9 +16,9 @@ class NotTest extends TestCase
     public function testNOT($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Logical::NOT();
+            $result = Operations::NOT();
         } else {
-            $result = Logical::NOT($args[0]);
+            $result = Operations::NOT($args[0]);
         }
         self::assertEquals($expectedResult, $result);
     }

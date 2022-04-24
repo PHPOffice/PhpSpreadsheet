@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 use PHPUnit\Framework\TestCase;
 
 class StDevATest extends TestCase
@@ -21,7 +21,7 @@ class StDevATest extends TestCase
      */
     public function testSTDEVA($expectedResult, $values): void
     {
-        $result = Statistical::STDEVA($values);
+        $result = StandardDeviations::STDEVA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +40,7 @@ class StDevATest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Statistical::STDEVA($values);
+        $result = StandardDeviations::STDEVA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

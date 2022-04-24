@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateTimeHelper;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,7 @@ class DProductTest extends TestCase
      */
     public function testDProduct($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DPRODUCT($database, $field, $criteria);
+        $result = DProduct::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
@@ -45,18 +45,18 @@ class DProductTest extends TestCase
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
-            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test1', 4],
-            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTime::getDateValue('01-Jan-2017'), 'Test3', 3],
-            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTime::getDateValue('05-Jan-2017'), 'Test3', 3],
-            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test1', 2],
-            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test2', 3],
-            ['Kev', DateTime::getDateValue('02-Jan-2017'), 'Test3', 5],
-            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test2', 2],
-            ['Kev', DateTime::getDateValue('05-Jan-2017'), 'Test3', 5],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test1', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test3', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test1', 2],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test2', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test3', 5],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 2],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 5],
         ];
     }
 

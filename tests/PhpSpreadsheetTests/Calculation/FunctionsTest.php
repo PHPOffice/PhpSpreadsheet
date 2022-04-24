@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -86,12 +85,6 @@ class FunctionsTest extends TestCase
     public function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
-    }
-
-    public function testDeprecatedIsFormula(): void
-    {
-        $result = Functions::isFormula('="STRING"');
-        self::assertEquals(ExcelError::REF(), $result);
     }
 
     public function testScalar(): void

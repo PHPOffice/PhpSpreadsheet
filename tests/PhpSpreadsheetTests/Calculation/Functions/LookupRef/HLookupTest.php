@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\HLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -74,7 +74,7 @@ class HLookupTest extends TestCase
         // Some old tests called function directly using array of strings;
         // ensure these work as before.
         $expectedResult = '#REF!';
-        $result = LookupRef::HLOOKUP(
+        $result = HLookup::lookup(
             'Selection column',
             ['Selection column', 'Value to retrieve'],
             5,
@@ -82,7 +82,7 @@ class HLookupTest extends TestCase
         );
         self::assertSame($expectedResult, $result);
         $expectedResult = 'Value to retrieve';
-        $result = LookupRef::HLOOKUP(
+        $result = HLookup::lookup(
             'Selection column',
             ['Selection column', 'Value to retrieve'],
             2,

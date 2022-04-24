@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StandardNormal;
 use PHPUnit\Framework\TestCase;
 
 class GaussTest extends TestCase
@@ -16,7 +16,7 @@ class GaussTest extends TestCase
      */
     public function testGAUSS($expectedResult, $testValue): void
     {
-        $result = Statistical::GAUSS($testValue);
+        $result = StandardNormal::gauss($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PHPUnit\Framework\TestCase;
 
 class XorTest extends TestCase
@@ -20,7 +20,7 @@ class XorTest extends TestCase
      */
     public function testXOR($expectedResult, ...$args): void
     {
-        $result = Logical::logicalXor(...$args);
+        $result = Operations::logicalXor(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

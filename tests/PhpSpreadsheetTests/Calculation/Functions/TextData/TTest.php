@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Text;
 use PHPUnit\Framework\TestCase;
 
 class TTest extends TestCase
@@ -16,7 +16,7 @@ class TTest extends TestCase
      */
     public function testT($expectedResult, $value): void
     {
-        $result = TextData::RETURNSTRING($value);
+        $result = Text::test($value);
         self::assertEquals($expectedResult, $result);
     }
 

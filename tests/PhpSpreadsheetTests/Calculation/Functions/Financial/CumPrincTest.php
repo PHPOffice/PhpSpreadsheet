@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Cumulative;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CumPrincTest extends TestCase
      */
     public function testCUMPRINC($expectedResult, ...$args): void
     {
-        $result = Financial::CUMPRINC(...$args);
+        $result = Cumulative::principal(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

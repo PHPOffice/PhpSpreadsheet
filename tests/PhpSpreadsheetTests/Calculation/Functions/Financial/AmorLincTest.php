@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class AmorLincTest extends TestCase
      */
     public function testAMORLINC($expectedResult, ...$args): void
     {
-        $result = Financial::AMORLINC(...$args);
+        $result = Amortization::AMORLINC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

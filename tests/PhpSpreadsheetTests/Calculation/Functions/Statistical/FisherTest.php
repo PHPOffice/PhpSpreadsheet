@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Fisher;
 use PHPUnit\Framework\TestCase;
 
 class FisherTest extends TestCase
@@ -22,7 +22,7 @@ class FisherTest extends TestCase
      */
     public function testFISHER($expectedResult, $value): void
     {
-        $result = Statistical::FISHER($value);
+        $result = Fisher::distribution($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

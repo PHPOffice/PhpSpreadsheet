@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT;
 use PHPUnit\Framework\TestCase;
 
 class TinvTest extends TestCase
@@ -17,7 +17,7 @@ class TinvTest extends TestCase
      */
     public function testTINV($expectedResult, $probability, $degrees): void
     {
-        $result = Statistical::TINV($probability, $degrees);
+        $result = StudentT::inverse($probability, $degrees);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
