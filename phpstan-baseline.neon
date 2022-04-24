@@ -4076,36 +4076,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:setLowercaseCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$format of method DateTime\\:\\:format\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
