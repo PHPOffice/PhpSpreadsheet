@@ -3155,7 +3155,8 @@ class Calculation
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    if ($i = !$i) {
+                    $i = !$i;
+                    if ($i) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
                 }
@@ -3830,7 +3831,8 @@ class Calculation
                 $i = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    if ($i = !$i) {
+                    $i = !$i;
+                    if ($i) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
                         $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
@@ -4479,7 +4481,7 @@ class Calculation
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
-                            $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
+                            $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
                         }
 
                         [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
@@ -4488,21 +4490,19 @@ class Calculation
                         }
 
                         if (trim($sheet1, "'") === trim($sheet2, "'")) {
-                            if ($operand1Data['reference'] === null) {
+                            if ($operand1Data['reference'] === null && $cell !== null) {
                                 if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand1Data['reference']) == '') {
+                                } elseif (trim($operand1Data['value']) == '') {
                                     $operand1Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand1Data['reference'] = $operand1Data['value'] . $cell->getRow();
                                 }
                             }
-                            if ($operand2Data['reference'] === null) {
+                            if ($operand2Data['reference'] === null && $cell !== null) {
                                 if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand2Data['reference']) == '') {
+                                } elseif (trim($operand2Data['value']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand2Data['reference'] = $operand2Data['value'] . $cell->getRow();
@@ -4715,7 +4715,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result for cell %s in worksheet %s is %s', $cellRef, $matches[2], $this->showTypeDetails($cellValue));
                         } else {
                             $this->debugLog->writeDebugLog('Evaluating Cell %s in current worksheet', $cellRef);
-                            if ($pCellParent->has($cellRef)) {
+                            if ($pCellParent !== null && $pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $cell->attach($pCellParent);
                             } else {
@@ -5171,7 +5171,7 @@ class Calculation
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($range, $worksheet);
+            $namedRange = DefinedName::resolveName($range, /** @scrutinizer ignore-type */ $worksheet);
             if ($namedRange === null) {
                 return Information\ExcelError::REF();
             }
