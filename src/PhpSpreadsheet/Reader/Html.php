@@ -27,13 +27,6 @@ class Html extends BaseReader
     const TEST_SAMPLE_SIZE = 2048;
 
     /**
-     * Input encoding.
-     *
-     * @var string
-     */
-    protected $inputEncoding = 'ANSI';
-
-    /**
      * Sheet index to read.
      *
      * @var int
@@ -210,38 +203,6 @@ class Html extends BaseReader
         return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
-    /**
-     * Set input encoding.
-     *
-     * @param string $inputEncoding Input encoding, eg: 'ANSI'
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no use is made of this property
-     */
-    public function setInputEncoding($inputEncoding)
-    {
-        $this->inputEncoding = $inputEncoding;
-
-        return $this;
-    }
-
-    /**
-     * Get input encoding.
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no use is made of this property
-     */
-    public function getInputEncoding()
-    {
-        return $this->inputEncoding;
-    }
-
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
 
     /** @var array */
@@ -255,7 +216,7 @@ class Html extends BaseReader
 
     protected function setTableStartColumn(string $column): string
     {
-        if ($this->tableLevel == 0) {
+        if ($this->tableLevel === 0) {
             $column = 'A';
         }
         ++$this->tableLevel;
