@@ -20,6 +20,7 @@ class Issue2778Test extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame(6, $sheet->getCell('D1')->getCalculatedValue());
         self::assertSame(63, $sheet->getCell('F1')->getCalculatedValue());
+        self::assertSame(10, $sheet->getCell('C10')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
     }
 }
