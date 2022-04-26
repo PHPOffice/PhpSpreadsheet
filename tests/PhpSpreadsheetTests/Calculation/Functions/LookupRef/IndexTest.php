@@ -38,7 +38,7 @@ class IndexTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=INDEX({$matrix}, {$rows}, {$columns})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

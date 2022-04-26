@@ -100,7 +100,7 @@ class Oct2HexTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=OCT2HEX({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

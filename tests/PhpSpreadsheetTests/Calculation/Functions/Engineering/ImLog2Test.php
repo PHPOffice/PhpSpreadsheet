@@ -51,7 +51,7 @@ class ImLog2Test extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMLOG2({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

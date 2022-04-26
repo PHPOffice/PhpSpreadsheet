@@ -38,7 +38,7 @@ class GammaInvTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=GAMMA.INV({$values}, {$alpha}, {$beta})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

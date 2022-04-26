@@ -38,7 +38,7 @@ class IsNaTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ISNA({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

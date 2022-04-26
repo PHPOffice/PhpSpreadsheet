@@ -43,7 +43,7 @@ class ErfTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ERF({$lower}, {$upper})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

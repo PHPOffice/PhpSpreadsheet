@@ -40,7 +40,7 @@ class IfErrorTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IFERROR({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

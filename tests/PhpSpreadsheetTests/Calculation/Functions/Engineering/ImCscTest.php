@@ -51,7 +51,7 @@ class ImCscTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMCSC({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         // Avoid testing for excess precision
         foreach ($expectedResult as &$array) {
             foreach ($array as &$string) {

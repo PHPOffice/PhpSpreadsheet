@@ -36,7 +36,7 @@ class NotTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NOT({$argument1})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

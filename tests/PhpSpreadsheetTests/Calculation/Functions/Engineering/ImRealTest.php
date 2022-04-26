@@ -41,7 +41,7 @@ class ImRealTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMREAL({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

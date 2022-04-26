@@ -40,7 +40,7 @@ class ArrayFormulaTest extends TestCase
      */
     public function testArrayFormula(string $formula, $expectedResult): void
     {
-        $result = Calculation::getInstance()->_calculateFormulaValue($formula);
+        $result = Calculation::getInstance()->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

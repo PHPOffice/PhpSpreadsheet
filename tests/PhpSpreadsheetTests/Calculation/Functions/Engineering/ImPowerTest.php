@@ -50,7 +50,7 @@ class ImPowerTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMPOWER({$complex}, {$real})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

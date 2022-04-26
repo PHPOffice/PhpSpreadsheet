@@ -38,7 +38,7 @@ class IsErrTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ISERR({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

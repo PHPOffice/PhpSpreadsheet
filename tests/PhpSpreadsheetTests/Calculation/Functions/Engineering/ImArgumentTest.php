@@ -41,7 +41,7 @@ class ImArgumentTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMARGUMENT({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

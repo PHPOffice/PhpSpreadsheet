@@ -37,7 +37,7 @@ class HypGeomDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=HYPGEOMDIST({$sampleSuccesses}, {$sampleNumber}, {$populationSuccesses}, {$populationNumber})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

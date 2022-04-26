@@ -38,7 +38,7 @@ class LookupTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=LOOKUP({$values}, {$lookup}, {$return})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -41,7 +41,7 @@ class ImaginaryTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMAGINARY({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

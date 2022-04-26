@@ -41,7 +41,7 @@ class ImAbsTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMABS({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

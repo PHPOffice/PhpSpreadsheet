@@ -38,7 +38,7 @@ class MatchTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=MATCH({$values}, {$selections}, 0)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

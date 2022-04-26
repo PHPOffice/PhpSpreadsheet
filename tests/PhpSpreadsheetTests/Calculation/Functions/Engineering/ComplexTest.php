@@ -40,7 +40,7 @@ class ComplexTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=COMPLEX({$real}, {$imaginary})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

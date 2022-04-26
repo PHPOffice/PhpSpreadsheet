@@ -68,7 +68,7 @@ class ConvertUoMTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=CONVERT({$value}, {$fromUoM}, {$toUoM})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -42,7 +42,7 @@ class NegBinomDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NEGBINOMDIST({$failures}, {$successes}, {$probabilities})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

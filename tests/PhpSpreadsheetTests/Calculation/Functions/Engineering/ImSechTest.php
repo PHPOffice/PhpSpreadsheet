@@ -51,7 +51,7 @@ class ImSechTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMSECH({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

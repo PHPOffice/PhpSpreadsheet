@@ -38,7 +38,7 @@ class RowsTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ROWS({$argument})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

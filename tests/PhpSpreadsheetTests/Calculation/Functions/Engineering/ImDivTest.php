@@ -50,7 +50,7 @@ class ImDivTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMDIV({$dividend}, {$divisor})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

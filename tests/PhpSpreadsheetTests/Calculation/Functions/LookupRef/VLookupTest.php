@@ -38,7 +38,7 @@ class VLookupTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=VLOOKUP({$values}, {$database}, {$index}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

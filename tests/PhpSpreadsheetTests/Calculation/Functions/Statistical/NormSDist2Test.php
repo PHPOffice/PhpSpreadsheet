@@ -32,7 +32,7 @@ class NormSDist2Test extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NORM.S.DIST({$values}, true)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -38,7 +38,7 @@ class IsNumberTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ISNUMBER({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

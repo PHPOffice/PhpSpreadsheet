@@ -40,7 +40,7 @@ class IfNaTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IFNA({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

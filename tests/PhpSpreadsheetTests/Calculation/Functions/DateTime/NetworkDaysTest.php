@@ -64,7 +64,7 @@ class NetworkDaysTest extends AllSetupTeardown
         } else {
             $formula = "=NETWORKDAYS({$startDate}, {$endDays}, {$holidays})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

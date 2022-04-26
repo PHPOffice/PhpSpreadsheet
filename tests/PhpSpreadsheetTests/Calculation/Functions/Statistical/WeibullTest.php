@@ -36,7 +36,7 @@ class WeibullTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=WEIBULL({$values}, {$alpha}, {$beta}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

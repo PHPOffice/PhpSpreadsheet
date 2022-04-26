@@ -38,7 +38,7 @@ class IsNonTextTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ISNONTEXT({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

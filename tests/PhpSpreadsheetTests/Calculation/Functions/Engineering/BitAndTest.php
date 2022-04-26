@@ -40,7 +40,7 @@ class BitAndTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BITAND({$number1}, {$number2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

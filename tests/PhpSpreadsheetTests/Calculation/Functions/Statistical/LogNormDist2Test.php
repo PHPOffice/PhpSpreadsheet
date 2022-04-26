@@ -32,7 +32,7 @@ class LogNormDist2Test extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=LOGNORM.DIST({$values}, {$mean}, {$stdDev}, true)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

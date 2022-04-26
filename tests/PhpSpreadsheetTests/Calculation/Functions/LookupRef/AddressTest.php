@@ -38,7 +38,7 @@ class AddressTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ADDRESS({$argument1}, {$argument2}, 4)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

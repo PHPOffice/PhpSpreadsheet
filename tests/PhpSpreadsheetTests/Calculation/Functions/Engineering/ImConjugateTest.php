@@ -51,7 +51,7 @@ class ImConjugateTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMCONJUGATE({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

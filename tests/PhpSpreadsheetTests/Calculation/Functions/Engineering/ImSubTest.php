@@ -50,7 +50,7 @@ class ImSubTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMSUB({$subidend}, {$subisor})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

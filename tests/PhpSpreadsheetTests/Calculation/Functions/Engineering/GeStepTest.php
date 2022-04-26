@@ -40,7 +40,7 @@ class GeStepTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=GESTEP({$a}, {$b})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 
