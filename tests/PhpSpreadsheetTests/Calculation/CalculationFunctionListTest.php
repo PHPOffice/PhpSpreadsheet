@@ -34,21 +34,15 @@ class CalculationFunctionListTest extends TestCase
         $calculation->setLocale($this->locale);
     }
 
-    /**
-     * @dataProvider providerGetFunctions
-     *
-     * @param string $category
-     * @param array|string $functionCall
-     * @param string $argumentCount
-     */
-    public function testGetFunctions(/** @scrutinizer ignore-unused */ $category, $functionCall, /** @scrutinizer ignore-unused */ $argumentCount): void
+    public function testGetFunctions(): void
     {
-        self::assertIsCallable($functionCall);
-    }
+        $functionList = Calculation::getInstance()->getFunctions();
 
-    public function providerGetFunctions(): array
-    {
-        return Calculation::getInstance()->getFunctions();
+        foreach ($functionList as $function) {
+            if ($function !== null) {
+                self::assertIsCallable($function->functionCall);
+            }
+        }
     }
 
     public function testIsImplemented(): void

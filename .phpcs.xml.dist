@@ -19,4 +19,8 @@
     <rule ref="PSR12">
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
     </rule>
+
+    <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+        <exclude-pattern>*/src/PhpSpreadsheet/Calculation/Engine/Functions/*</exclude-pattern>
+    </rule>
 </ruleset>

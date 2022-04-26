@@ -7,10 +7,7 @@ use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 require_once 'vendor/autoload.php';
 
 try {
-    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
-        ->getProperty('phpSpreadsheetFunctions');
-    $phpSpreadsheetFunctionsProperty->setAccessible(true);
-    $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+    $phpSpreadsheetFunctions = Calculation::getInstance()->getFunctions();
 
     $localeGenerator = new LocaleGenerator(
         realpath(__DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/'),
