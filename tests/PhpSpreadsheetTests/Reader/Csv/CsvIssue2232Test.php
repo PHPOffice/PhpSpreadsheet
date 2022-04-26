@@ -78,7 +78,10 @@ class CsvIssue2232Test extends TestCase
             Cell::setValueBinder($binder);
         }
 
-        Calculation::getInstance()->setLocale('fr');
+        $localeChanged = Calculation::getInstance()->setLocale('fr');
+        if ($localeChanged === false) {
+            self::markTestSkipped('Unable to set locale');
+        }
 
         $reader = new Csv();
         $filename = 'tests/data/Reader/CSV/issue.2232.csv';
