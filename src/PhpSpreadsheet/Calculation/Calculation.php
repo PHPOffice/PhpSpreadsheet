@@ -4491,7 +4491,9 @@ class Calculation
 
                         if (trim($sheet1, "'") === trim($sheet2, "'")) {
                             if ($operand1Data['reference'] === null && $cell !== null) {
-                                if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
+                                if (is_array($operand1Data['value'])) {
+                                    $operand1Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
                                 } elseif (trim($operand1Data['value']) == '') {
                                     $operand1Data['reference'] = $cell->getCoordinate();
@@ -4500,7 +4502,9 @@ class Calculation
                                 }
                             }
                             if ($operand2Data['reference'] === null && $cell !== null) {
-                                if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
+                                if (is_array($operand2Data['value'])) {
+                                    $operand2Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
                                 } elseif (trim($operand2Data['value']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
