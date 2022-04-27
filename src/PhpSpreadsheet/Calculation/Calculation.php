@@ -542,6 +542,16 @@ class Calculation
             'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
             'argumentCount' => '2+',
         ],
+        'CHOOSECOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
+        'CHOOSEROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
         'CLEAN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Trim::class, 'nonPrintable'],
@@ -904,6 +914,11 @@ class Calculation
             'functionCall' => [Database\DProduct::class, 'evaluate'],
             'argumentCount' => '3',
         ],
+        'DROP' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'DSTDEV' => [
             'category' => Category::CATEGORY_DATABASE,
             'functionCall' => [Database\DStDev::class, 'evaluate'],
@@ -998,6 +1013,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Exp::class, 'evaluate'],
             'argumentCount' => '1',
+        ],
+        'EXPAND' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'EXPONDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -1260,6 +1280,11 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\TimeParts::class, 'hour'],
             'argumentCount' => '1',
+        ],
+        'HSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
         ],
         'HYPERLINK' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2407,6 +2432,11 @@ class Calculation
             'functionCall' => [TextData\Text::class, 'test'],
             'argumentCount' => '1',
         ],
+        'TAKE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
@@ -2457,10 +2487,25 @@ class Calculation
             'functionCall' => [TextData\Format::class, 'TEXTFORMAT'],
             'argumentCount' => '2',
         ],
+        'TEXTAFTER' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
+        'TEXTBEFORE' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
+        ],
+        'TEXTSPLIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-5',
         ],
         'THAIDAYOFWEEK' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -2526,6 +2571,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Current::class, 'today'],
             'argumentCount' => '0',
+        ],
+        'TOCOL' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
+        ],
+        'TOROW' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
         ],
         'TRANSPOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2647,6 +2702,11 @@ class Calculation
             'functionCall' => [LookupRef\VLookup::class, 'lookup'],
             'argumentCount' => '3,4',
         ],
+        'VSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
+        ],
         'WEBSERVICE' => [
             'category' => Category::CATEGORY_WEB,
             'functionCall' => [Web\Service::class, 'webService'],
@@ -2681,6 +2741,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2-4',
+        ],
+        'WRAPCOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
+        'WRAPROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
