@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -150,9 +151,11 @@ class Cells
     public function getSortedCoordinates()
     {
         $sortKeys = [];
-        foreach ($this->getCoordinates() as $coord) {
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
+        foreach ($this->getCoordinates() as $coordinate) {
+            sscanf($coordinate, '%[A-Z]%d', $column, $row);
+//            $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
+            $key = (--$row * 16384) + Coordinate::columnIndexFromString($column);
+            $sortKeys[$key] = $coordinate;
         }
         ksort($sortKeys);
 
@@ -389,6 +392,8 @@ class Cells
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
+//        [$column, $row] = Coordinate::indexesFromString($cellCoordinate);
+//        $this->index[$cellCoordinate] = (($row - 1) * 16384) + $column;
         $this->index[$cellCoordinate] = true;
 
         $this->currentCoordinate = $cellCoordinate;
