@@ -353,9 +353,8 @@ abstract class Coordinate
         }
 
         $cellList = array_merge(...$cells);
-        $cellList = self::sortCellReferenceArray($cellList);
 
-        return $cellList;
+        return self::sortCellReferenceArray($cellList);
     }
 
     private static function processRangeSetOperators(array $operators, array $cells): array
@@ -382,9 +381,10 @@ abstract class Coordinate
     {
         //    Sort the result by column and row
         $sortKeys = [];
-        foreach ($cellList as $coord) {
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
+        foreach ($cellList as $coordinate) {
+            sscanf($coordinate, '%[A-Z]%d', $column, $row);
+            $key = (--$row * 16384) + self::columnIndexFromString($column);
+            $sortKeys[$key] = $coordinate;
         }
         ksort($sortKeys);
 
