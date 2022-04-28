@@ -317,7 +317,9 @@ class Cells
 
         // Store new values
         $stored = $newCollection->cache->setMultiple($newValues);
-        $this->destructIfNeeded($stored, $newCollection, 'Failed to copy cells in cache');
+        if ($stored === false) {
+            $this->destructIfNeeded($newCollection, 'Failed to copy cells in cache');
+        }
 
         return $newCollection;
     }
@@ -362,7 +364,9 @@ class Cells
             $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
-            $this->destructIfNeeded($stored, $this, "Failed to store cell {$this->currentCoordinate} in cache");
+            if ($stored === false) {
+                $this->destructIfNeeded($this, "Failed to store cell {$this->currentCoordinate} in cache");
+            }
             $this->currentCellIsDirty = false;
         }
 
@@ -370,13 +374,11 @@ class Cells
         $this->currentCell = null;
     }
 
-    private function destructIfNeeded(bool $stored, self $cells, string $message): void
+    private function destructIfNeeded(self $cells, string $message): void
     {
-        if (!$stored) {
-            $cells->__destruct();
+        $cells->__destruct();
 
-            throw new PhpSpreadsheetException($message);
-        }
+        throw new PhpSpreadsheetException($message);
     }
 
     /**
@@ -416,7 +418,7 @@ class Cells
         $this->storeCurrentCell();
 
         // Return null if requested entry doesn't exist in collection
-        if (!$this->has($cellCoordinate)) {
+        if ($this->has($cellCoordinate) === false) {
             return null;
         }
 

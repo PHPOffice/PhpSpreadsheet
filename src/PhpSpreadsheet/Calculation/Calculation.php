@@ -5236,8 +5236,6 @@ class Calculation
             $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             $range = "'" . $worksheetName . "'" . '!' . $range;
             if (!isset($aReferences[1])) {
-                $currentCol = '';
-                $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet->cellExists($aReferences[0])) {
@@ -5248,8 +5246,6 @@ class Calculation
             } else {
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
-                    $currentCol = '';
-                    $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet->cellExists($reference)) {
