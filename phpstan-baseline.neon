@@ -1156,16 +1156,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
 			message: "#^Parameter \\#4 \\$currentRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
@@ -3116,11 +3106,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
@@ -4081,36 +4066,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:setLowercaseCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$format of method DateTime\\:\\:format\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
@@ -4681,11 +4636,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
@@ -4699,11 +4649,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
-			message: "#^Parameter \\#1 \\$content of method XMLWriter\\:\\:text\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
 
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
@@ -5217,7 +5162,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$id of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeRelationship\\(\\) expects int, string given\\.$#"
-			count: 4
+			count: 5
 			path: src/PhpSpreadsheet/Writer/Xlsx/Rels.php
 
 		-

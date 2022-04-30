@@ -115,7 +115,7 @@ class Properties
         // Initialise values
         $this->lastModifiedBy = $this->creator;
         $this->created = self::intOrFloatTimestamp(null);
-        $this->modified = self::intOrFloatTimestamp(null);
+        $this->modified = $this->created;
     }
 
     /**

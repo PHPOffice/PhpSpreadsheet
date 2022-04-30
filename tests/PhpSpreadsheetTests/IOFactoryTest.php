@@ -108,6 +108,22 @@ class IOFactoryTest extends TestCase
         ];
     }
 
+    public function testFormatAsExpected(): void
+    {
+        $fileName = 'samples/templates/30template.xls';
+
+        $actual = IOFactory::identify($fileName, [IOFactory::READER_XLS]);
+        self::assertSame('Xls', $actual);
+    }
+
+    public function testFormatNotAsExpectedThrowsException(): void
+    {
+        $fileName = 'samples/templates/30template.xls';
+
+        $this->expectException(ReaderException::class);
+        IOFactory::identify($fileName, [IOFactory::READER_ODS]);
+    }
+
     public function testIdentifyNonExistingFileThrowException(): void
     {
         $this->expectException(ReaderException::class);
