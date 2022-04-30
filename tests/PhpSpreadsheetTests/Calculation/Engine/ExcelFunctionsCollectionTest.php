@@ -32,7 +32,7 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
-        $excelFunctionDefinition = $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        $excelFunctionDefinition = $excelFunctionCollection['ABS'];
         self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
         self::assertSame('ABS', $excelFunctionDefinition->name);
 
@@ -45,7 +45,7 @@ class ExcelFunctionsCollectionTest extends TestCase
         self::expectExceptionMessage('Action not permitted');
 
         $excelFunctionCollection = new ExcelFunctions();
-        $excelFunctionDefinition = $excelFunctionCollection['ABS']; // @phpstan-ignore-line
+        $excelFunctionDefinition = $excelFunctionCollection['ABS'];
         self::assertInstanceOf(XlFunctionAbstract::class, $excelFunctionDefinition);
         self::assertSame('ABS', $excelFunctionDefinition->name);
 
