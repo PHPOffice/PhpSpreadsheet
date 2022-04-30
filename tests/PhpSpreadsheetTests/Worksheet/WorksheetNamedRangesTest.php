@@ -72,7 +72,7 @@ class WorksheetNamedRangesTest extends TestCase
         $namedCell = 'GOODBYE';
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Invalid cell coordinate {$namedCell}");
+//        $this->expectExceptionMessage("Invalid cell coordinate {$namedCell}");
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->getCell($namedCell);
@@ -84,7 +84,7 @@ class WorksheetNamedRangesTest extends TestCase
         $ucNamedCell = strtoupper($namedCell);
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Invalid cell coordinate {$ucNamedCell}");
+//        $this->expectExceptionMessage("Invalid cell coordinate {$ucNamedCell}");
 
         $worksheet = $this->spreadsheet->getActiveSheet();
         $worksheet->getCell($namedCell);
