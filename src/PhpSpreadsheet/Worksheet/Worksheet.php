@@ -1336,12 +1336,12 @@ class Worksheet implements IComparable
      */
     public function createNewCell($coordinate)
     {
+        [$column, $row] = Coordinate::coordinateFromString($coordinate);
         $cell = new Cell(null, DataType::TYPE_NULL, $this);
         $this->cellCollection->add($coordinate, $cell);
         $this->cellCollectionIsSorted = false;
 
         // Coordinates
-        [$column, $row] = Coordinate::coordinateFromString($coordinate);
         $aIndexes = Coordinate::indexesFromString($coordinate);
         if ($this->cachedHighestColumn < $aIndexes[0]) {
             $this->cachedHighestColumn = $aIndexes[0];
