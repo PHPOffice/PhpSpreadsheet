@@ -12,6 +12,8 @@ use Psr\SimpleCache\CacheInterface;
 
 class Cells
 {
+    protected const MAX_COLUMN_ID = 16384;
+
     /**
      * @var CacheInterface
      */
@@ -46,9 +48,10 @@ class Cells
     private $currentCellIsDirty = false;
 
     /**
-     * An index of existing cells. Booleans indexed by their coordinate.
+     * An index of existing cells. int pointer to the coordinate (0-base-indexed row * 16,384 + 1-base indexed column)
+     *    indexed by their coordinate.
      *
-     * @var bool[]
+     * @var int[]
      */
     private $index = [];
 
@@ -150,15 +153,9 @@ class Cells
      */
     public function getSortedCoordinates()
     {
-        $sortKeys = [];
-        foreach ($this->getCoordinates() as $coordinate) {
-            sscanf($coordinate, '%[A-Z]%d', $column, $row);
-            $key = (--$row * 16384) + Coordinate::columnIndexFromString($column);
-            $sortKeys[$key] = $coordinate;
-        }
-        ksort($sortKeys);
+        asort($this->index);
 
-        return array_values($sortKeys);
+        return array_keys($this->index);
     }
 
     /**
@@ -203,21 +200,17 @@ class Cells
     public function getHighestRowAndColumn()
     {
         // Lookup highest column and highest row
-        $columns = ['1A'];
-        $rows = [1];
-        foreach ($this->getCoordinates() as $coordinate) {
-            sscanf($coordinate, '%[A-Z]%d', $column, $row);
-            $rows[$row] = $rows[$row] ?? $row;
-            $columns[$column] = $columns[$column] ?? strlen($column) . $column;
+        $maxRow = $maxColumn = 1;
+        foreach ($this->index as $coordinate) {
+            $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+            $maxRow = ($maxRow > $row) ? $maxRow : $row;
+            $column = $coordinate % self::MAX_COLUMN_ID;
+            $maxColumn = ($maxColumn > $column) ? $maxColumn : $column;
         }
 
-        // Determine highest column and row
-        $highestRow = max($rows);
-        $highestColumn = substr((string) max($columns), 1);
-
         return [
-            'row' => $highestRow,
-            'column' => $highestColumn,
+            'row' => $maxRow,
+            'column' => Coordinate::stringFromColumnIndex($maxColumn),
         ];
     }
 
@@ -235,17 +228,23 @@ class Cells
             return $this->getHighestRowAndColumn()['column'];
         }
 
-        $maxColumn = '1A';
-        foreach ($this->getCoordinates() as $coord) {
-            sscanf($coord, '%[A-Z]%d', $c, $r);
-            if ($r != $row) {
-                continue;
-            }
-            $sortableColum = strlen($c) . $c;
-            $maxColumn = $maxColumn > $sortableColum ? $maxColumn : $sortableColum;
+        $row = (int) $row;
+        if ($row <= 0) {
+            throw new PhpSpreadsheetException('Row number must be a positive integer');
         }
 
-        return substr($maxColumn, 1);
+        $maxColumn = 1;
+        $toRow = $row * self::MAX_COLUMN_ID;
+        $fromRow = --$row * self::MAX_COLUMN_ID;
+        foreach ($this->index as $coordinate) {
+            if ($coordinate < $fromRow || $coordinate > $toRow) {
+                continue;
+            }
+            $column = $coordinate % self::MAX_COLUMN_ID;
+            $maxColumn = $maxColumn > $column ? $maxColumn : $column;
+        }
+
+        return Coordinate::stringFromColumnIndex($maxColumn);
     }
 
     /**
@@ -263,12 +262,13 @@ class Cells
         }
 
         $maxRow = 1;
-        foreach ($this->getCoordinates() as $coord) {
-            sscanf($coord, '%[A-Z]%d', $c, $r);
-            if ($c != $column) {
+        $columnIndex = Coordinate::columnIndexFromString($column);
+        foreach ($this->index as $coordinate) {
+            if ($coordinate % self::MAX_COLUMN_ID !== $columnIndex) {
                 continue;
             }
-            $maxRow = ($maxRow > $r) ? $maxRow : $r;
+            $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+            $maxRow = ($maxRow > $row) ? $maxRow : $row;
         }
 
         return $maxRow;
@@ -327,14 +327,23 @@ class Cells
     /**
      * Remove a row, deleting all cells in that row.
      *
-     * @param string $row Row number to remove
+     * @param int|string $row Row number to remove
      */
     public function removeRow($row): void
     {
-        foreach ($this->getCoordinates() as $coord) {
-            sscanf($coord, '%[A-Z]%d', $c, $r);
-            if ($r == $row) {
-                $this->delete($coord);
+        $this->storeCurrentCell();
+        $row = (int) $row;
+        if ($row <= 0) {
+            throw new PhpSpreadsheetException('Row number must be a positive integer');
+        }
+
+        $toRow = $row * self::MAX_COLUMN_ID;
+        $fromRow = --$row * self::MAX_COLUMN_ID;
+        foreach ($this->index as $coordinate) {
+            if ($coordinate >= $fromRow && $coordinate < $toRow) {
+                $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+                $column = Coordinate::stringFromColumnIndex($coordinate % self::MAX_COLUMN_ID);
+                $this->delete("{$column}{$row}");
             }
         }
     }
@@ -346,10 +355,14 @@ class Cells
      */
     public function removeColumn($column): void
     {
-        foreach ($this->getCoordinates() as $coord) {
-            sscanf($coord, '%[A-Z]%d', $c, $r);
-            if ($c == $column) {
-                $this->delete($coord);
+        $this->storeCurrentCell();
+
+        $columnIndex = Coordinate::columnIndexFromString($column);
+        foreach ($this->index as $coordinate) {
+            if ($coordinate % self::MAX_COLUMN_ID === $columnIndex) {
+                $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+                $column = Coordinate::stringFromColumnIndex($coordinate % self::MAX_COLUMN_ID);
+                $this->delete("{$column}{$row}");
             }
         }
     }
@@ -394,7 +407,8 @@ class Cells
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
-        $this->index[$cellCoordinate] = true;
+        sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
+        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString($column);
 
         $this->currentCoordinate = $cellCoordinate;
         $this->currentCell = $cell;

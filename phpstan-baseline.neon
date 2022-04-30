@@ -4261,16 +4261,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\:\\:removeRow\\(\\) expects string, int\\<1, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
