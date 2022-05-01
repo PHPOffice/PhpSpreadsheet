@@ -71,7 +71,7 @@ class Chart
                         $chartDetailsC = $chartDetails->children($namespacesChartMeta['c']);
                         switch ($chartDetailsKey) {
                             case 'plotArea':
-                                $plotAreaLayout = $XaxisLable = $YaxisLable = null;
+                                $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
                                 $plotSeries = $plotAttributes = [];
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     switch ($chartDetailKey) {
