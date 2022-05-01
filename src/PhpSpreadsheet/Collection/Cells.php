@@ -297,28 +297,17 @@ class Cells
         $newCollection = clone $this;
 
         $newCollection->parent = $worksheet;
-        if (is_object($newCollection->currentCell)) {
-            $newCollection->currentCell->attach($this);
-        }
-
-        // Get old values
-        $oldKeys = $newCollection->getAllCacheKeys();
-        $oldValues = $newCollection->cache->getMultiple($oldKeys);
-        $newValues = [];
-        $oldCachePrefix = $newCollection->cachePrefix;
-
-        // Change prefix
         $newCollection->cachePrefix = $newCollection->getUniqueID();
-        foreach ($oldValues as $oldKey => $value) {
-            /** @var string $newKey */
-            $newKey = str_replace($oldCachePrefix, $newCollection->cachePrefix, $oldKey);
-            $newValues[$newKey] = clone $value;
-        }
 
-        // Store new values
-        $stored = $newCollection->cache->setMultiple($newValues);
-        if ($stored === false) {
-            $this->destructIfNeeded($newCollection, 'Failed to copy cells in cache');
+        foreach ($this->index as $key => $value) {
+            $newCollection->index[$key] = $value;
+            $stored = $newCollection->cache->set(
+                $newCollection->cachePrefix . $key,
+                clone $this->cache->get($this->cachePrefix . $key)
+            );
+            if ($stored === false) {
+                $this->destructIfNeeded($newCollection, 'Failed to copy cells in cache');
+            }
         }
 
         return $newCollection;
@@ -436,7 +425,7 @@ class Cells
             return null;
         }
 
-        // Check if the entry that has been requested actually exists
+        // Check if the entry that has been requested actually exists in the cache
         $cell = $this->cache->get($this->cachePrefix . $cellCoordinate);
         if ($cell === null) {
             throw new PhpSpreadsheetException("Cell entry {$cellCoordinate} no longer exists in cache. This probably means that the cache was cleared by someone else.");
