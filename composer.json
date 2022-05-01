@@ -82,7 +82,7 @@
         "dompdf/dompdf": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.2",
         "jpgraph/jpgraph": "^4.0",
-        "mpdf/mpdf": "8.0.17",
+        "mpdf/mpdf": "8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
