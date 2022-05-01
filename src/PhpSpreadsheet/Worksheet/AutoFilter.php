@@ -7,6 +7,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -50,9 +51,18 @@ class AutoFilter
 
     /**
      * Create a new AutoFilter.
+     *
+     * @param AddressRange|array<int>|string $range
+     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
+     *              or an AddressRange object.
      */
-    public function __construct(string $range = '', ?Worksheet $worksheet = null)
+    public function __construct($range = '', ?Worksheet $worksheet = null)
     {
+        if ($range !== '') {
+            [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
+        }
+
         $this->range = $range;
         $this->workSheet = $worksheet;
     }
@@ -92,12 +102,19 @@ class AutoFilter
 
     /**
      * Set AutoFilter Cell Range.
+     *
+     * @param AddressRange|array<int>|string $range
+     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
+     *              or an AddressRange object.
      */
-    public function setRange(string $range): self
+    public function setRange($range = ''): self
     {
         $this->evaluated = false;
         // extract coordinate
-        [$worksheet, $range] = Worksheet::extractSheetTitle($range, true);
+        if ($range !== '') {
+            [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
+        }
         if (empty($range)) {
             //    Discard all column rules
             $this->columns = [];

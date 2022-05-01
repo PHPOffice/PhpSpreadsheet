@@ -14,7 +14,6 @@
             <table:calculation-settings />
             <table:table table:name="Worksheet">
                 <office:forms />
-                <table:table-column table:number-columns-repeated="1024" />
                 <table:table-row>
                     <table:table-cell table:style-name="ce0" />
                     <table:table-cell table:number-columns-repeated="1023" />
