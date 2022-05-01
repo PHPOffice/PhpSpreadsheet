@@ -96,12 +96,7 @@ class Cells
      */
     public function has($cellCoordinate)
     {
-        if ($cellCoordinate === $this->currentCoordinate) {
-            return true;
-        }
-
-        // Check if the requested entry exists in the index
-        return isset($this->index[$cellCoordinate]);
+        return ($cellCoordinate === $this->currentCoordinate) || isset($this->index[$cellCoordinate]);
     }
 
     /**
@@ -237,7 +232,7 @@ class Cells
         $toRow = $row * self::MAX_COLUMN_ID;
         $fromRow = --$row * self::MAX_COLUMN_ID;
         foreach ($this->index as $coordinate) {
-            if ($coordinate < $fromRow || $coordinate > $toRow) {
+            if ($coordinate < $fromRow || $coordinate >= $toRow) {
                 continue;
             }
             $column = $coordinate % self::MAX_COLUMN_ID;

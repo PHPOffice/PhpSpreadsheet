@@ -182,13 +182,6 @@ class Worksheet implements IComparable
     private $conditionalStylesCollection = [];
 
     /**
-     * Is the current cell collection sorted already?
-     *
-     * @var bool
-     */
-    private $cellCollectionIsSorted = false;
-
-    /**
      * Collection of breaks.
      *
      * @var int[]
@@ -1336,24 +1329,22 @@ class Worksheet implements IComparable
      */
     public function createNewCell($coordinate)
     {
-        [$column, $row] = Coordinate::coordinateFromString($coordinate);
+        [$column, $row, $columnString] = Coordinate::indexesFromString($coordinate);
         $cell = new Cell(null, DataType::TYPE_NULL, $this);
         $this->cellCollection->add($coordinate, $cell);
-        $this->cellCollectionIsSorted = false;
 
         // Coordinates
-        $aIndexes = Coordinate::indexesFromString($coordinate);
-        if ($this->cachedHighestColumn < $aIndexes[0]) {
-            $this->cachedHighestColumn = $aIndexes[0];
+        if ($column > $this->cachedHighestColumn) {
+            $this->cachedHighestColumn = $column;
         }
-        if ($aIndexes[1] > $this->cachedHighestRow) {
-            $this->cachedHighestRow = $aIndexes[1];
+        if ($row > $this->cachedHighestRow) {
+            $this->cachedHighestRow = $row;
         }
 
         // Cell needs appropriate xfIndex from dimensions records
         //    but don't create dimension records if they don't already exist
         $rowDimension = $this->rowDimensions[$row] ?? null;
-        $columnDimension = $this->columnDimensions[$column] ?? null;
+        $columnDimension = $this->columnDimensions[$columnString] ?? null;
 
         if ($rowDimension !== null && $rowDimension->getXfIndex() > 0) {
             // then there is a row dimension with explicit style, assign it to the cell
