@@ -542,6 +542,16 @@ class Calculation
             'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
             'argumentCount' => '2+',
         ],
+        'CHOOSECOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
+        'CHOOSEROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
         'CLEAN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Trim::class, 'nonPrintable'],
@@ -904,6 +914,11 @@ class Calculation
             'functionCall' => [Database\DProduct::class, 'evaluate'],
             'argumentCount' => '3',
         ],
+        'DROP' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'DSTDEV' => [
             'category' => Category::CATEGORY_DATABASE,
             'functionCall' => [Database\DStDev::class, 'evaluate'],
@@ -998,6 +1013,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Exp::class, 'evaluate'],
             'argumentCount' => '1',
+        ],
+        'EXPAND' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'EXPONDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -1260,6 +1280,11 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\TimeParts::class, 'hour'],
             'argumentCount' => '1',
+        ],
+        'HSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
         ],
         'HYPERLINK' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2407,6 +2432,11 @@ class Calculation
             'functionCall' => [TextData\Text::class, 'test'],
             'argumentCount' => '1',
         ],
+        'TAKE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
@@ -2457,10 +2487,25 @@ class Calculation
             'functionCall' => [TextData\Format::class, 'TEXTFORMAT'],
             'argumentCount' => '2',
         ],
+        'TEXTAFTER' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
+        'TEXTBEFORE' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
+        ],
+        'TEXTSPLIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-5',
         ],
         'THAIDAYOFWEEK' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -2526,6 +2571,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Current::class, 'today'],
             'argumentCount' => '0',
+        ],
+        'TOCOL' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
+        ],
+        'TOROW' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
         ],
         'TRANSPOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2647,6 +2702,11 @@ class Calculation
             'functionCall' => [LookupRef\VLookup::class, 'lookup'],
             'argumentCount' => '3,4',
         ],
+        'VSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
+        ],
         'WEBSERVICE' => [
             'category' => Category::CATEGORY_WEB,
             'functionCall' => [Web\Service::class, 'webService'],
@@ -2681,6 +2741,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2-4',
+        ],
+        'WRAPCOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
+        'WRAPROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -3153,10 +3223,11 @@ class Calculation
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element
                 //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
-                $i = false;
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    if ($i = !$i) {
+                    $notWithinQuotes = !$notWithinQuotes;
+                    if ($notWithinQuotes === true) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
                 }
@@ -3828,10 +3899,11 @@ class Calculation
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
-                $i = false;
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    if ($i = !$i) {
+                    $notWithinQuotes = !$notWithinQuotes;
+                    if ($notWithinQuotes === true) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
                         $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
@@ -4523,7 +4595,7 @@ class Calculation
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
-                            $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
+                            $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
                         }
 
                         [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
@@ -4532,21 +4604,23 @@ class Calculation
                         }
 
                         if (trim($sheet1, "'") === trim($sheet2, "'")) {
-                            if ($operand1Data['reference'] === null) {
-                                if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
+                            if ($operand1Data['reference'] === null && $cell !== null) {
+                                if (is_array($operand1Data['value'])) {
+                                    $operand1Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand1Data['reference']) == '') {
+                                } elseif (trim($operand1Data['value']) == '') {
                                     $operand1Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand1Data['reference'] = $operand1Data['value'] . $cell->getRow();
                                 }
                             }
-                            if ($operand2Data['reference'] === null) {
-                                if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
+                            if ($operand2Data['reference'] === null && $cell !== null) {
+                                if (is_array($operand2Data['value'])) {
+                                    $operand2Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand2Data['reference']) == '') {
+                                } elseif (trim($operand2Data['value']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand2Data['reference'] = $operand2Data['value'] . $cell->getRow();
@@ -4759,7 +4833,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result for cell %s in worksheet %s is %s', $cellRef, $matches[2], $this->showTypeDetails($cellValue));
                         } else {
                             $this->debugLog->writeDebugLog('Evaluating Cell %s in current worksheet', $cellRef);
-                            if ($pCellParent->has($cellRef)) {
+                            if ($pCellParent !== null && $pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $cell->attach($pCellParent);
                             } else {
@@ -5166,8 +5240,6 @@ class Calculation
             $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             $range = "'" . $worksheetName . "'" . '!' . $range;
             if (!isset($aReferences[1])) {
-                $currentCol = '';
-                $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet->cellExists($aReferences[0])) {
@@ -5178,8 +5250,6 @@ class Calculation
             } else {
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
-                    $currentCol = '';
-                    $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet->cellExists($reference)) {
@@ -5215,7 +5285,7 @@ class Calculation
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($range, $worksheet);
+            $namedRange = DefinedName::resolveName($range, /** @scrutinizer ignore-type */ $worksheet);
             if ($namedRange === null) {
                 return Information\ExcelError::REF();
             }

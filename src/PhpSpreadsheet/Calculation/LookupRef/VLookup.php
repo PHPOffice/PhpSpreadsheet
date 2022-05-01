@@ -49,7 +49,9 @@ class VLookup extends LookupBase
         $firstColumn = array_shift($columnKeys) ?? 1;
 
         if (!$notExactMatch) {
-            uasort($lookupArray, ['self', 'vlookupSort']);
+            /** @var callable */
+            $callable = [self::class, 'vlookupSort'];
+            uasort($lookupArray, $callable);
         }
 
         $rowNumber = self::vLookupSearch($lookupValue, $lookupArray, $firstColumn, $notExactMatch);
@@ -62,7 +64,7 @@ class VLookup extends LookupBase
         return ExcelError::NA();
     }
 
-    private static function vlookupSort($a, $b)
+    private static function vlookupSort(array $a, array $b): int
     {
         reset($a);
         $firstColumn = key($a);
