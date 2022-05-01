@@ -99,7 +99,7 @@ class Properties
     }
 
     /**
-     * @param array|false $array
+     * @param null|array|false $array
      * @param mixed $key
      */
     private static function getArrayItem($array, $key = 0): ?SimpleXMLElement
