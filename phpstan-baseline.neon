@@ -21,37 +21,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot call method getColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot call method getCoordinate\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Cannot call method getHighestColumn\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
 			message: "#^Cannot call method getHighestRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot call method getRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Cannot call method has\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -137,11 +112,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:attach\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells, PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
