@@ -450,7 +450,7 @@ class Slk extends BaseReader
 
                     break;
                 case 'M':
-                    $formatArray['font']['size'] = substr($rowDatum, 1) / 20;
+                    $formatArray['font']['size'] = ((float) substr($rowDatum, 1)) / 20;
 
                     break;
                 case 'L':
