@@ -120,7 +120,11 @@ class ColumnCellIterator extends CellIterator
      */
     public function current(): ?Cell
     {
-        return $this->worksheet->getCellByColumnAndRow($this->columnIndex, $this->currentRow);
+        $cellAddress = Coordinate::stringFromColumnIndex($this->columnIndex) . $this->currentRow;
+
+        return $this->worksheet->getCellCollection()->has($cellAddress)
+            ? $this->worksheet->getCellCollection()->get($cellAddress)
+            : $this->worksheet->createNewCell($cellAddress);
     }
 
     /**
