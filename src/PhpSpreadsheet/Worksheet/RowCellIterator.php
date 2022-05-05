@@ -51,6 +51,7 @@ class RowCellIterator extends CellIterator
     {
         // Set subject and row index
         $this->worksheet = $worksheet;
+        $this->cellCollection = $worksheet->getCellCollection();
         $this->rowIndex = $rowIndex;
         $this->resetEnd($endColumn);
         $this->resetStart($startColumn);
@@ -97,15 +98,14 @@ class RowCellIterator extends CellIterator
      */
     public function seek(string $column = 'A')
     {
-        $columnx = $column;
-        $column = Coordinate::columnIndexFromString($column);
-        if ($this->onlyExistingCells && !($this->worksheet->cellExistsByColumnAndRow($column, $this->rowIndex))) {
+        $columnId = Coordinate::columnIndexFromString($column);
+        if ($this->onlyExistingCells && !($this->cellCollection->has($column . $this->rowIndex))) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
-        if (($column < $this->startColumnIndex) || ($column > $this->endColumnIndex)) {
-            throw new PhpSpreadsheetException("Column $columnx is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
+        if (($columnId < $this->startColumnIndex) || ($columnId > $this->endColumnIndex)) {
+            throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumnIndex} - {$this->endColumnIndex})");
         }
-        $this->currentColumnIndex = $column;
+        $this->currentColumnIndex = $columnId;
 
         return $this;
     }
@@ -123,7 +123,11 @@ class RowCellIterator extends CellIterator
      */
     public function current(): ?Cell
     {
-        return $this->worksheet->getCellByColumnAndRow($this->currentColumnIndex, $this->rowIndex);
+        $cellAddress = Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex;
+
+        return $this->cellCollection->has($cellAddress)
+            ? $this->cellCollection->get($cellAddress)
+            : $this->worksheet->createNewCell($cellAddress);
     }
 
     /**
@@ -141,7 +145,7 @@ class RowCellIterator extends CellIterator
     {
         do {
             ++$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex)) && ($this->currentColumnIndex <= $this->endColumnIndex));
+        } while (($this->onlyExistingCells) && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex)) && ($this->currentColumnIndex <= $this->endColumnIndex));
     }
 
     /**
@@ -151,7 +155,7 @@ class RowCellIterator extends CellIterator
     {
         do {
             --$this->currentColumnIndex;
-        } while (($this->onlyExistingCells) && (!$this->worksheet->cellExistsByColumnAndRow($this->currentColumnIndex, $this->rowIndex)) && ($this->currentColumnIndex >= $this->startColumnIndex));
+        } while (($this->onlyExistingCells) && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->currentColumnIndex) . $this->rowIndex)) && ($this->currentColumnIndex >= $this->startColumnIndex));
     }
 
     /**
@@ -176,10 +180,10 @@ class RowCellIterator extends CellIterator
     protected function adjustForExistingOnlyRange(): void
     {
         if ($this->onlyExistingCells) {
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->startColumnIndex, $this->rowIndex)) && ($this->startColumnIndex <= $this->endColumnIndex)) {
+            while ((!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->startColumnIndex) . $this->rowIndex)) && ($this->startColumnIndex <= $this->endColumnIndex)) {
                 ++$this->startColumnIndex;
             }
-            while ((!$this->worksheet->cellExistsByColumnAndRow($this->endColumnIndex, $this->rowIndex)) && ($this->endColumnIndex >= $this->startColumnIndex)) {
+            while ((!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->endColumnIndex) . $this->rowIndex)) && ($this->endColumnIndex >= $this->startColumnIndex)) {
                 --$this->endColumnIndex;
             }
         }
