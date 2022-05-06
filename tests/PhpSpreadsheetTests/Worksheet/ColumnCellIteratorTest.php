@@ -112,7 +112,7 @@ class ColumnCellIteratorTest extends TestCase
         $iterator->seek(2);
     }
 
-    public function xtestPrevOutOfRange(): void
+    public function testPrevOutOfRange(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = self::getPopulatedSheet($spreadsheet);
