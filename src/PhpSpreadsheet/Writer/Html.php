@@ -477,12 +477,8 @@ class Html extends BaseWriter
                     $column = $minCol;
                     while ($column <= $maxCol) {
                         // Cell exists?
-                        if ($sheet->cellExistsByColumnAndRow($column, $row)) {
-                            $rowData[$column] = Coordinate::stringFromColumnIndex($column) . $row;
-                        } else {
-                            $rowData[$column] = '';
-                        }
-                        ++$column;
+                        $cellAddress = Coordinate::stringFromColumnIndex($column) . $row;
+                        $rowData[$column++] = ($sheet->getCellCollection()->has($cellAddress)) ? $cellAddress : '';
                     }
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
@@ -1232,7 +1228,7 @@ class Html extends BaseWriter
 
     private function generateRowCellCss(Worksheet $worksheet, $cellAddress, $row, $columnNumber)
     {
-        $cell = ($cellAddress > '') ? $worksheet->getCell($cellAddress) : '';
+        $cell = ($cellAddress > '') ? $worksheet->getCellCollection()->get($cellAddress) : '';
         $coordinate = Coordinate::stringFromColumnIndex($columnNumber + 1) . ($row + 1);
         if (!$this->useInlineCss) {
             $cssClass = 'column' . $columnNumber;
