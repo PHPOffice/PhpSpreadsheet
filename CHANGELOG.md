@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Memory and speed improvements, particularly for the Cell Collection, and the Xlsx and Xls Writers.
+- Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
 ### Deprecated
 
