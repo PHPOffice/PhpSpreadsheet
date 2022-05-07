@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
@@ -161,8 +162,9 @@ class Xls extends BaseWriter
 
         // add fonts from rich text eleemnts
         for ($i = 0; $i < $countSheets; ++$i) {
-            foreach ($this->writerWorksheets[$i]->phpSheet->getCoordinates() as $coordinate) {
-                $cell = $this->writerWorksheets[$i]->phpSheet->getCell($coordinate);
+            foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection()->getCoordinates() as $coordinate) {
+                /** @var Cell $cell */
+                $cell = $this->writerWorksheets[$i]->phpSheet->getCellCollection()->get($coordinate);
                 $cVal = $cell->getValue();
                 if ($cVal instanceof RichText) {
                     $elements = $cVal->getRichTextElements();

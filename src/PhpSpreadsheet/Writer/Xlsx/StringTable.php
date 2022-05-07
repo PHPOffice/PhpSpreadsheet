@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
@@ -35,8 +36,9 @@ class StringTable extends WriterPart
         $aFlippedStringTable = $this->flipStringTable($aStringTable);
 
         // Loop through cells
-        foreach ($worksheet->getCoordinates() as $coordinate) {
-            $cell = $worksheet->getCell($coordinate);
+        foreach ($worksheet->getCellCollection()->getCoordinates() as $coordinate) {
+            /** @var Cell $cell */
+            $cell = $worksheet->getCellCollection()->get($coordinate);
             $cellValue = $cell->getValue();
             if (
                 !is_object($cellValue) &&
