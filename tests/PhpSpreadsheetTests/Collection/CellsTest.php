@@ -29,16 +29,31 @@ class CellsTest extends TestCase
         self::assertSame($cell1, $collection->add('B2', $cell1), 'adding a cell should return the cell');
 
         // Assert cell presence
-        self::assertEquals(['B2'], $collection->getCoordinates(), 'cell list should contains the cell');
-        self::assertEquals(['B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the cell');
+        self::assertEquals(['B2'], $collection->getCoordinates(), 'cell list should contains the B2 cell');
+        self::assertEquals(['B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the B2 cell');
         self::assertSame($cell1, $collection->get('B2'), 'should get exact same object');
-        self::assertTrue($collection->has('B2'), 'cell should exists');
+        self::assertTrue($collection->has('B2'), 'B2 cell should exists');
 
         // Add a second cell
         $cell2 = $sheet->getCell('A1');
         self::assertSame($cell2, $collection->add('A1', $cell2), 'adding a second cell should return the cell');
-        self::assertEquals(['B2', 'A1'], $collection->getCoordinates(), 'cell list should contains the cell');
-        self::assertEquals(['A1', 'B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the cell');
+        self::assertEquals(['B2', 'A1'], $collection->getCoordinates(), 'cell list should contains the second cell');
+        // Note that sorts orders the collection itself, so these cells will aread be ordered for the subsequent asserions
+        self::assertEquals(['A1', 'B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the second cell');
+
+        // Add a third cell
+        $cell3 = $sheet->getCell('AA1');
+        self::assertSame($cell3, $collection->add('AA1', $cell3), 'adding a third cell should return the cell');
+        self::assertEquals(['A1', 'B2', 'AA1'], $collection->getCoordinates(), 'cell list should contains the third cell');
+        // Note that sorts orders the collection itself, so these cells will aread be ordered for the subsequent asserions
+        self::assertEquals(['A1', 'AA1', 'B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the third cell');
+
+        // Add a fourth cell
+        $cell4 = $sheet->getCell('Z1');
+        self::assertSame($cell4, $collection->add('Z1', $cell4), 'adding a fourth cell should return the cell');
+        self::assertEquals(['A1', 'AA1', 'B2', 'Z1'], $collection->getCoordinates(), 'cell list should contains the fourth cell');
+        // Note that sorts orders the collection itself, so these cells will aread be ordered for the subsequent asserions
+        self::assertEquals(['A1', 'Z1', 'AA1', 'B2'], $collection->getSortedCoordinates(), 'sorted cell list contains the fourth cell');
 
         // Assert collection copy
         $sheet2 = $spreadsheet->createSheet();
@@ -53,7 +68,7 @@ class CellsTest extends TestCase
         // Assert deletion
         $collection->delete('B2');
         self::assertFalse($collection->has('B2'), 'cell should have been deleted');
-        self::assertEquals(['A1'], $collection->getCoordinates(), 'cell list should contains the cell');
+        self::assertEquals(['A1', 'Z1', 'AA1'], $collection->getCoordinates(), 'cell list should still contains the A1,Z1 and A11 cells');
 
         // Assert update
         $cell2 = $sheet->getCell('A1');
@@ -61,8 +76,8 @@ class CellsTest extends TestCase
         self::assertSame($cell2, $collection->update($cell2), 'should update existing cell');
 
         $cell3 = $sheet->getCell('C3');
-        self::assertSame($cell3, $collection->update($cell3), 'should silently add non-existing cell');
-        self::assertEquals(['A1', 'C3'], $collection->getCoordinates(), 'cell list should contains the cell');
+        self::assertSame($cell3, $collection->update($cell3), 'should silently add non-existing C3 cell');
+        self::assertEquals(['A1', 'Z1', 'AA1', 'C3'], $collection->getCoordinates(), 'cell list should contains the C3 cell');
     }
 
     public function testCacheLastCell(): void
