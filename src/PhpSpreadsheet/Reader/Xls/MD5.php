@@ -79,10 +79,10 @@ class MD5
         $C = $this->c;
         $D = $this->d;
 
-        $F = ['self', 'f'];
-        $G = ['self', 'g'];
-        $H = ['self', 'h'];
-        $I = ['self', 'i'];
+        $F = [self::class, 'f'];
+        $G = [self::class, 'g'];
+        $H = [self::class, 'h'];
+        $I = [self::class, 'i'];
 
         // ROUND 1
         self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
@@ -162,33 +162,34 @@ class MD5
         $this->d = ($this->d + $D) & 0xffffffff;
     }
 
-    private static function f(int $X, int $Y, int $Z)
+    private static function f(int $X, int $Y, int $Z): int
     {
         return ($X & $Y) | ((~$X) & $Z); // X AND Y OR NOT X AND Z
     }
 
-    private static function g(int $X, int $Y, int $Z)
+    private static function g(int $X, int $Y, int $Z): int
     {
         return ($X & $Z) | ($Y & (~$Z)); // X AND Z OR Y AND NOT Z
     }
 
-    private static function h(int $X, int $Y, int $Z)
+    private static function h(int $X, int $Y, int $Z): int
     {
         return $X ^ $Y ^ $Z; // X XOR Y XOR Z
     }
 
-    private static function i(int $X, int $Y, int $Z)
+    private static function i(int $X, int $Y, int $Z): int
     {
         return $Y ^ ($X | (~$Z)); // Y XOR (X OR NOT Z)
     }
 
-    private static function step($func, int &$A, int $B, int $C, int $D, int $M, int $s, int $t): void
+    private static function step(callable $func, int &$A, int $B, int $C, int $D, int $M, int $s, int $t): void
     {
         $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & 0xffffffff;
         $A = self::rotate($A, $s);
         $A = ($B + $A) & 0xffffffff;
     }
 
+    /** @return float|int */
     private static function rotate(int $decimal, int $bits)
     {
         $binary = str_pad(decbin($decimal), 32, '0', STR_PAD_LEFT);

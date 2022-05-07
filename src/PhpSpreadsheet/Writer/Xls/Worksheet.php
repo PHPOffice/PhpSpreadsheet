@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use GdImage;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -406,8 +407,9 @@ class Worksheet extends BIFFwriter
         }
 
         // Write Cells
-        foreach ($phpSheet->getCoordinates() as $coordinate) {
-            $cell = $phpSheet->getCell($coordinate);
+        foreach ($phpSheet->getCellCollection()->getSortedCoordinates() as $coordinate) {
+            /** @var Cell $cell */
+            $cell = $phpSheet->getCellCollection()->get($coordinate);
             $row = $cell->getRow() - 1;
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 

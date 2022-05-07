@@ -47,15 +47,17 @@ abstract class Coordinate
      *
      * @param string $coordinates eg: 'A1', '$B$12'
      *
-     * @return array{0: int, 1: int} Array containing column index and row index (indexes 0 and 1)
+     * @return array{0: int, 1: int, 2: string} Array containing column and row index, and column string
      */
     public static function indexesFromString(string $coordinates): array
     {
-        [$col, $row] = self::coordinateFromString($coordinates);
+        [$column, $row] = self::coordinateFromString($coordinates);
+        $column = ltrim($column, '$');
 
         return [
-            self::columnIndexFromString(ltrim($col, '$')),
+            self::columnIndexFromString($column),
             (int) ltrim($row, '$'),
+            $column,
         ];
     }
 
@@ -353,9 +355,8 @@ abstract class Coordinate
         }
 
         $cellList = array_merge(...$cells);
-        $cellList = self::sortCellReferenceArray($cellList);
 
-        return $cellList;
+        return self::sortCellReferenceArray($cellList);
     }
 
     private static function processRangeSetOperators(array $operators, array $cells): array
@@ -382,9 +383,10 @@ abstract class Coordinate
     {
         //    Sort the result by column and row
         $sortKeys = [];
-        foreach ($cellList as $coord) {
-            sscanf($coord, '%[A-Z]%d', $column, $row);
-            $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
+        foreach ($cellList as $coordinate) {
+            sscanf($coordinate, '%[A-Z]%d', $column, $row);
+            $key = (--$row * 16384) + self::columnIndexFromString($column);
+            $sortKeys[$key] = $coordinate;
         }
         ksort($sortKeys);
 
