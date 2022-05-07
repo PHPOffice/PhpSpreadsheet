@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
@@ -146,48 +147,44 @@ class Content extends WriterPart
         $numberRowsRepeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
         $rows = $sheet->getRowIterator();
-        while ($rows->valid()) {
+        foreach ($rows as $row) {
+            $cellIterator = $row->getCellIterator();
             --$numberRowsRepeated;
-            $row = $rows->current();
-            if ($row->getCellIterator()->valid()) {
+            if ($cellIterator->valid()) {
+                $objWriter->startElement('table:table-row');
                 if ($span_row) {
-                    $objWriter->startElement('table:table-row');
                     if ($span_row > 1) {
                         $objWriter->writeAttribute('table:number-rows-repeated', $span_row);
-                    }
-                    if ($sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
-                        $objWriter->writeAttribute(
-                            'table:style_name',
-                            sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
-                        );
                     }
                     $objWriter->startElement('table:table-cell');
                     $objWriter->writeAttribute('table:number-columns-repeated', (string) self::NUMBER_COLS_REPEATED_MAX);
                     $objWriter->endElement();
-                    $objWriter->endElement();
                     $span_row = 0;
+                } else {
+                    if ($sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
+                        $objWriter->writeAttribute(
+                            'table:style-name',
+                            sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())
+                        );
+                    }
+                    $this->writeCells($objWriter, $cellIterator);
                 }
-                $objWriter->startElement('table:table-row');
-                $this->writeCells($objWriter, $row);
                 $objWriter->endElement();
             } else {
                 ++$span_row;
             }
-            $rows->next();
         }
     }
 
     /**
      * Write cells of the specified row.
      */
-    private function writeCells(XMLWriter $objWriter, Row $row): void
+    private function writeCells(XMLWriter $objWriter, RowCellIterator $cells): void
     {
         $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
-        $cells = $row->getCellIterator();
-        while ($cells->valid()) {
+        foreach ($cells as $cell) {
             /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
-            $cell = $cells->current();
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
@@ -255,8 +252,8 @@ class Content extends WriterPart
             Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prevColumn = $column;
-            $cells->next();
         }
+
         $numberColsRepeated = $numberColsRepeated - $prevColumn - 1;
         if ($numberColsRepeated > 0) {
             if ($numberColsRepeated > 1) {
