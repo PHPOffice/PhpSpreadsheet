@@ -47,15 +47,17 @@ abstract class Coordinate
      *
      * @param string $coordinates eg: 'A1', '$B$12'
      *
-     * @return array{0: int, 1: int} Array containing column index and row index (indexes 0 and 1)
+     * @return array{0: int, 1: int, 2: string} Array containing column and row index, and column string
      */
     public static function indexesFromString(string $coordinates): array
     {
-        [$col, $row] = self::coordinateFromString($coordinates);
+        [$column, $row] = self::coordinateFromString($coordinates);
+        $column = ltrim($column, '$');
 
         return [
-            self::columnIndexFromString(ltrim($col, '$')),
+            self::columnIndexFromString($column),
             (int) ltrim($row, '$'),
+            $column,
         ];
     }
 

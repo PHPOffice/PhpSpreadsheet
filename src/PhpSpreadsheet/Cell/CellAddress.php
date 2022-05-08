@@ -47,15 +47,9 @@ class CellAddress
      */
     private static function validateColumnAndRow($columnId, $rowId): void
     {
-        $array = [$columnId, $rowId];
-        array_walk(
-            $array,
-            function ($value): void {
-                if (!is_numeric($value) || $value <= 0) {
-                    throw new Exception('Row and Column Ids must be positive integer values');
-                }
-            }
-        );
+        if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {
+            throw new Exception('Row and Column Ids must be positive integer values');
+        }
     }
 
     /**
