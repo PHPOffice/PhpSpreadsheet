@@ -42,9 +42,8 @@ class Validations
     public static function validateCellOrCellRange($cellRange): string
     {
         if (is_string($cellRange) || is_numeric($cellRange)) {
-            $cellRange = (string) $cellRange;
             // Convert a single column reference like 'A' to 'A:A'
-            $cellRange = (string) preg_replace('/^([A-Z]+)$/', '${1}:${1}', $cellRange);
+            $cellRange = (string) preg_replace('/^([A-Z]+)$/', '${1}:${1}', (string) $cellRange);
             // Convert a single row reference like '1' to '1:1'
             $cellRange = (string) preg_replace('/^(\d+)$/', '${1}:${1}', $cellRange);
         } elseif (is_object($cellRange) && $cellRange instanceof CellAddress) {
@@ -85,7 +84,7 @@ class Validations
     public static function definedNameToCoordinate(string $coordinate, Worksheet $worksheet): string
     {
         // Uppercase coordinate
-        $testCoordinate = strtoupper($coordinate);
+        $coordinate = strtoupper($coordinate);
         // Eliminate leading equal sign
         $testCoordinate = (string) preg_replace('/^=/', '', $coordinate);
         $defined = $worksheet->getParent()->getDefinedName($testCoordinate, $worksheet);

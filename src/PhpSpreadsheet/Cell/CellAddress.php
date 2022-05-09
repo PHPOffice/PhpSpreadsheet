@@ -35,9 +35,7 @@ class CellAddress
     public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
     {
         $this->cellAddress = str_replace('$', '', $cellAddress);
-        [$this->columnName, $rowId] = Coordinate::coordinateFromString($cellAddress);
-        $this->rowId = (int) $rowId;
-        $this->columnId = Coordinate::columnIndexFromString($this->columnName);
+        [$this->columnId, $this->rowId, $this->columnName] = Coordinate::indexesFromString($this->cellAddress);
         $this->worksheet = $worksheet;
     }
 
