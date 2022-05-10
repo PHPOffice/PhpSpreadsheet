@@ -795,7 +795,7 @@ class Html
         $domText = preg_replace(
             '/\s+/u',
             ' ',
-            str_replace(["\r", "\n"], ' ', $textNode->nodeValue ?: '')
+            str_replace(["\r", "\n"], ' ', $textNode->nodeValue ?? '')
         );
         $this->stringData .= $domText;
         $this->buildTextRun();
