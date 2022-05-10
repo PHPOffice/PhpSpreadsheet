@@ -46,6 +46,13 @@ class DataSeriesValues
     private $pointMarker;
 
     /**
+     * Series Point Size.
+     *
+     * @var int
+     */
+    private $pointSize = 3;
+
+    /**
      * Point Count (The number of datapoints in the dataseries).
      *
      * @var int
@@ -171,6 +178,26 @@ class DataSeriesValues
     public function setPointMarker($marker)
     {
         $this->pointMarker = $marker;
+
+        return $this;
+    }
+
+    /**
+     * Get Point Size.
+     */
+    public function getPointSize(): int
+    {
+        return $this->pointSize;
+    }
+
+    /**
+     * Set Point Size.
+     *
+     * @return $this
+     */
+    public function setPointSize(int $size = 3)
+    {
+        $this->pointSize = $size;
 
         return $this;
     }

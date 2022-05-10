@@ -436,7 +436,14 @@ You can read a .csv file using the following code:
 
 ```php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-$spreadsheet = $reader->load("sample.csv");
+$spreadsheet = $reader->load('sample.csv');
+```
+
+You can also treat a string as if it were the contents of a CSV file as follows:
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$spreadsheet = $reader->loadSpreadsheetFromString($data);
 ```
 
 #### Setting CSV options

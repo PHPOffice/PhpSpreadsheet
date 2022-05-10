@@ -199,7 +199,7 @@ class Style
             'style:row-height',
             round($rowDimension->getRowHeight(Dimension::UOM_CENTIMETERS), 3) . 'cm'
         );
-        $this->writer->writeAttribute('style:use-optimal-row-height', 'true');
+        $this->writer->writeAttribute('style:use-optimal-row-height', 'false');
         $this->writer->writeAttribute('fo:break-before', 'auto');
 
         // End
