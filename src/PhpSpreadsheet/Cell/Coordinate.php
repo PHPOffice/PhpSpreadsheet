@@ -324,6 +324,7 @@ abstract class Coordinate
     public static function stringFromColumnIndex($columnIndex)
     {
         static $indexCache = [];
+        static $lookupCache = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         if (!isset($indexCache[$columnIndex])) {
             $indexValue = $columnIndex;
@@ -331,7 +332,7 @@ abstract class Coordinate
             do {
                 $characterValue = ($indexValue % 26) ?: 26;
                 $indexValue = ($indexValue - $characterValue) / 26;
-                $base26 = chr($characterValue + 64) . $base26;
+                $base26 = $lookupCache[$characterValue] . $base26;
             } while ($indexValue > 0);
             $indexCache[$columnIndex] = $base26;
         }
