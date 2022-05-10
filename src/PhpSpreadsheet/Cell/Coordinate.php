@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
  */
 abstract class Coordinate
 {
-    public const A1_COORDINATE_REGEX = '/^(?<absolute_col>\$?)(?<col_ref>[A-Z]{1,3})(?<absolute_row>\$?)(?<row_ref>\d{1,7})$/i';
+    public const A1_COORDINATE_REGEX = '/^(?<col>\$?[A-Z]{1,3})(?<row>\$?\d{1,7})$/i';
 
     /**
      * Default range variable constant.
@@ -32,7 +32,7 @@ abstract class Coordinate
     public static function coordinateFromString($cellAddress)
     {
         if (preg_match(self::A1_COORDINATE_REGEX, $cellAddress, $matches)) {
-            return [$matches['absolute_col'] . $matches['col_ref'], $matches['absolute_row'] . $matches['row_ref']];
+            return [$matches['col'], $matches['row']];
         } elseif (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
         } elseif ($cellAddress == '') {
@@ -47,15 +47,17 @@ abstract class Coordinate
      *
      * @param string $coordinates eg: 'A1', '$B$12'
      *
-     * @return array{0: int, 1: int} Array containing column index and row index (indexes 0 and 1)
+     * @return array{0: int, 1: int, 2: string} Array containing column and row index, and column string
      */
     public static function indexesFromString(string $coordinates): array
     {
-        [$col, $row] = self::coordinateFromString($coordinates);
+        [$column, $row] = self::coordinateFromString($coordinates);
+        $column = ltrim($column, '$');
 
         return [
-            self::columnIndexFromString(ltrim($col, '$')),
+            self::columnIndexFromString($column),
             (int) ltrim($row, '$'),
+            $column,
         ];
     }
 
@@ -274,35 +276,42 @@ abstract class Coordinate
         if (isset($indexCache[$columnAddress])) {
             return $indexCache[$columnAddress];
         }
-        //    It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array rather than use ord()
-        //        and make it case insensitive to get rid of the strtoupper() as well. Because it's a static, there's no significant
-        //        memory overhead either
+        //    It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array
+        //        rather than use ord() and make it case insensitive to get rid of the strtoupper() as well.
+        //        Because it's a static, there's no significant memory overhead either.
         static $columnLookup = [
-            'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10, 'K' => 11, 'L' => 12, 'M' => 13,
-            'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26,
-            'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10, 'k' => 11, 'l' => 12, 'm' => 13,
-            'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26,
+            'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10,
+            'K' => 11, 'L' => 12, 'M' => 13, 'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19,
+            'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26,
+            'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10,
+            'k' => 11, 'l' => 12, 'm' => 13, 'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19,
+            't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26,
         ];
 
-        //    We also use the language construct isset() rather than the more costly strlen() function to match the length of $columnAddress
-        //        for improved performance
+        //    We also use the language construct isset() rather than the more costly strlen() function to match the
+        //       length of $columnAddress for improved performance
         if (isset($columnAddress[0])) {
             if (!isset($columnAddress[1])) {
                 $indexCache[$columnAddress] = $columnLookup[$columnAddress];
 
                 return $indexCache[$columnAddress];
             } elseif (!isset($columnAddress[2])) {
-                $indexCache[$columnAddress] = $columnLookup[$columnAddress[0]] * 26 + $columnLookup[$columnAddress[1]];
+                $indexCache[$columnAddress] = $columnLookup[$columnAddress[0]] * 26
+                    + $columnLookup[$columnAddress[1]];
 
                 return $indexCache[$columnAddress];
             } elseif (!isset($columnAddress[3])) {
-                $indexCache[$columnAddress] = $columnLookup[$columnAddress[0]] * 676 + $columnLookup[$columnAddress[1]] * 26 + $columnLookup[$columnAddress[2]];
+                $indexCache[$columnAddress] = $columnLookup[$columnAddress[0]] * 676
+                    + $columnLookup[$columnAddress[1]] * 26
+                    + $columnLookup[$columnAddress[2]];
 
                 return $indexCache[$columnAddress];
             }
         }
 
-        throw new Exception('Column string index can not be ' . ((isset($columnAddress[0])) ? 'longer than 3 characters' : 'empty'));
+        throw new Exception(
+            'Column string index can not be ' . ((isset($columnAddress[0])) ? 'longer than 3 characters' : 'empty')
+        );
     }
 
     /**
@@ -315,14 +324,15 @@ abstract class Coordinate
     public static function stringFromColumnIndex($columnIndex)
     {
         static $indexCache = [];
+        static $lookupCache = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         if (!isset($indexCache[$columnIndex])) {
             $indexValue = $columnIndex;
-            $base26 = null;
+            $base26 = '';
             do {
                 $characterValue = ($indexValue % 26) ?: 26;
                 $indexValue = ($indexValue - $characterValue) / 26;
-                $base26 = chr($characterValue + 64) . ($base26 ?: '');
+                $base26 = $lookupCache[$characterValue] . $base26;
             } while ($indexValue > 0);
             $indexCache[$columnIndex] = $base26;
         }

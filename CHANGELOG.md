@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Add point size option for scatter charts
 
 ### Changed
 
-- Nothing
+- Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
 ### Deprecated
 

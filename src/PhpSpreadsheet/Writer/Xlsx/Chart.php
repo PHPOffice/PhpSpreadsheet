@@ -1140,7 +1140,7 @@ class Chart extends WriterPart
 
                     if ($plotSeriesMarker !== 'none') {
                         $objWriter->startElement('c:size');
-                        $objWriter->writeAttribute('val', 3);
+                        $objWriter->writeAttribute('val', (string) $plotSeriesValues->getPointSize());
                         $objWriter->endElement();
                     }
 
