@@ -756,11 +756,11 @@ class Worksheet implements IComparable
                     //By default merged cells should be ignored
                     $isMergedButProceed = false;
 
-                    //The only exception is if it's a merge range value cell of a 'vertical' randge (1 column wide)
+                    //The only exception is if it's a merge range value cell of a 'vertical' range (1 column wide)
                     if ($isMerged && $cell->isMergeRangeValueCell()) {
                         $range = $cell->getMergeRange();
                         $rangeBoundaries = Coordinate::rangeDimension($range);
-                        if ($rangeBoundaries[0] == 1) {
+                        if ($rangeBoundaries[0] === 1) {
                             $isMergedButProceed = true;
                         }
                     }
@@ -773,6 +773,8 @@ class Worksheet implements IComparable
                         if (!empty($autoFilterRange) && $cell->isInRange($autoFilterFirstRowRange)) {
                             $filterAdjustment = true;
                         }
+
+                        $indentAdjustment = $cell->getStyle()->getAlignment()->getIndent();
 
                         // Calculated value
                         // To formatted string
@@ -791,7 +793,8 @@ class Worksheet implements IComparable
                                     $this->getParent()->getCellXfByIndex($cell->getXfIndex())
                                         ->getAlignment()->getTextRotation(),
                                     $this->getParent()->getDefaultStyle()->getFont(),
-                                    $filterAdjustment
+                                    $filterAdjustment,
+                                    $indentAdjustment
                                 )
                             );
                         }
@@ -3009,7 +3012,7 @@ class Worksheet implements IComparable
      *
      * @return mixed
      */
-    public static function extractSheetTitle($range, $returnRange = false)
+    public static function extractSheetTitle(string $range, $returnRange = false)
     {
         // Sheet title included?
         if (($sep = strrpos($range, '!')) === false) {
