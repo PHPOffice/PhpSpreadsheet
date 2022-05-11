@@ -99,4 +99,35 @@ class FontTest extends TestCase
         $width = Font::getTextWidthPixelsApprox('n', $font, -165);
         self::assertEquals(4, $width);
     }
+
+    /**
+     * @dataProvider providerCalculateApproximateColumnWidth
+     */
+    public function testCalculateApproximateColumnWidth(
+        int $expectedWidth,
+        StyleFont $font,
+        string $text,
+        int $rotation,
+        StyleFont $defaultFont,
+        bool $filter,
+        int $indent
+    ): void {
+        $columnWidth = Font::calculateColumnWidth($font, $text, $rotation, $defaultFont, $filter, $indent);
+        self::assertEquals($expectedWidth, $columnWidth);
+    }
+
+    public function providerCalculateApproximateColumnWidth(): array
+    {
+        return [
+            [13, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 0],
+            [16, new StyleFont(), 'Hello World', 0, new StyleFont(), true, 0],
+            [16, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 1],
+            [18, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 2],
+            [20, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 3],
+            [6, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), false, 0],
+            [9, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), true, 0],
+            [17, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 0],
+            [19, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 1],
+        ];
+    }
 }

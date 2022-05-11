@@ -229,7 +229,8 @@ class Font
         $cellText = '',
         $rotation = 0,
         ?FontStyle $defaultFont = null,
-        bool $filterAdjustment = false
+        bool $filterAdjustment = false,
+        int $indentAdjustment = 0
     ): int {
         // If it is rich text, use plain text
         if ($cellText instanceof RichText) {
@@ -248,12 +249,12 @@ class Font
         }
 
         // Try to get the exact text width in pixels
-        $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
+        $approximate = self::$autoSizeMethod === self::AUTOSIZE_METHOD_APPROX;
         $columnWidth = 0;
         if (!$approximate) {
             $columnWidthAdjust = ceil(
                 self::getTextWidthPixelsExact(
-                    str_repeat('n', 1 * ($filterAdjustment ? 3 : 1)),
+                    str_repeat('n', 1 * (($filterAdjustment ? 3 : 1) + ($indentAdjustment * 2))),
                     $font,
                     0
                 ) * 1.07
@@ -270,7 +271,7 @@ class Font
 
         if ($approximate) {
             $columnWidthAdjust = self::getTextWidthPixelsApprox(
-                str_repeat('n', 1 * ($filterAdjustment ? 3 : 1)),
+                str_repeat('n', 1 * (($filterAdjustment ? 3 : 1) + ($indentAdjustment * 2))),
                 $font,
                 0
             );

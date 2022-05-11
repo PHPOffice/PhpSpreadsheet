@@ -321,11 +321,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, array\\{'PhpOffice\\\\\\\\PhpSpreadsheet\\\\\\\\Calculation\\\\\\\\Exception', 'errorHandlerCallback'\\} given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/ExceptionHandler.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:ISPMT\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial.php
@@ -4202,7 +4197,7 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
+			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-

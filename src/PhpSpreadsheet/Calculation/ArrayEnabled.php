@@ -20,7 +20,7 @@ trait ArrayEnabled
         if (self::$arrayArgumentHelper === null) {
             self::$arrayArgumentHelper = new ArrayArgumentHelper();
         }
-        self::$arrayArgumentHelper->initialise($arguments ?: []);
+        self::$arrayArgumentHelper->initialise(($arguments === false) ? [] : $arguments);
     }
 
     /**

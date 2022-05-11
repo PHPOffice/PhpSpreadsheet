@@ -485,6 +485,7 @@ class Html extends BaseWriter
 
                 $html .= $endTag;
             }
+            --$row;
             $html .= $this->extendRowsForChartsAndImages($sheet, $row);
 
             // Write table footer
@@ -675,7 +676,7 @@ class Html extends BaseWriter
                 $html .= PHP_EOL;
                 $imageData = self::winFileToUrl($filename);
 
-                if ($this->embedImages && !$this->isPdf) {
+                if (($this->embedImages && !$this->isPdf) || substr($imageData, 0, 6) === 'zip://') {
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
                         $imageDetails = getimagesize($filename);
@@ -699,7 +700,7 @@ class Html extends BaseWriter
                     ob_end_clean(); //  End the output buffer.
 
                     /** @phpstan-ignore-next-line */
-                    $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
+                    $dataUri = 'data:image/png;base64,' . base64_encode($contents);
 
                     //  Because of the nature of tables, width is more important than height.
                     //  max-width: 100% ensures that image doesnt overflow containing cell

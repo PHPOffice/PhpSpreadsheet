@@ -28,6 +28,7 @@ class HtmlTest extends TestCase
             ['können', 'können'],
             ['русский', 'русский'],
             ["foo\nbar", '<p>foo</p><p>bar</p>'],
+            'issue2810' => ['0', '0'],
         ];
     }
 }
