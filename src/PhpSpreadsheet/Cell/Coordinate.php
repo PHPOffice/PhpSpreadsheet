@@ -16,6 +16,13 @@ abstract class Coordinate
     public const A1_COORDINATE_REGEX = '/^(?<col>\$?[A-Z]{1,3})(?<row>\$?\d{1,7})$/i';
 
     /**
+     * Cache for rangeBoundaries.
+     *
+     * @var array
+     */
+    private static $_rangeBoundariesCache = [];
+
+    /**
      * Default range variable constant.
      *
      * @var string
@@ -190,6 +197,10 @@ abstract class Coordinate
      */
     public static function rangeBoundaries($range)
     {
+        if (isset(self::$_rangeBoundariesCache[$pRange])) {
+            return self::$_rangeBoundariesCache[$pRange];
+        }
+
         // Ensure $pRange is a valid range
         if (empty($range)) {
             $range = self::DEFAULT_RANGE;
@@ -207,11 +218,13 @@ abstract class Coordinate
 
         // Calculate range outer borders
         $rangeStart = self::coordinateFromString($rangeA);
-        $rangeEnd = self::coordinateFromString($rangeB);
+        $rangeEnd = $rangeA === $rangeB ? $rangeStart : self::coordinateFromString($rangeB);
 
         // Translate column into index
         $rangeStart[0] = self::columnIndexFromString($rangeStart[0]);
         $rangeEnd[0] = self::columnIndexFromString($rangeEnd[0]);
+
+        self::$_rangeBoundariesCache[$pRange] = [$rangeStart, $rangeEnd];
 
         return [$rangeStart, $rangeEnd];
     }
