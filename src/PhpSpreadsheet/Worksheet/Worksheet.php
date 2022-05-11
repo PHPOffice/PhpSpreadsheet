@@ -3012,7 +3012,7 @@ class Worksheet implements IComparable
      *
      * @return mixed
      */
-    public static function extractSheetTitle(string $range, $returnRange = false)
+    public static function extractSheetTitle($range, $returnRange = false)
     {
         if ($range === null) {
             return $returnRange ? [null, null] : null;
