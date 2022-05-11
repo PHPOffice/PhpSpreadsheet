@@ -96,11 +96,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Offset 'type' does not exist on array\\|null\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -2296,11 +2291,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 8
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -3009,11 +2999,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\SheetViewOptions\\:\\:\\$worksheetXml has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
@@ -5256,6 +5241,11 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -5293,6 +5283,11 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
