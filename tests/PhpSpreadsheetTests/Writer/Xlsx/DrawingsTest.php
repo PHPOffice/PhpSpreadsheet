@@ -88,7 +88,7 @@ class DrawingsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $comment = $sheet->getComment('A1');
 
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 178);
@@ -127,7 +127,7 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
@@ -144,7 +144,7 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -162,7 +162,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A1');
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
@@ -173,7 +173,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A2');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -208,7 +208,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '75pt');
 
         $comment = $sheet->getComment('A1');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
@@ -227,7 +227,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '112.5pt');
 
         $comment = $sheet->getComment('A2');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
@@ -246,7 +246,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '37.5pt');
 
         $comment = $sheet->getComment('A3');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_JPEG);
@@ -265,7 +265,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A4');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -284,7 +284,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A5');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -304,7 +304,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A6');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -317,7 +317,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertStringContainsString('purple_square.tiff', $drawing->getFilename());
         self::assertFalse($drawing->getIsUrl());
         $comment = $sheet->getComment('A7');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertFalse($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_UNKNOWN);
@@ -326,7 +326,7 @@ class DrawingsTest extends AbstractFunctional
             $comment->setBackgroundImage($drawing);
             self::fail('Should throw exception when attempting to add tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -334,7 +334,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageTypeForSave();
             self::fail('Should throw exception when attempting to get image type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -342,7 +342,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getMediaFilename();
             self::fail('Should throw exception when attempting to get media file name for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -350,7 +350,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageFileExtensionForSave();
             self::fail('Should throw exception when attempting to get image file extention for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -358,7 +358,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageMimeType();
             self::fail('Should throw exception when attempting to get image mime type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -375,7 +375,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A1');
         self::assertEquals($comment->getWidth(), '75pt');
         self::assertEquals($comment->getHeight(), '75pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 100);
@@ -386,7 +386,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A2');
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
@@ -397,7 +397,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A3');
         self::assertEquals($comment->getWidth(), '37.5pt');
         self::assertEquals($comment->getHeight(), '37.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 50);
@@ -408,7 +408,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A4');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -419,7 +419,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A5');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -430,7 +430,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A6');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -439,7 +439,7 @@ class DrawingsTest extends AbstractFunctional
 
         // Check seventh image in comment background
         $comment = $sheet->getComment('A7');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertFalse($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 0);
