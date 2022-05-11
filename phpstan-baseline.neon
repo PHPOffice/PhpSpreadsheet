@@ -4197,7 +4197,7 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
+			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-

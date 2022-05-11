@@ -3014,6 +3014,10 @@ class Worksheet implements IComparable
      */
     public static function extractSheetTitle(string $range, $returnRange = false)
     {
+        if ($range === null) {
+            return $returnRange ? [null, null] : null;
+        }
+
         // Sheet title included?
         if (($sep = strrpos($range, '!')) === false) {
             return $returnRange ? ['', $range] : '';
