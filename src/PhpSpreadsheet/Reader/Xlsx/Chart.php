@@ -365,15 +365,15 @@ class Chart
                             $seriesValues[$seriesIndex]->setScatterLines(false);
                         }
                     }
-                    if ($lineWidth) {
+                    if (is_numeric($lineWidth)) {
                         if (isset($seriesLabel[$seriesIndex])) {
-                            $seriesLabel[$seriesIndex]->setLineWidth($lineWidth);
+                            $seriesLabel[$seriesIndex]->setLineWidth((int) $lineWidth);
                         }
                         if (isset($seriesCategory[$seriesIndex])) {
-                            $seriesCategory[$seriesIndex]->setLineWidth($lineWidth);
+                            $seriesCategory[$seriesIndex]->setLineWidth((int) $lineWidth);
                         }
                         if (isset($seriesValues[$seriesIndex])) {
-                            $seriesValues[$seriesIndex]->setLineWidth($lineWidth);
+                            $seriesValues[$seriesIndex]->setLineWidth((int) $lineWidth);
                         }
                     }
             }
