@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal;
 use PHPUnit\Framework\TestCase;
 
 class NormInvTest extends TestCase
@@ -15,7 +15,7 @@ class NormInvTest extends TestCase
      */
     public function testNORMINV($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMINV(...$args);
+        $result = Normal::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
@@ -32,7 +32,7 @@ class NormInvTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NORMINV({$probabilities}, {$mean}, {$stdDev})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

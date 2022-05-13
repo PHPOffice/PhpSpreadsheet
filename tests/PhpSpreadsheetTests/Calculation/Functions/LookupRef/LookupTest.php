@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Lookup;
 use PHPUnit\Framework\TestCase;
 
 class LookupTest extends TestCase
@@ -21,7 +21,7 @@ class LookupTest extends TestCase
      */
     public function testLOOKUP($expectedResult, ...$args): void
     {
-        $result = LookupRef::LOOKUP(...$args);
+        $result = Lookup::LOOKUP(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -38,7 +38,7 @@ class LookupTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=LOOKUP({$values}, {$lookup}, {$return})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

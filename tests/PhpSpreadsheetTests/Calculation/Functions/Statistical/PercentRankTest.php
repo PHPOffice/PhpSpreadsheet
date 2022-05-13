@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Percentiles;
 use PHPUnit\Framework\TestCase;
 
 class PercentRankTest extends TestCase
@@ -23,7 +23,7 @@ class PercentRankTest extends TestCase
      */
     public function testPERCENTRANK($expectedResult, $valueSet, $value, $digits = 3): void
     {
-        $result = Statistical::PERCENTRANK($valueSet, $value, $digits);
+        $result = Percentiles::PERCENTRANK($valueSet, $value, $digits);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

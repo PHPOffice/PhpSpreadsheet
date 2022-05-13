@@ -38,7 +38,7 @@ class Days360Test extends AllSetupTeardown
         } else {
             $formula = "=DAYS360({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

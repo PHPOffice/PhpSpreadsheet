@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class SlopeTest extends TestCase
@@ -20,7 +20,7 @@ class SlopeTest extends TestCase
      */
     public function testSLOPE($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Statistical::SLOPE($xargs, $yargs);
+        $result = Trends::SLOPE($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 
 class RowTest extends AllSetupTeardown
 {
@@ -14,7 +14,7 @@ class RowTest extends AllSetupTeardown
      */
     public function testROW($expectedResult, $cellReference = null): void
     {
-        $result = LookupRef\RowColumnInformation::ROW($cellReference);
+        $result = RowColumnInformation::ROW($cellReference);
         self::assertSame($expectedResult, $result);
     }
 

@@ -50,7 +50,7 @@ class FindTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=FIND({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Depreciation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class DbTest extends TestCase
      */
     public function testDB($expectedResult, ...$args): void
     {
-        $result = Financial::DB(...$args);
+        $result = Depreciation::DB(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

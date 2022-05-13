@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class IfNaTest extends TestCase
@@ -23,7 +23,7 @@ class IfNaTest extends TestCase
      */
     public function testIFNA($expectedResult, $value, $return): void
     {
-        $result = Logical::IFNA($value, $return);
+        $result = Conditional::IFNA($value, $return);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -40,7 +40,7 @@ class IfNaTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IFNA({$argument1}, {$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

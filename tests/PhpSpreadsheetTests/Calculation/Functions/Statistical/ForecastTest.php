@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class ForecastTest extends TestCase
@@ -21,7 +21,7 @@ class ForecastTest extends TestCase
      */
     public function testFORECAST($expectedResult, ...$args): void
     {
-        $result = Statistical::FORECAST(...$args);
+        $result = Trends::FORECAST(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -38,7 +38,7 @@ class ForecastTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=FORECAST({$testValues}, {$yValues}, {$xValues})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

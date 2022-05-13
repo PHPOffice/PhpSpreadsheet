@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Exponential;
 use PHPUnit\Framework\TestCase;
 
 class ExponDistTest extends TestCase
@@ -21,7 +21,7 @@ class ExponDistTest extends TestCase
      */
     public function testEXPONDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::EXPONDIST(...$args);
+        $result = Exponential::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -38,7 +38,7 @@ class ExponDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=EXPONDIST({$values}, {$lambdas}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

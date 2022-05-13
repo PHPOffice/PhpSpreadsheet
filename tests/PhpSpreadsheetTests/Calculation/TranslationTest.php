@@ -43,10 +43,10 @@ class TranslationTest extends TestCase
             self::markTestSkipped("Unable to set locale to {$locale}");
         }
 
-        $translatedFormula = Calculation::getInstance()->_translateFormulaToLocale($formula);
+        $translatedFormula = Calculation::getInstance()->translateFormulaToLocale($formula);
         self::assertSame($expectedResult, $translatedFormula);
 
-        $restoredFormula = Calculation::getInstance()->_translateFormulaToEnglish($translatedFormula);
+        $restoredFormula = Calculation::getInstance()->translateFormulaToEnglish($translatedFormula);
         self::assertSame($formula, $restoredFormula);
     }
 

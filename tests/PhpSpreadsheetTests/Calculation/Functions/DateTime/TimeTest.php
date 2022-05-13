@@ -71,7 +71,7 @@ class TimeTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=TIME({$hour}, {$minute}, {$second})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
@@ -140,7 +140,7 @@ class TimeTest extends AllSetupTeardown
         $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
 
         $formula = "=TIME({$hour}, {$minute}, {$second})";
-        $calculation->_calculateFormulaValue($formula);
+        $calculation->calculateFormulaValue($formula);
     }
 
     public function providerTimeArrayException(): array

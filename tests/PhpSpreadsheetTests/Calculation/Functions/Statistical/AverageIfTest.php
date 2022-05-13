@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class AverageIfTest extends TestCase
@@ -20,7 +20,7 @@ class AverageIfTest extends TestCase
      */
     public function testAVERAGEIF($expectedResult, ...$args): void
     {
-        $result = Statistical::AVERAGEIF(...$args);
+        $result = Conditional::AVERAGEIF(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

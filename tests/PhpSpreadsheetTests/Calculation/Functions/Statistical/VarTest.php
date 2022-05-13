@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 use PHPUnit\Framework\TestCase;
 
 class VarTest extends TestCase
@@ -21,7 +21,7 @@ class VarTest extends TestCase
      */
     public function testVAR($expectedResult, $values): void
     {
-        $result = Statistical::VARFunc($values);
+        $result = Variances::VAR($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +40,7 @@ class VarTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Statistical::VARFunc($values);
+        $result = Variances::VAR($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

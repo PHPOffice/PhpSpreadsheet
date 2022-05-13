@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Normal;
 use PHPUnit\Framework\TestCase;
 
 class NormDistTest extends TestCase
@@ -15,7 +15,7 @@ class NormDistTest extends TestCase
      */
     public function testNORMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMDIST(...$args);
+        $result = Normal::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -32,7 +32,7 @@ class NormDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NORMDIST({$values}, {$mean}, {$stdDev}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

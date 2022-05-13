@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class GrowthTest extends TestCase
@@ -21,11 +21,11 @@ class GrowthTest extends TestCase
     public function testGROWTH($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {
-            $result = Statistical::GROWTH($yValues, $xValues);
+            $result = Trends::GROWTH($yValues, $xValues);
         } elseif ($const === null) {
-            $result = Statistical::GROWTH($yValues, $xValues, $newValues);
+            $result = Trends::GROWTH($yValues, $xValues, $newValues);
         } else {
-            $result = Statistical::GROWTH($yValues, $xValues, $newValues, $const);
+            $result = Trends::GROWTH($yValues, $xValues, $newValues, $const);
         }
 
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);

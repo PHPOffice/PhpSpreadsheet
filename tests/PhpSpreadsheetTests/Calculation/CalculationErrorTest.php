@@ -14,7 +14,7 @@ class CalculationErrorTest extends TestCase
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage('Formula Error:');
         $calculation = Calculation::getInstance();
-        $result = $calculation->_calculateFormulaValue('=SUM(');
+        $result = $calculation->calculateFormulaValue('=SUM(');
         self::assertFalse($result);
     }
 
@@ -25,7 +25,7 @@ class CalculationErrorTest extends TestCase
         $error = false;
 
         try {
-            $calculation->_calculateFormulaValue('=SUM(');
+            $calculation->calculateFormulaValue('=SUM(');
         } catch (Throwable $e) {
             self::assertSame("Formula Error: Expecting ')'", $e->getMessage());
             self::assertSame('PHPUnit\\Framework\\Error\\Error', get_class($e));
@@ -47,7 +47,7 @@ class CalculationErrorTest extends TestCase
         $calculation = Calculation::getInstance();
         $calculation->suppressFormulaErrors = true;
         set_error_handler([self::class, 'errhandler2']);
-        $result = $calculation->_calculateFormulaValue('=SUM(');
+        $result = $calculation->calculateFormulaValue('=SUM(');
         restore_error_handler();
         self::assertFalse($result);
     }

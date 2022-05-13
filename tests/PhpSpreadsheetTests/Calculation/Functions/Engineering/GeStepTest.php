@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class GeStepTest extends TestCase
      */
     public function testGESTEP($expectedResult, $a, $b): void
     {
-        $result = Engineering::GESTEP($a, $b);
+        $result = Compare::GESTEP($a, $b);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -40,7 +40,7 @@ class GeStepTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=GESTEP({$a}, {$b})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\ExcelMatch;
 use PHPUnit\Framework\TestCase;
 
 class MatchTest extends TestCase
@@ -21,7 +21,7 @@ class MatchTest extends TestCase
      */
     public function testMATCH($expectedResult, ...$args): void
     {
-        $result = LookupRef::MATCH(...$args);
+        $result = ExcelMatch::MATCH(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -38,7 +38,7 @@ class MatchTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=MATCH({$values}, {$selections}, 0)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

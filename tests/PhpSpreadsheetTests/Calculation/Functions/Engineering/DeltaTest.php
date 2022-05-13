@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class DeltaTest extends TestCase
      */
     public function testDELTA($expectedResult, $a, $b): void
     {
-        $result = Engineering::DELTA($a, $b);
+        $result = Compare::DELTA($a, $b);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -40,7 +40,7 @@ class DeltaTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=DELTA({$a}, {$b})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

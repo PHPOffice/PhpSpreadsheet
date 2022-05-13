@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class IfsTest extends TestCase
@@ -21,7 +21,7 @@ class IfsTest extends TestCase
      */
     public function testIFS($expectedResult, ...$args): void
     {
-        $result = Logical::IFS(...$args);
+        $result = Conditional::IFS(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

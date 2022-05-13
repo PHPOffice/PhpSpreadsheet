@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class SwitchTest extends TestCase
@@ -20,7 +20,7 @@ class SwitchTest extends TestCase
      */
     public function testSWITCH($expectedResult, ...$args): void
     {
-        $result = Logical::statementSwitch(...$args);
+        $result = Conditional::statementSwitch(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PHPUnit\Framework\TestCase;
 
 class OrTest extends TestCase
@@ -20,7 +20,7 @@ class OrTest extends TestCase
      */
     public function testOR($expectedResult, ...$args): void
     {
-        $result = Logical::logicalOr(...$args);
+        $result = Operations::logicalOr(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

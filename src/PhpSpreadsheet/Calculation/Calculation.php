@@ -295,7 +295,7 @@ class Calculation
         ],
         'ARABIC' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Arabic::class, 'evaluate'],
+            'functionCall' => [MathTrig\Arabic::class, 'toRoman'],
             'argumentCount' => '1',
         ],
         'AREAS' => [
@@ -2169,7 +2169,7 @@ class Calculation
         ],
         'ROMAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [MathTrig\Roman::class, 'evaluate'],
+            'functionCall' => [MathTrig\Roman::class, 'toArabic'],
             'argumentCount' => '1,2',
         ],
         'ROUND' => [
@@ -2844,7 +2844,7 @@ class Calculation
         ],
         'NAME.ERROR' => [
             'argumentCount' => '*',
-            'functionCall' => [Functions::class, 'NAME'],
+            'functionCall' => [Information\ExcelError::class, 'NAME'],
         ],
         'WILDCARDMATCH' => [
             'argumentCount' => '2',
@@ -3258,7 +3258,7 @@ class Calculation
 
     private static $functionReplaceToLocale;
 
-    public function _translateFormulaToLocale(string $formula): string
+    public function translateFormulaToLocale(string $formula): string
     {
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
@@ -3294,7 +3294,7 @@ class Calculation
 
     private static $functionReplaceToExcel;
 
-    public function _translateFormulaToEnglish(string $formula): string
+    public function translateFormulaToEnglish(string $formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
@@ -3432,8 +3432,7 @@ class Calculation
         ];
 
         try {
-            $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
-
+            $result = self::unwrapResult($this->calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
             $cellAddress = array_pop($this->cellStack);
             $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
         } catch (\Exception $e) {
@@ -3530,7 +3529,7 @@ class Calculation
 
         //    Execute the calculation
         try {
-            $result = self::unwrapResult($this->_calculateFormulaValue($formula, $cellID, $cell));
+            $result = self::unwrapResult($this->calculateFormulaValue($formula, $cellID, $cell));
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -3583,7 +3582,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null)
+    public function calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null)
     {
         $cellValue = null;
 
@@ -4743,7 +4742,7 @@ class Calculation
                         }
                         if (count(Functions::flattenArray($cellIntersect)) === 0) {
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
-                            $stack->push('Error', Functions::null(), null);
+                            $stack->push('Error', ExcelError::null(), null);
                         } else {
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
                                 Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
@@ -5526,7 +5525,7 @@ class Calculation
         $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
-        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell);
+        $result = $recursiveCalculator->calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell);
 
         if ($this->getDebugLog()->getWriteDebugLog()) {
             $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));

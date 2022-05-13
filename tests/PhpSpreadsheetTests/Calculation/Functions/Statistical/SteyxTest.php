@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class SteyxTest extends TestCase
@@ -20,7 +20,7 @@ class SteyxTest extends TestCase
      */
     public function testSTEYX($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Statistical::STEYX($xargs, $yargs);
+        $result = Trends::STEYX($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

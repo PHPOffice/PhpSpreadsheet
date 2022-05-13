@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class IrrTest extends TestCase
      */
     public function testIRR($expectedResult, ...$args): void
     {
-        $result = Financial::IRR(...$args);
+        $result = Periodic::rate(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

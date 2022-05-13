@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Coupons;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CoupPcdTest extends TestCase
      */
     public function testCOUPPCD($expectedResult, ...$args): void
     {
-        $result = Financial::COUPPCD(...$args);
+        $result = Coupons::COUPPCD(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

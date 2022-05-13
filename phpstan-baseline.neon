@@ -181,51 +181,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMAX\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMIN\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DPRODUCT\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEV\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEVP\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSUM\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVAR\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVARP\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DCountA\\:\\:evaluate\\(\\) expects int\\|string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:buildCondition\\(\\) has parameter \\$criterion with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
@@ -324,21 +279,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:\\$oneSqrtPi has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:ISPMT\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:ISPMT\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:NPV\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
 
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:isLeapYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
@@ -576,16 +516,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:CHOOSE\\(\\) has parameter \\$chooseArgs with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) should return array\\|string but returns array\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
@@ -774,16 +704,6 @@ parameters:
 			message: "#^PHPDoc tag @var for constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:CALL_FUNCTIONS with type array\\<callable\\(\\)\\: mixed\\> is not subtype of value array\\{1\\: array\\{'PhpOffice…', 'average'\\}, 2\\: array\\{'PhpOffice…', 'COUNT'\\}, 3\\: array\\{'PhpOffice…', 'COUNTA'\\}, 4\\: array\\{'PhpOffice…', 'max'\\}, 5\\: array\\{'PhpOffice…', 'min'\\}, 6\\: array\\{'PhpOffice…', 'product'\\}, 7\\: array\\{'PhpOffice…', 'STDEV'\\}, 8\\: array\\{'PhpOffice…', 'STDEVP'\\}, \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MINIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:filterArguments\\(\\) has no return type specified\\.$#"
@@ -1064,11 +984,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\VarianceBase\\:\\:datatypeAdjustmentBooleans\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/VarianceBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:CONCATENATE\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
 
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"

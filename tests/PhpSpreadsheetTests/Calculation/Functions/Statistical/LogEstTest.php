@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class LogEstTest extends TestCase
@@ -17,7 +17,7 @@ class LogEstTest extends TestCase
      */
     public function testLOGEST(array $expectedResult, $yValues, $xValues, $const, $stats): void
     {
-        $result = Statistical::LOGEST($yValues, $xValues, $const, $stats);
+        $result = Trends::LOGEST($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);
 
         $elements = count($expectedResult);

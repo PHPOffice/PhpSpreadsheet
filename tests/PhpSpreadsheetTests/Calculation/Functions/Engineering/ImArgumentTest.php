@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,7 @@ class ImArgumentTest extends TestCase
      */
     public function testIMARGUMENT($expectedResult, $value): void
     {
-        $result = Engineering::IMARGUMENT($value);
+        $result = ComplexFunctions::IMARGUMENT($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 
@@ -41,7 +41,7 @@ class ImArgumentTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMARGUMENT({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

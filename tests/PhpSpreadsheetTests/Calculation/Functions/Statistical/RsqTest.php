@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class RsqTest extends TestCase
@@ -20,7 +20,7 @@ class RsqTest extends TestCase
      */
     public function testRSQ($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Statistical::RSQ($xargs, $yargs);
+        $result = Trends::RSQ($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

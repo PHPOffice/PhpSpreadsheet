@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Trends;
 use PHPUnit\Framework\TestCase;
 
 class CorrelTest extends TestCase
@@ -22,7 +22,7 @@ class CorrelTest extends TestCase
      */
     public function testCORREL($expectedResult, $xargs, $yargs): void
     {
-        $result = Statistical::CORREL($xargs, $yargs);
+        $result = Trends::CORREL($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

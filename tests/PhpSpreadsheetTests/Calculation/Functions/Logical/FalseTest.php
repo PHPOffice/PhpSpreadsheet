@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 use PHPUnit\Framework\TestCase;
 
 class FalseTest extends TestCase
@@ -15,7 +15,7 @@ class FalseTest extends TestCase
 
     public function testFALSE(): void
     {
-        $result = Logical::FALSE();
+        $result = Boolean::false();
         self::assertFalse($result);
     }
 }

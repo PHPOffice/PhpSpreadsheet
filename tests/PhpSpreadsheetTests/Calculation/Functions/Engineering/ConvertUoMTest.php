@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -16,31 +16,31 @@ class ConvertUoMTest extends TestCase
 
     public function testGetConversionGroups(): void
     {
-        $result = Engineering::getConversionGroups();
+        $result = ConvertUOM::getConversionCategories();
         self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnits(): void
     {
-        $result = Engineering::getConversionGroupUnits();
+        $result = ConvertUOM::getConversionCategoryUnits();
         self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnitDetails(): void
     {
-        $result = Engineering::getConversionGroupUnitDetails();
+        $result = ConvertUOM::getConversionCategoryUnitDetails();
         self::assertIsArray($result);
     }
 
     public function testGetConversionMultipliers(): void
     {
-        $result = Engineering::getConversionMultipliers();
+        $result = ConvertUOM::getConversionMultipliers();
         self::assertIsArray($result);
     }
 
     public function testGetBinaryConversionMultipliers(): void
     {
-        $result = Engineering::getBinaryConversionMultipliers();
+        $result = ConvertUOM::getBinaryConversionMultipliers();
         self::assertIsArray($result);
     }
 
@@ -51,7 +51,7 @@ class ConvertUoMTest extends TestCase
      */
     public function testCONVERTUOM($expectedResult, ...$args): void
     {
-        $result = Engineering::CONVERTUOM(...$args);
+        $result = ConvertUOM::CONVERT(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -68,7 +68,7 @@ class ConvertUoMTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=CONVERT({$value}, {$fromUoM}, {$toUoM})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

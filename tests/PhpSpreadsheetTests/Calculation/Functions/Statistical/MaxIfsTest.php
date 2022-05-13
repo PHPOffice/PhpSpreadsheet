@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Conditional;
 use PHPUnit\Framework\TestCase;
 
 class MaxIfsTest extends TestCase
@@ -20,7 +20,7 @@ class MaxIfsTest extends TestCase
      */
     public function testMAXIFS($expectedResult, ...$args): void
     {
-        $result = Statistical::MAXIFS(...$args);
+        $result = Conditional::MAXIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

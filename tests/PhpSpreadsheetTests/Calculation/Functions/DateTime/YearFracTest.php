@@ -56,7 +56,7 @@ class YearFracTest extends AllSetupTeardown
         } else {
             $formula = "=YEARFRAC({$startDate}, {$endDate}, {$methods})";
         }
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

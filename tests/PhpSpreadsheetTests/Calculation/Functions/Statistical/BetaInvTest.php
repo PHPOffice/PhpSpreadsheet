@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Beta;
 use PHPUnit\Framework\TestCase;
 
 class BetaInvTest extends TestCase
@@ -21,7 +21,7 @@ class BetaInvTest extends TestCase
      */
     public function testBETAINV($expectedResult, ...$args): void
     {
-        $result = Statistical::BETAINV(...$args);
+        $result = Beta::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -38,7 +38,7 @@ class BetaInvTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BETAINV({$argument1}, {$argument2}, {$argument3})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

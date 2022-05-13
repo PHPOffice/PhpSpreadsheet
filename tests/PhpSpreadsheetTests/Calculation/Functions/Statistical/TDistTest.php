@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT;
 use PHPUnit\Framework\TestCase;
 
 class TDistTest extends TestCase
@@ -18,7 +18,7 @@ class TDistTest extends TestCase
      */
     public function testTDIST($expectedResult, $value, $degrees, $tails): void
     {
-        $result = Statistical::TDIST($value, $degrees, $tails);
+        $result = StudentT::distribution($value, $degrees, $tails);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -35,7 +35,7 @@ class TDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=TDIST({$values}, {$degrees}, {$tails})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

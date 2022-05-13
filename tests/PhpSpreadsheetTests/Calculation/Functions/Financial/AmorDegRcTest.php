@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class AmorDegRcTest extends TestCase
      */
     public function testAMORDEGRC($expectedResult, ...$args): void
     {
-        $result = Financial::AMORDEGRC(...$args);
+        $result = Amortization::AMORDEGRC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

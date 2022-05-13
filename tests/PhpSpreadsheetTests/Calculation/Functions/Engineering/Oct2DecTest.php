@@ -100,7 +100,7 @@ class Oct2DecTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=OCT2DEC({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

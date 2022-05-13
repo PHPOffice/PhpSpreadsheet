@@ -64,13 +64,6 @@ class Html extends BaseWriter
     private $useInlineCss = false;
 
     /**
-     * Use embedded CSS?
-     *
-     * @var bool
-     */
-    private $useEmbeddedCSS = true;
-
-    /**
      * Array of CSS styles.
      *
      * @var array
@@ -1589,38 +1582,6 @@ class Html extends BaseWriter
     public function setUseInlineCss($useInlineCss)
     {
         $this->useInlineCss = $useInlineCss;
-
-        return $this;
-    }
-
-    /**
-     * Get use embedded CSS?
-     *
-     * @return bool
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no longer used
-     */
-    public function getUseEmbeddedCSS()
-    {
-        return $this->useEmbeddedCSS;
-    }
-
-    /**
-     * Set use embedded CSS?
-     *
-     * @param bool $useEmbeddedCSS
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no longer used
-     */
-    public function setUseEmbeddedCSS($useEmbeddedCSS)
-    {
-        $this->useEmbeddedCSS = $useEmbeddedCSS;
 
         return $this;
     }
