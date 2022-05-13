@@ -218,6 +218,10 @@ class StringTable extends WriterPart
 
             // rPr
             $objWriter->startElement($prefix . 'rPr');
+            $size = $element->getFont()->getSize();
+            if (is_numeric($size)) {
+                $objWriter->writeAttribute('sz', (string) (int) ($size * 100));
+            }
 
             // Bold
             $objWriter->writeAttribute('b', ($element->getFont()->getBold() ? 1 : 0));

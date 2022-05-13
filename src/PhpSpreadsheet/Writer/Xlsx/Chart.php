@@ -1016,7 +1016,7 @@ class Chart extends WriterPart
      * @param bool $valIsMultiLevelSeries Is value set a multi-series set
      * @param string $plotGroupingType Type of grouping for multi-series values
      */
-    private function writePlotGroup(?DataSeries $plotGroup, $groupType, XMLWriter $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
+    private function writePlotGroup(?DataSeries $plotGroup, string $groupType, XMLWriter $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
     {
         if ($plotGroup === null) {
             return;
@@ -1104,7 +1104,7 @@ class Chart extends WriterPart
             }
 
             //    Formatting for the points
-            if (($groupType == DataSeries::TYPE_LINECHART) || ($groupType == DataSeries::TYPE_STOCKCHART)) {
+            if (($groupType == DataSeries::TYPE_LINECHART) || ($groupType == DataSeries::TYPE_STOCKCHART || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines()))) {
                 $plotLineWidth = 12700;
                 if ($plotSeriesValues) {
                     $plotLineWidth = $plotSeriesValues->getLineWidth();
@@ -1113,7 +1113,7 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:spPr');
                 $objWriter->startElement('a:ln');
                 $objWriter->writeAttribute('w', $plotLineWidth);
-                if ($groupType == DataSeries::TYPE_STOCKCHART) {
+                if ($groupType == DataSeries::TYPE_STOCKCHART || $groupType === DataSeries::TYPE_SCATTERCHART) {
                     $objWriter->startElement('a:noFill');
                     $objWriter->endElement();
                 } elseif ($plotLabel) {
@@ -1142,6 +1142,16 @@ class Chart extends WriterPart
                         $objWriter->startElement('c:size');
                         $objWriter->writeAttribute('val', (string) $plotSeriesValues->getPointSize());
                         $objWriter->endElement();
+                        $fillColor = $plotSeriesValues->getFillColor();
+                        if (is_string($fillColor) && $fillColor !== '') {
+                            $objWriter->startElement('c:spPr');
+                            $objWriter->startElement('a:solidFill');
+                            $objWriter->startElement('a:srgbClr');
+                            $objWriter->writeAttribute('val', $fillColor);
+                            $objWriter->endElement(); // srgbClr
+                            $objWriter->endElement(); // solidFill
+                            $objWriter->endElement(); // spPr
+                        }
                     }
 
                     $objWriter->endElement();

@@ -25,7 +25,7 @@ class Chart
     private static function getAttribute(SimpleXMLElement $component, $name, $format)
     {
         $attributes = $component->attributes();
-        if (isset($attributes[$name])) {
+        if (@isset($attributes[$name])) {
             if ($format == 'string') {
                 return (string) $attributes[$name];
             } elseif ($format == 'integer') {
@@ -293,6 +293,10 @@ class Chart
                 case 'ser':
                     $marker = null;
                     $seriesIndex = '';
+                    $srgbClr = null;
+                    $lineWidth = null;
+                    $pointSize = null;
+                    $noFill = false;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -308,8 +312,24 @@ class Chart
                                 $seriesLabel[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta);
 
                                 break;
+                            case 'spPr':
+                                $ln = $seriesDetail->children($namespacesChartMeta['a'])->ln;
+                                $lineWidth = self::getAttribute($ln, 'w', 'string');
+                                if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
+                                    $noFill = true;
+                                }
+
+                                break;
                             case 'marker':
                                 $marker = self::getAttribute($seriesDetail->symbol, 'val', 'string');
+                                $pointSize = self::getAttribute($seriesDetail->size, 'val', 'string');
+                                $pointSize = is_numeric($pointSize) ? ((int) $pointSize) : null;
+                                if (count($seriesDetail->spPr) === 1) {
+                                    $ln = $seriesDetail->spPr->children($namespacesChartMeta['a']);
+                                    if (count($ln->solidFill) === 1) {
+                                        $srgbClr = self::getattribute($ln->solidFill->srgbClr, 'val', 'string');
+                                    }
+                                }
 
                                 break;
                             case 'smooth':
@@ -321,17 +341,39 @@ class Chart
 
                                 break;
                             case 'val':
-                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
                             case 'xVal':
-                                $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
                             case 'yVal':
-                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
+                        }
+                    }
+                    if ($noFill) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setScatterLines(false);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setScatterLines(false);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setScatterLines(false);
+                        }
+                    }
+                    if ($lineWidth) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setLineWidth($lineWidth);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setLineWidth($lineWidth);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setLineWidth($lineWidth);
                         }
                     }
             }
@@ -340,11 +382,11 @@ class Chart
         return new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
     }
 
-    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker = null)
+    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, ?string $marker = null, ?string $srgbClr = null, ?string $pointSize = null)
     {
         if (isset($seriesDetail->strRef)) {
             $seriesSource = (string) $seriesDetail->strRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->strRef->strCache)) {
                 $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
@@ -356,7 +398,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
             if (isset($seriesDetail->numRef->numCache)) {
                 $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
                 $seriesValues
@@ -367,7 +409,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->multiLvlStrRef->multiLvlStrCache)) {
                 $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
@@ -379,7 +421,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->multiLvlNumRef->multiLvlNumCache)) {
                 $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
@@ -474,9 +516,62 @@ class Chart
     {
         $value = new RichText();
         $objText = null;
+        $defaultSize = null;
+        $defaultBold = null;
+        $defaultItalic = null;
+        $defaultUnderscore = null;
+        $defaultStrikethrough = null;
+        $defaultBaseline = null;
+        if (isset($titleDetailPart->pPr->defRPr)) {
+            $defaultSizx = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'string');
+            if (is_numeric($defaultSizx)) {
+                $defaultSize = (int) ($defaultSizx / 100);
+            }
+            /** @var ?bool */
+            $defaultBold = self::getAttribute($titleDetailPart->pPr->defRPr, 'b', 'boolean');
+            /** @var ?bool */
+            $defaultItalic = self::getAttribute($titleDetailPart->pPr->defRPr, 'i', 'boolean');
+            $defaultUnderscorx = self::getAttribute($titleDetailPart->pPr->defRPr, 'u', 'string');
+            if ($defaultUnderscorx !== null) {
+                if ($defaultUnderscorx == 'sng') {
+                    $defaultUnderscore = Font::UNDERLINE_SINGLE;
+                } elseif ($defaultUnderscorx == 'dbl') {
+                    $defaultUnderscore = Font::UNDERLINE_DOUBLE;
+                } else {
+                    $defaultUnderscore = Font::UNDERLINE_NONE;
+                }
+            }
+            $defaultStrikethroughx = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
+            if ($defaultStrikethroughx !== null) {
+                if ($defaultStrikethroughx == 'noStrike') {
+                    $defaultStrikethrough = false;
+                } else {
+                    $defaultStrikethrough = true;
+                }
+            }
+            $defaultBaseline = self::getAttribute($titleDetailPart->pPr->defRPr, 'baseline', 'integer');
+        }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
                 $objText = $value->createTextRun((string) $titleDetailElement->t);
+            }
+            if ($objText === null || $objText->getFont() === null) {
+                continue;
+            }
+            if ($defaultSize !== null) {
+                $objText->getFont()->setSize($defaultSize);
+            }
+            if ($defaultBold !== null) {
+                $objText->getFont()->setBold($defaultBold);
+            }
+            if ($defaultItalic !== null) {
+                $objText->getFont()->setItalic($defaultItalic);
+            }
+            if ($defaultUnderscore !== null) {
+                $objText->getFont()->setUnderline($defaultUnderscore);
+            }
+            if ($defaultStrikethrough !== null) {
+                $objText->getFont()->setStrikethrough($defaultStrikethrough);
             }
             if (isset($titleDetailElement->rPr)) {
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
@@ -493,17 +588,19 @@ class Chart
                     $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
                 }
 
+                /** @var ?bool */
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
                 if ($bold !== null) {
                     $objText->getFont()->setBold($bold);
                 }
 
+                /** @var ?bool */
                 $italic = self::getAttribute($titleDetailElement->rPr, 'i', 'boolean');
                 if ($italic !== null) {
                     $objText->getFont()->setItalic($italic);
                 }
 
-                $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer');
+                $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer') ?? $defaultBaseline;
                 if ($baseline !== null) {
                     if ($baseline > 0) {
                         $objText->getFont()->setSuperscript(true);
