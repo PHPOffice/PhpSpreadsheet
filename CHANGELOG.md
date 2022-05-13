@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
+  See [the Discussion](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance
+
 ### Deprecated
 
 - Nothing
