@@ -516,39 +516,26 @@ class Chart
     {
         $value = new RichText();
         $objText = null;
-        $defaultSize = null;
+        $defaultFontSize = null;
         $defaultBold = null;
         $defaultItalic = null;
         $defaultUnderscore = null;
         $defaultStrikethrough = null;
         $defaultBaseline = null;
+        $defaultFontName = null;
+        $defaultColor = null;
         if (isset($titleDetailPart->pPr->defRPr)) {
-            $defaultSizx = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'string');
-            if (is_numeric($defaultSizx)) {
-                $defaultSize = (int) ($defaultSizx / 100);
-            }
+            /** @var ?int */
+            $defaultFontSize = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'integer');
             /** @var ?bool */
             $defaultBold = self::getAttribute($titleDetailPart->pPr->defRPr, 'b', 'boolean');
             /** @var ?bool */
             $defaultItalic = self::getAttribute($titleDetailPart->pPr->defRPr, 'i', 'boolean');
-            $defaultUnderscorx = self::getAttribute($titleDetailPart->pPr->defRPr, 'u', 'string');
-            if ($defaultUnderscorx !== null) {
-                if ($defaultUnderscorx == 'sng') {
-                    $defaultUnderscore = Font::UNDERLINE_SINGLE;
-                } elseif ($defaultUnderscorx == 'dbl') {
-                    $defaultUnderscore = Font::UNDERLINE_DOUBLE;
-                } else {
-                    $defaultUnderscore = Font::UNDERLINE_NONE;
-                }
-            }
-            $defaultStrikethroughx = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
-            if ($defaultStrikethroughx !== null) {
-                if ($defaultStrikethroughx == 'noStrike') {
-                    $defaultStrikethrough = false;
-                } else {
-                    $defaultStrikethrough = true;
-                }
-            }
+            /** @var ?string */
+            $defaultUnderscore = self::getAttribute($titleDetailPart->pPr->defRPr, 'u', 'string');
+            /** @var ?string */
+            $defaultStrikethrough = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
+            /** @var ?int */
             $defaultBaseline = self::getAttribute($titleDetailPart->pPr->defRPr, 'baseline', 'integer');
         }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
@@ -558,75 +545,91 @@ class Chart
             if ($objText === null || $objText->getFont() === null) {
                 continue;
             }
-            if ($defaultSize !== null) {
-                $objText->getFont()->setSize($defaultSize);
-            }
-            if ($defaultBold !== null) {
-                $objText->getFont()->setBold($defaultBold);
-            }
-            if ($defaultItalic !== null) {
-                $objText->getFont()->setItalic($defaultItalic);
-            }
-            if ($defaultUnderscore !== null) {
-                $objText->getFont()->setUnderline($defaultUnderscore);
-            }
-            if ($defaultStrikethrough !== null) {
-                $objText->getFont()->setStrikethrough($defaultStrikethrough);
-            }
+            $fontSize = null;
+            $bold = null;
+            $italic = null;
+            $underscore = null;
+            $strikethrough = null;
+            $baseline = null;
+            $fontName = null;
+            $fontColor = null;
             if (isset($titleDetailElement->rPr)) {
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
-                    $objText->getFont()->setName((string) $titleDetailElement->rPr->rFont['val']);
+                    $fontName = (string) $titleDetailElement->rPr->rFont['val'];
                 }
+                /** @var ?int */
+                $fontSize = self::getAttribute($titleDetailElement->rPr, 'sz', 'integer');
 
-                $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
-                if (is_int($fontSize)) {
-                    $objText->getFont()->setSize(floor($fontSize / 100));
-                }
-
-                $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
-                if ($fontColor !== null) {
-                    $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
-                }
+                /** @var ?string */
+                $fontColor = self::getAttribute($titleDetailElement->rPr, 'color', 'string');
 
                 /** @var ?bool */
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
-                if ($bold !== null) {
-                    $objText->getFont()->setBold($bold);
-                }
 
                 /** @var ?bool */
                 $italic = self::getAttribute($titleDetailElement->rPr, 'i', 'boolean');
-                if ($italic !== null) {
-                    $objText->getFont()->setItalic($italic);
-                }
 
-                $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer') ?? $defaultBaseline;
-                if ($baseline !== null) {
-                    if ($baseline > 0) {
-                        $objText->getFont()->setSuperscript(true);
-                    } elseif ($baseline < 0) {
-                        $objText->getFont()->setSubscript(true);
-                    }
-                }
+                /** @var ?int */
+                $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer');
 
-                $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
-                if ($underscore !== null) {
-                    if ($underscore == 'sng') {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
-                    } elseif ($underscore == 'dbl') {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
-                    } else {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
-                    }
-                }
+                /** @var ?string */
+                $underscore = self::getAttribute($titleDetailElement->rPr, 'u', 'string');
 
-                $strikethrough = (self::getAttribute($titleDetailElement->rPr, 's', 'string'));
-                if ($strikethrough !== null) {
-                    if ($strikethrough == 'noStrike') {
-                        $objText->getFont()->setStrikethrough(false);
-                    } else {
-                        $objText->getFont()->setStrikethrough(true);
-                    }
+                /** @var ?string */
+                $strikethrough = self::getAttribute($titleDetailElement->rPr, 's', 'string');
+            }
+
+            $fontName = $fontName ?? $defaultFontName;
+            if ($fontName !== null) {
+                $objText->getFont()->setName($fontName);
+            }
+
+            $fontSize = $fontSize ?? $defaultFontSize;
+            if (is_int($fontSize)) {
+                $objText->getFont()->setSize(floor($fontSize / 100));
+            }
+
+            $fontColor = $fontColor ?? $defaultColor;
+            if ($fontColor !== null) {
+                $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
+            }
+
+            $bold = $bold ?? $defaultBold;
+            if ($bold !== null) {
+                $objText->getFont()->setBold($bold);
+            }
+
+            $italic = $italic ?? $defaultItalic;
+            if ($italic !== null) {
+                $objText->getFont()->setItalic($italic);
+            }
+
+            $baseline = $baseline ?? $defaultBaseline;
+            if ($baseline !== null) {
+                if ($baseline > 0) {
+                    $objText->getFont()->setSuperscript(true);
+                } elseif ($baseline < 0) {
+                    $objText->getFont()->setSubscript(true);
+                }
+            }
+
+            $underscore = $underscore ?? $defaultUnderscore;
+            if ($underscore !== null) {
+                if ($underscore == 'sng') {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+                } elseif ($underscore == 'dbl') {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
+                } else {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
+                }
+            }
+
+            $strikethrough = $strikethrough ?? $defaultStrikethrough;
+            if ($strikethrough !== null) {
+                if ($strikethrough == 'noStrike') {
+                    $objText->getFont()->setStrikethrough(false);
+                } else {
+                    $objText->getFont()->setStrikethrough(true);
                 }
             }
         }
