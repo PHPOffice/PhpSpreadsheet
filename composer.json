@@ -83,6 +83,7 @@
         "friendsofphp/php-cs-fixer": "^3.2",
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "8.1.1",
+        "phpbench/phpbench": "^1.2",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
@@ -104,6 +105,7 @@
     "autoload-dev": {
         "psr-4": {
             "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
+            "PhpOffice\\PhpSpreadsheetPerformance\\": "tests/Performance",
             "PhpOffice\\PhpSpreadsheetInfra\\": "infra"
         }
     }
