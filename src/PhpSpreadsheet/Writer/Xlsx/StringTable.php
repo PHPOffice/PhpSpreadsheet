@@ -213,10 +213,9 @@ class StringTable extends WriterPart
         // Loop through rich text elements
         $elements = $richText->getRichTextElements();
         foreach ($elements as $element) {
+            // r
+            $objWriter->startElement($prefix . 'r');
             if ($element->getFont() !== null) {
-                // r
-                $objWriter->startElement($prefix . 'r');
-
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
                 $size = $element->getFont()->getSize();
@@ -257,14 +256,14 @@ class StringTable extends WriterPart
                 $objWriter->endElement();
 
                 $objWriter->endElement();
-
-                // t
-                $objWriter->startElement($prefix . 't');
-                $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
-                $objWriter->endElement();
-
-                $objWriter->endElement();
             }
+
+            // t
+            $objWriter->startElement($prefix . 't');
+            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->endElement();
+
+            $objWriter->endElement();
         }
     }
 
