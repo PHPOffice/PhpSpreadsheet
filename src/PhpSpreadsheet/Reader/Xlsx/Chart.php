@@ -42,15 +42,6 @@ class Chart
         return null;
     }
 
-    private static function readColor($color, $background = false)
-    {
-        if (isset($color['rgb'])) {
-            return (string) $color['rgb'];
-        } elseif (isset($color['indexed'])) {
-            return Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
-        }
-    }
-
     /**
      * @param string $chartName
      *
@@ -537,6 +528,14 @@ class Chart
             $defaultStrikethrough = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
             /** @var ?int */
             $defaultBaseline = self::getAttribute($titleDetailPart->pPr->defRPr, 'baseline', 'integer');
+            if (isset($titleDetailPart->pPr->defRPr->latin)) {
+                /** @var ?string */
+                $defaultFontName = self::getAttribute($titleDetailPart->pPr->defRPr->latin, 'typeface', 'string');
+            }
+            if (isset($titleDetailPart->pPr->defRPr->solidFill->srgbClr)) {
+                /** @var ?string */
+                $defaultColor = self::getAttribute($titleDetailPart->pPr->defRPr->solidFill->srgbClr, 'val', 'string');
+            }
         }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
@@ -554,14 +553,24 @@ class Chart
             $fontName = null;
             $fontColor = null;
             if (isset($titleDetailElement->rPr)) {
+                // not used now, not sure it ever was, grandfathering
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
                     $fontName = (string) $titleDetailElement->rPr->rFont['val'];
+                }
+                if (isset($titleDetailElement->rPr->latin)) {
+                    /** @var ?string */
+                    $fontName = self::getAttribute($titleDetailElement->rPr->latin, 'typeface', 'string');
                 }
                 /** @var ?int */
                 $fontSize = self::getAttribute($titleDetailElement->rPr, 'sz', 'integer');
 
+                // not used now, not sure it ever was, grandfathering
                 /** @var ?string */
                 $fontColor = self::getAttribute($titleDetailElement->rPr, 'color', 'string');
+                if (isset($titleDetailElement->rPr->solidFill->srgbClr)) {
+                    /** @var ?string */
+                    $fontColor = self::getAttribute($titleDetailElement->rPr->solidFill->srgbClr, 'val', 'string');
+                }
 
                 /** @var ?bool */
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
@@ -591,7 +600,7 @@ class Chart
 
             $fontColor = $fontColor ?? $defaultColor;
             if ($fontColor !== null) {
-                $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
+                $objText->getFont()->setColor(new Color($fontColor));
             }
 
             $bold = $bold ?? $defaultBold;

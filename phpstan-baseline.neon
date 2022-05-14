@@ -2711,21 +2711,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$background with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$color with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
 			message: "#^Parameter \\#1 \\$position of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
@@ -4992,7 +4977,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5002,22 +4987,22 @@ parameters:
 
 		-
 			message: "#^Cannot call method getItalic\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
 			message: "#^Cannot call method getName\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
 			message: "#^Cannot call method getSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
 			message: "#^Cannot call method getStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5032,7 +5017,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-

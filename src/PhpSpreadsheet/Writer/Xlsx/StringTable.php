@@ -213,49 +213,58 @@ class StringTable extends WriterPart
         // Loop through rich text elements
         $elements = $richText->getRichTextElements();
         foreach ($elements as $element) {
-            // r
-            $objWriter->startElement($prefix . 'r');
+            if ($element->getFont() !== null) {
+                // r
+                $objWriter->startElement($prefix . 'r');
 
-            // rPr
-            $objWriter->startElement($prefix . 'rPr');
-            $size = $element->getFont()->getSize();
-            if (is_numeric($size)) {
-                $objWriter->writeAttribute('sz', (string) (int) ($size * 100));
+                // rPr
+                $objWriter->startElement($prefix . 'rPr');
+                $size = $element->getFont()->getSize();
+                if (is_numeric($size)) {
+                    $objWriter->writeAttribute('sz', (string) (int) ($size * 100));
+                }
+
+                // Bold
+                $objWriter->writeAttribute('b', ($element->getFont()->getBold() ? 1 : 0));
+                // Italic
+                $objWriter->writeAttribute('i', ($element->getFont()->getItalic() ? 1 : 0));
+                // Underline
+                $underlineType = $element->getFont()->getUnderline();
+                switch ($underlineType) {
+                    case 'single':
+                        $underlineType = 'sng';
+
+                        break;
+                    case 'double':
+                        $underlineType = 'dbl';
+
+                        break;
+                }
+                $objWriter->writeAttribute('u', $underlineType);
+                // Strikethrough
+                $objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
+
+                // Color
+                $objWriter->startElement($prefix . 'solidFill');
+                $objWriter->startElement($prefix . 'srgbClr');
+                $objWriter->writeAttribute('val', $element->getFont()->getColor()->getRGB());
+                $objWriter->endElement(); // srgbClr
+                $objWriter->endElement(); // solidFill
+
+                // fontName
+                $objWriter->startElement($prefix . 'latin');
+                $objWriter->writeAttribute('typeface', $element->getFont()->getName());
+                $objWriter->endElement();
+
+                $objWriter->endElement();
+
+                // t
+                $objWriter->startElement($prefix . 't');
+                $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
+                $objWriter->endElement();
+
+                $objWriter->endElement();
             }
-
-            // Bold
-            $objWriter->writeAttribute('b', ($element->getFont()->getBold() ? 1 : 0));
-            // Italic
-            $objWriter->writeAttribute('i', ($element->getFont()->getItalic() ? 1 : 0));
-            // Underline
-            $underlineType = $element->getFont()->getUnderline();
-            switch ($underlineType) {
-                case 'single':
-                    $underlineType = 'sng';
-
-                    break;
-                case 'double':
-                    $underlineType = 'dbl';
-
-                    break;
-            }
-            $objWriter->writeAttribute('u', $underlineType);
-            // Strikethrough
-            $objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
-
-            // rFont
-            $objWriter->startElement($prefix . 'latin');
-            $objWriter->writeAttribute('typeface', $element->getFont()->getName());
-            $objWriter->endElement();
-
-            $objWriter->endElement();
-
-            // t
-            $objWriter->startElement($prefix . 't');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
-            $objWriter->endElement();
-
-            $objWriter->endElement();
         }
     }
 
