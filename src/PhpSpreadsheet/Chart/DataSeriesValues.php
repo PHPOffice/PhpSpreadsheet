@@ -27,7 +27,7 @@ class DataSeriesValues
     /**
      * Series Data Source.
      *
-     * @var string
+     * @var ?string
      */
     private $dataSource;
 
@@ -95,7 +95,7 @@ class DataSeriesValues
      * @param null|string|string[] $fillColor
      * @param string $pointSize
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = '', $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -144,7 +144,7 @@ class DataSeriesValues
     /**
      * Get Series Data Source (formula).
      *
-     * @return string
+     * @return ?string
      */
     public function getDataSource()
     {
@@ -154,7 +154,7 @@ class DataSeriesValues
     /**
      * Set Series Data Source (formula).
      *
-     * @param string $dataSource
+     * @param ?string $dataSource
      *
      * @return $this
      */

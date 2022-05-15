@@ -306,7 +306,7 @@ class Chart extends WriterPart
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
                 $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
             } else {
-                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis);
+                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis, ($chartType === DataSeries::TYPE_SCATTERCHART) ? 'c:valAx' : 'c:catAx');
             }
 
             $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis, $majorGridlines, $minorGridlines);
@@ -367,9 +367,9 @@ class Chart extends WriterPart
      * @param string $id2
      * @param bool $isMultiLevelSeries
      */
-    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis): void
+    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis, string $element = 'c:catAx'): void
     {
-        $objWriter->startElement('c:catAx');
+        $objWriter->startElement($element);
 
         if ($id1 > 0) {
             $objWriter->startElement('c:axId');
@@ -1202,6 +1202,11 @@ class Chart extends WriterPart
 
                 $this->writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, 'num');
                 $objWriter->endElement();
+                if ($groupType === DataSeries::TYPE_SCATTERCHART && $plotGroup->getPlotStyle() === 'smoothMarker') {
+                    $objWriter->startElement('c:smooth');
+                    $objWriter->writeAttribute('val', '1');
+                    $objWriter->endElement();
+                }
             }
 
             if ($groupType === DataSeries::TYPE_BUBBLECHART) {
