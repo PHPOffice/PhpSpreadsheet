@@ -2396,11 +2396,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php

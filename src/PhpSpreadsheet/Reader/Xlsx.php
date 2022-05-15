@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\TableReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\WorkbookView;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
@@ -874,7 +875,8 @@ class Xlsx extends BaseReader
                             }
 
                             if ($this->readDataOnly === false) {
-                                $this->readAutoFilterTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
+                                $this->readAutoFilter($xmlSheet, $docSheet);
+                                $this->readTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
                             if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -1983,23 +1985,28 @@ class Xlsx extends BaseReader
         }
     }
 
-    private function readAutoFilterTables(
+    private function readAutoFilter(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet
+    ): void {
+        if ($xmlSheet && $xmlSheet->autoFilter) {
+            (new AutoFilter($docSheet, $xmlSheet))->load();
+        }
+    }
+
+    private function readTables(
         SimpleXMLElement $xmlSheet,
         Worksheet $docSheet,
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip
     ): void {
-        if ($xmlSheet && $xmlSheet->autoFilter) {
-            // In older files, autofilter structure is defined in the worksheet file
-            (new AutoFilter($docSheet, $xmlSheet))->load();
-        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
-            // But for Office365, MS decided to make it all just a bit more complicated
-            $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        if ($xmlSheet && $xmlSheet->tableParts && (int) $xmlSheet->tableParts['count'] > 0) {
+            $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
         }
     }
 
-    private function readAutoFilterTablesInTablesFile(
+    private function readTablesInTablesFile(
         SimpleXMLElement $xmlSheet,
         string $dir,
         string $fileWorksheet,
@@ -2022,8 +2029,8 @@ class Xlsx extends BaseReader
                         $relationshipFilePath = File::realpath($relationshipFilePath);
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
-                            $autoFilter = $this->loadZip($relationshipFilePath);
-                            (new AutoFilter($docSheet, $autoFilter))->load();
+                            $tableXml = $this->loadZip($relationshipFilePath);
+                            (new TableReader($docSheet, $tableXml))->load();
                         }
                     }
                 }
