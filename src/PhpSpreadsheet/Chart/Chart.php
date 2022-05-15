@@ -124,7 +124,7 @@ class Chart
      *
      * @var string
      */
-    private $bottomRightCellRef = 'A1';
+    private $bottomRightCellRef = '';
 
     /**
      * Bottom-Right X-Offset.
@@ -524,7 +524,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
+    public function setBottomRightPosition($cell = '', $xOffset = null, $yOffset = null)
     {
         $this->bottomRightCellRef = $cell;
         if ($xOffset !== null) {

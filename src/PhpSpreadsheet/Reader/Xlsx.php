@@ -513,6 +513,12 @@ class Xlsx extends BaseReader
                                 $worksheets[(string) $ele['Id']] = $ele['Target'];
 
                                 break;
+                            case Namespaces::CHARTSHEET:
+                                if ($this->includeCharts === true) {
+                                    $worksheets[(string) $ele['Id']] = $ele['Target'];
+                                }
+
+                                break;
                             // a vbaProject ? (: some macros)
                             case Namespaces::VBA:
                                 $macros = $ele['Target'];
@@ -690,6 +696,13 @@ class Xlsx extends BaseReader
                                 continue;
                             }
 
+                            $sheetReferenceId = (string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id');
+                            if (isset($worksheets[$sheetReferenceId]) === false) {
+                                ++$countSkippedSheets;
+                                $mapSheetId[$oldSheetId] = null;
+
+                                continue;
+                            }
                             // Map old sheet id in original workbook to new sheet id.
                             // They will differ if loadSheetsOnly() is being used
                             $mapSheetId[$oldSheetId] = $oldSheetId - $countSkippedSheets;
@@ -701,7 +714,8 @@ class Xlsx extends BaseReader
                             //        and we're simply bringing the worksheet name in line with the formula, not the
                             //        reverse
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
-                            $fileWorksheet = (string) $worksheets[(string) self::getArrayItem(self::getAttributes($eleSheet, $xmlNamespaceBase), 'id')];
+
+                            $fileWorksheet = (string) $worksheets[$sheetReferenceId];
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
@@ -1195,6 +1209,7 @@ class Xlsx extends BaseReader
                                         $drawings[(string) $ele['Id']] = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
                                     }
                                 }
+
                                 if ($xmlSheet->drawing && !$this->readDataOnly) {
                                     $unparsedDrawings = [];
                                     $fileDrawing = null;
@@ -1203,6 +1218,7 @@ class Xlsx extends BaseReader
                                         $fileDrawing = $drawings[$drawingRelId];
                                         $drawingFilename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
                                         $relsDrawing = $this->loadZipNoNamespace($drawingFilename, $xmlNamespaceBase);
+
                                         $images = [];
                                         $hyperlinks = [];
                                         if ($relsDrawing && $relsDrawing->Relationship) {
@@ -1223,6 +1239,7 @@ class Xlsx extends BaseReader
                                                 }
                                             }
                                         }
+
                                         $xmlDrawing = $this->loadZipNoNamespace($fileDrawing, '');
                                         $xmlDrawingChildren = $xmlDrawing->children(Namespaces::SPREADSHEET_DRAWING);
 
@@ -1396,6 +1413,27 @@ class Xlsx extends BaseReader
                                                         'toCoordinate' => $toCoordinate,
                                                         'toOffsetX' => $toOffsetX,
                                                         'toOffsetY' => $toOffsetY,
+                                                        'worksheetTitle' => $docSheet->getTitle(),
+                                                    ];
+                                                }
+                                            }
+                                        }
+                                        if ($xmlDrawingChildren->absoluteAnchor) {
+                                            foreach ($xmlDrawingChildren->absoluteAnchor as $absoluteAnchor) {
+                                                if (($this->includeCharts) && ($absoluteAnchor->graphicFrame)) {
+                                                    $graphic = $absoluteAnchor->graphicFrame->children(Namespaces::DRAWINGML)->graphic;
+                                                    /** @var SimpleXMLElement $chartRef */
+                                                    $chartRef = $graphic->graphicData->children(Namespaces::CHART)->chart;
+                                                    $thisChart = (string) self::getAttributes($chartRef, $xmlNamespaceBase);
+                                                    $width = Drawing::EMUToPixels((int) self::getArrayItem(self::getAttributes($absoluteAnchor->ext), 'cx')[0]);
+                                                    $height = Drawing::EMUToPixels((int) self::getArrayItem(self::getAttributes($absoluteAnchor->ext), 'cy')[0]);
+
+                                                    $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
+                                                        'fromCoordinate' => 'A1',
+                                                        'fromOffsetX' => 0,
+                                                        'fromOffsetY' => 0,
+                                                        'width' => $width,
+                                                        'height' => $height,
                                                         'worksheetTitle' => $docSheet->getTitle(),
                                                     ];
                                                 }
@@ -1600,16 +1638,21 @@ class Xlsx extends BaseReader
                             $chartEntryRef = ltrim((string) $contentType['PartName'], '/');
                             $chartElements = $this->loadZip($chartEntryRef);
                             $objChart = Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
-
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef])) {
                                     $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
-                                    $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
+                                    // For oneCellAnchor or absoluteAnchor positioned charts,
+                                    //     toCoordinate is not in the data. Does it need to be calculated?
                                     if (array_key_exists('toCoordinate', $chartDetails[$chartPositionRef])) {
-                                        // For oneCellAnchor positioned charts, toCoordinate is not in the data. Does it need to be calculated?
+                                        // twoCellAnchor
+                                        $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
                                         $objChart->setBottomRightPosition($chartDetails[$chartPositionRef]['toCoordinate'], $chartDetails[$chartPositionRef]['toOffsetX'], $chartDetails[$chartPositionRef]['toOffsetY']);
+                                    } else {
+                                        // oneCellAnchor or absoluteAnchor (e.g. Chart sheet)
+                                        $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
+                                        $objChart->setBottomRightPosition('', $chartDetails[$chartPositionRef]['width'], $chartDetails[$chartPositionRef]['height']);
                                     }
                                 }
                             }
