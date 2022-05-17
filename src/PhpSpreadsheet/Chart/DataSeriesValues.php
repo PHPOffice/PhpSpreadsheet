@@ -12,7 +12,7 @@ class DataSeriesValues
     const DATASERIES_TYPE_STRING = 'String';
     const DATASERIES_TYPE_NUMBER = 'Number';
 
-    private static $dataTypeValues = [
+    private const DATA_TYPE_VALUES = [
         self::DATASERIES_TYPE_STRING,
         self::DATASERIES_TYPE_NUMBER,
     ];
@@ -27,7 +27,7 @@ class DataSeriesValues
     /**
      * Series Data Source.
      *
-     * @var string
+     * @var ?string
      */
     private $dataSource;
 
@@ -69,7 +69,7 @@ class DataSeriesValues
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
      *
-     * @var string|string[]
+     * @var null|string|string[]
      */
     private $fillColor;
 
@@ -79,6 +79,9 @@ class DataSeriesValues
      * @var int
      */
     private $lineWidth = 12700;
+
+    /** @var bool */
+    private $scatterLines = true;
 
     /**
      * Create a new DataSeriesValues object.
@@ -90,8 +93,9 @@ class DataSeriesValues
      * @param mixed $dataValues
      * @param null|mixed $marker
      * @param null|string|string[] $fillColor
+     * @param string $pointSize
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null)
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -100,6 +104,9 @@ class DataSeriesValues
         $this->dataValues = $dataValues;
         $this->pointMarker = $marker;
         $this->fillColor = $fillColor;
+        if (is_numeric($pointSize)) {
+            $this->pointSize = (int) $pointSize;
+        }
     }
 
     /**
@@ -126,7 +133,7 @@ class DataSeriesValues
      */
     public function setDataType($dataType)
     {
-        if (!in_array($dataType, self::$dataTypeValues)) {
+        if (!in_array($dataType, self::DATA_TYPE_VALUES)) {
             throw new Exception('Invalid datatype for chart data series values');
         }
         $this->dataType = $dataType;
@@ -137,7 +144,7 @@ class DataSeriesValues
     /**
      * Get Series Data Source (formula).
      *
-     * @return string
+     * @return ?string
      */
     public function getDataSource()
     {
@@ -147,7 +154,7 @@ class DataSeriesValues
     /**
      * Set Series Data Source (formula).
      *
-     * @param string $dataSource
+     * @param ?string $dataSource
      *
      * @return $this
      */
@@ -239,7 +246,7 @@ class DataSeriesValues
     /**
      * Get fill color.
      *
-     * @return string|string[] HEX color or array with HEX colors
+     * @return null|string|string[] HEX color or array with HEX colors
      */
     public function getFillColor()
     {
@@ -249,7 +256,7 @@ class DataSeriesValues
     /**
      * Set fill color for series.
      *
-     * @param string|string[] $color HEX color or array with HEX colors
+     * @param null|string|string[] $color HEX color or array with HEX colors
      *
      * @return   DataSeriesValues
      */
@@ -260,7 +267,7 @@ class DataSeriesValues
                 $this->validateColor($colorValue);
             }
         } else {
-            $this->validateColor($color);
+            $this->validateColor("$color");
         }
         $this->fillColor = $color;
 
@@ -379,7 +386,7 @@ class DataSeriesValues
         return $this;
     }
 
-    public function refresh(Worksheet $worksheet, $flatten = true): void
+    public function refresh(Worksheet $worksheet, bool $flatten = true): void
     {
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());
@@ -420,5 +427,17 @@ class DataSeriesValues
             }
             $this->pointCount = count($this->dataValues);
         }
+    }
+
+    public function getScatterLines(): bool
+    {
+        return $this->scatterLines;
+    }
+
+    public function setScatterLines(bool $scatterLines): self
+    {
+        $this->scatterLines = $scatterLines;
+
+        return $this;
     }
 }
