@@ -10,12 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Add point size option for scatter charts
+- Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
+
+  Note that a ChartSheet is still only written as a normal Worksheet containing a single chart, not as an actual ChartSheet.
 
 ### Changed
 
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
-  See [the Discussion](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance
+  See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
 
 ### Deprecated
 
