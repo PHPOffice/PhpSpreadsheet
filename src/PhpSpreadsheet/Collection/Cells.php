@@ -462,6 +462,10 @@ class Cells
     public function __destruct()
     {
         $this->cache->deleteMultiple($this->getAllCacheKeys());
+
+        if (method_exists($this->cache, 'clear')) {
+            $this->cache->clear();
+        }
     }
 
     /**
