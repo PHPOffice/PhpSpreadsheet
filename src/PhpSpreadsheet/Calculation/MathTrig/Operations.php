@@ -108,7 +108,7 @@ class Operations
         // Loop through arguments
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
-            if (is_numeric($arg)) {
+            if (is_numeric($arg) || $arg === null) {
                 if ($returnValue === null) {
                     $returnValue = $arg;
                 } else {

@@ -10,10 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Add point size option for scatter charts
+- Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
+
+  Note that a ChartSheet is still only written as a normal Worksheet containing a single chart, not as an actual ChartSheet.
 
 ### Changed
 
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
+
+  See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
 
 ### Deprecated
 
@@ -25,7 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Xls Reader resolving absolute named ranges to relative ranges [Issue #2826](https://github.com/PHPOffice/PhpSpreadsheet/issues/2826) [PR #2827](https://github.com/PHPOffice/PhpSpreadsheet/pull/2827)
+- Null value handling in the Excel Math/Trig PRODUCT() function [Issue #2833](https://github.com/PHPOffice/PhpSpreadsheet/issues/2833) [PR #2834](https://github.com/PHPOffice/PhpSpreadsheet/pull/2834)
 
 
 ## 1.23.0 - 2022-04-24
