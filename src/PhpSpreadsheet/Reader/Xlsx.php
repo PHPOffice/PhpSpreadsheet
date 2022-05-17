@@ -226,7 +226,10 @@ class Xlsx extends BaseReader
                 $worksheets = [];
                 foreach ($relsWorkbook->Relationship as $elex) {
                     $ele = self::getAttributes($elex);
-                    if ((string) $ele['Type'] === "$namespace/worksheet") {
+                    if (
+                        ((string) $ele['Type'] === "$namespace/worksheet") ||
+                        ((string) $ele['Type'] === "$namespace/chartsheet")
+                    ) {
                         $worksheets[(string) $ele['Id']] = $ele['Target'];
                     }
                 }
