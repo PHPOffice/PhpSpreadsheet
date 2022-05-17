@@ -1216,26 +1216,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:refresh\\(\\) has parameter \\$flatten with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataSource \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataTypeValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$fillColor \\(array\\<string\\>\\|string\\) does not accept array\\<string\\>\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
 			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/GridLines.php
@@ -2561,56 +2541,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/BaseParserClass.php
 
 		-
-			message: "#^Cannot call method getFont\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\|null\\.$#"
-			count: 12
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setItalic\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setName\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSubscript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSuperscript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeries\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
@@ -2632,11 +2562,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has parameter \\$marker with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
@@ -2712,21 +2637,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readChartAttributes\\(\\) has parameter \\$chartDetail with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$background with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$color with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
@@ -4997,7 +4907,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5007,12 +4917,12 @@ parameters:
 
 		-
 			message: "#^Cannot call method getItalic\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
 			message: "#^Cannot call method getName\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5022,7 +4932,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5037,7 +4947,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-

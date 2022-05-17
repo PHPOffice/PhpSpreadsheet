@@ -25,7 +25,7 @@ class Chart
     private static function getAttribute(SimpleXMLElement $component, $name, $format)
     {
         $attributes = $component->attributes();
-        if (isset($attributes[$name])) {
+        if (@isset($attributes[$name])) {
             if ($format == 'string') {
                 return (string) $attributes[$name];
             } elseif ($format == 'integer') {
@@ -40,15 +40,6 @@ class Chart
         }
 
         return null;
-    }
-
-    private static function readColor($color, $background = false)
-    {
-        if (isset($color['rgb'])) {
-            return (string) $color['rgb'];
-        } elseif (isset($color['indexed'])) {
-            return Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
-        }
     }
 
     /**
@@ -293,6 +284,10 @@ class Chart
                 case 'ser':
                     $marker = null;
                     $seriesIndex = '';
+                    $srgbClr = null;
+                    $lineWidth = null;
+                    $pointSize = null;
+                    $noFill = false;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -308,8 +303,24 @@ class Chart
                                 $seriesLabel[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta);
 
                                 break;
+                            case 'spPr':
+                                $ln = $seriesDetail->children($namespacesChartMeta['a'])->ln;
+                                $lineWidth = self::getAttribute($ln, 'w', 'string');
+                                if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
+                                    $noFill = true;
+                                }
+
+                                break;
                             case 'marker':
                                 $marker = self::getAttribute($seriesDetail->symbol, 'val', 'string');
+                                $pointSize = self::getAttribute($seriesDetail->size, 'val', 'string');
+                                $pointSize = is_numeric($pointSize) ? ((int) $pointSize) : null;
+                                if (count($seriesDetail->spPr) === 1) {
+                                    $ln = $seriesDetail->spPr->children($namespacesChartMeta['a']);
+                                    if (count($ln->solidFill) === 1) {
+                                        $srgbClr = self::getattribute($ln->solidFill->srgbClr, 'val', 'string');
+                                    }
+                                }
 
                                 break;
                             case 'smooth':
@@ -321,17 +332,39 @@ class Chart
 
                                 break;
                             case 'val':
-                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
                             case 'xVal':
-                                $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesCategory[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
                             case 'yVal':
-                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker);
+                                $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
+                        }
+                    }
+                    if ($noFill) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setScatterLines(false);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setScatterLines(false);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setScatterLines(false);
+                        }
+                    }
+                    if (is_numeric($lineWidth)) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setLineWidth((int) $lineWidth);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setLineWidth((int) $lineWidth);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setLineWidth((int) $lineWidth);
                         }
                     }
             }
@@ -340,11 +373,11 @@ class Chart
         return new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
     }
 
-    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker = null)
+    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, ?string $marker = null, ?string $srgbClr = null, ?string $pointSize = null)
     {
         if (isset($seriesDetail->strRef)) {
             $seriesSource = (string) $seriesDetail->strRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->strRef->strCache)) {
                 $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
@@ -356,7 +389,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
             if (isset($seriesDetail->numRef->numCache)) {
                 $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
                 $seriesValues
@@ -367,7 +400,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->multiLvlStrRef->multiLvlStrCache)) {
                 $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
@@ -379,7 +412,7 @@ class Chart
             return $seriesValues;
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
-            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker);
+            $seriesValues = new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, null, null, null, $marker, $srgbClr, "$pointSize");
 
             if (isset($seriesDetail->multiLvlNumRef->multiLvlNumCache)) {
                 $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
@@ -474,62 +507,138 @@ class Chart
     {
         $value = new RichText();
         $objText = null;
+        $defaultFontSize = null;
+        $defaultBold = null;
+        $defaultItalic = null;
+        $defaultUnderscore = null;
+        $defaultStrikethrough = null;
+        $defaultBaseline = null;
+        $defaultFontName = null;
+        $defaultColor = null;
+        if (isset($titleDetailPart->pPr->defRPr)) {
+            /** @var ?int */
+            $defaultFontSize = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'integer');
+            /** @var ?bool */
+            $defaultBold = self::getAttribute($titleDetailPart->pPr->defRPr, 'b', 'boolean');
+            /** @var ?bool */
+            $defaultItalic = self::getAttribute($titleDetailPart->pPr->defRPr, 'i', 'boolean');
+            /** @var ?string */
+            $defaultUnderscore = self::getAttribute($titleDetailPart->pPr->defRPr, 'u', 'string');
+            /** @var ?string */
+            $defaultStrikethrough = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
+            /** @var ?int */
+            $defaultBaseline = self::getAttribute($titleDetailPart->pPr->defRPr, 'baseline', 'integer');
+            if (isset($titleDetailPart->pPr->defRPr->latin)) {
+                /** @var ?string */
+                $defaultFontName = self::getAttribute($titleDetailPart->pPr->defRPr->latin, 'typeface', 'string');
+            }
+            if (isset($titleDetailPart->pPr->defRPr->solidFill->srgbClr)) {
+                /** @var ?string */
+                $defaultColor = self::getAttribute($titleDetailPart->pPr->defRPr->solidFill->srgbClr, 'val', 'string');
+            }
+        }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
                 $objText = $value->createTextRun((string) $titleDetailElement->t);
             }
+            if ($objText === null || $objText->getFont() === null) {
+                continue;
+            }
+            $fontSize = null;
+            $bold = null;
+            $italic = null;
+            $underscore = null;
+            $strikethrough = null;
+            $baseline = null;
+            $fontName = null;
+            $fontColor = null;
             if (isset($titleDetailElement->rPr)) {
+                // not used now, not sure it ever was, grandfathering
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
-                    $objText->getFont()->setName((string) $titleDetailElement->rPr->rFont['val']);
+                    $fontName = (string) $titleDetailElement->rPr->rFont['val'];
+                }
+                if (isset($titleDetailElement->rPr->latin)) {
+                    /** @var ?string */
+                    $fontName = self::getAttribute($titleDetailElement->rPr->latin, 'typeface', 'string');
+                }
+                /** @var ?int */
+                $fontSize = self::getAttribute($titleDetailElement->rPr, 'sz', 'integer');
+
+                // not used now, not sure it ever was, grandfathering
+                /** @var ?string */
+                $fontColor = self::getAttribute($titleDetailElement->rPr, 'color', 'string');
+                if (isset($titleDetailElement->rPr->solidFill->srgbClr)) {
+                    /** @var ?string */
+                    $fontColor = self::getAttribute($titleDetailElement->rPr->solidFill->srgbClr, 'val', 'string');
                 }
 
-                $fontSize = (self::getAttribute($titleDetailElement->rPr, 'sz', 'integer'));
-                if (is_int($fontSize)) {
-                    $objText->getFont()->setSize(floor($fontSize / 100));
-                }
-
-                $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
-                if ($fontColor !== null) {
-                    $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
-                }
-
+                /** @var ?bool */
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
-                if ($bold !== null) {
-                    $objText->getFont()->setBold($bold);
-                }
 
+                /** @var ?bool */
                 $italic = self::getAttribute($titleDetailElement->rPr, 'i', 'boolean');
-                if ($italic !== null) {
-                    $objText->getFont()->setItalic($italic);
-                }
 
+                /** @var ?int */
                 $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer');
-                if ($baseline !== null) {
-                    if ($baseline > 0) {
-                        $objText->getFont()->setSuperscript(true);
-                    } elseif ($baseline < 0) {
-                        $objText->getFont()->setSubscript(true);
-                    }
-                }
 
-                $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
-                if ($underscore !== null) {
-                    if ($underscore == 'sng') {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
-                    } elseif ($underscore == 'dbl') {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
-                    } else {
-                        $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
-                    }
-                }
+                /** @var ?string */
+                $underscore = self::getAttribute($titleDetailElement->rPr, 'u', 'string');
 
-                $strikethrough = (self::getAttribute($titleDetailElement->rPr, 's', 'string'));
-                if ($strikethrough !== null) {
-                    if ($strikethrough == 'noStrike') {
-                        $objText->getFont()->setStrikethrough(false);
-                    } else {
-                        $objText->getFont()->setStrikethrough(true);
-                    }
+                /** @var ?string */
+                $strikethrough = self::getAttribute($titleDetailElement->rPr, 's', 'string');
+            }
+
+            $fontName = $fontName ?? $defaultFontName;
+            if ($fontName !== null) {
+                $objText->getFont()->setName($fontName);
+            }
+
+            $fontSize = $fontSize ?? $defaultFontSize;
+            if (is_int($fontSize)) {
+                $objText->getFont()->setSize(floor($fontSize / 100));
+            }
+
+            $fontColor = $fontColor ?? $defaultColor;
+            if ($fontColor !== null) {
+                $objText->getFont()->setColor(new Color($fontColor));
+            }
+
+            $bold = $bold ?? $defaultBold;
+            if ($bold !== null) {
+                $objText->getFont()->setBold($bold);
+            }
+
+            $italic = $italic ?? $defaultItalic;
+            if ($italic !== null) {
+                $objText->getFont()->setItalic($italic);
+            }
+
+            $baseline = $baseline ?? $defaultBaseline;
+            if ($baseline !== null) {
+                if ($baseline > 0) {
+                    $objText->getFont()->setSuperscript(true);
+                } elseif ($baseline < 0) {
+                    $objText->getFont()->setSubscript(true);
+                }
+            }
+
+            $underscore = $underscore ?? $defaultUnderscore;
+            if ($underscore !== null) {
+                if ($underscore == 'sng') {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+                } elseif ($underscore == 'dbl') {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
+                } else {
+                    $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
+                }
+            }
+
+            $strikethrough = $strikethrough ?? $defaultStrikethrough;
+            if ($strikethrough !== null) {
+                if ($strikethrough == 'noStrike') {
+                    $objText->getFont()->setStrikethrough(false);
+                } else {
+                    $objText->getFont()->setStrikethrough(true);
                 }
             }
         }
