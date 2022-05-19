@@ -73,6 +73,9 @@ class DataSeriesValues
      */
     private $fillColor;
 
+    /** @var string */
+    private $schemeClr = '';
+
     /**
      * Line Width.
      *
@@ -437,6 +440,18 @@ class DataSeriesValues
     public function setScatterLines(bool $scatterLines): self
     {
         $this->scatterLines = $scatterLines;
+
+        return $this;
+    }
+
+    public function getSchemeClr(): string
+    {
+        return $this->schemeClr;
+    }
+
+    public function setSchemeClr(string $schemeClr): self
+    {
+        $this->schemeClr = $schemeClr;
 
         return $this;
     }

@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
@@ -121,6 +120,10 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->startElement('a:p');
+        $objWriter->startElement('a:pPr');
+        $objWriter->startElement('a:defRPr');
+        $objWriter->endElement();
+        $objWriter->endElement();
 
         $caption = $title->getCaption();
         if ((is_array($caption)) && (count($caption) > 0)) {
@@ -403,17 +406,17 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:r');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement();
+            $objWriter->endElement();
 
             $caption = $xAxisLabel->getCaption();
             if (is_array($caption)) {
                 $caption = $caption[0];
             }
-            $objWriter->startElement('a:t');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($caption));
-            $objWriter->endElement();
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
-            $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
@@ -746,18 +749,17 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:r');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement();
+            $objWriter->endElement();
 
             $caption = $yAxisLabel->getCaption();
             if (is_array($caption)) {
                 $caption = $caption[0];
             }
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
-            $objWriter->startElement('a:t');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($caption));
-            $objWriter->endElement();
-
-            $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
@@ -1104,13 +1106,26 @@ class Chart extends WriterPart
             }
 
             //    Formatting for the points
-            if (($groupType == DataSeries::TYPE_LINECHART) || ($groupType == DataSeries::TYPE_STOCKCHART || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines()))) {
+            if (
+                $groupType == DataSeries::TYPE_LINECHART
+                || $groupType == DataSeries::TYPE_STOCKCHART
+                || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines())
+                || ($plotSeriesValues !== false && $plotSeriesValues->getSchemeClr())
+            ) {
                 $plotLineWidth = 12700;
                 if ($plotSeriesValues) {
                     $plotLineWidth = $plotSeriesValues->getLineWidth();
                 }
 
                 $objWriter->startElement('c:spPr');
+                $schemeClr = $plotLabel ? $plotLabel->getSchemeClr() : null;
+                if ($schemeClr) {
+                    $objWriter->startElement('a:solidFill');
+                    $objWriter->startElement('a:schemeClr');
+                    $objWriter->writeAttribute('val', $schemeClr);
+                    $objWriter->endElement();
+                    $objWriter->endElement();
+                }
                 $objWriter->startElement('a:ln');
                 $objWriter->writeAttribute('w', $plotLineWidth);
                 if ($groupType == DataSeries::TYPE_STOCKCHART || $groupType === DataSeries::TYPE_SCATTERCHART) {

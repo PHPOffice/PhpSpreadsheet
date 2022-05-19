@@ -203,7 +203,8 @@ class StringTable extends WriterPart
         if (!$richText instanceof RichText) {
             $textRun = $richText;
             $richText = new RichText();
-            $richText->createTextRun($textRun);
+            $run = $richText->createTextRun($textRun);
+            $run->setFont(null);
         }
 
         if ($prefix !== null) {
@@ -241,7 +242,11 @@ class StringTable extends WriterPart
                 }
                 $objWriter->writeAttribute('u', $underlineType);
                 // Strikethrough
-                $objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
+                $objWriter->writeAttribute('strike', ($element->getFont()->getStriketype() ?: 'noStrike'));
+                // Superscript/subscript
+                if ($element->getFont()->getBaseLine()) {
+                    $objWriter->writeAttribute('baseline', (string) $element->getFont()->getBaseLine());
+                }
 
                 // Color
                 $objWriter->startElement($prefix . 'solidFill');
@@ -250,10 +255,33 @@ class StringTable extends WriterPart
                 $objWriter->endElement(); // srgbClr
                 $objWriter->endElement(); // solidFill
 
+                // Underscore Color
+                if ($element->getFont()->getUSchemeClr()) {
+                    $objWriter->startElement($prefix . 'uFill');
+                    $objWriter->startElement($prefix . 'solidFill');
+                    $objWriter->startElement($prefix . 'schemeClr');
+                    $objWriter->writeAttribute('val', $element->getFont()->getUSchemeClr());
+                    $objWriter->endElement(); // schemeClr
+                    $objWriter->endElement(); // solidFill
+                    $objWriter->endElement(); // uFill
+                }
+
                 // fontName
-                $objWriter->startElement($prefix . 'latin');
-                $objWriter->writeAttribute('typeface', $element->getFont()->getName());
-                $objWriter->endElement();
+                if ($element->getFont()->getLatin()) {
+                    $objWriter->startElement($prefix . 'latin');
+                    $objWriter->writeAttribute('typeface', $element->getFont()->getLatin());
+                    $objWriter->endElement();
+                }
+                if ($element->getFont()->getEastAsian()) {
+                    $objWriter->startElement($prefix . 'ea');
+                    $objWriter->writeAttribute('typeface', $element->getFont()->getEastAsian());
+                    $objWriter->endElement();
+                }
+                if ($element->getFont()->getComplexScript()) {
+                    $objWriter->startElement($prefix . 'cs');
+                    $objWriter->writeAttribute('typeface', $element->getFont()->getComplexScript());
+                    $objWriter->endElement();
+                }
 
                 $objWriter->endElement();
             }
