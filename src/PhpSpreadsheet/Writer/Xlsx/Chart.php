@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
@@ -309,7 +310,7 @@ class Chart extends WriterPart
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
                 $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
             } else {
-                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis, ($chartType === DataSeries::TYPE_SCATTERCHART) ? 'c:valAx' : 'c:catAx');
+                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis);
             }
 
             $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis, $majorGridlines, $minorGridlines);
@@ -370,9 +371,19 @@ class Chart extends WriterPart
      * @param string $id2
      * @param bool $isMultiLevelSeries
      */
-    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis, string $element = 'c:catAx'): void
+    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis): void
     {
-        $objWriter->startElement($element);
+        // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
+        // In that case, xAxis is NOT a category.
+        $AxisFormat = $yAxis->getAxisNumberFormat();
+        if (
+            $AxisFormat === Properties::FORMAT_CODE_DATE
+            || $AxisFormat == Properties::FORMAT_CODE_NUMBER
+        ) {
+            $objWriter->startElement('c:valAx');
+        } else {
+            $objWriter->startElement('c:catAx');
+        }
 
         if ($id1 > 0) {
             $objWriter->startElement('c:axId');
@@ -1201,7 +1212,14 @@ class Chart extends WriterPart
                     $objWriter->startElement('c:cat');
                 }
 
-                $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
+                // xVals (Categories) are not always 'str'
+                // Test X-axis Label's Datatype to decide 'str' vs 'num'
+                $CategoryDatatype = $plotSeriesCategory->getDataType();
+                if ($CategoryDatatype == DataSeriesValues::DATASERIES_TYPE_NUMBER) {
+                    $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'num');
+                } else {
+                    $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
+                }
                 $objWriter->endElement();
             }
 
