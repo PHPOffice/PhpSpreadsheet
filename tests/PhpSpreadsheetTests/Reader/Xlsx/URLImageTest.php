@@ -11,12 +11,9 @@ class URLImageTest extends TestCase
 {
     public function testURLImageSource(): void
     {
-        if (getenv('RUN_URL_IMAGE_TEST') !== '1') {
-            self::markTestSkipped('Skipped due to no longer bein able to access external URL');
+        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+            self::markTestSkipped('Skipped due to setting of environment variable');
         }
-        //if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
-        //    self::markTestSkipped('Skipped due to setting of environment variable');
-        //}
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.xlsx');
         self::assertNotFalse($filename);
         $reader = IOFactory::createReader('Xlsx');
@@ -29,7 +26,7 @@ class URLImageTest extends TestCase
             self::assertInstanceOf(Drawing::class, $drawing);
             // Check if the source is a URL or a file path
             self::assertTrue($drawing->getIsURL());
-            self::assertSame('https://www.globalipmanager.com/DataFiles/Pics/20/Berniaga.comahp2.jpg', $drawing->getPath());
+            self::assertSame('https://phpspreadsheet.readthedocs.io/en/latest/topics/images/01-03-filter-icon-1.png', $drawing->getPath());
             $imageContents = file_get_contents($drawing->getPath());
             self::assertNotFalse($imageContents);
             $filePath = tempnam(sys_get_temp_dir(), 'Drawing');
@@ -39,7 +36,7 @@ class URLImageTest extends TestCase
             unlink($filePath);
             self::assertNotFalse($mimeType);
             $extension = File::mime2ext($mimeType);
-            self::assertSame('jpeg', $extension);
+            self::assertSame('png', $extension);
         }
     }
 }
