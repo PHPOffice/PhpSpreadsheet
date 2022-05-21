@@ -86,6 +86,9 @@ class DataSeriesValues
     /** @var bool */
     private $scatterLines = true;
 
+    /** @var bool */
+    private $bubble3D = false;
+
     /**
      * Create a new DataSeriesValues object.
      *
@@ -440,6 +443,18 @@ class DataSeriesValues
     public function setScatterLines(bool $scatterLines): self
     {
         $this->scatterLines = $scatterLines;
+
+        return $this;
+    }
+
+    public function getBubble3D(): bool
+    {
+        return $this->bubble3D;
+    }
+
+    public function setBubble3D(bool $bubble3D): self
+    {
+        $this->bubble3D = $bubble3D;
 
         return $this;
     }

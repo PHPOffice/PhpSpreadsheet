@@ -289,6 +289,7 @@ class Chart
                     $pointSize = null;
                     $noFill = false;
                     $schemeClr = '';
+                    $bubble3D = false;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -349,6 +350,10 @@ class Chart
                                 $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
+                            case 'bubble3D':
+                                $bubble3D = self::getAttribute($seriesDetail, 'val', 'boolean');
+
+                                break;
                         }
                     }
                     if ($noFill) {
@@ -382,6 +387,17 @@ class Chart
                         }
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setSchemeClr($schemeClr);
+                        }
+                    }
+                    if ($bubble3D) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setBubble3D($bubble3D);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setBubble3D($bubble3D);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setBubble3D($bubble3D);
                         }
                     }
             }
