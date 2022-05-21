@@ -288,6 +288,8 @@ class Chart
                     $lineWidth = null;
                     $pointSize = null;
                     $noFill = false;
+                    $schemeClr = '';
+                    $bubble3D = false;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -304,10 +306,15 @@ class Chart
 
                                 break;
                             case 'spPr':
-                                $ln = $seriesDetail->children($namespacesChartMeta['a'])->ln;
+                                $children = $seriesDetail->children($namespacesChartMeta['a']);
+                                $ln = $children->ln;
                                 $lineWidth = self::getAttribute($ln, 'w', 'string');
                                 if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
                                     $noFill = true;
+                                }
+                                $sf = $children->solidFill->schemeClr;
+                                if ($sf) {
+                                    $schemeClr = self::getAttribute($sf, 'val', 'string');
                                 }
 
                                 break;
@@ -343,6 +350,10 @@ class Chart
                                 $seriesValues[$seriesIndex] = self::chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
+                            case 'bubble3D':
+                                $bubble3D = self::getAttribute($seriesDetail, 'val', 'boolean');
+
+                                break;
                         }
                     }
                     if ($noFill) {
@@ -365,6 +376,28 @@ class Chart
                         }
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setLineWidth((int) $lineWidth);
+                        }
+                    }
+                    if ($schemeClr) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setSchemeClr($schemeClr);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setSchemeClr($schemeClr);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setSchemeClr($schemeClr);
+                        }
+                    }
+                    if ($bubble3D) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setBubble3D($bubble3D);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setBubble3D($bubble3D);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setBubble3D($bubble3D);
                         }
                     }
             }
@@ -514,6 +547,9 @@ class Chart
         $defaultStrikethrough = null;
         $defaultBaseline = null;
         $defaultFontName = null;
+        $defaultLatin = null;
+        $defaultEastAsian = null;
+        $defaultComplexScript = null;
         $defaultColor = null;
         if (isset($titleDetailPart->pPr->defRPr)) {
             /** @var ?int */
@@ -528,9 +564,20 @@ class Chart
             $defaultStrikethrough = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
             /** @var ?int */
             $defaultBaseline = self::getAttribute($titleDetailPart->pPr->defRPr, 'baseline', 'integer');
+            if (isset($titleDetailPart->defRPr->rFont['val'])) {
+                $defaultFontName = (string) $titleDetailPart->defRPr->rFont['val'];
+            }
             if (isset($titleDetailPart->pPr->defRPr->latin)) {
                 /** @var ?string */
-                $defaultFontName = self::getAttribute($titleDetailPart->pPr->defRPr->latin, 'typeface', 'string');
+                $defaultLatin = self::getAttribute($titleDetailPart->pPr->defRPr->latin, 'typeface', 'string');
+            }
+            if (isset($titleDetailPart->pPr->defRPr->ea)) {
+                /** @var ?string */
+                $defaultEastAsian = self::getAttribute($titleDetailPart->pPr->defRPr->ea, 'typeface', 'string');
+            }
+            if (isset($titleDetailPart->pPr->defRPr->cs)) {
+                /** @var ?string */
+                $defaultComplexScript = self::getAttribute($titleDetailPart->pPr->defRPr->cs, 'typeface', 'string');
             }
             if (isset($titleDetailPart->pPr->defRPr->solidFill->srgbClr)) {
                 /** @var ?string */
@@ -538,11 +585,17 @@ class Chart
             }
         }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
-            if (isset($titleDetailElement->t)) {
-                $objText = $value->createTextRun((string) $titleDetailElement->t);
-            }
-            if ($objText === null || $objText->getFont() === null) {
+            if (
+                (string) $titleDetailElementKey !== 'r'
+                || !isset($titleDetailElement->t)
+            ) {
                 continue;
+            }
+            $objText = $value->createTextRun((string) $titleDetailElement->t);
+            if ($objText->getFont() === null) {
+                // @codeCoverageIgnoreStart
+                continue;
+                // @codeCoverageIgnoreEnd
             }
             $fontSize = null;
             $bold = null;
@@ -551,15 +604,29 @@ class Chart
             $strikethrough = null;
             $baseline = null;
             $fontName = null;
+            $latinName = null;
+            $eastAsian = null;
+            $complexScript = null;
             $fontColor = null;
+            $uSchemeClr = null;
             if (isset($titleDetailElement->rPr)) {
                 // not used now, not sure it ever was, grandfathering
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
+                    // @codeCoverageIgnoreStart
                     $fontName = (string) $titleDetailElement->rPr->rFont['val'];
+                    // @codeCoverageIgnoreEnd
                 }
                 if (isset($titleDetailElement->rPr->latin)) {
                     /** @var ?string */
-                    $fontName = self::getAttribute($titleDetailElement->rPr->latin, 'typeface', 'string');
+                    $latinName = self::getAttribute($titleDetailElement->rPr->latin, 'typeface', 'string');
+                }
+                if (isset($titleDetailElement->rPr->ea)) {
+                    /** @var ?string */
+                    $eastAsian = self::getAttribute($titleDetailElement->rPr->ea, 'typeface', 'string');
+                }
+                if (isset($titleDetailElement->rPr->cs)) {
+                    /** @var ?string */
+                    $complexScript = self::getAttribute($titleDetailElement->rPr->cs, 'typeface', 'string');
                 }
                 /** @var ?int */
                 $fontSize = self::getAttribute($titleDetailElement->rPr, 'sz', 'integer');
@@ -583,43 +650,72 @@ class Chart
 
                 /** @var ?string */
                 $underscore = self::getAttribute($titleDetailElement->rPr, 'u', 'string');
+                if (isset($titleDetailElement->rPr->uFill->solidFill->schemeClr)) {
+                    /** @var ?string */
+                    $uSchemeClr = self::getAttribute($titleDetailElement->rPr->uFill->solidFill->schemeClr, 'val', 'string');
+                }
 
                 /** @var ?string */
-                $strikethrough = self::getAttribute($titleDetailElement->rPr, 's', 'string');
+                $strikethrough = self::getAttribute($titleDetailElement->rPr, 'strike', 'string');
             }
 
+            $fontFound = false;
+            $latinName = $latinName ?? $defaultLatin;
+            if ($latinName !== null) {
+                $objText->getFont()->setLatin($latinName);
+                $fontFound = true;
+            }
+            $eastAsian = $eastAsian ?? $defaultEastAsian;
+            if ($eastAsian !== null) {
+                $objText->getFont()->setEastAsian($eastAsian);
+                $fontFound = true;
+            }
+            $complexScript = $complexScript ?? $defaultComplexScript;
+            if ($complexScript !== null) {
+                $objText->getFont()->setComplexScript($complexScript);
+                $fontFound = true;
+            }
             $fontName = $fontName ?? $defaultFontName;
             if ($fontName !== null) {
+                // @codeCoverageIgnoreStart
                 $objText->getFont()->setName($fontName);
+                $fontFound = true;
+                // @codeCoverageIgnoreEnd
             }
 
             $fontSize = $fontSize ?? $defaultFontSize;
             if (is_int($fontSize)) {
                 $objText->getFont()->setSize(floor($fontSize / 100));
+                $fontFound = true;
             }
 
             $fontColor = $fontColor ?? $defaultColor;
             if ($fontColor !== null) {
                 $objText->getFont()->setColor(new Color($fontColor));
+                $fontFound = true;
             }
 
             $bold = $bold ?? $defaultBold;
             if ($bold !== null) {
                 $objText->getFont()->setBold($bold);
+                $fontFound = true;
             }
 
             $italic = $italic ?? $defaultItalic;
             if ($italic !== null) {
                 $objText->getFont()->setItalic($italic);
+                $fontFound = true;
             }
 
             $baseline = $baseline ?? $defaultBaseline;
             if ($baseline !== null) {
+                $objText->getFont()->setBaseLine($baseline);
                 if ($baseline > 0) {
                     $objText->getFont()->setSuperscript(true);
                 } elseif ($baseline < 0) {
                     $objText->getFont()->setSubscript(true);
                 }
+                $fontFound = true;
             }
 
             $underscore = $underscore ?? $defaultUnderscore;
@@ -628,18 +724,29 @@ class Chart
                     $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
                 } elseif ($underscore == 'dbl') {
                     $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
+                } elseif ($underscore !== '') {
+                    $objText->getFont()->setUnderline($underscore);
                 } else {
                     $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
+                }
+                $fontFound = true;
+                if ($uSchemeClr) {
+                    $objText->getFont()->setUSchemeClr($uSchemeClr);
                 }
             }
 
             $strikethrough = $strikethrough ?? $defaultStrikethrough;
             if ($strikethrough !== null) {
+                $objText->getFont()->setStrikeType($strikethrough);
                 if ($strikethrough == 'noStrike') {
                     $objText->getFont()->setStrikethrough(false);
                 } else {
                     $objText->getFont()->setStrikethrough(true);
                 }
+                $fontFound = true;
+            }
+            if ($fontFound === false) {
+                $objText->setFont(null);
             }
         }
 
