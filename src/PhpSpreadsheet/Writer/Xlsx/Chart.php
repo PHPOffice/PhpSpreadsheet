@@ -9,8 +9,8 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
@@ -121,6 +121,10 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->startElement('a:p');
+        $objWriter->startElement('a:pPr');
+        $objWriter->startElement('a:defRPr');
+        $objWriter->endElement();
+        $objWriter->endElement();
 
         $caption = $title->getCaption();
         if ((is_array($caption)) && (count($caption) > 0)) {
@@ -304,9 +308,9 @@ class Chart extends WriterPart
 
         if (($chartType !== DataSeries::TYPE_PIECHART) && ($chartType !== DataSeries::TYPE_PIECHART_3D) && ($chartType !== DataSeries::TYPE_DONUTCHART)) {
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
-                $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id1, $id2, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
+                $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id2, $id1, $catIsMultiLevelSeries, $xAxis, $majorGridlines, $minorGridlines);
             } else {
-                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis, ($chartType === DataSeries::TYPE_SCATTERCHART) ? 'c:valAx' : 'c:catAx');
+                $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis);
             }
 
             $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis, $majorGridlines, $minorGridlines);
@@ -367,9 +371,19 @@ class Chart extends WriterPart
      * @param string $id2
      * @param bool $isMultiLevelSeries
      */
-    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis, string $element = 'c:catAx'): void
+    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis): void
     {
-        $objWriter->startElement($element);
+        // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
+        // In that case, xAxis is NOT a category.
+        $AxisFormat = $yAxis->getAxisNumberFormat();
+        if (
+            $AxisFormat === Properties::FORMAT_CODE_DATE
+            || $AxisFormat == Properties::FORMAT_CODE_NUMBER
+        ) {
+            $objWriter->startElement('c:valAx');
+        } else {
+            $objWriter->startElement('c:catAx');
+        }
 
         if ($id1 > 0) {
             $objWriter->startElement('c:axId');
@@ -403,17 +417,17 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:r');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement();
+            $objWriter->endElement();
 
             $caption = $xAxisLabel->getCaption();
             if (is_array($caption)) {
                 $caption = $caption[0];
             }
-            $objWriter->startElement('a:t');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($caption));
-            $objWriter->endElement();
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
-            $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
@@ -746,18 +760,17 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:r');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement();
+            $objWriter->endElement();
 
             $caption = $yAxisLabel->getCaption();
             if (is_array($caption)) {
                 $caption = $caption[0];
             }
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
-            $objWriter->startElement('a:t');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($caption));
-            $objWriter->endElement();
-
-            $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();
@@ -1104,13 +1117,26 @@ class Chart extends WriterPart
             }
 
             //    Formatting for the points
-            if (($groupType == DataSeries::TYPE_LINECHART) || ($groupType == DataSeries::TYPE_STOCKCHART || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines()))) {
+            if (
+                $groupType == DataSeries::TYPE_LINECHART
+                || $groupType == DataSeries::TYPE_STOCKCHART
+                || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines())
+                || ($plotSeriesValues !== false && $plotSeriesValues->getSchemeClr())
+            ) {
                 $plotLineWidth = 12700;
                 if ($plotSeriesValues) {
                     $plotLineWidth = $plotSeriesValues->getLineWidth();
                 }
 
                 $objWriter->startElement('c:spPr');
+                $schemeClr = $plotLabel ? $plotLabel->getSchemeClr() : null;
+                if ($schemeClr) {
+                    $objWriter->startElement('a:solidFill');
+                    $objWriter->startElement('a:schemeClr');
+                    $objWriter->writeAttribute('val', $schemeClr);
+                    $objWriter->endElement();
+                    $objWriter->endElement();
+                }
                 $objWriter->startElement('a:ln');
                 $objWriter->writeAttribute('w', $plotLineWidth);
                 if ($groupType == DataSeries::TYPE_STOCKCHART || $groupType === DataSeries::TYPE_SCATTERCHART) {
@@ -1186,7 +1212,14 @@ class Chart extends WriterPart
                     $objWriter->startElement('c:cat');
                 }
 
-                $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
+                // xVals (Categories) are not always 'str'
+                // Test X-axis Label's Datatype to decide 'str' vs 'num'
+                $CategoryDatatype = $plotSeriesCategory->getDataType();
+                if ($CategoryDatatype == DataSeriesValues::DATASERIES_TYPE_NUMBER) {
+                    $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'num');
+                } else {
+                    $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
+                }
                 $objWriter->endElement();
             }
 
@@ -1377,7 +1410,7 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->startElement('c:bubble3D');
-        $objWriter->writeAttribute('val', 0);
+        $objWriter->writeAttribute('val', $plotSeriesValues->getBubble3D() ? '1' : '0');
         $objWriter->endElement();
     }
 
