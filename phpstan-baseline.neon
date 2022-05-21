@@ -4792,7 +4792,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 44
+			count: 43
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -4982,7 +4982,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 5
+			count: 4
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
