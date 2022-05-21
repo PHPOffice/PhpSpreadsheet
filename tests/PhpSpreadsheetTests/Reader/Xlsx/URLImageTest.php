@@ -11,9 +11,12 @@ class URLImageTest extends TestCase
 {
     public function testURLImageSource(): void
     {
-        if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
-            self::markTestSkipped('Skipped due to setting of environment variable');
+        if (getenv('RUN_URL_IMAGE_TEST') !== '1') {
+            self::markTestSkipped('Skipped due to no longer bein able to access external URL');
         }
+        //if (getenv('SKIP_URL_IMAGE_TEST') === '1') {
+        //    self::markTestSkipped('Skipped due to setting of environment variable');
+        //}
         $filename = realpath(__DIR__ . '/../../../data/Reader/XLSX/urlImage.xlsx');
         self::assertNotFalse($filename);
         $reader = IOFactory::createReader('Xlsx');
