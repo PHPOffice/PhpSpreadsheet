@@ -55,12 +55,20 @@ class Chart
         $XaxisLabel = $YaxisLabel = $legend = $title = null;
         $dispBlanksAs = $plotVisOnly = null;
         $plotArea = null;
+        $rotX = $rotY = $rAngAx = $perspective = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
                     foreach ($chartElement as $chartDetailsKey => $chartDetails) {
                         $chartDetailsC = $chartDetails->children($namespacesChartMeta['c']);
                         switch ($chartDetailsKey) {
+                            case 'view3D':
+                                $rotX = self::getAttribute($chartDetails->rotX, 'val', 'integer');
+                                $rotY = self::getAttribute($chartDetails->rotY, 'val', 'integer');
+                                $rAngAx = self::getAttribute($chartDetails->rAngAx, 'val', 'integer');
+                                $perspective = self::getAttribute($chartDetails->perspective, 'val', 'integer');
+
+                                break;
                             case 'plotArea':
                                 $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
                                 $plotSeries = $plotAttributes = [];
@@ -220,6 +228,18 @@ class Chart
             }
         }
         $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        if (is_int($rotX)) {
+            $chart->setRotX($rotX);
+        }
+        if (is_int($rotY)) {
+            $chart->setRotY($rotY);
+        }
+        if (is_int($rAngAx)) {
+            $chart->setRAngAx($rAngAx);
+        }
+        if (is_int($perspective)) {
+            $chart->setPerspective($perspective);
+        }
 
         return $chart;
     }
