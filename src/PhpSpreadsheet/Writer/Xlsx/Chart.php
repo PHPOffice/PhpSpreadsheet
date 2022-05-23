@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
@@ -415,11 +414,7 @@ class Chart extends WriterPart
     {
         // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
         // In that case, xAxis is NOT a category.
-        $AxisFormat = $yAxis->getAxisNumberFormat();
-        if (
-            $AxisFormat === Properties::FORMAT_CODE_DATE
-            || $AxisFormat == Properties::FORMAT_CODE_NUMBER
-        ) {
+        if ($yAxis->getAxisIsNumericFormat()) {
             $objWriter->startElement('c:valAx');
         } else {
             $objWriter->startElement('c:catAx');

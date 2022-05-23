@@ -363,8 +363,9 @@ class Chart
         if ($this->yAxis !== null) {
             return $this->yAxis;
         }
+        $this->yAxis = new Axis();
 
-        return new Axis();
+        return $this->yAxis;
     }
 
     /**
@@ -377,8 +378,9 @@ class Chart
         if ($this->xAxis !== null) {
             return $this->xAxis;
         }
+        $this->xAxis = new Axis();
 
-        return new Axis();
+        return $this->xAxis;
     }
 
     /**
