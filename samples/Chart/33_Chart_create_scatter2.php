@@ -25,7 +25,7 @@ $worksheet->fromArray(
         ['=DATEVALUE("2021-01-10")', 30.2, 32.2, 0.2],
     ]
 );
-$worksheet->getStyle('A2:A5')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
+$worksheet->getStyle('A2:A5')->getNumberFormat()->setFormatCode(Properties::FORMAT_CODE_DATE_ISO8601);
 $worksheet->getColumnDimension('A')->setAutoSize(true);
 $worksheet->setSelectedCells('A1');
 
@@ -67,7 +67,7 @@ $dataSeriesValues = [
   // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
 $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
-$xAxis->setAxisNumberProperties('yyyy-mm-dd');
+$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
 
 // Build the dataseries
 $series = new DataSeries(
@@ -78,7 +78,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     //DataSeries::STYLE_LINEMARKER  // plotStyle
     DataSeries::STYLE_MARKER  // plotStyle
 );
@@ -107,7 +107,7 @@ $chart = new Chart(
 
 // Set the position where the chart should appear in the worksheet
 $chart->setTopLeftPosition('A7');
-$chart->setBottomRightPosition('N20');
+$chart->setBottomRightPosition('P20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 

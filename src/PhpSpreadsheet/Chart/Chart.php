@@ -140,6 +140,18 @@ class Chart
      */
     private $bottomRightYOffset = 10;
 
+    /** @var ?int */
+    private $rotX;
+
+    /** @var ?int */
+    private $rotY;
+
+    /** @var ?int */
+    private $rAngAx;
+
+    /** @var ?int */
+    private $perspective;
+
     /**
      * Create a new Chart.
      *
@@ -351,8 +363,9 @@ class Chart
         if ($this->yAxis !== null) {
             return $this->yAxis;
         }
+        $this->yAxis = new Axis();
 
-        return new Axis();
+        return $this->yAxis;
     }
 
     /**
@@ -365,8 +378,9 @@ class Chart
         if ($this->xAxis !== null) {
             return $this->xAxis;
         }
+        $this->xAxis = new Axis();
 
-        return new Axis();
+        return $this->xAxis;
     }
 
     /**
@@ -680,5 +694,53 @@ class Chart
         $renderer = new $libraryName($this);
 
         return $renderer->render($outputDestination);
+    }
+
+    public function getRotX(): ?int
+    {
+        return $this->rotX;
+    }
+
+    public function setRotX(?int $rotX): self
+    {
+        $this->rotX = $rotX;
+
+        return $this;
+    }
+
+    public function getRotY(): ?int
+    {
+        return $this->rotY;
+    }
+
+    public function setRotY(?int $rotY): self
+    {
+        $this->rotY = $rotY;
+
+        return $this;
+    }
+
+    public function getRAngAx(): ?int
+    {
+        return $this->rAngAx;
+    }
+
+    public function setRAngAx(?int $rAngAx): self
+    {
+        $this->rAngAx = $rAngAx;
+
+        return $this;
+    }
+
+    public function getPerspective(): ?int
+    {
+        return $this->perspective;
+    }
+
+    public function setPerspective(?int $perspective): self
+    {
+        $this->perspective = $perspective;
+
+        return $this;
     }
 }

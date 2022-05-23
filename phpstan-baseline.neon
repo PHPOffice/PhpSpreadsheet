@@ -4776,26 +4776,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
-			message: "#^Parameter \\#3 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#5 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
 			message: "#^Parameter \\#6 \\$yAxis of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
