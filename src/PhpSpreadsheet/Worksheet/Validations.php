@@ -65,9 +65,12 @@ class Validations
             [$worksheet, $addressRange] = Worksheet::extractSheetTitle($cellRange, true);
 
             // Convert Column ranges like 'A:C' to 'A1:C1048576'
-            $addressRange = (string) preg_replace('/^([A-Z]+):([A-Z]+)$/', '${1}1:${2}1048576', $addressRange);
-            // Convert Row ranges like '1:3' to 'A1:XFD3'
-            $addressRange = (string) preg_replace('/^(\\d+):(\\d+)$/', 'A${1}:XFD${2}', $addressRange);
+            //      or Row ranges like '1:3' to 'A1:XFD3'
+            $addressRange = (string) preg_replace(
+                ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
+                ['${1}1:${2}1048576', 'A${1}:XFD${2}'],
+                $addressRange
+            );
 
             return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);
         }
