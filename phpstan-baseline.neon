@@ -1946,32 +1946,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterPrintStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$officeNs has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$pageLayoutStyles has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesFo has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesNs has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
