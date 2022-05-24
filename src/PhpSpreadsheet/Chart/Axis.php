@@ -18,6 +18,7 @@ class Axis extends Properties
     private $axisNumber = [
         'format' => self::FORMAT_CODE_GENERAL,
         'source_linked' => 1,
+        'numeric' => null,
     ];
 
     /**
@@ -131,15 +132,26 @@ class Axis extends Properties
         'size' => null,
     ];
 
+    private const NUMERIC_FORMAT = [
+        Properties::FORMAT_CODE_NUMBER,
+        Properties::FORMAT_CODE_DATE,
+    ];
+
     /**
      * Get Series Data Type.
      *
      * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code): void
+    public function setAxisNumberProperties($format_code, ?bool $numeric = null): void
     {
-        $this->axisNumber['format'] = (string) $format_code;
+        $format = (string) $format_code;
+        $this->axisNumber['format'] = $format;
         $this->axisNumber['source_linked'] = 0;
+        if (is_bool($numeric)) {
+            $this->axisNumber['numeric'] = $numeric;
+        } elseif (in_array($format, self::NUMERIC_FORMAT, true)) {
+            $this->axisNumber['numeric'] = true;
+        }
     }
 
     /**
@@ -160,6 +172,11 @@ class Axis extends Properties
     public function getAxisNumberSourceLinked()
     {
         return (string) $this->axisNumber['source_linked'];
+    }
+
+    public function getAxisIsNumericFormat(): bool
+    {
+        return (bool) $this->axisNumber['numeric'];
     }
 
     /**

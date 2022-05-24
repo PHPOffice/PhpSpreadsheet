@@ -1946,32 +1946,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterPrintStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$officeNs has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$pageLayoutStyles has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesFo has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesNs has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
@@ -4797,26 +4772,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#3 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#5 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 

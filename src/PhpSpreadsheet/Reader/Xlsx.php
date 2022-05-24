@@ -1530,13 +1530,18 @@ class Xlsx extends BaseReader
                                                 $rangeSets = preg_split("/('?(?:.*?)'?(?:![A-Z0-9]+:[A-Z0-9]+)),?/", $extractedRange, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
                                                 $newRangeSets = [];
                                                 foreach ($rangeSets as $rangeSet) {
-                                                    [$sheetName, $rangeSet] = Worksheet::extractSheetTitle($rangeSet, true);
+                                                    [, $rangeSet] = Worksheet::extractSheetTitle($rangeSet, true);
+                                                    if (empty($rangeSet)) {
+                                                        continue;
+                                                    }
                                                     if (strpos($rangeSet, ':') === false) {
                                                         $rangeSet = $rangeSet . ':' . $rangeSet;
                                                     }
                                                     $newRangeSets[] = str_replace('$', '', $rangeSet);
                                                 }
-                                                $docSheet->getPageSetup()->setPrintArea(implode(',', $newRangeSets));
+                                                if (count($newRangeSets) > 0) {
+                                                    $docSheet->getPageSetup()->setPrintArea(implode(',', $newRangeSets));
+                                                }
 
                                                 break;
                                             default:

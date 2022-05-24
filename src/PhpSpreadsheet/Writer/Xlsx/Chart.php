@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
@@ -74,6 +73,33 @@ class Chart extends WriterPart
         $objWriter->startElement('c:autoTitleDeleted');
         $objWriter->writeAttribute('val', 0);
         $objWriter->endElement();
+
+        $objWriter->startElement('c:view3D');
+        $rotX = $chart->getRotX();
+        if (is_int($rotX)) {
+            $objWriter->startElement('c:rotX');
+            $objWriter->writeAttribute('val', "$rotX");
+            $objWriter->endElement();
+        }
+        $rotY = $chart->getRotY();
+        if (is_int($rotY)) {
+            $objWriter->startElement('c:rotY');
+            $objWriter->writeAttribute('val', "$rotY");
+            $objWriter->endElement();
+        }
+        $rAngAx = $chart->getRAngAx();
+        if (is_int($rAngAx)) {
+            $objWriter->startElement('c:rAngAx');
+            $objWriter->writeAttribute('val', "$rAngAx");
+            $objWriter->endElement();
+        }
+        $perspective = $chart->getPerspective();
+        if (is_int($perspective)) {
+            $objWriter->startElement('c:perspective');
+            $objWriter->writeAttribute('val', "$perspective");
+            $objWriter->endElement();
+        }
+        $objWriter->endElement(); // view3D
 
         $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY(), $chart->getMajorGridlines(), $chart->getMinorGridlines());
 
@@ -200,7 +226,7 @@ class Chart extends WriterPart
             return;
         }
 
-        $id1 = $id2 = 0;
+        $id1 = $id2 = $id3 = '0';
         $this->seriesIndex = 0;
         $objWriter->startElement('c:plotArea');
 
@@ -229,6 +255,10 @@ class Chart extends WriterPart
                     } elseif ($groupType === DataSeries::TYPE_SCATTERCHART) {
                         $objWriter->startElement('c:scatterStyle');
                         $objWriter->writeAttribute('val', $plotStyle);
+                        $objWriter->endElement();
+                    } elseif ($groupType === DataSeries::TYPE_SURFACECHART_3D || $groupType === DataSeries::TYPE_SURFACECHART) {
+                        $objWriter->startElement('c:wireframe');
+                        $objWriter->writeAttribute('val', $plotStyle ? '1' : '0');
                         $objWriter->endElement();
                     }
 
@@ -280,9 +310,10 @@ class Chart extends WriterPart
                 $objWriter->endElement();
             }
 
-            //    Generate 2 unique numbers to use for axId values
-            $id1 = '75091328';
-            $id2 = '75089408';
+            //    Generate 3 unique numbers to use for axId values
+            $id1 = '110438656';
+            $id2 = '110444544';
+            $id3 = '110365312'; // used in Surface Chart
 
             if (($chartType !== DataSeries::TYPE_PIECHART) && ($chartType !== DataSeries::TYPE_PIECHART_3D) && ($chartType !== DataSeries::TYPE_DONUTCHART)) {
                 $objWriter->startElement('c:axId');
@@ -291,6 +322,11 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:axId');
                 $objWriter->writeAttribute('val', $id2);
                 $objWriter->endElement();
+                if ($chartType === DataSeries::TYPE_SURFACECHART_3D || $chartType === DataSeries::TYPE_SURFACECHART) {
+                    $objWriter->startElement('c:axId');
+                    $objWriter->writeAttribute('val', $id3);
+                    $objWriter->endElement();
+                }
             } else {
                 $objWriter->startElement('c:firstSliceAng');
                 $objWriter->writeAttribute('val', 0);
@@ -314,6 +350,9 @@ class Chart extends WriterPart
             }
 
             $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis, $majorGridlines, $minorGridlines);
+            if ($chartType === DataSeries::TYPE_SURFACECHART_3D || $chartType === DataSeries::TYPE_SURFACECHART) {
+                $this->writeSerAxis($objWriter, $id2, $id3);
+            }
         }
 
         $objWriter->endElement();
@@ -375,17 +414,13 @@ class Chart extends WriterPart
     {
         // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
         // In that case, xAxis is NOT a category.
-        $AxisFormat = $yAxis->getAxisNumberFormat();
-        if (
-            $AxisFormat === Properties::FORMAT_CODE_DATE
-            || $AxisFormat == Properties::FORMAT_CODE_NUMBER
-        ) {
+        if ($yAxis->getAxisIsNumericFormat()) {
             $objWriter->startElement('c:valAx');
         } else {
             $objWriter->startElement('c:catAx');
         }
 
-        if ($id1 > 0) {
+        if ($id1 !== '0') {
             $objWriter->startElement('c:axId');
             $objWriter->writeAttribute('val', $id1);
             $objWriter->endElement();
@@ -459,7 +494,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('axis_labels'));
         $objWriter->endElement();
 
-        if ($id2 > 0) {
+        if ($id2 !== '0') {
             $objWriter->startElement('c:crossAx');
             $objWriter->writeAttribute('val', $id2);
             $objWriter->endElement();
@@ -501,7 +536,7 @@ class Chart extends WriterPart
     {
         $objWriter->startElement('c:valAx');
 
-        if ($id2 > 0) {
+        if ($id2 !== '0') {
             $objWriter->startElement('c:axId');
             $objWriter->writeAttribute('val', $id2);
             $objWriter->endElement();
@@ -926,7 +961,7 @@ class Chart extends WriterPart
         $objWriter->endElement(); //effectList
         $objWriter->endElement(); //end spPr
 
-        if ($id1 > 0) {
+        if ($id1 !== '0') {
             $objWriter->startElement('c:crossAx');
             $objWriter->writeAttribute('val', $id2);
             $objWriter->endElement();
@@ -967,6 +1002,54 @@ class Chart extends WriterPart
         }
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write Ser Axis, for Surface chart.
+     */
+    private function writeSerAxis(XMLWriter $objWriter, string $id2, string $id3): void
+    {
+        $objWriter->startElement('c:serAx');
+
+        $objWriter->startElement('c:axId');
+        $objWriter->writeAttribute('val', $id3);
+        $objWriter->endElement(); // axId
+
+        $objWriter->startElement('c:scaling');
+        $objWriter->startElement('c:orientation');
+        $objWriter->writeAttribute('val', 'minMax');
+        $objWriter->endElement(); // orientation
+        $objWriter->endElement(); // scaling
+
+        $objWriter->startElement('c:delete');
+        $objWriter->writeAttribute('val', '0');
+        $objWriter->endElement(); // delete
+
+        $objWriter->startElement('c:axPos');
+        $objWriter->writeAttribute('val', 'b');
+        $objWriter->endElement(); // axPos
+
+        $objWriter->startElement('c:majorTickMark');
+        $objWriter->writeAttribute('val', 'out');
+        $objWriter->endElement(); // majorTickMark
+
+        $objWriter->startElement('c:minorTickMark');
+        $objWriter->writeAttribute('val', 'none');
+        $objWriter->endElement(); // minorTickMark
+
+        $objWriter->startElement('c:tickLblPos');
+        $objWriter->writeAttribute('val', 'nextTo');
+        $objWriter->endElement(); // tickLblPos
+
+        $objWriter->startElement('c:crossAx');
+        $objWriter->writeAttribute('val', $id2);
+        $objWriter->endElement(); // crossAx
+
+        $objWriter->startElement('c:crosses');
+        $objWriter->writeAttribute('val', 'autoZero');
+        $objWriter->endElement(); // crosses
+
+        $objWriter->endElement(); //serAx
     }
 
     /**
