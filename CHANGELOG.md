@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
   Note that a ChartSheet is still only written as a normal Worksheet containing a single chart, not as an actual ChartSheet.
 
-- Added Worksheet visibility in Ods Reader [PR #2851](https://github.com/PHPOffice/PhpSpreadsheet/pull/2851)
+- Added Worksheet visibility in Ods Reader [PR #2851](https://github.com/PHPOffice/PhpSpreadsheet/pull/2851) and Gnumeric Reader [PR #2853](https://github.com/PHPOffice/PhpSpreadsheet/pull/2853)
 - Added Worksheet visibility in Ods Writer [PR #2850](https://github.com/PHPOffice/PhpSpreadsheet/pull/2850)
 
 ### Changed
