@@ -16,7 +16,7 @@
         <th></th>
         <th>XLS</th>
         <th>XLSX</th>
-        <th>Excel2003XML</th>
+        <th>XML (Excel2003XML)</th>
         <th>Ods</th>
         <th>Gnumeric</th>
         <th>CSV</th>
@@ -733,7 +733,27 @@
         <td></td>
     </tr>
     <tr>
+        <td style="padding-left: 1em;">Hidden Worksheets</td>
+        <td style="text-align: center; color: green;">✔</td> 
+        <td style="text-align: center; color: green;">✔</td> 
+        <td></td>
+        <td style="text-align: center; color: green;">✔</td> 
+        <td style="text-align: center; color: green;">✔</td> 
+        <td style="text-align: center;">N/A</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
         <td style="padding-left: 1em;">Coloured Tabs</td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
