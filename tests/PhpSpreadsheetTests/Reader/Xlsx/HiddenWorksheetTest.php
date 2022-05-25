@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Reader\Ods;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -16,8 +16,8 @@ class HiddenWorksheetTest extends TestCase
 
     protected function setup(): void
     {
-        $filename = 'tests/data/Reader/Ods/HiddenSheet.ods';
-        $reader = new Ods();
+        $filename = 'tests/data/Reader/XLSX/HiddenSheet.xlsx';
+        $reader = new Xlsx();
         $this->spreadsheet = $reader->load($filename);
     }
 
