@@ -963,7 +963,7 @@ class Chart extends WriterPart
 
         if ($id1 !== '0') {
             $objWriter->startElement('c:crossAx');
-            $objWriter->writeAttribute('val', $id2);
+            $objWriter->writeAttribute('val', $id1);
             $objWriter->endElement();
 
             if ($xAxis->getAxisOptionsProperty('horizontal_crosses_value') !== null) {

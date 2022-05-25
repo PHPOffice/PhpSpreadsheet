@@ -1645,7 +1645,8 @@ class Xlsx extends BaseReader
                         if ($this->includeCharts) {
                             $chartEntryRef = ltrim((string) $contentType['PartName'], '/');
                             $chartElements = $this->loadZip($chartEntryRef);
-                            $objChart = Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
+                            $chartReader = new Chart();
+                            $objChart = $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef])) {
