@@ -1461,7 +1461,7 @@ class Xlsx extends BaseReader
                                     }
 
                                     // unparsed drawing AlternateContent
-                                    $xmlAltDrawing = $this->loadZip($fileDrawing, Namespaces::COMPATIBILITY);
+                                    $xmlAltDrawing = $this->loadZip((string) $fileDrawing, Namespaces::COMPATIBILITY);
 
                                     if ($xmlAltDrawing->AlternateContent) {
                                         foreach ($xmlAltDrawing->AlternateContent as $alternateContent) {
@@ -1821,12 +1821,12 @@ class Xlsx extends BaseReader
         return $array[$key] ?? null;
     }
 
-    private static function dirAdd($base, $add)
+    private static function dirAdd($base, $add): string
     {
-        return preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
+        return (string) preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
     }
 
-    private static function toCSSArray($style)
+    private static function toCSSArray($style): array
     {
         $style = self::stripWhiteSpaceFromStyleString($style);
 
@@ -1857,12 +1857,12 @@ class Xlsx extends BaseReader
         return $style;
     }
 
-    public static function stripWhiteSpaceFromStyleString($string)
+    public static function stripWhiteSpaceFromStyleString($string): string
     {
         return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
-    private static function boolean($value)
+    private static function boolean($value): bool
     {
         if (is_object($value)) {
             $value = (string) $value;

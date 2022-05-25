@@ -2266,11 +2266,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -2341,11 +2336,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:dirAdd\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:dirAdd\\(\\) has parameter \\$add with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -2406,17 +2396,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:stripWhiteSpaceFromStyleString\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:stripWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:toCSSArray\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -4884,9 +4864,4 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Xlfn\\:\\:addXlfn\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
 
