@@ -778,8 +778,7 @@ class Parser
      */
     private function getRefIndex($ext_ref)
     {
-        $ext_ref = preg_replace("/^'/", '', $ext_ref); // Remove leading  ' if any.
-        $ext_ref = preg_replace("/'$/", '', $ext_ref); // Remove trailing ' if any.
+        $ext_ref = (string) preg_replace(["/^'/", "/'$/"], ['', ''], $ext_ref); // Remove leading and trailing ' if any.
         $ext_ref = str_replace('\'\'', '\'', $ext_ref); // Replace escaped '' with '
 
         // Check if there is a sheet range eg., Sheet1:Sheet2.

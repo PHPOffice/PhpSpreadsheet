@@ -126,11 +126,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:\\$cellStack has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -749,11 +744,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
@@ -1711,11 +1701,6 @@ parameters:
 			path: src/PhpSpreadsheet/Helper/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\ITextElement\\:\\:setText\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Html.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:\\$bold has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
@@ -1812,11 +1797,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Sample.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Sample.php
 
@@ -2722,11 +2702,6 @@ parameters:
 
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -3726,22 +3701,7 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
 
 		-
-			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
@@ -4181,11 +4141,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$vAlign of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:mapVAlign\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -4381,16 +4336,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -4488,21 +4433,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<0, max\\>, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match_all expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-

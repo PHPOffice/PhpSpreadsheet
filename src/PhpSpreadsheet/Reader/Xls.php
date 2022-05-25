@@ -4521,17 +4521,17 @@ class Xls extends BaseReader
 
             // first row '1' + last row '16384' indicates that full column is selected (apparently also in BIFF8!)
             if (preg_match('/^([A-Z]+1\:[A-Z]+)16384$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^([A-Z]+1\:[A-Z]+)16384$/', '${1}1048576', $selectedCells);
+                $selectedCells = (string) preg_replace('/^([A-Z]+1\:[A-Z]+)16384$/', '${1}1048576', $selectedCells);
             }
 
             // first row '1' + last row '65536' indicates that full column is selected
             if (preg_match('/^([A-Z]+1\:[A-Z]+)65536$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^([A-Z]+1\:[A-Z]+)65536$/', '${1}1048576', $selectedCells);
+                $selectedCells = (string) preg_replace('/^([A-Z]+1\:[A-Z]+)65536$/', '${1}1048576', $selectedCells);
             }
 
             // first column 'A' + last column 'IV' indicates that full row is selected
             if (preg_match('/^(A\d+\:)IV(\d+)$/', $selectedCells)) {
-                $selectedCells = preg_replace('/^(A\d+\:)IV(\d+)$/', '${1}XFD${2}', $selectedCells);
+                $selectedCells = (string) preg_replace('/^(A\d+\:)IV(\d+)$/', '${1}XFD${2}', $selectedCells);
             }
 
             $this->phpSheet->setSelectedCells($selectedCells);
