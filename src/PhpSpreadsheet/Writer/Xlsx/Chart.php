@@ -284,9 +284,12 @@ class Chart extends WriterPart
                     $objWriter->endElement();
                 }
             } elseif ($chartType === DataSeries::TYPE_BUBBLECHART) {
-                $objWriter->startElement('c:bubbleScale');
-                $objWriter->writeAttribute('val', 25);
-                $objWriter->endElement();
+                $scale = ($plotGroup === null) ? '' : (string) $plotGroup->getPlotStyle();
+                if ($scale !== '') {
+                    $objWriter->startElement('c:bubbleScale');
+                    $objWriter->writeAttribute('val', $scale);
+                    $objWriter->endElement();
+                }
 
                 $objWriter->startElement('c:showNegBubbles');
                 $objWriter->writeAttribute('val', 0);
@@ -1326,7 +1329,23 @@ class Chart extends WriterPart
             }
 
             if ($groupType === DataSeries::TYPE_BUBBLECHART) {
-                $this->writeBubbles($plotSeriesValues, $objWriter);
+                if (!empty($plotGroup->getPlotBubbleSizes()[$plotSeriesIdx])) {
+                    $objWriter->startElement('c:bubbleSize');
+                    $this->writePlotSeriesValues(
+                        $plotGroup->getPlotBubbleSizes()[$plotSeriesIdx],
+                        $objWriter,
+                        $groupType,
+                        'num'
+                    );
+                    $objWriter->endElement();
+                    if ($plotSeriesValues !== false) {
+                        $objWriter->startElement('c:bubble3D');
+                        $objWriter->writeAttribute('val', $plotSeriesValues->getBubble3D() ? '1' : '0');
+                        $objWriter->endElement();
+                    }
+                } else {
+                    $this->writeBubbles($plotSeriesValues, $objWriter);
+                }
             }
 
             $objWriter->endElement();
@@ -1420,38 +1439,43 @@ class Chart extends WriterPart
             $objWriter->writeRawData($plotSeriesValues->getDataSource());
             $objWriter->endElement();
 
-            $objWriter->startElement('c:' . $dataType . 'Cache');
+            $count = $plotSeriesValues->getPointCount();
+            $source = $plotSeriesValues->getDataSource();
+            $values = $plotSeriesValues->getDataValues();
+            if ($count > 1 || ($count === 1 && "=$source" !== (string) $values[0])) {
+                $objWriter->startElement('c:' . $dataType . 'Cache');
 
-            if (($groupType != DataSeries::TYPE_PIECHART) && ($groupType != DataSeries::TYPE_PIECHART_3D) && ($groupType != DataSeries::TYPE_DONUTCHART)) {
-                if (($plotSeriesValues->getFormatCode() !== null) && ($plotSeriesValues->getFormatCode() !== '')) {
-                    $objWriter->startElement('c:formatCode');
-                    $objWriter->writeRawData($plotSeriesValues->getFormatCode());
-                    $objWriter->endElement();
-                }
-            }
-
-            $objWriter->startElement('c:ptCount');
-            $objWriter->writeAttribute('val', $plotSeriesValues->getPointCount());
-            $objWriter->endElement();
-
-            $dataValues = $plotSeriesValues->getDataValues();
-            if (!empty($dataValues)) {
-                if (is_array($dataValues)) {
-                    foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
-                        $objWriter->startElement('c:pt');
-                        $objWriter->writeAttribute('idx', $plotSeriesKey);
-
-                        $objWriter->startElement('c:v');
-                        $objWriter->writeRawData($plotSeriesValue);
-                        $objWriter->endElement();
+                if (($groupType != DataSeries::TYPE_PIECHART) && ($groupType != DataSeries::TYPE_PIECHART_3D) && ($groupType != DataSeries::TYPE_DONUTCHART)) {
+                    if (($plotSeriesValues->getFormatCode() !== null) && ($plotSeriesValues->getFormatCode() !== '')) {
+                        $objWriter->startElement('c:formatCode');
+                        $objWriter->writeRawData($plotSeriesValues->getFormatCode());
                         $objWriter->endElement();
                     }
                 }
+
+                $objWriter->startElement('c:ptCount');
+                $objWriter->writeAttribute('val', $plotSeriesValues->getPointCount());
+                $objWriter->endElement();
+
+                $dataValues = $plotSeriesValues->getDataValues();
+                if (!empty($dataValues)) {
+                    if (is_array($dataValues)) {
+                        foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
+                            $objWriter->startElement('c:pt');
+                            $objWriter->writeAttribute('idx', $plotSeriesKey);
+
+                            $objWriter->startElement('c:v');
+                            $objWriter->writeRawData($plotSeriesValue);
+                            $objWriter->endElement();
+                            $objWriter->endElement();
+                        }
+                    }
+                }
+
+                $objWriter->endElement(); // *Cache
             }
 
-            $objWriter->endElement();
-
-            $objWriter->endElement();
+            $objWriter->endElement(); // *Ref
         }
     }
 
