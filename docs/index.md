@@ -30,8 +30,13 @@ for details.
 
 ### PHP version support
 
-Support for PHP versions will only be maintained for a period of six months beyond the
+LTS: Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life of that PHP version](https://www.php.net/eol.php).
+
+Currently the required PHP minimum version is PHP 7.3. The last PHP release was 7.3.33 on 6th December 2021, so PhpSpreadsheet will support PHP 7.3 until 6th June 2022.
+PHP 7.4 is officially [End of Life](https://www.php.net/supported-versions.php) on 28th November 2022, and PhpSpreadsheet will continue to support PHP 7.4 for six months after that date.
+
+See the `composer.json` for other requirements.
 
 ## Installation
 
@@ -47,6 +52,26 @@ Or also download the documentation and samples if you plan to use them:
 composer require phpoffice/phpspreadsheet --prefer-source
 ```
 
+If you are building your installation on a development machine that is on a different PHP version to the server where it will be deployed, or if your PHP CLI version is not the same as your run-time such as `php-fpm` or Apache's `mod_php`, then you might want to add the following to your `composer.json` before installing:
+```json lines
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.23"
+    },
+    "config": {
+        "platform": {
+            "php": "7.3"
+        }
+    }
+}
+```
+and then run
+```sh
+composer install
+```
+to ensure that the correct dependencies are retrieved to match your deployment environment.
+
+See [CLI vs Application run-time](https://php.watch/articles/composer-platform-check) for more details.
 
 ## Hello World
 
