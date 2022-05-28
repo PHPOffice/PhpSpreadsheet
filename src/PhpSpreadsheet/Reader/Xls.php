@@ -1235,7 +1235,7 @@ class Xls extends BaseReader
                             //        Bar!$A$1:$IV$2
                             $explodes = Worksheet::extractSheetTitle($range, true);
                             $sheetName = trim($explodes[0], "'");
-                            if (count($explodes) == 2) {
+                            if (count($explodes) === 2) {
                                 if (strpos($explodes[1], ':') === false) {
                                     $explodes[1] = $explodes[1] . ':' . $explodes[1];
                                 }

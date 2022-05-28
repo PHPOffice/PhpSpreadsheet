@@ -671,11 +671,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
-			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
@@ -1117,26 +1112,6 @@ parameters:
 
 		-
 			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:refresh\\(\\) has parameter \\$flatten with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataSource \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataTypeValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$fillColor \\(array\\<string\\>\\|string\\) does not accept array\\<string\\>\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
@@ -2036,7 +2011,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<string\\>\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<string\\>\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -3622,11 +3597,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
