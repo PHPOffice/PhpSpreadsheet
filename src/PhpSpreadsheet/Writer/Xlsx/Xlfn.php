@@ -154,7 +154,7 @@ class Xlfn
      */
     public static function addXlfn(string $funcstring): string
     {
-        return preg_replace(self::XLFNREGEXP, '_xlfn.$1', $funcstring);
+        return (string) preg_replace(self::XLFNREGEXP, '_xlfn.$1', $funcstring);
     }
 
     /**

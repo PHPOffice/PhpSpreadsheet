@@ -103,6 +103,9 @@ class Csv extends BaseReader
      */
     protected $preserveNumericFormatting = false;
 
+    /** @var bool */
+    private $preserveNullString = false;
+
     /**
      * Create a new CSV Reader instance.
      */
@@ -300,9 +303,11 @@ class Csv extends BaseReader
         }
     }
 
-    public function setTestAutoDetect(bool $value): void
+    public function setTestAutoDetect(bool $value): self
     {
         $this->testAutodetect = $value;
+
+        return $this;
     }
 
     private function setAutoDetect(?string $value): ?string
@@ -390,7 +395,7 @@ class Csv extends BaseReader
             foreach ($rowData as $rowDatum) {
                 $this->convertBoolean($rowDatum, $preserveBooleanString);
                 $numberFormatMask = $this->convertFormattedNumber($rowDatum);
-                if ($rowDatum !== '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
+                if (($rowDatum !== '' || $this->preserveNullString) && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
                             $noOutputYet = false;
@@ -624,5 +629,17 @@ class Csv extends BaseReader
         }
 
         return ($encoding === '') ? $dflt : $encoding;
+    }
+
+    public function setPreserveNullString(bool $value): self
+    {
+        $this->preserveNullString = $value;
+
+        return $this;
+    }
+
+    public function getPreserveNullString(): bool
+    {
+        return $this->preserveNullString;
     }
 }

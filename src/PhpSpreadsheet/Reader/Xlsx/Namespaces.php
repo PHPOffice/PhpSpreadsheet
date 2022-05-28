@@ -50,6 +50,8 @@ class Namespaces
 
     const WORKSHEET = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet';
 
+    const CHARTSHEET = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet';
+
     const SCHEMA_MICROSOFT = 'http://schemas.microsoft.com/office/2006/relationships';
 
     const EXTENSIBILITY = 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility';
