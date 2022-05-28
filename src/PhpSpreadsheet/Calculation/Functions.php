@@ -159,7 +159,7 @@ class Functions
             } elseif (!is_numeric($condition)) {
                 if ($condition !== '""') { // Not an empty string
                     // Escape any quotes in the string value
-                    $condition = preg_replace('/"/ui', '""', $condition);
+                    $condition = (string) preg_replace('/"/ui', '""', $condition);
                 }
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }

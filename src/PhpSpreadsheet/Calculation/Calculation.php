@@ -3197,7 +3197,7 @@ class Calculation
         string $toSeparator
     ): string {
         // Function Names
-        $formula = preg_replace($from, $to, $formula);
+        $formula = (string) preg_replace($from, $to, $formula);
 
         // Temporarily adjust matrix separators so that they won't be confused with function arguments
         $formula = self::translateSeparator(';', '|', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
@@ -4180,7 +4180,7 @@ class Calculation
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
-                    $val = preg_replace('/\s/u', '', $val);
+                    $val = (string) preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
                     } else {

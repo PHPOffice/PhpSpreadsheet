@@ -1039,7 +1039,7 @@ class Worksheet extends BIFFwriter
         $record = 0x01B8; // Record identifier
 
         // Strip URL type
-        $url = preg_replace('/^internal:/', '', $url);
+        $url = (string) preg_replace('/^internal:/', '', $url);
 
         // Pack the undocumented parts of the hyperlink stream
         $unknown1 = pack('H*', 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
@@ -1095,8 +1095,7 @@ class Worksheet extends BIFFwriter
 
         // Strip URL type and change Unix dir separator to Dos style (if needed)
         //
-        $url = preg_replace('/^external:/', '', $url);
-        $url = preg_replace('/\//', '\\', $url);
+        $url = (string) preg_replace(['/^external:/', '/\//'], ['', '\\'], $url);
 
         // Determine if the link is relative or absolute:
         //   relative if link contains no dir separator, "somefile.xls"
@@ -1125,7 +1124,7 @@ class Worksheet extends BIFFwriter
         $up_count = pack('v', $up_count);
 
         // Store the short dos dir name (null terminated)
-        $dir_short = preg_replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
+        $dir_short = (string) preg_replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
         $dir_long = $dir_long . "\0";

@@ -14,7 +14,7 @@ class Trim
      * @param mixed $stringValue String Value to check
      *                              Or can be an array of values
      *
-     * @return null|array|string
+     * @return array|string
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -26,7 +26,7 @@ class Trim
 
         $stringValue = Helpers::extractString($stringValue);
 
-        return preg_replace('/[\\x00-\\x1f]/', '', "$stringValue");
+        return (string) preg_replace('/[\\x00-\\x1f]/', '', "$stringValue");
     }
 
     /**

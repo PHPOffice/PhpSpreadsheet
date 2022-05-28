@@ -13,17 +13,25 @@ class FormulaTranslator
         // Cell range 3-d reference
         // As we don't support 3-d ranges, we're just going to take a quick and dirty approach
         //  and assume that the second worksheet reference is the same as the first
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu', '$1!$2:$4', $excelAddress);
-        // Cell range reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', '$1!$2:$3', $excelAddress ?? '');
-        // Cell reference in another sheet
-        $excelAddress = preg_replace('/\$?([^\.]+)\.([^\.]+)/miu', '$1!$2', $excelAddress ?? '');
-        // Cell range reference
-        $excelAddress = preg_replace('/\.([^\.]+):\.([^\.]+)/miu', '$1:$2', $excelAddress ?? '');
-        // Simple cell reference
-        $excelAddress = preg_replace('/\.([^\.]+)/miu', '$1', $excelAddress ?? '');
+        $excelAddress = (string) preg_replace(
+            [
+                '/\$?([^\.]+)\.([^\.]+):\$?([^\.]+)\.([^\.]+)/miu',
+                '/\$?([^\.]+)\.([^\.]+):\.([^\.]+)/miu', // Cell range reference in another sheet
+                '/\$?([^\.]+)\.([^\.]+)/miu', // Cell reference in another sheet
+                '/\.([^\.]+):\.([^\.]+)/miu', // Cell range reference
+                '/\.([^\.]+)/miu', // Simple cell reference
+            ],
+            [
+                '$1!$2:$4',
+                '$1!$2:$3',
+                '$1!$2',
+                '$1:$2',
+                '$1',
+            ],
+            $excelAddress
+        );
 
-        return $excelAddress ?? '';
+        return $excelAddress;
     }
 
     public static function convertToExcelFormulaValue(string $openOfficeFormula): string
@@ -37,16 +45,23 @@ class FormulaTranslator
             // Only replace in alternate array entries (i.e. non-quoted blocks)
             //      so that conversion isn't done in string values
             if ($tKey = !$tKey) {
-                // Cell range reference in another sheet
-                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', '$1!$2:$3', $value);
-                // Cell reference in another sheet
-                $value = preg_replace('/\[\$?([^\.]+)\.([^\.]+)\]/miu', '$1!$2', $value ?? '');
-                // Cell range reference
-                $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/miu', '$1:$2', $value ?? '');
-                // Simple cell reference
-                $value = preg_replace('/\[\.([^\.]+)\]/miu', '$1', $value ?? '');
+                $value = (string) preg_replace(
+                    [
+                        '/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', // Cell range reference in another sheet
+                        '/\[\$?([^\.]+)\.([^\.]+)\]/miu', // Cell reference in another sheet
+                        '/\[\.([^\.]+):\.([^\.]+)\]/miu', // Cell range reference
+                        '/\[\.([^\.]+)\]/miu', // Simple cell reference
+                    ],
+                    [
+                        '$1!$2:$3',
+                        '$1!$2',
+                        '$1:$2',
+                        '$1',
+                    ],
+                    $value
+                );
                 // Convert references to defined names/formulae
-                $value = str_replace('$$', '', $value ?? '');
+                $value = str_replace('$$', '', $value);
 
                 // Convert ODS function argument separators to Excel function argument separators
                 $value = Calculation::translateSeparator(';', ',', $value, $inFunctionBracesLevel);
@@ -69,7 +84,7 @@ class FormulaTranslator
                     Calculation::FORMULA_CLOSE_MATRIX_BRACE
                 );
 
-                $value = preg_replace('/COM\.MICROSOFT\./ui', '', $value);
+                $value = (string) preg_replace('/COM\.MICROSOFT\./ui', '', $value);
             }
         }
 
