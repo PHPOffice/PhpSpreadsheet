@@ -299,11 +299,14 @@ class Font extends Supervisor
         if ($fontname == '') {
             $fontname = 'Calibri';
         }
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->latin = $fontname;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['latin' => $fontname]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->latin = $fontname;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -314,11 +317,14 @@ class Font extends Supervisor
         if ($fontname == '') {
             $fontname = 'Calibri';
         }
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->eastAsian = $fontname;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['eastAsian' => $fontname]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->eastAsian = $fontname;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -329,11 +335,14 @@ class Font extends Supervisor
         if ($fontname == '') {
             $fontname = 'Calibri';
         }
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->complexScript = $fontname;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['complexScript' => $fontname]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->complexScript = $fontname;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -533,11 +542,14 @@ class Font extends Supervisor
 
     public function setBaseLine(int $baseLine): self
     {
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->baseLine = $baseLine;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['baseLine' => $baseLine]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->baseLine = $baseLine;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -554,11 +566,14 @@ class Font extends Supervisor
 
     public function setStrikeType(string $strikeType): self
     {
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->strikeType = $strikeType;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['strikeType' => $strikeType]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->strikeType = $strikeType;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -575,11 +590,14 @@ class Font extends Supervisor
 
     public function setUSchemeClr(string $uSchemeClr): self
     {
-        if ($this->isSupervisor) {
+        if (!$this->isSupervisor) {
+            $this->uSchemeClr = $uSchemeClr;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
             $styleArray = $this->getStyleArray(['uSchemeClr' => $uSchemeClr]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-        } else {
-            $this->uSchemeClr = $uSchemeClr;
+            // @codeCoverageIgnoreEnd
         }
 
         return $this;
@@ -743,6 +761,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
+        $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUSchemeClr());
 
         return $exportedArray;
     }
