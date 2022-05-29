@@ -687,7 +687,7 @@ class ReferenceHelper
                         ksort($cellTokens);
                         ksort($newCellTokens);
                     }   //  Update cell references in the formula
-                    $formulaBlock = str_replace('\\', '', preg_replace($cellTokens, $newCellTokens, $formulaBlock));
+                    $formulaBlock = str_replace('\\', '', (string) preg_replace($cellTokens, $newCellTokens, $formulaBlock));
                 }
             }
         }
