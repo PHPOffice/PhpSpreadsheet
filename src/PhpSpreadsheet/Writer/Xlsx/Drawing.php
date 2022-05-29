@@ -108,6 +108,19 @@ class Drawing extends WriterPart
             $objWriter->writeElement('xdr:row', (string) ($brColRow[1] - 1));
             $objWriter->writeElement('xdr:rowOff', self::stringEmu($br['yOffset']));
             $objWriter->endElement();
+        } elseif ($chart->getOneCellAnchor()) {
+            $objWriter->startElement('xdr:oneCellAnchor');
+
+            $objWriter->startElement('xdr:from');
+            $objWriter->writeElement('xdr:col', (string) ($tlColRow[0] - 1));
+            $objWriter->writeElement('xdr:colOff', self::stringEmu($tl['xOffset']));
+            $objWriter->writeElement('xdr:row', (string) ($tlColRow[1] - 1));
+            $objWriter->writeElement('xdr:rowOff', self::stringEmu($tl['yOffset']));
+            $objWriter->endElement();
+            $objWriter->startElement('xdr:ext');
+            $objWriter->writeAttribute('cx', self::stringEmu($br['xOffset']));
+            $objWriter->writeAttribute('cy', self::stringEmu($br['yOffset']));
+            $objWriter->endElement();
         } else {
             $objWriter->startElement('xdr:absoluteAnchor');
             $objWriter->startElement('xdr:pos');

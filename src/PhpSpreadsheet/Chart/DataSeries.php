@@ -108,6 +108,13 @@ class DataSeries
     private $plotValues = [];
 
     /**
+     * Plot Bubble Sizes.
+     *
+     * @var DataSeriesValues[]
+     */
+    private $plotBubbleSizes = [];
+
+    /**
      * Create a new DataSeries.
      *
      * @param null|mixed $plotType
@@ -337,6 +344,28 @@ class DataSeries
         }
 
         return false;
+    }
+
+    /**
+     * Get Plot Bubble Sizes.
+     *
+     * @return DataSeriesValues[]
+     */
+    public function getPlotBubbleSizes(): array
+    {
+        return $this->plotBubbleSizes;
+    }
+
+    /**
+     * Set Plot Bubble Sizes.
+     *
+     * @param DataSeriesValues[] $plotBubbleSizes
+     */
+    public function setPlotBubbleSizes(array $plotBubbleSizes): self
+    {
+        $this->plotBubbleSizes = $plotBubbleSizes;
+
+        return $this;
     }
 
     /**
