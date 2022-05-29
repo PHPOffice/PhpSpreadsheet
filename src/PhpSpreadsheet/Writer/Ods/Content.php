@@ -123,6 +123,7 @@ class Content extends WriterPart
         for ($sheetIndex = 0; $sheetIndex < $sheetCount; ++$sheetIndex) {
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
+            $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
             $objWriter->writeElement('office:forms');
             foreach ($spreadsheet->getSheet($sheetIndex)->getColumnDimensions() as $columnDimension) {
                 $objWriter->startElement('table:table-column');
@@ -289,6 +290,8 @@ class Content extends WriterPart
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
             $worksheet = $spreadsheet->getSheet($i);
+            $styleWriter->writeTableStyle($worksheet, $i + 1);
+
             $worksheet->calculateColumnWidths();
             foreach ($worksheet->getColumnDimensions() as $columnDimension) {
                 if ($columnDimension->getWidth() !== -1.0) {

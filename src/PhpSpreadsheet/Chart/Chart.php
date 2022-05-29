@@ -124,7 +124,7 @@ class Chart
      *
      * @var string
      */
-    private $bottomRightCellRef = 'A1';
+    private $bottomRightCellRef = '';
 
     /**
      * Bottom-Right X-Offset.
@@ -139,6 +139,21 @@ class Chart
      * @var int
      */
     private $bottomRightYOffset = 10;
+
+    /** @var ?int */
+    private $rotX;
+
+    /** @var ?int */
+    private $rotY;
+
+    /** @var ?int */
+    private $rAngAx;
+
+    /** @var ?int */
+    private $perspective;
+
+    /** @var bool */
+    private $oneCellAnchor = false;
 
     /**
      * Create a new Chart.
@@ -351,8 +366,9 @@ class Chart
         if ($this->yAxis !== null) {
             return $this->yAxis;
         }
+        $this->yAxis = new Axis();
 
-        return new Axis();
+        return $this->yAxis;
     }
 
     /**
@@ -365,8 +381,9 @@ class Chart
         if ($this->xAxis !== null) {
             return $this->xAxis;
         }
+        $this->xAxis = new Axis();
 
-        return new Axis();
+        return $this->xAxis;
     }
 
     /**
@@ -400,15 +417,15 @@ class Chart
     /**
      * Set the Top Left position for the chart.
      *
-     * @param string $cell
+     * @param string $cellAddress
      * @param int $xOffset
      * @param int $yOffset
      *
      * @return $this
      */
-    public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
+    public function setTopLeftPosition($cellAddress, $xOffset = null, $yOffset = null)
     {
-        $this->topLeftCellRef = $cell;
+        $this->topLeftCellRef = $cellAddress;
         if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
         }
@@ -446,13 +463,13 @@ class Chart
     /**
      * Set the Top Left cell position for the chart.
      *
-     * @param string $cell
+     * @param string $cellAddress
      *
      * @return $this
      */
-    public function setTopLeftCell($cell)
+    public function setTopLeftCell($cellAddress)
     {
-        $this->topLeftCellRef = $cell;
+        $this->topLeftCellRef = $cellAddress;
 
         return $this;
     }
@@ -491,6 +508,11 @@ class Chart
         ];
     }
 
+    /**
+     * @param int $xOffset
+     *
+     * @return $this
+     */
     public function setTopLeftXOffset($xOffset)
     {
         $this->topLeftXOffset = $xOffset;
@@ -498,11 +520,16 @@ class Chart
         return $this;
     }
 
-    public function getTopLeftXOffset()
+    public function getTopLeftXOffset(): int
     {
         return $this->topLeftXOffset;
     }
 
+    /**
+     * @param int $yOffset
+     *
+     * @return $this
+     */
     public function setTopLeftYOffset($yOffset)
     {
         $this->topLeftYOffset = $yOffset;
@@ -510,7 +537,7 @@ class Chart
         return $this;
     }
 
-    public function getTopLeftYOffset()
+    public function getTopLeftYOffset(): int
     {
         return $this->topLeftYOffset;
     }
@@ -518,15 +545,15 @@ class Chart
     /**
      * Set the Bottom Right position of the chart.
      *
-     * @param string $cell
+     * @param string $cellAddress
      * @param int $xOffset
      * @param int $yOffset
      *
      * @return $this
      */
-    public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
+    public function setBottomRightPosition($cellAddress = '', $xOffset = null, $yOffset = null)
     {
-        $this->bottomRightCellRef = $cell;
+        $this->bottomRightCellRef = $cellAddress;
         if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
         }
@@ -551,19 +578,22 @@ class Chart
         ];
     }
 
-    public function setBottomRightCell($cell)
+    /**
+     * Set the Bottom Right cell for the chart.
+     *
+     * @return $this
+     */
+    public function setBottomRightCell(string $cellAddress = '')
     {
-        $this->bottomRightCellRef = $cell;
+        $this->bottomRightCellRef = $cellAddress;
 
         return $this;
     }
 
     /**
      * Get the cell address where the bottom right of the chart is fixed.
-     *
-     * @return string
      */
-    public function getBottomRightCell()
+    public function getBottomRightCell(): string
     {
         return $this->bottomRightCellRef;
     }
@@ -602,6 +632,11 @@ class Chart
         ];
     }
 
+    /**
+     * @param int $xOffset
+     *
+     * @return $this
+     */
     public function setBottomRightXOffset($xOffset)
     {
         $this->bottomRightXOffset = $xOffset;
@@ -609,11 +644,16 @@ class Chart
         return $this;
     }
 
-    public function getBottomRightXOffset()
+    public function getBottomRightXOffset(): int
     {
         return $this->bottomRightXOffset;
     }
 
+    /**
+     * @param int $yOffset
+     *
+     * @return $this
+     */
     public function setBottomRightYOffset($yOffset)
     {
         $this->bottomRightYOffset = $yOffset;
@@ -621,7 +661,7 @@ class Chart
         return $this;
     }
 
-    public function getBottomRightYOffset()
+    public function getBottomRightYOffset(): int
     {
         return $this->bottomRightYOffset;
     }
@@ -657,5 +697,65 @@ class Chart
         $renderer = new $libraryName($this);
 
         return $renderer->render($outputDestination);
+    }
+
+    public function getRotX(): ?int
+    {
+        return $this->rotX;
+    }
+
+    public function setRotX(?int $rotX): self
+    {
+        $this->rotX = $rotX;
+
+        return $this;
+    }
+
+    public function getRotY(): ?int
+    {
+        return $this->rotY;
+    }
+
+    public function setRotY(?int $rotY): self
+    {
+        $this->rotY = $rotY;
+
+        return $this;
+    }
+
+    public function getRAngAx(): ?int
+    {
+        return $this->rAngAx;
+    }
+
+    public function setRAngAx(?int $rAngAx): self
+    {
+        $this->rAngAx = $rAngAx;
+
+        return $this;
+    }
+
+    public function getPerspective(): ?int
+    {
+        return $this->perspective;
+    }
+
+    public function setPerspective(?int $perspective): self
+    {
+        $this->perspective = $perspective;
+
+        return $this;
+    }
+
+    public function getOneCellAnchor(): bool
+    {
+        return $this->oneCellAnchor;
+    }
+
+    public function setOneCellAnchor(bool $oneCellAnchor): self
+    {
+        $this->oneCellAnchor = $oneCellAnchor;
+
+        return $this;
     }
 }

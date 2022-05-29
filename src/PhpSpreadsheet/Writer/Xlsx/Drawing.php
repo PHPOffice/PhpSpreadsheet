@@ -89,22 +89,49 @@ class Drawing extends WriterPart
         $tl = $chart->getTopLeftPosition();
         $tlColRow = Coordinate::indexesFromString($tl['cell']);
         $br = $chart->getBottomRightPosition();
-        $brColRow = Coordinate::indexesFromString($br['cell']);
 
-        $objWriter->startElement('xdr:twoCellAnchor');
+        $isTwoCellAnchor = $br['cell'] !== '';
+        if ($isTwoCellAnchor) {
+            $brColRow = Coordinate::indexesFromString($br['cell']);
 
-        $objWriter->startElement('xdr:from');
-        $objWriter->writeElement('xdr:col', (string) ($tlColRow[0] - 1));
-        $objWriter->writeElement('xdr:colOff', self::stringEmu($tl['xOffset']));
-        $objWriter->writeElement('xdr:row', (string) ($tlColRow[1] - 1));
-        $objWriter->writeElement('xdr:rowOff', self::stringEmu($tl['yOffset']));
-        $objWriter->endElement();
-        $objWriter->startElement('xdr:to');
-        $objWriter->writeElement('xdr:col', (string) ($brColRow[0] - 1));
-        $objWriter->writeElement('xdr:colOff', self::stringEmu($br['xOffset']));
-        $objWriter->writeElement('xdr:row', (string) ($brColRow[1] - 1));
-        $objWriter->writeElement('xdr:rowOff', self::stringEmu($br['yOffset']));
-        $objWriter->endElement();
+            $objWriter->startElement('xdr:twoCellAnchor');
+
+            $objWriter->startElement('xdr:from');
+            $objWriter->writeElement('xdr:col', (string) ($tlColRow[0] - 1));
+            $objWriter->writeElement('xdr:colOff', self::stringEmu($tl['xOffset']));
+            $objWriter->writeElement('xdr:row', (string) ($tlColRow[1] - 1));
+            $objWriter->writeElement('xdr:rowOff', self::stringEmu($tl['yOffset']));
+            $objWriter->endElement();
+            $objWriter->startElement('xdr:to');
+            $objWriter->writeElement('xdr:col', (string) ($brColRow[0] - 1));
+            $objWriter->writeElement('xdr:colOff', self::stringEmu($br['xOffset']));
+            $objWriter->writeElement('xdr:row', (string) ($brColRow[1] - 1));
+            $objWriter->writeElement('xdr:rowOff', self::stringEmu($br['yOffset']));
+            $objWriter->endElement();
+        } elseif ($chart->getOneCellAnchor()) {
+            $objWriter->startElement('xdr:oneCellAnchor');
+
+            $objWriter->startElement('xdr:from');
+            $objWriter->writeElement('xdr:col', (string) ($tlColRow[0] - 1));
+            $objWriter->writeElement('xdr:colOff', self::stringEmu($tl['xOffset']));
+            $objWriter->writeElement('xdr:row', (string) ($tlColRow[1] - 1));
+            $objWriter->writeElement('xdr:rowOff', self::stringEmu($tl['yOffset']));
+            $objWriter->endElement();
+            $objWriter->startElement('xdr:ext');
+            $objWriter->writeAttribute('cx', self::stringEmu($br['xOffset']));
+            $objWriter->writeAttribute('cy', self::stringEmu($br['yOffset']));
+            $objWriter->endElement();
+        } else {
+            $objWriter->startElement('xdr:absoluteAnchor');
+            $objWriter->startElement('xdr:pos');
+            $objWriter->writeAttribute('x', '0');
+            $objWriter->writeAttribute('y', '0');
+            $objWriter->endElement();
+            $objWriter->startElement('xdr:ext');
+            $objWriter->writeAttribute('cx', self::stringEmu($br['xOffset']));
+            $objWriter->writeAttribute('cy', self::stringEmu($br['yOffset']));
+            $objWriter->endElement();
+        }
 
         $objWriter->startElement('xdr:graphicFrame');
         $objWriter->writeAttribute('macro', '');

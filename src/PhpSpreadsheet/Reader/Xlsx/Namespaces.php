@@ -50,6 +50,8 @@ class Namespaces
 
     const WORKSHEET = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet';
 
+    const CHARTSHEET = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet';
+
     const SCHEMA_MICROSOFT = 'http://schemas.microsoft.com/office/2006/relationships';
 
     const EXTENSIBILITY = 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility';
@@ -73,6 +75,8 @@ class Namespaces
     const PURL_MAIN = 'http://purl.oclc.org/ooxml/spreadsheetml/main';
 
     const PURL_DRAWING = 'http://purl.oclc.org/ooxml/drawingml/main';
+
+    const PURL_CHART = 'http://purl.oclc.org/ooxml/drawingml/chart';
 
     const PURL_WORKSHEET = 'http://purl.oclc.org/ooxml/officeDocument/relationships/worksheet';
 }

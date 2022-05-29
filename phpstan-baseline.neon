@@ -126,11 +126,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#3 \\$formula of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:translateSeparator\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:\\$cellStack has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -751,11 +746,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Parameter \\#1 \\$columnAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:columnIndexFromString\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
-
-		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
@@ -1161,76 +1151,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/Chart.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:getBottomRightXOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:getBottomRightYOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:getTopLeftXOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:getTopLeftYOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightCell\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightCell\\(\\) has parameter \\$cell with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightXOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightXOffset\\(\\) has parameter \\$xOffset with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightYOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setBottomRightYOffset\\(\\) has parameter \\$yOffset with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setTopLeftXOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setTopLeftXOffset\\(\\) has parameter \\$xOffset with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setTopLeftYOffset\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:setTopLeftYOffset\\(\\) has parameter \\$yOffset with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$legend \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Chart.php
@@ -1284,26 +1204,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:refresh\\(\\) has parameter \\$flatten with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataSource \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$dataTypeValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:\\$fillColor \\(array\\<string\\>\\|string\\) does not accept array\\<string\\>\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
 			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
@@ -1801,11 +1701,6 @@ parameters:
 			path: src/PhpSpreadsheet/Helper/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$text of method PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\ITextElement\\:\\:setText\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Html.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\:\\:\\$bold has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
@@ -1902,11 +1797,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Sample.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Sample.php
 
@@ -2036,32 +1926,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterPrintStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$masterStylesCrossReference has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$officeNs has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$pageLayoutStyles has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesFo has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$stylesNs has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
 
@@ -2396,7 +2261,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has no return type specified\\.$#"
+			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and 0 results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -2471,11 +2336,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:dirAdd\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:dirAdd\\(\\) has parameter \\$add with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -2536,17 +2396,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:stripWhiteSpaceFromStyleString\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:stripWhiteSpaceFromStyleString\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:toCSSArray\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -2624,206 +2474,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\BaseParserClass\\:\\:boolean\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx/BaseParserClass.php
-
-		-
-			message: "#^Cannot call method getFont\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\|null\\.$#"
-			count: 12
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setItalic\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setName\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSize\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSubscript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setSuperscript\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method setUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeries\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeries\\(\\) has parameter \\$chartDetail with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeries\\(\\) has parameter \\$namespacesChartMeta with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeries\\(\\) has parameter \\$plotType with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has parameter \\$marker with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has parameter \\$namespacesChartMeta with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValueSet\\(\\) has parameter \\$seriesDetail with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValues\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValues\\(\\) has parameter \\$dataType with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValues\\(\\) has parameter \\$seriesValueSet with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValuesMultiLevel\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValuesMultiLevel\\(\\) has parameter \\$dataType with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartDataSeriesValuesMultiLevel\\(\\) has parameter \\$seriesValueSet with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartLayoutDetails\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartLayoutDetails\\(\\) has parameter \\$chartDetail with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartLayoutDetails\\(\\) has parameter \\$namespacesChartMeta with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:chartTitle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:parseRichText\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readChartAttributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readChartAttributes\\(\\) has parameter \\$chartDetail with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$background with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Chart\\:\\:readColor\\(\\) has parameter \\$color with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$position of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#3 \\$overlay of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend constructor expects bool, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#3 \\$plotOrder of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeries constructor expects array\\<int\\>, array\\<int\\|string, bool\\|float\\|int\\|string\\|null\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$pointCount of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues constructor expects int, null given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#6 \\$displayBlanksAs of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart constructor expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#7 \\$plotDirection of class PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeries constructor expects string\\|null, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Chart.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\ColumnAndRowAttributes\\:\\:isFilteredColumn\\(\\) has no return type specified\\.$#"
@@ -3032,11 +2682,6 @@ parameters:
 
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
 
@@ -4036,22 +3681,7 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
 
 		-
-			message: "#^Parameter \\#2 \\$subject of function preg_split expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
@@ -4491,11 +4121,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$vAlign of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:mapVAlign\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -4691,16 +4316,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -4798,21 +4413,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<0, max\\>, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match_all expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|null given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
@@ -4947,31 +4547,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 44
+			count: 42
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#3 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id1 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#4 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#5 \\$id2 of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects string, int\\|string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -5062,7 +4642,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5072,12 +4652,12 @@ parameters:
 
 		-
 			message: "#^Cannot call method getItalic\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
 			message: "#^Cannot call method getName\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5087,7 +4667,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getStrikethrough\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5102,7 +4682,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5137,7 +4717,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 5
+			count: 4
 			path: src/PhpSpreadsheet/Writer/Xlsx/StringTable.php
 
 		-
@@ -5284,9 +4864,4 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Xlfn\\:\\:addXlfn\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Xlfn.php
 

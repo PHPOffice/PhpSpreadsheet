@@ -19,6 +19,29 @@ class Font extends Supervisor
     protected $name = 'Calibri';
 
     /**
+     * The following 6 are used only for chart titles, I think.
+     *
+     *@var string
+     */
+    private $latin = '';
+
+    /** @var string */
+    private $eastAsian = '';
+
+    /** @var string */
+    private $complexScript = '';
+
+    /** @var int */
+    private $baseLine = 0;
+
+    /** @var string */
+    private $strikeType = '';
+
+    /** @var string */
+    private $uSchemeClr = '';
+    // end of chart title items
+
+    /**
      * Font Size.
      *
      * @var null|float
@@ -170,6 +193,15 @@ class Font extends Supervisor
             if (isset($styleArray['name'])) {
                 $this->setName($styleArray['name']);
             }
+            if (isset($styleArray['latin'])) {
+                $this->setLatin($styleArray['latin']);
+            }
+            if (isset($styleArray['eastAsian'])) {
+                $this->setEastAsian($styleArray['eastAsian']);
+            }
+            if (isset($styleArray['complexScript'])) {
+                $this->setComplexScript($styleArray['complexScript']);
+            }
             if (isset($styleArray['bold'])) {
                 $this->setBold($styleArray['bold']);
             }
@@ -213,6 +245,33 @@ class Font extends Supervisor
         return $this->name;
     }
 
+    public function getLatin(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getLatin();
+        }
+
+        return $this->latin;
+    }
+
+    public function getEastAsian(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getEastAsian();
+        }
+
+        return $this->eastAsian;
+    }
+
+    public function getComplexScript(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getComplexScript();
+        }
+
+        return $this->complexScript;
+    }
+
     /**
      * Set Name.
      *
@@ -230,6 +289,51 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->name = $fontname;
+        }
+
+        return $this;
+    }
+
+    public function setLatin(string $fontname): self
+    {
+        if ($fontname == '') {
+            $fontname = 'Calibri';
+        }
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['latin' => $fontname]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->latin = $fontname;
+        }
+
+        return $this;
+    }
+
+    public function setEastAsian(string $fontname): self
+    {
+        if ($fontname == '') {
+            $fontname = 'Calibri';
+        }
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['eastAsian' => $fontname]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->eastAsian = $fontname;
+        }
+
+        return $this;
+    }
+
+    public function setComplexScript(string $fontname): self
+    {
+        if ($fontname == '') {
+            $fontname = 'Calibri';
+        }
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['complexScript' => $fontname]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->complexScript = $fontname;
         }
 
         return $this;
@@ -418,6 +522,69 @@ class Font extends Supervisor
         return $this;
     }
 
+    public function getBaseLine(): int
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getBaseLine();
+        }
+
+        return $this->baseLine;
+    }
+
+    public function setBaseLine(int $baseLine): self
+    {
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['baseLine' => $baseLine]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->baseLine = $baseLine;
+        }
+
+        return $this;
+    }
+
+    public function getStrikeType(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getStrikeType();
+        }
+
+        return $this->strikeType;
+    }
+
+    public function setStrikeType(string $strikeType): self
+    {
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['strikeType' => $strikeType]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->strikeType = $strikeType;
+        }
+
+        return $this;
+    }
+
+    public function getUSchemeClr(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getUSchemeClr();
+        }
+
+        return $this->uSchemeClr;
+    }
+
+    public function setUSchemeClr(string $uSchemeClr): self
+    {
+        if ($this->isSupervisor) {
+            $styleArray = $this->getStyleArray(['uSchemeClr' => $uSchemeClr]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->uSchemeClr = $uSchemeClr;
+        }
+
+        return $this;
+    }
+
     /**
      * Get Underline.
      *
@@ -546,6 +713,15 @@ class Font extends Supervisor
             $this->underline .
             ($this->strikethrough ? 't' : 'f') .
             $this->color->getHashCode() .
+            '*' .
+            $this->latin .
+            '*' .
+            $this->eastAsian .
+            '*' .
+            $this->complexScript .
+            $this->strikeType .
+            $this->uSchemeClr .
+            (string) $this->baseLine .
             __CLASS__
         );
     }
@@ -553,12 +729,17 @@ class Font extends Supervisor
     protected function exportArray1(): array
     {
         $exportedArray = [];
+        $this->exportArray2($exportedArray, 'baseLine', $this->getBaseLine());
         $this->exportArray2($exportedArray, 'bold', $this->getBold());
         $this->exportArray2($exportedArray, 'color', $this->getColor());
+        $this->exportArray2($exportedArray, 'complexScript', $this->getComplexScript());
+        $this->exportArray2($exportedArray, 'eastAsian', $this->getEastAsian());
         $this->exportArray2($exportedArray, 'italic', $this->getItalic());
+        $this->exportArray2($exportedArray, 'latin', $this->getLatin());
         $this->exportArray2($exportedArray, 'name', $this->getName());
         $this->exportArray2($exportedArray, 'size', $this->getSize());
         $this->exportArray2($exportedArray, 'strikethrough', $this->getStrikethrough());
+        $this->exportArray2($exportedArray, 'strikeType', $this->getStrikeType());
         $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());

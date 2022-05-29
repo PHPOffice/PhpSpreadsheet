@@ -37,6 +37,7 @@ abstract class Properties
     const FORMAT_CODE_CURRENCY = '$#,##0.00';
     const FORMAT_CODE_ACCOUNTING = '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)';
     const FORMAT_CODE_DATE = 'm/d/yyyy';
+    const FORMAT_CODE_DATE_ISO8601 = 'yyyy-mm-dd';
     const FORMAT_CODE_TIME = '[$-F400]h:mm:ss AM/PM';
     const FORMAT_CODE_PERCENTAGE = '0.00%';
     const FORMAT_CODE_FRACTION = '# ?/?';
