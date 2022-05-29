@@ -2261,11 +2261,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and 0 results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\:\\:boolean\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
@@ -2452,17 +2447,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$operator of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\\\Column\\\\Rule\\:\\:setRule\\(\\) expects string, null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:\\$worksheet has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\AutoFilter\\:\\:\\$worksheetXml has no type specified\\.$#"
-			count: 1
+			count: 4
 			path: src/PhpSpreadsheet/Reader/Xlsx/AutoFilter.php
 
 		-
@@ -4827,7 +4812,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 15
+			count: 12
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-

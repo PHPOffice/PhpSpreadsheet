@@ -51,6 +51,7 @@ class TableReader
         $this->readTableColumns($table, $tableXml->tableColumns);
         $this->readTableStyle($table, $tableXml->tableStyleInfo);
 
+        (new AutoFilter($table, $tableXml))->load();
         $this->worksheet->addTable($table);
     }
 
@@ -70,8 +71,9 @@ class TableReader
      */
     private function readTableColumns(Table $table, SimpleXMLElement $tableColumnsXml): void
     {
+        $offset = 0;
         foreach ($tableColumnsXml->tableColumn as $tableColumn) {
-            $column = $table->getColumnByOffset((int) $tableColumn['id'] - 1);
+            $column = $table->getColumnByOffset($offset++);
 
             if ($table->getShowTotalsRow()) {
                 if ($tableColumn['totalsRowLabel']) {
