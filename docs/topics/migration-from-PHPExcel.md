@@ -14,8 +14,30 @@ in `src/`, you can run the migration like so:
 
 ```sh
 composer require rector/rector --dev
-vendor/bin/rector process src --set phpexcel-to-phpspreadsheet
-composer remove rector/rector
+
+# this creates rector.php config
+vendor/bin/rector init 
+```
+
+Add `PHPOfficeSetList` set to `rector.php`
+
+```php
+declare(strict_types=1);
+
+use Rector\Config\RectorConfig;
+use Rector\PHPOffice\Set\PHPOfficeSetList;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->sets([
+        PHPOfficeSetList::PHPEXCEL_TO_PHPSPREADSHEET
+    ]);
+};
+```
+
+And run Rector on your code:
+
+```sh
+vendor/bin/rector process src
 ```
 
 For more details, see
