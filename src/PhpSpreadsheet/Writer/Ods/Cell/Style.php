@@ -10,12 +10,14 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Style
 {
     public const CELL_STYLE_PREFIX = 'ce';
     public const COLUMN_STYLE_PREFIX = 'co';
     public const ROW_STYLE_PREFIX = 'ro';
+    public const TABLE_STYLE_PREFIX = 'ta';
 
     private $writer;
 
@@ -218,6 +220,26 @@ class Style
         $this->writeRowProperties($rowDimension);
 
         // End
+        $this->writer->endElement(); // Close style:style
+    }
+
+    public function writeTableStyle(Worksheet $worksheet, int $sheetId): void
+    {
+        $this->writer->startElement('style:style');
+        $this->writer->writeAttribute('style:family', 'table');
+        $this->writer->writeAttribute(
+            'style:name',
+            sprintf('%s%d', self::TABLE_STYLE_PREFIX, $sheetId)
+        );
+
+        $this->writer->startElement('style:table-properties');
+
+        $this->writer->writeAttribute(
+            'table:display',
+            $worksheet->getSheetState() === Worksheet::SHEETSTATE_VISIBLE ? 'true' : 'false'
+        );
+
+        $this->writer->endElement(); // Close style:table-properties
         $this->writer->endElement(); // Close style:style
     }
 

@@ -9,13 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Add point size option for scatter charts
+- Add point size option for scatter charts [Issue #2298](https://github.com/PHPOffice/PhpSpreadsheet/issues/2298) [PR #2801](https://github.com/PHPOffice/PhpSpreadsheet/pull/2801)
+- Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
+
+  Note that a ChartSheet is still only written as a normal Worksheet containing a single chart, not as an actual ChartSheet.
+
+- Added Worksheet visibility in Ods Reader [PR #2851](https://github.com/PHPOffice/PhpSpreadsheet/pull/2851) and Gnumeric Reader [PR #2853](https://github.com/PHPOffice/PhpSpreadsheet/pull/2853)
+- Added Worksheet visibility in Ods Writer [PR #2850](https://github.com/PHPOffice/PhpSpreadsheet/pull/2850)
+- Allow Csv Reader to treat string as contents of file [Issue #1285](https://github.com/PHPOffice/PhpSpreadsheet/issues/1285) [PR #2792](https://github.com/PHPOffice/PhpSpreadsheet/pull/2792)
+- Allow Csv Reader to store null string rather than leave cell empty [Issue #2840](https://github.com/PHPOffice/PhpSpreadsheet/issues/2840) [PR #2842](https://github.com/PHPOffice/PhpSpreadsheet/pull/2842)
 
 ### Changed
 
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
-  See [the Discussion](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance
+  See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
 
 ### Deprecated
 
@@ -28,7 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Xls Reader resolving absolute named ranges to relative ranges [Issue #2826](https://github.com/PHPOffice/PhpSpreadsheet/issues/2826) [PR #2827](https://github.com/PHPOffice/PhpSpreadsheet/pull/2827)
-
+- Null value handling in the Excel Math/Trig PRODUCT() function [Issue #2833](https://github.com/PHPOffice/PhpSpreadsheet/issues/2833) [PR #2834](https://github.com/PHPOffice/PhpSpreadsheet/pull/2834)
+- Invalid Print Area defined in Xlsx corrupts internal storage of print area [Issue #2848](https://github.com/PHPOffice/PhpSpreadsheet/issues/2848) [PR #2849](https://github.com/PHPOffice/PhpSpreadsheet/pull/2849)
+- Time interval formatting [Issue #2768](https://github.com/PHPOffice/PhpSpreadsheet/issues/2768) [PR #2772](https://github.com/PHPOffice/PhpSpreadsheet/pull/2772)
+- Copy from Xls(x) to Html/Pdf loses drawings [PR #2788](https://github.com/PHPOffice/PhpSpreadsheet/pull/2788)
+- Html Reader converting cell containing 0 to null string [Issue #2810](https://github.com/PHPOffice/PhpSpreadsheet/issues/2810) [PR #2813](https://github.com/PHPOffice/PhpSpreadsheet/pull/2813)
+- Many fixes for Charts, especially, but not limited to, Scatter, Bubble, and Surface charts. [Issue #2762](https://github.com/PHPOffice/PhpSpreadsheet/issues/2762) [Issue #2299](https://github.com/PHPOffice/PhpSpreadsheet/issues/2299) [Issue #2700](https://github.com/PHPOffice/PhpSpreadsheet/issues/2700) [Issue #2817](https://github.com/PHPOffice/PhpSpreadsheet/issues/2817) [Issue #2763](https://github.com/PHPOffice/PhpSpreadsheet/issues/2763) [PR #2828](https://github.com/PHPOffice/PhpSpreadsheet/pull/2828) [PR #2841](https://github.com/PHPOffice/PhpSpreadsheet/pull/2841) [PR #2846](https://github.com/PHPOffice/PhpSpreadsheet/pull/2846) [PR #2852](https://github.com/PHPOffice/PhpSpreadsheet/pull/2852)
 
 ## 1.23.0 - 2022-04-24
 
