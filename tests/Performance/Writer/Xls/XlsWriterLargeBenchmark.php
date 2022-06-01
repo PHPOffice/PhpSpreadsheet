@@ -5,17 +5,12 @@ namespace PhpOffice\PhpSpreadsheetPerformance\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheetPerformance\Writer\AbstractBasicWriter;
 
-class XlxWriterLargeBenchmark extends AbstractBasicWriter
+class XlsWriterLargeBenchmark extends AbstractBasicWriter
 {
     public function __construct()
     {
         parent::__construct(128, 8192);
     }
-
-    /**
-     * @var string
-     */
-    protected $fileName = 'performanceTestWrite.xls';
 
     /**
      * @Groups({"slow"})

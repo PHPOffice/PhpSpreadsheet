@@ -8,11 +8,6 @@ use PhpOffice\PhpSpreadsheetPerformance\Writer\AbstractBasicWriter;
 class OdsWriterBenchmark extends AbstractBasicWriter
 {
     /**
-     * @var string
-     */
-    protected $fileName = 'performanceTestWrite.ods';
-
-    /**
      * @revs(5)
      * @Iterations(5)
      * @OutputTimeUnit("milliseconds")

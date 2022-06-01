@@ -13,11 +13,6 @@ class XlsxWriterLargeBenchmark extends AbstractBasicWriter
     }
 
     /**
-     * @var string
-     */
-    protected $fileName = 'performanceTestWrite.xlsx';
-
-    /**
      * @Groups({"slow"})
      * @revs(3)
      * @Iterations(5)

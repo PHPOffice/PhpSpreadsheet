@@ -8,11 +8,6 @@ use PhpOffice\PhpSpreadsheetPerformance\Writer\AbstractBasicWriter;
 class XlsxWriterBenchmark extends AbstractBasicWriter
 {
     /**
-     * @var string
-     */
-    protected $fileName = 'performanceTestWrite.xlsx';
-
-    /**
      * @revs(5)
      * @Iterations(5)
      * @OutputTimeUnit("milliseconds")

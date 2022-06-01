@@ -52,6 +52,9 @@
         ],
         "versions": [
             "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.3- -n"
+        ],
+        "bench": [
+            "phpbench run tests/Performance/ --report=aggregate -n"
         ]
     },
     "require": {

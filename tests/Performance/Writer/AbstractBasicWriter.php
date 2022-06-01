@@ -15,7 +15,7 @@ class AbstractBasicWriter
     /**
      * @var string
      */
-    protected $fileName = 'performanceTestWrite.file';
+    protected $fileName = 'php://temp';
 
     public function __construct(int $columns = 32, int $rows = 512)
     {
