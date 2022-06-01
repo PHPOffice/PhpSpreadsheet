@@ -662,13 +662,13 @@ class Html extends BaseWriter
                 $filename = $drawing->getPath();
 
                 // Strip off eventual '.'
-                $filename = preg_replace('/^[.]/', '', $filename);
+                $filename = (string) preg_replace('/^[.]/', '', $filename);
 
                 // Prepend images root
                 $filename = $this->getImagesRoot() . $filename;
 
                 // Strip off eventual '.' if followed by non-/
-                $filename = preg_replace('@^[.]([^/])@', '$1', $filename);
+                $filename = (string) preg_replace('@^[.]([^/])@', '$1', $filename);
 
                 // Convert UTF8 data to PCDATA
                 $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
@@ -1326,7 +1326,7 @@ class Html extends BaseWriter
 
             // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
             // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-            $cellData = preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
+            $cellData = (string) preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
 
             // convert newline "\n" to '<br>'
             $cellData = nl2br($cellData);

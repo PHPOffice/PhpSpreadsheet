@@ -619,7 +619,7 @@ class Html extends BaseReader
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
-                $domText = preg_replace('/\s+/u', ' ', trim($child->nodeValue ?? ''));
+                $domText = (string) preg_replace('/\s+/u', ' ', trim($child->nodeValue ?? ''));
                 if (is_string($cellContent)) {
                     //    simply append the text if the cell content is a plain text string
                     $cellContent .= $domText;
