@@ -41,9 +41,11 @@ class Theme
     }
 
     /**
-     * Get Theme Name.
+     * Not called by Reader, never accessible any other time.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public function getThemeName()
     {
@@ -51,9 +53,11 @@ class Theme
     }
 
     /**
-     * Get colour Scheme Name.
+     * Not called by Reader, never accessible any other time.
      *
      * @return string
+     *
+     * @codeCoverageIgnore
      */
     public function getColourSchemeName()
     {
@@ -69,25 +73,6 @@ class Theme
      */
     public function getColourByIndex($index)
     {
-        if (isset($this->colourMap[$index])) {
-            return $this->colourMap[$index];
-        }
-
-        return null;
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != '_parent')) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
+        return $this->colourMap[$index] ?? null;
     }
 }

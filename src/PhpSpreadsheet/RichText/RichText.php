@@ -158,11 +158,14 @@ class RichText implements IComparable
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
+            $newValue = is_object($value) ? (clone $value) : $value;
+            if (is_array($value)) {
+                $newValue = [];
+                foreach ($value as $key2 => $value2) {
+                    $newValue[$key2] = is_object($value2) ? (clone $value2) : $value2;
+                }
             }
+            $this->$key = $newValue;
         }
     }
 }
