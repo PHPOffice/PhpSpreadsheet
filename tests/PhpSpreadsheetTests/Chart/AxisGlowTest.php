@@ -134,8 +134,6 @@ class AxisGlowTest extends AbstractFunctional
         /** @var callable */
         $callableWriter = [$this, 'writeCharts'];
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
-        $writer = new XlsxWriter($reloadedSpreadsheet);
-        $writer->setIncludeCharts(true);
         $spreadsheet->disconnectWorksheets();
 
         $sheet = $reloadedSpreadsheet->getActiveSheet();

@@ -97,32 +97,7 @@ class Chart
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
-                                            $whichAxis = $xAxis;
-                                            if (isset($chartDetail->spPr)) {
-                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
-                                                if (isset($sppr->effectLst->glow->srgbClr)) {
-                                                    $alpha = null;
-                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
-                                                    $axisSrgbClr = self::getAttribute($sppr->effectLst->glow->srgbClr, 'val', 'string');
-                                                    if (isset($sppr->effectLst->glow->srgbClr->alpha)) {
-                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->srgbClr->alpha, 'val', 'string');
-                                                        $alpha = 100 - (int) ($alpha / 1000);
-                                                    }
-                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSrgbClr", $alpha, Properties::EXCEL_COLOR_TYPE_ARGB);
-                                                } elseif (isset($sppr->effectLst->glow->schemeClr)) {
-                                                    $alpha = null;
-                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
-                                                    $axisSchemeClr = self::getAttribute($sppr->effectLst->glow->schemeClr, 'val', 'string');
-                                                    if (isset($sppr->effectLst->glow->schemeClr->alpha)) {
-                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->schemeClr->alpha, 'val', 'string');
-                                                        $alpha = 100 - (int) ($alpha / 1000);
-                                                    }
-                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSchemeClr", $alpha, Properties::EXCEL_COLOR_TYPE_SCHEME);
-                                                }
-                                                if (isset($sppr->effectLst->softEdge)) {
-                                                    $whichAxis->setSoftEdges((float) self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string') / Properties::POINTS_WIDTH_MULTIPLIER);
-                                                }
-                                            }
+                                            $this->readEffects($chartDetail, $xAxis);
 
                                             break;
                                         case 'dateAx':
@@ -132,8 +107,8 @@ class Chart
 
                                             break;
                                         case 'valAx':
+                                            $whichAxis = null;
                                             if (isset($chartDetail->title, $chartDetail->axPos)) {
-                                                $whichAxis = null;
                                                 $axisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                                 $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
 
@@ -152,31 +127,7 @@ class Chart
                                                         break;
                                                 }
                                             }
-                                            if (isset($whichAxis, $chartDetail->spPr)) {
-                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
-                                                if (isset($sppr->effectLst->glow->srgbClr)) {
-                                                    $alpha = null;
-                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
-                                                    $axisSrgbClr = self::getAttribute($sppr->effectLst->glow->srgbClr, 'val', 'string');
-                                                    if (isset($sppr->effectLst->glow->srgbClr->alpha)) {
-                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->srgbClr->alpha, 'val', 'string');
-                                                        $alpha = 100 - (int) ($alpha / 1000);
-                                                    }
-                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSrgbClr", $alpha, Properties::EXCEL_COLOR_TYPE_ARGB);
-                                                } elseif (isset($sppr->effectLst->glow->schemeClr)) {
-                                                    $alpha = null;
-                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
-                                                    $axisSchemeClr = self::getAttribute($sppr->effectLst->glow->schemeClr, 'val', 'string');
-                                                    if (isset($sppr->effectLst->glow->schemeClr->alpha)) {
-                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->schemeClr->alpha, 'val', 'string');
-                                                        $alpha = 100 - (int) ($alpha / 1000);
-                                                    }
-                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSchemeClr", $alpha, Properties::EXCEL_COLOR_TYPE_SCHEME);
-                                                }
-                                                if (isset($sppr->effectLst->softEdge)) {
-                                                    $whichAxis->setSoftEdges((float) self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string') / Properties::POINTS_WIDTH_MULTIPLIER);
-                                                }
-                                            }
+                                            $this->readEffects($chartDetail, $whichAxis);
 
                                             break;
                                         case 'barChart':
@@ -917,6 +868,40 @@ class Chart
 
                     break;
             }
+        }
+    }
+
+    /**
+     * @param null|Axis $chartObject may be extended to include other types
+     */
+    private function readEffects(SimpleXMLElement $chartDetail, $chartObject): void
+    {
+        if (!isset($chartObject, $chartDetail->spPr)) {
+            return;
+        }
+        $sppr = $chartDetail->spPr->children($this->aNamespace);
+
+        if (isset($sppr->effectLst->glow->srgbClr)) {
+            $alpha = null;
+            $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+            $axisSrgbClr = self::getAttribute($sppr->effectLst->glow->srgbClr, 'val', 'string');
+            if (isset($sppr->effectLst->glow->srgbClr->alpha)) {
+                $alpha = (int) self::getAttribute($sppr->effectLst->glow->srgbClr->alpha, 'val', 'string');
+                $alpha = 100 - (int) ($alpha / 1000);
+            }
+            $chartObject->setGlowProperties($axisGlowSize, "$axisSrgbClr", $alpha, Properties::EXCEL_COLOR_TYPE_ARGB);
+        } elseif (isset($sppr->effectLst->glow->schemeClr)) {
+            $alpha = null;
+            $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+            $axisSchemeClr = self::getAttribute($sppr->effectLst->glow->schemeClr, 'val', 'string');
+            if (isset($sppr->effectLst->glow->schemeClr->alpha)) {
+                $alpha = (int) self::getAttribute($sppr->effectLst->glow->schemeClr->alpha, 'val', 'string');
+                $alpha = 100 - (int) ($alpha / 1000);
+            }
+            $chartObject->setGlowProperties($axisGlowSize, "$axisSchemeClr", $alpha, Properties::EXCEL_COLOR_TYPE_SCHEME);
+        }
+        if (isset($sppr->effectLst->softEdge)) {
+            $chartObject->setSoftEdges((float) self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string') / Properties::POINTS_WIDTH_MULTIPLIER);
         }
     }
 }
