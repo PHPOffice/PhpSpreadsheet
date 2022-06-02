@@ -110,6 +110,7 @@ abstract class Properties
     const SHADOW_PRESETS_PERSPECTIVE_UPPER_LEFT = 21;
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22;
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
+    const POINTS_WIDTH_MULTIPLIER = 12700;
 
     /**
      * @param float $width
@@ -118,7 +119,7 @@ abstract class Properties
      */
     protected function getExcelPointsWidth($width)
     {
-        return $width * 12700;
+        return $width * self::POINTS_WIDTH_MULTIPLIER;
     }
 
     /**
@@ -133,7 +134,7 @@ abstract class Properties
 
     protected function getTrueAlpha($alpha)
     {
-        return (string) 100 - $alpha . '000';
+        return (string) (100 - $alpha) . '000';
     }
 
     protected function setColorProperties($color, $alpha, $colorType)

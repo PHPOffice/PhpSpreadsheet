@@ -3,11 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -67,6 +69,8 @@ class Chart
         $dispBlanksAs = $plotVisOnly = null;
         $plotArea = null;
         $rotX = $rotY = $rAngAx = $perspective = null;
+        $xAxis = new Axis();
+        $yAxis = new Axis();
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
@@ -93,6 +97,32 @@ class Chart
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
+                                            $whichAxis = $xAxis;
+                                            if (isset($chartDetail->spPr)) {
+                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
+                                                if (isset($sppr->effectLst->glow->srgbClr)) {
+                                                    $alpha = null;
+                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+                                                    $axisSrgbClr = self::getAttribute($sppr->effectLst->glow->srgbClr, 'val', 'string');
+                                                    if (isset($sppr->effectLst->glow->srgbClr->alpha)) {
+                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->srgbClr->alpha, 'val', 'string');
+                                                        $alpha = 100 - (int) ($alpha / 1000);
+                                                    }
+                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSrgbClr", $alpha, Properties::EXCEL_COLOR_TYPE_ARGB);
+                                                } elseif (isset($sppr->effectLst->glow->schemeClr)) {
+                                                    $alpha = null;
+                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+                                                    $axisSchemeClr = self::getAttribute($sppr->effectLst->glow->schemeClr, 'val', 'string');
+                                                    if (isset($sppr->effectLst->glow->schemeClr->alpha)) {
+                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->schemeClr->alpha, 'val', 'string');
+                                                        $alpha = 100 - (int) ($alpha / 1000);
+                                                    }
+                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSchemeClr", $alpha, Properties::EXCEL_COLOR_TYPE_SCHEME);
+                                                }
+                                                if (isset($sppr->effectLst->softEdge)) {
+                                                    $whichAxis->setSoftEdges((float) self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string') / Properties::POINTS_WIDTH_MULTIPLIER);
+                                                }
+                                            }
 
                                             break;
                                         case 'dateAx':
@@ -103,6 +133,7 @@ class Chart
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title, $chartDetail->axPos)) {
+                                                $whichAxis = null;
                                                 $axisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                                 $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
 
@@ -110,13 +141,40 @@ class Chart
                                                     case 't':
                                                     case 'b':
                                                         $XaxisLabel = $axisLabel;
+                                                        $whichAxis = $xAxis;
 
                                                         break;
                                                     case 'r':
                                                     case 'l':
                                                         $YaxisLabel = $axisLabel;
+                                                        $whichAxis = $yAxis;
 
                                                         break;
+                                                }
+                                            }
+                                            if (isset($whichAxis, $chartDetail->spPr)) {
+                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
+                                                if (isset($sppr->effectLst->glow->srgbClr)) {
+                                                    $alpha = null;
+                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+                                                    $axisSrgbClr = self::getAttribute($sppr->effectLst->glow->srgbClr, 'val', 'string');
+                                                    if (isset($sppr->effectLst->glow->srgbClr->alpha)) {
+                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->srgbClr->alpha, 'val', 'string');
+                                                        $alpha = 100 - (int) ($alpha / 1000);
+                                                    }
+                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSrgbClr", $alpha, Properties::EXCEL_COLOR_TYPE_ARGB);
+                                                } elseif (isset($sppr->effectLst->glow->schemeClr)) {
+                                                    $alpha = null;
+                                                    $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+                                                    $axisSchemeClr = self::getAttribute($sppr->effectLst->glow->schemeClr, 'val', 'string');
+                                                    if (isset($sppr->effectLst->glow->schemeClr->alpha)) {
+                                                        $alpha = (int) self::getAttribute($sppr->effectLst->glow->schemeClr->alpha, 'val', 'string');
+                                                        $alpha = 100 - (int) ($alpha / 1000);
+                                                    }
+                                                    $whichAxis->setGlowProperties($axisGlowSize, "$axisSchemeClr", $alpha, Properties::EXCEL_COLOR_TYPE_SCHEME);
+                                                }
+                                                if (isset($sppr->effectLst->softEdge)) {
+                                                    $whichAxis->setSoftEdges((float) self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string') / Properties::POINTS_WIDTH_MULTIPLIER);
                                                 }
                                             }
 
@@ -240,7 +298,7 @@ class Chart
                     }
             }
         }
-        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
         if (is_int($rotX)) {
             $chart->setRotX($rotX);
         }

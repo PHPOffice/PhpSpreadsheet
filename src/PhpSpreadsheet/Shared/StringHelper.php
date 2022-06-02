@@ -470,7 +470,7 @@ class StringHelper
     /**
      * Get a substring of a UTF-8 encoded string.
      *
-     * @param string $textValue UTF-8 encoded string
+     * @param null|string $textValue UTF-8 encoded string
      * @param int $offset Start offset
      * @param int $length Maximum number of characters in substring
      *
@@ -478,7 +478,7 @@ class StringHelper
      */
     public static function substring($textValue, $offset, $length = 0)
     {
-        return mb_substr($textValue, $offset, $length, 'UTF-8');
+        return mb_substr($textValue ?? '', $offset, $length, 'UTF-8');
     }
 
     /**
