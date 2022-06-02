@@ -2142,16 +2142,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.6.3",
+            "version": "1.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "6128620b98292e0b69ea6d799871d77163681c8e"
+                "reference": "cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6128620b98292e0b69ea6d799871d77163681c8e",
-                "reference": "6128620b98292e0b69ea6d799871d77163681c8e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab",
+                "reference": "cadad14ac63d8a432e01ae89ac5d0ff6fc3b16ab",
                 "shasum": ""
             },
             "require": {
@@ -2177,7 +2177,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.6.3"
+                "source": "https://github.com/phpstan/phpstan/tree/1.7.7"
             },
             "funding": [
                 {
@@ -2197,7 +2197,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-28T11:27:53+00:00"
+            "time": "2022-05-31T13:58:21+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
