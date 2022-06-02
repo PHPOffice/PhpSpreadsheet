@@ -4021,6 +4021,7 @@ class Calculation
             //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
             $isOperandOrFunction = (bool) preg_match($regexpMatchString, substr($formula, $index), $match);
 
+            $expectingOperatorCopy = $expectingOperator;
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~');
@@ -4173,7 +4174,7 @@ class Calculation
                 $this->branchPruner->incrementDepth();
                 $stack->push('Brace', '(', null);
                 ++$index;
-            } elseif ($isOperandOrFunction && !$expectingOperator) {    // do we now have a function/variable/number?
+            } elseif ($isOperandOrFunction && !$expectingOperatorCopy) {    // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
                 $val = $match[1];
@@ -4398,13 +4399,17 @@ class Calculation
 
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
+                $countOutputMinus1 = count($output) - 1;
                 if (
                     ($expectingOperator) &&
+                    array_key_exists($countOutputMinus1, $output) &&
+                    is_array($output[$countOutputMinus1]) &&
+                    array_key_exists('type', $output[$countOutputMinus1]) &&
                     (
                         (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] === 'Cell Reference') ||
+                        ($output[$countOutputMinus1]['type'] === 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] === 'Defined Name' || $output[count($output) - 1]['type'] === 'Value')
+                            ($output[$countOutputMinus1]['type'] === 'Defined Name' || $output[$countOutputMinus1]['type'] === 'Value')
                     )
                 ) {
                     while (
