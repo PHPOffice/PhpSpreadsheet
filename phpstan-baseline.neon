@@ -3227,7 +3227,7 @@ parameters:
 
 		-
 			message: "#^Variable \\$textValue on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 3
+			count: 4
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-

@@ -119,4 +119,21 @@ class StringHelperTest extends TestCase
 
         self::assertEquals($expectedResult, $result);
     }
+
+    public function testSubstringUTF8(): void
+    {
+        $expectedResult = '😀';
+        $result = StringHelper::substring('🙃😀🙃', 1, 1);
+
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function testSubstringWithNull(): void
+    {
+        // Issue #2868 PHP 8.1 Deprecation message for null value
+        $expectedResult = '';
+        $result = StringHelper::substring(null, 1, 10);
+
+        self::assertEquals($expectedResult, $result);
+    }
 }

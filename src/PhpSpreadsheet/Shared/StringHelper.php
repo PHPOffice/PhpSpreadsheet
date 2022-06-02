@@ -478,7 +478,7 @@ class StringHelper
      */
     public static function substring($textValue, $offset, $length = 0)
     {
-        return mb_substr($textValue, $offset, $length, 'UTF-8');
+        return mb_substr($textValue ?? '', $offset, $length, 'UTF-8');
     }
 
     /**
