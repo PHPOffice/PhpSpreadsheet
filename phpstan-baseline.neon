@@ -96,11 +96,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Offset 'type' does not exist on array\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -764,11 +759,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\IntClass\\:\\:evaluate\\(\\) should return array\\|string but returns int\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
-
-		-
-			message: "#^PHPDoc tag @var for constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:CALL_FUNCTIONS with type array\\<callable\\(\\)\\: mixed\\> is not subtype of value array\\{1\\: array\\{'PhpOffice…', 'average'\\}, 2\\: array\\{'PhpOffice…', 'COUNT'\\}, 3\\: array\\{'PhpOffice…', 'COUNTA'\\}, 4\\: array\\{'PhpOffice…', 'max'\\}, 5\\: array\\{'PhpOffice…', 'min'\\}, 6\\: array\\{'PhpOffice…', 'product'\\}, 7\\: array\\{'PhpOffice…', 'STDEV'\\}, 8\\: array\\{'PhpOffice…', 'STDEVP'\\}, \\.\\.\\.\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
@@ -4301,21 +4291,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Offset 'left' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 'right' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 'value' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -4816,11 +4791,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -4858,10 +4828,5 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
