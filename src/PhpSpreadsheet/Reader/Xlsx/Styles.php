@@ -194,14 +194,16 @@ class Styles extends BaseParserClass
         $diagonalUp = self::boolean($diagonalUp);
         $diagonalDown = $this->getAttribute($borderStyleXml, 'diagonalDown');
         $diagonalDown = self::boolean($diagonalDown);
-        if (!$diagonalUp && !$diagonalDown) {
-            $borderStyle->setDiagonalDirection(Borders::DIAGONAL_NONE);
-        } elseif ($diagonalUp && !$diagonalDown) {
-            $borderStyle->setDiagonalDirection(Borders::DIAGONAL_UP);
-        } elseif (!$diagonalUp && $diagonalDown) {
+        if ($diagonalUp === true) {
+            if ($diagonalDown === true) {
+                $borderStyle->setDiagonalDirection(Borders::DIAGONAL_BOTH);
+            } else {
+                $borderStyle->setDiagonalDirection(Borders::DIAGONAL_UP);
+            }
+        } elseif ($diagonalDown === true) {
             $borderStyle->setDiagonalDirection(Borders::DIAGONAL_DOWN);
         } else {
-            $borderStyle->setDiagonalDirection(Borders::DIAGONAL_BOTH);
+            $borderStyle->setDiagonalDirection(Borders::DIAGONAL_NONE);
         }
 
         $this->readBorder($borderStyle->getLeft(), $borderStyleXml->left);

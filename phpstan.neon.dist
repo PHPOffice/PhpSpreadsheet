@@ -24,3 +24,8 @@ parameters:
         - '~^Instantiated class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot) not found\.$~'
         - '~^Call to method .*\(\) on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
         - '~^Access to property .* on an unknown class (AccBarPlot|AccLinePlot|BarPlot|ContourPlot|Graph|GroupBarPlot|GroupBarPlot|LinePlot|LinePlot|PieGraph|PiePlot|PiePlot3D|PiePlotC|RadarGraph|RadarPlot|ScatterPlot|Spline|StockPlot)\.$~'
+
+        # Some issues in Xls/Parser between 1.6.3 and 1.7.7
+        -
+            message: "#^Offset '(left|right|value)' does not exist on (non-empty-array\\|string|array\\|null)\\.$#"
+            path: src/PhpSpreadsheet/Writer/Xls/Parser.php
