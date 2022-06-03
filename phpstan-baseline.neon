@@ -1111,31 +1111,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:substring\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DataType.php
-
-		-
-			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#1 \\$blur of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowBlur\\(\\) expects float, float\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#1 \\$distance of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowDistance\\(\\) expects float, float\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#2 \\$alpha of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowColor\\(\\) expects int, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:render\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Chart.php

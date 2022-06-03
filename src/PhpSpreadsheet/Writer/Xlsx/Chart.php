@@ -497,6 +497,27 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('axis_labels'));
         $objWriter->endElement();
 
+        $objWriter->startElement('c:spPr');
+        $objWriter->startElement('a:effectLst');
+        if ($yAxis->getGlowProperty('size') !== null) {
+            $objWriter->startElement('a:glow');
+            $objWriter->writeAttribute('rad', $yAxis->getGlowProperty('size'));
+            $objWriter->startElement("a:{$yAxis->getGlowProperty(['color', 'type'])}");
+            $objWriter->writeAttribute('val', (string) $yAxis->getGlowProperty(['color', 'value']));
+            $objWriter->startElement('a:alpha');
+            $objWriter->writeAttribute('val', (string) $yAxis->getGlowProperty(['color', 'alpha']));
+            $objWriter->endElement();
+            $objWriter->endElement();
+            $objWriter->endElement();
+        }
+        if ($yAxis->getSoftEdgesSize() !== null) {
+            $objWriter->startElement('a:softEdge');
+            $objWriter->writeAttribute('rad', $yAxis->getSoftEdgesSize());
+            $objWriter->endElement(); //end softEdge
+        }
+        $objWriter->endElement(); // effectLst
+        $objWriter->endElement(); // spPr
+
         if ($id2 !== '0') {
             $objWriter->startElement('c:crossAx');
             $objWriter->writeAttribute('val', $id2);
@@ -909,9 +930,9 @@ class Chart extends WriterPart
             $objWriter->startElement('a:glow');
             $objWriter->writeAttribute('rad', $xAxis->getGlowProperty('size'));
             $objWriter->startElement("a:{$xAxis->getGlowProperty(['color', 'type'])}");
-            $objWriter->writeAttribute('val', $xAxis->getGlowProperty(['color', 'value']));
+            $objWriter->writeAttribute('val', (string) $xAxis->getGlowProperty(['color', 'value']));
             $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', $xAxis->getGlowProperty(['color', 'alpha']));
+            $objWriter->writeAttribute('val', (string) $xAxis->getGlowProperty(['color', 'alpha']));
             $objWriter->endElement();
             $objWriter->endElement();
             $objWriter->endElement();

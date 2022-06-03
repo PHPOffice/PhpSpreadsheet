@@ -19,7 +19,7 @@ class Font extends Supervisor
     protected $name = 'Calibri';
 
     /**
-     * The following 6 are used only for chart titles, I think.
+     * The following 7 are used only for chart titles, I think.
      *
      *@var string
      */
@@ -39,6 +39,9 @@ class Font extends Supervisor
 
     /** @var string */
     private $uSchemeClr = '';
+
+    /** @var string */
+    private $uSrgbClr = '';
     // end of chart title items
 
     /**
@@ -603,6 +606,30 @@ class Font extends Supervisor
         return $this;
     }
 
+    public function getUSrgbClr(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getUSrgbClr();
+        }
+
+        return $this->uSrgbClr;
+    }
+
+    public function setUSrgbClr(string $uSrgbClr): self
+    {
+        if (!$this->isSupervisor) {
+            $this->uSrgbClr = $uSrgbClr;
+        } else {
+            // should never be true
+            // @codeCoverageIgnoreStart
+            $styleArray = $this->getStyleArray(['uSrgbClr' => $uSrgbClr]);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $this;
+    }
+
     /**
      * Get Underline.
      *
@@ -731,15 +758,18 @@ class Font extends Supervisor
             $this->underline .
             ($this->strikethrough ? 't' : 'f') .
             $this->color->getHashCode() .
-            '*' .
-            $this->latin .
-            '*' .
-            $this->eastAsian .
-            '*' .
-            $this->complexScript .
-            $this->strikeType .
-            $this->uSchemeClr .
-            (string) $this->baseLine .
+            implode(
+                '*',
+                [
+                    $this->latin,
+                    $this->eastAsian,
+                    $this->complexScript,
+                    $this->strikeType,
+                    $this->uSchemeClr,
+                    $this->uSrgbClr,
+                    (string) $this->baseLine,
+                ]
+            ) .
             __CLASS__
         );
     }
@@ -762,6 +792,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
         $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUSchemeClr());
+        $this->exportArray2($exportedArray, 'uSrgbClr', $this->getUSrgbClr());
 
         return $exportedArray;
     }

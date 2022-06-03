@@ -346,17 +346,17 @@ class Axis extends Properties
      * @param int $shadowPresets
      * @param string $colorValue
      * @param string $colorType
-     * @param string $colorAlpha
-     * @param float $blur
-     * @param int $angle
-     * @param float $distance
+     * @param null|int|string $colorAlpha
+     * @param null|float $blur
+     * @param null|int $angle
+     * @param null|float $distance
      */
     public function setShadowProperties($shadowPresets, $colorValue = null, $colorType = null, $colorAlpha = null, $blur = null, $angle = null, $distance = null): void
     {
         $this->setShadowPresetsProperties((int) $shadowPresets)
             ->setShadowColor(
                 $colorValue ?? $this->shadowProperties['color']['value'],
-                $colorAlpha ?? (int) $this->shadowProperties['color']['alpha'],
+                (int) ($colorAlpha ?? $this->shadowProperties['color']['alpha']),
                 $colorType ?? $this->shadowProperties['color']['type']
             )
             ->setShadowBlur($blur)
@@ -412,9 +412,9 @@ class Axis extends Properties
     /**
      * Set Shadow Color.
      *
-     * @param string $color
-     * @param int $alpha
-     * @param string $alphaType
+     * @param null|string $color
+     * @param null|int $alpha
+     * @param null|string $alphaType
      *
      * @return $this
      */
@@ -428,7 +428,7 @@ class Axis extends Properties
     /**
      * Set Shadow Blur.
      *
-     * @param float $blur
+     * @param null|float $blur
      *
      * @return $this
      */
@@ -444,7 +444,7 @@ class Axis extends Properties
     /**
      * Set Shadow Angle.
      *
-     * @param int $angle
+     * @param null|int $angle
      *
      * @return $this
      */
@@ -460,7 +460,7 @@ class Axis extends Properties
     /**
      * Set Shadow Distance.
      *
-     * @param float $distance
+     * @param null|float $distance
      *
      * @return $this
      */
@@ -489,9 +489,9 @@ class Axis extends Properties
      * Set Glow Properties.
      *
      * @param float $size
-     * @param string $colorValue
-     * @param int $colorAlpha
-     * @param string $colorType
+     * @param null|string $colorValue
+     * @param null|int $colorAlpha
+     * @param null|string $colorType
      */
     public function setGlowProperties($size, $colorValue = null, $colorAlpha = null, $colorType = null): void
     {
@@ -508,7 +508,7 @@ class Axis extends Properties
      *
      * @param array|string $property
      *
-     * @return string
+     * @return null|string
      */
     public function getGlowProperty($property)
     {
@@ -555,7 +555,7 @@ class Axis extends Properties
     public function setSoftEdges($size): void
     {
         if ($size !== null) {
-            $softEdges['size'] = (string) $this->getExcelPointsWidth($size);
+            $this->softEdges['size'] = (string) $this->getExcelPointsWidth($size);
         }
     }
 
