@@ -489,9 +489,9 @@ class Axis extends Properties
      * Set Glow Properties.
      *
      * @param float $size
-     * @param string $colorValue
-     * @param int $colorAlpha
-     * @param string $colorType
+     * @param null|string $colorValue
+     * @param null|int $colorAlpha
+     * @param null|string $colorType
      */
     public function setGlowProperties($size, $colorValue = null, $colorAlpha = null, $colorType = null): void
     {
