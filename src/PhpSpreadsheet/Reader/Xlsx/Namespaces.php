@@ -76,5 +76,7 @@ class Namespaces
 
     const PURL_DRAWING = 'http://purl.oclc.org/ooxml/drawingml/main';
 
+    const PURL_CHART = 'http://purl.oclc.org/ooxml/drawingml/chart';
+
     const PURL_WORKSHEET = 'http://purl.oclc.org/ooxml/officeDocument/relationships/worksheet';
 }

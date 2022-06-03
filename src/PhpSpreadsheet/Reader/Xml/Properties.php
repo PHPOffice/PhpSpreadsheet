@@ -44,7 +44,7 @@ class Properties
 
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = self::getAttributes($propertyValue, $namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-f]{4})_/i', [$this, 'hex2str'], $propertyName);
+                $propertyName = (string) preg_replace_callback('/_x([0-9a-f]{4})_/i', [$this, 'hex2str'], $propertyName);
 
                 $this->processCustomProperty($docProps, $propertyName, $propertyValue, $propertyAttributes);
             }

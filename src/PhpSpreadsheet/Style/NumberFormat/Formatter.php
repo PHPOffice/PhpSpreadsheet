@@ -51,12 +51,12 @@ class Formatter
         for ($idx = 0; $idx < $cnt; ++$idx) {
             if (preg_match($color_regex, $sections[$idx], $matches)) {
                 $colors[$idx] = $matches[0];
-                $sections[$idx] = preg_replace($color_regex, '', $sections[$idx]);
+                $sections[$idx] = (string) preg_replace($color_regex, '', $sections[$idx]);
             }
             if (preg_match($cond_regex, $sections[$idx], $matches)) {
                 $condops[$idx] = $matches[1];
                 $condvals[$idx] = $matches[2];
-                $sections[$idx] = preg_replace($cond_regex, '', $sections[$idx]);
+                $sections[$idx] = (string) preg_replace($cond_regex, '', $sections[$idx]);
             }
         }
         $color = $colors[0];
@@ -112,7 +112,7 @@ class Formatter
             return $value;
         }
 
-        $format = preg_replace_callback(
+        $format = (string) preg_replace_callback(
             '/(["])(?:(?=(\\\\?))\\2.)*?\\1/u',
             function ($matches) {
                 return str_replace('.', chr(0x00), $matches[0]);
@@ -121,7 +121,7 @@ class Formatter
         );
 
         // Convert any other escaped characters to quoted strings, e.g. (\T to "T")
-        $format = preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/ui', '"${2}"', $format);
+        $format = (string) preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/ui', '"${2}"', $format);
 
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
         $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format);
@@ -130,7 +130,7 @@ class Formatter
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
-        $format = preg_replace('/_.?/ui', ' ', $format);
+        $format = (string) preg_replace('/_.?/ui', ' ', $format);
 
         // Let's begin inspecting the format and converting the value to a formatted string
 

@@ -157,6 +157,10 @@ class Xlsx extends BaseReader
         Namespaces::PURL_RELATIONSHIPS => Namespaces::PURL_DRAWING,
     ];
 
+    private const REL_TO_CHART = [
+        Namespaces::PURL_RELATIONSHIPS => Namespaces::PURL_CHART,
+    ];
+
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
@@ -408,17 +412,21 @@ class Xlsx extends BaseReader
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
+        $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
+        $chartNS = self::REL_TO_CHART[$xmlNamespaceBase] ?? Namespaces::CHART;
         $wbRels = $this->loadZip("xl/_rels/${workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         $theme = null;
         $this->styleReader = new Styles();
         foreach ($wbRels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
+            if (substr($relTarget, 0, 4) === '/xl/') {
+                $relTarget = substr($relTarget, 4);
+            }
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/theme":
                     $themeOrderArray = ['lt1', 'dk1', 'lt2', 'dk2'];
                     $themeOrderAdditional = count($themeOrderArray);
-                    $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
 
                     $xmlTheme = $this->loadZip("xl/{$relTarget}", $drawingNS);
                     $xmlThemeName = self::getAttributes($xmlTheme);
@@ -1204,12 +1212,20 @@ class Xlsx extends BaseReader
                                 . '/_rels/'
                                 . basename($fileWorksheet)
                                 . '.rels';
+                            if (substr($drawingFilename, 0, 7) === 'xl//xl/') {
+                                $drawingFilename = substr($drawingFilename, 4);
+                            }
                             if ($zip->locateName($drawingFilename)) {
                                 $relsWorksheet = $this->loadZipNoNamespace($drawingFilename, Namespaces::RELATIONSHIPS);
                                 $drawings = [];
                                 foreach ($relsWorksheet->Relationship as $ele) {
                                     if ((string) $ele['Type'] === "$xmlNamespaceBase/drawing") {
-                                        $drawings[(string) $ele['Id']] = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
+                                        $eleTarget = (string) $ele['Target'];
+                                        if (substr($eleTarget, 0, 4) === '/xl/') {
+                                            $drawings[(string) $ele['Id']] = substr($eleTarget, 1);
+                                        } else {
+                                            $drawings[(string) $ele['Id']] = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
+                                        }
                                     }
                                 }
 
@@ -1234,7 +1250,13 @@ class Xlsx extends BaseReader
                                                     $images[(string) $ele['Id']] = self::dirAdd($fileDrawing, $ele['Target']);
                                                 } elseif ($eleType === "$xmlNamespaceBase/chart") {
                                                     if ($this->includeCharts) {
-                                                        $charts[self::dirAdd($fileDrawing, $ele['Target'])] = [
+                                                        $eleTarget = (string) $ele['Target'];
+                                                        if (substr($eleTarget, 0, 4) === '/xl/') {
+                                                            $index = substr($eleTarget, 1);
+                                                        } else {
+                                                            $index = self::dirAdd($fileDrawing, $eleTarget);
+                                                        }
+                                                        $charts[$index] = [
                                                             'id' => (string) $ele['Id'],
                                                             'sheet' => $docSheet->getTitle(),
                                                         ];
@@ -1326,6 +1348,7 @@ class Xlsx extends BaseReader
                                                         'width' => $width,
                                                         'height' => $height,
                                                         'worksheetTitle' => $docSheet->getTitle(),
+                                                        'oneCellAnchor' => true,
                                                     ];
                                                 }
                                             }
@@ -1461,7 +1484,7 @@ class Xlsx extends BaseReader
                                     }
 
                                     // unparsed drawing AlternateContent
-                                    $xmlAltDrawing = $this->loadZip($fileDrawing, Namespaces::COMPATIBILITY);
+                                    $xmlAltDrawing = $this->loadZip((string) $fileDrawing, Namespaces::COMPATIBILITY);
 
                                     if ($xmlAltDrawing->AlternateContent) {
                                         foreach ($xmlAltDrawing->AlternateContent as $alternateContent) {
@@ -1645,7 +1668,7 @@ class Xlsx extends BaseReader
                         if ($this->includeCharts) {
                             $chartEntryRef = ltrim((string) $contentType['PartName'], '/');
                             $chartElements = $this->loadZip($chartEntryRef);
-                            $chartReader = new Chart();
+                            $chartReader = new Chart($chartNS, $drawingNS);
                             $objChart = $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
@@ -1662,6 +1685,9 @@ class Xlsx extends BaseReader
                                         // oneCellAnchor or absoluteAnchor (e.g. Chart sheet)
                                         $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
                                         $objChart->setBottomRightPosition('', $chartDetails[$chartPositionRef]['width'], $chartDetails[$chartPositionRef]['height']);
+                                        if (array_key_exists('oneCellAnchor', $chartDetails[$chartPositionRef])) {
+                                            $objChart->setOneCellAnchor($chartDetails[$chartPositionRef]['oneCellAnchor']);
+                                        }
                                     }
                                 }
                             }
@@ -1821,12 +1847,17 @@ class Xlsx extends BaseReader
         return $array[$key] ?? null;
     }
 
-    private static function dirAdd($base, $add)
+    private static function dirAdd($base, $add): string
     {
-        return preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
+        $add = "$add";
+        if (substr($add, 0, 4) === '/xl/') {
+            $add = substr($add, 4);
+        }
+
+        return (string) preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
     }
 
-    private static function toCSSArray($style)
+    private static function toCSSArray($style): array
     {
         $style = self::stripWhiteSpaceFromStyleString($style);
 
@@ -1857,12 +1888,12 @@ class Xlsx extends BaseReader
         return $style;
     }
 
-    public static function stripWhiteSpaceFromStyleString($string)
+    public static function stripWhiteSpaceFromStyleString($string): string
     {
         return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
-    private static function boolean($value)
+    private static function boolean($value): bool
     {
         if (is_object($value)) {
             $value = (string) $value;

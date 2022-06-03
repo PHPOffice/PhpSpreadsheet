@@ -133,7 +133,7 @@ abstract class WizardAbstract
         foreach ($splitCondition as &$value) {
             //    Only count/replace in alternating array entries (ie. not in quoted strings)
             if ($i = !$i) {
-                $value = preg_replace_callback(
+                $value = (string) preg_replace_callback(
                     '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
                     function ($matches) use ($referenceColumnIndex, $referenceRow) {
                         return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
@@ -174,7 +174,7 @@ abstract class WizardAbstract
         foreach ($splitCondition as &$value) {
             //    Only count/replace in alternating array entries (ie. not in quoted strings)
             if ($i = !$i) {
-                $value = preg_replace_callback(
+                $value = (string) preg_replace_callback(
                     '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
                     [$this, 'conditionCellAdjustment'],
                     $value

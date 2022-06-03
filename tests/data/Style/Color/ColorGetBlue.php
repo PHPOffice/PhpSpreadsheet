@@ -32,4 +32,5 @@ return [
         'FFFF00',
         false,
     ],
+    'invalid hex' => ['00', 'AABBDX'],
 ];

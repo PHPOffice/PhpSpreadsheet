@@ -314,7 +314,7 @@ class Chart
     {
         $multiSeriesType = null;
         $smoothLine = false;
-        $seriesLabel = $seriesCategory = $seriesValues = $plotOrder = [];
+        $seriesLabel = $seriesCategory = $seriesValues = $plotOrder = $seriesBubbles = [];
 
         $seriesDetailSet = $chartDetail->children($this->cNamespace);
         foreach ($seriesDetailSet as $seriesDetailKey => $seriesDetails) {
@@ -391,6 +391,10 @@ class Chart
                                 $seriesValues[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", "$srgbClr", "$pointSize");
 
                                 break;
+                            case 'bubbleSize':
+                                $seriesBubbles[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", "$srgbClr", "$pointSize");
+
+                                break;
                             case 'bubble3D':
                                 $bubble3D = self::getAttribute($seriesDetail, 'val', 'boolean');
 
@@ -443,9 +447,11 @@ class Chart
                     }
             }
         }
-
         /** @phpstan-ignore-next-line */
-        return new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
+        $series = new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
+        $series->setPlotBubbleSizes($seriesBubbles);
+
+        return $series;
     }
 
     /**
@@ -500,6 +506,16 @@ class Chart
             }
 
             return $seriesValues;
+        }
+
+        if (isset($seriesDetail->v)) {
+            return new DataSeriesValues(
+                DataSeriesValues::DATASERIES_TYPE_STRING,
+                null,
+                null,
+                1,
+                [(string) $seriesDetail->v]
+            );
         }
 
         return null;

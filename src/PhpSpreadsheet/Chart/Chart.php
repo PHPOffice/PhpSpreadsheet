@@ -152,6 +152,9 @@ class Chart
     /** @var ?int */
     private $perspective;
 
+    /** @var bool */
+    private $oneCellAnchor = false;
+
     /**
      * Create a new Chart.
      *
@@ -740,6 +743,18 @@ class Chart
     public function setPerspective(?int $perspective): self
     {
         $this->perspective = $perspective;
+
+        return $this;
+    }
+
+    public function getOneCellAnchor(): bool
+    {
+        return $this->oneCellAnchor;
+    }
+
+    public function setOneCellAnchor(bool $oneCellAnchor): self
+    {
+        $this->oneCellAnchor = $oneCellAnchor;
 
         return $this;
     }
