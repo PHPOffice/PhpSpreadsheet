@@ -131,14 +131,14 @@ class SubTotalTest extends AllSetupTeardown
     public function testRefError(): void
     {
         $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue("=SUBTOTAL(9, #REF!)");
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, #REF!)');
         self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
     }
 
     public function testSecondaryRefError(): void
     {
         $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue("=SUBTOTAL(9, B1:B9,#REF!,C1:C9)");
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, B1:B9,#REF!,C1:C9)');
         self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
     }
 }
