@@ -773,8 +773,8 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
-        $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUnderline());
-        $this->exportArray2($exportedArray, 'uSrgbClr', $this->getUnderline());
+        $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUSchemeClr());
+        $this->exportArray2($exportedArray, 'uSrgbClr', $this->getUSrgbClr());
 
         return $exportedArray;
     }
