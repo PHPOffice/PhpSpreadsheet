@@ -89,6 +89,10 @@ class Subtotal
         $cellReference = array_pop($args);
         $aArgs = Functions::flattenArrayIndexed($args);
 
+        if (in_array(ExcelError::REF(), $args)) {
+            return ExcelError::REF();
+        }
+
         try {
             $subtotal = (int) Helpers::validateNumericNullBool($functionType);
         } catch (Exception $e) {
