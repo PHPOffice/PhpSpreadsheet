@@ -1171,17 +1171,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
 
 		-
-			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
 			message: "#^Parameter \\#1 \\$color of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Parameter \\#1 \\$distance of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowDistance\\(\\) expects float, float\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/GridLines.php
 
@@ -1272,36 +1262,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has parameter \\$presetsOption with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getTrueAlpha\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getTrueAlpha\\(\\) has parameter \\$alpha with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$alpha with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$color with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$colorType with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
@@ -4477,12 +4437,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string given\\.$#"
-			count: 8
+			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -4523,11 +4483,6 @@ parameters:
 		-
 			message: "#^Parameter \\#9 \\$minorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Part \\$xAxis\\-\\>getShadowProperty\\('effect'\\) \\(array\\|int\\|string\\|null\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-

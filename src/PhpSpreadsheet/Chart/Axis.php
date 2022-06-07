@@ -89,25 +89,7 @@ class Axis extends Properties
      *
      * @var mixed[]
      */
-    private $shadowProperties = [
-        'presets' => self::SHADOW_PRESETS_NOSHADOW,
-        'effect' => null,
-        'color' => [
-            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => 'black',
-            'alpha' => 40,
-        ],
-        'size' => [
-            'sx' => null,
-            'sy' => null,
-            'kx' => null,
-        ],
-        'blur' => null,
-        'direction' => null,
-        'distance' => null,
-        'algn' => null,
-        'rotWithShape' => null,
-    ];
+    private $shadowProperties = Properties::PRESETS_OPTIONS[0];
 
     /**
      * Glow Properties.
@@ -341,6 +323,20 @@ class Axis extends Properties
     }
 
     /**
+     * @param mixed $value
+     */
+    public function setShadowProperty(string $propertyName, $value): self
+    {
+        if ($propertyName === 'color' && is_array($value)) {
+            $this->setShadowColor($value['value'], $value['alpha'], $value['type']);
+        } else {
+            $this->shadowProperties[$propertyName] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * Set Shadow Properties.
      *
      * @param int $shadowPresets
@@ -435,7 +431,7 @@ class Axis extends Properties
     private function setShadowBlur($blur)
     {
         if ($blur !== null) {
-            $this->shadowProperties['blur'] = (string) $this->getExcelPointsWidth($blur);
+            $this->shadowProperties['blur'] = $blur;
         }
 
         return $this;
@@ -444,14 +440,14 @@ class Axis extends Properties
     /**
      * Set Shadow Angle.
      *
-     * @param null|int $angle
+     * @param null|float|int $angle
      *
      * @return $this
      */
     private function setShadowAngle($angle)
     {
-        if ($angle !== null) {
-            $this->shadowProperties['direction'] = (string) $this->getExcelPointsAngle($angle);
+        if (is_numeric($angle)) {
+            $this->shadowProperties['direction'] = $angle;
         }
 
         return $this;
@@ -467,7 +463,7 @@ class Axis extends Properties
     private function setShadowDistance($distance)
     {
         if ($distance !== null) {
-            $this->shadowProperties['distance'] = (string) $this->getExcelPointsWidth($distance);
+            $this->shadowProperties['distance'] = $distance;
         }
 
         return $this;
@@ -525,7 +521,7 @@ class Axis extends Properties
     private function setGlowSize($size)
     {
         if ($size !== null) {
-            $this->glowProperties['size'] = $this->getExcelPointsWidth($size);
+            $this->glowProperties['size'] = $size;
         }
 
         return $this;
@@ -555,7 +551,7 @@ class Axis extends Properties
     public function setSoftEdges($size): void
     {
         if ($size !== null) {
-            $this->softEdges['size'] = (string) $this->getExcelPointsWidth($size);
+            $this->softEdges['size'] = $size;
         }
     }
 
