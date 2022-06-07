@@ -5,29 +5,29 @@ namespace PhpOffice\PhpSpreadsheetTests\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
-use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
+use PHPUnit\Framework\TestCase;
 
-class GridlinesShadowGlowTest extends AbstractFunctional
+class MultiplierTest extends TestCase
 {
-    public function readCharts(XlsxReader $reader): void
+    /** @var string */
+    private $outputFileName = '';
+
+    protected function tearDown(): void
     {
-        $reader->setIncludeCharts(true);
+        if ($this->outputFileName !== '') {
+            unlink($this->outputFileName);
+            $this->outputFileName = '';
+        }
     }
 
-    public function writeCharts(XlsxWriter $writer): void
-    {
-        $writer->setIncludeCharts(true);
-    }
-
-    public function testGlowY(): void
+    public function testMultiplier(): void
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
@@ -78,7 +78,7 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         // Build the dataseries
         $series = new DataSeries(
-            DataSeries::TYPE_LINECHART, // plotType
+            DataSeries::TYPE_AREACHART, // plotType
             DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
             range(0, count($dataSeriesValues) - 1), // plotOrder
             $dataSeriesLabels, // plotLabel
@@ -93,40 +93,6 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         $title = new Title('Test %age-Stacked Area Chart');
         $yAxisLabel = new Title('Value ($k)');
-        $majorGridlines = new GridLines();
-        $majorGlowSize = 10.0;
-        $majorGridlines->setGlowProperties($majorGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
-        $softEdgeSize = 2.5;
-        $majorGridlines->setSoftEdges($softEdgeSize);
-        $expectedGlowColor = [
-            'type' => 'srgbClr',
-            'value' => 'FFFF00',
-            'alpha' => 30,
-        ];
-        self::assertEquals($majorGlowSize, $majorGridlines->getGlowProperty('size'));
-        self::assertEquals($expectedGlowColor, $majorGridlines->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines->getSoftEdgesSize());
-
-        $minorGridlines = new GridLines();
-        $expectedShadow = [
-            'effect' => 'outerShdw',
-            'algn' => 'tl',
-            'blur' => 4,
-            'direction' => 45,
-            'distance' => 3,
-            'rotWithShape' => 0,
-            'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
-                'value' => 'black',
-                'alpha' => 40,
-            ],
-        ];
-        foreach ($expectedShadow as $key => $value) {
-            $minorGridlines->setShadowProperty($key, $value);
-        }
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines->getShadowProperty($key), $key);
-        }
 
         // Create the chart
         $chart = new Chart(
@@ -137,21 +103,47 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             true, // plotVisibleOnly
             DataSeries::EMPTY_AS_GAP, // displayBlanksAs
             null, // xAxisLabel
-            $yAxisLabel,  // yAxisLabel
-            null, // xAxis
-            null, // yAxis
-            $majorGridlines,
-            $minorGridlines
+            $yAxisLabel  // yAxisLabel
         );
-        $majorGridlines2 = $chart->getMajorGridlines();
-        self::assertEquals($majorGlowSize, $majorGridlines2->getGlowProperty('size'));
-        self::assertEquals($expectedGlowColor, $majorGridlines2->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines2->getSoftEdgesSize());
-        $minorGridlines2 = $chart->getMinorGridlines();
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines2->getShadowProperty($key), $key);
+        $xAxis = $chart->getChartAxisX();
+        $expectedX = [
+            'effect' => 'outerShdw',
+            'algn' => 'bl',
+            'blur' => 6,
+            'direction' => 315,
+            'distance' => 3,
+            'rotWithShape' => 0,
+            'size' => [
+                'sx' => null,
+                'sy' => 254,
+                'kx' => -94,
+                'ky' => null,
+            ],
+            'color' => [
+                'type' => Properties::EXCEL_COLOR_TYPE_ARGB,
+                'value' => 'FF0000',
+                'alpha' => 20,
+            ],
+        ];
+        $expectedXmlX = [
+            '<a:outerShdw ',
+            ' algn="bl"',
+            ' blurRad="76200"',
+            ' dir="18900000"',
+            ' dist="38100"',
+            ' rotWithShape="0"',
+            ' sy="25400000"',
+            ' kx="-5640000"',
+            '<a:srgbClr val="FF0000">',
+            '<a:alpha val="80000"/>',
+        ];
+        $expectedXmlNoX = [
+            ' sx=',
+            ' ky=',
+        ];
+        foreach ($expectedX as $key => $value) {
+            $xAxis->setShadowProperty($key, $value);
         }
-
         // Set the position where the chart should appear in the worksheet
         $chart->setTopLeftPosition('A7');
         $chart->setBottomRightPosition('H20');
@@ -159,27 +151,26 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         // Add the chart to the worksheet
         $worksheet->addChart($chart);
 
-        /** @var callable */
-        $callableReader = [$this, 'readCharts'];
-        /** @var callable */
-        $callableWriter = [$this, 'writeCharts'];
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->setIncludeCharts(true);
+        $this->outputFileName = File::temporaryFilename();
+        $writer->save($this->outputFileName);
         $spreadsheet->disconnectWorksheets();
 
-        $sheet = $reloadedSpreadsheet->getActiveSheet();
-        $charts2 = $sheet->getChartCollection();
-        self::assertCount(1, $charts2);
-        $chart2 = $charts2[0];
-        self::assertNotNull($chart2);
-        $majorGridlines3 = $chart2->getMajorGridlines();
-        self::assertEquals($majorGlowSize, $majorGridlines3->getGlowProperty('size'));
-        self::assertEquals($expectedGlowColor, $majorGridlines3->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines3->getSoftEdgesSize());
-        $minorGridlines3 = $chart->getMinorGridlines();
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines3->getShadowProperty($key), $key);
+        $file = 'zip://';
+        $file .= $this->outputFileName;
+        $file .= '#xl/charts/chart1.xml';
+        $data = file_get_contents($file);
+        // confirm that file contains expected tags
+        if ($data === false) {
+            self::fail('Unable to read file');
+        } else {
+            foreach ($expectedXmlX as $expected) {
+                self::assertSame(1, substr_count($data, $expected), $expected);
+            }
+            foreach ($expectedXmlNoX as $expected) {
+                self::assertSame(0, substr_count($data, $expected), $expected);
+            }
         }
-
-        $reloadedSpreadsheet->disconnectWorksheets();
     }
 }

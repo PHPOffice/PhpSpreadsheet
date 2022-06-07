@@ -113,7 +113,7 @@ abstract class Properties
 
     const POINTS_WIDTH_MULTIPLIER = 12700;
     const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
-    const PERCENTAGE_MULTIPLIER = 1000; // size sx and sy
+    const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
 
     /**
      * @param float $width

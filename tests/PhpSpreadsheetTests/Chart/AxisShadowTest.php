@@ -118,7 +118,6 @@ class AxisShadowTest extends AbstractFunctional
                 'alpha' => 40,
             ],
         ];
-        $yAxis->setShadowProperty('presets', 1);
         foreach ($expectedY as $key => $value) {
             $yAxis->setShadowProperty($key, $value);
         }
@@ -135,8 +134,8 @@ class AxisShadowTest extends AbstractFunctional
             'rotWithShape' => 0,
             'size' => [
                 'sx' => null,
-                'sy' => 25400,
-                'kx' => -1193800 / Properties::POINTS_WIDTH_MULTIPLIER,
+                'sy' => 254,
+                'kx' => -94,
                 'ky' => null,
             ],
             'color' => [
@@ -145,7 +144,6 @@ class AxisShadowTest extends AbstractFunctional
                 'alpha' => 20,
             ],
         ];
-        $xAxis->setShadowProperty('presets', 1);
         foreach ($expectedX as $key => $value) {
             $xAxis->setShadowProperty($key, $value);
         }
