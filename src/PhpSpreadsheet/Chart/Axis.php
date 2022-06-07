@@ -375,6 +375,8 @@ class Axis extends Properties
         return $this;
     }
 
+    private const SHADOW_ARRAY_KEYS = ['size', 'color'];
+
     /**
      * Set Shadow Properties from Mapped Values.
      *
@@ -387,12 +389,10 @@ class Axis extends Properties
         $base_reference = $reference;
         foreach ($propertiesMap as $property_key => $property_val) {
             if (is_array($property_val)) {
-                if ($reference === null) {
+                if (in_array($property_key, self::SHADOW_ARRAY_KEYS, true)) {
                     $reference = &$this->shadowProperties[$property_key];
-                } else {
-                    $reference = &$reference[$property_key];
+                    $this->setShadowPropertiesMapValues($property_val, $reference);
                 }
-                $this->setShadowPropertiesMapValues($property_val, $reference);
             } else {
                 if ($base_reference === null) {
                     $this->shadowProperties[$property_key] = $property_val;

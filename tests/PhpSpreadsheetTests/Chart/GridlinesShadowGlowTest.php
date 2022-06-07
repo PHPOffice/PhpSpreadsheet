@@ -104,6 +104,8 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             'alpha' => 30,
         ];
         self::assertEquals($majorGlowSize, $majorGridlines->getGlowProperty('size'));
+        self::assertEquals($majorGlowSize, $majorGridlines->getGlowSize());
+        self::assertEquals($expectedGlowColor['value'], $majorGridlines->getGlowColor('value'));
         self::assertEquals($expectedGlowColor, $majorGridlines->getGlowProperty('color'));
         self::assertEquals($softEdgeSize, $majorGridlines->getSoftEdgesSize());
 

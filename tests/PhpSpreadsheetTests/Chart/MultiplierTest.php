@@ -16,17 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 class MultiplierTest extends TestCase
 {
-    /** @var string */
-    private $outputFileName = '';
-
-    protected function tearDown(): void
-    {
-        if ($this->outputFileName !== '') {
-            unlink($this->outputFileName);
-            $this->outputFileName = '';
-        }
-    }
-
     public function testMultiplier(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -153,24 +142,16 @@ class MultiplierTest extends TestCase
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->setIncludeCharts(true);
-        $this->outputFileName = File::temporaryFilename();
-        $writer->save($this->outputFileName);
-        $spreadsheet->disconnectWorksheets();
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
 
-        $file = 'zip://';
-        $file .= $this->outputFileName;
-        $file .= '#xl/charts/chart1.xml';
-        $data = file_get_contents($file);
         // confirm that file contains expected tags
-        if ($data === false) {
-            self::fail('Unable to read file');
-        } else {
-            foreach ($expectedXmlX as $expected) {
-                self::assertSame(1, substr_count($data, $expected), $expected);
-            }
-            foreach ($expectedXmlNoX as $expected) {
-                self::assertSame(0, substr_count($data, $expected), $expected);
-            }
+        foreach ($expectedXmlX as $expected) {
+            self::assertSame(1, substr_count($data, $expected), $expected);
         }
+        foreach ($expectedXmlNoX as $expected) {
+            self::assertSame(0, substr_count($data, $expected), $expected);
+        }
+        $spreadsheet->disconnectWorksheets();
     }
 }

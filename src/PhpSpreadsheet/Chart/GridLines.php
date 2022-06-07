@@ -286,7 +286,7 @@ class GridLines extends Properties
      * @param int $presets
      * @param string $colorValue
      * @param string $colorType
-     * @param string $colorAlpha
+     * @param null|float|int|string $colorAlpha
      * @param null|float $blur
      * @param null|int $angle
      * @param null|float $distance
@@ -320,6 +320,8 @@ class GridLines extends Properties
         return $this;
     }
 
+    private const SHADOW_ARRAY_KEYS = ['size', 'color'];
+
     /**
      * Set Shadow Properties Values.
      *
@@ -332,12 +334,10 @@ class GridLines extends Properties
         $base_reference = $reference;
         foreach ($propertiesMap as $property_key => $property_val) {
             if (is_array($property_val)) {
-                if ($reference === null) {
+                if (in_array($property_key, self::SHADOW_ARRAY_KEYS, true)) {
                     $reference = &$this->shadowProperties[$property_key];
-                } else {
-                    $reference = &$reference[$property_key];
+                    $this->setShadowPropertiesMapValues($property_val, $reference);
                 }
-                $this->setShadowPropertiesMapValues($property_val, $reference);
             } else {
                 if ($base_reference === null) {
                     $this->shadowProperties[$property_key] = $property_val;
