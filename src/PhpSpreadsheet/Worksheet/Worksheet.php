@@ -2581,6 +2581,22 @@ class Worksheet implements IComparable
 
         return $this;
     }
+    
+
+    /**
+     * Remove comment.
+     *
+     * @param int $columnIndex Numeric column coordinate of the cell
+     * @param int $row Numeric row coordinate of the cell
+     *
+     */
+    public function removeCommentByColumnAndRow($columnIndex, $row)
+    {
+        $pCellCoordinate = strtoupper(Coordinate::stringFromColumnIndex($columnIndex) . $row);
+        if(isset($this->comments[$pCellCoordinate])) {
+            unset($this->comments[$pCellCoordinate]);
+        }
+    }    
 
     /**
      * Get comment for cell.
