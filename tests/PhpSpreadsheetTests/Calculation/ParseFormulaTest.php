@@ -162,6 +162,30 @@ class ParseFormulaTest extends TestCase
                 ],
                 '=B:C',
             ],
+            'Combined Cell Reference and Column Range' => [
+                [
+                    ['type' => 'Column Reference', 'value' => "'sheet1'!A1", 'reference' => "'sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'sheet1'!A1048576", 'reference' => "'sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Cell Reference', 'value' => "'sheet1'!A1", 'reference' => "'sheet1'!A1"],
+                    ['type' => 'Binary Operator', 'value' => '+','reference' => null],
+                ],
+                "=MIN('sheet1'!A:A) + 'sheet1'!A1",
+            ],
+            'Combined Column Range and Cell Reference' => [
+                [
+                    ['type' => 'Cell Reference', 'value' => "'sheet1'!A1", 'reference' => "'sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'sheet1'!A1", 'reference' => "'sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'sheet1'!A1048576", 'reference' => "'sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '+','reference' => null],
+                ],
+                "='sheet1'!A1 + MIN('sheet1'!A:A)",
+            ],
             'Range with Defined Names' => [
                 [
                     ['type' => 'Defined Name', 'value' => 'GROUP1', 'reference' => 'GROUP1'],
