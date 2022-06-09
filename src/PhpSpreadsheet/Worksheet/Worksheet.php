@@ -2590,7 +2590,7 @@ class Worksheet implements IComparable
      *
      * @return Comment
      */
-    public function removeComment($cellCoordinate)
+    public function removeComment($cellCoordinate):void
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
