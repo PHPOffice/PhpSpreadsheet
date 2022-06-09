@@ -83,4 +83,12 @@ class CommentTest extends TestCase
         $comment->setText($test);
         self::assertEquals('This is a test comment', (string) $comment);
     }
+    
+    public function testRemoveComment(): void {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getComment('A2')->getText()->createText('Comment to delete');
+        $sheet->removeComment('A2');
+        self::assertEmpty($sheet->getComments());
+    }    
 }
