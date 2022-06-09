@@ -2581,22 +2581,31 @@ class Worksheet implements IComparable
 
         return $this;
     }
-    
 
     /**
-     * Remove comment.
+     * Remove comment from cell.
      *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
+     * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
+     *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *
+     * @return Comment
      */
-    public function removeCommentByColumnAndRow($columnIndex, $row)
+    public function removeComment($cellCoordinate)
     {
-        $pCellCoordinate = strtoupper(Coordinate::stringFromColumnIndex($columnIndex) . $row);
-        if(isset($this->comments[$pCellCoordinate])) {
-            unset($this->comments[$pCellCoordinate]);
+        $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
+
+        if (Coordinate::coordinateIsRange($cellAddress)) {
+            throw new Exception('Cell coordinate string can not be a range of cells.');
+        } elseif (strpos($cellAddress, '$') !== false) {
+            throw new Exception('Cell coordinate string must not be absolute.');
+        } elseif ($cellAddress == '') {
+            throw new Exception('Cell coordinate can not be zero-length string.');
         }
-    }    
+        // Check if we have a comment for this cell and delete it
+        if (isset($this->comments[$cellAddress])) {
+            unset($this->comments[$cellAddress]);
+        }
+    }
 
     /**
      * Get comment for cell.
