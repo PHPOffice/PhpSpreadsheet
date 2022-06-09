@@ -1752,31 +1752,35 @@ class Worksheet implements IComparable
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
-        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
-            $this->mergeCells[$range] = $range;
-            $firstRow = (int) $matches[2];
-            $lastRow = (int) $matches[4];
-            $firstColumn = $matches[1];
-            $lastColumn = $matches[3];
-            $firstColumnIndex = Coordinate::columnIndexFromString($firstColumn);
-            $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
-            $numberRows = $lastRow - $firstRow;
-            $numberColumns = $lastColumnIndex - $firstColumnIndex;
+        if (strpos($range, ':') === false) {
+            $range .= ":{$range}";
+        }
 
-            // create upper left cell if it does not already exist
-            $upperLeft = "{$firstColumn}{$firstRow}";
-            if (!$this->cellExists($upperLeft)) {
-                $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
-            }
+        if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) !== 1) {
+            throw new Exception('Merge must be on a valid range of cells.');
+        }
 
-            // Blank out the rest of the cells in the range (if they exist)
-            if ($numberRows > $numberColumns) {
-                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft);
-            } else {
-                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft);
-            }
+        $this->mergeCells[$range] = $range;
+        $firstRow = (int) $matches[2];
+        $lastRow = (int) $matches[4];
+        $firstColumn = $matches[1];
+        $lastColumn = $matches[3];
+        $firstColumnIndex = Coordinate::columnIndexFromString($firstColumn);
+        $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
+        $numberRows = $lastRow - $firstRow;
+        $numberColumns = $lastColumnIndex - $firstColumnIndex;
+
+        // create upper left cell if it does not already exist
+        $upperLeft = "{$firstColumn}{$firstRow}";
+        if (!$this->cellExists($upperLeft)) {
+            $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
+        }
+
+        // Blank out the rest of the cells in the range (if they exist)
+        if ($numberRows > $numberColumns) {
+            $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft);
         } else {
-            throw new Exception('Merge must be set on a range of cells.');
+            $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft);
         }
 
         return $this;
