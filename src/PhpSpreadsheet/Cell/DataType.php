@@ -48,7 +48,7 @@ class DataType
      *
      * @param null|RichText|string $textValue Value to sanitize to an Excel string
      *
-     * @return null|RichText|string Sanitized value
+     * @return RichText|string Sanitized value
      */
     public static function checkString($textValue)
     {
@@ -58,7 +58,7 @@ class DataType
         }
 
         // string must never be longer than 32,767 characters, truncate if necessary
-        $textValue = StringHelper::substring($textValue, 0, 32767);
+        $textValue = StringHelper::substring((string) $textValue, 0, 32767);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
         $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);

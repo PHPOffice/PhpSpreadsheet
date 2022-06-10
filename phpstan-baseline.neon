@@ -96,11 +96,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Offset 'type' does not exist on array\\|null\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Offset 'value' does not exist on array\\|null\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -766,11 +761,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
 
 		-
-			message: "#^PHPDoc tag @var for constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Subtotal\\:\\:CALL_FUNCTIONS with type array\\<callable\\(\\)\\: mixed\\> is not subtype of value array\\{1\\: array\\{'PhpOffice…', 'average'\\}, 2\\: array\\{'PhpOffice…', 'COUNT'\\}, 3\\: array\\{'PhpOffice…', 'COUNTA'\\}, 4\\: array\\{'PhpOffice…', 'max'\\}, 5\\: array\\{'PhpOffice…', 'min'\\}, 6\\: array\\{'PhpOffice…', 'product'\\}, 7\\: array\\{'PhpOffice…', 'STDEV'\\}, 8\\: array\\{'PhpOffice…', 'STDEVP'\\}, \\.\\.\\.\\}\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical.php
@@ -1121,31 +1111,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:substring\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/DataType.php
-
-		-
-			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#1 \\$blur of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowBlur\\(\\) expects float, float\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#1 \\$distance of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowDistance\\(\\) expects float, float\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
-			message: "#^Parameter \\#2 \\$alpha of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\:\\:setShadowColor\\(\\) expects int, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Axis.php
-
-		-
 			message: "#^Call to an undefined method object\\:\\:render\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Chart.php
@@ -1206,17 +1171,7 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
 
 		-
-			message: "#^Parameter \\#1 \\$angle of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowAngle\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
 			message: "#^Parameter \\#1 \\$color of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Parameter \\#1 \\$distance of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setShadowDistance\\(\\) expects float, float\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/GridLines.php
 
@@ -1307,36 +1262,6 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has parameter \\$presetsOption with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getTrueAlpha\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getTrueAlpha\\(\\) has parameter \\$alpha with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$alpha with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$color with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:setColorProperties\\(\\) has parameter \\$colorType with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Properties.php
 
@@ -4286,21 +4211,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Offset 'left' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 'right' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
-			message: "#^Offset 'value' does not exist on non\\-empty\\-array\\|string\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -4512,12 +4422,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string given\\.$#"
-			count: 8
+			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -4558,11 +4468,6 @@ parameters:
 		-
 			message: "#^Parameter \\#9 \\$minorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Part \\$xAxis\\-\\>getShadowProperty\\('effect'\\) \\(array\\|int\\|string\\|null\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -4801,11 +4706,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -4843,10 +4743,5 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 

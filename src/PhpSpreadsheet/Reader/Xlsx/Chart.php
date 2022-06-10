@@ -3,11 +3,14 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -67,6 +70,9 @@ class Chart
         $dispBlanksAs = $plotVisOnly = null;
         $plotArea = null;
         $rotX = $rotY = $rAngAx = $perspective = null;
+        $xAxis = new Axis();
+        $yAxis = new Axis();
+        $majorGridlines = $minorGridlines = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
@@ -93,6 +99,7 @@ class Chart
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
+                                            $this->readEffects($chartDetail, $xAxis);
 
                                             break;
                                         case 'dateAx':
@@ -102,9 +109,26 @@ class Chart
 
                                             break;
                                         case 'valAx':
-                                            if (isset($chartDetail->title, $chartDetail->axPos)) {
-                                                $axisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
+                                            $whichAxis = null;
+                                            $axPos = null;
+                                            if (isset($chartDetail->axPos)) {
                                                 $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
+
+                                                switch ($axPos) {
+                                                    case 't':
+                                                    case 'b':
+                                                        $whichAxis = $xAxis;
+
+                                                        break;
+                                                    case 'r':
+                                                    case 'l':
+                                                        $whichAxis = $yAxis;
+
+                                                        break;
+                                                }
+                                            }
+                                            if (isset($chartDetail->title)) {
+                                                $axisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
 
                                                 switch ($axPos) {
                                                     case 't':
@@ -117,6 +141,19 @@ class Chart
                                                         $YaxisLabel = $axisLabel;
 
                                                         break;
+                                                }
+                                            }
+                                            $this->readEffects($chartDetail, $whichAxis);
+                                            if (isset($chartDetail->majorGridlines)) {
+                                                $majorGridlines = new GridLines();
+                                                if (isset($chartDetail->majorGridlines->spPr)) {
+                                                    $this->readEffects($chartDetail->majorGridlines, $majorGridlines);
+                                                }
+                                            }
+                                            if (isset($chartDetail->minorGridlines)) {
+                                                $minorGridlines = new GridLines();
+                                                if (isset($chartDetail->minorGridlines->spPr)) {
+                                                    $this->readEffects($chartDetail->minorGridlines, $minorGridlines);
                                                 }
                                             }
 
@@ -240,7 +277,7 @@ class Chart
                     }
             }
         }
-        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis, $majorGridlines, $minorGridlines);
         if (is_int($rotX)) {
             $chart->setRotX($rotX);
         }
@@ -345,9 +382,8 @@ class Chart
                                 if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
                                     $noFill = true;
                                 }
-                                $sf = $children->solidFill->schemeClr;
-                                if ($sf) {
-                                    $schemeClr = self::getAttribute($sf, 'val', 'string');
+                                if (isset($children->solidFill)) {
+                                    $this->readColor($children->solidFill, $srgbClr, $schemeClr);
                                 }
 
                                 break;
@@ -357,8 +393,8 @@ class Chart
                                 $pointSize = is_numeric($pointSize) ? ((int) $pointSize) : null;
                                 if (count($seriesDetail->spPr) === 1) {
                                     $ln = $seriesDetail->spPr->children($this->aNamespace);
-                                    if (count($ln->solidFill) === 1) {
-                                        $srgbClr = self::getAttribute($ln->solidFill->srgbClr, 'val', 'string');
+                                    if (isset($ln->solidFill)) {
+                                        $this->readColor($ln->solidFill, $srgbClr, $schemeClr);
                                     }
                                 }
 
@@ -603,7 +639,8 @@ class Chart
         $defaultLatin = null;
         $defaultEastAsian = null;
         $defaultComplexScript = null;
-        $defaultColor = null;
+        $defaultSrgbColor = '';
+        $defaultSchemeColor = '';
         if (isset($titleDetailPart->pPr->defRPr)) {
             /** @var ?int */
             $defaultFontSize = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'integer');
@@ -632,9 +669,8 @@ class Chart
                 /** @var ?string */
                 $defaultComplexScript = self::getAttribute($titleDetailPart->pPr->defRPr->cs, 'typeface', 'string');
             }
-            if (isset($titleDetailPart->pPr->defRPr->solidFill->srgbClr)) {
-                /** @var ?string */
-                $defaultColor = self::getAttribute($titleDetailPart->pPr->defRPr->solidFill->srgbClr, 'val', 'string');
+            if (isset($titleDetailPart->pPr->defRPr->solidFill)) {
+                $this->readColor($titleDetailPart->pPr->defRPr->solidFill, $defaultSrgbColor, $defaultSchemeClr);
             }
         }
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
@@ -660,7 +696,8 @@ class Chart
             $latinName = null;
             $eastAsian = null;
             $complexScript = null;
-            $fontColor = null;
+            $fontSrgbClr = '';
+            $fontSchemeClr = '';
             $uSchemeClr = null;
             if (isset($titleDetailElement->rPr)) {
                 // not used now, not sure it ever was, grandfathering
@@ -686,10 +723,9 @@ class Chart
 
                 // not used now, not sure it ever was, grandfathering
                 /** @var ?string */
-                $fontColor = self::getAttribute($titleDetailElement->rPr, 'color', 'string');
-                if (isset($titleDetailElement->rPr->solidFill->srgbClr)) {
-                    /** @var ?string */
-                    $fontColor = self::getAttribute($titleDetailElement->rPr->solidFill->srgbClr, 'val', 'string');
+                $fontSrgbClr = self::getAttribute($titleDetailElement->rPr, 'color', 'string');
+                if (isset($titleDetailElement->rPr->solidFill)) {
+                    $this->readColor($titleDetailElement->rPr->solidFill, $fontSrgbClr, $fontSchemeClr);
                 }
 
                 /** @var ?bool */
@@ -742,11 +778,17 @@ class Chart
                 $fontFound = true;
             }
 
-            $fontColor = $fontColor ?? $defaultColor;
-            if ($fontColor !== null) {
-                $objText->getFont()->setColor(new Color($fontColor));
+            $fontSrgbClr = $fontSrgbClr ?? $defaultSrgbColor;
+            if (!empty($fontSrgbClr)) {
+                $objText->getFont()->setColor(new Color($fontSrgbClr));
                 $fontFound = true;
             }
+            // need to think about what to do here
+            //$fontSchemeClr = $fontSchemeClr ?? $defaultSchemeColor;
+            //if (!empty($fontSchemeClr)) {
+            //    $objText->getFont()->setColor(new Color($fontSrgbClr));
+            //    $fontFound = true;
+            //}
 
             $bold = $bold ?? $defaultBold;
             if ($bold !== null) {
@@ -876,5 +918,125 @@ class Chart
                     break;
             }
         }
+    }
+
+    /**
+     * @param null|Axis|GridLines $chartObject may be extended to include other types
+     */
+    private function readEffects(SimpleXMLElement $chartDetail, $chartObject): void
+    {
+        if (!isset($chartObject, $chartDetail->spPr)) {
+            return;
+        }
+        $sppr = $chartDetail->spPr->children($this->aNamespace);
+
+        if (isset($sppr->effectLst->glow)) {
+            $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+            if ($axisGlowSize != 0.0) {
+                $colorArray = $this->readColor($sppr->effectLst->glow);
+                $chartObject->setGlowProperties($axisGlowSize, $colorArray['value'], $colorArray['alpha'], $colorArray['type']);
+            }
+        }
+
+        if (isset($sppr->effectLst->softEdge)) {
+            /** @var string */
+            $softEdgeSize = self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string');
+            if (is_numeric($softEdgeSize)) {
+                $chartObject->setSoftEdges((float) Properties::xmlToPoints($softEdgeSize));
+            }
+        }
+
+        $type = '';
+        foreach (self::SHADOW_TYPES as $shadowType) {
+            if (isset($sppr->effectLst->$shadowType)) {
+                $type = $shadowType;
+
+                break;
+            }
+        }
+        if ($type !== '') {
+            /** @var string */
+            $blur = self::getAttribute($sppr->effectLst->$type, 'blurRad', 'string');
+            $blur = is_numeric($blur) ? Properties::xmlToPoints($blur) : null;
+            /** @var string */
+            $dist = self::getAttribute($sppr->effectLst->$type, 'dist', 'string');
+            $dist = is_numeric($dist) ? Properties::xmlToPoints($dist) : null;
+            /** @var string */
+            $direction = self::getAttribute($sppr->effectLst->$type, 'dir', 'string');
+            $direction = is_numeric($direction) ? Properties::xmlToAngle($direction) : null;
+            $algn = self::getAttribute($sppr->effectLst->$type, 'algn', 'string');
+            $rot = self::getAttribute($sppr->effectLst->$type, 'rotWithShape', 'string');
+            $size = [];
+            foreach (['sx', 'sy'] as $sizeType) {
+                $sizeValue = self::getAttribute($sppr->effectLst->$type, $sizeType, 'string');
+                if (is_numeric($sizeValue)) {
+                    $size[$sizeType] = Properties::xmlToTenthOfPercent((string) $sizeValue);
+                } else {
+                    $size[$sizeType] = null;
+                }
+            }
+            foreach (['kx', 'ky'] as $sizeType) {
+                $sizeValue = self::getAttribute($sppr->effectLst->$type, $sizeType, 'string');
+                if (is_numeric($sizeValue)) {
+                    $size[$sizeType] = Properties::xmlToAngle((string) $sizeValue);
+                } else {
+                    $size[$sizeType] = null;
+                }
+            }
+            $colorArray = $this->readColor($sppr->effectLst->$type);
+            $chartObject
+                ->setShadowProperty('effect', $type)
+                ->setShadowProperty('blur', $blur)
+                ->setShadowProperty('direction', $direction)
+                ->setShadowProperty('distance', $dist)
+                ->setShadowProperty('algn', $algn)
+                ->setShadowProperty('rotWithShape', $rot)
+                ->setShadowProperty('size', $size)
+                ->setShadowProperty('color', $colorArray);
+        }
+    }
+
+    private const SHADOW_TYPES = [
+        'outerShdw',
+        'innerShdw',
+    ];
+
+    private function readColor(SimpleXMLElement $colorXml, ?string &$srgbClr = null, ?string &$schemeClr = null): array
+    {
+        $result = [
+            'type' => null,
+            'value' => null,
+            'alpha' => null,
+        ];
+        if (isset($colorXml->srgbClr)) {
+            $result['type'] = Properties::EXCEL_COLOR_TYPE_ARGB;
+            $result['value'] = $srgbClr = self::getAttribute($colorXml->srgbClr, 'val', 'string');
+            if (isset($colorXml->srgbClr->alpha)) {
+                /** @var string */
+                $alpha = self::getAttribute($colorXml->srgbClr->alpha, 'val', 'string');
+                $alpha = Properties::alphaFromXml($alpha);
+                $result['alpha'] = $alpha;
+            }
+        } elseif (isset($colorXml->schemeClr)) {
+            $result['type'] = Properties::EXCEL_COLOR_TYPE_SCHEME;
+            $result['value'] = $schemeClr = self::getAttribute($colorXml->schemeClr, 'val', 'string');
+            if (isset($colorXml->schemeClr->alpha)) {
+                /** @var string */
+                $alpha = self::getAttribute($colorXml->schemeClr->alpha, 'val', 'string');
+                $alpha = Properties::alphaFromXml($alpha);
+                $result['alpha'] = $alpha;
+            }
+        } elseif (isset($colorXml->prstClr)) {
+            $result['type'] = Properties::EXCEL_COLOR_TYPE_STANDARD;
+            $result['value'] = self::getAttribute($colorXml->prstClr, 'val', 'string');
+            if (isset($colorXml->prstClr->alpha)) {
+                /** @var string */
+                $alpha = self::getAttribute($colorXml->prstClr->alpha, 'val', 'string');
+                $alpha = Properties::alphaFromXml($alpha);
+                $result['alpha'] = $alpha;
+            }
+        }
+
+        return $result;
     }
 }

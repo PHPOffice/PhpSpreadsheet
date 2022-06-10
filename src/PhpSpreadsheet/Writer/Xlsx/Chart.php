@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
@@ -497,6 +498,14 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('axis_labels'));
         $objWriter->endElement();
 
+        $objWriter->startElement('c:spPr');
+        $objWriter->startElement('a:effectLst');
+        $this->writeGlow($objWriter, $yAxis);
+        $this->writeShadow($objWriter, $yAxis);
+        $this->writeSoftEdge($objWriter, $yAxis);
+        $objWriter->endElement(); // effectLst
+        $objWriter->endElement(); // spPr
+
         if ($id2 !== '0') {
             $objWriter->startElement('c:crossAx');
             $objWriter->writeAttribute('val', $id2);
@@ -619,61 +628,9 @@ class Chart extends WriterPart
             $objWriter->endElement(); //end ln
         }
         $objWriter->startElement('a:effectLst');
-
-        if ($majorGridlines->getGlowSize() !== null) {
-            $objWriter->startElement('a:glow');
-            $objWriter->writeAttribute('rad', $majorGridlines->getGlowSize());
-            $objWriter->startElement("a:{$majorGridlines->getGlowColor('type')}");
-            $objWriter->writeAttribute('val', $majorGridlines->getGlowColor('value'));
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', $majorGridlines->getGlowColor('alpha'));
-            $objWriter->endElement(); //end alpha
-            $objWriter->endElement(); //end schemeClr
-            $objWriter->endElement(); //end glow
-        }
-
-        if ($majorGridlines->getShadowProperty('presets') !== null) {
-            $objWriter->startElement("a:{$majorGridlines->getShadowProperty('effect')}");
-            if ($majorGridlines->getShadowProperty('blur') !== null) {
-                $objWriter->writeAttribute('blurRad', $majorGridlines->getShadowProperty('blur'));
-            }
-            if ($majorGridlines->getShadowProperty('distance') !== null) {
-                $objWriter->writeAttribute('dist', $majorGridlines->getShadowProperty('distance'));
-            }
-            if ($majorGridlines->getShadowProperty('direction') !== null) {
-                $objWriter->writeAttribute('dir', $majorGridlines->getShadowProperty('direction'));
-            }
-            if ($majorGridlines->getShadowProperty('algn') !== null) {
-                $objWriter->writeAttribute('algn', $majorGridlines->getShadowProperty('algn'));
-            }
-            if ($majorGridlines->getShadowProperty(['size', 'sx']) !== null) {
-                $objWriter->writeAttribute('sx', $majorGridlines->getShadowProperty(['size', 'sx']));
-            }
-            if ($majorGridlines->getShadowProperty(['size', 'sy']) !== null) {
-                $objWriter->writeAttribute('sy', $majorGridlines->getShadowProperty(['size', 'sy']));
-            }
-            if ($majorGridlines->getShadowProperty(['size', 'kx']) !== null) {
-                $objWriter->writeAttribute('kx', $majorGridlines->getShadowProperty(['size', 'kx']));
-            }
-            if ($majorGridlines->getShadowProperty('rotWithShape') !== null) {
-                $objWriter->writeAttribute('rotWithShape', $majorGridlines->getShadowProperty('rotWithShape'));
-            }
-            $objWriter->startElement("a:{$majorGridlines->getShadowProperty(['color', 'type'])}");
-            $objWriter->writeAttribute('val', $majorGridlines->getShadowProperty(['color', 'value']));
-
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', $majorGridlines->getShadowProperty(['color', 'alpha']));
-            $objWriter->endElement(); //end alpha
-
-            $objWriter->endElement(); //end color:type
-            $objWriter->endElement(); //end shadow
-        }
-
-        if ($majorGridlines->getSoftEdgesSize() !== null) {
-            $objWriter->startElement('a:softEdge');
-            $objWriter->writeAttribute('rad', $majorGridlines->getSoftEdgesSize());
-            $objWriter->endElement(); //end softEdge
-        }
+        $this->writeGlow($objWriter, $majorGridlines);
+        $this->writeShadow($objWriter, $majorGridlines);
+        $this->writeSoftEdge($objWriter, $majorGridlines);
 
         $objWriter->endElement(); //end effectLst
         $objWriter->endElement(); //end spPr
@@ -727,61 +684,11 @@ class Chart extends WriterPart
             }
 
             $objWriter->startElement('a:effectLst');
-
-            if ($minorGridlines->getGlowSize() !== null) {
-                $objWriter->startElement('a:glow');
-                $objWriter->writeAttribute('rad', $minorGridlines->getGlowSize());
-                $objWriter->startElement("a:{$minorGridlines->getGlowColor('type')}");
-                $objWriter->writeAttribute('val', $minorGridlines->getGlowColor('value'));
-                $objWriter->startElement('a:alpha');
-                $objWriter->writeAttribute('val', $minorGridlines->getGlowColor('alpha'));
-                $objWriter->endElement(); //end alpha
-                $objWriter->endElement(); //end schemeClr
-                $objWriter->endElement(); //end glow
-            }
-
-            if ($minorGridlines->getShadowProperty('presets') !== null) {
-                $objWriter->startElement("a:{$minorGridlines->getShadowProperty('effect')}");
-                if ($minorGridlines->getShadowProperty('blur') !== null) {
-                    $objWriter->writeAttribute('blurRad', $minorGridlines->getShadowProperty('blur'));
-                }
-                if ($minorGridlines->getShadowProperty('distance') !== null) {
-                    $objWriter->writeAttribute('dist', $minorGridlines->getShadowProperty('distance'));
-                }
-                if ($minorGridlines->getShadowProperty('direction') !== null) {
-                    $objWriter->writeAttribute('dir', $minorGridlines->getShadowProperty('direction'));
-                }
-                if ($minorGridlines->getShadowProperty('algn') !== null) {
-                    $objWriter->writeAttribute('algn', $minorGridlines->getShadowProperty('algn'));
-                }
-                if ($minorGridlines->getShadowProperty(['size', 'sx']) !== null) {
-                    $objWriter->writeAttribute('sx', $minorGridlines->getShadowProperty(['size', 'sx']));
-                }
-                if ($minorGridlines->getShadowProperty(['size', 'sy']) !== null) {
-                    $objWriter->writeAttribute('sy', $minorGridlines->getShadowProperty(['size', 'sy']));
-                }
-                if ($minorGridlines->getShadowProperty(['size', 'kx']) !== null) {
-                    $objWriter->writeAttribute('kx', $minorGridlines->getShadowProperty(['size', 'kx']));
-                }
-                if ($minorGridlines->getShadowProperty('rotWithShape') !== null) {
-                    $objWriter->writeAttribute('rotWithShape', $minorGridlines->getShadowProperty('rotWithShape'));
-                }
-                $objWriter->startElement("a:{$minorGridlines->getShadowProperty(['color', 'type'])}");
-                $objWriter->writeAttribute('val', $minorGridlines->getShadowProperty(['color', 'value']));
-                $objWriter->startElement('a:alpha');
-                $objWriter->writeAttribute('val', $minorGridlines->getShadowProperty(['color', 'alpha']));
-                $objWriter->endElement(); //end alpha
-                $objWriter->endElement(); //end color:type
-                $objWriter->endElement(); //end shadow
-            }
-
-            if ($minorGridlines->getSoftEdgesSize() !== null) {
-                $objWriter->startElement('a:softEdge');
-                $objWriter->writeAttribute('rad', $minorGridlines->getSoftEdgesSize());
-                $objWriter->endElement(); //end softEdge
-            }
-
+            $this->writeGlow($objWriter, $minorGridlines);
+            $this->writeShadow($objWriter, $minorGridlines);
+            $this->writeSoftEdge($objWriter, $minorGridlines);
             $objWriter->endElement(); //end effectLst
+
             $objWriter->endElement(); //end spPr
             $objWriter->endElement(); //end minorGridLines
         }
@@ -904,64 +811,11 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->startElement('a:effectLst');
-
-        if ($xAxis->getGlowProperty('size') !== null) {
-            $objWriter->startElement('a:glow');
-            $objWriter->writeAttribute('rad', $xAxis->getGlowProperty('size'));
-            $objWriter->startElement("a:{$xAxis->getGlowProperty(['color', 'type'])}");
-            $objWriter->writeAttribute('val', $xAxis->getGlowProperty(['color', 'value']));
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', $xAxis->getGlowProperty(['color', 'alpha']));
-            $objWriter->endElement();
-            $objWriter->endElement();
-            $objWriter->endElement();
-        }
-
-        if ($xAxis->getShadowProperty('presets') !== null) {
-            $objWriter->startElement("a:{$xAxis->getShadowProperty('effect')}");
-
-            if ($xAxis->getShadowProperty('blur') !== null) {
-                $objWriter->writeAttribute('blurRad', $xAxis->getShadowProperty('blur'));
-            }
-            if ($xAxis->getShadowProperty('distance') !== null) {
-                $objWriter->writeAttribute('dist', $xAxis->getShadowProperty('distance'));
-            }
-            if ($xAxis->getShadowProperty('direction') !== null) {
-                $objWriter->writeAttribute('dir', $xAxis->getShadowProperty('direction'));
-            }
-            if ($xAxis->getShadowProperty('algn') !== null) {
-                $objWriter->writeAttribute('algn', $xAxis->getShadowProperty('algn'));
-            }
-            if ($xAxis->getShadowProperty(['size', 'sx']) !== null) {
-                $objWriter->writeAttribute('sx', $xAxis->getShadowProperty(['size', 'sx']));
-            }
-            if ($xAxis->getShadowProperty(['size', 'sy']) !== null) {
-                $objWriter->writeAttribute('sy', $xAxis->getShadowProperty(['size', 'sy']));
-            }
-            if ($xAxis->getShadowProperty(['size', 'kx']) !== null) {
-                $objWriter->writeAttribute('kx', $xAxis->getShadowProperty(['size', 'kx']));
-            }
-            if ($xAxis->getShadowProperty('rotWithShape') !== null) {
-                $objWriter->writeAttribute('rotWithShape', $xAxis->getShadowProperty('rotWithShape'));
-            }
-
-            $objWriter->startElement("a:{$xAxis->getShadowProperty(['color', 'type'])}");
-            $objWriter->writeAttribute('val', $xAxis->getShadowProperty(['color', 'value']));
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', $xAxis->getShadowProperty(['color', 'alpha']));
-            $objWriter->endElement();
-            $objWriter->endElement();
-
-            $objWriter->endElement();
-        }
-
-        if ($xAxis->getSoftEdgesSize() !== null) {
-            $objWriter->startElement('a:softEdge');
-            $objWriter->writeAttribute('rad', $xAxis->getSoftEdgesSize());
-            $objWriter->endElement();
-        }
-
+        $this->writeGlow($objWriter, $xAxis);
+        $this->writeShadow($objWriter, $xAxis);
+        $this->writeSoftEdge($objWriter, $xAxis);
         $objWriter->endElement(); //effectList
+
         $objWriter->endElement(); //end spPr
 
         if ($id1 !== '0') {
@@ -1636,5 +1490,101 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write shadow properties.
+     *
+     * @param Axis|GridLines $xAxis
+     */
+    private function writeShadow(XMLWriter $objWriter, $xAxis): void
+    {
+        if ($xAxis->getShadowProperty('effect') === null) {
+            return;
+        }
+        /** @var string */
+        $effect = $xAxis->getShadowProperty('effect');
+        $objWriter->startElement("a:$effect");
+
+        if (is_numeric($xAxis->getShadowProperty('blur'))) {
+            $objWriter->writeAttribute('blurRad', Properties::pointsToXml((float) $xAxis->getShadowProperty('blur')));
+        }
+        if (is_numeric($xAxis->getShadowProperty('distance'))) {
+            $objWriter->writeAttribute('dist', Properties::pointsToXml((float) $xAxis->getShadowProperty('distance')));
+        }
+        if (is_numeric($xAxis->getShadowProperty('direction'))) {
+            $objWriter->writeAttribute('dir', Properties::angleToXml((float) $xAxis->getShadowProperty('direction')));
+        }
+        if ($xAxis->getShadowProperty('algn') !== null) {
+            $objWriter->writeAttribute('algn', $xAxis->getShadowProperty('algn'));
+        }
+        foreach (['sx', 'sy'] as $sizeType) {
+            $sizeValue = $xAxis->getShadowProperty(['size', $sizeType]);
+            if (is_numeric($sizeValue)) {
+                $objWriter->writeAttribute($sizeType, Properties::tenthOfPercentToXml((float) $sizeValue));
+            }
+        }
+        foreach (['kx', 'ky'] as $sizeType) {
+            $sizeValue = $xAxis->getShadowProperty(['size', $sizeType]);
+            if (is_numeric($sizeValue)) {
+                $objWriter->writeAttribute($sizeType, Properties::angleToXml((float) $sizeValue));
+            }
+        }
+        if ($xAxis->getShadowProperty('rotWithShape') !== null) {
+            $objWriter->writeAttribute('rotWithShape', $xAxis->getShadowProperty('rotWithShape'));
+        }
+
+        $objWriter->startElement("a:{$xAxis->getShadowProperty(['color', 'type'])}");
+        $objWriter->writeAttribute('val', $xAxis->getShadowProperty(['color', 'value']));
+        $alpha = $xAxis->getShadowProperty(['color', 'alpha']);
+        if (is_numeric($alpha)) {
+            $objWriter->startElement('a:alpha');
+            $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
+            $objWriter->endElement();
+        }
+        $objWriter->endElement();
+
+        $objWriter->endElement();
+    }
+
+    /**
+     * Write glow properties.
+     *
+     * @param Axis|GridLines $yAxis
+     */
+    private function writeGlow(XMLWriter $objWriter, $yAxis): void
+    {
+        $size = $yAxis->getGlowProperty('size');
+        if (empty($size)) {
+            return;
+        }
+        $objWriter->startElement('a:glow');
+        $objWriter->writeAttribute('rad', Properties::pointsToXml((float) $size));
+        $objWriter->startElement("a:{$yAxis->getGlowProperty(['color', 'type'])}");
+        $objWriter->writeAttribute('val', (string) $yAxis->getGlowProperty(['color', 'value']));
+        $alpha = $yAxis->getGlowProperty(['color', 'alpha']);
+        if (is_numeric($alpha)) {
+            $objWriter->startElement('a:alpha');
+            $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
+            $objWriter->endElement(); // alpha
+        }
+        $objWriter->endElement(); // color
+        $objWriter->endElement(); // glow
+    }
+
+    /**
+     * Write soft edge properties.
+     *
+     * @param Axis|GridLines $yAxis
+     */
+    private function writeSoftEdge(XMLWriter $objWriter, $yAxis): void
+    {
+        $softEdgeSize = $yAxis->getSoftEdgesSize();
+        if (empty($softEdgeSize)) {
+            return;
+        }
+        $objWriter->startElement('a:softEdge');
+        $objWriter->writeAttribute('rad', Properties::pointsToXml((float) $softEdgeSize));
+        $objWriter->endElement(); //end softEdge
     }
 }
