@@ -14,6 +14,11 @@ abstract class Properties
         EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
     const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
     const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
+    const EXCEL_COLOR_TYPES = [
+        self::EXCEL_COLOR_TYPE_ARGB,
+        self::EXCEL_COLOR_TYPE_SCHEME,
+        self::EXCEL_COLOR_TYPE_STANDARD,
+    ];
 
     const
         AXIS_LABELS_LOW = 'low';

@@ -942,6 +942,9 @@ class Chart extends WriterPart
      */
     private function writePlotSeriesValuesElement(XMLWriter $objWriter, $val = 3, $fillColor = 'FF9900'): void
     {
+        if ($fillColor === '') {
+            return;
+        }
         $objWriter->startElement('c:dPt');
         $objWriter->startElement('c:idx');
         $objWriter->writeAttribute('val', $val);
@@ -953,8 +956,16 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $objWriter->startElement('a:solidFill');
-        $objWriter->startElement('a:srgbClr');
-        $objWriter->writeAttribute('val', $fillColor);
+        if (substr($fillColor, 0, 1) === '*') {
+            $objWriter->startElement('a:schemeClr');
+            $objWriter->writeAttribute('val', substr($fillColor, 1));
+        } elseif (substr($fillColor, 0, 1) === '/') {
+            $objWriter->startElement('a:prstClr');
+            $objWriter->writeAttribute('val', substr($fillColor, 1));
+        } else {
+            $objWriter->startElement('a:srgbClr');
+            $objWriter->writeAttribute('val', $fillColor);
+        }
         $objWriter->endElement();
         $objWriter->endElement();
         $objWriter->endElement();
@@ -1039,7 +1050,7 @@ class Chart extends WriterPart
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
-                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, ($fillColorValues[$dataKey] ?? 'FF9900'));
+                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? '');
                     }
                 } else {
                     $this->writePlotSeriesValuesElement($objWriter);
@@ -1061,7 +1072,7 @@ class Chart extends WriterPart
                 $groupType == DataSeries::TYPE_LINECHART
                 || $groupType == DataSeries::TYPE_STOCKCHART
                 || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines())
-                || ($plotSeriesValues !== false && $plotSeriesValues->getSchemeClr())
+                || ($plotSeriesValues !== false && ($plotSeriesValues->getSchemeClr() || $plotSeriesValues->getPrstClr()))
             ) {
                 $plotLineWidth = 12700;
                 if ($plotSeriesValues) {
@@ -1069,10 +1080,21 @@ class Chart extends WriterPart
                 }
 
                 $objWriter->startElement('c:spPr');
-                $schemeClr = $plotLabel ? $plotLabel->getSchemeClr() : null;
+                $schemeClr = $typeClr = '';
+                if ($plotLabel) {
+                    $schemeClr = $plotLabel->getSchemeClr();
+                    if ($schemeClr) {
+                        $typeClr = 'schemeClr';
+                    } else {
+                        $schemeClr = $plotLabel->getPrstClr();
+                        if ($schemeClr) {
+                            $typeClr = 'prstClr';
+                        }
+                    }
+                }
                 if ($schemeClr) {
                     $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement('a:schemeClr');
+                    $objWriter->startElement("a:$typeClr");
                     $objWriter->writeAttribute('val', $schemeClr);
                     $objWriter->endElement();
                     $objWriter->endElement();
