@@ -3616,11 +3616,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Column\\:\\:\\$parent \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Column.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\:\\:\\$color \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Drawing/Shadow.php
@@ -3644,11 +3639,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int\\<min, \\-1\\> and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Row\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Row.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\SheetView\\:\\:\\$sheetViewTypes has no type specified\\.$#"

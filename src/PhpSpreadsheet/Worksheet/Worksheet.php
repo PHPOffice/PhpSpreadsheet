@@ -3251,6 +3251,66 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Returns a boolean true if the specified row contains no cells. By default, this means that no cell records
+     *          exist in the collection for this row. false will be returned otherwise.
+     *     This rule can be modified by passing a $definitionOfEmptyFlags value:
+     *          1 - CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL If the only cells in the collection are null value
+     *                  cells, then the row will be considered empty.
+     *          2 - CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL If the only cells in the collection are empty
+     *                  string value cells, then the row will be considered empty.
+     *          3 - CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL | CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     *                  If the only cells in the collection are null value or empty string value cells, then the row
+     *                  will be considered empty.
+     *
+     * @param int $definitionOfEmptyFlags
+     *              Possible Flag Values are:
+     *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
+     *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     */
+    public function isEmptyRow(int $rowId, int $definitionOfEmptyFlags = 0): bool
+    {
+        try {
+            $iterator = new RowIterator($this, $rowId, $rowId);
+            $iterator->seek($rowId);
+            $row = $iterator->current();
+        } catch (Exception $e) {
+            return true;
+        }
+
+        return $row->isEmpty($definitionOfEmptyFlags);
+    }
+
+    /**
+     * Returns a boolean true if the specified column contains no cells. By default, this means that no cell records
+     *          exist in the collection for this column. false will be returned otherwise.
+     *     This rule can be modified by passing a $definitionOfEmptyFlags value:
+     *          1 - CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL If the only cells in the collection are null value
+     *                  cells, then the column will be considered empty.
+     *          2 - CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL If the only cells in the collection are empty
+     *                  string value cells, then the column will be considered empty.
+     *          3 - CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL | CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     *                  If the only cells in the collection are null value or empty string value cells, then the column
+     *                  will be considered empty.
+     *
+     * @param int $definitionOfEmptyFlags
+     *              Possible Flag Values are:
+     *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
+     *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     */
+    public function isEmptyColumn(string $columnId, int $definitionOfEmptyFlags = 0): bool
+    {
+        try {
+            $iterator = new ColumnIterator($this, $columnId, $columnId);
+            $iterator->seek($columnId);
+            $column = $iterator->current();
+        } catch (Exception $e) {
+            return true;
+        }
+
+        return $column->isEmpty($definitionOfEmptyFlags);
+    }
+
+    /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
     public function __clone()
