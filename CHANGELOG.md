@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
+- Better enforcement of value modification to match specified datatype when using setValueExplicit() 
+- Relax validation of merge cells to allow merge for a single cell reference [Issue #2776](https://github.com/PHPOffice/PhpSpreadsheet/issues/2776)
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
   See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions

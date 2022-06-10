@@ -1177,6 +1177,11 @@ class Worksheet implements IComparable
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      * @param mixed $value Value of the cell
      * @param string $dataType Explicit data type, see DataType::TYPE_*
+     *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
+     *             method, then it is your responsibility as an end-user developer to validate that the value and
+     *             the datatype match.
+     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
+     *          that you specify.
      *
      * @return $this
      */
@@ -1199,6 +1204,11 @@ class Worksheet implements IComparable
      * @param int $row Numeric row coordinate of the cell
      * @param mixed $value Value of the cell
      * @param string $dataType Explicit data type, see DataType::TYPE_*
+     *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
+     *             method, then it is your responsibility as an end-user developer to validate that the value and
+     *             the datatype match.
+     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
+     *          that you specify.
      *
      * @return $this
      */
@@ -1769,6 +1779,10 @@ class Worksheet implements IComparable
         $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
         $numberRows = $lastRow - $firstRow;
         $numberColumns = $lastColumnIndex - $firstColumnIndex;
+
+        if ($numberRows === 1 && $numberColumns === 1) {
+            return $this;
+        }
 
         // create upper left cell if it does not already exist
         $upperLeft = "{$firstColumn}{$firstRow}";
