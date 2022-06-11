@@ -3116,26 +3116,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbIsUpper\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbIsUpper\\(\\) has parameter \\$character with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbStrSplit\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:mbStrSplit\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:sanitizeUTF8\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
@@ -3158,11 +3138,6 @@ parameters:
 		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$thousandsSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Variable \\$textValue on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 3
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
 		-
