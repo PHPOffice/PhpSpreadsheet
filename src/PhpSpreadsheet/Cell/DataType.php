@@ -21,7 +21,7 @@ class DataType
     /**
      * List of error codes.
      *
-     * @var array
+     * @var array<string, int>
      */
     private static $errorCodes = [
         '#NULL!' => 0,
@@ -36,7 +36,7 @@ class DataType
     /**
      * Get list of error codes.
      *
-     * @return array
+     * @return array<string, int>
      */
     public static function getErrorCodes()
     {
