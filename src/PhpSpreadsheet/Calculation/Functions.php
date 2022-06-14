@@ -152,7 +152,7 @@ class Functions
         if ($condition === '') {
             return '=""';
         }
-        if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
+        if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='], true)) {
             $condition = self::operandSpecialHandling($condition);
             if (is_bool($condition)) {
                 return '=' . ($condition ? 'TRUE' : 'FALSE');
