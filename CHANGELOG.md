@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Added `removeComment()` method for Worksheet [PR #2875](https://github.com/PHPOffice/PhpSpreadsheet/pull/2875/files)
 - Add point size option for scatter charts [Issue #2298](https://github.com/PHPOffice/PhpSpreadsheet/issues/2298) [PR #2801](https://github.com/PHPOffice/PhpSpreadsheet/pull/2801)
 - Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
 
