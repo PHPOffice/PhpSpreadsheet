@@ -2588,9 +2588,9 @@ class Worksheet implements IComparable
      * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *
-     * @return Comment
+     * @return $this
      */
-    public function removeComment($cellCoordinate):void
+    public function removeComment($cellCoordinate)
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2605,6 +2605,8 @@ class Worksheet implements IComparable
         if (isset($this->comments[$cellAddress])) {
             unset($this->comments[$cellAddress]);
         }
+        
+        return $this;
     }
 
     /**
