@@ -19,9 +19,15 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Added Worksheet visibility in Ods Writer [PR #2850](https://github.com/PHPOffice/PhpSpreadsheet/pull/2850)
 - Allow Csv Reader to treat string as contents of file [Issue #1285](https://github.com/PHPOffice/PhpSpreadsheet/issues/1285) [PR #2792](https://github.com/PHPOffice/PhpSpreadsheet/pull/2792)
 - Allow Csv Reader to store null string rather than leave cell empty [Issue #2840](https://github.com/PHPOffice/PhpSpreadsheet/issues/2840) [PR #2842](https://github.com/PHPOffice/PhpSpreadsheet/pull/2842)
+- Provide new Worksheet methods to identify if a row or column is "empty", making allowance for different definitions of "empty":
+  - Treat rows/columns containing no cell records as empty (default)
+  - Treat cells containing a null value as empty
+  - Treat cells containing an empty string as empty
 
 ### Changed
 
+- Better enforcement of value modification to match specified datatype when using setValueExplicit() 
+- Relax validation of merge cells to allow merge for a single cell reference [Issue #2776](https://github.com/PHPOffice/PhpSpreadsheet/issues/2776)
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
   See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions

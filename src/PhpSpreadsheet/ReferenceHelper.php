@@ -399,7 +399,7 @@ class ReferenceHelper
                 return $highestColumn . $row;
             }, range(1, $highestRow)),
             function ($coordinate) use ($allCoordinates) {
-                return !in_array($coordinate, $allCoordinates);
+                return in_array($coordinate, $allCoordinates, true) === false;
             }
         );
 
@@ -929,7 +929,7 @@ class ReferenceHelper
                 $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
                 $worksheet->removeConditionalStyles($coordinate);
                 if ($worksheet->cellExists($coordinate)) {
-                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
+                    $worksheet->getCell($coordinate)->setValueExplicit(null, DataType::TYPE_NULL);
                     $worksheet->getCell($coordinate)->setXfIndex(0);
                 }
             }
@@ -945,7 +945,7 @@ class ReferenceHelper
                 $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
                 $worksheet->removeConditionalStyles($coordinate);
                 if ($worksheet->cellExists($coordinate)) {
-                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
+                    $worksheet->getCell($coordinate)->setValueExplicit(null, DataType::TYPE_NULL);
                     $worksheet->getCell($coordinate)->setXfIndex(0);
                 }
             }

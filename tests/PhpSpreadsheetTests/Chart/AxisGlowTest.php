@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -106,21 +106,21 @@ class AxisGlowTest extends AbstractFunctional
         );
         $yAxis = $chart->getChartAxisY();
         $xAxis = $chart->getChartAxisX();
-        $yAxis->setGlowProperties(10, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
-        $expectedSize = 127000.0;
+        $yGlowSize = 10.0;
+        $yAxis->setGlowProperties($yGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
         $expectedGlowColor = [
             'type' => 'srgbClr',
             'value' => 'FFFF00',
-            'alpha' => '70000',
+            'alpha' => 30,
         ];
-        $yAxis->setSoftEdges(2.5);
-        $xAxis->setSoftEdges(5);
-        $expectedSoftEdgesY = '31750';
-        $expectedSoftEdgesX = '63500';
-        self::assertEquals($expectedSize, $yAxis->getGlowProperty('size'));
+        $softEdgesY = 2.5;
+        $yAxis->setSoftEdges($softEdgesY);
+        $softEdgesX = 5;
+        $xAxis->setSoftEdges($softEdgesX);
+        self::assertEquals($yGlowSize, $yAxis->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis->getGlowProperty('color'));
-        self::assertEquals($expectedSoftEdgesY, $yAxis->getSoftEdgesSize());
-        self::assertEquals($expectedSoftEdgesX, $xAxis->getSoftEdgesSize());
+        self::assertEquals($softEdgesY, $yAxis->getSoftEdgesSize());
+        self::assertEquals($softEdgesX, $xAxis->getSoftEdgesSize());
 
         // Set the position where the chart should appear in the worksheet
         $chart->setTopLeftPosition('A7');
@@ -142,9 +142,9 @@ class AxisGlowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis2 = $chart2->getChartAxisY();
-        self::assertEquals($expectedSize, $yAxis2->getGlowProperty('size'));
+        self::assertEquals($yGlowSize, $yAxis2->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis2->getGlowProperty('color'));
-        self::assertEquals($expectedSoftEdgesY, $yAxis2->getSoftEdgesSize());
+        self::assertEquals($softEdgesY, $yAxis2->getSoftEdgesSize());
         $xAxis2 = $chart2->getChartAxisX();
         self::assertNull($xAxis2->getGlowProperty('size'));
         $reloadedSpreadsheet->disconnectWorksheets();
@@ -229,14 +229,14 @@ class AxisGlowTest extends AbstractFunctional
             $yAxisLabel  // yAxisLabel
         );
         $yAxis = $chart->getChartAxisX(); // deliberate
-        $yAxis->setGlowProperties(20, 'accent1', 20, Properties::EXCEL_COLOR_TYPE_SCHEME);
-        $expectedSize = 254000.0;
+        $yGlowSize = 20.0;
+        $yAxis->setGlowProperties($yGlowSize, 'accent1', 20, Properties::EXCEL_COLOR_TYPE_SCHEME);
         $expectedGlowColor = [
             'type' => 'schemeClr',
             'value' => 'accent1',
-            'alpha' => '80000',
+            'alpha' => 20,
         ];
-        self::assertEquals($expectedSize, $yAxis->getGlowProperty('size'));
+        self::assertEquals($yGlowSize, $yAxis->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis->getGlowProperty('color'));
 
         // Set the position where the chart should appear in the worksheet
@@ -259,7 +259,7 @@ class AxisGlowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis2 = $chart2->getChartAxisX(); // deliberate
-        self::assertEquals($expectedSize, $yAxis2->getGlowProperty('size'));
+        self::assertEquals($yGlowSize, $yAxis2->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis2->getGlowProperty('color'));
         $xAxis2 = $chart2->getChartAxisY(); // deliberate
         self::assertNull($xAxis2->getGlowProperty('size'));
