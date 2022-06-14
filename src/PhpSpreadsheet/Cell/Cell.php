@@ -202,6 +202,11 @@ class Cell
      *
      * @param mixed $value Value
      * @param string $dataType Explicit data type, see DataType::TYPE_*
+     *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
+     *             method, then it is your responsibility as an end-user developer to validate that the value and
+     *             the datatype match.
+     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
+     *          that you specify.
      *
      * @return Cell
      */
@@ -210,7 +215,7 @@ class Cell
         // set the value according to data type
         switch ($dataType) {
             case DataType::TYPE_NULL:
-                $this->value = $value;
+                $this->value = null;
 
                 break;
             case DataType::TYPE_STRING2:

@@ -1744,7 +1744,7 @@ class Html extends BaseWriter
                 while ($c++ < $e) {
                     $baseCell = $this->isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
 
-                    if (!in_array($baseCell, $adjustedBaseCells)) {
+                    if (!in_array($baseCell, $adjustedBaseCells, true)) {
                         // subtract rowspan by 1
                         --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
                         $adjustedBaseCells[] = $baseCell;
