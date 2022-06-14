@@ -89,6 +89,7 @@ class CommentTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getComment('A2')->getText()->createText('Comment to delete');
+        self::assertArrayHasKey('A2',$sheet->getComments());
         $sheet->removeComment('A2');
         self::assertEmpty($sheet->getComments());
     }    
