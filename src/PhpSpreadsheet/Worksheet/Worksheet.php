@@ -2605,7 +2605,7 @@ class Worksheet implements IComparable
         if (isset($this->comments[$cellAddress])) {
             unset($this->comments[$cellAddress]);
         }
-        
+
         return $this;
     }
 
