@@ -141,4 +141,18 @@ class SubTotalTest extends AllSetupTeardown
         $sheet->getCell('A1')->setValue('=SUBTOTAL(9, B1:B9,#REF!,C1:C9)');
         self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
     }
+
+    public function testNonStringSingleCellRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, Sheet99!A1)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function testNonStringCellRangeRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, Sheet99!A1)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
 }
