@@ -113,7 +113,7 @@ class Formatter
         }
 
         // Ignore square-$-brackets prefix in format string, like "[$-411]ge.m.d", "[$-010419]0%", etc
-        $format = preg_replace('/^\[\$-[^\]]*\]/', '', $format);
+        $format = (string) preg_replace('/^\[\$-[^\]]*\]/', '', $format);
 
         $format = (string) preg_replace_callback(
             '/(["])(?:(?=(\\\\?))\\2.)*?\\1/u',
