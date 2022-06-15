@@ -923,9 +923,12 @@ class ReferenceHelper
 
     private function clearColumnStrips(int $highestRow, int $beforeColumn, int $numberOfColumns, Worksheet $worksheet): void
     {
-        for ($i = 1; $i <= $highestRow - 1; ++$i) {
-            for ($j = $beforeColumn - 1 + $numberOfColumns; $j <= $beforeColumn - 2; ++$j) {
-                $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
+        $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn + $numberOfColumns);
+        $endColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
+
+        for ($row = 1; $row <= $highestRow - 1; ++$row) {
+            for ($column = $startColumnId; $column !== $endColumnId; ++$column) {
+                $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
             }
         }
@@ -933,22 +936,23 @@ class ReferenceHelper
 
     private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
     {
-        $lastColumnIndex = Coordinate::columnIndexFromString($highestColumn) - 1;
+        $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
+        ++$highestColumn;
 
-        for ($i = $beforeColumn - 1; $i <= $lastColumnIndex; ++$i) {
-            for ($j = $beforeRow + $numberOfRows; $j <= $beforeRow - 1; ++$j) {
-                $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
+        for ($column = $startColumnId; $column !== $highestColumn; ++$column) {
+            for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
+                $coordinate = $column . $row;
                 $this->clearStripCell($worksheet, $coordinate);
             }
         }
     }
 
-    private function clearStripCell(Worksheet $worksheet, string $coordinate)
+    private function clearStripCell(Worksheet $worksheet, string $coordinate): void
     {
-        // TODO - Should also clear down comments, but wait until after comment removal PR-2875 is merged
         $worksheet->removeConditionalStyles($coordinate);
         $worksheet->setHyperlink($coordinate);
         $worksheet->setDataValidation($coordinate);
+        $worksheet->removeComment($coordinate);
 
         if ($worksheet->cellExists($coordinate)) {
             $worksheet->getCell($coordinate)->setValueExplicit(null, DataType::TYPE_NULL);
