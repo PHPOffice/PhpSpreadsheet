@@ -18,10 +18,13 @@ class Issue2885Test extends TestCase
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('[$-809]0%', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
+
         $finishColumns = $sheet->getHighestColumn();
         $rowsCount = $sheet->getHighestRow();
         $rows = $sheet->rangeToArray("A1:{$finishColumns}{$rowsCount}");
         self::assertSame('8%', $rows[0][0]);
+
         $spreadsheet->disconnectWorksheets();
     }
 }
