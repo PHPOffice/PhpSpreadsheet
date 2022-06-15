@@ -211,7 +211,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Performance tests with PHPBench
-        run: ./vendor/bin/phpbench run tests/performance --report=aggregate
+        run: ./vendor/bin/phpbench run tests/Performance --report=aggregate
 
   coverage:
     runs-on: ubuntu-latest
