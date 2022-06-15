@@ -359,7 +359,9 @@ class Chart
                     $pointSize = null;
                     $noFill = false;
                     $schemeClr = '';
+                    $prstClr = '';
                     $bubble3D = false;
+                    $dPtColors = [];
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -383,7 +385,24 @@ class Chart
                                     $noFill = true;
                                 }
                                 if (isset($children->solidFill)) {
-                                    $this->readColor($children->solidFill, $srgbClr, $schemeClr);
+                                    $this->readColor($children->solidFill, $srgbClr, $schemeClr, $prstClr);
+                                }
+
+                                break;
+                            case 'dPt':
+                                $dptIdx = (int) self::getAttribute($seriesDetail->idx, 'val', 'string');
+                                if (isset($seriesDetail->spPr)) {
+                                    $children = $seriesDetail->spPr->children($this->aNamespace);
+                                    if (isset($children->solidFill)) {
+                                        $arrayColors = $this->readColor($children->solidFill);
+                                        if ($arrayColors['type'] === 'srgbClr') {
+                                            $dptColors[$dptIdx] = $arrayColors['value'];
+                                        } elseif ($arrayColors['type'] === 'prstClr') {
+                                            $dptColors[$dptIdx] = '/' . $arrayColors['value'];
+                                        } else {
+                                            $dptColors[$dptIdx] = '*' . $arrayColors['value'];
+                                        }
+                                    }
                                 }
 
                                 break;
@@ -394,7 +413,7 @@ class Chart
                                 if (count($seriesDetail->spPr) === 1) {
                                     $ln = $seriesDetail->spPr->children($this->aNamespace);
                                     if (isset($ln->solidFill)) {
-                                        $this->readColor($ln->solidFill, $srgbClr, $schemeClr);
+                                        $this->readColor($ln->solidFill, $srgbClr, $schemeClr, $prstClr);
                                     }
                                 }
 
@@ -461,6 +480,16 @@ class Chart
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setSchemeClr($schemeClr);
                         }
+                    } elseif ($prstClr) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setPrstClr($prstClr);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setPrstClr($prstClr);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setPrstClr($prstClr);
+                        }
                     }
                     if ($bubble3D) {
                         if (isset($seriesLabel[$seriesIndex])) {
@@ -471,6 +500,17 @@ class Chart
                         }
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setBubble3D($bubble3D);
+                        }
+                    }
+                    if (!empty($dptColors)) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setFillColor($dptColors);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setFillColor($dptColors);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setFillColor($dptColors);
                         }
                     }
             }
@@ -1001,39 +1041,31 @@ class Chart
         'innerShdw',
     ];
 
-    private function readColor(SimpleXMLElement $colorXml, ?string &$srgbClr = null, ?string &$schemeClr = null): array
+    private function readColor(SimpleXMLElement $colorXml, ?string &$srgbClr = null, ?string &$schemeClr = null, ?string &$prstClr = null): array
     {
         $result = [
             'type' => null,
             'value' => null,
             'alpha' => null,
         ];
-        if (isset($colorXml->srgbClr)) {
-            $result['type'] = Properties::EXCEL_COLOR_TYPE_ARGB;
-            $result['value'] = $srgbClr = self::getAttribute($colorXml->srgbClr, 'val', 'string');
-            if (isset($colorXml->srgbClr->alpha)) {
-                /** @var string */
-                $alpha = self::getAttribute($colorXml->srgbClr->alpha, 'val', 'string');
-                $alpha = Properties::alphaFromXml($alpha);
-                $result['alpha'] = $alpha;
-            }
-        } elseif (isset($colorXml->schemeClr)) {
-            $result['type'] = Properties::EXCEL_COLOR_TYPE_SCHEME;
-            $result['value'] = $schemeClr = self::getAttribute($colorXml->schemeClr, 'val', 'string');
-            if (isset($colorXml->schemeClr->alpha)) {
-                /** @var string */
-                $alpha = self::getAttribute($colorXml->schemeClr->alpha, 'val', 'string');
-                $alpha = Properties::alphaFromXml($alpha);
-                $result['alpha'] = $alpha;
-            }
-        } elseif (isset($colorXml->prstClr)) {
-            $result['type'] = Properties::EXCEL_COLOR_TYPE_STANDARD;
-            $result['value'] = self::getAttribute($colorXml->prstClr, 'val', 'string');
-            if (isset($colorXml->prstClr->alpha)) {
-                /** @var string */
-                $alpha = self::getAttribute($colorXml->prstClr->alpha, 'val', 'string');
-                $alpha = Properties::alphaFromXml($alpha);
-                $result['alpha'] = $alpha;
+        foreach (Properties::EXCEL_COLOR_TYPES as $type) {
+            if (isset($colorXml->$type)) {
+                $result['type'] = $type;
+                $result['value'] = self::getAttribute($colorXml->$type, 'val', 'string');
+                if ($type === Properties::EXCEL_COLOR_TYPE_ARGB) {
+                    $srgbClr = $result['value'];
+                } elseif ($type === Properties::EXCEL_COLOR_TYPE_SCHEME) {
+                    $schemeClr = $result['value'];
+                } elseif ($type === Properties::EXCEL_COLOR_TYPE_STANDARD) {
+                    $prstClr = $result['value'];
+                }
+                if (isset($colorXml->$type->alpha)) {
+                    $alpha = (int) self::getAttribute($colorXml->$type->alpha, 'val', 'string');
+                    $alpha = 100 - (int) ($alpha / 1000);
+                    $result['alpha'] = $alpha;
+                }
+
+                break;
             }
         }
 
