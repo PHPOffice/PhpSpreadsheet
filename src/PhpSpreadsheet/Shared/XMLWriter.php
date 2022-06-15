@@ -103,6 +103,8 @@ class XMLWriter extends \XMLWriter
     {
         $text = preg_replace('/&/', '&amp;', $text);
 
-        return preg_replace('/</', '&lt;', $text);
+        $text = preg_replace('/</', '&lt;', $text);
+
+        return $text ?? '';
     }
 }
