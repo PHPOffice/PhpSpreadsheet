@@ -76,6 +76,9 @@ class DataSeriesValues
     /** @var string */
     private $schemeClr = '';
 
+    /** @var string */
+    private $prstClr = '';
+
     /**
      * Line Width.
      *
@@ -262,7 +265,7 @@ class DataSeriesValues
     /**
      * Set fill color for series.
      *
-     * @param null|string|string[] $color HEX color or array with HEX colors
+     * @param string|string[] $color HEX color or array with HEX colors
      *
      * @return   DataSeriesValues
      */
@@ -270,10 +273,14 @@ class DataSeriesValues
     {
         if (is_array($color)) {
             foreach ($color as $colorValue) {
-                $this->validateColor($colorValue);
+                if (substr($colorValue, 0, 1) !== '*' && substr($colorValue, 0, 1) !== '/') {
+                    $this->validateColor($colorValue);
+                }
             }
         } else {
-            $this->validateColor("$color");
+            if (substr($color, 0, 1) !== '*' && substr($color, 0, 1) !== '/') {
+                $this->validateColor("$color");
+            }
         }
         $this->fillColor = $color;
 
@@ -467,6 +474,18 @@ class DataSeriesValues
     public function setSchemeClr(string $schemeClr): self
     {
         $this->schemeClr = $schemeClr;
+
+        return $this;
+    }
+
+    public function getPrstClr(): string
+    {
+        return $this->prstClr;
+    }
+
+    public function setPrstClr(string $prstClr): self
+    {
+        $this->prstClr = $prstClr;
 
         return $this;
     }

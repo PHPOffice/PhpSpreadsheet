@@ -2601,6 +2601,33 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Remove comment from cell.
+     *
+     * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
+     *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     *
+     * @return $this
+     */
+    public function removeComment($cellCoordinate)
+    {
+        $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
+
+        if (Coordinate::coordinateIsRange($cellAddress)) {
+            throw new Exception('Cell coordinate string can not be a range of cells.');
+        } elseif (strpos($cellAddress, '$') !== false) {
+            throw new Exception('Cell coordinate string must not be absolute.');
+        } elseif ($cellAddress == '') {
+            throw new Exception('Cell coordinate can not be zero-length string.');
+        }
+        // Check if we have a comment for this cell and delete it
+        if (isset($this->comments[$cellAddress])) {
+            unset($this->comments[$cellAddress]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Get comment for cell.
      *
      * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
