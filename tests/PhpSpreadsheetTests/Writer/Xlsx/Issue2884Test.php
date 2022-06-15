@@ -13,7 +13,7 @@ class Issue2884Test extends AbstractFunctional
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $text = "Text contains: single quote: ' ampersand: & double quote:" . ' " ' . "less than: < greater than: >";
+        $text = "Text contains: single quote: ' ampersand: & double quote:" . ' " ' . 'less than: < greater than: >';
         $sheet->setCellValueByColumnAndRow(1, 1, $text);
 
         $outputFilename = File::temporaryFilename();
@@ -26,8 +26,8 @@ class Issue2884Test extends AbstractFunctional
         if ($contents === false) {
             self::fail('Unable to open file');
         } else {
-            $text = "Text contains: single quote: ' ampersand: &amp; double quote:" . ' " ' . "less than: &lt; greater than: >";
-            self::assertTrue(str_contains($contents, $text));
+            $text = "Text contains: single quote: ' ampersand: &amp; double quote:" . ' " ' . 'less than: &lt; greater than: >';
+            self::assertStringContainsString($text, $contents);
         }
     }
 }

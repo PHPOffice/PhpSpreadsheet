@@ -93,14 +93,16 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Method like htmlspecialchars, but only for & and <. These characters are illegal in text of xml node
+     * Method like htmlspecialchars, but only for & and <. These characters are illegal in text of xml node.
      *
      * @param string $text
+     *
      * @return string
      */
     private function changeIllegalCharacters($text)
     {
-        $text = preg_replace("/&/", "&amp;", $text);
-        return preg_replace("/</", "&lt;", $text);
+        $text = preg_replace('/&/', '&amp;', $text);
+
+        return preg_replace('/</', '&lt;', $text);
     }
 }
