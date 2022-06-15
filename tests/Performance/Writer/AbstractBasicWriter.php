@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetPerformance\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AbstractBasicWriter
+abstract class AbstractBasicWriter
 {
     /**
      * @var Spreadsheet
