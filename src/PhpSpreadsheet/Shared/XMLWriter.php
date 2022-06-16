@@ -89,6 +89,22 @@ class XMLWriter extends \XMLWriter
             $rawTextData = implode("\n", $rawTextData);
         }
 
-        return $this->writeRaw(htmlspecialchars($rawTextData ?? ''));
+        return $this->writeRaw($this->changeIllegalCharacters($rawTextData ?? ''));
+    }
+
+    /**
+     * Method like htmlspecialchars, but only for & and <. These characters are illegal in text of xml node.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    private function changeIllegalCharacters($text)
+    {
+        $text = preg_replace('/&/', '&amp;', $text);
+
+        $text = preg_replace('/</', '&lt;', $text ?? '');
+
+        return $text ?? '';
     }
 }
