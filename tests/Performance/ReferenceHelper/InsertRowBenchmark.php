@@ -13,7 +13,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
      * @Groups({"slow"})
      * @revs(4)
      * @Iterations(5)
-     * @OutputTimeUnit("seconds")
+     * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
     public function benchmarkInsertRowsEarly(): void
@@ -25,7 +25,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
      * @Groups({"slow"})
      * @revs(4)
      * @Iterations(7)
-     * @OutputTimeUnit("seconds")
+     * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
     public function benchmarkInsertRowsMid(): void
@@ -37,7 +37,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
      * @Groups({"slow"})
      * @revs(4)
      * @Iterations(11)
-     * @OutputTimeUnit("seconds")
+     * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
     public function benchmarkInsertRowsLate(): void
